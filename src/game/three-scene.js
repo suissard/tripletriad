@@ -36,13 +36,13 @@ export function initScene(container) {
     sharedGlowTex = new THREE.CanvasTexture(glowCanvas);
 
     const slotGeo = new THREE.PlaneGeometry(2.6, 3.8);
-    const slotMat = new THREE.MeshPhongMaterial({ color: 0x111122, transparent: true, opacity: 0.8, side: THREE.DoubleSide });
+    const baseSlotMat = new THREE.MeshPhongMaterial({ color: 0x111122, transparent: true, opacity: 0.8, side: THREE.DoubleSide });
 
     // Clear slots in case of re-init
     slots.length = 0;
 
     for (let i = 0; i < 9; i++) {
-        const slot = new THREE.Mesh(slotGeo, slotMat);
+        const slot = new THREE.Mesh(slotGeo, baseSlotMat.clone());
         slot.rotation.x = -Math.PI / 2;
         slot.position.set((i % 3) * 2.8 - 2.8, 0.01, Math.floor(i / 3) * 4 - 4);
         slot.userData = { isSlot: true, id: i };

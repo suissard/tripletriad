@@ -6,7 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "docker:start": "bash start-docker.sh",
+    "docker:stop": "docker-compose down",
+    "docker:build": "bash init.sh",
+    "clean": "bash clean.sh"
   },
   "dependencies": {
     "gsap": "^3.14.2",

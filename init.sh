@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Démarrage des services avec Docker Compose..."
-docker-compose up -d --build
+docker-compose up -d
 
 echo ""
 echo "Les conteneurs sont en cours de démarrage."
