@@ -25,7 +25,9 @@ export const state = reactive({
     }, {}),
     alerts: '',
     gameOver: false,
-    winner: null
+    winner: null,
+    gameState: 'menu',
+    aiDifficulty: 1
 });
 
 export function initDeck(size) {
@@ -45,4 +47,5 @@ export function resetGame(deckSize = 30) {
     state.alerts = '';
     state.gameOver = false;
     state.winner = null;
+    state.gameState = 'menu';
 }

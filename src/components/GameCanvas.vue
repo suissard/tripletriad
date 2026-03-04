@@ -3,10 +3,10 @@
 </template>
 
 <script setup>
-import { onMounted, onBeforeUnmount, ref } from 'vue';
+import { onMounted, onBeforeUnmount, ref, watch } from 'vue';
 import { initScene, cleanupScene, refillHand } from '../game/three-scene.js';
 import { initInput, cleanupInput } from '../game/input.js';
-import { resetGame } from '../game/state.js';
+import { resetGame, state } from '../game/state.js';
 
 const container = ref(null);
 
@@ -15,9 +15,14 @@ onMounted(() => {
     initScene(container.value);
     initInput();
     
-    // Initial draw
-    refillHand('player');
-    refillHand('ai');
+    // We only refill hand when state changes to 'playing'
+});
+
+watch(() => state.gameState, (newState) => {
+    if (newState === 'playing') {
+        refillHand('player');
+        refillHand('ai');
+    }
 });
 
 onBeforeUnmount(() => {
