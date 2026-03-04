@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "game_histories",
+  "info": {
+    "singularName": "game-history",
+    "pluralName": "game-histories",
+    "displayName": "Game History"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "player1Name": {
+      "type": "string",
+      "required": true
+    },
+    "player2Name": {
+      "type": "string",
+      "required": true
+    },
+    "winner": {
+      "type": "string",
+      "required": true
+    },
+    "player1Score": {
+      "type": "integer",
+      "required": true
+    },
+    "player2Score": {
+      "type": "integer",
+      "required": true
+    },
+    "datePlayed": {
+      "type": "datetime",
+      "required": true
+    }
+  }
+}

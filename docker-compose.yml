@@ -1,0 +1,32 @@
+version: '3'
+services:
+  frontend:
+    build: .
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    depends_on:
+      - strapi
+
+  strapi:
+    build: ./strapi
+    image: strapi:latest
+    container_name: strapi
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_CLIENT: sqlite
+      DATABASE_FILENAME: .tmp/data.db
+      JWT_SECRET: ${JWT_SECRET}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      APP_KEYS: ${APP_KEYS}
+      NODE_ENV: development
+    volumes:
+      - ./strapi/config:/opt/app/config
+      - ./strapi/src:/opt/app/src
+      - ./strapi/package.json:/opt/package.json
+      - ./strapi/package-lock.json:/opt/package-lock.json
+      - ./strapi_data/.tmp:/opt/app/.tmp
+      - ./strapi_data/uploads:/opt/app/public/uploads
+    ports:
+      - "1337:1337"
