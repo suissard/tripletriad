@@ -73,6 +73,32 @@ export function cleanupScene() {
     }
 }
 
+export function resetScene() {
+    // Remove all meshes that are not slots or lights
+    const toRemove = [];
+    scene.children.forEach(child => {
+        if (child instanceof THREE.Mesh && !child.userData.isSlot) {
+            toRemove.push(child);
+        }
+    });
+
+    toRemove.forEach(mesh => {
+        scene.remove(mesh);
+        if (mesh.geometry) mesh.geometry.dispose();
+        if (mesh.material) {
+            if (Array.isArray(mesh.material)) {
+                mesh.material.forEach(m => {
+                    if (m.map) m.map.dispose();
+                    m.dispose();
+                });
+            } else {
+                if (mesh.material.map) mesh.material.map.dispose();
+                mesh.material.dispose();
+            }
+        }
+    });
+}
+
 export function makeCardMesh(data, initialOwner) {
     const canvas = document.createElement('canvas');
     canvas.width = 256; canvas.height = 384;

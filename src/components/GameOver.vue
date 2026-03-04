@@ -1,13 +1,14 @@
 <template>
   <div id="game-over" v-if="state.gameOver">
       <h1 :style="{ color: resultColor }" style="font-size: 4rem; text-shadow: 0 0 20px currentColor;">{{ resultText }}</h1>
-      <button @click="handleReplay">REJOUER 🔄</button>
+      <button @click="handleReplay">RETOURNER AU MENU 🏠</button>
   </div>
 </template>
 
 <script setup>
 import { computed } from 'vue';
-import { state } from '../game/state.js';
+import { state, resetGame } from '../game/state.js';
+import { resetScene, refillHand } from '../game/three-scene.js';
 
 const resultText = computed(() => {
     if (state.winner === 'player') return "VICTOIRE ! 🏆";
@@ -22,7 +23,9 @@ const resultColor = computed(() => {
 });
 
 function handleReplay() {
-    window.location.reload(); 
+    resetScene();
+    resetGame();
+    // refillHand is handled by watch in GameCanvas.vue when gameState is changed back to playing
 }
 </script>
 
