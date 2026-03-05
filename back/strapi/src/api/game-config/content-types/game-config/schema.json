@@ -1,0 +1,34 @@
+{
+    "kind": "singleType",
+    "collectionName": "game_configs",
+    "info": {
+        "singularName": "game-config",
+        "pluralName": "game-configs",
+        "displayName": "Game Config",
+        "description": "Global settings for the Triple Triad game"
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "cardsPerDeck": {
+            "type": "integer",
+            "required": true,
+            "default": 15,
+            "min": 1
+        },
+        "maxDecksPerUser": {
+            "type": "integer",
+            "required": true,
+            "default": 5,
+            "min": 0
+        },
+        "turnTimeSeconds": {
+            "type": "integer",
+            "required": false,
+            "default": 60,
+            "min": 5
+        }
+    }
+}

@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import gsap from 'gsap';
-import { state } from './state.js';
+import { state, webrtc } from './state.js';
 import { camera, slots, refillHand } from './three-scene.js';
 import { resolveRules, sleep, updateScores } from './engine.js';
 import { getBestAIMove } from './ai.js';
@@ -11,7 +11,14 @@ let dragged = null;
 let hoveredSlot = null;
 let currentListeners = [];
 
+const handleNetworkMove = async (msg) => {
+    if (msg.type === 'move') {
+        await processOpponentMove(msg);
+    }
+};
+
 export function initInput() {
+    webrtc.addMessageListener(handleNetworkMove);
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2();
 
@@ -79,6 +86,9 @@ export function initInput() {
 
         if (slot && state.board[slot.userData.id] === null) {
             state.busy = true;
+
+            const cardIdx = state.pHand.indexOf(current);
+
             state.pHand = state.pHand.filter(c => c !== current);
             state.board[slot.userData.id] = current;
             current.userData.data.revealed = true;
@@ -91,7 +101,13 @@ export function initInput() {
             refillHand('player');
             updateScores();
             state.turn = 'ai';
-            setTimeout(aiPlay, 800);
+
+            if (state.online) {
+                webrtc.sendMessage({ type: 'move', cardIdx: cardIdx, slot: slot.userData.id });
+                // Do not call aiPlay in online mode
+            } else {
+                setTimeout(aiPlay, 800);
+            }
         } else {
             refillHand('player');
         }
@@ -111,11 +127,10 @@ export function initInput() {
 export function cleanupInput() {
     currentListeners.forEach(l => window.removeEventListener(l.type, l.fn));
     currentListeners = [];
+    webrtc.removeMessageListener(handleNetworkMove);
 }
 
-export async function aiPlay() {
-    if (state.board.every(b => b !== null)) return;
-    const move = getBestAIMove();
+export async function processOpponentMove(move) {
     if (move.slot === null) return;
 
     const cardMesh = state.aiHand.splice(move.cardIdx, 1)[0];
@@ -135,4 +150,12 @@ export async function aiPlay() {
     updateScores();
     state.turn = 'player';
     state.busy = false;
+}
+
+export async function aiPlay() {
+    if (state.board.every(b => b !== null)) return;
+    if (state.online) return;
+
+    const move = getBestAIMove();
+    await processOpponentMove(move);
 }

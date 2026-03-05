@@ -1,0 +1,27 @@
+{
+    "kind": "collectionType",
+    "collectionName": "matches",
+    "info": {
+        "singularName": "match",
+        "pluralName": "matches",
+        "displayName": "Match",
+        "description": ""
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "uuid": {
+            "type": "string",
+            "required": true,
+            "unique": true
+        },
+        "offer": {
+            "type": "json"
+        },
+        "answer": {
+            "type": "json"
+        }
+    }
+}

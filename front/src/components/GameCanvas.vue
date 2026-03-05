@@ -11,17 +11,32 @@ import { resetGame, state } from '../game/state.js';
 const container = ref(null);
 
 onMounted(() => {
-    resetGame();
+    if (!state.online) {
+        resetGame();
+    }
     initScene(container.value);
     initInput();
     
-    // We only refill hand when state changes to 'playing'
+    if (state.gameState === 'playing') {
+        if (!state.online || state.isHost) {
+            refillHand('player');
+            refillHand('ai');
+        } else {
+            refillHand('ai');
+            refillHand('player');
+        }
+    }
 });
 
 watch(() => state.gameState, (newState) => {
     if (newState === 'playing') {
-        refillHand('player');
-        refillHand('ai');
+        if (!state.online || state.isHost) {
+            refillHand('player');
+            refillHand('ai');
+        } else {
+            refillHand('ai');
+            refillHand('player');
+        }
     }
 });
 

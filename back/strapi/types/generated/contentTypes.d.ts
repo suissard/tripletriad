@@ -503,6 +503,96 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiDeckDeck extends Struct.CollectionTypeSchema {
+  collectionName: 'decks';
+  info: {
+    description: 'A group of cards selected by a user';
+    displayName: 'Deck';
+    pluralName: 'decks';
+    singularName: 'deck';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    cards: Schema.Attribute.Relation<'manyToMany', 'api::card.card'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::deck.deck'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+      }> &
+      Schema.Attribute.DefaultTo<'My Deck'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
+export interface ApiGameConfigGameConfig extends Struct.SingleTypeSchema {
+  collectionName: 'game_configs';
+  info: {
+    description: 'Global settings for the Triple Triad game';
+    displayName: 'Game Config';
+    pluralName: 'game-configs';
+    singularName: 'game-config';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    cardsPerDeck: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<15>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::game-config.game-config'
+    > &
+      Schema.Attribute.Private;
+    maxDecksPerUser: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<5>;
+    publishedAt: Schema.Attribute.DateTime;
+    turnTimeSeconds: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 5;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<60>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiGameHistoryGameHistory extends Struct.CollectionTypeSchema {
   collectionName: 'game_histories';
   info: {
@@ -533,6 +623,78 @@ export interface ApiGameHistoryGameHistory extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     winner: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ApiMatchMatch extends Struct.CollectionTypeSchema {
+  collectionName: 'matches';
+  info: {
+    description: '';
+    displayName: 'Match';
+    pluralName: 'matches';
+    singularName: 'match';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    answer: Schema.Attribute.JSON;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::match.match'> &
+      Schema.Attribute.Private;
+    offer: Schema.Attribute.JSON;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    uuid: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+  };
+}
+
+export interface ApiUserCardUserCard extends Struct.CollectionTypeSchema {
+  collectionName: 'user_cards';
+  info: {
+    description: 'Represents a card owned by a specific user';
+    displayName: 'User Card';
+    pluralName: 'user-cards';
+    singularName: 'user-card';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    card: Schema.Attribute.Relation<'manyToOne', 'api::card.card'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::user-card.user-card'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    quantity: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
@@ -1048,7 +1210,11 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::card.card': ApiCardCard;
+      'api::deck.deck': ApiDeckDeck;
+      'api::game-config.game-config': ApiGameConfigGameConfig;
       'api::game-history.game-history': ApiGameHistoryGameHistory;
+      'api::match.match': ApiMatchMatch;
+      'api::user-card.user-card': ApiUserCardUserCard;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

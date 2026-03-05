@@ -1,0 +1,33 @@
+{
+    "kind": "collectionType",
+    "collectionName": "decks",
+    "info": {
+        "singularName": "deck",
+        "pluralName": "decks",
+        "displayName": "Deck",
+        "description": "A group of cards selected by a user"
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "name": {
+            "type": "string",
+            "required": true,
+            "maxLength": 50,
+            "default": "My Deck"
+        },
+        "user": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "plugin::users-permissions.user"
+        },
+        "cards": {
+            "type": "relation",
+            "relation": "manyToMany",
+            "target": "api::card.card",
+            "configurable": false
+        }
+    }
+}

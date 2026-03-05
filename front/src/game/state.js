@@ -1,5 +1,8 @@
 import { reactive } from 'vue';
 import { rulesRegistry } from './rules.js';
+import { WebRTCManager } from './WebRTCManager.js';
+
+export const webrtc = new WebRTCManager();
 
 export const createCardData = (i) => ({
     id: i,
@@ -27,7 +30,10 @@ export const state = reactive({
     gameOver: false,
     winner: null,
     gameState: 'menu',
-    aiDifficulty: 1
+    aiDifficulty: 1,
+    online: false,
+    isHost: false,
+    opponentReady: false
 });
 
 export function initDeck(size) {
