@@ -4,10 +4,10 @@ echo "Arrêt et suppression des conteneurs, réseaux, et volumes liés à Docker
 docker-compose down -v --remove-orphans
 
 echo "Suppression des fichiers et dossiers générés (base de données, uploads, build, cache, dist)..."
-rm -rf strapi_data/
-rm -rf strapi/.tmp/
-rm -rf strapi/dist/
-rm -rf strapi/build/
-rm -rf strapi/.cache/
+rm -rf back/strapi_data/
+rm -rf back/strapi/.tmp/
+rm -rf back/strapi/dist/
+rm -rf back/strapi/build/
+rm -rf back/strapi/.cache/
 
 echo "Nettoyage terminé avec succès ! ✅"

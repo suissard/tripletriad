@@ -1,24 +1,16 @@
 {
-  "name": "temp-vue-app",
+  "name": "triple-triad-root",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "1.0.0",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "docker:start": "bash start-docker.sh",
-    "docker:stop": "docker-compose down",
-    "docker:build": "bash init.sh",
-    "clean": "bash clean.sh"
-  },
-  "dependencies": {
-    "gsap": "^3.14.2",
-    "three": "^0.183.2",
-    "vue": "^3.5.25"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-vue": "^6.0.2",
-    "vite": "^7.3.1"
+    "start": "sudo bash start-docker.sh",
+    "stop": "sudo docker-compose down",
+    "dev:front": "npm run dev --prefix front",
+    "build:front": "npm run build --prefix front",
+    "docker:start": "sudo bash start-docker.sh",
+    "docker:stop": "sudo docker-compose down",
+    "docker:build": "sudo bash init.sh",
+    "clean": "sudo bash clean.sh",
+    "strapi:dev": "npm run develop --prefix back/strapi"
   }
 }
