@@ -40,11 +40,74 @@
 
         <!-- COLLECTION VIEW -->
         <template v-else-if="currentView === 'collection'">
-          <div class="collection-view">
+          <div v-if="selectedCard" class="card-detail-view">
+            <button class="back-btn-detail" @click="closeCardDetail">← Retour</button>
+            <div class="detail-card" :class="[getRarityClass(selectedCard.level), { locked: !isOwned(selectedCard.id) }]">
+               <h3 class="detail-name">{{ selectedCard.name }}</h3>
+               <div class="detail-level">Niveau {{ selectedCard.level }}</div>
+               <div class="detail-element" v-if="selectedCard.element !== 'None'">Élément : {{ selectedCard.element }}</div>
+               <div class="detail-img-container">
+                 <img :src="selectedCard.img" class="detail-img" />
+                 <div class="detail-stats-cross">
+                   <div class="stat top">{{ selectedCard.topValue }}</div>
+                   <div class="stat right">{{ selectedCard.rightValue }}</div>
+                   <div class="stat bottom">{{ selectedCard.bottomValue }}</div>
+                   <div class="stat left">{{ selectedCard.leftValue }}</div>
+                 </div>
+               </div>
+               <p class="detail-desc">{{ selectedCard.description }}</p>
+               <div class="detail-status" v-if="!isOwned(selectedCard.id)">
+                  🔒 Non possédée
+               </div>
+               <div class="detail-status owned" v-else>
+                  ✅ Possédée ({{ getOwnedQuantity(selectedCard.id) }})
+               </div>
+            </div>
+          </div>
+
+          <div v-else class="collection-view">
+             <div class="collection-controls">
+               <input type="text" v-model="searchQuery" placeholder="Rechercher une carte..." class="filter-input" />
+               <div class="filters-row">
+                 <select v-model="filterElement" class="filter-select">
+                   <option value="">Tous les éléments</option>
+                   <option value="Fire">Feu</option>
+                   <option value="Ice">Glace</option>
+                   <option value="Thunder">Foudre</option>
+                   <option value="Earth">Terre</option>
+                   <option value="Poison">Poison</option>
+                   <option value="Wind">Vent</option>
+                   <option value="Water">Eau</option>
+                   <option value="Holy">Sacré</option>
+                   <option value="None">Sans</option>
+                 </select>
+                 <select v-model="filterRarity" class="filter-select">
+                   <option value="">Toutes les raretés</option>
+                   <option value="common">Commune</option>
+                   <option value="uncommon">Peu Commune</option>
+                   <option value="rare">Rare</option>
+                   <option value="epic">Épique</option>
+                   <option value="legendary">Légendaire</option>
+                 </select>
+                 <select v-model="sortBy" class="filter-select">
+                   <option value="id-asc">Numéro</option>
+                   <option value="level-desc">Niv. Décroissant</option>
+                   <option value="level-asc">Niv. Croissant</option>
+                   <option value="name-asc">Nom (A-Z)</option>
+                   <option value="owned-first">Possédées</option>
+                 </select>
+               </div>
+             </div>
+             
+             <div class="collection-stats-bar">
+               Cartes affichées : {{ filteredCardLibrary.length }}
+             </div>
+
              <div class="card-grid">
-               <div v-for="card in cardLibrary" :key="card.id" 
-                    class="card-slot" 
-                    :class="[getRarityClass(card.level), { locked: !isOwned(card.id) }]">
+               <div v-for="card in filteredCardLibrary" :key="card.id" 
+                    class="card-slot clickable" 
+                    :class="[getRarityClass(card.level), { locked: !isOwned(card.id) }]"
+                    @click="viewCardDetail(card)">
                  <div class="card-mini-info">
                    <div class="card-name">{{ card.name }}</div>
                    <div class="card-level">Lvl {{ card.level }}</div>
@@ -57,6 +120,10 @@
                    <span>{{ card.leftValue }}</span>
                  </div>
                </div>
+             </div>
+             
+             <div v-if="filteredCardLibrary.length === 0" class="no-results">
+               Aucune carte trouvée.
              </div>
           </div>
         </template>
@@ -144,9 +211,72 @@ const isRegistering = ref(false);
 const isLoading = ref(false);
 const authError = ref('');
 
+// Collection Filters & Detail
+const searchQuery = ref('');
+const filterElement = ref('');
+const filterRarity = ref('');
+const sortBy = ref('id-asc');
+const selectedCard = ref(null);
+
+const filteredCardLibrary = computed(() => {
+  let result = [...cardLibrary];
+
+  if (searchQuery.value) {
+    const q = searchQuery.value.toLowerCase();
+    result = result.filter(c => c.name.toLowerCase().includes(q) || c.description.toLowerCase().includes(q));
+  }
+
+  if (filterRarity.value) {
+    const rarityToMinMax = {
+      'common': [1, 2],
+      'uncommon': [3, 4],
+      'rare': [5, 6],
+      'epic': [7, 8],
+      'legendary': [9, 10]
+    };
+    const [min, max] = rarityToMinMax[filterRarity.value];
+    result = result.filter(c => c.level >= min && c.level <= max);
+  }
+
+  if (filterElement.value) {
+    result = result.filter(c => c.element === filterElement.value);
+  }
+
+  result.sort((a, b) => {
+    switch (sortBy.value) {
+      case 'level-desc': return b.level - a.level || a.id - b.id;
+      case 'level-asc': return a.level - b.level || a.id - b.id;
+      case 'name-asc': return a.name.localeCompare(b.name);
+      case 'owned-first': {
+        const aOwned = isOwned(a.id);
+        const bOwned = isOwned(b.id);
+        if (aOwned === bOwned) return a.id - b.id;
+        return aOwned ? -1 : 1;
+      }
+      case 'id-asc':
+      default: return a.id - b.id;
+    }
+  });
+
+  return result;
+});
+
+function viewCardDetail(card) {
+  selectedCard.value = card;
+}
+
+function closeCardDetail() {
+  selectedCard.value = null;
+}
+
+function getOwnedQuantity(cardId) {
+  const c = state.collection.find(item => item.cardId === cardId);
+  return c ? c.quantity : 0;
+}
+
 const viewTitle = computed(() => {
   if (currentView.value === 'profile') return 'MON PROFIL';
-  if (currentView.value === 'collection') return 'MA COLLECTION';
+  if (currentView.value === 'collection') return selectedCard.value ? 'DÉTAIL CARTE' : 'MA COLLECTION';
   if (currentView.value === 'decks') return isBuilding.value ? 'ÉDITEUR DE DECK' : 'MES DECKS';
   return 'TRIPLE TRIAD';
 });
@@ -526,7 +656,193 @@ async function submitAuth() {
   cursor: pointer;
 }
 
-/* Collection Styles */
+/* Collection Controls */
+.collection-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.filter-input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  width: 100%;
+}
+
+.filters-row {
+  display: flex;
+  gap: 5px;
+}
+
+.filter-select {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 8px;
+  border-radius: 6px;
+  flex: 1;
+  font-size: 0.8rem;
+}
+
+.filter-select option {
+  background: #111;
+  color: white;
+}
+
+.collection-stats-bar {
+  font-size: 0.8rem;
+  color: #aaa;
+  margin-bottom: 15px;
+  text-align: right;
+}
+
+.no-results {
+  text-align: center;
+  color: #888;
+  padding: 20px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  grid-column: 1 / -1;
+}
+
+.card-slot.clickable {
+  cursor: pointer;
+}
+
+/* Card Detail View */
+.card-detail-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.back-btn-detail {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  align-self: flex-start;
+  transition: background 0.2s;
+}
+
+.back-btn-detail:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.detail-card {
+  width: 100%;
+  max-width: 300px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.detail-card.locked {
+  filter: grayscale(1) brightness(0.6);
+}
+
+.detail-name {
+  margin: 0 0 5px 0;
+  font-size: 1.5rem;
+  color: white;
+  text-align: center;
+}
+
+.detail-level {
+  color: #ffcc00;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.detail-element {
+  background: rgba(255,255,255,0.1);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  margin-bottom: 15px;
+}
+
+.detail-img-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.detail-img {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+}
+
+.detail-stats-cross {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+}
+
+.stat {
+  background: rgba(0, 0, 0, 0.7);
+  color: #00d2ff;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-weight: bold;
+  border: 1px solid #00d2ff;
+}
+
+.stat.top { margin-top: 10px; }
+.stat.bottom { margin-bottom: 10px; }
+.stat.left, .stat.right { position: absolute; top: 50%; transform: translateY(-50%); }
+.stat.left { left: 10px; }
+.stat.right { right: 10px; }
+
+.detail-desc {
+  font-size: 0.9rem;
+  color: #ccc;
+  text-align: center;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.detail-status {
+  padding: 10px;
+  border-radius: 8px;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  background: rgba(255,0,0,0.2);
+  color: #ff5555;
+  margin-top: auto;
+}
+
+.detail-status.owned {
+  background: rgba(0,255,136,0.2);
+  color: #00ff88;
+}
+
+/* Collection Grid Styles */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

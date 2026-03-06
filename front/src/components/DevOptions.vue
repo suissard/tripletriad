@@ -4,8 +4,6 @@
       ⚙️ Options Dev
     </button>
     <div v-if="isOpen" class="dev-menu">
-      </div>
-
       <h4>Collection</h4>
       <div class="dev-buttons">
         <button @click="addAllCards">Add All</button>
@@ -20,6 +18,7 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import { state, cardLibrary } from '../game/state.js';
 import { setCardFrame } from '../game/three-scene.js';
 
