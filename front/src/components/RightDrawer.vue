@@ -100,14 +100,15 @@
              </div>
              
              <div class="collection-stats-bar">
-               Cartes affichées : {{ filteredCardLibrary.length }}
+               Cartes : {{ filteredCardLibrary.length }} | Page {{ currentPage }} / {{ totalPages }}
              </div>
 
              <div class="card-grid">
-               <div v-for="card in filteredCardLibrary" :key="card.id" 
+               <div v-for="card in paginatedCardLibrary" :key="card.id"
                     class="card-slot clickable" 
                     :class="[getRarityClass(card.level), { locked: !isOwned(card.id) }]"
                     @click="viewCardDetail(card)">
+                 <div class="quantity-badge" v-if="isOwned(card.id)">{{ getBadgeText(card.id) }}</div>
                  <div class="card-mini-info">
                    <div class="card-name">{{ card.name }}</div>
                    <div class="card-level">Lvl {{ card.level }}</div>
@@ -122,6 +123,12 @@
                </div>
              </div>
              
+             <div class="pagination-controls" v-if="totalPages > 1">
+               <button @click="prevPage" :disabled="currentPage === 1" class="page-btn">←</button>
+               <span class="page-info">{{ currentPage }} / {{ totalPages }}</span>
+               <button @click="nextPage" :disabled="currentPage === totalPages" class="page-btn">→</button>
+             </div>
+
              <div v-if="filteredCardLibrary.length === 0" class="no-results">
                Aucune carte trouvée.
              </div>
@@ -201,7 +208,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive, computed, watch } from 'vue';
 import { state, setAuth, logout, cardLibrary, saveDeckToStrapi } from '../game/state.js';
 
 const currentView = ref('profile'); // profile, collection, decks, history
@@ -217,6 +224,10 @@ const filterElement = ref('');
 const filterRarity = ref('');
 const sortBy = ref('id-asc');
 const selectedCard = ref(null);
+
+// Pagination state
+const currentPage = ref(1);
+const cardsPerPage = ref(8);
 
 const filteredCardLibrary = computed(() => {
   let result = [...cardLibrary];
@@ -261,6 +272,28 @@ const filteredCardLibrary = computed(() => {
   return result;
 });
 
+const paginatedCardLibrary = computed(() => {
+  const start = (currentPage.value - 1) * cardsPerPage.value;
+  const end = start + cardsPerPage.value;
+  return filteredCardLibrary.value.slice(start, end);
+});
+
+const totalPages = computed(() => {
+  return Math.ceil(filteredCardLibrary.value.length / cardsPerPage.value) || 1;
+});
+
+function nextPage() {
+  if (currentPage.value < totalPages.value) currentPage.value++;
+}
+
+function prevPage() {
+  if (currentPage.value > 1) currentPage.value--;
+}
+
+watch([searchQuery, filterElement, filterRarity, sortBy], () => {
+  currentPage.value = 1;
+});
+
 function viewCardDetail(card) {
   selectedCard.value = card;
 }
@@ -272,6 +305,12 @@ function closeCardDetail() {
 function getOwnedQuantity(cardId) {
   const c = state.collection.find(item => item.cardId === cardId);
   return c ? c.quantity : 0;
+}
+
+function getBadgeText(cardId) {
+  const qty = getOwnedQuantity(cardId);
+  if (qty >= 3) return 'x3+';
+  return 'x' + qty;
 }
 
 const viewTitle = computed(() => {
@@ -843,10 +882,63 @@ async function submitAuth() {
 }
 
 /* Collection Grid Styles */
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.page-btn {
+  background: rgba(0, 210, 255, 0.1);
+  border: 1px solid #00d2ff;
+  color: #00d2ff;
+  padding: 5px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.page-btn:hover:not(:disabled) {
+  background: #00d2ff;
+  color: black;
+}
+
+.page-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  border-color: #888;
+  color: #888;
+}
+
+.page-info {
+  color: white;
+  font-weight: bold;
+}
+
+.quantity-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #222;
+  color: #00ff88;
+  border: 2px solid #00ff88;
+  border-radius: 12px;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  z-index: 5;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
   gap: 15px;
+  margin-bottom: 20px;
 }
 
 .card-slot {
