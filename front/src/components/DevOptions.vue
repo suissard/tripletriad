@@ -72,10 +72,6 @@ async function doAutoLogin() {
     setAuth('fake-jwt-token', { username: 'Guest Dev', email: 'guest@dev.local' });
   }
 }
-  } catch (error) {
-    console.error('Auto-login error:', error);
-  }
-}
 
 const isOpen = ref(false);
 

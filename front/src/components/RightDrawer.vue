@@ -27,7 +27,7 @@
               <span class="icon">🎴</span>
               Mes Decks ({{ state.userDecks.length }}/5)
             </button>
-            <button class="menu-item" @click="currentView = 'collection'">
+            <button class="menu-item" @click="openCollectionPage">
               <span class="icon">📚</span>
               Ma Collection ({{ state.collection.length }} / 45)
             </button>
@@ -383,6 +383,11 @@ async function saveDeck() {
 function toggleAuthMode() {
   isRegistering.value = !isRegistering.value;
   authError.value = '';
+}
+
+function openCollectionPage() {
+  state.showCollectionPage = true;
+  state.rightDrawerOpen = false;
 }
 
 function doLogout() {

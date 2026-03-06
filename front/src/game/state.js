@@ -40,6 +40,7 @@ export const state = reactive({
     // UI Navigation State
     leftDrawerOpen: false,
     rightDrawerOpen: false,
+    showCollectionPage: false,
     // Auth State
     isLoggedIn: false,
     jwt: null,

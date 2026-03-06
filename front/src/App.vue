@@ -22,6 +22,9 @@
     <div id="msg" class="ui-layer">Glisse une carte bleue sur le plateau 👆</div>
 
     <GameOver />
+
+    <!-- Full Screen Collection View -->
+    <CollectionView />
   </template>
 </template>
 
@@ -35,6 +38,7 @@ import RightDrawer from './components/RightDrawer.vue';
 import AlertMessage from './components/AlertMessage.vue';
 import GameOver from './components/GameOver.vue';
 import DevOptions from './components/DevOptions.vue';
+import CollectionView from './components/CollectionView.vue';
 import { state } from './game/state.js';
 </script>
 
