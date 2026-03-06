@@ -4,6 +4,14 @@
       ⚙️ Options Dev
     </button>
     <div v-if="isOpen" class="dev-menu">
+      <h4>Settings</h4>
+      <div class="frame-list">
+        <label class="frame-item">
+          <input type="checkbox" v-model="devSettings.autoLogin" @change="saveSettings" />
+          Auto Login (Admin)
+        </label>
+      </div>
+
       <h4>Collection</h4>
       <div class="dev-buttons">
         <button @click="addAllCards">Add All</button>
@@ -18,9 +26,48 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { state, cardLibrary } from '../game/state.js';
+import { ref, reactive, onMounted } from 'vue';
+import { state, cardLibrary, setAuth } from '../game/state.js';
 import { setCardFrame } from '../game/three-scene.js';
+
+const devSettings = reactive({
+  autoLogin: false
+});
+
+onMounted(() => {
+  const saved = localStorage.getItem('dev_options');
+  if (saved) {
+    Object.assign(devSettings, JSON.parse(saved));
+  }
+
+  if (devSettings.autoLogin && !state.isLoggedIn) {
+    doAutoLogin();
+  }
+});
+
+function saveSettings() {
+  localStorage.setItem('dev_options', JSON.stringify(devSettings));
+}
+
+async function doAutoLogin() {
+  try {
+    const response = await fetch('http://localhost:1337/api/auth/local', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ identifier: 'admin@admin.com', password: 'admin' }) // Default Strapi admin/user credentials
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      setAuth(data.jwt, data.user);
+      console.log('Auto-login successful.');
+    } else {
+      console.warn('Auto-login failed.', await response.text());
+    }
+  } catch (error) {
+    console.error('Auto-login error:', error);
+  }
+}
 
 const isOpen = ref(false);
 
