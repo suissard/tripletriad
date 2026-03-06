@@ -516,6 +516,7 @@ export interface ApiDeckDeck extends Struct.CollectionTypeSchema {
   };
   attributes: {
     cards: Schema.Attribute.Relation<'manyToMany', 'api::card.card'>;
+    cover: Schema.Attribute.Integer;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

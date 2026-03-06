@@ -29,7 +29,6 @@ export default {
             path: '/webrtc/matches/:uuid/log',
             handler: 'match.addLog',
             config: {
-                auth: true, 
                 // Will enforce that user must be part of the match in the controller!
             },
         }

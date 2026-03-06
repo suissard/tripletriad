@@ -11,27 +11,14 @@
     <div class="page-content">
       <!-- Detail View Overlay -->
       <div v-if="selectedCard" class="card-detail-overlay" @click.self="closeCardDetail">
-        <div class="detail-card" :class="[getRarityClass(selectedCard.level), { locked: !isOwned(selectedCard.id) }]">
+        <div class="detail-card-wrapper" @click.stop>
            <button class="close-detail-btn" @click="closeCardDetail">×</button>
-           <h3 class="detail-name">{{ selectedCard.name }}</h3>
-           <div class="detail-level">Niveau {{ selectedCard.level }}</div>
-           <div class="detail-element" v-if="selectedCard.element !== 'None'">Élément : {{ selectedCard.element }}</div>
-           <div class="detail-img-container">
-             <img :src="selectedCard.img" class="detail-img" />
-             <div class="detail-stats-cross">
-               <div class="stat top">{{ selectedCard.topValue }}</div>
-               <div class="stat right">{{ selectedCard.rightValue }}</div>
-               <div class="stat bottom">{{ selectedCard.bottomValue }}</div>
-               <div class="stat left">{{ selectedCard.leftValue }}</div>
-             </div>
-           </div>
-           <p class="detail-desc">{{ selectedCard.description }}</p>
-           <div class="detail-status" v-if="!isOwned(selectedCard.id)">
-              🔒 Non possédée
-           </div>
-           <div class="detail-status owned" v-else>
-              ✅ Possédée ({{ getOwnedQuantity(selectedCard.id) }})
-           </div>
+           <TripleTriadCard 
+             :card="selectedCard" 
+             variant="detail" 
+             :isLocked="!isOwned(selectedCard.id)" 
+             :quantity="getOwnedQuantity(selectedCard.id)" 
+           />
         </div>
       </div>
 
@@ -85,16 +72,14 @@
          </div>
 
          <div class="large-card-grid">
-           <div v-for="card in paginatedCardLibrary" :key="card.id"
-                class="card-slot clickable large"
-                :class="[getRarityClass(card.level), { locked: !isOwned(card.id) }]"
-                @click="openCardDetail(card)">
-             <div class="card-name">{{ card.name }}</div>
-             <img :src="card.img" class="card-img" />
-             <div class="card-mana" v-if="card.manaCost !== undefined">💧 {{ card.manaCost }}</div>
-             <div class="owned-badge" v-if="isOwned(card.id)">x{{ getOwnedQuantity(card.id) }}</div>
-             <div class="locked-overlay" v-if="!isOwned(card.id)">🔒</div>
-           </div>
+           <TripleTriadCard
+               v-for="card in paginatedCardLibrary" :key="card.id"
+               :card="card"
+               variant="large"
+               :isLocked="!isOwned(card.id)"
+               :quantity="getOwnedQuantity(card.id)"
+               @click="openCardDetail(card)"
+           />
          </div>
       </div>
     </div>
@@ -104,9 +89,11 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
 import { state, cardLibrary } from '../game/state.js';
+import TripleTriadCard from './TripleTriadCard.vue';
 
 function closeCollection() {
   state.showCollectionPage = false;
+  window.history.pushState({}, '', '/');
 }
 
 // Filters logic
@@ -421,89 +408,6 @@ function closeCardDetail() {
   padding-bottom: 40px;
 }
 
-.card-slot.large {
-  position: relative;
-  aspect-ratio: 2.5 / 3.5;
-  background: #111;
-  border: 2px solid #333;
-  border-radius: 8px;
-  overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.card-slot.clickable:hover {
-  transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-  z-index: 2;
-}
-
-.card-name {
-  position: absolute;
-  top: 5px;
-  width: 100%;
-  text-align: center;
-  font-size: 0.9rem;
-  font-weight: bold;
-  background: rgba(0,0,0,0.6);
-  padding: 2px 0;
-  z-index: 1;
-}
-
-.card-img {
-  width: 80%;
-  height: auto;
-}
-
-.card-mana {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background: rgba(0, 0, 100, 0.8);
-  border-radius: 50%;
-  width: 25px;
-  height: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.8rem;
-  border: 1px solid #00d2ff;
-  z-index: 2;
-}
-
-.owned-badge {
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-  background: #4caf50;
-  color: white;
-  padding: 2px 6px;
-  border-radius: 10px;
-  font-size: 0.8rem;
-  font-weight: bold;
-}
-
-.locked-overlay {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-  z-index: 3;
-}
-
-/* Rarity Colors */
-.common { border-color: #a0a0a0; }
-.uncommon { border-color: #4caf50; }
-.rare { border-color: #2196f3; }
-.epic { border-color: #9c27b0; }
-.legendary { border-color: #ffc107; box-shadow: 0 0 15px rgba(255, 193, 7, 0.5); }
-
 /* Detail Overlay */
 .card-detail-overlay {
   position: fixed;
@@ -516,15 +420,8 @@ function closeCardDetail() {
   backdrop-filter: blur(5px);
 }
 
-.detail-card {
+.detail-card-wrapper {
   position: relative;
-  background: linear-gradient(135deg, #2a2a35, #111);
-  border: 3px solid #555;
-  border-radius: 12px;
-  padding: 30px;
-  width: 400px;
-  text-align: center;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.8);
 }
 
 .close-detail-btn {
@@ -536,41 +433,6 @@ function closeCardDetail() {
   color: white;
   font-size: 2rem;
   cursor: pointer;
+  z-index: 50;
 }
-
-.detail-name { font-size: 2rem; margin: 0 0 10px 0; }
-.detail-level { font-size: 1.2rem; color: #aaa; margin-bottom: 5px; }
-.detail-element { font-size: 1.1rem; color: #4caf50; margin-bottom: 15px; }
-.detail-img-container {
-  position: relative;
-  width: 200px;
-  height: 200px;
-  margin: 0 auto 20px auto;
-  background: rgba(255,255,255,0.05);
-  border-radius: 10px;
-  padding: 10px;
-}
-.detail-img { width: 100%; height: 100%; object-fit: contain; }
-.detail-stats-cross {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  pointer-events: none;
-}
-.detail-stats-cross .stat {
-  position: absolute;
-  background: rgba(0,0,0,0.8);
-  color: #ffc107;
-  font-weight: bold;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 1.2rem;
-  border: 1px solid #ffc107;
-}
-.stat.top { top: 10px; left: 50%; transform: translateX(-50%); }
-.stat.right { right: 10px; top: 50%; transform: translateY(-50%); }
-.stat.bottom { bottom: 10px; left: 50%; transform: translateX(-50%); }
-.stat.left { left: 10px; top: 50%; transform: translateY(-50%); }
-.detail-desc { font-style: italic; color: #ccc; margin-bottom: 20px; font-size: 1.1rem; line-height: 1.5; }
-.detail-status { font-weight: bold; padding: 10px; border-radius: 5px; background: rgba(255,0,0,0.2); border: 1px solid red; }
-.detail-status.owned { background: rgba(76, 175, 80, 0.2); border: 1px solid #4caf50; color: #4caf50; }
 </style>

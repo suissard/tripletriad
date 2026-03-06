@@ -8,7 +8,7 @@
         <h2>{{ viewTitle }}</h2>
       </div>
       <div class="drawer-content">
-        
+
         <!-- PROFILE VIEW -->
         <template v-if="currentView === 'profile' && state.isLoggedIn">
           <div class="profile-card">
@@ -23,7 +23,7 @@
               <span class="icon">⚙️</span>
               Paramètres du Jeu
             </button>
-            <button class="menu-item" @click="currentView = 'decks'">
+            <button class="menu-item" @click="openDecksPage">
               <span class="icon">🎴</span>
               Mes Decks ({{ state.userDecks.length }}/5)
             </button>
@@ -42,96 +42,75 @@
         <template v-else-if="currentView === 'collection'">
           <div v-if="selectedCard" class="card-detail-view">
             <button class="back-btn-detail" @click="closeCardDetail">← Retour</button>
-            <div class="detail-card" :class="[getRarityClass(selectedCard.level), { locked: !isOwned(selectedCard.id) }]">
-               <h3 class="detail-name">{{ selectedCard.name }}</h3>
-               <div class="detail-level">Niveau {{ selectedCard.level }}</div>
-               <div class="detail-element" v-if="selectedCard.element !== 'None'">Élément : {{ selectedCard.element }}</div>
-               <div class="detail-img-container">
-                 <img :src="selectedCard.img" class="detail-img" />
-                 <div class="detail-stats-cross">
-                   <div class="stat top">{{ selectedCard.topValue }}</div>
-                   <div class="stat right">{{ selectedCard.rightValue }}</div>
-                   <div class="stat bottom">{{ selectedCard.bottomValue }}</div>
-                   <div class="stat left">{{ selectedCard.leftValue }}</div>
-                 </div>
-               </div>
-               <p class="detail-desc">{{ selectedCard.description }}</p>
-               <div class="detail-status" v-if="!isOwned(selectedCard.id)">
-                  🔒 Non possédée
-               </div>
-               <div class="detail-status owned" v-else>
-                  ✅ Possédée ({{ getOwnedQuantity(selectedCard.id) }})
-               </div>
-            </div>
+            <TripleTriadCard :card="selectedCard" variant="detail" :isLocked="!isOwned(selectedCard.id)"
+              :quantity="getOwnedQuantity(selectedCard.id)" />
           </div>
 
           <div v-else class="collection-view">
-             <div class="collection-controls">
-               <input type="text" v-model="searchQuery" placeholder="Rechercher une carte..." class="filter-input" />
-               <div class="filters-row">
-                 <select v-model="filterElement" class="filter-select">
-                   <option value="">Tous les éléments</option>
-                   <option value="Fire">Feu</option>
-                   <option value="Ice">Glace</option>
-                   <option value="Thunder">Foudre</option>
-                   <option value="Earth">Terre</option>
-                   <option value="Poison">Poison</option>
-                   <option value="Wind">Vent</option>
-                   <option value="Water">Eau</option>
-                   <option value="Holy">Sacré</option>
-                   <option value="None">Sans</option>
-                 </select>
-                 <select v-model="filterRarity" class="filter-select">
-                   <option value="">Toutes les raretés</option>
-                   <option value="common">Commune</option>
-                   <option value="uncommon">Peu Commune</option>
-                   <option value="rare">Rare</option>
-                   <option value="epic">Épique</option>
-                   <option value="legendary">Légendaire</option>
-                 </select>
-                 <select v-model="sortBy" class="filter-select">
-                   <option value="id-asc">Numéro</option>
-                   <option value="level-desc">Niv. Décroissant</option>
-                   <option value="level-asc">Niv. Croissant</option>
-                   <option value="name-asc">Nom (A-Z)</option>
-                   <option value="owned-first">Possédées</option>
-                 </select>
-               </div>
-             </div>
-             
-             <div class="collection-stats-bar">
-               Cartes : {{ filteredCardLibrary.length }} | Page {{ currentPage }} / {{ totalPages }}
-             </div>
+            <div class="collection-controls">
+              <input type="text" v-model="searchQuery" placeholder="Rechercher une carte..." class="filter-input" />
+              <div class="filters-row">
+                <select v-model="filterElement" class="filter-select">
+                  <option value="">Tous les éléments</option>
+                  <option value="Fire">Feu</option>
+                  <option value="Ice">Glace</option>
+                  <option value="Thunder">Foudre</option>
+                  <option value="Earth">Terre</option>
+                  <option value="Poison">Poison</option>
+                  <option value="Wind">Vent</option>
+                  <option value="Water">Eau</option>
+                  <option value="Holy">Sacré</option>
+                  <option value="None">Sans</option>
+                </select>
+                <select v-model="filterRarity" class="filter-select">
+                  <option value="">Toutes les raretés</option>
+                  <option value="common">Commune</option>
+                  <option value="uncommon">Peu Commune</option>
+                  <option value="rare">Rare</option>
+                  <option value="epic">Épique</option>
+                  <option value="legendary">Légendaire</option>
+                </select>
+                <select v-model="sortBy" class="filter-select">
+                  <option value="id-asc">Numéro</option>
+                  <option value="level-desc">Niv. Décroissant</option>
+                  <option value="level-asc">Niv. Croissant</option>
+                  <option value="name-asc">Nom (A-Z)</option>
+                  <option value="owned-first">Possédées</option>
+                </select>
+              </div>
+            </div>
 
-             <div class="card-grid">
-               <div v-for="card in paginatedCardLibrary" :key="card.id"
-                    class="card-slot clickable" 
-                    :class="[getRarityClass(card.level), { locked: !isOwned(card.id) }]"
-                    @click="viewCardDetail(card)">
-                 <div class="quantity-badge" v-if="isOwned(card.id)">{{ getBadgeText(card.id) }}</div>
-                 <div class="card-mini-info">
-                   <div class="card-name">{{ card.name }}</div>
-                   <div class="card-level">Lvl {{ card.level }}</div>
-                 </div>
-                 <img :src="card.img" class="card-img" />
-                 <div class="card-stats">
-                   <span>{{ card.topValue }}</span>
-                   <span>{{ card.rightValue }}</span>
-                   <span>{{ card.bottomValue }}</span>
-                   <span>{{ card.leftValue }}</span>
-                 </div>
-               </div>
-             </div>
-             
-             <div class="pagination-controls" v-if="totalPages > 1">
-               <button @click="prevPage" :disabled="currentPage === 1" class="page-btn">←</button>
-               <span class="page-info">{{ currentPage }} / {{ totalPages }}</span>
-               <button @click="nextPage" :disabled="currentPage === totalPages" class="page-btn">→</button>
-             </div>
+            <div class="collection-stats-bar">
+              Cartes : {{ filteredCardLibrary.length }} | Page {{ currentPage }} / {{ totalPages }}
+            </div>
 
-             <div v-if="filteredCardLibrary.length === 0" class="no-results">
-               Aucune carte trouvée.
-             </div>
+            <div class="card-grid">
+              <div v-for="card in paginatedCardLibrary" :key="card.id" class="card-slot clickable"
+                :class="[getRarityClass(card.level), { locked: !isOwned(card.id) }]" @click="viewCardDetail(card)">
+                <div class="quantity-badge" v-if="isOwned(card.id)">{{ getBadgeText(card.id) }}</div>
+                <div class="card-mini-info">
+                  <div class="card-name">{{ card.name }}</div>
+                  <div class="card-level">Lvl {{ card.level }}</div>
+                </div>
+                <img :src="card.img" class="card-img" />
+                <div class="card-stats">
+                  <span>{{ card.topValue }}</span>
+                  <span>{{ card.rightValue }}</span>
+                  <span>{{ card.bottomValue }}</span>
+                  <span>{{ card.leftValue }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pagination-controls" v-if="totalPages > 1">
+              <button @click="prevPage" :disabled="currentPage === 1" class="page-btn">←</button>
+              <span class="page-info">{{ currentPage }} / {{ totalPages }}</span>
+              <button @click="nextPage" :disabled="currentPage === totalPages" class="page-btn">→</button>
+            </div>
+
+            <div v-if="filteredCardLibrary.length === 0" class="no-results">
+              Aucune carte trouvée.
+            </div>
           </div>
         </template>
 
@@ -225,16 +204,9 @@
             </div>
 
             <div class="builder-grid">
-               <div v-for="card in cardLibrary" :key="card.id" 
-                    class="card-slot mini" 
-                    :class="[getRarityClass(card.level), { locked: !isOwned(card.id), selected: isInDeck(card.id), iscover: editingDeck.cover === card.id }]"
-                    @click="toggleCardInDeck(card.id)">
-                 <div class="card-name">{{ card.name }}</div>
-                 <img :src="card.img" class="card-img" />
-                 <div class="selection-overlay" v-if="isInDeck(card.id)">✓</div>
-                 <div class="cover-overlay" v-if="editingDeck.cover === card.id">C</div>
-                 <button v-if="isInDeck(card.id)" class="set-cover-btn" @click.stop="setDeckCover(card.id)">Cover</button>
-               </div>
+              <TripleTriadCard v-for="card in cardLibrary" :key="card.id" :card="card" variant="mini"
+                :isLocked="!isOwned(card.id)" :quantity="getOwnedQuantity(card.id)" :isSelected="isInDeck(card.id)"
+                :isCover="editingDeck.cover === card.id" @click="toggleCardInDeck(card.id)" @set-cover="setDeckCover" />
             </div>
           </div>
         </template>
@@ -244,13 +216,14 @@
           <!-- Authentication Form -->
           <div class="auth-container">
             <h3>{{ isRegistering ? 'CRÉER UN COMPTE' : 'SE CONNECTER' }}</h3>
-            
+
             <form @submit.prevent="submitAuth" class="auth-form">
-              <input v-if="isRegistering" v-model="authForm.username" type="text" placeholder="Nom d'utilisateur" required />
-              
+              <input v-if="isRegistering" v-model="authForm.username" type="text" placeholder="Nom d'utilisateur"
+                required />
+
               <input v-model="authForm.email" type="email" placeholder="Adresse Email" required />
               <input v-model="authForm.password" type="password" placeholder="Mot de Passe" required />
-              
+
               <p v-if="authError" class="auth-error">{{ authError }}</p>
 
               <button type="submit" class="submit-btn" :disabled="isLoading">
@@ -272,12 +245,14 @@
 <script setup>
 import { ref, reactive, computed, watch } from 'vue';
 import { state, setAuth, logout, cardLibrary, saveDeckToStrapi, confirmAction, getCardById, deleteDeckFromStrapi } from '../game/state.js';
+import TripleTriadCard from './TripleTriadCard.vue';
+import strapiService from '../api/strapi.js';
 
 const currentView = ref('profile'); // profile, collection, decks, history
 const isBuilding = ref(false);
 const showManaCurve = ref(false);
 const importedDeckCode = ref("");
-const editingDeck = reactive({ id: null, name: '', cover: null, cards: [] });
+const editingDeck = reactive({ id: null, documentId: null, name: '', cover: null, cards: [] });
 const isRegistering = ref(false);
 const isLoading = ref(false);
 const authError = ref('');
@@ -425,19 +400,15 @@ function isOwned(cardId) {
   return state.collection.some(c => c.cardId === cardId);
 }
 
-function getRarityClass(level) {
-  if (level >= 9) return 'rarity-legendary';
-  if (level >= 7) return 'rarity-epic';
-  if (level >= 5) return 'rarity-rare';
-  if (level >= 3) return 'rarity-uncommon';
-  return 'rarity-common';
-}
-
 function startNewDeck() {
-  editingDeck.id = Date.now();
-  editingDeck.name = 'Nouveau Deck';
-  editingDeck.cards = [];
-  isBuilding.value = true;
+  state.editingDeck.id = null;
+  state.editingDeck.documentId = null;
+  state.editingDeck.name = 'Nouveau Deck';
+  state.editingDeck.cover = null;
+  state.editingDeck.cards = [];
+  state.rightDrawerOpen = false;
+  state.showDeckEditor = true;
+  window.history.pushState({}, '', '/deck-editor');
 }
 
 
@@ -445,7 +416,7 @@ async function deleteDeck(deck) {
   const confirmed = await confirmAction('Supprimer le deck ?', `Voulez-vous vraiment supprimer le deck "${deck.name}" ? Cette action est irréversible.`);
   if (confirmed) {
     isLoading.value = true;
-    const success = await deleteDeckFromStrapi(deck.id);
+    const success = await deleteDeckFromStrapi(deck.documentId);
     isLoading.value = false;
     if (!success) {
       authError.value = "Erreur lors de la suppression du deck.";
@@ -454,11 +425,14 @@ async function deleteDeck(deck) {
 }
 
 function editDeck(deck) {
-  editingDeck.id = deck.id;
-  editingDeck.name = deck.name;
-  editingDeck.cover = deck.cover;
-  editingDeck.cards = [...deck.cards];
-  isBuilding.value = true;
+  state.editingDeck.id = deck.id;
+  state.editingDeck.documentId = deck.documentId;
+  state.editingDeck.name = deck.name;
+  state.editingDeck.cover = deck.cover;
+  state.editingDeck.cards = [...deck.cards];
+  state.rightDrawerOpen = false;
+  state.showDeckEditor = true;
+  window.history.pushState({}, '', '/deck-editor');
 }
 
 
@@ -576,11 +550,11 @@ function exportDeckCode() {
 
 async function saveDeck() {
   if (editingDeck.cards.length !== 15) return;
-  
+
   isLoading.value = true;
   const success = await saveDeckToStrapi({ ...editingDeck });
   isLoading.value = false;
-  
+
   if (success) {
     isBuilding.value = false;
   } else {
@@ -596,6 +570,13 @@ function toggleAuthMode() {
 function openCollectionPage() {
   state.showCollectionPage = true;
   state.rightDrawerOpen = false;
+  window.history.pushState({}, '', '/collection');
+}
+
+function openDecksPage() {
+  state.showDecksPage = true;
+  state.rightDrawerOpen = false;
+  window.history.pushState({}, '', '/decks');
 }
 
 function doLogout() {
@@ -606,35 +587,26 @@ async function submitAuth() {
   isLoading.value = true;
   authError.value = '';
 
-  const endpoint = isRegistering.value ? '/api/auth/local/register' : '/api/auth/local';
-
-  const payload = isRegistering.value 
-    ? { 
-        username: authForm.username, 
-        email: authForm.email, 
-        password: authForm.password 
-      }
-    : { 
-        identifier: authForm.email, 
-        password: authForm.password 
-      };
-
   try {
-    const response = await fetch(`http://localhost:1337${endpoint}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
+    let data;
+    if (isRegistering.value) {
+      data = await strapiService.register({
+        username: authForm.username,
+        email: authForm.email,
+        password: authForm.password
+      });
+    } else {
+      data = await strapiService.login({
+        identifier: authForm.email,
+        password: authForm.password
+      });
+    }
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.error?.message || 'Erreur d\'authentification');
+    if (data.error) {
+      throw new Error(data.error.message || 'Erreur d\'authentification');
     }
 
     setAuth(data.jwt, data.user);
-    
-    // Clear form
     authForm.password = '';
   } catch (error) {
     authError.value = error.message;
@@ -956,7 +928,7 @@ async function submitAuth() {
   text-align: center;
   color: #888;
   padding: 20px;
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
   grid-column: 1 / -1;
 }
@@ -974,7 +946,7 @@ async function submitAuth() {
 
 .back-btn-detail {
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
   padding: 8px 16px;
   border-radius: 20px;
@@ -985,7 +957,7 @@ async function submitAuth() {
 }
 
 .back-btn-detail:hover {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .detail-card {
@@ -1018,7 +990,7 @@ async function submitAuth() {
 }
 
 .detail-element {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
   padding: 2px 8px;
   border-radius: 10px;
   font-size: 0.8rem;
@@ -1064,11 +1036,28 @@ async function submitAuth() {
   border: 1px solid #00d2ff;
 }
 
-.stat.top { margin-top: 10px; }
-.stat.bottom { margin-bottom: 10px; }
-.stat.left, .stat.right { position: absolute; top: 50%; transform: translateY(-50%); }
-.stat.left { left: 10px; }
-.stat.right { right: 10px; }
+.stat.top {
+  margin-top: 10px;
+}
+
+.stat.bottom {
+  margin-bottom: 10px;
+}
+
+.stat.left,
+.stat.right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.stat.left {
+  left: 10px;
+}
+
+.stat.right {
+  right: 10px;
+}
 
 .detail-desc {
   font-size: 0.9rem;
@@ -1084,13 +1073,13 @@ async function submitAuth() {
   width: 100%;
   text-align: center;
   font-weight: bold;
-  background: rgba(255,0,0,0.2);
+  background: rgba(255, 0, 0, 0.2);
   color: #ff5555;
   margin-top: auto;
 }
 
 .detail-status.owned {
-  background: rgba(0,255,136,0.2);
+  background: rgba(0, 255, 136, 0.2);
   color: #00ff88;
 }
 
@@ -1144,7 +1133,7 @@ async function submitAuth() {
   font-size: 0.75rem;
   font-weight: bold;
   z-index: 5;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .card-grid {
@@ -1213,13 +1202,28 @@ async function submitAuth() {
 }
 
 /* Rarity colors */
-.rarity-common { border-color: rgba(255, 255, 255, 0.2); }
-.rarity-uncommon { border-color: #00ff88; box-shadow: inset 0 0 10px rgba(0, 255, 136, 0.1); }
-.rarity-rare { border-color: #00d2ff; box-shadow: inset 0 0 15px rgba(0, 210, 255, 0.2); }
-.rarity-epic { border-color: #ff00ff; box-shadow: inset 0 0 20px rgba(255, 0, 255, 0.3); }
-.rarity-legendary { 
-  border-color: #ffcc00; 
-  box-shadow: 0 0 15px rgba(255, 204, 0, 0.4), inset 0 0 20px rgba(255, 204, 0, 0.3); 
+.rarity-common {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.rarity-uncommon {
+  border-color: #00ff88;
+  box-shadow: inset 0 0 10px rgba(0, 255, 136, 0.1);
+}
+
+.rarity-rare {
+  border-color: #00d2ff;
+  box-shadow: inset 0 0 15px rgba(0, 210, 255, 0.2);
+}
+
+.rarity-epic {
+  border-color: #ff00ff;
+  box-shadow: inset 0 0 20px rgba(255, 0, 255, 0.3);
+}
+
+.rarity-legendary {
+  border-color: #ffcc00;
+  box-shadow: 0 0 15px rgba(255, 204, 0, 0.4), inset 0 0 20px rgba(255, 204, 0, 0.3);
 }
 
 /* Decks Styles */
@@ -1250,17 +1254,28 @@ async function submitAuth() {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.05);
   padding: 15px;
   border-radius: 10px;
   margin-bottom: 10px;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.deck-name { font-weight: bold; color: white; }
-.deck-count { font-size: 0.8rem; color: #888; }
-.small-btn { 
-  background: transparent; border: none; cursor: pointer; font-size: 1.2rem;
+.deck-name {
+  font-weight: bold;
+  color: white;
+}
+
+.deck-count {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.small-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
 }
 
 /* Builder */
@@ -1273,7 +1288,7 @@ async function submitAuth() {
 }
 
 .deck-name-input {
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid #333;
   color: white;
   padding: 10px;
@@ -1289,7 +1304,10 @@ async function submitAuth() {
   text-align: right;
 }
 
-.count_full { color: #00ff88; text-shadow: 0 0 10px #00ff88; }
+.count_full {
+  color: #00ff88;
+  text-shadow: 0 0 10px #00ff88;
+}
 
 .builder-actions {
   display: flex;
@@ -1308,7 +1326,10 @@ async function submitAuth() {
   cursor: pointer;
 }
 
-.save-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.save-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
 
 .cancel-btn {
   background: #ff0055;
@@ -1330,7 +1351,9 @@ async function submitAuth() {
   aspect-ratio: 2.5/3;
 }
 
-.card-slot.mini .card-name { font-size: 0.6rem; }
+.card-slot.mini .card-name {
+  font-size: 0.6rem;
+}
 
 .selection-overlay {
   position: absolute;
@@ -1399,7 +1422,8 @@ async function submitAuth() {
   background: linear-gradient(to top, #4a90e2, #50e3c2);
   border-radius: 3px 3px 0 0;
   transition: height 0.3s ease;
-  min-height: 2px; /* Always show a tiny bar */
+  min-height: 2px;
+  /* Always show a tiny bar */
 }
 
 .mana-label {
@@ -1472,55 +1496,17 @@ async function submitAuth() {
 }
 </style>
 .deck-cover-img {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  margin-right: 15px;
+width: 40px;
+height: 40px;
+object-fit: contain;
+margin-right: 15px;
 }
 .deck-info {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+display: flex;
+flex-direction: column;
+flex: 1;
 }
 .deck-actions {
-  display: flex;
-  gap: 10px;
-}
-.cover-overlay {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  background: #ffcc00;
-  color: black;
-  font-weight: bold;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.7rem;
-  z-index: 10;
-}
-.iscover {
-  border-color: #ffcc00 !important;
-  box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
-}
-.set-cover-btn {
-  position: absolute;
-  bottom: 2px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0,0,0,0.7);
-  color: white;
-  border: 1px solid #fff;
-  font-size: 0.6rem;
-  padding: 2px 5px;
-  border-radius: 5px;
-  cursor: pointer;
-  z-index: 15;
-}
-.set-cover-btn:hover {
-  background: #ffcc00;
-  color: black;
+display: flex;
+gap: 10px;
 }

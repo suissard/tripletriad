@@ -4,6 +4,7 @@
   "private": true,
   "description": "A Strapi application",
   "scripts": {
+    "seed:cards": "node seed-cards.js",
     "build": "strapi build",
     "console": "strapi console",
     "deploy": "strapi deploy",

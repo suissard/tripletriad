@@ -1,19 +1,19 @@
 services:
-  frontend:
-    image: node:24.14.0-alpine
-    container_name: frontend
-    working_dir: /app
-    volumes:
-      - ./front:/app
-    ports:
-      - "${FRONTEND_PORT:-80}:5173"
-    environment:
-      - VITE_STRAPI_URL=http://localhost:1337
-    command: >
-      sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 5173"
-    restart: unless-stopped
-    depends_on:
-      - strapi
+#  frontend:
+#    image: node:24.14.0-alpine
+#    container_name: frontend
+#    working_dir: /app
+#    volumes:
+#      - ./front:/app
+#    ports:
+#      - "${FRONTEND_PORT:-80}:5173"
+#    environment:
+#      - VITE_STRAPI_URL=http://localhost:1337
+#    command: >
+#      sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 5173"
+#    restart: unless-stopped
+#    depends_on:
+#      - strapi
 
   strapi:
     image: node:24.14.0-alpine

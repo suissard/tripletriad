@@ -2,6 +2,7 @@ import { reactive } from 'vue';
 import { rulesRegistry } from './rules.js';
 import { WebRTCManager } from './WebRTCManager.js';
 import cardsData from '../data/cards.json';
+import strapiService from '../api/strapi.js';
 
 export const cardLibrary = cardsData;
 export const webrtc = new WebRTCManager();
@@ -40,7 +41,7 @@ export const state = reactive({
     // UI Navigation State
     leftDrawerOpen: false,
     rightDrawerOpen: false,
-    showCollectionPage: false,
+    showCollectionPage: window.location.pathname === '/collection',
     // Auth State
     isLoggedIn: false,
     jwt: null,
@@ -51,13 +52,24 @@ export const state = reactive({
     },
     // Collection & Decks
     collection: [], // [{ cardId: 1, quantity: 1 }, ...]
-    userDecks: [],  // [{ id: 1, name: 'Deck 1', cards: [id1, id2, ...] }]
-    confirmation: { isOpen: false, title: '', message: '' }
+    userDecks: [],  // [{ id: 1, documentId: '...', name: 'Deck 1', cards: [id1, id2, ...] }]
+    confirmation: { isOpen: false, title: '', message: '' },
+    // Deck Editor Page
+    showDeckEditor: false,
+    showDecksPage: false,
+    editingDeck: { id: null, documentId: null, name: '', cover: null, cards: [] }
 });
 
 export function getCardById(id) {
     return cardLibrary.find(c => c.id === id);
 }
+
+// Handle Browser Back/Forward navigation
+window.addEventListener('popstate', () => {
+    state.showCollectionPage = window.location.pathname === '/collection';
+    state.showDeckEditor = window.location.pathname === '/deck-editor';
+    state.showDecksPage = window.location.pathname === '/decks';
+});
 
 // Auth Helpers
 export function setAuth(jwt, user) {
@@ -68,6 +80,7 @@ export function setAuth(jwt, user) {
         avatar: `https://api.dicebear.com/9.x/bottts/png?seed=${user.username}&backgroundColor=transparent`
     };
     state.isLoggedIn = true;
+    strapiService.setToken(jwt);
     localStorage.setItem('tt_jwt', jwt);
     localStorage.setItem('tt_user', JSON.stringify(user));
 
@@ -86,28 +99,38 @@ export function logout() {
     state.isLoggedIn = false;
     state.collection = [];
     state.userDecks = [];
+    strapiService.signOut();
     localStorage.removeItem('tt_jwt');
     localStorage.removeItem('tt_user');
 }
 
 // REST Sync
-const API_URL = 'http://localhost:1337/api';
+// @strapi/client may return raw array or { data: [...] } wrapper — normalize both
+function toArray(result) {
+    if (Array.isArray(result)) return result;
+    if (result?.data && Array.isArray(result.data)) return result.data;
+    return [];
+}
 
 export async function fetchUserCollection() {
     if (!state.isLoggedIn) return;
     try {
-        const res = await fetch(`${API_URL}/user-cards?filters[user][id]=${state.user.id}&populate=card`, {
-            headers: { 'Authorization': `Bearer ${state.jwt}` }
+        const result = await strapiService.find('user-cards', {
+            filters: { user: { id: state.user.id } },
+            populate: ['card']
         });
-        const data = await res.json();
-        if (data.data) {
-            state.collection = data.data.map(item => ({
-                id: item.id,
-                cardId: item.card.id,
-                quantity: item.quantity
-            }));
-        }
+        const items = toArray(result);
+        state.collection = items.map(item => ({
+            id: item.id,
+            cardId: item.card?.id,
+            quantity: item.quantity
+        }));
     } catch (e) {
+        if (e.status === 401) {
+            console.warn('Session expired (401). Logging out.');
+            logout();
+            return;
+        }
         console.error('Collection sync failed', e);
     }
 }
@@ -115,51 +138,47 @@ export async function fetchUserCollection() {
 export async function fetchUserDecks() {
     if (!state.isLoggedIn) return;
     try {
-        const res = await fetch(`${API_URL}/decks?filters[user][id]=${state.user.id}&populate=cards`, {
-            headers: { 'Authorization': `Bearer ${state.jwt}` }
+        const result = await strapiService.find('decks', {
+            filters: { user: { id: state.user.id } },
+            populate: ['cards']
         });
-        const data = await res.json();
-        if (data.data) {
-            state.userDecks = data.data.map(item => ({
-                id: item.id,
-                name: item.name,
-                cover: item.cover,
-                cards: item.cards.map(c => c.id)
-            }));
-        }
+        const items = toArray(result);
+        state.userDecks = items.map(item => ({
+            id: item.id,
+            documentId: item.documentId,
+            name: item.name,
+            cover: item.cover,
+            cards: (item.cards || []).map(c => c.id)
+        }));
     } catch (e) {
+        if (e.status === 401) {
+            console.warn('Session expired (401). Logging out.');
+            logout();
+            return;
+        }
         console.error('Decks sync failed', e);
     }
 }
 
 export async function saveDeckToStrapi(deck) {
-    if (!state.isLoggedIn) return;
-    const isNew = typeof deck.id === 'number' && deck.id > 1000000000; // Mock ID from Date.now()
-    const method = isNew ? 'POST' : 'PUT';
-    const endpoint = isNew ? '/decks' : `/decks/${deck.id}`;
+    if (!state.isLoggedIn) return false;
+    const isNew = !deck.documentId;
 
     try {
-        const res = await fetch(`${API_URL}${endpoint}`, {
-            method,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${state.jwt}`
-            },
-            body: JSON.stringify({
-                data: {
-                    name: deck.name,
-                    user: state.user.id,
-                    cover: deck.cover,
-                    cards: deck.cards // Strapi expects array of IDs for relation
-                }
-            })
-        });
-        const data = await res.json();
-        if (data.data) {
-            // Refresh local list
-            fetchUserDecks();
-            return true;
+        const payload = {
+            name: deck.name,
+            user: state.user.id,
+            cover: deck.cover,
+            cards: deck.cards
+        };
+
+        if (isNew) {
+            await strapiService.create('decks', payload);
+        } else {
+            await strapiService.update('decks', deck.documentId, payload);
         }
+        fetchUserDecks();
+        return true;
     } catch (e) {
         console.error('Deck save failed', e);
     }
@@ -218,20 +237,12 @@ export function resolveConfirmation(result) {
     }
 }
 
-export async function deleteDeckFromStrapi(deckId) {
-    if (!state.isLoggedIn) return;
+export async function deleteDeckFromStrapi(deckDocumentId) {
+    if (!state.isLoggedIn) return false;
     try {
-        const res = await fetch(`${API_URL}/decks/${deckId}`, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${state.jwt}`
-            }
-        });
-        const data = await res.json();
-        if (data.data) {
-            fetchUserDecks();
-            return true;
-        }
+        await strapiService.delete('decks', deckDocumentId);
+        fetchUserDecks();
+        return true;
     } catch (e) {
         console.error('Deck delete failed', e);
     }

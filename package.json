@@ -5,6 +5,9 @@
   "scripts": {
     "start": "sudo bash start-docker.sh",
     "stop": "sudo docker-compose down",
+    "restart": "sudo docker-compose down && sudo bash start-docker.sh",
+    "setup": "node scripts/setup-strapi.js",
+    "test:api": "npm run test:api --prefix front",
     "dev:front": "npm run dev --prefix front",
     "build:front": "npm run build --prefix front",
     "docker:start": "sudo bash start-docker.sh",
