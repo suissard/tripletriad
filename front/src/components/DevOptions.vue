@@ -31,7 +31,7 @@ import { state, cardLibrary, setAuth } from '../game/state.js';
 import { setCardFrame } from '../game/three-scene.js';
 
 const devSettings = reactive({
-  autoLogin: false
+  autoLogin: true
 });
 
 onMounted(() => {
@@ -39,6 +39,7 @@ onMounted(() => {
   if (saved) {
     Object.assign(devSettings, JSON.parse(saved));
   }
+  devSettings.autoLogin = true; // Forcé par défaut selon la demande temporaire
 
   if (devSettings.autoLogin && !state.isLoggedIn) {
     doAutoLogin();
