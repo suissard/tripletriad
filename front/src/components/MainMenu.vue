@@ -1,6 +1,5 @@
 <template>
-  <div id="main-menu" v-if="state.gameState === 'menu'">
-    <h1 style="color: #00d2ff; font-size: 4rem; text-shadow: 0 0 20px currentColor; margin-bottom: 2rem;">MENU PRINCIPAL</h1>
+  <div id="main-menu" v-if="state.gameState === 'menu' || state.leftDrawerOpen">
 
     <div v-if="menuState === 'main'" class="menu-buttons">
       <button @click="menuState = 'ai'">JOUER CONTRE UNE IA 🤖</button>
@@ -75,6 +74,7 @@ function startGame(level) {
   state.online = false;
   state.aiDifficulty = level;
   state.gameState = 'playing';
+  state.leftDrawerOpen = false; // Auto close drawer
 }
 
 function cancelMulti() {
@@ -95,6 +95,7 @@ const handleNetworkMessage = (msg) => {
     state.online = true;
     state.turn = 'ai'; // 'ai' role is for network opponent
     state.gameState = 'playing';
+    state.leftDrawerOpen = false; // Auto close drawer
   }
 };
 
@@ -109,6 +110,7 @@ onMounted(() => {
       state.online = true;
       state.turn = 'player';
       state.gameState = 'playing';
+      state.leftDrawerOpen = false; // Auto close drawer
       webrtc.sendMessage({ type: 'init', deck: state.deck });
     }
   };
@@ -151,9 +153,8 @@ async function joinGame() {
 
 <style scoped>
 #main-menu {
-    position: absolute; inset: 0; background: rgba(0,0,0,0.9);
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    z-index: 100; pointer-events: auto;
+    display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
+    width: 100%; height: 100%; pointer-events: auto;
 }
 .menu-buttons {
     display: flex;

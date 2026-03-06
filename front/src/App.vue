@@ -5,13 +5,19 @@
 
   <AlertMessage />
 
+  <TopNavbar />
+  <LeftDrawer />
+  <RightDrawer />
+
+  <DevOptions />
+
   <template v-if="state.gameState === 'playing' || state.gameState === 'gameover'">
     <div id="ui" class="ui-layer">
         <ScorePanel label="Plateau Joueur" :score="state.pScore" color="#00d2ff" />
         <ScorePanel label="Plateau IA" :score="state.aiScore" color="#ff0055" />
     </div>
 
-    <RulesPanel />
+    <!-- Rules Panel moved out for now per user request -->
 
     <div id="msg" class="ui-layer">Glisse une carte bleue sur le plateau 👆</div>
 
@@ -23,9 +29,12 @@
 import GameCanvas from './components/GameCanvas.vue';
 import MainMenu from './components/MainMenu.vue';
 import ScorePanel from './components/ScorePanel.vue';
-import RulesPanel from './components/RulesPanel.vue';
+import TopNavbar from './components/TopNavbar.vue';
+import LeftDrawer from './components/LeftDrawer.vue';
+import RightDrawer from './components/RightDrawer.vue';
 import AlertMessage from './components/AlertMessage.vue';
 import GameOver from './components/GameOver.vue';
+import DevOptions from './components/DevOptions.vue';
 import { state } from './game/state.js';
 </script>
 

@@ -6,6 +6,41 @@ import { getRarity, displayVal } from './constants.js';
 export let scene, camera, renderer;
 export const slots = [];
 let sharedGlowTex;
+const loadedFrames = {};
+
+export function setCardFrame(fileName) {
+    if (!fileName) {
+        state.selectedFrame = null;
+        updateAllCardsFrames();
+        return;
+    }
+
+    state.selectedFrame = fileName;
+
+    if (loadedFrames[fileName] && loadedFrames[fileName].complete) {
+        updateAllCardsFrames();
+        return;
+    }
+
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+        loadedFrames[fileName] = img;
+        if (state.selectedFrame === fileName) {
+            updateAllCardsFrames();
+        }
+    };
+    // Dev options images are at the public root, so we fetch them by their filename
+    img.src = `/${fileName}`;
+}
+
+export function updateAllCardsFrames() {
+    scene.children.forEach(child => {
+        if (child instanceof THREE.Mesh && child.userData.redraw) {
+            child.userData.redraw(child.userData.img, child.userData.owner);
+        }
+    });
+}
 
 export function initScene(container) {
     scene = new THREE.Scene();
@@ -141,6 +176,10 @@ export function makeCardMesh(data, initialOwner) {
             ctx.fillText(displayVal(data.bottom), 128, 342);
             ctx.fillText(displayVal(data.left), 45, 195);
             ctx.fillText(displayVal(data.right), 211, 195);
+
+            if (state.selectedFrame && loadedFrames[state.selectedFrame] && loadedFrames[state.selectedFrame].complete) {
+                ctx.drawImage(loadedFrames[state.selectedFrame], 0, 0, 256, 384);
+            }
 
             glowMesh.visible = true;
         } else {

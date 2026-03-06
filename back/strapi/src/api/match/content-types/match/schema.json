@@ -22,6 +22,14 @@
         },
         "answer": {
             "type": "json"
+        },
+        "users": {
+            "type": "relation",
+            "relation": "manyToMany",
+            "target": "plugin::users-permissions.user"
+        },
+        "logs": {
+            "type": "json"
         }
     }
 }
