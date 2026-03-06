@@ -55,7 +55,7 @@ async function doAutoLogin() {
     const response = await fetch('http://localhost:1337/api/auth/local', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ identifier: 'admin@admin.com', password: 'admin' }) // Default Strapi admin/user credentials
+      body: JSON.stringify({ identifier: 'admin@admin.com', password: 'admin' })
     });
 
     if (response.ok) {
@@ -64,7 +64,14 @@ async function doAutoLogin() {
       console.log('Auto-login successful.');
     } else {
       console.warn('Auto-login failed.', await response.text());
+      // Bypass auth since we are in dev options
+      setAuth('fake-jwt-token', { username: 'Guest Dev', email: 'guest@dev.local' });
     }
+  } catch (error) {
+    console.error('Auto-login error:', error);
+    setAuth('fake-jwt-token', { username: 'Guest Dev', email: 'guest@dev.local' });
+  }
+}
   } catch (error) {
     console.error('Auto-login error:', error);
   }
