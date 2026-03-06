@@ -19,22 +19,10 @@
           </div>
 
           <div class="menu-list">
-            <button class="menu-item">
-              <span class="icon">⚙️</span>
-              Paramètres du Jeu
-            </button>
-            <button class="menu-item" @click="openDecksPage">
-              <span class="icon">🎴</span>
-              Mes Decks ({{ state.userDecks.length }}/5)
-            </button>
-            <button class="menu-item" @click="openCollectionPage">
-              <span class="icon">📚</span>
-              Ma Collection ({{ state.collection.length }} / 45)
-            </button>
-            <button class="menu-item">
-              <span class="icon">📜</span>
-              Historique des Matchs
-            </button>
+            <HoloButton text="⚙️ Paramètres du Jeu" activeText="Ouverture..." />
+            <HoloButton :text="`🎴 Mes Decks (${state.userDecks.length}/5)`" activeText="Ouverture..." @click="openDecksPage" />
+            <HoloButton :text="`📚 Ma Collection (${state.collection.length} / 45)`" activeText="Ouverture..." @click="openCollectionPage" />
+            <HoloButton text="📜 Historique des Matchs" activeText="Ouverture..." />
           </div>
         </template>
 
@@ -246,6 +234,7 @@
 import { ref, reactive, computed, watch } from 'vue';
 import { state, setAuth, logout, cardLibrary, saveDeckToStrapi, confirmAction, getCardById, deleteDeckFromStrapi } from '../game/state.js';
 import TripleTriadCard from './TripleTriadCard.vue';
+import HoloButton from './HoloButton.vue';
 import strapiService from '../api/strapi.js';
 
 const currentView = ref('profile'); // profile, collection, decks, history
