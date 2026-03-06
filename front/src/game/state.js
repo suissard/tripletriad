@@ -50,7 +50,8 @@ export const state = reactive({
     },
     // Collection & Decks
     collection: [], // [{ cardId: 1, quantity: 1 }, ...]
-    userDecks: []   // [{ id: 1, name: 'Deck 1', cards: [id1, id2, ...] }]
+    userDecks: [],  // [{ id: 1, name: 'Deck 1', cards: [id1, id2, ...] }]
+    confirmation: { isOpen: false, title: '', message: '' }
 });
 
 export function getCardById(id) {
@@ -121,6 +122,7 @@ export async function fetchUserDecks() {
             state.userDecks = data.data.map(item => ({
                 id: item.id,
                 name: item.name,
+                cover: item.cover,
                 cards: item.cards.map(c => c.id)
             }));
         }
@@ -146,6 +148,7 @@ export async function saveDeckToStrapi(deck) {
                 data: {
                     name: deck.name,
                     user: state.user.id,
+                    cover: deck.cover,
                     cards: deck.cards // Strapi expects array of IDs for relation
                 }
             })
@@ -191,4 +194,45 @@ export function resetGame(deckSize = 30) {
     state.gameOver = false;
     state.winner = null;
     state.gameState = 'menu';
+}
+
+// Confirmation System
+let confirmationPromiseResolve = null;
+
+export function confirmAction(title, message) {
+    state.confirmation.title = title;
+    state.confirmation.message = message;
+    state.confirmation.isOpen = true;
+
+    return new Promise((resolve) => {
+        confirmationPromiseResolve = resolve;
+    });
+}
+
+export function resolveConfirmation(result) {
+    state.confirmation.isOpen = false;
+    if (confirmationPromiseResolve) {
+        confirmationPromiseResolve(result);
+        confirmationPromiseResolve = null;
+    }
+}
+
+export async function deleteDeckFromStrapi(deckId) {
+    if (!state.isLoggedIn) return;
+    try {
+        const res = await fetch(`${API_URL}/decks/${deckId}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${state.jwt}`
+            }
+        });
+        const data = await res.json();
+        if (data.data) {
+            fetchUserDecks();
+            return true;
+        }
+    } catch (e) {
+        console.error('Deck delete failed', e);
+    }
+    return false;
 }

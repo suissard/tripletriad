@@ -141,9 +141,15 @@
             <button class="add-deck-btn" @click="startNewDeck">+ Nouveau Deck</button>
             <div class="decks-list">
               <div v-for="deck in state.userDecks" :key="deck.id" class="deck-row">
-                <span class="deck-name">{{ deck.name }}</span>
-                <span class="deck-count">{{ deck.cards.length }} cartes</span>
-                <button class="small-btn edit" @click="editDeck(deck)">✏️</button>
+                <img v-if="deck.cover" :src="getCardById(deck.cover)?.img" class="deck-cover-img" />
+                <div class="deck-info">
+                  <span class="deck-name">{{ deck.name }}</span>
+                  <span class="deck-count">{{ deck.cards.length }} cartes</span>
+                </div>
+                <div class="deck-actions">
+                  <button class="small-btn edit" @click="editDeck(deck)">✏️</button>
+                  <button class="small-btn delete" @click="deleteDeck(deck)">🗑️</button>
+                </div>
               </div>
               <p v-if="state.userDecks.length === 0">Aucun deck créé.</p>
             </div>
@@ -167,11 +173,13 @@
             <div class="builder-grid">
                <div v-for="card in cardLibrary" :key="card.id" 
                     class="card-slot mini" 
-                    :class="[getRarityClass(card.level), { locked: !isOwned(card.id), selected: isInDeck(card.id) }]"
+                    :class="[getRarityClass(card.level), { locked: !isOwned(card.id), selected: isInDeck(card.id), iscover: editingDeck.cover === card.id }]"
                     @click="toggleCardInDeck(card.id)">
                  <div class="card-name">{{ card.name }}</div>
                  <img :src="card.img" class="card-img" />
                  <div class="selection-overlay" v-if="isInDeck(card.id)">✓</div>
+                 <div class="cover-overlay" v-if="editingDeck.cover === card.id">C</div>
+                 <button v-if="isInDeck(card.id)" class="set-cover-btn" @click.stop="setDeckCover(card.id)">Cover</button>
                </div>
             </div>
           </div>
@@ -209,11 +217,11 @@
 
 <script setup>
 import { ref, reactive, computed, watch } from 'vue';
-import { state, setAuth, logout, cardLibrary, saveDeckToStrapi } from '../game/state.js';
+import { state, setAuth, logout, cardLibrary, saveDeckToStrapi, confirmAction, getCardById, deleteDeckFromStrapi } from '../game/state.js';
 
 const currentView = ref('profile'); // profile, collection, decks, history
 const isBuilding = ref(false);
-const editingDeck = reactive({ id: null, name: '', cards: [] });
+const editingDeck = reactive({ id: null, name: '', cover: null, cards: [] });
 const isRegistering = ref(false);
 const isLoading = ref(false);
 const authError = ref('');
@@ -345,11 +353,30 @@ function startNewDeck() {
   isBuilding.value = true;
 }
 
+
+async function deleteDeck(deck) {
+  const confirmed = await confirmAction('Supprimer le deck ?', `Voulez-vous vraiment supprimer le deck "${deck.name}" ? Cette action est irréversible.`);
+  if (confirmed) {
+    isLoading.value = true;
+    const success = await deleteDeckFromStrapi(deck.id);
+    isLoading.value = false;
+    if (!success) {
+      authError.value = "Erreur lors de la suppression du deck.";
+    }
+  }
+}
+
 function editDeck(deck) {
   editingDeck.id = deck.id;
   editingDeck.name = deck.name;
+  editingDeck.cover = deck.cover;
   editingDeck.cards = [...deck.cards];
   isBuilding.value = true;
+}
+
+
+function setDeckCover(cardId) {
+  editingDeck.cover = cardId;
 }
 
 function isInDeck(cardId) {
@@ -1136,3 +1163,57 @@ async function submitAuth() {
   border-color: #00d2ff;
 }
 </style>
+
+.deck-cover-img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  margin-right: 15px;
+}
+.deck-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.deck-actions {
+  display: flex;
+  gap: 10px;
+}
+.cover-overlay {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background: #ffcc00;
+  color: black;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7rem;
+  z-index: 10;
+}
+.iscover {
+  border-color: #ffcc00 !important;
+  box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+}
+.set-cover-btn {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.7);
+  color: white;
+  border: 1px solid #fff;
+  font-size: 0.6rem;
+  padding: 2px 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 15;
+}
+.set-cover-btn:hover {
+  background: #ffcc00;
+  color: black;
+}
