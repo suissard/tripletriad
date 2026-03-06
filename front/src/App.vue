@@ -4,6 +4,7 @@
   <MainMenu />
 
   <AlertMessage />
+  <ConfirmationModal />
 
   <TopNavbar />
   <LeftDrawer />
@@ -33,6 +34,7 @@ import TopNavbar from './components/TopNavbar.vue';
 import LeftDrawer from './components/LeftDrawer.vue';
 import RightDrawer from './components/RightDrawer.vue';
 import AlertMessage from './components/AlertMessage.vue';
+import ConfirmationModal from './components/ConfirmationModal.vue';
 import GameOver from './components/GameOver.vue';
 import DevOptions from './components/DevOptions.vue';
 import { state } from './game/state.js';
