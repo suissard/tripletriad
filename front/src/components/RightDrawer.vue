@@ -156,6 +156,33 @@
           </div>
 
           <div v-else class="deck-builder">
+            <div class="mana-curve-container">
+
+              <button class="toggle-curve-btn" @click="showManaCurve = !showManaCurve">
+
+                <span v-if="showManaCurve">Masquer Courbe de Mana</span>
+
+                <span v-else>Afficher Courbe de Mana</span>
+
+              </button>
+
+              <div v-if="showManaCurve" class="mana-histogram">
+
+                <div v-for="(count, level) in manaCurve" :key="level" class="mana-bar-container">
+
+                  <div class="mana-bar" :style="{ height: (count / maxManaCount) * 100 + '%' }"></div>
+
+                  <div class="mana-label">{{ level }}</div>
+
+                  <div class="mana-count" v-if="count > 0">{{ count }}</div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
             <div class="builder-header">
               <input v-model="editingDeck.name" placeholder="Nom du Deck" class="deck-name-input" />
               <div class="deck-counter" :class="{ count_full: editingDeck.cards.length === 15 }">
@@ -163,7 +190,34 @@
               </div>
             </div>
 
+            <div v-if="authError" class="auth-error">
+
+              {{ authError }}
+
+            </div>
+
+
+            <div class="import-section">
+
+              <input v-model="importedDeckCode" placeholder="Coller le code ici" class="import-input" />
+
+              <button class="import-btn" @click="importDeckCode" :disabled="!importedDeckCode">
+
+                Importer
+
+              </button>
+
+            </div>
+
+
             <div class="builder-actions">
+              <button class="export-btn" @click="exportDeckCode" :disabled="editingDeck.cards.length === 0">
+
+                Copier le code
+
+              </button>
+
+
               <button class="save-btn" :disabled="editingDeck.cards.length !== 15" @click="saveDeck">
                 Enregistrer
               </button>
@@ -221,6 +275,8 @@ import { state, setAuth, logout, cardLibrary, saveDeckToStrapi, confirmAction, g
 
 const currentView = ref('profile'); // profile, collection, decks, history
 const isBuilding = ref(false);
+const showManaCurve = ref(false);
+const importedDeckCode = ref("");
 const editingDeck = reactive({ id: null, name: '', cover: null, cards: [] });
 const isRegistering = ref(false);
 const isLoading = ref(false);
@@ -236,6 +292,37 @@ const selectedCard = ref(null);
 // Pagination state
 const currentPage = ref(1);
 const cardsPerPage = ref(8);
+
+const manaCurve = computed(() => {
+
+  const curve = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0 };
+
+  editingDeck.cards.forEach(cardId => {
+
+    const card = cardLibrary.find(c => c.id === cardId);
+
+    if (card && curve[card.level] !== undefined) {
+
+      curve[card.level]++;
+
+    }
+
+  });
+
+  return curve;
+
+});
+
+
+
+const maxManaCount = computed(() => {
+
+  const max = Math.max(...Object.values(manaCurve.value));
+
+  return max > 0 ? max : 1;
+
+});
+
 
 const filteredCardLibrary = computed(() => {
   let result = [...cardLibrary];
@@ -392,6 +479,100 @@ function toggleCardInDeck(cardId) {
     editingDeck.cards.push(cardId);
   }
 }
+
+function importDeckCode() {
+
+  if (!importedDeckCode.value) return;
+
+  try {
+
+    const decodedStr = atob(importedDeckCode.value);
+
+    const cardIds = decodedStr.split(",").map(id => parseInt(id, 10));
+
+    const newCards = [];
+
+    const unownedIds = [];
+
+    const invalidIds = [];
+
+
+
+    for (const id of cardIds) {
+
+      if (isNaN(id)) continue;
+
+      const card = cardLibrary.find(c => c.id === id);
+
+      if (!card) {
+
+        invalidIds.push(id);
+
+      } else if (!isOwned(id)) {
+
+        unownedIds.push(id);
+
+      } else if (newCards.length < 15) {
+
+        newCards.push(id);
+
+      }
+
+    }
+
+
+
+    editingDeck.cards = newCards;
+
+    importedDeckCode.value = "";
+
+
+
+    if (unownedIds.length > 0 || invalidIds.length > 0) {
+
+      authError.value = `Import partiel : ${unownedIds.length} cartes non possédées, ${invalidIds.length} invalides.`;
+
+    } else {
+
+      authError.value = "Deck importé avec succès !";
+
+    }
+
+    setTimeout(() => { authError.value = ""; }, 4000);
+
+  } catch (err) {
+
+    authError.value = "Code invalide.";
+
+    setTimeout(() => { authError.value = ""; }, 3000);
+
+  }
+
+}
+
+
+function exportDeckCode() {
+
+  if (editingDeck.cards.length === 0) return;
+
+  const idString = editingDeck.cards.join(",");
+
+  const encodedCode = btoa(idString);
+
+  navigator.clipboard.writeText(encodedCode).then(() => {
+
+    authError.value = "Code du deck copié dans le presse-papier !";
+
+    setTimeout(() => { authError.value = ""; }, 3000);
+
+  }).catch(err => {
+
+    authError.value = "Erreur lors de la copie du code.";
+
+  });
+
+}
+
 
 async function saveDeck() {
   if (editingDeck.cards.length !== 15) return;
@@ -1169,6 +1350,127 @@ async function submitAuth() {
 }
 </style>
 
+<style scoped>
+/* Mana Curve Styles */
+.mana-curve-container {
+  margin-bottom: 15px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.toggle-curve-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.toggle-curve-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mana-histogram {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 100px;
+  padding: 10px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mana-bar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  width: 8%;
+  position: relative;
+}
+
+.mana-bar {
+  width: 100%;
+  background: linear-gradient(to top, #4a90e2, #50e3c2);
+  border-radius: 3px 3px 0 0;
+  transition: height 0.3s ease;
+  min-height: 2px; /* Always show a tiny bar */
+}
+
+.mana-label {
+  font-size: 0.7rem;
+  color: #aaa;
+  margin-top: 5px;
+}
+
+.mana-count {
+  position: absolute;
+  top: -15px;
+  font-size: 0.7rem;
+  color: white;
+  font-weight: bold;
+}
+</style>
+<style scoped>
+.export-btn {
+  background: #34495e;
+  border: 1px solid #2c3e50;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.export-btn:hover:not(:disabled) {
+  background: #2c3e50;
+}
+
+.export-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+</style>
+<style scoped>
+.import-section {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.import-input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background: #222;
+  color: white;
+}
+
+.import-btn {
+  background: #27ae60;
+  border: 1px solid #2ecc71;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.import-btn:hover:not(:disabled) {
+  background: #2ecc71;
+}
+
+.import-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+</style>
 .deck-cover-img {
   width: 40px;
   height: 40px;
