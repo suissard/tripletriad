@@ -25,7 +25,7 @@
         <button class="small-dev-btn" @click="doAutoLogin">⚡ Force Login Admin</button>
         <button class="small-dev-btn" @click="checkAuthStatus" style="color: #00d2ff;">🔍 Debug Auth</button>
         <button class="small-dev-btn danger" @click="fullLogout">🗑️ Clear Session</button>
-      </div>
+
 
 
       <h4>Holo Premium</h4>
@@ -47,16 +47,27 @@
         <button class="danger" @click="clearCollection">🗑️ Vider la collection</button>
       </div>
 
+      <h4>Dev Currencies</h4>
+      <div class="dev-buttons">
+        <button @click="doAddCoins">💰 +1000 Coins</button>
+        <button @click="doAddDust">✨ +1000 Dust</button>
+      </div>
+
+      <h4>Tester API</h4>
+      <div class="dev-buttons">
+        <button @click="openDevTestPage" style="color: #00d2ff; border-color: #00d2ff;">🧪 Testeur API Strapi</button>
+      </div>
+
       <div class="dev-info">
         Vers: 1.2 | Possédées: {{ state.collection.length }} / 45
       </div>
-    </div>
+      </div>    </div>
   </div>
 </template>
 
 <script setup>
 import { ref, reactive, onMounted, watch } from 'vue';
-import { state, cardLibrary, setAuth, logout } from '../game/state.js';
+import { state, cardLibrary, setAuth, logout, addDevCoins, addDevDust } from '../game/state.js';
 import { setCardFrame } from '../game/three-scene.js';
 import strapiService from '../api/strapi.js';
 
@@ -138,6 +149,19 @@ function clearCollection() {
   state.collection = [];
 }
 
+function openDevTestPage() {
+  state.showDevTestPage = true;
+  isOpen.value = false; // Close the menu when opening the page
+}
+
+function doAddCoins() {
+  addDevCoins(1000);
+}
+
+function doAddDust() {
+  addDevDust(1000);
+}
+
 function fullLogout() {
   logout();
   localStorage.removeItem('tt_jwt');
@@ -169,32 +193,37 @@ async function checkAuthStatus() {
 <style scoped>
 .dev-options {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 10000;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-direction: column-reverse;
+  align-items: center;
   gap: 10px;
   pointer-events: auto;
   /* Required as parent '#ui' in App.vue might have pointer-events: none */
 }
 
 .dev-button {
-  background: rgba(20, 20, 40, 0.8);
+  background: rgba(20, 20, 40, 0.4);
   color: white;
   border: 1px solid #444;
-  padding: 8px 16px;
-  border-radius: 8px;
+  padding: 4px 12px;
+  border-radius: 8px 8px 0 0;
   cursor: pointer;
   font-family: inherit;
+  font-size: 0.8rem;
   backdrop-filter: blur(4px);
   transition: all 0.2s ease;
+  opacity: 0.5;
+  border-bottom: none;
 }
 
-.dev-button:hover {
+.dev-button:hover, .dev-options:hover .dev-button {
   background: rgba(40, 40, 60, 0.9);
   border-color: #888;
+  opacity: 1;
 }
 
 .dev-menu {
@@ -203,9 +232,10 @@ async function checkAuthStatus() {
   border-radius: 8px;
   padding: 15px;
   color: white;
-  width: 200px;
+  width: 250px;
   backdrop-filter: blur(8px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.5);
+  margin-bottom: 5px;
 }
 
 .dev-menu h4 {

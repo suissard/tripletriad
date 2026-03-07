@@ -59,9 +59,10 @@ export const state = reactive({
     userDecks: [],  // [{ id: 1, documentId: '...', name: 'Deck 1', cards: [id1, id2, ...] }]
     confirmation: { isOpen: false, title: '', message: '' },
     // Deck Editor Page
-    showDeckEditor: false,
-    showDecksPage: false,
-    showBoutiquePage: false,
+    showDeckEditor: window.location.pathname === '/deck-editor',
+    showDecksPage: window.location.pathname === '/decks',
+    showBoutiquePage: window.location.pathname === '/boutique',
+    showDevTestPage: false,
     editingDeck: { id: null, documentId: null, name: '', cover: null, cards: [] }
 });
 
@@ -273,14 +274,12 @@ export async function deleteDeckFromStrapi(deckDocumentId) {
 export async function craftCard(cardId) {
     if (!state.isLoggedIn) return false;
     try {
-        const response = await fetch(`${strapiService.url}/api/user-cards/craft`, {
-            method: 'POST',
-            headers: strapiService.getHeaders(),
+        const result = await strapiService.request('POST', '/user-cards/craft', {
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ cardId })
         });
-        const result = await response.json();
 
-        if (response.ok) {
+        if (!result.error) {
             state.user.dust = result.newDustTotal;
 
             // Update collection
@@ -296,8 +295,8 @@ export async function craftCard(cardId) {
             localStorage.setItem('tt_user', JSON.stringify(updatedUser));
             return true;
         } else {
-            console.error('Crafting failed:', result.error?.message || result.message);
-            alert(`Erreur: ${result.error?.message || result.message}`);
+            console.error('Crafting failed:', result.error?.message || result.error);
+            alert(`Erreur: ${result.error?.message || result.error}`);
             return false;
         }
     } catch (e) {
@@ -309,14 +308,12 @@ export async function craftCard(cardId) {
 export async function disenchantCard(cardId) {
     if (!state.isLoggedIn) return false;
     try {
-        const response = await fetch(`${strapiService.url}/api/user-cards/disenchant`, {
-            method: 'POST',
-            headers: strapiService.getHeaders(),
+        const result = await strapiService.request('POST', '/user-cards/disenchant', {
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ cardId })
         });
-        const result = await response.json();
 
-        if (response.ok) {
+        if (!result.error) {
             state.user.dust = result.newDustTotal;
 
             // Update collection
@@ -334,8 +331,8 @@ export async function disenchantCard(cardId) {
             localStorage.setItem('tt_user', JSON.stringify(updatedUser));
             return true;
         } else {
-            console.error('Disenchant failed:', result.error?.message || result.message);
-            alert(`Erreur: ${result.error?.message || result.message}`);
+            console.error('Disenchant failed:', result.error?.message || result.error);
+            alert(`Erreur: ${result.error?.message || result.error}`);
             return false;
         }
     } catch (e) {
@@ -351,13 +348,11 @@ export async function massDisenchantCards() {
     if (!confirm) return false;
 
     try {
-        const response = await fetch(`${strapiService.url}/api/user-cards/mass-disenchant`, {
-            method: 'POST',
-            headers: strapiService.getHeaders()
+        const result = await strapiService.request('POST', '/user-cards/mass-disenchant', {
+            headers: { 'Content-Type': 'application/json' }
         });
-        const result = await response.json();
 
-        if (response.ok) {
+        if (!result.error) {
             if (result.cardsDestroyed > 0) {
                 alert(`${result.cardsDestroyed} cartes détruites pour ${result.totalDustGained} ✨ Poussière.`);
                 await fetchUserCollection(); // Full refresh
@@ -366,12 +361,41 @@ export async function massDisenchantCards() {
             }
             return true;
         } else {
-            console.error('Mass disenchant failed:', result.error?.message || result.message);
-            alert(`Erreur: ${result.error?.message || result.message}`);
+            console.error('Mass disenchant failed:', result.error?.message || result.error);
+            alert(`Erreur: ${result.error?.message || result.error}`);
             return false;
         }
     } catch (e) {
         console.error('Mass disenchanting failed', e);
         return false;
+    }
+}
+
+// DEV FUNCTIONS
+export async function addDevCoins(amount) {
+    if (!state.isLoggedIn) return;
+    try {
+        const newCoins = state.user.coins + amount;
+        await strapiService.update('users', state.user.id, { coins: newCoins });
+        state.user.coins = newCoins;
+        const updatedUser = { ...JSON.parse(localStorage.getItem('tt_user') || '{}'), coins: newCoins };
+        localStorage.setItem('tt_user', JSON.stringify(updatedUser));
+        console.log(`[Dev] Added ${amount} coins. New total: ${newCoins}`);
+    } catch (e) {
+        console.error('[Dev] Failed to add coins:', e);
+    }
+}
+
+export async function addDevDust(amount) {
+    if (!state.isLoggedIn) return;
+    try {
+        const newDust = state.user.dust + amount;
+        await strapiService.update('users', state.user.id, { dust: newDust });
+        state.user.dust = newDust;
+        const updatedUser = { ...JSON.parse(localStorage.getItem('tt_user') || '{}'), dust: newDust };
+        localStorage.setItem('tt_user', JSON.stringify(updatedUser));
+        console.log(`[Dev] Added ${amount} dust. New total: ${newDust}`);
+    } catch (e) {
+        console.error('[Dev] Failed to add dust:', e);
     }
 }

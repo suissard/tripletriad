@@ -11,7 +11,7 @@ export default {
 
       // 1. Fetch game config
       const gameConfigs = await strapi.entityService.findMany('api::game-config.game-config', {});
-      const gameConfig = gameConfigs ? gameConfigs : {}; // Ensure it's not null
+      const gameConfig: any = gameConfigs ? gameConfigs : {}; // Ensure it's not null
 
       const boosterCost = gameConfig.boosterCost || 100;
 
@@ -97,7 +97,7 @@ export default {
       };
 
       const drawnCards = [];
-      const userCardsToCreateOrUpdate = {}; // Map of cardId to quantity
+      const userCardsToCreateOrUpdate: Record<string, number> = {}; // Map of cardId to quantity
 
       // 6. Draw 5 cards
       for (let i = 0; i < 5; i++) {
@@ -133,10 +133,10 @@ export default {
       }
 
       // 7. Add to user collection
-      const existingUserCards = await strapi.entityService.findMany('api::user-card.user-card', {
+      const existingUserCards: any[] = (await strapi.entityService.findMany('api::user-card.user-card', {
           filters: { user: user.id },
           populate: { card: true }
-      });
+      })) as any[];
 
       for (const [cardIdStr, quantityToAdd] of Object.entries(userCardsToCreateOrUpdate)) {
           const cardId = parseInt(cardIdStr, 10);

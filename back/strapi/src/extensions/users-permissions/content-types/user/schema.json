@@ -72,14 +72,11 @@
       "min": 0,
       "configurable": true
     },
-     "dust": {
-
+    "dust": {
       "type": "integer",
-
       "default": 0,
-
       "min": 0,
-
       "configurable": false
+    }
   }
 }

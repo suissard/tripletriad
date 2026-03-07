@@ -165,6 +165,7 @@ async function setupPermissions(adminJwt) {
 
     // Define the permissions we want
     const permissions = {
+        'api::booster': { controllers: { booster: ['openBooster'] } },
         'api::card': { controllers: { card: ['find', 'findOne'] } },
         'api::deck': { controllers: { deck: ['find', 'findOne', 'create', 'update', 'delete'] } },
         'api::user-card': { controllers: { 'user-card': ['find', 'findOne', 'create', 'update', 'delete'] } },

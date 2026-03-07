@@ -31,7 +31,8 @@ export default {
       const actions = [
         'api::user-card.user-card.disenchant',
         'api::user-card.user-card.craft',
-        'api::user-card.user-card.massDisenchant'
+        'api::user-card.user-card.massDisenchant',
+        'api::booster.booster.openBooster',
       ];
 
       for (const action of actions) {

@@ -37,6 +37,9 @@
   <!-- Full Screen Deck Editor -->
   <DeckEditorPage />
 
+  <!-- Full Screen Dev Test Page -->
+  <DevTestPage />
+
   <!-- Full Screen Boutique Page -->
   <BoutiquePage v-if="state.showBoutiquePage" @close="state.showBoutiquePage = false; window.history.pushState({}, '', '/');" @update-coins="c => state.user.coins = c" />
 
@@ -55,6 +58,7 @@ import AlertMessage from './components/AlertMessage.vue';
 import ConfirmationModal from './components/ConfirmationModal.vue';
 import GameOver from './components/GameOver.vue';
 import DevOptions from './components/DevOptions.vue';
+import DevTestPage from './components/DevTestPage.vue';
 import CollectionView from './components/CollectionView.vue';
 import DeckEditorPage from './components/DeckEditorPage.vue';
 import DecksPage from './components/DecksPage.vue';
