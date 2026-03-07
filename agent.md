@@ -28,3 +28,6 @@ await strapi.db.query('plugin::users-permissions.permission').create({
 });
 ```
 Cela garantit qu'aucun changement de modèle ne bloque le frontend par manque de permissions manuelles dans l'admin panel.
+
+## 5. Dev Options
+**Règle :** Les éléments dans les options de dev (ex: auto login, premium mode) doivent être sauvegardés dans le `localStorage` du navigateur pour être persistants entre les rechargements de page, et synchronisés avec l'état global si nécessaire.
