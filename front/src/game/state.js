@@ -34,6 +34,13 @@ export const state = reactive({
     gameOver: false,
     winner: null,
     gameState: 'menu',
+    pHealth: 20,
+    aiHealth: 20,
+    pMana: 1,
+    pMaxMana: 1,
+    aiMana: 1,
+    aiMaxMana: 1,
+    actionLog: [],
     aiDifficulty: 1,
     online: false,
     isHost: false,
@@ -235,6 +242,13 @@ export function resetGame(deckSize = 30) {
     state.gameOver = false;
     state.winner = null;
     state.gameState = 'menu';
+    state.pHealth = 20;
+    state.aiHealth = 20;
+    state.pMaxMana = 1;
+    state.aiMaxMana = 1;
+    state.pMana = 1;
+    state.aiMana = 1;
+    state.actionLog = [];
 }
 
 // Confirmation System
