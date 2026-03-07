@@ -46,6 +46,54 @@
                 "epic": { "disenchant": 100, "craft": 400 },
                 "legendary": { "disenchant": 400, "craft": 1600 }
             }
+          },
+        "boosterCost": {
+            "type": "integer",
+            "required": true,
+            "default": 100,
+            "min": 0
+        },
+        "probCommon": {
+            "type": "integer",
+            "required": true,
+            "default": 39,
+            "min": 0,
+            "max": 100
+        },
+        "probUncommon": {
+            "type": "integer",
+            "required": true,
+            "default": 30,
+            "min": 0,
+            "max": 100
+        },
+        "probRare": {
+            "type": "integer",
+            "required": true,
+            "default": 20,
+            "min": 0,
+            "max": 100
+        },
+        "probEpic": {
+            "type": "integer",
+            "required": true,
+            "default": 10,
+            "min": 0,
+            "max": 100
+        },
+        "probLegendary": {
+            "type": "integer",
+            "required": true,
+            "default": 1,
+            "min": 0,
+            "max": 100
+        },
+        "probPremium": {
+            "type": "integer",
+            "required": true,
+            "default": 5,
+            "min": 0,
+            "max": 100
         }
     }
 }

@@ -1,0 +1,5 @@
+/**
+ * booster service
+ */
+
+export default () => ({});

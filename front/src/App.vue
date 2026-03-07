@@ -37,6 +37,9 @@
   <!-- Full Screen Deck Editor -->
   <DeckEditorPage />
 
+  <!-- Full Screen Boutique Page -->
+  <BoutiquePage v-if="state.showBoutiquePage" @close="state.showBoutiquePage = false; window.history.pushState({}, '', '/');" @update-coins="c => state.user.coins = c" />
+
   <!-- Full Screen Decks Page -->
   <DecksPage />
 </template>
@@ -55,6 +58,7 @@ import DevOptions from './components/DevOptions.vue';
 import CollectionView from './components/CollectionView.vue';
 import DeckEditorPage from './components/DeckEditorPage.vue';
 import DecksPage from './components/DecksPage.vue';
+import BoutiquePage from './components/BoutiquePage.vue';
 import { state } from './game/state.js';
 
 console.warn('--- TRIPLE TRIAD: FRONTEND LOADED (VERSION: FORCE_RELOAD_DIAG_1.0) ---');
