@@ -18,9 +18,15 @@
 
   <template v-if="state.gameState === 'playing' || state.gameState === 'gameover'">
     <div id="ui" class="ui-layer">
-      <ScorePanel label="Plateau Joueur" :score="state.pScore" color="#00d2ff" />
-      <ScorePanel label="Plateau IA" :score="state.aiScore" color="#ff0055" />
+      <ScorePanel label="Héros" :score="state.pScore" color="#00d2ff" :health="state.pHealth" :mana="state.pMana" :maxMana="state.pMaxMana" />
+      <ScorePanel label="Adversaire" :score="state.aiScore" color="#ff0055" :health="state.aiHealth" :mana="state.aiMana" :maxMana="state.aiMaxMana" />
     </div>
+
+    <!-- Action Log -->
+    <ActionLog />
+
+    <!-- End Turn Button -->
+    <EndTurnButton />
 
     <!-- Rules Panel moved out for now per user request -->
 
@@ -63,6 +69,8 @@ import CollectionView from './components/CollectionView.vue';
 import DeckEditorPage from './components/DeckEditorPage.vue';
 import DecksPage from './components/DecksPage.vue';
 import BoutiquePage from './components/BoutiquePage.vue';
+import ActionLog from './components/ActionLog.vue';
+import EndTurnButton from './components/EndTurnButton.vue';
 import { state } from './game/state.js';
 
 console.warn('--- TRIPLE TRIAD: FRONTEND LOADED (VERSION: FORCE_RELOAD_DIAG_1.0) ---');

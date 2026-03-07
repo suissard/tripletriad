@@ -4,28 +4,33 @@ import { rulesRegistry } from './rules.js';
 
 export function getBestAIMove() {
     let bestScore = -Infinity;
-    let bestMove = { slot: null, cardIdx: null };
+    let bestMove = null;
 
     const emptySlots = state.board.map((v, i) => v === null ? i : null).filter(v => v !== null);
 
     for (let slotIdx of emptySlots) {
         for (let c = 0; c < state.aiHand.length; c++) {
             const card = state.aiHand[c];
-            let score = evaluatePlacementScore(slotIdx, card.userData.data, 'ai');
+            const level = card.userData.data.level || 1;
 
-            const corners = [0, 2, 6, 8];
-            if (corners.includes(slotIdx)) score += 2;
-            if (slotIdx === 4) score -= 1.5;
+            // AI must be able to afford the card
+            if (state.aiMana >= level) {
+                let score = evaluatePlacementScore(slotIdx, card.userData.data, 'ai');
 
-            score += Math.random() * 0.5;
+                const corners = [0, 2, 6, 8];
+                if (corners.includes(slotIdx)) score += 2;
+                if (slotIdx === 4) score -= 1.5;
 
-            if (score > bestScore) {
-                bestScore = score;
-                bestMove = { slot: slotIdx, cardIdx: c };
+                score += Math.random() * 0.5;
+
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestMove = { slot: slotIdx, cardIdx: c };
+                }
             }
         }
     }
-    return bestMove;
+    return bestMove; // Can return null if no moves are possible
 }
 
 export function evaluatePlacementScore(slotIdx, cardData, owner) {

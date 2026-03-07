@@ -28,6 +28,18 @@ export function captureCard(mesh, newOwner) {
         mesh.userData.redraw(mesh.userData.img, newOwner);
     }
 
+    // Deduct HP
+    if (newOwner === 'player') {
+        state.aiHealth -= 1;
+    } else {
+        state.pHealth -= 1;
+    }
+
+    // Check if game over by HP
+    if (state.pHealth <= 0 || state.aiHealth <= 0) {
+        checkGameOver();
+    }
+
     gsap.to(mesh.rotation, { z: mesh.rotation.z + Math.PI * 2, y: mesh.rotation.y + Math.PI * 2, duration: 0.5, ease: "power2.out" });
     gsap.to(mesh.position, { y: 1.5, duration: 0.25, yoyo: true, repeat: 1 });
 }
@@ -47,6 +59,12 @@ export async function resolveRules(startIndex, owner) {
     const neighbors = getNeighbors(startIndex);
     const centerCard = state.board[startIndex];
 
+    const actionRecord = {
+        playedCard: centerCard.userData.data,
+        owner: owner,
+        capturedCards: []
+    };
+
     let complexCaptures = new Set();
     let triggeredAlerts = [];
 
@@ -64,6 +82,7 @@ export async function resolveRules(startIndex, owner) {
     for (let card of complexCaptures) {
         if (card.userData.owner !== owner) {
             captureCard(card, owner);
+            actionRecord.capturedCards.push(card.userData.data);
             const cardIndex = state.board.indexOf(card);
             comboStack.push(cardIndex);
 
@@ -78,7 +97,10 @@ export async function resolveRules(startIndex, owner) {
     neighbors.forEach(n => {
         const adj = state.board[n.i];
         if (adj && adj.userData.owner !== owner && centerCard.userData.data[n.dir] > adj.userData.data[n.opp]) {
-            if (!complexCaptures.has(adj)) captureCard(adj, owner);
+            if (!complexCaptures.has(adj)) {
+                captureCard(adj, owner);
+                actionRecord.capturedCards.push(adj.userData.data);
+            }
         }
     });
 
@@ -98,6 +120,7 @@ export async function resolveRules(startIndex, owner) {
             const adj = state.board[n.i];
             if (adj && adj.userData.owner !== owner && comboCard.userData.data[n.dir] > adj.userData.data[n.opp]) {
                 captureCard(adj, owner);
+                actionRecord.capturedCards.push(adj.userData.data);
                 comboStack.push(n.i);
                 newCaptures = true;
             }
@@ -109,7 +132,54 @@ export async function resolveRules(startIndex, owner) {
         }
     }
 
+    // Append to action log
+    state.actionLog.push(actionRecord);
+    // Keep only last 5
+    if (state.actionLog.length > 5) {
+        state.actionLog.shift();
+    }
+
     updateScores();
+}
+
+export function checkGameOver() {
+    if (state.gameOver) return;
+
+    let pBoard = 0, aBoard = 0;
+    state.board.forEach(c => {
+        if (c) (c.userData.owner === 'player' ? pBoard++ : aBoard++);
+    });
+
+    state.pScore = pBoard;
+    state.aiScore = aBoard;
+
+    state.gameOver = true;
+
+    if (state.pHealth <= 0) {
+        state.winner = 'ai';
+    } else if (state.aiHealth <= 0) {
+        state.winner = 'player';
+    } else if (pBoard > aBoard) {
+        state.winner = 'player';
+    } else if (aBoard > pBoard) {
+        state.winner = 'ai';
+    } else {
+        state.winner = 'draw';
+    }
+}
+
+export function endTurn(player) {
+    if (state.gameOver) return;
+
+    if (player === 'player') {
+        state.turn = 'ai';
+        if (state.aiMaxMana < 10) state.aiMaxMana++;
+        state.aiMana = state.aiMaxMana;
+    } else {
+        state.turn = 'player';
+        if (state.pMaxMana < 10) state.pMaxMana++;
+        state.pMana = state.pMaxMana;
+    }
 }
 
 export function updateScores() {
@@ -123,14 +193,7 @@ export function updateScores() {
 
     if (state.board.every(b => b !== null)) {
         setTimeout(() => {
-            state.gameOver = true;
-            if (pBoard > aBoard) {
-                state.winner = 'player';
-            } else if (aBoard > pBoard) {
-                state.winner = 'ai';
-            } else {
-                state.winner = 'draw';
-            }
+            checkGameOver();
         }, 1000);
     }
 }
