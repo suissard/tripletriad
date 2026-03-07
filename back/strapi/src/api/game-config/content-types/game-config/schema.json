@@ -29,6 +29,23 @@
             "required": false,
             "default": 60,
             "min": 5
+        },
+        "playableLimit": {
+            "type": "integer",
+            "required": true,
+            "default": 2,
+            "min": 1
+        },
+        "craftingRatios": {
+            "type": "json",
+            "required": true,
+            "default": {
+                "common": { "disenchant": 10, "craft": 40 },
+                "uncommon": { "disenchant": 20, "craft": 80 },
+                "rare": { "disenchant": 50, "craft": 200 },
+                "epic": { "disenchant": 100, "craft": 400 },
+                "legendary": { "disenchant": 400, "craft": 1600 }
+            }
         }
     }
 }

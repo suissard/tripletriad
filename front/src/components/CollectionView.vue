@@ -1,12 +1,15 @@
 <template>
   <div class="collection-page ui-layer" v-if="state.showCollectionPage">
+
     <div class="page-header">
       <button class="back-btn" @click="closeCollection">← RETOUR</button>
       <h2 class="page-title">MA COLLECTION</h2>
       <div class="header-stats">
         Possédées : {{ state.collection.length }} / {{ cardLibrary.length }}
+        <span style="margin-left: 20px; color: #ffc107;">✨ Poussière: {{ state.user?.dust || 0 }}</span>
       </div>
     </div>
+
 
     <div class="page-content">
       <!-- Detail View Overlay -->
@@ -63,13 +66,18 @@
            </div>
          </div>
 
+
          <div class="collection-stats-bar">
-           Résultats : {{ filteredCardLibrary.length }} cartes | Page {{ currentPage }} / {{ totalPages || 1 }}
+           <div>
+             Résultats : {{ filteredCardLibrary.length }} cartes | Page {{ currentPage }} / {{ totalPages || 1 }}
+           </div>
            <div class="pagination-controls">
+             <button class="mass-disenchant-btn" @click="handleMassDisenchant">Désenchantement de masse</button>
              <button :disabled="currentPage === 1" @click="currentPage--">Précédent</button>
              <button :disabled="currentPage === totalPages || totalPages === 0" @click="currentPage++">Suivant</button>
            </div>
          </div>
+
 
          <div class="large-card-grid">
            <TripleTriadCard
@@ -87,9 +95,14 @@
 </template>
 
 <script setup>
+
 import { ref, computed, watch } from 'vue';
-import { state, cardLibrary } from '../game/state.js';
+import { state, cardLibrary, massDisenchantCards } from '../game/state.js';
 import TripleTriadCard from './TripleTriadCard.vue';
+
+async function handleMassDisenchant() {
+  await massDisenchantCards();
+}
 
 function closeCollection() {
   state.showCollectionPage = false;
@@ -387,6 +400,7 @@ function closeCardDetail() {
   font-size: 1.1rem;
 }
 
+
 .pagination-controls button {
   background: #333;
   color: white;
@@ -396,10 +410,20 @@ function closeCardDetail() {
   border-radius: 4px;
   cursor: pointer;
 }
+
+.pagination-controls .mass-disenchant-btn {
+  background: #f44336;
+  font-weight: bold;
+}
+.pagination-controls .mass-disenchant-btn:hover {
+  background: #d32f2f;
+}
+
 .pagination-controls button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
 
 .large-card-grid {
   display: grid;

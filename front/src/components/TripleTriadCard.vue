@@ -25,6 +25,7 @@
       <div class="glare"></div>
     </template>
 
+
     <!-- VARIANT: DETAIL (The big overlay view) -->
     <template v-if="variant === 'detail'">
       <h3 class="detail-name">{{ card.name }}</h3>
@@ -46,7 +47,26 @@
       <div class="detail-status owned" v-else>
         ✅ Possédée ({{ quantity }})
       </div>
+
+      <!-- Crafting UI -->
+      <div class="crafting-controls">
+        <button
+          class="craft-btn"
+          @click.stop="handleCraft"
+          :disabled="!canCraft"
+        >
+          Créer (-{{ craftCost }} ✨)
+        </button>
+        <button
+          class="disenchant-btn"
+          @click.stop="handleDisenchant"
+          v-if="!isLocked && quantity > 0"
+        >
+          Désenchanter (+{{ disenchantGain }} ✨)
+        </button>
+      </div>
     </template>
+
 
     <!-- VARIANT: LARGE (Collection Grid) -->
     <template v-else-if="variant === 'large'">
@@ -80,9 +100,10 @@
   </div>
 </template>
 
+
 <script setup>
 import { computed, ref } from 'vue';
-import { state } from '../game/state.js';
+import { state, craftCard, disenchantCard } from '../game/state.js';
 
 const props = defineProps({
   card: {
@@ -113,6 +134,50 @@ const props = defineProps({
 });
 
 defineEmits(['click', 'set-cover']);
+
+// CRAFTING LOGIC
+const getRarity = (level) => {
+  if (level <= 2) return 'common';
+  if (level <= 4) return 'uncommon';
+  if (level <= 6) return 'rare';
+  if (level <= 8) return 'epic';
+  return 'legendary';
+};
+
+const craftingRatios = {
+  "common": { "disenchant": 10, "craft": 40 },
+  "uncommon": { "disenchant": 20, "craft": 80 },
+  "rare": { "disenchant": 50, "craft": 200 },
+  "epic": { "disenchant": 100, "craft": 400 },
+  "legendary": { "disenchant": 400, "craft": 1600 }
+};
+
+const craftCost = computed(() => {
+  const level = props.card.level || 1;
+  return craftingRatios[getRarity(level)].craft;
+});
+
+const disenchantGain = computed(() => {
+  const level = props.card.level || 1;
+  return craftingRatios[getRarity(level)].disenchant;
+});
+
+const canCraft = computed(() => {
+  return state.user.dust >= craftCost.value;
+});
+
+async function handleCraft() {
+  if (canCraft.value) {
+    await craftCard(props.card.id);
+  }
+}
+
+async function handleDisenchant() {
+  if (props.quantity > 0) {
+    await disenchantCard(props.card.id);
+  }
+}
+
 
 const rarityClass = computed(() => {
   const level = props.card.level || 1;
@@ -606,9 +671,48 @@ function handleLeave() {
   border: 1px solid red; 
   color: white;
 }
-.variant-detail .detail-status.owned { 
+.variant-detail
+.detail-status.owned {
   background: rgba(76, 175, 80, 0.2); 
   border: 1px solid #4caf50; 
   color: #4caf50; 
 }
+
+/* CRAFTING STYLES */
+.crafting-controls {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.craft-btn, .disenchant-btn {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: white;
+}
+
+.craft-btn {
+  background: #2196f3;
+}
+.craft-btn:hover:not(:disabled) {
+  background: #1976d2;
+}
+.craft-btn:disabled {
+  background: #555;
+  color: #888;
+  cursor: not-allowed;
+}
+
+.disenchant-btn {
+  background: #f44336;
+}
+.disenchant-btn:hover {
+  background: #d32f2f;
+}
+
 </style>
