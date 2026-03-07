@@ -14,16 +14,55 @@
     <div class="page-content">
       <!-- Detail View Overlay -->
       <div v-if="selectedCard" class="card-detail-overlay" @click.self="closeCardDetail">
-        <div class="detail-card-wrapper" @click.stop>
-           <button class="close-detail-btn" @click="closeCardDetail">×</button>
-           <TripleTriadCard 
+        <div class="zoom-card-container" @click.stop>
+            <TripleTriadCard 
               :card="selectedCard" 
               size="xl" 
-              showDetails
+              class="card-size-zoom"
               :unowned="!isOwned(selectedCard.id)" 
               :quantity="getOwnedQuantity(selectedCard.id)"
               :isPremium="isOwnedPremium(selectedCard.id)"
             />
+            
+            <div class="zoom-card-info">
+              <h2>{{ selectedCard.name }}</h2>
+              <div class="zoom-meta">
+                <span>Niveau {{ selectedCard.level }}</span>
+                <span v-if="selectedCard.element && selectedCard.element !== 'None'">
+                  {{ getElementEmoji(selectedCard.element) }} {{ selectedCard.element }}
+                </span>
+                <span v-if="isOwnedPremium(selectedCard.id)" class="zoom-premium-badge">🌟 PREMIUM</span>
+              </div>
+
+              <p v-if="selectedCard.description" class="zoom-desc">{{ selectedCard.description }}</p>
+
+              <div class="zoom-stats">
+                <div class="zoom-stat-grid">
+                  <span>⬆ {{ selectedCard.topValue }}</span>
+                  <span>⬅ {{ selectedCard.leftValue }}</span>
+                  <span>➡ {{ selectedCard.rightValue }}</span>
+                  <span>⬇ {{ selectedCard.bottomValue }}</span>
+                </div>
+              </div>
+
+              <div class="zoom-ownership">
+                <div v-if="!isOwned(selectedCard.id)" class="ownership-status unowned">🔒 Non possédée</div>
+                <div v-else class="ownership-status owned">✅ Possédée ({{ getOwnedQuantity(selectedCard.id) }})</div>
+              </div>
+
+              <div class="zoom-actions">
+                <button class="zoom-action-btn craft" @click.stop="handleCraft(selectedCard)" :disabled="!canCraft(selectedCard)">
+                  <span>Créer</span>
+                  <span class="cost">-{{ getCraftCost(selectedCard) }} ✨</span>
+                </button>
+                <button class="zoom-action-btn disenchant" v-if="isOwned(selectedCard.id) && getOwnedQuantity(selectedCard.id) > 0" @click.stop="handleDisenchant(selectedCard)">
+                  <span>Désenchanter</span>
+                  <span class="gain">+{{ getDisenchantGain(selectedCard) }} ✨</span>
+                </button>
+              </div>
+            </div>
+
+            <button class="zoom-close" @click="closeCardDetail">✕</button>
         </div>
       </div>
 
@@ -93,19 +132,189 @@
             />
          </div>
       </div>
+
+      <!-- Mass Disenchant Modal -->
+      <div v-if="showMassDisenchantModal" class="card-detail-overlay mass-disenchant-modal-overlay" @click.self="showMassDisenchantModal = false">
+        <div class="mass-disenchant-modal">
+          <h3>Désenchantement de Masse</h3>
+          <p class="modal-desc">
+            Voulez-vous détruire vos cartes en surplus (plus de 2 exemplaires) pour récupérer de la poussière ?
+          </p>
+
+          <div v-if="disenchantPreview.totalCards > 0" class="disenchant-preview">
+             <div class="preview-row header">
+               <span>Rareté</span>
+               <span>Cartes Détruites</span>
+               <span>Poussière Gagnée</span>
+             </div>
+             
+             <div class="preview-row" v-if="disenchantPreview.breakdown.common.cards > 0">
+                <span class="rarity common">Commune</span>
+                <span>{{ disenchantPreview.breakdown.common.cards }}</span>
+                <span>+{{ disenchantPreview.breakdown.common.dust }} ✨</span>
+             </div>
+             <div class="preview-row" v-if="disenchantPreview.breakdown.uncommon.cards > 0">
+                <span class="rarity uncommon">Peu Commune</span>
+                <span>{{ disenchantPreview.breakdown.uncommon.cards }}</span>
+                <span>+{{ disenchantPreview.breakdown.uncommon.dust }} ✨</span>
+             </div>
+             <div class="preview-row" v-if="disenchantPreview.breakdown.rare.cards > 0">
+                <span class="rarity rare">Rare</span>
+                <span>{{ disenchantPreview.breakdown.rare.cards }}</span>
+                <span>+{{ disenchantPreview.breakdown.rare.dust }} ✨</span>
+             </div>
+             <div class="preview-row" v-if="disenchantPreview.breakdown.epic.cards > 0">
+                <span class="rarity epic">Épique</span>
+                <span>{{ disenchantPreview.breakdown.epic.cards }}</span>
+                <span>+{{ disenchantPreview.breakdown.epic.dust }} ✨</span>
+             </div>
+             <div class="preview-row" v-if="disenchantPreview.breakdown.legendary.cards > 0">
+                <span class="rarity legendary">Légendaire</span>
+                <span>{{ disenchantPreview.breakdown.legendary.cards }}</span>
+                <span>+{{ disenchantPreview.breakdown.legendary.dust }} ✨</span>
+             </div>
+
+             <div class="preview-row total">
+               <span>TOTAL</span>
+               <span>{{ disenchantPreview.totalCards }} cartes</span>
+               <span class="total-dust">+{{ disenchantPreview.totalDust }} ✨</span>
+             </div>
+          </div>
+          
+          <div v-else class="no-surplus-msg">
+            Vous n'avez actuellement aucune carte en surplus (plus de 2 exemplaires).
+          </div>
+
+          <div class="modal-actions">
+            <button class="btn-cancel" @click="showMassDisenchantModal = false">Annuler</button>
+            <button 
+              class="btn-confirm" 
+              :disabled="disenchantPreview.totalCards === 0 || isDisenchanting"
+              @click="confirmMassDisenchant"
+            >
+              {{ isDisenchanting ? 'Destruction...' : 'Confirmer' }}
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-
-import { ref, computed, watch } from 'vue';
-import { state, cardLibrary, massDisenchantCards } from '../game/state.js';
+import { ref, computed, watch, reactive } from 'vue';
+import { state, cardLibrary, getCardById, massDisenchantCards, craftCard, disenchantCard } from '../game/state.js';
 import TripleTriadCard from './TripleTriadCard.vue';
 
-async function handleMassDisenchant() {
-  await massDisenchantCards();
+const showMassDisenchantModal = ref(false);
+const isDisenchanting = ref(false);
+
+// Configuration for crafting/disenchanting
+const craftingRatios = {
+  "common": { craft: 50, disenchant: 10 },
+  "uncommon": { craft: 100, disenchant: 20 },
+  "rare": { craft: 400, disenchant: 50 },
+  "epic": { craft: 1600, disenchant: 100 },
+  "legendary": { craft: 3200, disenchant: 400 }
+};
+
+function getRarity(level) {
+  if (level <= 2) return 'common';
+  if (level <= 4) return 'uncommon';
+  if (level <= 6) return 'rare';
+  if (level <= 8) return 'epic';
+  return 'legendary';
 }
+
+function getElementEmoji(element) {
+  const map = { Fire: '🔥', Ice: '❄️', Thunder: '⚡', Earth: '🌍', Poison: '☠️', Wind: '🌪️', Water: '💧', Holy: '✨' };
+  return map[element] || '';
+}
+
+function getCraftCost(card) {
+  const rarity = getRarity(card.level || 1);
+  return craftingRatios[rarity].craft;
+}
+
+function getDisenchantGain(card) {
+  const rarity = getRarity(card.level || 1);
+  return craftingRatios[rarity].disenchant;
+}
+
+function canCraft(card) {
+  return (state.user?.dust || 0) >= getCraftCost(card);
+}
+
+async function handleCraft(card) {
+  if (canCraft(card)) {
+    await craftCard(card.id);
+  }
+}
+async function handleDisenchant(card) {
+  if (getOwnedQuantity(card.id) > 0) {
+    await disenchantCard(card.id);
+  }
+}
+
+function handleMassDisenchant() {
+  showMassDisenchantModal.value = true;
+}
+
+async function confirmMassDisenchant() {
+  if (disenchantPreview.value.totalCards === 0) return;
+  
+  isDisenchanting.value = true;
+  const success = await massDisenchantCards(true); // skip backend confirm UI
+  isDisenchanting.value = false;
+  
+  if (success) {
+     showMassDisenchantModal.value = false;
+  }
+}
+
+const disenchantPreview = computed(() => {
+  const breakdown = {
+    common: { cards: 0, dust: 0 },
+    uncommon: { cards: 0, dust: 0 },
+    rare: { cards: 0, dust: 0 },
+    epic: { cards: 0, dust: 0 },
+    legendary: { cards: 0, dust: 0 }
+  };
+  
+  let totalCards = 0;
+  let totalDust = 0;
+  
+  // Game config defaults per rarity
+  const craftingRatios = {
+    "common": { disenchant: 10 },
+    "uncommon": { disenchant: 20 },
+    "rare": { disenchant: 50 },
+    "epic": { disenchant: 100 },
+    "legendary": { disenchant: 400 }
+  };
+  
+  const playableLimit = 2;
+
+  state.collection.forEach(item => {
+    if (item.quantity > playableLimit) {
+      const surplus = item.quantity - playableLimit;
+      const card = getCardById(item.cardId);
+      
+      if (card) {
+        const rarity = getRarity(card.level);
+        const dustPerCard = craftingRatios[rarity].disenchant;
+        
+        breakdown[rarity].cards += surplus;
+        breakdown[rarity].dust += (surplus * dustPerCard);
+        
+        totalCards += surplus;
+        totalDust += (surplus * dustPerCard);
+      }
+    }
+  });
+
+  return { breakdown, totalCards, totalDust };
+});
 
 function closeCollection() {
   state.showCollectionPage = false;
@@ -466,4 +675,277 @@ function closeCardDetail() {
   cursor: pointer;
   z-index: 50;
 }
+
+/* Shared zoom style classes (duplicated for CollectionView scoped context) */
+.zoom-card-container {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  cursor: default;
+  position: relative;
+  max-width: 90vw;
+}
+
+.zoom-card-info {
+  color: white;
+  max-width: 320px;
+  text-align: left;
+}
+
+.zoom-card-info h2 {
+  font-size: 2.2rem;
+  margin: 0 0 0.4em;
+  text-shadow: 0 0 15px rgba(255, 206, 0, 0.4);
+  letter-spacing: 1px;
+}
+
+.zoom-desc {
+  font-style: italic;
+  color: #bbb;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 1.5rem 0;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.zoom-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 20px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 12px 18px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffd700;
+}
+
+.zoom-meta {
+  display: flex;
+  gap: 15px;
+  font-size: 1rem;
+  color: #aaa;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.zoom-premium-badge {
+  color: #ffce00;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(255, 206, 0, 0.6);
+}
+
+.zoom-close {
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  background: rgba(255, 0, 85, 0.8);
+  border: none;
+  color: white;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  z-index: 100;
+}
+
+.zoom-close:hover {
+  background: #ff0055;
+  transform: scale(1.1) rotate(90deg);
+}
+
+.zoom-ownership {
+  margin: 1.5rem 0;
+  padding: 0.6rem 1.2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  display: inline-block;
+}
+.ownership-status.owned { color: #4caf50; font-weight: bold; }
+.ownership-status.unowned { color: #ff5252; opacity: 0.9; }
+
+.zoom-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 1rem;
+}
+.zoom-action-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.9rem 1.4rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: white;
+  min-width: 260px;
+}
+.zoom-action-btn.craft { background: #1976d2; }
+.zoom-action-btn.craft:hover:not(:disabled) { background: #2196f3; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4); }
+.zoom-action-btn.craft:disabled { background: #444; color: #888; cursor: not-allowed; }
+
+.zoom-action-btn.disenchant { background: #c62828; }
+.zoom-action-btn.disenchant:hover { background: #f44336; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(244, 67, 54, 0.4); }
+
+.cost, .gain { font-size: 0.85em; opacity: 0.9; margin-left: 10px; }
+
+/* Responsive Overlay */
+@media (max-width: 900px) {
+  .zoom-card-container {
+    flex-direction: column;
+    gap: 30px;
+    padding-top: 40px;
+    max-height: 95vh;
+    overflow-y: auto;
+  }
+  .zoom-card-info { max-width: 85vw; text-align: center; }
+  .zoom-stat-grid { justify-content: center; }
+  .zoom-meta { justify-content: center; }
+  .zoom-close { top: 10px; right: 10px; }
+}
+
+/* Mass Disenchant Modal */
+.mass-disenchant-modal-overlay {
+  z-index: 1050; /* Above regular detail modal */
+}
+
+.mass-disenchant-modal {
+  background: #1a1a24;
+  border: 2px solid #333;
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+  text-align: center;
+}
+
+.mass-disenchant-modal h3 {
+  color: #ff5252;
+  font-size: 1.8rem;
+  margin-top: 0;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+.modal-desc {
+  font-size: 1.1rem;
+  color: #ccc;
+  margin-bottom: 25px;
+  line-height: 1.4;
+}
+
+.disenchant-preview {
+  background: rgba(0,0,0,0.4);
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.preview-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.preview-row:last-child {
+  border-bottom: none;
+}
+
+.preview-row.header {
+  font-weight: bold;
+  color: #888;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  border-bottom: 2px solid rgba(255,255,255,0.1);
+  padding-bottom: 12px;
+}
+
+.preview-row.total {
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-top: 2px solid rgba(255,255,255,0.1);
+  padding-top: 15px;
+  margin-top: 5px;
+}
+
+.total-dust {
+  color: #ffd700;
+  text-shadow: 0 0 5px rgba(255, 215, 0, 0.4);
+}
+
+.rarity {
+  font-weight: bold;
+}
+.rarity.common { color: #a0a0a0; }
+.rarity.uncommon { color: #4caf50; }
+.rarity.rare { color: #2196f3; }
+.rarity.epic { color: #9c27b0; }
+.rarity.legendary { color: #ff9800; }
+
+.no-surplus-msg {
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  margin-bottom: 25px;
+  color: #aaa;
+  font-style: italic;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.modal-actions button {
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-cancel {
+  background: #444;
+  color: white;
+}
+.btn-cancel:hover {
+  background: #555;
+}
+
+.btn-confirm {
+  background: #f44336;
+  color: white;
+}
+.btn-confirm:hover:not(:disabled) {
+  background: #d32f2f;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(244, 67, 54, 0.4);
+}
+.btn-confirm:disabled {
+  background: #555;
+  color: #888;
+  cursor: not-allowed;
+}
+
 </style>

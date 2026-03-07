@@ -52,7 +52,16 @@
           </div>
         </div>
       </div>
-      <button class="continue-btn" v-if="allRevealed" @click="resetShop">Continuer</button>
+      <div class="results-actions" v-if="allRevealed">
+        <button class="continue-btn" @click="resetShop">Continuer</button>
+        <button 
+          class="buy-another-btn" 
+          v-if="userCoins >= boosterCost" 
+          @click="openAnother"
+        >
+          Ouvrir un autre ({{ boosterCost }} 🪙)
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -65,7 +74,7 @@ import TripleTriadCard from './TripleTriadCard.vue';
 
 const emit = defineEmits(['close', 'update-coins']);
 
-import { state } from '../game/state.js';
+import { state, fetchUserCollection } from '../game/state.js';
 const userCoins = ref(state.user?.coins || 0);
 const boosterCost = ref(100); // Should ideally fetch from game-config
 
@@ -121,6 +130,9 @@ const openBooster = async () => {
         });
         userCoins.value = response?.coins || response?.data?.coins || 0;
         emit('update-coins', userCoins.value);
+        
+        // Update the collection cache so new cards appear immediately
+        fetchUserCollection();
     }, 1500); // 1.5s shaking animation
 
   } catch (err) {
@@ -142,6 +154,13 @@ const allRevealed = computed(() => {
 
 const resetShop = () => {
     openedCards.value = [];
+};
+
+const openAnother = () => {
+    resetShop();
+    setTimeout(() => {
+        openBooster();
+    }, 100);
 };
 
 const getRarityClass = (card) => {
@@ -415,5 +434,30 @@ const getRarityLabel = (card) => {
 
 .continue-btn:hover {
   background: #45a049;
+}
+
+.results-actions {
+  margin-top: 40px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.buy-another-btn {
+  background: #ffce00;
+  color: black;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255, 206, 0, 0.4);
+}
+
+.buy-another-btn:hover {
+  background: #ffeb3b;
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 206, 0, 0.6);
 }
 </style>

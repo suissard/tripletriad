@@ -10,7 +10,8 @@
         'is-selected': selected, 
         'is-cover': isCover, 
         'is-premium': isPremiumCard,
-        'is-flat': flat
+        'is-flat': flat,
+        'has-custom-border': !!borderColor
       }
     ]"
     :style="cardStyle"
@@ -24,7 +25,7 @@
     @touchend="onTouchEnd"
     @touchcancel="onTouchEnd"
   >
-    <div class="tt-card-inner" :style="!flat ? innerStyle : {}">
+    <div class="tt-card-inner" :style="!flat ? innerStyle : { transform: 'none' }">
 
       <!-- Premium Glare/Holo -->
       <template v-if="isPremiumCard && !flat">
@@ -43,7 +44,7 @@
       </template>
 
       <!-- CARD CONTENT (Unified layout) -->
-      <template v-if="!showDetails">
+      <template v-if="card.revealed !== false || flat || $attrs.forceFace">
         <!-- Card image -->
         <img v-if="card.img" :src="card.img" class="card-img" :alt="card.name" />
 
@@ -81,33 +82,11 @@
         <div class="unowned-overlay" v-if="unowned">🔒</div>
       </template>
 
-      <!-- DETAIL MODE -->
+      <!-- BASE CARD FACE (Back) -->
       <template v-else>
-        <h3 class="detail-name">{{ card.name }}</h3>
-        <div class="detail-level">Niveau {{ card.level }}</div>
-        <div class="detail-element" v-if="card.element && card.element !== 'None'">Élément : {{ card.element }}</div>
-        <div class="detail-img-container">
-          <img :src="card.img" class="detail-img" alt="Card Art" />
-          <div class="detail-stats-cross">
-            <div class="stat top">{{ card.topValue }}</div>
-            <div class="stat right">{{ card.rightValue }}</div>
-            <div class="stat bottom">{{ card.bottomValue }}</div>
-            <div class="stat left">{{ card.leftValue }}</div>
-          </div>
-        </div>
-        <p class="detail-desc" v-if="card.description">{{ card.description }}</p>
-        <div class="detail-status" v-if="unowned">🔒 Non possédée</div>
-        <div class="detail-status owned" v-else>✅ Possédée ({{ quantity }})</div>
-
-        <!-- Crafting UI -->
-        <div class="crafting-controls">
-          <button class="craft-btn" @click.stop="handleCraft" :disabled="!canCraft">
-            Créer (-{{ craftCost }} ✨)
-          </button>
-          <button class="disenchant-btn" @click.stop="handleDisenchant" v-if="!unowned && quantity > 0">
-            Désenchanter (+{{ disenchantGain }} ✨)
-          </button>
-        </div>
+        <div class="card-back-design">🎴</div>
+        <!-- Unowned lock -->
+        <div class="unowned-overlay" v-if="unowned">🔒</div>
       </template>
 
       <!-- Premium Border Animation -->
@@ -123,11 +102,24 @@
     <Transition name="zoom-fade">
       <div v-if="isZoomed" class="zoom-overlay" @click="isZoomed = false">
         <div class="zoom-card-container" @click.stop>
-          <div class="tt-card card-size-zoom" :class="[rarityClass, { 'is-premium': isPremiumCard }]">
-            <div class="tt-card-inner">
+          <div class="tt-card-zoom-wrapper" :class="[rarityClass, { 'is-premium': isPremiumCard }]">
+            <div class="zoom-card-inner">
               <template v-if="isPremiumCard">
+                <svg width="0" height="0" style="position:absolute">
+                  <filter :id="holoFilterId + '-zoom'" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+                    <feTurbulence type="fractalNoise" :baseFrequency="holoFrequency" :numOctaves="holoOctaves" :seed="premiumSeed" result="noise" />
+                    <feColorMatrix type="saturate" values="0" in="noise" result="mono" />
+                    <feBlend in="SourceGraphic" in2="mono" mode="color-burn" />
+                  </filter>
+                </svg>
+                <div class="glare" :style="{ background: 'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 60%)' }"></div>
+                <div class="holo-container" :style="[{ opacity: 1, mixBlendMode: 'color-dodge' }, holoStyle]">
+                  <div class="holo-gradient" :style="{ filter: `url(#${holoFilterId}-zoom)` }"></div>
+                </div>
                 <div class="premium-border-layer"></div>
               </template>
+
+              <!-- Card face (Always revealed in zoom) -->
               <img v-if="card.img" :src="card.img" class="card-img" :alt="card.name" />
               <div class="card-name-bar">{{ card.name }}</div>
               <div class="card-stats-cross">
@@ -142,19 +134,41 @@
               <div class="card-element" v-if="card.element && card.element !== 'None'">{{ elementEmoji }}</div>
             </div>
           </div>
+
           <div class="zoom-card-info">
             <h2>{{ card.name }}</h2>
-            <p v-if="card.description" class="zoom-desc">{{ card.description }}</p>
-            <div class="zoom-stats">
-              <span>⬆ {{ card.topValue }}</span>
-              <span>➡ {{ card.rightValue }}</span>
-              <span>⬇ {{ card.bottomValue }}</span>
-              <span>⬅ {{ card.leftValue }}</span>
-            </div>
             <div class="zoom-meta">
               <span>Niveau {{ card.level }}</span>
               <span v-if="card.element && card.element !== 'None'">{{ elementEmoji }} {{ card.element }}</span>
               <span v-if="isPremiumCard" class="zoom-premium-badge">🌟 PREMIUM</span>
+            </div>
+
+            <p v-if="card.description" class="zoom-desc">{{ card.description }}</p>
+
+            <div class="zoom-stats">
+              <div class="zoom-stat-grid">
+                <span>⬆ HAUT: {{ card.topValue }}</span>
+                <span>⬅ GAUCHE: {{ card.leftValue }}</span>
+                <span>➡ DROITE: {{ card.rightValue }}</span>
+                <span>⬇ BAS: {{ card.bottomValue }}</span>
+              </div>
+            </div>
+
+            <div class="zoom-ownership">
+              <div v-if="unowned" class="ownership-status unowned">🔒 Non possédée</div>
+              <div v-else class="ownership-status owned">✅ Possédée ({{ quantity }})</div>
+            </div>
+
+            <!-- Crafting/Disenchanting Buttons -->
+            <div class="zoom-actions">
+              <button class="zoom-action-btn craft" @click.stop="handleCraft" :disabled="!canCraft">
+                <span>Créer</span>
+                <span class="cost">-{{ craftCost }} ✨</span>
+              </button>
+              <button class="zoom-action-btn disenchant" v-if="!unowned && quantity > 0" @click.stop="handleDisenchant">
+                <span>Désenchanter</span>
+                <span class="gain">+{{ disenchantGain }} ✨</span>
+              </button>
             </div>
           </div>
           <button class="zoom-close" @click="isZoomed = false">✕</button>
@@ -178,7 +192,6 @@ const props = defineProps({
   selected: { type: Boolean, default: false },
   isCover: { type: Boolean, default: false },
   quantity: { type: Number, default: 0 },
-  showDetails: { type: Boolean, default: false },
   borderColor: { type: String, default: '' }
 });
 
@@ -419,11 +432,11 @@ function handleLeave() {
 /* ============================================ */
 /*  SIZES                                       */
 /* ============================================ */
-.card-size-xs { width: 70px; font-size: 7px; }
-.card-size-sm { width: 100px; font-size: 9px; }
-.card-size-md { width: 150px; font-size: 12px; }
-.card-size-lg { width: 180px; font-size: 14px; }
-.card-size-xl { width: 350px; font-size: 20px; }
+.card-size-xs { width: 70px; font-size: 7px; height: 98px; }
+.card-size-sm { width: 100px; font-size: 9px; height: 140px; }
+.card-size-md { width: 150px; font-size: 12px; height: 210px; }
+.card-size-lg { width: 180px; font-size: 14px; height: 252px; }
+.card-size-xl { width: 350px; font-size: 20px; height: 490px; }
 
 /* ============================================ */
 /*  CARD CONTENT                                */
@@ -787,7 +800,7 @@ function handleLeave() {
 .disenchant-btn:hover { background: #d32f2f; }
 </style>
 
-<!-- Unscoped styles for the Teleported zoom overlay -->
+/* Unscoped styles for the Teleported zoom overlay */
 <style>
 /* Zoom card size */
 .card-size-zoom { width: min(350px, 70vw); font-size: 24px; aspect-ratio: 2.5 / 3.5; }
@@ -797,6 +810,64 @@ function handleLeave() {
 .zoom-overlay .tt-card-inner {
   width: 100%; height: 100%; position: relative; border-radius: inherit;
   overflow: hidden; background: #1a1a2e; border: 2px solid #333; box-sizing: border-box;
+}
+
+/* Premium Zoom Effect Styles */
+.zoom-overlay .premium-border-layer {
+  position: absolute;
+  top: -3px; left: -3px; right: -3px; bottom: -3px;
+  border-radius: inherit;
+  border: 3px solid transparent;
+  background: linear-gradient(135deg, #ffce00, #ff5722, #e91e63, #9c27b0, #00bcd4, #4caf50, #ffce00) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  background-size: 400% 400%;
+  animation: rainbowBorder 4s linear infinite;
+  box-shadow: 0 0 15px rgba(255, 206, 0, 0.4);
+  pointer-events: none;
+  z-index: 6;
+}
+
+.zoom-overlay .holo-container {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.zoom-overlay .holo-gradient {
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+    115deg,
+    transparent 5%,
+    var(--c1) 15%,
+    transparent 28%,
+    var(--c2) 35%,
+    transparent 45%,
+    var(--c3) 55%,
+    transparent 65%,
+    var(--c1) 75%,
+    transparent 85%,
+    var(--c2) 95%,
+    transparent 100%
+  );
+  background-size: 300% 300%;
+  background-position: 50% 50%;
+  opacity: 0.8;
+}
+
+.zoom-overlay .glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  mix-blend-mode: overlay;
+  z-index: 5;
+  pointer-events: none;
 }
 .zoom-overlay .card-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.7; z-index: 1; }
 .zoom-overlay .card-name-bar {
@@ -925,16 +996,150 @@ function handleLeave() {
 .zoom-fade-leave-active    { transition: all 0.2s ease-in; }
 .zoom-fade-enter-from      { opacity: 0; transform: scale(0.8); }
 .zoom-fade-leave-to        { opacity: 0; transform: scale(0.9); }
+</style>
 
-/* Responsive */
-@media (max-width: 768px) {
-  .zoom-card-container {
-    flex-direction: column;
-    gap: 20px;
-    text-align: center;
-  }
-  .zoom-card-info { max-width: 80vw; }
-  .zoom-stats { justify-content: center; }
-  .zoom-meta { justify-content: center; }
+<!-- Unscoped styles for the Teleported zoom overlay -->
+<style>
+@keyframes rainbowBorder {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Zoom card size */
+.card-size-zoom { width: min(350px, 70vw); font-size: 24px; aspect-ratio: 2.5 / 3.5; }
+
+/* Card inner rendering for zoom (scoped styles don't apply in Teleport) */
+.zoom-overlay .tt-card-zoom-wrapper { width: min(350px, 70vw); font-size: 24px; aspect-ratio: 2.5 / 3.5; position: relative; }
+.zoom-overlay .zoom-card-inner {
+  width: 100%; height: 100%; position: relative; border-radius: 8px;
+  overflow: hidden; background: #1a1a2e; border: 2px solid #333; box-sizing: border-box;
+}
+
+/* Premium Zoom Effect Styles */
+.zoom-overlay .premium-border-layer {
+  position: absolute;
+  top: -3px; left: -3px; right: -3px; bottom: -3px;
+  border-radius: inherit;
+  border: 3px solid transparent;
+  background: linear-gradient(135deg, #ffce00, #ff5722, #e91e63, #9c27b0, #00bcd4, #4caf50, #ffce00) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  background-size: 400% 400%;
+  animation: rainbowBorder 4s linear infinite;
+
+  box-shadow: 0 0 15px rgba(255, 206, 0, 0.4);
+  pointer-events: none;
+  z-index: 6;
+}
+
+.zoom-overlay .holo-container {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.zoom-overlay .holo-gradient {
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+    115deg,
+    transparent 5%,
+    var(--c1) 15%,
+    transparent 28%,
+    var(--c2) 35%,
+    transparent 45%,
+    var(--c3) 55%,
+    transparent 65%,
+    var(--c1) 75%,
+    transparent 85%,
+    var(--c2) 95%,
+    transparent 100%
+  );
+  background-size: 300% 300%;
+  background-position: 50% 50%;
+  opacity: 0.8;
+}
+
+.zoom-overlay .glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  mix-blend-mode: overlay;
+  z-index: 5;
+  pointer-events: none;
+}
+.zoom-overlay .card-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.7; z-index: 1; }
+.zoom-overlay .card-name-bar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.85));
+  color: white; font-size: 1.1em; font-weight: bold;
+  padding: 2.5em 0.5em 0.4em; text-align: center;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  z-index: 3; text-shadow: 0 1px 3px black;
+}
+.zoom-overlay .card-stats-cross { position: absolute; top: 0.3em; left: 0.3em; width: 5em; height: 5em; z-index: 4; }
+.zoom-overlay .stat { position: absolute; color: #ffd700; font-weight: bold; font-size: 1.3em; text-shadow: 0 1px 3px black, 0 0 6px rgba(0,0,0,0.8); line-height: 1; }
+.zoom-overlay .stat-top    { top: 0; left: 50%; transform: translateX(-50%); }
+.zoom-overlay .stat-bottom { bottom: 0; left: 50%; transform: translateX(-50%); }
+.zoom-overlay .stat-left   { top: 50%; left: 0; transform: translateY(-50%); }
+.zoom-overlay .stat-right  { top: 50%; right: 0; transform: translateY(-50%); }
+.zoom-overlay .card-level-stars { position: absolute; top: 0.3em; right: 0.3em; display: flex; flex-wrap: wrap; justify-content: flex-end; max-width: 4em; z-index: 4; }
+.zoom-overlay .star { color: gold; font-size: 0.8em; text-shadow: 0 0 3px rgba(0,0,0,0.8); line-height: 1; }
+.zoom-overlay .card-element { position: absolute; bottom: 3em; right: 0.4em; font-size: 1.4em; z-index: 4; filter: drop-shadow(0 1px 2px black); }
+
+/* ACTIONS & OWNERSHIP */
+.zoom-overlay .zoom-ownership {
+  margin: 1.5rem 0;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  display: inline-block;
+}
+.zoom-overlay .ownership-status.owned { color: #4caf50; font-weight: bold; }
+.zoom-overlay .ownership-status.unowned { color: #ff5252; opacity: 0.8; }
+
+.zoom-overlay .zoom-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 1.5rem;
+}
+.zoom-overlay .zoom-action-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1.2rem;
+  border-radius: 6px;
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: white;
+  min-width: 220px;
+}
+.zoom-overlay .zoom-action-btn.craft { background: #1976d2; }
+.zoom-overlay .zoom-action-btn.craft:hover:not(:disabled) { background: #2196f3; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(33, 150, 243, 0.4); }
+.zoom-overlay .zoom-action-btn.craft:disabled { background: #444; color: #888; cursor: not-allowed; }
+
+.zoom-overlay .zoom-action-btn.disenchant { background: #c62828; }
+.zoom-overlay .zoom-action-btn.disenchant:hover { background: #f44336; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(244, 67, 54, 0.4); }
+
+.zoom-overlay .cost, .zoom-overlay .gain { font-size: 0.85em; opacity: 0.9; margin-left: 10px; }
+
+.zoom-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 20px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 10px 15px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
 }
 </style>

@@ -45,10 +45,44 @@
 
         <!-- COLLECTION VIEW -->
         <template v-else-if="currentView === 'collection'">
-          <div v-if="selectedCard" class="card-detail-view">
+          <div v-if="selectedCard" class="card-detail-view-container">
             <button class="back-btn-detail" @click="closeCardDetail">← Retour</button>
-            <TripleTriadCard :card="selectedCard" size="xl" showDetails :unowned="!isOwned(selectedCard.id)"
-              :quantity="getOwnedQuantity(selectedCard.id)" />
+            
+            <div class="zoom-card-container horizontal-drawer-layout">
+              <TripleTriadCard 
+                :card="selectedCard" 
+                size="xl" 
+                class="card-size-zoom"
+                :unowned="!isOwned(selectedCard.id)" 
+                :quantity="getOwnedQuantity(selectedCard.id)" 
+              />
+              
+              <div class="zoom-card-info">
+                <h2>{{ selectedCard.name }}</h2>
+                <div class="zoom-meta">
+                  <span>Niveau {{ selectedCard.level }}</span>
+                  <span v-if="selectedCard.element && selectedCard.element !== 'None'">
+                    {{ getElementEmoji(selectedCard.element) }} {{ selectedCard.element }}
+                  </span>
+                </div>
+
+                <p v-if="selectedCard.description" class="zoom-desc">{{ selectedCard.description }}</p>
+
+                <div class="zoom-stats">
+                  <div class="zoom-stat-grid">
+                    <span>⬆ {{ selectedCard.topValue }}</span>
+                    <span>⬅ {{ selectedCard.leftValue }}</span>
+                    <span>➡ {{ selectedCard.rightValue }}</span>
+                    <span>⬇ {{ selectedCard.bottomValue }}</span>
+                  </div>
+                </div>
+
+                <div class="zoom-ownership">
+                  <div v-if="!isOwned(selectedCard.id)" class="ownership-status unowned">🔒 Non possédée</div>
+                  <div v-else class="ownership-status owned">✅ Possédée ({{ getOwnedQuantity(selectedCard.id) }})</div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div v-else class="collection-view">
@@ -622,6 +656,10 @@ async function submitAuth() {
   } finally {
     isLoading.value = false;
   }
+}
+function getElementEmoji(element) {
+  const map = { Fire: '🔥', Ice: '❄️', Thunder: '⚡', Earth: '🌍', Poison: '☠️', Wind: '🌪️', Water: '💧', Holy: '✨' };
+  return map[element] || '';
 }
 </script>
 
@@ -1494,6 +1532,76 @@ async function submitAuth() {
 .card-slot.selected {
   border-color: #00d2ff;
 }
+
+/* New side-by-side detail layout for drawer */
+.card-detail-view-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 10px;
+}
+
+.horizontal-drawer-layout {
+  flex-direction: column; /* Stacked by default because drawer is narrow */
+  align-items: center;
+  gap: 20px;
+  overflow-y: auto;
+  padding-bottom: 40px;
+}
+
+.horizontal-drawer-layout .zoom-card-info {
+  width: 100%;
+  text-align: center;
+}
+
+.horizontal-drawer-layout .zoom-meta, 
+.horizontal-drawer-layout .zoom-stat-grid {
+  justify-content: center;
+}
+
+/* Reuse zoom styles or define them locally if needed */
+.zoom-card-info h2 {
+  font-size: 1.8rem;
+  margin: 10px 0;
+  color: #ffcc00;
+}
+
+.zoom-desc {
+  font-style: italic;
+  color: #aaa;
+  margin: 15px 0;
+  font-size: 0.9rem;
+}
+
+.zoom-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  background: rgba(0,0,0,0.3);
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  color: #ffd700;
+  font-weight: bold;
+}
+
+.zoom-meta {
+  display: flex;
+  gap: 10px;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.zoom-ownership {
+  margin-top: 15px;
+  padding: 5px 10px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 4px;
+}
+
+.ownership-status.owned { color: #00ff88; }
+.ownership-status.unowned { color: #ff5555; }
+
 </style>
 
 <style scoped>

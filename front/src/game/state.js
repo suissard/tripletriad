@@ -375,11 +375,13 @@ export async function disenchantCard(cardId) {
     }
 }
 
-export async function massDisenchantCards() {
+export async function massDisenchantCards(skipConfirm = false) {
     if (!state.isLoggedIn) return false;
 
-    const confirm = await confirmAction('Désenchantement de masse', 'Êtes-vous sûr de vouloir détruire toutes vos cartes en surplus pour obtenir de la poussière ?');
-    if (!confirm) return false;
+    if (!skipConfirm) {
+        const confirm = await confirmAction('Désenchantement de masse', 'Êtes-vous sûr de vouloir détruire toutes vos cartes en surplus pour obtenir de la poussière ?');
+        if (!confirm) return false;
+    }
 
     try {
         const result = await strapiService.request('POST', '/user-cards/mass-disenchant', {
