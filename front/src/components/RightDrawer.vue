@@ -15,10 +15,12 @@
             <img :src="state.user.avatar" class="large-avatar" alt="Avatar" />
             <h3 class="profile-name">{{ state.user.username }}</h3>
             <p class="profile-stats">Victoires : 0 | Défaites : 0</p>
+            <p class="profile-coins">🪙 Pièces : {{ state.user.coins !== undefined ? state.user.coins : 0 }}</p>
             <button class="logout-btn" @click="doLogout">Se Déconnecter</button>
           </div>
 
           <div class="menu-list">
+            <HoloButton text="🛍️ Boutique" activeText="Ouverture..." @click="openBoutiquePage" />
             <HoloButton text="⚙️ Paramètres du Jeu" activeText="Ouverture..." />
             <HoloButton :text="`🎴 Mes Decks (${state.userDecks.length}/5)`" activeText="Ouverture..." @click="openDecksPage" />
             <HoloButton :text="`📚 Ma Collection (${state.collection.length} / 45)`" activeText="Ouverture..." @click="openCollectionPage" />
@@ -566,6 +568,12 @@ function openDecksPage() {
   state.showDecksPage = true;
   state.rightDrawerOpen = false;
   window.history.pushState({}, '', '/decks');
+}
+
+function openBoutiquePage() {
+  state.rightDrawerOpen = false;
+  state.showBoutiquePage = true;
+  window.history.pushState({}, '', '/boutique');
 }
 
 function doLogout() {

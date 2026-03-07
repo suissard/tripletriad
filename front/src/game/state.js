@@ -58,6 +58,7 @@ export const state = reactive({
     // Deck Editor Page
     showDeckEditor: false,
     showDecksPage: false,
+    showBoutiquePage: false,
     editingDeck: { id: null, documentId: null, name: '', cover: null, cards: [] }
 });
 
@@ -70,6 +71,7 @@ window.addEventListener('popstate', () => {
     state.showCollectionPage = window.location.pathname === '/collection';
     state.showDeckEditor = window.location.pathname === '/deck-editor';
     state.showDecksPage = window.location.pathname === '/decks';
+    state.showBoutiquePage = window.location.pathname === '/boutique';
 });
 
 // Auth Helpers
@@ -78,6 +80,7 @@ export function setAuth(jwt, user) {
     state.user = {
         id: user.id,
         username: user.username,
+        coins: user.coins,
         avatar: `https://api.dicebear.com/9.x/bottts/png?seed=${user.username}&backgroundColor=transparent`
     };
     state.isLoggedIn = true;
