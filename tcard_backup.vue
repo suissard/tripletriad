@@ -1,30 +1,13 @@
 <template>
-  <div 
-    ref="containerRef"
-    class="triple-triad-card" 
+  <div
+    class="triple-triad-card"
     :class="[
-      variantClass, 
-      rarityClass, 
-      { locked: isLocked, selected: isSelected, iscover: isCover, 'is-premium': card.isPremium, 'premium-active': isActive }
+      variantClass,
+      rarityClass,
+      { locked: isLocked, selected: isSelected, iscover: isCover }
     ]"
-    :style="card.isPremium ? mouseStyle : {}"
     @click="$emit('click', card)"
-    @mousemove="handleMove"
-    @mouseleave="handleLeave"
-    @touchstart="handleMove"
-    @touchmove="handleMove"
-    @touchend="handleLeave"
-    @touchcancel="handleLeave"
   >
-
-    <!-- Premium Elements -->
-    <template v-if="card.isPremium">
-      <div class="holo-container" :style="holoStyle">
-        <div class="holo-gradient"></div>
-      </div>
-      <div class="glare"></div>
-    </template>
-
     <!-- VARIANT: DETAIL (The big overlay view) -->
     <template v-if="variant === 'detail'">
       <h3 class="detail-name">{{ card.name }}</h3>
@@ -81,8 +64,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
-import { state } from '../game/state.js';
+import { computed } from 'vue';
 
 const props = defineProps({
   card: {
@@ -141,193 +123,9 @@ const badgeText = computed(() => {
   if (props.quantity >= 3) return 'x3+';
   return 'x' + props.quantity;
 });
-
-
-// --- PREMIUM LOGIC ---
-const containerRef = ref(null);
-const isActive = ref(false);
-
-const mouseStyle = ref({
-  '--mx': '50%',
-  '--my': '50%',
-  '--posx': '50%',
-  '--posy': '50%',
-  transform: ''
-});
-
-// Simple hash function for string -> number
-function hashCode(str) {
-  let hash = 0;
-  for (let i = 0, len = str.length; i < len; i++) {
-      let chr = str.charCodeAt(i);
-      hash = (hash << 5) - hash + chr;
-      hash |= 0; // Convert to 32bit integer
-  }
-  return Math.abs(hash);
-}
-
-// Pseudo-random generator based on seed
-function sfc32(a) {
-  return function() {
-      a |= 0; a = a + 0x6D2B79F5 | 0;
-      var t = Math.imul(a ^ a >>> 15, 1 | a);
-      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
-      return ((t ^ t >>> 14) >>> 0) / 4294967296;
-  }
-}
-
-const premiumSeed = computed(() => {
-  return props.card.name ? hashCode(props.card.name) : 1234;
-});
-
-const holoStyle = computed(() => {
-  if (!props.card.isPremium) return {};
-
-  const rng = sfc32(premiumSeed.value);
-  const isImageMode = state.premiumMode === 'image';
-
-  if (isImageMode) {
-    return {
-      '--c1': 'rgba(255, 255, 255, 0.7)',
-      '--c2': 'rgba(200, 200, 200, 0.5)',
-      '--c3': 'rgba(255, 255, 255, 0.8)'
-    };
-  } else {
-    return {
-      '--c1': `hsla(${rng() * 360}, 100%, 70%, 0.6)`,
-      '--c2': `hsla(${rng() * 360}, 100%, 70%, 0.6)`,
-      '--c3': `hsla(${rng() * 360}, 100%, 70%, 0.6)`
-    };
-  }
-});
-
-function handleMove(e) {
-  if (!props.card.isPremium) return;
-  isActive.value = true;
-
-  let clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-  let clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
-
-  const el = containerRef.value;
-  if (!el) return;
-
-  const rect = el.getBoundingClientRect();
-  const centerX = rect.left + rect.width / 2;
-  const centerY = rect.top + rect.height / 2;
-
-  let xPos = Math.max(rect.left, Math.min(clientX, rect.right));
-  let yPos = Math.max(rect.top, Math.min(clientY, rect.bottom));
-
-  const mouseX = (xPos - centerX) / (rect.width / 2);
-  const mouseY = (yPos - centerY) / (rect.height / 2);
-
-  const percentX = ((xPos - rect.left) / rect.width) * 100;
-  const percentY = ((yPos - rect.top) / rect.height) * 100;
-
-  // Use a slight 3D transform, less extreme than the full page version to not break layouts
-  mouseStyle.value = {
-    transform: `rotateX(${mouseY * -15}deg) rotateY(${mouseX * 15}deg) scale3d(1.03, 1.03, 1.03)`,
-    '--mx': `${percentX}%`,
-    '--my': `${percentY}%`,
-    '--posx': `${100 - percentX}%`,
-    '--posy': `${100 - percentY}%`
-  };
-}
-
-function handleLeave() {
-  if (!props.card.isPremium) return;
-  isActive.value = false;
-  mouseStyle.value = {
-    transform: 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
-    '--mx': '50%',
-    '--my': '50%',
-    '--posx': '50%',
-    '--posy': '50%'
-  };
-}
-
 </script>
 
 <style scoped>
-
-/* --- PREMIUM EFFECTS --- */
-.triple-triad-card.is-premium {
-  transform-style: preserve-3d;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 255, 255, 0.1);
-  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
-  perspective: 1000px;
-}
-
-.triple-triad-card.is-premium:not(.premium-active) {
-  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.triple-triad-card.is-premium:hover {
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 255, 255, 0.3);
-  z-index: 10;
-}
-
-.glare {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: inherit;
-  background-image: radial-gradient(
-      farthest-corner circle at var(--mx, 50%) var(--my, 50%),
-      rgba(255, 255, 255, 0.8) 0%,
-      rgba(255, 255, 255, 0.2) 30%,
-      transparent 60%
-  );
-  mix-blend-mode: overlay;
-  opacity: 0;
-  z-index: 20;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-}
-
-.holo-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: inherit;
-  overflow: hidden;
-  z-index: 15;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-  mix-blend-mode: color-dodge;
-}
-
-.holo-gradient {
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(
-      115deg,
-      transparent 10%,
-      var(--c1) 25%,
-      transparent 40%,
-      var(--c2) 55%,
-      transparent 70%,
-      var(--c3) 85%,
-      transparent 100%
-  );
-  background-size: 300% 300%;
-  background-position: var(--posx, 50%) var(--posy, 50%);
-  filter: url(#fingerprint);
-  opacity: 0.8;
-}
-
-.triple-triad-card.is-premium:hover .glare,
-.triple-triad-card.is-premium:hover .holo-container,
-.triple-triad-card.premium-active .glare,
-.triple-triad-card.premium-active .holo-container {
-  opacity: 1;
-}
-
 /* BASE STYLES */
 .triple-triad-card {
   position: relative;
@@ -543,20 +341,20 @@ function handleLeave() {
   transform: none !important;
   box-shadow: 0 20px 50px rgba(0,0,0,0.8);
 }
-.variant-detail .detail-name { 
-  font-size: 2rem; 
-  margin: 0 0 10px 0; 
+.variant-detail .detail-name {
+  font-size: 2rem;
+  margin: 0 0 10px 0;
   color: white;
 }
-.variant-detail .detail-level { 
-  font-size: 1.2rem; 
-  color: #aaa; 
-  margin-bottom: 5px; 
+.variant-detail .detail-level {
+  font-size: 1.2rem;
+  color: #aaa;
+  margin-bottom: 5px;
 }
-.variant-detail .detail-element { 
-  font-size: 1.1rem; 
-  color: #4caf50; 
-  margin-bottom: 15px; 
+.variant-detail .detail-element {
+  font-size: 1.1rem;
+  color: #4caf50;
+  margin-bottom: 15px;
 }
 .variant-detail .detail-img-container {
   position: relative;
@@ -567,10 +365,10 @@ function handleLeave() {
   border-radius: 10px;
   padding: 10px;
 }
-.variant-detail .detail-img { 
-  width: 100%; 
-  height: 100%; 
-  object-fit: contain; 
+.variant-detail .detail-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 .variant-detail .detail-stats-cross {
   position: absolute;
@@ -591,24 +389,24 @@ function handleLeave() {
 .variant-detail .stat.right { right: 10px; top: 50%; transform: translateY(-50%); }
 .variant-detail .stat.bottom { bottom: 10px; left: 50%; transform: translateX(-50%); }
 .variant-detail .stat.left { left: 10px; top: 50%; transform: translateY(-50%); }
-.variant-detail .detail-desc { 
-  font-style: italic; 
-  color: #ccc; 
-  margin-bottom: 20px; 
-  font-size: 1.1rem; 
-  line-height: 1.5; 
+.variant-detail .detail-desc {
+  font-style: italic;
+  color: #ccc;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  line-height: 1.5;
 }
-.variant-detail .detail-status { 
-  font-weight: bold; 
-  padding: 10px; 
-  border-radius: 5px; 
-  background: rgba(255,0,0,0.2); 
-  border: 1px solid red; 
+.variant-detail .detail-status {
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  background: rgba(255,0,0,0.2);
+  border: 1px solid red;
   color: white;
 }
-.variant-detail .detail-status.owned { 
-  background: rgba(76, 175, 80, 0.2); 
-  border: 1px solid #4caf50; 
-  color: #4caf50; 
+.variant-detail .detail-status.owned {
+  background: rgba(76, 175, 80, 0.2);
+  border: 1px solid #4caf50;
+  color: #4caf50;
 }
 </style>

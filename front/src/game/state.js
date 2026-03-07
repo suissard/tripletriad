@@ -17,6 +17,7 @@ export const createCardData = (i) => ({
 });
 
 export const state = reactive({
+  premiumMode: 'random', // random | image
     deck: [],
     board: Array(9).fill(null),
     pHand: [],

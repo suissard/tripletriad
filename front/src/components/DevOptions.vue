@@ -5,7 +5,7 @@
     </button>
     <div v-if="isOpen" class="dev-menu">
       <h4>Settings</h4>
-      <div class="frame-list">
+      <!-- removed old list start -->
         <label class="frame-item">
           <input type="checkbox" v-model="devSettings.autoLogin" @change="saveSettings" />
           Auto Login (Admin)
@@ -25,6 +25,20 @@
         <button class="small-dev-btn" @click="doAutoLogin">⚡ Force Login Admin</button>
         <button class="small-dev-btn" @click="checkAuthStatus" style="color: #00d2ff;">🔍 Debug Auth</button>
         <button class="small-dev-btn danger" @click="fullLogout">🗑️ Clear Session</button>
+      </div>
+
+
+      <h4>Holo Premium</h4>
+      <div class="frame-list" style="display: flex; flex-direction: column; gap: 5px;">
+      <div class="frame-list">
+        <label class="frame-item">
+          <input type="radio" v-model="devSettings.premiumMode" value="random" @change="saveSettings" />
+          Mode Aléatoire
+        </label>
+        <label class="frame-item">
+          <input type="radio" v-model="devSettings.premiumMode" value="image" @change="saveSettings" />
+          Mode Image de fond
+        </label>
       </div>
 
       <h4>Collection</h4>
@@ -47,13 +61,15 @@ import { setCardFrame } from '../game/three-scene.js';
 import strapiService from '../api/strapi.js';
 
 const devSettings = reactive({
-  autoLogin: true
+  autoLogin: true,
+  premiumMode: 'random'
 });
 
 onMounted(() => {
   const saved = localStorage.getItem('dev_options');
   if (saved) {
     Object.assign(devSettings, JSON.parse(saved));
+    state.premiumMode = devSettings.premiumMode;
   }
   // devSettings.autoLogin = true; // Forcé par défaut pour le moment
 
@@ -71,6 +87,7 @@ watch(() => state.isLoggedIn, (newVal) => {
 });
 
 function saveSettings() {
+  state.premiumMode = devSettings.premiumMode;
   localStorage.setItem('dev_options', JSON.stringify(devSettings));
 }
 
