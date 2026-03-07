@@ -75,6 +75,9 @@
     "isPremium": {
       "type": "boolean",
       "default": false
+    },
+    "collectionName": {
+      "type": "string"
     }
   }
 }

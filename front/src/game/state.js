@@ -18,7 +18,8 @@ export const createCardData = (i) => ({
 
 export const state = reactive({
   premiumMode: 'random', // random | image
-    deck: [],
+  holoFineness: 0.05, // default texture scale for SVG filter
+  deck: [],
     board: Array(9).fill(null),
     pHand: [],
     aiHand: [],
@@ -65,6 +66,7 @@ export const state = reactive({
     collection: [], // [{ cardId: 1, quantity: 1 }, ...]
     userDecks: [],  // [{ id: 1, documentId: '...', name: 'Deck 1', cards: [id1, id2, ...] }]
     confirmation: { isOpen: false, title: '', message: '' },
+    strapiConnected: false, // true only after a successful API call
     // Deck Editor Page
     showDeckEditor: window.location.pathname === '/deck-editor',
     showDecksPage: window.location.pathname === '/decks',
@@ -92,17 +94,18 @@ export function setAuth(jwt, user) {
     state.user = {
         id: user.id,
         username: user.username,
-        coins: user.coins,
-        dust: user.dust || 0,
+        coins: 0,  // Don't trust cached values, will be synced from API
+        dust: 0,
         avatar: `https://api.dicebear.com/9.x/bottts/png?seed=${user.username}&backgroundColor=transparent`
     };
 
     state.isLoggedIn = true;
+    state.strapiConnected = false; // Not confirmed yet
     strapiService.setToken(jwt);
     localStorage.setItem('tt_jwt', jwt);
     localStorage.setItem('tt_user', JSON.stringify(user));
 
-    // Initial Sync
+    // Initial Sync — will set strapiConnected on success
     fetchUserCollection();
     fetchUserDecks();
 }
@@ -136,22 +139,38 @@ export async function fetchUserCollection() {
     try {
         const result = await strapiService.find('user-cards', {
             filters: { user: { id: state.user.id } },
-            populate: ['card']
+            populate: ['card'],
+            pagination: { pageSize: 1000 }
         });
         const items = toArray(result);
         state.collection = items.map(item => ({
             id: item.id,
             cardId: item.card?.id,
-            quantity: item.quantity
+            quantity: item.quantity,
+            isPremium: !!item.isPremium
         }));
 
-        // Also sync dust
+        // Sync coins & dust from the real user record
         const userData = await strapiService.find(`users/${state.user.id}`);
-        if (userData && typeof userData.dust !== 'undefined') {
-            state.user.dust = userData.dust;
-            const updatedUser = { ...JSON.parse(localStorage.getItem('tt_user') || '{}'), dust: userData.dust };
+        if (userData) {
+            if (typeof userData.coins !== 'undefined') state.user.coins = userData.coins;
+            if (typeof userData.dust !== 'undefined') state.user.dust = userData.dust;
+            if (typeof userData.premiumMode !== 'undefined' && userData.premiumMode !== null) state.premiumMode = userData.premiumMode;
+            if (typeof userData.holoFineness !== 'undefined' && userData.holoFineness !== null) state.holoFineness = userData.holoFineness;
+            
+            const updatedUser = { ...JSON.parse(localStorage.getItem('tt_user') || '{}'), dust: state.user.dust, coins: state.user.coins };
             localStorage.setItem('tt_user', JSON.stringify(updatedUser));
+            
+            // Also sync to dev_options in localStorage to keep them mirrored
+            const currentDevOps = JSON.parse(localStorage.getItem('dev_options') || '{}');
+            localStorage.setItem('dev_options', JSON.stringify({
+                ...currentDevOps,
+                premiumMode: state.premiumMode,
+                holoFineness: state.holoFineness
+            }));
         }
+
+        state.strapiConnected = true;
     } catch (e) {
         if (e.status === 401) {
             console.warn('Session expired (401). Logging out.');
@@ -159,6 +178,7 @@ export async function fetchUserCollection() {
             return;
         }
         console.error('Collection sync failed', e);
+        state.strapiConnected = false;
     }
 }
 

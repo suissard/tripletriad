@@ -39,6 +39,18 @@
           <input type="radio" v-model="devSettings.premiumMode" value="image" @change="saveSettings" />
           Mode Image de fond
         </label>
+        
+        <label class="frame-item" style="margin-top: 10px; display: flex; flex-direction: column; gap: 5px;">
+          <span>Finesse de la texture : {{ devSettings.holoFineness }}</span>
+          <input 
+            type="range" 
+            v-model.number="devSettings.holoFineness" 
+            min="0.005" max="0.1" step="0.005" 
+            @input="updateHoloLive"
+            @change="saveSettings" 
+            style="width: 100%; accent-color: #00d2ff;" 
+          />
+        </label>
       </div>
 
       <h4>Collection</h4>
@@ -73,7 +85,8 @@ import strapiService from '../api/strapi.js';
 
 const devSettings = reactive({
   autoLogin: true,
-  premiumMode: 'random'
+  premiumMode: 'random',
+  holoFineness: 0.05
 });
 
 onMounted(() => {
@@ -81,6 +94,7 @@ onMounted(() => {
   if (saved) {
     Object.assign(devSettings, JSON.parse(saved));
     state.premiumMode = devSettings.premiumMode;
+    if (devSettings.holoFineness) state.holoFineness = devSettings.holoFineness;
   }
   // devSettings.autoLogin = true; // Forcé par défaut pour le moment
 
@@ -97,9 +111,26 @@ watch(() => state.isLoggedIn, (newVal) => {
   }
 });
 
-function saveSettings() {
-  state.premiumMode = devSettings.premiumMode;
+function updateHoloLive() {
+  state.holoFineness = devSettings.holoFineness;
+}
+
+async function saveSettings() {
   localStorage.setItem('dev_options', JSON.stringify(devSettings));
+  state.premiumMode = devSettings.premiumMode;
+  state.holoFineness = devSettings.holoFineness;
+  
+  if (state.isLoggedIn && state.user?.id) {
+    try {
+      await strapiService.update('users', state.user.id, {
+        premiumMode: devSettings.premiumMode,
+        holoFineness: devSettings.holoFineness
+      });
+      console.log('User settings saved to Strapi');
+    } catch (err) {
+      console.error('Failed to save settings to Strapi:', err);
+    }
+  }
 }
 
 async function doAutoLogin() {

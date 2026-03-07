@@ -45,7 +45,7 @@
             </div>
             <div class="card-back card-front-face" :class="[getRarityClass(card), { 'premium-glow': card.isDrawnPremium }]">
               <!-- Face de la carte (TripleTriadCard) -->
-              <TripleTriadCard :card="card" />
+              <TripleTriadCard :card="card" size="md" :isPremium="card.isDrawnPremium" />
               <div class="rarity-badge">{{ getRarityLabel(card) }}</div>
               <div v-if="card.isDrawnPremium" class="premium-badge">🌟 PREMIUM 🌟</div>
             </div>
@@ -108,7 +108,17 @@ const openBooster = async () => {
     setTimeout(() => {
         isOpening.value = false;
         // Add revealed state to each card
-        openedCards.value = (response?.cards || response?.data?.cards || []).map(c => ({...c, revealed: false}));
+        openedCards.value = (response?.cards || response?.data?.cards || []).map(c => {
+            // Normalize image: Strapi returns image.url, but TripleTriadCard expects card.img
+            let img = c.img;
+            if (!img && c.image?.url) {
+                img = c.image.url.startsWith('http') ? c.image.url : `http://localhost:1337${c.image.url}`;
+            }
+            if (!img) {
+                img = `https://api.dicebear.com/9.x/bottts/png?seed=${encodeURIComponent(c.name)}&backgroundColor=transparent`;
+            }
+            return {...c, img, revealed: false};
+        });
         userCoins.value = response?.coins || response?.data?.coins || 0;
         emit('update-coins', userCoins.value);
     }, 1500); // 1.5s shaking animation

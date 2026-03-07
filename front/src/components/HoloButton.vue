@@ -1,5 +1,5 @@
 <template>
-  <div class="toggleWrapper" @mousedown="isPressed = true" @mouseup="isPressed = false" @mouseleave="isPressed = false" @click="$emit('click')">
+  <div class="toggleWrapper" :style="{ width: width || 'auto' }" @mousedown="isPressed = true" @mouseup="isPressed = false" @mouseleave="isPressed = false" @click="$emit('click')">
     <div class="buttonShell" :class="{ 'is-pressed': isPressed }">
       <button class="coreButton">
         <div class="innerLayer">
@@ -21,10 +21,14 @@
           </div>
           <div class="wordZone">
             <p class="groupA">
-              <span>{{ text }}</span>
+              <span v-if="text">{{ text }}</span>
+              <slot v-else></slot>
             </p>
             <p class="groupB">
-              <span>{{ activeText }}</span>
+              <span v-if="activeText">{{ activeText }}</span>
+              <slot name="activeText" v-else>
+                <slot v-if="!text"></slot>
+              </slot>
             </p>
           </div>
           <div class="fluidMotion">
@@ -43,11 +47,15 @@ import { computed, ref } from 'vue';
 const props = defineProps({
   text: {
     type: String,
-    required: true
+    required: false
   },
   activeText: {
     type: String,
-    default: 'Ouverture...'
+    required: false
+  },
+  width: {
+    type: String,
+    required: false
   }
 });
 
@@ -63,9 +71,12 @@ const isPressed = ref(false);
   user-select: none;
   position: relative;
   display: inline-block;
-  width: 100%; /* Take full width of parent in menu list */
   margin-bottom: 5px; /* Space between buttons */
   height: 60px;
+  transition: transform 0.1s ease;
+}
+.toggleWrapper:active {
+  transform: scale(0.95);
 }
 .buttonShell {
   position: relative;
@@ -259,7 +270,7 @@ const isPressed = ref(false);
   transform: translate(200%, 0) skew(25deg);
 }
 .toggleWrapper:hover .shineStrip::before {
-  transform: translateX(0) skew(-25deg);
+  transform: translateX(-150%) skew(-25deg);
   opacity: 0.6;
 }
 .haloRing {
@@ -354,9 +365,9 @@ const isPressed = ref(false);
 }
 .wordZone {
   pointer-events: none;
-  display: flex;
+  display: grid;
   align-items: center;
-  justify-content: center;
+  justify-items: center;
   z-index: 5;
   position: relative;
   height: 100%;
@@ -369,15 +380,16 @@ const isPressed = ref(false);
     inset -1px 1px 5px 3px rgba(255, 255, 255, 0.5),
     inset 1px 3px 6px #006a9e;
   overflow: hidden;
+  padding: 0 15px; /* Ensure some inner padding so text doesn't touch edges on auto width */
 }
 .wordZone p {
-  position: absolute;
+  grid-area: 1 / 1;
   color: rgba(255, 255, 255, 0.9);
   white-space: nowrap; /* Do not break */
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: max-content;
   margin: 0; /* Remove default margin from <p> */
 }
 .toggleWrapper:active .wordZone {

@@ -2,26 +2,26 @@
   <div id="main-menu" v-if="state.gameState === 'menu' || state.leftDrawerOpen">
 
     <div v-if="menuState === 'main'" class="menu-buttons">
-      <button @click="menuState = 'ai'">JOUER CONTRE UNE IA 🤖</button>
-      <button @click="showUnavailableMessage('Partie privée')">PARTIE PRIVÉE 🔒</button>
-      <button @click="menuState = 'multi'">PARTIE MULTIJOUEUR 🌍</button>
+      <HoloButton width="100%" @click="menuState = 'ai'">JOUER CONTRE UNE IA 🤖</HoloButton>
+      <HoloButton width="100%" @click="showUnavailableMessage('Partie privée')">PARTIE PRIVÉE 🔒</HoloButton>
+      <HoloButton width="100%" @click="menuState = 'multi'">PARTIE MULTIJOUEUR 🌍</HoloButton>
     </div>
 
     <div v-else-if="menuState === 'ai'" class="difficulty-options">
       <h2 style="color: white; margin-bottom: 1.5rem;">CHOISIS LA DIFFICULTÉ</h2>
       <div class="difficulty-grid">
-        <button v-for="level in 10" :key="level" @click="startGame(level)" class="diff-btn">
+        <HoloButton v-for="level in 10" :key="level" @click="startGame(level)" class="diff-btn">
           Niveau {{ level }}
-        </button>
+        </HoloButton>
       </div>
-      <button class="back-btn" @click="menuState = 'main'">RETOUR</button>
+      <HoloButton @click="menuState = 'main'" style="margin-top: 15px;">RETOUR</HoloButton>
     </div>
 
     <div v-else-if="menuState === 'multi'" class="difficulty-options multi-menu">
       <h2 style="color: white; margin-bottom: 1.5rem;">MULTIJOUEUR</h2>
       <div v-if="!multiState.hosting && !multiState.joining" class="menu-buttons multi-buttons">
-        <button @click="hostGame">Héberger une partie</button>
-        <button @click="multiState.joining = true">Rejoindre une partie</button>
+        <HoloButton width="100%" @click="hostGame">Héberger une partie</HoloButton>
+        <HoloButton width="100%" @click="multiState.joining = true">Rejoindre une partie</HoloButton>
         <p v-if="multiState.error" style="color: #ff0055; margin-top: 10px; font-weight: bold; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 5px;">
           Erreur : {{ multiState.error }}
         </p>
@@ -37,13 +37,13 @@
       <div v-else-if="multiState.joining" class="join-panel">
         <h3 style="color: white">Entrez le code de session :</h3>
         <input v-model="multiState.joinUuid" class="uuid-input" placeholder="xxxxxxxx-xxxx-..." />
-        <button @click="joinGame" class="join-btn" :disabled="multiState.loading">
+        <HoloButton @click="joinGame" class="join-btn" :disabled="multiState.loading">
           {{ multiState.loading ? 'Connexion...' : 'Rejoindre' }}
-        </button>
+        </HoloButton>
         <p v-if="multiState.error" style="color: #ff0055; margin-top: 10px;">{{ multiState.error }}</p>
       </div>
 
-      <button class="back-btn" @click="cancelMulti" style="margin-top: 2rem;">RETOUR</button>
+      <HoloButton @click="cancelMulti" style="margin-top: 2rem;">RETOUR</HoloButton>
     </div>
   </div>
 </template>
@@ -51,6 +51,7 @@
 <script setup>
 import { ref, reactive, onMounted, onUnmounted } from 'vue';
 import { state, webrtc, resetGame } from '../game/state.js';
+import HoloButton from './HoloButton.vue';
 
 const menuState = ref('main'); // main, ai, multi
 
@@ -160,7 +161,8 @@ async function joinGame() {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
 }
 button {
     padding: 15px 40px; font-size: 1.5rem; cursor: pointer; border: none;
@@ -176,18 +178,13 @@ button:hover { transform: scale(1.05); }
 }
 .difficulty-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
     gap: 15px;
     margin-bottom: 30px;
+    width: 100%;
 }
 .diff-btn {
-    padding: 15px 20px;
-    font-size: 1.2rem;
-}
-.back-btn {
-    background: linear-gradient(45deg, #ff0055, #d53a3a);
-    padding: 10px 30px;
-    font-size: 1.2rem;
+    /* Adjusted for HoloButton integration */
 }
 
 .multi-menu {
@@ -204,7 +201,9 @@ button:hover { transform: scale(1.05); }
   background: rgba(255, 255, 255, 0.1);
   padding: 30px;
   border-radius: 20px;
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
+  box-sizing: border-box;
 }
 .uuid-display {
   font-family: monospace;

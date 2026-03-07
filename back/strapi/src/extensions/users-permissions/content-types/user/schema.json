@@ -77,6 +77,16 @@
       "default": 0,
       "min": 0,
       "configurable": false
+    },
+    "premiumMode": {
+      "type": "string",
+      "default": "random",
+      "configurable": true
+    },
+    "holoFineness": {
+      "type": "decimal",
+      "default": 0.05,
+      "configurable": true
     }
   }
 }

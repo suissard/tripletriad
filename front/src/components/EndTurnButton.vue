@@ -1,13 +1,14 @@
 <template>
   <div class="end-turn-container" v-if="state.gameState === 'playing'">
-    <button
+    <HoloButton
       class="end-turn-btn"
       :class="{ ready: isReady, disabled: state.turn !== 'player' }"
       @click="handleEndTurn"
       :disabled="state.turn !== 'player'"
+      :width="'250px'"
     >
       {{ state.turn === 'player' ? 'Fin de Tour' : 'Tour de l\'IA' }}
-    </button>
+    </HoloButton>
   </div>
 </template>
 
@@ -16,6 +17,7 @@ import { computed } from 'vue';
 import { state, confirmAction } from '../game/state.js';
 import { endTurn } from '../game/engine.js';
 import { refillHand } from '../game/three-scene.js';
+import HoloButton from './HoloButton.vue';
 
 const isReady = computed(() => {
   if (state.turn !== 'player') return false;
@@ -58,38 +60,22 @@ const handleEndTurn = async () => {
 }
 
 .end-turn-btn {
-  background: rgba(85, 85, 85, 0.8);
-  border: 2px solid #333;
-  color: #ccc;
-  padding: 15px 30px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  /* HoloButton handles base styling, adding specific animation for ready state */
 }
 
-.end-turn-btn:hover:not(.disabled) {
-  background: rgba(100, 100, 100, 0.9);
-  transform: scale(1.05);
-}
-
-.end-turn-btn.ready {
-  background: linear-gradient(135deg, #f1c40f, #f39c12);
-  color: #000;
-  border-color: #f1c40f;
+.end-turn-btn.ready :deep(.coreButton) {
   box-shadow: 0 0 20px rgba(241, 196, 15, 0.8), inset 0 0 10px rgba(255, 255, 255, 0.5);
   animation: pulse-glow 2s infinite;
+}
+
+.end-turn-btn.ready :deep(.innerLayer) {
+   background: linear-gradient(to bottom, #f1c40f 0%, #ffffff 50%, #f39c12 100%);
 }
 
 .end-turn-btn.disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  background: #222;
-  border-color: #111;
+  pointer-events: none;
 }
 
 @keyframes pulse-glow {

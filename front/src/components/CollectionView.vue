@@ -17,11 +17,13 @@
         <div class="detail-card-wrapper" @click.stop>
            <button class="close-detail-btn" @click="closeCardDetail">×</button>
            <TripleTriadCard 
-             :card="selectedCard" 
-             variant="detail" 
-             :isLocked="!isOwned(selectedCard.id)" 
-             :quantity="getOwnedQuantity(selectedCard.id)" 
-           />
+              :card="selectedCard" 
+              size="xl" 
+              showDetails
+              :unowned="!isOwned(selectedCard.id)" 
+              :quantity="getOwnedQuantity(selectedCard.id)"
+              :isPremium="isOwnedPremium(selectedCard.id)"
+            />
         </div>
       </div>
 
@@ -81,13 +83,14 @@
 
          <div class="large-card-grid">
            <TripleTriadCard
-               v-for="card in paginatedCardLibrary" :key="card.id"
-               :card="card"
-               variant="large"
-               :isLocked="!isOwned(card.id)"
-               :quantity="getOwnedQuantity(card.id)"
-               @click="openCardDetail(card)"
-           />
+                v-for="card in paginatedCardLibrary" :key="card.id"
+                :card="card"
+                size="lg"
+                :unowned="!isOwned(card.id)"
+                :quantity="getOwnedQuantity(card.id)"
+                :isPremium="isOwnedPremium(card.id)"
+                @click="openCardDetail(card)"
+            />
          </div>
       </div>
     </div>
@@ -230,6 +233,10 @@ function isOwned(cardId) {
 function getOwnedQuantity(cardId) {
   const owned = state.collection.find(c => c.cardId === cardId);
   return owned ? owned.quantity : 0;
+}
+
+function isOwnedPremium(cardId) {
+  return state.collection.some(c => c.cardId === cardId && c.isPremium);
 }
 
 function getRarityClass(level) {

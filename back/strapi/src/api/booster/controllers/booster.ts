@@ -97,7 +97,7 @@ export default {
       };
 
       const drawnCards = [];
-      const userCardsToCreateOrUpdate: Record<string, number> = {}; // Map of cardId to quantity
+      const userCardsToCreateOrUpdate: Record<string, number> = {}; // Map of "cardId_isPremium" to quantity
 
       // 6. Draw 5 cards
       for (let i = 0; i < 5; i++) {
@@ -125,10 +125,12 @@ export default {
               isDrawnPremium: isDrawnPremium
           });
 
-          if (userCardsToCreateOrUpdate[card.id]) {
-              userCardsToCreateOrUpdate[card.id]++;
+          const cardKey = `${card.id}_${isDrawnPremium}`;
+
+          if (userCardsToCreateOrUpdate[cardKey]) {
+              userCardsToCreateOrUpdate[cardKey]++;
           } else {
-              userCardsToCreateOrUpdate[card.id] = 1;
+              userCardsToCreateOrUpdate[cardKey] = 1;
           }
       }
 
@@ -138,9 +140,12 @@ export default {
           populate: { card: true }
       })) as any[];
 
-      for (const [cardIdStr, quantityToAdd] of Object.entries(userCardsToCreateOrUpdate)) {
+      for (const [cardKey, quantityToAdd] of Object.entries(userCardsToCreateOrUpdate)) {
+          const [cardIdStr, isPremiumStr] = cardKey.split('_');
           const cardId = parseInt(cardIdStr, 10);
-          const existingUserCard = existingUserCards.find(uc => uc.card && uc.card.id === cardId);
+          const isPremium = isPremiumStr === 'true';
+
+          const existingUserCard = existingUserCards.find(uc => uc.card && uc.card.id === cardId && !!uc.isPremium === isPremium);
 
           if (existingUserCard) {
               // Update quantity
@@ -155,7 +160,8 @@ export default {
                   data: {
                       user: user.id,
                       card: cardId,
-                      quantity: quantityToAdd
+                      quantity: quantityToAdd,
+                      isPremium: isPremium
                   }
               });
           }

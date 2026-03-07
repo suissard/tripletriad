@@ -45,8 +45,7 @@
         <div class="deck-cards-grid">
           <div v-for="cardId in state.editingDeck.cards" :key="cardId" class="deck-card-slot"
             @click="removeCard(cardId)">
-            <img v-if="getCardById(cardId)" :src="getCardById(cardId).img" class="deck-card-img" />
-            <div class="deck-card-name">{{ getCardById(cardId)?.name || '?' }}</div>
+            <TripleTriadCard v-if="getCardById(cardId)" :card="getCardById(cardId)" size="xs" flat />
             <div class="remove-badge">✕</div>
           </div>
           <div v-for="i in Math.max(0, 15 - state.editingDeck.cards.length)" :key="'empty-' + i"
@@ -74,24 +73,11 @@
         </div>
 
         <div class="library-grid">
-          <div v-for="card in filteredCards" :key="card.id" class="lib-card" :class="{
-            locked: !isOwned(card.id),
-            selected: isInDeck(card.id),
-            'is-cover': state.editingDeck.cover === card.id
-          }" @click="toggleCard(card.id)" @contextmenu.prevent="setCover(card.id)">
-            <img :src="card.img" class="lib-card-img" />
-            <div class="lib-card-info">
-              <span class="lib-card-name">{{ card.name }}</span>
-              <span class="lib-card-level">Lv.{{ card.level }}</span>
-            </div>
-            <div class="lib-card-stats">
-              <span>{{ card.topValue }}</span>
-              <span>{{ card.rightValue }}</span>
-              <span>{{ card.bottomValue }}</span>
-              <span>{{ card.leftValue }}</span>
-            </div>
-            <div v-if="isInDeck(card.id)" class="selected-check">✓</div>
-            <div v-if="state.editingDeck.cover === card.id" class="cover-badge">★</div>
+          <div v-for="card in filteredCards" :key="card.id" class="lib-card-wrapper"
+            @click="toggleCard(card.id)" @contextmenu.prevent="setCover(card.id)">
+            <TripleTriadCard :card="card" size="sm" flat
+              :unowned="!isOwned(card.id)" :selected="isInDeck(card.id)"
+              :isCover="state.editingDeck.cover === card.id" />
           </div>
         </div>
       </div>
@@ -102,6 +88,7 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { state, cardLibrary, getCardById, saveDeckToStrapi } from '../game/state.js';
+import TripleTriadCard from './TripleTriadCard.vue';
 
 const searchQuery = ref('');
 const sortBy = ref('id-asc');
@@ -582,10 +569,16 @@ const filteredCards = computed(() => {
   flex: 1;
   overflow-y: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
   gap: 12px;
   padding-right: 8px;
   align-content: start;
+}
+
+.lib-card-wrapper {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
 }
 
 .lib-card {

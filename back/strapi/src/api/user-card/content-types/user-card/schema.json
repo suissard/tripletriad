@@ -27,6 +27,10 @@
             "default": 1,
             "min": 0,
             "required": true
+        },
+        "isPremium": {
+            "type": "boolean",
+            "default": false
         }
     }
 }

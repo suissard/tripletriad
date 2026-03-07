@@ -2,12 +2,27 @@
   <div class="drawer-container" :class="{ open: state.rightDrawerOpen }">
     <div class="drawer-overlay" @click="state.rightDrawerOpen = false"></div>
     <div class="drawer right-drawer">
-      <div class="drawer-header">
-        <button v-if="currentView !== 'profile'" class="back-btn" @click="currentView = 'profile'">←</button>
-        <button v-else class="close-btn" @click="state.rightDrawerOpen = false">×</button>
-        <h2>{{ viewTitle }}</h2>
-      </div>
-      <div class="drawer-content">
+      <!-- Animated Border & Shine -->
+      <div class="edgeGlow"></div>
+      <div class="mirrorShade"></div>
+      <div class="shineStrip"></div>
+      <!-- Ambient Particles -->
+      <span class="particleCloud">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </span>
+
+      <div class="drawer-content-wrapper">
+        <div class="drawer-header">
+          <button v-if="currentView !== 'profile'" class="back-btn" @click="currentView = 'profile'">←</button>
+          <button v-else class="close-btn" @click="state.rightDrawerOpen = false">×</button>
+          <h2>{{ viewTitle }}</h2>
+        </div>
+        <div class="drawer-content">
 
         <!-- PROFILE VIEW -->
         <template v-if="currentView === 'profile' && state.isLoggedIn">
@@ -32,7 +47,7 @@
         <template v-else-if="currentView === 'collection'">
           <div v-if="selectedCard" class="card-detail-view">
             <button class="back-btn-detail" @click="closeCardDetail">← Retour</button>
-            <TripleTriadCard :card="selectedCard" variant="detail" :isLocked="!isOwned(selectedCard.id)"
+            <TripleTriadCard :card="selectedCard" size="xl" showDetails :unowned="!isOwned(selectedCard.id)"
               :quantity="getOwnedQuantity(selectedCard.id)" />
           </div>
 
@@ -107,7 +122,7 @@
         <!-- DECKS VIEW -->
         <template v-else-if="currentView === 'decks'">
           <div v-if="!isBuilding" class="decks-view">
-            <button class="add-deck-btn" @click="startNewDeck">+ Nouveau Deck</button>
+            <HoloButton class="add-deck-btn" @click="startNewDeck" width="100%">+ Nouveau Deck</HoloButton>
             <div class="decks-list">
               <div v-for="deck in state.userDecks" :key="deck.id" class="deck-row">
                 <img v-if="deck.cover" :src="getCardById(deck.cover)?.img" class="deck-cover-img" />
@@ -127,13 +142,13 @@
           <div v-else class="deck-builder">
             <div class="mana-curve-container">
 
-              <button class="toggle-curve-btn" @click="showManaCurve = !showManaCurve">
+              <HoloButton class="toggle-curve-btn" @click="showManaCurve = !showManaCurve" width="100%" style="margin-bottom: 20px;">
 
                 <span v-if="showManaCurve">Masquer Courbe de Mana</span>
 
                 <span v-else>Afficher Courbe de Mana</span>
 
-              </button>
+              </HoloButton>
 
               <div v-if="showManaCurve" class="mana-histogram">
 
@@ -180,23 +195,20 @@
 
 
             <div class="builder-actions">
-              <button class="export-btn" @click="exportDeckCode" :disabled="editingDeck.cards.length === 0">
-
+              <HoloButton class="export-btn" @click="exportDeckCode" :disabled="editingDeck.cards.length === 0" width="100%">
                 Copier le code
+              </HoloButton>
 
-              </button>
-
-
-              <button class="save-btn" :disabled="editingDeck.cards.length !== 15" @click="saveDeck">
+              <HoloButton class="save-btn" :disabled="editingDeck.cards.length !== 15" @click="saveDeck" width="100%">
                 Enregistrer
-              </button>
-              <button class="cancel-btn" @click="isBuilding = false">Annuler</button>
+              </HoloButton>
+              <HoloButton class="cancel-btn" @click="isBuilding = false" width="100%">Annuler</HoloButton>
             </div>
 
             <div class="builder-grid">
-              <TripleTriadCard v-for="card in cardLibrary" :key="card.id" :card="card" variant="mini"
-                :isLocked="!isOwned(card.id)" :quantity="getOwnedQuantity(card.id)" :isSelected="isInDeck(card.id)"
-                :isCover="editingDeck.cover === card.id" @click="toggleCardInDeck(card.id)" @set-cover="setDeckCover" />
+              <TripleTriadCard v-for="card in cardLibrary" :key="card.id" :card="card" size="sm" flat
+                :unowned="!isOwned(card.id)" :quantity="getOwnedQuantity(card.id)" :selected="isInDeck(card.id)"
+                :isCover="editingDeck.cover === card.id" @click="toggleCardInDeck(card.id)" />
             </div>
           </div>
         </template>
@@ -216,19 +228,19 @@
 
               <p v-if="authError" class="auth-error">{{ authError }}</p>
 
-              <button type="submit" class="submit-btn" :disabled="isLoading">
+              <HoloButton width="100%" @click="submitAuth" :disabled="isLoading">
                 {{ isLoading ? 'Chargement...' : (isRegistering ? 'S\'inscrire' : 'Connexion') }}
-              </button>
+              </HoloButton>
             </form>
 
-            <button class="switch-mode-btn" @click="toggleAuthMode">
+            <HoloButton width="100%" class="switch-mode-btn" @click="toggleAuthMode">
               {{ isRegistering ? 'Déjà un compte ? Se connecter' : 'Pas de compte ? S\'inscrire' }}
-            </button>
+            </HoloButton>
           </div>
         </template>
-
-      </div>
-    </div>
+        </div> <!-- End of .drawer-content -->
+      </div> <!-- End of .drawer-content-wrapper -->
+    </div> <!-- End of .drawer right-drawer -->
   </div>
 </template>
 
@@ -645,14 +657,114 @@ async function submitAuth() {
   bottom: 0;
   width: 400px;
   max-width: 90vw;
-  background: rgba(15, 15, 25, 0.95);
+  background: linear-gradient(to left, rgba(15, 15, 26, 0.95), rgba(20, 20, 35, 0.98), rgba(15, 15, 26, 0.95));
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-left: 1px solid rgba(0, 210, 255, 0.2);
-  box-shadow: -20px 0 50px rgba(0, 0, 0, 0.5);
+  border-left: 2px solid rgba(180, 130, 255, 0.2);
+  box-shadow: -20px 0 50px rgba(0, 0, 0, 0.7);
   display: flex;
   flex-direction: column;
   transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  overflow: hidden; /* Important to contain the inner absolute layers */
+}
+
+/* Ensure the textual content is above everything else */
+.drawer-content-wrapper {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* --- Holo Panel Aesthetics --- */
+
+.edgeGlow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, rgba(180, 130, 255, 0.8), transparent);
+  box-shadow: 0 0 15px #a855f7;
+  opacity: 0.7;
+  animation: pulseGlow 3s infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% { opacity: 0.3; box-shadow: 0 0 5px #a855f7; }
+  100% { opacity: 0.9; box-shadow: 0 0 20px #a855f7, 0 0 30px #00d2ff; }
+}
+
+.mirrorShade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.mirrorShade::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(225deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%, rgba(255, 255, 255, 0.02) 100%);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.shineStrip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.shineStrip::before {
+  content: "";
+  position: absolute;
+  width: 150%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 10%,
+    rgba(220, 190, 255, 0.15) 50%,
+    transparent 90%
+  );
+  transform: translateY(-150%) skew(25deg);
+  animation: sweepShineVert 10s infinite linear;
+}
+
+@keyframes sweepShineVert {
+  0% { transform: translateY(-150%) skew(25deg); opacity: 0; }
+  10% { opacity: 1; }
+  30% { transform: translateY(100%) skew(25deg); opacity: 0; }
+  100% { transform: translateY(100%) skew(25deg); opacity: 0; }
+}
+
+/* Subtle Particles */
+.particleCloud {
+  position: absolute;
+  inset: 0;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.dot {
+  position: absolute;
+  width: 8px;
+  height: 2px;
+  background: #c084fc;
+  filter: blur(1px);
+  animation: floatDot 6s infinite linear;
+  opacity: 0;
+}
+.dot:nth-child(1) { left: 20%; top: 90%; --angle: 20deg; --dist: 150px; animation-delay: 0s; }
+.dot:nth-child(2) { left: 70%; top: 95%; --angle: 45deg; --dist: 200px; animation-delay: 1.5s; }
+.dot:nth-child(3) { left: 40%; top: 85%; --angle: -15deg; --dist: 120px; animation-delay: 3s; }
+.dot:nth-child(4) { left: 80%; top: 90%; --angle: 10deg; --dist: 180px; animation-delay: 1s; }
+.dot:nth-child(5) { left: 30%; top: 80%; --angle: -30deg; --dist: 130px; animation-delay: 4.5s; }
+.dot:nth-child(6) { left: 60%; top: 75%; --angle: 60deg; --dist: 160px; animation-delay: 2.2s; }
+
+@keyframes floatDot {
+  0% { transform: translateY(0) rotate(var(--angle)) translateX(0); opacity: 0; }
+  20% { opacity: 0.8; }
+  80% { opacity: 0.8; }
+  100% { transform: translateY(-300px) rotate(var(--angle)) translateX(var(--dist)); opacity: 0; }
 }
 
 .right-drawer {
@@ -678,6 +790,20 @@ async function submitAuth() {
   font-size: 1.2rem;
   letter-spacing: 2px;
   margin: 0;
+}
+
+.back-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.back-btn:hover {
+  color: #00d2ff;
+  transform: scale(1.1) translateX(-2px);
 }
 
 .close-btn {
