@@ -19,5 +19,32 @@ export default {
    * Note: User/permissions setup is handled by scripts/setup-strapi.js
    *       Run: npm run setup
    */
-  async bootstrap(/* { strapi }: { strapi: Core.Strapi } */) {},
+  async bootstrap({ strapi } /*: { strapi: Core.Strapi } */) {
+    // Bootstrap user permissions for new routes
+    const roles = await strapi.entityService.findMany('plugin::users-permissions.role', {
+      filters: { type: 'authenticated' },
+    });
+
+    const authRole = roles[0];
+
+    if (authRole) {
+      const actions = [
+        'api::user-card.user-card.disenchant',
+        'api::user-card.user-card.craft',
+        'api::user-card.user-card.massDisenchant'
+      ];
+
+      for (const action of actions) {
+        const existingPermission = await strapi.entityService.findMany('plugin::users-permissions.permission', {
+          filters: { action, role: authRole.id }
+        });
+
+        if (existingPermission.length === 0) {
+          await strapi.entityService.create('plugin::users-permissions.permission', {
+            data: { action, role: authRole.id }
+          });
+        }
+      }
+    }
+  },
 };
