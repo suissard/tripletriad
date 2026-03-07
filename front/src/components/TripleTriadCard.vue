@@ -16,6 +16,7 @@
     ]"
     :style="cardStyle"
     @click="handleClick"
+    @contextmenu.prevent="handleRightClick"
     @mousedown="startLongPress"
     @mouseup="cancelLongPress"
     @mouseleave="cancelLongPress"
@@ -180,7 +181,7 @@
 
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, useAttrs } from 'vue';
 import { state, craftCard, disenchantCard } from '../game/state.js';
 
 const props = defineProps({
@@ -192,7 +193,8 @@ const props = defineProps({
   selected: { type: Boolean, default: false },
   isCover: { type: Boolean, default: false },
   quantity: { type: Number, default: 0 },
-  borderColor: { type: String, default: '' }
+  borderColor: { type: String, default: '' },
+  disableZoom: { type: Boolean, default: false }
 });
 
 // --- Long Press / Zoom ---
@@ -200,13 +202,24 @@ const isZoomed = ref(false);
 const longPressTimer = ref(null);
 const longPressTriggered = ref(false);
 
-const emit = defineEmits(['click', 'set-cover']);
+const emit = defineEmits(['click', 'set-cover', 'left-click', 'right-click', 'long-left-click', 'long-right-click']);
 
-function startLongPress() {
+const longPressButton = ref(0);
+
+function startLongPress(e) {
   longPressTriggered.value = false;
+  longPressButton.value = e ? (e.button || 0) : 0;
+
   longPressTimer.value = setTimeout(() => {
     longPressTriggered.value = true;
-    isZoomed.value = true;
+    if (longPressButton.value === 0) {
+      emit('long-left-click', props.card);
+      if (!props.disableZoom) {
+        isZoomed.value = true;
+      }
+    } else if (longPressButton.value === 2) {
+      emit('long-right-click', props.card);
+    }
   }, 500);
 }
 
@@ -219,7 +232,7 @@ function cancelLongPress() {
 }
 
 function onTouchStart(e) {
-  startLongPress();
+  startLongPress(e);
   handleMove(e);
 }
 
@@ -227,11 +240,20 @@ function onTouchEnd() {
   cancelLongPress();
 }
 
+function handleRightClick(e) {
+  if (longPressTriggered.value) {
+    longPressTriggered.value = false;
+    return;
+  }
+  emit('right-click', props.card);
+}
+
 function handleClick() {
   if (longPressTriggered.value) {
     longPressTriggered.value = false;
-    return; // Don't emit click if it was a long press
+    return;
   }
+  emit('left-click', props.card);
   emit('click', props.card);
 }
 
@@ -526,32 +548,33 @@ function handleLeave() {
 /* Quantity badge */
 .quantity-badge {
   position: absolute;
-  top: 0.2em;
-  right: 0.2em;
+  top: -0.5em; /* Protrudes outside */
+  right: -0.5em; /* Protrudes outside */
   background: #ff0055;
   color: white;
-  font-size: 0.9em;
+  font-size: 0.95em;
   font-weight: bold;
   padding: 0.1em 0.5em;
   border-radius: 1em;
-  z-index: 8;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  z-index: 10; /* Ensures it is on top */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.8), 0 0 0 2px rgba(255,255,255,0.2);
 }
 
 /* Selected overlay */
 .selected-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 210, 255, 0.15);
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3em;
-  color: rgba(0, 210, 255, 0.9);
+  font-size: 4em;
+  color: #00ffaa;
   font-weight: bold;
   z-index: 8;
   border-radius: inherit;
-  text-shadow: 0 0 10px rgba(0,0,0,0.8);
+  text-shadow: 0 0 15px rgba(0,255,170,0.8), 0 0 5px black;
+  box-shadow: inset 0 0 20px rgba(0,255,170,0.5);
 }
 
 /* Cover badge */
