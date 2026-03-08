@@ -11,7 +11,8 @@
         'is-cover': isCover, 
         'is-premium': isPremiumCard,
         'is-flat': flat,
-        'has-custom-border': !!borderColor
+        'has-custom-border': !!borderColor,
+        'is-flipping': isFlipping
       }
     ]"
     :style="cardStyle"
@@ -45,7 +46,7 @@
       </template>
 
       <!-- CARD CONTENT (Unified layout) -->
-      <template v-if="card.revealed !== false || flat || $attrs.forceFace">
+      <template v-if="card.revealed !== false || $attrs.forceFace">
         <!-- Card image -->
         <img v-if="card.img" :src="card.img" class="card-img" :alt="card.name" />
 
@@ -181,7 +182,7 @@
 
 
 <script setup>
-import { computed, ref, useAttrs } from 'vue';
+import { computed, ref, useAttrs, watch } from 'vue';
 import { state, craftCard, disenchantCard } from '../game/state.js';
 
 const props = defineProps({
@@ -199,6 +200,7 @@ const props = defineProps({
 
 // --- Long Press / Zoom ---
 const isZoomed = ref(false);
+const isFlipping = ref(false);
 const longPressTimer = ref(null);
 const longPressTriggered = ref(false);
 
@@ -258,10 +260,14 @@ function handleClick() {
 }
 
 // --- Computed ---
-const isPremiumCard = computed(() => props.isPremium || props.card.isPremium || props.card.isDrawnPremium);
+const isPremiumCard = computed(() => {
+  if (props.card.revealed === false) return false;
+  return props.isPremium || props.card.isPremium || props.card.isDrawnPremium;
+});
 const sizeClass = computed(() => `card-size-${props.size}`);
 
 const rarityClass = computed(() => {
+  if (props.card.revealed === false) return 'rarity-common';
   const level = props.card.level || 1;
   if (level >= 9) return 'rarity-legendary';
   if (level >= 7) return 'rarity-epic';
@@ -272,6 +278,7 @@ const rarityClass = computed(() => {
 
 const rarityColor = computed(() => {
   if (props.borderColor) return props.borderColor;
+  if (props.card.revealed === false) return '#a0a0a0';
   const level = props.card.level || 1;
   if (level >= 9) return '#ffc107';
   if (level >= 7) return '#9c27b0';
@@ -412,6 +419,16 @@ function handleLeave() {
   mousePos.value = { x: 50, y: 50 };
   mouseStyle.value = { '--mx': '50%', '--my': '50%', '--posx': '50%', '--posy': '50%' };
 }
+
+// --- Capture Flip Animation ---
+watch(() => props.borderColor, (newVal, oldVal) => {
+  if (oldVal && newVal !== oldVal) {
+    isFlipping.value = true;
+    setTimeout(() => {
+      isFlipping.value = false;
+    }, 600);
+  }
+});
 </script>
 
 <style scoped>
@@ -449,6 +466,17 @@ function handleLeave() {
   background: #1a1a2e;
   border: 2px solid #333;
   box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.tt-card.is-flipping .tt-card-inner {
+  animation: flip-360 0.6s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+}
+
+@keyframes flip-360 {
+  0% { transform: rotateY(0deg); filter: brightness(1); }
+  50% { transform: rotateY(180deg); filter: brightness(2); }
+  100% { transform: rotateY(360deg); filter: brightness(1); }
 }
 
 /* ============================================ */

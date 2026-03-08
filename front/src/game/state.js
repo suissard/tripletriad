@@ -1,14 +1,52 @@
 import { reactive } from 'vue';
 import { rulesRegistry } from './rules.js';
 import { WebRTCManager } from './WebRTCManager.js';
+import { TurnManager } from './TurnManager.js';
+import { GameEngine } from './GameEngine.js';
 import cardsData from '../data/cards.json';
 import strapiService from '../api/strapi.js';
 
 export const cardLibrary = cardsData;
 export const webrtc = new WebRTCManager();
 
-export const createCardData = (i) => ({
+/**
+ * Parse a card stat value: 'A' → 10, string numbers → int
+ */
+function parseStatValue(v) {
+    if (v === 'A' || v === 'a') return 10;
+    const n = parseInt(v, 10);
+    return isNaN(n) ? 0 : n;
+}
+
+/**
+ * Create a card data object from a raw card (from cards.json or random).
+ * Normalizes topValue/rightValue/bottomValue/leftValue → top/right/bottom/left as numbers.
+ */
+export function normalizeCard(raw) {
+    return {
+        id: raw.id,
+        name: raw.name || `Card #${raw.id}`,
+        description: raw.description || '',
+        level: raw.level || 1,
+        element: raw.element || 'None',
+        top: raw.top ?? parseStatValue(raw.topValue),
+        right: raw.right ?? parseStatValue(raw.rightValue),
+        bottom: raw.bottom ?? parseStatValue(raw.bottomValue),
+        left: raw.left ?? parseStatValue(raw.leftValue),
+        topValue: raw.topValue ?? (raw.top === 10 ? 'A' : String(raw.top)),
+        rightValue: raw.rightValue ?? (raw.right === 10 ? 'A' : String(raw.right)),
+        bottomValue: raw.bottomValue ?? (raw.bottom === 10 ? 'A' : String(raw.bottom)),
+        leftValue: raw.leftValue ?? (raw.left === 10 ? 'A' : String(raw.left)),
+        img: raw.img || `https://api.dicebear.com/9.x/bottts/png?seed=${raw.id * 42}&backgroundColor=transparent`,
+        revealed: raw.revealed !== undefined ? raw.revealed : true,
+        isPremium: raw.isPremium || false
+    };
+}
+
+export const createCardData = (i) => normalizeCard({
     id: i,
+    name: `Fighter #${i}`,
+    level: Math.floor(Math.random() * 3) + 1,
     top: Math.floor(Math.random() * 10) + 1,
     right: Math.floor(Math.random() * 10) + 1,
     bottom: Math.floor(Math.random() * 10) + 1,
@@ -20,9 +58,13 @@ export const state = reactive({
   premiumMode: 'random', // random | image
   holoFineness: 0.05, // default texture scale for SVG filter
   deck: [],
+    // Board: Array of { data: cardDataObj, owner: 'player'|'ai' } | null
     board: Array(9).fill(null),
+    // Hands: Arrays of plain card data objects
     pHand: [],
     aiHand: [],
+    // Currently selected card index in player hand (for click-to-place)
+    selectedCardIndex: null,
     turn: 'player',
     busy: false,
     pScore: 0,
@@ -47,6 +89,7 @@ export const state = reactive({
     isHost: false,
     opponentReady: false,
     selectedFrame: null,
+    menuView: 'main', // 'main', 'ai', 'multi'
     // UI Navigation State
     leftDrawerOpen: false,
     rightDrawerOpen: false,
@@ -72,7 +115,10 @@ export const state = reactive({
     showDecksPage: window.location.pathname === '/decks',
     showBoutiquePage: window.location.pathname === '/boutique',
     showDevTestPage: false,
-    editingDeck: { id: null, documentId: null, name: '', cover: null, cards: [] }
+    editingDeck: { id: null, documentId: null, name: '', cover: null, cards: [] },
+    
+    // P2P Engine
+    turnManager: null
 });
 
 export function getCardById(id) {
@@ -233,6 +279,89 @@ export async function saveDeckToStrapi(deck) {
     return false;
 }
 
+/**
+ * Initialise le TurnManager pour une partie en ligne
+ */
+export function initOnlineTurnManager(isHost) {
+    const localPlayer = isHost ? 'PLAYER_1' : 'PLAYER_2';
+    
+    state.turnManager = new TurnManager({
+        localPlayer,
+        initialState: GameEngine.createInitialState('PLAYER_1'),
+        
+        sendNetworkMessage: (msg) => {
+            webrtc.sendMessage(msg);
+        },
+        
+        onStateUpdate: (newState) => {
+            // Synchro directe de l'état réactif — Vue reactivity handles rendering
+            state.board = newState.board.flat();
+            state.turn = newState.currentPlayer === 'PLAYER_1' ? 'player' : 'ai';
+            state.gameOver = newState.isFinished;
+            state.winner = newState.winner;
+        },
+        
+        onDesync: async (turnIndex, localHash, remoteHash) => {
+            console.error(`[Desync] Turn ${turnIndex} - Local: ${localHash}, Remote: ${remoteHash}`);
+            state.alerts = "Désynchronisation détectée ! Arbitrage en cours...";
+            
+            try {
+                // Appel à l'arbitre Strapi
+                const response = await fetch(`${webrtc.strapiUrl}/api/match/arbitrate`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${state.jwt}`
+                    },
+                    body: JSON.stringify({
+                        matchId: webrtc.uuid,
+                        logs: state.actionLog
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'SUCCESS') {
+                    hydrate(result.state);
+                    state.alerts = "Partie resynchronisée par le serveur.";
+                } else if (result.status === 'ABORTED') {
+                    state.gameOver = true;
+                    state.alerts = "Partie annulée : suspicion de triche.";
+                }
+            } catch (e) {
+                console.error("Arbitration failed", e);
+                state.alerts = "Erreur fatale de synchronisation.";
+            }
+        }
+    });
+
+    state.online = true;
+    state.isHost = isHost;
+}
+
+/**
+ * Hydrates the local state from a server-provided state (arbitrated or synced).
+ * Vue reactivity handles the visual update automatically.
+ */
+export function hydrate(forcedState) {
+    console.log("[GameManager] Hydrating state from server...", forcedState);
+
+    // 1. Update Board State
+    if (Array.isArray(forcedState.board) && Array.isArray(forcedState.board[0])) {
+      state.board = forcedState.board.flat();
+    } else {
+      state.board = forcedState.board;
+    }
+
+    // 2. Update metadata
+    state.turn = forcedState.currentPlayer === 'PLAYER_1' ? 'player' : 'ai';
+    state.gameOver = forcedState.isFinished;
+    state.winner = forcedState.winner;
+
+    // 3. Clear busy flag
+    state.busy = false;
+}
+
 // Restore session on load
 const savedJwt = localStorage.getItem('tt_jwt');
 const savedUser = localStorage.getItem('tt_user');
@@ -248,12 +377,27 @@ export function initDeck(size) {
     state.deck = Array.from({ length: size }, (_, i) => createCardData(i));
 }
 
+/**
+ * Draw cards from deck to fill a hand to 3 cards (pure data, no scene manipulation).
+ */
+export function refillHand(owner) {
+    const hand = owner === 'player' ? state.pHand : state.aiHand;
+    while (hand.length < 3 && state.deck.length > 0) {
+        const card = state.deck.pop();
+        if (owner === 'ai') {
+            card.revealed = false; // AI cards are face-down by default
+        }
+        hand.push(card);
+    }
+}
+
 // Reset the entire game state
-export function resetGame(deckSize = 30) {
+export function resetGame(deckSize = 30, goToMenu = true) {
     initDeck(deckSize);
     state.board = Array(9).fill(null);
     state.pHand = [];
     state.aiHand = [];
+    state.selectedCardIndex = null;
     state.turn = 'player';
     state.busy = false;
     state.pScore = 0;
@@ -261,7 +405,11 @@ export function resetGame(deckSize = 30) {
     state.alerts = '';
     state.gameOver = false;
     state.winner = null;
-    state.gameState = 'menu';
+    
+    if (goToMenu) {
+        state.gameState = 'menu';
+    }
+
     state.pHealth = 20;
     state.aiHealth = 20;
     state.pMaxMana = 1;

@@ -15,10 +15,8 @@
     </div>
 
     <div class="navbar-content">
-      <!-- Left Menu Toggle -->
-      <HoloButton width="60px" @click="toggleLeftDrawer">
-        <svg viewBox="0 0 24 24" fill="none" class="icon"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </HoloButton>
+      <!-- Left Menu Toggle Removed -->
+      <div style="width: 60px;"></div>
       
       <!-- Title -->
       <div class="app-title">TRIPLE TRIAD</div>

@@ -1,15 +1,16 @@
 // Registre central de toutes les règles optionnelles du jeu
+// Each rule's execute() receives board entries: { data: {...cardData}, owner: 'player'|'ai' }
 export const rulesRegistry = [
     {
         id: 'same',
         name: 'Identique (Same)',
         description: 'Capture si 2 côtés adjacents correspondent exactement aux cartes voisines.',
         defaultState: true,
-        execute: (centerCard, neighbors, board) => {
+        execute: (centerEntry, neighbors, board) => {
             let sameMatches = [];
             neighbors.forEach(n => {
                 const adj = board[n.i];
-                if (adj && centerCard.userData.data[n.dir] === adj.userData.data[n.opp]) {
+                if (adj && centerEntry.data[n.dir] === adj.data[n.opp]) {
                     sameMatches.push({ i: n.i, adj });
                 }
             });
@@ -31,12 +32,12 @@ export const rulesRegistry = [
         name: 'Plus',
         description: 'Capture si la somme de 2 côtés adjacents est égale pour deux voisines.',
         defaultState: true,
-        execute: (centerCard, neighbors, board) => {
+        execute: (centerEntry, neighbors, board) => {
             let plusSums = {};
             neighbors.forEach(n => {
                 const adj = board[n.i];
                 if (adj) {
-                    const sum = centerCard.userData.data[n.dir] + adj.userData.data[n.opp];
+                    const sum = centerEntry.data[n.dir] + adj.data[n.opp];
                     if (!plusSums[sum]) plusSums[sum] = [];
                     plusSums[sum].push({ i: n.i, adj });
                 }

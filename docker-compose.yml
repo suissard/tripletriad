@@ -21,6 +21,7 @@ services:
     working_dir: /opt/app
     volumes:
       - ./back/strapi:/opt/app
+      - ./shared:/opt/app/src/shared
       - ./back/strapi_data/.tmp:/opt/app/.tmp
       - ./back/strapi_data/uploads:/opt/app/public/uploads
     ports:

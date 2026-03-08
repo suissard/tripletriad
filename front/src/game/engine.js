@@ -1,6 +1,5 @@
 import { state } from './state.js';
 import { rulesRegistry } from './rules.js';
-import gsap from 'gsap';
 
 export const sleep = ms => new Promise(r => setTimeout(r, ms));
 
@@ -13,20 +12,13 @@ export function getNeighbors(index) {
     ].filter(n => n.valid);
 }
 
-export function captureCard(mesh, newOwner) {
-    mesh.userData.data.revealed = true;
-
-    mesh.userData.owner = newOwner;
-    const col = newOwner === 'player' ? 0x00d2ff : 0xff0055;
-
-    mesh.material[0].color.setHex(col);
-    mesh.material[1].color.setHex(col);
-    mesh.material[4].color.setHex(col);
-    mesh.material[5].color.setHex(col);
-
-    if (mesh.userData.redraw) {
-        mesh.userData.redraw(mesh.userData.img, newOwner);
-    }
+/**
+ * Capture a card on the board: change owner + reveal it.
+ * boardEntry = state.board[i] = { data: {...}, owner: 'player'|'ai' }
+ */
+export function captureCard(boardEntry, newOwner) {
+    boardEntry.data.revealed = true;
+    boardEntry.owner = newOwner;
 
     // Deduct HP
     if (newOwner === 'player') {
@@ -39,14 +31,10 @@ export function captureCard(mesh, newOwner) {
     if (state.pHealth <= 0 || state.aiHealth <= 0) {
         checkGameOver();
     }
-
-    gsap.to(mesh.rotation, { z: mesh.rotation.z + Math.PI * 2, y: mesh.rotation.y + Math.PI * 2, duration: 0.5, ease: "power2.out" });
-    gsap.to(mesh.position, { y: 1.5, duration: 0.25, yoyo: true, repeat: 1 });
 }
 
 export function showAlert(text) {
     state.alerts = text;
-    // Clearing the alert after a delay so it can be re-triggered
     setTimeout(() => {
         if (state.alerts === text) state.alerts = '';
     }, 1500);
@@ -57,10 +45,10 @@ export async function resolveRules(startIndex, owner) {
 
     let comboStack = [];
     const neighbors = getNeighbors(startIndex);
-    const centerCard = state.board[startIndex];
+    const centerEntry = state.board[startIndex]; // { data, owner }
 
     const actionRecord = {
-        playedCard: centerCard.userData.data,
+        playedCard: centerEntry.data,
         owner: owner,
         capturedCards: []
     };
@@ -71,7 +59,7 @@ export async function resolveRules(startIndex, owner) {
     // Dynamically execute enabled modular rules
     rulesRegistry.forEach(rule => {
         if (state.rules[rule.id] && rule.id !== 'combo') {
-            const result = rule.execute(centerCard, neighbors, state.board);
+            const result = rule.execute(centerEntry, neighbors, state.board);
             if (result.triggered) {
                 result.captures.forEach(c => complexCaptures.add(c));
                 if (result.alertMessage) triggeredAlerts.push(result.alertMessage);
@@ -79,14 +67,13 @@ export async function resolveRules(startIndex, owner) {
         }
     });
 
-    for (let card of complexCaptures) {
-        if (card.userData.owner !== owner) {
-            captureCard(card, owner);
-            actionRecord.capturedCards.push(card.userData.data);
-            const cardIndex = state.board.indexOf(card);
+    for (let entry of complexCaptures) {
+        if (entry.owner !== owner) {
+            captureCard(entry, owner);
+            actionRecord.capturedCards.push(entry.data);
+            const cardIndex = state.board.indexOf(entry);
             comboStack.push(cardIndex);
 
-            // Show the first alert that was triggered
             if (triggeredAlerts.length > 0) {
                 showAlert(triggeredAlerts[0]);
                 triggeredAlerts.shift();
@@ -96,31 +83,31 @@ export async function resolveRules(startIndex, owner) {
 
     neighbors.forEach(n => {
         const adj = state.board[n.i];
-        if (adj && adj.userData.owner !== owner && centerCard.userData.data[n.dir] > adj.userData.data[n.opp]) {
+        if (adj && adj.owner !== owner && centerEntry.data[n.dir] > adj.data[n.opp]) {
             if (!complexCaptures.has(adj)) {
                 captureCard(adj, owner);
-                actionRecord.capturedCards.push(adj.userData.data);
+                actionRecord.capturedCards.push(adj.data);
             }
         }
     });
 
     if (comboStack.length > 0) await sleep(600);
 
-    // Vide la pile si la règle combo est désactivée
+    // Clear combo stack if rule is disabled
     if (!useCombo) comboStack = [];
 
     while (comboStack.length > 0) {
         let currentIdx = comboStack.shift();
-        const comboCard = state.board[currentIdx];
-        if (!comboCard) continue;
+        const comboEntry = state.board[currentIdx];
+        if (!comboEntry) continue;
 
         let newCaptures = false;
 
         getNeighbors(currentIdx).forEach(n => {
             const adj = state.board[n.i];
-            if (adj && adj.userData.owner !== owner && comboCard.userData.data[n.dir] > adj.userData.data[n.opp]) {
+            if (adj && adj.owner !== owner && comboEntry.data[n.dir] > adj.data[n.opp]) {
                 captureCard(adj, owner);
-                actionRecord.capturedCards.push(adj.userData.data);
+                actionRecord.capturedCards.push(adj.data);
                 comboStack.push(n.i);
                 newCaptures = true;
             }
@@ -134,7 +121,6 @@ export async function resolveRules(startIndex, owner) {
 
     // Append to action log
     state.actionLog.push(actionRecord);
-    // Keep only last 5
     if (state.actionLog.length > 5) {
         state.actionLog.shift();
     }
@@ -147,13 +133,14 @@ export function checkGameOver() {
 
     let pBoard = 0, aBoard = 0;
     state.board.forEach(c => {
-        if (c) (c.userData.owner === 'player' ? pBoard++ : aBoard++);
+        if (c) (c.owner === 'player' ? pBoard++ : aBoard++);
     });
 
     state.pScore = pBoard;
     state.aiScore = aBoard;
 
     state.gameOver = true;
+    state.gameState = 'gameover';
 
     if (state.pHealth <= 0) {
         state.winner = 'ai';
@@ -173,19 +160,19 @@ export function endTurn(player) {
 
     if (player === 'player') {
         state.turn = 'ai';
-        if (state.aiMaxMana < 10) state.aiMaxMana++;
-        state.aiMana = state.aiMaxMana;
+        state.aiMaxMana = 1; // Constant 1 mana for now
+        state.aiMana = 1;
     } else {
         state.turn = 'player';
-        if (state.pMaxMana < 10) state.pMaxMana++;
-        state.pMana = state.pMaxMana;
+        state.pMaxMana = 1; // Constant 1 mana for now
+        state.pMana = 1;
     }
 }
 
 export function updateScores() {
     let pBoard = 0, aBoard = 0;
     state.board.forEach(c => {
-        if (c) (c.userData.owner === 'player' ? pBoard++ : aBoard++);
+        if (c) (c.owner === 'player' ? pBoard++ : aBoard++);
     });
 
     state.pScore = pBoard;

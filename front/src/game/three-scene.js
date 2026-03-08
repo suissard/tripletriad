@@ -109,6 +109,9 @@ export function cleanupScene() {
 }
 
 export function resetScene() {
+    // Kill all ongoing GSAP animations
+    gsap.killTweensOf("*");
+
     // Remove all meshes that are not slots or lights
     const toRemove = [];
     scene.children.forEach(child => {
@@ -132,6 +135,30 @@ export function resetScene() {
             }
         }
     });
+}
+
+/**
+ * Redraws the board and hands based on the current state.js object instantly.
+ */
+export function syncSceneWithState() {
+    resetScene();
+
+    // 1. Redraw Board
+    state.board.forEach((cardData, i) => {
+        if (cardData) {
+            const mesh = makeCardMesh(cardData, cardData.owner || 'player');
+            const x = (i % 3) * 2.8 - 2.8;
+            const z = Math.floor(i / 3) * 4 - 4;
+            mesh.position.set(x, 0.08, z); // Slightly above slot
+            mesh.rotation.x = -Math.PI / 2; // Flat on board
+            scene.add(mesh);
+        }
+    });
+
+    // 2. Redraw Hands (if hands data exists in state)
+    // Note: state.pHand and state.aiHand in state.js are currently storing Meshes.
+    // This is a bit problematic for hydration from pure data.
+    // We should probably clear them and rebuild if state.js is updated.
 }
 
 export function makeCardMesh(data, initialOwner) {

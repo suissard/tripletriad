@@ -8,7 +8,6 @@
 <script setup>
 import { computed } from 'vue';
 import { state, resetGame } from '../game/state.js';
-import { resetScene, refillHand } from '../game/three-scene.js';
 import HoloButton from './HoloButton.vue';
 
 const resultText = computed(() => {
@@ -24,9 +23,7 @@ const resultColor = computed(() => {
 });
 
 function handleReplay() {
-    resetScene();
     resetGame();
-    // refillHand is handled by watch in GameCanvas.vue when gameState is changed back to playing
 }
 </script>
 

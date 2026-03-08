@@ -35,11 +35,10 @@
           </div>
 
           <div class="menu-list">
-            <HoloButton text="🛍️ Boutique" activeText="Ouverture..." @click="openBoutiquePage" />
-            <HoloButton text="⚙️ Paramètres du Jeu" activeText="Ouverture..." />
-            <HoloButton :text="`🎴 Mes Decks (${state.userDecks.length}/5)`" activeText="Ouverture..." @click="openDecksPage" />
-            <HoloButton :text="`📚 Ma Collection (${state.collection.length} / 45)`" activeText="Ouverture..." @click="openCollectionPage" />
-            <HoloButton text="📜 Historique des Matchs" activeText="Ouverture..." />
+            <HoloButton text="🏠 Accueil / Menu" @click="goToHome" />
+            <HoloButton text="🤖 Jouer contre l'IA" @click="goToAiMenu" />
+            <HoloButton text="⚙️ Paramètres du Jeu" activeText="Bientôt..." />
+            <HoloButton text="📜 Historique des Matchs" activeText="Bientôt..." />
           </div>
         </template>
 
@@ -597,6 +596,20 @@ async function saveDeck() {
   } else {
     authError.value = "Erreur lors de l'enregistrement du deck.";
   }
+}
+
+function goToHome() {
+  state.gameState = 'menu';
+  state.menuView = 'main';
+  state.rightDrawerOpen = false;
+  window.history.pushState({}, '', '/');
+}
+
+function goToAiMenu() {
+  state.gameState = 'menu';
+  state.menuView = 'ai';
+  state.rightDrawerOpen = false;
+  window.history.pushState({}, '', '/');
 }
 
 function toggleAuthMode() {

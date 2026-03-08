@@ -12,7 +12,9 @@ let hoveredSlot = null;
 let currentListeners = [];
 
 const handleNetworkMove = async (msg) => {
-    if (msg.type === 'move') {
+    if (state.online && state.turnManager) {
+        await state.turnManager.handleNetworkMessage(msg);
+    } else if (msg.type === 'move') {
         await processOpponentMove(msg);
     }
 };
@@ -109,7 +111,31 @@ export function initInput() {
                 state.busy = false;
 
                 if (state.online) {
-                    webrtc.sendMessage({ type: 'move', cardIdx: cardIdx, slot: slot.userData.id });
+                    // webrtc.sendMessage({ type: 'move', cardIdx: cardIdx, slot: slot.userData.id });
+                    if (state.turnManager) {
+                        const x = slot.userData.id % 3;
+                        const y = Math.floor(slot.userData.id / 3);
+                        
+                        // Enregistrement dans le log pour l'arbitrage
+                        const action = {
+                            type: 'PLACE_CARD',
+                            card: {
+                                id: current.userData.data.id,
+                                values: {
+                                    top: current.userData.data.top,
+                                    bottom: current.userData.data.bottom,
+                                    left: current.userData.data.left,
+                                    right: current.userData.data.right
+                                }
+                            },
+                            x,
+                            y,
+                            player: state.isHost ? 'PLAYER_1' : 'PLAYER_2'
+                        };
+                        
+                        state.actionLog.push(action);
+                        await state.turnManager.playLocalAction(action);
+                    }
                 }
             } else {
                 state.alerts = "Pas assez de Mana!";

@@ -1,23 +1,38 @@
 <template>
-  <div id="main-menu" v-if="state.gameState === 'menu' || state.leftDrawerOpen">
+  <div id="main-menu" v-if="state.gameState === 'menu'">
 
-    <div v-if="menuState === 'main'" class="menu-buttons">
-      <HoloButton width="100%" @click="menuState = 'ai'">JOUER CONTRE UNE IA 🤖</HoloButton>
-      <HoloButton width="100%" @click="showUnavailableMessage('Partie privée')">PARTIE PRIVÉE 🔒</HoloButton>
-      <HoloButton width="100%" @click="menuState = 'multi'">PARTIE MULTIJOUEUR 🌍</HoloButton>
+    <div v-if="state.menuView === 'main'" class="menu-buttons">
+      <HoloButton width="100%" @click="state.menuView = 'ai'">JOUER CONTRE UNE IA 🤖</HoloButton>
+      <HoloButton width="100%" @click="state.menuView = 'multi'">PARTIE MULTIJOUEUR 🌍</HoloButton>
+      <HoloButton width="100%" @click="openCollection">MA COLLECTION 📚</HoloButton>
+      <HoloButton width="100%" @click="openDecks">MES DECKS 🎴</HoloButton>
+      <HoloButton width="100%" @click="openBoutique">BOUTIQUE 💎</HoloButton>
     </div>
 
-    <div v-else-if="menuState === 'ai'" class="difficulty-options">
-      <h2 style="color: white; margin-bottom: 1.5rem;">CHOISIS LA DIFFICULTÉ</h2>
-      <div class="difficulty-grid">
-        <HoloButton v-for="level in 10" :key="level" @click="startGame(level)" class="diff-btn">
-          Niveau {{ level }}
-        </HoloButton>
+    <div v-else-if="state.menuView === 'ai'" class="deck-selection-menu">
+      <h2 style="color: white; margin-bottom: 1.5rem;">CHOISIS TON DECK</h2>
+      
+      <div v-if="state.userDecks.length > 0" class="decks-grid">
+        <div v-for="deck in state.userDecks" :key="deck.id" class="deck-select-card" @click="startAiGame(deck)">
+          <div class="deck-thumb">
+            <img v-if="deck.cover && getCardById(deck.cover)" :src="getCardById(deck.cover).img" />
+            <div v-else class="placeholder">🎴</div>
+          </div>
+          <div class="deck-info">
+            <div class="name">{{ deck.name }}</div>
+            <div class="count">{{ deck.cards.length }} cartes</div>
+          </div>
+        </div>
       </div>
-      <HoloButton @click="menuState = 'main'" style="margin-top: 15px;">RETOUR</HoloButton>
+      <div v-else class="no-decks">
+        <p>Vous n'avez pas de deck. Créez-en un d'abord !</p>
+        <HoloButton @click="openDecks">CRÉER UN DECK</HoloButton>
+      </div>
+
+      <HoloButton @click="state.menuView = 'main'" style="margin-top: 25px;">RETOUR</HoloButton>
     </div>
 
-    <div v-else-if="menuState === 'multi'" class="difficulty-options multi-menu">
+    <div v-else-if="state.menuView === 'multi'" class="difficulty-options multi-menu">
       <h2 style="color: white; margin-bottom: 1.5rem;">MULTIJOUEUR</h2>
       <div v-if="!multiState.hosting && !multiState.joining" class="menu-buttons multi-buttons">
         <HoloButton width="100%" @click="hostGame">Héberger une partie</HoloButton>
@@ -50,10 +65,52 @@
 
 <script setup>
 import { ref, reactive, onMounted, onUnmounted } from 'vue';
-import { state, webrtc, resetGame } from '../game/state.js';
+import { state, webrtc, resetGame, initOnlineTurnManager, getCardById, normalizeCard, refillHand, cardLibrary } from '../game/state.js';
 import HoloButton from './HoloButton.vue';
 
-const menuState = ref('main'); // main, ai, multi
+function openCollection() {
+  state.showCollectionPage = true;
+  window.history.pushState({}, '', '/collection');
+}
+
+function openDecks() {
+  state.showDecksPage = true;
+  window.history.pushState({}, '', '/decks');
+}
+
+function openBoutique() {
+  state.showBoutiquePage = true;
+  window.history.pushState({}, '', '/boutique');
+}
+
+function startAiGame(deck) {
+  if (deck.cards.length < 5) {
+    state.alerts = "Ce deck est incomplet (min 5 cartes)";
+    return;
+  }
+  
+  // 1. Reset everything to a clean state
+  resetGame(30, false); 
+  
+  state.online = false;
+  state.aiDifficulty = 1;
+  
+  // 2. Give AI a random 5-card deck and draw its starting hand
+  const aiCards = [];
+  for (let i = 0; i < 5; i++) {
+    const randomCard = cardLibrary[Math.floor(Math.random() * cardLibrary.length)];
+    aiCards.push(normalizeCard(randomCard));
+  }
+  state.deck = aiCards;
+  refillHand('ai'); // AI hand is now initialized (3 cards)
+  
+  // 3. Set the remaining deck to the player's chosen cards
+  const playerDeck = deck.cards.map(id => normalizeCard(getCardById(id)));
+  state.deck = playerDeck;
+  
+  // 4. Enter the game
+  state.gameState = 'playing';
+}
 
 const multiState = reactive({
   hosting: false,
@@ -64,20 +121,6 @@ const multiState = reactive({
   error: null
 });
 
-function showUnavailableMessage(type) {
-  state.alerts = ''; 
-  setTimeout(() => {
-    state.alerts = `${type} : Bientôt disponible !`;
-  }, 10);
-}
-
-function startGame(level) {
-  state.online = false;
-  state.aiDifficulty = level;
-  state.gameState = 'playing';
-  state.leftDrawerOpen = false; // Auto close drawer
-}
-
 function cancelMulti() {
   webrtc.close();
   multiState.hosting = false;
@@ -85,36 +128,32 @@ function cancelMulti() {
   multiState.uuid = null;
   multiState.error = null;
   multiState.loading = false;
-  menuState.value = 'main';
+  state.menuView = 'main';
 }
-
-// Set up webrtc callbacks
-const handleNetworkMessage = (msg) => {
-  if (msg.type === 'init') {
-    resetGame();
-    state.deck = msg.deck;
-    state.online = true;
-    state.turn = 'ai'; // 'ai' role is for network opponent
-    state.gameState = 'playing';
-    state.leftDrawerOpen = false; // Auto close drawer
-  }
-};
 
 onMounted(() => {
   webrtc.onConnected = () => {
-    state.online = true;
-    state.isHost = webrtc.isHost;
     state.aiDifficulty = 1;
 
     if (webrtc.isHost) {
-      resetGame(); 
-      state.online = true;
-      state.turn = 'player';
+      resetGame(30, false); 
+      initOnlineTurnManager(true); // Host
       state.gameState = 'playing';
       state.leftDrawerOpen = false; // Auto close drawer
       webrtc.sendMessage({ type: 'init', deck: state.deck });
     }
   };
+  
+  const handleNetworkMessage = (msg) => {
+    if (msg.type === 'init') {
+      resetGame(30, false);
+      state.deck = msg.deck;
+      initOnlineTurnManager(false); // Guest
+      state.gameState = 'playing';
+      state.leftDrawerOpen = false; // Auto close drawer
+    }
+  };
+
   webrtc.onError = (err) => {
     multiState.error = err;
     multiState.loading = false;
@@ -156,6 +195,8 @@ async function joinGame() {
 #main-menu {
     display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
     width: 100%; height: 100%; pointer-events: auto;
+    padding-top: 120px;
+    box-sizing: border-box;
 }
 .menu-buttons {
     display: flex;
@@ -171,20 +212,67 @@ button {
 }
 button:hover { transform: scale(1.05); }
 
-.difficulty-options {
+.deck-selection-menu {
+    width: 100%;
+    max-width: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.difficulty-grid {
+.decks-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: 15px;
-    margin-bottom: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
     width: 100%;
+    margin-bottom: 30px;
 }
-.diff-btn {
-    /* Adjusted for HoloButton integration */
+.deck-select-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 210, 255, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.deck-select-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    border-color: #00d2ff;
+    box-shadow: 0 5px 15px rgba(0, 210, 255, 0.3);
+}
+.deck-thumb {
+    height: 100px;
+    background: rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.deck-thumb img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.deck-thumb .placeholder {
+    font-size: 2.5rem;
+    opacity: 0.3;
+}
+.deck-info {
+    padding: 10px;
+    text-align: center;
+}
+.deck-info .name {
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+.deck-info .count {
+    color: #00d2ff;
+    font-size: 0.8rem;
+}
+.no-decks {
+    text-align: center;
+    color: #aaa;
+    margin: 40px 0;
 }
 
 .multi-menu {

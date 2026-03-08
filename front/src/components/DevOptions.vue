@@ -80,7 +80,6 @@
 <script setup>
 import { ref, reactive, onMounted, watch } from 'vue';
 import { state, cardLibrary, setAuth, logout, addDevCoins, addDevDust } from '../game/state.js';
-import { setCardFrame } from '../game/three-scene.js';
 import strapiService from '../api/strapi.js';
 
 const devSettings = reactive({
@@ -166,7 +165,7 @@ function toggleMenu() {
 }
 
 function onFrameChange() {
-  setCardFrame(selected.value);
+  state.selectedFrame = selected.value;
 }
 
 function addAllCards() {

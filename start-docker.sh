@@ -7,4 +7,4 @@ docker-compose up -d
 echo "Services démarrés :"
 echo "- Frontend : http://localhost"
 echo "- Strapi (API) : http://localhost:1337"
-echo "Pour voir les logs : docker-compose logs -f"
+echo "Pour voir les logs : sudo docker-compose logs -f"

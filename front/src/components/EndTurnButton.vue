@@ -3,7 +3,7 @@
     <HoloButton
       class="end-turn-btn"
       :class="{ ready: isReady, disabled: state.turn !== 'player' }"
-      @click="handleEndTurn"
+      @click="onEndTurn"
       :disabled="state.turn !== 'player'"
       :width="'250px'"
     >
@@ -15,8 +15,7 @@
 <script setup>
 import { computed } from 'vue';
 import { state, confirmAction } from '../game/state.js';
-import { endTurn } from '../game/engine.js';
-import { refillHand } from '../game/three-scene.js';
+import { handleEndTurn } from '../game/game-actions.js';
 import HoloButton from './HoloButton.vue';
 
 const isReady = computed(() => {
@@ -24,11 +23,11 @@ const isReady = computed(() => {
   if (state.pMana === 0) return true;
 
   // Check if player has affordable cards
-  const affordableCard = state.pHand.find(c => (c.userData?.data?.level || 1) <= state.pMana);
+  const affordableCard = state.pHand.find(c => (c.level || 1) <= state.pMana);
   return !affordableCard;
 });
 
-const handleEndTurn = async () => {
+const onEndTurn = async () => {
   if (state.turn !== 'player') return;
 
   if (!isReady.value) {
@@ -36,32 +35,16 @@ const handleEndTurn = async () => {
     if (!confirm) return;
   }
 
-  state.turn = 'ai'; // Temporarily set to avoid double clicks while animating
-  endTurn('player');
-  refillHand('player');
-
-  if (!state.online) {
-      setTimeout(async () => {
-          const { aiPlay } = await import('../game/input.js');
-          aiPlay();
-      }, 800);
-  }
+  handleEndTurn();
 };
 </script>
 
 <style scoped>
 .end-turn-container {
-  position: absolute;
-  right: 200px; /* Offset from ActionLog */
-  top: 50%;
-  transform: translateY(-50%);
   pointer-events: auto;
   z-index: 20;
 }
 
-.end-turn-btn {
-  /* HoloButton handles base styling, adding specific animation for ready state */
-}
 
 .end-turn-btn.ready :deep(.coreButton) {
   box-shadow: 0 0 20px rgba(241, 196, 15, 0.8), inset 0 0 10px rgba(255, 255, 255, 0.5);

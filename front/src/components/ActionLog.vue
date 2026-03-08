@@ -31,18 +31,14 @@ const reversedLog = computed(() => {
 
 <style scoped>
 .action-log-container {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 150px;
+  width: 100%;
   background: rgba(0, 0, 0, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   padding: 10px;
   color: white;
   z-index: 20;
-  max-height: 60vh;
+  max-height: 50vh;
   display: flex;
   flex-direction: column;
   pointer-events: auto;
