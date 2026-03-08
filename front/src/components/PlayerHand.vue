@@ -18,7 +18,7 @@
         <TripleTriadCard
           :card="card"
           :flat="false"
-          size="sm"
+          size="md"
           borderColor="#00d2ff"
           :disableZoom="true"
           :isPremium="card.isPremium"

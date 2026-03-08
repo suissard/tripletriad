@@ -10,7 +10,7 @@
         'slot-occupied': !!cell,
         'slot-player': cell && cell.owner === 'player',
         'slot-ai': cell && cell.owner === 'ai',
-        'is-shaking': lastPlacedIndex === index,
+        'is-impact': lastPlacedIndex === index,
         'is-drag-over': dragOverIndex === index
       }"
       @click="handleSlotClick(index)"
@@ -100,15 +100,14 @@ async function triggerPlacement(index) {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  gap: 8px;
-  padding: 12px;
+  gap: 20px;
+  padding: 20px;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 16px;
   border: 2px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(12px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 60px rgba(0, 0, 0, 0.2);
-  aspect-ratio: 3 / 3.5;
-  max-width: 380px;
+  max-width: 420px;
   width: 100%;
   flex-shrink: 0;
   margin: 0 auto;
@@ -188,25 +187,26 @@ async function triggerPlacement(index) {
   height: 100% !important;
 }
 
-/* Card placement animation */
+/* Card placement animation: Natural falling from above */
 .card-place-enter-active {
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .card-place-enter-from {
   opacity: 0;
-  transform: scale(0.3) translateY(30px);
+  transform: translateY(-200px) rotateX(-40deg) rotateZ(10deg) scale(1.2);
+  filter: blur(4px);
 }
 
-.board-slot.is-shaking {
-  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+/* Impact effect on the slot */
+.board-slot.is-impact {
+  animation: impact 0.4s ease-out both;
 }
 
-@keyframes shake {
-  10%, 90% { transform: translate3d(-1px, 0, 0); }
-  20%, 80% { transform: translate3d(2px, 0, 0); }
-  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-  40%, 60% { transform: translate3d(4px, 0, 0); }
+@keyframes impact {
+  0% { transform: scale(1); }
+  30% { transform: scale(0.96); }
+  100% { transform: scale(1); }
 }
 
 /* Slot pulse animation */

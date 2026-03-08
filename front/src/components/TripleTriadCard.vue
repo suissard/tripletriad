@@ -487,7 +487,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 /*  SIZES                                       */
 /* ============================================ */
 .card-size-xs { width: 70px; font-size: 7px; height: 98px; }
-.card-size-sm { width: 100px; font-size: 9px; height: 140px; }
+.card-size-sm { width: 90px; font-size: 8px; height: 126px; }
 .card-size-md { width: 150px; font-size: 12px; height: 210px; }
 .card-size-lg { width: 180px; font-size: 14px; height: 252px; }
 .card-size-xl { width: 350px; font-size: 20px; height: 490px; }
@@ -537,8 +537,8 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   position: absolute;
   color: #ffd700;
   font-weight: bold;
-  font-size: 1.3em;
-  text-shadow: 0 1px 3px black, 0 0 6px rgba(0,0,0,0.8);
+  font-size: 1.6em;
+  text-shadow: 0 1px 3px black, 0 0 8px rgba(0,0,0,0.9);
   line-height: 1;
 }
 

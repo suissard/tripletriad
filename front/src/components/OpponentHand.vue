@@ -9,7 +9,7 @@
         <TripleTriadCard
           :card="{ ...card, revealed: false }"
           :flat="true"
-          size="xs"
+          size="sm"
           borderColor="#ff0055"
           :disableZoom="true"
         />

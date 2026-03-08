@@ -3,15 +3,30 @@
 import { execSync } from 'child_process';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { symlinkSync, existsSync, unlinkSync } from 'fs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
 
 const projects = [
-  { name: 'Root', path: '.' },
   { name: 'Front-end', path: 'front' },
   { name: 'Strapi (Back-end)', path: 'back/strapi' }
 ];
+
+
+console.log('🔗 Linking .env to Strapi directory...');
+const rootEnv = resolve(ROOT, '.env');
+const strapiEnv = resolve(ROOT, 'back/strapi/.env');
+
+try {
+  if (existsSync(strapiEnv)) {
+    unlinkSync(strapiEnv);
+  }
+  symlinkSync('../../.env', strapiEnv);
+  console.log('✅ .env linked successfully!\n');
+} catch (error) {
+  console.warn('⚠️ Could not create .env symlink (normal on Windows without dev mode).');
+}
 
 console.log('\n🚀 Starting installation for all projects...\n');
 
