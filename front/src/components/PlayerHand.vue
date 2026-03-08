@@ -17,7 +17,7 @@
       >
         <TripleTriadCard
           :card="card"
-          :flat="true"
+          :flat="false"
           size="sm"
           borderColor="#00d2ff"
           :disableZoom="true"

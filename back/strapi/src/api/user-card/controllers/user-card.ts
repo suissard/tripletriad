@@ -190,5 +190,36 @@ export default factories.createCoreController('api::user-card.user-card', ({ str
       console.error(err);
       return ctx.internalServerError('An error occurred during mass disenchanting.');
     }
+  },
+  async addDevCurrencies(ctx) {
+    try {
+      const user = ctx.state.user;
+      if (!user) return ctx.unauthorized('You must be logged in.');
+
+      const { coins, dust } = ctx.request.body;
+      
+      const currentUserData = await strapi.entityService.findOne('plugin::users-permissions.user', user.id);
+      
+      const updateData: any = {};
+      if (typeof coins === 'number') {
+        updateData.coins = ((currentUserData as any).coins || 0) + coins;
+      }
+      if (typeof dust === 'number') {
+        updateData.dust = ((currentUserData as any).dust || 0) + dust;
+      }
+
+      const updatedUser = await strapi.entityService.update('plugin::users-permissions.user', user.id, {
+        data: updateData
+      });
+
+      return ctx.send({ 
+        message: 'Currencies added successfully', 
+        coins: updatedUser.coins, 
+        dust: updatedUser.dust 
+      });
+    } catch (err) {
+      console.error(err);
+      return ctx.internalServerError('An error occurred while adding currencies.');
+    }
   }
 }));

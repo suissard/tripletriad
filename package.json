@@ -3,17 +3,18 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "start": "sudo bash start-docker.sh",
-    "stop": "sudo docker-compose down",
-    "restart": "sudo docker-compose down && sudo bash start-docker.sh",
+    "dev": "npm run stop && npm run dev:front & npm run dev:back",
+    "install": "node scripts/install-all.js",
     "setup": "node scripts/setup-strapi.js",
+    "start": "bash scripts/start-docker.sh",
+    "stop": "sudo docker-compose down",
+    "restart": "npm run stop && npm run start",
     "test:api": "npm run test:api --prefix front",
     "dev:front": "npm run dev --prefix front",
+    "dev:back": "npm run develop --prefix back/strapi",
     "build:front": "npm run build --prefix front",
-    "docker:start": "sudo bash start-docker.sh",
+    "docker:start": "bash scripts/start-docker.sh",
     "docker:stop": "sudo docker-compose down",
-    "docker:build": "sudo bash init.sh",
-    "clean": "sudo bash clean.sh",
-    "strapi:dev": "npm run develop --prefix back/strapi"
+    "clean": "bash scripts/clean.sh"
   }
 }

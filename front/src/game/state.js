@@ -559,12 +559,18 @@ export async function massDisenchantCards(skipConfirm = false) {
 export async function addDevCoins(amount) {
     if (!state.isLoggedIn) return;
     try {
-        const newCoins = state.user.coins + amount;
-        await strapiService.update('users', state.user.id, { coins: newCoins });
-        state.user.coins = newCoins;
-        const updatedUser = { ...JSON.parse(localStorage.getItem('tt_user') || '{}'), coins: newCoins };
-        localStorage.setItem('tt_user', JSON.stringify(updatedUser));
-        console.log(`[Dev] Added ${amount} coins. New total: ${newCoins}`);
+        const result = await strapiService.request('POST', '/dev/add-currencies', {
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ coins: amount })
+        });
+        
+        if (!result.error) {
+            state.user.coins = result.coins;
+            state.user.dust = result.dust;
+            const updatedUser = { ...JSON.parse(localStorage.getItem('tt_user') || '{}'), coins: result.coins, dust: result.dust };
+            localStorage.setItem('tt_user', JSON.stringify(updatedUser));
+            console.log(`[Dev] Added coins. New total: ${result.coins}`);
+        }
     } catch (e) {
         console.error('[Dev] Failed to add coins:', e);
     }
@@ -573,12 +579,18 @@ export async function addDevCoins(amount) {
 export async function addDevDust(amount) {
     if (!state.isLoggedIn) return;
     try {
-        const newDust = state.user.dust + amount;
-        await strapiService.update('users', state.user.id, { dust: newDust });
-        state.user.dust = newDust;
-        const updatedUser = { ...JSON.parse(localStorage.getItem('tt_user') || '{}'), dust: newDust };
-        localStorage.setItem('tt_user', JSON.stringify(updatedUser));
-        console.log(`[Dev] Added ${amount} dust. New total: ${newDust}`);
+        const result = await strapiService.request('POST', '/dev/add-currencies', {
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ dust: amount })
+        });
+        
+        if (!result.error) {
+            state.user.coins = result.coins;
+            state.user.dust = result.dust;
+            const updatedUser = { ...JSON.parse(localStorage.getItem('tt_user') || '{}'), coins: result.coins, dust: result.dust };
+            localStorage.setItem('tt_user', JSON.stringify(updatedUser));
+            console.log(`[Dev] Added dust. New total: ${result.dust}`);
+        }
     } catch (e) {
         console.error('[Dev] Failed to add dust:', e);
     }

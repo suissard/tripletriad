@@ -29,7 +29,12 @@
   >
     <div class="tt-card-inner" :style="!flat ? innerStyle : { transform: 'none' }">
 
-      <!-- Premium Glare/Holo -->
+      <!-- 3D Glare Layout -->
+      <template v-if="!flat">
+        <div class="glare" :style="glareStyle"></div>
+      </template>
+
+      <!-- Premium Holo Effect -->
       <template v-if="isPremiumCard && !flat">
         <!-- Per-card SVG filter for unique holo texture -->
         <svg width="0" height="0" style="position:absolute">
@@ -39,7 +44,6 @@
             <feBlend in="SourceGraphic" in2="mono" mode="color-burn" />
           </filter>
         </svg>
-        <div class="glare" :style="glareStyle"></div>
         <div class="holo-container" :style="holoStyle">
           <div class="holo-gradient" :style="{ filter: holoFilterUrl }"></div>
         </div>
@@ -289,7 +293,7 @@ const rarityColor = computed(() => {
 
 const cardStyle = computed(() => {
   const style = {};
-  if (isPremiumCard.value && !props.flat) Object.assign(style, mouseStyle.value);
+  if (!props.flat) Object.assign(style, mouseStyle.value);
   if (props.borderColor) style['--border-color'] = props.borderColor;
   return style;
 });
@@ -398,7 +402,7 @@ const holoOctaves = computed(() => {
 });
 
 function handleMove(e) {
-  if (props.flat || !isPremiumCard.value) return;
+  if (props.flat) return;
   isActive.value = true;
   const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
   const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
@@ -413,7 +417,7 @@ function handleMove(e) {
 }
 
 function handleLeave() {
-  if (props.flat || !isPremiumCard.value) return;
+  if (props.flat) return;
   isActive.value = false;
   tilt.value = { x: 0, y: 0 };
   mousePos.value = { x: 50, y: 50 };
@@ -451,7 +455,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   z-index: 5;
 }
 
-.tt-card.is-premium:not(.is-flat) {
+.tt-card:not(.is-flat) {
   perspective: 1000px;
 }
 
