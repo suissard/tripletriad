@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "quest_templates",
+  "info": {
+    "singularName": "quest-template",
+    "pluralName": "quest-templates",
+    "displayName": "Quest Template",
+    "description": "Base template for quests (e.g. daily quests)"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "target": {
+      "type": "integer",
+      "required": true,
+      "min": 1
+    },
+    "reward": {
+      "type": "integer",
+      "required": true,
+      "min": 0
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "daily",
+        "weekly",
+        "monthly",
+        "story"
+      ],
+      "default": "daily",
+      "required": true
+    }
+  }
+}

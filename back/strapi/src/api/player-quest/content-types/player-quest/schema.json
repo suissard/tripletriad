@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "player_quests",
+  "info": {
+    "singularName": "player-quest",
+    "pluralName": "player-quests",
+    "displayName": "Player Quest",
+    "description": "Active or completed quest for a specific player"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "template": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::quest-template.quest-template"
+    },
+    "progress": {
+      "type": "integer",
+      "default": 0,
+      "min": 0,
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "active",
+        "completed",
+        "failed"
+      ],
+      "default": "active",
+      "required": true
+    },
+    "expiresAt": {
+      "type": "datetime",
+      "required": true
+    }
+  }
+}
