@@ -68,6 +68,7 @@
       <h4>Tester API</h4>
       <div class="dev-buttons">
         <button @click="openDevTestPage" style="color: #00d2ff; border-color: #00d2ff;">🧪 Testeur API Strapi</button>
+        <button @click="openMapPage" style="color: #58a6ff; border-color: #58a6ff;">🗺️ Cartographie Archi.</button>
       </div>
 
       <div class="dev-info">
@@ -180,6 +181,10 @@ function clearCollection() {
 }
 
 function openDevTestPage() {
+function openMapPage() {
+  state.showArchitectureMap = true;
+  state.showDevOptions = false;
+}
   state.showDevTestPage = true;
   isOpen.value = false; // Close the menu when opening the page
 }

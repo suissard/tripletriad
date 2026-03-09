@@ -115,6 +115,7 @@ export const state = reactive({
     showDecksPage: window.location.pathname === '/decks',
     showPackOpening: window.location.pathname === '/boutique',
     showDevTestPage: false,
+    showArchitectureMap: false,
     editingDeck: { id: null, documentId: null, name: '', cover: null, cards: [] },
     
     // P2P Engine
