@@ -68,7 +68,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       const rand5 = Math.random();
       const rarity5 = rand5 < 0.9 ? 'Epic' : 'Legendary';
       const pool5 = allCards[rarity5] as any[];
-      const randomCard5 = pool5[Math.floor(Math.random() * pool.length)];
+      const randomCard5 = pool5[Math.floor(Math.random() * pool5.length)];
       drawnCards.push(randomCard5);
 
       for (const card of drawnCards) {

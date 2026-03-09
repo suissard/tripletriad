@@ -98,6 +98,7 @@ const elements = ref([
 
 function closeMap() {
   state.showArchitectureMap = false;
+  window.history.pushState({}, '', '/');
 }
 </script>
 
@@ -185,6 +186,7 @@ function closeMap() {
 
 @keyframes dashdraw {
   from { stroke-dashoffset: 10; }
+  to { stroke-dashoffset: 0; }
 }
 
 :deep(.vue-flow__edge-textbg) {

@@ -196,26 +196,35 @@ export default factories.createCoreController('api::user-card.user-card', ({ str
       const user = ctx.state.user;
       if (!user) return ctx.unauthorized('You must be logged in.');
 
-      const { coins, dust } = ctx.request.body;
+      const { coins, gems, dust } = ctx.request.body;
       
-      const currentUserData = await strapi.entityService.findOne('plugin::users-permissions.user', user.id);
+      // Find the wallet for this user
+      const wallets = await strapi.entityService.findMany('api::wallet.wallet', {
+        filters: { user: user.id }
+      });
       
-      const updateData: any = {};
-      if (typeof coins === 'number') {
-        updateData.coins = ((currentUserData as any).coins || 0) + coins;
-      }
-      if (typeof dust === 'number') {
-        updateData.dust = ((currentUserData as any).dust || 0) + dust;
+      let wallet = wallets[0];
+      if (!wallet) {
+        // Create wallet if it doesn't exist for some reason
+        wallet = await strapi.entityService.create('api::wallet.wallet', {
+          data: { user: user.id, coins: 0, gems: 0, dust: 0 }
+        });
       }
 
-      const updatedUser = await strapi.entityService.update('plugin::users-permissions.user', user.id, {
+      const updateData: any = {};
+      if (typeof coins === 'number') updateData.coins = (wallet.coins || 0) + coins;
+      if (typeof gems === 'number') updateData.gems = (wallet.gems || 0) + gems;
+      if (typeof dust === 'number') updateData.dust = (wallet.dust || 0) + dust;
+
+      const updatedWallet = await strapi.entityService.update('api::wallet.wallet', wallet.id, {
         data: updateData
       });
 
       return ctx.send({ 
         message: 'Currencies added successfully', 
-        coins: updatedUser.coins, 
-        dust: updatedUser.dust 
+        coins: updatedWallet.coins, 
+        gems: updatedWallet.gems,
+        dust: updatedWallet.dust 
       });
     } catch (err) {
       console.error(err);

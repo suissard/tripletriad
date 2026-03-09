@@ -52,7 +52,7 @@
       <!-- CARD CONTENT (Unified layout) -->
       <template v-if="card.revealed !== false || $attrs.forceFace">
         <!-- Card image -->
-        <img v-if="card.img" :src="card.img" class="card-img" :alt="card.name" />
+        <img :src="card.img || `https://api.dicebear.com/9.x/bottts/png?seed=${(card.id || 0) * 42}&backgroundColor=transparent`" class="card-img" :alt="card.name" />
 
         <!-- Name bar -->
         <div class="card-name-bar">{{ card.name }}</div>
@@ -272,6 +272,7 @@ const sizeClass = computed(() => `card-size-${props.size}`);
 
 const rarityClass = computed(() => {
   if (props.card.revealed === false) return 'rarity-common';
+  if (props.card.rarity) return `rarity-${props.card.rarity.toLowerCase()}`;
   const level = props.card.level || 1;
   if (level >= 9) return 'rarity-legendary';
   if (level >= 7) return 'rarity-epic';
@@ -283,6 +284,18 @@ const rarityClass = computed(() => {
 const rarityColor = computed(() => {
   if (props.borderColor) return props.borderColor;
   if (props.card.revealed === false) return '#a0a0a0';
+  
+  if (props.card.rarity) {
+    const map = {
+      'Common': '#a0a0a0',
+      'Uncommon': '#4caf50',
+      'Rare': '#2196f3',
+      'Epic': '#9c27b0',
+      'Legendary': '#ffc107'
+    };
+    return map[props.card.rarity] || '#a0a0a0';
+  }
+
   const level = props.card.level || 1;
   if (level >= 9) return '#ffc107';
   if (level >= 7) return '#9c27b0';

@@ -62,6 +62,7 @@
       <h4>Dev Currencies</h4>
       <div class="dev-buttons">
         <button @click="doAddCoins">💰 +1000 Coins</button>
+        <button @click="doAddGems">💎 +1000 Gems</button>
         <button @click="doAddDust">✨ +1000 Dust</button>
       </div>
 
@@ -180,17 +181,24 @@ function clearCollection() {
   state.collection = [];
 }
 
-function openDevTestPage() {
 function openMapPage() {
   state.showArchitectureMap = true;
-  state.showDevOptions = false;
+  window.history.pushState({}, '', '/cartographie');
+  isOpen.value = false;
 }
+
+function openDevTestPage() {
   state.showDevTestPage = true;
+  window.history.pushState({}, '', '/test-api');
   isOpen.value = false; // Close the menu when opening the page
 }
 
 function doAddCoins() {
   addDevCoins(1000);
+}
+
+function doAddGems() {
+  addDevGems(1000);
 }
 
 function doAddDust() {

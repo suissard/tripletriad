@@ -62,7 +62,7 @@ export default factories.createCoreService('api::player-quest.player-quest', ({ 
     // 2. Check if active daily quests exist for this user today
     const existingQuests = await strapi.entityService.findMany('api::player-quest.player-quest', {
       filters: {
-        user: userId,
+        user: { id: userId },
         status: 'active',
         expiresAt: {
           $gte: now.toISOString()
@@ -87,10 +87,10 @@ export default factories.createCoreService('api::player-quest.player-quest', ({ 
     // 4. Fallback: Create mock templates if none exist
     if (!templates || templates.length === 0) {
       const defaultTemplates = [
-        { title: 'Win 3 Matches', description: 'Win 3 matches against any opponent.', target: 3, reward: 150, type: 'daily' },
-        { title: 'Play 5 Matches', description: 'Play 5 matches.', target: 5, reward: 100, type: 'daily' },
-        { title: 'Defeat a Boss', description: 'Win a match against a boss.', target: 1, reward: 200, type: 'daily' },
-        { title: 'Collect 10 Cards', description: 'Get 10 new cards.', target: 10, reward: 50, type: 'daily' },
+        { title: 'Win 3 Matches', description: 'Win 3 matches against any opponent.', target: 3, reward: 150, type: 'daily' as const },
+        { title: 'Play 5 Matches', description: 'Play 5 matches.', target: 5, reward: 100, type: 'daily' as const },
+        { title: 'Defeat a Boss', description: 'Win a match against a boss.', target: 1, reward: 200, type: 'daily' as const },
+        { title: 'Collect 10 Cards', description: 'Get 10 new cards.', target: 10, reward: 50, type: 'daily' as const },
       ];
 
       for (const t of defaultTemplates) {
