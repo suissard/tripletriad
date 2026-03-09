@@ -87,6 +87,12 @@
       "type": "decimal",
       "default": 0.05,
       "configurable": true
+    },
+    "wallet": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::wallet.wallet",
+      "mappedBy": "user"
     }
   }
 }

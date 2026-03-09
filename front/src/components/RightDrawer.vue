@@ -629,9 +629,9 @@ function openDecksPage() {
   window.history.pushState({}, '', '/decks');
 }
 
-function openBoutiquePage() {
+function openPackOpening() {
   state.rightDrawerOpen = false;
-  state.showBoutiquePage = true;
+  state.showPackOpening = true;
   window.history.pushState({}, '', '/boutique');
 }
 

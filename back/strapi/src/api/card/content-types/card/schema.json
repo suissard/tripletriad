@@ -78,6 +78,16 @@
     },
     "collectionName": {
       "type": "string"
+    },
+    "rarity": {
+      "type": "enumeration",
+      "enum": [
+        "Common",
+        "Rare",
+        "Epic",
+        "Legendary"
+      ],
+      "default": "Common"
     }
   }
 }

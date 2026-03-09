@@ -79,7 +79,7 @@ function openDecks() {
 }
 
 function openBoutique() {
-  state.showBoutiquePage = true;
+  state.showPackOpening = true;
   window.history.pushState({}, '', '/boutique');
 }
 
