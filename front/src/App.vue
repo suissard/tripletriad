@@ -20,6 +20,7 @@
 
   <!-- Full Screen Dev Test Page -->
   <DevTestPage />
+    <ArchitectureMapPage />
 
   <!-- Full Screen Boutique Page -->
   <PackOpening v-if="state.showPackOpening" @close="state.showPackOpening = false; window.history.pushState({}, '', '/');" @update-coins="c => state.user.coins = c" />
@@ -37,6 +38,7 @@ import AlertMessage from './components/AlertMessage.vue';
 import ConfirmationModal from './components/ConfirmationModal.vue';
 import DevOptions from './components/DevOptions.vue';
 import DevTestPage from './components/DevTestPage.vue';
+import ArchitectureMapPage from './components/ArchitectureMapPage.vue';
 import CollectionView from './components/CollectionView.vue';
 import DeckEditorPage from './components/DeckEditorPage.vue';
 import DecksPage from './components/DecksPage.vue';
