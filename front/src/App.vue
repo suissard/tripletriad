@@ -22,7 +22,7 @@
   <DevTestPage />
 
   <!-- Full Screen Boutique Page -->
-  <BoutiquePage v-if="state.showBoutiquePage" @close="state.showBoutiquePage = false; window.history.pushState({}, '', '/');" @update-coins="c => state.user.coins = c" />
+  <PackOpening v-if="state.showPackOpening" @close="state.showPackOpening = false; window.history.pushState({}, '', '/');" @update-coins="c => state.user.coins = c" />
 
   <!-- Full Screen Decks Page -->
   <DecksPage />
@@ -40,7 +40,7 @@ import DevTestPage from './components/DevTestPage.vue';
 import CollectionView from './components/CollectionView.vue';
 import DeckEditorPage from './components/DeckEditorPage.vue';
 import DecksPage from './components/DecksPage.vue';
-import BoutiquePage from './components/BoutiquePage.vue';
+import PackOpening from './components/PackOpening.vue';
 import { state } from './game/state.js';
 
 console.warn('--- TRIPLE TRIAD: FRONTEND LOADED (VERSION: VUE_UI_REVAMP) ---');

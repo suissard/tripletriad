@@ -113,7 +113,7 @@ export const state = reactive({
     // Deck Editor Page
     showDeckEditor: window.location.pathname === '/deck-editor',
     showDecksPage: window.location.pathname === '/decks',
-    showBoutiquePage: window.location.pathname === '/boutique',
+    showPackOpening: window.location.pathname === '/boutique',
     showDevTestPage: false,
     editingDeck: { id: null, documentId: null, name: '', cover: null, cards: [] },
     
@@ -130,7 +130,7 @@ window.addEventListener('popstate', () => {
     state.showCollectionPage = window.location.pathname === '/collection';
     state.showDeckEditor = window.location.pathname === '/deck-editor';
     state.showDecksPage = window.location.pathname === '/decks';
-    state.showBoutiquePage = window.location.pathname === '/boutique';
+    state.showPackOpening = window.location.pathname === '/boutique';
 });
 
 // Auth Helpers
