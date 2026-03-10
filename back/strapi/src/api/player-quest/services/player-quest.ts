@@ -39,10 +39,12 @@ export default factories.createCoreService('api::player-quest.player-quest', ({ 
 
   async getActiveQuests(userId: number) {
     return strapi.entityService.findMany('api::player-quest.player-quest', {
-      filters: {
-        user: userId as any,
+      filters: {    
         status: {
-          $in: ['in_progress', 'completed'] as any // Include completed but not yet claimed
+          $in: ['in_progress', 'completed'] as any, // Include completed but not yet claimed
+        user: { id: userId },
+        expiresAt: {
+          $gte: now.toISOString()
         }
       },
       populate: ['quest_template'] as any

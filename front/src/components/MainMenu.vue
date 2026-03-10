@@ -1,5 +1,5 @@
 <template>
-  <div id="main-menu" v-if="state.gameState === 'menu'">
+  <div id="main-menu" v-if="state.gameState === 'menu' && !state.showPackOpening">
 
     <div v-if="state.menuView === 'main'" class="menu-buttons">
       <HoloButton width="100%" @click="openStory">MODE HISTOIRE 📖</HoloButton>
@@ -86,6 +86,8 @@ function openDecks() {
 
 function openBoutique() {
   state.showPackOpening = true;
+  state.leftDrawerOpen = false;
+  state.rightDrawerOpen = false;
   window.history.pushState({}, '', '/boutique');
 }
 

@@ -24,6 +24,12 @@
       "min": 0,
       "required": true
     },
+    "coins": {
+      "type": "integer",
+      "default": 0,
+      "min": 0,
+      "required": true
+    },
     "user": {
       "type": "relation",
       "relation": "oneToOne",

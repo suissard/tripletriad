@@ -84,7 +84,7 @@
            <div class="filters-row">
              <select v-model="filterRarity" class="filter-select">
                <option value="">Toutes les raretés</option>
-               <option v-for="rarity in uniqueRarities" :key="rarity" :value="rarity">{{ rarity }}</option>
+               <option v-for="rarity in uniqueRarities" :key="rarity.value" :value="rarity.value">{{ rarity.label }}</option>
              </select>
 
              <select v-model="filterFaction" class="filter-select">
@@ -218,7 +218,9 @@ const craftingRatios = {
   "legendary": { craft: 3200, disenchant: 400 }
 };
 
-function getRarity(level) {
+function getRarity(card) {
+  if (card.rarity) return card.rarity.toLowerCase();
+  const level = card.level || 1;
   if (level <= 2) return 'common';
   if (level <= 4) return 'uncommon';
   if (level <= 6) return 'rare';
@@ -232,12 +234,12 @@ function getElementEmoji(element) {
 }
 
 function getCraftCost(card) {
-  const rarity = getRarity(card.level || 1);
+  const rarity = getRarity(card);
   return craftingRatios[rarity].craft;
 }
 
 function getDisenchantGain(card) {
-  const rarity = getRarity(card.level || 1);
+  const rarity = getRarity(card);
   return craftingRatios[rarity].disenchant;
 }
 
@@ -301,7 +303,7 @@ const disenchantPreview = computed(() => {
       const card = getCardById(item.cardId);
       
       if (card) {
-        const rarity = getRarity(card.level);
+        const rarity = getRarity(card);
         const dustPerCard = craftingRatios[rarity].disenchant;
         
         breakdown[rarity].cards += surplus;
@@ -345,8 +347,13 @@ const uniqueTypes = computed(() => {
 });
 
 const uniqueRarities = computed(() => {
-  const rarities = new Set(cardLibrary.map(c => c.rarity).filter(Boolean));
-  return ["Commune", "Peu Commune", "Rare", "Épique", "Légendaire"].filter(r => rarities.has(r));
+  return [
+    { value: 'common', label: 'Commune' },
+    { value: 'uncommon', label: 'Peu Commune' },
+    { value: 'rare', label: 'Rare' },
+    { value: 'epic', label: 'Épique' },
+    { value: 'legendary', label: 'Légendaire' }
+  ];
 });
 
 const toggleManaCost = (cost) => {
@@ -375,19 +382,7 @@ const filteredCardLibrary = computed(() => {
   }
 
   if (filterRarity.value) {
-    const rarityToMinMax = {
-      'common': [1, 2],
-      'uncommon': [3, 4],
-      'rare': [5, 6],
-      'epic': [7, 8],
-      'legendary': [9, 10]
-    };
-    if (rarityToMinMax[filterRarity.value]) {
-      const [min, max] = rarityToMinMax[filterRarity.value];
-      result = result.filter(c => c.level >= min && c.level <= max);
-    } else {
-       result = result.filter(c => c.rarity === filterRarity.value);
-    }
+    result = result.filter(c => getRarity(c) === filterRarity.value);
   }
 
   if (filterFaction.value) {
@@ -448,12 +443,8 @@ function isOwnedPremium(cardId) {
   return state.collection.some(c => c.cardId === cardId && c.isPremium);
 }
 
-function getRarityClass(level) {
-  if (level <= 2) return 'common';
-  if (level <= 4) return 'uncommon';
-  if (level <= 6) return 'rare';
-  if (level <= 8) return 'epic';
-  return 'legendary';
+function getRarityClass(card) {
+  return getRarity(card);
 }
 
 function openCardDetail(card) {

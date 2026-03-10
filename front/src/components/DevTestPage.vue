@@ -234,6 +234,7 @@ const groupedRoutes = computed(() => {
 
 function closePage() {
   state.showDevTestPage = false;
+  window.history.pushState({}, '', '/');
   selectedRoute.value = null;
   result.value = null;
   hasError.value = false;

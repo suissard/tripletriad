@@ -30,8 +30,22 @@
             <img :src="state.user.avatar" class="large-avatar" alt="Avatar" />
             <h3 class="profile-name">{{ state.user.username }}</h3>
             <p class="profile-stats">Victoires : 0 | Défaites : 0</p>
-            <p class="profile-coins">🪙 Pièces : {{ state.user.coins !== undefined ? state.user.coins : 0 }}</p>
+            <div class="profile-currencies">
+              <p class="profile-coins">🪙 Pièces : {{ state.user.coins !== undefined ? state.user.coins : 0 }}</p>
+              <p class="profile-gems">💎 Gemmes : {{ state.user.gems !== undefined ? state.user.gems : 0 }}</p>
+              <p class="profile-dust">✨ Poussière : {{ state.user.dust !== undefined ? state.user.dust : 0 }}</p>
+            </div>
             <button class="logout-btn" @click="doLogout">Se Déconnecter</button>
+          </div>
+
+          <!-- Connection Status Alert -->
+          <div v-if="!state.strapiConnected" class="offline-notice">
+            <div class="offline-icon">⚠️</div>
+            <div class="offline-text">
+              <h4>Hors-ligne</h4>
+              <p>La connexion avec la base de données est perdue. Vos progrès ne seront pas sauvegardés.</p>
+            </div>
+            <button class="retry-btn" @click="fetchUserCollection">Réessayer</button>
           </div>
 
           <div class="menu-list">
@@ -958,6 +972,67 @@ function getElementEmoji(element) {
 .logout-btn:hover {
   background: #ff0055;
   color: white;
+}
+
+/* Offline Notice Premium Style */
+.offline-notice {
+  margin: 0 0 25px 0;
+  padding: 15px;
+  background: rgba(255, 60, 60, 0.1);
+  border: 1px solid rgba(255, 60, 60, 0.3);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(255, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.offline-icon {
+  font-size: 1.5rem;
+  filter: drop-shadow(0 0 5px rgba(255, 60, 60, 0.5));
+}
+
+.offline-text {
+  flex: 1;
+}
+
+.offline-text h4 {
+  margin: 0;
+  color: #ff6060;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.offline-text p {
+  margin: 3px 0 0 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.8rem;
+  line-height: 1.2;
+}
+
+.retry-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.retry-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: white;
 }
 
 /* Auth Styles */

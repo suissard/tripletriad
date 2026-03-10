@@ -489,7 +489,7 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     rarity: Schema.Attribute.Enumeration<
-      ['Common', 'Rare', 'Epic', 'Legendary']
+      ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary']
     > &
       Schema.Attribute.DefaultTo<'Common'>;
     rightValue: Schema.Attribute.String &
@@ -926,6 +926,15 @@ export interface ApiWalletWallet extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    coins: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

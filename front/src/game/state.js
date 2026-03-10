@@ -39,7 +39,8 @@ export function normalizeCard(raw) {
         leftValue: raw.leftValue ?? (raw.left === 10 ? 'A' : String(raw.left)),
         img: raw.img || `https://api.dicebear.com/9.x/bottts/png?seed=${raw.id * 42}&backgroundColor=transparent`,
         revealed: raw.revealed !== undefined ? raw.revealed : true,
-        isPremium: raw.isPremium || false
+        isPremium: raw.isPremium || false,
+        rarity: raw.rarity || null
     };
 }
 
@@ -102,6 +103,8 @@ export const state = reactive({
         id: null,
         username: 'Joueur Anonyme',
         avatar: 'https://api.dicebear.com/9.x/bottts/png?seed=player&backgroundColor=transparent',
+        coins: 0,
+        gems: 0,
         dust: 0
     },
 
@@ -114,8 +117,8 @@ export const state = reactive({
     showDeckEditor: window.location.pathname === '/deck-editor',
     showDecksPage: window.location.pathname === '/decks',
     showPackOpening: window.location.pathname === '/boutique',
-    showDevTestPage: false,
-    showArchitectureMap: false,
+    showDevTestPage: window.location.pathname === '/test-api',
+    showArchitectureMap: window.location.pathname === '/cartographie',
     editingDeck: { id: null, documentId: null, name: '', cover: null, cards: [] },
     
     // P2P Engine
@@ -132,7 +135,27 @@ window.addEventListener('popstate', () => {
     state.showDeckEditor = window.location.pathname === '/deck-editor';
     state.showDecksPage = window.location.pathname === '/decks';
     state.showPackOpening = window.location.pathname === '/boutique';
+    state.showDevTestPage = window.location.pathname === '/test-api';
+    state.showArchitectureMap = window.location.pathname === '/cartographie';
 });
+/*
+ * Periodic Connection Check (Heartbeat)
+ */
+setInterval(async () => {
+    if (state.isLoggedIn) {
+        try {
+            // Using a very simple, fast endpoint to check connectivity
+            const response = await fetch(`${strapiService.rawClient.baseURL}/../health`, { method: 'HEAD' });
+            // Even if it's 404, if we get a response, the server is UP
+            // but Strapi usually doesn't have /health by default. 
+            // Better to use a known public endpoint or just /api
+            const check = await fetch(`${strapiService.rawClient.baseURL.replace('/api', '')}/admin/init`, { method: 'HEAD' });
+            state.strapiConnected = check.ok || check.status < 500;
+        } catch (e) {
+            state.strapiConnected = false;
+        }
+    }
+}, 10000); // Check every 10 seconds
 
 // Auth Helpers
 
@@ -141,8 +164,9 @@ export function setAuth(jwt, user) {
     state.user = {
         id: user.id,
         username: user.username,
-        coins: 0,  // Don't trust cached values, will be synced from API
-        dust: 0,
+        coins: user.coins || 0,
+        gems: user.gems || 0,
+        dust: user.dust || 0,
         avatar: `https://api.dicebear.com/9.x/bottts/png?seed=${user.username}&backgroundColor=transparent`
     };
 
@@ -197,15 +221,24 @@ export async function fetchUserCollection() {
             isPremium: !!item.isPremium
         }));
 
-        // Sync coins & dust from the real user record
-        const userData = await strapiService.find(`users/${state.user.id}`);
-        if (userData) {
-            if (typeof userData.coins !== 'undefined') state.user.coins = userData.coins;
-            if (typeof userData.dust !== 'undefined') state.user.dust = userData.dust;
-            if (typeof userData.premiumMode !== 'undefined' && userData.premiumMode !== null) state.premiumMode = userData.premiumMode;
-            if (typeof userData.holoFineness !== 'undefined' && userData.holoFineness !== null) state.holoFineness = userData.holoFineness;
+        // Sync coins & dust from the real user record (Securely via custom wallets/me)
+        console.log('[state] Fetching wallet from /wallets/me...');
+        const walletResult = await strapiService.request('GET', '/wallets/me');
+        console.log('[state] Wallet result:', walletResult);
+        if (walletResult && walletResult.data) {
+            const wallet = walletResult.data;
+            state.user.coins = wallet.coins || 0;
+            state.user.gems = wallet.gems || 0;
+            state.user.dust = wallet.dust || 0;
+            console.log('[state] Updated state.user:', JSON.parse(JSON.stringify(state.user)));
             
-            const updatedUser = { ...JSON.parse(localStorage.getItem('tt_user') || '{}'), dust: state.user.dust, coins: state.user.coins };
+            const savedUser = JSON.parse(localStorage.getItem('tt_user') || '{}');
+            const updatedUser = { 
+                ...savedUser,
+                dust: state.user.dust, 
+                coins: state.user.coins,
+                gems: state.user.gems
+            };
             localStorage.setItem('tt_user', JSON.stringify(updatedUser));
             
             // Also sync to dev_options in localStorage to keep them mirrored
@@ -252,6 +285,7 @@ export async function fetchUserDecks() {
             return;
         }
         console.error('Decks sync failed', e);
+        state.strapiConnected = false;
     }
 }
 
@@ -567,8 +601,14 @@ export async function addDevCoins(amount) {
         
         if (!result.error) {
             state.user.coins = result.coins;
+            state.user.gems = result.gems;
             state.user.dust = result.dust;
-            const updatedUser = { ...JSON.parse(localStorage.getItem('tt_user') || '{}'), coins: result.coins, dust: result.dust };
+            const updatedUser = { 
+                ...JSON.parse(localStorage.getItem('tt_user') || '{}'), 
+                coins: result.coins, 
+                gems: result.gems, 
+                dust: result.dust 
+            };
             localStorage.setItem('tt_user', JSON.stringify(updatedUser));
             console.log(`[Dev] Added coins. New total: ${result.coins}`);
         }
@@ -587,12 +627,44 @@ export async function addDevDust(amount) {
         
         if (!result.error) {
             state.user.coins = result.coins;
+            state.user.gems = result.gems;
             state.user.dust = result.dust;
-            const updatedUser = { ...JSON.parse(localStorage.getItem('tt_user') || '{}'), coins: result.coins, dust: result.dust };
+            const updatedUser = { 
+                ...JSON.parse(localStorage.getItem('tt_user') || '{}'), 
+                coins: result.coins, 
+                gems: result.gems, 
+                dust: result.dust 
+            };
             localStorage.setItem('tt_user', JSON.stringify(updatedUser));
             console.log(`[Dev] Added dust. New total: ${result.dust}`);
         }
     } catch (e) {
         console.error('[Dev] Failed to add dust:', e);
+    }
+}
+
+export async function addDevGems(amount) {
+    if (!state.isLoggedIn) return;
+    try {
+        const result = await strapiService.request('POST', '/dev/add-currencies', {
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ gems: amount })
+        });
+        
+        if (!result.error) {
+            state.user.coins = result.coins;
+            state.user.gems = result.gems;
+            state.user.dust = result.dust;
+            const updatedUser = { 
+                ...JSON.parse(localStorage.getItem('tt_user') || '{}'), 
+                coins: result.coins, 
+                gems: result.gems, 
+                dust: result.dust 
+            };
+            localStorage.setItem('tt_user', JSON.stringify(updatedUser));
+            console.log(`[Dev] Added gems. New total: ${result.gems}`);
+        }
+    } catch (e) {
+        console.error('[Dev] Failed to add gems:', e);
     }
 }
