@@ -802,13 +802,13 @@ export interface ApiPlayerQuestPlayerQuest extends Struct.CollectionTypeSchema {
       > &
       Schema.Attribute.DefaultTo<0>;
     publishedAt: Schema.Attribute.DateTime;
-    status: Schema.Attribute.Enumeration<['active', 'completed', 'failed']> &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'active'>;
-    template: Schema.Attribute.Relation<
+    quest_template: Schema.Attribute.Relation<
       'manyToOne',
       'api::quest-template.quest-template'
     >;
+    status: Schema.Attribute.Enumeration<['active', 'completed', 'failed']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'active'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -832,6 +832,9 @@ export interface ApiQuestTemplateQuestTemplate
     draftAndPublish: false;
   };
   attributes: {
+    code: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -844,13 +847,15 @@ export interface ApiQuestTemplateQuestTemplate
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     reward: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMax<
         {
           min: 0;
         },
         number
-      >;
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    rewardCoins: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    rewardGems: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     target: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMax<
@@ -861,7 +866,7 @@ export interface ApiQuestTemplateQuestTemplate
       >;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     type: Schema.Attribute.Enumeration<
-      ['daily', 'weekly', 'monthly', 'story']
+      ['daily', 'weekly', 'monthly', 'story', 'play_games']
     > &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'daily'>;

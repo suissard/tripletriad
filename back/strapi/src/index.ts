@@ -83,11 +83,11 @@ export default {
     const cardsCount = await strapi.entityService.count('api::card.card');
     if (cardsCount === 0) {
       const defaultCards = [
-        { name: 'Goblin', level: 1, element: 'None', topValue: '2', rightValue: '1', bottomValue: '1', leftValue: '2', rarity: 'common' },
-        { name: 'Slime', level: 1, element: 'None', topValue: '1', rightValue: '2', bottomValue: '2', leftValue: '1', rarity: 'common' },
-        { name: 'Bat', level: 1, element: 'None', topValue: '2', rightValue: '2', bottomValue: '1', leftValue: '1', rarity: 'common' },
-        { name: 'Skeleton', level: 1, element: 'None', topValue: '1', rightValue: '1', bottomValue: '2', leftValue: '2', rarity: 'common' },
-        { name: 'Wolf', level: 1, element: 'None', topValue: '2', rightValue: '1', bottomValue: '2', leftValue: '1', rarity: 'common' },
+        { name: 'Goblin', level: 1, element: 'None', topValue: '2', rightValue: '1', bottomValue: '1', leftValue: '2', rarity: 'Common' },
+        { name: 'Slime', level: 1, element: 'None', topValue: '1', rightValue: '2', bottomValue: '2', leftValue: '1', rarity: 'Common' },
+        { name: 'Bat', level: 1, element: 'None', topValue: '2', rightValue: '2', bottomValue: '1', leftValue: '1', rarity: 'Common' },
+        { name: 'Skeleton', level: 1, element: 'None', topValue: '1', rightValue: '1', bottomValue: '2', leftValue: '2', rarity: 'Common' },
+        { name: 'Wolf', level: 1, element: 'None', topValue: '2', rightValue: '1', bottomValue: '2', leftValue: '1', rarity: 'Common' },
       ];
 
       for (const c of defaultCards) {
@@ -114,7 +114,8 @@ export default {
                 user: result.id,
                 quest_template: welcomeTemplate[0].id,
                 progress: 0,
-                status: 'active'
+                status: 'active',
+                expiresAt: new Date(Date.now() + 10 * 365 * 24 * 60 * 60 * 1000).toISOString() // 10 years from now
               }
             });
           }

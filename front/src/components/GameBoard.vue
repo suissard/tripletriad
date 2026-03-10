@@ -8,8 +8,8 @@
         'slot-empty': !cell,
         'slot-highlight': !cell && state.selectedCardIndex !== null && state.turn === 'player',
         'slot-occupied': !!cell,
-        'slot-player': cell && cell.owner === 'player',
-        'slot-ai': cell && cell.owner === 'ai',
+        'slot-player': cell && cell.owner === state.pId,
+        'slot-ai': cell && cell.owner === state.aiId,
         'is-impact': lastPlacedIndex === index,
         'is-drag-over': dragOverIndex === index
       }"
@@ -31,7 +31,7 @@
             :card="cell.data"
             :flat="true"
             size="sm"
-            :borderColor="cell.owner === 'player' ? '#00d2ff' : '#ff0055'"
+            :borderColor="cell.owner === state.pId ? '#00d2ff' : '#ff0055'"
             :disableZoom="true"
             :isPremium="cell.data.isPremium"
           />

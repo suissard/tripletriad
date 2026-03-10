@@ -77,8 +77,19 @@ import OpponentHand from './OpponentHand.vue';
 import ActionLog from './ActionLog.vue';
 import EndTurnButton from './EndTurnButton.vue';
 import GameOver from './GameOver.vue';
+import { useRouter, useRoute } from 'vue-router';
+
+const router = useRouter();
+const route = useRoute();
 
 onMounted(() => {
+    // If we reach this page by reloading during a multiplayer match, 
+    // the WebRTC state is dead. We must return to the main menu.
+    if (route.query.match && state.gameState !== 'playing') {
+        router.replace({ path: '/', query: { match: route.query.match } });
+        return;
+    }
+
     if (!state.online && state.gameState !== 'playing') {
         resetGame();
     }

@@ -51,11 +51,12 @@ export class GameEngine {
     };
 
     // 2. Placer la carte
-    const placedCard = { ...card, owner: action.player };
-    nextState.board[y][x] = placedCard;
+    const cellOwner = action.player;
+    const placedCell = { data: card, owner: cellOwner };
+    nextState.board[y][x] = placedCell;
 
     // 3. Calculer les captures (Règles "Classiques" d'adjacence)
-    GameEngine.processCaptures(nextState.board, x, y, placedCard);
+    nextState.lastCaptures = GameEngine.processCaptures(nextState.board, x, y, placedCell);
 
     // 4. Passer au joueur suivant
     nextState.currentPlayer = action.player === 'PLAYER_1' ? 'PLAYER_2' : 'PLAYER_1';
@@ -72,8 +73,9 @@ export class GameEngine {
   /**
    * Logique privée de capture. Altière seulement le "board" cloné du nouvel état.
    */
-  static processCaptures(board, x, y, placedCard) {
-    const player = placedCard.owner;
+  static processCaptures(board, x, y, placedCell) {
+    const player = placedCell.owner;
+    const captures = [];
 
     // Définitions des 4 directions cardinales et des bords d'attaque/défense
     // dx/dy: déplacements, mySide: mon bord de carte attaquant, oppSide: bord adverse visé
@@ -90,24 +92,27 @@ export class GameEngine {
 
       // On vérifie que la case ciblée soit bien comprise dans la grille 3x3
       if (nx >= 0 && nx < 3 && ny >= 0 && ny < 3) {
-        const adjacentCard = board[ny][nx];
+        const adjacentCell = board[ny][nx];
 
         // On vérifie s'il y a une carte et qu'elle n'est pas déjà à nous
-        if (adjacentCard && adjacentCard.owner !== player) {
-          const myValue = placedCard.values[dir.mySide];
-          const oppValue = adjacentCard.values[dir.oppSide];
+        if (adjacentCell && adjacentCell.owner !== player) {
+          const myValue = placedCell.data.values[dir.mySide];
+          const oppValue = adjacentCell.data.values[dir.oppSide];
 
           // Capture Classique : Ma valeur sur ce côté est-elle strictement supérieure à la valeur opposée adversaire ?
           if (myValue > oppValue) {
             // Capture réussie ! On remplace la carte adjacente par un clone au propriétaire mis à jour.
             board[ny][nx] = {
-              ...adjacentCard,
+              data: adjacentCell.data,
               owner: player
             };
+            captures.push(adjacentCell.data);
           }
         }
       }
     }
+    
+    return captures;
   }
 
   /**

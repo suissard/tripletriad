@@ -17,7 +17,7 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user"
     },
-    "template": {
+    "quest_template": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::quest-template.quest-template"

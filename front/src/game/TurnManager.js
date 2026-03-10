@@ -1,4 +1,5 @@
 import { GameEngine } from './GameEngine.js';
+import { gameEvents } from './events.js';
 
 // --- Le Gestionnaire P2P ---
 
@@ -15,6 +16,7 @@ export class TurnManager {
     this.sendNetworkMessage = config.sendNetworkMessage;
     this.onStateUpdate = config.onStateUpdate;
     this.onDesync = config.onDesync;
+    this.onRemoteAction = config.onRemoteAction;
 
     // Initialise l'UI
     this.onStateUpdate(this.state);
@@ -37,6 +39,9 @@ export class TurnManager {
     this.state = GameEngine.computeNextState(this.state, action);
     this.turnIndex++;
     this.onStateUpdate(this.state);
+    
+    // Emettre l'événement pour l'UI, déduction mana, animations
+    gameEvents.emit('CARD_PLACED', { action, captures: this.state.lastCaptures || [] });
 
     // 2. Transmettre l'action à l'adversaire via WebRTC
     this.sendNetworkMessage({
@@ -76,8 +81,14 @@ export class TurnManager {
     const resolvedTurnIndex = this.turnIndex;
     this.turnIndex++; // Incrémenter notre horloge interne
     this.onStateUpdate(this.state);
+    
+    // 2. Déclencher le callback visuel/UI
+    if (this.onRemoteAction) {
+        this.onRemoteAction(action);
+    }
+    gameEvents.emit('CARD_PLACED', { action, captures: this.state.lastCaptures || [] });
 
-    // 2. Générer notre hash local pour l'état résultant et valider l'intégrité
+    // 3. Générer notre hash local pour l'état résultant et valider l'intégrité
     await this.generateAndSendHash(resolvedTurnIndex, this.state);
   }
 

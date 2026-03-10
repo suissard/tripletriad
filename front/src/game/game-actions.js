@@ -49,9 +49,54 @@ export async function placeCard(slotIndex) {
     state.pMana -= cost;
     state.selectedCardIndex = null;
 
-    // Remove from hand & place on board
+    // Remove from hand
     state.pHand.splice(cardIdx, 1);
     card.revealed = true;
+
+    // Network — delegate completely to TurnManager, no manual local mutations
+    if (state.online && state.turnManager) {
+        const x = slotIndex % 3;
+        const y = Math.floor(slotIndex / 3);
+
+        const action = {
+            type: 'PLACE_CARD',
+            card: {
+                id: card.id,
+                name: card.name,
+                img: card.img,
+                isPremium: card.isPremium,
+                rarity: card.rarity,
+                level: card.level,
+                topValue: card.topValue,
+                bottomValue: card.bottomValue,
+                leftValue: card.leftValue,
+                rightValue: card.rightValue,
+                values: {
+                    top: card.top,
+                    bottom: card.bottom,
+                    left: card.left,
+                    right: card.right
+                }
+            },
+            x,
+            y,
+            player: state.isHost ? 'PLAYER_1' : 'PLAYER_2'
+        };
+
+        await state.turnManager.playLocalAction(action);
+        
+        refillHand('player');
+        updateScores();
+        state.busy = false;
+
+        setTimeout(() => {
+            handleEndTurn();
+        }, 500);
+
+        return;
+    }
+
+    // Single Player Local Mutation 
     state.board[slotIndex] = { data: card, owner: 'player' };
 
     await sleep(300);
@@ -66,31 +111,6 @@ export async function placeCard(slotIndex) {
     setTimeout(() => {
         handleEndTurn();
     }, 500);
-
-    // Network — send move via TurnManager if online
-    if (state.online && state.turnManager) {
-        const x = slotIndex % 3;
-        const y = Math.floor(slotIndex / 3);
-
-        const action = {
-            type: 'PLACE_CARD',
-            card: {
-                id: card.id,
-                values: {
-                    top: card.top,
-                    bottom: card.bottom,
-                    left: card.left,
-                    right: card.right
-                }
-            },
-            x,
-            y,
-            player: state.isHost ? 'PLAYER_1' : 'PLAYER_2'
-        };
-
-        state.actionLog.push(action);
-        await state.turnManager.playLocalAction(action);
-    }
 }
 
 /**

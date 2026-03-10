@@ -113,12 +113,21 @@
     </div>
 
     <!-- Actions Footer -->
-    <div v-if="packOpened && allCardsRevealed" class="fixed bottom-12 left-0 right-0 z-30 flex justify-center animate-bounce-in">
+    <div v-if="packOpened && allCardsRevealed" class="fixed bottom-12 left-0 right-0 z-[4000] flex justify-center gap-6 animate-fade-in" style="bottom: 48px;">
       <button
         @click="reset"
-        class="px-16 py-5 bg-white text-black font-black uppercase italic tracking-tighter text-2xl rounded-full shadow-[0_0_50px_rgba(255,255,255,0.4)] hover:scale-110 active:scale-95 transition-all cursor-pointer"
+        class="px-10 py-5 bg-white/10 hover:bg-white/20 text-white font-black uppercase italic tracking-tighter text-xl rounded-full border border-white/20 backdrop-blur-md shadow-2xl hover:scale-105 active:scale-95 transition-all cursor-pointer"
       >
-        Terminer
+        Retour
+      </button>
+      <button
+        @click="handlePackPurchase(selectedPackType)"
+        class="px-16 py-5 bg-white text-black font-black uppercase italic tracking-tighter text-2xl rounded-full shadow-[0_0_50px_rgba(255,255,255,0.4)] hover:scale-110 active:scale-95 transition-all cursor-pointer flex items-center gap-3"
+      >
+        Refaire un tirage
+        <span class="text-xl flex items-center gap-1 opacity-70">
+          (100 {{ selectedPackType === 'premium' ? '💎' : '🪙' }})
+        </span>
       </button>
     </div>
 
@@ -169,6 +178,10 @@ const openPack = async () => {
     return;
   }
 
+  if (packOpened.value) {
+    reset();
+  }
+
   isOpening.value = true;
   errorMessage.value = '';
 
@@ -196,7 +209,7 @@ const openPack = async () => {
     state.user.gems = data.wallet.gems;
     state.user.dust = data.wallet.dust;
 
-    isFlipped.value = new Array(5).fill(false);
+    isFlipped.value = new Array(drawnCards.value.length).fill(false);
 
   } catch (err) {
     errorMessage.value = err.message;
@@ -223,7 +236,7 @@ const reset = () => {
 };
 
 const allCardsRevealed = computed(() => {
-  return isFlipped.value.length === 5 && isFlipped.value.every(val => val === true);
+  return isFlipped.value.length > 0 && isFlipped.value.every(val => val === true);
 });
 
 const getGlowClass = (rarity) => {

@@ -11,14 +11,14 @@ import { state, resetGame } from '../game/state.js';
 import HoloButton from './HoloButton.vue';
 
 const resultText = computed(() => {
-    if (state.winner === 'player') return "VICTOIRE ! 🏆";
-    if (state.winner === 'ai') return "DÉFAITE 💀";
+    if (state.winner === state.pId) return "VICTOIRE ! 🏆";
+    if (state.winner === state.aiId) return "DÉFAITE 💀";
     return "ÉGALITÉ 🤝";
 });
 
 const resultColor = computed(() => {
-    if (state.winner === 'player') return "#00d2ff";
-    if (state.winner === 'ai') return "#ff0055";
+    if (state.winner === state.pId) return "#00d2ff";
+    if (state.winner === state.aiId) return "#ff0055";
     return "white";
 });
 

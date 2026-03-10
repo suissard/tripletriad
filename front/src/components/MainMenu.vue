@@ -4,7 +4,7 @@
     <div v-if="state.menuView === 'main'" class="menu-buttons">
       <HoloButton width="100%" @click="openStory">MODE HISTOIRE 📖</HoloButton>
       <HoloButton width="100%" @click="state.menuView = 'ai'">JOUER CONTRE UNE IA 🤖</HoloButton>
-      <HoloButton width="100%" @click="state.menuView = 'multi'">PARTIE MULTIJOUEUR 🌍</HoloButton>
+      <HoloButton width="100%" @click="state.menuView = 'multi-deck'">PARTIE MULTIJOUEUR 🌍</HoloButton>
       <HoloButton width="100%" @click="openCollection">MA COLLECTION 📚</HoloButton>
       <HoloButton width="100%" @click="openDecks">MES DECKS 🎴</HoloButton>
       <HoloButton width="100%" @click="openBoutique">BOUTIQUE 💎</HoloButton>
@@ -15,6 +15,29 @@
       
       <div v-if="state.userDecks.length > 0" class="decks-grid">
         <div v-for="deck in state.userDecks" :key="deck.id" class="deck-select-card" @click="startAiGame(deck)">
+          <div class="deck-thumb">
+            <img v-if="deck.cover && getCardById(deck.cover)" :src="getCardById(deck.cover).img" />
+            <div v-else class="placeholder">🎴</div>
+          </div>
+          <div class="deck-info">
+            <div class="name">{{ deck.name }}</div>
+            <div class="count">{{ deck.cards.length }} cartes</div>
+          </div>
+        </div>
+      </div>
+      <div v-else class="no-decks">
+        <p>Vous n'avez pas de deck. Créez-en un d'abord !</p>
+        <HoloButton @click="openDecks">CRÉER UN DECK</HoloButton>
+      </div>
+
+      <HoloButton @click="state.menuView = 'main'" style="margin-top: 25px;">RETOUR</HoloButton>
+    </div>
+
+    <div v-else-if="state.menuView === 'multi-deck'" class="deck-selection-menu">
+      <h2 style="color: white; margin-bottom: 1.5rem;">CHOISIS TON DECK POUR LE MULTIJOUEUR</h2>
+      
+      <div v-if="state.userDecks.length > 0" class="decks-grid">
+        <div v-for="deck in state.userDecks" :key="deck.id" class="deck-select-card" @click="startMultiGame(deck)">
           <div class="deck-thumb">
             <img v-if="deck.cover && getCardById(deck.cover)" :src="getCardById(deck.cover).img" />
             <div v-else class="placeholder">🎴</div>
@@ -59,15 +82,15 @@
         <p v-if="multiState.error" style="color: #ff0055; margin-top: 10px;">{{ multiState.error }}</p>
       </div>
 
-      <HoloButton @click="cancelMulti" style="margin-top: 2rem;">RETOUR</HoloButton>
+      <HoloButton @click="cancelMulti" style="margin-top: 2rem;">CHANGER DE DECK</HoloButton>
     </div>
   </div>
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 const router = useRouter();
-
+const route = useRoute();
 
 import { ref, reactive, onMounted, onUnmounted } from 'vue';
 
@@ -120,6 +143,7 @@ function startAiGame(deck) {
   
   // 4. Enter the game
   state.gameState = 'playing';
+  router.push('/game');
 }
 
 const multiState = reactive({
@@ -138,37 +162,90 @@ function cancelMulti() {
   multiState.uuid = null;
   multiState.error = null;
   multiState.loading = false;
-  state.menuView = 'main';
+  state.menuView = 'multi-deck';
+  
+  // Clear the URL to avoid auto-rejoining a cancelled match
+  if (route.query.match) {
+    router.replace({ query: {} });
+  }
 }
+
+function startMultiGame(deck) {
+  if (deck.cards.length < 5) {
+    state.alerts = "Ce deck est incomplet (min 5 cartes)";
+    return;
+  }
+  
+  // 1. Reset everything to a clean state
+  resetGame(30, false); 
+  
+  // 2. Set the player deck
+  const playerDeck = deck.cards.map(id => normalizeCard(getCardById(id)));
+  state.deck = playerDeck;
+  
+  // 3. Move to hosting/joining menu
+  state.menuView = 'multi';
+}
+
+
+const handleNetworkMessage = (msg) => {
+    if (msg.type === 'init') {
+      // Do not overwrite our own deck in multiplayer! 
+      // We already selected it in `startMultiGame`.
+      
+      initOnlineTurnManager(false); // Guest
+      
+      // Give AI (Opponent) a dummy hand
+      state.aiHand = [ { id: 'dummy', revealed: false }, { id: 'dummy', revealed: false }, { id: 'dummy', revealed: false } ];
+
+      state.gameState = 'playing';
+      state.leftDrawerOpen = false; // Auto close drawer
+      // Le Host a l'UUID dans sa session
+      router.push({ path: '/game', query: { match: multiState.uuid || multiState.joinUuid } });
+    }
+  };
 
 onMounted(() => {
   webrtc.onConnected = () => {
     state.aiDifficulty = 1;
 
     if (webrtc.isHost) {
-      resetGame(30, false); 
       initOnlineTurnManager(true); // Host
+      
+      // Give AI (Opponent) a dummy hand
+      state.aiHand = [ { id: 'dummy', revealed: false }, { id: 'dummy', revealed: false }, { id: 'dummy', revealed: false } ];
+
       state.gameState = 'playing';
       state.leftDrawerOpen = false; // Auto close drawer
-      webrtc.sendMessage({ type: 'init', deck: state.deck });
+      
+      // Update UI to keep the UUID param
+      router.push({ path: '/game', query: { match: multiState.uuid } });
+      
+      webrtc.sendMessage({ type: 'init' });
     }
   };
   
-  const handleNetworkMessage = (msg) => {
-    if (msg.type === 'init') {
-      resetGame(30, false);
-      state.deck = msg.deck;
-      initOnlineTurnManager(false); // Guest
-      state.gameState = 'playing';
-      state.leftDrawerOpen = false; // Auto close drawer
-    }
-  };
-
   webrtc.onError = (err) => {
     multiState.error = err;
     multiState.loading = false;
+    
+    // Clear URL to prevent infinite reload loops if match is dead
+    if (route.query.match) {
+      router.replace({ query: {} });
+      state.menuView = 'multi';
+      multiState.joining = true;
+    }
   };
   webrtc.addMessageListener(handleNetworkMessage);
+
+  // Auto-Join logic from URL ?match=UUID
+  if (route.query.match) {
+    multiState.joinUuid = route.query.match;
+    // We force the user to pick a deck before joining
+    state.menuView = 'multi-deck';
+    // Clear any previous alerts
+    state.alerts = '';
+  }
 });
 
 onUnmounted(() => {
@@ -181,6 +258,9 @@ async function hostGame() {
   try {
     const uuid = await webrtc.createSession();
     multiState.uuid = uuid;
+    // Pousser immédiatement l'UUID dans l'URL (même avant que le jeu ne commence)
+    // Pour que le joueur puisse le copier
+    router.replace({ query: { match: uuid } });
   } catch(e) {
     console.error("Host Game Error:", e);
     multiState.error = e.message || 'Erreur serveur. Assurez-vous que Strapi tourne.';

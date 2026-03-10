@@ -3,6 +3,7 @@ import { rulesRegistry } from './rules.js';
 import { WebRTCManager } from './WebRTCManager.js';
 import { TurnManager } from './TurnManager.js';
 import { GameEngine } from './GameEngine.js';
+import { gameEvents } from './events.js';
 import cardsData from '../data/cards.json';
 import strapiService from '../api/strapi.js';
 
@@ -64,6 +65,9 @@ export const state = reactive({
     // Hands: Arrays of plain card data objects
     pHand: [],
     aiHand: [],
+    // Dynamic Player IDs for Ownership
+    pId: 'player',
+    aiId: 'ai',
     // Currently selected card index in player hand (for click-to-place)
     selectedCardIndex: null,
     turn: 'player',
@@ -116,7 +120,10 @@ export const state = reactive({
     editingDeck: { id: null, documentId: null, name: '', cover: null, cards: [] },
     
     // P2P Engine
-    turnManager: null
+    turnManager: null,
+
+    // Quests
+    quests: []
 });
 
 export function getCardById(id) {
@@ -165,6 +172,7 @@ export function setAuth(jwt, user) {
     // Initial Sync — will set strapiConnected on success
     fetchUserCollection();
     fetchUserDecks();
+    fetchUserQuests();
 }
 
 export function logout() {
@@ -272,6 +280,29 @@ export async function fetchUserDecks() {
         }
         console.error('Decks sync failed', e);
         state.strapiConnected = false;
+        state.userDecks = [];
+    }
+}
+
+export async function fetchUserQuests() {
+    if (!state.isLoggedIn) return;
+    try {
+        const result = await strapiService.find('player-quests', {
+            filters: { user: { id: state.user.id } },
+            populate: ['quest_template']
+        });
+        const items = toArray(result);
+        state.quests = items.map(item => ({
+            id: item.id,
+            title: item.quest_template?.title || 'Quête sans titre',
+            description: item.quest_template?.description || '',
+            progress: item.progress || 0,
+            target: item.quest_template?.target || 1,
+            reward: item.quest_template?.rewardCoins || item.quest_template?.reward || 0,
+            status: item.status || 'active'
+        }));
+    } catch (e) {
+        console.error('Quests sync failed', e);
     }
 }
 
@@ -315,11 +346,29 @@ export function initOnlineTurnManager(isHost) {
         },
         
         onStateUpdate: (newState) => {
-            // Synchro directe de l'état réactif — Vue reactivity handles rendering
-            state.board = newState.board.flat();
-            state.turn = newState.currentPlayer === 'PLAYER_1' ? 'player' : 'ai';
+            console.log("[TurnManager] State Updated:", newState);
+            // GameEngine gives us a 2D board, but Vue GameBoard expects a 1D array of 9.
+            if (Array.isArray(newState.board) && Array.isArray(newState.board[0])) {
+                state.board = newState.board.flat();
+            } else {
+                state.board = newState.board;
+            }
+            
+            const newTurn = newState.currentPlayer === localPlayer ? 'player' : 'ai';
+            
+            if (state.turn !== newTurn) {
+                if (newTurn === 'player') {
+                    state.pMana = 1;
+                    state.pMaxMana = 1;
+                } else {
+                    state.aiMana = 1;
+                    state.aiMaxMana = 1;
+                }
+            }
+            state.turn = newTurn;
             state.gameOver = newState.isFinished;
             state.winner = newState.winner;
+            state.busy = false;
         },
         
         onDesync: async (turnIndex, localHash, remoteHash) => {
@@ -353,11 +402,18 @@ export function initOnlineTurnManager(isHost) {
                 console.error("Arbitration failed", e);
                 state.alerts = "Erreur fatale de synchronisation.";
             }
+        },
+        
+        onRemoteAction: (action) => {
+            // Deprecated: UI logic is moving to gameEvents
+            // Keeping for temporary fallback if needed during refactor
         }
     });
 
     state.online = true;
     state.isHost = isHost;
+    state.pId = localPlayer;
+    state.aiId = localPlayer === 'PLAYER_1' ? 'PLAYER_2' : 'PLAYER_1';
 }
 
 /**
@@ -426,6 +482,8 @@ export function resetGame(deckSize = 30, goToMenu = true) {
     state.alerts = '';
     state.gameOver = false;
     state.winner = null;
+    state.pId = 'player';
+    state.aiId = 'ai';
     
     if (goToMenu) {
         state.gameState = 'menu';
@@ -654,3 +712,30 @@ export async function addDevGems(amount) {
         console.error('[Dev] Failed to add gems:', e);
     }
 }
+
+// --- CENTRAL EVENT LISTENERS ---
+gameEvents.on('CARD_PLACED', (payload) => {
+    const { action, captures } = payload;
+    
+    if (state.online) {
+        // En multi, GameEngine calcule les captures "silencieusement",
+        // il faut les mapper pour ActionLog.vue manuellement.
+        const actionRecord = {
+            owner: action.player,
+            playedCard: action.card,
+            capturedCards: captures || []
+        };
+        state.actionLog.push(actionRecord);
+        if (state.actionLog.length > 5) {
+            state.actionLog.shift();
+        }
+
+        // Si l'adversaire a joué
+        if (action.player === state.aiId) {
+            state.aiMana -= 1;
+            if (state.aiHand.length > 0) {
+                state.aiHand.pop(); 
+            }
+        }
+    }
+});

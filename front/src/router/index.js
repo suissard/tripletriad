@@ -7,6 +7,8 @@ import PackOpening from '../components/PackOpening.vue'
 import DevTestPage from '../components/DevTestPage.vue'
 import ArchitectureMapPage from '../components/ArchitectureMapPage.vue'
 import MainMenu from '../components/MainMenu.vue'
+import StoryPage from '../components/StoryPage.vue'
+
 
 const routes = [
   { path: '/', component: MainMenu },
@@ -17,6 +19,7 @@ const routes = [
   { path: '/boutique', component: PackOpening },
   { path: '/test-api', component: DevTestPage },
   { path: '/cartographie', component: ArchitectureMapPage },
+  { path: '/story', component: StoryPage },
 ]
 
 const router = createRouter({

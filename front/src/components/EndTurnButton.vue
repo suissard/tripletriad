@@ -7,7 +7,7 @@
       :disabled="state.turn !== 'player'"
       :width="'250px'"
     >
-      {{ state.turn === 'player' ? 'Fin de Tour' : 'Tour de l\'IA' }}
+      {{ state.turn === 'player' ? 'Fin de Tour' : (state.online ? 'Tour de l\'Adversaire' : 'Tour de l\'IA') }}
     </HoloButton>
   </div>
 </template>
