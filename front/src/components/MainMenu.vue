@@ -2,6 +2,7 @@
   <div id="main-menu" v-if="state.gameState === 'menu'">
 
     <div v-if="state.menuView === 'main'" class="menu-buttons">
+      <HoloButton width="100%" @click="openStory">MODE HISTOIRE 📖</HoloButton>
       <HoloButton width="100%" @click="state.menuView = 'ai'">JOUER CONTRE UNE IA 🤖</HoloButton>
       <HoloButton width="100%" @click="state.menuView = 'multi'">PARTIE MULTIJOUEUR 🌍</HoloButton>
       <HoloButton width="100%" @click="openCollection">MA COLLECTION 📚</HoloButton>
@@ -67,6 +68,11 @@
 import { ref, reactive, onMounted, onUnmounted } from 'vue';
 import { state, webrtc, resetGame, initOnlineTurnManager, getCardById, normalizeCard, refillHand, cardLibrary } from '../game/state.js';
 import HoloButton from './HoloButton.vue';
+
+function openStory() {
+  state.showStoryPage = true;
+  window.history.pushState({}, '', '/story');
+}
 
 function openCollection() {
   state.showCollectionPage = true;
