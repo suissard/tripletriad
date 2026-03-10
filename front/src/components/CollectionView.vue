@@ -2,8 +2,8 @@
   <PageLayout title="MA COLLECTION" back-route="/">
   <template #header-actions>
     <div class="header-stats">
-      Possédées : {{ state.collection.length }} / {{ cardLibrary.length }}
-      <span style="margin-left: 20px; color: #ffc107;">✨ Poussière: {{ state.user?.dust || 0 }}</span>
+      Possédées : {{ userStore.collection.length }} / {{ cardLibrary.length }}
+      <span style="margin-left: 20px; color: #ffc107;">✨ Poussière: {{ userStore.user?.dust || 0 }}</span>
     </div>
   </template>
 
@@ -196,9 +196,12 @@ const router = useRouter();
 import { ref, computed, watch, reactive } from 'vue';
 
 import PageLayout from './PageLayout.vue';
-import { state, cardLibrary, getCardById, massDisenchantCards, craftCard, disenchantCard } from '../game/state.js';
+import { state, cardLibrary, getCardById } from '../game/state.js';
 import TripleTriadCard from './TripleTriadCard.vue';
 import TripleTriadCardGrid from './TripleTriadCardGrid.vue';
+import { useUserStore } from '../stores/userStore.js';
+
+const userStore = useUserStore();
 
 const showMassDisenchantModal = ref(false);
 const isDisenchanting = ref(false);
@@ -238,17 +241,17 @@ function getDisenchantGain(card) {
 }
 
 function canCraft(card) {
-  return (state.user?.dust || 0) >= getCraftCost(card);
+  return (userStore.user?.dust || 0) >= getCraftCost(card);
 }
 
 async function handleCraft(card) {
   if (canCraft(card)) {
-    await craftCard(card.id);
+    await userStore.craftCard(card.id);
   }
 }
 async function handleDisenchant(card) {
   if (getOwnedQuantity(card.id) > 0) {
-    await disenchantCard(card.id);
+    await userStore.disenchantCard(card.id);
   }
 }
 
@@ -260,7 +263,7 @@ async function confirmMassDisenchant() {
   if (disenchantPreview.value.totalCards === 0) return;
   
   isDisenchanting.value = true;
-  const success = await massDisenchantCards(true); // skip backend confirm UI
+  const success = await userStore.massDisenchantCards(); 
   isDisenchanting.value = false;
   
   if (success) {
@@ -291,7 +294,7 @@ const disenchantPreview = computed(() => {
   
   const playableLimit = 2;
 
-  state.collection.forEach(item => {
+  userStore.collection.forEach(item => {
     if (item.quantity > playableLimit) {
       const surplus = item.quantity - playableLimit;
       const card = getCardById(item.cardId);
@@ -422,18 +425,18 @@ watch([searchQuery, filterRarity, filterFaction, filterType, selectedManaCosts, 
 });
 
 function isOwned(cardId) {
-  // If we are overriding auth or want to test, we might bypass. But usually check state.collection
+  // If we are overriding auth or want to test, we might bypass. But usually check userStore.collection
   // Wait, if not logged in, technically they own 0. But let's allow viewing.
-  return state.collection.some(c => c.cardId === cardId);
+  return userStore.collection.some(c => c.cardId === cardId);
 }
 
 function getOwnedQuantity(cardId) {
-  const owned = state.collection.find(c => c.cardId === cardId);
+  const owned = userStore.collection.find(c => c.cardId === cardId);
   return owned ? owned.quantity : 0;
 }
 
 function isOwnedPremium(cardId) {
-  return state.collection.some(c => c.cardId === cardId && c.isPremium);
+  return userStore.collection.some(c => c.cardId === cardId && c.isPremium);
 }
 
 function getRarityClass(card) {

@@ -187,7 +187,10 @@
 
 <script setup>
 import { computed, ref, useAttrs, watch } from 'vue';
-import { state, craftCard, disenchantCard } from '../game/state.js';
+import { state } from '../game/state.js';
+import { useUserStore } from '../stores/userStore.js';
+
+const userStore = useUserStore();
 
 const props = defineProps({
   card: { type: Object, required: true },
@@ -335,10 +338,10 @@ const craftingRatios = {
 
 const craftCost = computed(() => craftingRatios[getRarity(props.card.level || 1)].craft);
 const disenchantGain = computed(() => craftingRatios[getRarity(props.card.level || 1)].disenchant);
-const canCraft = computed(() => state.user.dust >= craftCost.value);
+const canCraft = computed(() => (userStore.user?.dust || 0) >= craftCost.value);
 
-async function handleCraft() { if (canCraft.value) await craftCard(props.card.id); }
-async function handleDisenchant() { if (props.quantity > 0) await disenchantCard(props.card.id); }
+async function handleCraft() { if (canCraft.value) await userStore.craftCard(props.card.id); }
+async function handleDisenchant() { if (props.quantity > 0) await userStore.disenchantCard(props.card.id); }
 
 // --- 3D TILT ---
 const containerRef = ref(null);
@@ -377,7 +380,7 @@ function sfc32(a) {
 
 const premiumSeed = computed(() => {
   const cardPart = props.card.id || props.card.name || '0';
-  const userPart = state.user?.id || 'anon';
+  const userPart = userStore.user?.id || 'anon';
   return hashCode(`${cardPart}-${userPart}`);
 });
 

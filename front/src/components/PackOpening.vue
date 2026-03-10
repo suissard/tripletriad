@@ -144,18 +144,20 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import TripleTriadCard from './TripleTriadCard.vue';
-import { state, fetchUserCollection } from '../game/state.js';
+import { state } from '../game/state.js';
+import { useUserStore } from '../stores/userStore.js';
+const userStore = useUserStore();
 
 const emit = defineEmits(['close']);
 
 onMounted(() => {
-  fetchUserCollection();
+  userStore.fetchUserCollection();
 });
 
 const wallet = computed(() => ({
-  coins: state.user?.coins || 0,
-  gems: state.user?.gems || 0,
-  dust: state.user?.dust || 0
+  coins: userStore.user?.coins || 0,
+  gems: userStore.user?.gems || 0,
+  dust: userStore.user?.dust || 0
 }));
 
 const drawnCards = ref([]);
@@ -205,9 +207,10 @@ const openPack = async () => {
     drawnCards.value = data.cards;
     
     // Update global wallet (the computed property will reflect this automatically)
-    state.user.coins = data.wallet.coins;
-    state.user.gems = data.wallet.gems;
-    state.user.dust = data.wallet.dust;
+    userStore.user.coins = data.wallet.coins;
+    userStore.user.gems = data.wallet.gems;
+    userStore.user.dust = data.wallet.dust;
+    userStore.syncLocalUserWallets();
 
     isFlipped.value = new Array(drawnCards.value.length).fill(false);
 

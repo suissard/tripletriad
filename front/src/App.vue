@@ -10,14 +10,32 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
 import TopNavbar from './components/TopNavbar.vue';
 import RightDrawer from './components/RightDrawer.vue';
 import AlertMessage from './components/AlertMessage.vue';
 import ConfirmationModal from './components/ConfirmationModal.vue';
 import DevOptions from './components/DevOptions.vue';
 import { state } from './game/state.js';
+import { useUserStore } from './stores/userStore.js';
+import strapiService from './api/strapi.js';
 
 console.warn('--- TRIPLE TRIAD: FRONTEND LOADED (VERSION: VUE_UI_REVAMP) ---');
+
+onMounted(() => {
+  const userStore = useUserStore();
+  
+  setInterval(async () => {
+    if (userStore.isLoggedIn) {
+      try {
+        const check = await fetch(`${strapiService.rawClient.baseURL.replace('/api', '')}/admin/init`, { method: 'HEAD' });
+        userStore.strapiConnected = check.ok || check.status < 500;
+      } catch (e) {
+        userStore.strapiConnected = false;
+      }
+    }
+  }, 10000); // Check every 10 seconds
+});
 </script>
 
 <style>

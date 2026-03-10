@@ -10,12 +10,12 @@
           <input type="checkbox" v-model="devSettings.autoLogin" @change="saveSettings" />
           Auto Login (Admin)
         </label>
-        <div class="dev-session-info" v-if="state.isLoggedIn">
-          <div :style="{ color: state.user.id ? '#00ff88' : '#ffea00' }">
-            👤 {{ state.user.username }} (ID: {{ state.user.id || '?' }})
+        <div class="dev-session-info" v-if="userStore.isLoggedIn">
+          <div :style="{ color: userStore.user.id ? '#00ff88' : '#ffea00' }">
+            👤 {{ userStore.user.username }} (ID: {{ userStore.user.id || '?' }})
           </div>
           <div style="font-size: 0.6rem; opacity: 0.7; margin-top: 2px;">
-            Token: {{ state.jwt ? state.jwt.substring(0, 10) + '...' : 'AUCUN' }}
+            Token: {{ userStore.jwt ? userStore.jwt.substring(0, 10) + '...' : 'AUCUN' }}
           </div>
         </div>
         <div v-else class="dev-session-info" style="color: #ff0055;">
@@ -73,7 +73,7 @@
       </div>
 
       <div class="dev-info">
-        Vers: 1.2 | Possédées: {{ state.collection.length }} / 45
+        Vers: 1.2 | Possédées: {{ userStore.collection.length }} / 45
       </div>
       </div>    </div>
   </div>
@@ -86,8 +86,11 @@ const router = useRouter();
 
 import { ref, reactive, onMounted, watch } from 'vue';
 
-import { state, cardLibrary, setAuth, logout, addDevCoins, addDevDust } from '../game/state.js';
+import { state, cardLibrary } from '../game/state.js';
 import strapiService from '../api/strapi.js';
+import { useUserStore } from '../stores/userStore.js';
+
+const userStore = useUserStore();
 
 const devSettings = reactive({
   autoLogin: true,
@@ -104,13 +107,13 @@ onMounted(() => {
   }
   // devSettings.autoLogin = true; // Forcé par défaut pour le moment
 
-  if (devSettings.autoLogin && !state.isLoggedIn) {
+  if (devSettings.autoLogin && !userStore.isLoggedIn) {
     doAutoLogin();
   }
 });
 
 // Watch to auto-relogin if session is cleared but autoLogin is ON
-watch(() => state.isLoggedIn, (newVal) => {
+watch(() => userStore.isLoggedIn, (newVal) => {
   if (!newVal && devSettings.autoLogin) {
     console.log('Session cleared, attempting auto-relogin...');
     doAutoLogin();
@@ -126,9 +129,9 @@ async function saveSettings() {
   state.premiumMode = devSettings.premiumMode;
   state.holoFineness = devSettings.holoFineness;
   
-  if (state.isLoggedIn && state.user?.id) {
+  if (userStore.isLoggedIn && userStore.user?.id) {
     try {
-      await strapiService.update('users', state.user.id, {
+      await strapiService.update('users', userStore.user.id, {
         premiumMode: devSettings.premiumMode,
         holoFineness: devSettings.holoFineness
       });
@@ -144,7 +147,7 @@ async function doAutoLogin() {
   try {
     const data = await strapiService.login({ identifier: 'admin@gmail.com', password: 'Password123456789!' });
     if (data.jwt) {
-      setAuth(data.jwt, data.user);
+      userStore.setAuth(data.jwt, data.user);
       console.log('Auto-login successful. User ID:', data.user.id);
     } else {
       console.warn('Auto-login failed:', data.error?.message);
@@ -176,14 +179,14 @@ function onFrameChange() {
 }
 
 function addAllCards() {
-  state.collection = cardLibrary.map(c => ({
+  userStore.collection = cardLibrary.map(c => ({
     cardId: c.id,
     quantity: 1
   }));
 }
 
 function clearCollection() {
-  state.collection = [];
+  userStore.collection = [];
 }
 
 function openMapPage() {
@@ -197,28 +200,28 @@ function openDevTestPage() {
 }
 
 function doAddCoins() {
-  addDevCoins(1000);
+  userStore.addDevCurrencies({ coins: 1000 });
 }
 
 function doAddGems() {
-  addDevGems(1000);
+  userStore.addDevCurrencies({ gems: 1000 });
 }
 
 function doAddDust() {
-  addDevDust(1000);
+  userStore.addDevCurrencies({ dust: 1000 });
 }
 
 function fullLogout() {
-  logout();
+  userStore.logout();
   localStorage.removeItem('tt_jwt');
   localStorage.removeItem('tt_user');
 }
 
 async function checkAuthStatus() {
   console.log('--- DEBUG AUTH STATUS ---');
-  console.log('JWT:', state.jwt ? 'Présent' : 'Absent');
+  console.log('JWT:', userStore.jwt ? 'Présent' : 'Absent');
 
-  if (!state.jwt) {
+  if (!userStore.jwt) {
     alert('Aucun JWT trouvé ! Cliquez sur "Force Login Admin" d\'abord.');
     return;
   }

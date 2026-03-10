@@ -13,8 +13,8 @@
     <div v-else-if="state.menuView === 'ai'" class="deck-selection-menu">
       <h2 style="color: white; margin-bottom: 1.5rem;">CHOISIS TON DECK</h2>
       
-      <div v-if="state.userDecks.length > 0" class="decks-grid">
-        <div v-for="deck in state.userDecks" :key="deck.id" class="deck-select-card" @click="startAiGame(deck)">
+      <div v-if="userStore.userDecks.length > 0" class="decks-grid">
+        <div v-for="deck in userStore.userDecks" :key="deck.id" class="deck-select-card" @click="startAiGame(deck)">
           <div class="deck-thumb">
             <img v-if="deck.cover && getCardById(deck.cover)" :src="getCardById(deck.cover).img" />
             <div v-else class="placeholder">🎴</div>
@@ -36,8 +36,8 @@
     <div v-else-if="state.menuView === 'multi-deck'" class="deck-selection-menu">
       <h2 style="color: white; margin-bottom: 1.5rem;">CHOISIS TON DECK POUR LE MULTIJOUEUR</h2>
       
-      <div v-if="state.userDecks.length > 0" class="decks-grid">
-        <div v-for="deck in state.userDecks" :key="deck.id" class="deck-select-card" @click="startMultiGame(deck)">
+      <div v-if="userStore.userDecks.length > 0" class="decks-grid">
+        <div v-for="deck in userStore.userDecks" :key="deck.id" class="deck-select-card" @click="startMultiGame(deck)">
           <div class="deck-thumb">
             <img v-if="deck.cover && getCardById(deck.cover)" :src="getCardById(deck.cover).img" />
             <div v-else class="placeholder">🎴</div>
@@ -96,6 +96,9 @@ import { ref, reactive, onMounted, onUnmounted } from 'vue';
 
 import { state, webrtc, resetGame, initOnlineTurnManager, getCardById, normalizeCard, refillHand, cardLibrary } from '../game/state.js';
 import HoloButton from './HoloButton.vue';
+import { useUserStore } from '../stores/userStore.js';
+
+const userStore = useUserStore();
 
 function openStory() {
   state.showStoryPage = true;

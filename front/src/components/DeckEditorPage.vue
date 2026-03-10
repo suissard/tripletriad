@@ -91,7 +91,9 @@ const router = useRouter();
 import { ref, computed } from 'vue';
 import PageLayout from './PageLayout.vue';
 
-import { state, cardLibrary, getCardById, saveDeckToStrapi } from '../game/state.js';
+import { state, cardLibrary, getCardById } from '../game/state.js';
+import { useUserStore } from '../stores/userStore.js';
+const userStore = useUserStore();
 import TripleTriadCard from './TripleTriadCard.vue';
 
 const searchQuery = ref('');
@@ -138,7 +140,7 @@ function setCover(cardId) {
 
 async function saveDeck() {
   if (state.editingDeck.cards.length !== 15) return;
-  const success = await saveDeckToStrapi({ ...state.editingDeck });
+  const success = await userStore.saveDeck({ ...state.editingDeck });
   if (success) {
     showFeedback('Deck enregistré !', 'success');
     setTimeout(() => {

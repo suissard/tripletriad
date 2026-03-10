@@ -25,27 +25,27 @@
         <div class="drawer-content">
 
         <!-- PROFILE VIEW -->
-        <template v-if="currentView === 'profile' && state.isLoggedIn">
+        <template v-if="currentView === 'profile' && userStore.isLoggedIn">
           <div class="profile-card">
-            <img :src="state.user.avatar" class="large-avatar" alt="Avatar" />
-            <h3 class="profile-name">{{ state.user.username }}</h3>
+            <img :src="userStore.user.avatar" class="large-avatar" alt="Avatar" />
+            <h3 class="profile-name">{{ userStore.user.username }}</h3>
             <p class="profile-stats">Victoires : 0 | Défaites : 0</p>
             <div class="profile-currencies">
-              <p class="profile-coins">🪙 Pièces : {{ state.user.coins !== undefined ? state.user.coins : 0 }}</p>
-              <p class="profile-gems">💎 Gemmes : {{ state.user.gems !== undefined ? state.user.gems : 0 }}</p>
-              <p class="profile-dust">✨ Poussière : {{ state.user.dust !== undefined ? state.user.dust : 0 }}</p>
+              <p class="profile-coins">🪙 Pièces : {{ userStore.user.coins !== undefined ? userStore.user.coins : 0 }}</p>
+              <p class="profile-gems">💎 Gemmes : {{ userStore.user.gems !== undefined ? userStore.user.gems : 0 }}</p>
+              <p class="profile-dust">✨ Poussière : {{ userStore.user.dust !== undefined ? userStore.user.dust : 0 }}</p>
             </div>
             <button class="logout-btn" @click="doLogout">Se Déconnecter</button>
           </div>
 
           <!-- Connection Status Alert -->
-          <div v-if="!state.strapiConnected" class="offline-notice">
+          <div v-if="!userStore.strapiConnected" class="offline-notice">
             <div class="offline-icon">⚠️</div>
             <div class="offline-text">
               <h4>Hors-ligne</h4>
               <p>La connexion avec la base de données est perdue. Vos progrès ne seront pas sauvegardés.</p>
             </div>
-            <button class="retry-btn" @click="fetchUserCollection">Réessayer</button>
+            <button class="retry-btn" @click="userStore.fetchUserCollection()">Réessayer</button>
           </div>
 
           <div class="menu-list">
@@ -171,7 +171,7 @@
           <div v-if="!isBuilding" class="decks-view">
             <HoloButton class="add-deck-btn" @click="startNewDeck" width="100%">+ Nouveau Deck</HoloButton>
             <div class="decks-list">
-              <div v-for="deck in state.userDecks" :key="deck.id" class="deck-row">
+              <div v-for="deck in userStore.userDecks" :key="deck.id" class="deck-row">
                 <img v-if="deck.cover" :src="getCardById(deck.cover)?.img" class="deck-cover-img" />
                 <div class="deck-info">
                   <span class="deck-name">{{ deck.name }}</span>
@@ -182,7 +182,7 @@
                   <button class="small-btn delete" @click="deleteDeck(deck)">🗑️</button>
                 </div>
               </div>
-              <p v-if="state.userDecks.length === 0">Aucun deck créé.</p>
+              <p v-if="userStore.userDecks.length === 0">Aucun deck créé.</p>
             </div>
           </div>
 
@@ -261,7 +261,7 @@
         </template>
 
         <!-- AUTH VIEW -->
-        <template v-else-if="!state.isLoggedIn">
+        <template v-else-if="!userStore.isLoggedIn">
           <!-- Authentication Form -->
           <div class="auth-container">
             <h3>{{ isRegistering ? 'CRÉER UN COMPTE' : 'SE CONNECTER' }}</h3>
@@ -297,10 +297,13 @@ const router = useRouter();
 import { ref, reactive, computed, watch } from 'vue';
 
 
-import { state, setAuth, logout, cardLibrary, saveDeckToStrapi, confirmAction, getCardById, deleteDeckFromStrapi } from '../game/state.js';
+import { state, cardLibrary, confirmAction, getCardById } from '../game/state.js';
 import TripleTriadCard from './TripleTriadCard.vue';
 import HoloButton from './HoloButton.vue';
 import strapiService from '../api/strapi.js';
+import { useUserStore } from '../stores/userStore.js';
+
+const userStore = useUserStore();
 
 const currentView = ref('profile'); // profile, collection, decks, history
 const isBuilding = ref(false);
@@ -427,7 +430,7 @@ function closeCardDetail() {
 }
 
 function getOwnedQuantity(cardId) {
-  const c = state.collection.find(item => item.cardId === cardId);
+  const c = userStore.collection.find(item => item.cardId === cardId);
   return c ? c.quantity : 0;
 }
 
@@ -451,7 +454,7 @@ const authForm = reactive({
 });
 
 function isOwned(cardId) {
-  return state.collection.some(c => c.cardId === cardId);
+  return userStore.collection.some(c => c.cardId === cardId);
 }
 
 function startNewDeck() {
@@ -469,7 +472,7 @@ async function deleteDeck(deck) {
   const confirmed = await confirmAction('Supprimer le deck ?', `Voulez-vous vraiment supprimer le deck "${deck.name}" ? Cette action est irréversible.`);
   if (confirmed) {
     isLoading.value = true;
-    const success = await deleteDeckFromStrapi(deck.documentId);
+    const success = await userStore.deleteDeck(deck.documentId);
     isLoading.value = false;
     if (!success) {
       authError.value = "Erreur lors de la suppression du deck.";
@@ -604,7 +607,7 @@ async function saveDeck() {
   if (editingDeck.cards.length !== 15) return;
 
   isLoading.value = true;
-  const success = await saveDeckToStrapi({ ...editingDeck });
+  const success = await userStore.saveDeck({ ...editingDeck });
   isLoading.value = false;
 
   if (success) {
@@ -649,7 +652,7 @@ function openPackOpening() {
 }
 
 function doLogout() {
-  logout();
+  userStore.logout();
 }
 
 async function submitAuth() {
@@ -675,7 +678,7 @@ async function submitAuth() {
       throw new Error(data.error.message || 'Erreur d\'authentification');
     }
 
-    setAuth(data.jwt, data.user);
+    userStore.setAuth(data.jwt, data.user);
     authForm.password = '';
   } catch (error) {
     authError.value = error.message;

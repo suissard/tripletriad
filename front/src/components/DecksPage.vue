@@ -3,17 +3,17 @@
         <div class="page-header">
             <button class="back-btn" @click="closeDecksPage">← RETOUR</button>
             <h2 class="page-title">MES DECKS</h2>
-            <div class="header-stats">{{ state.userDecks.length }} / 5 Decks</div>
+            <div class="header-stats">{{ userStore.userDecks.length }} / 5 Decks</div>
         </div>
 
         <div class="page-content">
-            <button class="new-deck-btn" @click="openNewDeck" :disabled="state.userDecks.length >= 5">
+            <button class="new-deck-btn" @click="openNewDeck" :disabled="userStore.userDecks.length >= 5">
                 <span class="new-deck-icon">+</span>
                 <span>Créer un Nouveau Deck</span>
             </button>
 
-            <div class="decks-grid" v-if="state.userDecks.length > 0">
-                <div v-for="deck in state.userDecks" :key="deck.id" class="deck-card">
+            <div class="decks-grid" v-if="userStore.userDecks.length > 0">
+                <div v-for="deck in userStore.userDecks" :key="deck.id" class="deck-card">
                     <div class="deck-cover">
                         <img v-if="deck.cover && getCardById(deck.cover)" :src="getCardById(deck.cover).img"
                             class="cover-img" />
@@ -57,7 +57,10 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 
-import { state, getCardById, deleteDeckFromStrapi, confirmAction } from '../game/state.js';
+import { state, getCardById, confirmAction } from '../game/state.js';
+import { useUserStore } from '../stores/userStore.js';
+
+const userStore = useUserStore();
 
 function closeDecksPage() {
     router.push('/');
@@ -87,7 +90,7 @@ async function deleteDeck(deck) {
         `Voulez-vous vraiment supprimer "${deck.name}" ? Cette action est irréversible.`
     );
     if (confirmed) {
-        await deleteDeckFromStrapi(deck.documentId);
+        await userStore.deleteDeck(deck.documentId);
     }
 }
 </script>

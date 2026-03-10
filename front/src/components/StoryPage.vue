@@ -1,11 +1,11 @@
 <template>
   <PageLayout title="MODE HISTOIRE" backRoute="/">
     <div class="story-container">
-      <div v-if="!state.isLoggedIn" class="auth-notice">
+      <div v-if="!userStore.isLoggedIn" class="auth-notice">
         <p>Connectez-vous pour voir vos quêtes et progresser dans l'histoire.</p>
       </div>
       
-      <div v-else-if="state.quests.length === 0" class="no-quests">
+      <div v-else-if="userStore.quests.length === 0" class="no-quests">
         <div class="empty-icon">📜</div>
         <h3>Aucune quête active</h3>
         <p>Revenez plus tard pour de nouveaux défis !</p>
@@ -38,14 +38,16 @@
 import { computed } from 'vue';
 import PageLayout from './PageLayout.vue';
 import QuestItem from './QuestItem.vue';
-import { state, fetchUserQuests } from '../game/state.js';
+import { useUserStore } from '../stores/userStore.js';
+
+const userStore = useUserStore();
 
 const activeQuests = computed(() => {
-  return state.quests.filter(q => q.status === 'active');
+  return userStore.quests.filter(q => q.status === 'active');
 });
 
 const completedQuests = computed(() => {
-  return state.quests.filter(q => q.status === 'completed');
+  return userStore.quests.filter(q => q.status === 'completed');
 });
 
 async function handleClaim(questId) {
@@ -55,7 +57,7 @@ async function handleClaim(questId) {
 }
 
 // Ensure quests are fresh when opening the page
-fetchUserQuests();
+userStore.fetchUserQuests();
 </script>
 
 <style scoped>
