@@ -1,15 +1,11 @@
 <template>
-  <div class="collection-page ui-layer" v-if="state.showCollectionPage">
-
-    <div class="page-header">
-      <button class="back-btn" @click="closeCollection">← RETOUR</button>
-      <h2 class="page-title">MA COLLECTION</h2>
-      <div class="header-stats">
-        Possédées : {{ state.collection.length }} / {{ cardLibrary.length }}
-        <span style="margin-left: 20px; color: #ffc107;">✨ Poussière: {{ state.user?.dust || 0 }}</span>
-      </div>
+  <PageLayout title="MA COLLECTION" back-route="/">
+  <template #header-actions>
+    <div class="header-stats">
+      Possédées : {{ state.collection.length }} / {{ cardLibrary.length }}
+      <span style="margin-left: 20px; color: #ffc107;">✨ Poussière: {{ state.user?.dust || 0 }}</span>
     </div>
-
+  </template>
 
     <div class="page-content">
       <!-- Detail View Overlay -->
@@ -112,25 +108,16 @@
            <div>
              Résultats : {{ filteredCardLibrary.length }} cartes | Page {{ currentPage }} / {{ totalPages || 1 }}
            </div>
-           <div class="pagination-controls">
-             <button class="mass-disenchant-btn" @click="handleMassDisenchant">Désenchantement de masse</button>
-             <button :disabled="currentPage === 1" @click="currentPage--">Précédent</button>
-             <button :disabled="currentPage === totalPages || totalPages === 0" @click="currentPage++">Suivant</button>
-           </div>
+
          </div>
 
 
-         <div class="large-card-grid">
-           <TripleTriadCard
-                v-for="card in paginatedCardLibrary" :key="card.id"
-                :card="card"
-                size="lg"
-                :unowned="!isOwned(card.id)"
-                :quantity="getOwnedQuantity(card.id)"
-                :isPremium="isOwnedPremium(card.id)"
-                @click="openCardDetail(card)"
-            />
-         </div>
+         <TripleTriadCardGrid
+      :cards="filteredCardLibrary.map(c => ({...c, quantity: getOwnedQuantity(c.id), isPremium: isOwnedPremium(c.id)}))"
+      cardSize="m"
+      :showOwnNum="true"
+      @card-left-click="c => openCardDetail(c)"
+    />
       </div>
 
       <!-- Mass Disenchant Modal -->
@@ -198,13 +185,20 @@
         </div>
       </div>
     </div>
-  </div>
+  </PageLayout>
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
+
 import { ref, computed, watch, reactive } from 'vue';
+
+import PageLayout from './PageLayout.vue';
 import { state, cardLibrary, getCardById, massDisenchantCards, craftCard, disenchantCard } from '../game/state.js';
 import TripleTriadCard from './TripleTriadCard.vue';
+import TripleTriadCardGrid from './TripleTriadCardGrid.vue';
 
 const showMassDisenchantModal = ref(false);
 const isDisenchanting = ref(false);
@@ -319,8 +313,7 @@ const disenchantPreview = computed(() => {
 });
 
 function closeCollection() {
-  state.showCollectionPage = false;
-  window.history.pushState({}, '', '/');
+  router.push('/');
 }
 
 // Filters logic

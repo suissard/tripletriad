@@ -1,5 +1,5 @@
 <template>
-    <div class="decks-page ui-layer" v-if="state.showDecksPage">
+    <div class="decks-page ui-layer" >
         <div class="page-header">
             <button class="back-btn" @click="closeDecksPage">← RETOUR</button>
             <h2 class="page-title">MES DECKS</h2>
@@ -53,11 +53,14 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
+
 import { state, getCardById, deleteDeckFromStrapi, confirmAction } from '../game/state.js';
 
 function closeDecksPage() {
-    state.showDecksPage = false;
-    window.history.pushState({}, '', '/');
+    router.push('/');
 }
 
 function openNewDeck() {
@@ -66,9 +69,7 @@ function openNewDeck() {
     state.editingDeck.name = 'Nouveau Deck';
     state.editingDeck.cover = null;
     state.editingDeck.cards = [];
-    state.showDecksPage = false;
-    state.showDeckEditor = true;
-    window.history.pushState({}, '', '/deck-editor');
+    router.push('/deck-editor');
 }
 
 function openEditDeck(deck) {
@@ -77,9 +78,7 @@ function openEditDeck(deck) {
     state.editingDeck.name = deck.name;
     state.editingDeck.cover = deck.cover;
     state.editingDeck.cards = [...deck.cards];
-    state.showDecksPage = false;
-    state.showDeckEditor = true;
-    window.history.pushState({}, '', '/deck-editor');
+    router.push('/deck-editor');
 }
 
 async function deleteDeck(deck) {

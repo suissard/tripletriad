@@ -292,7 +292,11 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
+const router = useRouter();
 import { ref, reactive, computed, watch } from 'vue';
+
+
 import { state, setAuth, logout, cardLibrary, saveDeckToStrapi, confirmAction, getCardById, deleteDeckFromStrapi } from '../game/state.js';
 import TripleTriadCard from './TripleTriadCard.vue';
 import HoloButton from './HoloButton.vue';
@@ -457,8 +461,7 @@ function startNewDeck() {
   state.editingDeck.cover = null;
   state.editingDeck.cards = [];
   state.rightDrawerOpen = false;
-  state.showDeckEditor = true;
-  window.history.pushState({}, '', '/deck-editor');
+  router.push('/deck-editor');
 }
 
 
@@ -481,8 +484,7 @@ function editDeck(deck) {
   state.editingDeck.cover = deck.cover;
   state.editingDeck.cards = [...deck.cards];
   state.rightDrawerOpen = false;
-  state.showDeckEditor = true;
-  window.history.pushState({}, '', '/deck-editor');
+  router.push('/deck-editor');
 }
 
 
@@ -616,14 +618,14 @@ function goToHome() {
   state.gameState = 'menu';
   state.menuView = 'main';
   state.rightDrawerOpen = false;
-  window.history.pushState({}, '', '/');
+  router.push('/');
 }
 
 function goToAiMenu() {
   state.gameState = 'menu';
   state.menuView = 'ai';
   state.rightDrawerOpen = false;
-  window.history.pushState({}, '', '/');
+  router.push('/');
 }
 
 function toggleAuthMode() {
@@ -632,21 +634,18 @@ function toggleAuthMode() {
 }
 
 function openCollectionPage() {
-  state.showCollectionPage = true;
   state.rightDrawerOpen = false;
-  window.history.pushState({}, '', '/collection');
+  router.push('/collection');
 }
 
 function openDecksPage() {
-  state.showDecksPage = true;
   state.rightDrawerOpen = false;
-  window.history.pushState({}, '', '/decks');
+  router.push('/decks');
 }
 
 function openPackOpening() {
   state.rightDrawerOpen = false;
-  state.showPackOpening = true;
-  window.history.pushState({}, '', '/boutique');
+  router.push('/boutique');
 }
 
 function doLogout() {

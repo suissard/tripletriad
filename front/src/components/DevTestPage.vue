@@ -1,5 +1,5 @@
 <template>
-  <div class="dev-test-page" v-if="state.showDevTestPage">
+  <div class="dev-test-page" >
     <div class="header">
       <h2>🧪 Testeur API Strapi</h2>
 
@@ -99,7 +99,12 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
+
 import { ref, reactive, computed, onMounted } from 'vue';
+
 import { state } from '../game/state.js';
 import strapiService from '../api/strapi.js';
 
@@ -233,8 +238,7 @@ const groupedRoutes = computed(() => {
 });
 
 function closePage() {
-  state.showDevTestPage = false;
-  window.history.pushState({}, '', '/');
+  router.push('/');
   selectedRoute.value = null;
   result.value = null;
   hasError.value = false;

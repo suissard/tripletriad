@@ -1,5 +1,5 @@
 <template>
-  <div class="deck-editor-page ui-layer" v-if="state.showDeckEditor">
+  <div class="deck-editor-page ui-layer" >
     <div class="page-header">
       <button class="back-btn" @click="closeDeckEditor">← RETOUR</button>
       <h2 class="page-title">{{ isNew ? 'NOUVEAU DECK' : 'ÉDITER LE DECK' }}</h2>
@@ -86,7 +86,11 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
+const router = useRouter();
 import { ref, computed } from 'vue';
+import PageLayout from './PageLayout.vue';
+
 import { state, cardLibrary, getCardById, saveDeckToStrapi } from '../game/state.js';
 import TripleTriadCard from './TripleTriadCard.vue';
 
@@ -99,9 +103,7 @@ const feedbackType = ref('info');
 const isNew = computed(() => !state.editingDeck.documentId);
 
 function closeDeckEditor() {
-  state.showDeckEditor = false;
-  state.showDecksPage = true;
-  window.history.pushState({}, '', '/decks');
+  router.push('/decks');
 }
 
 function isOwned(cardId) {
@@ -140,9 +142,7 @@ async function saveDeck() {
   if (success) {
     showFeedback('Deck enregistré !', 'success');
     setTimeout(() => {
-      state.showDeckEditor = false;
-      state.showDecksPage = true;
-      window.history.pushState({}, '', '/decks');
+      router.push('/decks');
     }, 800);
   } else {
     showFeedback('Erreur lors de l\'enregistrement.', 'error');

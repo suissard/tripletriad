@@ -94,7 +94,6 @@ export const state = reactive({
     // UI Navigation State
     leftDrawerOpen: false,
     rightDrawerOpen: false,
-    showCollectionPage: window.location.pathname === '/collection',
 
     // Auth State
     isLoggedIn: false,
@@ -114,11 +113,6 @@ export const state = reactive({
     confirmation: { isOpen: false, title: '', message: '' },
     strapiConnected: false, // true only after a successful API call
     // Deck Editor Page
-    showDeckEditor: window.location.pathname === '/deck-editor',
-    showDecksPage: window.location.pathname === '/decks',
-    showPackOpening: window.location.pathname === '/boutique',
-    showDevTestPage: window.location.pathname === '/test-api',
-    showArchitectureMap: window.location.pathname === '/cartographie',
     editingDeck: { id: null, documentId: null, name: '', cover: null, cards: [] },
     
     // P2P Engine
@@ -129,15 +123,7 @@ export function getCardById(id) {
     return cardLibrary.find(c => c.id === id);
 }
 
-// Handle Browser Back/Forward navigation
-window.addEventListener('popstate', () => {
-    state.showCollectionPage = window.location.pathname === '/collection';
-    state.showDeckEditor = window.location.pathname === '/deck-editor';
-    state.showDecksPage = window.location.pathname === '/decks';
-    state.showPackOpening = window.location.pathname === '/boutique';
-    state.showDevTestPage = window.location.pathname === '/test-api';
-    state.showArchitectureMap = window.location.pathname === '/cartographie';
-});
+
 /*
  * Periodic Connection Check (Heartbeat)
  */
