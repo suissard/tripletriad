@@ -1,131 +1,115 @@
-/**
- * player-quest service
- */
-
 import { factories } from '@strapi/strapi';
 
 export default factories.createCoreService('api::player-quest.player-quest', ({ strapi }) => ({
-  async generateDailyQuests(userId: number, timezone: string = 'UTC') {
-    const now = new Date();
-
-    // Create a date corresponding to midnight tomorrow in the specified timezone
-    // Using Intl.DateTimeFormat to get the parts in that timezone
-    const formatter = new Intl.DateTimeFormat('en-US', {
-      timeZone: timezone,
-      year: 'numeric',
-      month: 'numeric',
-      day: 'numeric'
-    });
-
-    const parts = formatter.formatToParts(now);
-    const year = parseInt(parts.find(p => p.type === 'year')?.value || now.getUTCFullYear().toString(), 10);
-    const month = parseInt(parts.find(p => p.type === 'month')?.value || (now.getUTCMonth() + 1).toString(), 10);
-    const day = parseInt(parts.find(p => p.type === 'day')?.value || now.getUTCDate().toString(), 10);
-
-    // Create an ISO string representing tomorrow midnight in UTC,
-    // then we will find the timezone offset to convert this back to UTC time
-    const expiresAtStr = `${year}-${month.toString().padStart(2, '0')}-${(day + 1).toString().padStart(2, '0')}T00:00:00.000`;
-
-    // Convert to target timezone date
-    // A quick hack without date-fns-tz to get the true UTC date
-    // Create string like "YYYY-MM-DD"
-    const nextDayStr = `${year}-${month.toString().padStart(2, '0')}-${(day + 1).toString().padStart(2, '0')}`;
-
-    // This finds the timestamp of tomorrow midnight in given timezone
-    const getMidnightInTimezone = (dateStr: string, tz: string) => {
-      // Just an approximation using the timezone string, since it's tricky in pure JS
-      // In a real app we'd use moment-timezone or date-fns-tz
-      // Let's create a UTC date and just set it to end of day.
-      const d = new Date(dateStr);
-      // To keep it simple and avoid bugs with timezones, let's just do an approximation
-      // if timezone isn't parsable or we lack tz libraries.
-      return d;
-    };
-
-    let trueUtcExpiresAt;
+  async updateQuestProgress(userId: number, type: string, action: string, amount: number = 1) {
     try {
-        const dateString = new Date().toLocaleString("en-US", { timeZone: timezone });
-        const localDate = new Date(dateString);
-        localDate.setDate(localDate.getDate() + 1);
-        localDate.setHours(0, 0, 0, 0);
+      // Find active quests for the user of the specific type
+      const activeQuests = await strapi.entityService.findMany('api::player-quest.player-quest', {
+        filters: {
+          user: userId as any,
+          status: 'in_progress' as any,
+        },
+        populate: ['quest_template'] as any
+      }) as any[];
 
-        // Find difference between local and target timezone
-        const diff = new Date().getTime() - new Date(new Date().toLocaleString('en-US', { timeZone: timezone })).getTime();
-        trueUtcExpiresAt = new Date(localDate.getTime() + diff);
-    } catch (e) {
-        // Fallback
-        trueUtcExpiresAt = new Date(now);
-        trueUtcExpiresAt.setUTCDate(trueUtcExpiresAt.getUTCDate() + 1);
-        trueUtcExpiresAt.setUTCHours(0, 0, 0, 0);
+      // Update progress for matching quests
+      for (const quest of activeQuests) {
+        if (!quest.quest_template) continue;
+
+        // Match the quest type
+        if (quest.quest_template.type !== type) continue;
+
+        // This is a simple implementation. In a real game, you would match the specific action.
+        // For example, if action is "win_game" and the quest is "win 3 games"
+
+        const newProgress = Math.min(quest.progress + amount, quest.quest_template.target);
+        const newStatus = newProgress >= quest.quest_template.target ? 'completed' : 'in_progress';
+
+        await strapi.entityService.update('api::player-quest.player-quest', quest.id, {
+          data: {
+            progress: newProgress,
+            status: newStatus as any
+          }
+        });
+      }
+    } catch (err) {
+      strapi.log.error('Error updating quest progress:', err);
     }
+  },
 
-    // 2. Check if active daily quests exist for this user today
-    const existingQuests = await strapi.entityService.findMany('api::player-quest.player-quest', {
-      filters: {
+  async getActiveQuests(userId: number) {
+    return strapi.entityService.findMany('api::player-quest.player-quest', {
+      filters: {    
+        status: {
+          $in: ['in_progress', 'completed'] as any, // Include completed but not yet claimed
         user: { id: userId },
-        status: 'active',
         expiresAt: {
           $gte: now.toISOString()
         }
       },
-      populate: ['template']
+      populate: ['quest_template'] as any
     });
+  },
 
-    const activeDailyQuests = existingQuests.filter((q: any) => q.template?.type === 'daily');
+  async claimQuestReward(userId: number, questId: number) {
+    const quest = await strapi.entityService.findOne('api::player-quest.player-quest', questId, {
+      populate: ['quest_template', 'user'] as any
+    }) as any;
 
-    if (activeDailyQuests.length >= 3) {
-      return activeDailyQuests;
+    if (!quest) {
+      throw new Error('Quest not found');
     }
 
-    // 3. Get daily quest templates
-    let templates = await strapi.entityService.findMany('api::quest-template.quest-template', {
+    if (quest.user.id !== userId) {
+      throw new Error('Unauthorized');
+    }
+
+    if (quest.status !== 'completed') {
+      throw new Error('Quest not completed or already claimed');
+    }
+
+    // Award reward to user
+    const reward = quest.quest_template.reward;
+    const user = await strapi.entityService.findOne('plugin::users-permissions.user', userId) as any;
+
+    await strapi.entityService.update('plugin::users-permissions.user', userId, {
+      data: {
+        coins: user.coins + reward
+      }
+    });
+
+    // Mark quest as claimed
+    return strapi.entityService.update('api::player-quest.player-quest', questId, {
+      data: {
+        status: 'claimed' as any
+      }
+    });
+  },
+
+  async assignDailyQuests(userId: number) {
+    // This could be run via a cron job or when a user logs in for the first time in a day
+    // Simple implementation: randomly pick 3 daily quests
+    const dailyTemplates = await strapi.entityService.findMany('api::quest-template.quest-template', {
       filters: {
-        type: 'daily'
+        type: 'daily' as any
       }
-    });
+    }) as any[];
 
-    // 4. Fallback: Create mock templates if none exist
-    if (!templates || templates.length === 0) {
-      const defaultTemplates = [
-        { title: 'Win 3 Matches', description: 'Win 3 matches against any opponent.', target: 3, reward: 150, type: 'daily' as const },
-        { title: 'Play 5 Matches', description: 'Play 5 matches.', target: 5, reward: 100, type: 'daily' as const },
-        { title: 'Defeat a Boss', description: 'Win a match against a boss.', target: 1, reward: 200, type: 'daily' as const },
-        { title: 'Collect 10 Cards', description: 'Get 10 new cards.', target: 10, reward: 50, type: 'daily' as const },
-      ];
+    if (dailyTemplates.length === 0) return;
 
-      for (const t of defaultTemplates) {
-        await strapi.entityService.create('api::quest-template.quest-template', {
-          data: t
-        });
-      }
+    // Shuffle and pick 3
+    const shuffled = dailyTemplates.sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, 3);
 
-      templates = await strapi.entityService.findMany('api::quest-template.quest-template', {
-        filters: { type: 'daily' }
-      });
-    }
-
-    // 5. Select 3 random templates
-    const shuffled = templates.sort(() => 0.5 - Math.random());
-    // Only take the number needed to reach 3
-    const needed = 3 - activeDailyQuests.length;
-    const selectedTemplates = shuffled.slice(0, needed);
-
-    // 6. Create PlayerQuests
-    const createdQuests = [];
-    for (const template of selectedTemplates) {
-      const q = await strapi.entityService.create('api::player-quest.player-quest', {
+    for (const t of selected) {
+      await strapi.entityService.create('api::player-quest.player-quest', {
         data: {
-          user: userId,
-          template: template.id,
+          user: userId as any,
+          quest_template: t.id as any,
           progress: 0,
-          status: 'active',
-          expiresAt: trueUtcExpiresAt.toISOString()
-        },
-        populate: ['template']
+          status: 'in_progress' as any
+        } as any
       });
-      createdQuests.push(q);
     }
-
-    return [...activeDailyQuests, ...createdQuests];
   }
 }));
