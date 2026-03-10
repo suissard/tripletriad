@@ -1,5 +1,5 @@
 <template>
-  <div class="architecture-map-page" v-if="state.showArchitectureMap">
+  <div class="architecture-map-page" >
     <div class="header">
       <h2>🗺️ Cartographie de l'Architecture (Triple Triad)</h2>
       <button class="close-btn" @click="closeMap">Fermer</button>
@@ -15,8 +15,14 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
+
 import { ref } from 'vue';
+
 import { state } from '../game/state.js';
+import PageLayout from './PageLayout.vue';
 import { VueFlow } from '@vue-flow/core';
 import { Background } from '@vue-flow/background';
 import { Controls } from '@vue-flow/controls';
@@ -97,8 +103,7 @@ const elements = ref([
 ]);
 
 function closeMap() {
-  state.showArchitectureMap = false;
-  window.history.pushState({}, '', '/');
+  router.push('/');
 }
 </script>
 

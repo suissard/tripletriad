@@ -80,7 +80,12 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
+
 import { ref, reactive, onMounted, watch } from 'vue';
+
 import { state, cardLibrary, setAuth, logout, addDevCoins, addDevDust } from '../game/state.js';
 import strapiService from '../api/strapi.js';
 
@@ -182,14 +187,12 @@ function clearCollection() {
 }
 
 function openMapPage() {
-  state.showArchitectureMap = true;
-  window.history.pushState({}, '', '/cartographie');
+  router.push('/cartographie');
   isOpen.value = false;
 }
 
 function openDevTestPage() {
-  state.showDevTestPage = true;
-  window.history.pushState({}, '', '/test-api');
+  router.push('/test-api');
   isOpen.value = false; // Close the menu when opening the page
 }
 

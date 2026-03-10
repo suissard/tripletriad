@@ -1,5 +1,5 @@
 <template>
-  <div id="main-menu" v-if="state.gameState === 'menu' && !state.showPackOpening">
+  <div id="main-menu" v-if="state.gameState === 'menu' ">
 
     <div v-if="state.menuView === 'main'" class="menu-buttons">
       <HoloButton width="100%" @click="openStory">MODE HISTOIRE 📖</HoloButton>
@@ -65,30 +65,32 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
+
 import { ref, reactive, onMounted, onUnmounted } from 'vue';
+
 import { state, webrtc, resetGame, initOnlineTurnManager, getCardById, normalizeCard, refillHand, cardLibrary } from '../game/state.js';
 import HoloButton from './HoloButton.vue';
 
 function openStory() {
   state.showStoryPage = true;
-  window.history.pushState({}, '', '/story');
+  router.push('/story');
 }
 
 function openCollection() {
-  state.showCollectionPage = true;
-  window.history.pushState({}, '', '/collection');
+  router.push('/collection');
 }
 
 function openDecks() {
-  state.showDecksPage = true;
-  window.history.pushState({}, '', '/decks');
+  router.push('/decks');
 }
 
 function openBoutique() {
-  state.showPackOpening = true;
   state.leftDrawerOpen = false;
   state.rightDrawerOpen = false;
-  window.history.pushState({}, '', '/boutique');
+  router.push('/boutique');
 }
 
 function startAiGame(deck) {
