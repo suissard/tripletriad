@@ -8,6 +8,7 @@ import DevTestPage from '../components/DevTestPage.vue'
 import ArchitectureMapPage from '../components/ArchitectureMapPage.vue'
 import MainMenu from '../components/MainMenu.vue'
 import StoryPage from '../components/StoryPage.vue'
+import CardTestPage from '../components/CardTestPage.vue'
 
 
 const routes = [
@@ -20,6 +21,7 @@ const routes = [
   { path: '/test-api', component: DevTestPage },
   { path: '/cartographie', component: ArchitectureMapPage },
   { path: '/story', component: StoryPage },
+  { path: '/test-card', component: CardTestPage },
 ]
 
 const router = createRouter({

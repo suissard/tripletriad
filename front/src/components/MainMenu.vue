@@ -8,6 +8,7 @@
       <HoloButton width="100%" @click="openCollection">MA COLLECTION 📚</HoloButton>
       <HoloButton width="100%" @click="openDecks">MES DECKS 🎴</HoloButton>
       <HoloButton width="100%" @click="openBoutique">BOUTIQUE 💎</HoloButton>
+      <HoloButton width="100%" @click="router.push('/test-card')" style="margin-top:20px; background:linear-gradient(45deg, #f093fb 0%, #f5576c 100%)">TESTER LA CARTE 🧪</HoloButton>
     </div>
 
     <div v-else-if="state.menuView === 'ai'" class="deck-selection-menu">
