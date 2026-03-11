@@ -68,7 +68,7 @@ export default {
       await strapi.entityService.create('api::quest-template.quest-template', {
         data: {
           code: 'WELCOME_QUEST',
-          title: 'Bienvenue dans Triple Triad !',
+          title: 'Bienvenue dans Terra Nullius !',
           description: 'Jouez votre première partie pour gagner des récompenses.',
           rewardCoins: 500,
           rewardGems: 500,

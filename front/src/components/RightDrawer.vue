@@ -444,7 +444,7 @@ const viewTitle = computed(() => {
   if (currentView.value === 'profile') return 'MON PROFIL';
   if (currentView.value === 'collection') return selectedCard.value ? 'DÉTAIL CARTE' : 'MA COLLECTION';
   if (currentView.value === 'decks') return isBuilding.value ? 'ÉDITEUR DE DECK' : 'MES DECKS';
-  return 'TRIPLE TRIAD';
+  return 'Terra Nullius';
 });
 
 const authForm = reactive({

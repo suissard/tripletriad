@@ -4,7 +4,7 @@ export type Player = 'PLAYER_1' | 'PLAYER_2';
 
 /**
  * Valeurs d'une carte pour chaque côté. 
- * Traditionnellement dans le Triple Triad : 1 à 10 (A représentant 10).
+ * Traditionnellement dans le Terra Nullius : 1 à 10 (A représentant 10).
  */
 export interface CardValues {
   top: number;
@@ -177,7 +177,7 @@ export class GameEngine {
       }
     }
 
-    // Remarque: Dans un vrai module Triple Triad, on ajoute souvent la carte qui reste en main.
+    // Remarque: Dans un vrai module Terra Nullius, on ajoute souvent la carte qui reste en main.
     // L'implémentation ici ne compte strictement que la domination des 9 cases finales posées.
     if (p1Count > p2Count) return 'PLAYER_1';
     if (p2Count > p1Count) return 'PLAYER_2';

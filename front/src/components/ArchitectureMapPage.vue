@@ -1,7 +1,7 @@
 <template>
   <div class="architecture-map-page" >
     <div class="header">
-      <h2>🗺️ Cartographie de l'Architecture (Triple Triad)</h2>
+      <h2>🗺️ Cartographie de l'Architecture (Terra Nullius)</h2>
       <button class="close-btn" @click="closeMap">Fermer</button>
     </div>
 

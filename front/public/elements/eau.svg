@@ -12,11 +12,11 @@
     </radialGradient>
   </defs>
 
-  <!-- Base liquid in a bowl shape -->
-  <path d="M15 55 Q 50 100 85 55 A 35 35 0 0 0 15 55" fill="url(#liquid)"/>
+  <!-- Base liquid in a bowl shape - Adjusted for larger sphere -->
+  <path d="M12 55 Q 50 100 88 55 A 38 38 0 0 0 12 55" fill="url(#liquid)"/>
   
-  <!-- Glass sphere overlay -->
-  <circle cx="50" cy="50" r="45" fill="url(#glassSphere)"/>
+  <!-- Glass sphere overlay - Radius increased from 45 to 48 for larger center/thinner border -->
+  <circle cx="50" cy="50" r="48" fill="url(#glassSphere)"/>
 
   <!-- Bubbles -->
   <circle cx="40" cy="70" r="5" fill="#fff" opacity="0.6"/>
@@ -26,6 +26,6 @@
   <circle cx="65" cy="50" r="2.5" fill="#fff" opacity="0.6"/>
   <circle cx="55" cy="80" r="3.5" fill="#fff" opacity="0.5"/>
 
-  <!-- Glass reflection highlight -->
-  <path d="M25 25 A 30 30 0 0 1 70 20 A 40 40 0 0 0 25 25" fill="#ffffff" opacity="0.6"/>
+  <!-- Glass reflection highlight - Adjusted for larger sphere -->
+  <path d="M22 22 A 32 32 0 0 1 78 18 A 42 42 0 0 0 22 22" fill="#ffffff" opacity="0.6"/>
 </svg>

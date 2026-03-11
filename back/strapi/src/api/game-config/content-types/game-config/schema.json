@@ -5,7 +5,7 @@
         "singularName": "game-config",
         "pluralName": "game-configs",
         "displayName": "Game Config",
-        "description": "Global settings for the Triple Triad game"
+        "description": "Global settings for the Terra Nullius game"
     },
     "options": {
         "draftAndPublish": false

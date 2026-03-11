@@ -1,4 +1,4 @@
-# Documentation d'Apprentissage: Triple Triad
+# Documentation d'Apprentissage: Terra Nullius
 
 Ce fichier regroupe les points critiques identifiés lors de la résolution des erreurs 403 et des conflits d'environnement.
 

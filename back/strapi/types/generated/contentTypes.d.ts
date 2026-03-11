@@ -549,7 +549,7 @@ export interface ApiDeckDeck extends Struct.CollectionTypeSchema {
 export interface ApiGameConfigGameConfig extends Struct.SingleTypeSchema {
   collectionName: 'game_configs';
   info: {
-    description: 'Global settings for the Triple Triad game';
+    description: 'Global settings for the Terra Nullius game';
     displayName: 'Game Config';
     pluralName: 'game-configs';
     singularName: 'game-config';

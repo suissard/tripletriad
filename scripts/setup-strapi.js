@@ -307,7 +307,7 @@ async function createApiUser(adminJwt) {
 async function main() {
     console.log('');
     console.log('╔══════════════════════════════════════════╗');
-    console.log('║   Triple Triad — Strapi Setup Script     ║');
+    console.log('║   Terra Nullius — Strapi Setup Script    ║');
     console.log('╚══════════════════════════════════════════╝');
     console.log('');
 

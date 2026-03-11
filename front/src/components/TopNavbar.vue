@@ -19,7 +19,7 @@
       <div style="width: 60px;"></div>
       
       <!-- Title -->
-      <div class="app-title">TRIPLE TRIAD</div>
+      <div class="app-title">Terra Nullius</div>
 
       <!-- Right User Widget -->
       <HoloButton width="auto" @click="toggleRightDrawer">
