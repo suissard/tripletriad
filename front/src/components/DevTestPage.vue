@@ -6,7 +6,7 @@
       <div class="auth-selector">
         <label>Utilisateur:</label>
         <select v-model="selectedUserToken" @change="changeUserAuth">
-          <option value="current">Courant ({{ state.user?.username || 'Non connecté' }})</option>
+          <option value="current">Courant ({{ userStore.user?.username || 'Non connecté' }})</option>
           <option value="none">Aucun (Public)</option>
           <option value="custom">Token Personnalisé...</option>
           <option v-for="u in userList" :key="u.id" :value="u.mockToken">
@@ -105,7 +105,8 @@ const router = useRouter();
 
 import { ref, reactive, computed, onMounted } from 'vue';
 
-import { state } from '../game/state.js';
+import { useUserStore } from '../stores/userStore.js';
+const userStore = useUserStore();
 import strapiService from '../api/strapi.js';
 
 const selectedRoute = ref(null);
@@ -186,13 +187,21 @@ const routes = [
   },
 
   // --- SHOP / BOOSTERS ---
-  { group: 'Shop', name: 'Open Booster Pack', method: 'POST', path: '/shop/open-pack', fields: [
-      { key: 'packId', label: 'Booster Type', type: 'select', options: ['base', 'rare', 'epic'], default: 'base' }
+  { group: 'Shop', name: 'Open Booster Pack', method: 'POST', path: '/booster/open', fields: [
+      { key: 'type', label: 'Booster Type', type: 'select', options: ['classic', 'premium'], default: 'classic' }
     ]
   },
 
   // --- WALLET ---
   { group: 'Wallet', name: 'Get Wallet', method: 'GET', path: '/wallets?populate=*', fields: [] },
+
+  // --- DEV TOOLS ---
+  { group: 'Dev Tools', name: 'Add Currencies', method: 'POST', path: '/dev/add-currencies', fields: [
+      { key: 'coins', label: 'Coins to add', type: 'number', default: 100 },
+      { key: 'gems', label: 'Gems to add', type: 'number', default: 0 },
+      { key: 'dust', label: 'Dust to add', type: 'number', default: 0 }
+    ]
+  },
 
   // --- WEBRTC / MATCHMAKING ---
   { group: 'Matchmaking', name: 'Create/Find Match', method: 'POST', path: '/webrtc/matches', fields: [] },
@@ -270,7 +279,7 @@ function buildUrl(route) {
 
 function getActiveToken() {
   if (selectedUserToken.value === 'current') {
-    return localStorage.getItem('tt_jwt'); // fallback to actual jwt
+    return userStore.jwt || localStorage.getItem('tt_jwt');
   } else if (selectedUserToken.value === 'none') {
     return null;
   } else if (selectedUserToken.value === 'custom') {
@@ -278,6 +287,12 @@ function getActiveToken() {
   } else {
     return selectedUserToken.value; // It's a mocked token or other string
   }
+}
+
+function changeUserAuth() {
+  result.value = null;
+  statusCode.value = null;
+  responseTime.value = null;
 }
 
 async function runTest() {

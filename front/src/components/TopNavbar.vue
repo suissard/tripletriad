@@ -24,8 +24,8 @@
       <!-- Right User Widget -->
       <HoloButton width="auto" @click="toggleRightDrawer">
         <div style="display: flex; align-items: center; gap: 10px;">
-          <span class="username">{{ state.user.username }}</span>
-          <img :src="state.user.avatar" class="avatar" alt="User Avatar" />
+          <span class="username">{{ userStore.user?.username || 'Joueur Anonyme' }}</span>
+          <img :src="userStore.user?.avatar" class="avatar" alt="User Avatar" />
         </div>
       </HoloButton>
     </div>
@@ -34,6 +34,8 @@
 
 <script setup>
 import { state } from '../game/state.js';
+import { useUserStore } from '../stores/userStore.js';
+const userStore = useUserStore();
 import HoloButton from './HoloButton.vue';
 
 function toggleLeftDrawer() {

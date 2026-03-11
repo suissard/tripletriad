@@ -97,7 +97,7 @@
             <div class="card-side back-side" :class="getGlowClass(card.drawnRarity || card.rarity)">
                <img src="/card-back.svg" alt="Card Back" class="w-full h-full object-cover rounded-xl" />
                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-white/10"></div>
-               <div class="absolute inset-0 flex items-center justify-center uppercase tracking-widest text-white/20 font-black text-2xl -rotate-45">Triple Triad</div>
+               <!-- <div class="absolute inset-0 flex items-center justify-center uppercase tracking-widest text-white/20 font-black text-2xl -rotate-45"></div> -->
             </div>
 
             <!-- Card Front -->

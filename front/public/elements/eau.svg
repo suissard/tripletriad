@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="glassSphere" cx="30%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="30%" stop-color="#40e0d0" stop-opacity="0.6"/>
+      <stop offset="80%" stop-color="#008080" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#004c4c" stop-opacity="1"/>
+    </radialGradient>
+    <radialGradient id="liquid" cx="50%" cy="70%" r="50%">
+      <stop offset="0%" stop-color="#00ffff" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#00ced1" stop-opacity="0.9"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Base liquid in a bowl shape -->
+  <path d="M15 55 Q 50 100 85 55 A 35 35 0 0 0 15 55" fill="url(#liquid)"/>
+  
+  <!-- Glass sphere overlay -->
+  <circle cx="50" cy="50" r="45" fill="url(#glassSphere)"/>
+
+  <!-- Bubbles -->
+  <circle cx="40" cy="70" r="5" fill="#fff" opacity="0.6"/>
+  <circle cx="60" cy="65" r="3" fill="#fff" opacity="0.5"/>
+  <circle cx="45" cy="55" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="35" cy="45" r="4" fill="#fff" opacity="0.4"/>
+  <circle cx="65" cy="50" r="2.5" fill="#fff" opacity="0.6"/>
+  <circle cx="55" cy="80" r="3.5" fill="#fff" opacity="0.5"/>
+
+  <!-- Glass reflection highlight -->
+  <path d="M25 25 A 30 30 0 0 1 70 20 A 40 40 0 0 0 25 25" fill="#ffffff" opacity="0.6"/>
+</svg>

@@ -109,7 +109,7 @@ function closeDeckEditor() {
 }
 
 function isOwned(cardId) {
-  return state.collection.some(c => c.cardId === cardId);
+  return userStore.collection.some(c => c.cardId === cardId);
 }
 
 function isInDeck(cardId) {

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <!-- Neon green glow filter for the mold -->
+    <filter id="neonGreenGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Growing mold cluster shapes -->
+  <g fill="#39ff14" filter="url(#neonGreenGlow)" opacity="0.9">
+    <!-- Main central mold mass -->
+    <path d="M40 30 Q50 15 65 25 T80 40 Q90 55 75 70 T45 80 Q25 80 15 60 T25 35 Z" />
+    
+    <!-- Outer smaller mold spots / spores -->
+    <circle cx="20" cy="20" r="5" />
+    <circle cx="85" cy="25" r="4" />
+    <circle cx="10" cy="50" r="6" />
+    <circle cx="85" cy="75" r="5" />
+    <circle cx="35" cy="85" r="4" />
+    <circle cx="65" cy="90" r="3" />
+    <circle cx="25" cy="75" r="4.5" />
+  </g>
+
+  <!-- Darker details / crevices inside the mold -->
+  <g fill="#1b5e20" opacity="0.8">
+    <circle cx="45" cy="40" r="4" />
+    <circle cx="60" cy="55" r="5" />
+    <circle cx="40" cy="65" r="3" />
+    <circle cx="70" cy="35" r="3.5" />
+    <circle cx="50" cy="30" r="2" />
+    <circle cx="35" cy="50" r="2.5" />
+    <circle cx="65" cy="65" r="2" />
+    <circle cx="55" cy="70" r="4" />
+  </g>
+
+  <!-- Tiny bright white/green spores floating around -->
+  <g fill="#aaffaa">
+    <circle cx="15" cy="15" r="1.5" />
+    <circle cx="35" cy="15" r="1" />
+    <circle cx="85" cy="15" r="2" />
+    <circle cx="90" cy="40" r="1.5" />
+    <circle cx="92" cy="60" r="1" />
+    <circle cx="15" cy="70" r="1.5" />
+    <circle cx="10" cy="35" r="1" />
+    <circle cx="45" cy="92" r="2" />
+    <circle cx="80" cy="90" r="1.5" />
+  </g>
+</svg>

@@ -74,8 +74,9 @@ import TripleTriadCard from './TripleTriadCard.vue';
 
 const emit = defineEmits(['close', 'update-coins']);
 
-import { state, fetchUserCollection } from '../game/state.js';
-const userCoins = ref(state.user?.coins || 0);
+import { useUserStore } from '../stores/userStore.js';
+const userStore = useUserStore();
+const userCoins = ref(userStore.user?.coins || 0);
 const boosterCost = ref(100); // Should ideally fetch from game-config
 
 const isOpening = ref(false);
@@ -132,7 +133,7 @@ const openBooster = async () => {
         emit('update-coins', userCoins.value);
         
         // Update the collection cache so new cards appear immediately
-        fetchUserCollection();
+        userStore.fetchUserCollection();
     }, 1500); // 1.5s shaking animation
 
   } catch (err) {

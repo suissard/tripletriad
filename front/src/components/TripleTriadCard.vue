@@ -3,7 +3,6 @@
     ref="containerRef"
     class="tt-card" 
     :class="[
-      sizeClass, 
       rarityClass,
       { 
         'is-unowned': unowned, 
@@ -27,80 +26,88 @@
     @touchend="onTouchEnd"
     @touchcancel="onTouchEnd"
   >
-    <div class="tt-card-inner" :style="!flat ? innerStyle : { transform: 'none' }">
+    <div 
+      class="tt-card-inner" 
+      :class="{ 'is-flipped': faceDown }"
+      :style="!flat ? innerStyle : { transform: faceDown ? 'rotateY(180deg)' : 'none' }"
+    >
+      <!-- FRONT SIDE -->
+      <div class="tt-card-front">
+        <!-- 3D Glare Layout -->
+        <template v-if="!flat">
+          <div class="glare" :style="glareStyle"></div>
+        </template>
 
-      <!-- 3D Glare Layout -->
-      <template v-if="!flat">
-        <div class="glare" :style="glareStyle"></div>
-      </template>
+        <!-- Premium Holo Effect -->
+        <template v-if="isPremiumCard && !flat">
+          <!-- Per-card SVG filter for unique holo texture -->
+          <svg width="0" height="0" style="position:absolute">
+            <filter :id="holoFilterId" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+              <feTurbulence type="fractalNoise" :baseFrequency="holoFrequency" :numOctaves="holoOctaves" :seed="premiumSeed" result="noise" />
+              <feColorMatrix type="saturate" values="0" in="noise" result="mono" />
+              <feBlend in="SourceGraphic" in2="mono" mode="color-burn" />
+            </filter>
+          </svg>
+          <div class="holo-container" :style="holoStyle">
+            <div class="holo-gradient" :style="{ filter: holoFilterUrl }"></div>
+          </div>
+        </template>
 
-      <!-- Premium Holo Effect -->
-      <template v-if="isPremiumCard && !flat">
-        <!-- Per-card SVG filter for unique holo texture -->
-        <svg width="0" height="0" style="position:absolute">
-          <filter :id="holoFilterId" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
-            <feTurbulence type="fractalNoise" :baseFrequency="holoFrequency" :numOctaves="holoOctaves" :seed="premiumSeed" result="noise" />
-            <feColorMatrix type="saturate" values="0" in="noise" result="mono" />
-            <feBlend in="SourceGraphic" in2="mono" mode="color-burn" />
-          </filter>
-        </svg>
-        <div class="holo-container" :style="holoStyle">
-          <div class="holo-gradient" :style="{ filter: holoFilterUrl }"></div>
-        </div>
-      </template>
+        <!-- CARD CONTENT (Unified layout) -->
+        <template v-if="card.revealed !== false || $attrs.forceFace">
+          <!-- Card image -->
+          <img :src="card.img || `https://api.dicebear.com/9.x/bottts/png?seed=${(card.id || 0) * 42}&backgroundColor=transparent`" class="card-img" :alt="card.name" />
 
-      <!-- CARD CONTENT (Unified layout) -->
-      <template v-if="card.revealed !== false || $attrs.forceFace">
-        <!-- Card image -->
-        <img :src="card.img || `https://api.dicebear.com/9.x/bottts/png?seed=${(card.id || 0) * 42}&backgroundColor=transparent`" class="card-img" :alt="card.name" />
+          <!-- Name bar -->
+          <div class="card-name-bar">{{ card.name }}</div>
 
-        <!-- Name bar -->
-        <div class="card-name-bar">{{ card.name }}</div>
+          <!-- Stats cross -->
+          <div class="card-stats-cross">
+            <span class="stat stat-top">{{ card.topValue }}</span>
+            <span class="stat stat-left">{{ card.leftValue }}</span>
+            <span class="stat stat-right">{{ card.rightValue }}</span>
+            <span class="stat stat-bottom">{{ card.bottomValue }}</span>
+          </div>
 
-        <!-- Stats cross -->
-        <div class="card-stats-cross">
-          <span class="stat stat-top">{{ card.topValue }}</span>
-          <span class="stat stat-left">{{ card.leftValue }}</span>
-          <span class="stat stat-right">{{ card.rightValue }}</span>
-          <span class="stat stat-bottom">{{ card.bottomValue }}</span>
-        </div>
+          <!-- Element badges -->
+          <div class="card-elements" v-if="cardElementsList.length">
+            <img v-for="el in cardElementsList" :key="el" :src="`/elements/${el}.svg`" class="element-icon" :alt="el" />
+          </div>
 
-        <!-- Level stars -->
-        <div class="card-level-stars" v-if="card.level">
-          <span class="star" v-for="n in Math.min(card.level, 10)" :key="n">★</span>
-        </div>
+          <!-- Selected check -->
+          <div class="selected-overlay" v-if="selected">✓</div>
 
-        <!-- Element badge -->
-        <div class="card-element" v-if="card.element && card.element !== 'None'">
-          {{ elementEmoji }}
-        </div>
+          <!-- Cover badge -->
+          <div class="cover-badge" v-if="isCover">★</div>
 
-        <!-- Quantity badge -->
-        <div class="quantity-badge" v-if="quantity >= 1">×{{ quantity }}</div>
+          <!-- Unowned lock -->
+          <div class="unowned-overlay" v-if="unowned">🔒</div>
+        </template>
 
-        <!-- Selected check -->
-        <div class="selected-overlay" v-if="selected">✓</div>
+        <!-- BASE CARD FACE (Fallback revealed false) -->
+        <template v-else>
+          <img src="/card-back.svg" class="card-back-img" alt="Card Back" />
+          <!-- Unowned lock -->
+          <div class="unowned-overlay" v-if="unowned">🔒</div>
+        </template>
+      </div>
 
-        <!-- Cover badge -->
-        <div class="cover-badge" v-if="isCover">★</div>
-
-        <!-- Unowned lock -->
+      <!-- BACK SIDE -->
+      <div class="tt-card-back">
+        <img src="/card-back.svg" class="card-back-img" alt="Card Back" />
+        <!-- Unowned lock (show it on back too if unowned) -->
         <div class="unowned-overlay" v-if="unowned">🔒</div>
-      </template>
+      </div>
 
-      <!-- BASE CARD FACE (Back) -->
-      <template v-else>
-        <div class="card-back-design">🎴</div>
-        <!-- Unowned lock -->
-        <div class="unowned-overlay" v-if="unowned">🔒</div>
-      </template>
-
-      <!-- Premium Border Animation -->
-      <div v-if="isPremiumCard" class="premium-border-layer"></div>
+      <!-- Premium Border Animation (Sibling of front/back, inside inner for 3D flip) -->
+      <div v-if="isPremiumCard" class="premium-border-layer" :style="premiumBorderStyle"></div>
     </div>
     
     <!-- Traveling light border for premium (outside tt-card-inner, behind it) -->
-    <div v-if="isPremiumCard" class="premium-travel-border" :style="{ '--rarity-color': rarityColor, ...(!flat ? innerStyle : {}) }"></div>
+    <div v-if="isPremiumCard" class="premium-travel-border" :style="{ '--rarity-color': borderColor || rarityColor, ...(!flat ? innerStyle : {}) }"></div>
+
+    <!-- Quantity badge (outside inner to avoid clipping) -->
+    <div class="quantity-badge" v-if="quantity >= 1" :style="!flat ? tiltStyle : {}">×{{ quantity }}</div>
   </div>
 
   <!-- FULLSCREEN ZOOM OVERLAY -->
@@ -108,7 +115,7 @@
     <Transition name="zoom-fade">
       <div v-if="isZoomed" class="zoom-overlay" @click="isZoomed = false">
         <div class="zoom-card-container" @click.stop>
-          <div class="tt-card-zoom-wrapper" :class="[rarityClass, { 'is-premium': isPremiumCard }]">
+          <div class="tt-card-zoom-wrapper" :class="[rarityClass, { 'is-premium': isPremiumCard }]" :style="{ '--card-border-width': `${borderWidth * (SIZES.zoom / 150)}px`, '--card-border-offset': `-${borderWidth * (SIZES.zoom / 150)}px` }">
             <div class="zoom-card-inner">
               <template v-if="isPremiumCard">
                 <svg width="0" height="0" style="position:absolute">
@@ -122,7 +129,7 @@
                 <div class="holo-container" :style="[{ opacity: 1, mixBlendMode: 'color-dodge' }, holoStyle]">
                   <div class="holo-gradient" :style="{ filter: `url(#${holoFilterId}-zoom)` }"></div>
                 </div>
-                <div class="premium-border-layer"></div>
+                <div class="premium-border-layer" :style="premiumBorderStyle"></div>
               </template>
 
               <!-- Card face (Always revealed in zoom) -->
@@ -134,10 +141,9 @@
                 <span class="stat stat-right">{{ card.rightValue }}</span>
                 <span class="stat stat-bottom">{{ card.bottomValue }}</span>
               </div>
-              <div class="card-level-stars" v-if="card.level">
-                <span class="star" v-for="n in Math.min(card.level, 10)" :key="n">★</span>
+              <div class="card-elements" v-if="cardElementsList.length">
+                <img v-for="el in cardElementsList" :key="el" :src="`/elements/${el}.svg`" class="element-icon" :alt="el" />
               </div>
-              <div class="card-element" v-if="card.element && card.element !== 'None'">{{ elementEmoji }}</div>
             </div>
           </div>
 
@@ -145,7 +151,7 @@
             <h2>{{ card.name }}</h2>
             <div class="zoom-meta">
               <span>Niveau {{ card.level }}</span>
-              <span v-if="card.element && card.element !== 'None'">{{ elementEmoji }} {{ card.element }}</span>
+              <span v-if="cardElementsList.length">Éléments: {{ cardElementsList.join(', ') }}</span>
               <span v-if="isPremiumCard" class="zoom-premium-badge">🌟 PREMIUM</span>
             </div>
 
@@ -194,7 +200,9 @@ const userStore = useUserStore();
 
 const props = defineProps({
   card: { type: Object, required: true },
-  size: { type: String, default: 'md', validator: v => ['xs', 'sm', 'md', 'lg', 'xl'].includes(v) },
+  size: { type: [String, Number], default: 'md' },
+  ratio: { type: Number, default: 2.5 / 3.5 },
+  ratioContent: { type: Number, default: 0.08 },
   flat: { type: Boolean, default: false },
   unowned: { type: Boolean, default: false },
   isPremium: { type: Boolean, default: false },
@@ -202,8 +210,19 @@ const props = defineProps({
   isCover: { type: Boolean, default: false },
   quantity: { type: Number, default: 0 },
   borderColor: { type: String, default: '' },
-  disableZoom: { type: Boolean, default: false }
+  borderWidth: { type: Number, default: 2 },
+  disableZoom: { type: Boolean, default: false },
+  faceDown: { type: Boolean, default: false }
 });
+
+const SIZES = {
+  xs: 70,
+  sm: 90,
+  md: 150,
+  lg: 180,
+  xl: 350,
+  zoom: 350
+};
 
 // --- Long Press / Zoom ---
 const isZoomed = ref(false);
@@ -271,7 +290,6 @@ const isPremiumCard = computed(() => {
   if (props.card.revealed === false) return false;
   return props.isPremium || props.card.isPremium || props.card.isDrawnPremium;
 });
-const sizeClass = computed(() => `card-size-${props.size}`);
 
 const rarityClass = computed(() => {
   if (props.card.revealed === false) return 'rarity-common';
@@ -308,15 +326,43 @@ const rarityColor = computed(() => {
 });
 
 const cardStyle = computed(() => {
-  const style = {};
+  const width = typeof props.size === 'number' ? props.size : (SIZES[props.size] || 150);
+  
+  // Proportional border scaling: 150px (md) is the baseline (scale 1.0)
+  const scale = width / 150;
+  const effectiveBorderWidth = props.borderWidth * scale;
+
+  const style = {
+    width: `${width}px`,
+    aspectRatio: props.ratio || (2.5 / 3.5),
+    fontSize: `${width * props.ratioContent}px`
+  };
+  
   if (!props.flat) Object.assign(style, mouseStyle.value);
-  if (props.borderColor) style['--border-color'] = props.borderColor;
+  if (props.borderColor) {
+    style['--border-color'] = props.borderColor;
+    style['--border-glow'] = props.borderColor;
+  }
+  style['--card-border-width'] = `${effectiveBorderWidth}px`;
+  style['--card-border-offset'] = `-${effectiveBorderWidth}px`;
   return style;
 });
 
-const elementEmoji = computed(() => {
-  const map = { Fire: '🔥', Ice: '❄️', Thunder: '⚡', Earth: '🌍', Poison: '☠️', Wind: '🌪️', Water: '💧', Holy: '✨' };
-  return map[props.card.element] || '';
+const premiumBorderStyle = computed(() => {
+  const c = rarityColor.value;
+  return {
+    '--premium-border-gradient': `linear-gradient(135deg, ${c}, transparent, ${c}, transparent, ${c}) border-box`,
+    '--premium-border-glow': c
+  };
+});
+
+const cardElementsList = computed(() => {
+  if (!props.card) return [];
+  let els = props.card.elements || props.card.element;
+  if (!els) return [];
+  if (Array.isArray(els)) return els.filter(e => e && e !== 'None');
+  if (typeof els === 'string') return els.split(',').map(e => e.trim()).filter(e => e && e !== 'None');
+  return [];
 });
 
 // --- CRAFTING ---
@@ -349,10 +395,18 @@ const isActive = ref(false);
 const tilt = ref({ x: 0, y: 0 });
 const mousePos = ref({ x: 50, y: 50 });
 
-const innerStyle = computed(() => ({
+const tiltStyle = computed(() => ({
   transform: `rotateX(${tilt.value.x}deg) rotateY(${tilt.value.y}deg)`,
-  transition: tilt.value.x === 0 && tilt.value.y === 0 ? 'transform 0.5s ease-out' : 'transform 0.1s ease-out'
+  transition: (tilt.value.x === 0 && tilt.value.y === 0) ? 'transform 0.5s ease-out' : 'transform 0.1s ease-out'
 }));
+
+const innerStyle = computed(() => {
+  const rotationY = tilt.value.y + (props.faceDown ? 180 : 0);
+  return {
+    transform: `rotateX(${tilt.value.x}deg) rotateY(${rotationY}deg)`,
+    transition: (tilt.value.x === 0 && tilt.value.y === 0) ? 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)' : 'transform 0.1s ease-out'
+  };
+});
 
 const glareStyle = computed(() => ({
   background: `radial-gradient(circle at ${mousePos.value.x}% ${mousePos.value.y}%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 60%)`,
@@ -386,6 +440,7 @@ const premiumSeed = computed(() => {
 
 const holoStyle = computed(() => {
   if (!isPremiumCard.value) return {};
+
   const rng = sfc32(premiumSeed.value);
   const isImageMode = state.premiumMode === 'image';
   if (isImageMode) {
@@ -467,8 +522,11 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 
 .tt-card:hover:not(.is-flat) {
   transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
   z-index: 5;
+}
+
+.tt-card:active:not(.is-flat) {
+  transform: translateY(-4px) scale(1.01);
 }
 
 .tt-card:not(.is-flat) {
@@ -482,11 +540,35 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   z-index: 1;
   transform-style: preserve-3d;
   border-radius: inherit;
-  overflow: hidden;
+  /* overflow: hidden; */ /* Removing absolute overflow to allow 3D backfaces */
   background: #1a1a2e;
-  border: 2px solid #333;
+  border: var(--card-border-width, 2px) solid #333;
   box-sizing: border-box;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Ensure children are clipped only on their own side if needed */
+.tt-card-front, .tt-card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: inherit;
+  overflow: hidden; /* Local overflow for each side */
+  display: flex;
+  flex-direction: column;
+}
+
+.tt-card-back {
+  transform: rotateY(180deg);
+  background: #1a1a2e;
+  border: inherit;
+}
+
+.card-back-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
 }
 
 .tt-card.is-flipping .tt-card-inner {
@@ -498,15 +580,6 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   50% { transform: rotateY(180deg); filter: brightness(2); }
   100% { transform: rotateY(360deg); filter: brightness(1); }
 }
-
-/* ============================================ */
-/*  SIZES                                       */
-/* ============================================ */
-.card-size-xs { width: 70px; font-size: 7px; height: 98px; }
-.card-size-sm { width: 90px; font-size: 8px; height: 126px; }
-.card-size-md { width: 150px; font-size: 12px; height: 210px; }
-.card-size-lg { width: 180px; font-size: 14px; height: 252px; }
-.card-size-xl { width: 350px; font-size: 20px; height: 490px; }
 
 /* ============================================ */
 /*  CARD CONTENT                                */
@@ -563,48 +636,39 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 .stat-left   { top: 50%;   left: 0;    transform: translateY(-50%); }
 .stat-right  { top: 50%;   right: 0;   transform: translateY(-50%); }
 
-/* Level stars */
-.card-level-stars {
+/* Element badges */
+.card-elements {
   position: absolute;
-  top: 0.3em;
-  right: 0.3em;
+  top: 10%;
+  bottom: 18%; /* Increased from 8% to avoid overlap with name bar */
+  right: 5%;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 0;
-  max-width: 4em;
+  flex-direction: column-reverse; /* Start from bottom */
+  flex-wrap: wrap-reverse; /* Wrap towards the left */
+  align-content: flex-end; /* Align columns to the right */
+  justify-content: flex-start; /* Align items to the bottom (because of column-reverse) */
+  gap: 0.3em;
   z-index: 4;
 }
 
-.star {
-  color: gold;
-  font-size: 0.8em;
-  text-shadow: 0 0 3px rgba(0,0,0,0.8);
-  line-height: 1;
-}
-
-/* Element badge */
-.card-element {
-  position: absolute;
-  bottom: 3em;
-  right: 0.4em;
-  font-size: 1.4em;
-  z-index: 4;
-  filter: drop-shadow(0 1px 2px black);
+.element-icon {
+  width: 1.5em;
+  height: 1.5em;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
 }
 
 /* Quantity badge */
 .quantity-badge {
   position: absolute;
-  top: -0.5em; /* Protrudes outside */
-  right: -0.5em; /* Protrudes outside */
+  top: -0.6em;
+  right: -0.6em;
   background: #ff0055;
   color: white;
   font-size: 0.95em;
   font-weight: bold;
-  padding: 0.1em 0.5em;
+  padding: 0.2em 0.6em;
   border-radius: 1em;
-  z-index: 10; /* Ensures it is on top */
+  z-index: 10;
   box-shadow: 0 2px 5px rgba(0,0,0,0.8), 0 0 0 2px rgba(255,255,255,0.2);
 }
 
@@ -654,20 +718,21 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 /*  RARITY                                      */
 /* ============================================ */
 .rarity-common .tt-card-inner  { border-color: var(--border-color, #a0a0a0); }
-.rarity-uncommon .tt-card-inner { border-color: var(--border-color, #4caf50); box-shadow: 0 0 8px rgba(76, 175, 80, 0.3); }
-.rarity-rare .tt-card-inner     { border-color: var(--border-color, #2196f3); box-shadow: 0 0 10px rgba(33, 150, 243, 0.4); }
-.rarity-epic .tt-card-inner     { border-color: var(--border-color, #9c27b0); box-shadow: 0 0 12px rgba(156, 39, 176, 0.5); }
-.rarity-legendary .tt-card-inner { border-color: var(--border-color, #ffc107); box-shadow: 0 0 15px rgba(255, 193, 7, 0.6), 0 0 30px rgba(255, 193, 7, 0.2); }
+.rarity-uncommon .tt-card-inner { border-color: var(--border-color, #4caf50); box-shadow: 0 0 8px var(--border-glow, rgba(76, 175, 80, 0.3)); }
+.rarity-rare .tt-card-inner     { border-color: var(--border-color, #2196f3); box-shadow: 0 0 10px var(--border-glow, rgba(33, 150, 243, 0.4)); }
+.rarity-epic .tt-card-inner     { border-color: var(--border-color, #9c27b0); box-shadow: 0 0 12px var(--border-glow, rgba(156, 39, 176, 0.5)); }
+.rarity-legendary .tt-card-inner { border-color: var(--border-color, #ffc107); box-shadow: 0 0 15px var(--border-glow, rgba(255, 193, 7, 0.6)), 0 0 30px var(--border-glow, rgba(255, 193, 7, 0.2)); }
 
 /* Premium rarity — traveling light border */
 .is-premium .tt-card-inner {
   border-color: transparent !important;
+  overflow: visible !important;
 }
 
 .premium-travel-border {
   display: none;
   position: absolute;
-  inset: -3px;
+  inset: 0;
   border-radius: inherit;
   z-index: 0;
   pointer-events: none;
@@ -685,7 +750,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
     transparent 0deg,
     transparent 260deg,
     var(--rarity-color, #ffc107) 290deg,
-    white 310deg,
+    var(--rarity-color, white) 310deg,
     var(--rarity-color, #ffc107) 330deg,
     transparent 360deg
   );
@@ -755,17 +820,22 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 
 .premium-border-layer {
   position: absolute;
-  top: -3px; left: -3px; right: -3px; bottom: -3px;
+  top: var(--card-border-offset, -2px); 
+  left: var(--card-border-offset, -2px); 
+  right: var(--card-border-offset, -2px); 
+  bottom: var(--card-border-offset, -2px);
+  box-sizing: border-box;
   border-radius: inherit;
-  border: 3px solid transparent;
-  background: linear-gradient(135deg, #ffce00, #ff5722, #e91e63, #9c27b0, #00bcd4, #4caf50, #ffce00) border-box;
+  border: var(--card-border-width, 2px) solid transparent;
+  backface-visibility: hidden;
+  background: var(--premium-border-gradient, linear-gradient(135deg, var(--border-color, #ffc107), transparent, var(--border-color, #ffc107)) border-box);
   -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
   background-size: 400% 400%;
   animation: rainbowBorder 4s linear infinite;
-  box-shadow: 0 0 15px rgba(255, 206, 0, 0.4);
+  box-shadow: 0 0 15px var(--premium-border-glow, rgba(255, 206, 0, 0.4));
   pointer-events: none;
   z-index: 6;
 }
@@ -786,6 +856,9 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 
 .card-size-xl .tt-card-inner {
   overflow-y: auto;
+}
+.card-size-xl.is-premium .tt-card-inner {
+  overflow: visible !important;
 }
 
 .detail-name { font-size: 1.5em; margin: 0.5em 0 0.3em; color: white; text-align: center; }
@@ -886,10 +959,14 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 /* Premium Zoom Effect Styles */
 .zoom-overlay .premium-border-layer {
   position: absolute;
-  top: -3px; left: -3px; right: -3px; bottom: -3px;
+  top: var(--card-border-offset, -2px); 
+  left: var(--card-border-offset, -2px); 
+  right: var(--card-border-offset, -2px); 
+  bottom: var(--card-border-offset, -2px);
+  box-sizing: border-box;
   border-radius: inherit;
-  border: 3px solid transparent;
-  background: linear-gradient(135deg, #ffce00, #ff5722, #e91e63, #9c27b0, #00bcd4, #4caf50, #ffce00) border-box;
+  border: var(--card-border-width, 2px) solid transparent;
+  background: var(--premium-border-gradient, linear-gradient(135deg, var(--border-color, #ffc107), transparent, var(--border-color, #ffc107)) border-box);
   -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
@@ -955,24 +1032,24 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 .zoom-overlay .stat-bottom { bottom: 0; left: 50%; transform: translateX(-50%); }
 .zoom-overlay .stat-left   { top: 50%; left: 0; transform: translateY(-50%); }
 .zoom-overlay .stat-right  { top: 50%; right: 0; transform: translateY(-50%); }
-.zoom-overlay .card-level-stars { position: absolute; top: 0.3em; right: 0.3em; display: flex; flex-wrap: wrap; justify-content: flex-end; max-width: 4em; z-index: 4; }
-.zoom-overlay .star { color: gold; font-size: 0.8em; text-shadow: 0 0 3px rgba(0,0,0,0.8); line-height: 1; }
-.zoom-overlay .card-element { position: absolute; bottom: 3em; right: 0.4em; font-size: 1.4em; z-index: 4; filter: drop-shadow(0 1px 2px black); }
+.zoom-overlay .card-elements { position: absolute; top: 10%; bottom: 18%; right: 5%; display: flex; flex-direction: column-reverse; flex-wrap: wrap-reverse; align-content: flex-end; justify-content: flex-start; gap: 0.3em; z-index: 4; }
+.zoom-overlay .element-icon { width: 1.5em; height: 1.5em; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8)); }
 /* Rarity borders in zoom */
-.zoom-overlay .rarity-common .tt-card-inner  { border-color: #a0a0a0; }
-.zoom-overlay .rarity-uncommon .tt-card-inner { border-color: #4caf50; box-shadow: 0 0 8px rgba(76, 175, 80, 0.3); }
-.zoom-overlay .rarity-rare .tt-card-inner     { border-color: #2196f3; box-shadow: 0 0 10px rgba(33, 150, 243, 0.4); }
-.zoom-overlay .rarity-epic .tt-card-inner     { border-color: #9c27b0; box-shadow: 0 0 12px rgba(156, 39, 176, 0.5); }
-.zoom-overlay .rarity-legendary .tt-card-inner { border-color: #ffc107; box-shadow: 0 0 15px rgba(255, 193, 7, 0.6), 0 0 30px rgba(255, 193, 7, 0.2); }
+.zoom-overlay .rarity-common .tt-card-inner  { border-color: var(--border-color, #a0a0a0); }
+.zoom-overlay .rarity-uncommon .tt-card-inner { border-color: var(--border-color, #4caf50); box-shadow: 0 0 8px var(--border-glow, rgba(76, 175, 80, 0.3)); }
+.zoom-overlay .rarity-rare .tt-card-inner     { border-color: var(--border-color, #2196f3); box-shadow: 0 0 10px var(--border-glow, rgba(33, 150, 243, 0.4)); }
+.zoom-overlay .rarity-epic .tt-card-inner     { border-color: var(--border-color, #9c27b0); box-shadow: 0 0 12px var(--border-glow, rgba(156, 39, 176, 0.5)); }
+.zoom-overlay .rarity-legendary .tt-card-inner { border-color: var(--border-color, #ffc107); box-shadow: 0 0 15px var(--border-glow, rgba(255, 193, 7, 0.6)), 0 0 30px var(--border-glow, rgba(255, 193, 7, 0.2)); }
 /* Premium border in zoom */
 .zoom-overlay .premium-border-layer {
-  position: absolute; top: -3px; left: -3px; right: -3px; bottom: -3px;
-  border-radius: inherit; border: 3px solid transparent;
-  background: linear-gradient(135deg, #ffce00, #ff5722, #e91e63, #9c27b0, #00bcd4, #4caf50, #ffce00) border-box;
+  position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px;
+  box-sizing: border-box;
+  border-radius: inherit; border: 2px solid transparent;
+  background: var(--premium-border-gradient, linear-gradient(135deg, var(--border-color, #ffc107), transparent, var(--border-color, #ffc107)) border-box);
   -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor; mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   mask-composite: exclude; background-size: 400% 400%;
-  animation: rainbowBorder 4s linear infinite; box-shadow: 0 0 15px rgba(255, 206, 0, 0.4);
+  animation: rainbowBorder 4s linear infinite; box-shadow: 0 0 15px var(--premium-border-glow, rgba(255, 206, 0, 0.4));
   pointer-events: none; z-index: 6;
 }
 
@@ -1086,14 +1163,22 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   width: 100%; height: 100%; position: relative; border-radius: 8px;
   overflow: hidden; background: #1a1a2e; border: 2px solid #333; box-sizing: border-box;
 }
+.zoom-overlay .is-premium .zoom-card-inner {
+  overflow: visible !important;
+  border-color: transparent !important;
+}
 
 /* Premium Zoom Effect Styles */
 .zoom-overlay .premium-border-layer {
   position: absolute;
-  top: -3px; left: -3px; right: -3px; bottom: -3px;
+  top: var(--card-border-offset, -2px); 
+  left: var(--card-border-offset, -2px); 
+  right: var(--card-border-offset, -2px); 
+  bottom: var(--card-border-offset, -2px);
+  box-sizing: border-box;
   border-radius: inherit;
-  border: 3px solid transparent;
-  background: linear-gradient(135deg, #ffce00, #ff5722, #e91e63, #9c27b0, #00bcd4, #4caf50, #ffce00) border-box;
+  border: var(--card-border-width, 2px) solid transparent;
+  background: var(--premium-border-gradient, linear-gradient(135deg, var(--border-color, #ffc107), transparent, var(--border-color, #ffc107)) border-box);
   -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
@@ -1101,7 +1186,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   background-size: 400% 400%;
   animation: rainbowBorder 4s linear infinite;
 
-  box-shadow: 0 0 15px rgba(255, 206, 0, 0.4);
+  box-shadow: 0 0 15px var(--premium-border-glow, rgba(255, 206, 0, 0.4));
   pointer-events: none;
   z-index: 6;
 }
@@ -1160,9 +1245,8 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 .zoom-overlay .stat-bottom { bottom: 0; left: 50%; transform: translateX(-50%); }
 .zoom-overlay .stat-left   { top: 50%; left: 0; transform: translateY(-50%); }
 .zoom-overlay .stat-right  { top: 50%; right: 0; transform: translateY(-50%); }
-.zoom-overlay .card-level-stars { position: absolute; top: 0.3em; right: 0.3em; display: flex; flex-wrap: wrap; justify-content: flex-end; max-width: 4em; z-index: 4; }
-.zoom-overlay .star { color: gold; font-size: 0.8em; text-shadow: 0 0 3px rgba(0,0,0,0.8); line-height: 1; }
-.zoom-overlay .card-element { position: absolute; bottom: 3em; right: 0.4em; font-size: 1.4em; z-index: 4; filter: drop-shadow(0 1px 2px black); }
+.zoom-overlay .card-elements { position: absolute; top: 10%; bottom: 8%; right: 5%; display: flex; flex-direction: column-reverse; flex-wrap: wrap-reverse; align-content: flex-end; justify-content: flex-start; gap: 0.3em; z-index: 4; }
+.zoom-overlay .element-icon { width: 1.5em; height: 1.5em; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8)); }
 
 /* ACTIONS & OWNERSHIP */
 .zoom-overlay .zoom-ownership {
