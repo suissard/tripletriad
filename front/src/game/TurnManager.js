@@ -43,6 +43,21 @@ export class TurnManager {
     // Emettre l'événement pour l'UI, déduction mana, animations
     gameEvents.emit('CARD_PLACED', { action, captures: this.state.lastCaptures || [] });
 
+    // Emettre l'événement de capture si applicable
+    if (this.state.lastCaptures && this.state.lastCaptures.length > 0) {
+      gameEvents.emit('CARD_CAPTURED', {
+        count: this.state.lastCaptures.length,
+        capturer: action.player
+      });
+    }
+
+    // Emettre l'événement de fin de partie ou de début de tour
+    if (this.state.isFinished) {
+      gameEvents.emit('GAME_OVER', { winner: this.state.winner });
+    } else {
+      gameEvents.emit('TURN_START', { player: this.state.currentPlayer });
+    }
+
     // 2. Transmettre l'action à l'adversaire via WebRTC
     this.sendNetworkMessage({
       type: 'ACTION',
@@ -87,6 +102,21 @@ export class TurnManager {
         this.onRemoteAction(action);
     }
     gameEvents.emit('CARD_PLACED', { action, captures: this.state.lastCaptures || [] });
+
+    // Emettre l'événement de capture si applicable
+    if (this.state.lastCaptures && this.state.lastCaptures.length > 0) {
+      gameEvents.emit('CARD_CAPTURED', {
+        count: this.state.lastCaptures.length,
+        capturer: action.player
+      });
+    }
+
+    // Emettre l'événement de fin de partie ou de début de tour
+    if (this.state.isFinished) {
+      gameEvents.emit('GAME_OVER', { winner: this.state.winner });
+    } else {
+      gameEvents.emit('TURN_START', { player: this.state.currentPlayer });
+    }
 
     // 3. Générer notre hash local pour l'état résultant et valider l'intégrité
     await this.generateAndSendHash(resolvedTurnIndex, this.state);
