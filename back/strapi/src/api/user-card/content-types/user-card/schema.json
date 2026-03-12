@@ -1,0 +1,36 @@
+{
+    "kind": "collectionType",
+    "collectionName": "user_cards",
+    "info": {
+        "singularName": "user-card",
+        "pluralName": "user-cards",
+        "displayName": "User Card",
+        "description": "Represents a card owned by a specific user"
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "user": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "plugin::users-permissions.user"
+        },
+        "card": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "api::card.card"
+        },
+        "quantity": {
+            "type": "integer",
+            "default": 1,
+            "min": 0,
+            "required": true
+        },
+        "isPremium": {
+            "type": "boolean",
+            "default": false
+        }
+    }
+}

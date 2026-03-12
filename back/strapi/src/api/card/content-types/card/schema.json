@@ -1,0 +1,94 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cards",
+  "info": {
+    "singularName": "card",
+    "pluralName": "cards",
+    "displayName": "Card",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "level": {
+      "type": "integer",
+      "required": true,
+      "default": 1,
+      "min": 1,
+      "max": 10
+    },
+    "element": {
+      "type": "enumeration",
+      "enum": [
+        "None",
+        "Fire",
+        "Ice",
+        "Thunder",
+        "Earth",
+        "Poison",
+        "Wind",
+        "Water",
+        "Holy"
+      ],
+      "default": "None"
+    },
+    "topValue": {
+      "type": "string",
+      "required": true,
+      "maxLength": 1
+    },
+    "rightValue": {
+      "type": "string",
+      "required": true,
+      "maxLength": 1
+    },
+    "bottomValue": {
+      "type": "string",
+      "required": true,
+      "maxLength": 1
+    },
+    "leftValue": {
+      "type": "string",
+      "required": true,
+      "maxLength": 1
+    },
+    "skills": {
+      "type": "json"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "isPremium": {
+      "type": "boolean",
+      "default": false
+    },
+    "collectionName": {
+      "type": "string"
+    },
+    "rarity": {
+      "type": "enumeration",
+      "enum": [
+        "Common",
+        "Uncommon",
+        "Rare",
+        "Epic",
+        "Legendary"
+      ],
+      "default": "Common"
+    }
+  }
+}

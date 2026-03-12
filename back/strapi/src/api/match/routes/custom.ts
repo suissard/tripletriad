@@ -1,0 +1,36 @@
+export default {
+    routes: [
+        {
+            method: 'POST',
+            path: '/webrtc/matches',
+            handler: 'match.createMatch',
+            config: {
+                auth: false,
+            },
+        },
+        {
+            method: 'GET',
+            path: '/webrtc/matches/:uuid',
+            handler: 'match.findByUuid',
+            config: {
+                auth: false,
+            },
+        },
+        {
+            method: 'PUT',
+            path: '/webrtc/matches/:uuid',
+            handler: 'match.updateByUuid',
+            config: {
+                auth: false,
+            },
+        },
+        {
+            method: 'POST',
+            path: '/webrtc/matches/:uuid/log',
+            handler: 'match.addLog',
+            config: {
+                // Will enforce that user must be part of the match in the controller!
+            },
+        }
+    ]
+};

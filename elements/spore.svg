@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <!-- Neon green glow filter for the mold -->
+    <filter id="neonGreenGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    .spore-main {
+      transform-origin: 50% 50%;
+      transform: scale(0);
+      opacity: 0;
+      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .spore-cluster {
+      transform-origin: center;
+      transform: scale(0);
+      opacity: 0;
+    }
+
+    .spore-c1 { transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s; transform-origin: 20px 20px; }
+    .spore-c2 { transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s; transform-origin: 85px 25px; }
+    .spore-c3 { transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s; transform-origin: 10px 50px; }
+    .spore-c4 { transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s; transform-origin: 85px 75px; }
+    .spore-c5 { transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s; transform-origin: 35px 85px; }
+    .spore-c6 { transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s; transform-origin: 65px 90px; }
+    .spore-c7 { transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s; transform-origin: 25px 75px; }
+
+    .spore-details {
+      opacity: 0;
+      transition: opacity 0.5s ease 0.4s;
+    }
+
+    .floating-spores {
+      opacity: 0;
+      transform: scale(0.5);
+      transform-origin: 50% 50%;
+      transition: all 0.8s ease-out 0.5s;
+    }
+
+    .is-active .spore-main {
+      transform: scale(1);
+      opacity: 0.9;
+    }
+    .is-active .spore-cluster {
+      transform: scale(1);
+      opacity: 1;
+    }
+    .is-active .spore-details {
+      opacity: 0.8;
+    }
+    .is-active .floating-spores {
+      opacity: 1;
+      transform: scale(1);
+    }
+  </style>
+
+  <!-- Growing mold cluster shapes -->
+  <g fill="#39ff14" filter="url(#neonGreenGlow)">
+    <!-- Main central mold mass -->
+    <path class="spore-main" d="M40 30 Q50 15 65 25 T80 40 Q90 55 75 70 T45 80 Q25 80 15 60 T25 35 Z" />
+
+    <!-- Outer smaller mold spots / spores -->
+    <circle class="spore-cluster spore-c1" cx="20" cy="20" r="5" />
+    <circle class="spore-cluster spore-c2" cx="85" cy="25" r="4" />
+    <circle class="spore-cluster spore-c3" cx="10" cy="50" r="6" />
+    <circle class="spore-cluster spore-c4" cx="85" cy="75" r="5" />
+    <circle class="spore-cluster spore-c5" cx="35" cy="85" r="4" />
+    <circle class="spore-cluster spore-c6" cx="65" cy="90" r="3" />
+    <circle class="spore-cluster spore-c7" cx="25" cy="75" r="4.5" />
+  </g>
+
+  <!-- Darker details / crevices inside the mold -->
+  <g class="spore-details" fill="#1b5e20">
+    <circle cx="45" cy="40" r="4" />
+    <circle cx="60" cy="55" r="5" />
+    <circle cx="40" cy="65" r="3" />
+    <circle cx="70" cy="35" r="3.5" />
+    <circle cx="50" cy="30" r="2" />
+    <circle cx="35" cy="50" r="2.5" />
+    <circle cx="65" cy="65" r="2" />
+    <circle cx="55" cy="70" r="4" />
+  </g>
+
+  <!-- Tiny bright white/green spores floating around -->
+  <g class="floating-spores" fill="#aaffaa">
+    <circle cx="15" cy="15" r="1.5" />
+    <circle cx="35" cy="15" r="1" />
+    <circle cx="85" cy="15" r="2" />
+    <circle cx="90" cy="40" r="1.5" />
+    <circle cx="92" cy="60" r="1" />
+    <circle cx="15" cy="70" r="1.5" />
+    <circle cx="10" cy="35" r="1" />
+    <circle cx="45" cy="92" r="2" />
+    <circle cx="80" cy="90" r="1.5" />
+  </g>
+</svg>
