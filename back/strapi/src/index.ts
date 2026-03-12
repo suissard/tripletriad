@@ -44,6 +44,7 @@ export default {
         'api::shop.shop.find',
         'api::user-card.user-card.find',
         'api::wallet.wallet.find',
+        'api::player-event-log.player-event-log.trackEvent',
       ];
 
       for (const action of actions) {
@@ -79,6 +80,10 @@ export default {
       console.log('✅ Default Welcome Quest Template created.');
     }
 
+    const { generateQuestTemplates } = require('./api/quest-template/services/quest-template-generator');
+    await generateQuestTemplates(strapi);
+    console.log('✅ Quest templates generated.');
+
     // 3. Setup Default Cards if missing (just a few to get started)
     const cardsCount = await strapi.entityService.count('api::card.card');
     if (cardsCount === 0) {
@@ -95,6 +100,17 @@ export default {
       }
       console.log('✅ Default Cards created.');
     }
+
+    // 3.5. Backfill existing users to ensure they have enough active/pending quests
+    // 3.5. Backfill existing users to ensure they have enough active/pending quests
+    const allUsers = await strapi.entityService.findMany('plugin::users-permissions.user');
+    const { assignQuestsToUser } = require('./api/player-quest/services/quest-assignment');
+    if (allUsers) {
+      for (const user of allUsers) {
+        await assignQuestsToUser(strapi, user.id, true);
+      }
+    }
+    console.log('✅ Backfilled quests for existing users.');
 
     // 4. Hook on User creation to give starting deck & quest
     strapi.db.lifecycles.subscribe({
@@ -115,10 +131,15 @@ export default {
                 quest_template: welcomeTemplate[0].id,
                 progress: 0,
                 status: 'active',
+                startsAt: new Date().toISOString(),
                 expiresAt: new Date(Date.now() + 10 * 365 * 24 * 60 * 60 * 1000).toISOString() // 10 years from now
               }
             });
           }
+
+          // Assign remaining max quests immediately for new users
+          const { assignQuestsToUser } = require('./api/player-quest/services/quest-assignment');
+          await assignQuestsToUser(strapi, result.id, true);
 
           // 4b. Give starting cards
           const baseCards = await strapi.entityService.findMany('api::card.card', {
