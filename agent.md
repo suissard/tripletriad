@@ -31,3 +31,5 @@ Cela garantit qu'aucun changement de modèle ne bloque le frontend par manque de
 
 ## 5. Dev Options
 **Règle :** Les éléments dans les options de dev (ex: auto login, premium mode) doivent être sauvegardés dans le `localStorage` du navigateur pour être persistants entre les rechargements de page, et synchronisés avec l'état global si nécessaire.
+
+* **Frontend Build Process:** When running `npm run build` for the frontend, ensure it uses the `index.html` located at the root directory.
