@@ -521,6 +521,8 @@ export interface ApiDeckDeck extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    cardBack: Schema.Attribute.Enumeration<['default', 'animated']> &
+      Schema.Attribute.DefaultTo<'default'>;
     cards: Schema.Attribute.Relation<'manyToMany', 'api::card.card'>;
     cover: Schema.Attribute.Integer;
     createdAt: Schema.Attribute.DateTime;
@@ -614,6 +616,15 @@ export interface ApiGameConfigGameConfig extends Struct.SingleTypeSchema {
       Schema.Attribute.SetMinMax<
         {
           min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<5>;
+    maxQuestsPerUser: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
         },
         number
       > &
@@ -770,6 +781,54 @@ export interface ApiMatchMatch extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiPlayerEventLogPlayerEventLog
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'player_event_logs';
+  info: {
+    description: 'Log of player events used for statistics and quest progression';
+    displayName: 'Player Event Log';
+    pluralName: 'player-event-logs';
+    singularName: 'player-event-log';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    eventType: Schema.Attribute.Enumeration<
+      [
+        'play_game',
+        'win_game',
+        'open_booster',
+        'capture_card',
+        'play_card',
+        'play_card_element',
+      ]
+    > &
+      Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::player-event-log.player-event-log'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    relatedCard: Schema.Attribute.Relation<'manyToOne', 'api::card.card'>;
+    relatedElement: Schema.Attribute.String;
+    timestamp: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    value: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
+  };
+}
+
 export interface ApiPlayerQuestPlayerQuest extends Struct.CollectionTypeSchema {
   collectionName: 'player_quests';
   info: {
@@ -806,6 +865,7 @@ export interface ApiPlayerQuestPlayerQuest extends Struct.CollectionTypeSchema {
       'manyToOne',
       'api::quest-template.quest-template'
     >;
+    startsAt: Schema.Attribute.DateTime;
     status: Schema.Attribute.Enumeration<['active', 'completed', 'failed']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'active'>;
@@ -1518,6 +1578,7 @@ declare module '@strapi/strapi' {
       'api::game-config.game-config': ApiGameConfigGameConfig;
       'api::game-history.game-history': ApiGameHistoryGameHistory;
       'api::match.match': ApiMatchMatch;
+      'api::player-event-log.player-event-log': ApiPlayerEventLogPlayerEventLog;
       'api::player-quest.player-quest': ApiPlayerQuestPlayerQuest;
       'api::quest-template.quest-template': ApiQuestTemplateQuestTemplate;
       'api::user-card.user-card': ApiUserCardUserCard;
