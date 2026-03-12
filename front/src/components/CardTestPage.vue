@@ -65,6 +65,7 @@
 
         <div class="control-group">
           <label><input type="checkbox" v-model="cardProps.disableZoom"> Disable Zoom (Désactiver Zoom Long Press)</label>
+          <label><input type="checkbox" v-model="cardProps.elementActive"> ⚡ Activer Animation Élément (Test SVGs)</label>
         </div>
 
         <div class="control-group">
@@ -135,6 +136,7 @@
           :selected="cardProps.selected"
           :isCover="cardProps.isCover"
           :quantity="cardProps.quantity"
+          :elementActive="cardProps.elementActive"
           :borderColor="cardProps.borderColor"
           :borderWidth="cardProps.borderWidth"
           :disableZoom="cardProps.disableZoom"
@@ -186,6 +188,7 @@ const cardProps = reactive({
   borderColor: '',
   borderWidth: 2,
   disableZoom: false,
+  elementActive: false,
   faceDown: false
 });
 

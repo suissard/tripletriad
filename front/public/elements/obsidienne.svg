@@ -1,46 +1,78 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <defs>
-    <filter id="lavaGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="2.5" result="blur" />
+    <!-- Purple glow for the magical fractures inside obsidian -->
+    <filter id="purpleGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.5" result="blur" />
       <feMerge>
         <feMergeNode in="blur" />
         <feMergeNode in="SourceGraphic" />
       </feMerge>
     </filter>
+
+    <linearGradient id="obsidianGleam" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4a4a6a" stop-opacity="0.9" />
+      <stop offset="50%" stop-color="#2a2a3a" stop-opacity="1" />
+      <stop offset="100%" stop-color="#0a0a1a" stop-opacity="1" />
+    </linearGradient>
   </defs>
 
-  <!-- Destructured Obsidian Block (Irregular shards) -->
-  <g fill="#1a1a2e" stroke="#000" stroke-width="1.5">
-    <!-- Main irregular mass -->
-    <path d="M15 30 L40 10 L85 25 L95 60 L75 90 L30 85 L10 65 Z" />
-    <!-- Top facets -->
-    <path d="M15 30 L40 10 L60 25 L15 30 Z" fill="#2a2a3e" />
-    <path d="M40 10 L85 25 L60 25 L40 10 Z" fill="#222235" />
-    <!-- Side facets -->
-    <path d="M10 65 L15 30 L35 50 L10 65 Z" fill="#15152a" />
-    <path d="M95 60 L85 25 L75 50 L95 60 Z" fill="#0f0f1f" />
+  <style>
+    .obsidian-shard {
+      opacity: 0;
+      transform: scale(0.8) translate(10px, -10px);
+      transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* Shard assembly sequence */
+    .shard-1 { transition-delay: 0.1s; transform-origin: center; }
+    .shard-2 { transition-delay: 0.3s; transform-origin: left top; transform: scale(0.8) translate(-10px, -10px); }
+    .shard-3 { transition-delay: 0.5s; transform-origin: right bottom; transform: scale(0.8) translate(10px, 10px); }
+
+    .fracture-line {
+      stroke-dasharray: 60;
+      stroke-dashoffset: 60;
+      opacity: 0;
+      transition: stroke-dashoffset 0.8s ease-out 1s, opacity 0.8s ease-out 1s;
+    }
+
+    /* Active State */
+    .is-active .obsidian-shard {
+      opacity: 0.9;
+      transform: scale(1) translate(0, 0);
+    }
+    .is-active .fracture-line {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+  </style>
+
+  <!-- Sharp, angular geometric shards representing black glass / obsidian block -->
+  <!-- Base structure (Shadowed areas) -->
+  <polygon points="50,15 90,40 50,85 10,40" fill="#0f0f1c" class="obsidian-shard shard-1" />
+
+  <!-- Left faces (Lighter reflection) -->
+  <polygon points="50,15 10,40 50,60" fill="url(#obsidianGleam)" class="obsidian-shard shard-2" />
+  <polygon points="10,40 50,60 50,85" fill="#1f1f2e" class="obsidian-shard shard-2" />
+
+  <!-- Right faces (Darker) -->
+  <polygon points="50,15 90,40 50,60" fill="#2d2d42" class="obsidian-shard shard-3" />
+  <polygon points="90,40 50,60 50,85" fill="#151525" class="obsidian-shard shard-3" />
+
+  <!-- Purple Magical Fractures / Grooves (Glow applied) -->
+  <g stroke="#9b59b6" stroke-width="2" fill="none" filter="url(#purpleGlow)" stroke-linecap="round">
+    <polyline points="50,15 50,60 50,85" stroke-width="3" class="fracture-line" />
+    <polyline points="10,40 50,60 90,40" stroke-width="3" class="fracture-line" />
+
+    <!-- Minor internal cracks -->
+    <path d="M50 30 L30 45" class="fracture-line" />
+    <path d="M50 40 L70 35" class="fracture-line" />
+    <path d="M50 70 L30 65" class="fracture-line" />
+    <path d="M50 75 L75 60" class="fracture-line" />
   </g>
 
-  <!-- Extensive Lava Grooves (Orange/Red spanning long en large) -->
-  <g fill="none" stroke="#ff4500" stroke-width="3" filter="url(#lavaGlow)" stroke-linecap="round" stroke-linejoin="round">
-    <!-- Vertical/Criss-cross grooves -->
-    <path d="M25 15 L35 45 L20 75" />
-    <path d="M70 20 L60 55 L80 85" />
-    <!-- Horizontal spanning grooves -->
-    <path d="M10 50 Q 50 60 95 40" />
-    <path d="M20 35 Q 50 20 80 40" />
-    <path d="M30 85 Q 55 70 85 80" />
-    <!-- Small branches -->
-    <path d="M45 15 L55 35" />
-    <path d="M50 65 L40 85" />
-  </g>
-
-  <!-- Bright Lava Centers (Yellow/Orange contrast) -->
-  <g fill="none" stroke="#ffcc00" stroke-width="1" stroke-linecap="round">
-    <path d="M25 15 L35 45 L20 75" />
-    <path d="M70 20 L60 55 L80 85" />
-    <path d="M10 50 Q 50 60 95 40" />
-    <path d="M20 35 Q 50 20 80 40" />
-    <path d="M30 85 Q 55 70 85 80" />
+  <!-- Specular Highlights (White edges) -->
+  <g stroke="#ffffff" stroke-width="1.5" fill="none" opacity="0.6">
+    <line x1="10" y1="40" x2="50" y2="15" class="obsidian-shard shard-2" />
+    <line x1="50" y1="15" x2="90" y2="40" class="obsidian-shard shard-3" />
   </g>
 </svg>
