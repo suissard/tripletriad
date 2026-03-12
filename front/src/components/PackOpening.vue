@@ -90,24 +90,14 @@
           :key="index"
           class="card-wrapper"
           :style="{ '--delay': index * 0.1 + 's' }"
-          @click="flipCard(index)"
         >
-          <div class="card-pivot" :class="{ 'is-flipped': isFlipped[index] }">
-            <!-- Card Back -->
-            <div class="card-side back-side" :class="getGlowClass(card.drawnRarity || card.rarity)">
-               <img src="/card-back.svg" alt="Card Back" class="w-full h-full object-cover rounded-xl" />
-               <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-white/10"></div>
-               <!-- <div class="absolute inset-0 flex items-center justify-center uppercase tracking-widest text-white/20 font-black text-2xl -rotate-45"></div> -->
-            </div>
-
-            <!-- Card Front -->
-            <div class="card-side front-side" :class="getGlowClass(card.drawnRarity || card.rarity)">
-              <TripleTriadCard
-                :card="card"
-                class="w-full h-full"
-              />
-            </div>
-          </div>
+          <TripleTriadCard
+            :card="{ ...card, rarity: card.drawnRarity || card.rarity, isPremium: card.isDrawnPremium }"
+            :faceDown="!isFlipped[index]"
+            @click="flipCard(index)"
+            size="220"
+            :class="[getGlowClass(card.drawnRarity || card.rarity), 'rounded-[1rem] transition-shadow duration-500']"
+          />
         </div>
       </div>
     </div>
@@ -410,39 +400,15 @@ const getGlowClass = (rarity) => {
   .booster-icon { font-size: 6rem; }
 }
 
-.card-pivot {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
-  transform-style: preserve-3d;
-}
 
-.card-pivot.is-flipped {
-  transform: rotateY(180deg) scale(1.05);
-}
 
-.card-side {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 1rem;
-  /* overflow: hidden; */
-  border: 1px solid rgba(255,255,255,0.1);
-  display: flex;
-  justify-content: center
-}
 
-.back-side {
-  background: #0a0a0a;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-}
 
-.front-side {
-  transform: rotateY(180deg);
-  background: transparent;
-}
+
+
+
+
+
 
 /* Glow Effects - Optimized and padded */
 .glow-legendary { box-shadow: 0 0 40px 10px rgba(250, 204, 21, 0.5), inset 0 0 20px rgba(250, 204, 21, 0.3); }

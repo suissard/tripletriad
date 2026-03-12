@@ -115,7 +115,7 @@ export default {
         else if (rand < cumProbs.uncommon) selectedRarity = 'uncommon';
 
         const card: any = getRandomCardFromPool(selectedRarity);
-        const isDrawnPremium = Math.random() * 100 < probPremium;
+        const isDrawnPremium = type === 'premium' ? true : Math.random() * 100 < probPremium;
 
         // Normalize image for frontend
         let imgUrl = card.image?.url ? `${strapiBaseUrl}${card.image.url}` : null;
