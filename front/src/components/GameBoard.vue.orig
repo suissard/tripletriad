@@ -75,10 +75,10 @@ function onDragOver(event) {
 function onDrop(event, index) {
   if (state.board[index] !== null) return;
   if (state.turn !== 'player' || state.busy) return;
-  
+
   const cardIndex = parseInt(event.dataTransfer.getData('text/plain'), 10);
   if (isNaN(cardIndex)) return;
-  
+
   state.selectedCardIndex = cardIndex;
   dragOverIndex.value = null;
   triggerPlacement(index);
@@ -87,7 +87,7 @@ function onDrop(event, index) {
 async function triggerPlacement(index) {
   lastPlacedIndex.value = index;
   await placeCard(index);
-  
+
   // Clear shake after animation duration
   setTimeout(() => {
     if (lastPlacedIndex.value === index) lastPlacedIndex.value = null;
@@ -111,15 +111,6 @@ async function triggerPlacement(index) {
   width: 100%;
   flex-shrink: 0;
   margin: 0 auto;
-}
-
-@media (max-width: 900px) {
-  .game-board {
-    gap: 8px;
-    padding: 10px;
-    max-width: 320px;
-    border-radius: 10px;
-  }
 }
 
 .board-slot {
@@ -161,7 +152,7 @@ async function triggerPlacement(index) {
 .board-slot.is-drag-over {
   background: rgba(0, 210, 255, 0.15);
   border-color: rgba(0, 210, 255, 0.6);
-  box-shadow: 
+  box-shadow:
     0 0 20px rgba(0, 210, 255, 0.3),
     inset 0 0 15px rgba(0, 210, 255, 0.2);
   transform: scale(1.02);

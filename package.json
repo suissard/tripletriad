@@ -17,5 +17,8 @@
     "docker:start": "bash scripts/start-docker.sh",
     "docker:stop": "sudo docker-compose down",
     "clean": "bash scripts/clean.sh"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2"
   }
 }

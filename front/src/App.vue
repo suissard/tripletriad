@@ -8,6 +8,7 @@
   <TopNavbar />
   <RightDrawer />
   <DevOptions />
+    <DevOptionsOverride />
 </template>
 
 <script setup>
@@ -18,6 +19,7 @@ import NotificationToast from "./components/NotificationToast.vue";
 import AlertMessage from './components/AlertMessage.vue';
 import ConfirmationModal from './components/ConfirmationModal.vue';
 import DevOptions from './components/DevOptions.vue';
+import DevOptionsOverride from './components/DevOptionsOverride.vue';;
 import { state } from './game/state.js';
 import { useUserStore } from './stores/userStore.js';
 import { useNotificationStore } from './stores/notificationStore.js';
