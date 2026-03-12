@@ -165,7 +165,8 @@ const handlePackPurchase = (type) => {
 
 const openPack = async () => {
   const currency = selectedPackType.value === 'premium' ? 'gems' : 'coins';
-  if (wallet.value[currency] < 100) {
+
+  if (userStore.strapiConnected && wallet.value[currency] < 100) {
     errorMessage.value = `Pas assez de ${currency === 'gems' ? 'gemmes' : 'pièces'} !`;
     setTimeout(() => errorMessage.value = '', 3000);
     return;

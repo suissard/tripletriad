@@ -210,6 +210,9 @@ const handleNetworkMessage = (msg) => {
   };
 
 onMounted(() => {
+  state.gameState = 'menu';
+  state.menuView = 'main';
+
   webrtc.onConnected = () => {
     state.aiDifficulty = 1;
 
