@@ -101,7 +101,7 @@ export const state = reactive({
 
     confirmation: { isOpen: false, title: '', message: '' },
     // Deck Editor Page
-    editingDeck: { id: null, documentId: null, name: '', cover: null, cards: [] },
+    editingDeck: { id: null, documentId: null, name: '', cover: null, cards: [], cardBack: 'default' },
     
     // P2P Engine
     turnManager: null,

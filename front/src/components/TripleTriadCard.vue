@@ -86,7 +86,7 @@
 
         <!-- BASE CARD FACE (Fallback revealed false) -->
         <template v-else>
-          <img src="/card-back.svg" class="card-back-img" alt="Card Back" />
+          <AnimatedCardBack v-if="cardBack === 'animated'" class="card-back-img" /><img v-else src="/card-back.svg" class="card-back-img" alt="Card Back" />
           <!-- Unowned lock -->
           <div class="unowned-overlay" v-if="unowned">🔒</div>
         </template>
@@ -94,7 +94,7 @@
 
       <!-- BACK SIDE -->
       <div class="tt-card-back">
-        <img src="/card-back.svg" class="card-back-img" alt="Card Back" />
+        <AnimatedCardBack v-if="cardBack === 'animated'" class="card-back-img" /><img v-else src="/card-back.svg" class="card-back-img" alt="Card Back" />
         <!-- Unowned lock (show it on back too if unowned) -->
         <div class="unowned-overlay" v-if="unowned">🔒</div>
       </div>
@@ -192,7 +192,8 @@
 
 
 <script setup>
-import { computed, ref, useAttrs, watch } from 'vue';
+import { computed, ref, useAttrs, watch } from "vue";
+import AnimatedCardBack from "./AnimatedCardBack.vue";
 import { state } from '../game/state.js';
 import { useUserStore } from '../stores/userStore.js';
 
@@ -205,6 +206,7 @@ const props = defineProps({
   ratioContent: { type: Number, default: 0.08 },
   flat: { type: Boolean, default: false },
   unowned: { type: Boolean, default: false },
+  cardBack: { type: String, default: "default" },
   isPremium: { type: Boolean, default: false },
   selected: { type: Boolean, default: false },
   isCover: { type: Boolean, default: false },
