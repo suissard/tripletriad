@@ -1,5 +1,6 @@
 <template>
   <div class="top-navbar ui-layer">
+    <QuestModal :is-open="isQuestModalOpen" @close="isQuestModalOpen = false" />
     <div class="navbar-bg-panel">
       <!-- Animated Border & Shine -->
       <div class="edgeGlow"></div>
@@ -16,7 +17,12 @@
 
     <div class="navbar-content">
       <!-- Left Menu Toggle Removed -->
-      <div style="width: 60px;"></div>
+      <HoloButton width="auto" @click="isQuestModalOpen = true">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.2rem;">📜</span>
+          <span class="username" style="display: none;">Quêtes</span>
+        </div>
+      </HoloButton>
       
       <!-- Title -->
       <div class="app-title">Terra Nullius</div>
@@ -37,6 +43,10 @@ import { state } from '../game/state.js';
 import { useUserStore } from '../stores/userStore.js';
 const userStore = useUserStore();
 import HoloButton from './HoloButton.vue';
+import QuestModal from './QuestModal.vue';
+import { ref } from 'vue';
+
+const isQuestModalOpen = ref(false);
 
 function toggleLeftDrawer() {
   state.leftDrawerOpen = !state.leftDrawerOpen;

@@ -38,6 +38,10 @@
       "default": "active",
       "required": true
     },
+    "startsAt": {
+      "type": "datetime",
+      "required": false
+    },
     "expiresAt": {
       "type": "datetime",
       "required": true

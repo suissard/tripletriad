@@ -30,6 +30,12 @@
             "default": 60,
             "min": 5
         },
+        "maxQuestsPerUser": {
+            "type": "integer",
+            "required": true,
+            "default": 5,
+            "min": 1
+        },
         "playableLimit": {
             "type": "integer",
             "required": true,
