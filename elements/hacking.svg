@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <!-- Digital/Glitch Glow filter -->
+    <filter id="glitchGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    .skull-part {
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* Build sequence */
+    .part-1 { transition-delay: 0.1s; }
+    .part-2 { transition-delay: 0.3s; }
+    .part-3 { transition-delay: 0.5s; }
+    .part-4 { transition-delay: 0.7s; }
+    .part-5 { transition-delay: 0.9s; }
+
+    .digital-line {
+      stroke-dasharray: 20;
+      stroke-dashoffset: 20;
+      opacity: 0;
+      transition: stroke-dashoffset 0.6s ease-out 1s, opacity 0.6s ease-out 1s;
+    }
+
+    /* Active State */
+    .is-active .skull-part {
+      opacity: 0.9;
+      transform: translateY(0);
+    }
+    .is-active .digital-line {
+      stroke-dashoffset: 0;
+      opacity: 0.7;
+    }
+  </style>
+
+  <!-- Skull Silhouette built from sharp geometric paths -->
+  <g fill="#ff00ff" filter="url(#glitchGlow)">
+    <!-- Top dome of skull -->
+    <path d="M30 20 L70 20 L85 40 L85 60 L70 65 L30 65 L15 60 L15 40 Z" class="skull-part part-1" />
+
+    <!-- Cheekbones / Jaw connections -->
+    <path d="M25 65 L35 85 L65 85 L75 65 Z" class="skull-part part-2" />
+
+    <!-- Jaw bottom line / Teeth representation -->
+    <path d="M40 85 L40 95 L60 95 L60 85" stroke="#ff00ff" stroke-width="4" fill="none" class="skull-part part-3" />
+    <!-- Teeth vertical lines -->
+    <line x1="45" y1="85" x2="45" y2="95" stroke="#000" stroke-width="3" class="skull-part part-3" />
+    <line x1="50" y1="85" x2="50" y2="95" stroke="#000" stroke-width="3" class="skull-part part-3" />
+    <line x1="55" y1="85" x2="55" y2="95" stroke="#000" stroke-width="3" class="skull-part part-3" />
+  </g>
+
+  <!-- Cutouts for Eyes and Nose (Black inside the magenta skull) -->
+  <g fill="#000000">
+    <!-- Left Eye socket (Hexagon) -->
+    <polygon points="30,45 40,40 45,45 40,55 30,55 25,50" class="skull-part part-4" />
+    <!-- Right Eye socket (Hexagon) -->
+    <polygon points="70,45 60,40 55,45 60,55 70,55 75,50" class="skull-part part-4" />
+    <!-- Nose cavity (Triangle) -->
+    <polygon points="50,55 45,65 55,65" class="skull-part part-5" />
+  </g>
+
+  <!-- Digital Data Lines / "Glitch" details around the skull -->
+  <g stroke="#00ffff" stroke-width="2" stroke-linecap="square">
+    <line x1="10" y1="20" x2="25" y2="20" class="digital-line" />
+    <line x1="5" y1="50" x2="15" y2="50" class="digital-line" />
+    <line x1="85" y1="30" x2="95" y2="30" class="digital-line" />
+    <line x1="75" y1="75" x2="90" y2="75" class="digital-line" />
+    <line x1="20" y1="80" x2="30" y2="80" class="digital-line" />
+  </g>
+</svg>

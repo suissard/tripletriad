@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280">
+  <rect width="200" height="280" rx="10" fill="#1e1e2f" stroke="#4b4b7c" stroke-width="4"/>
+  <circle cx="100" cy="140" r="50" fill="none" stroke="#4b4b7c" stroke-width="2"/>
+  <path d="M 100 90 L 150 190 L 50 190 Z" fill="none" stroke="#8a8ad4" stroke-width="2"/>
+  <circle cx="100" cy="140" r="20" fill="#8a8ad4"/>
+  <text x="100" y="250" font-family="Arial" font-size="14" fill="#4b4b7c" text-anchor="middle" font-weight="bold">Terra Nullius</text>
+</svg>

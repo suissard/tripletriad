@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <!-- Red Eye Glow -->
+    <filter id="eyeGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    .fog-layer-1 {
+      transform: translateX(-20px);
+      opacity: 0;
+      transition: all 0.8s ease-out;
+    }
+    .fog-layer-2 {
+      transform: translateX(20px);
+      opacity: 0;
+      transition: all 0.8s ease-out 0.2s;
+    }
+    .fog-wisp {
+      opacity: 0;
+      transition: opacity 1s ease 0.4s;
+    }
+    .eyes {
+      opacity: 0;
+      transform: scale(0.5);
+      transform-origin: 50% 52%;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.8s;
+    }
+
+    .is-active .fog-layer-1 {
+      transform: translateX(0);
+      opacity: 0.5;
+    }
+    .is-active .fog-layer-2 {
+      transform: translateX(0);
+      opacity: 0.3;
+    }
+    .is-active .fog-wisp {
+      opacity: 0.2;
+    }
+    .is-active .eyes {
+      opacity: 1;
+      transform: scale(1);
+    }
+  </style>
+
+  <!-- Larger, slightly lighter Fog Layers -->
+  <g fill="#7f8c8d" class="fog-layer-1">
+    <path d="M5 50 Q 20 5 50 15 T 95 50 Q 80 95 50 85 T 5 50" />
+    <path d="M15 35 Q 40 5 65 35 T 85 65 Q 60 95 35 65 T 15 35" />
+  </g>
+
+  <g fill="#95a5a6" class="fog-layer-2">
+    <ellipse cx="25" cy="45" rx="35" ry="25" />
+    <ellipse cx="75" cy="55" rx="40" ry="30" />
+    <ellipse cx="50" cy="85" rx="45" ry="20" />
+  </g>
+
+  <!-- Large Hidden Red Eyes (closer entity) -->
+  <g filter="url(#eyeGlow)" class="eyes">
+    <circle cx="40" cy="52" r="6" fill="#ff0000" />
+    <circle cx="60" cy="52" r="6" fill="#ff0000" />
+    <!-- Bright Center -->
+    <circle cx="40" cy="52" r="1.5" fill="#fff" opacity="0.9" />
+    <circle cx="60" cy="52" r="1.5" fill="#fff" opacity="0.9" />
+  </g>
+
+  <!-- Fog Wisps on top for depth -->
+  <g fill="#ecf0f1" class="fog-wisp">
+    <path d="M10 70 Q 30 60 50 75 T 90 70" stroke="#ecf0f1" stroke-width="3" fill="none" />
+    <ellipse cx="20" cy="20" rx="15" ry="8" />
+    <ellipse cx="80" cy="80" rx="18" ry="10" />
+  </g>
+</svg>

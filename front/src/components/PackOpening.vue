@@ -136,6 +136,7 @@ import { ref, computed, onMounted } from 'vue';
 import TripleTriadCard from './TripleTriadCard.vue';
 import { state } from '../game/state.js';
 import { useUserStore } from '../stores/userStore.js';
+import strapiMock from '../api/strapiMock.js';
 const userStore = useUserStore();
 
 const emit = defineEmits(['close']);
@@ -178,22 +179,28 @@ const openPack = async () => {
   errorMessage.value = '';
 
   try {
-    const token = localStorage.getItem('tt_jwt');
-    const response = await fetch('http://localhost:1337/api/booster/open', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ type: selectedPackType.value })
-    });
+    let data;
+    if (!userStore.strapiConnected) {
+        data = strapiMock.openBooster();
+        data.wallet = { coins: wallet.value.coins - (selectedPackType.value === 'classic' ? 100 : 0), gems: wallet.value.gems - (selectedPackType.value === 'premium' ? 100 : 0), dust: wallet.value.dust };
+    } else {
+        const token = localStorage.getItem('tt_jwt');
+        const response = await fetch('http://localhost:1337/api/booster/open', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ type: selectedPackType.value })
+        });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error?.message || 'Failed to open pack');
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error?.message || 'Failed to open pack');
+        }
+
+        data = await response.json();
     }
-
-    const data = await response.json();
     drawnCards.value = data.cards;
     
     // Update global wallet (the computed property will reflect this automatically)

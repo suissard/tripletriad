@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <!-- Purple glow for the magical fractures inside obsidian -->
+    <filter id="purpleGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <linearGradient id="obsidianGleam" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4a4a6a" stop-opacity="0.9" />
+      <stop offset="50%" stop-color="#2a2a3a" stop-opacity="1" />
+      <stop offset="100%" stop-color="#0a0a1a" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+
+  <style>
+    .obsidian-shard {
+      opacity: 0;
+      transform: scale(0.8) translate(10px, -10px);
+      transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* Shard assembly sequence */
+    .shard-1 { transition-delay: 0.1s; transform-origin: center; }
+    .shard-2 { transition-delay: 0.3s; transform-origin: left top; transform: scale(0.8) translate(-10px, -10px); }
+    .shard-3 { transition-delay: 0.5s; transform-origin: right bottom; transform: scale(0.8) translate(10px, 10px); }
+
+    .fracture-line {
+      stroke-dasharray: 60;
+      stroke-dashoffset: 60;
+      opacity: 0;
+      transition: stroke-dashoffset 0.8s ease-out 1s, opacity 0.8s ease-out 1s;
+    }
+
+    /* Active State */
+    .is-active .obsidian-shard {
+      opacity: 0.9;
+      transform: scale(1) translate(0, 0);
+    }
+    .is-active .fracture-line {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+  </style>
+
+  <!-- Sharp, angular geometric shards representing black glass / obsidian block -->
+  <!-- Base structure (Shadowed areas) -->
+  <polygon points="50,15 90,40 50,85 10,40" fill="#0f0f1c" class="obsidian-shard shard-1" />
+
+  <!-- Left faces (Lighter reflection) -->
+  <polygon points="50,15 10,40 50,60" fill="url(#obsidianGleam)" class="obsidian-shard shard-2" />
+  <polygon points="10,40 50,60 50,85" fill="#1f1f2e" class="obsidian-shard shard-2" />
+
+  <!-- Right faces (Darker) -->
+  <polygon points="50,15 90,40 50,60" fill="#2d2d42" class="obsidian-shard shard-3" />
+  <polygon points="90,40 50,60 50,85" fill="#151525" class="obsidian-shard shard-3" />
+
+  <!-- Purple Magical Fractures / Grooves (Glow applied) -->
+  <g stroke="#9b59b6" stroke-width="2" fill="none" filter="url(#purpleGlow)" stroke-linecap="round">
+    <polyline points="50,15 50,60 50,85" stroke-width="3" class="fracture-line" />
+    <polyline points="10,40 50,60 90,40" stroke-width="3" class="fracture-line" />
+
+    <!-- Minor internal cracks -->
+    <path d="M50 30 L30 45" class="fracture-line" />
+    <path d="M50 40 L70 35" class="fracture-line" />
+    <path d="M50 70 L30 65" class="fracture-line" />
+    <path d="M50 75 L75 60" class="fracture-line" />
+  </g>
+
+  <!-- Specular Highlights (White edges) -->
+  <g stroke="#ffffff" stroke-width="1.5" fill="none" opacity="0.6">
+    <line x1="10" y1="40" x2="50" y2="15" class="obsidian-shard shard-2" />
+    <line x1="50" y1="15" x2="90" y2="40" class="obsidian-shard shard-3" />
+  </g>
+</svg>
