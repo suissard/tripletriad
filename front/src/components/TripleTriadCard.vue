@@ -71,7 +71,7 @@
 
           <!-- Element badges -->
           <div class="card-elements" v-if="cardElementsList.length">
-            <img v-for="el in cardElementsList" :key="el" :src="`/elements/${el}.svg`" class="element-icon" :alt="el" />
+            <ElementIcon v-for="el in cardElementsList" :key="el" :element="el" :active="props.elementActive" class="element-icon" />
           </div>
 
           <!-- Selected check -->
@@ -142,7 +142,7 @@
                 <span class="stat stat-bottom">{{ card.bottomValue }}</span>
               </div>
               <div class="card-elements" v-if="cardElementsList.length">
-                <img v-for="el in cardElementsList" :key="el" :src="`/elements/${el}.svg`" class="element-icon" :alt="el" />
+                <ElementIcon v-for="el in cardElementsList" :key="el" :element="el" :active="props.elementActive" class="element-icon" />
               </div>
             </div>
           </div>
@@ -213,6 +213,11 @@ const props = defineProps({
   borderWidth: { type: Number, default: 2 },
   disableZoom: { type: Boolean, default: false },
   faceDown: { type: Boolean, default: false }
+,
+  elementActive: {
+    type: Boolean,
+    default: false
+  }
 });
 
 const SIZES = {

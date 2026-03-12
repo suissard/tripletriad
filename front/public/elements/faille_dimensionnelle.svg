@@ -1,39 +1,78 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <defs>
-    <!-- Intense Purple Glow -->
-    <filter id="purpleGlow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="3" result="blur" />
+    <!-- Deep purple/blue glow for the rift -->
+    <filter id="riftGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
       <feMerge>
+        <feMergeNode in="blur" />
         <feMergeNode in="blur" />
         <feMergeNode in="SourceGraphic" />
       </feMerge>
     </filter>
   </defs>
 
-  <!-- Shattered Space Layers (Destructured shards) -->
-  <g fill="#8e44ad" opacity="0.6" filter="url(#purpleGlow)">
-    <path d="M50 10 L60 30 L90 20 L75 50 L95 70 L65 75 L50 95 L35 75 L5 70 L25 50 L10 20 L40 30 Z" />
-  </g>
-  
-  <g fill="#4b0082" opacity="0.8">
-    <path d="M50 25 L55 40 L80 35 L70 50 L85 65 L55 60 L50 80 L45 60 L15 65 L30 50 L20 35 L45 40 Z" />
+  <style>
+    .rift-crack {
+      stroke-dasharray: 150;
+      stroke-dashoffset: 150;
+      opacity: 0;
+      transition: stroke-dashoffset 0.8s ease-in-out, opacity 0.8s ease-in-out;
+    }
+
+    .rift-opening {
+      transform-origin: 50px 50px;
+      transform: scaleX(0); /* Closed line initially */
+      opacity: 0;
+      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s;
+    }
+
+    .energy-particle {
+      opacity: 0;
+      transform: scale(0);
+      transition: all 0.5s ease-out 1.2s;
+    }
+
+    /* Active State */
+    .is-active .rift-crack {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+    .is-active .rift-opening {
+      transform: scaleX(1);
+      opacity: 0.9;
+    }
+    .is-active .energy-particle {
+      opacity: 1;
+      transform: scale(1);
+    }
+  </style>
+
+  <!-- Bright inner crack / tearing energy -->
+  <g fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" class="rift-crack">
+    <!-- Initial fine crack before opening -->
+    <path d="M20 80 Q 30 60 40 70 T 50 40 T 70 30 T 80 10" />
   </g>
 
-  <!-- The Black Hole Core (Event Horizon) -->
-  <circle cx="50" cy="50" r="15" fill="black" />
-  
-  <!-- The Singularity (Aggressive/Jagged white core) -->
-  <path d="M50 42 L52 48 L58 50 L52 52 L50 58 L48 52 L42 50 L48 48 Z" fill="#fff" filter="url(#purpleGlow)" />
+  <!-- The dimensional rift / portal opening (Glow applied) -->
+  <g filter="url(#riftGlow)">
+    <!-- Main dark void opening -->
+    <path class="rift-opening" d="M10 90 Q 30 70 40 80 T 50 50 T 80 40 T 90 10 Q 70 30 60 20 T 40 40 T 20 60 Z" fill="#1a0b2e" />
 
-  <!-- Light shards / Rayons -->
-  <g stroke="#fff" stroke-width="1.5" opacity="0.4">
-    <line x1="50" y1="50" x2="80" y2="20" />
-    <line x1="50" y1="50" x2="20" y2="80" />
-    <line x1="50" y1="50" x2="85" y2="75" />
-    <line x1="50" y1="50" x2="15" y2="25" />
+    <!-- Inner bright edge/aura of the tear -->
+    <path class="rift-opening" d="M15 85 Q 30 65 40 75 T 50 45 T 75 35 T 85 15 Q 70 35 60 25 T 45 45 T 25 65 Z" fill="#4a148c" opacity="0.8" />
+
+    <!-- Core blinding light at the center of the rift -->
+    <path class="rift-opening" d="M25 75 Q 35 55 45 65 T 50 40 T 65 35 T 75 25 Q 60 45 50 35 T 45 50 T 35 65 Z" fill="#9c27b0" opacity="0.6" />
+    <path class="rift-opening" d="M35 65 Q 40 50 45 55 T 50 40 T 55 45 T 65 35 Q 55 50 50 45 T 45 50 T 40 55 Z" fill="#e1bee7" />
   </g>
 
-  <!-- Secondary Glow Shards -->
-  <path d="M30 20 L50 35 L70 20 Z" fill="#9b59b6" opacity="0.3" />
-  <path d="M30 80 L50 65 L70 80 Z" fill="#9b59b6" opacity="0.3" />
+  <!-- Floating energy particles around the rift -->
+  <g fill="#ce93d8" class="energy-particle">
+    <circle cx="15" cy="50" r="1.5" />
+    <circle cx="25" cy="20" r="2" />
+    <circle cx="75" cy="80" r="1.5" />
+    <circle cx="85" cy="60" r="2" />
+    <circle cx="50" cy="85" r="1" />
+    <circle cx="50" cy="15" r="1" />
+  </g>
 </svg>
