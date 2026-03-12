@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <!-- Cyan glow filter for network nodes -->
+    <filter id="cyanGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    .network-line {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      opacity: 0;
+      transition: stroke-dashoffset 0.8s ease-out, opacity 0.8s ease-out;
+    }
+
+    /* Sequence the lines */
+    .line-1 { transition-delay: 0.1s; }
+    .line-2 { transition-delay: 0.3s; }
+    .line-3 { transition-delay: 0.5s; }
+    .line-4 { transition-delay: 0.7s; }
+    .line-5 { transition-delay: 0.9s; }
+    .line-6 { transition-delay: 1.1s; }
+    .line-7 { transition-delay: 1.3s; }
+
+    .network-node {
+      transform: scale(0);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* Sequence the nodes */
+    .node-1 { transition-delay: 0s; transform-origin: 50px 50px; }
+    .node-2 { transition-delay: 0.2s; transform-origin: 20px 20px; }
+    .node-3 { transition-delay: 0.4s; transform-origin: 80px 15px; }
+    .node-4 { transition-delay: 0.6s; transform-origin: 90px 60px; }
+    .node-5 { transition-delay: 0.8s; transform-origin: 65px 85px; }
+    .node-6 { transition-delay: 1.0s; transform-origin: 15px 75px; }
+    .node-7 { transition-delay: 1.2s; transform-origin: 30px 40px; }
+
+    /* Active State */
+    .is-active .network-line {
+      stroke-dashoffset: 0;
+      opacity: 0.8;
+    }
+    .is-active .network-node {
+      transform: scale(1);
+      opacity: 1;
+    }
+  </style>
+
+  <!-- Connection Lines (drawn first so nodes sit on top) -->
+  <g stroke="#00ffff" stroke-width="2" fill="none">
+    <path d="M50 50 L20 20" class="network-line line-1" />
+    <path d="M50 50 L80 15" class="network-line line-2" />
+    <path d="M50 50 L90 60" class="network-line line-3" />
+    <path d="M50 50 L65 85" class="network-line line-4" />
+    <path d="M50 50 L15 75" class="network-line line-5" />
+
+    <!-- Secondary connections -->
+    <path d="M20 20 L30 40 L50 50" class="network-line line-6" />
+    <path d="M80 15 L90 60 L65 85" class="network-line line-7" />
+  </g>
+
+  <!-- Network Nodes (Glow applied) -->
+  <g fill="#00ffff" filter="url(#cyanGlow)">
+    <!-- Center Node (Root) -->
+    <circle cx="50" cy="50" r="7" fill="#ffffff" stroke="#00ffff" stroke-width="3" class="network-node node-1" />
+
+    <!-- Peripheral Nodes -->
+    <circle cx="20" cy="20" r="5" class="network-node node-2" />
+    <circle cx="80" cy="15" r="4" class="network-node node-3" />
+    <circle cx="90" cy="60" r="6" class="network-node node-4" />
+    <circle cx="65" cy="85" r="5" class="network-node node-5" />
+    <circle cx="15" cy="75" r="4.5" class="network-node node-6" />
+
+    <!-- Secondary/Intermediate Nodes -->
+    <circle cx="30" cy="40" r="3" class="network-node node-7" />
+  </g>
+</svg>

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="glassSphere" cx="30%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="30%" stop-color="#40e0d0" stop-opacity="0.6"/>
+      <stop offset="80%" stop-color="#008080" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#004c4c" stop-opacity="1"/>
+    </radialGradient>
+    <radialGradient id="liquid" cx="50%" cy="70%" r="50%">
+      <stop offset="0%" stop-color="#00ffff" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#00ced1" stop-opacity="0.9"/>
+    </radialGradient>
+    <clipPath id="sphereClip">
+      <circle cx="50" cy="50" r="48" />
+    </clipPath>
+  </defs>
+
+  <style>
+    .liquid-fill {
+      transform-origin: 50% 100%;
+      transform: scaleY(0);
+      transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .bubbles {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease 0.5s, transform 1s ease 0.5s;
+    }
+
+    .is-active .liquid-fill {
+      transform: scaleY(1);
+    }
+    .is-active .bubbles {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+
+  <!-- Glass sphere outline (back) -->
+  <circle cx="50" cy="50" r="48" fill="rgba(0,0,0,0.2)"/>
+
+  <!-- Liquid inside sphere -->
+  <g clip-path="url(#sphereClip)">
+    <g class="liquid-fill">
+      <!-- A shape that completely fills the bottom half of the circle -->
+      <rect x="0" y="55" width="100" height="45" fill="url(#liquid)" />
+      <!-- The wavy top of the liquid -->
+      <path d="M0 55 Q 25 45 50 55 T 100 55 L 100 100 L 0 100 Z" fill="url(#liquid)" />
+
+      <!-- Bubbles -->
+      <g class="bubbles">
+        <circle cx="40" cy="70" r="5" fill="#fff" opacity="0.6"/>
+        <circle cx="60" cy="65" r="3" fill="#fff" opacity="0.5"/>
+        <circle cx="45" cy="55" r="2" fill="#fff" opacity="0.7"/>
+        <circle cx="35" cy="45" r="4" fill="#fff" opacity="0.4"/>
+        <circle cx="65" cy="50" r="2.5" fill="#fff" opacity="0.6"/>
+        <circle cx="55" cy="80" r="3.5" fill="#fff" opacity="0.5"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- Glass sphere overlay for reflection/shading -->
+  <circle cx="50" cy="50" r="48" fill="url(#glassSphere)" style="mix-blend-mode: overlay;"/>
+
+  <!-- Glass reflection highlight -->
+  <path d="M22 22 A 32 32 0 0 1 78 18 A 42 42 0 0 0 22 22" fill="#ffffff" opacity="0.6"/>
+</svg>

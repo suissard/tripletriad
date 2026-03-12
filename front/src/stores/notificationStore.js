@@ -12,6 +12,7 @@ export const useNotificationStore = defineStore('notification', {
       CARD_CAPTURED: true,
       TURN_START: true,
       GAME_OVER: true,
+      SYSTEM: true,
       // Default duration in ms
       duration: 3000
     };

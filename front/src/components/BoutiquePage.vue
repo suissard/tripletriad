@@ -70,6 +70,7 @@
 import { ref, computed, onMounted } from 'vue';
 
 import strapiService from '../api/strapi.js';
+import strapiMock from '../api/strapiMock.js';
 import TripleTriadCard from './TripleTriadCard.vue';
 
 const emit = defineEmits(['close', 'update-coins']);
@@ -113,7 +114,14 @@ const openBooster = async () => {
   isOpening.value = true;
 
   try {
-    const response = await strapiService.request('POST', '/booster/open');
+    let response;
+    if (!userStore.strapiConnected) {
+        response = strapiMock.openBooster();
+        userStore.user.coins -= boosterCost.value;
+        userStore.syncLocalUserWallets();
+    } else {
+        response = await strapiService.request('POST', '/booster/open');
+    }
 
     setTimeout(() => {
         isOpening.value = false;

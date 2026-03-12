@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import strapiService from '../api/strapi.js';
+import strapiMock from '../api/strapiMock.js';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -82,6 +83,10 @@ export const useUserStore = defineStore('user', {
 
     async fetchUserCollection() {
       if (!this.isLoggedIn) return;
+      if (!this.strapiConnected) {
+          this.collection = strapiMock.getOfflineCollection();
+          return;
+      }
       try {
         const result = await strapiService.find('user-cards', {
           filters: { user: { id: this.user.id } },
@@ -119,6 +124,10 @@ export const useUserStore = defineStore('user', {
 
     async fetchUserDecks() {
       if (!this.isLoggedIn) return;
+      if (!this.strapiConnected) {
+          this.userDecks = strapiMock.getOfflineUserDecks();
+          return;
+      }
       try {
         const result = await strapiService.find('decks', {
           filters: { user: { id: this.user.id } },
@@ -168,6 +177,16 @@ export const useUserStore = defineStore('user', {
 
     async saveDeck(deck) {
       if (!this.isLoggedIn) return false;
+      if (!this.strapiConnected) {
+          const payload = {
+              name: deck.name,
+              cover: deck.cover,
+              cards: deck.cards
+          };
+          strapiMock.saveDeck(payload, deck.documentId);
+          this.fetchUserDecks();
+          return true;
+      }
       const isNew = !deck.documentId;
       try {
         const payload = {
@@ -191,6 +210,11 @@ export const useUserStore = defineStore('user', {
 
     async deleteDeck(deckDocumentId) {
       if (!this.isLoggedIn) return false;
+      if (!this.strapiConnected) {
+          strapiMock.deleteDeck(deckDocumentId);
+          this.fetchUserDecks();
+          return true;
+      }
       try {
         await strapiService.delete('decks', deckDocumentId);
         this.fetchUserDecks();
