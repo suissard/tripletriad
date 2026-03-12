@@ -17,6 +17,17 @@
       <!-- LEFT: Deck info + selected cards -->
       <div class="deck-panel">
         <div class="deck-info-section">
+        <div class="deck-back-selector">
+          <div class="back-option" :class="{ active: state.editingDeck.cardBack === 'default' || !state.editingDeck.cardBack }" @click="state.editingDeck.cardBack = 'default'">
+             <img src="/card-back.svg" class="back-preview-img" />
+             <span>Classique</span>
+          </div>
+          <div class="back-option" :class="{ active: state.editingDeck.cardBack === 'animated' }" @click="state.editingDeck.cardBack = 'animated'">
+             <div class="back-preview-animated"><AnimatedCardBack /></div>
+             <span>Terra Nullius</span>
+          </div>
+        </div>
+
           <input v-model="state.editingDeck.name" placeholder="Nom du Deck" class="deck-name-input" />
         </div>
 
@@ -45,7 +56,7 @@
         <div class="deck-cards-grid">
           <div v-for="cardId in state.editingDeck.cards" :key="cardId" class="deck-card-slot"
             @click="removeCard(cardId)">
-            <TripleTriadCard v-if="getCardById(cardId)" :card="getCardById(cardId)" size="xs" flat />
+            <TripleTriadCard v-if="getCardById(cardId)" :card="getCardById(cardId)" size="xs" flat :cardBack="state.editingDeck.cardBack" />
             <div class="remove-badge">✕</div>
           </div>
           <div v-for="i in Math.max(0, 15 - state.editingDeck.cards.length)" :key="'empty-' + i"
@@ -95,6 +106,7 @@ import { state, cardLibrary, getCardById } from '../game/state.js';
 import { useUserStore } from '../stores/userStore.js';
 const userStore = useUserStore();
 import TripleTriadCard from './TripleTriadCard.vue';
+import AnimatedCardBack from './AnimatedCardBack.vue';
 
 const searchQuery = ref('');
 const sortBy = ref('id-asc');
@@ -217,6 +229,40 @@ const filteredCards = computed(() => {
 </script>
 
 <style scoped>
+.deck-back-selector {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.back-option {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #444;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.back-option.active {
+  border-color: #00ff88;
+  background: rgba(0, 255, 136, 0.1);
+}
+.back-preview-img {
+  width: 40px;
+  height: 60px;
+  margin-bottom: 5px;
+}
+.back-preview-animated {
+  width: 40px;
+  height: 60px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
 .deck-editor-page {
   position: fixed;
   inset: 0;

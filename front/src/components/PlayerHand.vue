@@ -21,6 +21,7 @@
           size="md"
           borderColor="#00d2ff"
           :disableZoom="true"
+          :cardBack="state.editingDeck?.cardBack || 'default'"
           :isPremium="card.isPremium"
         />
 

@@ -31,6 +31,14 @@
             "relation": "manyToMany",
             "target": "api::card.card",
             "configurable": false
+        },
+        "cardBack": {
+            "type": "enumeration",
+            "enum": [
+                "default",
+                "animated"
+            ],
+            "default": "default"
         }
     }
 }

@@ -174,7 +174,8 @@ export const useUserStore = defineStore('user', {
           name: deck.name,
           user: this.user.id,
           cover: deck.cover,
-          cards: deck.cards
+          cards: deck.cards,
+          cardBack: deck.cardBack || 'default'
         };
         if (isNew) {
           await strapiService.create('decks', payload);
