@@ -9,6 +9,7 @@ import ArchitectureMapPage from '../components/ArchitectureMapPage.vue'
 import MainMenu from '../components/MainMenu.vue'
 import StoryPage from '../components/StoryPage.vue'
 import CardTestPage from '../components/CardTestPage.vue'
+import SeedTesterPage from '../components/SeedTesterPage.vue'
 
 
 const routes = [
@@ -22,6 +23,7 @@ const routes = [
   { path: '/cartographie', component: ArchitectureMapPage },
   { path: '/story', component: StoryPage },
   { path: '/test-card', component: CardTestPage },
+  { path: '/test-seed', component: SeedTesterPage },
 ]
 
 const router = createRouter({
