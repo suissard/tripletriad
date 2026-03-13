@@ -42,7 +42,19 @@ export default factories.createCoreController('api::match.match', ({ strapi }) =
       }
 
       // 2. Rejeu des logs
-      let currentState: GameState = GameEngine.createInitialState('PLAYER_1');
+      // Fetch match to get the starting player
+      const matches = await strapi.documents('api::match.match').findMany({
+        filters: { uuid: matchId }
+      });
+
+      if (matches.length === 0) {
+        return ctx.notFound(`Match ${matchId} non trouvé.`);
+      }
+
+      const match = matches[0];
+      const startingPlayer = (match.startingPlayer as any) || 'PLAYER_1';
+
+      let currentState: GameState = GameEngine.createInitialState(startingPlayer);
       
       for (let i = 0; i < logs.length; i++) {
         const action = logs[i];
@@ -78,12 +90,15 @@ export default factories.createCoreController('api::match.match', ({ strapi }) =
     if (!uuid || !offer) return ctx.badRequest('UUID and Offer are required');
 
     try {
+      const startingPlayer = Math.random() < 0.5 ? 'PLAYER_1' : 'PLAYER_2';
+      
       const match = await strapi.documents('api::match.match').create({
         data: {
           uuid,
           offer,
           users,
-          logs: []
+          logs: [],
+          startingPlayer
         }
       });
       return { data: match };

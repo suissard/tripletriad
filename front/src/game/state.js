@@ -56,6 +56,40 @@ export const createCardData = (i) => normalizeCard({
     img: `https://api.dicebear.com/9.x/bottts/png?seed=${i * 42}&backgroundColor=transparent`
 });
 
+/**
+ * Wraps and normalizes board entries from either local {data, owner} format
+ * or raw GameEngine card format.
+ */
+function normalizeBoard(board) {
+    if (!board) return Array(9).fill(null);
+    const flat = Array.isArray(board[0]) ? board.flat() : board;
+    return flat.map(entry => {
+        if (!entry) return null;
+        
+        // Case 1: Entry is { data, owner } (Local Engine format)
+        if (entry.data && entry.owner) {
+            return {
+                data: normalizeCard(entry.data),
+                owner: entry.owner
+            };
+        }
+        
+        // Case 2: Entry is a raw Card object with owner property (Multiplayer/GameEngine format)
+        if (entry.owner) {
+            return {
+                data: normalizeCard(entry),
+                owner: entry.owner
+            };
+        }
+
+        // Fallback
+        return {
+            data: normalizeCard(entry),
+            owner: entry.owner || 'player'
+        };
+    });
+}
+
 export const state = reactive({
   premiumMode: 'random', // random | image
   holoFineness: 0.05, // default texture scale for SVG filter
@@ -106,6 +140,10 @@ export const state = reactive({
     // P2P Engine
     turnManager: null,
 
+    // Starting Flow
+    showCoinToss: false,
+    coinTossResult: 'player', // 'player' | 'ai'
+
 });
 
 export function getCardById(id) {
@@ -120,12 +158,12 @@ export function getCardById(id) {
 /**
  * Initialise le TurnManager pour une partie en ligne
  */
-export function initOnlineTurnManager(isHost) {
+export function initOnlineTurnManager(isHost, startingPlayer = 'PLAYER_1') {
     const localPlayer = isHost ? 'PLAYER_1' : 'PLAYER_2';
     
     state.turnManager = new TurnManager({
         localPlayer,
-        initialState: GameEngine.createInitialState('PLAYER_1'),
+        initialState: GameEngine.createInitialState(startingPlayer),
         
         sendNetworkMessage: (msg) => {
             webrtc.sendMessage(msg);
@@ -133,12 +171,7 @@ export function initOnlineTurnManager(isHost) {
         
         onStateUpdate: (newState) => {
             console.log("[TurnManager] State Updated:", newState);
-            // GameEngine gives us a 2D board, but Vue GameBoard expects a 1D array of 9.
-            if (Array.isArray(newState.board) && Array.isArray(newState.board[0])) {
-                state.board = newState.board.flat();
-            } else {
-                state.board = newState.board;
-            }
+            state.board = normalizeBoard(newState.board);
             
             const newTurn = newState.currentPlayer === localPlayer ? 'player' : 'ai';
             
@@ -210,11 +243,7 @@ export function hydrate(forcedState) {
     console.log("[GameManager] Hydrating state from server...", forcedState);
 
     // 1. Update Board State
-    if (Array.isArray(forcedState.board) && Array.isArray(forcedState.board[0])) {
-      state.board = forcedState.board.flat();
-    } else {
-      state.board = forcedState.board;
-    }
+    state.board = normalizeBoard(forcedState.board);
 
     // 2. Update metadata
     state.turn = forcedState.currentPlayer === 'PLAYER_1' ? 'player' : 'ai';
@@ -246,13 +275,18 @@ export function refillHand(owner) {
 }
 
 // Reset the entire game state
-export function resetGame(deckSize = 30, goToMenu = true) {
+export function resetGame(deckSize = 30, goToMenu = true, forcedTurn = null) {
     initDeck(deckSize);
     state.board = Array(9).fill(null);
     state.pHand = [];
     state.aiHand = [];
     state.selectedCardIndex = null;
-    state.turn = 'player';
+    
+    if (forcedTurn) {
+        state.turn = forcedTurn;
+    } else {
+        state.turn = Math.random() < 0.5 ? 'player' : 'ai';
+    }
     state.busy = false;
     state.pScore = 0;
     state.aiScore = 0;

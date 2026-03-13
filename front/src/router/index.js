@@ -10,6 +10,7 @@ import MainMenu from '../components/MainMenu.vue'
 import StoryPage from '../components/StoryPage.vue'
 import CardTestPage from '../components/CardTestPage.vue'
 import SeedTesterPage from '../components/SeedTesterPage.vue'
+import CoinTossTestPage from '../components/CoinTossTestPage.vue'
 
 
 const routes = [
@@ -24,6 +25,7 @@ const routes = [
   { path: '/story', component: StoryPage },
   { path: '/test-card', component: CardTestPage },
   { path: '/test-seed', component: SeedTesterPage },
+  { path: '/test-coin', component: CoinTossTestPage },
 ]
 
 const router = createRouter({

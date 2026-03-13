@@ -114,7 +114,7 @@
 
          <TripleTriadCardGrid
       :cards="filteredCardLibrary.map(c => ({...c, quantity: getOwnedQuantity(c.id), isPremium: isOwnedPremium(c.id)}))"
-      cardSize="m"
+      cardSize="md"
       :showOwnNum="true"
       @card-left-click="c => openCardDetail(c)"
     />

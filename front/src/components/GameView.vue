@@ -69,7 +69,7 @@
 <script setup>
 import { onMounted, onBeforeUnmount, watch } from 'vue';
 import { state, refillHand, resetGame } from '../game/state.js';
-import { initGameListeners, cleanupGameListeners } from '../game/game-actions.js';
+import { initGameListeners, cleanupGameListeners, aiPlay } from '../game/game-actions.js';
 import ScorePanel from './ScorePanel.vue';
 import GameBoard from './GameBoard.vue';
 import PlayerHand from './PlayerHand.vue';
@@ -113,6 +113,10 @@ function startGame() {
     } else {
         refillHand('ai');
         refillHand('player');
+    }
+
+    if (!state.online && state.turn === 'ai') {
+        setTimeout(aiPlay, 1000);
     }
 }
 

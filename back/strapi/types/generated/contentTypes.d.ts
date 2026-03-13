@@ -768,6 +768,8 @@ export interface ApiMatchMatch extends Struct.CollectionTypeSchema {
     logs: Schema.Attribute.JSON;
     offer: Schema.Attribute.JSON;
     publishedAt: Schema.Attribute.DateTime;
+    startingPlayer: Schema.Attribute.Enumeration<['PLAYER_1', 'PLAYER_2']> &
+      Schema.Attribute.DefaultTo<'PLAYER_1'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
