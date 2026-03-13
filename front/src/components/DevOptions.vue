@@ -69,6 +69,7 @@
       <h4>Tester API</h4>
       <div class="dev-buttons">
         <button @click="openDevTestPage" style="color: #00d2ff; border-color: #00d2ff;">🧪 Testeur API Strapi</button>
+        <button @click="openSeedTestPage" style="color: #ff9900; border-color: #ff9900;">🎲 Testeur Aléatoire Seed</button>
         <button @click="openMapPage" style="color: #58a6ff; border-color: #58a6ff;">🗺️ Cartographie Archi.</button>
       </div>
 
@@ -191,6 +192,11 @@ function clearCollection() {
 
 function openMapPage() {
   router.push('/cartographie');
+  isOpen.value = false;
+}
+
+function openSeedTestPage() {
+  router.push('/test-seed');
   isOpen.value = false;
 }
 
