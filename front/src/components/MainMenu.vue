@@ -149,10 +149,13 @@ function startAiGame(deck) {
   state.showCoinToss = true;
   
   // The actual match start will be handled after the coin toss animation
-  state.pendingAiGame = () => {
+  state.pendingAiGame = async () => {
     state.gameState = 'playing';
     resetGame(30, false, startingTurn);
     
+    // Initialize AI match in backend for logging
+    await import('../game/state.js').then(m => m.initAIMatch());
+
     // Draw AI hand first
     state.deck = aiDeck;
     refillHand('ai');

@@ -29,7 +29,15 @@ export default {
             path: '/webrtc/matches/:uuid/log',
             handler: 'match.addLog',
             config: {
-                // Will enforce that user must be part of the match in the controller!
+                auth: false,
+            },
+        },
+        {
+            method: 'POST',
+            path: '/match/arbitrate',
+            handler: 'match.arbitrate',
+            config: {
+                auth: false,
             },
         }
     ]
