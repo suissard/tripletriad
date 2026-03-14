@@ -17,6 +17,52 @@ export default {
    * run jobs, or perform some special logic.
    */
   async bootstrap({ strapi }) {
+    // A. Setup Admin Role in Users-Permissions
+    let adminRoles = await strapi.entityService.findMany('plugin::users-permissions.role', {
+      filters: { type: 'admin' }, // custom type or just search by name
+    });
+
+    // If not found by type, check by name
+    if (!adminRoles || adminRoles.length === 0) {
+        adminRoles = await strapi.entityService.findMany('plugin::users-permissions.role', {
+            filters: { name: 'Admin' },
+        });
+    }
+
+    let boAdminRole = adminRoles[0];
+
+    if (!boAdminRole) {
+      boAdminRole = await strapi.entityService.create('plugin::users-permissions.role', {
+        data: {
+          name: 'Admin',
+          description: 'Role for back-office administrators.',
+          type: 'admin',
+        }
+      });
+      console.log('✅ Admin Role created for back-office users.');
+    }
+
+    if (boAdminRole) {
+      const adminActions = [
+        'api::card.card.find', 'api::card.card.findOne', 'api::card.card.create', 'api::card.card.update', 'api::card.card.delete',
+        'api::quest-template.quest-template.find', 'api::quest-template.quest-template.findOne', 'api::quest-template.quest-template.create', 'api::quest-template.quest-template.update', 'api::quest-template.quest-template.delete',
+        'api::wallet.wallet.find', 'api::wallet.wallet.findOne', 'api::wallet.wallet.create', 'api::wallet.wallet.update', 'api::wallet.wallet.delete',
+        'plugin::users-permissions.user.find', 'plugin::users-permissions.user.findOne', 'plugin::users-permissions.user.create', 'plugin::users-permissions.user.update', 'plugin::users-permissions.user.destroy',
+      ];
+
+      for (const action of adminActions) {
+        const existingPermission = await strapi.entityService.findMany('plugin::users-permissions.permission', {
+          filters: { action, role: boAdminRole.id }
+        });
+
+        if (existingPermission.length === 0) {
+          await strapi.entityService.create('plugin::users-permissions.permission', {
+            data: { action, role: boAdminRole.id }
+          });
+        }
+      }
+    }
+
     // 1. Setup Permissions
     const roles = await strapi.entityService.findMany('plugin::users-permissions.role', {
       filters: { type: 'authenticated' },
