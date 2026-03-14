@@ -125,6 +125,16 @@ export async function resolveRules(startIndex, owner) {
         state.actionLog.shift();
     }
 
+    // Send backend log if there were captures
+    if (actionRecord.capturedCards.length > 0) {
+        import('./logger.js').then(({ sendGameLog }) => {
+            sendGameLog('competence',
+                { type: owner === 'player' ? 'player' : 'ai', id: owner },
+                { count: actionRecord.capturedCards.length }
+            );
+        });
+    }
+
     updateScores();
 }
 
@@ -153,6 +163,14 @@ export function checkGameOver() {
     } else {
         state.winner = 'draw';
     }
+
+    // Log game over to backend for single-player mode
+    import('./logger.js').then(({ sendGameLog }) => {
+        sendGameLog('game_over',
+            { type: 'system', id: 'system' },
+            { winner: state.winner }
+        );
+    });
 }
 
 export function endTurn(player) {
@@ -167,6 +185,14 @@ export function endTurn(player) {
         state.pMaxMana = 1; // Constant 1 mana for now
         state.pMana = 1;
     }
+
+    // Log turn change for single-player mode
+    import('./logger.js').then(({ sendGameLog }) => {
+        sendGameLog('turn_start',
+            { type: 'system', id: 'system' },
+            { player: state.turn }
+        );
+    });
 }
 
 export function updateScores() {

@@ -4,7 +4,7 @@ import { GameEngine, GameState, PlaceCardAction } from '../../../shared/GameEngi
 // Interface attendue dans le Body de la requête
 interface ArbitrateRequestBody {
   matchId: string;
-  logs: PlaceCardAction[];
+  logs: any[]; // Modifié pour accepter le nouveau format de log enrichi. On filtrera les PlaceCardAction à la volée.
 }
 
 // On simule une base de données locale ou un cache mémoire (ex: Redis en prod)
@@ -56,8 +56,21 @@ export default factories.createCoreController('api::match.match', ({ strapi }) =
 
       let currentState: GameState = GameEngine.createInitialState(startingPlayer);
       
-      for (let i = 0; i < logs.length; i++) {
-        const action = logs[i];
+      // Filtrer uniquement les actions de placement (celles qui concernent l'arbitrage du GameEngine)
+      // On suppose que l'action est imbriquée ou que le log a un format spécifique
+      // Si l'ancienne version passait des objets directs, on gère les deux.
+      const placeCardActions = logs
+        .filter(log => log.type === 'PLACE_CARD' || (log.action === 'placement' && log.target && log.target.card))
+        .map(log => log.action === 'placement' ? {
+          type: 'PLACE_CARD',
+          player: log.emitter.id,
+          x: log.target.case % 3,
+          y: Math.floor(log.target.case / 3),
+          card: log.target.card
+        } : log);
+
+      for (let i = 0; i < placeCardActions.length; i++) {
+        const action = placeCardActions[i];
         
         try {
           currentState = GameEngine.computeNextState(currentState, action);
@@ -87,7 +100,9 @@ export default factories.createCoreController('api::match.match', ({ strapi }) =
 
   async createMatch(ctx) {
     const { uuid, offer, users } = ctx.request.body;
-    if (!uuid || !offer) return ctx.badRequest('UUID and Offer are required');
+
+    // Pour l'IA, l'offre WebRTC n'est pas requise, mais l'UUID l'est.
+    if (!uuid) return ctx.badRequest('UUID is required');
 
     try {
       const startingPlayer = Math.random() < 0.5 ? 'PLAYER_1' : 'PLAYER_2';

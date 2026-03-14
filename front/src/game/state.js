@@ -137,6 +137,9 @@ export const state = reactive({
     // Deck Editor Page
     editingDeck: { id: null, documentId: null, name: '', cover: null, cards: [], cardBack: 'default' },
     
+    // Logging / Match
+    matchId: null,
+
     // P2P Engine
     turnManager: null,
 
@@ -274,10 +277,19 @@ export function refillHand(owner) {
     }
 }
 
+// Helper to generate a UUID for AI matches
+function generateLocalUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
 // Reset the entire game state
 export function resetGame(deckSize = 30, goToMenu = true, forcedTurn = null) {
     initDeck(deckSize);
     state.board = Array(9).fill(null);
+    state.matchId = null;
     state.pHand = [];
     state.aiHand = [];
     state.selectedCardIndex = null;
@@ -309,6 +321,32 @@ export function resetGame(deckSize = 30, goToMenu = true, forcedTurn = null) {
     state.actionLog = [];
 }
 
+/**
+ * Initializes a new match ID for local AI games
+ * and saves it to the Strapi backend.
+ */
+export async function initAIMatch() {
+    state.matchId = generateLocalUUID();
+
+    try {
+        await fetch(`${strapiService.BASE_URL}/webrtc/matches`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                ...(strapiService.token ? { 'Authorization': `Bearer ${strapiService.token}` } : {})
+            },
+            body: JSON.stringify({
+                uuid: state.matchId,
+                offer: null, // No WebRTC offer needed for AI
+                users: [] // You might want to populate with the current user ID if authenticated
+            })
+        });
+        console.log(`[GameManager] AI Match Initialized with UUID: ${state.matchId}`);
+    } catch (error) {
+        console.error("[GameManager] Failed to create AI match on server", error);
+    }
+}
+
 // Confirmation System
 let confirmationPromiseResolve = null;
 
@@ -331,6 +369,8 @@ export function resolveConfirmation(result) {
 }
 
 
+
+import { sendGameLog } from './logger.js';
 
 // --- CENTRAL EVENT LISTENERS ---
 gameEvents.on('CARD_PLACED', (payload) => {
@@ -357,4 +397,30 @@ gameEvents.on('CARD_PLACED', (payload) => {
             }
         }
     }
+
+    sendGameLog('placement',
+        { type: action.player === state.pId ? 'player' : 'ai', id: action.player },
+        { card: action.card, case: action.y * 3 + action.x }
+    );
+});
+
+gameEvents.on('CARD_CAPTURED', (payload) => {
+    sendGameLog('competence',
+        { type: payload.capturer === state.pId ? 'player' : 'ai', id: payload.capturer },
+        { count: payload.count }
+    );
+});
+
+gameEvents.on('TURN_START', (payload) => {
+    sendGameLog('turn_start',
+        { type: 'system', id: 'system' },
+        { player: payload.player }
+    );
+});
+
+gameEvents.on('GAME_OVER', (payload) => {
+    sendGameLog('game_over',
+        { type: 'system', id: 'system' },
+        { winner: payload.winner }
+    );
 });

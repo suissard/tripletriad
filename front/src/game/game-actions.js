@@ -99,6 +99,14 @@ export async function placeCard(slotIndex) {
     // Single Player Local Mutation 
     state.board[slotIndex] = { data: card, owner: 'player' };
 
+    // Log player action
+    import('./logger.js').then(({ sendGameLog }) => {
+        sendGameLog('placement',
+            { type: 'player', id: state.pId },
+            { card: card, case: slotIndex }
+        );
+    });
+
     await sleep(300);
     await resolveRules(slotIndex, 'player');
 
@@ -127,6 +135,14 @@ export async function processOpponentMove(move) {
 
     card.revealed = true;
     state.board[move.slot] = { data: card, owner: 'ai' };
+
+    // Log AI action
+    import('./logger.js').then(({ sendGameLog }) => {
+        sendGameLog('placement',
+            { type: 'ai', id: state.aiId },
+            { card: card, case: move.slot }
+        );
+    });
 
     await sleep(600);
     await resolveRules(move.slot, 'ai');
