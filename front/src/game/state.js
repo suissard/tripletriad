@@ -4,7 +4,7 @@ import { WebRTCManager } from './WebRTCManager.js';
 import { TurnManager } from './TurnManager.js';
 import { GameEngine } from './GameEngine.js';
 import { gameEvents } from './events.js';
-import cardsData from '../data/cards.json';
+import cardsData from '../../../shared/data/cards.json';
 import strapiService from '../api/strapi.js';
 
 export const cardLibrary = cardsData;

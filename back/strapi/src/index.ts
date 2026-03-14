@@ -44,6 +44,7 @@ export default {
         'api::shop.shop.find',
         'api::user-card.user-card.find',
         'api::wallet.wallet.find',
+        'api::wallet.wallet.getMe',
         'api::player-event-log.player-event-log.trackEvent',
       ];
 
@@ -84,21 +85,51 @@ export default {
     await generateQuestTemplates(strapi);
     console.log('✅ Quest templates generated.');
 
-    // 3. Setup Default Cards if missing (just a few to get started)
-    const cardsCount = await strapi.entityService.count('api::card.card');
-    if (cardsCount === 0) {
-      const defaultCards = [
-        { name: 'Goblin', level: 1, element: 'None', topValue: '2', rightValue: '1', bottomValue: '1', leftValue: '2', rarity: 'Common' },
-        { name: 'Slime', level: 1, element: 'None', topValue: '1', rightValue: '2', bottomValue: '2', leftValue: '1', rarity: 'Common' },
-        { name: 'Bat', level: 1, element: 'None', topValue: '2', rightValue: '2', bottomValue: '1', leftValue: '1', rarity: 'Common' },
-        { name: 'Skeleton', level: 1, element: 'None', topValue: '1', rightValue: '1', bottomValue: '2', leftValue: '2', rarity: 'Common' },
-        { name: 'Wolf', level: 1, element: 'None', topValue: '2', rightValue: '1', bottomValue: '2', leftValue: '1', rarity: 'Common' },
-      ];
+    // 3. Setup Default Cards from shared/data/cards.json
+    try {
+      const path = require('path');
+      const fs = require('fs');
+      const cardsFilePath = path.join(strapi.dirs.app.src, 'shared', 'data', 'cards.json');
+      
+      if (fs.existsSync(cardsFilePath)) {
+        const cardsData = JSON.parse(fs.readFileSync(cardsFilePath, 'utf8'));
+        const cardsCount = await strapi.entityService.count('api::card.card');
 
-      for (const c of defaultCards) {
-        await strapi.entityService.create('api::card.card', { data: c });
+        if (cardsCount < cardsData.length) {
+          console.log(`🔄 DB has ${cardsCount} cards, shared/cards.json has ${cardsData.length}. Re-seeding...`);
+          // Use db.query to delete all
+          await strapi.db.query('api::card.card').deleteMany({});
+
+          for (const c of cardsData) {
+            // Map level to rarity
+            let rarity = 'Common';
+            if (c.level <= 2) rarity = 'Common';
+            else if (c.level <= 4) rarity = 'Uncommon';
+            else if (c.level <= 6) rarity = 'Rare';
+            else if (c.level <= 8) rarity = 'Epic';
+            else rarity = 'Legendary';
+
+            await strapi.entityService.create('api::card.card', { 
+              data: {
+                name: c.name,
+                description: c.description,
+                level: c.level,
+                element: c.element || 'None',
+                topValue: String(c.topValue),
+                rightValue: String(c.rightValue),
+                bottomValue: String(c.bottomValue),
+                leftValue: String(c.leftValue),
+                rarity: rarity
+              }
+            });
+          }
+          console.log(`✅ ${cardsData.length} cards seeded from shared database.`);
+        }
+      } else {
+        console.error('❌ cards.json not found at', cardsFilePath);
       }
-      console.log('✅ Default Cards created.');
+    } catch (err) {
+      console.error('❌ Error seeding cards:', err);
     }
 
     // 3.5. Backfill existing users to ensure they have enough active/pending quests

@@ -42,17 +42,17 @@ initNotificationManager();
       }
   });
 
+  // Initial check
+  userStore.checkStrapiConnection();
   
-  setInterval(async () => {
-    if (userStore.isLoggedIn) {
-      try {
-        const check = await fetch(`${strapiService.rawClient.baseURL.replace('/api', '')}/admin/init`, { method: 'HEAD' });
-        userStore.strapiConnected = check.ok || check.status < 500;
-      } catch (e) {
-        userStore.strapiConnected = false;
-      }
+  const connectionInterval = setInterval(async () => {
+    // Stop checking if we have successfully connected once
+    if (userStore.hasEverConnected) {
+      clearInterval(connectionInterval);
+      return;
     }
-  }, 10000); // Check every 10 seconds
+    await userStore.checkStrapiConnection();
+  }, 5000); // Check every 5 seconds until connected
 });
 </script>
 
