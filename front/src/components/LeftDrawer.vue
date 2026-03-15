@@ -19,7 +19,7 @@
       <div class="drawer-content-wrapper">
         <div class="drawer-header">
           <h2>MENU PRINCIPAL</h2>
-          <button class="close-btn" @click="state.leftDrawerOpen = false">×</button>
+          <button class="btn btn-secondary glass-panel px-3 py-1" @click="state.leftDrawerOpen = false">×</button>
         </div>
         <div class="drawer-content">
           <!-- We embed the MainMenu here -->

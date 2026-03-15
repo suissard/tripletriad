@@ -1,14 +1,14 @@
 <template>
   <div class="end-turn-container" v-if="state.gameState === 'playing'">
-    <HoloButton
-      class="end-turn-btn"
+    <button
+      class="btn btn-primary glass-panel end-turn-btn"
       :class="{ ready: isReady, disabled: state.turn !== 'player' }"
       @click="onEndTurn"
       :disabled="state.turn !== 'player'"
-      :width="'250px'"
+      style="width: 250px;"
     >
       {{ state.turn === 'player' ? 'Fin de Tour' : (state.online ? 'Tour de l\'Adversaire' : 'Tour de l\'IA') }}
-    </HoloButton>
+    </button>
   </div>
 </template>
 
@@ -16,7 +16,6 @@
 import { computed } from 'vue';
 import { state, confirmAction } from '../game/state.js';
 import { handleEndTurn } from '../game/game-actions.js';
-import HoloButton from './HoloButton.vue';
 
 const isReady = computed(() => {
   if (state.turn !== 'player') return false;
@@ -50,13 +49,11 @@ const onEndTurn = async () => {
 }
 
 
-.end-turn-btn.ready :deep(.coreButton) {
+.end-turn-btn.ready {
   box-shadow: 0 0 20px rgba(241, 196, 15, 0.8), inset 0 0 10px rgba(255, 255, 255, 0.5);
   animation: pulse-glow 2s infinite;
-}
-
-.end-turn-btn.ready :deep(.innerLayer) {
-   background: linear-gradient(to bottom, #f1c40f 0%, #ffffff 50%, #f39c12 100%);
+  background: linear-gradient(to bottom, #f1c40f 0%, #ffffff 50%, #f39c12 100%);
+  color: #000;
 }
 
 .end-turn-btn.disabled {
