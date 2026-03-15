@@ -51,6 +51,11 @@ const routes = [
         component: () => import('../admin/views/FoilEditorView.vue')
       },
       {
+        path: 'game-config',
+        name: 'admin-game-config',
+        component: () => import('../admin/views/GameConfigView.vue')
+      },
+      {
         path: ':collection',
         name: 'admin-dynamic-editor',
         component: () => import('../admin/components/DynamicEditor.vue')
