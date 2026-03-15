@@ -40,8 +40,8 @@ function loadEnv() {
 
 const env = loadEnv();
 const STRAPI_URL = `http://localhost:${env.PORT || 1337}`;
-const ADMIN_EMAIL = env.ADMIN_EMAIL || 'admin@gmail.com';
-const ADMIN_PASSWORD = env.ADMIN_PASSWORD || 'Password123456789!';
+const ADMIN_EMAIL = env.ADMIN_EMAIL;
+const ADMIN_PASSWORD = env.ADMIN_PASSWORD;
 const ADMIN_FIRSTNAME = env.ADMIN_FIRSTNAME || 'Super';
 const ADMIN_LASTNAME = env.ADMIN_LASTNAME || 'Admin';
 
@@ -49,6 +49,12 @@ const ADMIN_LASTNAME = env.ADMIN_LASTNAME || 'Admin';
 const API_USER_EMAIL = env.API_USER_EMAIL || ADMIN_EMAIL;
 const API_USER_PASSWORD = env.API_USER_PASSWORD || ADMIN_PASSWORD;
 const API_USER_NAME = env.API_USER_NAME || 'suissard';
+
+if (!ADMIN_EMAIL || !ADMIN_PASSWORD || !API_USER_EMAIL || !API_USER_PASSWORD) {
+    console.error('❌ Missing required environment variables: ADMIN_EMAIL, ADMIN_PASSWORD, API_USER_EMAIL, or API_USER_PASSWORD.');
+    console.error('   Please define them in your .env file at the project root.');
+    process.exit(1);
+}
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 
