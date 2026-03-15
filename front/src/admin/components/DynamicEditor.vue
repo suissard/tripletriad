@@ -2,15 +2,21 @@
   <div class="min-h-screen">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
       <div>
-        <h1 class="text-4xl font-extrabold text-white tracking-tight mb-2 capitalize">Gestion des {{ collectionName }}</h1>
-        <p class="text-gray-400 text-sm">Consultez, ajoutez ou modifiez les entrées de la collection {{ collectionName }}.</p>
+        <h1 v-if="!isEditing" class="text-4xl font-extrabold text-white tracking-tight mb-2 capitalize">Gestion des {{ collectionName }}</h1>
+        <h1 v-else class="text-4xl font-extrabold text-white tracking-tight mb-2 capitalize">
+          {{ currentItem.id || currentItem.documentId ? 'Éditer' : 'Créer' }} {{ collectionName.slice(0, -1) }}
+        </h1>
+        <p v-if="!isEditing" class="text-gray-400 text-sm">Consultez, ajoutez ou modifiez les entrées de la collection {{ collectionName }}.</p>
       </div>
-      <button @click="openModal()" class="btn btn-primary min-w-[160px] h-12 shadow-lg shadow-primary/20">
+      <button v-if="!isEditing" @click="openEditor()" class="btn btn-primary min-w-[160px] h-12 shadow-lg shadow-primary/20">
         <span class="mr-2 text-xl">+</span> Nouveau
+      </button>
+      <button v-else @click="closeEditor" class="btn btn-secondary min-w-[160px] h-12 shadow-lg">
+        <span class="mr-2 text-xl">←</span> Retour
       </button>
     </div>
 
-    <transition name="fade">
+    <transition name="fade" mode="out-in">
       <div v-if="loading" class="flex flex-col items-center justify-center py-20">
         <div class="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin mb-4"></div>
         <p class="text-gray-500 font-medium">Chargement des données...</p>
@@ -19,7 +25,8 @@
         <span>⚠️</span> {{ error }}
       </div>
 
-      <div v-else class="glass-panel rounded-3xl overflow-hidden">
+      <!-- Table View -->
+      <div v-else-if="!isEditing" class="glass-panel rounded-3xl overflow-hidden">
         <div class="overflow-x-auto custom-scrollbar">
           <table class="min-w-full border-collapse">
             <thead>
@@ -38,7 +45,7 @@
                   <span class="text-gray-300 font-medium">{{ formatValue(item[col]) }}</span>
                 </td>
                 <td class="px-8 py-5 text-right space-x-3">
-                  <button @click="openModal(item)" class="text-primary hover:text-white text-xs font-bold uppercase tracking-widest transition-colors">Éditer</button>
+                  <button @click="openEditor(item)" class="text-primary hover:text-white text-xs font-bold uppercase tracking-widest transition-colors">Éditer</button>
                   <button @click="deleteItem(item)" class="text-red-500/50 hover:text-red-500 text-xs font-bold uppercase tracking-widest transition-colors">Supprimer</button>
                 </td>
               </tr>
@@ -51,22 +58,13 @@
           </table>
         </div>
       </div>
-    </transition>
 
-    <!-- Modal pour Création / Édition -->
-    <transition name="modal">
-      <div v-if="isModalOpen" class="fixed inset-0 z-[100] flex items-center justify-center p-6">
-        <div class="absolute inset-0 bg-[#050510]/80 backdrop-blur-sm" @click="closeModal"></div>
+      <!-- Editor View (Inline instead of Modal) -->
+      <div v-else class="glass-panel w-full rounded-[40px] shadow-2xl relative z-10 overflow-hidden flex flex-col md:flex-row">
         
-        <div class="glass-panel w-full max-w-4xl rounded-[40px] shadow-2xl relative z-10 overflow-hidden flex flex-col md:flex-row max-h-[90vh]">
-          
-          <!-- Modal Body -->
-          <div class="flex-1 p-10 overflow-y-auto custom-scrollbar">
-            <h2 class="text-3xl font-black text-white mb-8 tracking-tight">
-              {{ currentItem.id || currentItem.documentId ? 'Éditer' : 'Créer' }} {{ collectionName.slice(0, -1) }}
-            </h2>
-
-            <div class="space-y-6">
+        <!-- Editor Body -->
+        <div class="flex-1 p-10 overflow-y-auto custom-scrollbar">
+          <div class="space-y-6">
               <div v-for="field in formFields" :key="field.name" class="setting-group">
                 <label :for="field.name">{{ field.name }}</label>
 
@@ -119,28 +117,27 @@
               </div>
             </div>
 
-            <div class="flex justify-end gap-4 mt-12 pt-8 border-t border-white/5">
-              <button @click="closeModal" class="btn btn-secondary px-8">Annuler</button>
-              <button @click="saveItem" class="btn btn-primary px-8">Enregistrer</button>
-            </div>
+          <div class="flex justify-end gap-4 mt-12 pt-8 border-t border-white/5">
+            <button @click="closeEditor" class="btn btn-secondary px-8">Annuler</button>
+            <button @click="saveItem" class="btn btn-primary px-8">Enregistrer</button>
           </div>
+        </div>
 
-          <!-- Dynamic Sidebar Preview (Only for Cards) -->
-          <div v-if="collectionName === 'cards'" class="w-full md:w-80 bg-white/[0.02] border-l border-white/5 p-10 flex flex-col items-center justify-center gap-6">
-            <h3 class="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">Aperçu de la Carte</h3>
-            <div class="scale-110">
-              <TripleTriadCard
-                :card="{
-                  ...formData,
-                  imageUrl: formData.imageUrl || `https://api.dicebear.com/9.x/bottts/png?seed=${(formData.id || 0) * 42}&backgroundColor=transparent`
-                }"
-                size="md"
-                :disableZoom="true"
-                class="shadow-2xl shadow-primary/10"
-              />
-            </div>
-            <p class="text-[10px] text-gray-500 text-center italic mt-4 px-4">L'aperçu se met à jour en temps réel lors de la modification des champs.</p>
+        <!-- Dynamic Sidebar Preview (Only for Cards) -->
+        <div v-if="collectionName === 'cards'" class="w-full md:w-80 bg-white/[0.02] border-l border-white/5 p-10 flex flex-col items-center justify-center gap-6">
+          <h3 class="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">Aperçu de la Carte</h3>
+          <div class="scale-110">
+            <TripleTriadCard
+              :card="{
+                ...formData,
+                imageUrl: formData.imageUrl || `https://api.dicebear.com/9.x/bottts/png?seed=${(formData.id || 0) * 42}&backgroundColor=transparent`
+              }"
+              size="md"
+              :disableZoom="true"
+              class="shadow-2xl shadow-primary/10"
+            />
           </div>
+          <p class="text-[10px] text-gray-500 text-center italic mt-4 px-4">L'aperçu se met à jour en temps réel lors de la modification des champs.</p>
         </div>
       </div>
     </transition>
@@ -160,7 +157,7 @@ const loading = ref(true);
 const error = ref(null);
 const items = ref([]);
 const columns = ref([]);
-const isModalOpen = ref(false);
+const isEditing = ref(false);
 const currentItem = ref({});
 const formData = ref({});
 const formFields = ref([]);
@@ -256,7 +253,7 @@ const getOptionsForField = (key) => {
   return [];
 };
 
-const openModal = (item = null) => {
+const openEditor = (item = null) => {
   currentItem.value = item || {};
   formData.value = { ...currentItem.value };
 
@@ -285,11 +282,11 @@ const openModal = (item = null) => {
       });
   }
 
-  isModalOpen.value = true;
+  isEditing.value = true;
 };
 
-const closeModal = () => {
-  isModalOpen.value = false;
+const closeEditor = () => {
+  isEditing.value = false;
   currentItem.value = {};
   formData.value = {};
 };
@@ -315,7 +312,7 @@ const saveItem = async () => {
        throw new Error(res.error.message || "Erreur d'enregistrement");
     }
 
-    closeModal();
+    closeEditor();
     loadData();
   } catch (err) {
     alert("Erreur: " + err.message);
@@ -368,11 +365,4 @@ watch(() => route.params.collection, loadData);
   opacity: 0;
 }
 
-.modal-enter-active, .modal-leave-active {
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.modal-enter-from, .modal-leave-to {
-  opacity: 0;
-  transform: scale(0.95) translateY(20px);
-}
 </style>
