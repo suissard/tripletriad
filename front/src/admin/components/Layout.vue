@@ -8,7 +8,7 @@
       </div>
 
       <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
-        <router-link to="/" class="block px-4 py-2 rounded text-gray-300 hover:bg-gray-800 hover:text-white" active-class="bg-gray-800 text-white">
+        <router-link to="/admin" class="block px-4 py-2 rounded text-gray-300 hover:bg-gray-800 hover:text-white" active-class="bg-gray-800 text-white">
           Dashboard
         </router-link>
 
@@ -16,14 +16,17 @@
           <p class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Collections</p>
         </div>
 
-        <router-link v-for="col in collections" :key="col.path" :to="`/${col.path}`" class="block px-4 py-2 rounded text-gray-300 hover:bg-gray-800 hover:text-white capitalize" active-class="bg-gray-800 text-white">
+        <router-link v-for="col in collections" :key="col.path" :to="`/admin/${col.path}`" class="block px-4 py-2 rounded text-gray-300 hover:bg-gray-800 hover:text-white capitalize" active-class="bg-gray-800 text-white">
           {{ col.name }}
         </router-link>
 
         <div class="pt-4 pb-2">
           <p class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Outils</p>
         </div>
-        <router-link to="/foil-editor" class="block px-4 py-2 rounded text-gray-300 hover:bg-gray-800 hover:text-white" active-class="bg-gray-800 text-white">
+        <router-link to="/admin/game-config" class="block px-4 py-2 rounded text-gray-300 hover:bg-gray-800 hover:text-white" active-class="bg-gray-800 text-white">
+          ⚙️ Configuration Jeu
+        </router-link>
+        <router-link to="/admin/foil-editor" class="block px-4 py-2 rounded text-gray-300 hover:bg-gray-800 hover:text-white" active-class="bg-gray-800 text-white">
           ✨ Editeur Foil
         </router-link>
       </nav>

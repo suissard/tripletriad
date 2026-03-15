@@ -49,6 +49,7 @@ export default {
         'api::wallet.wallet.find', 'api::wallet.wallet.findOne', 'api::wallet.wallet.create', 'api::wallet.wallet.update', 'api::wallet.wallet.delete',
         'plugin::users-permissions.user.find', 'plugin::users-permissions.user.findOne', 'plugin::users-permissions.user.create', 'plugin::users-permissions.user.update', 'plugin::users-permissions.user.destroy',
         'api::foil-effect.foil-effect.find', 'api::foil-effect.foil-effect.findOne', 'api::foil-effect.foil-effect.create', 'api::foil-effect.foil-effect.update', 'api::foil-effect.foil-effect.delete',
+        'api::game-config.game-config.find', 'api::game-config.game-config.update', 'api::game-config.game-config.create', 'api::game-config.game-config.delete',
       ];
 
       for (const action of adminActions) {
