@@ -92,6 +92,15 @@ function onDragEnd() {
   pointer-events: none;
 }
 
+@media (max-width: 900px) {
+  .player-hand {
+    padding: 6px 8px;
+    gap: 4px;
+    border-radius: 10px;
+    width: 100%;
+  }
+}
+
 .hand-cards {
   display: flex;
   gap: 12px;
@@ -99,11 +108,23 @@ function onDragEnd() {
   align-items: center;
 }
 
+@media (max-width: 900px) {
+  .hand-cards {
+    gap: 4px;
+  }
+}
+
 .hand-card-slot {
   position: relative;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   border-radius: 10px;
+}
+
+@media (max-width: 900px) {
+  .hand-card-slot :deep(.tt-card) {
+    transform: scale(0.85);
+  }
 }
 
 .hand-card-slot:hover:not(.is-unaffordable) {

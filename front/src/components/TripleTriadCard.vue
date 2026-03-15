@@ -71,7 +71,7 @@
 
           <!-- Element badges -->
           <div class="card-elements" v-if="cardElementsList.length">
-            <ElementIcon v-for="el in cardElementsList" :key="el" :element="el" :active="props.elementActive" class="element-icon" />
+            <ElementIcon v-for="el in cardElementsList" :key="el" :element="el" :active="elementActive" class="element-icon" />
           </div>
 
           <!-- Selected check -->
@@ -194,6 +194,7 @@
 <script setup>
 import { computed, ref, useAttrs, watch } from "vue";
 import AnimatedCardBack from "./AnimatedCardBack.vue";
+import ElementIcon from "./ElementIcon.vue";
 import { state } from '../game/state.js';
 import { useUserStore } from '../stores/userStore.js';
 
@@ -218,7 +219,7 @@ const props = defineProps({
 ,
   elementActive: {
     type: Boolean,
-    default: false
+    default: true
   }
 });
 
@@ -655,7 +656,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   align-content: flex-end; /* Align columns to the right */
   justify-content: flex-start; /* Align items to the bottom (because of column-reverse) */
   gap: 0.3em;
-  z-index: 4;
+  z-index: 10;
 }
 
 .element-icon {

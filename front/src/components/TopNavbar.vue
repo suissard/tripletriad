@@ -17,23 +17,32 @@
 
     <div class="navbar-content">
       <!-- Left Menu Toggle Removed -->
-      <HoloButton width="auto" @click="isQuestModalOpen = true">
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <span style="font-size: 1.2rem;">📜</span>
-          <span class="username" style="display: none;">Quêtes</span>
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <HoloButton width="auto" @click="isQuestModalOpen = true">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 1.2rem;">📜</span>
+            <span class="username" style="display: none;">Quêtes</span>
+          </div>
+        </HoloButton>
+
+        <!-- Offline Indicator -->
+        <div v-if="userStore.isOffline" class="offline-indicator">
+          <span class="blink-dot"></span>
+          <span class="offline-text">HORS LIGNE</span>
         </div>
-      </HoloButton>
+      </div>
       
       <!-- Title -->
       <div class="app-title">Terra Nullius</div>
 
-      <!-- Right User Widget -->
-      <HoloButton width="auto" @click="toggleRightDrawer">
+      <!-- Right User Widget (Hidden if offline) -->
+      <HoloButton v-if="!userStore.isOffline" width="auto" @click="toggleRightDrawer">
         <div style="display: flex; align-items: center; gap: 10px;">
           <span class="username">{{ userStore.user?.username || 'Joueur Anonyme' }}</span>
           <img :src="userStore.user?.avatar" class="avatar" alt="User Avatar" />
         </div>
       </HoloButton>
+      <div v-else style="width: 120px;"></div> <!-- Spacer to keep title centered -->
     </div>
   </div>
 </template>
@@ -207,5 +216,38 @@ function toggleRightDrawer() {
   border-radius: 50%;
   background: #111;
   border: 2px solid #00d2ff;
+}
+
+.offline-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 0, 0, 0.1);
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 50, 50, 0.3);
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+}
+
+.offline-text {
+  color: #ff4444;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.blink-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #ff4444;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #ff0000;
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
 }
 </style>

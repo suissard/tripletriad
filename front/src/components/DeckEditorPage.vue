@@ -121,6 +121,7 @@ function closeDeckEditor() {
 }
 
 function isOwned(cardId) {
+  if (!userStore.strapiConnected) return true; // Offline: all cards owned
   return userStore.collection.some(c => c.cardId === cardId);
 }
 

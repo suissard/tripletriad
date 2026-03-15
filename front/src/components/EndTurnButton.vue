@@ -27,6 +27,8 @@ const isReady = computed(() => {
   return !affordableCard;
 });
 
+import { sendGameLog } from '../game/logger.js';
+
 const onEndTurn = async () => {
   if (state.turn !== 'player') return;
 
@@ -34,6 +36,8 @@ const onEndTurn = async () => {
     const confirm = await confirmAction('Fin de Tour', 'Il vous reste du Mana et des cartes jouables. Êtes-vous sûr de vouloir terminer votre tour ?');
     if (!confirm) return;
   }
+
+  sendGameLog('click', { type: 'player', id: state.pId }, { bouton: 'fin_de_tour' });
 
   handleEndTurn();
 };

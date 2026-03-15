@@ -7,12 +7,19 @@ export default factories.createCoreController('api::wallet.wallet', ({ strapi })
       return ctx.unauthorized('You must be logged in to access your wallet');
     }
 
-    const wallet = await strapi.db.query('api::wallet.wallet').findOne({
+    let wallet = await strapi.db.query('api::wallet.wallet').findOne({
       where: { user: user.id },
     });
-
+    
     if (!wallet) {
-      return ctx.notFound('Wallet not found for this user');
+      wallet = await strapi.entityService.create('api::wallet.wallet', {
+        data: {
+          user: user.id,
+          coins: 100, // Initial coins
+          gems: 0,
+          dust: 0
+        }
+      });
     }
 
     return { data: wallet };

@@ -69,7 +69,7 @@
 <script setup>
 import { onMounted, onBeforeUnmount, watch } from 'vue';
 import { state, refillHand, resetGame } from '../game/state.js';
-import { initGameListeners, cleanupGameListeners } from '../game/game-actions.js';
+import { initGameListeners, cleanupGameListeners, aiPlay } from '../game/game-actions.js';
 import ScorePanel from './ScorePanel.vue';
 import GameBoard from './GameBoard.vue';
 import PlayerHand from './PlayerHand.vue';
@@ -113,6 +113,10 @@ function startGame() {
     } else {
         refillHand('ai');
         refillHand('player');
+    }
+
+    if (!state.online && state.turn === 'ai') {
+        setTimeout(aiPlay, 1000);
     }
 }
 
@@ -244,24 +248,24 @@ onBeforeUnmount(() => {
   .game-layout {
     flex-direction: column;
     align-items: center;
-    padding: 10px;
-    gap: 10px;
+    justify-content: center;
+    padding: 2px;
+    gap: 4px;
+    overflow: hidden;
   }
 
   .side-panel {
     flex-direction: row;
     min-width: unset;
-    max-width: unset;
     width: 100%;
     justify-content: center;
+    gap: 8px;
+    padding: 5px;
   }
 
-  .left-panel, .right-panel {
-    align-items: center;
-  }
-
-  .center-column {
-    max-width: 100%;
+  .arena {
+    transform: scale(0.85);
+    margin: -15px 0;
   }
 }
 </style>

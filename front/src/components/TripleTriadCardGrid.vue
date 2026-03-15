@@ -1,17 +1,18 @@
 <template>
-  <div class="tt-card-grid-container" ref="gridContainer">
-    <div class="tt-card-grid" :style="gridStyle">
+  <div class="tt-card-grid-container" :class="{ 'is-horizontal': horizontal }" ref="gridContainer">
+    <div class="tt-card-grid" :class="{ 'is-horizontal': horizontal }" :style="gridStyle">
       <TripleTriadCard
-        v-for="card in paginatedCards"
-        :key="card.id || card.name"
+        v-for="(card, index) in paginatedCards"
+        :key="card.id || card.name || index"
         :card="card"
         :size="cardSize"
         :quantity="showOwnNum && card.quantity !== undefined ? card.quantity : 0"
         :selected="selectedCards.has(card.id || card.name)"
         :unowned="card.quantity === 0"
         :disableZoom="true"
-        @left-click="handleCardAction('left-click', card)"
-        @right-click="handleCardAction('right-click', card)"
+        :faceDown="card.faceDown"
+        @left-click="handleCardAction('left-click', card, index)"
+        @right-click="handleCardAction('right-click', card, index)"
         @long-left-click="handleCardAction('long-left-click', card)"
         @long-right-click="handleCardAction('long-right-click', card)"
       />
@@ -38,7 +39,9 @@ const props = defineProps({
   fitOnColumn: { type: Boolean, default: false },
   showOwnNum: { type: Boolean, default: false },
   selectable: { type: Boolean, default: false },
-  maxSelection: { type: Number, default: null } // Optional: limit selection
+  maxSelection: { type: Number, default: null }, // Optional: limit selection
+  cardSize: { type: String, default: null }, // Explicit size override
+  horizontal: { type: Boolean, default: false } // New horizontal layout 
 });
 
 const emit = defineEmits([
@@ -76,14 +79,14 @@ const toggleSelection = (card) => {
   emit('update:selected-cards', selectedObjects);
 };
 
-const handleCardAction = (action, card) => {
+const handleCardAction = (action, card, index) => {
   // If we left-click and selection is enabled, handle selection
   if (action === 'left-click' && props.selectable) {
     toggleSelection(card);
   }
 
   // Always forward the specific event
-  emit(action, card);
+  emit(action, card, index);
 };
 
 // --- Pagination ---
@@ -150,15 +153,32 @@ onUnmounted(() => {
 const gridStyle = computed(() => {
   const style = {};
 
-  if (props.cardsPerRow) {
+  // Define gap
+  const gap = '15px';
+  style.gap = gap;
+
+  if (props.horizontal) {
+    style.gridAutoFlow = 'column';
+    style.gridAutoColumns = 'min-content';
+    style.justifyContent = 'start';
+  } else if (props.cardsPerRow) {
     style.gridTemplateColumns = `repeat(${props.cardsPerRow}, 1fr)`;
   } else {
+    // Determine card width for the grid
+    const sizeMap = {
+      xs: 70,
+      sm: 90,
+      md: 150,
+      lg: 180,
+      xl: 350
+    };
+    
+    const activeSize = props.cardSize || cardSize.value;
+    const cardWidth = sizeMap[activeSize] || 150;
+    
     // Adaptive columns based on card size if rows not specified
-    style.gridTemplateColumns = `repeat(auto-fill, minmax(var(--tt-grid-card-min-width, 100px), 1fr))`;
+    style.gridTemplateColumns = `repeat(auto-fill, minmax(${cardWidth}px, 1fr))`;
   }
-
-  // Define gap
-  style.gap = '15px';
 
   return style;
 });
@@ -168,6 +188,8 @@ const gridStyle = computed(() => {
 // xs: ~40px width, sm: ~70px width, md: ~100px width, lg: ~150px width, xl: ~200px width
 // We'll estimate the required width and map it.
 const cardSize = computed(() => {
+  if (props.cardSize) return props.cardSize;
+  
   if (!props.fitOnRow && !props.fitOnColumn) {
     return 'md'; // Default fallback
   }
@@ -214,7 +236,13 @@ const cardSize = computed(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: hidden; /* Prevent scroll if we are fitting, otherwise parent can handle it */
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+}
+
+.tt-card-grid-container.is-horizontal {
+  align-items: start;
 }
 
 .tt-card-grid {
@@ -222,6 +250,12 @@ const cardSize = computed(() => {
   width: 100%;
   justify-content: center;
   align-content: start;
+}
+
+.tt-card-grid.is-horizontal {
+  width: auto;
+  justify-content: start;
+  padding: 20px;
 }
 
 .pagination-controls {

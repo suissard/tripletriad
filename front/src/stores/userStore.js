@@ -17,8 +17,13 @@ export const useUserStore = defineStore('user', {
     collection: [],
     userDecks: [],
     quests: [],
-    strapiConnected: false
+    strapiConnected: false,
+    hasEverConnected: false
   }),
+
+  getters: {
+    isOffline: (state) => !state.strapiConnected
+  },
 
   actions: {
     setAuth(jwt, user) {
@@ -89,7 +94,6 @@ export const useUserStore = defineStore('user', {
       if (!this.isLoggedIn) return;
       try {
         const result = await strapiService.find('user-cards', {
-          filters: { user: { id: this.user.id } },
           populate: ['card'],
           pagination: { pageSize: 1000 }
         });
@@ -111,14 +115,14 @@ export const useUserStore = defineStore('user', {
           this.syncLocalUserWallets();
         }
         this.strapiConnected = true;
+        this.hasEverConnected = true;
       } catch (e) {
+        console.error('Collection sync failed, falling back to mock', e);
+        this.collection = strapiMock.getOfflineCollection();
         if (e.status === 401) {
           console.warn('Session expired (401). Logging out.');
           this.logout();
-          return;
         }
-        console.error('Collection sync failed', e);
-        this.strapiConnected = false;
       }
     },
 
@@ -130,7 +134,6 @@ export const useUserStore = defineStore('user', {
       if (!this.isLoggedIn) return;
       try {
         const result = await strapiService.find('decks', {
-          filters: { user: { id: this.user.id } },
           populate: ['cards']
         });
         const items = this.toArray(result);
@@ -142,14 +145,11 @@ export const useUserStore = defineStore('user', {
           cards: (item.cards || []).map(c => c.id)
         }));
       } catch (e) {
+        console.error('Decks sync failed, falling back to mock', e);
+        this.userDecks = strapiMock.getOfflineUserDecks();
         if (e.status === 401) {
-          console.warn('Session expired (401). Logging out.');
           this.logout();
-          return;
         }
-        console.error('Decks sync failed', e);
-        this.strapiConnected = false;
-        this.userDecks = [];
       }
     },
 
@@ -157,7 +157,6 @@ export const useUserStore = defineStore('user', {
       if (!this.isLoggedIn) return;
       try {
         const result = await strapiService.find('player-quests', {
-          filters: { user: { id: this.user.id } },
           populate: ['quest_template']
         });
         const items = this.toArray(result);
@@ -172,6 +171,7 @@ export const useUserStore = defineStore('user', {
         }));
       } catch (e) {
         console.error('Quests sync failed', e);
+        this.quests = [];
       }
     },
 
@@ -191,7 +191,6 @@ export const useUserStore = defineStore('user', {
       try {
         const payload = {
           name: deck.name,
-          user: this.user.id,
           cover: deck.cover,
           cards: deck.cards,
           cardBack: deck.cardBack || 'default'
@@ -335,6 +334,52 @@ export const useUserStore = defineStore('user', {
         gems: this.user.gems
       };
       localStorage.setItem('tt_user', JSON.stringify(updatedUser));
+    },
+
+    async checkStrapiConnection() {
+      // If we already connected once in the session, we consider ourselves online permanently
+      if (this.hasEverConnected) {
+          this.strapiConnected = true;
+          return true;
+      }
+
+      try {
+        // Base check: is the server alive?
+        const baseCheck = await fetch(`${strapiService.BASE_URL.replace('/api', '')}/admin/init`, { 
+          method: 'HEAD',
+          cache: 'no-cache'
+        });
+        
+        if (!baseCheck.ok && baseCheck.status >= 500) {
+            this.strapiConnected = false;
+            return false;
+        }
+
+        // If logged in, do a deep check
+        if (this.isLoggedIn) {
+          try {
+            const me = await strapiService.request('GET', '/users/me');
+            if (me && !me.error) {
+              this.strapiConnected = true;
+              this.hasEverConnected = true;
+              this.fetchUserCollection();
+              this.fetchUserDecks();
+              this.fetchUserQuests();
+              return true;
+            }
+          } catch (e) {
+            console.warn('Authenticated connection check failed', e);
+            // Don't set strapiConnected to false yet, fallback to public check success
+          }
+        }
+
+        this.strapiConnected = true;
+        this.hasEverConnected = true;
+        return true;
+      } catch (e) {
+        this.strapiConnected = false;
+        return false;
+      }
     }
   }
 });

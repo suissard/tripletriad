@@ -114,7 +114,7 @@
 
          <TripleTriadCardGrid
       :cards="filteredCardLibrary.map(c => ({...c, quantity: getOwnedQuantity(c.id), isPremium: isOwnedPremium(c.id)}))"
-      cardSize="m"
+      cardSize="md"
       :showOwnNum="true"
       @card-left-click="c => openCardDetail(c)"
     />
@@ -425,12 +425,12 @@ watch([searchQuery, filterRarity, filterFaction, filterType, selectedManaCosts, 
 });
 
 function isOwned(cardId) {
-  // If we are overriding auth or want to test, we might bypass. But usually check userStore.collection
-  // Wait, if not logged in, technically they own 0. But let's allow viewing.
+  if (!userStore.strapiConnected) return true;
   return userStore.collection.some(c => c.cardId === cardId);
 }
 
 function getOwnedQuantity(cardId) {
+  if (!userStore.strapiConnected) return 99;
   const owned = userStore.collection.find(c => c.cardId === cardId);
   return owned ? owned.quantity : 0;
 }

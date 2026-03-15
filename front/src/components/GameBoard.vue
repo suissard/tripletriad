@@ -113,6 +113,15 @@ async function triggerPlacement(index) {
   margin: 0 auto;
 }
 
+@media (max-width: 900px) {
+  .game-board {
+    gap: 8px;
+    padding: 10px;
+    max-width: 320px;
+    border-radius: 10px;
+  }
+}
+
 .board-slot {
   position: relative;
   border-radius: 10px;

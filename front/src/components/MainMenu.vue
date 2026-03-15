@@ -9,7 +9,11 @@
       <HoloButton width="100%" @click="openDecks">MES DECKS 🎴</HoloButton>
       <HoloButton width="100%" @click="openBoutique">BOUTIQUE 💎</HoloButton>
       <HoloButton width="100%" @click="router.push('/test-card')" style="margin-top:20px; background:linear-gradient(45deg, #f093fb 0%, #f5576c 100%)">TESTER LA CARTE 🧪</HoloButton>
+      <HoloButton width="100%" @click="router.push('/test-coin')" style="margin-top:10px; background:linear-gradient(45deg, #84fab0 0%, #8fd3f4 100%)">TESTER LA PIÈCE 🪙</HoloButton>
     </div>
+    
+    <!-- Coin Toss Overlay -->
+    <CoinToss v-if="state.showCoinToss" :result="state.coinTossResult" @finished="onCoinTossFinished" />
 
     <div v-else-if="state.menuView === 'ai'" class="deck-selection-menu">
       <h2 style="color: white; margin-bottom: 1.5rem;">CHOISIS TON DECK</h2>
@@ -97,6 +101,7 @@ import { ref, reactive, onMounted, onUnmounted } from 'vue';
 
 import { state, webrtc, resetGame, initOnlineTurnManager, getCardById, normalizeCard, refillHand, cardLibrary } from '../game/state.js';
 import HoloButton from './HoloButton.vue';
+import CoinToss from './CoinToss.vue';
 import { useUserStore } from '../stores/userStore.js';
 
 const userStore = useUserStore();
@@ -126,28 +131,52 @@ function startAiGame(deck) {
     return;
   }
   
-  // 1. Reset everything to a clean state
-  resetGame(30, false); 
-  
   state.online = false;
   state.aiDifficulty = 1;
   
-  // 2. Give AI a random 5-card deck and draw its starting hand
-  const aiCards = [];
+  const playerDeck = deck.cards.map(id => normalizeCard(getCardById(id)));
+  
+  // Generate random AI deck
+  const aiDeck = [];
   for (let i = 0; i < 5; i++) {
     const randomCard = cardLibrary[Math.floor(Math.random() * cardLibrary.length)];
-    aiCards.push(normalizeCard(randomCard));
+    aiDeck.push(normalizeCard(randomCard));
   }
-  state.deck = aiCards;
-  refillHand('ai'); // AI hand is now initialized (3 cards)
   
-  // 3. Set the remaining deck to the player's chosen cards
-  const playerDeck = deck.cards.map(id => normalizeCard(getCardById(id)));
-  state.deck = playerDeck;
+  // Determine starting player and show Coin Toss
+  const startingTurn = Math.random() < 0.5 ? 'player' : 'ai';
+  state.coinTossResult = startingTurn;
+  state.showCoinToss = true;
   
-  // 4. Enter the game
-  state.gameState = 'playing';
-  router.push('/game');
+  // The actual match start will be handled after the coin toss animation
+  state.pendingAiGame = async () => {
+    state.gameState = 'playing';
+    resetGame(30, false, startingTurn);
+    
+    // Initialize AI match in backend for logging
+    await import('../game/state.js').then(m => m.initAIMatch());
+
+    // Draw AI hand first
+    state.deck = aiDeck;
+    refillHand('ai');
+
+    // Then set and draw player hand
+    state.deck = playerDeck;
+    refillHand('player');
+
+    router.push('/game');
+  };
+}
+
+function onCoinTossFinished() {
+  state.showCoinToss = false;
+  if (state.pendingAiGame) {
+    state.pendingAiGame();
+    state.pendingAiGame = null;
+  } else if (state.pendingMultiGame) {
+    state.pendingMultiGame();
+    state.pendingMultiGame = null;
+  }
 }
 
 const multiState = reactive({
@@ -194,38 +223,50 @@ function startMultiGame(deck) {
 
 const handleNetworkMessage = (msg) => {
     if (msg.type === 'init') {
-      // Do not overwrite our own deck in multiplayer! 
-      // We already selected it in `startMultiGame`.
+      const startingPlayer = msg.startingPlayer || 'PLAYER_1';
+      initOnlineTurnManager(false, startingPlayer);
       
-      initOnlineTurnManager(false); // Guest
-      
-      // Give AI (Opponent) a dummy hand
       state.aiHand = [ { id: 'dummy', revealed: false }, { id: 'dummy', revealed: false }, { id: 'dummy', revealed: false } ];
 
-      state.gameState = 'playing';
-      state.leftDrawerOpen = false; // Auto close drawer
-      // Le Host a l'UUID dans sa session
-      router.push({ path: '/game', query: { match: multiState.uuid || multiState.joinUuid } });
+      const localIsStarting = startingPlayer === 'PLAYER_2'; // Guest is PLAYER_2
+      state.coinTossResult = localIsStarting ? 'player' : 'ai';
+      state.showCoinToss = true;
+
+      state.pendingMultiGame = () => {
+        state.gameState = 'playing';
+        router.push({ path: '/game', query: { match: multiState.uuid || multiState.joinUuid } });
+      };
     }
   };
 
 onMounted(() => {
+  state.gameState = 'menu';
+  state.menuView = 'main';
+
   webrtc.onConnected = () => {
     state.aiDifficulty = 1;
 
     if (webrtc.isHost) {
-      initOnlineTurnManager(true); // Host
-      
-      // Give AI (Opponent) a dummy hand
-      state.aiHand = [ { id: 'dummy', revealed: false }, { id: 'dummy', revealed: false }, { id: 'dummy', revealed: false } ];
+      // For Host, we might need to fetch the match from server to get the random startingPlayer
+      fetch(`${webrtc.strapiUrl}/api/webrtc/matches/${multiState.uuid}`)
+        .then(res => res.json())
+        .then(response => {
+          const startingPlayer = response.data?.startingPlayer || 'PLAYER_1';
+          initOnlineTurnManager(true, startingPlayer);
+          
+          state.aiHand = [ { id: 'dummy', revealed: false }, { id: 'dummy', revealed: false }, { id: 'dummy', revealed: false } ];
 
-      state.gameState = 'playing';
-      state.leftDrawerOpen = false; // Auto close drawer
-      
-      // Update UI to keep the UUID param
-      router.push({ path: '/game', query: { match: multiState.uuid } });
-      
-      webrtc.sendMessage({ type: 'init' });
+          const localIsStarting = startingPlayer === 'PLAYER_1'; // Host is PLAYER_1
+          state.coinTossResult = localIsStarting ? 'player' : 'ai';
+          state.showCoinToss = true;
+
+          state.pendingMultiGame = () => {
+            state.gameState = 'playing';
+            router.push({ path: '/game', query: { match: multiState.uuid } });
+          };
+          
+          webrtc.sendMessage({ type: 'init', startingPlayer });
+        });
     }
   };
   

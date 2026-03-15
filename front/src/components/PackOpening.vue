@@ -83,23 +83,19 @@
     </div>
 
     <!-- Cards Display -->
-    <div v-if="packOpened" class="relative z-10 w-full overflow-x-auto pb-16 mt-4 custom-scrollbar">
-      <div class="flex justify-center items-center gap-12 md:gap-24 px-12 md:px-32 min-w-full animate-cards-entry">
-        <div
-          v-for="(card, index) in drawnCards"
-          :key="index"
-          class="card-wrapper"
-          :style="{ '--delay': index * 0.1 + 's' }"
-        >
-          <TripleTriadCard
-            :card="{ ...card, rarity: card.drawnRarity || card.rarity, isPremium: card.isDrawnPremium }"
-            :faceDown="!isFlipped[index]"
-            @click="flipCard(index)"
-            size="220"
-            :class="[getGlowClass(card.drawnRarity || card.rarity), 'rounded-[1rem] transition-shadow duration-500']"
-          />
-        </div>
-      </div>
+    <div v-if="packOpened" class="relative z-10 w-full mt-4 flex justify-center overflow-hidden">
+      <TripleTriadCardGrid
+        :cards="drawnCards.map((c, i) => ({ 
+          ...c, 
+          rarity: c.drawnRarity || c.rarity, 
+          isPremium: c.isDrawnPremium,
+          faceDown: !isFlipped[i]
+        }))"
+        horizontal
+        cardSize="xl"
+        @left-click="(card, index) => flipCard(index)"
+        class="booster-grid-override"
+      />
     </div>
 
     <!-- Actions Footer -->
@@ -137,6 +133,7 @@ import TripleTriadCard from './TripleTriadCard.vue';
 import { state } from '../game/state.js';
 import { useUserStore } from '../stores/userStore.js';
 import strapiMock from '../api/strapiMock.js';
+import TripleTriadCardGrid from './TripleTriadCardGrid.vue';
 const userStore = useUserStore();
 
 const emit = defineEmits(['close']);
@@ -165,7 +162,8 @@ const handlePackPurchase = (type) => {
 
 const openPack = async () => {
   const currency = selectedPackType.value === 'premium' ? 'gems' : 'coins';
-  if (wallet.value[currency] < 100) {
+
+  if (userStore.strapiConnected && wallet.value[currency] < 100) {
     errorMessage.value = `Pas assez de ${currency === 'gems' ? 'gemmes' : 'pièces'} !`;
     setTimeout(() => errorMessage.value = '', 3000);
     return;
@@ -385,23 +383,24 @@ const getGlowClass = (rarity) => {
   box-shadow: 0 0 100px rgba(59, 130, 246, 0.2);
 }
 
-/* Card Presentation */
-.card-wrapper {
-  width: 220px;
-  height: 308px;
-  perspective: 1500px;
-  animation: bounce-in 0.8s backwards;
-  animation-delay: var(--delay);
-  flex-shrink: 0;
-  margin: 60px 30px; /* More vertical space and adequate horizontal space for glow */
+
+.booster-grid-override {
+  padding: 40px 20px 100px 20px;
+  max-width: 100vw;
 }
 
+:deep(.booster-grid-override .tt-card) {
+  border-radius: 1rem;
+  transition: box-shadow 0.5s;
+}
+
+:deep(.booster-grid-override .rarity-common) { box-shadow: 0 0 15px rgba(255,255,255,0.1); }
+:deep(.booster-grid-override .rarity-uncommon) { box-shadow: 0 0 20px 5px rgba(76, 175, 80, 0.2); }
+:deep(.booster-grid-override .rarity-rare) { box-shadow: 0 0 25px 6px rgba(59, 130, 246, 0.3), inset 0 0 10px rgba(59, 130, 246, 0.2); }
+:deep(.booster-grid-override .rarity-epic) { box-shadow: 0 0 35px 8px rgba(168, 85, 247, 0.4), inset 0 0 15px rgba(168, 85, 247, 0.2); }
+:deep(.booster-grid-override .rarity-legendary) { box-shadow: 0 0 40px 10px rgba(250, 204, 21, 0.5), inset 0 0 20px rgba(250, 204, 21, 0.3); }
+
 @media (max-width: 768px) {
-  .card-wrapper {
-    width: 180px;
-    height: 252px;
-  }
-  
   .text-7xl { font-size: 3.5rem; }
   .booster-card { width: 260px; height: 390px; }
   .booster-icon { font-size: 6rem; }
@@ -417,12 +416,6 @@ const getGlowClass = (rarity) => {
 
 
 
-/* Glow Effects - Optimized and padded */
-.glow-legendary { box-shadow: 0 0 40px 10px rgba(250, 204, 21, 0.5), inset 0 0 20px rgba(250, 204, 21, 0.3); }
-.glow-epic { box-shadow: 0 0 35px 8px rgba(168, 85, 247, 0.4), inset 0 0 15px rgba(168, 85, 247, 0.2); }
-.glow-rare { box-shadow: 0 0 25px 6px rgba(59, 130, 246, 0.3), inset 0 0 10px rgba(59, 130, 246, 0.2); }
-.glow-uncommon { box-shadow: 0 0 20px 5px rgba(76, 175, 80, 0.2); }
-.glow-common { box-shadow: 0 0 15px rgba(255,255,255,0.1); }
 
 /* Custom Scrollbar */
 .custom-scrollbar::-webkit-scrollbar {

@@ -4,7 +4,7 @@ import { WebRTCManager } from './WebRTCManager.js';
 import { TurnManager } from './TurnManager.js';
 import { GameEngine } from './GameEngine.js';
 import { gameEvents } from './events.js';
-import cardsData from '../data/cards.json';
+import cardsData from '../../../shared/data/cards.json';
 import strapiService from '../api/strapi.js';
 
 export const cardLibrary = cardsData;
@@ -56,6 +56,40 @@ export const createCardData = (i) => normalizeCard({
     img: `https://api.dicebear.com/9.x/bottts/png?seed=${i * 42}&backgroundColor=transparent`
 });
 
+/**
+ * Wraps and normalizes board entries from either local {data, owner} format
+ * or raw GameEngine card format.
+ */
+function normalizeBoard(board) {
+    if (!board) return Array(9).fill(null);
+    const flat = Array.isArray(board[0]) ? board.flat() : board;
+    return flat.map(entry => {
+        if (!entry) return null;
+        
+        // Case 1: Entry is { data, owner } (Local Engine format)
+        if (entry.data && entry.owner) {
+            return {
+                data: normalizeCard(entry.data),
+                owner: entry.owner
+            };
+        }
+        
+        // Case 2: Entry is a raw Card object with owner property (Multiplayer/GameEngine format)
+        if (entry.owner) {
+            return {
+                data: normalizeCard(entry),
+                owner: entry.owner
+            };
+        }
+
+        // Fallback
+        return {
+            data: normalizeCard(entry),
+            owner: entry.owner || 'player'
+        };
+    });
+}
+
 export const state = reactive({
   premiumMode: 'random', // random | image
   holoFineness: 0.05, // default texture scale for SVG filter
@@ -103,8 +137,15 @@ export const state = reactive({
     // Deck Editor Page
     editingDeck: { id: null, documentId: null, name: '', cover: null, cards: [], cardBack: 'default' },
     
+    // Logging / Match
+    matchId: null,
+
     // P2P Engine
     turnManager: null,
+
+    // Starting Flow
+    showCoinToss: false,
+    coinTossResult: 'player', // 'player' | 'ai'
 
 });
 
@@ -120,12 +161,12 @@ export function getCardById(id) {
 /**
  * Initialise le TurnManager pour une partie en ligne
  */
-export function initOnlineTurnManager(isHost) {
+export function initOnlineTurnManager(isHost, startingPlayer = 'PLAYER_1') {
     const localPlayer = isHost ? 'PLAYER_1' : 'PLAYER_2';
     
     state.turnManager = new TurnManager({
         localPlayer,
-        initialState: GameEngine.createInitialState('PLAYER_1'),
+        initialState: GameEngine.createInitialState(startingPlayer),
         
         sendNetworkMessage: (msg) => {
             webrtc.sendMessage(msg);
@@ -133,12 +174,7 @@ export function initOnlineTurnManager(isHost) {
         
         onStateUpdate: (newState) => {
             console.log("[TurnManager] State Updated:", newState);
-            // GameEngine gives us a 2D board, but Vue GameBoard expects a 1D array of 9.
-            if (Array.isArray(newState.board) && Array.isArray(newState.board[0])) {
-                state.board = newState.board.flat();
-            } else {
-                state.board = newState.board;
-            }
+            state.board = normalizeBoard(newState.board);
             
             const newTurn = newState.currentPlayer === localPlayer ? 'player' : 'ai';
             
@@ -210,11 +246,7 @@ export function hydrate(forcedState) {
     console.log("[GameManager] Hydrating state from server...", forcedState);
 
     // 1. Update Board State
-    if (Array.isArray(forcedState.board) && Array.isArray(forcedState.board[0])) {
-      state.board = forcedState.board.flat();
-    } else {
-      state.board = forcedState.board;
-    }
+    state.board = normalizeBoard(forcedState.board);
 
     // 2. Update metadata
     state.turn = forcedState.currentPlayer === 'PLAYER_1' ? 'player' : 'ai';
@@ -245,14 +277,28 @@ export function refillHand(owner) {
     }
 }
 
+// Helper to generate a UUID for AI matches
+function generateLocalUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
 // Reset the entire game state
-export function resetGame(deckSize = 30, goToMenu = true) {
+export function resetGame(deckSize = 30, goToMenu = true, forcedTurn = null) {
     initDeck(deckSize);
     state.board = Array(9).fill(null);
+    state.matchId = null;
     state.pHand = [];
     state.aiHand = [];
     state.selectedCardIndex = null;
-    state.turn = 'player';
+    
+    if (forcedTurn) {
+        state.turn = forcedTurn;
+    } else {
+        state.turn = Math.random() < 0.5 ? 'player' : 'ai';
+    }
     state.busy = false;
     state.pScore = 0;
     state.aiScore = 0;
@@ -273,6 +319,32 @@ export function resetGame(deckSize = 30, goToMenu = true) {
     state.pMana = 1;
     state.aiMana = 1;
     state.actionLog = [];
+}
+
+/**
+ * Initializes a new match ID for local AI games
+ * and saves it to the Strapi backend.
+ */
+export async function initAIMatch() {
+    state.matchId = generateLocalUUID();
+
+    try {
+        await fetch(`${strapiService.BASE_URL}/webrtc/matches`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                ...(strapiService.token ? { 'Authorization': `Bearer ${strapiService.token}` } : {})
+            },
+            body: JSON.stringify({
+                uuid: state.matchId,
+                offer: null, // No WebRTC offer needed for AI
+                users: [] // You might want to populate with the current user ID if authenticated
+            })
+        });
+        console.log(`[GameManager] AI Match Initialized with UUID: ${state.matchId}`);
+    } catch (error) {
+        console.error("[GameManager] Failed to create AI match on server", error);
+    }
 }
 
 // Confirmation System
@@ -297,6 +369,8 @@ export function resolveConfirmation(result) {
 }
 
 
+
+import { sendGameLog } from './logger.js';
 
 // --- CENTRAL EVENT LISTENERS ---
 gameEvents.on('CARD_PLACED', (payload) => {
@@ -323,4 +397,30 @@ gameEvents.on('CARD_PLACED', (payload) => {
             }
         }
     }
+
+    sendGameLog('placement',
+        { type: action.player === state.pId ? 'player' : 'ai', id: action.player },
+        { card: action.card, case: action.y * 3 + action.x }
+    );
+});
+
+gameEvents.on('CARD_CAPTURED', (payload) => {
+    sendGameLog('competence',
+        { type: payload.capturer === state.pId ? 'player' : 'ai', id: payload.capturer },
+        { count: payload.count }
+    );
+});
+
+gameEvents.on('TURN_START', (payload) => {
+    sendGameLog('turn_start',
+        { type: 'system', id: 'system' },
+        { player: payload.player }
+    );
+});
+
+gameEvents.on('GAME_OVER', (payload) => {
+    sendGameLog('game_over',
+        { type: 'system', id: 'system' },
+        { winner: payload.winner }
+    );
 });
