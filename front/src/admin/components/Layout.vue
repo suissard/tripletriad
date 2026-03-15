@@ -2,11 +2,11 @@
   <div class="flex h-screen bg-[#070715] font-sans text-[#e0e0f0]">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-[#050510] border-r border-white/5 flex flex-col shadow-2xl z-50">
+    <div class="w-64 glass-panel border-r border-white/5 flex flex-col shadow-2xl z-50">
       <div class="p-10 border-b border-white/5">
         <h1 class="text-xl font-black tracking-[0.3em] text-white flex items-center gap-3">
-          <span class="w-1.5 h-6 bg-primary rounded-full shadow-[0_0_15px_rgba(255,191,0,0.5)]"></span>
-          T.N.<span class="text-primary italic">OS</span>
+          <span class="w-1.5 h-6 bg-primary rounded-full shadow-[0_0_15px_rgba(255,191,0,0.5)]" style="background: var(--color-primary); box-shadow: 0 0 15px color-mix(in srgb, var(--color-primary) 50%, transparent);"></span>
+          T.N.<span class="text-primary italic" style="color: var(--color-primary);">OS</span>
         </h1>
       </div>
 
@@ -67,13 +67,13 @@
 
 
     <!-- Main Content -->
-    <div class="flex-1 flex flex-col overflow-hidden bg-[#0a0a1a] relative">
+    <div class="flex-1 flex flex-col overflow-hidden bg-transparent relative">
       <!-- Background Ambient Glow -->
-      <div class="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full pointer-events-none"></div>
-      <div class="absolute bottom-[-10%] left-[-10%] w-[30%] h-[30%] bg-[#00e5ff]/5 blur-[100px] rounded-full pointer-events-none"></div>
+      <div class="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] blur-[120px] rounded-full pointer-events-none" style="background: color-mix(in srgb, var(--color-primary) 10%, transparent);"></div>
+      <div class="absolute bottom-[-10%] left-[-10%] w-[30%] h-[30%] blur-[100px] rounded-full pointer-events-none" style="background: color-mix(in srgb, var(--color-secondary) 5%, transparent);"></div>
 
       <!-- Header -->
-      <header class="h-20 flex items-center justify-between px-10 z-10 border-b border-white/5 bg-transparent backdrop-blur-md">
+      <header class="h-20 flex items-center justify-between px-10 z-10 border-b border-white/5 bg-transparent backdrop-blur-md glass-panel">
         <h2 class="text-2xl font-bold text-white capitalize tracking-tight">
             {{ route.params.collection ? route.params.collection.replace('-', ' ') : 'Dashboard' }}
         </h2>
