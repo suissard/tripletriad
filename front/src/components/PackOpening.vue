@@ -83,7 +83,7 @@
     </div>
 
     <!-- Cards Display -->
-    <div v-if="packOpened" class="relative z-10 w-full mt-4 flex justify-center overflow-hidden">
+    <div v-if="packOpened" class="relative z-10 w-full mt-4 flex justify-center overflow-visible">
       <TripleTriadCardGrid
         :cards="drawnCards.map((c, i) => ({ 
           ...c, 
@@ -91,8 +91,8 @@
           isPremium: c.isDrawnPremium,
           faceDown: !isFlipped[i]
         }))"
-        horizontal
-        cardSize="xl"
+        fitOnRow
+        :cardsPerRow="5"
         @left-click="(card, index) => flipCard(index)"
         class="booster-grid-override"
       />
@@ -385,13 +385,30 @@ const getGlowClass = (rarity) => {
 
 
 .booster-grid-override {
-  padding: 40px 20px 100px 20px;
-  max-width: 100vw;
+  padding: 10px;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
 }
 
 :deep(.booster-grid-override .tt-card) {
   border-radius: 1rem;
   transition: box-shadow 0.5s;
+  /* Use fixed clamp values for card size rather than 100% width,
+     but let it grow up to 280px max */
+  width: clamp(60px, 18vw, 220px) !important;
+  aspect-ratio: 2.5 / 3.5 !important;
+  height: auto !important;
+  font-size: clamp(10px, 1.5vw, 24px) !important;
+}
+
+/* Ensuring inner wrapper scales properly inside the overridden card */
+:deep(.booster-grid-override .tt-card-inner) {
+  width: 100%;
+  height: 100%;
 }
 
 :deep(.booster-grid-override .rarity-common) { box-shadow: 0 0 15px rgba(255,255,255,0.1); }
