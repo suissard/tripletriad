@@ -21,6 +21,11 @@ const router = createRouter({
           component: () => import('../views/DashboardView.vue')
         },
         {
+          path: 'foil-editor',
+          name: 'foil-editor',
+          component: () => import('../views/FoilEditorView.vue')
+        },
+        {
           path: ':collection',
           name: 'dynamic-editor',
           component: () => import('../components/DynamicEditor.vue')

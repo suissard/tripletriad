@@ -548,6 +548,42 @@ export interface ApiDeckDeck extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiFoilEffectFoilEffect extends Struct.CollectionTypeSchema {
+  collectionName: 'foil_effects';
+  info: {
+    description: 'Premium foil effects configuration for cards';
+    displayName: 'FoilEffect';
+    pluralName: 'foil-effects';
+    singularName: 'foil-effect';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    card: Schema.Attribute.Relation<'oneToOne', 'api::card.card'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    layers: Schema.Attribute.Component<'foil.layer', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 5;
+        },
+        number
+      >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::foil-effect.foil-effect'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiGameConfigGameConfig extends Struct.SingleTypeSchema {
   collectionName: 'game_configs';
   info: {
@@ -1577,6 +1613,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::card.card': ApiCardCard;
       'api::deck.deck': ApiDeckDeck;
+      'api::foil-effect.foil-effect': ApiFoilEffectFoilEffect;
       'api::game-config.game-config': ApiGameConfigGameConfig;
       'api::game-history.game-history': ApiGameHistoryGameHistory;
       'api::match.match': ApiMatchMatch;
