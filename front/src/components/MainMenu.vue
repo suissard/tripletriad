@@ -2,14 +2,14 @@
   <div id="main-menu" v-if="state.gameState === 'menu' ">
 
     <div v-if="state.menuView === 'main'" class="menu-buttons">
-      <HoloButton width="100%" @click="openStory">MODE HISTOIRE 📖</HoloButton>
-      <HoloButton width="100%" @click="state.menuView = 'ai'">JOUER CONTRE UNE IA 🤖</HoloButton>
-      <HoloButton width="100%" @click="state.menuView = 'multi-deck'">PARTIE MULTIJOUEUR 🌍</HoloButton>
-      <HoloButton width="100%" @click="openCollection">MA COLLECTION 📚</HoloButton>
-      <HoloButton width="100%" @click="openDecks">MES DECKS 🎴</HoloButton>
-      <HoloButton width="100%" @click="openBoutique">BOUTIQUE 💎</HoloButton>
-      <HoloButton width="100%" @click="router.push('/test-card')" style="margin-top:20px; background:linear-gradient(45deg, #f093fb 0%, #f5576c 100%)">TESTER LA CARTE 🧪</HoloButton>
-      <HoloButton width="100%" @click="router.push('/test-coin')" style="margin-top:10px; background:linear-gradient(45deg, #84fab0 0%, #8fd3f4 100%)">TESTER LA PIÈCE 🪙</HoloButton>
+      <button class="btn btn-primary glass-panel w-full text-lg py-4 shadow-lg shadow-primary/20" @click="openStory">MODE HISTOIRE 📖</button>
+      <button class="btn btn-primary glass-panel w-full text-lg py-4 shadow-lg shadow-primary/20" @click="state.menuView = 'ai'">JOUER CONTRE UNE IA 🤖</button>
+      <button class="btn btn-primary glass-panel w-full text-lg py-4 shadow-lg shadow-primary/20" @click="state.menuView = 'multi-deck'">PARTIE MULTIJOUEUR 🌍</button>
+      <button class="btn btn-primary glass-panel w-full text-lg py-4 shadow-lg shadow-primary/20" @click="openCollection">MA COLLECTION 📚</button>
+      <button class="btn btn-primary glass-panel w-full text-lg py-4 shadow-lg shadow-primary/20" @click="openDecks">MES DECKS 🎴</button>
+      <button class="btn btn-primary glass-panel w-full text-lg py-4 shadow-lg shadow-primary/20" @click="openBoutique">BOUTIQUE 💎</button>
+      <button class="btn btn-accent glass-panel w-full text-lg py-4 shadow-lg shadow-accent/20" @click="router.push('/test-card')" style="margin-top:20px;">TESTER LA CARTE 🧪</button>
+      <button class="btn btn-secondary glass-panel w-full text-lg py-4 shadow-lg shadow-secondary/20" @click="router.push('/test-coin')" style="margin-top:10px;">TESTER LA PIÈCE 🪙</button>
     </div>
     
     <!-- Coin Toss Overlay -->
@@ -32,10 +32,10 @@
       </div>
       <div v-else class="no-decks">
         <p>Vous n'avez pas de deck. Créez-en un d'abord !</p>
-        <HoloButton @click="openDecks">CRÉER UN DECK</HoloButton>
+        <button class="btn btn-primary glass-panel" @click="openDecks">CRÉER UN DECK</button>
       </div>
 
-      <HoloButton @click="state.menuView = 'main'" style="margin-top: 25px;">RETOUR</HoloButton>
+      <button class="btn btn-secondary glass-panel" @click="state.menuView = 'main'" style="margin-top: 25px;">RETOUR</button>
     </div>
 
     <div v-else-if="state.menuView === 'multi-deck'" class="deck-selection-menu">
@@ -55,17 +55,17 @@
       </div>
       <div v-else class="no-decks">
         <p>Vous n'avez pas de deck. Créez-en un d'abord !</p>
-        <HoloButton @click="openDecks">CRÉER UN DECK</HoloButton>
+        <button class="btn btn-primary glass-panel" @click="openDecks">CRÉER UN DECK</button>
       </div>
 
-      <HoloButton @click="state.menuView = 'main'" style="margin-top: 25px;">RETOUR</HoloButton>
+      <button class="btn btn-secondary glass-panel" @click="state.menuView = 'main'" style="margin-top: 25px;">RETOUR</button>
     </div>
 
     <div v-else-if="state.menuView === 'multi'" class="difficulty-options multi-menu">
       <h2 style="color: white; margin-bottom: 1.5rem;">MULTIJOUEUR</h2>
       <div v-if="!multiState.hosting && !multiState.joining" class="menu-buttons multi-buttons">
-        <HoloButton width="100%" @click="hostGame">Héberger une partie</HoloButton>
-        <HoloButton width="100%" @click="multiState.joining = true">Rejoindre une partie</HoloButton>
+        <button class="btn btn-primary glass-panel w-full text-lg py-4 shadow-lg shadow-primary/20" @click="hostGame">Héberger une partie</button>
+        <button class="btn btn-primary glass-panel w-full text-lg py-4 shadow-lg shadow-primary/20" @click="multiState.joining = true">Rejoindre une partie</button>
         <p v-if="multiState.error" style="color: #ff0055; margin-top: 10px; font-weight: bold; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 5px;">
           Erreur : {{ multiState.error }}
         </p>
@@ -81,13 +81,13 @@
       <div v-else-if="multiState.joining" class="join-panel">
         <h3 style="color: white">Entrez le code de session :</h3>
         <input v-model="multiState.joinUuid" class="uuid-input" placeholder="xxxxxxxx-xxxx-..." />
-        <HoloButton @click="joinGame" class="join-btn" :disabled="multiState.loading">
+        <button class="btn btn-primary glass-panel join-btn" @click="joinGame" :disabled="multiState.loading">
           {{ multiState.loading ? 'Connexion...' : 'Rejoindre' }}
-        </HoloButton>
+        </button>
         <p v-if="multiState.error" style="color: #ff0055; margin-top: 10px;">{{ multiState.error }}</p>
       </div>
 
-      <HoloButton @click="cancelMulti" style="margin-top: 2rem;">CHANGER DE DECK</HoloButton>
+      <button class="btn btn-secondary glass-panel" @click="cancelMulti" style="margin-top: 2rem;">CHANGER DE DECK</button>
     </div>
   </div>
 </template>
@@ -100,7 +100,6 @@ const route = useRoute();
 import { ref, reactive, onMounted, onUnmounted } from 'vue';
 
 import { state, webrtc, resetGame, initOnlineTurnManager, getCardById, normalizeCard, refillHand, cardLibrary } from '../game/state.js';
-import HoloButton from './HoloButton.vue';
 import CoinToss from './CoinToss.vue';
 import { useUserStore } from '../stores/userStore.js';
 

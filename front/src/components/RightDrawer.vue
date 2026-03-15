@@ -91,11 +91,11 @@
           </div>
 
           <div class="menu-list">
-            <HoloButton text="🏠 Accueil / Menu" @click="goToHome" />
-            <HoloButton text="🤖 Jouer contre l'IA" @click="goToAiMenu" />
-            <HoloButton text="🔔 Paramètres de Notification" @click="currentView = 'notifications'" />
-            <HoloButton text="⚙️ Paramètres du Jeu" activeText="Bientôt..." />
-            <HoloButton text="📜 Historique des Matchs" activeText="Bientôt..." />
+            <button class="btn btn-secondary glass-panel w-full text-left" @click="goToHome">🏠 Accueil / Menu</button>
+            <button class="btn btn-secondary glass-panel w-full text-left" @click="goToAiMenu">🤖 Jouer contre l'IA</button>
+            <button class="btn btn-secondary glass-panel w-full text-left" @click="currentView = 'notifications'">🔔 Paramètres de Notification</button>
+            <button class="btn btn-secondary glass-panel w-full text-left opacity-50 cursor-not-allowed">⚙️ Paramètres du Jeu (Bientôt)</button>
+            <button class="btn btn-secondary glass-panel w-full text-left opacity-50 cursor-not-allowed">📜 Historique des Matchs (Bientôt)</button>
           </div>
         </template>
 
@@ -212,8 +212,8 @@
         <!-- DECKS VIEW -->
         <template v-else-if="currentView === 'decks'">
           <div v-if="!isBuilding" class="decks-view">
-            <HoloButton class="add-deck-btn" @click="startNewDeck" width="100%">+ Nouveau Deck</HoloButton>
-            <div class="decks-list">
+            <button class="btn btn-primary glass-panel w-full py-4 text-lg border-dashed border-2" @click="startNewDeck">+ Nouveau Deck</button>
+            <div class="decks-list mt-4">
               <div v-for="deck in userStore.userDecks" :key="deck.id" class="deck-row">
                 <img v-if="deck.cover" :src="getCardById(deck.cover)?.imageUrl" class="deck-cover-img" />
                 <div class="deck-info">
@@ -232,13 +232,13 @@
           <div v-else class="deck-builder">
             <div class="mana-curve-container">
 
-              <HoloButton class="toggle-curve-btn" @click="showManaCurve = !showManaCurve" width="100%" style="margin-bottom: 20px;">
+              <button class="btn btn-secondary glass-panel w-full mb-5" @click="showManaCurve = !showManaCurve">
 
                 <span v-if="showManaCurve">Masquer Courbe de Mana</span>
 
                 <span v-else>Afficher Courbe de Mana</span>
 
-              </HoloButton>
+              </button>
 
               <div v-if="showManaCurve" class="mana-histogram">
 
@@ -284,15 +284,15 @@
             </div>
 
 
-            <div class="builder-actions">
-              <HoloButton class="export-btn" @click="exportDeckCode" :disabled="editingDeck.cards.length === 0" width="100%">
+            <div class="builder-actions flex gap-2 mb-5">
+              <button class="btn btn-secondary glass-panel flex-1" @click="exportDeckCode" :disabled="editingDeck.cards.length === 0">
                 Copier le code
-              </HoloButton>
+              </button>
 
-              <HoloButton class="save-btn" :disabled="editingDeck.cards.length !== 15" @click="saveDeck" width="100%">
+              <button class="btn btn-primary glass-panel flex-1" :disabled="editingDeck.cards.length !== 15" @click="saveDeck">
                 Enregistrer
-              </HoloButton>
-              <HoloButton class="cancel-btn" @click="isBuilding = false" width="100%">Annuler</HoloButton>
+              </button>
+              <button class="btn btn-accent glass-panel flex-1" @click="isBuilding = false">Annuler</button>
             </div>
 
             <div class="builder-grid">
@@ -318,14 +318,14 @@
 
               <p v-if="authError" class="auth-error">{{ authError }}</p>
 
-              <HoloButton width="100%" @click="submitAuth" :disabled="isLoading">
+              <button class="btn btn-primary glass-panel w-full py-3" @click="submitAuth" :disabled="isLoading">
                 {{ isLoading ? 'Chargement...' : (isRegistering ? 'S\'inscrire' : 'Connexion') }}
-              </HoloButton>
+              </button>
             </form>
 
-            <HoloButton width="100%" class="switch-mode-btn" @click="toggleAuthMode">
+            <button class="btn btn-secondary glass-panel w-full mt-4 py-2" @click="toggleAuthMode">
               {{ isRegistering ? 'Déjà un compte ? Se connecter' : 'Pas de compte ? S\'inscrire' }}
-            </HoloButton>
+            </button>
           </div>
         </template>
         </div> <!-- End of .drawer-content -->
@@ -342,7 +342,6 @@ import { ref, reactive, computed, watch } from 'vue';
 
 import { state, cardLibrary, confirmAction, getCardById } from '../game/state.js';
 import TripleTriadCard from './TripleTriadCard.vue';
-import HoloButton from './HoloButton.vue';
 import strapiService from '../api/strapi.js';
 import { useUserStore } from '../stores/userStore.js';
 import { useNotificationStore } from '../stores/notificationStore.js';

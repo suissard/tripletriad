@@ -1,13 +1,13 @@
 <template>
     <div class="decks-page ui-layer" >
         <div class="page-header">
-            <button class="btn btn-primary" @click="closeDecksPage">← RETOUR</button>
+            <button class="btn btn-secondary glass-panel" @click="closeDecksPage">← RETOUR</button>
             <h2 class="page-title">MES DECKS</h2>
             <div class="header-stats">{{ userStore.userDecks.length }} / 5 Decks</div>
         </div>
 
         <div class="page-content">
-            <button class="btn btn-secondary" style="width: 100%; margin-bottom: 30px;" @click="openNewDeck" :disabled="userStore.userDecks.length >= 5">
+            <button class="btn btn-secondary glass-panel w-full py-4 mb-8 text-lg flex items-center justify-center gap-4" @click="openNewDeck" :disabled="userStore.userDecks.length >= 5">
                 <span class="new-deck-icon">+</span>
                 <span>Créer un Nouveau Deck</span>
             </button>
@@ -36,9 +36,9 @@
                         </div>
                     </div>
 
-                    <div class="deck-actions" style="display: flex; gap: 10px; padding: 10px;">
-                        <button class="btn btn-primary" style="flex: 1;" @click="openEditDeck(deck)">✏️ Éditer</button>
-                        <button class="btn btn-accent" style="flex: 1;" @click="deleteDeck(deck)">🗑️ Supprimer</button>
+                    <div class="deck-actions flex gap-2 p-2">
+                        <button class="btn btn-primary glass-panel flex-1" @click="openEditDeck(deck)">✏️ Éditer</button>
+                        <button class="btn btn-accent glass-panel flex-1" @click="deleteDeck(deck)">🗑️ Supprimer</button>
                     </div>
                 </div>
             </div>

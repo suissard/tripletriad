@@ -1,13 +1,13 @@
 <template>
   <div class="deck-editor-page ui-layer" >
     <div class="page-header">
-      <button class="back-btn" @click="closeDeckEditor">← RETOUR</button>
+      <button class="btn btn-secondary glass-panel" @click="closeDeckEditor">← RETOUR</button>
       <h2 class="page-title">{{ isNew ? 'NOUVEAU DECK' : 'ÉDITER LE DECK' }}</h2>
       <div class="header-actions">
         <span class="deck-counter" :class="{ full: state.editingDeck.cards.length === 15 }">
           {{ state.editingDeck.cards.length }} / 15
         </span>
-        <button class="save-btn" :disabled="state.editingDeck.cards.length !== 15" @click="saveDeck">
+        <button class="btn btn-primary glass-panel" :disabled="state.editingDeck.cards.length !== 15" @click="saveDeck">
           💾 Enregistrer
         </button>
       </div>
@@ -35,8 +35,8 @@
 
         <div class="import-export-row">
           <input v-model="importCode" placeholder="Coller un code..." class="import-input" />
-          <button class="action-btn" @click="importDeckCode" :disabled="!importCode">📥 Importer</button>
-          <button class="action-btn" @click="exportDeckCode" :disabled="state.editingDeck.cards.length === 0">📤
+          <button class="btn btn-secondary glass-panel px-2 text-xs" @click="importDeckCode" :disabled="!importCode">📥 Importer</button>
+          <button class="btn btn-secondary glass-panel px-2 text-xs" @click="exportDeckCode" :disabled="state.editingDeck.cards.length === 0">📤
             Copier</button>
         </div>
 
@@ -106,11 +106,11 @@
           </div>
 
           <div class="toggle-filters-row">
-            <div class="btn-toggle-mini">
+            <div class="btn-toggle-mini glass-panel">
               <button @click="filterOwnership = ''" :class="{ active: filterOwnership === '' }">Toutes</button>
               <button @click="filterOwnership = 'owned'" :class="{ active: filterOwnership === 'owned' }">Possédées</button>
             </div>
-            <div class="btn-toggle-mini">
+            <div class="btn-toggle-mini glass-panel">
               <button @click="filterPremium = ''" :class="{ active: filterPremium === '' }">✨</button>
               <button @click="filterPremium = 'premium'" :class="{ active: filterPremium === 'premium' }">⭐</button>
               <button @click="filterPremium = 'regular'" :class="{ active: filterPremium === 'regular' }">🃏</button>
