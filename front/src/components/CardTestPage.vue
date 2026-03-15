@@ -209,7 +209,7 @@ const cardData = reactive({
   rightValue: 6,
   bottomValue: 8,
   description: 'Une carte générée dynamiquement pour tester les composants Vue.',
-  img: 'https://api.dicebear.com/9.x/bottts/png?seed=TesteurSupreme&backgroundColor=transparent'
+  imageUrl: 'https://api.dicebear.com/9.x/bottts/png?seed=TesteurSupreme&backgroundColor=transparent'
 });
 
 const logs = ref([]);

@@ -6,7 +6,7 @@ import { viteSingleFile } from "vite-plugin-singlefile"
 export default defineConfig({
   plugins: [vue(), viteSingleFile()],
   build: {
-    outDir: '../', // Output directly to the parent directory
-    emptyOutDir: false // Do not empty the parent directory!
+    outDir: 'dist', // Output to dist to avoid root errors
+    emptyOutDir: true
   }
 })

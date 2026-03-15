@@ -127,15 +127,15 @@ const openBooster = async () => {
         isOpening.value = false;
         // Add revealed state to each card
         openedCards.value = (response?.cards || response?.data?.cards || []).map(c => {
-            // Normalize image: Strapi returns image.url, but TripleTriadCard expects card.img
-            let img = c.img;
-            if (!img && c.image?.url) {
-                img = c.image.url.startsWith('http') ? c.image.url : `http://localhost:1337${c.image.url}`;
+            // Normalize image: Strapi returns image.url, but TripleTriadCard expects card.imageUrl
+            let imageUrl = c.img || c.imageUrl;
+            if (!imageUrl && c.image?.url) {
+                imageUrl = c.image.url.startsWith('http') ? c.image.url : `http://localhost:1337${c.image.url}`;
             }
-            if (!img) {
-                img = `https://api.dicebear.com/9.x/bottts/png?seed=${encodeURIComponent(c.name)}&backgroundColor=transparent`;
+            if (!imageUrl) {
+                imageUrl = `https://api.dicebear.com/9.x/bottts/png?seed=${encodeURIComponent(c.name)}&backgroundColor=transparent`;
             }
-            return {...c, img, revealed: false};
+            return {...c, imageUrl, revealed: false};
         });
         userCoins.value = response?.coins || response?.data?.coins || 0;
         emit('update-coins', userCoins.value);

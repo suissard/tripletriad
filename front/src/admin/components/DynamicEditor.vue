@@ -46,8 +46,9 @@
       <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-2xl relative">
         <h2 class="text-2xl font-bold mb-4">{{ currentItem.id || currentItem.documentId ? 'Éditer' : 'Créer' }} {{ collectionName }}</h2>
 
-        <form @submit.prevent="saveItem" class="space-y-4 max-h-96 overflow-y-auto pr-4">
-          <div v-for="field in formFields" :key="field.name" class="flex flex-col mb-4">
+        <div class="flex gap-6">
+          <div class="flex-1 space-y-4 max-h-[60vh] overflow-y-auto pr-4">
+            <div v-for="field in formFields" :key="field.name" class="flex flex-col mb-4">
             <label :for="field.name" class="text-sm font-semibold text-gray-600 capitalize mb-1">{{ field.name }}</label>
 
             <template v-if="field.type === 'string' || field.type === 'email' || field.type === 'password'">
@@ -76,16 +77,31 @@
               </div>
             </template>
 
-            <!-- Fallback pour les types complexes / relations simples -->
-            <template v-else>
-              <input type="text"
-                     v-model="formData[field.name]"
-                     :id="field.name"
-                     placeholder="Valeur (relation ou json)"
-                     class="p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500">
-            </template>
+              <!-- Fallback pour les types complexes / relations simples -->
+              <template v-else>
+                <input type="text"
+                       v-model="formData[field.name]"
+                       :id="field.name"
+                       placeholder="Valeur (relation ou json)"
+                       class="p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500">
+              </template>
+            </div>
           </div>
-        </form>
+
+          <!-- Dynamic Card Preview -->
+          <div v-if="collectionName === 'cards'" class="w-64 flex-shrink-0 flex flex-col items-center justify-start border-l border-gray-200 pl-6">
+            <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Aperçu</h3>
+            <TripleTriadCard
+              :card="{
+                ...formData,
+                imageUrl: formData.imageUrl || `https://api.dicebear.com/9.x/bottts/png?seed=${(formData.id || 0) * 42}&backgroundColor=transparent`
+              }"
+              size="lg"
+              :disableZoom="true"
+              class="shadow-xl"
+            />
+          </div>
+        </div>
 
         <div class="flex justify-end space-x-4 mt-6 border-t pt-4">
           <button type="button" @click="closeModal" class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">Annuler</button>
@@ -100,6 +116,7 @@
 import { ref, watch, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import strapiService from '../api/strapi';
+import TripleTriadCard from '../../components/TripleTriadCard.vue';
 
 const route = useRoute();
 const collectionName = ref('');

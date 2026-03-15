@@ -38,7 +38,7 @@ export function normalizeCard(raw) {
         rightValue: raw.rightValue ?? (raw.right === 10 ? 'A' : String(raw.right)),
         bottomValue: raw.bottomValue ?? (raw.bottom === 10 ? 'A' : String(raw.bottom)),
         leftValue: raw.leftValue ?? (raw.left === 10 ? 'A' : String(raw.left)),
-        img: raw.img || `https://api.dicebear.com/9.x/bottts/png?seed=${raw.id * 42}&backgroundColor=transparent`,
+        imageUrl: raw.imageUrl || raw.img || `https://api.dicebear.com/9.x/bottts/png?seed=${raw.id * 42}&backgroundColor=transparent`,
         revealed: raw.revealed !== undefined ? raw.revealed : true,
         isPremium: raw.isPremium || false,
         rarity: raw.rarity || null
@@ -53,7 +53,7 @@ export const createCardData = (i) => normalizeCard({
     right: Math.floor(Math.random() * 10) + 1,
     bottom: Math.floor(Math.random() * 10) + 1,
     left: Math.floor(Math.random() * 10) + 1,
-    img: `https://api.dicebear.com/9.x/bottts/png?seed=${i * 42}&backgroundColor=transparent`
+    imageUrl: `https://api.dicebear.com/9.x/bottts/png?seed=${i * 42}&backgroundColor=transparent`
 });
 
 /**

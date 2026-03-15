@@ -63,7 +63,7 @@ export async function placeCard(slotIndex) {
             card: {
                 id: card.id,
                 name: card.name,
-                img: card.img,
+                imageUrl: card.img || card.imageUrl,
                 isPremium: card.isPremium,
                 rarity: card.rarity,
                 level: card.level,
