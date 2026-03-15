@@ -56,7 +56,7 @@
         <!-- CARD CONTENT (Unified layout) -->
         <template v-if="card.revealed !== false || $attrs.forceFace">
           <!-- Card image -->
-          <img :src="card.img || `https://api.dicebear.com/9.x/bottts/png?seed=${(card.id || 0) * 42}&backgroundColor=transparent`" class="card-img" :alt="card.name" />
+          <img :src="card.imageUrl || `https://api.dicebear.com/9.x/bottts/png?seed=${(card.id || 0) * 42}&backgroundColor=transparent`" class="card-img" :alt="card.name" />
 
           <!-- Name bar -->
           <div class="card-name-bar">{{ card.name }}</div>
@@ -133,7 +133,7 @@
               </template>
 
               <!-- Card face (Always revealed in zoom) -->
-              <img v-if="card.img" :src="card.img" class="card-img" :alt="card.name" />
+              <img v-if="card.imageUrl || card.img" :src="card.imageUrl || card.img" class="card-img" :alt="card.name" />
               <div class="card-name-bar">{{ card.name }}</div>
               <div class="card-stats-cross">
                 <span class="stat stat-top">{{ card.topValue }}</span>

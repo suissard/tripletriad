@@ -187,7 +187,7 @@
                   <div class="card-name">{{ card.name }}</div>
                   <div class="card-level">Lvl {{ card.level }}</div>
                 </div>
-                <img :src="card.img" class="card-img" />
+                <img :src="card.imageUrl" class="card-img" />
                 <div class="card-stats">
                   <span>{{ card.topValue }}</span>
                   <span>{{ card.rightValue }}</span>
@@ -215,7 +215,7 @@
             <HoloButton class="add-deck-btn" @click="startNewDeck" width="100%">+ Nouveau Deck</HoloButton>
             <div class="decks-list">
               <div v-for="deck in userStore.userDecks" :key="deck.id" class="deck-row">
-                <img v-if="deck.cover" :src="getCardById(deck.cover)?.img" class="deck-cover-img" />
+                <img v-if="deck.cover" :src="getCardById(deck.cover)?.imageUrl" class="deck-cover-img" />
                 <div class="deck-info">
                   <span class="deck-name">{{ deck.name }}</span>
                   <span class="deck-count">{{ deck.cards.length }} cartes</span>
