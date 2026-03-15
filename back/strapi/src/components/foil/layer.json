@@ -1,0 +1,54 @@
+{
+  "collectionName": "components_foil_layers",
+  "info": {
+    "displayName": "Layer",
+    "description": "A single holographic foil layer configuration"
+  },
+  "options": {},
+  "attributes": {
+    "enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "targetColor": {
+      "type": "string",
+      "default": "#cc3333"
+    },
+    "sensitivity": {
+      "type": "decimal",
+      "default": 0.3
+    },
+    "tolerance": {
+      "type": "decimal",
+      "default": 0.2
+    },
+    "foilColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "holoIntensity": {
+      "type": "decimal",
+      "default": 1.2
+    },
+    "foilScale": {
+      "type": "decimal",
+      "default": 4.0
+    },
+    "foilAngle": {
+      "type": "integer",
+      "default": 0
+    },
+    "foilMode": {
+      "type": "integer",
+      "default": 0
+    },
+    "foilSpeed": {
+      "type": "decimal",
+      "default": 1.0
+    },
+    "drawData": {
+      "type": "text",
+      "description": "Base64 encoded mask image"
+    }
+  }
+}

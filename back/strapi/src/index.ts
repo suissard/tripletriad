@@ -48,6 +48,7 @@ export default {
         'api::quest-template.quest-template.find', 'api::quest-template.quest-template.findOne', 'api::quest-template.quest-template.create', 'api::quest-template.quest-template.update', 'api::quest-template.quest-template.delete',
         'api::wallet.wallet.find', 'api::wallet.wallet.findOne', 'api::wallet.wallet.create', 'api::wallet.wallet.update', 'api::wallet.wallet.delete',
         'plugin::users-permissions.user.find', 'plugin::users-permissions.user.findOne', 'plugin::users-permissions.user.create', 'plugin::users-permissions.user.update', 'plugin::users-permissions.user.destroy',
+        'api::foil-effect.foil-effect.find', 'api::foil-effect.foil-effect.findOne', 'api::foil-effect.foil-effect.create', 'api::foil-effect.foil-effect.update', 'api::foil-effect.foil-effect.delete',
       ];
 
       for (const action of adminActions) {
@@ -80,6 +81,8 @@ export default {
         // Standard Find/FindOne
         'api::card.card.find',
         'api::card.card.findOne',
+        'api::foil-effect.foil-effect.find',
+        'api::foil-effect.foil-effect.findOne',
         'api::deck.deck.find',
         'api::deck.deck.findOne',
         'api::deck.deck.create',
