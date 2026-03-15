@@ -614,6 +614,15 @@ export interface ApiGameConfigGameConfig extends Struct.SingleTypeSchema {
         number
       > &
       Schema.Attribute.DefaultTo<15>;
+    colorAccent: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'#FFFF00'>;
+    colorPrimary: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'#FFBF00'>;
+    colorSecondary: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'#0033ff'>;
     craftingRatios: Schema.Attribute.JSON &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<{

@@ -26,7 +26,21 @@ import strapiService from './api/strapi.js';
 
 console.warn('--- TRIPLE TRIAD: FRONTEND LOADED (VERSION: VUE_UI_REVAMP) ---');
 
-onMounted(() => {
+onMounted(async () => {
+  try {
+    const config = await strapiService.getGameConfig();
+    if (config) {
+      document.documentElement.style.setProperty('--color-primary', config.colorPrimary || '#FFBF00');
+      document.documentElement.style.setProperty('--color-secondary', config.colorSecondary || '#0033ff');
+      document.documentElement.style.setProperty('--color-accent', config.colorAccent || '#FFFF00');
+    }
+  } catch (err) {
+    console.error('Failed to load theme colors', err);
+    document.documentElement.style.setProperty('--color-primary', '#FFBF00');
+    document.documentElement.style.setProperty('--color-secondary', '#0033ff');
+    document.documentElement.style.setProperty('--color-accent', '#FFFF00');
+  }
+
   const userStore = useUserStore();
 initNotificationManager();
   userStore.restoreAuth();
