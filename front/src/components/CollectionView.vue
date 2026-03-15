@@ -193,7 +193,7 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 
-import { ref, computed, watch, reactive } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 import PageLayout from './PageLayout.vue';
 import { state, cardLibrary, getCardById } from '../game/state.js';
