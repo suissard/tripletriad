@@ -17,6 +17,12 @@ export const generateQuestTemplates = async (strapi) => {
 
   const elementBaseQuest = { codePrefix: 'PLAY_ELEMENT', title: 'Jouer {x} carte(s) {element}', desc: 'Placez des cartes de l\'élément {element} sur le plateau', baseTarget: 8, eventType: 'play_card_element' };
 
+  // Optimization: Fetch all existing template codes once to avoid N+1 queries
+  const existingTemplates = await strapi.entityService.findMany('api::quest-template.quest-template', {
+    fields: ['code']
+  });
+  const existingCodes = new Set(existingTemplates.map((t: any) => t.code));
+
   for (const duration of durations) {
     // Generate base quests
     for (const base of baseQuests) {
@@ -24,11 +30,7 @@ export const generateQuestTemplates = async (strapi) => {
       const target = base.baseTarget * duration.multiplier;
       const rewardCoins = 100 * duration.multiplier;
 
-      const existing = await strapi.entityService.findMany('api::quest-template.quest-template', {
-        filters: { code }
-      });
-
-      if (existing.length === 0) {
+      if (!existingCodes.has(code)) {
         await strapi.entityService.create('api::quest-template.quest-template', {
           data: {
             code,
@@ -48,11 +50,7 @@ export const generateQuestTemplates = async (strapi) => {
       const target = elementBaseQuest.baseTarget * duration.multiplier;
       const rewardCoins = 100 * duration.multiplier;
 
-      const existing = await strapi.entityService.findMany('api::quest-template.quest-template', {
-        filters: { code }
-      });
-
-      if (existing.length === 0) {
+      if (!existingCodes.has(code)) {
         await strapi.entityService.create('api::quest-template.quest-template', {
           data: {
             code,
