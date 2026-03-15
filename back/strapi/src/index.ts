@@ -43,14 +43,26 @@ export default {
     }
 
     if (boAdminRole) {
-      const adminActions = [
-        'api::card.card.find', 'api::card.card.findOne', 'api::card.card.create', 'api::card.card.update', 'api::card.card.delete',
-        'api::quest-template.quest-template.find', 'api::quest-template.quest-template.findOne', 'api::quest-template.quest-template.create', 'api::quest-template.quest-template.update', 'api::quest-template.quest-template.delete',
-        'api::wallet.wallet.find', 'api::wallet.wallet.findOne', 'api::wallet.wallet.create', 'api::wallet.wallet.update', 'api::wallet.wallet.delete',
-        'plugin::users-permissions.user.find', 'plugin::users-permissions.user.findOne', 'plugin::users-permissions.user.create', 'plugin::users-permissions.user.update', 'plugin::users-permissions.user.destroy',
-        'api::foil-effect.foil-effect.find', 'api::foil-effect.foil-effect.findOne', 'api::foil-effect.foil-effect.create', 'api::foil-effect.foil-effect.update', 'api::foil-effect.foil-effect.delete',
-        'api::game-config.game-config.find', 'api::game-config.game-config.update', 'api::game-config.game-config.create', 'api::game-config.game-config.delete',
-      ];
+      // Dynamically get all available actions for all APIs and Plugins
+      const permissionsService = strapi.plugin('users-permissions').service('users-permissions');
+      const allPermissions = await permissionsService.getActions();
+      
+      const adminActions = [];
+
+      // allPermissions is an object where keys are 'api::...', 'plugin::...', etc.
+      for (const sectionKey of Object.keys(allPermissions)) {
+        const section = allPermissions[sectionKey];
+        if (section.controllers) {
+          for (const controllerKey of Object.keys(section.controllers)) {
+            const controller = section.controllers[controllerKey];
+            for (const actionKey of Object.keys(controller)) {
+              adminActions.push(`${sectionKey}.${controllerKey}.${actionKey}`);
+            }
+          }
+        }
+      }
+
+      console.log(`Setting up ${adminActions.length} permissions for Admin role...`);
 
       for (const action of adminActions) {
         const existingPermission = await strapi.entityService.findMany('plugin::users-permissions.permission', {
@@ -63,6 +75,7 @@ export default {
           });
         }
       }
+      console.log('✅ Admin Role permissions updated.');
     }
 
     // 1. Setup Permissions

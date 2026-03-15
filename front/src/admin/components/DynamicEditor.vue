@@ -1,114 +1,149 @@
 <template>
-  <div class="p-6 bg-gray-50 min-h-screen">
-    <div class="flex justify-between items-center mb-6">
-      <h1 class="text-3xl font-bold text-gray-800 capitalize">Gestion des {{ collectionName }}</h1>
-      <button @click="openModal()" class="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700">
-        + Nouveau
+  <div class="min-h-screen">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+      <div>
+        <h1 class="text-4xl font-extrabold text-white tracking-tight mb-2 capitalize">Gestion des {{ collectionName }}</h1>
+        <p class="text-gray-400 text-sm">Consultez, ajoutez ou modifiez les entrées de la collection {{ collectionName }}.</p>
+      </div>
+      <button @click="openModal()" class="btn btn-primary min-w-[160px] h-12 shadow-lg shadow-primary/20">
+        <span class="mr-2 text-xl">+</span> Nouveau
       </button>
     </div>
 
-    <div v-if="loading" class="text-gray-500">Chargement...</div>
-    <div v-else-if="error" class="text-red-500">Erreur: {{ error }}</div>
+    <transition name="fade">
+      <div v-if="loading" class="flex flex-col items-center justify-center py-20">
+        <div class="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin mb-4"></div>
+        <p class="text-gray-500 font-medium">Chargement des données...</p>
+      </div>
+      <div v-else-if="error" class="mb-8 p-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-400 flex items-center gap-3">
+        <span>⚠️</span> {{ error }}
+      </div>
 
-    <div v-else class="bg-white rounded-lg shadow overflow-x-auto">
-      <table class="min-w-full leading-normal">
-        <thead>
-          <tr>
-            <th v-for="col in columns" :key="col" class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-              {{ col }}
-            </th>
-            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-              Actions
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in items" :key="item.id || item.documentId" class="hover:bg-gray-50">
-            <td v-for="col in columns" :key="col" class="px-5 py-5 border-b border-gray-200 text-sm max-w-xs truncate">
-              {{ formatValue(item[col]) }}
-            </td>
-            <td class="px-5 py-5 border-b border-gray-200 text-sm">
-              <button @click="openModal(item)" class="text-blue-600 hover:text-blue-900 mr-4 font-semibold">Éditer</button>
-              <button @click="deleteItem(item)" class="text-red-600 hover:text-red-900 font-semibold">Supprimer</button>
-            </td>
-          </tr>
-          <tr v-if="items.length === 0">
-            <td :colspan="columns.length + 1" class="px-5 py-5 border-b border-gray-200 text-sm text-center text-gray-500">
-              Aucun élément trouvé.
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <div v-else class="glass-panel rounded-3xl overflow-hidden">
+        <div class="overflow-x-auto custom-scrollbar">
+          <table class="min-w-full border-collapse">
+            <thead>
+              <tr class="border-b border-white/5 bg-white/2">
+                <th v-for="col in columns" :key="col" class="px-8 py-5 text-left text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                  {{ col }}
+                </th>
+                <th class="px-8 py-5 text-right text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5">
+              <tr v-for="item in items" :key="item.id || item.documentId" class="group hover:bg-white/[0.03] transition-colors">
+                <td v-for="col in columns" :key="col" class="px-8 py-5 text-sm">
+                  <span class="text-gray-300 font-medium">{{ formatValue(item[col]) }}</span>
+                </td>
+                <td class="px-8 py-5 text-right space-x-3">
+                  <button @click="openModal(item)" class="text-primary hover:text-white text-xs font-bold uppercase tracking-widest transition-colors">Éditer</button>
+                  <button @click="deleteItem(item)" class="text-red-500/50 hover:text-red-500 text-xs font-bold uppercase tracking-widest transition-colors">Supprimer</button>
+                </td>
+              </tr>
+              <tr v-if="items.length === 0">
+                <td :colspan="columns.length + 1" class="px-8 py-10 text-center text-gray-500 italic">
+                  Aucun élément trouvé dans cette collection.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </transition>
 
     <!-- Modal pour Création / Édition -->
-    <div v-if="isModalOpen" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex justify-center items-center z-50">
-      <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-2xl relative">
-        <h2 class="text-2xl font-bold mb-4">{{ currentItem.id || currentItem.documentId ? 'Éditer' : 'Créer' }} {{ collectionName }}</h2>
+    <transition name="modal">
+      <div v-if="isModalOpen" class="fixed inset-0 z-[100] flex items-center justify-center p-6">
+        <div class="absolute inset-0 bg-[#050510]/80 backdrop-blur-sm" @click="closeModal"></div>
+        
+        <div class="glass-panel w-full max-w-4xl rounded-[40px] shadow-2xl relative z-10 overflow-hidden flex flex-col md:flex-row max-h-[90vh]">
+          
+          <!-- Modal Body -->
+          <div class="flex-1 p-10 overflow-y-auto custom-scrollbar">
+            <h2 class="text-3xl font-black text-white mb-8 tracking-tight">
+              {{ currentItem.id || currentItem.documentId ? 'Éditer' : 'Créer' }} {{ collectionName.slice(0, -1) }}
+            </h2>
 
-        <div class="flex gap-6">
-          <div class="flex-1 space-y-4 max-h-[60vh] overflow-y-auto pr-4">
-            <div v-for="field in formFields" :key="field.name" class="flex flex-col mb-4">
-            <label :for="field.name" class="text-sm font-semibold text-gray-600 capitalize mb-1">{{ field.name }}</label>
+            <div class="space-y-6">
+              <div v-for="field in formFields" :key="field.name" class="setting-group">
+                <label :for="field.name">{{ field.name }}</label>
 
-            <template v-if="field.type === 'string' || field.type === 'email' || field.type === 'password'">
-              <input :type="field.type === 'password' ? 'password' : (field.type === 'email' ? 'email' : 'text')"
-                     v-model="formData[field.name]"
-                     :id="field.name"
-                     class="p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500">
-            </template>
+                <template v-if="field.type === 'select'">
+                  <PremiumSelect
+                    v-model="formData[field.name]"
+                    :options="field.options"
+                    :placeholder="'Choisir ' + field.name + '...'"
+                  />
+                </template>
 
-            <template v-else-if="field.type === 'number'">
-              <input type="number"
-                     v-model.number="formData[field.name]"
-                     :id="field.name"
-                     class="p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500">
-            </template>
-
-            <template v-else-if="field.type === 'text'">
-              <textarea v-model="formData[field.name]"
+                <template v-else-if="field.type === 'string' || field.type === 'email' || field.type === 'password'">
+                  <input :type="field.type === 'password' ? 'password' : (field.type === 'email' ? 'email' : 'text')"
+                        v-model="formData[field.name]"
                         :id="field.name"
-                        class="p-2 border border-gray-300 rounded h-24 focus:ring-blue-500 focus:border-blue-500"></textarea>
-            </template>
+                        class="focus:ring-2 focus:ring-primary/20 outline-none">
+                </template>
 
-            <template v-else-if="field.type === 'boolean'">
-              <div class="flex items-center">
-                <input type="checkbox" v-model="formData[field.name]" :id="field.name" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                <template v-else-if="field.type === 'number'">
+                  <input type="number"
+                        v-model.number="formData[field.name]"
+                        :id="field.name"
+                        class="focus:ring-2 focus:ring-primary/20 outline-none">
+                </template>
+
+                <template v-else-if="field.type === 'text'">
+                  <textarea v-model="formData[field.name]"
+                            :id="field.name"
+                            rows="4"
+                            class="focus:ring-2 focus:ring-primary/20 outline-none"></textarea>
+                </template>
+
+
+                <template v-else-if="field.type === 'boolean'">
+                  <div class="flex items-center pt-2">
+                    <label class="relative inline-flex items-center cursor-pointer">
+                      <input type="checkbox" v-model="formData[field.name]" class="sr-only peer">
+                      <div class="w-11 h-6 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                      <span class="ml-3 text-sm font-medium text-gray-400 capitalize">{{ formData[field.name] ? 'Activé' : 'Désactivé' }}</span>
+                    </label>
+                  </div>
+                </template>
+
+                <template v-else>
+                  <input type="text"
+                        v-model="formData[field.name]"
+                        :id="field.name"
+                        placeholder="Valeur complexe (JSON)">
+                </template>
               </div>
-            </template>
+            </div>
 
-              <!-- Fallback pour les types complexes / relations simples -->
-              <template v-else>
-                <input type="text"
-                       v-model="formData[field.name]"
-                       :id="field.name"
-                       placeholder="Valeur (relation ou json)"
-                       class="p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500">
-              </template>
+            <div class="flex justify-end gap-4 mt-12 pt-8 border-t border-white/5">
+              <button @click="closeModal" class="btn btn-secondary px-8">Annuler</button>
+              <button @click="saveItem" class="btn btn-primary px-8">Enregistrer</button>
             </div>
           </div>
 
-          <!-- Dynamic Card Preview -->
-          <div v-if="collectionName === 'cards'" class="w-64 flex-shrink-0 flex flex-col items-center justify-start border-l border-gray-200 pl-6">
-            <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Aperçu</h3>
-            <TripleTriadCard
-              :card="{
-                ...formData,
-                imageUrl: formData.imageUrl || `https://api.dicebear.com/9.x/bottts/png?seed=${(formData.id || 0) * 42}&backgroundColor=transparent`
-              }"
-              size="lg"
-              :disableZoom="true"
-              class="shadow-xl"
-            />
+          <!-- Dynamic Sidebar Preview (Only for Cards) -->
+          <div v-if="collectionName === 'cards'" class="w-full md:w-80 bg-white/[0.02] border-l border-white/5 p-10 flex flex-col items-center justify-center gap-6">
+            <h3 class="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">Aperçu de la Carte</h3>
+            <div class="scale-110">
+              <TripleTriadCard
+                :card="{
+                  ...formData,
+                  imageUrl: formData.imageUrl || `https://api.dicebear.com/9.x/bottts/png?seed=${(formData.id || 0) * 42}&backgroundColor=transparent`
+                }"
+                size="md"
+                :disableZoom="true"
+                class="shadow-2xl shadow-primary/10"
+              />
+            </div>
+            <p class="text-[10px] text-gray-500 text-center italic mt-4 px-4">L'aperçu se met à jour en temps réel lors de la modification des champs.</p>
           </div>
         </div>
-
-        <div class="flex justify-end space-x-4 mt-6 border-t pt-4">
-          <button type="button" @click="closeModal" class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">Annuler</button>
-          <button type="button" @click="saveItem" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Enregistrer</button>
-        </div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -117,6 +152,7 @@ import { ref, watch, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import strapiService from '../api/strapi';
 import TripleTriadCard from '../../components/TripleTriadCard.vue';
+import PremiumSelect from './PremiumSelect.vue';
 
 const route = useRoute();
 const collectionName = ref('');
@@ -129,7 +165,6 @@ const currentItem = ref({});
 const formData = ref({});
 const formFields = ref([]);
 
-// Liste des champs à ignorer lors de l'édition automatique
 const ignoredFields = ['id', 'documentId', 'createdAt', 'updatedAt', 'publishedAt', 'provider', 'resetPasswordToken', 'confirmationToken'];
 
 const loadData = async () => {
@@ -141,10 +176,8 @@ const loadData = async () => {
     const res = await strapiService.request('GET', `/${collectionName.value}`);
     if (res.error) throw new Error(res.error.message || `Failed to fetch ${collectionName.value}`);
 
-    // Support Strapi v4/v5 format
     const dataArray = Array.isArray(res) ? res : (res.data || []);
     items.value = dataArray.map(item => {
-        // Flatten attributes for v4/v5 if they exist
         if (item.attributes) {
             return { id: item.id, ...item.attributes };
         }
@@ -152,13 +185,12 @@ const loadData = async () => {
     });
 
     if (items.value.length > 0) {
-      // Déterminer les colonnes basées sur le premier objet
       const sample = items.value[0];
       columns.value = Object.keys(sample).filter(k =>
         typeof sample[k] !== 'object' &&
         k !== 'password' &&
         !ignoredFields.includes(k)
-      ).slice(0, 5); // Max 5 colonnes pour la lisibilité
+      ).slice(0, 5);
     } else {
         columns.value = [];
     }
@@ -177,24 +209,57 @@ const formatValue = (val) => {
   return val;
 };
 
-// Inférer le type de champ basé sur la clé
 const inferType = (key, value) => {
     const lKey = key.toLowerCase();
+    if (lKey === 'rarity' || lKey === 'rareté') return 'select';
+    if (lKey === 'element' || lKey === 'élément') return 'select';
     if (lKey.includes('password')) return 'password';
     if (lKey.includes('email')) return 'email';
     if (typeof value === 'number') return 'number';
     if (typeof value === 'boolean') return 'boolean';
-    if (typeof value === 'string' && value.length > 100) return 'text'; // textarea
+    if (typeof value === 'string' && value.length > 100) return 'text';
     if (lKey.includes('description') || lKey.includes('content')) return 'text';
     return 'string';
+};
+
+const getOptionsForField = (key) => {
+  const lKey = key.toLowerCase();
+  if (lKey === 'rarity' || lKey === 'rareté') {
+    return [
+      { label: 'Commune', value: 'Common' },
+      { label: 'Peu Commune', value: 'Uncommon' },
+      { label: 'Rare', value: 'Rare' },
+      { label: 'Épique', value: 'Epic' },
+      { label: 'Légendaire', value: 'Legendary' }
+    ];
+  }
+  if (lKey === 'element' || lKey === 'élément') {
+    return [
+      { label: 'Aucun', value: 'none' },
+      { label: 'Neutre', value: 'neutre' },
+      { label: 'Feu', value: 'feu' },
+      { label: 'Eau', value: 'eau' },
+      { label: 'Terre', value: 'terre' },
+      { label: 'Air', value: 'air' },
+      { label: 'Foudre', value: 'foudre' },
+      { label: 'Glace', value: 'glace' },
+      { label: 'Poison', value: 'poison' },
+      { label: 'Sacré', value: 'sacre' },
+      { label: 'Ténèbres', value: 'tenebres' },
+      { label: 'Radiation', value: 'radiation' },
+      { label: 'Réseau', value: 'reseau' },
+      { label: 'Spore', value: 'spore' },
+      { label: 'Furtif', value: 'furtif' },
+      { label: 'Hacking', value: 'hacking' }
+    ];
+  }
+  return [];
 };
 
 const openModal = (item = null) => {
   currentItem.value = item || {};
   formData.value = { ...currentItem.value };
 
-  // Si c'est un nouvel élément, essayer de déduire les champs du premier élément de la liste
-  // Si la liste est vide, on va devoir au moins afficher un champ "name" ou "username"
   let sourceObj = item || (items.value.length > 0 ? items.value[0] : { name: '' });
 
   formFields.value = Object.keys(sourceObj)
@@ -203,17 +268,20 @@ const openModal = (item = null) => {
       let defaultValue = '';
       if (typeof sourceObj[k] === 'number') defaultValue = 0;
       if (typeof sourceObj[k] === 'boolean') defaultValue = false;
+      const type = inferType(k, sourceObj[k]);
       return {
         name: k,
-        type: inferType(k, sourceObj[k]),
-        defaultValue: defaultValue
+        type: type,
+        defaultValue: defaultValue,
+        options: type === 'select' ? getOptionsForField(k) : []
       };
     });
 
-  // Initialiser les valeurs par défaut pour un nouvel élément
   if (!item) {
       formFields.value.forEach(f => {
-          formData.value[f.name] = f.defaultValue;
+          if (formData.value[f.name] === undefined) {
+            formData.value[f.name] = f.defaultValue;
+          }
       });
   }
 
@@ -231,11 +299,7 @@ const saveItem = async () => {
     const isUpdate = !!(currentItem.value.id || currentItem.value.documentId);
     const identifier = currentItem.value.documentId || currentItem.value.id;
 
-    // Create payload and clean empty/null values that are not supposed to be strings
     let payload = { ...formData.value };
-
-    // For users, Strapi v4/v5 expects flat data. For other collections, it expects data: {} wrapper in some API versions,
-    // but REST API v5 usually accepts { data: payload } for everything except Users-Permissions
     const isUserPlugin = collectionName.value === 'users';
 
     let res;
@@ -252,7 +316,7 @@ const saveItem = async () => {
     }
 
     closeModal();
-    loadData(); // Recharger les données
+    loadData();
   } catch (err) {
     alert("Erreur: " + err.message);
   }
@@ -275,3 +339,40 @@ onMounted(loadData);
 watch(() => route.params.collection, loadData);
 
 </script>
+
+<style scoped>
+.setting-group {
+  @apply flex flex-col gap-2;
+}
+
+.setting-group label {
+  @apply text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1;
+}
+
+.setting-group input, .setting-group textarea {
+  @apply bg-white/5 border-white/5 text-white font-medium focus:border-primary/50 transition-all rounded-2xl p-4;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+
+.modal-enter-active, .modal-leave-active {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.modal-enter-from, .modal-leave-to {
+  opacity: 0;
+  transform: scale(0.95) translateY(20px);
+}
+</style>

@@ -1,57 +1,98 @@
 <template>
-  <div class="flex h-screen bg-gray-100 font-sans">
+  <div class="flex h-screen bg-[#070715] font-sans text-[#e0e0f0]">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-gray-900 text-white flex flex-col">
-      <div class="p-6 border-b border-gray-800">
-        <h1 class="text-2xl font-bold tracking-wider">T.N. ADMIN</h1>
+    <div class="w-64 bg-[#050510] border-r border-white/5 flex flex-col shadow-2xl z-50">
+      <div class="p-10 border-b border-white/5">
+        <h1 class="text-xl font-black tracking-[0.3em] text-white flex items-center gap-3">
+          <span class="w-1.5 h-6 bg-primary rounded-full shadow-[0_0_15px_rgba(255,191,0,0.5)]"></span>
+          T.N.<span class="text-primary italic">OS</span>
+        </h1>
       </div>
 
-      <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
-        <router-link to="/admin" class="block px-4 py-2 rounded text-gray-300 hover:bg-gray-800 hover:text-white" active-class="bg-gray-800 text-white">
-          Dashboard
+      <nav class="flex-1 px-6 py-10 space-y-3 overflow-y-auto custom-scrollbar flex flex-col">
+        <router-link 
+          to="/admin" 
+          class="premium-nav-item"
+          active-class="premium-nav-item-active"
+        >
+          <span class="icon">📊</span> Dashboard
         </router-link>
 
-        <div class="pt-4 pb-2">
-          <p class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Collections</p>
+        <div class="pt-12 pb-5">
+          <p class="px-6 text-[9px] font-black uppercase tracking-premium opacity-50">Collections</p>
         </div>
 
-        <router-link v-for="col in collections" :key="col.path" :to="`/admin/${col.path}`" class="block px-4 py-2 rounded text-gray-300 hover:bg-gray-800 hover:text-white capitalize" active-class="bg-gray-800 text-white">
-          {{ col.name }}
+        <router-link 
+          v-for="col in collections" 
+          :key="col.path" 
+          :to="`/admin/${col.path}`"
+          class="premium-nav-item"
+          active-class="premium-nav-item-active"
+        >
+          <span class="icon">{{ col.icon || '📁' }}</span>
+          <span class="capitalize">{{ col.name }}</span>
         </router-link>
 
-        <div class="pt-4 pb-2">
-          <p class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Outils</p>
+        <div class="pt-12 pb-5">
+          <p class="px-6 text-[9px] font-black uppercase tracking-premium opacity-50">Visual FX & Core</p>
         </div>
-        <router-link to="/admin/game-config" class="block px-4 py-2 rounded text-gray-300 hover:bg-gray-800 hover:text-white" active-class="bg-gray-800 text-white">
-          ⚙️ Configuration Jeu
+
+        <router-link 
+          to="/admin/game-config" 
+          class="premium-nav-item"
+          active-class="premium-nav-item-active"
+        >
+          <span class="icon">⚙️</span> Configuration
         </router-link>
-        <router-link to="/admin/foil-editor" class="block px-4 py-2 rounded text-gray-300 hover:bg-gray-800 hover:text-white" active-class="bg-gray-800 text-white">
-          ✨ Editeur Foil
+
+        <router-link 
+          to="/admin/foil-editor" 
+          class="premium-nav-item"
+          active-class="premium-nav-item-active"
+        >
+          <span class="icon">✨</span> HoloEditor Pro
         </router-link>
       </nav>
 
-      <div class="p-4 border-t border-gray-800">
-        <button @click="handleLogout" class="w-full text-left px-4 py-2 text-gray-400 hover:text-white">
-          Déconnexion
+      <div class="p-8 border-t border-white/5">
+        <button @click="handleLogout" class="w-full flex items-center justify-between px-6 py-5 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-red-500/10 hover:border-red-500/20 transition-all group text-[10px] font-black uppercase tracking-widest">
+          <span class="text-gray-500 group-hover:text-red-400">Exit System</span>
+          <span class="opacity-30 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-red-400 font-bold">→</span>
         </button>
       </div>
     </div>
 
+
+
+
     <!-- Main Content -->
-    <div class="flex-1 flex flex-col overflow-hidden">
+    <div class="flex-1 flex flex-col overflow-hidden bg-[#0a0a1a] relative">
+      <!-- Background Ambient Glow -->
+      <div class="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full pointer-events-none"></div>
+      <div class="absolute bottom-[-10%] left-[-10%] w-[30%] h-[30%] bg-[#00e5ff]/5 blur-[100px] rounded-full pointer-events-none"></div>
+
       <!-- Header -->
-      <header class="bg-white shadow-sm h-16 flex items-center justify-between px-6">
-        <h2 class="text-xl font-semibold text-gray-800 capitalize">
+      <header class="h-20 flex items-center justify-between px-10 z-10 border-b border-white/5 bg-transparent backdrop-blur-md">
+        <h2 class="text-2xl font-bold text-white capitalize tracking-tight">
             {{ route.params.collection ? route.params.collection.replace('-', ' ') : 'Dashboard' }}
         </h2>
-        <div class="flex items-center">
-            <span class="text-gray-600 text-sm">{{ authStore.user?.username }}</span>
+        
+        <div class="flex items-center gap-4">
+            <div class="flex flex-col items-end">
+              <span class="text-white font-semibold text-sm">{{ authStore.user?.username }}</span>
+              <span class="text-[10px] text-primary uppercase font-bold tracking-widest">Administrator</span>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-primary to-[#e6ac00] p-[1px]">
+              <div class="w-full h-full rounded-full bg-[#0a0a1a] flex items-center justify-center overflow-hidden">
+                <img :src="`https://api.dicebear.com/9.x/bottts/png?seed=${authStore.user?.username}&backgroundColor=transparent`" class="w-8 h-8" />
+              </div>
+            </div>
         </div>
       </header>
 
       <!-- Main view -->
-      <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50">
+      <main class="flex-1 overflow-x-hidden overflow-y-auto p-10 z-10 custom-scrollbar">
         <router-view :key="route.fullPath"></router-view>
       </main>
     </div>
@@ -68,13 +109,13 @@ const router = useRouter();
 const route = useRoute();
 
 const collections = [
-  { name: 'Utilisateurs', path: 'users' },
-  { name: 'Cartes', path: 'cards' },
-  { name: 'Decks', path: 'decks' },
-  { name: 'Quêtes (Templates)', path: 'quest-templates' },
-  { name: 'Quêtes (Joueurs)', path: 'player-quests' },
-  { name: 'Boutique', path: 'shops' },
-  { name: 'Wallets', path: 'wallets' }
+  { name: 'Utilisateurs', path: 'users', icon: '👥' },
+  { name: 'Cartes', path: 'cards', icon: '🎴' },
+  { name: 'Decks', path: 'decks', icon: '🃏' },
+  { name: 'Quêtes (Templates)', path: 'quest-templates', icon: '📜' },
+  { name: 'Quêtes (Joueurs)', path: 'player-quests', icon: '⚔️' },
+  { name: 'Boutique', path: 'shops', icon: '🛒' },
+  { name: 'Wallets', path: 'wallets', icon: '💰' }
 ];
 
 const handleLogout = () => {
@@ -82,3 +123,14 @@ const handleLogout = () => {
   router.push('/login');
 };
 </script>
+
+<style scoped>
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+</style>
+

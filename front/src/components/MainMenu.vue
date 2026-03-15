@@ -243,6 +243,9 @@ onMounted(() => {
   state.gameState = 'menu';
   state.menuView = 'main';
 
+  // Ensure decks are fresh
+  userStore.fetchUserDecks();
+
   webrtc.onConnected = () => {
     state.aiDifficulty = 1;
 

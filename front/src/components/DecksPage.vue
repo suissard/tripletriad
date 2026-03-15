@@ -57,10 +57,15 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 
+import { onMounted } from 'vue';
 import { state, getCardById, confirmAction } from '../game/state.js';
 import { useUserStore } from '../stores/userStore.js';
 
 const userStore = useUserStore();
+
+onMounted(() => {
+    userStore.fetchUserDecks();
+});
 
 function closeDecksPage() {
     router.push('/');

@@ -1,124 +1,137 @@
 <template>
-  <div class="h-full bg-slate-950 text-white relative overflow-hidden font-sans">
+  <div class="h-full bg-[#0a0a1a] text-white relative overflow-hidden font-sans">
+    
+    <!-- Ambient Background Glows -->
+    <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full pointer-events-none"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 blur-[120px] rounded-full pointer-events-none"></div>
 
     <!-- Floating Toolbar -->
-    <div class="absolute top-4 left-1/2 -translate-x-1/2 bg-slate-900/90 p-2 rounded-xl border border-white/10 flex items-center gap-2 backdrop-blur-md z-20 shadow-lg">
-      <button @click="setTool('rotate')" :class="['px-4 py-1.5 rounded-lg text-xs cursor-pointer transition-colors', currentTool === 'rotate' ? 'bg-emerald-500 text-white font-bold' : 'bg-white/10 hover:bg-white/20']">🔄 3D</button>
-      <button @click="setTool('draw')" :class="['px-4 py-1.5 rounded-lg text-xs cursor-pointer transition-colors', currentTool === 'draw' ? 'bg-emerald-500 text-white font-bold' : 'bg-white/10 hover:bg-white/20']">🖌️ Pinceau</button>
-      <button @click="setTool('erase')" :class="['px-4 py-1.5 rounded-lg text-xs cursor-pointer transition-colors', currentTool === 'erase' ? 'bg-emerald-500 text-white font-bold' : 'bg-white/10 hover:bg-white/20']">🧽 Gomme</button>
+    <div class="absolute top-8 left-1/2 -translate-x-1/2 glass-panel p-2 rounded-2xl flex items-center gap-2 z-20 shadow-2xl">
+      <button @click="setTool('rotate')" :class="['px-6 py-2 rounded-xl text-xs font-bold transition-all', currentTool === 'rotate' ? 'bg-primary text-[#0a0a1a]' : 'text-gray-400 hover:text-white hover:bg-white/5']">🔄 3D VIEW</button>
+      <button @click="setTool('draw')" :class="['px-6 py-2 rounded-xl text-xs font-bold transition-all', currentTool === 'draw' ? 'bg-primary text-[#0a0a1a]' : 'text-gray-400 hover:text-white hover:bg-white/5']">🖌️ PAINT</button>
+      <button @click="setTool('erase')" :class="['px-6 py-2 rounded-xl text-xs font-bold transition-all', currentTool === 'erase' ? 'bg-primary text-[#0a0a1a]' : 'text-gray-400 hover:text-white hover:bg-white/5']">🧽 ERASE</button>
 
-      <div v-show="currentTool !== 'rotate'" class="flex items-center gap-3 border-l border-white/20 pl-3 ml-1">
-        <span class="text-xs text-slate-400 uppercase font-bold">Taille</span>
-        <input type="range" v-model="brushSize" min="5" max="150" class="w-24 accent-pink-400">
-        <button @click="fillMask('white')" class="bg-white/10 hover:bg-white/20 px-2 py-1 rounded text-xs transition-colors">⬜ Tout</button>
-        <button @click="fillMask('black')" class="bg-white/10 hover:bg-white/20 px-2 py-1 rounded text-xs transition-colors">⬛ Rien</button>
+      <div v-show="currentTool !== 'rotate'" class="flex items-center gap-4 border-l border-white/5 pl-4 ml-2">
+        <label class="text-[10px] uppercase font-black text-gray-500 tracking-widest">Brush Size</label>
+        <input type="range" v-model="brushSize" min="5" max="150" class="w-32 accent-primary h-1 bg-white/10 rounded-full appearance-none">
+        <div class="flex gap-1">
+          <button @click="fillMask('white')" class="bg-white/5 hover:bg-white/10 p-2 rounded-lg text-[10px] font-bold transition-all">FILL ALL</button>
+          <button @click="fillMask('black')" class="bg-white/5 hover:bg-white/10 p-2 rounded-lg text-[10px] font-bold transition-all">CLEAR ALL</button>
+        </div>
       </div>
     </div>
 
     <!-- Right Side Panel (Controls) -->
-    <div class="absolute top-4 right-4 bg-slate-900/90 p-4 rounded-xl border border-white/10 backdrop-blur-md w-80 z-10 max-h-[90vh] overflow-y-auto shadow-2xl custom-scrollbar">
-      <h2 class="text-xl font-bold mb-4 bg-gradient-to-r from-pink-400 to-violet-400 bg-clip-text text-transparent">
-        HoloCard Pro ✨
-      </h2>
+    <div class="absolute top-8 right-8 glass-panel p-8 rounded-[40px] w-96 z-10 max-h-[calc(100vh-64px)] overflow-y-auto shadow-2xl custom-scrollbar flex flex-col">
+      <div class="mb-10 text-center">
+        <h2 class="text-2xl font-black text-white tracking-tighter uppercase italic">HoloEditor <span class="text-primary italic">Pro</span></h2>
+        <p class="text-[10px] font-bold text-gray-500 uppercase tracking-[0.3em] mt-1 pl-1">Visual FX Engine</p>
+      </div>
 
       <!-- Card Selection -->
-      <div class="mb-4">
-        <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Sélectionner une carte</label>
-        <select v-model="selectedCardId" @change="onCardSelected" class="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-pink-400">
-          <option value="" disabled class="text-black">-- Choisir une carte --</option>
-          <option v-for="card in cards" :key="card.id" :value="card.id" class="text-black">
-            {{ card.name }} ({{ card.rarity }})
-          </option>
-        </select>
-        <div v-if="loadingCards" class="text-xs text-slate-400 mt-1">Chargement des cartes...</div>
+      <div class="mb-8">
+        <PremiumSelect
+          v-model="selectedCardId"
+          :options="cardOptions"
+          label="Sélectionner une carte"
+          placeholder="Choisir un modèle..."
+          searchable
+          @change="onCardSelected"
+        >
+          <template #icon>🎴</template>
+        </PremiumSelect>
+        <div v-if="loadingCards" class="text-[10px] text-primary/50 font-bold uppercase tracking-widest mt-2 animate-pulse">Synchronisation des cartes...</div>
       </div>
 
-      <hr class="my-4 border-white/10">
+      <div class="space-y-8">
+        <!-- Layers Management -->
+        <div class="setting-group">
+          <div class="flex justify-between items-center mb-4">
+            <label class="text-[10px] uppercase font-black text-gray-500 tracking-widest pl-1">Calques de rendu ({{ layers.length }}/5)</label>
+            <button v-if="layers.length < 5" @click="addLayer" class="text-[10px] font-bold text-primary hover:text-white transition-colors">AJOUTER +</button>
+          </div>
 
-      <!-- Layers Management -->
-      <div class="flex justify-between items-center mb-2">
-        <label class="text-xs uppercase font-bold text-slate-400">Calques (<span v-text="layers.length"></span>/5)</label>
-        <button v-if="layers.length < 5" @click="addLayer" class="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded hover:bg-emerald-500/40 transition-colors">➕ Ajouter</button>
-      </div>
-
-      <div class="flex flex-col gap-1 mb-4">
-        <div v-for="(layer, i) in layers" :key="i"
-             :class="['flex items-center border rounded-lg overflow-hidden transition-colors', i === activeLayerIndex ? 'border-pink-400 bg-pink-500/20' : 'border-transparent bg-white/5']">
-          <button @click="selectLayer(i)" :class="['flex-1 text-left px-3 py-1.5 text-xs', i === activeLayerIndex ? 'text-pink-300 font-bold' : 'text-slate-300 hover:text-white']">
-            Calque {{ i + 1 }}
-          </button>
-          <button @click="toggleLayer(i)" class="px-2 py-1.5 text-xs opacity-70 hover:opacity-100 hover:bg-white/10 transition-colors border-l border-white/10">
-            {{ layer.enabled ? '👁️' : '❌' }}
-          </button>
-          <button v-if="layers.length > 1" @click="deleteLayer(i)" class="px-2 py-1.5 text-xs opacity-70 hover:opacity-100 hover:bg-red-500/20 text-red-400 transition-colors border-l border-white/10">
-            🗑️
-          </button>
-        </div>
-      </div>
-
-      <div v-if="layers.length > 0" class="bg-white/5 p-3 rounded-lg border border-white/10">
-        <!-- Target Color -->
-        <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Couleur Cible (Masque Auto)</label>
-        <div class="flex items-center gap-2 mb-3">
-          <input type="color" v-model="activeLayer.targetColor" @input="syncUniforms" class="h-8 w-12 bg-transparent border-0 cursor-pointer p-0">
-          <button @click="pickColor" class="bg-white/10 hover:bg-white/20 p-1.5 rounded cursor-pointer transition-colors" title="Pipette">💧</button>
+          <div class="flex flex-col gap-2">
+            <div v-for="(layer, i) in layers" :key="i"
+                 :class="['flex items-center p-3 rounded-2xl transition-all border border-transparent', i === activeLayerIndex ? 'bg-white/10 border-primary/20 scale-[1.02] shadow-lg' : 'bg-white/5 opacity-60 hover:opacity-100']">
+              <button @click="selectLayer(i)" :class="['flex-1 text-left text-xs font-bold uppercase tracking-wider', i === activeLayerIndex ? 'text-white' : 'text-gray-400']">
+                Layer {{ i + 1 }}
+              </button>
+              <div class="flex items-center gap-1">
+                <button @click="toggleLayer(i)" class="p-2 hover:bg-white/10 rounded-lg transition-all text-xs">
+                  {{ layer.enabled ? '👁️' : '❌' }}
+                </button>
+                <button v-if="layers.length > 1" @click="deleteLayer(i)" class="p-2 hover:bg-red-500/20 text-red-400 rounded-lg transition-all text-xs">
+                  🗑️
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Sensibilité</label>
-        <input type="range" v-model.number="activeLayer.sensitivity" min="0.01" max="1.0" step="0.01" @input="syncUniforms" class="w-full mb-3 accent-pink-400">
+        <div v-if="layers.length > 0" class="space-y-6 pt-6 border-t border-white/5">
+          <!-- Selection & Sensitivity -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="setting-group">
+              <label>Target Color</label>
+              <div class="flex items-center gap-3">
+                <input type="color" v-model="activeLayer.targetColor" @input="syncUniforms" class="h-10 w-full bg-transparent border-0 cursor-pointer p-0 rounded-xl overflow-hidden shadow-inner">
+                <button @click="pickColor" class="bg-white/5 hover:bg-white/10 p-2.5 rounded-xl transition-all" title="Pipette">💧</button>
+              </div>
+            </div>
+            <div class="setting-group">
+              <label>Foil Mode</label>
+              <PremiumSelect
+                v-model="activeLayer.foilMode"
+                :options="foilModes"
+                @change="syncUniforms"
+              />
+            </div>
+          </div>
 
-        <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Tolérance (Softness)</label>
-        <input type="range" v-model.number="activeLayer.tolerance" min="0.01" max="0.5" step="0.01" @input="syncUniforms" class="w-full mb-4 accent-pink-400">
+          <div class="setting-group">
+            <div class="flex justify-between items-center">
+              <label>Sensibilité</label>
+              <span class="text-[10px] text-gray-500 font-bold">{{ Math.round(activeLayer.sensitivity * 100) }}%</span>
+            </div>
+            <input type="range" v-model.number="activeLayer.sensitivity" min="0.01" max="1.0" step="0.01" @input="syncUniforms" class="w-full h-1 bg-white/10 rounded-full appearance-none accent-primary">
+          </div>
 
-        <hr class="my-4 border-white/10">
+          <!-- Foil Params -->
+          <div class="setting-group">
+            <label>Teinte Holographique</label>
+            <input type="color" v-model="activeLayer.foilColor" @input="syncUniforms" class="h-10 w-full bg-transparent border-0 cursor-pointer p-0 rounded-xl overflow-hidden shadow-inner">
+          </div>
 
-        <!-- Foil Params -->
-        <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Foil : Teinte de base</label>
-        <input type="color" v-model="activeLayer.foilColor" @input="syncUniforms" class="h-8 w-full bg-transparent border-0 cursor-pointer p-0 mb-3">
+          <div class="grid grid-cols-2 gap-6">
+            <div class="setting-group">
+              <label>Intensité</label>
+              <input type="range" v-model.number="activeLayer.holoIntensity" min="0" max="3" step="0.1" @input="syncUniforms" class="w-full h-1 bg-white/10 rounded-full appearance-none accent-primary">
+            </div>
+            <div class="setting-group">
+              <label>Vitesse</label>
+              <input type="range" v-model.number="activeLayer.foilSpeed" min="0" max="5" step="0.1" @input="syncUniforms" class="w-full h-1 bg-white/10 rounded-full appearance-none accent-primary">
+            </div>
+          </div>
 
-        <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Mode de l'effet</label>
-        <select v-model.number="activeLayer.foilMode" @change="syncUniforms" class="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-sm text-white mb-3">
-          <option value="0" class="text-black">Défaut (Holographique)</option>
-          <option value="1" class="text-black">Pulsation</option>
-          <option value="2" class="text-black">Électrique</option>
-          <option value="3" class="text-black">Bords uniquement</option>
-        </select>
-
-        <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Intensité Holographique</label>
-        <input type="range" v-model.number="activeLayer.holoIntensity" min="0" max="3" step="0.1" @input="syncUniforms" class="w-full mb-3 accent-pink-400">
-
-        <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Vitesse d'animation</label>
-        <div class="flex gap-2 items-center mb-3">
-          <input type="range" v-model.number="activeLayer.foilSpeed" min="0" max="5" step="0.1" @input="syncUniforms" class="flex-1 accent-pink-400">
-          <input type="number" v-model.number="activeLayer.foilSpeed" min="0" max="5" step="0.1" @input="syncUniforms" class="w-14 bg-white/10 border-0 rounded text-center text-xs text-white p-1 focus:outline-none">
+          <div class="setting-group">
+            <label>Orientation (α)</label>
+            <div class="flex items-center gap-4">
+              <input type="range" v-model.number="activeLayer.foilAngle" min="0" max="360" step="1" @input="syncUniforms" class="flex-1 h-1 bg-white/10 rounded-full appearance-none accent-primary">
+              <span class="text-xs font-bold text-gray-400 min-w-[3ch]">{{ activeLayer.foilAngle }}°</span>
+            </div>
+          </div>
         </div>
 
-        <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Taille du grain</label>
-        <input type="range" v-model.number="activeLayer.foilScale" min="1" max="15" step="0.1" @input="syncUniforms" class="w-full mb-3 accent-pink-400">
-
-        <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Orientation (Angle)</label>
-        <div class="flex items-center gap-4 mb-2">
-          <input type="range" v-model.number="activeLayer.foilAngle" min="0" max="360" step="1" @input="syncUniforms" class="flex-1 accent-pink-400">
-          <input type="number" v-model.number="activeLayer.foilAngle" min="0" max="360" @input="syncUniforms" class="w-16 bg-white/10 border-0 rounded p-1 text-center text-sm text-white focus:outline-none">
-          <span class="text-xs text-slate-400">deg</span>
-        </div>
-      </div>
-
-      <hr class="my-4 border-white/10">
-
-      <div class="flex flex-col gap-2">
-        <button @click="saveEffect" :disabled="!selectedCardId || saving" class="w-full bg-pink-600 hover:bg-pink-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-2 px-4 rounded-lg transition-colors flex justify-center items-center gap-2">
-          <span v-if="saving" class="animate-spin inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full"></span>
-          💾 Sauvegarder l'effet
+        <button @click="saveEffect" :disabled="!selectedCardId || saving" class="btn btn-primary w-full h-14 mt-4 shadow-xl shadow-primary/20 flex items-center justify-center gap-3 text-sm">
+          <span v-if="saving" class="animate-spin">⏳</span>
+          <span class="tracking-widest font-black uppercase italic">{{ saving ? 'SAVING...' : 'SAVE FX CONFIG' }}</span>
         </button>
       </div>
-
     </div>
 
     <!-- 3D Canvas Container -->
     <div ref="canvasContainer" class="absolute inset-0 z-0 cursor-grab active:cursor-grabbing"></div>
-
-
   </div>
 </template>
 
@@ -126,7 +139,7 @@
 import { ref, reactive, computed, onMounted, onBeforeUnmount, shallowRef } from 'vue';
 import * as THREE from 'three';
 import strapiService from '../api/strapi';
-
+import PremiumSelect from '../components/PremiumSelect.vue';
 
 const MAX_LAYERS = 5;
 
@@ -255,6 +268,20 @@ const activeLayer = computed(() => layers.value[activeLayerIndex.value] || {});
 const currentTool = ref('rotate');
 const brushSize = ref(30);
 
+const foilModes = [
+  { label: 'Défaut (Holographique)', value: 0 },
+  { label: 'Pulsation', value: 1 },
+  { label: 'Électrique', value: 2 },
+  { label: 'Bords uniquement', value: 3 }
+];
+
+const cardOptions = computed(() => {
+  return cards.value.map(c => ({
+    label: `${c.name} (${c.rarity})`,
+    value: c.id
+  }));
+});
+
 // Three.js instances
 const scene = shallowRef(null);
 const camera = shallowRef(null);
@@ -311,9 +338,8 @@ async function loadCards() {
   try {
     const res = await strapiService.find('cards', { populate: 'image' });
     if (!res.error) {
-      cards.value = Array.isArray(res) ? res : (res.data || []);
-      // Map attributes flat if V4/V5
-      cards.value = cards.value.map(c => c.attributes ? { id: c.id, ...c.attributes } : c);
+      const data = Array.isArray(res) ? res : (res.data || []);
+      cards.value = data.map(c => c.attributes ? { id: c.id, ...c.attributes } : c);
     }
   } catch (err) {
     console.error("Failed to load cards", err);
@@ -326,14 +352,12 @@ async function onCardSelected() {
   const card = cards.value.find(c => c.id === selectedCardId.value);
   if (!card) return;
 
-  // Load Texture
   const imgUrl = card.image?.url
     ? `http://localhost:1337${card.image.url}`
     : 'https://images.unsplash.com/photo-1614728263952-84ea256f9679?q=80&w=1000&auto=format&fit=crop';
 
   loadTexture(imgUrl);
 
-  // Fetch existing effect
   try {
     const res = await strapiService.find('foil-effects', {
       filters: { card: card.id },
@@ -347,7 +371,6 @@ async function onCardSelected() {
       currentExistingEffectId.value = effect.id || effect.documentId;
 
       if (effect.layers && effect.layers.length > 0) {
-        // Load layers
         layers.value.forEach(l => l.texture?.dispose());
         layers.value = [];
 
@@ -429,7 +452,6 @@ async function saveEffect() {
 
     if (res && res.error) throw new Error(res.error.message || "Save failed");
 
-    // Update reference ID if newly created
     const savedData = res.data || res;
     currentExistingEffectId.value = savedData.id || savedData.documentId;
 
@@ -463,7 +485,6 @@ function initThreeJS() {
 
   textureLoader.value = new THREE.TextureLoader();
 
-  // Start loop
   animate();
 }
 
@@ -731,18 +752,19 @@ function animate() {
 </script>
 
 <style scoped>
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
+.setting-group {
+  @apply flex flex-col gap-2;
 }
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 4px;
+
+.setting-group label {
+  @apply text-[10px] font-black text-gray-500 uppercase tracking-widest pl-1;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
 }
 </style>
