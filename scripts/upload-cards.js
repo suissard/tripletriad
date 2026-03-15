@@ -1,13 +1,17 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 async function uploadCards() {
     console.log('Lecture du fichier cards.json...');
-    const cardsPath = path.join(__dirname, 'front', 'src', 'data', 'cards.json');
+    const cardsPath = path.join(__dirname, '..', 'shared', 'data', 'cards.json');
 
     if (!fs.existsSync(cardsPath)) {
         console.error('Erreur : Fichier cards.json introuvable à', cardsPath);
-        console.error('Assurez-vous de lancer ce script à la racine du projet (tripletriad/)');
+        console.error('Assurez-vous de lancer ce script à la racine du projet');
         process.exit(1);
     }
 
@@ -15,9 +19,10 @@ async function uploadCards() {
     console.log(`${cardsData.length} cartes trouvées dans le JSON.`);
 
     // --- LECTURE DU FICHIER .ENV ---
-    const envPath = path.join(__dirname, '.env');
-    let adminEmail = 'admin@gmail.com';
-    let adminPassword = 'Password1234!';
+    const envPath = path.join(__dirname, '..', '.env');
+    let adminEmail = process.env.ADMIN_EMAIL;
+    let adminPassword = process.env.ADMIN_PASSWORD;
+
     if (fs.existsSync(envPath)) {
         const envContent = fs.readFileSync(envPath, 'utf8');
         envContent.split('\n').forEach(line => {
@@ -25,10 +30,16 @@ async function uploadCards() {
             if (match) {
                 const key = match[1].trim();
                 const val = match[2].trim();
-                if (key === 'ADMIN_EMAIL') adminEmail = val;
-                if (key === 'ADMIN_PASSWORD') adminPassword = val;
+                if (key === 'ADMIN_EMAIL' && !adminEmail) adminEmail = val;
+                if (key === 'ADMIN_PASSWORD' && !adminPassword) adminPassword = val;
             }
         });
+    }
+
+    if (!adminEmail || !adminPassword) {
+        console.error('Erreur : ADMIN_EMAIL ou ADMIN_PASSWORD non défini.');
+        console.error('Veuillez les définir dans le fichier .env à la racine du projet ou via des variables d\'environnement.');
+        process.exit(1);
     }
 
     // --- AUTHENTIFICATION ADMIN STRAPI ---
