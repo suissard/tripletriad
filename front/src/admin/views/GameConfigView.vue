@@ -173,8 +173,45 @@
           </div>
         </section>
         
+        <!-- Interface UI Settings -->
+        <section class="glass-panel rounded-3xl p-8 border-accent/20 bg-accent/5 mt-8">
+          <div class="flex items-center gap-4 mb-8">
+            <div class="w-12 h-12 rounded-2xl bg-accent/20 flex items-center justify-center text-2xl">✨</div>
+            <div>
+              <h2 class="text-xl font-bold text-white">Interface</h2>
+              <p class="text-xs text-gray-400">Effets visuels et boutons.</p>
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            <div class="setting-group">
+              <label for="uiButtonHole">Taille de l'impact (Boutons)</label>
+              <div class="relative">
+                <input type="number" id="uiButtonHole" v-model.number="config.uiButtonHole" class="pr-16 text-white font-bold" min="0" max="60">
+                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-gray-500 uppercase">px</span>
+              </div>
+            </div>
+
+            <div class="setting-group">
+              <label for="uiButtonSpeed">Vitesse de réparation</label>
+              <div class="relative">
+                <input type="number" id="uiButtonSpeed" v-model.number="config.uiButtonSpeed" class="pr-16 text-white font-bold" min="0.1" max="5.0" step="0.1">
+                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-gray-500 uppercase">x</span>
+              </div>
+            </div>
+
+            <div class="setting-group">
+              <label for="uiButtonOpacity">Opacité du verre brisé</label>
+              <div class="relative">
+                <input type="number" id="uiButtonOpacity" v-model.number="config.uiButtonOpacity" class="pr-16 text-white font-bold" min="0" max="1" step="0.05">
+                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-gray-500 uppercase">alpha</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <!-- Summary Stats Card -->
-        <div class="glass-card rounded-3xl p-6 border-white/5">
+        <div class="glass-card rounded-3xl p-6 border-white/5 mt-8">
           <h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Aperçu Économique</h3>
           <div class="space-y-3">
              <div class="flex justify-between text-sm">
@@ -244,6 +281,9 @@ const loadConfig = async () => {
           probEpic: 10,
           probLegendary: 1,
           probPremium: 5,
+          uiButtonHole: 30,
+          uiButtonSpeed: 1.0,
+          uiButtonOpacity: 0.25,
           craftingRatios: {
               common: { disenchant: 10, craft: 40 },
               uncommon: { disenchant: 20, craft: 80 },
