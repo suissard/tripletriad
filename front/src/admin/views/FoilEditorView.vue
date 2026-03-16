@@ -10,122 +10,172 @@
       <button @click="setTool('rotate')" :class="['px-6 py-2 rounded-xl text-xs font-bold transition-all', currentTool === 'rotate' ? 'bg-primary text-[#0a0a1a]' : 'text-gray-400 hover:text-white hover:bg-white/5']">🔄 3D VIEW</button>
       <button @click="setTool('draw')" :class="['px-6 py-2 rounded-xl text-xs font-bold transition-all', currentTool === 'draw' ? 'bg-primary text-[#0a0a1a]' : 'text-gray-400 hover:text-white hover:bg-white/5']">🖌️ PAINT</button>
       <button @click="setTool('erase')" :class="['px-6 py-2 rounded-xl text-xs font-bold transition-all', currentTool === 'erase' ? 'bg-primary text-[#0a0a1a]' : 'text-gray-400 hover:text-white hover:bg-white/5']">🧽 ERASE</button>
-
-      <div v-show="currentTool !== 'rotate'" class="flex items-center gap-4 border-l border-white/5 pl-4 ml-2">
-        <label class="text-[10px] uppercase font-black text-gray-500 tracking-widest">Brush Size</label>
-        <input type="range" v-model="brushSize" min="5" max="150" class="w-32 accent-primary h-1 bg-white/10 rounded-full appearance-none">
-        <div class="flex gap-1">
-          <button @click="fillMask('white')" class="bg-white/5 hover:bg-white/10 p-2 rounded-lg text-[10px] font-bold transition-all">FILL ALL</button>
-          <button @click="fillMask('black')" class="bg-white/5 hover:bg-white/10 p-2 rounded-lg text-[10px] font-bold transition-all">CLEAR ALL</button>
-        </div>
-      </div>
     </div>
 
     <!-- Right Side Panel (Controls) -->
-    <div class="absolute top-8 right-8 glass-panel p-8 rounded-[40px] w-96 z-10 max-h-[calc(100vh-64px)] overflow-y-auto shadow-2xl custom-scrollbar flex flex-col">
-      <div class="mb-10 text-center">
+    <div class="absolute top-8 right-8 glass-panel p-6 rounded-[40px] w-96 z-10 max-h-[calc(100vh-64px)] overflow-y-auto shadow-2xl custom-scrollbar flex flex-col">
+      <div class="mb-6 text-center">
         <h2 class="text-2xl font-black text-white tracking-tighter uppercase italic">HoloEditor <span class="text-primary italic">Pro</span></h2>
         <p class="text-[10px] font-bold text-gray-500 uppercase tracking-[0.3em] mt-1 pl-1">Visual FX Engine</p>
       </div>
 
-      <!-- Card Selection -->
-      <div class="mb-8">
-        <PremiumSelect
-          v-model="selectedCardId"
-          :options="cardOptions"
-          label="Sélectionner une carte"
-          placeholder="Choisir un modèle..."
-          searchable
-          @change="onCardSelected"
-        >
-          <template #icon>🎴</template>
-        </PremiumSelect>
-        <div v-if="loadingCards" class="text-[10px] text-primary/50 font-bold uppercase tracking-widest mt-2 animate-pulse">Synchronisation des cartes...</div>
-      </div>
-
-      <div class="space-y-8">
-        <!-- Layers Management -->
-        <div class="setting-group">
-          <div class="flex justify-between items-center mb-4">
-            <label class="text-[10px] uppercase font-black text-gray-500 tracking-widest pl-1">Calques de rendu ({{ layers.length }}/5)</label>
-            <button v-if="layers.length < 5" @click="addLayer" class="text-[10px] font-bold text-primary hover:text-white transition-colors">AJOUTER +</button>
+      <div class="space-y-4">
+        <!-- Step 1: Card Selection -->
+        <div class="accordion-item bg-white/5 rounded-2xl overflow-hidden">
+          <button @click="toggleAccordion('card')" class="w-full flex justify-between items-center p-4 text-xs font-bold uppercase tracking-widest text-white hover:bg-white/5 transition-colors">
+            <span>1. Sélection Carte</span>
+            <span class="text-primary">{{ openAccordion === 'card' ? '▼' : '▶' }}</span>
+          </button>
+          <div v-show="openAccordion === 'card'" class="p-4 pt-0 border-t border-white/5">
+            <PremiumSelect
+              v-model="selectedCardId"
+              :options="cardOptions"
+              label="Sélectionner une carte"
+              placeholder="Choisir un modèle..."
+              searchable
+              @change="onCardSelected"
+            >
+              <template #icon>🎴</template>
+            </PremiumSelect>
+            <div v-if="loadingCards" class="text-[10px] text-primary/50 font-bold uppercase tracking-widest mt-2 animate-pulse">Synchronisation...</div>
           </div>
+        </div>
 
-          <div class="flex flex-col gap-2">
-            <div v-for="(layer, i) in layers" :key="i"
-                 :class="['flex items-center p-3 rounded-2xl transition-all border border-transparent', i === activeLayerIndex ? 'bg-white/10 border-primary/20 scale-[1.02] shadow-lg' : 'bg-white/5 opacity-60 hover:opacity-100']">
-              <button @click="selectLayer(i)" :class="['flex-1 text-left text-xs font-bold uppercase tracking-wider', i === activeLayerIndex ? 'text-white' : 'text-gray-400']">
-                Layer {{ i + 1 }}
-              </button>
-              <div class="flex items-center gap-1">
-                <button @click="toggleLayer(i)" class="p-2 hover:bg-white/10 rounded-lg transition-all text-xs">
-                  {{ layer.enabled ? '👁️' : '❌' }}
+        <!-- Step 2: Layer Management -->
+        <div class="accordion-item bg-white/5 rounded-2xl overflow-hidden">
+          <button @click="toggleAccordion('layers')" class="w-full flex justify-between items-center p-4 text-xs font-bold uppercase tracking-widest text-white hover:bg-white/5 transition-colors">
+            <span>2. Calques ({{ layers.length }}/5)</span>
+            <span class="text-primary">{{ openAccordion === 'layers' ? '▼' : '▶' }}</span>
+          </button>
+          <div v-show="openAccordion === 'layers'" class="p-4 pt-0 border-t border-white/5">
+            <div class="flex justify-end mb-2">
+              <button v-if="layers.length < 5" @click="addLayer" class="text-[10px] font-bold text-primary hover:text-white transition-colors">AJOUTER +</button>
+            </div>
+            <div class="flex flex-col gap-2">
+              <div v-for="(layer, i) in layers" :key="i"
+                   :class="['flex items-center p-3 rounded-2xl transition-all border border-transparent', i === activeLayerIndex ? 'bg-white/10 border-primary/20 scale-[1.02] shadow-lg' : 'bg-white/5 opacity-60 hover:opacity-100']">
+                <button @click="selectLayer(i)" :class="['flex-1 text-left text-xs font-bold uppercase tracking-wider', i === activeLayerIndex ? 'text-white' : 'text-gray-400']">
+                  Layer {{ i + 1 }}
                 </button>
-                <button v-if="layers.length > 1" @click="deleteLayer(i)" class="p-2 hover:bg-red-500/20 text-red-400 rounded-lg transition-all text-xs">
-                  🗑️
-                </button>
+                <div class="flex items-center gap-1">
+                  <button @click="toggleLayer(i)" class="p-2 hover:bg-white/10 rounded-lg transition-all text-xs">
+                    {{ layer.enabled ? '👁️' : '❌' }}
+                  </button>
+                  <button v-if="layers.length > 1" @click="deleteLayer(i)" class="p-2 hover:bg-red-500/20 text-red-400 rounded-lg transition-all text-xs">
+                    🗑️
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div v-if="layers.length > 0" class="space-y-6 pt-6 border-t border-white/5">
-          <!-- Selection & Sensitivity -->
-          <div class="grid grid-cols-2 gap-4">
-            <div class="setting-group">
-              <label>Target Color</label>
-              <div class="flex items-center gap-3">
-                <input type="color" v-model="activeLayer.targetColor" @input="syncUniforms" class="h-10 w-full bg-transparent border-0 cursor-pointer p-0 rounded-xl overflow-hidden shadow-inner">
-                <button @click="pickColor" class="bg-white/5 hover:bg-white/10 p-2.5 rounded-xl transition-all" title="Pipette">💧</button>
+        <div v-if="layers.length > 0" class="space-y-4">
+          <!-- Step 3: Color & Mask -->
+          <div class="accordion-item bg-white/5 rounded-2xl overflow-hidden">
+            <button @click="toggleAccordion('mask')" class="w-full flex justify-between items-center p-4 text-xs font-bold uppercase tracking-widest text-white hover:bg-white/5 transition-colors">
+              <span>3. Couleur & Masque</span>
+              <span class="text-primary">{{ openAccordion === 'mask' ? '▼' : '▶' }}</span>
+            </button>
+            <div v-show="openAccordion === 'mask'" class="p-4 pt-0 border-t border-white/5 space-y-4 mt-4">
+              <div class="setting-group">
+                <label>Couleur Cible</label>
+                <div class="flex items-center gap-3">
+                  <input type="color" v-model="activeLayer.targetColor" @input="syncUniforms" class="h-10 w-full bg-transparent border-0 cursor-pointer p-0 rounded-xl overflow-hidden shadow-inner">
+                  <button @click="pickColor" class="bg-white/5 hover:bg-white/10 p-2.5 rounded-xl transition-all" title="Pipette">💧</button>
+                </div>
+              </div>
+              <div class="setting-group">
+                <div class="flex justify-between items-center">
+                  <label>Sensibilité</label>
+                  <span class="text-[10px] text-gray-500 font-bold">{{ Math.round(activeLayer.sensitivity * 100) }}%</span>
+                </div>
+                <input type="range" v-model.number="activeLayer.sensitivity" min="0.01" max="1.0" step="0.01" @input="syncUniforms" class="w-full h-1 bg-white/10 rounded-full appearance-none accent-primary">
+              </div>
+              <div class="setting-group">
+                <div class="flex justify-between items-center">
+                  <label>Tolérance</label>
+                  <span class="text-[10px] text-gray-500 font-bold">{{ Math.round(activeLayer.tolerance * 100) }}%</span>
+                </div>
+                <input type="range" v-model.number="activeLayer.tolerance" min="0.0" max="1.0" step="0.01" @input="syncUniforms" class="w-full h-1 bg-white/10 rounded-full appearance-none accent-primary">
               </div>
             </div>
-            <div class="setting-group">
-              <label>Foil Mode</label>
-              <PremiumSelect
-                v-model="activeLayer.foilMode"
-                :options="foilModes"
-                @change="syncUniforms"
-              />
+          </div>
+
+          <!-- Step 4: Tools (Brush/Eraser) -->
+          <div class="accordion-item bg-white/5 rounded-2xl overflow-hidden">
+            <button @click="toggleAccordion('tools')" class="w-full flex justify-between items-center p-4 text-xs font-bold uppercase tracking-widest text-white hover:bg-white/5 transition-colors">
+              <span>4. Outils Pinceau</span>
+              <span class="text-primary">{{ openAccordion === 'tools' ? '▼' : '▶' }}</span>
+            </button>
+            <div v-show="openAccordion === 'tools'" class="p-4 pt-0 border-t border-white/5 space-y-4 mt-4">
+              <div class="flex gap-2">
+                <button @click="setTool('draw')" :class="['flex-1 py-2 rounded-xl text-xs font-bold transition-all', currentTool === 'draw' ? 'bg-primary text-[#0a0a1a]' : 'bg-white/5 text-gray-400 hover:text-white']">🖌️ Pinceau</button>
+                <button @click="setTool('erase')" :class="['flex-1 py-2 rounded-xl text-xs font-bold transition-all', currentTool === 'erase' ? 'bg-primary text-[#0a0a1a]' : 'bg-white/5 text-gray-400 hover:text-white']">🧽 Gomme</button>
+              </div>
+              <div class="setting-group mt-2">
+                <label>Taille</label>
+                <input type="range" v-model="brushSize" min="5" max="150" class="w-full accent-primary h-1 bg-white/10 rounded-full appearance-none">
+              </div>
+              <div class="setting-group">
+                <label>Douceur (Softness)</label>
+                <input type="range" v-model="brushSoftness" min="0" max="1" step="0.01" class="w-full accent-primary h-1 bg-white/10 rounded-full appearance-none">
+              </div>
+              <div class="flex gap-2 mt-2">
+                <button @click="fillMask('white')" class="flex-1 bg-white/5 hover:bg-white/10 py-2 rounded-lg text-[10px] font-bold transition-all">REMPLIR TOUT</button>
+                <button @click="fillMask('black')" class="flex-1 bg-white/5 hover:bg-white/10 py-2 rounded-lg text-[10px] font-bold transition-all">EFFACER TOUT</button>
+              </div>
             </div>
           </div>
 
-          <div class="setting-group">
-            <div class="flex justify-between items-center">
-              <label>Sensibilité</label>
-              <span class="text-[10px] text-gray-500 font-bold">{{ Math.round(activeLayer.sensitivity * 100) }}%</span>
-            </div>
-            <input type="range" v-model.number="activeLayer.sensitivity" min="0.01" max="1.0" step="0.01" @input="syncUniforms" class="w-full h-1 bg-white/10 rounded-full appearance-none accent-primary">
-          </div>
-
-          <!-- Foil Params -->
-          <div class="setting-group">
-            <label>Teinte Holographique</label>
-            <input type="color" v-model="activeLayer.foilColor" @input="syncUniforms" class="h-10 w-full bg-transparent border-0 cursor-pointer p-0 rounded-xl overflow-hidden shadow-inner">
-          </div>
-
-          <div class="grid grid-cols-2 gap-6">
-            <div class="setting-group">
-              <label>Intensité</label>
-              <input type="range" v-model.number="activeLayer.holoIntensity" min="0" max="3" step="0.1" @input="syncUniforms" class="w-full h-1 bg-white/10 rounded-full appearance-none accent-primary">
-            </div>
-            <div class="setting-group">
-              <label>Vitesse</label>
-              <input type="range" v-model.number="activeLayer.foilSpeed" min="0" max="5" step="0.1" @input="syncUniforms" class="w-full h-1 bg-white/10 rounded-full appearance-none accent-primary">
-            </div>
-          </div>
-
-          <div class="setting-group">
-            <label>Orientation (α)</label>
-            <div class="flex items-center gap-4">
-              <input type="range" v-model.number="activeLayer.foilAngle" min="0" max="360" step="1" @input="syncUniforms" class="flex-1 h-1 bg-white/10 rounded-full appearance-none accent-primary">
-              <span class="text-xs font-bold text-gray-400 min-w-[3ch]">{{ activeLayer.foilAngle }}°</span>
+          <!-- Step 5: Foil Config -->
+          <div class="accordion-item bg-white/5 rounded-2xl overflow-hidden">
+            <button @click="toggleAccordion('foil')" class="w-full flex justify-between items-center p-4 text-xs font-bold uppercase tracking-widest text-white hover:bg-white/5 transition-colors">
+              <span>5. Effet Holographique</span>
+              <span class="text-primary">{{ openAccordion === 'foil' ? '▼' : '▶' }}</span>
+            </button>
+            <div v-show="openAccordion === 'foil'" class="p-4 pt-0 border-t border-white/5 space-y-4 mt-4">
+              <div class="setting-group">
+                <label>Type d'Effet</label>
+                <PremiumSelect
+                  v-model="activeLayer.foilMode"
+                  :options="foilModes"
+                  @change="syncUniforms"
+                />
+              </div>
+              <div class="setting-group">
+                <label>Teinte Base</label>
+                <input type="color" v-model="activeLayer.foilColor" @input="syncUniforms" class="h-10 w-full bg-transparent border-0 cursor-pointer p-0 rounded-xl overflow-hidden shadow-inner">
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="setting-group">
+                  <label>Intensité</label>
+                  <input type="range" v-model.number="activeLayer.holoIntensity" min="0" max="3" step="0.1" @input="syncUniforms" class="w-full h-1 bg-white/10 rounded-full appearance-none accent-primary">
+                </div>
+                <div class="setting-group">
+                  <label>Vitesse</label>
+                  <input type="range" v-model.number="activeLayer.foilSpeed" min="0" max="5" step="0.1" @input="syncUniforms" class="w-full h-1 bg-white/10 rounded-full appearance-none accent-primary">
+                </div>
+              </div>
+              <div class="setting-group">
+                <label>Échelle / Taille</label>
+                <input type="range" v-model.number="activeLayer.foilScale" min="0.1" max="10.0" step="0.1" @input="syncUniforms" class="w-full h-1 bg-white/10 rounded-full appearance-none accent-primary">
+              </div>
+              <div class="setting-group">
+                <label>Orientation (α)</label>
+                <div class="flex items-center gap-4">
+                  <input type="range" v-model.number="activeLayer.foilAngle" min="0" max="360" step="1" @input="syncUniforms" class="flex-1 h-1 bg-white/10 rounded-full appearance-none accent-primary">
+                  <span class="text-xs font-bold text-gray-400 min-w-[3ch]">{{ activeLayer.foilAngle }}°</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
+        <!-- Step 6: Export -->
         <button @click="saveEffect" :disabled="!selectedCardId || saving" class="btn btn-primary w-full h-14 mt-4 shadow-xl shadow-primary/20 flex items-center justify-center gap-3 text-sm">
           <span v-if="saving" class="animate-spin">⏳</span>
-          <span class="tracking-widest font-black uppercase italic">{{ saving ? 'SAVING...' : 'SAVE FX CONFIG' }}</span>
+          <span class="tracking-widest font-black uppercase italic">{{ saving ? 'SAUVEGARDE...' : 'EXPORTER L\'EFFET' }}</span>
         </button>
       </div>
     </div>
@@ -215,8 +265,11 @@ const fragmentShaderStr = `
           mask *= drawnMask;
 
           if (uShowMask && i == uActiveLayer) {
-              vec3 oppositeColor = vec3(1.0) - uTargetColors[i];
-              gl_FragColor = vec4(mix(tex.rgb, oppositeColor, mask), 1.0);
+              vec3 targetColor = uTargetColors[i];
+              vec3 oppositeColor = vec3(1.0) - targetColor;
+              float stripe = step(0.5, fract((vUv.x + vUv.y) * 20.0));
+              vec3 maskColor = mix(oppositeColor, targetColor, stripe);
+              gl_FragColor = vec4(mix(tex.rgb, maskColor, mask * 0.8), 1.0);
               return;
           }
 
@@ -233,6 +286,18 @@ const fragmentShaderStr = `
               float e2 = cos(rotatedUv.y * uFoilScales[i] * 8.0 - t * 12.0);
               float elec = pow(max(0.0, sin(e1 + e2)), 15.0);
               rainbow = uFoilColors[i] * elec * 5.0;
+          } else if (mode == 4) {
+              vec2 gv = fract(rotatedUv * uFoilScales[i] * 5.0 + vec2(0.0, -t * 2.0)) - 0.5;
+              vec2 id = floor(rotatedUv * uFoilScales[i] * 5.0 + vec2(0.0, -t * 2.0));
+              float rand = fract(sin(dot(id, vec2(12.9898, 78.233))) * 43758.5453);
+              gv.x += sin(t * 3.0 + rand * 10.0) * 0.2;
+
+              float d = length(gv);
+              float bubbleRadius = 0.3 + rand * 0.2;
+              float bubbleEdge = smoothstep(bubbleRadius, bubbleRadius - 0.05, d) - smoothstep(bubbleRadius - 0.05, bubbleRadius - 0.1, d);
+              float bubbleHighlight = smoothstep(bubbleRadius - 0.1, bubbleRadius - 0.2, d) * smoothstep(0.1, -0.1, gv.y + gv.x);
+
+              rainbow = uFoilColors[i] * (bubbleEdge + bubbleHighlight * 0.5);
           } else {
               float noise = sin(rotatedUv.x * uFoilScales[i] + rotatedUv.y * uFoilScales[i] + (1.0 - fresnel) * 4.0 + t * 0.4) * 0.5 + 0.5;
               rainbow = spectral(noise) * uFoilColors[i];
@@ -245,8 +310,13 @@ const fragmentShaderStr = `
               mask = max(0.0, mask - inner) * drawnMask;
           }
 
-          totalHolo += rainbow * uHoloIntensities[i] * mask * (1.1 - fresnel);
-          totalShine += pow(1.0 - fresnel, 5.0) * 0.4 * uHoloIntensities[i] * mask;
+          if (mode == 4) {
+             totalHolo += rainbow * uHoloIntensities[i] * mask;
+             totalShine += pow(1.0 - fresnel, 5.0) * 0.2 * uHoloIntensities[i] * mask;
+          } else {
+             totalHolo += rainbow * uHoloIntensities[i] * mask * (1.1 - fresnel);
+             totalShine += pow(1.0 - fresnel, 5.0) * 0.4 * uHoloIntensities[i] * mask;
+          }
       }
       gl_FragColor = vec4(tex.rgb + totalHolo + totalShine, 1.0);
   }
@@ -272,8 +342,16 @@ const foilModes = [
   { label: 'Défaut (Holographique)', value: 0 },
   { label: 'Pulsation', value: 1 },
   { label: 'Électrique', value: 2 },
-  { label: 'Bords uniquement', value: 3 }
+  { label: 'Bords uniquement', value: 3 },
+  { label: 'Bulle d\'eau', value: 4 }
 ];
+
+const openAccordion = ref('card');
+const brushSoftness = ref(0.2);
+
+function toggleAccordion(section) {
+  openAccordion.value = openAccordion.value === section ? '' : section;
+}
 
 const cardOptions = computed(() => {
   return cards.value.map(c => ({
@@ -669,9 +747,23 @@ async function pickColor() {
 
 function paint(uv) {
   const layer = layers.value[activeLayerIndex.value];
+  const cx = uv.x * 1024;
+  const cy = (1 - uv.y) * 1024;
+  const r = brushSize.value;
+
   layer.ctx.beginPath();
-  layer.ctx.arc(uv.x * 1024, (1 - uv.y) * 1024, brushSize.value, 0, Math.PI * 2);
-  layer.ctx.fillStyle = currentTool.value === 'draw' ? 'white' : 'black';
+  layer.ctx.arc(cx, cy, r, 0, Math.PI * 2);
+
+  if (brushSoftness.value > 0) {
+    const gradient = layer.ctx.createRadialGradient(cx, cy, r * (1 - brushSoftness.value), cx, cy, r);
+    const color = currentTool.value === 'draw' ? '255, 255, 255' : '0, 0, 0';
+    gradient.addColorStop(0, `rgba(${color}, 1)`);
+    gradient.addColorStop(1, `rgba(${color}, 0)`);
+    layer.ctx.fillStyle = gradient;
+  } else {
+    layer.ctx.fillStyle = currentTool.value === 'draw' ? 'white' : 'black';
+  }
+
   layer.ctx.fill();
   layer.texture.needsUpdate = true;
 }
