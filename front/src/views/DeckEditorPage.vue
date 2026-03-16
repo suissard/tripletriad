@@ -139,14 +139,14 @@
 import { useRouter } from 'vue-router';
 const router = useRouter();
 import { ref, computed } from 'vue';
-import PageLayout from './PageLayout.vue';
+import PageLayout from '../components/PageLayout.vue';
 
 import { state, cardLibrary, getCardById } from '../game/state.js';
 import { useUserStore } from '../stores/userStore.js';
 const userStore = useUserStore();
-import TripleTriadCard from './TripleTriadCard.vue';
-import ElementIcon from './ElementIcon.vue';
-import AnimatedCardBack from './AnimatedCardBack.vue';
+import TripleTriadCard from '../components/TripleTriadCard.vue';
+import ElementIcon from '../components/ElementIcon.vue';
+import AnimatedCardBack from '../components/AnimatedCardBack.vue';
 
 const searchQuery = ref('');
 const sortBy = ref('rarity-desc');

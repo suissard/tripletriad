@@ -70,6 +70,14 @@ class StrapiService {
       }
       return this.request('GET', `/${collection}?${qs.toString()}`);
   }
+  
+  async getGameConfig() {
+    const res = await this.request('GET', '/game-config');
+    if (res && res.data) {
+        return res.data.attributes ? { id: res.data.id, ...res.data.attributes } : res.data;
+    }
+    return res;
+  }
 }
 
 const strapiService = new StrapiService();

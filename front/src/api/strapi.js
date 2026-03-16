@@ -88,6 +88,19 @@ class StrapiApi {
         return await response.json();
     }
 
+    async getGameConfig() {
+        try {
+            const res = await this.request('GET', '/game-config');
+            if (res && res.data) {
+                return res.data.attributes ? { id: res.data.id, ...res.data.attributes } : res.data;
+            }
+            return null;
+        } catch (error) {
+            console.error('Error fetching game config:', error);
+            return null;
+        }
+    }
+
     get rawClient() {
         return this.strapiClient;
     }

@@ -36,8 +36,8 @@
 
 <script setup>
 import { computed } from 'vue';
-import PageLayout from './PageLayout.vue';
-import QuestItem from './QuestItem.vue';
+import PageLayout from '../components/PageLayout.vue';
+import QuestItem from '../components/QuestItem.vue';
 import { useUserStore } from '../stores/userStore.js';
 
 const userStore = useUserStore();

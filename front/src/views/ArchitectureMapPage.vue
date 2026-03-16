@@ -22,7 +22,7 @@ const router = useRouter();
 import { ref } from 'vue';
 
 import { state } from '../game/state.js';
-import PageLayout from './PageLayout.vue';
+import PageLayout from '../components/PageLayout.vue';
 import { VueFlow } from '@vue-flow/core';
 import { Background } from '@vue-flow/background';
 import { Controls } from '@vue-flow/controls';

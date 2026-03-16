@@ -223,11 +223,11 @@ const router = useRouter();
 
 import { ref, computed, watch } from 'vue';
 
-import PageLayout from './PageLayout.vue';
+import PageLayout from '../components/PageLayout.vue';
 import { state, cardLibrary, getCardById } from '../game/state.js';
-import TripleTriadCard from './TripleTriadCard.vue';
-import TripleTriadCardGrid from './TripleTriadCardGrid.vue';
-import ElementIcon from './ElementIcon.vue';
+import TripleTriadCard from '../components/TripleTriadCard.vue';
+import TripleTriadCardGrid from '../components/TripleTriadCardGrid.vue';
+import ElementIcon from '../components/ElementIcon.vue';
 import { useUserStore } from '../stores/userStore.js';
 
 const userStore = useUserStore();

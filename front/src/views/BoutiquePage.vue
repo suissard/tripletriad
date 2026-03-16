@@ -71,7 +71,7 @@ import { ref, computed, onMounted } from 'vue';
 
 import strapiService from '../api/strapi.js';
 import strapiMock from '../api/strapiMock.js';
-import TripleTriadCard from './TripleTriadCard.vue';
+import TripleTriadCard from '../components/TripleTriadCard.vue';
 
 const emit = defineEmits(['close', 'update-coins']);
 

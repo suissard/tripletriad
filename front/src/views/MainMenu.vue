@@ -100,7 +100,7 @@ const route = useRoute();
 import { ref, reactive, onMounted, onUnmounted } from 'vue';
 
 import { state, webrtc, resetGame, initOnlineTurnManager, getCardById, normalizeCard, refillHand, cardLibrary } from '../game/state.js';
-import CoinToss from './CoinToss.vue';
+import CoinToss from '../components/CoinToss.vue';
 import { useUserStore } from '../stores/userStore.js';
 
 const userStore = useUserStore();

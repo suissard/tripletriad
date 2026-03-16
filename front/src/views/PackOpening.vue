@@ -148,12 +148,12 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import TripleTriadCard from './TripleTriadCard.vue';
+import TripleTriadCard from '../components/TripleTriadCard.vue';
 import { state } from '../game/state.js';
 import { useUserStore } from '../stores/userStore.js';
 import strapiMock from '../api/strapiMock.js';
-import TripleTriadCardGrid from './TripleTriadCardGrid.vue';
-import AppButton from './ui/AppButton.vue';
+import TripleTriadCardGrid from '../components/TripleTriadCardGrid.vue';
+import AppButton from '../components/ui/AppButton.vue';
 import strapiService from '../api/strapi.js';
 
 const userStore = useUserStore();

@@ -70,13 +70,13 @@
 import { onMounted, onBeforeUnmount, watch } from 'vue';
 import { state, refillHand, resetGame } from '../game/state.js';
 import { initGameListeners, cleanupGameListeners, aiPlay } from '../game/game-actions.js';
-import ScorePanel from './ScorePanel.vue';
-import GameBoard from './GameBoard.vue';
-import PlayerHand from './PlayerHand.vue';
-import OpponentHand from './OpponentHand.vue';
-import ActionLog from './ActionLog.vue';
-import EndTurnButton from './EndTurnButton.vue';
-import GameOver from './GameOver.vue';
+import ScorePanel from '../components/ScorePanel.vue';
+import GameBoard from '../components/GameBoard.vue';
+import PlayerHand from '../components/PlayerHand.vue';
+import OpponentHand from '../components/OpponentHand.vue';
+import ActionLog from '../components/ActionLog.vue';
+import EndTurnButton from '../components/EndTurnButton.vue';
+import GameOver from '../components/GameOver.vue';
 import { useRouter, useRoute } from 'vue-router';
 
 const router = useRouter();
