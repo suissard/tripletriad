@@ -5,7 +5,7 @@
       <div class="coins-display">
         🪙 {{ userCoins }} Pièces
       </div>
-      <button class="close-btn" @click="$emit('close')">X</button>
+      <button class="btn btn-secondary glass-panel px-3 py-1" @click="$emit('close')">X</button>
     </div>
 
     <div class="shop-content" v-if="!isOpening && !openedCards.length">
@@ -16,7 +16,7 @@
         <div class="booster-info">
           <h3>Booster Classique</h3>
           <p>Contient 5 cartes aléatoires</p>
-          <button class="buy-btn" :disabled="userCoins < boosterCost">
+          <button class="btn btn-primary glass-panel" :disabled="userCoins < boosterCost">
             Ouvrir ({{ boosterCost }} 🪙)
           </button>
         </div>
@@ -52,10 +52,10 @@
           </div>
         </div>
       </div>
-      <div class="results-actions" v-if="allRevealed">
-        <button class="continue-btn" @click="resetShop">Continuer</button>
+      <div class="results-actions flex gap-4 mt-6" v-if="allRevealed">
+        <button class="btn btn-secondary glass-panel" @click="resetShop">Continuer</button>
         <button 
-          class="buy-another-btn" 
+          class="btn btn-primary glass-panel"
           v-if="userCoins >= boosterCost" 
           @click="openAnother"
         >
@@ -127,15 +127,15 @@ const openBooster = async () => {
         isOpening.value = false;
         // Add revealed state to each card
         openedCards.value = (response?.cards || response?.data?.cards || []).map(c => {
-            // Normalize image: Strapi returns image.url, but TripleTriadCard expects card.img
-            let img = c.img;
-            if (!img && c.image?.url) {
-                img = c.image.url.startsWith('http') ? c.image.url : `http://localhost:1337${c.image.url}`;
+            // Normalize image: Strapi returns image.url, but TripleTriadCard expects card.imageUrl
+            let imageUrl = c.img || c.imageUrl;
+            if (!imageUrl && c.image?.url) {
+                imageUrl = c.image.url.startsWith('http') ? c.image.url : `http://localhost:1337${c.image.url}`;
             }
-            if (!img) {
-                img = `https://api.dicebear.com/9.x/bottts/png?seed=${encodeURIComponent(c.name)}&backgroundColor=transparent`;
+            if (!imageUrl) {
+                imageUrl = `https://api.dicebear.com/9.x/bottts/png?seed=${encodeURIComponent(c.name)}&backgroundColor=transparent`;
             }
-            return {...c, img, revealed: false};
+            return {...c, imageUrl, revealed: false};
         });
         userCoins.value = response?.coins || response?.data?.coins || 0;
         emit('update-coins', userCoins.value);

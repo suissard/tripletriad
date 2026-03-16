@@ -46,18 +46,39 @@
             "type": "json",
             "required": true,
             "default": {
-                "common": { "disenchant": 10, "craft": 40 },
-                "uncommon": { "disenchant": 20, "craft": 80 },
-                "rare": { "disenchant": 50, "craft": 200 },
-                "epic": { "disenchant": 100, "craft": 400 },
-                "legendary": { "disenchant": 400, "craft": 1600 }
+                "common": {
+                    "disenchant": 10,
+                    "craft": 40
+                },
+                "uncommon": {
+                    "disenchant": 20,
+                    "craft": 80
+                },
+                "rare": {
+                    "disenchant": 50,
+                    "craft": 200
+                },
+                "epic": {
+                    "disenchant": 100,
+                    "craft": 400
+                },
+                "legendary": {
+                    "disenchant": 400,
+                    "craft": 1600
+                }
             }
-          },
+        },
         "boosterCost": {
             "type": "integer",
             "required": true,
             "default": 100,
             "min": 0
+        },
+        "boosterHits": {
+            "type": "integer",
+            "required": true,
+            "default": 5,
+            "min": 1
         },
         "probCommon": {
             "type": "integer",
@@ -100,6 +121,36 @@
             "default": 5,
             "min": 0,
             "max": 100
+        },
+        "colorPrimary": {
+            "type": "string",
+            "required": true,
+            "default": "#FFBF00"
+        },
+        "colorSecondary": {
+            "type": "string",
+            "required": true,
+            "default": "#0033ff"
+        },
+        "colorAccent": {
+            "type": "string",
+            "required": true,
+            "default": "#FFFF00"
+        },
+        "uiButtonHole": {
+            "type": "integer",
+            "required": true,
+            "default": 30
+        },
+        "uiButtonSpeed": {
+            "type": "decimal",
+            "required": true,
+            "default": 1.0
+        },
+        "uiButtonOpacity": {
+            "type": "decimal",
+            "required": true,
+            "default": 0.25
         }
     }
 }

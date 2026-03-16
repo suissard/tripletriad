@@ -1,13 +1,13 @@
 <template>
   <div class="deck-editor-page ui-layer" >
     <div class="page-header">
-      <button class="back-btn" @click="closeDeckEditor">← RETOUR</button>
+      <button class="btn btn-secondary glass-panel" @click="closeDeckEditor">← RETOUR</button>
       <h2 class="page-title">{{ isNew ? 'NOUVEAU DECK' : 'ÉDITER LE DECK' }}</h2>
       <div class="header-actions">
         <span class="deck-counter" :class="{ full: state.editingDeck.cards.length === 15 }">
           {{ state.editingDeck.cards.length }} / 15
         </span>
-        <button class="save-btn" :disabled="state.editingDeck.cards.length !== 15" @click="saveDeck">
+        <button class="btn btn-primary glass-panel" :disabled="state.editingDeck.cards.length !== 15" @click="saveDeck">
           💾 Enregistrer
         </button>
       </div>
@@ -35,8 +35,8 @@
 
         <div class="import-export-row">
           <input v-model="importCode" placeholder="Coller un code..." class="import-input" />
-          <button class="action-btn" @click="importDeckCode" :disabled="!importCode">📥 Importer</button>
-          <button class="action-btn" @click="exportDeckCode" :disabled="state.editingDeck.cards.length === 0">📤
+          <button class="btn btn-secondary glass-panel px-2 text-xs" @click="importDeckCode" :disabled="!importCode">📥 Importer</button>
+          <button class="btn btn-secondary glass-panel px-2 text-xs" @click="exportDeckCode" :disabled="state.editingDeck.cards.length === 0">📤
             Copier</button>
         </div>
 
@@ -69,14 +69,53 @@
       <!-- RIGHT: Card library -->
       <div class="library-panel">
         <div class="library-controls">
-          <input type="text" v-model="searchQuery" placeholder="Rechercher..." class="search-input" />
-          <select v-model="sortBy" class="sort-select">
-            <option value="id-asc">Numéro</option>
-            <option value="level-desc">Niv. ↓</option>
-            <option value="level-asc">Niv. ↑</option>
-            <option value="name-asc">Nom (A-Z)</option>
-            <option value="owned-first">Possédées</option>
-          </select>
+          <input type="text" v-model="searchQuery" placeholder="Rechercher (nom, desc)..." class="search-input" />
+          
+          <div class="filter-row-secondary">
+            <select v-model="filterRarity" class="filter-select">
+              <option value="">Toutes raretés</option>
+              <option v-for="rarity in uniqueRarities" :key="rarity.value" :value="rarity.value">{{ rarity.label }}</option>
+            </select>
+
+            <select v-model="sortBy" class="filter-select">
+              <optgroup label="Général">
+                <option value="rarity-desc">Rareté ↓</option>
+                <option value="rarity-asc">Rareté ↑</option>
+                <option value="id-asc">Numéro</option>
+                <option value="level-desc">Niv. ↓</option>
+                <option value="level-asc">Niv. ↑</option>
+                <option value="name-asc">Nom (A-Z)</option>
+              </optgroup>
+              <optgroup label="Puissance">
+                <option value="power-top-desc">Haut ↓</option>
+                <option value="power-right-desc">Droite ↓</option>
+                <option value="power-bottom-desc">Bas ↓</option>
+                <option value="power-left-desc">Gauche ↓</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="element-filter-bar">
+            <div v-for="element in uniqueElements" :key="element"
+                 class="element-btn"
+                 :class="{ active: selectedElements.includes(element) }"
+                 @click="toggleElement(element)"
+                 :title="element">
+              <ElementIcon :element="element" :active="selectedElements.includes(element)" />
+            </div>
+          </div>
+
+          <div class="toggle-filters-row">
+            <div class="btn-toggle-mini glass-panel">
+              <button @click="filterOwnership = ''" :class="{ active: filterOwnership === '' }">Toutes</button>
+              <button @click="filterOwnership = 'owned'" :class="{ active: filterOwnership === 'owned' }">Possédées</button>
+            </div>
+            <div class="btn-toggle-mini glass-panel">
+              <button @click="filterPremium = ''" :class="{ active: filterPremium === '' }">✨</button>
+              <button @click="filterPremium = 'premium'" :class="{ active: filterPremium === 'premium' }">⭐</button>
+              <button @click="filterPremium = 'regular'" :class="{ active: filterPremium === 'regular' }">🃏</button>
+            </div>
+          </div>
         </div>
 
         <div class="library-stats">
@@ -106,13 +145,57 @@ import { state, cardLibrary, getCardById } from '../game/state.js';
 import { useUserStore } from '../stores/userStore.js';
 const userStore = useUserStore();
 import TripleTriadCard from './TripleTriadCard.vue';
+import ElementIcon from './ElementIcon.vue';
 import AnimatedCardBack from './AnimatedCardBack.vue';
 
 const searchQuery = ref('');
-const sortBy = ref('id-asc');
+const sortBy = ref('rarity-desc');
+const selectedElements = ref([]);
+const filterRarity = ref('');
+const filterOwnership = ref('owned');
+const filterPremium = ref('');
 const importCode = ref('');
 const feedback = ref('');
 const feedbackType = ref('info');
+
+const uniqueElements = [
+  'eau', 'radiation', 'reseau', 'spore', 'furtif', 
+  'longue_portee', 'faille_dimensionnelle', 'hacking', 'obsidienne'
+];
+
+const uniqueRarities = [
+  { value: 'common', label: 'Commune' },
+  { value: 'uncommon', label: 'Peu Commune' },
+  { value: 'rare', label: 'Rare' },
+  { value: 'epic', label: 'Épique' },
+  { value: 'legendary', label: 'Légendaire' }
+];
+
+function getRarity(card) {
+  if (card.rarity) return card.rarity.toLowerCase();
+  const level = card.level || 1;
+  if (level <= 2) return 'common';
+  if (level <= 4) return 'uncommon';
+  if (level <= 6) return 'rare';
+  if (level <= 8) return 'epic';
+  return 'legendary';
+}
+
+const rarityOrder = { 'common': 1, 'uncommon': 2, 'rare': 3, 'epic': 4, 'legendary': 5 };
+
+const parsePowerValue = (val) => {
+  if (val === 'A' || val === 'a') return 10;
+  return parseInt(val) || 0;
+};
+
+const toggleElement = (el) => {
+  const index = selectedElements.value.indexOf(el);
+  if (index > -1) {
+    selectedElements.value.splice(index, 1);
+  } else {
+    selectedElements.value.push(el);
+  }
+};
 
 const isNew = computed(() => !state.editingDeck.documentId);
 
@@ -211,16 +294,40 @@ const filteredCards = computed(() => {
     result = result.filter(c => c.name.toLowerCase().includes(q) || c.description?.toLowerCase().includes(q));
   }
 
+  if (selectedElements.value.length > 0) {
+    result = result.filter(c => selectedElements.value.includes(c.element));
+  }
+
+  if (filterRarity.value) {
+    result = result.filter(c => getRarity(c) === filterRarity.value);
+  }
+
+  if (filterOwnership.value) {
+    result = result.filter(c => {
+      const owned = isOwned(c.id);
+      return filterOwnership.value === 'owned' ? owned : !owned;
+    });
+  }
+
+  if (filterPremium.value) {
+    result = result.filter(c => {
+      const premium = userStore.collection.some(item => item.cardId === c.id && item.isPremium);
+      return filterPremium.value === 'premium' ? premium : !premium;
+    });
+  }
+
   result.sort((a, b) => {
     switch (sortBy.value) {
       case 'level-desc': return b.level - a.level || a.id - b.id;
       case 'level-asc': return a.level - b.level || a.id - b.id;
       case 'name-asc': return a.name.localeCompare(b.name);
-      case 'owned-first': {
-        const aOwn = isOwned(a.id), bOwn = isOwned(b.id);
-        if (aOwn === bOwn) return a.id - b.id;
-        return aOwn ? -1 : 1;
-      }
+      case 'rarity-desc': return (rarityOrder[getRarity(b)] - rarityOrder[getRarity(a)]) || a.id - b.id;
+      case 'rarity-asc': return (rarityOrder[getRarity(a)] - rarityOrder[getRarity(b)]) || a.id - b.id;
+      case 'power-top-desc': return parsePowerValue(b.topValue) - parsePowerValue(a.topValue) || a.id - b.id;
+      case 'power-right-desc': return parsePowerValue(b.rightValue) - parsePowerValue(a.rightValue) || a.id - b.id;
+      case 'power-bottom-desc': return parsePowerValue(b.bottomValue) - parsePowerValue(a.bottomValue) || a.id - b.id;
+      case 'power-left-desc': return parsePowerValue(b.leftValue) - parsePowerValue(a.leftValue) || a.id - b.id;
+      case 'id-asc':
       default: return a.id - b.id;
     }
   });
@@ -579,39 +686,89 @@ const filteredCards = computed(() => {
   overflow: hidden;
 }
 
-.library-controls {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.search-input {
-  flex: 1;
-  padding: 10px 15px;
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid #444;
-  color: white;
-  border-radius: 8px;
-  font-size: 1rem;
-}
-
-.search-input:focus {
-  border-color: #00d2ff;
-  outline: none;
-}
-
-.sort-select {
-  background: rgba(0, 0, 0, 0.4);
-  color: white;
-  border: 1px solid #444;
-  padding: 10px;
-  border-radius: 8px;
-}
-
 .library-stats {
   font-size: 0.85rem;
   color: #666;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
+}
+
+.filter-row-secondary {
+  display: flex;
+  gap: 8px;
+}
+
+.filter-select {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  border: 1px solid #444;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.element-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  background: rgba(0,0,0,0.2);
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.element-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid #444;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 4px;
+}
+
+.element-btn:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.element-btn.active {
+  border-color: #00d2ff;
+  background: rgba(0, 210, 255, 0.1);
+  box-shadow: 0 0 8px rgba(0, 210, 255, 0.3);
+}
+
+.toggle-filters-row {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.btn-toggle-mini {
+  display: flex;
+  background: rgba(0,0,0,0.3);
+  padding: 2px;
+  border-radius: 6px;
+  border: 1px solid #444;
+}
+
+.btn-toggle-mini button {
+  background: transparent;
+  border: none;
+  color: #888;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+
+.btn-toggle-mini button.active {
+  background: #333;
+  color: #00d2ff;
+  font-weight: bold;
 }
 
 .library-grid {

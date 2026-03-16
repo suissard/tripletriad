@@ -18,12 +18,26 @@
     <div class="navbar-content">
       <!-- Left Menu Toggle Removed -->
       <div style="display: flex; align-items: center; gap: 15px;">
-        <HoloButton width="auto" @click="isQuestModalOpen = true">
+        <AppButton variant="secondary" class="glass-panel" @click="goToHome" title="Retour à l'accueil">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 1.2rem;">🏠</span>
+            <span class="username" style="display: none;">Accueil</span>
+          </div>
+        </AppButton>
+
+        <AppButton variant="secondary" class="glass-panel" @click="goToAdmin" title="Administration">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 1.2rem;">⚙️</span>
+            <span class="username" style="display: none;">Admin</span>
+          </div>
+        </AppButton>
+
+        <AppButton variant="secondary"  class="glass-panel" @click="isQuestModalOpen = true">
           <div style="display: flex; align-items: center; gap: 10px;">
             <span style="font-size: 1.2rem;">📜</span>
             <span class="username" style="display: none;">Quêtes</span>
           </div>
-        </HoloButton>
+        </AppButton>
 
         <!-- Offline Indicator -->
         <div v-if="userStore.isOffline" class="offline-indicator">
@@ -36,12 +50,12 @@
       <div class="app-title">Terra Nullius</div>
 
       <!-- Right User Widget (Hidden if offline) -->
-      <HoloButton v-if="!userStore.isOffline" width="auto" @click="toggleRightDrawer">
+      <AppButton variant="secondary" v-if="!userStore.isOffline"  class="glass-panel" @click="toggleRightDrawer">
         <div style="display: flex; align-items: center; gap: 10px;">
           <span class="username">{{ userStore.user?.username || 'Joueur Anonyme' }}</span>
           <img :src="userStore.user?.avatar" class="avatar" alt="User Avatar" />
         </div>
-      </HoloButton>
+      </AppButton>
       <div v-else style="width: 120px;"></div> <!-- Spacer to keep title centered -->
     </div>
   </div>
@@ -51,11 +65,23 @@
 import { state } from '../game/state.js';
 import { useUserStore } from '../stores/userStore.js';
 const userStore = useUserStore();
-import HoloButton from './HoloButton.vue';
 import QuestModal from './QuestModal.vue';
 import { ref } from 'vue';
 
 const isQuestModalOpen = ref(false);
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
+function goToHome() {
+  state.gameState = 'menu';
+  state.menuView = 'main';
+  state.rightDrawerOpen = false;
+  router.push('/');
+}
+
+function goToAdmin() {
+  router.push('/admin');
+}
 
 function toggleLeftDrawer() {
   state.leftDrawerOpen = !state.leftDrawerOpen;

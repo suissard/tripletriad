@@ -2,8 +2,8 @@
   <div id="game-over" v-if="state.gameOver">
       <h1 :style="{ color: resultColor }" style="font-size: 4rem; text-shadow: 0 0 20px currentColor;">{{ resultText }}</h1>
       <div class="game-over-buttons">
-          <HoloButton @click="handleReplay">REJOUER 🔄</HoloButton>
-          <HoloButton @click="handleQuit">QUITTER 🚪</HoloButton>
+          <AppButton variant="primary" fullWidth @click="handleReplay">REJOUER 🔄</AppButton>
+          <AppButton variant="primary" fullWidth @click="handleQuit">QUITTER 🚪</AppButton>
       </div>
   </div>
 </template>
@@ -11,7 +11,6 @@
 <script setup>
 import { computed } from 'vue';
 import { state, resetGame, webrtc } from '../game/state.js';
-import HoloButton from './HoloButton.vue';
 import { useRouter, useRoute } from 'vue-router';
 
 const router = useRouter();

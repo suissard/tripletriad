@@ -1,19 +1,19 @@
 <template>
     <div class="decks-page ui-layer" >
         <div class="page-header">
-            <button class="back-btn" @click="closeDecksPage">← RETOUR</button>
+            <AppButton variant="secondary"  class="glass-panel" @click="closeDecksPage">← RETOUR</AppButton>
             <h2 class="page-title">MES DECKS</h2>
             <div class="header-stats">{{ userStore.userDecks.length }} / 5 Decks</div>
         </div>
 
         <div class="page-content">
-            <button class="new-deck-btn" @click="openNewDeck" :disabled="userStore.userDecks.length >= 5">
+            <AppButton variant="secondary"  class="glass-panel w-full py-4 mb-8 text-lg flex items-center justify-center gap-4" @click="openNewDeck" :disabled="userStore.userDecks.length >= 5">
                 <span class="new-deck-icon">+</span>
                 <span>Créer un Nouveau Deck</span>
-            </button>
+            </AppButton>
 
             <div class="decks-grid" v-if="userStore.userDecks.length > 0">
-                <div v-for="deck in userStore.userDecks" :key="deck.id" class="deck-card">
+                <AppCard v-for="deck in userStore.userDecks" :key="deck.id" class="deck-card" :padding="false">
                     <div class="deck-cover">
                         <img v-if="deck.cover && getCardById(deck.cover)" :src="getCardById(deck.cover).img"
                             class="cover-img" />
@@ -36,11 +36,11 @@
                         </div>
                     </div>
 
-                    <div class="deck-actions">
-                        <button class="action-btn edit" @click="openEditDeck(deck)">✏️ Éditer</button>
-                        <button class="action-btn delete" @click="deleteDeck(deck)">🗑️ Supprimer</button>
+                    <div class="deck-actions flex gap-2 p-2">
+                        <AppButton variant="primary"  class="glass-panel flex-1" @click="openEditDeck(deck)">✏️ Éditer</AppButton>
+                        <AppButton variant="primary"  class="btn-accent glass-panel flex-1" @click="deleteDeck(deck)">🗑️ Supprimer</AppButton>
                     </div>
-                </div>
+                </AppCard>
             </div>
 
             <div v-else class="empty-state">
@@ -57,10 +57,15 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 
+import { onMounted } from 'vue';
 import { state, getCardById, confirmAction } from '../game/state.js';
 import { useUserStore } from '../stores/userStore.js';
 
 const userStore = useUserStore();
+
+onMounted(() => {
+    userStore.fetchUserDecks();
+});
 
 function closeDecksPage() {
     router.push('/');
@@ -157,38 +162,10 @@ async function deleteDeck(deck) {
     overflow-y: auto;
 }
 
-/* New Deck Button */
-.new-deck-btn {
-    width: 100%;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 2px dashed rgba(0, 210, 255, 0.3);
-    border-radius: 16px;
-    color: #00d2ff;
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    transition: all 0.3s;
-    margin-bottom: 30px;
-}
-
-.new-deck-btn:hover {
-    background: rgba(0, 210, 255, 0.08);
-    border-color: #00d2ff;
-    box-shadow: 0 0 20px rgba(0, 210, 255, 0.15);
-}
-
-.new-deck-btn:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-}
-
 .new-deck-icon {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
+    margin-right: 8px;
 }
 
 /* Decks Grid */
@@ -292,36 +269,6 @@ async function deleteDeck(deck) {
     font-size: 0.8rem;
     color: #666;
     margin-left: 4px;
-}
-
-.deck-actions {
-    display: flex;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.action-btn {
-    flex: 1;
-    padding: 14px;
-    background: transparent;
-    border: none;
-    color: #aaa;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.action-btn.edit:hover {
-    background: rgba(0, 210, 255, 0.1);
-    color: #00d2ff;
-}
-
-.action-btn.delete:hover {
-    background: rgba(255, 0, 85, 0.1);
-    color: #ff0055;
-}
-
-.action-btn+.action-btn {
-    border-left: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 /* Empty State */

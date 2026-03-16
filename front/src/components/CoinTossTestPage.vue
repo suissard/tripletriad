@@ -2,26 +2,26 @@
   <div class="test-page">
     <div class="header">
       <h2>🧪 Testeur de Flip de Pièce</h2>
-      <HoloButton @click="router.push('/')">RETOUR</HoloButton>
+      <AppButton variant="secondary"  class="glass-panel" @click="router.push('/')">RETOUR</AppButton>
     </div>
 
     <div class="test-controls">
-      <div class="control-group">
+      <div class="control-group glass-panel">
         <h3>Lancer local (Math.random)</h3>
-        <HoloButton @click="triggerToss('local')">LANCER !</HoloButton>
+        <AppButton variant="primary"  class="glass-panel" @click="triggerToss('local')">LANCER !</AppButton>
       </div>
 
-      <div class="control-group">
+      <div class="control-group glass-panel">
         <h3>Lancer Serveur (Simulé)</h3>
         <p class="hint">Utilise la logique du match controller</p>
-        <HoloButton @click="triggerToss('server')">LANCER VIA SERVEUR !</HoloButton>
+        <AppButton variant="primary"  class="glass-panel" @click="triggerToss('server')">LANCER VIA SERVEUR !</AppButton>
       </div>
       
-      <div class="control-group">
+      <div class="control-group glass-panel">
         <h3>Forcer Résultat</h3>
-        <div class="force-buttons">
-          <HoloButton @click="triggerToss('player')">FORCE PLAYER (Skull)</HoloButton>
-          <HoloButton @click="triggerToss('ai')">FORCE AI (Octopus)</HoloButton>
+        <div class="force-buttons flex gap-2">
+          <AppButton variant="secondary"  class="glass-panel" @click="triggerToss('player')">FORCE PLAYER (Skull)</AppButton>
+          <AppButton variant="secondary"  class="glass-panel" @click="triggerToss('ai')">FORCE AI (Octopus)</AppButton>
         </div>
       </div>
     </div>
@@ -48,7 +48,6 @@
 import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import CoinToss from './CoinToss.vue';
-import HoloButton from './HoloButton.vue';
 
 const router = useRouter();
 

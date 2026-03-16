@@ -67,14 +67,37 @@
          <div class="collection-controls-panel">
            <input type="text" v-model="searchQuery" placeholder="Rechercher une carte (nom, desc)..." class="filter-input-large" />
 
-           <div class="mana-filter-row">
-             <span class="filter-label">Mana :</span>
-             <button v-for="cost in [0, 1, 2, 3, 4, 5, 6, 7]" :key="cost"
-                     class="mana-btn"
-                     :class="{ active: selectedManaCosts.includes(cost) }"
-                     @click="toggleManaCost(cost)">
-               {{ cost === 7 ? '7+' : cost }}
-             </button>
+           <div class="filter-group">
+             <div class="element-filter-row">
+               <span class="filter-label">Élément :</span>
+               <div v-for="element in uniqueElements" :key="element"
+                    class="element-btn-icon-wrapper"
+                    :class="{ active: selectedElements.includes(element) }"
+                    @click="toggleElement(element)"
+                    :title="element">
+                 <ElementIcon :element="element" :active="selectedElements.includes(element)" />
+               </div>
+             </div>
+           </div>
+
+           <div class="filters-row">
+             <div class="toggle-group">
+               <span class="filter-label">Possession :</span>
+               <div class="btn-toggle-row">
+                 <button @click="filterOwnership = ''" :class="{ active: filterOwnership === '' }">Toutes</button>
+                 <button @click="filterOwnership = 'owned'" :class="{ active: filterOwnership === 'owned' }">Possédées</button>
+                 <button @click="filterOwnership = 'unowned'" :class="{ active: filterOwnership === 'unowned' }">Non-possédées</button>
+               </div>
+             </div>
+
+             <div class="toggle-group">
+               <span class="filter-label">Qualité :</span>
+               <div class="btn-toggle-row">
+                 <button @click="filterPremium = ''" :class="{ active: filterPremium === '' }">Toutes</button>
+                 <button @click="filterPremium = 'premium'" :class="{ active: filterPremium === 'premium' }">Premium</button>
+                 <button @click="filterPremium = 'regular'" :class="{ active: filterPremium === 'regular' }">Normales</button>
+               </div>
+             </div>
            </div>
 
            <div class="filters-row">
@@ -83,22 +106,27 @@
                <option v-for="rarity in uniqueRarities" :key="rarity.value" :value="rarity.value">{{ rarity.label }}</option>
              </select>
 
-             <select v-model="filterFaction" class="filter-select">
-               <option value="">Toutes les Factions</option>
-               <option v-for="faction in uniqueFactions" :key="faction" :value="faction">{{ faction }}</option>
-             </select>
-
-             <select v-model="filterType" class="filter-select">
-               <option value="">Tous les Types</option>
-               <option v-for="type in uniqueTypes" :key="type" :value="type">{{ type }}</option>
-             </select>
-
-             <select v-model="sortBy" class="filter-select">
-               <option value="id-asc">Numéro</option>
-               <option value="level-desc">Niv. Décroissant</option>
-               <option value="level-asc">Niv. Croissant</option>
-               <option value="name-asc">Nom (A-Z)</option>
-               <option value="owned-first">Possédées</option>
+             <select v-model="sortBy" class="filter-select sort-select">
+               <optgroup label="Général">
+                 <option value="id-asc">Numéro</option>
+                 <option value="level-desc">Niv. Décroissant</option>
+                 <option value="level-asc">Niv. Croissant</option>
+                 <option value="name-asc">Nom (A-Z)</option>
+               </optgroup>
+               <optgroup label="Rareté">
+                 <option value="rarity-desc">Rareté (Décroissante)</option>
+                 <option value="rarity-asc">Rareté (Croissante)</option>
+               </optgroup>
+               <optgroup label="Puissance">
+                 <option value="power-top-desc">Haut (Max)</option>
+                 <option value="power-top-asc">Haut (Min)</option>
+                 <option value="power-right-desc">Droite (Max)</option>
+                 <option value="power-right-asc">Droite (Min)</option>
+                 <option value="power-bottom-desc">Bas (Max)</option>
+                 <option value="power-bottom-asc">Bas (Min)</option>
+                 <option value="power-left-desc">Gauche (Max)</option>
+                 <option value="power-left-asc">Gauche (Min)</option>
+               </optgroup>
              </select>
            </div>
          </div>
@@ -193,12 +221,13 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 
-import { ref, computed, watch, reactive } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 import PageLayout from './PageLayout.vue';
 import { state, cardLibrary, getCardById } from '../game/state.js';
 import TripleTriadCard from './TripleTriadCard.vue';
 import TripleTriadCardGrid from './TripleTriadCardGrid.vue';
+import ElementIcon from './ElementIcon.vue';
 import { useUserStore } from '../stores/userStore.js';
 
 const userStore = useUserStore();
@@ -226,7 +255,17 @@ function getRarity(card) {
 }
 
 function getElementEmoji(element) {
-  const map = { Fire: '🔥', Ice: '❄️', Thunder: '⚡', Earth: '🌍', Poison: '☠️', Wind: '🌪️', Water: '💧', Holy: '✨' };
+  const map = { 
+    'eau': '💧', 
+    'radiation': '☢️', 
+    'reseau': '🌐', 
+    'spore': '🍄', 
+    'furtif': '🥷', 
+    'longue_portee': '🎯', 
+    'faille_dimensionnelle': '🌀', 
+    'hacking': '💻', 
+    'obsidienne': '💎' 
+  };
   return map[element] || '';
 }
 
@@ -321,10 +360,9 @@ function closeCollection() {
 
 // Filters logic
 const searchQuery = ref('');
-const filterFaction = ref('');
-const filterType = ref('');
-const selectedManaCosts = ref([]);
-const filterElement = ref('');
+const selectedElements = ref([]);
+const filterOwnership = ref(''); // '', 'owned', 'unowned'
+const filterPremium = ref('');   // '', 'premium', 'regular'
 const filterRarity = ref('');
 const sortBy = ref('id-asc');
 const selectedCard = ref(null);
@@ -332,15 +370,17 @@ const selectedCard = ref(null);
 const currentPage = ref(1);
 const cardsPerPage = ref(18);
 
-const uniqueFactions = computed(() => {
-  const factions = new Set(cardLibrary.map(c => c.faction).filter(Boolean));
-  return Array.from(factions).sort();
-});
-
-const uniqueTypes = computed(() => {
-  const types = new Set(cardLibrary.map(c => c.type).filter(Boolean));
-  return Array.from(types).sort();
-});
+const uniqueElements = [
+  'eau', 
+  'radiation', 
+  'reseau', 
+  'spore', 
+  'furtif', 
+  'longue_portee', 
+  'faille_dimensionnelle', 
+  'hacking', 
+  'obsidienne'
+];
 
 const uniqueRarities = computed(() => {
   return [
@@ -352,13 +392,20 @@ const uniqueRarities = computed(() => {
   ];
 });
 
-const toggleManaCost = (cost) => {
-  const index = selectedManaCosts.value.indexOf(cost);
+const toggleElement = (el) => {
+  const index = selectedElements.value.indexOf(el);
   if (index > -1) {
-    selectedManaCosts.value.splice(index, 1);
+    selectedElements.value.splice(index, 1);
   } else {
-    selectedManaCosts.value.push(cost);
+    selectedElements.value.push(el);
   }
+};
+
+const rarityOrder = { 'common': 1, 'uncommon': 2, 'rare': 3, 'epic': 4, 'legendary': 5 };
+
+const parsePowerValue = (val) => {
+  if (val === 'A' || val === 'a') return 10;
+  return parseInt(val) || 0;
 };
 
 const filteredCardLibrary = computed(() => {
@@ -366,14 +413,27 @@ const filteredCardLibrary = computed(() => {
 
   if (searchQuery.value) {
     const q = searchQuery.value.toLowerCase();
-    result = result.filter(c => c.name.toLowerCase().includes(q) || c.description.toLowerCase().includes(q));
+    result = result.filter(c => 
+      c.name.toLowerCase().includes(q) || 
+      (c.description && c.description.toLowerCase().includes(q))
+    );
   }
 
-  if (selectedManaCosts.value.length > 0) {
+  if (selectedElements.value.length > 0) {
+    result = result.filter(c => selectedElements.value.includes(c.element));
+  }
+
+  if (filterOwnership.value) {
     result = result.filter(c => {
-      const isSevenPlusSelected = selectedManaCosts.value.includes(7);
-      if (isSevenPlusSelected && c.manaCost >= 7) return true;
-      return selectedManaCosts.value.includes(c.manaCost);
+      const owned = isOwned(c.id);
+      return filterOwnership.value === 'owned' ? owned : !owned;
+    });
+  }
+
+  if (filterPremium.value) {
+    result = result.filter(c => {
+      const premium = isOwnedPremium(c.id);
+      return filterPremium.value === 'premium' ? premium : !premium;
     });
   }
 
@@ -381,29 +441,23 @@ const filteredCardLibrary = computed(() => {
     result = result.filter(c => getRarity(c) === filterRarity.value);
   }
 
-  if (filterFaction.value) {
-    result = result.filter(c => c.faction === filterFaction.value);
-  }
-
-  if (filterType.value) {
-    result = result.filter(c => c.type === filterType.value);
-  }
-
-  if (filterElement.value) {
-    result = result.filter(c => c.element === filterElement.value);
-  }
-
   result.sort((a, b) => {
     switch (sortBy.value) {
       case 'level-desc': return b.level - a.level || a.id - b.id;
       case 'level-asc': return a.level - b.level || a.id - b.id;
       case 'name-asc': return a.name.localeCompare(b.name);
-      case 'owned-first': {
-        const aOwned = isOwned(a.id);
-        const bOwned = isOwned(b.id);
-        if (aOwned === bOwned) return a.id - b.id;
-        return aOwned ? -1 : 1;
-      }
+      case 'rarity-desc': return (rarityOrder[getRarity(b)] - rarityOrder[getRarity(a)]) || a.id - b.id;
+      case 'rarity-asc': return (rarityOrder[getRarity(a)] - rarityOrder[getRarity(b)]) || a.id - b.id;
+      
+      case 'power-top-desc': return parsePowerValue(b.topValue) - parsePowerValue(a.topValue) || a.id - b.id;
+      case 'power-top-asc': return parsePowerValue(a.topValue) - parsePowerValue(b.topValue)  || a.id - b.id;
+      case 'power-right-desc': return parsePowerValue(b.rightValue) - parsePowerValue(a.rightValue) || a.id - b.id;
+      case 'power-right-asc': return parsePowerValue(a.rightValue) - parsePowerValue(b.rightValue) || a.id - b.id;
+      case 'power-bottom-desc': return parsePowerValue(b.bottomValue) - parsePowerValue(a.bottomValue) || a.id - b.id;
+      case 'power-bottom-asc': return parsePowerValue(a.bottomValue) - parsePowerValue(b.bottomValue) || a.id - b.id;
+      case 'power-left-desc': return parsePowerValue(b.leftValue) - parsePowerValue(a.leftValue) || a.id - b.id;
+      case 'power-left-asc': return parsePowerValue(a.leftValue) - parsePowerValue(b.leftValue) || a.id - b.id;
+
       case 'id-asc':
       default: return a.id - b.id;
     }
@@ -420,7 +474,7 @@ const paginatedCardLibrary = computed(() => {
   return filteredCardLibrary.value.slice(start, end);
 });
 
-watch([searchQuery, filterRarity, filterFaction, filterType, selectedManaCosts, filterElement, sortBy], () => {
+watch([searchQuery, filterRarity, selectedElements, filterOwnership, filterPremium, sortBy], () => {
   currentPage.value = 1;
 });
 
@@ -601,6 +655,85 @@ function closeCardDetail() {
   border-radius: 8px;
   margin-bottom: 20px;
   font-size: 1.1rem;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.element-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.element-btn-icon-wrapper {
+  width: 44px;
+  height: 44px;
+  padding: 6px;
+  background: rgba(42, 42, 53, 0.4);
+  border: 1px solid #444;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.element-btn-icon-wrapper:hover {
+  background: rgba(58, 58, 69, 0.6);
+  border-color: #666;
+  transform: translateY(-2px);
+}
+
+.element-btn-icon-wrapper.active {
+  background: rgba(0, 188, 212, 0.2);
+  border-color: #00bcd4;
+  box-shadow: 0 0 15px rgba(0, 188, 212, 0.4);
+}
+
+.toggle-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.btn-toggle-row {
+  display: flex;
+  background: rgba(0,0,0,0.3);
+  padding: 4px;
+  border-radius: 6px;
+  border: 1px solid #444;
+}
+
+.btn-toggle-row button {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #999;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.btn-toggle-row button.active {
+  background: #2196f3;
+  color: white;
+  box-shadow: 0 2px 6px rgba(33, 150, 243, 0.3);
+}
+
+.sort-select optgroup {
+  background: #1a1a2e;
+  color: #888;
+  font-style: normal;
+  font-weight: bold;
 }
 
 

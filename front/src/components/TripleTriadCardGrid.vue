@@ -20,9 +20,9 @@
 
     <!-- Pagination controls -->
     <div v-if="totalPages > 1" class="pagination-controls">
-      <button @click="prevPage" :disabled="currentPage === 1" class="page-btn">← Précédent</button>
+      <AppButton variant="primary" @click="prevPage" :disabled="currentPage === 1"  class="page-btn">← Précédent</AppButton>
       <span class="page-info">{{ currentPage }} / {{ totalPages }}</span>
-      <button @click="nextPage" :disabled="currentPage === totalPages" class="page-btn">Suivant →</button>
+      <AppButton variant="primary" @click="nextPage" :disabled="currentPage === totalPages"  class="page-btn">Suivant →</AppButton>
     </div>
   </div>
 </template>
