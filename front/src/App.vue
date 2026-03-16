@@ -18,7 +18,7 @@ import NotificationToast from "./components/NotificationToast.vue";
 import AlertMessage from './components/AlertMessage.vue';
 import ConfirmationModal from './components/ConfirmationModal.vue';
 import DevOptions from './components/DevOptions.vue';
-import { state } from './game/state.js';
+import { state, loadCardsFromStrapi } from './game/state.js';
 import { useUserStore } from './stores/userStore.js';
 import { useNotificationStore } from './stores/notificationStore.js';
 import { initNotificationManager } from "./game/notificationManager.js";
@@ -27,6 +27,9 @@ import strapiService from './api/strapi.js';
 console.warn('--- TRIPLE TRIAD: FRONTEND LOADED (VERSION: VUE_UI_REVAMP) ---');
 
 onMounted(async () => {
+  // Load cards from Strapi
+  loadCardsFromStrapi();
+
   try {
     const config = await strapiService.getGameConfig();
     if (config) {

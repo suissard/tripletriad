@@ -3,6 +3,7 @@ import { strapi as createStrapiClient } from '@strapi/client';
 class StrapiApi {
     constructor() {
         this.BASE_URL = 'http://localhost:1337/api';
+        this.MEDIA_URL = 'http://localhost:1337';
         this.token = null;
         this.strapiClient = this._createClient();
     }
