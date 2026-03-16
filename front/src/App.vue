@@ -2,27 +2,26 @@
   <InitialLoader v-if="userStore.initializationStatus === 'loading'" />
   
   <template v-else>
-    <router-view />
+    <AppLayout>
+      <router-view :key="$route.fullPath" />
+    </AppLayout>
 
     <!-- Global Overlays -->
     <AlertMessage />
     <NotificationToast />
     <ConfirmationModal />
-    <TopNavbar />
-    <RightDrawer />
     <DevOptions />
   </template>
 </template>
 
 <script setup>
 import { onMounted, watch } from 'vue';
-import TopNavbar from './components/TopNavbar.vue';
-import RightDrawer from './components/RightDrawer.vue';
+import AppLayout from './layouts/AppLayout.vue';
 import NotificationToast from "./components/NotificationToast.vue";
 import AlertMessage from './components/AlertMessage.vue';
 import ConfirmationModal from './components/ConfirmationModal.vue';
 import DevOptions from './admin/components/DevOptions.vue';
-import { state, loadCardsFromStrapi } from './game/state.js';
+import { loadCardsFromStrapi } from './game/state.js';
 import { useUserStore } from './stores/userStore.js';
 import { useNotificationStore } from './stores/notificationStore.js';
 import { initNotificationManager } from "./game/notificationManager.js";
