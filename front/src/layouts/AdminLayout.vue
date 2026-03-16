@@ -33,7 +33,7 @@
 
       <!-- Main view -->
       <main class="flex-1 min-h-0 overflow-x-hidden overflow-y-auto p-10 z-10 custom-scrollbar">
-        <router-view :key="route.fullPath"></router-view>
+        <slot />
       </main>
     </div>
 
@@ -41,9 +41,9 @@
 </template>
 
 <script setup>
-import { useAuthStore } from '../stores/authStore';
+import { useAuthStore } from '../admin/stores/authStore';
 import { useRouter, useRoute } from 'vue-router';
-import AppButton from '../../components/ui/AppButton.vue';
+import AppButton from '../components/ui/AppButton.vue';
 
 const authStore = useAuthStore();
 const router = useRouter();
