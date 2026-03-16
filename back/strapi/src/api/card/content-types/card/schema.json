@@ -30,14 +30,15 @@
       "type": "enumeration",
       "enum": [
         "None",
-        "Fire",
-        "Ice",
-        "Thunder",
-        "Earth",
-        "Poison",
-        "Wind",
-        "Water",
-        "Holy"
+        "eau",
+        "faille_dimensionnelle",
+        "furtif",
+        "hacking",
+        "longue_portee",
+        "obsidienne",
+        "radiation",
+        "reseau",
+        "spore"
       ],
       "default": "None"
     },

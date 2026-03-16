@@ -232,22 +232,16 @@ const getOptionsForField = (key) => {
   }
   if (lKey === 'element' || lKey === 'élément') {
     return [
-      { label: 'Aucun', value: 'none' },
-      { label: 'Neutre', value: 'neutre' },
-      { label: 'Feu', value: 'feu' },
+      { label: 'Aucun', value: 'None' },
       { label: 'Eau', value: 'eau' },
-      { label: 'Terre', value: 'terre' },
-      { label: 'Air', value: 'air' },
-      { label: 'Foudre', value: 'foudre' },
-      { label: 'Glace', value: 'glace' },
-      { label: 'Poison', value: 'poison' },
-      { label: 'Sacré', value: 'sacre' },
-      { label: 'Ténèbres', value: 'tenebres' },
+      { label: 'Faille Dimensionnelle', value: 'faille_dimensionnelle' },
+      { label: 'Furtif', value: 'furtif' },
+      { label: 'Hacking', value: 'hacking' },
+      { label: 'Longue Portée', value: 'longue_portee' },
+      { label: 'Obsidienne', value: 'obsidienne' },
       { label: 'Radiation', value: 'radiation' },
       { label: 'Réseau', value: 'reseau' },
-      { label: 'Spore', value: 'spore' },
-      { label: 'Furtif', value: 'furtif' },
-      { label: 'Hacking', value: 'hacking' }
+      { label: 'Spore', value: 'spore' }
     ];
   }
   return [];

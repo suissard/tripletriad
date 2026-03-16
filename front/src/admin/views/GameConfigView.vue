@@ -351,7 +351,7 @@ const saveConfig = async () => {
     delete payload.publishedAt;
     delete payload.documentId;
 
-    const res = await strapiService.request('PUT', '/game-config', { data: payload });
+    const res = await strapiService.request('PUT', '/game-config', { body: { data: payload } });
 
     if (res && res.error) {
        throw new Error(res.error.message || "Erreur lors de l'enregistrement");

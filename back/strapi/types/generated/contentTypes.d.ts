@@ -455,14 +455,15 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
     element: Schema.Attribute.Enumeration<
       [
         'None',
-        'Fire',
-        'Ice',
-        'Thunder',
-        'Earth',
-        'Poison',
-        'Wind',
-        'Water',
-        'Holy',
+        'eau',
+        'faille_dimensionnelle',
+        'furtif',
+        'hacking',
+        'longue_portee',
+        'obsidienne',
+        'radiation',
+        'reseau',
+        'spore',
       ]
     > &
       Schema.Attribute.DefaultTo<'None'>;
