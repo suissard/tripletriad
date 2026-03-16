@@ -130,6 +130,14 @@
               </div>
             </div>
 
+            <div class="setting-group mt-4">
+              <label for="boosterHits">Clics pour ouvrir</label>
+              <div class="relative">
+                <input type="number" id="boosterHits" v-model.number="config.boosterHits" class="pr-16 text-primary font-bold" min="1">
+                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-primary uppercase">Clics</span>
+              </div>
+            </div>
+
             <hr class="border-white/5">
 
             <div class="space-y-4">
@@ -275,6 +283,7 @@ const loadConfig = async () => {
           maxQuestsPerUser: 5,
           playableLimit: 2,
           boosterCost: 100,
+            boosterHits: 5,
           probCommon: 39,
           probUncommon: 30,
           probRare: 20,

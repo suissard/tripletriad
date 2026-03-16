@@ -605,6 +605,15 @@ export interface ApiGameConfigGameConfig extends Struct.SingleTypeSchema {
         number
       > &
       Schema.Attribute.DefaultTo<100>;
+    boosterHits: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<5>;
     cardsPerDeck: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMax<
