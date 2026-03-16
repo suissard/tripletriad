@@ -18,12 +18,12 @@
     <div class="navbar-content">
       <!-- Left Menu Toggle Removed -->
       <div style="display: flex; align-items: center; gap: 15px;">
-        <button class="btn btn-secondary glass-panel" @click="isQuestModalOpen = true">
+        <AppButton variant="secondary"  class="glass-panel" @click="isQuestModalOpen = true">
           <div style="display: flex; align-items: center; gap: 10px;">
             <span style="font-size: 1.2rem;">📜</span>
             <span class="username" style="display: none;">Quêtes</span>
           </div>
-        </button>
+        </AppButton>
 
         <!-- Offline Indicator -->
         <div v-if="userStore.isOffline" class="offline-indicator">
@@ -36,12 +36,12 @@
       <div class="app-title">Terra Nullius</div>
 
       <!-- Right User Widget (Hidden if offline) -->
-      <button v-if="!userStore.isOffline" class="btn btn-secondary glass-panel" @click="toggleRightDrawer">
+      <AppButton variant="secondary" v-if="!userStore.isOffline"  class="glass-panel" @click="toggleRightDrawer">
         <div style="display: flex; align-items: center; gap: 10px;">
           <span class="username">{{ userStore.user?.username || 'Joueur Anonyme' }}</span>
           <img :src="userStore.user?.avatar" class="avatar" alt="User Avatar" />
         </div>
-      </button>
+      </AppButton>
       <div v-else style="width: 120px;"></div> <!-- Spacer to keep title centered -->
     </div>
   </div>

@@ -1,50 +1,50 @@
 <template>
-  <div v-if="isOpen" class="quest-modal-overlay" @click.self="close">
-    <div class="quest-modal-content">
-      <div class="quest-modal-header">
-        <h2>Quêtes Journalières</h2>
-        <button class="close-btn" @click="close">×</button>
+  <AppModal
+    :modelValue="isOpen"
+    @update:modelValue="$emit('update:modelValue', $event)"
+    title="Quêtes Journalières"
+    :show-close-button="true"
+    @close="close"
+    max-width="md"
+  >
+    <div class="quest-modal-body">
+      <div v-if="loading" class="loading-state">
+        Chargement des quêtes...
       </div>
+      <div v-else-if="quests.length === 0" class="empty-state">
+        Aucune quête en cours. Jouez pour en débloquer !
+      </div>
+      <div v-else class="quest-list">
+        <AppCard v-for="quest in quests" :key="quest.id" :variant="quest.status === 'completed' ? 'accent' : 'secondary'" :class="['quest-card', quest.status, { 'pending': isPending(quest) }]">
+          <div class="quest-info">
+            <h3 class="quest-title">{{ quest.quest_template?.title || 'Quête inconnue' }}</h3>
+            <p class="quest-desc">{{ quest.quest_template?.description }}</p>
 
-      <div class="quest-modal-body">
-        <div v-if="loading" class="loading-state">
-          Chargement des quêtes...
-        </div>
-        <div v-else-if="quests.length === 0" class="empty-state">
-          Aucune quête en cours. Jouez pour en débloquer !
-        </div>
-        <div v-else class="quest-list">
-          <div v-for="quest in quests" :key="quest.id" class="quest-card" :class="[quest.status, { 'pending': isPending(quest) }]">
-            <div class="quest-info">
-              <h3 class="quest-title">{{ quest.quest_template?.title || 'Quête inconnue' }}</h3>
-              <p class="quest-desc">{{ quest.quest_template?.description }}</p>
-
-              <div v-if="isPending(quest)" class="quest-pending-timer">
-                Disponible dans : {{ formatPendingTime(quest.startsAt) }}
-              </div>
-              <div v-else class="quest-progress-bar">
-                <div class="progress-fill" :style="{ width: progressPercentage(quest) + '%' }"></div>
-                <span class="progress-text">{{ quest.progress }} / {{ quest.quest_template?.target }}</span>
-              </div>
+            <div v-if="isPending(quest)" class="quest-pending-timer">
+              Disponible dans : {{ formatPendingTime(quest.startsAt) }}
             </div>
-
-            <div class="quest-reward" v-if="quest.quest_template?.rewardCoins || quest.quest_template?.rewardGems">
-              <span v-if="quest.quest_template?.rewardCoins" class="reward coin">
-                🪙 {{ quest.quest_template.rewardCoins }}
-              </span>
-              <span v-if="quest.quest_template?.rewardGems" class="reward gem">
-                💎 {{ quest.quest_template.rewardGems }}
-              </span>
-            </div>
-
-            <div v-if="quest.status === 'completed'" class="quest-status-badge completed">
-              Terminée
+            <div v-else class="quest-progress-bar">
+              <div class="progress-fill" :style="{ width: progressPercentage(quest) + '%' }"></div>
+              <span class="progress-text">{{ quest.progress }} / {{ quest.quest_template?.target }}</span>
             </div>
           </div>
-        </div>
+
+          <div class="quest-reward" v-if="quest.quest_template?.rewardCoins || quest.quest_template?.rewardGems">
+            <span v-if="quest.quest_template?.rewardCoins" class="reward coin">
+              🪙 {{ quest.quest_template.rewardCoins }}
+            </span>
+            <span v-if="quest.quest_template?.rewardGems" class="reward gem">
+              💎 {{ quest.quest_template.rewardGems }}
+            </span>
+          </div>
+
+          <div v-if="quest.status === 'completed'" class="quest-status-badge completed">
+            Terminée
+          </div>
+        </AppCard>
       </div>
     </div>
-  </div>
+  </AppModal>
 </template>
 
 <script setup>
@@ -55,7 +55,7 @@ const props = defineProps({
   isOpen: Boolean
 });
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close', 'update:modelValue']);
 
 const quests = ref([]);
 const loading = ref(false);
@@ -75,7 +75,6 @@ const fetchQuests = async () => {
       pagination: { limit: 10 }
     });
 
-    // Check if response and response.data exist
     if (Array.isArray(response)) {
       quests.value = response;
     } else if (response && response.data && Array.isArray(response.data)) {
@@ -117,7 +116,7 @@ watch(() => props.isOpen, (newVal) => {
     fetchQuests();
     timerInterval = setInterval(() => {
       now.value = new Date();
-    }, 60000); // Update every minute
+    }, 60000);
   } else {
     if (timerInterval) clearInterval(timerInterval);
   }
@@ -129,70 +128,10 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.quest-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(3px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.quest-modal-content {
-  background: linear-gradient(to bottom, #2c3e50, #1a252f);
-  width: 90%;
-  max-width: 500px;
-  max-height: 80vh;
-  border-radius: 12px;
-  border: 2px solid #4a90e2;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  color: white;
-}
-
-.quest-modal-header {
-  padding: 15px 20px;
-  background: rgba(0, 0, 0, 0.3);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.quest-modal-header h2 {
-  margin: 0;
-  font-size: 1.5rem;
-  color: #f1c40f;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-}
-
-.close-btn {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 2rem;
-  cursor: pointer;
-  line-height: 1;
-  padding: 0;
-  opacity: 0.7;
-  transition: opacity 0.2s;
-}
-
-.close-btn:hover {
-  opacity: 1;
-}
-
 .quest-modal-body {
-  padding: 20px;
+  padding: 10px;
+  max-height: 60vh;
   overflow-y: auto;
-  flex: 1;
 }
 
 .loading-state, .empty-state {
@@ -209,21 +148,12 @@ onUnmounted(() => {
 }
 
 .quest-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
   padding: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: transform 0.2s;
   position: relative;
   overflow: hidden;
-}
-
-.quest-card:hover {
-  transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.08);
 }
 
 .quest-card.pending {

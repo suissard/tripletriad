@@ -1,7 +1,7 @@
 <template>
   <div class="page-layout">
     <div class="page-header">
-      <button class="back-btn" @click="goBack">← Retour</button>
+      <AppButton variant="primary"  class="back-btn" @click="goBack">← Retour</AppButton>
       <h2 class="page-title">{{ title }}</h2>
       <div class="header-actions">
         <slot name="header-actions"></slot>

@@ -7,7 +7,7 @@
           Nombre de simulations :
           <input type="number" v-model.number="simulationCount" min="10" max="100000" />
         </label>
-        <button class="test-btn" @click="runSimulation">▶ Lancer la simulation</button>
+        <AppButton variant="primary"  class="test-btn" @click="runSimulation">▶ Lancer la simulation</AppButton>
       </div>
 
       <div class="results-summary" v-if="results.total > 0">

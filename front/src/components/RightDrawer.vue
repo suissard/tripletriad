@@ -18,8 +18,8 @@
 
       <div class="drawer-content-wrapper">
         <div class="drawer-header">
-          <button v-if="currentView !== 'profile'" class="back-btn" @click="currentView = 'profile'">←</button>
-          <button v-else class="close-btn" @click="state.rightDrawerOpen = false">×</button>
+          <AppButton variant="primary" v-if="currentView !== 'profile'"  class="back-btn" @click="currentView = 'profile'">←</AppButton>
+          <AppButton variant="primary" v-else  class="close-btn" @click="state.rightDrawerOpen = false">×</AppButton>
           <h2>{{ viewTitle }}</h2>
         </div>
         <div class="drawer-content">
@@ -60,9 +60,9 @@
               <span>Durée d'affichage (ms)</span>
               <input type="number" class="duration-input" v-model.number="notificationStore.preferences.duration" @change="notificationStore.savePreferences()" step="500" min="1000" max="10000">
             </div>
-            <button class="test-btn" @click="notificationStore.addNotification('CARD_PLACED', 'Test : Notification posée !', 'info')">Test Pose</button>
-            <button class="test-btn" @click="notificationStore.addNotification('CARD_CAPTURED', 'Test : Carte capturée !', 'warning')">Test Capture</button>
-            <button class="test-btn" @click="notificationStore.addNotification('GAME_OVER', 'Test : Partie terminée !', 'success')">Test Fin</button>
+            <AppButton variant="primary"  class="test-btn" @click="notificationStore.addNotification('CARD_PLACED', 'Test : Notification posée !', 'info')">Test Pose</AppButton>
+            <AppButton variant="primary"  class="test-btn" @click="notificationStore.addNotification('CARD_CAPTURED', 'Test : Carte capturée !', 'warning')">Test Capture</AppButton>
+            <AppButton variant="primary"  class="test-btn" @click="notificationStore.addNotification('GAME_OVER', 'Test : Partie terminée !', 'success')">Test Fin</AppButton>
           </div>
         </template>
 
@@ -77,7 +77,7 @@
               <p class="profile-gems">💎 Gemmes : {{ userStore.user.gems !== undefined ? userStore.user.gems : 0 }}</p>
               <p class="profile-dust">✨ Poussière : {{ userStore.user.dust !== undefined ? userStore.user.dust : 0 }}</p>
             </div>
-            <button class="logout-btn" @click="doLogout">Se Déconnecter</button>
+            <AppButton variant="primary"  class="logout-btn" @click="doLogout">Se Déconnecter</AppButton>
           </div>
 
           <!-- Connection Status Alert -->
@@ -87,22 +87,22 @@
               <h4>Hors-ligne</h4>
               <p>La connexion avec la base de données est perdue. Vos progrès ne seront pas sauvegardés.</p>
             </div>
-            <button class="retry-btn" @click="userStore.fetchUserCollection()">Réessayer</button>
+            <AppButton variant="primary"  class="retry-btn" @click="userStore.fetchUserCollection()">Réessayer</AppButton>
           </div>
 
           <div class="menu-list">
-            <button class="btn btn-secondary glass-panel w-full text-left" @click="goToHome">🏠 Accueil / Menu</button>
-            <button class="btn btn-secondary glass-panel w-full text-left" @click="goToAiMenu">🤖 Jouer contre l'IA</button>
-            <button class="btn btn-secondary glass-panel w-full text-left" @click="currentView = 'notifications'">🔔 Paramètres de Notification</button>
-            <button class="btn btn-secondary glass-panel w-full text-left opacity-50 cursor-not-allowed">⚙️ Paramètres du Jeu (Bientôt)</button>
-            <button class="btn btn-secondary glass-panel w-full text-left opacity-50 cursor-not-allowed">📜 Historique des Matchs (Bientôt)</button>
+            <AppButton variant="secondary"  class="glass-panel w-full text-left" @click="goToHome">🏠 Accueil / Menu</AppButton>
+            <AppButton variant="secondary"  class="glass-panel w-full text-left" @click="goToAiMenu">🤖 Jouer contre l'IA</AppButton>
+            <AppButton variant="secondary"  class="glass-panel w-full text-left" @click="currentView = 'notifications'">🔔 Paramètres de Notification</AppButton>
+            <AppButton variant="secondary"  class="glass-panel w-full text-left opacity-50 cursor-not-allowed">⚙️ Paramètres du Jeu (Bientôt)</AppButton>
+            <AppButton variant="secondary"  class="glass-panel w-full text-left opacity-50 cursor-not-allowed">📜 Historique des Matchs (Bientôt)</AppButton>
           </div>
         </template>
 
         <!-- COLLECTION VIEW -->
         <template v-else-if="currentView === 'collection'">
           <div v-if="selectedCard" class="card-detail-view-container">
-            <button class="back-btn-detail" @click="closeCardDetail">← Retour</button>
+            <AppButton variant="primary"  class="back-btn-detail" @click="closeCardDetail">← Retour</AppButton>
             
             <div class="zoom-card-container horizontal-drawer-layout">
               <TripleTriadCard 
@@ -198,9 +198,9 @@
             </div>
 
             <div class="pagination-controls" v-if="totalPages > 1">
-              <button @click="prevPage" :disabled="currentPage === 1" class="page-btn">←</button>
+              <AppButton variant="primary" @click="prevPage" :disabled="currentPage === 1"  class="page-btn">←</AppButton>
               <span class="page-info">{{ currentPage }} / {{ totalPages }}</span>
-              <button @click="nextPage" :disabled="currentPage === totalPages" class="page-btn">→</button>
+              <AppButton variant="primary" @click="nextPage" :disabled="currentPage === totalPages"  class="page-btn">→</AppButton>
             </div>
 
             <div v-if="filteredCardLibrary.length === 0" class="no-results">
@@ -212,7 +212,7 @@
         <!-- DECKS VIEW -->
         <template v-else-if="currentView === 'decks'">
           <div v-if="!isBuilding" class="decks-view">
-            <button class="btn btn-primary glass-panel w-full py-4 text-lg border-dashed border-2" @click="startNewDeck">+ Nouveau Deck</button>
+            <AppButton variant="primary"  class="glass-panel w-full py-4 text-lg border-dashed border-2" @click="startNewDeck">+ Nouveau Deck</AppButton>
             <div class="decks-list mt-4">
               <div v-for="deck in userStore.userDecks" :key="deck.id" class="deck-row">
                 <img v-if="deck.cover" :src="getCardById(deck.cover)?.imageUrl" class="deck-cover-img" />
@@ -221,8 +221,8 @@
                   <span class="deck-count">{{ deck.cards.length }} cartes</span>
                 </div>
                 <div class="deck-actions">
-                  <button class="small-btn edit" @click="editDeck(deck)">✏️</button>
-                  <button class="small-btn delete" @click="deleteDeck(deck)">🗑️</button>
+                  <AppButton variant="primary"  class="small-btn edit" @click="editDeck(deck)">✏️</AppButton>
+                  <AppButton variant="primary"  class="small-btn delete" @click="deleteDeck(deck)">🗑️</AppButton>
                 </div>
               </div>
               <p v-if="userStore.userDecks.length === 0">Aucun deck créé.</p>
@@ -232,13 +232,13 @@
           <div v-else class="deck-builder">
             <div class="mana-curve-container">
 
-              <button class="btn btn-secondary glass-panel w-full mb-5" @click="showManaCurve = !showManaCurve">
+              <AppButton variant="secondary"  class="glass-panel w-full mb-5" @click="showManaCurve = !showManaCurve">
 
                 <span v-if="showManaCurve">Masquer Courbe de Mana</span>
 
                 <span v-else>Afficher Courbe de Mana</span>
 
-              </button>
+              </AppButton>
 
               <div v-if="showManaCurve" class="mana-histogram">
 
@@ -275,24 +275,24 @@
 
               <input v-model="importedDeckCode" placeholder="Coller le code ici" class="import-input" />
 
-              <button class="import-btn" @click="importDeckCode" :disabled="!importedDeckCode">
+              <AppButton variant="primary"  class="import-btn" @click="importDeckCode" :disabled="!importedDeckCode">
 
                 Importer
 
-              </button>
+              </AppButton>
 
             </div>
 
 
             <div class="builder-actions flex gap-2 mb-5">
-              <button class="btn btn-secondary glass-panel flex-1" @click="exportDeckCode" :disabled="editingDeck.cards.length === 0">
+              <AppButton variant="secondary"  class="glass-panel flex-1" @click="exportDeckCode" :disabled="editingDeck.cards.length === 0">
                 Copier le code
-              </button>
+              </AppButton>
 
-              <button class="btn btn-primary glass-panel flex-1" :disabled="editingDeck.cards.length !== 15" @click="saveDeck">
+              <AppButton variant="primary"  class="glass-panel flex-1" :disabled="editingDeck.cards.length !== 15" @click="saveDeck">
                 Enregistrer
-              </button>
-              <button class="btn btn-accent glass-panel flex-1" @click="isBuilding = false">Annuler</button>
+              </AppButton>
+              <AppButton variant="primary"  class="btn-accent glass-panel flex-1" @click="isBuilding = false">Annuler</AppButton>
             </div>
 
             <div class="builder-grid">
@@ -318,14 +318,14 @@
 
               <p v-if="authError" class="auth-error">{{ authError }}</p>
 
-              <button class="btn btn-primary glass-panel w-full py-3" @click="submitAuth" :disabled="isLoading">
+              <AppButton variant="primary"  class="glass-panel w-full py-3" @click="submitAuth" :disabled="isLoading">
                 {{ isLoading ? 'Chargement...' : (isRegistering ? 'S\'inscrire' : 'Connexion') }}
-              </button>
+              </AppButton>
             </form>
 
-            <button class="btn btn-secondary glass-panel w-full mt-4 py-2" @click="toggleAuthMode">
+            <AppButton variant="secondary"  class="glass-panel w-full mt-4 py-2" @click="toggleAuthMode">
               {{ isRegistering ? 'Déjà un compte ? Se connecter' : 'Pas de compte ? S\'inscrire' }}
-            </button>
+            </AppButton>
           </div>
         </template>
         </div> <!-- End of .drawer-content -->

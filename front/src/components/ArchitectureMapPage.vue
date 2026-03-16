@@ -2,7 +2,7 @@
   <div class="architecture-map-page" >
     <div class="header">
       <h2>🗺️ Cartographie de l'Architecture (Terra Nullius)</h2>
-      <button class="btn btn-secondary glass-panel" @click="closeMap">Fermer</button>
+      <AppButton variant="secondary"  class="glass-panel" @click="closeMap">Fermer</AppButton>
     </div>
 
     <div class="map-container">
