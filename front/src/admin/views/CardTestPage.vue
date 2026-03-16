@@ -172,8 +172,8 @@
 
 <script setup>
 import { ref, reactive } from 'vue';
-import PageLayout from '../components/PageLayout.vue';
-import TripleTriadCard from '../components/TripleTriadCard.vue';
+import PageLayout from '../../components/PageLayout.vue';
+import TripleTriadCard from '../../components/TripleTriadCard.vue';
 
 const cardProps = reactive({
   size: 'xl',

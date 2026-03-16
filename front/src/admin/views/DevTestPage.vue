@@ -105,9 +105,9 @@ const router = useRouter();
 
 import { ref, reactive, computed, onMounted } from 'vue';
 
-import { useUserStore } from '../stores/userStore.js';
+import { useUserStore } from '../../stores/userStore.js';
 const userStore = useUserStore();
-import strapiService from '../api/strapi.js';
+import strapiService from '../../api/strapi.js';
 
 const selectedRoute = ref(null);
 const form = reactive({});

@@ -47,7 +47,7 @@
 <script setup>
 import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
-import CoinToss from '../components/CoinToss.vue';
+import CoinToss from '../../components/CoinToss.vue';
 
 const router = useRouter();
 

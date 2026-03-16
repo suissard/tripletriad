@@ -51,8 +51,8 @@
 
 <script setup>
 import { ref, computed } from 'vue';
-import PageLayout from '../components/PageLayout.vue';
-import { GameEngine } from '../../../shared/GameEngine.ts';
+import PageLayout from '../../components/PageLayout.vue';
+import { GameEngine } from '../../../../shared/GameEngine.ts';
 
 const simulationCount = ref(10000);
 

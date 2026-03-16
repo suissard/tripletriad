@@ -87,9 +87,9 @@ const router = useRouter();
 
 import { ref, reactive, onMounted, watch } from 'vue';
 
-import { state, cardLibrary } from '../game/state.js';
-import strapiService from '../api/strapi.js';
-import { useUserStore } from '../stores/userStore.js';
+import { state, cardLibrary } from '../../game/state.js';
+import strapiService from '../../api/strapi.js';
+import { useUserStore } from '../../stores/userStore.js';
 
 const userStore = useUserStore();
 
