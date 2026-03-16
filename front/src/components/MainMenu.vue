@@ -8,8 +8,8 @@
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openCollection">MA COLLECTION 📚</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openDecks">MES DECKS 🎴</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openBoutique">BOUTIQUE 💎</AppButton>
-      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="router.push('/test-card')" style="margin-top:20px; background:linear-gradient(45deg, #f093fb 0%, #f5576c 100%)">TESTER LA CARTE 🧪</AppButton>
-      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="router.push('/test-coin')" style="margin-top:10px; background:linear-gradient(45deg, #84fab0 0%, #8fd3f4 100%)">TESTER LA PIÈCE 🪙</AppButton>
+      <!-- <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="router.push('/test-card')" style="margin-top:20px; background:linear-gradient(45deg, #f093fb 0%, #f5576c 100%)">TESTER LA CARTE 🧪</AppButton>
+      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="router.push('/test-coin')" style="margin-top:10px; background:linear-gradient(45deg, #84fab0 0%, #8fd3f4 100%)">TESTER LA PIÈCE 🪙</AppButton> -->
     </div>
     
     <!-- Coin Toss Overlay -->
@@ -339,8 +339,8 @@ async function joinGame() {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 100%;
-    max-width: 400px;
+    /* width: 100%;
+    max-width: 400px; */
 }
 button {
     padding: 15px 40px; font-size: 1.5rem; cursor: pointer; border: none;
