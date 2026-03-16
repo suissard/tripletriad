@@ -24,8 +24,11 @@
               <h2>{{ selectedCard.name }}</h2>
               <div class="zoom-meta">
                 <span>Niveau {{ selectedCard.level }}</span>
-                <span v-if="selectedCard.element && selectedCard.element !== 'None'">
-                  {{ getElementEmoji(selectedCard.element) }} {{ selectedCard.element }}
+                <span v-if="selectedCard.elements && selectedCard.elements.length">
+                  {{ selectedCard.elements.map(e => getElementEmoji(e) + ' ' + e).join(', ') }}
+                </span>
+                <span v-if="selectedCard.faction && selectedCard.faction !== 'neutre'">
+                  Faction: {{ selectedCard.faction }}
                 </span>
                 <span v-if="isOwnedPremium(selectedCard.id)" class="zoom-premium-badge">🌟 PREMIUM</span>
               </div>
@@ -420,7 +423,10 @@ const filteredCardLibrary = computed(() => {
   }
 
   if (selectedElements.value.length > 0) {
-    result = result.filter(c => selectedElements.value.includes(c.element));
+    result = result.filter(c => {
+      const cardElements = c.elements || (c.element && c.element !== 'None' ? [c.element] : []);
+      return selectedElements.value.some(el => cardElements.includes(el));
+    });
   }
 
   if (filterOwnership.value) {

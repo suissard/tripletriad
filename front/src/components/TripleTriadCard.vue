@@ -34,7 +34,7 @@
       <!-- FRONT SIDE -->
       <div class="tt-card-front">
         <!-- 3D Glare Layout -->
-        <template v-if="!flat">
+        <template v-if="!flat && isPremiumCard">
           <div class="glare" :style="glareStyle"></div>
         </template>
 
@@ -125,11 +125,13 @@
                     <feBlend in="SourceGraphic" in2="mono" mode="color-burn" />
                   </filter>
                 </svg>
-                <div class="glare" :style="{ background: 'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 60%)' }"></div>
-                <div class="holo-container" :style="[{ opacity: 1, mixBlendMode: 'color-dodge' }, holoStyle]">
-                  <div class="holo-gradient" :style="{ filter: `url(#${holoFilterId}-zoom)` }"></div>
-                </div>
-                <div class="premium-border-layer" :style="premiumBorderStyle"></div>
+                <template v-if="isPremiumCard">
+                  <div class="glare" :style="{ background: 'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 60%)' }"></div>
+                  <div class="holo-container" :style="[{ opacity: 1, mixBlendMode: 'color-dodge' }, holoStyle]">
+                    <div class="holo-gradient" :style="{ filter: `url(#${holoFilterId}-zoom)` }"></div>
+                  </div>
+                  <div class="premium-border-layer" :style="premiumBorderStyle"></div>
+                </template>
               </template>
 
               <!-- Card face (Always revealed in zoom) -->
@@ -152,6 +154,7 @@
             <div class="zoom-meta">
               <span>Niveau {{ card.level }}</span>
               <span v-if="cardElementsList.length">Éléments: {{ cardElementsList.join(', ') }}</span>
+              <span v-if="card.faction && card.faction !== 'neutre'">Faction: {{ card.faction }}</span>
               <span v-if="isPremiumCard" class="zoom-premium-badge">🌟 PREMIUM</span>
             </div>
 
@@ -366,11 +369,19 @@ const premiumBorderStyle = computed(() => {
 
 const cardElementsList = computed(() => {
   if (!props.card) return [];
-  let els = props.card.elements || props.card.element;
-  if (!els) return [];
-  if (Array.isArray(els)) return els.filter(e => e && e !== 'None');
-  if (typeof els === 'string') return els.split(',').map(e => e.trim()).filter(e => e && e !== 'None');
-  return [];
+  const elements = props.card.elements;
+  const element = props.card.element;
+  
+  let result = [];
+  if (Array.isArray(elements)) {
+    result = elements;
+  } else if (typeof elements === 'string') {
+    result = elements.split(',').map(e => e.trim());
+  } else if (element && element !== 'None') {
+    result = [element];
+  }
+  
+  return [...new Set(result)].filter(e => e && e !== 'None');
 });
 
 // --- CRAFTING ---

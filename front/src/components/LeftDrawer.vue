@@ -18,12 +18,12 @@
 
       <div class="drawer-content-wrapper">
         <div class="drawer-header">
-          <h2>MENU PRINCIPAL</h2>
+          <h2>{{ isAdminRoute ? 'ADMINISTRATION' : 'MENU PRINCIPAL' }}</h2>
           <AppButton variant="secondary"  class="glass-panel px-3 py-1" @click="state.leftDrawerOpen = false">×</AppButton>
         </div>
         <div class="drawer-content">
-          <!-- We embed the MainMenu here -->
-          <MainMenu />
+          <AdminSidebar v-if="isAdminRoute" />
+          <MainMenu v-else />
         </div>
       </div>
     </div>
@@ -31,8 +31,14 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
 import { state } from '../game/state.js';
-import MainMenu from './MainMenu.vue';
+import MainMenu from '../views/MainMenu.vue';
+import AdminSidebar from '../admin/components/AdminSidebar.vue';
+
+const route = useRoute();
+const isAdminRoute = computed(() => route.path.startsWith('/admin'));
 </script>
 
 <style scoped>

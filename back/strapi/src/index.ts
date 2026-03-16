@@ -203,6 +203,8 @@ export default {
                 description: c.description,
                 level: c.level,
                 element: c.element || 'None',
+                elements: Array.isArray(c.elements) ? c.elements : [c.element || 'None'],
+                faction: c.faction || 'neutre',
                 topValue: String(c.topValue),
                 rightValue: String(c.rightValue),
                 bottomValue: String(c.bottomValue),

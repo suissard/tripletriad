@@ -42,6 +42,25 @@
       ],
       "default": "None"
     },
+    "elements": {
+      "type": "json"
+    },
+    "faction": {
+      "type": "enumeration",
+      "enum": [
+        "neutre",
+        "Hégemonie martienne",
+        "Exode pélagique",
+        "Héritiers des cendres",
+        "Omni-Réseau",
+        "Chœur Synthétique",
+        "Éveil Chthonien",
+        "Incursion Dissonante",
+        "Ferrailleurs de la Ceinture",
+        "Fléau Spore"
+      ],
+      "default": "neutre"
+    },
     "topValue": {
       "type": "string",
       "required": true,

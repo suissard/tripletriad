@@ -1,7 +1,7 @@
 <template>
   <InitialLoader v-if="userStore.initializationStatus === 'loading'" />
   
-  <template v-else>
+    <template v-else>
     <router-view />
 
     <!-- Global Overlays -->
@@ -9,6 +9,7 @@
     <NotificationToast />
     <ConfirmationModal />
     <TopNavbar />
+    <LeftDrawer />
     <RightDrawer />
     <DevOptions />
   </template>
@@ -28,6 +29,7 @@ import { useNotificationStore } from './stores/notificationStore.js';
 import { initNotificationManager } from "./game/notificationManager.js";
 import strapiService from './api/strapi.js';
 import InitialLoader from './components/InitialLoader.vue';
+import LeftDrawer from './components/LeftDrawer.vue';
 
 console.warn('--- TRIPLE TRIAD: FRONTEND LOADED (VERSION: VUE_UI_REVAMP) ---');
 

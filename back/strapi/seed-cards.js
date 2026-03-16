@@ -35,6 +35,8 @@ async function seedCards() {
                     description: card.description,
                     level: card.level,
                     element: card.element,
+                    elements: Array.isArray(card.elements) ? card.elements : [card.element || 'None'],
+                    faction: card.faction || 'neutre',
                     topValue: card.topValue,
                     rightValue: card.rightValue,
                     bottomValue: card.bottomValue,

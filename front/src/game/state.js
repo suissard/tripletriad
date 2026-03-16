@@ -45,6 +45,8 @@ export function normalizeCard(raw) {
         description: raw.description || '',
         level: raw.level || 1,
         element: raw.element || 'None',
+        elements: Array.isArray(raw.elements) ? raw.elements : (raw.element && raw.element !== 'None' ? [raw.element] : []),
+        faction: raw.faction || 'neutre',
         top: raw.top ?? parseStatValue(raw.topValue),
         right: raw.right ?? parseStatValue(raw.rightValue),
         bottom: raw.bottom ?? parseStatValue(raw.bottomValue),

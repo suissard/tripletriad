@@ -467,6 +467,22 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
       ]
     > &
       Schema.Attribute.DefaultTo<'None'>;
+    elements: Schema.Attribute.JSON;
+    faction: Schema.Attribute.Enumeration<
+      [
+        'neutre',
+        'H\u00E9gemonie martienne',
+        'Exode p\u00E9lagique',
+        'H\u00E9ritiers des cendres',
+        'Omni-R\u00E9seau',
+        'Ch\u0153ur Synth\u00E9tique',
+        '\u00C9veil Chthonien',
+        'Incursion Dissonante',
+        'Ferrailleurs de la Ceinture',
+        'Fl\u00E9au Spore',
+      ]
+    > &
+      Schema.Attribute.DefaultTo<'neutre'>;
     image: Schema.Attribute.Media<'images'>;
     isPremium: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     leftValue: Schema.Attribute.String &

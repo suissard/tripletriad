@@ -295,7 +295,10 @@ const filteredCards = computed(() => {
   }
 
   if (selectedElements.value.length > 0) {
-    result = result.filter(c => selectedElements.value.includes(c.element));
+    result = result.filter(c => {
+      const cardElements = c.elements || (c.element && c.element !== 'None' ? [c.element] : []);
+      return selectedElements.value.some(el => cardElements.includes(el));
+    });
   }
 
   if (filterRarity.value) {
