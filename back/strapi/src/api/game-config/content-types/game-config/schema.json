@@ -130,6 +130,21 @@
             "type": "string",
             "required": true,
             "default": "#FFFF00"
+        },
+        "uiButtonHole": {
+            "type": "integer",
+            "required": true,
+            "default": 30
+        },
+        "uiButtonSpeed": {
+            "type": "decimal",
+            "required": true,
+            "default": 1.0
+        },
+        "uiButtonOpacity": {
+            "type": "decimal",
+            "required": true,
+            "default": 0.25
         }
     }
 }
