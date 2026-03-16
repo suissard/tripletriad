@@ -11,55 +11,63 @@
       </div>
 
       <nav class="flex-1 px-6 py-10 space-y-3 overflow-y-auto custom-scrollbar flex flex-col">
-        <router-link 
-          to="/admin" 
+        <AppButton
+          variant="ghost"
+          fullWidth
+          @click="router.push('/admin')"
           class="premium-nav-item"
-          active-class="premium-nav-item-active"
+          :class="{ 'premium-nav-item-active': route.path === '/admin' }"
         >
           <span class="icon">📊</span> Dashboard
-        </router-link>
+        </AppButton>
 
         <div class="pt-12 pb-5">
           <p class="px-6 text-[9px] font-black uppercase tracking-premium opacity-50">Collections</p>
         </div>
 
-        <router-link 
+        <AppButton
+          variant="ghost"
+          fullWidth
           v-for="col in collections" 
           :key="col.path" 
-          :to="`/admin/${col.path}`"
+          @click="router.push(`/admin/${col.path}`)"
           class="premium-nav-item"
-          active-class="premium-nav-item-active"
+          :class="{ 'premium-nav-item-active': route.path === `/admin/${col.path}` }"
         >
           <span class="icon">{{ col.icon || '📁' }}</span>
           <span class="capitalize">{{ col.name }}</span>
-        </router-link>
+        </AppButton>
 
         <div class="pt-12 pb-5">
           <p class="px-6 text-[9px] font-black uppercase tracking-premium opacity-50">Visual FX & Core</p>
         </div>
 
-        <router-link 
-          to="/admin/game-config" 
+        <AppButton
+          variant="ghost"
+          fullWidth
+          @click="router.push('/admin/game-config')"
           class="premium-nav-item"
-          active-class="premium-nav-item-active"
+          :class="{ 'premium-nav-item-active': route.path === '/admin/game-config' }"
         >
           <span class="icon">⚙️</span> Configuration
-        </router-link>
+        </AppButton>
 
-        <router-link 
-          to="/admin/foil-editor" 
+        <AppButton
+          variant="ghost"
+          fullWidth
+          @click="router.push('/admin/foil-editor')"
           class="premium-nav-item"
-          active-class="premium-nav-item-active"
+          :class="{ 'premium-nav-item-active': route.path === '/admin/foil-editor' }"
         >
           <span class="icon">✨</span> HoloEditor Pro
-        </router-link>
+        </AppButton>
       </nav>
 
       <div class="p-8 border-t border-white/5">
-        <button @click="handleLogout" class="w-full flex items-center justify-between px-6 py-5 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-red-500/10 hover:border-red-500/20 transition-all group text-[10px] font-black uppercase tracking-widest">
+        <AppButton variant="ghost" fullWidth @click="handleLogout" class="w-full flex items-center justify-between px-6 py-5 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-red-500/10 hover:border-red-500/20 transition-all group text-[10px] font-black uppercase tracking-widest">
           <span class="text-gray-500 group-hover:text-red-400">Exit System</span>
           <span class="opacity-30 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-red-400 font-bold">→</span>
-        </button>
+        </AppButton>
       </div>
     </div>
 
@@ -103,6 +111,7 @@
 <script setup>
 import { useAuthStore } from '../stores/authStore';
 import { useRouter, useRoute } from 'vue-router';
+import AppButton from '../../components/ui/AppButton.vue';
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -131,6 +140,17 @@ const handleLogout = () => {
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
+}
+
+/* Override inner glass-content styling from AppButton to match sidebar alignment */
+:deep(.glass-content) {
+  justify-content: flex-start !important;
+  gap: 1rem;
+}
+
+.premium-nav-item {
+  justify-content: flex-start;
+  text-align: left;
 }
 </style>
 
