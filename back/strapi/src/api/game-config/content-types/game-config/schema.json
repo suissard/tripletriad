@@ -74,6 +74,12 @@
             "default": 100,
             "min": 0
         },
+        "boosterHits": {
+            "type": "integer",
+            "required": true,
+            "default": 5,
+            "min": 1
+        },
         "probCommon": {
             "type": "integer",
             "required": true,
