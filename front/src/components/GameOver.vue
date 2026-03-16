@@ -2,8 +2,8 @@
   <div id="game-over" v-if="state.gameOver">
       <h1 :style="{ color: resultColor }" style="font-size: 4rem; text-shadow: 0 0 20px currentColor;">{{ resultText }}</h1>
       <div class="game-over-buttons">
-          <button class="btn btn-primary glass-panel w-full py-3 mb-2" @click="handleReplay">REJOUER 🔄</button>
-          <button class="btn btn-secondary glass-panel w-full py-3" @click="handleQuit">QUITTER 🚪</button>
+          <AppButton variant="primary" fullWidth @click="handleReplay">REJOUER 🔄</AppButton>
+          <AppButton variant="primary" fullWidth @click="handleQuit">QUITTER 🚪</AppButton>
       </div>
   </div>
 </template>

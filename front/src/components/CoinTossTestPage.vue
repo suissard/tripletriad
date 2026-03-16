@@ -2,26 +2,26 @@
   <div class="test-page">
     <div class="header">
       <h2>🧪 Testeur de Flip de Pièce</h2>
-      <button class="btn btn-secondary glass-panel" @click="router.push('/')">RETOUR</button>
+      <AppButton variant="secondary"  class="glass-panel" @click="router.push('/')">RETOUR</AppButton>
     </div>
 
     <div class="test-controls">
       <div class="control-group glass-panel">
         <h3>Lancer local (Math.random)</h3>
-        <button class="btn btn-primary glass-panel" @click="triggerToss('local')">LANCER !</button>
+        <AppButton variant="primary"  class="glass-panel" @click="triggerToss('local')">LANCER !</AppButton>
       </div>
 
       <div class="control-group glass-panel">
         <h3>Lancer Serveur (Simulé)</h3>
         <p class="hint">Utilise la logique du match controller</p>
-        <button class="btn btn-primary glass-panel" @click="triggerToss('server')">LANCER VIA SERVEUR !</button>
+        <AppButton variant="primary"  class="glass-panel" @click="triggerToss('server')">LANCER VIA SERVEUR !</AppButton>
       </div>
       
       <div class="control-group glass-panel">
         <h3>Forcer Résultat</h3>
         <div class="force-buttons flex gap-2">
-          <button class="btn btn-secondary glass-panel" @click="triggerToss('player')">FORCE PLAYER (Skull)</button>
-          <button class="btn btn-secondary glass-panel" @click="triggerToss('ai')">FORCE AI (Octopus)</button>
+          <AppButton variant="secondary"  class="glass-panel" @click="triggerToss('player')">FORCE PLAYER (Skull)</AppButton>
+          <AppButton variant="secondary"  class="glass-panel" @click="triggerToss('ai')">FORCE AI (Octopus)</AppButton>
         </div>
       </div>
     </div>
