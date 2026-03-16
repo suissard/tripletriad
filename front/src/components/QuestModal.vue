@@ -69,22 +69,23 @@ const close = () => {
 const fetchQuests = async () => {
   loading.value = true;
   try {
-    const response = await strapiService.client.get('/player-quests', {
-      params: {
-        populate: ['quest_template'],
-        sort: ['startsAt:asc'],
-        'pagination[limit]': 10
-      }
+    const response = await strapiService.find('player-quests', {
+      populate: ['quest_template'],
+      sort: ['startsAt:asc'],
+      pagination: { limit: 10 }
     });
 
     // Check if response and response.data exist
-    if (response && response.data) {
-       quests.value = response.data;
+    if (Array.isArray(response)) {
+      quests.value = response;
+    } else if (response && response.data && Array.isArray(response.data)) {
+      quests.value = response.data;
     } else {
-       quests.value = [];
+      quests.value = [];
     }
   } catch (error) {
     console.error('Error fetching quests:', error);
+    quests.value = [];
   } finally {
     loading.value = false;
   }
