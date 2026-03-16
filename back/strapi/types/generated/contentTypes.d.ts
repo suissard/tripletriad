@@ -752,6 +752,15 @@ export interface ApiGameConfigGameConfig extends Struct.SingleTypeSchema {
         number
       > &
       Schema.Attribute.DefaultTo<60>;
+    uiButtonHole: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<30>;
+    uiButtonOpacity: Schema.Attribute.Decimal &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<0.25>;
+    uiButtonSpeed: Schema.Attribute.Decimal &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<1>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

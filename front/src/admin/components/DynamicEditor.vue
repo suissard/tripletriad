@@ -297,6 +297,11 @@ const saveItem = async () => {
     const identifier = currentItem.value.documentId || currentItem.value.id;
 
     let payload = { ...formData.value };
+    
+    // Clean up payload by removing restricted fields that Strapi doesn't allow in the body
+    const fieldsToExclude = ['id', 'documentId', 'createdAt', 'updatedAt', 'publishedAt'];
+    fieldsToExclude.forEach(field => delete payload[field]);
+
     const isUserPlugin = collectionName.value === 'users';
 
     let res;
