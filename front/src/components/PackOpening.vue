@@ -73,13 +73,20 @@
     <!-- The Pack Animation Container -->
     <div v-if="!packOpened && isOpening"
          class="relative z-20 flex flex-col items-center justify-center min-h-[50vh] w-full">
-      <div class="pack-container" :class="selectedPackType === 'premium' ? 'premium-anim' : 'classic-anim'" @click="revealCards">
+      <AppButton
+        variant="ghost"
+        class="pack-container"
+        :class="selectedPackType === 'premium' ? 'premium-anim' : 'classic-anim'"
+        @click="hitBooster"
+      >
         <div class="pack-front">
           <div class="text-[120px] mb-4 filter drop-shadow-2xl">{{ selectedPackType === 'premium' ? '💎' : '📦' }}</div>
           <div class="text-4xl font-black uppercase italic text-white drop-shadow-lg tracking-widest">{{ selectedPackType === 'premium' ? 'Premium' : 'Classic' }}</div>
-          <div class="mt-12 text-sm uppercase tracking-[0.3em] text-white/50 animate-pulse font-light">Cliquer pour ouvrir</div>
+          <div class="mt-12 text-sm uppercase tracking-[0.3em] text-white/50 animate-pulse font-light">
+            {{ remainingHits > 0 ? `Clics restants: ${remainingHits}` : 'Ouverture...' }}
+          </div>
         </div>
-      </div>
+      </AppButton>
     </div>
 
     <!-- Cards Display -->
@@ -99,22 +106,34 @@
     </div>
 
     <!-- Actions Footer -->
-    <div v-if="packOpened && allCardsRevealed" class="fixed bottom-12 left-0 right-0 z-[4000] flex justify-center gap-6 animate-fade-in" style="bottom: 48px;">
-      <button
-        @click="reset"
-        class="px-10 py-5 bg-white/10 hover:bg-white/20 text-white font-black uppercase italic tracking-tighter text-xl rounded-full border border-white/20 backdrop-blur-md shadow-2xl hover:scale-105 active:scale-95 transition-all cursor-pointer"
+    <div v-if="packOpened" class="fixed bottom-12 left-0 right-0 z-[4000] flex justify-center gap-6 animate-fade-in" style="bottom: 48px;">
+      <AppButton
+        v-if="!allCardsRevealed"
+        variant="primary"
+        @click="revealAllCards"
+        class="px-16 py-5 text-2xl font-black uppercase italic tracking-tighter rounded-full shadow-[0_0_50px_rgba(59,130,246,0.5)] hover:scale-110 active:scale-95 transition-all"
       >
-        Retour
-      </button>
-      <button
-        @click="handlePackPurchase(selectedPackType)"
-        class="px-16 py-5 bg-white text-black font-black uppercase italic tracking-tighter text-2xl rounded-full shadow-[0_0_50px_rgba(255,255,255,0.4)] hover:scale-110 active:scale-95 transition-all cursor-pointer flex items-center gap-3"
-      >
-        Refaire un tirage
-        <span class="text-xl flex items-center gap-1 opacity-70">
-          (100 {{ selectedPackType === 'premium' ? '💎' : '🪙' }})
-        </span>
-      </button>
+        TOUT RÉVÉLER
+      </AppButton>
+      <template v-else>
+        <AppButton
+          variant="secondary"
+          @click="reset"
+          class="px-10 py-5 text-xl font-black uppercase italic tracking-tighter rounded-full hover:scale-105 active:scale-95 transition-all"
+        >
+          Retour
+        </AppButton>
+        <AppButton
+          variant="primary"
+          @click="handlePackPurchase(selectedPackType)"
+          class="px-16 py-5 text-2xl font-black uppercase italic tracking-tighter rounded-full shadow-[0_0_50px_rgba(255,255,255,0.4)] hover:scale-110 active:scale-95 transition-all flex items-center gap-3"
+        >
+          Refaire un tirage
+          <span class="text-xl flex items-center gap-1 opacity-70">
+            (100 {{ selectedPackType === 'premium' ? '💎' : '🪙' }})
+          </span>
+        </AppButton>
+      </template>
     </div>
 
     <!-- Error Message -->
@@ -134,12 +153,29 @@ import { state } from '../game/state.js';
 import { useUserStore } from '../stores/userStore.js';
 import strapiMock from '../api/strapiMock.js';
 import TripleTriadCardGrid from './TripleTriadCardGrid.vue';
+import AppButton from './ui/AppButton.vue';
+import strapiService from '../api/strapi.js';
+
 const userStore = useUserStore();
 
 const emit = defineEmits(['close']);
 
-onMounted(() => {
+const maxHits = ref(5);
+
+onMounted(async () => {
   userStore.fetchUserCollection();
+  if (userStore.strapiConnected) {
+    try {
+      const res = await strapiService.request('GET', '/game-config');
+      if (res?.data?.attributes?.boosterHits) {
+          maxHits.value = res.data.attributes.boosterHits;
+      } else if (res?.data?.data?.attributes?.boosterHits) {
+          maxHits.value = res.data.data.attributes.boosterHits;
+      }
+    } catch (e) {
+      console.warn("Could not load boosterHits from config", e);
+    }
+  }
 });
 
 const wallet = computed(() => ({
@@ -154,6 +190,11 @@ const isOpening = ref(false);
 const packOpened = ref(false);
 const selectedPackType = ref('classic');
 const errorMessage = ref('');
+const hits = ref(0);
+
+const remainingHits = computed(() => {
+  return Math.max(0, maxHits.value - hits.value);
+});
 
 const handlePackPurchase = (type) => {
   selectedPackType.value = type;
@@ -174,6 +215,7 @@ const openPack = async () => {
   }
 
   isOpening.value = true;
+  hits.value = 0;
   errorMessage.value = '';
 
   try {
@@ -216,9 +258,21 @@ const openPack = async () => {
   }
 };
 
+const hitBooster = () => {
+  if (!isOpening.value) return;
+  hits.value++;
+  if (hits.value >= maxHits.value) {
+    revealCards();
+  }
+};
+
 const revealCards = () => {
   isOpening.value = false;
   packOpened.value = true;
+};
+
+const revealAllCards = () => {
+  isFlipped.value = isFlipped.value.map(() => true);
 };
 
 const flipCard = (index) => {
