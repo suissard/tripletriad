@@ -100,7 +100,7 @@
       </header>
 
       <!-- Main view -->
-      <main class="flex-1 overflow-x-hidden overflow-y-auto p-10 z-10 custom-scrollbar">
+      <main class="flex-1 min-h-0 overflow-x-hidden overflow-y-auto p-10 z-10 custom-scrollbar">
         <router-view :key="route.fullPath"></router-view>
       </main>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen">
+  <div class="h-full">
     <div class="mb-10">
       <h1 class="text-4xl font-extrabold text-white tracking-tight mb-2">Tableau de Bord</h1>
       <p class="text-gray-400 text-sm">Vue d'ensemble des statistiques et de l'activité de Terra Nullius.</p>

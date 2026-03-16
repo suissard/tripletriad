@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen">
+  <div class="h-full">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
       <div>
         <h1 v-if="!isEditing" class="text-4xl font-extrabold text-white tracking-tight mb-2 capitalize">Gestion des {{ collectionName }}</h1>
