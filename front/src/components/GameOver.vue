@@ -28,8 +28,11 @@ const resultColor = computed(() => {
     return "white";
 });
 
+import { refillHand, cardLibrary, normalizeCard } from '../game/state.js';
+
 function handleReplay() {
     const wasOnline = state.online;
+    const currentDeck = state.deck; // Save current player deck
     
     // Si c'était en ligne, on nettoie le WebRTC et l'URL pour forcer 
     // la création d'une nouvelle Room au lieu d'une boucle infinie.
@@ -38,14 +41,45 @@ function handleReplay() {
         if (route.query.match) {
             router.replace({ query: {} });
         }
+        resetGame(30, false);
+        state.deck = currentDeck;
+        state.menuView = 'multi';
+        state.gameState = 'menu';
+        router.push('/');
+        return;
     }
 
-    resetGame();
+    // AI match instant replay logic
+    const aiDeck = [];
+    for (let i = 0; i < 5; i++) {
+        const randomCard = cardLibrary[Math.floor(Math.random() * cardLibrary.length)];
+        aiDeck.push(normalizeCard(randomCard));
+    }
 
-    // On retourne directement au bon menu de sélection de Deck
-    // Le composant App réagira et nous renverra au Menu Principal via router
-    state.menuView = wasOnline ? 'multi-deck' : 'ai';
+    const startingTurn = Math.random() < 0.5 ? 'player' : 'ai';
+
+    resetGame(30, false, startingTurn);
+    state.gameState = 'menu';
+    state.menuView = 'main'; // Doesn't matter, CoinToss is overlay
+    state.coinTossResult = startingTurn;
+    state.showCoinToss = true;
     router.push('/');
+
+    // The actual match start will be handled after the coin toss animation
+    state.pendingAiGame = async () => {
+        state.gameState = 'playing';
+
+        // Initialize AI match in backend for logging
+        await import('../game/state.js').then(m => m.initAIMatch());
+
+        // Draw AI hand first
+        state.deck = aiDeck;
+        refillHand('ai');
+
+        // Then set and draw player hand
+        state.deck = currentDeck;
+        refillHand('player');
+    };
 }
 
 function handleQuit() {

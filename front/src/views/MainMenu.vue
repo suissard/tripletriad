@@ -2,13 +2,13 @@
   <div id="main-menu" v-if="state.gameState === 'menu' ">
 
     <div v-if="state.menuView === 'main'" class="menu-buttons">
-      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openStory">MODE HISTOIRE 📖</AppButton>
-      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openQuests">QUÊTES JOURNALIÈRES 🎯</AppButton>
+      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openStory" :disabled="!userStore.strapiConnected">MODE HISTOIRE 📖</AppButton>
+      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openQuests" :disabled="!userStore.strapiConnected">QUÊTES JOURNALIÈRES 🎯</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="state.menuView = 'ai'">JOUER CONTRE UNE IA 🤖</AppButton>
-      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="state.menuView = 'multi-deck'">PARTIE MULTIJOUEUR 🌍</AppButton>
-      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openCollection">MA COLLECTION 📚</AppButton>
-      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openDecks">MES DECKS 🎴</AppButton>
-      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openBoutique">BOUTIQUE 💎</AppButton>
+      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="state.menuView = 'multi-deck'" :disabled="!userStore.strapiConnected">PARTIE MULTIJOUEUR 🌍</AppButton>
+      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openCollection" :disabled="!userStore.strapiConnected">MA COLLECTION 📚</AppButton>
+      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openDecks" :disabled="!userStore.strapiConnected">MES DECKS 🎴</AppButton>
+      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openBoutique" :disabled="!userStore.strapiConnected">BOUTIQUE 💎</AppButton>
       <!-- <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="router.push('/test-card')" style="margin-top:20px; background:linear-gradient(45deg, #f093fb 0%, #f5576c 100%)">TESTER LA CARTE 🧪</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="router.push('/test-coin')" style="margin-top:10px; background:linear-gradient(45deg, #84fab0 0%, #8fd3f4 100%)">TESTER LA PIÈCE 🪙</AppButton> -->
     </div>
