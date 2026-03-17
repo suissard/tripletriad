@@ -1,0 +1,53 @@
+--- front/src/admin/components/AdminSidebar.vue
++++ front/src/admin/components/AdminSidebar.vue
+@@ -48,6 +48,48 @@
+       <span class="icon">✨</span> HoloEditor Pro
+     </AppButton>
+
++    <div class="pt-12 pb-5">
++      <p class="px-6 text-[9px] font-black uppercase tracking-premium opacity-50">Developer Tools</p>
++    </div>
++
++    <AppButton
++      variant="ghost"
++      fullWidth
++      @click="navigate('/admin/test-api')"
++      class="premium-nav-item"
++      :class="{ 'premium-nav-item-active': route.path === '/admin/test-api' }"
++    >
++      <span class="icon">🧪</span> Testeur API
++    </AppButton>
++
++    <AppButton
++      variant="ghost"
++      fullWidth
++      @click="navigate('/admin/cartographie')"
++      class="premium-nav-item"
++      :class="{ 'premium-nav-item-active': route.path === '/admin/cartographie' }"
++    >
++      <span class="icon">🗺️</span> Cartographie Archi.
++    </AppButton>
++
++    <AppButton
++      variant="ghost"
++      fullWidth
++      @click="navigate('/admin/test-seed')"
++      class="premium-nav-item"
++      :class="{ 'premium-nav-item-active': route.path === '/admin/test-seed' }"
++    >
++      <span class="icon">🎲</span> Testeur Aléatoire
++    </AppButton>
++
++    <AppButton
++      variant="ghost"
++      fullWidth
++      @click="navigate('/admin/test-coin')"
++      class="premium-nav-item"
++      :class="{ 'premium-nav-item-active': route.path === '/admin/test-coin' }"
++    >
++      <span class="icon">🪙</span> Coin Toss
++    </AppButton>
++
+     <div class="mt-auto pt-10 border-t border-white/5">
+       <AppButton variant="ghost" fullWidth @click="handleLogout" class="w-full flex items-center justify-between px-6 py-5 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-red-500/10 hover:border-red-500/20 transition-all group text-[10px] font-black uppercase tracking-widest">
+         <span class="text-gray-500 group-hover:text-red-400">Exit System</span>
