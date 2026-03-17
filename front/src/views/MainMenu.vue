@@ -3,6 +3,7 @@
 
     <div v-if="state.menuView === 'main'" class="menu-buttons">
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openStory">MODE HISTOIRE 📖</AppButton>
+      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openQuests">QUÊTES JOURNALIÈRES 🎯</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="state.menuView = 'ai'">JOUER CONTRE UNE IA 🤖</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="state.menuView = 'multi-deck'">PARTIE MULTIJOUEUR 🌍</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openCollection">MA COLLECTION 📚</AppButton>
@@ -106,8 +107,12 @@ import { useUserStore } from '../stores/userStore.js';
 const userStore = useUserStore();
 
 function openStory() {
-  state.showStoryPage = true;
   router.push('/story');
+}
+
+function openQuests() {
+
+  router.push('/quests');
 }
 
 function openCollection() {

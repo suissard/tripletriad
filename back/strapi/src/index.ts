@@ -108,6 +108,11 @@ export default {
         'api::user-card.user-card.find',
         'api::wallet.wallet.find',
         'api::wallet.wallet.getMe',
+        'api::story.story.find',
+        'api::story.story.findOne',
+        'api::player-story-progress.player-story-progress.find',
+        'api::player-story-progress.player-story-progress.findOne',
+        'api::player-story-progress.player-story-progress.claimStepReward',
         'api::player-event-log.player-event-log.trackEvent',
         'api::game-config.game-config.find',
       ];
@@ -220,6 +225,13 @@ export default {
       }
     } catch (err) {
       console.error('❌ Error seeding cards:', err);
+    }
+    // 3.4. Bootstrapping stories
+    try {
+      const { bootstrapStories } = require('./api/story/services/story-bootstrap');
+      await bootstrapStories(strapi);
+    } catch (err) {
+      console.error('❌ Error bootstrapping stories:', err);
     }
 
     // 3.5. Backfill existing users to ensure they have enough active/pending quests

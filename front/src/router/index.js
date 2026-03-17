@@ -6,6 +6,7 @@ import DecksPage from '../views/DecksPage.vue'
 import PackOpening from '../views/PackOpening.vue'
 import MainMenu from '../views/MainMenu.vue'
 import StoryPage from '../views/StoryPage.vue'
+import QuestsPage from '../views/QuestsPage.vue'
 
 import { useAuthStore } from '../admin/stores/authStore'
 // On ne peut pas importer useLayoutStore ici directement car pinia n'est peut-être pas encore instancié.
@@ -19,6 +20,7 @@ const routes = [
   { path: '/decks', component: DecksPage },
   { path: '/boutique', component: PackOpening },
   { path: '/story', component: StoryPage },
+  { path: '/quests', component: QuestsPage },
 
   // Admin Routes
   {

@@ -1,0 +1,96 @@
+{
+  "title": "Le Culte de l'Obsidienne",
+  "description": "Une faction vénéneuse vénérant les mutations radioactives tente de corrompre les dernières terres arables.",
+  "steps": [
+    {
+      "title": "Les Terres Malades",
+      "description": "Vous entrez dans une forêt pétrifiée par les radiations. Un mutant vous barre la route.",
+      "startDialogue": [
+        {"name": "Mutant", "sentence": "La lueur verte est belle. Tu dois embrasser la lueur."},
+        {"name": "Héros", "sentence": "La lueur est un poison qui détruit la vie."},
+        {"name": "Mutant", "sentence": "Non ! L'Obsidienne Radieuse purifie les faibles !"},
+        {"name": "Héros", "sentence": "Je refuse cette purification toxique."},
+        {"name": "Mutant", "sentence": "Alors tu nourriras nos spores sacrés !"}
+      ],
+      "endDialogue": [
+        {"name": "Mutant", "sentence": "La lueur... s'éteint..."},
+        {"name": "Héros", "sentence": "Repose en paix, loin du poison."},
+        {"name": "Mutant", "sentence": "L'Obsidienne... t'attend..."},
+        {"name": "Héros", "sentence": "Et je la détruirai."},
+        {"name": "Mutant", "sentence": "Mère radiation... accueille-moi..."}
+      ]
+    },
+    {
+      "title": "Le Semeur de Spores",
+      "description": "Un botaniste fou plante des fleurs toxiques pour accélérer la mutation du monde.",
+      "startDialogue": [
+        {"name": "Botaniste", "sentence": "Regarde comme mes enfants toxiques s'épanouissent !"},
+        {"name": "Héros", "sentence": "Tu empoisonnes la seule terre fertile qui nous reste."},
+        {"name": "Botaniste", "sentence": "L'ancien monde est mort ! La nouvelle nature nécessite de nouvelles règles."},
+        {"name": "Héros", "sentence": "La nature ne s'incline pas devant la démence."},
+        {"name": "Botaniste", "sentence": "Mes plantes auront ton sang comme engrais !"}
+      ],
+      "endDialogue": [
+        {"name": "Botaniste", "sentence": "Mes belles créations... fanées..."},
+        {"name": "Héros", "sentence": "La vraie vie reprendra ses droits."},
+        {"name": "Botaniste", "sentence": "Vous êtes tous aveugles à la beauté de la pourriture..."},
+        {"name": "Héros", "sentence": "Il n'y a pas de beauté dans la destruction."},
+        {"name": "Botaniste", "sentence": "La prochaine graine germera..."}
+      ]
+    },
+    {
+      "title": "Le Gardien de Cristal",
+      "description": "Une immense structure d'obsidienne irradie la vallée. Un golem synthétique la défend.",
+      "startDialogue": [
+        {"name": "Golem", "sentence": "INTRUS DÉTECTÉ. PROTOCOLE DE CONTAMINATION ACTIVÉ."},
+        {"name": "Héros", "sentence": "Je suis immunisé contre tes menaces mécaniques."},
+        {"name": "Golem", "sentence": "LA CROYANCE DE L'OBSIDIENNE EST ABSOLUE."},
+        {"name": "Héros", "sentence": "Vos croyances sont des erreurs de programmation."},
+        {"name": "Golem", "sentence": "ÉRADICATION DE L'HÉRÉSIE EN COURS."}
+      ],
+      "endDialogue": [
+        {"name": "Golem", "sentence": "SYSTÈME CRITIQUE... ÉCHEC DES NOYAUX..."},
+        {"name": "Héros", "sentence": "La machine s'arrête ici."},
+        {"name": "Golem", "sentence": "LE CULTE... SURVIVRA..."},
+        {"name": "Héros", "sentence": "Pas tant que je respirerai."},
+        {"name": "Golem", "sentence": "EXTINCTION..."}
+      ]
+    },
+    {
+      "title": "La Prêtresse Sombre",
+      "description": "À l'entrée du sanctuaire, la prêtresse tente de vous convertir par la persuasion toxique.",
+      "startDialogue": [
+        {"name": "Prêtresse", "sentence": "Viens à moi, enfant de l'ancien monde. Accepte le changement."},
+        {"name": "Héros", "sentence": "Le changement ne signifie pas la mort lente."},
+        {"name": "Prêtresse", "sentence": "La radiation est notre nouvelle déesse. Elle réchauffe nos coeurs !"},
+        {"name": "Héros", "sentence": "Elle brûle vos âmes de l'intérieur."},
+        {"name": "Prêtresse", "sentence": "Alors sois consumé par son feu sacré !"}
+      ],
+      "endDialogue": [
+        {"name": "Prêtresse", "sentence": "Ma foi... n'était pas assez forte..."},
+        {"name": "Héros", "sentence": "La folie n'est pas une armure suffisante."},
+        {"name": "Prêtresse", "sentence": "Le Maître te brisera..."},
+        {"name": "Héros", "sentence": "J'attends cela avec impatience."},
+        {"name": "Prêtresse", "sentence": "Les ténèbres m'emportent..."}
+      ]
+    },
+    {
+      "title": "Le Cœur de l'Obsidienne",
+      "description": "Le chef spirituel du culte a fusionné avec un réacteur nucléaire pour devenir un demi-dieu.",
+      "startDialogue": [
+        {"name": "Le Radieux", "sentence": "Tu oses profaner mon temple de lumière verte !"},
+        {"name": "Héros", "sentence": "Ton temple est un tombeau pour l'humanité."},
+        {"name": "Le Radieux", "sentence": "Je suis l'évolution ! Je suis le futur de cette planète stérile !"},
+        {"name": "Héros", "sentence": "Tu es une tumeur qu'il faut exciser."},
+        {"name": "Le Radieux", "sentence": "Ressens la puissance d'un atome divinisé !"}
+      ],
+      "endDialogue": [
+        {"name": "Le Radieux", "sentence": "Fusion... instable... explosion imminente..."},
+        {"name": "Héros", "sentence": "Ton règne toxique s'achève."},
+        {"name": "Le Radieux", "sentence": "Pourquoi rejettes-tu l'ascension ?"},
+        {"name": "Héros", "sentence": "Je choisis l'humanité, avec tous ses défauts."},
+        {"name": "Le Radieux", "sentence": "Fous... vous périrez tous... en cendres..."}
+      ]
+    }
+  ]
+}
