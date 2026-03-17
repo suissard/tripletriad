@@ -240,7 +240,7 @@
 
 <script setup>
 import { ref, onMounted, watch, computed } from 'vue';
-import strapiService from '../api/strapi';
+import strapiService from '@/api/strapi';
 
 const config = ref(null);
 const loading = ref(true);

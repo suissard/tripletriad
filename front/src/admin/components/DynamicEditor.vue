@@ -147,7 +147,7 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import strapiService from '../api/strapi';
+import strapiService from '@/api/strapi';
 import TripleTriadCard from '../../components/TripleTriadCard.vue';
 import PremiumSelect from './PremiumSelect.vue';
 
