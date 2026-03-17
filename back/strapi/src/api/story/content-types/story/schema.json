@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "stories",
+  "info": {
+    "singularName": "story",
+    "pluralName": "stories",
+    "displayName": "Story",
+    "description": "A story mode chapter or campaign"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "steps": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::story-step.story-step",
+      "mappedBy": "story"
+    },
+    "cost": {
+      "type": "integer",
+      "default": 0
+    },
+    "costType": {
+      "type": "enumeration",
+      "enum": ["coins", "gems"],
+      "default": "coins"
+    },
+    "rewardCards": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::card.card",
+      "inversedBy": "storiesRewardedFrom"
+    }
+  }
+}
