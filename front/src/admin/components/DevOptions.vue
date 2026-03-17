@@ -213,17 +213,17 @@ function clearCollection() {
 }
 
 function openMapPage() {
-  router.push('/cartographie');
+  router.push('/admin/cartographie');
   isOpen.value = false;
 }
 
 function openSeedTestPage() {
-  router.push('/test-seed');
+  router.push('/admin/test-seed');
   isOpen.value = false;
 }
 
 function openDevTestPage() {
-  router.push('/test-api');
+  router.push('/admin/test-api');
   isOpen.value = false; // Close the menu when opening the page
 }
 
