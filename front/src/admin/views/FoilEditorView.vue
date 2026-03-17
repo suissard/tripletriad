@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full w-full bg-[#0a0a1a] text-white relative overflow-hidden font-sans flex flex-col lg:flex-row gap-6 p-6">
+  <div class="min-h-full w-full bg-[#0a0a1a] text-white relative font-sans flex flex-col lg:flex-row gap-6 p-6 pb-20">
     
     <!-- Ambient Background Glows -->
     <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full pointer-events-none z-0"></div>

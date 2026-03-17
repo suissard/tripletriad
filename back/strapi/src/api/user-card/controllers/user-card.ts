@@ -1,4 +1,5 @@
 import { factories } from '@strapi/strapi';
+import { GameEngine } from '../../../shared/GameEngine';
 
 export default factories.createCoreController('api::user-card.user-card', ({ strapi }) => ({
   async find(ctx) {
@@ -36,11 +37,18 @@ export default factories.createCoreController('api::user-card.user-card', ({ str
       const card = await strapi.entityService.findOne('api::card.card', cardId);
       if (!card) return ctx.notFound('Card not found.');
 
+      const cardLevel = GameEngine.calculateCardLevel({
+        top: card.topValue,
+        right: card.rightValue,
+        bottom: card.bottomValue,
+        left: card.leftValue
+      });
+
       let rarity = 'common';
-      if (card.level <= 2) rarity = 'common';
-      else if (card.level <= 4) rarity = 'uncommon';
-      else if (card.level <= 6) rarity = 'rare';
-      else if (card.level <= 8) rarity = 'epic';
+      if (cardLevel <= 2) rarity = 'common';
+      else if (cardLevel <= 4) rarity = 'uncommon';
+      else if (cardLevel <= 6) rarity = 'rare';
+      else if (cardLevel <= 8) rarity = 'epic';
       else rarity = 'legendary';
 
       const dustGained = craftingRatios[rarity]?.disenchant || 10;
@@ -96,11 +104,18 @@ export default factories.createCoreController('api::user-card.user-card', ({ str
       const card = await strapi.entityService.findOne('api::card.card', cardId);
       if (!card) return ctx.notFound('Card not found.');
 
+      const cardLevel = GameEngine.calculateCardLevel({
+        top: card.topValue,
+        right: card.rightValue,
+        bottom: card.bottomValue,
+        left: card.leftValue
+      });
+
       let rarity = 'common';
-      if (card.level <= 2) rarity = 'common';
-      else if (card.level <= 4) rarity = 'uncommon';
-      else if (card.level <= 6) rarity = 'rare';
-      else if (card.level <= 8) rarity = 'epic';
+      if (cardLevel <= 2) rarity = 'common';
+      else if (cardLevel <= 4) rarity = 'uncommon';
+      else if (cardLevel <= 6) rarity = 'rare';
+      else if (cardLevel <= 8) rarity = 'epic';
       else rarity = 'legendary';
 
       const dustCost = craftingRatios[rarity]?.craft || 40;
@@ -172,7 +187,14 @@ export default factories.createCoreController('api::user-card.user-card', ({ str
         const surplusQuantity = userCard.quantity - playableLimit;
         if (surplusQuantity <= 0) continue;
 
-        const cardLevel = (userCard as any).card?.level || 1;
+        const cardData = (userCard as any).card;
+        const cardLevel = GameEngine.calculateCardLevel({
+          top: cardData.topValue,
+          right: cardData.rightValue,
+          bottom: cardData.bottomValue,
+          left: cardData.leftValue
+        });
+
         let rarity = 'common';
         if (cardLevel <= 2) rarity = 'common';
         else if (cardLevel <= 4) rarity = 'uncommon';

@@ -18,17 +18,17 @@ import { useAuthStore } from '../admin/stores/authStore'
 
 const routes = [
   { path: '/', component: MainMenu },
-  { path: '/game', component: GameView, meta: { layout: 'BlankLayout' } },
+  { path: '/game', component: GameView },
   { path: '/collection', component: CollectionView },
   { path: '/deck-editor', component: DeckEditorPage },
   { path: '/decks', component: DecksPage },
   { path: '/boutique', component: PackOpening },
-  { path: '/test-api', component: DevTestPage, meta: { layout: 'AdminLayout' } },
-  { path: '/cartographie', component: ArchitectureMapPage, meta: { layout: 'AdminLayout' } },
+  { path: '/test-api', component: DevTestPage },
+  { path: '/cartographie', component: ArchitectureMapPage },
   { path: '/story', component: StoryPage },
   { path: '/test-card', component: CardTestPage, meta: { layout: 'BlankLayout' } },
-  { path: '/test-seed', component: SeedTesterPage, meta: { layout: 'AdminLayout' } },
-  { path: '/test-coin', component: CoinTossTestPage, meta: { layout: 'AdminLayout' } },
+  { path: '/test-seed', component: SeedTesterPage },
+  { path: '/test-coin', component: CoinTossTestPage },
 
   // Admin Routes
   {
@@ -39,36 +39,27 @@ const routes = [
   },
   {
     path: '/admin',
-    name: 'admin-layout',
-    // Le composant parent ici agit juste comme passe-plat, l'interface Admin est dans AdminLayout
-    component: () => import('./AdminRouterView.vue'), // Ou juste un div avec <router-view>
-    meta: { requiresAdminAuth: true, layout: 'AdminLayout' },
-    children: [
-      {
-        path: '',
-        name: 'admin-dashboard',
-        component: () => import('../admin/views/DashboardView.vue'),
-        meta: { layout: 'AdminLayout' }
-      },
-      {
-        path: 'foil-editor',
-        name: 'admin-foil-editor',
-        component: () => import('../admin/views/FoilEditorView.vue'),
-        meta: { layout: 'AdminLayout' }
-      },
-      {
-        path: 'game-config',
-        name: 'admin-game-config',
-        component: () => import('../admin/views/GameConfigView.vue'),
-        meta: { layout: 'AdminLayout' }
-      },
-      {
-        path: ':collection',
-        name: 'admin-dynamic-editor',
-        component: () => import('../admin/components/DynamicEditor.vue'),
-        meta: { layout: 'AdminLayout' }
-      }
-    ]
+    name: 'admin-dashboard',
+    component: () => import('../admin/views/DashboardView.vue'),
+    meta: { requiresAdminAuth: true }
+  },
+  {
+    path: '/admin/foil-editor',
+    name: 'admin-foil-editor',
+    component: () => import('../admin/views/FoilEditorView.vue'),
+    meta: { requiresAdminAuth: true }
+  },
+  {
+    path: '/admin/game-config',
+    name: 'admin-game-config',
+    component: () => import('../admin/views/GameConfigView.vue'),
+    meta: { requiresAdminAuth: true }
+  },
+  {
+    path: '/admin/:collection',
+    name: 'admin-dynamic-editor',
+    component: () => import('../admin/components/DynamicEditor.vue'),
+    meta: { requiresAdminAuth: true }
   }
 ]
 
@@ -79,10 +70,22 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
+  
   // Import dynamique pour éviter l'erreur "Pinia is not active" au chargement du module
   import('../stores/layoutStore').then(({ useLayoutStore }) => {
     const layoutStore = useLayoutStore();
-    const targetLayout = to.meta.layout || 'PlayerLayout';
+    
+    // Détermination automatique du layout
+    let targetLayout = 'PlayerLayout'; // Défaut
+    
+    if (to.meta.layout) {
+      targetLayout = to.meta.layout;
+    } else if (to.path.startsWith('/admin')) {
+      targetLayout = 'AdminLayout';
+    } else if (to.path.startsWith('/game')) {
+      targetLayout = 'BlankLayout';
+    }
+
     if (layoutStore.currentLayout !== targetLayout) {
       layoutStore.setLayout(targetLayout);
     }

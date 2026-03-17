@@ -152,7 +152,7 @@
           <div class="zoom-card-info">
             <h2>{{ card.name }}</h2>
             <div class="zoom-meta">
-              <span>Niveau {{ card.level }}</span>
+              <span>Niveau {{ cardLevel }}</span>
               <span v-if="cardElementsList.length">Éléments: {{ cardElementsList.join(', ') }}</span>
               <span v-if="card.faction && card.faction !== 'neutre'">Faction: {{ card.faction }}</span>
               <span v-if="isPremiumCard" class="zoom-premium-badge">🌟 PREMIUM</span>
@@ -200,6 +200,7 @@ import AnimatedCardBack from "./AnimatedCardBack.vue";
 import ElementIcon from "./ElementIcon.vue";
 import { state } from '../game/state.js';
 import { useUserStore } from '../stores/userStore.js';
+import { GameEngine } from '../../../shared/GameEngine.ts';
 
 const userStore = useUserStore();
 
@@ -299,13 +300,23 @@ function handleClick() {
 // --- Computed ---
 const isPremiumCard = computed(() => {
   if (props.card.revealed === false) return false;
-  return props.isPremium || props.card.isPremium || props.card.isDrawnPremium;
+  return props.isPremium || props.card.isDrawnPremium;
+});
+
+const cardLevel = computed(() => {
+  if (props.card.level) return props.card.level; // Fallback if still present in some data
+  return GameEngine.calculateCardLevel({
+    top: props.card.topValue,
+    right: props.card.rightValue,
+    bottom: props.card.bottomValue,
+    left: props.card.leftValue
+  });
 });
 
 const rarityClass = computed(() => {
   if (props.card.revealed === false) return 'rarity-common';
   if (props.card.rarity) return `rarity-${props.card.rarity.toLowerCase()}`;
-  const level = props.card.level || 1;
+  const level = cardLevel.value;
   if (level >= 9) return 'rarity-legendary';
   if (level >= 7) return 'rarity-epic';
   if (level >= 5) return 'rarity-rare';
@@ -328,7 +339,7 @@ const rarityColor = computed(() => {
     return map[props.card.rarity] || '#a0a0a0';
   }
 
-  const level = props.card.level || 1;
+  const level = cardLevel.value;
   if (level >= 9) return '#ffc107';
   if (level >= 7) return '#9c27b0';
   if (level >= 5) return '#2196f3';
@@ -401,8 +412,8 @@ const craftingRatios = {
   legendary: { disenchant: 400, craft: 1600 }
 };
 
-const craftCost = computed(() => craftingRatios[getRarity(props.card.level || 1)].craft);
-const disenchantGain = computed(() => craftingRatios[getRarity(props.card.level || 1)].disenchant);
+const craftCost = computed(() => craftingRatios[getRarity(cardLevel.value)].craft);
+const disenchantGain = computed(() => craftingRatios[getRarity(cardLevel.value)].disenchant);
 const canCraft = computed(() => (userStore.user?.dust || 0) >= craftCost.value);
 
 async function handleCraft() { if (canCraft.value) await userStore.craftCard(props.card.id); }

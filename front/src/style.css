@@ -26,9 +26,11 @@
 }
 
 body { 
-    margin: 0; overflow: hidden; background: var(--bg-deep); 
-    color: var(--text-main); font-family: 'Outfit', 'Inter', -apple-system, sans-serif; 
-    touch-action: none; 
+    margin: 0; 
+    overflow: hidden; 
+    background: var(--bg-deep); 
+    color: var(--text-main); 
+    font-family: 'Outfit', 'Inter', -apple-system, sans-serif; 
 }
 
 /* Glassmorphism Classes */

@@ -23,7 +23,7 @@
             <div class="zoom-card-info">
               <h2>{{ selectedCard.name }}</h2>
               <div class="zoom-meta">
-                <span>Niveau {{ selectedCard.level }}</span>
+                <span>Niveau {{ GameEngine.calculateCardLevel(selectedCard) }}</span>
                 <span v-if="selectedCard.elements && selectedCard.elements.length">
                   {{ selectedCard.elements.map(e => getElementEmoji(e) + ' ' + e).join(', ') }}
                 </span>
@@ -232,6 +232,7 @@ import TripleTriadCard from '../components/TripleTriadCard.vue';
 import TripleTriadCardGrid from '../components/TripleTriadCardGrid.vue';
 import ElementIcon from '../components/ElementIcon.vue';
 import { useUserStore } from '../stores/userStore.js';
+import { GameEngine } from '../../../shared/GameEngine.ts';
 
 const userStore = useUserStore();
 
@@ -249,7 +250,12 @@ const craftingRatios = {
 
 function getRarity(card) {
   if (card.rarity) return card.rarity.toLowerCase();
-  const level = card.level || 1;
+  const level = GameEngine.calculateCardLevel({
+    top: card.topValue,
+    right: card.rightValue,
+    bottom: card.bottomValue,
+    left: card.leftValue
+  });
   if (level <= 2) return 'common';
   if (level <= 4) return 'uncommon';
   if (level <= 6) return 'rare';
@@ -449,8 +455,8 @@ const filteredCardLibrary = computed(() => {
 
   result.sort((a, b) => {
     switch (sortBy.value) {
-      case 'level-desc': return b.level - a.level || a.id - b.id;
-      case 'level-asc': return a.level - b.level || a.id - b.id;
+      case 'level-desc': return GameEngine.calculateCardLevel(b) - GameEngine.calculateCardLevel(a) || a.id - b.id;
+      case 'level-asc': return GameEngine.calculateCardLevel(a) - GameEngine.calculateCardLevel(b) || a.id - b.id;
       case 'name-asc': return a.name.localeCompare(b.name);
       case 'rarity-desc': return (rarityOrder[getRarity(b)] - rarityOrder[getRarity(a)]) || a.id - b.id;
       case 'rarity-asc': return (rarityOrder[getRarity(a)] - rarityOrder[getRarity(b)]) || a.id - b.id;

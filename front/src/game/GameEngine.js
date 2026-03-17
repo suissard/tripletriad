@@ -142,4 +142,32 @@ export class GameEngine {
     if (p2Count > p1Count) return 'PLAYER_2';
     return 'DRAW';
   }
+
+  /**
+   * Calcule dynamiquement le niveau d'une carte à partir de la somme de ses valeurs.
+   * On part du principe que 'A' vaut 10.
+   */
+  static calculateCardLevel(values) {
+    const parse = (v) => {
+      if (typeof v === 'number') return v;
+      if (v?.toUpperCase() === 'A') return 10;
+      return parseInt(v) || 0;
+    };
+
+    const sum = parse(values.top || values.topValue) + 
+                parse(values.right || values.rightValue) + 
+                parse(values.bottom || values.bottomValue) + 
+                parse(values.left || values.leftValue);
+
+    if (sum >= 39) return 10;
+    if (sum >= 36) return 9;
+    if (sum >= 32) return 8;
+    if (sum >= 28) return 7;
+    if (sum >= 24) return 6;
+    if (sum >= 20) return 5;
+    if (sum >= 16) return 4;
+    if (sum >= 12) return 3;
+    if (sum >= 8) return 2;
+    return 1;
+  }
 }

@@ -19,13 +19,7 @@
     "description": {
       "type": "text"
     },
-    "level": {
-      "type": "integer",
-      "required": true,
-      "default": 1,
-      "min": 1,
-      "max": 10
-    },
+
     "element": {
       "type": "enumeration",
       "enum": [
@@ -92,10 +86,7 @@
         "images"
       ]
     },
-    "isPremium": {
-      "type": "boolean",
-      "default": false
-    },
+
     "collectionName": {
       "type": "string"
     },

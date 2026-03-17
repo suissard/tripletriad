@@ -43,7 +43,7 @@ export function normalizeCard(raw) {
         id: raw.id,
         name: raw.name || `Card #${raw.id}`,
         description: raw.description || '',
-        level: raw.level || 1,
+        level: GameEngine.calculateCardLevel(raw),
         element: raw.element || 'None',
         elements: Array.isArray(raw.elements) ? raw.elements : (raw.element && raw.element !== 'None' ? [raw.element] : []),
         faction: raw.faction || 'neutre',
@@ -57,23 +57,27 @@ export function normalizeCard(raw) {
         leftValue: raw.leftValue ?? (raw.left === 10 ? 'A' : String(raw.left)),
         imageUrl: imgUrl,
         revealed: raw.revealed !== undefined ? raw.revealed : true,
-        isPremium: raw.isPremium || false,
+        isPremium: false, // Will be set by ownership logic in components
         rarity: raw.rarity || null
     };
 }
 
 export const cardLibrary = reactive(cardsData.map(normalizeCard));
 
-export const createCardData = (i) => normalizeCard({
-    id: i,
-    name: `Fighter #${i}`,
-    level: Math.floor(Math.random() * 3) + 1,
-    top: Math.floor(Math.random() * 10) + 1,
-    right: Math.floor(Math.random() * 10) + 1,
-    bottom: Math.floor(Math.random() * 10) + 1,
-    left: Math.floor(Math.random() * 10) + 1,
-    imageUrl: `https://api.dicebear.com/9.x/bottts/png?seed=${i * 42}&backgroundColor=transparent`
-});
+export const createCardData = (i) => {
+    const raw = {
+        id: i,
+        name: `Fighter #${i}`,
+        topValue: String(Math.floor(Math.random() * 9) + 1),
+        rightValue: String(Math.floor(Math.random() * 9) + 1),
+        bottomValue: String(Math.floor(Math.random() * 9) + 1),
+        leftValue: String(Math.floor(Math.random() * 9) + 1),
+    };
+    return normalizeCard({
+        ...raw,
+        imageUrl: `https://api.dicebear.com/9.x/bottts/png?seed=${i * 42}&backgroundColor=transparent`
+    });
+};
 
 /**
  * Wraps and normalizes board entries from either local {data, owner} format

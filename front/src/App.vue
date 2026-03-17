@@ -5,6 +5,7 @@
     <AppLayout>
       <router-view :key="$route.fullPath" />
     </AppLayout>
+    <LeftDrawer />
 
     <!-- Global Overlays -->
     <AlertMessage />

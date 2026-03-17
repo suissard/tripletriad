@@ -73,6 +73,22 @@
         <button @click="openMapPage" style="color: #58a6ff; border-color: #58a6ff;">🗺️ Cartographie Archi.</button>
       </div>
 
+      <h4>Layout</h4>
+      <div class="frame-list">
+        <label class="frame-item" style="display: flex; flex-direction: column; gap: 5px;">
+          <span>Layout Actuel</span>
+          <select 
+            v-model="layoutStore.currentLayout" 
+            @change="setLayout"
+            style="width: 100%; padding: 5px; background: #333; color: white; border: 1px solid #555; border-radius: 4px;"
+          >
+            <option value="PlayerLayout">Utilisateur (Player)</option>
+            <option value="AdminLayout">Administration (Admin)</option>
+            <option value="BlankLayout">Vierge (Game/Login)</option>
+          </select>
+        </label>
+      </div>
+
       <div class="dev-info">
         Vers: 1.2 | Possédées: {{ userStore.collection.length }} / 45
       </div>
@@ -90,8 +106,10 @@ import { ref, reactive, onMounted, watch } from 'vue';
 import { state, cardLibrary } from '../../game/state.js';
 import strapiService from '../../api/strapi.js';
 import { useUserStore } from '../../stores/userStore.js';
+import { useLayoutStore } from '../../stores/layoutStore.js';
 
 const userStore = useUserStore();
+const layoutStore = useLayoutStore();
 
 const devSettings = reactive({
   autoLogin: true,
@@ -177,6 +195,10 @@ function toggleMenu() {
 
 function onFrameChange() {
   state.selectedFrame = selected.value;
+}
+
+function setLayout() {
+  layoutStore.setLayout(layoutStore.currentLayout);
 }
 
 function addAllCards() {

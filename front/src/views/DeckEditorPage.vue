@@ -147,6 +147,7 @@ const userStore = useUserStore();
 import TripleTriadCard from '../components/TripleTriadCard.vue';
 import ElementIcon from '../components/ElementIcon.vue';
 import AnimatedCardBack from '../components/AnimatedCardBack.vue';
+import { GameEngine } from '../../../shared/GameEngine.ts';
 
 const searchQuery = ref('');
 const sortBy = ref('rarity-desc');
@@ -173,7 +174,7 @@ const uniqueRarities = [
 
 function getRarity(card) {
   if (card.rarity) return card.rarity.toLowerCase();
-  const level = card.level || 1;
+  const level = GameEngine.calculateCardLevel(card);
   if (level <= 2) return 'common';
   if (level <= 4) return 'uncommon';
   if (level <= 6) return 'rare';
@@ -278,10 +279,13 @@ function exportDeckCode() {
 function getBarHeight(level) {
   const count = state.editingDeck.cards.filter(id => {
     const card = getCardById(id);
-    return card && card.level === level;
+    return card && GameEngine.calculateCardLevel(card) === level;
   }).length;
   const max = Math.max(1, ...Array.from({ length: 10 }, (_, i) =>
-    state.editingDeck.cards.filter(id => getCardById(id)?.level === i + 1).length
+    state.editingDeck.cards.filter(id => {
+      const card = getCardById(id);
+      return card && GameEngine.calculateCardLevel(card) === i + 1;
+    }).length
   ));
   return (count / max) * 100;
 }
@@ -321,8 +325,8 @@ const filteredCards = computed(() => {
 
   result.sort((a, b) => {
     switch (sortBy.value) {
-      case 'level-desc': return b.level - a.level || a.id - b.id;
-      case 'level-asc': return a.level - b.level || a.id - b.id;
+      case 'level-desc': return GameEngine.calculateCardLevel(b) - GameEngine.calculateCardLevel(a) || a.id - b.id;
+      case 'level-asc': return GameEngine.calculateCardLevel(a) - GameEngine.calculateCardLevel(b) || a.id - b.id;
       case 'name-asc': return a.name.localeCompare(b.name);
       case 'rarity-desc': return (rarityOrder[getRarity(b)] - rarityOrder[getRarity(a)]) || a.id - b.id;
       case 'rarity-asc': return (rarityOrder[getRarity(a)] - rarityOrder[getRarity(b)]) || a.id - b.id;
