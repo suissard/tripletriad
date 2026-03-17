@@ -1,191 +1,194 @@
 <template>
-  <div class="h-full bg-[#0a0a1a] text-white relative overflow-hidden font-sans">
+  <div class="min-h-full w-full bg-[#0a0a1a] text-white relative font-sans flex flex-col lg:flex-row gap-6 p-6 pb-20">
     
     <!-- Ambient Background Glows -->
-    <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full pointer-events-none"></div>
-    <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 blur-[120px] rounded-full pointer-events-none"></div>
+    <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full pointer-events-none z-0"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 blur-[120px] rounded-full pointer-events-none z-0"></div>
 
-    <!-- Floating Toolbar -->
-    <div class="absolute top-8 left-1/2 -translate-x-1/2 glass-panel p-2 rounded-2xl flex items-center gap-2 z-20 shadow-2xl">
-      <button @click="setTool('rotate')" :class="['px-6 py-2 rounded-xl text-xs font-bold transition-all', currentTool === 'rotate' ? 'bg-primary text-[#0a0a1a]' : 'text-gray-400 hover:text-white hover:bg-white/5']">🔄 3D VIEW</button>
-      <button @click="setTool('draw')" :class="['px-6 py-2 rounded-xl text-xs font-bold transition-all', currentTool === 'draw' ? 'bg-primary text-[#0a0a1a]' : 'text-gray-400 hover:text-white hover:bg-white/5']">🖌️ PAINT</button>
-      <button @click="setTool('erase')" :class="['px-6 py-2 rounded-xl text-xs font-bold transition-all', currentTool === 'erase' ? 'bg-primary text-[#0a0a1a]' : 'text-gray-400 hover:text-white hover:bg-white/5']">🧽 ERASE</button>
+    <!-- Left / Central Side: 3D Preview Window & Toolbar -->
+    <div class="flex-1 flex flex-col items-center justify-center relative z-10 min-h-[400px]">
+
+      <!-- Toolbar -->
+      <AppPanel class="p-2 mb-4 flex items-center justify-center gap-2 max-w-fit mx-auto" :padding="false">
+        <AppButton
+          variant="ghost"
+          :class="['px-6 py-2 text-xs font-bold transition-all', currentTool === 'rotate' ? 'bg-primary/20 text-white' : 'text-gray-400']"
+          @click="setTool('rotate')"
+        >🔄 3D VIEW</AppButton>
+        <AppButton
+          variant="ghost"
+          :class="['px-6 py-2 text-xs font-bold transition-all', currentTool === 'draw' ? 'bg-primary/20 text-white' : 'text-gray-400']"
+          @click="setTool('draw')"
+        >🖌️ PAINT</AppButton>
+        <AppButton
+          variant="ghost"
+          :class="['px-6 py-2 text-xs font-bold transition-all', currentTool === 'erase' ? 'bg-primary/20 text-white' : 'text-gray-400']"
+          @click="setTool('erase')"
+        >🧽 ERASE</AppButton>
+      </AppPanel>
+
+      <!-- 3D Canvas Container (Visually Constrained Window) -->
+      <div class="relative w-full max-w-[500px] flex-1 min-h-[400px] max-h-[700px] rounded-2xl overflow-hidden glass-panel border border-white/10 shadow-2xl flex items-center justify-center bg-black/40">
+        <!-- 3D Canvas goes exactly here -->
+        <div ref="canvasContainer" class="absolute inset-0 cursor-grab active:cursor-grabbing w-full h-full"></div>
+      </div>
     </div>
 
-    <!-- Right Side Panel (Controls) -->
-    <div class="absolute top-8 right-8 glass-panel p-6 rounded-[40px] w-96 z-10 max-h-[calc(100vh-64px)] overflow-y-auto shadow-2xl custom-scrollbar flex flex-col">
+    <!-- Right Side: Flat Control Panel -->
+    <AppPanel class="w-full lg:w-96 flex-shrink-0 flex flex-col z-10 h-full max-h-full overflow-y-auto custom-scrollbar shadow-2xl border border-white/10 bg-black/60 backdrop-blur-md">
       <div class="mb-6 text-center">
         <h2 class="text-2xl font-black text-white tracking-tighter uppercase italic">HoloEditor <span class="text-primary italic">Pro</span></h2>
         <p class="text-[10px] font-bold text-gray-500 uppercase tracking-[0.3em] mt-1 pl-1">Visual FX Engine</p>
       </div>
 
-      <div class="space-y-4">
-        <!-- Step 1: Card Selection -->
-        <div class="accordion-item bg-white/5 rounded-2xl overflow-hidden">
-          <button @click="toggleAccordion('card')" class="w-full flex justify-between items-center p-4 text-xs font-bold uppercase tracking-widest text-white hover:bg-white/5 transition-colors">
-            <span>1. Sélection Carte</span>
-            <span class="text-primary">{{ openAccordion === 'card' ? '▼' : '▶' }}</span>
-          </button>
-          <div v-show="openAccordion === 'card'" class="p-4 pt-0 border-t border-white/5">
-            <PremiumSelect
-              v-model="selectedCardId"
-              :options="cardOptions"
-              label="Sélectionner une carte"
-              placeholder="Choisir un modèle..."
-              searchable
-              @change="onCardSelected"
-            >
-              <template #icon>🎴</template>
-            </PremiumSelect>
-            <div v-if="loadingCards" class="text-[10px] text-primary/50 font-bold uppercase tracking-widest mt-2 animate-pulse">Synchronisation...</div>
-          </div>
-        </div>
+      <div class="space-y-8 pb-4">
 
-        <!-- Step 2: Layer Management -->
-        <div class="accordion-item bg-white/5 rounded-2xl overflow-hidden">
-          <button @click="toggleAccordion('layers')" class="w-full flex justify-between items-center p-4 text-xs font-bold uppercase tracking-widest text-white hover:bg-white/5 transition-colors">
-            <span>2. Calques ({{ layers.length }}/5)</span>
-            <span class="text-primary">{{ openAccordion === 'layers' ? '▼' : '▶' }}</span>
-          </button>
-          <div v-show="openAccordion === 'layers'" class="p-4 pt-0 border-t border-white/5">
-            <div class="flex justify-end mb-2">
-              <button v-if="layers.length < 5" @click="addLayer" class="text-[10px] font-bold text-primary hover:text-white transition-colors">AJOUTER +</button>
-            </div>
-            <div class="flex flex-col gap-2">
-              <div v-for="(layer, i) in layers" :key="i"
-                   :class="['flex items-center p-3 rounded-2xl transition-all border border-transparent', i === activeLayerIndex ? 'bg-white/10 border-primary/20 scale-[1.02] shadow-lg' : 'bg-white/5 opacity-60 hover:opacity-100']">
-                <button @click="selectLayer(i)" :class="['flex-1 text-left text-xs font-bold uppercase tracking-wider', i === activeLayerIndex ? 'text-white' : 'text-gray-400']">
-                  Layer {{ i + 1 }}
+        <!-- 1. Card Selection -->
+        <section class="space-y-4">
+          <h3 class="text-xs font-bold uppercase tracking-widest text-primary border-b border-white/10 pb-2">1. Sélection Carte</h3>
+          <PremiumSelect
+            v-model="selectedCardId"
+            :options="cardOptions"
+            label="Sélectionner une carte"
+            placeholder="Choisir un modèle..."
+            searchable
+            @change="onCardSelected"
+          >
+            <template #icon>🎴</template>
+          </PremiumSelect>
+          <div v-if="loadingCards" class="text-[10px] text-primary/50 font-bold uppercase tracking-widest mt-2 animate-pulse">Synchronisation...</div>
+        </section>
+
+        <!-- 2. Layer Management -->
+        <section class="space-y-4">
+          <div class="flex justify-between items-end border-b border-white/10 pb-2">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-primary">2. Calques ({{ layers.length }}/5)</h3>
+            <button v-if="layers.length < 5" @click="addLayer" class="text-[10px] font-bold text-gray-300 hover:text-white transition-colors cursor-pointer">AJOUTER +</button>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <div v-for="(layer, i) in layers" :key="i"
+                 :class="['flex items-center p-3 rounded-2xl transition-all border', i === activeLayerIndex ? 'bg-white/10 border-primary/30 shadow-lg' : 'bg-white/5 border-transparent opacity-70 hover:opacity-100']">
+              <button @click="selectLayer(i)" :class="['flex-1 text-left text-xs font-bold uppercase tracking-wider cursor-pointer outline-none', i === activeLayerIndex ? 'text-white' : 'text-gray-400']">
+                Layer {{ i + 1 }}
+              </button>
+              <div class="flex items-center gap-1">
+                <button @click="toggleLayer(i)" class="p-2 hover:bg-white/10 rounded-lg transition-all text-xs cursor-pointer outline-none" :title="layer.enabled ? 'Cacher' : 'Afficher'">
+                  {{ layer.enabled ? '👁️' : '❌' }}
                 </button>
-                <div class="flex items-center gap-1">
-                  <button @click="toggleLayer(i)" class="p-2 hover:bg-white/10 rounded-lg transition-all text-xs">
-                    {{ layer.enabled ? '👁️' : '❌' }}
-                  </button>
-                  <button v-if="layers.length > 1" @click="deleteLayer(i)" class="p-2 hover:bg-red-500/20 text-red-400 rounded-lg transition-all text-xs">
-                    🗑️
-                  </button>
-                </div>
+                <button v-if="layers.length > 1" @click="deleteLayer(i)" class="p-2 hover:bg-red-500/20 text-red-400 rounded-lg transition-all text-xs cursor-pointer outline-none" title="Supprimer">
+                  🗑️
+                </button>
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div v-if="layers.length > 0" class="space-y-4">
-          <!-- Step 3: Color & Mask -->
-          <div class="accordion-item bg-white/5 rounded-2xl overflow-hidden">
-            <button @click="toggleAccordion('mask')" class="w-full flex justify-between items-center p-4 text-xs font-bold uppercase tracking-widest text-white hover:bg-white/5 transition-colors">
-              <span>3. Couleur & Masque</span>
-              <span class="text-primary">{{ openAccordion === 'mask' ? '▼' : '▶' }}</span>
-            </button>
-            <div v-show="openAccordion === 'mask'" class="p-4 pt-0 border-t border-white/5 space-y-4 mt-4">
-              <div class="setting-group">
-                <label>Couleur Cible</label>
-                <div class="flex items-center gap-3">
-                  <input type="color" v-model="activeLayer.targetColor" @input="syncUniforms" class="h-10 w-full bg-transparent border-0 cursor-pointer p-0 rounded-xl overflow-hidden shadow-inner">
-                  <button @click="pickColor" class="bg-white/5 hover:bg-white/10 p-2.5 rounded-xl transition-all" title="Pipette">💧</button>
-                </div>
-              </div>
-              <div class="setting-group">
-                <div class="flex justify-between items-center">
-                  <label>Sensibilité</label>
-                  <span class="text-[10px] text-gray-500 font-bold">{{ Math.round(activeLayer.sensitivity * 100) }}%</span>
-                </div>
-                <input type="range" v-model.number="activeLayer.sensitivity" min="0.01" max="1.0" step="0.01" @input="syncUniforms" class="w-full h-1 bg-white/10 rounded-full appearance-none accent-primary">
-              </div>
-              <div class="setting-group">
-                <div class="flex justify-between items-center">
-                  <label>Tolérance</label>
-                  <span class="text-[10px] text-gray-500 font-bold">{{ Math.round(activeLayer.tolerance * 100) }}%</span>
-                </div>
-                <input type="range" v-model.number="activeLayer.tolerance" min="0.0" max="1.0" step="0.01" @input="syncUniforms" class="w-full h-1 bg-white/10 rounded-full appearance-none accent-primary">
+        <!-- Only show settings if there is at least 1 layer -->
+        <template v-if="layers.length > 0">
+
+          <!-- 3. Color & Mask -->
+          <section class="space-y-4">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-primary border-b border-white/10 pb-2">3. Couleur & Masque</h3>
+            <div class="setting-group">
+              <label>Couleur Cible (Chromakey)</label>
+              <div class="flex items-center gap-3">
+                <input type="color" v-model="activeLayer.targetColor" @input="syncUniforms" class="h-10 w-full bg-transparent border-0 cursor-pointer p-0 rounded-xl overflow-hidden shadow-inner">
+                <button @click="pickColor" class="bg-white/10 hover:bg-white/20 p-2.5 rounded-xl transition-all border border-white/5 cursor-pointer outline-none" title="Pipette">💧</button>
               </div>
             </div>
-          </div>
-
-          <!-- Step 4: Tools (Brush/Eraser) -->
-          <div class="accordion-item bg-white/5 rounded-2xl overflow-hidden">
-            <button @click="toggleAccordion('tools')" class="w-full flex justify-between items-center p-4 text-xs font-bold uppercase tracking-widest text-white hover:bg-white/5 transition-colors">
-              <span>4. Outils Pinceau</span>
-              <span class="text-primary">{{ openAccordion === 'tools' ? '▼' : '▶' }}</span>
-            </button>
-            <div v-show="openAccordion === 'tools'" class="p-4 pt-0 border-t border-white/5 space-y-4 mt-4">
-              <div class="flex gap-2">
-                <button @click="setTool('draw')" :class="['flex-1 py-2 rounded-xl text-xs font-bold transition-all', currentTool === 'draw' ? 'bg-primary text-[#0a0a1a]' : 'bg-white/5 text-gray-400 hover:text-white']">🖌️ Pinceau</button>
-                <button @click="setTool('erase')" :class="['flex-1 py-2 rounded-xl text-xs font-bold transition-all', currentTool === 'erase' ? 'bg-primary text-[#0a0a1a]' : 'bg-white/5 text-gray-400 hover:text-white']">🧽 Gomme</button>
+            <div class="setting-group">
+              <div class="flex justify-between items-center">
+                <label>Sensibilité</label>
+                <span class="text-[10px] text-gray-400 font-bold">{{ Math.round(activeLayer.sensitivity * 100) }}%</span>
               </div>
-              <div class="setting-group mt-2">
-                <label>Taille</label>
-                <input type="range" v-model="brushSize" min="5" max="150" class="w-full accent-primary h-1 bg-white/10 rounded-full appearance-none">
+              <input type="range" v-model.number="activeLayer.sensitivity" min="0.01" max="1.0" step="0.01" @input="syncUniforms" class="w-full h-1 bg-white/20 rounded-full appearance-none accent-primary">
+            </div>
+            <div class="setting-group">
+              <div class="flex justify-between items-center">
+                <label>Tolérance</label>
+                <span class="text-[10px] text-gray-400 font-bold">{{ Math.round(activeLayer.tolerance * 100) }}%</span>
+              </div>
+              <input type="range" v-model.number="activeLayer.tolerance" min="0.0" max="1.0" step="0.01" @input="syncUniforms" class="w-full h-1 bg-white/20 rounded-full appearance-none accent-primary">
+            </div>
+          </section>
+
+          <!-- 4. Brush Tools -->
+          <section class="space-y-4">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-primary border-b border-white/10 pb-2">4. Paramètres Pinceau</h3>
+            <div class="setting-group mt-2">
+              <label>Taille (Radius)</label>
+              <input type="range" v-model="brushSize" min="5" max="150" class="w-full accent-primary h-1 bg-white/20 rounded-full appearance-none">
+            </div>
+            <div class="setting-group">
+              <label>Douceur (Softness)</label>
+              <input type="range" v-model="brushSoftness" min="0" max="1" step="0.01" class="w-full accent-primary h-1 bg-white/20 rounded-full appearance-none">
+            </div>
+            <div class="flex gap-2 mt-2">
+              <AppButton variant="ghost" @click="fillMask('white')" class="flex-1 py-2 text-[10px] font-bold border border-white/10">REMPLIR</AppButton>
+              <AppButton variant="ghost" @click="fillMask('black')" class="flex-1 py-2 text-[10px] font-bold border border-white/10">EFFACER</AppButton>
+            </div>
+          </section>
+
+          <!-- 5. Foil Settings -->
+          <section class="space-y-4">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-primary border-b border-white/10 pb-2">5. Effet Holographique</h3>
+            <div class="setting-group">
+              <label>Type d'Effet</label>
+              <PremiumSelect
+                v-model="activeLayer.foilMode"
+                :options="foilModes"
+                @change="syncUniforms"
+              />
+            </div>
+            <div class="setting-group">
+              <label>Teinte de Base</label>
+              <input type="color" v-model="activeLayer.foilColor" @input="syncUniforms" class="h-10 w-full bg-transparent border-0 cursor-pointer p-0 rounded-xl overflow-hidden shadow-inner">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="setting-group">
+                <label>Intensité</label>
+                <input type="range" v-model.number="activeLayer.holoIntensity" min="0" max="3" step="0.1" @input="syncUniforms" class="w-full h-1 bg-white/20 rounded-full appearance-none accent-primary">
               </div>
               <div class="setting-group">
-                <label>Douceur (Softness)</label>
-                <input type="range" v-model="brushSoftness" min="0" max="1" step="0.01" class="w-full accent-primary h-1 bg-white/10 rounded-full appearance-none">
-              </div>
-              <div class="flex gap-2 mt-2">
-                <button @click="fillMask('white')" class="flex-1 bg-white/5 hover:bg-white/10 py-2 rounded-lg text-[10px] font-bold transition-all">REMPLIR TOUT</button>
-                <button @click="fillMask('black')" class="flex-1 bg-white/5 hover:bg-white/10 py-2 rounded-lg text-[10px] font-bold transition-all">EFFACER TOUT</button>
+                <label>Vitesse</label>
+                <input type="range" v-model.number="activeLayer.foilSpeed" min="0" max="5" step="0.1" @input="syncUniforms" class="w-full h-1 bg-white/20 rounded-full appearance-none accent-primary">
               </div>
             </div>
-          </div>
-
-          <!-- Step 5: Foil Config -->
-          <div class="accordion-item bg-white/5 rounded-2xl overflow-hidden">
-            <button @click="toggleAccordion('foil')" class="w-full flex justify-between items-center p-4 text-xs font-bold uppercase tracking-widest text-white hover:bg-white/5 transition-colors">
-              <span>5. Effet Holographique</span>
-              <span class="text-primary">{{ openAccordion === 'foil' ? '▼' : '▶' }}</span>
-            </button>
-            <div v-show="openAccordion === 'foil'" class="p-4 pt-0 border-t border-white/5 space-y-4 mt-4">
-              <div class="setting-group">
-                <label>Type d'Effet</label>
-                <PremiumSelect
-                  v-model="activeLayer.foilMode"
-                  :options="foilModes"
-                  @change="syncUniforms"
-                />
-              </div>
-              <div class="setting-group">
-                <label>Teinte Base</label>
-                <input type="color" v-model="activeLayer.foilColor" @input="syncUniforms" class="h-10 w-full bg-transparent border-0 cursor-pointer p-0 rounded-xl overflow-hidden shadow-inner">
-              </div>
-              <div class="grid grid-cols-2 gap-4">
-                <div class="setting-group">
-                  <label>Intensité</label>
-                  <input type="range" v-model.number="activeLayer.holoIntensity" min="0" max="3" step="0.1" @input="syncUniforms" class="w-full h-1 bg-white/10 rounded-full appearance-none accent-primary">
-                </div>
-                <div class="setting-group">
-                  <label>Vitesse</label>
-                  <input type="range" v-model.number="activeLayer.foilSpeed" min="0" max="5" step="0.1" @input="syncUniforms" class="w-full h-1 bg-white/10 rounded-full appearance-none accent-primary">
-                </div>
-              </div>
-              <div class="setting-group">
-                <label>Échelle / Taille</label>
-                <input type="range" v-model.number="activeLayer.foilScale" min="0.1" max="10.0" step="0.1" @input="syncUniforms" class="w-full h-1 bg-white/10 rounded-full appearance-none accent-primary">
-              </div>
-              <div class="setting-group">
-                <label>Orientation (α)</label>
-                <div class="flex items-center gap-4">
-                  <input type="range" v-model.number="activeLayer.foilAngle" min="0" max="360" step="1" @input="syncUniforms" class="flex-1 h-1 bg-white/10 rounded-full appearance-none accent-primary">
-                  <span class="text-xs font-bold text-gray-400 min-w-[3ch]">{{ activeLayer.foilAngle }}°</span>
-                </div>
+            <div class="setting-group">
+              <label>Échelle / Taille</label>
+              <input type="range" v-model.number="activeLayer.foilScale" min="0.1" max="10.0" step="0.1" @input="syncUniforms" class="w-full h-1 bg-white/20 rounded-full appearance-none accent-primary">
+            </div>
+            <div class="setting-group">
+              <label>Orientation (α)</label>
+              <div class="flex items-center gap-4">
+                <input type="range" v-model.number="activeLayer.foilAngle" min="0" max="360" step="1" @input="syncUniforms" class="flex-1 h-1 bg-white/20 rounded-full appearance-none accent-primary">
+                <span class="text-[10px] font-bold text-gray-400 min-w-[3ch]">{{ activeLayer.foilAngle }}°</span>
               </div>
             </div>
-          </div>
-        </div>
+          </section>
+        </template>
 
-        <!-- Step 6: Export -->
-        <button @click="saveEffect" :disabled="!selectedCardId || saving" class="btn btn-primary w-full h-14 mt-4 shadow-xl shadow-primary/20 flex items-center justify-center gap-3 text-sm">
-          <span v-if="saving" class="animate-spin">⏳</span>
+        <!-- 6. Export Action -->
+        <AppButton
+          variant="primary"
+          fullWidth
+          @click="saveEffect"
+          :disabled="!selectedCardId || saving"
+          class="h-14 mt-4 shadow-xl shadow-primary/20"
+        >
+          <span v-if="saving" class="animate-spin mr-2">⏳</span>
           <span class="tracking-widest font-black uppercase italic">{{ saving ? 'SAUVEGARDE...' : 'EXPORTER L\'EFFET' }}</span>
-        </button>
+        </AppButton>
       </div>
-    </div>
+    </AppPanel>
 
-    <!-- 3D Canvas Container -->
-    <div ref="canvasContainer" class="absolute inset-0 z-0 cursor-grab active:cursor-grabbing"></div>
   </div>
 </template>
 
 <script setup>
+import AppPanel from '../../components/ui/AppPanel.vue';
+import AppButton from '../../components/ui/AppButton.vue';
 import { ref, reactive, computed, onMounted, onBeforeUnmount, shallowRef } from 'vue';
 import * as THREE from 'three';
 import strapiService from '../api/strapi';
@@ -348,10 +351,6 @@ const foilModes = [
 
 const openAccordion = ref('card');
 const brushSoftness = ref(0.2);
-
-function toggleAccordion(section) {
-  openAccordion.value = openAccordion.value === section ? '' : section;
-}
 
 const cardOptions = computed(() => {
   return cards.value.map(c => ({
@@ -551,14 +550,18 @@ function initThreeJS() {
   const container = canvasContainer.value;
   scene.value = new THREE.Scene();
 
-  const aspect = container.clientWidth / container.clientHeight;
+  // Force minimum dimensions to avoid 0x0 errors on fast mounts
+  const width = container.clientWidth || 300;
+  const height = container.clientHeight || 420;
+
+  const aspect = width / height;
   camera.value = new THREE.PerspectiveCamera(45, aspect, 0.1, 1000);
   camera.value.position.z = 5;
-  camera.value.position.x = -1.5;
+  camera.value.position.x = 0; // Centered camera, unlike the previous left-offset
 
   renderer.value = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.value.setPixelRatio(window.devicePixelRatio);
-  renderer.value.setSize(container.clientWidth, container.clientHeight);
+  renderer.value.setSize(width, height);
   container.appendChild(renderer.value.domElement);
 
   textureLoader.value = new THREE.TextureLoader();
@@ -596,7 +599,12 @@ function loadTexture(url) {
     if (mesh.value) scene.value.remove(mesh.value);
 
     const aspect = tex.image.width / tex.image.height;
-    const geometry = new THREE.PlaneGeometry(3 * aspect, 3, 64, 64);
+    // Scale geometry slightly so it fits beautifully in the central view
+    // without clipping against top/bottom or left/right.
+    // 2.5 / 3.5 aspect ratio is standard.
+    const planeHeight = 4.0;
+    const planeWidth = planeHeight * aspect;
+    const geometry = new THREE.PlaneGeometry(planeWidth, planeHeight, 64, 64);
 
     material.value = new THREE.ShaderMaterial({
       vertexShader: vertexShaderStr,

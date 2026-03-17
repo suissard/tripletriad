@@ -236,8 +236,8 @@ const cardSize = computed(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-x: auto;
-  overflow-y: hidden;
+  /* overflow-x: auto;
+  overflow-y: hidden; */
   max-width: 100%;
 }
 

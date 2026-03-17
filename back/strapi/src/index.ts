@@ -108,7 +108,13 @@ export default {
         'api::user-card.user-card.find',
         'api::wallet.wallet.find',
         'api::wallet.wallet.getMe',
+        'api::story.story.find',
+        'api::story.story.findOne',
+        'api::player-story-progress.player-story-progress.find',
+        'api::player-story-progress.player-story-progress.findOne',
+        'api::player-story-progress.player-story-progress.claimStepReward',
         'api::player-event-log.player-event-log.trackEvent',
+        'api::game-config.game-config.find',
       ];
 
       for (const action of actions) {
@@ -119,6 +125,30 @@ export default {
         if (existingPermission.length === 0) {
           await strapi.entityService.create('plugin::users-permissions.permission', {
             data: { action, role: authRole.id }
+          });
+        }
+      }
+    }
+
+    const publicRoles = await strapi.entityService.findMany('plugin::users-permissions.role', {
+      filters: { type: 'public' },
+    });
+
+    const publicRole = publicRoles[0];
+
+    if (publicRole) {
+      const publicActions = [
+        'api::game-config.game-config.find',
+      ];
+
+      for (const action of publicActions) {
+        const existingPermission = await strapi.entityService.findMany('plugin::users-permissions.permission', {
+          filters: { action, role: publicRole.id }
+        });
+
+        if (existingPermission.length === 0) {
+          await strapi.entityService.create('plugin::users-permissions.permission', {
+            data: { action, role: publicRole.id }
           });
         }
       }
@@ -178,6 +208,8 @@ export default {
                 description: c.description,
                 level: c.level,
                 element: c.element || 'None',
+                elements: Array.isArray(c.elements) ? c.elements : [c.element || 'None'],
+                faction: c.faction || 'neutre',
                 topValue: String(c.topValue),
                 rightValue: String(c.rightValue),
                 bottomValue: String(c.bottomValue),
@@ -193,6 +225,13 @@ export default {
       }
     } catch (err) {
       console.error('❌ Error seeding cards:', err);
+    }
+    // 3.4. Bootstrapping stories
+    try {
+      const { bootstrapStories } = require('./api/story/services/story-bootstrap');
+      await bootstrapStories(strapi);
+    } catch (err) {
+      console.error('❌ Error bootstrapping stories:', err);
     }
 
     // 3.5. Backfill existing users to ensure they have enough active/pending quests

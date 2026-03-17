@@ -7,7 +7,7 @@ import { gameEvents } from './events.js';
 import cardsData from '../../../shared/data/cards.json';
 import strapiService from '../api/strapi.js';
 
-export const cardLibrary = cardsData;
+// export const cardLibrary = reactive([...cardsData]); // Moved below normalizeCard
 export const webrtc = new WebRTCManager();
 
 /**
@@ -24,12 +24,29 @@ function parseStatValue(v) {
  * Normalizes topValue/rightValue/bottomValue/leftValue → top/right/bottom/left as numbers.
  */
 export function normalizeCard(raw) {
+    // Robust image URL extraction for Strapi
+    let imgUrl = raw.imageUrl || raw.img;
+    
+    // Handle Strapi media object (both flat and nested structures)
+    const strapiImg = raw.image?.data?.attributes || raw.image;
+    if (strapiImg?.url) {
+        imgUrl = strapiImg.url.startsWith('http') 
+            ? strapiImg.url 
+            : `${strapiService.MEDIA_URL}${strapiImg.url}`;
+    }
+
+    if (!imgUrl) {
+        imgUrl = `https://api.dicebear.com/9.x/bottts/png?seed=${(raw.id || 0) * 42}&backgroundColor=transparent`;
+    }
+
     return {
         id: raw.id,
         name: raw.name || `Card #${raw.id}`,
         description: raw.description || '',
-        level: raw.level || 1,
+        level: GameEngine.calculateCardLevel(raw),
         element: raw.element || 'None',
+        elements: Array.isArray(raw.elements) ? raw.elements : (raw.element && raw.element !== 'None' ? [raw.element] : []),
+        faction: raw.faction || 'neutre',
         top: raw.top ?? parseStatValue(raw.topValue),
         right: raw.right ?? parseStatValue(raw.rightValue),
         bottom: raw.bottom ?? parseStatValue(raw.bottomValue),
@@ -38,23 +55,29 @@ export function normalizeCard(raw) {
         rightValue: raw.rightValue ?? (raw.right === 10 ? 'A' : String(raw.right)),
         bottomValue: raw.bottomValue ?? (raw.bottom === 10 ? 'A' : String(raw.bottom)),
         leftValue: raw.leftValue ?? (raw.left === 10 ? 'A' : String(raw.left)),
-        imageUrl: raw.imageUrl || raw.img || `https://api.dicebear.com/9.x/bottts/png?seed=${raw.id * 42}&backgroundColor=transparent`,
+        imageUrl: imgUrl,
         revealed: raw.revealed !== undefined ? raw.revealed : true,
-        isPremium: raw.isPremium || false,
+        isPremium: false, // Will be set by ownership logic in components
         rarity: raw.rarity || null
     };
 }
 
-export const createCardData = (i) => normalizeCard({
-    id: i,
-    name: `Fighter #${i}`,
-    level: Math.floor(Math.random() * 3) + 1,
-    top: Math.floor(Math.random() * 10) + 1,
-    right: Math.floor(Math.random() * 10) + 1,
-    bottom: Math.floor(Math.random() * 10) + 1,
-    left: Math.floor(Math.random() * 10) + 1,
-    imageUrl: `https://api.dicebear.com/9.x/bottts/png?seed=${i * 42}&backgroundColor=transparent`
-});
+export const cardLibrary = reactive(cardsData.map(normalizeCard));
+
+export const createCardData = (i) => {
+    const raw = {
+        id: i,
+        name: `Fighter #${i}`,
+        topValue: String(Math.floor(Math.random() * 9) + 1),
+        rightValue: String(Math.floor(Math.random() * 9) + 1),
+        bottomValue: String(Math.floor(Math.random() * 9) + 1),
+        leftValue: String(Math.floor(Math.random() * 9) + 1),
+    };
+    return normalizeCard({
+        ...raw,
+        imageUrl: `https://api.dicebear.com/9.x/bottts/png?seed=${i * 42}&backgroundColor=transparent`
+    });
+};
 
 /**
  * Wraps and normalizes board entries from either local {data, owner} format
@@ -151,6 +174,33 @@ export const state = reactive({
 
 export function getCardById(id) {
     return cardLibrary.find(c => c.id === id);
+}
+
+/**
+ * Loads all cards from Strapi and updates the cardLibrary.
+ */
+export async function loadCardsFromStrapi() {
+    console.log("[GameManager] Fetching cards from Strapi...");
+    try {
+        const result = await strapiService.find('cards', {
+            populate: ['image'],
+            pagination: { pageSize: 1000 }
+        });
+        
+        // Handle both array and { data: [...] } formats
+        const rawCards = Array.isArray(result) ? result : (result?.data || []);
+        
+        if (rawCards.length > 0) {
+            const normalized = rawCards.map(c => normalizeCard(c));
+            // Update the reactive array in place
+            cardLibrary.splice(0, cardLibrary.length, ...normalized);
+            console.log(`[GameManager] Successfully loaded ${cardLibrary.length} cards from Strapi.`);
+        } else {
+            console.warn("[GameManager] No cards found in Strapi. Keeping local defaults.");
+        }
+    } catch (error) {
+        console.error("[GameManager] Failed to load cards from Strapi:", error);
+    }
 }
 
 

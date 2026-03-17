@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "player_story_progresses",
+  "info": {
+    "singularName": "player-story-progress",
+    "pluralName": "player-story-progresses",
+    "displayName": "Player Story Progress",
+    "description": "Tracks a player's progress through a story"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "storyProgresses"
+    },
+    "story": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::story.story"
+    },
+    "completedSteps": {
+      "type": "json",
+      "default": []
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["locked", "in_progress", "completed"],
+      "default": "locked"
+    }
+  }
+}

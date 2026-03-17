@@ -1,0 +1,96 @@
+{
+  "title": "L'Oasis Radiative",
+  "description": "Une zone où l'eau pure a été contaminée par des cristaux étranges. Les gardiens sont devenus fous.",
+  "steps": [
+    {
+      "title": "L'Éclaireur Halluciné",
+      "description": "Un homme boit l'eau bleue toxique et voit des divinités.",
+      "startDialogue": [
+        {"name": "Éclaireur", "sentence": "Bénis soit le nectar bleu ! Il ouvre les portes de l'esprit !"},
+        {"name": "Héros", "sentence": "Ça ronge juste ton cerveau. Recule."},
+        {"name": "Éclaireur", "sentence": "Tu veux tout pour toi ! Tu ne verras jamais les dieux de cristal !"},
+        {"name": "Héros", "sentence": "Je n'en ai pas l'intention."},
+        {"name": "Éclaireur", "sentence": "Je défendrai la source sacrée de ma vie !"}
+      ],
+      "endDialogue": [
+        {"name": "Éclaireur", "sentence": "Les visions... disparaissent..."},
+        {"name": "Héros", "sentence": "La lucidité revient toujours, ou la mort."},
+        {"name": "Éclaireur", "sentence": "C'était si beau..."},
+        {"name": "Héros", "sentence": "Ce n'était qu'un poison."},
+        {"name": "Éclaireur", "sentence": "Je replonge dans l'obscurité..."}
+      ]
+    },
+    {
+      "title": "Les Gardiennes du Bassin",
+      "description": "Des femmes lourdement armées protègent l'accès au grand bassin de l'Oasis.",
+      "startDialogue": [
+        {"name": "Sentinelle", "sentence": "Nul n'approche du Bassin sans offrir son sang à la source."},
+        {"name": "Héros", "sentence": "Je viens purifier cette eau, pas la souiller davantage."},
+        {"name": "Sentinelle", "sentence": "Sacrilège ! La pureté réside dans la mutation cristalline !"},
+        {"name": "Héros", "sentence": "Vous êtes manipulées par des produits chimiques."},
+        {"name": "Sentinelle", "sentence": "Nous sommes l'évolution armée !"}
+      ],
+      "endDialogue": [
+        {"name": "Sentinelle", "sentence": "Nos armes... sont brisées..."},
+        {"name": "Héros", "sentence": "L'évolution ne repose pas sur la violence aveugle."},
+        {"name": "Sentinelle", "sentence": "Le Bassin nous vengera..."},
+        {"name": "Héros", "sentence": "Le bassin sera purgé."},
+        {"name": "Sentinelle", "sentence": "Que la soif... nous emporte..."}
+      ]
+    },
+    {
+      "title": "Le Prêtre de Cristal",
+      "description": "Un homme dont le corps est à moitié recouvert de cristaux bleus fluorescents.",
+      "startDialogue": [
+        {"name": "Prêtre", "sentence": "Contemple ma perfection ! Mon corps est un sanctuaire minéral."},
+        {"name": "Héros", "sentence": "Tu es une coquille vide dévorée par un parasite."},
+        {"name": "Prêtre", "sentence": "La chair faible est remplacée par la force éternelle du cristal !"},
+        {"name": "Héros", "sentence": "Le cristal se brise. La volonté humaine perdure."},
+        {"name": "Prêtre", "sentence": "Je vais te fracasser contre ma foi indestructible !"}
+      ],
+      "endDialogue": [
+        {"name": "Prêtre", "sentence": "Mes cristaux... volent en éclats..."},
+        {"name": "Héros", "sentence": "Comme je l'avais prédit."},
+        {"name": "Prêtre", "sentence": "Je ressens à nouveau... la douleur de la chair..."},
+        {"name": "Héros", "sentence": "C'est la preuve que tu es encore humain."},
+        {"name": "Prêtre", "sentence": "Une humanité pitoyable..."}
+      ]
+    },
+    {
+      "title": "L'Alchimiste Dément",
+      "description": "Le créateur du poison cristallin prépare une nouvelle dose massive.",
+      "startDialogue": [
+        {"name": "Alchimiste", "sentence": "Encore un instant et la rivière entière sera convertie en miracle bleu !"},
+        {"name": "Héros", "sentence": "Je ne te laisserai pas empoisonner tout le canyon."},
+        {"name": "Alchimiste", "sentence": "Tu ne comprends pas la science du divin ! C'est la panacée !"},
+        {"name": "Héros", "sentence": "C'est un suicide collectif. Arrête tes expériences."},
+        {"name": "Alchimiste", "sentence": "Je serai le père de la nouvelle espèce !"}
+      ],
+      "endDialogue": [
+        {"name": "Alchimiste", "sentence": "Mes potions... répandues sur le sol..."},
+        {"name": "Héros", "sentence": "Ton expérience est annulée."},
+        {"name": "Alchimiste", "sentence": "Des années de travail... détruites..."},
+        {"name": "Héros", "sentence": "Des milliers de vies sauvées."},
+        {"name": "Alchimiste", "sentence": "L'ignorance a triomphé..."}
+      ]
+    },
+    {
+      "title": "La Source Corrompue",
+      "description": "Une entité informe née de l'accumulation des cristaux toxiques, vénérée comme un dieu.",
+      "startDialogue": [
+        {"name": "Entité", "sentence": "[Bruissements cristallins] REJOINS-NOUS. FOND-TOI DANS LA MATRICE."},
+        {"name": "Héros", "sentence": "Tu n'es pas un dieu. Tu es une erreur écologique."},
+        {"name": "Entité", "sentence": "L'INDIVIDUALITÉ EST UNE ANOMALIE. L'ASSIMILATION EST LA PAIX."},
+        {"name": "Héros", "sentence": "La paix du cimetière ne m'intéresse pas."},
+        {"name": "Entité", "sentence": "ALORS SOIS ÉCRASÉ PAR LA MASSE DIVINE."}
+      ],
+      "endDialogue": [
+        {"name": "Entité", "sentence": "[Craquements sinistres] LA STRUCTURE... S'EFFONDRE..."},
+        {"name": "Héros", "sentence": "La nature va enfin pouvoir guérir."},
+        {"name": "Entité", "sentence": "LA SOLITUDE REVIENT..."},
+        {"name": "Héros", "sentence": "C'est le prix de l'indépendance."},
+        {"name": "Entité", "sentence": "DISSOLUTION..."}
+      ]
+    }
+  ]
+}

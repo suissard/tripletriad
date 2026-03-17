@@ -4,6 +4,7 @@
       v-for="(cell, index) in state.board"
       :key="index"
       class="board-slot"
+      :data-slot-index="index"
       :class="{
         'slot-empty': !cell,
         'slot-highlight': !cell && state.selectedCardIndex !== null && state.turn === 'player',
@@ -14,10 +15,6 @@
         'is-drag-over': dragOverIndex === index
       }"
       @click="handleSlotClick(index)"
-      @dragover="onDragOver"
-      @dragenter="onDragEnter(index)"
-      @dragleave="onDragLeave(index)"
-      @drop="onDrop($event, index)"
     >
       <!-- Empty slot marker -->
       <div v-if="!cell" class="slot-marker">
@@ -48,39 +45,11 @@ import { placeCard } from '../game/game-actions.js';
 import TripleTriadCard from './TripleTriadCard.vue';
 
 const lastPlacedIndex = ref(null);
-const dragOverIndex = ref(null);
-
-function onDragEnter(index) {
-  if (state.turn !== 'player' || state.busy || state.board[index]) return;
-  dragOverIndex.value = index;
-}
-
-function onDragLeave(index) {
-  if (dragOverIndex.value === index) {
-    dragOverIndex.value = null;
-  }
-}
+const dragOverIndex = ref(null); // Used by pointermove if we implement global event bus
 
 function handleSlotClick(index) {
   if (state.board[index] !== null) return;
   if (state.selectedCardIndex === null) return;
-  triggerPlacement(index);
-}
-
-function onDragOver(event) {
-  if (state.turn !== 'player' || state.busy) return;
-  event.preventDefault();
-}
-
-function onDrop(event, index) {
-  if (state.board[index] !== null) return;
-  if (state.turn !== 'player' || state.busy) return;
-  
-  const cardIndex = parseInt(event.dataTransfer.getData('text/plain'), 10);
-  if (isNaN(cardIndex)) return;
-  
-  state.selectedCardIndex = cardIndex;
-  dragOverIndex.value = null;
   triggerPlacement(index);
 }
 
@@ -93,6 +62,13 @@ async function triggerPlacement(index) {
     if (lastPlacedIndex.value === index) lastPlacedIndex.value = null;
   }, 500);
 }
+
+// Option to expose a highlight method if PlayerHand wants to highlight the hovered slot
+defineExpose({
+    setDragOver(index) {
+        dragOverIndex.value = index;
+    }
+});
 </script>
 
 <style scoped>

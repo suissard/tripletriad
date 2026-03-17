@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full">
+  <div class="min-h-full pb-10">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
       <div>
         <h1 v-if="!isEditing" class="text-4xl font-extrabold text-white tracking-tight mb-2 capitalize">Gestion des {{ collectionName }}</h1>
@@ -232,22 +232,16 @@ const getOptionsForField = (key) => {
   }
   if (lKey === 'element' || lKey === 'élément') {
     return [
-      { label: 'Aucun', value: 'none' },
-      { label: 'Neutre', value: 'neutre' },
-      { label: 'Feu', value: 'feu' },
+      { label: 'Aucun', value: 'None' },
       { label: 'Eau', value: 'eau' },
-      { label: 'Terre', value: 'terre' },
-      { label: 'Air', value: 'air' },
-      { label: 'Foudre', value: 'foudre' },
-      { label: 'Glace', value: 'glace' },
-      { label: 'Poison', value: 'poison' },
-      { label: 'Sacré', value: 'sacre' },
-      { label: 'Ténèbres', value: 'tenebres' },
+      { label: 'Faille Dimensionnelle', value: 'faille_dimensionnelle' },
+      { label: 'Furtif', value: 'furtif' },
+      { label: 'Hacking', value: 'hacking' },
+      { label: 'Longue Portée', value: 'longue_portee' },
+      { label: 'Obsidienne', value: 'obsidienne' },
       { label: 'Radiation', value: 'radiation' },
       { label: 'Réseau', value: 'reseau' },
-      { label: 'Spore', value: 'spore' },
-      { label: 'Furtif', value: 'furtif' },
-      { label: 'Hacking', value: 'hacking' }
+      { label: 'Spore', value: 'spore' }
     ];
   }
   return [];

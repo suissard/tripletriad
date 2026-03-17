@@ -69,8 +69,9 @@ import QuestModal from './QuestModal.vue';
 import { ref } from 'vue';
 
 const isQuestModalOpen = ref(false);
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 const router = useRouter();
+const route = useRoute();
 
 function goToHome() {
   state.gameState = 'menu';
@@ -80,7 +81,12 @@ function goToHome() {
 }
 
 function goToAdmin() {
-  router.push('/admin');
+  if (route.path.startsWith('/admin')) {
+    state.leftDrawerOpen = !state.leftDrawerOpen;
+  } else {
+    router.push('/admin');
+    state.leftDrawerOpen = true;
+  }
 }
 
 function toggleLeftDrawer() {

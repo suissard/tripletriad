@@ -455,34 +455,40 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
     element: Schema.Attribute.Enumeration<
       [
         'None',
-        'Fire',
-        'Ice',
-        'Thunder',
-        'Earth',
-        'Poison',
-        'Wind',
-        'Water',
-        'Holy',
+        'eau',
+        'faille_dimensionnelle',
+        'furtif',
+        'hacking',
+        'longue_portee',
+        'obsidienne',
+        'radiation',
+        'reseau',
+        'spore',
       ]
     > &
       Schema.Attribute.DefaultTo<'None'>;
+    elements: Schema.Attribute.JSON;
+    faction: Schema.Attribute.Enumeration<
+      [
+        'neutre',
+        'H\u00E9gemonie martienne',
+        'Exode p\u00E9lagique',
+        'H\u00E9ritiers des cendres',
+        'Omni-R\u00E9seau',
+        'Ch\u0153ur Synth\u00E9tique',
+        '\u00C9veil Chthonien',
+        'Incursion Dissonante',
+        'Ferrailleurs de la Ceinture',
+        'Fl\u00E9au Spore',
+      ]
+    > &
+      Schema.Attribute.DefaultTo<'neutre'>;
     image: Schema.Attribute.Media<'images'>;
-    isPremium: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     leftValue: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 1;
       }>;
-    level: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 10;
-          min: 1;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<1>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::card.card'> &
       Schema.Attribute.Private;

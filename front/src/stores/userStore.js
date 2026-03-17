@@ -18,7 +18,8 @@ export const useUserStore = defineStore('user', {
     userDecks: [],
     quests: [],
     strapiConnected: false,
-    hasEverConnected: false
+    hasEverConnected: false,
+    initializationStatus: 'loading' // 'loading' | 'ready'
   }),
 
   getters: {
@@ -38,7 +39,6 @@ export const useUserStore = defineStore('user', {
       };
       
       this.isLoggedIn = true;
-      this.strapiConnected = false; 
       strapiService.setToken(jwt);
       localStorage.setItem('tt_jwt', jwt);
       localStorage.setItem('tt_user', JSON.stringify(user));
@@ -337,49 +337,19 @@ export const useUserStore = defineStore('user', {
       localStorage.setItem('tt_user', JSON.stringify(updatedUser));
     },
 
-    async checkStrapiConnection() {
-      // If we already connected once in the session, we consider ourselves online permanently
-      if (this.hasEverConnected) {
-          this.strapiConnected = true;
-          return true;
-      }
-
-      try {
-        // Base check: is the server alive?
-        const baseCheck = await fetch(`${strapiService.BASE_URL.replace('/api', '')}/admin/init`, { 
-          method: 'HEAD',
-          cache: 'no-cache'
-        });
-        
-        if (!baseCheck.ok && baseCheck.status >= 500) {
-            this.strapiConnected = false;
-            return false;
-        }
-
-        // If logged in, do a deep check
-        if (this.isLoggedIn) {
-          try {
-            const me = await strapiService.request('GET', '/users/me');
-            if (me && !me.error) {
-              this.strapiConnected = true;
-              this.hasEverConnected = true;
-              this.fetchUserCollection();
-              this.fetchUserDecks();
-              this.fetchUserQuests();
-              return true;
-            }
-          } catch (e) {
-            console.warn('Authenticated connection check failed', e);
-            // Don't set strapiConnected to false yet, fallback to public check success
-          }
-        }
-
-        this.strapiConnected = true;
+    setConnectionStatus(isConnected) {
+      this.strapiConnected = isConnected;
+      if (isConnected) {
         this.hasEverConnected = true;
-        return true;
-      } catch (e) {
-        this.strapiConnected = false;
-        return false;
+        if (this.isLoggedIn) {
+          this.fetchUserCollection();
+          this.fetchUserDecks();
+          this.fetchUserQuests();
+        }
+      } else {
+        // Fallback to offline data
+        this.fetchUserCollection();
+        this.fetchUserDecks();
       }
     }
   }
