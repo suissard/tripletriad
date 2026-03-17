@@ -81,6 +81,9 @@ onMounted(async () => {
   // 3. Setup managers and auth
   initNotificationManager();
   userStore.restoreAuth();
+  if (userStore.isLoggedIn) {
+    userStore.updateUserData();
+  }
 
   // 4. Finalize
   setTimeout(() => {

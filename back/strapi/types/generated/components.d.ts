@@ -22,10 +22,24 @@ export interface FoilLayer extends Struct.ComponentSchema {
   };
 }
 
+export interface StoryDialogue extends Struct.ComponentSchema {
+  collectionName: 'components_story_dialogues';
+  info: {
+    description: 'A single line of dialogue from a character';
+    displayName: 'Dialogue';
+  };
+  attributes: {
+    card: Schema.Attribute.Relation<'oneToOne', 'api::card.card'>;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    sentence: Schema.Attribute.Text & Schema.Attribute.Required;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'foil.layer': FoilLayer;
+      'story.dialogue': StoryDialogue;
     }
   }
 }

@@ -15,23 +15,95 @@ export const useUserStore = defineStore('user', {
       dust: 0
     },
     collection: [],
+    collectionLoaded: false,
     userDecks: [],
+    decksLoaded: false,
     quests: [],
     strapiConnected: false,
     hasEverConnected: false,
-    initializationStatus: 'loading' // 'loading' | 'ready'
+    initializationStatus: 'loading', // 'loading' | 'ready'
+    error: null
   }),
 
   getters: {
-    isOffline: (state) => !state.strapiConnected
+    isOffline: (state) => !state.strapiConnected,
+    isAdmin: (state) => state.user?.role === 'Admin' || state.user?.role === 'Super Admin'
   },
 
   actions: {
+    async login(identifier, password) {
+      this.error = null;
+      try {
+        const response = await strapiService.login({ identifier, password });
+        if (response.error) {
+          this.error = response.error.message || 'Login failed';
+          return { error: response.error };
+        }
+
+        // Fetch User with their role
+        const meRes = await strapiService.request('GET', '/users/me?populate=role');
+        if (meRes.error) {
+           this.error = "Erreur de récupération des données utilisateur.";
+           return { error: meRes.error };
+        }
+
+        this.setAuth(response.jwt, { ...response.user, role: meRes.role?.name });
+        return { jwt: response.jwt, user: this.user };
+      } catch (err) {
+        console.error('Login error:', err);
+        this.error = 'Network error';
+        return { error: { message: 'Network error' } };
+      }
+    },
+
+    async register(payload) {
+      this.error = null;
+      try {
+        const response = await strapiService.register(payload);
+        if (response.error) {
+          this.error = response.error.message || 'Registration failed';
+          return { error: response.error };
+        }
+
+        // Fetch User with their role (newly registered users usually have a default role)
+        const meRes = await strapiService.request('GET', '/users/me?populate=role');
+        
+        this.setAuth(response.jwt, { ...response.user, role: meRes.role?.name || 'Authenticated' });
+        return { jwt: response.jwt, user: this.user };
+      } catch (err) {
+        console.error('Registration error:', err);
+        this.error = 'Network error';
+        return { error: { message: 'Network error' } };
+      }
+    },
+
+    async updateUserData() {
+      if (!this.isLoggedIn) return;
+      try {
+        const meRes = await strapiService.request('GET', '/users/me?populate=role');
+        if (!meRes.error) {
+          this.user = {
+            ...this.user,
+            id: meRes.id,
+            username: meRes.username,
+            role: meRes.role?.name,
+            coins: meRes.coins || 0,
+            gems: meRes.gems || 0,
+            dust: meRes.dust || 0
+          };
+          this.syncLocalUserWallets();
+        }
+      } catch (e) {
+        console.error('Update user data failed', e);
+      }
+    },
+
     setAuth(jwt, user) {
       this.jwt = jwt;
       this.user = {
         id: user.id,
         username: user.username,
+        role: user.role,
         coins: user.coins || 0,
         gems: user.gems || 0,
         dust: user.dust || 0,
@@ -41,7 +113,11 @@ export const useUserStore = defineStore('user', {
       this.isLoggedIn = true;
       strapiService.setToken(jwt);
       localStorage.setItem('tt_jwt', jwt);
-      localStorage.setItem('tt_user', JSON.stringify(user));
+      localStorage.setItem('tt_user', JSON.stringify(this.user));
+
+      // Reset cache flags on new login
+      this.collectionLoaded = false;
+      this.decksLoaded = false;
 
       // Initial Sync
       this.fetchUserCollection();
@@ -69,11 +145,14 @@ export const useUserStore = defineStore('user', {
         avatar: 'https://api.dicebear.com/9.x/bottts/png?seed=player&backgroundColor=transparent',
         coins: 0,
         gems: 0,
-        dust: 0
+        dust: 0,
+        role: null
       };
       this.isLoggedIn = false;
       this.collection = [];
+      this.collectionLoaded = false;
       this.userDecks = [];
+      this.decksLoaded = false;
       this.quests = [];
       strapiService.signOut();
       localStorage.removeItem('tt_jwt');
@@ -86,12 +165,15 @@ export const useUserStore = defineStore('user', {
       return [];
     },
 
-    async fetchUserCollection() {
+    async fetchUserCollection(force = false) {
       if (!this.strapiConnected) {
           this.collection = strapiMock.getOfflineCollection();
+          this.collectionLoaded = true;
           return;
       }
       if (!this.isLoggedIn) return;
+      if (this.collectionLoaded && !force) return;
+
       try {
         const result = await strapiService.find('user-cards', {
           populate: ['card'],
@@ -104,6 +186,7 @@ export const useUserStore = defineStore('user', {
           quantity: item.quantity,
           isPremium: !!item.isPremium
         }));
+        this.collectionLoaded = true;
 
         const walletResult = await strapiService.request('GET', '/wallets/me');
         if (walletResult && walletResult.data) {
@@ -126,12 +209,15 @@ export const useUserStore = defineStore('user', {
       }
     },
 
-    async fetchUserDecks() {
+    async fetchUserDecks(force = false) {
       if (!this.strapiConnected) {
           this.userDecks = strapiMock.getOfflineUserDecks();
+          this.decksLoaded = true;
           return;
       }
       if (!this.isLoggedIn) return;
+      if (this.decksLoaded && !force) return;
+
       try {
         const result = await strapiService.find('decks', {
           populate: ['cards']
@@ -144,6 +230,7 @@ export const useUserStore = defineStore('user', {
           cover: item.cover,
           cards: (item.cards || []).map(c => c.id)
         }));
+        this.decksLoaded = true;
       } catch (e) {
         console.error('Decks sync failed, falling back to mock', e);
         this.userDecks = strapiMock.getOfflineUserDecks();
@@ -332,7 +419,8 @@ export const useUserStore = defineStore('user', {
         ...savedUser,
         dust: this.user.dust, 
         coins: this.user.coins,
-        gems: this.user.gems
+        gems: this.user.gems,
+        role: this.user.role
       };
       localStorage.setItem('tt_user', JSON.stringify(updatedUser));
     },

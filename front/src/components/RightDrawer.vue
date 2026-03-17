@@ -704,25 +704,21 @@ async function submitAuth() {
   authError.value = '';
 
   try {
-    let data;
+    let result;
     if (isRegistering.value) {
-      data = await strapiService.register({
+      result = await userStore.register({
         username: authForm.username,
         email: authForm.email,
         password: authForm.password
       });
     } else {
-      data = await strapiService.login({
-        identifier: authForm.email,
-        password: authForm.password
-      });
+      result = await userStore.login(authForm.email, authForm.password);
     }
 
-    if (data.error) {
-      throw new Error(data.error.message || 'Erreur d\'authentification');
+    if (result.error) {
+      throw new Error(result.error.message || 'Erreur d\'authentification');
     }
 
-    userStore.setAuth(data.jwt, data.user);
     authForm.password = '';
   } catch (error) {
     authError.value = error.message;
