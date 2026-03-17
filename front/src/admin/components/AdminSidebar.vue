@@ -117,12 +117,12 @@
 <script setup>
 import { useRouter, useRoute } from 'vue-router';
 import AppButton from '../../components/ui/AppButton.vue';
-import { useAuthStore } from '../stores/authStore';
+import { useUserStore } from '../../stores/userStore';
 import { state } from '../../game/state.js';
 
 const router = useRouter();
 const route = useRoute();
-const authStore = useAuthStore();
+const userStore = useUserStore();
 
 const collections = [
   { name: 'Utilisateurs', path: 'users', icon: '👥' },
@@ -140,7 +140,7 @@ const navigate = (path) => {
 };
 
 const handleLogout = () => {
-  authStore.logout();
+  userStore.logout();
   router.push('/admin/login');
   state.leftDrawerOpen = false;
 };

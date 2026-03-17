@@ -87,7 +87,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import strapiService from '../api/strapi';
+import strapiService from '@/api/strapi';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Pie } from 'vue-chartjs'
 

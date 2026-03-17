@@ -191,7 +191,7 @@ import AppPanel from '../../components/ui/AppPanel.vue';
 import AppButton from '../../components/ui/AppButton.vue';
 import { ref, reactive, computed, onMounted, onBeforeUnmount, shallowRef } from 'vue';
 import * as THREE from 'three';
-import strapiService from '../api/strapi';
+import strapiService from '@/api/strapi';
 import PremiumSelect from '../components/PremiumSelect.vue';
 
 const MAX_LAYERS = 5;

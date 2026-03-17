@@ -21,7 +21,7 @@ export default factories.createCoreController('api::player-story-progress.player
       return ctx.notFound('Story not found');
     }
 
-    const step = story.steps.find((s: any) => s.id === stepId);
+    const step = (story as any).steps.find((s: any) => s.id === stepId);
     if (!step) {
       return ctx.notFound('Step not found in this story');
     }
@@ -80,7 +80,7 @@ export default factories.createCoreController('api::player-story-progress.player
     // Update progress
     const updatedSteps = [...completedSteps, stepId];
     let newStatus = progress.status;
-    if (updatedSteps.length >= story.steps.length) {
+    if (updatedSteps.length >= (story as any).steps.length) {
       newStatus = 'completed';
     }
 

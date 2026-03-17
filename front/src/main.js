@@ -22,8 +22,8 @@ app.component('AppModal', AppModal)
 app.use(pinia)
 app.use(router)
 
-import { useAuthStore } from './admin/stores/authStore'
-const authStore = useAuthStore()
-authStore.restoreSession()
+import { useUserStore } from './stores/userStore'
+const userStore = useUserStore()
+userStore.restoreAuth()
 
 app.mount('#app')

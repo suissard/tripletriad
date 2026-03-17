@@ -504,6 +504,14 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
         maxLength: 1;
       }>;
     skills: Schema.Attribute.JSON;
+    storiesRewardedFrom: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::story.story'
+    >;
+    storyStepsRewardedFrom: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::story-step.story-step'
+    >;
     topValue: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -950,6 +958,45 @@ export interface ApiPlayerQuestPlayerQuest extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiPlayerStoryProgressPlayerStoryProgress
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'player_story_progresses';
+  info: {
+    description: "Tracks a player's progress through a story";
+    displayName: 'Player Story Progress';
+    pluralName: 'player-story-progresses';
+    singularName: 'player-story-progress';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    completedSteps: Schema.Attribute.JSON & Schema.Attribute.DefaultTo<[]>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::player-story-progress.player-story-progress'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    status: Schema.Attribute.Enumeration<
+      ['locked', 'in_progress', 'completed']
+    > &
+      Schema.Attribute.DefaultTo<'locked'>;
+    story: Schema.Attribute.Relation<'manyToOne', 'api::story.story'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiQuestTemplateQuestTemplate
   extends Struct.CollectionTypeSchema {
   collectionName: 'quest_templates';
@@ -1001,6 +1048,72 @@ export interface ApiQuestTemplateQuestTemplate
     > &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'daily'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiStoryStepStoryStep extends Struct.CollectionTypeSchema {
+  collectionName: 'story_steps';
+  info: {
+    description: 'An individual step or battle in a story mode chapter';
+    displayName: 'Story Step';
+    pluralName: 'story-steps';
+    singularName: 'story-step';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    endDialogue: Schema.Attribute.Component<'story.dialogue', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::story-step.story-step'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    rewardCards: Schema.Attribute.Relation<'manyToMany', 'api::card.card'>;
+    startDialogue: Schema.Attribute.Component<'story.dialogue', true>;
+    story: Schema.Attribute.Relation<'manyToOne', 'api::story.story'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiStoryStory extends Struct.CollectionTypeSchema {
+  collectionName: 'stories';
+  info: {
+    description: 'A story mode chapter or campaign';
+    displayName: 'Story';
+    pluralName: 'stories';
+    singularName: 'story';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    cost: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    costType: Schema.Attribute.Enumeration<['coins', 'gems']> &
+      Schema.Attribute.DefaultTo<'coins'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::story.story'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    rewardCards: Schema.Attribute.Relation<'manyToMany', 'api::card.card'>;
+    steps: Schema.Attribute.Relation<'oneToMany', 'api::story-step.story-step'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1620,6 +1733,10 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    storyProgresses: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::player-story-progress.player-story-progress'
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1652,7 +1769,10 @@ declare module '@strapi/strapi' {
       'api::match.match': ApiMatchMatch;
       'api::player-event-log.player-event-log': ApiPlayerEventLogPlayerEventLog;
       'api::player-quest.player-quest': ApiPlayerQuestPlayerQuest;
+      'api::player-story-progress.player-story-progress': ApiPlayerStoryProgressPlayerStoryProgress;
       'api::quest-template.quest-template': ApiQuestTemplateQuestTemplate;
+      'api::story-step.story-step': ApiStoryStepStoryStep;
+      'api::story.story': ApiStoryStory;
       'api::user-card.user-card': ApiUserCardUserCard;
       'api::wallet.wallet': ApiWalletWallet;
       'plugin::content-releases.release': PluginContentReleasesRelease;

@@ -8,7 +8,7 @@ import MainMenu from '../views/MainMenu.vue'
 import StoryPage from '../views/StoryPage.vue'
 import QuestsPage from '../views/QuestsPage.vue'
 
-import { useAuthStore } from '../admin/stores/authStore'
+import { useUserStore } from '../stores/userStore'
 // On ne peut pas importer useLayoutStore ici directement car pinia n'est peut-être pas encore instancié.
 // On l'importera dans beforeEach.
 
@@ -23,12 +23,6 @@ const routes = [
   { path: '/quests', component: QuestsPage },
 
   // Admin Routes
-  {
-    path: '/admin/login',
-    name: 'admin-login',
-    component: () => import('../admin/views/LoginView.vue'),
-    meta: { layout: 'BlankLayout' }
-  },
   {
     path: '/admin',
     name: 'admin-dashboard',
@@ -90,33 +84,44 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach((to, from, next) => {
-  const authStore = useAuthStore();
+router.beforeEach(async (to, from, next) => {
+  const userStore = useUserStore();
   
   // Import dynamique pour éviter l'erreur "Pinia is not active" au chargement du module
-  import('../stores/layoutStore').then(({ useLayoutStore }) => {
-    const layoutStore = useLayoutStore();
+  const { useLayoutStore } = await import('../stores/layoutStore');
+  const layoutStore = useLayoutStore();
+  const { state } = await import('../game/state.js');
+  const { useNotificationStore } = await import('../stores/notificationStore');
+  const notificationStore = useNotificationStore();
     
-    // Détermination automatique du layout
-    let targetLayout = 'PlayerLayout'; // Défaut
-    
-    if (to.meta.layout) {
-      targetLayout = to.meta.layout;
-    } else if (to.path.startsWith('/admin')) {
-      targetLayout = 'AdminLayout';
-    } else if (to.path.startsWith('/game')) {
-      targetLayout = 'BlankLayout';
-    }
+  // Détermination automatique du layout
+  let targetLayout = 'PlayerLayout'; // Défaut
+  
+  if (to.meta.layout) {
+    targetLayout = to.meta.layout;
+  } else if (to.path.startsWith('/admin')) {
+    targetLayout = 'AdminLayout';
+  } else if (to.path.startsWith('/game')) {
+    targetLayout = 'BlankLayout';
+  }
 
-    if (layoutStore.currentLayout !== targetLayout) {
-      layoutStore.setLayout(targetLayout);
-    }
-  });
+  if (layoutStore.currentLayout !== targetLayout) {
+    layoutStore.setLayout(targetLayout);
+  }
 
-  if (to.meta.requiresAdminAuth && !authStore.isAuthenticated) {
-    next('/admin/login');
-  } else if (to.name === 'admin-login' && authStore.isAuthenticated) {
-    next('/admin');
+  if (to.meta.requiresAdminAuth) {
+    if (!userStore.isLoggedIn) {
+      // Pas connecté -> on ouvre le drawer d'auth et on reste sur la page actuelle ou on va à l'accueil
+      state.rightDrawerOpen = true;
+      notificationStore.addNotification('SYSTEM', 'Connexion requise pour accéder à la partie administration.', 'warning');
+      next('/');
+    } else if (!userStore.isAdmin) {
+      // Connecté mais pas admin
+      notificationStore.addNotification('SYSTEM', 'Accès refusé : Droits administrateur requis.', 'error');
+      next('/');
+    } else {
+      next();
+    }
   } else {
     next();
   }

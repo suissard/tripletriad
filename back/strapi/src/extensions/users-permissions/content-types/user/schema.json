@@ -93,6 +93,12 @@
       "relation": "oneToOne",
       "target": "api::wallet.wallet",
       "mappedBy": "user"
+    },
+    "storyProgresses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::player-story-progress.player-story-progress",
+      "mappedBy": "user"
     }
   }
 }
