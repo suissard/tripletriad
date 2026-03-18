@@ -8,5 +8,13 @@ export default {
         policies: [],
       },
     },
+    {
+      method: 'POST',
+      path: '/player-story-progress/unlock-story',
+      handler: 'player-story-progress.unlockStory',
+      config: {
+        policies: [],
+      },
+    },
   ],
 };

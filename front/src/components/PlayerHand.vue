@@ -3,14 +3,14 @@
     <TransitionGroup name="hand-card" tag="div" class="hand-cards">
       <div
         v-for="(card, index) in state.pHand"
-        :key="card.id + '-' + index"
+        :key="card.id"
         class="hand-card-slot"
         :class="{
           'is-selected': state.selectedCardIndex === index,
           'is-unaffordable': state.pMana < 1,
-          'is-dragging-original': draggingIndex === index
+          'is-dragging-id': draggingCardId === card.id
         }"
-        @pointerdown="onPointerDown($event, index)"
+        @pointerdown="onPointerDown($event, index, card.id)"
       >
         <TripleTriadCard
           :card="card"
@@ -34,7 +34,7 @@
     <!-- Ghost element for dragging -->
     <Teleport to="body">
       <div
-        v-if="draggingIndex !== null"
+        v-if="draggingCardId !== null"
         class="drag-ghost"
         :style="{
           transform: `translate(${dragPos.x}px, ${dragPos.y}px) scale(1.1) rotate(2deg)`,
@@ -43,13 +43,13 @@
         @transitionend="onSnapBackEnd"
       >
         <TripleTriadCard
-          :card="state.pHand[draggingIndex]"
+          :card="getDraggingCard()"
           :flat="false"
           size="md"
           borderColor="#00d2ff"
           :disableZoom="true"
           :cardBack="state.editingDeck?.cardBack || 'default'"
-          :isPremium="state.pHand[draggingIndex].isPremium"
+          :isPremium="getDraggingCard()?.isPremium"
         />
       </div>
     </Teleport>
@@ -63,6 +63,7 @@ import { selectCard, placeCard } from '../game/game-actions.js';
 import TripleTriadCard from './TripleTriadCard.vue';
 
 const draggingIndex = ref(null);
+const draggingCardId = ref(null);
 const dragPos = ref({ x: 0, y: 0 });
 const startPos = ref({ x: 0, y: 0 });
 const isSnappingBack = ref(false);
@@ -71,7 +72,12 @@ const hasMoved = ref(false);
 let originalRect = null;
 let pointerOffset = { x: 0, y: 0 };
 
-function onPointerDown(event, index) {
+function getDraggingCard() {
+    if (draggingCardId.value === null) return null;
+    return state.pHand.find(c => c.id === draggingCardId.value);
+}
+
+function onPointerDown(event, index, cardId) {
   if (state.turn !== 'player' || state.busy) return;
   if (state.pMana < 1) return;
 
@@ -98,6 +104,7 @@ function onPointerDown(event, index) {
   };
 
   draggingIndex.value = index;
+  draggingCardId.value = cardId;
 
   // Add global listeners
   document.addEventListener('pointermove', onPointerMove, { passive: false });
@@ -106,7 +113,7 @@ function onPointerDown(event, index) {
 }
 
 function onPointerMove(event) {
-  if (draggingIndex.value === null) return;
+  if (draggingCardId.value === null) return;
 
   // Prevent scrolling on touch devices while dragging
   event.preventDefault();
@@ -134,7 +141,7 @@ async function onPointerUp(event) {
   document.removeEventListener('pointerup', onPointerUp);
   document.removeEventListener('pointercancel', onPointerCancel);
 
-  if (draggingIndex.value === null) return;
+  if (draggingCardId.value === null) return;
 
   if (!hasMoved.value) {
     // Treat as a click
@@ -165,6 +172,7 @@ async function onPointerUp(event) {
       if (state.board[slotIndex] === null) {
           await placeCard(slotIndex);
           draggingIndex.value = null;
+          draggingCardId.value = null;
           return; // Success, no snap back needed
       }
     }
@@ -179,10 +187,11 @@ function onPointerCancel(event) {
   document.removeEventListener('pointerup', onPointerUp);
   document.removeEventListener('pointercancel', onPointerCancel);
   
-  if (draggingIndex.value !== null && hasMoved.value) {
+  if (draggingCardId.value !== null && hasMoved.value) {
       snapBack();
   } else {
       draggingIndex.value = null;
+      draggingCardId.value = null;
   }
 }
 
@@ -198,6 +207,7 @@ function snapBack() {
 function onSnapBackEnd() {
     if (isSnappingBack.value) {
         draggingIndex.value = null;
+        draggingCardId.value = null;
         isSnappingBack.value = false;
     }
 }
@@ -283,7 +293,7 @@ onUnmounted(() => {
 }
 
 /* Dim the original card while it's being dragged via the ghost */
-.hand-card-slot.is-dragging-original {
+.hand-card-slot.is-dragging-id {
   opacity: 0.3;
   pointer-events: none;
   transform: none !important; /* Prevent hover/selected transforms while dragging */
@@ -356,6 +366,7 @@ onUnmounted(() => {
 
 .hand-card-leave-active {
   transition: all 0.3s ease-in;
+  position: absolute;
 }
 
 .hand-card-enter-from {

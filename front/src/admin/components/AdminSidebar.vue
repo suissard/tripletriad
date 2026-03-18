@@ -106,9 +106,9 @@
     </AppButton>
 
     <div class="mt-auto pt-10 border-t border-white/5">
-      <AppButton variant="ghost" fullWidth @click="handleLogout" class="w-full flex items-center justify-between px-6 py-5 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-red-500/10 hover:border-red-500/20 transition-all group text-[10px] font-black uppercase tracking-widest">
-        <span class="text-gray-500 group-hover:text-red-400">Exit System</span>
-        <span class="opacity-30 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-red-400 font-bold">→</span>
+      <AppButton variant="ghost" fullWidth @click="goHome" class="w-full flex items-center justify-between px-6 py-5 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/5 hover:border-white/10 transition-all group text-[10px] font-black uppercase tracking-widest">
+        <span class="text-gray-400 group-hover:text-white">Retour Accueil</span>
+        <span class="opacity-30 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-primary font-bold">←</span>
       </AppButton>
     </div>
   </nav>
@@ -139,9 +139,8 @@ const navigate = (path) => {
   state.leftDrawerOpen = false;
 };
 
-const handleLogout = () => {
-  userStore.logout();
-  router.push('/admin/login');
+const goHome = () => {
+  router.push('/');
   state.leftDrawerOpen = false;
 };
 </script>

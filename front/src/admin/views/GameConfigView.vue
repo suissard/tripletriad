@@ -79,6 +79,14 @@
               <label for="playableLimit">Limite d'Exemplaires (Mêmes IDs)</label>
               <input type="number" id="playableLimit" v-model.number="config.playableLimit">
             </div>
+
+            <div class="setting-group md:col-span-2">
+              <label for="storyUnlockPrice">Prix pour débloquer l'Histoire</label>
+              <div class="relative">
+                <input type="number" id="storyUnlockPrice" v-model.number="config.storyUnlockPrice" class="pr-16 text-primary font-bold">
+                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-primary uppercase">Coins</span>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -290,6 +298,7 @@ const loadConfig = async () => {
           probEpic: 10,
           probLegendary: 1,
           probPremium: 5,
+          storyUnlockPrice: 500,
           uiButtonHole: 30,
           uiButtonSpeed: 1.0,
           uiButtonOpacity: 0.25,
@@ -380,31 +389,71 @@ onMounted(() => {
 
 <style scoped>
 .setting-group {
-  @apply flex flex-col gap-2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .setting-group label {
-  @apply text-xs font-bold text-gray-500 uppercase tracking-widest pl-1;
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding-left: 0.25rem;
 }
 
 .setting-group input {
-  @apply bg-black/40 border-white/5 text-white font-medium focus:border-primary/50 transition-all rounded-xl p-3;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: white;
+  font-weight: 500;
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  transition: all 0.2s;
+  outline: none;
+}
+
+.setting-group input:focus {
+  border-color: rgba(255, 191, 0, 0.5);
 }
 
 .prob-item {
-  @apply flex flex-col gap-1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .prob-item label {
-  @apply text-[10px] font-bold text-gray-500 uppercase tracking-tight pl-1;
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: -0.025em;
+  padding-left: 0.25rem;
 }
 
 .prob-item input {
-  @apply bg-black/40 border-white/5 text-sm font-bold text-white focus:border-primary/50 transition-all rounded-lg p-2;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  transition: all 0.2s;
+  outline: none;
+}
+
+.prob-item input:focus {
+  border-color: rgba(255, 191, 0, 0.5);
 }
 
 .help-text {
-  @apply text-[10px] text-gray-600 italic pl-1;
+  font-size: 10px;
+  color: #4b5563;
+  font-style: italic;
+  padding-left: 0.25rem;
 }
 
 .fade-enter-active, .fade-leave-active {

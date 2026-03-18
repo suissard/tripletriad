@@ -2,11 +2,11 @@
   <div class="min-h-full w-full bg-[#0a0a1a] text-white relative font-sans flex flex-col lg:flex-row gap-6 p-6 pb-20">
     
     <!-- Ambient Background Glows -->
-    <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full pointer-events-none z-0"></div>
-    <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 blur-[120px] rounded-full pointer-events-none z-0"></div>
+    <!-- <div class=" top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full pointer-events-none z-0"></div>
+    <div class=" bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 blur-[120px] rounded-full pointer-events-none z-0"></div> -->
 
     <!-- Left / Central Side: 3D Preview Window & Toolbar -->
-    <div class="flex-1 flex flex-col items-center justify-center relative z-10 min-h-[400px]">
+    <div class="flex-1 flex items-center justify-center relative z-10 min-h-[400px]">
 
       <!-- Toolbar -->
       <AppPanel class="p-2 mb-4 flex items-center justify-center gap-2 max-w-fit mx-auto" :padding="false">
@@ -355,7 +355,7 @@ const brushSoftness = ref(0.2);
 const cardOptions = computed(() => {
   return cards.value.map(c => ({
     label: `${c.name} (${c.rarity})`,
-    value: c.id
+    value: c.documentId || c.id
   }));
 });
 
@@ -416,7 +416,14 @@ async function loadCards() {
     const res = await strapiService.find('cards', { populate: 'image' });
     if (!res.error) {
       const data = Array.isArray(res) ? res : (res.data || []);
-      cards.value = data.map(c => c.attributes ? { id: c.id, ...c.attributes } : c);
+      cards.value = data.map(c => {
+        const attrs = c.attributes || c;
+        return { 
+          id: c.id, 
+          documentId: c.documentId || c.id,
+          ...attrs 
+        };
+      });
     }
   } catch (err) {
     console.error("Failed to load cards", err);
@@ -426,8 +433,10 @@ async function loadCards() {
 }
 
 async function onCardSelected() {
-  const card = cards.value.find(c => c.id === selectedCardId.value);
+  const card = cards.value.find(c => (c.documentId || c.id) === selectedCardId.value);
   if (!card) return;
+
+  const cardIdentifier = card.documentId || card.id;
 
   const imgUrl = card.image?.url
     ? `http://localhost:1337${card.image.url}`
@@ -437,15 +446,15 @@ async function onCardSelected() {
 
   try {
     const res = await strapiService.find('foil-effects', {
-      filters: { card: card.id },
+      filters: { card: { documentId: { $eq: cardIdentifier } } },
       populate: 'layers'
     });
 
     const data = Array.isArray(res) ? res : (res.data || []);
 
     if (data.length > 0) {
-      const effect = data[0].attributes ? { id: data[0].id, ...data[0].attributes } : data[0];
-      currentExistingEffectId.value = effect.id || effect.documentId;
+      const effect = data[0].attributes ? { id: data[0].id, documentId: data[0].documentId, ...data[0].attributes } : data[0];
+      currentExistingEffectId.value = effect.documentId || effect.id;
 
       if (effect.layers && effect.layers.length > 0) {
         layers.value.forEach(l => l.texture?.dispose());
@@ -454,7 +463,9 @@ async function onCardSelected() {
         effect.layers.forEach(lData => {
           const newLayer = createDefaultLayer();
           Object.keys(lData).forEach(k => {
-            if (k !== 'id' && k !== 'drawData' && k in newLayer) {
+            if (k === 'id') {
+              newLayer.id = lData[k];
+            } else if (k !== 'drawData' && k in newLayer) {
               newLayer[k] = lData[k];
             }
           });
@@ -500,7 +511,7 @@ async function saveEffect() {
 
   try {
     const exportedLayers = layers.value.map(l => {
-      return {
+      const layerPayload = {
         enabled: l.enabled,
         targetColor: l.targetColor,
         sensitivity: l.sensitivity,
@@ -513,6 +524,8 @@ async function saveEffect() {
         foilSpeed: l.foilSpeed,
         drawData: l.canvas.toDataURL('image/png')
       };
+      if (l.id) layerPayload.id = l.id;
+      return layerPayload;
     });
 
     const payload = {
@@ -522,15 +535,15 @@ async function saveEffect() {
 
     let res;
     if (currentExistingEffectId.value) {
-      res = await strapiService.request('PUT', `/foil-effects/${currentExistingEffectId.value}`, { body: { data: payload } });
+      res = await strapiService.update('foil-effects', currentExistingEffectId.value, payload);
     } else {
-      res = await strapiService.request('POST', `/foil-effects`, { body: { data: payload } });
+      res = await strapiService.create('foil-effects', payload);
     }
 
     if (res && res.error) throw new Error(res.error.message || "Save failed");
 
     const savedData = res.data || res;
-    currentExistingEffectId.value = savedData.id || savedData.documentId;
+    currentExistingEffectId.value = savedData.documentId || savedData.id;
 
     alert("Effet sauvegardé avec succès !");
   } catch (err) {
@@ -853,11 +866,18 @@ function animate() {
 
 <style scoped>
 .setting-group {
-  @apply flex flex-col gap-2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .setting-group label {
-  @apply text-[10px] font-black text-gray-500 uppercase tracking-widest pl-1;
+  font-size: 10px;
+  font-weight: 900;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding-left: 0.25rem;
 }
 
 .custom-scrollbar::-webkit-scrollbar {

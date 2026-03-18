@@ -1,14 +1,14 @@
 <template>
-  <div class="flex h-screen bg-[#070715] font-sans text-[#e0e0f0]">
+  <div class="flex">
     <!-- Main Content -->
-    <div class="flex-1 flex flex-col overflow-hidden bg-transparent relative">
-      <!-- Background Ambient Glow
+    <div class="flex-1 flex flex-col">
+      <!-- Background Ambient Glown
       <div class="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] blur-[120px] rounded-full pointer-events-none" style="background: color-mix(in srgb, var(--color-primary) 10%, transparent);"></div>
       <div class="absolute bottom-[-10%] left-[-10%] w-[30%] h-[30%] blur-[100px] rounded-full pointer-events-none" style="background: color-mix(in srgb, var(--color-secondary) 5%, transparent);"></div> -->
 
       <!-- Header -->
       <header
-        class="h-20 flex items-center justify-between px-10 z-10 border-b border-white/5 bg-transparent backdrop-blur-md glass-panel">
+        class="h-20 flex items-center justify-between px-10 bg-transparent backdrop-blur-md glass-panel">
         <div class="flex items-center gap-6">
           <app-button @click="state.leftDrawerOpen = true"
             class="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all group">
@@ -34,7 +34,7 @@
       </header>
 
       <!-- Main view -->
-      <main class="flex-1 min-h-0 overflow-x-hidden overflow-y-auto p-10 z-10 custom-scrollbar">
+      <main class="flex">
         <slot />
       </main>
     </div>

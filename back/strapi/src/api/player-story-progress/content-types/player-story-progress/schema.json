@@ -24,8 +24,7 @@
       "target": "api::story.story"
     },
     "completedSteps": {
-      "type": "json",
-      "default": []
+      "type": "json"
     },
     "status": {
       "type": "enumeration",

@@ -100,7 +100,7 @@ const route = useRoute();
 
 import { ref, reactive, onMounted, onUnmounted } from 'vue';
 
-import { state, webrtc, resetGame, initOnlineTurnManager, getCardById, normalizeCard, refillHand, cardLibrary } from '../game/state.js';
+import { state, webrtc, resetGame, initOnlineTurnManager, getCardById, normalizeCard, refillHand, cardLibrary, initAIMatch } from '../game/state.js';
 import CoinToss from '../components/CoinToss.vue';
 import { useUserStore } from '../stores/userStore.js';
 
@@ -137,39 +137,10 @@ function startAiGame(deck) {
   
   state.online = false;
   state.aiDifficulty = 1;
-  
   const playerDeck = deck.cards.map(id => normalizeCard(getCardById(id)));
+  state.playerDeckSelection = playerDeck;
   
-  // Generate random AI deck
-  const aiDeck = [];
-  for (let i = 0; i < 5; i++) {
-    const randomCard = cardLibrary[Math.floor(Math.random() * cardLibrary.length)];
-    aiDeck.push(normalizeCard(randomCard));
-  }
-  
-  // Determine starting player and show Coin Toss
-  const startingTurn = Math.random() < 0.5 ? 'player' : 'ai';
-  state.coinTossResult = startingTurn;
-  state.showCoinToss = true;
-  
-  // The actual match start will be handled after the coin toss animation
-  state.pendingAiGame = async () => {
-    state.gameState = 'playing';
-    resetGame(30, false, startingTurn);
-    
-    // Initialize AI match in backend for logging
-    await import('../game/state.js').then(m => m.initAIMatch());
-
-    // Draw AI hand first
-    state.deck = aiDeck;
-    refillHand('ai');
-
-    // Then set and draw player hand
-    state.deck = playerDeck;
-    refillHand('player');
-
-    router.push('/game');
-  };
+  router.push({ path: '/game', query: { matchId: 'ia' } });
 }
 
 function onCoinTossFinished() {

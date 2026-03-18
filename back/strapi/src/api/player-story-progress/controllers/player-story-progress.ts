@@ -95,5 +95,71 @@ export default factories.createCoreController('api::player-story-progress.player
       progress: updatedProgress,
       reward: rewardedCard
     };
+  },
+
+  async unlockStory(ctx) {
+    const { id } = ctx.state.user;
+    const { storyId } = ctx.request.body;
+
+    if (!storyId) {
+        return ctx.badRequest('storyId is required');
+    }
+
+    // Get current user data
+    const user = await strapi.entityService.findOne('plugin::users-permissions.user', id, {
+      populate: ['wallet']
+    });
+
+    if (!user) {
+      return ctx.notFound('User not found');
+    }
+
+    // Check if progress already exists for this story
+    const existingProgress = await strapi.db.query('api::player-story-progress.player-story-progress').findOne({
+        where: { user: id, story: storyId }
+    });
+
+    if (existingProgress) {
+        return ctx.badRequest('This story is already unlocked');
+    }
+
+    // Get the unlock price from game-config
+    const gameConfig = await strapi.entityService.findMany('api::game-config.game-config');
+    const unlockPrice = (gameConfig as any)?.storyUnlockPrice ?? 500;
+
+    // Check if user has enough coins in their wallet
+    const userWallet = (user as any).wallet;
+    if (!userWallet) {
+        return ctx.badRequest('User has no wallet');
+    }
+
+    if (userWallet.coins < unlockPrice) {
+      return ctx.badRequest('Insufficient coins to unlock this story');
+    }
+
+    // Deduct coins
+    const newCoins = userWallet.coins - unlockPrice;
+    await strapi.entityService.update('api::wallet.wallet', userWallet.id, {
+      data: {
+        coins: newCoins
+      }
+    });
+
+    // Create story progress
+    const newProgress = await strapi.entityService.create('api::player-story-progress.player-story-progress', {
+        data: {
+            user: id,
+            story: storyId,
+            status: 'in_progress',
+            completedSteps: []
+        }
+    });
+
+    return {
+      success: true,
+      message: 'Story unlocked successfully',
+      coins: newCoins,
+      progress: newProgress
+    };
   }
 }));

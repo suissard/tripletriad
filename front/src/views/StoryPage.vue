@@ -35,7 +35,28 @@
           </div>
 
           <div v-if="expandedStory === story.id" class="story-steps">
+            
+            <!-- Per-Story Unlock Prompt -->
+            <div v-if="getStoryStatus(story.id) === 'locked'" class="unlock-story-prompt p-6 rounded-2xl flex flex-col items-center mx-auto my-4 w-full" style="background: rgba(255, 191, 0, 0.05); border: 1px solid rgba(255, 191, 0, 0.2);">
+              <div class="lock-icon text-4xl mb-2 text-center">🔒</div>
+              <h4 class="text-xl font-bold text-center mb-2 text-white">Histoire Bloquée</h4>
+              <p class="text-center text-gray-400 mb-4 text-sm">Débloquez cette histoire pour explorer ses étapes et gagner des récompenses exclusives.</p>
+              
+              <div class="flex items-center gap-2 mb-4 text-primary">
+                <span class="text-3xl font-black" style="color: #FFBF00">{{ unlockPrice }}</span>
+                <span class="font-bold" style="color: #FFBF00">Coins</span>
+              </div>
+              
+              <AppButton @click.stop="unlockStory(story.id)" :disabled="isUnlocking || userStore.user.coins < unlockPrice" variant="primary" style="width: 100%; max-width: 300px; height: 3rem; font-size: 1rem;">
+                <span v-if="isUnlocking">Déblocage...</span>
+                <span v-else-if="userStore.user.coins < unlockPrice">Fonds Insuffisants</span>
+                <span v-else>Débloquer cette Histoire</span>
+              </AppButton>
+            </div>
+
+            <!-- Story Steps (if unlocked) -->
             <div
+              v-else
               v-for="(step, index) in story.steps"
               :key="step.id"
               class="step-item"
@@ -56,7 +77,7 @@
               <p class="step-desc">{{ step.description }}</p>
 
               <div v-if="isStepActive(story.id, index)" class="step-actions">
-                <AppButton @click="startStep(story, step)" variant="primary">
+                <AppButton @click.stop="startStep(story, step)" variant="primary">
                   Jouer l'étape
                 </AppButton>
               </div>
@@ -142,13 +163,69 @@ const currentStep = ref(null);
 const dialogueState = ref('start'); // 'start' or 'end'
 const reward = ref(null);
 
+const unlockPrice = ref(500);
+const isUnlocking = ref(false);
+
 onMounted(async () => {
   if (userStore.isLoggedIn) {
+    await fetchConfig();
     await fetchStories();
   } else {
     isLoading.value = false;
   }
 });
+
+async function fetchConfig() {
+  try {
+    const res = await strapiService.request('GET', '/game-config');
+    if (!res.error && res.data?.attributes?.storyUnlockPrice !== undefined) {
+      unlockPrice.value = res.data.attributes.storyUnlockPrice;
+    } else if (res.data?.storyUnlockPrice !== undefined) {
+      unlockPrice.value = res.data.storyUnlockPrice;
+    }
+  } catch (err) {
+    console.error('Failed to fetch config details:', err);
+  }
+}
+
+async function unlockStory(storyId) {
+  if (userStore.user.coins < unlockPrice.value) return;
+  isUnlocking.value = true;
+  try {
+    const token = localStorage.getItem('tt_jwt');
+    const response = await fetch('http://localhost:1337/api/player-story-progress/unlock-story', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ storyId })
+    });
+
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err.error?.message || 'Failed to unlock');
+    }
+
+    const data = await response.json();
+    userStore.user.coins = data.coins;
+    userStore.syncLocalUserWallets();
+    
+    // Push the new progress locally and refresh stories to make sure data is in sync
+    if (data.progress) {
+        progresses.value.push(data.progress);
+    }
+    
+    // Optional: Refresh fully to ensure stable state
+    await fetchStories();
+
+  } catch (err) {
+    console.error(err);
+    alert('Erreur lors du déblocage: ' + err.message);
+  } finally {
+    isUnlocking.value = false;
+  }
+}
 
 async function fetchStories() {
   isLoading.value = true;
@@ -165,10 +242,6 @@ async function fetchStories() {
     stories.value = storiesRes.data;
     progresses.value = progressRes.data;
 
-    // Unlock first story if none exist
-    if (progresses.value.length === 0 && stories.value.length > 0) {
-      await initFirstStoryProgress(stories.value[0].id);
-    }
   } catch (error) {
     console.error('Failed to fetch stories:', error);
   } finally {
@@ -176,25 +249,11 @@ async function fetchStories() {
   }
 }
 
-async function initFirstStoryProgress(storyId) {
-  try {
-    const res = await strapiService.create('player-story-progresses', {
-      user: userStore.user.id,
-      story: storyId,
-      status: 'in_progress',
-      completedSteps: []
-    });
-    progresses.value.push(res.data);
-  } catch (err) {
-    console.error('Failed to init story progress', err);
-  }
-}
-
 function getProgress(storyId) {
   return progresses.value.find(p => {
     // Check if relation is populated object or just id
     const sId = typeof p.story === 'object' && p.story ? p.story.id : p.story;
-    return sId === storyId;
+    return Number(sId) === Number(storyId);
   });
 }
 
@@ -227,7 +286,6 @@ function isStepLocked(storyId, stepIndex) {
 }
 
 function toggleStory(storyId) {
-  if (getStoryStatus(storyId) === 'locked') return;
   expandedStory.value = expandedStory.value === storyId ? null : storyId;
 }
 
@@ -271,17 +329,6 @@ async function playCombat() {
       progresses.value.push(data.progress);
     }
 
-    // Unlock next story if this one is completed
-    if (data.progress.status === 'completed') {
-      const currentStoryIndex = stories.value.findIndex(s => s.id === currentStory.value.id);
-      if (currentStoryIndex !== -1 && currentStoryIndex + 1 < stories.value.length) {
-        const nextStory = stories.value[currentStoryIndex + 1];
-        if (!getProgress(nextStory.id)) {
-          await initFirstStoryProgress(nextStory.id);
-        }
-      }
-    }
-
     // Show end dialogue
     dialogueState.value = 'end';
 
@@ -308,7 +355,7 @@ function finishStep() {
   padding-bottom: calc(2rem + env(safe-area-inset-bottom) + 80px);
 }
 
-.auth-notice, .loading-state, .no-quests {
+.auth-notice, .loading-state, .no-quests, .locked-state {
   text-align: center;
   padding: 4rem 2rem;
   background: rgba(255, 255, 255, 0.05);
@@ -316,7 +363,12 @@ function finishStep() {
   border: 1px dashed rgba(255, 255, 255, 0.2);
 }
 
-.empty-icon {
+.locked-state {
+  border: 1px solid rgba(255, 191, 0, 0.2);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.empty-icon, .lock-icon {
   font-size: 4rem;
   margin-bottom: 1rem;
 }

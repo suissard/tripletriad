@@ -151,6 +151,12 @@
             "type": "decimal",
             "required": true,
             "default": 0.25
+        },
+        "storyUnlockPrice": {
+            "type": "integer",
+            "required": true,
+            "default": 500,
+            "min": 0
         }
     }
 }

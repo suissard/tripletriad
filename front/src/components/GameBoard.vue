@@ -108,7 +108,6 @@ defineExpose({
   justify-content: center;
   cursor: pointer;
   transition: all 0.25s ease;
-  overflow: hidden;
   aspect-ratio: 2.5 / 3.5;
 }
 

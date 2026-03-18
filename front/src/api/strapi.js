@@ -23,12 +23,14 @@ class StrapiApi {
         return this.strapiClient.collection(collection).findOne(String(id), queryParams);
     }
 
-    create(collection, data, queryParams) {
-        return this.strapiClient.collection(collection).create(data, queryParams);
+    async create(collection, data, queryParams) {
+        const res = await this.strapiClient.collection(collection).create(data, queryParams);
+        return res.data || res;
     }
 
-    update(collection, id, data, queryParams) {
-        return this.strapiClient.collection(collection).update(String(id), data, queryParams);
+    async update(collection, id, data, queryParams) {
+        const res = await this.strapiClient.collection(collection).update(String(id), data, queryParams);
+        return res.data || res;
     }
 
     delete(collection, id, queryParams) {
@@ -81,10 +83,20 @@ class StrapiApi {
     }
 
     async request(method, url, options = {}) {
-        const response = await this.strapiClient.fetch(url, {
+        const fetchOptions = {
             method,
             ...options,
-        });
+        };
+
+        if (options.body && typeof options.body === 'object') {
+            fetchOptions.body = JSON.stringify(options.body);
+            fetchOptions.headers = {
+                ...fetchOptions.headers,
+                'Content-Type': 'application/json',
+            };
+        }
+
+        const response = await this.strapiClient.fetch(url, fetchOptions);
         return await response.json();
     }
 

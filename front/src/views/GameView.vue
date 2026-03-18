@@ -1,5 +1,5 @@
 <template>
-  <div class="game-view" v-if="state.gameState === 'playing' || state.gameState === 'gameover'">
+  <div class="game-view" v-if="['playing', 'gameover', 'coin-toss'].includes(state.gameState)">
     
     <!-- Background overlay -->
     <div class="game-bg"></div>
@@ -63,6 +63,9 @@
     <!-- Game Over overlay -->
     <GameOver />
 
+    <!-- Coin Toss Overlay -->
+    <CoinToss v-if="state.showCoinToss" :result="state.coinTossResult" @finished="onCoinTossFinished" />
+
   </div>
 </template>
 
@@ -77,16 +80,57 @@ import OpponentHand from '../components/OpponentHand.vue';
 import ActionLog from '../components/ActionLog.vue';
 import EndTurnButton from '../components/EndTurnButton.vue';
 import GameOver from '../components/GameOver.vue';
+import CoinToss from '../components/CoinToss.vue';
 import { useRouter, useRoute } from 'vue-router';
+import { cardLibrary, getCardById, normalizeCard, initAIMatch } from '../game/state.js';
 
 const router = useRouter();
 const route = useRoute();
+
+function onCoinTossFinished() {
+    state.showCoinToss = false;
+    state.gameState = 'playing';
+    
+    // Initialize AI Match
+    resetGame(30, false, state.coinTossResult);
+    
+    // Generate AI deck
+    const aiDeck = [];
+    for (let i = 0; i < 5; i++) {
+        const randomCard = cardLibrary[Math.floor(Math.random() * cardLibrary.length)];
+        aiDeck.push(normalizeCard(randomCard));
+    }
+    
+    // Draw hands
+    state.deck = aiDeck;
+    refillHand('ai');
+    state.deck = state.playerDeckSelection;
+    refillHand('player');
+    
+    initGameListeners();
+    startGame();
+    
+    initAIMatch().catch(e => console.error("Match logging failed:", e));
+}
 
 onMounted(() => {
     // If we reach this page by reloading during a multiplayer match, 
     // the WebRTC state is dead. We must return to the main menu.
     if (route.query.match && state.gameState !== 'playing') {
         router.replace({ path: '/', query: { match: route.query.match } });
+        return;
+    }
+
+    if (route.query.matchId === 'ia' && state.gameState !== 'playing') {
+        if (!state.playerDeckSelection && !state.deck.length) {
+            // No deck selected, go back to menu
+            router.replace({ path: '/' });
+            return;
+        }
+        
+        state.gameState = 'coin-toss'; 
+        state.coinTossResult = Math.random() < 0.5 ? 'player' : 'ai';
+        state.showCoinToss = true;
         return;
     }
 

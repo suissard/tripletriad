@@ -767,6 +767,15 @@ export interface ApiGameConfigGameConfig extends Struct.SingleTypeSchema {
       > &
       Schema.Attribute.DefaultTo<30>;
     publishedAt: Schema.Attribute.DateTime;
+    storyUnlockPrice: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<500>;
     turnTimeSeconds: Schema.Attribute.Integer &
       Schema.Attribute.SetMinMax<
         {
@@ -971,7 +980,7 @@ export interface ApiPlayerStoryProgressPlayerStoryProgress
     draftAndPublish: false;
   };
   attributes: {
-    completedSteps: Schema.Attribute.JSON & Schema.Attribute.DefaultTo<[]>;
+    completedSteps: Schema.Attribute.JSON;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

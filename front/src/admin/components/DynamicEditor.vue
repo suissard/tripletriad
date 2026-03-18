@@ -26,37 +26,13 @@
       </div>
 
       <!-- Table View -->
-      <div v-else-if="!isEditing" class="glass-panel rounded-3xl overflow-hidden">
-        <div class="overflow-x-auto custom-scrollbar">
-          <table class="min-w-full border-collapse">
-            <thead>
-              <tr class="border-b border-white/5 bg-white/2">
-                <th v-for="col in columns" :key="col" class="px-8 py-5 text-left text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                  {{ col }}
-                </th>
-                <th class="px-8 py-5 text-right text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-white/5">
-              <tr v-for="item in items" :key="item.id || item.documentId" class="group hover:bg-white/[0.03] transition-colors">
-                <td v-for="col in columns" :key="col" class="px-8 py-5 text-sm">
-                  <span class="text-gray-300 font-medium">{{ formatValue(item[col]) }}</span>
-                </td>
-                <td class="px-8 py-5 text-right space-x-3">
-                  <button @click="openEditor(item)" class="text-primary hover:text-white text-xs font-bold uppercase tracking-widest transition-colors">Éditer</button>
-                  <button @click="deleteItem(item)" class="text-red-500/50 hover:text-red-500 text-xs font-bold uppercase tracking-widest transition-colors">Supprimer</button>
-                </td>
-              </tr>
-              <tr v-if="items.length === 0">
-                <td :colspan="columns.length + 1" class="px-8 py-10 text-center text-gray-500 italic">
-                  Aucun élément trouvé dans cette collection.
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div v-else-if="!isEditing" class="w-full">
+        <AdminTable
+          :columns="columns"
+          :items="items"
+          @edit="openEditor"
+          @delete="deleteItem"
+        />
       </div>
 
       <!-- Editor View (Inline instead of Modal) -->
@@ -150,6 +126,7 @@ import { useRoute } from 'vue-router';
 import strapiService from '@/api/strapi';
 import TripleTriadCard from '../../components/TripleTriadCard.vue';
 import PremiumSelect from './PremiumSelect.vue';
+import AdminTable from './AdminTable.vue';
 
 const route = useRoute();
 const collectionName = ref('');
@@ -338,15 +315,33 @@ watch(() => route.params.collection, loadData);
 
 <style scoped>
 .setting-group {
-  @apply flex flex-col gap-2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .setting-group label {
-  @apply text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1;
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding-left: 0.25rem;
 }
 
 .setting-group input, .setting-group textarea {
-  @apply bg-white/5 border-white/5 text-white font-medium focus:border-primary/50 transition-all rounded-2xl p-4;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: white;
+  font-weight: 500;
+  border-radius: 1rem;
+  padding: 1rem;
+  transition: all 0.2s;
+  outline: none;
+}
+
+.setting-group input:focus, .setting-group textarea:focus {
+  border-color: rgba(255, 191, 0, 0.5);
 }
 
 .custom-scrollbar::-webkit-scrollbar {
