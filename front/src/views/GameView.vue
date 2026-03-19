@@ -166,6 +166,7 @@ function startGame() {
 
 onBeforeUnmount(() => {
     cleanupGameListeners();
+    state.showCoinToss = false;
 });
 </script>
 

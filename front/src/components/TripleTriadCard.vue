@@ -11,7 +11,8 @@
         'is-premium': isPremiumCard,
         'is-flat': flat,
         'has-custom-border': !!borderColor,
-        'is-flipping': isFlipping
+        'is-flipping': isFlipping,
+        'is-compact': compact
       }
     ]"
     :style="cardStyle"
@@ -61,17 +62,17 @@
           <!-- Name bar -->
           <div class="card-name-bar">{{ card.name }}</div>
 
+          <!-- Element badges -->
+          <div class="card-elements" v-if="cardElementsList.length">
+            <ElementIcon v-for="el in cardElementsList" :key="el" :element="el" :active="elementActive" class="element-icon" />
+          </div>
+
           <!-- Stats cross -->
           <div class="card-stats-cross">
             <span class="stat stat-top">{{ card.topValue }}</span>
             <span class="stat stat-left">{{ card.leftValue }}</span>
             <span class="stat stat-right">{{ card.rightValue }}</span>
             <span class="stat stat-bottom">{{ card.bottomValue }}</span>
-          </div>
-
-          <!-- Element badges -->
-          <div class="card-elements" v-if="cardElementsList.length">
-            <ElementIcon v-for="el in cardElementsList" :key="el" :element="el" :active="elementActive" class="element-icon" />
           </div>
 
           <!-- Selected check -->
@@ -93,7 +94,7 @@
       </div>
 
       <!-- BACK SIDE -->
-      <div class="tt-card-back">
+      <div class="tt-card-back" v-if="!compact">
         <AnimatedCardBack v-if="cardBack === 'animated'" class="card-back-img" /><img v-else src="/card-back.svg" class="card-back-img" alt="Card Back" />
         <!-- Unowned lock (show it on back too if unowned) -->
         <div class="unowned-overlay" v-if="unowned">🔒</div>
@@ -219,8 +220,9 @@ const props = defineProps({
   borderColor: { type: String, default: '' },
   borderWidth: { type: Number, default: 2 },
   disableZoom: { type: Boolean, default: false },
-  faceDown: { type: Boolean, default: false }
-,
+  faceDown: { type: Boolean, default: false },
+  height: { type: [String, Number], default: null },
+  compact: { type: Boolean, default: false },
   elementActive: {
     type: Boolean,
     default: true
@@ -348,19 +350,26 @@ const rarityColor = computed(() => {
 });
 
 const cardStyle = computed(() => {
-  const width = typeof props.size === 'number' ? props.size : (SIZES[props.size] || 150);
+  const width = props.size;
+  const widthPx = typeof width === 'number' ? width : (SIZES[width] || (typeof width === 'string' && width.includes('%') ? null : 150));
   
   // Proportional border scaling: 150px (md) is the baseline (scale 1.0)
-  const scale = width / 150;
+  const scale = widthPx ? widthPx / 150 : 1;
   const effectiveBorderWidth = props.borderWidth * scale;
 
   const style = {
-    width: `${width}px`,
-    aspectRatio: props.ratio || (2.5 / 3.5),
-    fontSize: `${width * props.ratioContent}px`
+    width: widthPx ? `${widthPx}px` : width,
+    fontSize: widthPx ? `${widthPx * props.ratioContent}px` : 'inherit'
   };
+
+  if (props.height) {
+    style.height = typeof props.height === 'number' ? `${props.height}px` : props.height;
+    style.aspectRatio = 'auto';
+  } else {
+    style.aspectRatio = props.ratio || (2.5 / 3.5);
+  }
   
-  if (!props.flat) Object.assign(style, mouseStyle.value);
+  if (!props.flat && !props.compact) Object.assign(style, mouseStyle.value);
   if (props.borderColor) {
     style['--border-color'] = props.borderColor;
     style['--border-glow'] = props.borderColor;
@@ -601,8 +610,135 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   opacity: 0.9;
 }
 
-.tt-card.is-flipping .tt-card-inner {
+.tt-card.is-flipping:not(.is-compact) .tt-card-inner {
   animation: flip-360 0.6s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+}
+
+/* ============================================ */
+/*  COMPACT MODE                                */
+/* ============================================ */
+.tt-card.is-compact .tt-card-inner {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  padding-right: 8px !important;
+  overflow: hidden !important;
+  background: #1a1a2e;
+  box-shadow: none !important;
+  transition: background 0.2s;
+}
+
+.tt-card.is-compact:hover .tt-card-inner {
+  background: #2a2a45;
+}
+
+.tt-card.is-compact:hover .quantity-badge {
+  display: none !important;
+}
+
+.tt-card.is-compact .tt-card-front {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.tt-card.is-compact .card-img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 66% !important;
+  height: 100% !important;
+  flex-shrink: 0 !important;
+  opacity: 0.6 !important;
+  border-right: none !important;
+  object-fit: cover !important;
+  mask-image: linear-gradient(to right, black 40%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, black 40%, transparent 100%);
+}
+
+.tt-card.is-compact .card-name-bar {
+  position: relative !important;
+  background: transparent !important;
+  text-align: left !important;
+  padding: 0 15px !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  flex: 1 !important;
+  bottom: auto !important;
+  left: auto !important;
+  right: auto !important;
+  text-shadow: 2px 2px 4px black;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block !important;
+  letter-spacing: 1px;
+}
+
+.tt-card.is-compact .card-stats-cross {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  width: 60px !important;
+  height: 60px !important;
+  display: block !important;
+  margin-left: 10px !important;
+  z-index: 10 !important;
+}
+
+.tt-card.is-compact .stat {
+  position: absolute !important;
+  font-size: 16px !important;
+  transform: none !important;
+  text-shadow: 1px 1px 2px black;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tt-card.is-compact .stat-top    { top: 0 !important; left: 50% !important; transform: translateX(-50%) !important; }
+.tt-card.is-compact .stat-bottom { bottom: 0 !important; left: 50% !important; transform: translateX(-50%) !important; }
+.tt-card.is-compact .stat-left   { top: 50% !important; left: 0 !important; transform: translateY(-50%) !important; }
+.tt-card.is-compact .stat-right  { top: 50% !important; right: 0 !important; transform: translateY(-50%) !important; }
+
+.tt-card.is-compact .card-elements {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  margin-left: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  z-index: 5 !important;
+}
+
+.tt-card.is-compact .element-icon {
+  width: 28px !important;
+  height: 28px !important;
+}
+
+.tt-card.is-compact .selected-overlay,
+.tt-card.is-compact .unowned-overlay {
+  font-size: 1.2em !important;
+}
+
+.tt-card.is-compact .cover-badge {
+  position: absolute !important;
+  top: -2px !important;
+  left: 8px !important;
+  font-size: 0.9em !important;
+  transform: translateX(-50%) !important;
+  text-shadow: 0 0 5px gold;
+}
+
+.tt-card.is-compact .card-stats-cross::before {
+  display: none !important;
 }
 
 @keyframes flip-360 {
@@ -792,13 +928,15 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   to   { transform: rotate(360deg); }
 }
 
-.is-premium .premium-travel-border {
+.is-premium:not(.is-compact) .premium-travel-border {
   display: block;
 }
 
 /* Selection border */
-.is-selected .tt-card-inner { border-color: var(--border-color, #00d2ff); box-shadow: 0 0 12px rgba(0, 210, 255, 0.4); }
-.is-cover .tt-card-inner    { border-color: var(--border-color, gold); box-shadow: 0 0 12px rgba(255, 215, 0, 0.5); }
+.is-selected:not(.is-compact) .tt-card-inner { border-color: var(--border-color, #00d2ff); box-shadow: 0 0 12px rgba(0, 210, 255, 0.4); }
+.is-cover:not(.is-compact) .tt-card-inner    { border-color: var(--border-color, gold); box-shadow: 0 0 12px rgba(255, 215, 0, 0.5); }
+.is-compact.is-selected .tt-card-inner { border-color: #00d2ff !important; }
+.is-compact.is-cover .tt-card-inner { border-color: gold !important; }
 
 /* ============================================ */
 /*  PREMIUM                                     */
@@ -909,7 +1047,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 .detail-img { width: 100%; height: 100%; object-fit: contain; }
 
 .detail-stats-cross {
-  position: absolute;
+  position: relative;
   inset: 0;
   pointer-events: none;
 }

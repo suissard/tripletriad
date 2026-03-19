@@ -20,18 +20,14 @@
       <h2 style="color: white; margin-bottom: 1.5rem;">CHOISIS TON DECK</h2>
       
       <div v-if="userStore.userDecks.length > 0" class="decks-grid">
-        <div v-for="deck in userStore.userDecks" :key="deck.id" class="deck-select-card" @click="startAiGame(deck)">
-          <div class="deck-thumb">
-            <img v-if="deck.cover && getCardById(deck.cover)" :src="getCardById(deck.cover).img" />
-            <div v-else class="placeholder">
-              <AnimatedCardBack type="recto" class="fallback-icon" />
-            </div>
-          </div>
-          <div class="deck-info">
-            <div class="name">{{ deck.name }}</div>
-            <div class="count">{{ deck.cards.length }} cartes</div>
-          </div>
-        </div>
+        <MiniDeck 
+          v-for="deck in userStore.userDecks" 
+          :key="deck.id" 
+          :deck="deck" 
+          compact 
+          selectable 
+          @click="startAiGame(deck)"
+        />
       </div>
       <div v-else class="no-decks">
         <p>Vous n'avez pas de deck. Créez-en un d'abord !</p>
@@ -45,18 +41,14 @@
       <h2 style="color: white; margin-bottom: 1.5rem;">CHOISIS TON DECK POUR LE MULTIJOUEUR</h2>
       
       <div v-if="userStore.userDecks.length > 0" class="decks-grid">
-        <div v-for="deck in userStore.userDecks" :key="deck.id" class="deck-select-card" @click="startMultiGame(deck)">
-          <div class="deck-thumb">
-            <img v-if="deck.cover && getCardById(deck.cover)" :src="getCardById(deck.cover).img" />
-            <div v-else class="placeholder">
-              <AnimatedCardBack type="recto" class="fallback-icon" />
-            </div>
-          </div>
-          <div class="deck-info">
-            <div class="name">{{ deck.name }}</div>
-            <div class="count">{{ deck.cards.length }} cartes</div>
-          </div>
-        </div>
+        <MiniDeck 
+          v-for="deck in userStore.userDecks" 
+          :key="deck.id" 
+          :deck="deck" 
+          compact 
+          selectable 
+          @click="startMultiGame(deck)"
+        />
       </div>
       <div v-else class="no-decks">
         <p>Vous n'avez pas de deck. Créez-en un d'abord !</p>
@@ -107,6 +99,7 @@ import { ref, reactive, onMounted, onUnmounted } from 'vue';
 import { state, webrtc, resetGame, initOnlineTurnManager, getCardById, normalizeCard, refillHand, cardLibrary, initAIMatch } from '../game/state.js';
 import CoinToss from '../components/CoinToss.vue';
 import AnimatedCardBack from '../components/AnimatedCardBack.vue';
+import MiniDeck from '../components/MiniDeck.vue';
 import { useUserStore } from '../stores/userStore.js';
 
 const userStore = useUserStore();
@@ -222,6 +215,7 @@ const handleNetworkMessage = (msg) => {
 onMounted(() => {
   state.gameState = 'menu';
   state.menuView = 'main';
+  state.showCoinToss = false;
 
   // Ensure decks are fresh
   userStore.fetchUserDecks();
@@ -320,8 +314,6 @@ async function joinGame() {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    /* width: 100%;
-    max-width: 400px; */
 }
 button {
     padding: 15px 40px; font-size: 1.5rem; cursor: pointer; border: none;
@@ -344,58 +336,7 @@ button:hover { transform: scale(1.05); }
     width: 100%;
     margin-bottom: 30px;
 }
-.deck-select-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(0, 210, 255, 0.2);
-    border-radius: 12px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.deck-select-card:hover {
-    transform: translateY(-5px) scale(1.02);
-    border-color: #00d2ff;
-    box-shadow: 0 5px 15px rgba(0, 210, 255, 0.3);
-}
-.deck-thumb {
-    height: 100px;
-    background: rgba(0,0,0,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.deck-thumb img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-}
-.deck-thumb .placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0,0,0,0.2);
-}
-.fallback-icon {
-    width: 60px;
-    height: 60px;
-    opacity: 0.5;
-}
-.deck-info {
-    padding: 10px;
-    text-align: center;
-}
-.deck-info .name {
-    color: white;
-    font-weight: bold;
-    font-size: 1rem;
-    margin-bottom: 4px;
-}
-.deck-info .count {
-    color: #00d2ff;
-    font-size: 0.8rem;
-}
+
 .no-decks {
     text-align: center;
     color: #aaa;

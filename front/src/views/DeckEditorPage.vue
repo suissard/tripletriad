@@ -54,10 +54,9 @@
         <!-- Selected cards in deck -->
         <div class="deck-cards-title">Cartes dans le deck</div>
         <div class="deck-cards-grid">
-          <div v-for="cardId in state.editingDeck.cards" :key="cardId" class="deck-card-slot"
+          <div v-for="cardId in sortedDeckCards" :key="cardId" class="deck-card-slot"
             @click="removeCard(cardId)">
-            <TripleTriadCard v-if="getCardById(cardId)" :card="getCardById(cardId)" size="xs" flat :cardBack="state.editingDeck.cardBack" />
-            <div class="remove-badge">✕</div>
+            <TripleTriadCard v-if="getCardById(cardId)" :card="getCardById(cardId)" size="100%" :height="80" compact flat :cardBack="state.editingDeck.cardBack" />
           </div>
           <div v-for="i in Math.max(0, 15 - state.editingDeck.cards.length)" :key="'empty-' + i"
             class="deck-card-slot empty">
@@ -138,7 +137,7 @@
 <script setup>
 import { useRouter } from 'vue-router';
 const router = useRouter();
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import PageLayout from '../components/PageLayout.vue';
 
 import { state, cardLibrary, getCardById } from '../game/state.js';
@@ -148,6 +147,35 @@ import TripleTriadCard from '../components/TripleTriadCard.vue';
 import ElementIcon from '../components/ElementIcon.vue';
 import AnimatedCardBack from '../components/AnimatedCardBack.vue';
 import { GameEngine } from '../../../shared/GameEngine.ts';
+
+const props = defineProps({
+  documentId: {
+    type: String,
+    default: null
+  }
+});
+
+onMounted(async () => {
+  if (props.documentId) {
+    // Ensure decks are loaded
+    if (!userStore.decksLoaded) {
+      await userStore.fetchUserDecks();
+    }
+    
+    const deck = userStore.userDecks.find(d => d.documentId === props.documentId);
+    if (deck) {
+      state.editingDeck.id = deck.id;
+      state.editingDeck.documentId = deck.documentId;
+      state.editingDeck.name = deck.name;
+      state.editingDeck.cover = deck.cover;
+      state.editingDeck.cards = [...deck.cards];
+      state.editingDeck.cardBack = deck.cardBack || 'default';
+    } else {
+      console.error(`Deck with Document ID ${props.documentId} not found.`);
+      router.push('/decks');
+    }
+  }
+});
 
 const searchQuery = ref('');
 const sortBy = ref('rarity-desc');
@@ -340,6 +368,25 @@ const filteredCards = computed(() => {
   });
 
   return result;
+});
+
+const sortedDeckCards = computed(() => {
+  return [...state.editingDeck.cards].sort((aId, bId) => {
+    const a = getCardById(aId);
+    const b = getCardById(bId);
+    if (!a || !b) return 0;
+
+    const rA = rarityOrder[getRarity(a)];
+    const rB = rarityOrder[getRarity(b)];
+    
+    if (rA !== rB) return rB - rA; // Rarest first
+    
+    const lA = GameEngine.calculateCardLevel(a);
+    const lB = GameEngine.calculateCardLevel(b);
+    if (lA !== lB) return lB - lA; // Highest level first
+    
+    return a.name.localeCompare(b.name); // Alphabetical
+  });
 });
 </script>
 
@@ -617,21 +664,22 @@ const filteredCards = computed(() => {
 }
 
 .deck-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
 .deck-card-slot {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  padding: 6px;
+  padding: 0;
   text-align: center;
   cursor: pointer;
   position: relative;
   transition: all 0.2s;
-  min-height: 60px;
+  min-height: 32px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -661,27 +709,6 @@ const filteredCards = computed(() => {
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 100%;
-}
-
-.remove-badge {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  background: #ff0055;
-  color: white;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  font-size: 0.6rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-.deck-card-slot:hover .remove-badge {
-  opacity: 1;
 }
 
 /* RIGHT: Library panel */

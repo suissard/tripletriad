@@ -371,6 +371,7 @@ export function resetGame(deckSize = 30, goToMenu = true, forcedTurn = null) {
     state.pMana = 1;
     state.aiMana = 1;
     state.actionLog = [];
+    state.showCoinToss = false;
 }
 
 /**

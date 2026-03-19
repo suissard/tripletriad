@@ -162,6 +162,7 @@ async function onPointerUp(event) {
     // Treat as a click
     selectCard(draggingIndex.value);
     draggingIndex.value = null;
+    draggingCardId.value = null; // Fix: Hide ghost on click
     return;
   }
 
@@ -192,6 +193,12 @@ async function onPointerUp(event) {
           return; // Success
       }
     }
+  }
+
+  // Ensure the card is selected even if dropped outside, 
+  // so the player can then just click a slot (click-to-place)
+  if (state.selectedCardIndex !== draggingIndex.value) {
+    selectCard(draggingIndex.value);
   }
 
   // Snap back if dropped outside valid slot or slot was occupied
