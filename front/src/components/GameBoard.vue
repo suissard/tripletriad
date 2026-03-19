@@ -12,7 +12,7 @@
         'slot-player': cell && cell.owner === state.pId,
         'slot-ai': cell && cell.owner === state.aiId,
         'is-impact': lastPlacedIndex === index,
-        'is-drag-over': dragOverIndex === index
+        'is-drag-over': state.hoveredSlotIndex === index
       }"
       @click="handleSlotClick(index)"
     >
@@ -45,7 +45,6 @@ import { placeCard } from '../game/game-actions.js';
 import TripleTriadCard from './TripleTriadCard.vue';
 
 const lastPlacedIndex = ref(null);
-const dragOverIndex = ref(null); // Used by pointermove if we implement global event bus
 
 function handleSlotClick(index) {
   if (state.board[index] !== null) return;
@@ -66,7 +65,7 @@ async function triggerPlacement(index) {
 // Option to expose a highlight method if PlayerHand wants to highlight the hovered slot
 defineExpose({
     setDragOver(index) {
-        dragOverIndex.value = index;
+        state.hoveredSlotIndex = index;
     }
 });
 </script>
@@ -134,11 +133,11 @@ defineExpose({
 }
 
 .board-slot.is-drag-over {
-  background: rgba(0, 210, 255, 0.15);
-  border-color: rgba(0, 210, 255, 0.6);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #ffffff;
   box-shadow: 
-    0 0 20px rgba(0, 210, 255, 0.3),
-    inset 0 0 15px rgba(0, 210, 255, 0.2);
+    0 0 20px rgba(255, 255, 255, 0.4),
+    inset 0 0 15px rgba(255, 255, 255, 0.2);
   transform: scale(1.02);
   z-index: 5;
 }
@@ -178,8 +177,8 @@ defineExpose({
 
 .card-place-enter-from {
   opacity: 0;
-  transform: translateY(-200px) rotateX(-40deg) rotateZ(10deg) scale(1.2);
-  filter: blur(4px);
+  transform: translateY(-40px) rotateX(-15deg) scale(1.1);
+  filter: blur(2px);
 }
 
 /* Impact effect on the slot */

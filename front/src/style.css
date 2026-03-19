@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   /* Premium Palette */
   --bg-deep: #0a0a1a;
@@ -124,21 +128,7 @@ body {
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* Basic Layout Utilities */
-.fixed { position: fixed; }
-.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
-.z-50 { z-index: 50; }
-.z-100 { z-index: 100; }
-.z-500 { z-index: 500; }
-.z-1000 { z-index: 1000; }
-.z-2000 { z-index: 2000; }
-.flex { display: flex; }
-.flex-col { flex-direction: column; }
-.items-center { align-items: center; }
-.justify-center { justify-content: center; }
-.w-full { width: 100%; }
-.h-full { height: 100%; }
-.overflow-y-auto { overflow-y: auto; }
+
 
 /* Premium Buttons */
 .btn {

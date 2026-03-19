@@ -8,7 +8,8 @@
         :class="{
           'is-selected': state.selectedCardIndex === index,
           'is-unaffordable': state.pMana < 1,
-          'is-dragging-id': draggingCardId === card.id
+          'is-dragging-id': draggingCardId === card.id,
+          'is-placing': card.isPlacing
         }"
         @pointerdown="onPointerDown($event, index, card.id)"
       >
@@ -131,12 +132,26 @@ function onPointerMove(event) {
     y: event.clientY - pointerOffset.y
   };
   
-  // Optional: Visual feedback on GameBoard could be triggered here by
-  // checking document.elementFromPoint(event.clientX, event.clientY)
-  // and dispatching a custom event, but since placeCard validates, it's not strictly necessary.
+  // Track hovered board slot
+  if (hasMoved.value) {
+    const elementsUnderPointer = document.elementsFromPoint(event.clientX, event.clientY);
+    const boardSlot = elementsUnderPointer.find(el => el.classList && el.classList.contains('board-slot'));
+    
+    if (boardSlot) {
+      const slotIndexStr = boardSlot.getAttribute('data-slot-index');
+      if (slotIndexStr !== null) {
+        state.hoveredSlotIndex = parseInt(slotIndexStr, 10);
+      } else {
+        state.hoveredSlotIndex = null;
+      }
+    } else {
+      state.hoveredSlotIndex = null;
+    }
+  }
 }
 
 async function onPointerUp(event) {
+  state.hoveredSlotIndex = null; // Clear highlight on release
   document.removeEventListener('pointermove', onPointerMove);
   document.removeEventListener('pointerup', onPointerUp);
   document.removeEventListener('pointercancel', onPointerCancel);
@@ -170,10 +185,11 @@ async function onPointerUp(event) {
 
       // Attempt to place
       if (state.board[slotIndex] === null) {
-          await placeCard(slotIndex);
+          const p = placeCard(slotIndex);
           draggingIndex.value = null;
-          draggingCardId.value = null;
-          return; // Success, no snap back needed
+          draggingCardId.value = null; // Hide ghost immediately
+          await p;
+          return; // Success
       }
     }
   }
@@ -183,6 +199,7 @@ async function onPointerUp(event) {
 }
 
 function onPointerCancel(event) {
+  state.hoveredSlotIndex = null; // Clear highlight on cancel
   document.removeEventListener('pointermove', onPointerMove);
   document.removeEventListener('pointerup', onPointerUp);
   document.removeEventListener('pointercancel', onPointerCancel);
@@ -293,10 +310,12 @@ onUnmounted(() => {
 }
 
 /* Dim the original card while it's being dragged via the ghost */
-.hand-card-slot.is-dragging-id {
-  opacity: 0.3;
+.hand-card-slot.is-dragging-id,
+.hand-card-slot.is-placing {
+  opacity: 0;
   pointer-events: none;
-  transform: none !important; /* Prevent hover/selected transforms while dragging */
+  transform: none !important;
+  transition: opacity 0.1s;
 }
 
 .hand-card-slot.is-selected::after {
@@ -401,6 +420,8 @@ onUnmounted(() => {
   will-change: transform;
   /* Same size as regular card */
   /* Remove scaling from ghost itself if it's applied in transform, or let transform handle it */
+  transition: filter 0.2s ease;
+  opacity: 0.85;
 }
 
 /* Important: Make sure the ghost renders exactly like a hand card.

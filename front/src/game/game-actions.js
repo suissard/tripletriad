@@ -49,12 +49,13 @@ export async function placeCard(slotIndex) {
     state.pMana -= cost;
     state.selectedCardIndex = null;
 
-    // Remove from hand
-    state.pHand.splice(cardIdx, 1);
+    // Mark as being played (don't splice yet to keep hand stable)
+    card.isPlacing = true;
     card.revealed = true;
 
     // Network — delegate completely to TurnManager, no manual local mutations
     if (state.online && state.turnManager) {
+        state.pHand.splice(cardIdx, 1);
         const x = slotIndex % 3;
         const y = Math.floor(slotIndex / 3);
 
@@ -108,6 +109,13 @@ export async function placeCard(slotIndex) {
     });
 
     await sleep(300);
+    
+    // Now remove from hand after the animation has started/settled
+    const finalIdx = state.pHand.findIndex(c => c.id === card.id);
+    if (finalIdx !== -1) {
+        state.pHand.splice(finalIdx, 1);
+    }
+
     await resolveRules(slotIndex, 'player');
 
     refillHand('player');

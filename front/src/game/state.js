@@ -170,6 +170,8 @@ export const state = reactive({
     showCoinToss: false,
     coinTossResult: 'player', // 'player' | 'ai'
 
+    // UI/Dragging
+    hoveredSlotIndex: null,
 });
 
 export function getCardById(id) {

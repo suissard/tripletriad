@@ -1,12 +1,12 @@
 <template>
-  <div class="min-h-full w-full bg-[#0a0a1a] text-white relative font-sans flex flex-col lg:flex-row gap-6 p-6 pb-20">
+  <div class="min-h-full w-full bg-[#0a0a1a] text-white relative font-sans flex flex-col lg:flex-row gap-6 p-6">
     
     <!-- Ambient Background Glows -->
     <!-- <div class=" top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full pointer-events-none z-0"></div>
     <div class=" bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 blur-[120px] rounded-full pointer-events-none z-0"></div> -->
 
     <!-- Left / Central Side: 3D Preview Window & Toolbar -->
-    <div class="flex-1 flex items-center justify-center relative z-10 min-h-[400px]">
+    <div class="flex-1 flex flex-col items-center justify-center relative z-10 min-h-[400px] lg:h-full">
 
       <!-- Toolbar -->
       <AppPanel class="p-2 mb-4 flex items-center justify-center gap-2 max-w-fit mx-auto" :padding="false">
@@ -35,8 +35,8 @@
     </div>
 
     <!-- Right Side: Flat Control Panel -->
-    <AppPanel class="w-full lg:w-96 flex-shrink-0 flex flex-col z-10 h-full max-h-full overflow-y-auto custom-scrollbar shadow-2xl border border-white/10 bg-black/60 backdrop-blur-md">
-      <div class="mb-6 text-center">
+    <AppPanel class="w-full lg:w-96 flex-shrink-0 flex flex-col z-10 lg:h-full lg:max-h-full overflow-y-auto custom-scrollbar shadow-2xl border border-white/10 bg-black/60 backdrop-blur-md">
+      <div class="my-6 text-center">
         <h2 class="text-2xl font-black text-white tracking-tighter uppercase italic">HoloEditor <span class="text-primary italic">Pro</span></h2>
         <p class="text-[10px] font-bold text-gray-500 uppercase tracking-[0.3em] mt-1 pl-1">Visual FX Engine</p>
       </div>

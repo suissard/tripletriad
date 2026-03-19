@@ -41,7 +41,9 @@
           <div class="card-inner" :class="{ 'is-flipped': card.revealed }">
             <div class="card-front card-back-face">
               <!-- Dos de la carte -->
-              <div class="card-back-design">🎴</div>
+              <div class="card-back-design">
+                <AnimatedCardBack type="verso" />
+              </div>
             </div>
             <div class="card-back card-front-face" :class="[getRarityClass(card), { 'premium-glow': card.isDrawnPremium }]">
               <!-- Face de la carte (TripleTriadCard) -->
@@ -72,6 +74,7 @@ import { ref, computed, onMounted } from 'vue';
 import strapiService from '../api/strapi.js';
 import strapiMock from '../api/strapiMock.js';
 import TripleTriadCard from '../components/TripleTriadCard.vue';
+import AnimatedCardBack from '../components/AnimatedCardBack.vue';
 
 const emit = defineEmits(['close', 'update-coins']);
 
@@ -375,7 +378,8 @@ const getRarityLabel = (card) => {
 }
 
 .card-back-design {
-  font-size: 3rem;
+  width: 100%;
+  height: 100%;
 }
 
 .card-front-face {

@@ -17,7 +17,9 @@
                     <div class="deck-cover">
                         <img v-if="deck.cover && getCardById(deck.cover)" :src="getCardById(deck.cover).img"
                             class="cover-img" />
-                        <div v-else class="cover-placeholder">🎴</div>
+                        <div v-else class="cover-placeholder">
+                            <AnimatedCardBack type="recto" class="fallback-icon" />
+                        </div>
                     </div>
 
                     <div class="deck-body">
@@ -44,7 +46,9 @@
             </div>
 
             <div v-else class="empty-state">
-                <div class="empty-icon">🎴</div>
+                <div class="empty-icon">
+                    <AnimatedCardBack type="recto" style="width: 120px; height: 120px; margin: 0 auto;" />
+                </div>
                 <h3>Aucun deck créé</h3>
                 <p>Créez votre premier deck pour affronter vos adversaires !</p>
             </div>
@@ -60,6 +64,7 @@ const router = useRouter();
 import { onMounted } from 'vue';
 import { state, getCardById, confirmAction } from '../game/state.js';
 import { useUserStore } from '../stores/userStore.js';
+import AnimatedCardBack from '../components/AnimatedCardBack.vue';
 
 const userStore = useUserStore();
 
@@ -207,8 +212,17 @@ async function deleteDeck(deck) {
 }
 
 .cover-placeholder {
-    font-size: 3rem;
-    opacity: 0.3;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fallback-icon {
+    width: 80px;
+    height: 80px;
+    opacity: 0.6;
 }
 
 .deck-body {

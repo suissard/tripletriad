@@ -23,7 +23,9 @@
         <div v-for="deck in userStore.userDecks" :key="deck.id" class="deck-select-card" @click="startAiGame(deck)">
           <div class="deck-thumb">
             <img v-if="deck.cover && getCardById(deck.cover)" :src="getCardById(deck.cover).img" />
-            <div v-else class="placeholder">🎴</div>
+            <div v-else class="placeholder">
+              <AnimatedCardBack type="recto" class="fallback-icon" />
+            </div>
           </div>
           <div class="deck-info">
             <div class="name">{{ deck.name }}</div>
@@ -46,7 +48,9 @@
         <div v-for="deck in userStore.userDecks" :key="deck.id" class="deck-select-card" @click="startMultiGame(deck)">
           <div class="deck-thumb">
             <img v-if="deck.cover && getCardById(deck.cover)" :src="getCardById(deck.cover).img" />
-            <div v-else class="placeholder">🎴</div>
+            <div v-else class="placeholder">
+              <AnimatedCardBack type="recto" class="fallback-icon" />
+            </div>
           </div>
           <div class="deck-info">
             <div class="name">{{ deck.name }}</div>
@@ -102,6 +106,7 @@ import { ref, reactive, onMounted, onUnmounted } from 'vue';
 
 import { state, webrtc, resetGame, initOnlineTurnManager, getCardById, normalizeCard, refillHand, cardLibrary, initAIMatch } from '../game/state.js';
 import CoinToss from '../components/CoinToss.vue';
+import AnimatedCardBack from '../components/AnimatedCardBack.vue';
 import { useUserStore } from '../stores/userStore.js';
 
 const userStore = useUserStore();
@@ -365,8 +370,17 @@ button:hover { transform: scale(1.05); }
     object-fit: cover;
 }
 .deck-thumb .placeholder {
-    font-size: 2.5rem;
-    opacity: 0.3;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.2);
+}
+.fallback-icon {
+    width: 60px;
+    height: 60px;
+    opacity: 0.5;
 }
 .deck-info {
     padding: 10px;

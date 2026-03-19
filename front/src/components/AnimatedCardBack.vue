@@ -1,204 +1,23 @@
 <template>
   <div class="logo-container">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%" class="animated-card-svg">
-        <defs>
-            <!-- Dégradés et Filtres -->
-            <radialGradient id="planetGlow" cx="50%" cy="50%" r="50%">
-                <stop offset="60%" stop-color="#0a0a0c" />
-                <stop offset="95%" stop-color="#5a1010" />
-                <stop offset="100%" stop-color="#d92027" />
-            </radialGradient>
-            <linearGradient id="textGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#ffffff" />
-                <stop offset="100%" stop-color="#888888" />
-            </linearGradient>
-
-            <filter id="neonGlow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="6" result="blur" />
-                <feComposite in="SourceGraphic" in2="blur" operator="over" />
-            </filter>
-
-            <!-- Masques pour la profondeur 3D -->
-            <clipPath id="clip-back">
-                <rect x="-400" y="-400" width="800" height="400" />
-            </clipPath>
-            <clipPath id="clip-front">
-                <rect x="-400" y="0" width="800" height="400" />
-            </clipPath>
-
-            <!-- Tracés des orbites fixes -->
-            <path id="orbit1" d="M -300,0 A 300,80 0 1,1 300,0 A 300,80 0 1,1 -300,0" />
-            <path id="orbit2" d="M -280,0 A 280,60 0 1,1 280,0 A 280,60 0 1,1 -280,0" />
-
-            <!-- Trajectoires Paraboliques pour les bombardements -->
-            <path id="traj1" d="M 0,-320 Q 150,-150 30,-40" />
-            <path id="traj2" d="M 0,-320 Q -150,-150 -50,60" />
-            <path id="traj3" d="M 0,-320 Q 80,-100 70,80" />
-            <path id="traj4" d="M 0,-320 Q -80,-80 -20,-80" />
-
-            <!-- Modèle du petit point blanc discret -->
-            <g id="white-point">
-                <circle cx="0" cy="0" r="3" fill="rgba(255, 255, 255, 0.4)" />
-            </g>
-
-            <!-- GROUPE ORBITES DE FOND (Rails + Points blancs) -->
-            <g id="orbital-system">
-                <!-- Anneau 1 -->
-                <g transform="rotate(25)">
-                    <use href="#orbit1" fill="none" stroke="#222" stroke-width="2" stroke-dasharray="15 10"/>
-                    <use href="#white-point">
-                        <animateMotion dur="8s" repeatCount="indefinite"><mpath href="#orbit1"/></animateMotion>
-                    </use>
-                    <use href="#white-point">
-                        <animateMotion dur="8s" begin="-4s" repeatCount="indefinite"><mpath href="#orbit1"/></animateMotion>
-                    </use>
-                </g>
-                <!-- Anneau 2 -->
-                <g transform="rotate(-15)">
-                    <use href="#orbit2" fill="none" stroke="#444" stroke-width="1" stroke-dasharray="5 20"/>
-                    <use href="#white-point">
-                        <animateMotion dur="12s" begin="-2s" repeatCount="indefinite"><mpath href="#orbit2"/></animateMotion>
-                    </use>
-                </g>
-                <!-- Lignes HUD fixes -->
-                <line x1="-350" y1="0" x2="-200" y2="0" stroke="#333" stroke-width="2" opacity="0.5"/>
-                <line x1="200" y1="0" x2="350" y2="0" stroke="#333" stroke-width="2" opacity="0.5"/>
-                <line x1="0" y1="-350" x2="0" y2="-200" stroke="#333" stroke-width="2" opacity="0.5"/>
-            </g>
-        </defs>
-
-        <rect width="800" height="800" fill="#050505" rx="20" />
-
-        <!-- === SCÈNE CENTRALE === -->
-        <g transform="translate(400, 350)">
-
-            <!-- 1. ORBITES : PARTIE ARRIÈRE -->
-            <use href="#orbital-system" clip-path="url(#clip-back)" />
-
-            <!-- 2. LA PLANÈTE -->
-            <g>
-                <circle cx="0" cy="0" r="150" fill="url(#planetGlow)" stroke="#d92027" stroke-width="3" filter="url(#neonGlow)"/>
-
-                <!-- Fractures de magma -->
-                <g class="magma-pulse" stroke="#d92027" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M -100 -110 L -40 -30 L -60 40 L 0 90 L 30 146" />
-                    <path d="M 60 -135 L 30 -50 L 90 20 L 50 80 L 120 90" stroke-width="2"/>
-                    <path d="M -40 -30 L 30 -50 L 50 -100" stroke-width="2" />
-                    <path d="M -60 40 L -100 60 L -140 30" stroke-width="2" />
-                </g>
-
-                <!-- Cités reliques -->
-                <circle cx="-40" cy="-30" r="8" fill="#ffffff" filter="url(#neonGlow)" class="node-blink" style="animation-delay: 0s;"/>
-                <circle cx="90" cy="20" r="5" fill="#ffffff" filter="url(#neonGlow)" class="node-blink" style="animation-delay: 0.5s;"/>
-                <circle cx="0" cy="90" r="6" fill="#ffffff" filter="url(#neonGlow)" class="node-blink" style="animation-delay: 1s;"/>
-
-                <!-- Cercle intérieur pointillé -->
-                <circle cx="0" cy="0" r="60" fill="none" stroke="#d92027" stroke-width="1" opacity="0.5" stroke-dasharray="4 4" class="spin-slow" style="animation-duration: 10s;"/>
-            </g>
-
-            <!-- 3. ORBITES : PARTIE AVANT -->
-            <use href="#orbital-system" clip-path="url(#clip-front)" />
-
-            <!-- Factions et Bombardements -->
-            <g class="spin-slow">
-                <!-- Cercle de délimitation -->
-                <circle cx="0" cy="0" r="320" fill="none" stroke="#d92027" stroke-width="2" opacity="0.3" filter="url(#neonGlow)"/>
-
-                <g filter="url(#neonGlow)">
-                    <!-- Vert pétant -->
-                    <g transform="rotate(0)">
-                        <circle cx="0" cy="-320" r="12" fill="#39ff14" />
-                        <circle r="3" fill="#fff" opacity="0">
-                            <animateMotion dur="9s" repeatCount="indefinite" begin="0s" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.15;1"><mpath href="#traj1"/></animateMotion>
-                            <animate attributeName="opacity" values="0;0.9;0.9;0;0" keyTimes="0;0.01;0.14;0.15;1" dur="9s" repeatCount="indefinite" begin="0s" />
-                        </circle>
-                    </g>
-
-                    <!-- Rouge vif -->
-                    <g transform="rotate(40)">
-                        <circle cx="0" cy="-320" r="12" fill="#ff0000" />
-                        <circle r="3" fill="#fff" opacity="0">
-                            <animateMotion dur="11s" repeatCount="indefinite" begin="3s" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.15;1"><mpath href="#traj2"/></animateMotion>
-                            <animate attributeName="opacity" values="0;0.9;0.9;0;0" keyTimes="0;0.01;0.14;0.15;1" dur="11s" repeatCount="indefinite" begin="3s" />
-                        </circle>
-                    </g>
-
-                    <!-- Bleu électrique -->
-                    <g transform="rotate(80)">
-                        <circle cx="0" cy="-320" r="12" fill="#0055ff" />
-                        <circle r="3" fill="#fff" opacity="0">
-                            <animateMotion dur="8s" repeatCount="indefinite" begin="1s" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.15;1"><mpath href="#traj3"/></animateMotion>
-                            <animate attributeName="opacity" values="0;0.9;0.9;0;0" keyTimes="0;0.01;0.14;0.15;1" dur="8s" repeatCount="indefinite" begin="1s" />
-                        </circle>
-                    </g>
-
-                    <!-- Bleu turquoise -->
-                    <g transform="rotate(120)">
-                        <circle cx="0" cy="-320" r="12" fill="#00ffff" />
-                        <circle r="3" fill="#fff" opacity="0">
-                            <animateMotion dur="13s" repeatCount="indefinite" begin="6s" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.15;1"><mpath href="#traj4"/></animateMotion>
-                            <animate attributeName="opacity" values="0;0.9;0.9;0;0" keyTimes="0;0.01;0.14;0.15;1" dur="13s" repeatCount="indefinite" begin="6s" />
-                        </circle>
-                    </g>
-
-                    <!-- Jaune vif -->
-                    <g transform="rotate(160)">
-                        <circle cx="0" cy="-320" r="12" fill="#ffff00" />
-                        <circle r="3" fill="#fff" opacity="0">
-                            <animateMotion dur="10s" repeatCount="indefinite" begin="4s" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.15;1"><mpath href="#traj1"/></animateMotion>
-                            <animate attributeName="opacity" values="0;0.9;0.9;0;0" keyTimes="0;0.01;0.14;0.15;1" dur="10s" repeatCount="indefinite" begin="4s" />
-                        </circle>
-                    </g>
-
-                    <!-- Ambre -->
-                    <g transform="rotate(200)">
-                        <circle cx="0" cy="-320" r="12" fill="#ffbf00" />
-                        <circle r="3" fill="#fff" opacity="0">
-                            <animateMotion dur="12s" repeatCount="indefinite" begin="2s" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.15;1"><mpath href="#traj2"/></animateMotion>
-                            <animate attributeName="opacity" values="0;0.9;0.9;0;0" keyTimes="0;0.01;0.14;0.15;1" dur="12s" repeatCount="indefinite" begin="2s" />
-                        </circle>
-                    </g>
-
-                    <!-- Gris sombre -->
-                    <g transform="rotate(240)">
-                        <circle cx="0" cy="-320" r="12" fill="#555555" />
-                        <circle r="3" fill="#fff" opacity="0">
-                            <animateMotion dur="14s" repeatCount="indefinite" begin="7s" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.15;1"><mpath href="#traj3"/></animateMotion>
-                            <animate attributeName="opacity" values="0;0.9;0.9;0;0" keyTimes="0;0.01;0.14;0.15;1" dur="14s" repeatCount="indefinite" begin="7s" />
-                        </circle>
-                    </g>
-
-                    <!-- Violet -->
-                    <g transform="rotate(280)">
-                        <circle cx="0" cy="-320" r="12" fill="#aa00ff" />
-                        <circle r="3" fill="#fff" opacity="0">
-                            <animateMotion dur="9.5s" repeatCount="indefinite" begin="5s" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.15;1"><mpath href="#traj4"/></animateMotion>
-                            <animate attributeName="opacity" values="0;0.9;0.9;0;0" keyTimes="0;0.01;0.14;0.15;1" dur="9.5s" repeatCount="indefinite" begin="5s" />
-                        </circle>
-                    </g>
-
-                    <!-- Orange -->
-                    <g transform="rotate(320)">
-                        <circle cx="0" cy="-320" r="12" fill="#ff6600" />
-                        <circle r="3" fill="#fff" opacity="0">
-                            <animateMotion dur="10.5s" repeatCount="indefinite" begin="8s" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.15;1"><mpath href="#traj1"/></animateMotion>
-                            <animate attributeName="opacity" values="0;0.9;0.9;0;0" keyTimes="0;0.01;0.14;0.15;1" dur="10.5s" repeatCount="indefinite" begin="8s" />
-                        </circle>
-                    </g>
-                </g>
-            </g>
-        </g>
-
-        <!-- TYPOGRAPHIE -->
-        <g text-anchor="middle">
-            <text x="400" y="680" font-family="'Impact', 'Arial Black', sans-serif" font-weight="900" font-size="64" fill="url(#textGradient)" letter-spacing="12">TERRA NULLIUS</text>
-            <text x="400" y="730" font-family="'Courier New', Courier, monospace" font-size="14" fill="#666" letter-spacing="8">[ AN 3000 • SECTEUR SOL-3 ]</text>
-        </g>
-    </svg>
+    <img :src="svgPath" class="animated-card-svg" :alt="type === 'recto' ? 'Card Front' : 'Card Back'" />
   </div>
 </template>
 
 <script setup>
+import { computed } from 'vue';
+
+const props = defineProps({
+  type: {
+    type: String,
+    default: 'verso', // 'recto' or 'verso'
+    validator: (val) => ['recto', 'verso'].includes(val)
+  }
+});
+
+const svgPath = computed(() => {
+  return props.type === 'recto' ? '/card-animated-recto.svg' : '/card-animated-verso.svg';
+});
 </script>
 
 <style scoped>
@@ -210,37 +29,12 @@
     align-items: center;
     background-color: #050505;
     overflow: hidden;
-    border-radius: 6px; /* Match typical card border radius */
+    border-radius: 6px;
 }
 
-/* Make SVG scale proportionally and act like an image */
 .animated-card-svg {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-
-/* --- Animations CSS --- */
-.spin-slow {
-    transform-origin: 0px 0px;
-    animation: spin 30s linear infinite;
-}
-.magma-pulse {
-    animation: pulseGlow 3s ease-in-out infinite;
-}
-.node-blink {
-    animation: blink 2s infinite alternate;
-}
-
-@keyframes spin {
-    100% { transform: rotate(360deg); }
-}
-@keyframes pulseGlow {
-    0%, 100% { opacity: 0.6; filter: drop-shadow(0 0 5px #d92027); }
-    50% { opacity: 1; filter: drop-shadow(0 0 15px #ff4d4d); }
-}
-@keyframes blink {
-    0%, 20%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.3; transform: scale(0.8); }
 }
 </style>
