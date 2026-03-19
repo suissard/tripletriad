@@ -5,7 +5,7 @@
         "singularName": "game-config",
         "pluralName": "game-configs",
         "displayName": "Game Config",
-        "description": "Global settings for the Terra Nullius game"
+        "description": "Global settings for the Triple Triad game"
     },
     "options": {
         "draftAndPublish": false
@@ -29,134 +29,6 @@
             "required": false,
             "default": 60,
             "min": 5
-        },
-        "maxQuestsPerUser": {
-            "type": "integer",
-            "required": true,
-            "default": 5,
-            "min": 1
-        },
-        "playableLimit": {
-            "type": "integer",
-            "required": true,
-            "default": 2,
-            "min": 1
-        },
-        "craftingRatios": {
-            "type": "json",
-            "required": true,
-            "default": {
-                "common": {
-                    "disenchant": 10,
-                    "craft": 40
-                },
-                "uncommon": {
-                    "disenchant": 20,
-                    "craft": 80
-                },
-                "rare": {
-                    "disenchant": 50,
-                    "craft": 200
-                },
-                "epic": {
-                    "disenchant": 100,
-                    "craft": 400
-                },
-                "legendary": {
-                    "disenchant": 400,
-                    "craft": 1600
-                }
-            }
-        },
-        "boosterCost": {
-            "type": "integer",
-            "required": true,
-            "default": 100,
-            "min": 0
-        },
-        "boosterHits": {
-            "type": "integer",
-            "required": true,
-            "default": 5,
-            "min": 1
-        },
-        "probCommon": {
-            "type": "integer",
-            "required": true,
-            "default": 39,
-            "min": 0,
-            "max": 100
-        },
-        "probUncommon": {
-            "type": "integer",
-            "required": true,
-            "default": 30,
-            "min": 0,
-            "max": 100
-        },
-        "probRare": {
-            "type": "integer",
-            "required": true,
-            "default": 20,
-            "min": 0,
-            "max": 100
-        },
-        "probEpic": {
-            "type": "integer",
-            "required": true,
-            "default": 10,
-            "min": 0,
-            "max": 100
-        },
-        "probLegendary": {
-            "type": "integer",
-            "required": true,
-            "default": 1,
-            "min": 0,
-            "max": 100
-        },
-        "probPremium": {
-            "type": "integer",
-            "required": true,
-            "default": 5,
-            "min": 0,
-            "max": 100
-        },
-        "colorPrimary": {
-            "type": "string",
-            "required": true,
-            "default": "#FFBF00"
-        },
-        "colorSecondary": {
-            "type": "string",
-            "required": true,
-            "default": "#0033ff"
-        },
-        "colorAccent": {
-            "type": "string",
-            "required": true,
-            "default": "#FFFF00"
-        },
-        "uiButtonHole": {
-            "type": "integer",
-            "required": true,
-            "default": 30
-        },
-        "uiButtonSpeed": {
-            "type": "decimal",
-            "required": true,
-            "default": 1.0
-        },
-        "uiButtonOpacity": {
-            "type": "decimal",
-            "required": true,
-            "default": 0.25
-        },
-        "storyUnlockPrice": {
-            "type": "integer",
-            "required": true,
-            "default": 500,
-            "min": 0
         }
     }
 }

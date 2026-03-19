@@ -1,5 +1,0 @@
-/**
- * booster service
- */
-
-export default () => ({});

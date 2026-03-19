@@ -12,9 +12,7 @@ let hoveredSlot = null;
 let currentListeners = [];
 
 const handleNetworkMove = async (msg) => {
-    if (state.online && state.turnManager) {
-        await state.turnManager.handleNetworkMessage(msg);
-    } else if (msg.type === 'move') {
+    if (msg.type === 'move') {
         await processOpponentMove(msg);
     }
 };
@@ -87,60 +85,28 @@ export function initInput() {
         const slot = hits.length > 0 ? hits[0].object : null;
 
         if (slot && state.board[slot.userData.id] === null) {
-            const cardLevel = current.userData.data.level || 1;
+            state.busy = true;
 
-            if (state.pMana >= cardLevel) {
-                state.busy = true;
-                state.pMana -= cardLevel;
+            const cardIdx = state.pHand.indexOf(current);
 
-                const cardIdx = state.pHand.indexOf(current);
+            state.pHand = state.pHand.filter(c => c !== current);
+            state.board[slot.userData.id] = current;
+            current.userData.data.revealed = true;
 
-                state.pHand = state.pHand.filter(c => c !== current);
-                state.board[slot.userData.id] = current;
-                current.userData.data.revealed = true;
+            gsap.to(current.position, { x: slot.position.x, y: 0.15, z: slot.position.z, duration: 0.2 });
+            await sleep(300);
 
-                gsap.to(current.position, { x: slot.position.x, y: 0.15, z: slot.position.z, duration: 0.2 });
-                await sleep(300);
+            await resolveRules(slot.userData.id, 'player');
 
-                await resolveRules(slot.userData.id, 'player');
+            refillHand('player');
+            updateScores();
+            state.turn = 'ai';
 
-                refillHand('player');
-                updateScores();
-
-                // turn logic is now manual
-                state.busy = false;
-
-                if (state.online) {
-                    // webrtc.sendMessage({ type: 'move', cardIdx: cardIdx, slot: slot.userData.id });
-                    if (state.turnManager) {
-                        const x = slot.userData.id % 3;
-                        const y = Math.floor(slot.userData.id / 3);
-                        
-                        // Enregistrement dans le log pour l'arbitrage
-                        const action = {
-                            type: 'PLACE_CARD',
-                            card: {
-                                id: current.userData.data.id,
-                                values: {
-                                    top: current.userData.data.top,
-                                    bottom: current.userData.data.bottom,
-                                    left: current.userData.data.left,
-                                    right: current.userData.data.right
-                                }
-                            },
-                            x,
-                            y,
-                            player: state.isHost ? 'PLAYER_1' : 'PLAYER_2'
-                        };
-                        
-                        state.actionLog.push(action);
-                        await state.turnManager.playLocalAction(action);
-                    }
-                }
+            if (state.online) {
+                webrtc.sendMessage({ type: 'move', cardIdx: cardIdx, slot: slot.userData.id });
+                // Do not call aiPlay in online mode
             } else {
-                state.alerts = "Pas assez de Mana!";
-                setTimeout(() => { if (state.alerts === "Pas assez de Mana!") state.alerts = ''; }, 1500);
-                refillHand('player');
+                setTimeout(aiPlay, 800);
             }
         } else {
             refillHand('player');
@@ -170,9 +136,6 @@ export async function processOpponentMove(move) {
     const cardMesh = state.aiHand.splice(move.cardIdx, 1)[0];
     const slot = slots[move.slot];
 
-    const cardLevel = cardMesh.userData.data.level || 1;
-    state.aiMana -= cardLevel;
-
     state.board[move.slot] = cardMesh;
     cardMesh.userData.data.revealed = true;
     cardMesh.userData.redraw(cardMesh.userData.img, 'ai');
@@ -185,24 +148,14 @@ export async function processOpponentMove(move) {
 
     refillHand('ai');
     updateScores();
+    state.turn = 'player';
+    state.busy = false;
 }
 
-import { endTurn } from './engine.js';
-
 export async function aiPlay() {
-    if (state.board.every(b => b !== null) || state.gameOver) return;
+    if (state.board.every(b => b !== null)) return;
     if (state.online) return;
 
-    let move = getBestAIMove();
-    if (move) {
-        state.busy = true;
-        await processOpponentMove(move);
-        state.busy = false;
-
-        // Try another move if AI still has mana and cards
-        setTimeout(aiPlay, 800);
-    } else {
-        // AI has no valid moves left or not enough mana, ends turn
-        endTurn('ai');
-    }
+    const move = getBestAIMove();
+    await processOpponentMove(move);
 }

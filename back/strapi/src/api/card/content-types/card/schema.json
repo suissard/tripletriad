@@ -19,40 +19,27 @@
     "description": {
       "type": "text"
     },
+    "level": {
+      "type": "integer",
+      "required": true,
+      "default": 1,
+      "min": 1,
+      "max": 10
+    },
     "element": {
       "type": "enumeration",
       "enum": [
         "None",
-        "eau",
-        "faille_dimensionnelle",
-        "furtif",
-        "hacking",
-        "longue_portee",
-        "obsidienne",
-        "radiation",
-        "reseau",
-        "spore"
+        "Fire",
+        "Ice",
+        "Thunder",
+        "Earth",
+        "Poison",
+        "Wind",
+        "Water",
+        "Holy"
       ],
       "default": "None"
-    },
-    "elements": {
-      "type": "json"
-    },
-    "faction": {
-      "type": "enumeration",
-      "enum": [
-        "neutre",
-        "Hégemonie martienne",
-        "Exode pélagique",
-        "Héritiers des cendres",
-        "Omni-Réseau",
-        "Chœur Synthétique",
-        "Éveil Chthonien",
-        "Incursion Dissonante",
-        "Ferrailleurs de la Ceinture",
-        "Fléau Spore"
-      ],
-      "default": "neutre"
     },
     "topValue": {
       "type": "string",
@@ -84,32 +71,6 @@
       "allowedTypes": [
         "images"
       ]
-    },
-    "collectionName": {
-      "type": "string"
-    },
-    "rarity": {
-      "type": "enumeration",
-      "enum": [
-        "Common",
-        "Uncommon",
-        "Rare",
-        "Epic",
-        "Legendary"
-      ],
-      "default": "Common"
-    },
-    "storiesRewardedFrom": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::story.story",
-      "mappedBy": "rewardCards"
-    },
-    "storyStepsRewardedFrom": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::story-step.story-step",
-      "mappedBy": "rewardCards"
     }
   }
 }

@@ -447,7 +447,6 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 1;
       }>;
-    collectionName: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -455,63 +454,44 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
     element: Schema.Attribute.Enumeration<
       [
         'None',
-        'eau',
-        'faille_dimensionnelle',
-        'furtif',
-        'hacking',
-        'longue_portee',
-        'obsidienne',
-        'radiation',
-        'reseau',
-        'spore',
+        'Fire',
+        'Ice',
+        'Thunder',
+        'Earth',
+        'Poison',
+        'Wind',
+        'Water',
+        'Holy',
       ]
     > &
       Schema.Attribute.DefaultTo<'None'>;
-    elements: Schema.Attribute.JSON;
-    faction: Schema.Attribute.Enumeration<
-      [
-        'neutre',
-        'H\u00E9gemonie martienne',
-        'Exode p\u00E9lagique',
-        'H\u00E9ritiers des cendres',
-        'Omni-R\u00E9seau',
-        'Ch\u0153ur Synth\u00E9tique',
-        '\u00C9veil Chthonien',
-        'Incursion Dissonante',
-        'Ferrailleurs de la Ceinture',
-        'Fl\u00E9au Spore',
-      ]
-    > &
-      Schema.Attribute.DefaultTo<'neutre'>;
     image: Schema.Attribute.Media<'images'>;
     leftValue: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 1;
       }>;
+    level: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 10;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::card.card'> &
       Schema.Attribute.Private;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    rarity: Schema.Attribute.Enumeration<
-      ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary']
-    > &
-      Schema.Attribute.DefaultTo<'Common'>;
     rightValue: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 1;
       }>;
     skills: Schema.Attribute.JSON;
-    storiesRewardedFrom: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::story.story'
-    >;
-    storyStepsRewardedFrom: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::story-step.story-step'
-    >;
     topValue: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -535,10 +515,7 @@ export interface ApiDeckDeck extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    cardBack: Schema.Attribute.Enumeration<['default', 'animated']> &
-      Schema.Attribute.DefaultTo<'default'>;
     cards: Schema.Attribute.Relation<'manyToMany', 'api::card.card'>;
-    cover: Schema.Attribute.Integer;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -562,46 +539,10 @@ export interface ApiDeckDeck extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiFoilEffectFoilEffect extends Struct.CollectionTypeSchema {
-  collectionName: 'foil_effects';
-  info: {
-    description: 'Premium foil effects configuration for cards';
-    displayName: 'FoilEffect';
-    pluralName: 'foil-effects';
-    singularName: 'foil-effect';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    card: Schema.Attribute.Relation<'oneToOne', 'api::card.card'>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    layers: Schema.Attribute.Component<'foil.layer', true> &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 5;
-        },
-        number
-      >;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::foil-effect.foil-effect'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiGameConfigGameConfig extends Struct.SingleTypeSchema {
   collectionName: 'game_configs';
   info: {
-    description: 'Global settings for the Terra Nullius game';
+    description: 'Global settings for the Triple Triad game';
     displayName: 'Game Config';
     pluralName: 'game-configs';
     singularName: 'game-config';
@@ -610,24 +551,6 @@ export interface ApiGameConfigGameConfig extends Struct.SingleTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    boosterCost: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<100>;
-    boosterHits: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 1;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<5>;
     cardsPerDeck: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMax<
@@ -637,39 +560,6 @@ export interface ApiGameConfigGameConfig extends Struct.SingleTypeSchema {
         number
       > &
       Schema.Attribute.DefaultTo<15>;
-    colorAccent: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'#FFFF00'>;
-    colorPrimary: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'#FFBF00'>;
-    colorSecondary: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'#0033ff'>;
-    craftingRatios: Schema.Attribute.JSON &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<{
-        common: {
-          craft: 40;
-          disenchant: 10;
-        };
-        epic: {
-          craft: 400;
-          disenchant: 100;
-        };
-        legendary: {
-          craft: 1600;
-          disenchant: 400;
-        };
-        rare: {
-          craft: 200;
-          disenchant: 50;
-        };
-        uncommon: {
-          craft: 80;
-          disenchant: 20;
-        };
-      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -688,94 +578,7 @@ export interface ApiGameConfigGameConfig extends Struct.SingleTypeSchema {
         number
       > &
       Schema.Attribute.DefaultTo<5>;
-    maxQuestsPerUser: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 1;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<5>;
-    playableLimit: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 1;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<2>;
-    probCommon: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 100;
-          min: 0;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<39>;
-    probEpic: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 100;
-          min: 0;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<10>;
-    probLegendary: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 100;
-          min: 0;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<1>;
-    probPremium: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 100;
-          min: 0;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<5>;
-    probRare: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 100;
-          min: 0;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<20>;
-    probUncommon: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 100;
-          min: 0;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<30>;
     publishedAt: Schema.Attribute.DateTime;
-    storyUnlockPrice: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<500>;
     turnTimeSeconds: Schema.Attribute.Integer &
       Schema.Attribute.SetMinMax<
         {
@@ -784,15 +587,6 @@ export interface ApiGameConfigGameConfig extends Struct.SingleTypeSchema {
         number
       > &
       Schema.Attribute.DefaultTo<60>;
-    uiButtonHole: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<30>;
-    uiButtonOpacity: Schema.Attribute.Decimal &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<0.25>;
-    uiButtonSpeed: Schema.Attribute.Decimal &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<1>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -854,8 +648,6 @@ export interface ApiMatchMatch extends Struct.CollectionTypeSchema {
     logs: Schema.Attribute.JSON;
     offer: Schema.Attribute.JSON;
     publishedAt: Schema.Attribute.DateTime;
-    startingPlayer: Schema.Attribute.Enumeration<['PLAYER_1', 'PLAYER_2']> &
-      Schema.Attribute.DefaultTo<'PLAYER_1'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -866,266 +658,6 @@ export interface ApiMatchMatch extends Struct.CollectionTypeSchema {
     uuid: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
-  };
-}
-
-export interface ApiPlayerEventLogPlayerEventLog
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'player_event_logs';
-  info: {
-    description: 'Log of player events used for statistics and quest progression';
-    displayName: 'Player Event Log';
-    pluralName: 'player-event-logs';
-    singularName: 'player-event-log';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    eventType: Schema.Attribute.Enumeration<
-      [
-        'play_game',
-        'win_game',
-        'open_booster',
-        'capture_card',
-        'play_card',
-        'play_card_element',
-      ]
-    > &
-      Schema.Attribute.Required;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::player-event-log.player-event-log'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    relatedCard: Schema.Attribute.Relation<'manyToOne', 'api::card.card'>;
-    relatedElement: Schema.Attribute.String;
-    timestamp: Schema.Attribute.DateTime & Schema.Attribute.Required;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    user: Schema.Attribute.Relation<
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
-    value: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
-  };
-}
-
-export interface ApiPlayerQuestPlayerQuest extends Struct.CollectionTypeSchema {
-  collectionName: 'player_quests';
-  info: {
-    description: 'Active or completed quest for a specific player';
-    displayName: 'Player Quest';
-    pluralName: 'player-quests';
-    singularName: 'player-quest';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    expiresAt: Schema.Attribute.DateTime & Schema.Attribute.Required;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::player-quest.player-quest'
-    > &
-      Schema.Attribute.Private;
-    progress: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<0>;
-    publishedAt: Schema.Attribute.DateTime;
-    quest_template: Schema.Attribute.Relation<
-      'manyToOne',
-      'api::quest-template.quest-template'
-    >;
-    startsAt: Schema.Attribute.DateTime;
-    status: Schema.Attribute.Enumeration<['active', 'completed', 'failed']> &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'active'>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    user: Schema.Attribute.Relation<
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
-  };
-}
-
-export interface ApiPlayerStoryProgressPlayerStoryProgress
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'player_story_progresses';
-  info: {
-    description: "Tracks a player's progress through a story";
-    displayName: 'Player Story Progress';
-    pluralName: 'player-story-progresses';
-    singularName: 'player-story-progress';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    completedSteps: Schema.Attribute.JSON;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::player-story-progress.player-story-progress'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    status: Schema.Attribute.Enumeration<
-      ['locked', 'in_progress', 'completed']
-    > &
-      Schema.Attribute.DefaultTo<'locked'>;
-    story: Schema.Attribute.Relation<'manyToOne', 'api::story.story'>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    user: Schema.Attribute.Relation<
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
-  };
-}
-
-export interface ApiQuestTemplateQuestTemplate
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'quest_templates';
-  info: {
-    description: 'Base template for quests (e.g. daily quests)';
-    displayName: 'Quest Template';
-    pluralName: 'quest-templates';
-    singularName: 'quest-template';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    code: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::quest-template.quest-template'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    reward: Schema.Attribute.Integer &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<0>;
-    rewardCoins: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
-    rewardGems: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
-    target: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 1;
-        },
-        number
-      >;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
-    type: Schema.Attribute.Enumeration<
-      ['daily', 'weekly', 'monthly', 'story', 'play_games']
-    > &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'daily'>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiStoryStepStoryStep extends Struct.CollectionTypeSchema {
-  collectionName: 'story_steps';
-  info: {
-    description: 'An individual step or battle in a story mode chapter';
-    displayName: 'Story Step';
-    pluralName: 'story-steps';
-    singularName: 'story-step';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
-    endDialogue: Schema.Attribute.Component<'story.dialogue', true>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::story-step.story-step'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    rewardCards: Schema.Attribute.Relation<'manyToMany', 'api::card.card'>;
-    startDialogue: Schema.Attribute.Component<'story.dialogue', true>;
-    story: Schema.Attribute.Relation<'manyToOne', 'api::story.story'>;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiStoryStory extends Struct.CollectionTypeSchema {
-  collectionName: 'stories';
-  info: {
-    description: 'A story mode chapter or campaign';
-    displayName: 'Story';
-    pluralName: 'stories';
-    singularName: 'story';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    cost: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
-    costType: Schema.Attribute.Enumeration<['coins', 'gems']> &
-      Schema.Attribute.DefaultTo<'coins'>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::story.story'> &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    rewardCards: Schema.Attribute.Relation<'manyToMany', 'api::card.card'>;
-    steps: Schema.Attribute.Relation<'oneToMany', 'api::story-step.story-step'>;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
   };
 }
 
@@ -1145,7 +677,6 @@ export interface ApiUserCardUserCard extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    isPremium: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1167,65 +698,6 @@ export interface ApiUserCardUserCard extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     user: Schema.Attribute.Relation<
       'manyToOne',
-      'plugin::users-permissions.user'
-    >;
-  };
-}
-
-export interface ApiWalletWallet extends Struct.CollectionTypeSchema {
-  collectionName: 'wallets';
-  info: {
-    description: 'User currency wallet';
-    displayName: 'Wallet';
-    pluralName: 'wallets';
-    singularName: 'wallet';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    coins: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<0>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    dust: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<0>;
-    gems: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<0>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::wallet.wallet'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    user: Schema.Attribute.Relation<
-      'oneToOne',
       'plugin::users-permissions.user'
     >;
   };
@@ -1691,36 +1163,16 @@ export interface PluginUsersPermissionsUser
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    coins: Schema.Attribute.Integer &
-      Schema.Attribute.Configurable &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<100>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    dust: Schema.Attribute.Integer &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<0>;
     email: Schema.Attribute.Email &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
-    holoFineness: Schema.Attribute.Decimal &
-      Schema.Attribute.Configurable &
-      Schema.Attribute.DefaultTo<0.05>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1732,19 +1184,12 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
-    premiumMode: Schema.Attribute.String &
-      Schema.Attribute.Configurable &
-      Schema.Attribute.DefaultTo<'random'>;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
     role: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.role'
-    >;
-    storyProgresses: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::player-story-progress.player-story-progress'
     >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1755,7 +1200,6 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 3;
       }>;
-    wallet: Schema.Attribute.Relation<'oneToOne', 'api::wallet.wallet'>;
   };
 }
 
@@ -1772,18 +1216,10 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::card.card': ApiCardCard;
       'api::deck.deck': ApiDeckDeck;
-      'api::foil-effect.foil-effect': ApiFoilEffectFoilEffect;
       'api::game-config.game-config': ApiGameConfigGameConfig;
       'api::game-history.game-history': ApiGameHistoryGameHistory;
       'api::match.match': ApiMatchMatch;
-      'api::player-event-log.player-event-log': ApiPlayerEventLogPlayerEventLog;
-      'api::player-quest.player-quest': ApiPlayerQuestPlayerQuest;
-      'api::player-story-progress.player-story-progress': ApiPlayerStoryProgressPlayerStoryProgress;
-      'api::quest-template.quest-template': ApiQuestTemplateQuestTemplate;
-      'api::story-step.story-step': ApiStoryStepStoryStep;
-      'api::story.story': ApiStoryStory;
       'api::user-card.user-card': ApiUserCardUserCard;
-      'api::wallet.wallet': ApiWalletWallet;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

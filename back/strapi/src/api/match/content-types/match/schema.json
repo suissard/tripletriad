@@ -30,14 +30,6 @@
         },
         "logs": {
             "type": "json"
-        },
-        "startingPlayer": {
-            "type": "enumeration",
-            "enum": [
-                "PLAYER_1",
-                "PLAYER_2"
-            ],
-            "default": "PLAYER_1"
         }
     }
 }

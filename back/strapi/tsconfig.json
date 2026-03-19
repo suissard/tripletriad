@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "CommonJS",
     "moduleResolution": "Node",
-    "lib": ["ES2020", "dom"],
+    "lib": ["ES2020"],
     "target": "ES2019",
     "strict": false,
     "skipLibCheck": true,
@@ -13,8 +13,7 @@
     "noEmitOnError": true,
     "noImplicitThis": true,
     "outDir": "dist",
-    "rootDir": ".",
-    "preserveSymlinks": true
+    "rootDir": "."
   },
   "include": [
     // Include root files

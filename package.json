@@ -1,24 +1,16 @@
 {
-  "name": "terra-nullius-root",
+  "name": "triple-triad-root",
   "private": true,
   "version": "1.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "npm run stop && npm run docker:start && npm run dev:front",
-    "install": "node scripts/install-all.js",
-    "setup": "node scripts/setup-strapi.js",
-    "start": "bash scripts/start-docker.sh",
+    "start": "sudo bash start-docker.sh",
     "stop": "sudo docker-compose down",
-    "restart": "npm run stop && npm run start",
-    "test:api": "npm run test:api --prefix front",
     "dev:front": "npm run dev --prefix front",
-    "dev:back": "sudo docker-compose logs -f strapi",
     "build:front": "npm run build --prefix front",
-    "docker:start": "bash scripts/start-docker.sh",
+    "docker:start": "sudo bash start-docker.sh",
     "docker:stop": "sudo docker-compose down",
-    "clean": "bash scripts/clean.sh"
-  },
-  "devDependencies": {
-    "@playwright/test": "^1.58.2"
+    "docker:build": "sudo bash init.sh",
+    "clean": "sudo bash clean.sh",
+    "strapi:dev": "npm run develop --prefix back/strapi"
   }
 }

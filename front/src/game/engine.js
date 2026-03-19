@@ -1,34 +1,40 @@
 import { state } from './state.js';
 import { rulesRegistry } from './rules.js';
-import { getNeighbors } from './getNeighbors.js';
-
-export { getNeighbors };
+import gsap from 'gsap';
 
 export const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-/**
- * Capture a card on the board: change owner + reveal it.
- * boardEntry = state.board[i] = { data: {...}, owner: 'player'|'ai' }
- */
-export function captureCard(boardEntry, newOwner) {
-    boardEntry.data.revealed = true;
-    boardEntry.owner = newOwner;
+export function getNeighbors(index) {
+    return [
+        { i: index - 3, dir: 'top', opp: 'bottom', valid: index >= 3 },
+        { i: index + 3, dir: 'bottom', opp: 'top', valid: index <= 5 },
+        { i: index - 1, dir: 'left', opp: 'right', valid: index % 3 !== 0 },
+        { i: index + 1, dir: 'right', opp: 'left', valid: index % 3 !== 2 }
+    ].filter(n => n.valid);
+}
 
-    // Deduct HP
-    if (newOwner === 'player') {
-        state.aiHealth -= 1;
-    } else {
-        state.pHealth -= 1;
+export function captureCard(mesh, newOwner) {
+    mesh.userData.data.revealed = true;
+
+    mesh.userData.owner = newOwner;
+    const col = newOwner === 'player' ? 0x00d2ff : 0xff0055;
+
+    mesh.material[0].color.setHex(col);
+    mesh.material[1].color.setHex(col);
+    mesh.material[4].color.setHex(col);
+    mesh.material[5].color.setHex(col);
+
+    if (mesh.userData.redraw) {
+        mesh.userData.redraw(mesh.userData.img, newOwner);
     }
 
-    // Check if game over by HP
-    if (state.pHealth <= 0 || state.aiHealth <= 0) {
-        checkGameOver();
-    }
+    gsap.to(mesh.rotation, { z: mesh.rotation.z + Math.PI * 2, y: mesh.rotation.y + Math.PI * 2, duration: 0.5, ease: "power2.out" });
+    gsap.to(mesh.position, { y: 1.5, duration: 0.25, yoyo: true, repeat: 1 });
 }
 
 export function showAlert(text) {
     state.alerts = text;
+    // Clearing the alert after a delay so it can be re-triggered
     setTimeout(() => {
         if (state.alerts === text) state.alerts = '';
     }, 1500);
@@ -39,13 +45,7 @@ export async function resolveRules(startIndex, owner) {
 
     let comboStack = [];
     const neighbors = getNeighbors(startIndex);
-    const centerEntry = state.board[startIndex]; // { data, owner }
-
-    const actionRecord = {
-        playedCard: centerEntry.data,
-        owner: owner,
-        capturedCards: []
-    };
+    const centerCard = state.board[startIndex];
 
     let complexCaptures = new Set();
     let triggeredAlerts = [];
@@ -53,7 +53,7 @@ export async function resolveRules(startIndex, owner) {
     // Dynamically execute enabled modular rules
     rulesRegistry.forEach(rule => {
         if (state.rules[rule.id] && rule.id !== 'combo') {
-            const result = rule.execute(centerEntry, neighbors, state.board);
+            const result = rule.execute(centerCard, neighbors, state.board);
             if (result.triggered) {
                 result.captures.forEach(c => complexCaptures.add(c));
                 if (result.alertMessage) triggeredAlerts.push(result.alertMessage);
@@ -61,13 +61,13 @@ export async function resolveRules(startIndex, owner) {
         }
     });
 
-    for (let entry of complexCaptures) {
-        if (entry.owner !== owner) {
-            captureCard(entry, owner);
-            actionRecord.capturedCards.push(entry.data);
-            const cardIndex = state.board.indexOf(entry);
+    for (let card of complexCaptures) {
+        if (card.userData.owner !== owner) {
+            captureCard(card, owner);
+            const cardIndex = state.board.indexOf(card);
             comboStack.push(cardIndex);
 
+            // Show the first alert that was triggered
             if (triggeredAlerts.length > 0) {
                 showAlert(triggeredAlerts[0]);
                 triggeredAlerts.shift();
@@ -77,31 +77,27 @@ export async function resolveRules(startIndex, owner) {
 
     neighbors.forEach(n => {
         const adj = state.board[n.i];
-        if (adj && adj.owner !== owner && centerEntry.data[n.dir] > adj.data[n.opp]) {
-            if (!complexCaptures.has(adj)) {
-                captureCard(adj, owner);
-                actionRecord.capturedCards.push(adj.data);
-            }
+        if (adj && adj.userData.owner !== owner && centerCard.userData.data[n.dir] > adj.userData.data[n.opp]) {
+            if (!complexCaptures.has(adj)) captureCard(adj, owner);
         }
     });
 
     if (comboStack.length > 0) await sleep(600);
 
-    // Clear combo stack if rule is disabled
+    // Vide la pile si la règle combo est désactivée
     if (!useCombo) comboStack = [];
 
     while (comboStack.length > 0) {
         let currentIdx = comboStack.shift();
-        const comboEntry = state.board[currentIdx];
-        if (!comboEntry) continue;
+        const comboCard = state.board[currentIdx];
+        if (!comboCard) continue;
 
         let newCaptures = false;
 
         getNeighbors(currentIdx).forEach(n => {
             const adj = state.board[n.i];
-            if (adj && adj.owner !== owner && comboEntry.data[n.dir] > adj.data[n.opp]) {
+            if (adj && adj.userData.owner !== owner && comboCard.userData.data[n.dir] > adj.userData.data[n.opp]) {
                 captureCard(adj, owner);
-                actionRecord.capturedCards.push(adj.data);
                 comboStack.push(n.i);
                 newCaptures = true;
             }
@@ -113,86 +109,13 @@ export async function resolveRules(startIndex, owner) {
         }
     }
 
-    // Append to action log
-    state.actionLog.push(actionRecord);
-    if (state.actionLog.length > 5) {
-        state.actionLog.shift();
-    }
-
-    // Send backend log if there were captures
-    if (actionRecord.capturedCards.length > 0) {
-        import('./logger.js').then(({ sendGameLog }) => {
-            sendGameLog('competence',
-                { type: owner === 'player' ? 'player' : 'ai', id: owner },
-                { count: actionRecord.capturedCards.length }
-            );
-        });
-    }
-
     updateScores();
-}
-
-export function checkGameOver() {
-    if (state.gameOver) return;
-
-    let pBoard = 0, aBoard = 0;
-    state.board.forEach(c => {
-        if (c) (c.owner === 'player' ? pBoard++ : aBoard++);
-    });
-
-    state.pScore = pBoard;
-    state.aiScore = aBoard;
-
-    state.gameOver = true;
-    state.gameState = 'gameover';
-
-    if (state.pHealth <= 0) {
-        state.winner = 'ai';
-    } else if (state.aiHealth <= 0) {
-        state.winner = 'player';
-    } else if (pBoard > aBoard) {
-        state.winner = 'player';
-    } else if (aBoard > pBoard) {
-        state.winner = 'ai';
-    } else {
-        state.winner = 'draw';
-    }
-
-    // Log game over to backend for single-player mode
-    import('./logger.js').then(({ sendGameLog }) => {
-        sendGameLog('game_over',
-            { type: 'system', id: 'system' },
-            { winner: state.winner }
-        );
-    });
-}
-
-export function endTurn(player) {
-    if (state.gameOver) return;
-
-    if (player === 'player') {
-        state.turn = 'ai';
-        state.aiMaxMana = 1; // Constant 1 mana for now
-        state.aiMana = 1;
-    } else {
-        state.turn = 'player';
-        state.pMaxMana = 1; // Constant 1 mana for now
-        state.pMana = 1;
-    }
-
-    // Log turn change for single-player mode
-    import('./logger.js').then(({ sendGameLog }) => {
-        sendGameLog('turn_start',
-            { type: 'system', id: 'system' },
-            { player: state.turn }
-        );
-    });
 }
 
 export function updateScores() {
     let pBoard = 0, aBoard = 0;
     state.board.forEach(c => {
-        if (c) (c.owner === 'player' ? pBoard++ : aBoard++);
+        if (c) (c.userData.owner === 'player' ? pBoard++ : aBoard++);
     });
 
     state.pScore = pBoard;
@@ -200,7 +123,14 @@ export function updateScores() {
 
     if (state.board.every(b => b !== null)) {
         setTimeout(() => {
-            checkGameOver();
+            state.gameOver = true;
+            if (pBoard > aBoard) {
+                state.winner = 'player';
+            } else if (aBoard > pBoard) {
+                state.winner = 'ai';
+            } else {
+                state.winner = 'draw';
+            }
         }, 1000);
     }
 }
