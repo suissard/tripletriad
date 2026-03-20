@@ -41,6 +41,7 @@ export function normalizeCard(raw) {
 
     return {
         id: raw.id,
+        documentId: raw.documentId,
         name: raw.name || `Card #${raw.id}`,
         description: raw.description || '',
         level: GameEngine.calculateCardLevel(raw),

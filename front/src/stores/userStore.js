@@ -1,19 +1,21 @@
 import { defineStore } from 'pinia';
 import strapiService from '../api/strapi.js';
 import strapiMock from '../api/strapiMock.js';
+import { getCardById } from '../game/state.js';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
     isLoggedIn: false,
     jwt: null,
-    user: {
-      id: null,
-      username: 'Joueur Anonyme',
-      avatar: 'https://api.dicebear.com/9.x/bottts/png?seed=player&backgroundColor=transparent',
-      coins: 0,
-      gems: 0,
-      dust: 0
-    },
+      user: {
+        id: null,
+        documentId: null,
+        username: 'Joueur Anonyme',
+        avatar: 'https://api.dicebear.com/9.x/bottts/png?seed=player&backgroundColor=transparent',
+        coins: 0,
+        gems: 0,
+        dust: 0
+      },
     collection: [],
     collectionLoaded: false,
     userDecks: [],
@@ -85,6 +87,7 @@ export const useUserStore = defineStore('user', {
           this.user = {
             ...this.user,
             id: meRes.id,
+            documentId: meRes.documentId,
             username: meRes.username,
             role: meRes.role?.name,
             coins: meRes.coins || 0,
@@ -102,6 +105,7 @@ export const useUserStore = defineStore('user', {
       this.jwt = jwt;
       this.user = {
         id: user.id,
+        documentId: user.documentId,
         username: user.username,
         role: user.role,
         coins: user.coins || 0,
@@ -279,16 +283,37 @@ export const useUserStore = defineStore('user', {
         const payload = {
           name: deck.name,
           cover: deck.cover,
-          cards: deck.cards,
+          cards: deck.cards.map(id => getCardById(id)?.documentId || id),
           cardBack: deck.cardBack || 'default',
-          user: this.user.id
+          user: this.user.documentId || this.user.id
         };
+        let res;
         if (isNew) {
-          await strapiService.create('decks', payload);
+          res = await strapiService.create('decks', payload);
         } else {
-          await strapiService.update('decks', deck.documentId, payload);
+          res = await strapiService.update('decks', deck.documentId, payload);
         }
-        this.fetchUserDecks();
+
+        // Local cache update
+        const savedItem = res.data || res;
+        if (savedItem) {
+          const normalized = {
+            id: savedItem.id,
+            documentId: savedItem.documentId,
+            name: savedItem.name,
+            cover: savedItem.cover,
+            cards: [...deck.cards] // Use current IDs to maintain UI state
+          };
+
+          if (isNew) {
+            this.userDecks.push(normalized);
+          } else {
+            const index = this.userDecks.findIndex(d => d.documentId === deck.documentId);
+            if (index !== -1) {
+              this.userDecks[index] = normalized;
+            }
+          }
+        }
         return true;
       } catch (e) {
         console.error('Deck save failed', e);
@@ -305,7 +330,8 @@ export const useUserStore = defineStore('user', {
       if (!this.isLoggedIn) return false;
       try {
         await strapiService.delete('decks', deckDocumentId);
-        this.fetchUserDecks();
+        // Local cache update
+        this.userDecks = this.userDecks.filter(d => d.documentId !== deckDocumentId);
         return true;
       } catch (e) {
         console.error('Deck delete failed', e);
@@ -377,8 +403,14 @@ export const useUserStore = defineStore('user', {
         });
 
         if (!result.error) {
-          if (result.cardsDestroyed > 0) {
-            await this.fetchUserCollection();
+          if (result.newDustTotal !== undefined) {
+            this.user.dust = result.newDustTotal;
+            this.syncLocalUserWallets();
+          }
+          if (result.totalCardsDisenchanted > 0) {
+            this.collection.forEach(item => {
+              if (item.quantity > 1) item.quantity = 1;
+            });
           }
           return true;
         } else {

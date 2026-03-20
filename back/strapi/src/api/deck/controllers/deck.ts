@@ -5,8 +5,8 @@ export default factories.createCoreController('api::deck.deck', ({ strapi }) => 
     const user = ctx.state.user;
     if (!user) return ctx.unauthorized('You must be logged in.');
 
-    const result = await strapi.db.query('api::deck.deck').findMany({
-        where: { user: user.id },
+    const result = await strapi.documents('api::deck.deck').findMany({
+        filters: { user: { id: user.id } },
         populate: ['cards']
     });
 

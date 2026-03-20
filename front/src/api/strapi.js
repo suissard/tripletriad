@@ -24,12 +24,18 @@ class StrapiApi {
     }
 
     async create(collection, data, queryParams) {
-        const res = await this.strapiClient.collection(collection).create(data, queryParams);
+        // Explicitly wrap in data for Strapi 5 REST API
+        const payload = (data && data.data) ? data : { data };
+        const url = `/${collection}${queryParams ? '?' + new URLSearchParams(queryParams).toString() : ''}`;
+        const res = await this.request('POST', url, { body: payload });
         return res.data || res;
     }
 
     async update(collection, id, data, queryParams) {
-        const res = await this.strapiClient.collection(collection).update(String(id), data, queryParams);
+        // Explicitly wrap in data for Strapi 5 REST API
+        const payload = (data && data.data) ? data : { data };
+        const url = `/${collection}/${id}${queryParams ? '?' + new URLSearchParams(queryParams).toString() : ''}`;
+        const res = await this.request('PUT', url, { body: payload });
         return res.data || res;
     }
 
