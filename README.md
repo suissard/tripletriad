@@ -12,11 +12,11 @@ L'application est divisée en deux parties principales :
 
 *   **Authentification et Profil Joueur** : Inscription, connexion et gestion du profil via Strapi (JWT).
 *   **Collection de Cartes** : Chaque joueur possède sa propre collection (`UserCards`), avec un système de rareté (Commune, Peu Commune, Rare, Épique, Légendaire) et des éléments spéciaux (Eau, Radiation, Réseau, Spore, etc.).
-*   **Construction de Decks (Deck Building)** : Outil dédié pour créer et éditer jusqu'à 5 decks personnalisés de 15 cartes chacun, incluant l'analyse de la courbe de mana et le choix du dos de carte (classique ou animé).
-*   **Boutique & Ouverture de Boosters** : Dépensez vos pièces d'or (Coins) gagnées en jeu pour acheter des "Boosters Classiques" de 5 cartes et agrandir votre collection. Animations d'ouverture de paquets immersives.
-*   **Mode Histoire & Quêtes** : Accomplissez des quêtes quotidiennes ou de bienvenue (ex: jouer une partie) pour gagner des récompenses (Pièces, Gemmes).
-*   **Jeu contre l'IA (Single Player)** : Affrontez une intelligence artificielle avec un deck aléatoire ou choisi.
-*   **Mode Multijoueur (WebRTC)** : Hébergez ou rejoignez des sessions de jeu en ligne directement dans le navigateur (peer-to-peer) en échangeant un code de session.
+*   **Construction de Decks (Deck Building)** : Outil dédié pleinement abouti pour créer et éditer jusqu'à 5 decks personnalisés de 15 cartes chacun. L'interface offre l'analyse de la courbe de mana et permet le choix du dos de carte (classique ou animé) et la sélection d'une couverture de deck.
+*   **Boutique & Ouverture de Boosters** : Dépensez vos pièces d'or (Coins) gagnées en jeu pour acheter des "Boosters Classiques" de 5 cartes et agrandir votre collection. L'expérience est enrichie par des animations d'ouverture de paquets immersives.
+*   **Mode Histoire & Quêtes** : Plongez dans un mode histoire riche en narration (Story mode). Accomplissez également des quêtes quotidiennes ou de bienvenue (ex: jouer une partie) pour gagner des récompenses (Pièces, Gemmes).
+*   **Jeu contre l'IA (Single Player)** : Affrontez une intelligence artificielle avec un deck aléatoire ou choisi. La désignation du joueur commençant la partie est animée par un système de pile ou face (Coin Toss).
+*   **Mode Multijoueur (WebRTC)** : Hébergez ou rejoignez des sessions de jeu en ligne directement dans le navigateur (peer-to-peer) en échangeant un code de session. Le système de pile ou face arbitre également le joueur initiant la partie.
 *   **Gestion de l'État Hors-Ligne** : Le jeu détecte les pertes de connexion avec le serveur et propose un mode hors-ligne limité permettant de jouer avec une collection de secours.
 
 ---
@@ -27,21 +27,26 @@ L'interface utilise `vue-router` pour naviguer entre les différents écrans du 
 
 ### Pages Joueur
 *   **`MainMenu` (`/`)** : Le hub principal. C'est ici que l'on choisit son mode de jeu (Histoire, IA, Multijoueur) et qu'on accède aux autres sections.
-*   **`GameView` (`/game`)** : L'écran de jeu principal. Affiche le plateau, les scores, l'historique des actions et les mains des joueurs (Héros vs Adversaire). Gère à la fois les parties contre l'IA et les parties en ligne.
+*   **`GameView` (`/game`)** : L'écran de jeu principal. Affiche le plateau, les scores, l'historique des actions et les mains des joueurs (Héros vs Adversaire). Gère à la fois les parties contre l'IA et les parties en ligne. Intègre l'animation de Coin Toss au lancement.
 *   **`CollectionView` (`/collection`)** : Votre classeur de cartes. Permet de visualiser toutes les cartes possédées, de filtrer, trier et voir la progression globale de la collection.
 *   **`DecksPage` (`/decks`)** : La liste de vos decks (jusqu'à 5). Affiche un aperçu des cartes et le statut d'achèvement (15/15).
-*   **`DeckEditorPage` (`/deck-editor`)** : L'interface de création/modification de deck. Permet d'ajouter/retirer des cartes, choisir la couverture du deck, définir le dos de carte et visualiser la courbe de mana.
-*   **`PackOpening` (`/boutique`)** : L'échoppe du jeu. Dépensez vos pièces pour ouvrir des boosters avec des animations immersives.
-*   **`StoryPage` (`/story`)** : Affiche votre progression dans l'histoire et les chapitres débloqués.
+*   **`DeckEditorPage` (`/deck-editor`)** : L'interface aboutie de création/modification de deck. Permet d'ajouter/retirer des cartes, choisir la couverture du deck, définir le dos de carte et visualiser la courbe de mana.
+*   **`PackOpening` (`/boutique`)** : L'échoppe du jeu. Dépensez vos pièces pour ouvrir des boosters avec de superbes animations immersives.
+*   **`StoryPage` (`/story`)** : Affiche votre progression dans l'histoire et les chapitres narratifs débloqués.
 *   **`QuestsPage` (`/quests`)** : Affiche vos quêtes actives et terminées (journalières, de bienvenue, etc.).
 
 ### Pages Admin (Route `/admin`)
 *   **`AdminLogin` (`/admin/login`)** : Page de connexion administrateur.
-*   **`Dashboard` (`/admin`)** : Tableau de bord administrateur.
-*   **`FoilEditor` (`/admin/foil-editor`)** : Éditeur visuel des effets foil (brillant) des cartes.
-*   **`GameConfig` (`/admin/game-config`)** : Configuration globale du jeu (règles, probabilités, etc.).
-*   **`ArchitectureMapPage` (`/admin/cartographie`)** : Vue d'ensemble cartographique/technique.
-*   **Pages de Test** : `/admin/test-api`, `/admin/test-card`, `/admin/test-seed`, `/admin/test-coin` - Outils de développement internes.
+*   **`Dashboard` (`/admin`)** : Tableau de bord administrateur principal.
+*   **`FoilEditor` (`/admin/foil-editor`)** : Éditeur visuel performant des effets holographiques (foil) des cartes, supportant l'édition des masques et des shaders.
+*   **`GameConfig` (`/admin/game-config`)** : Configuration globale du jeu (règles, probabilités d'ouverture de booster, etc.).
+*   **`ArchitectureMapPage` (`/admin/cartographie`)** : Vue d'ensemble cartographique et technique des vues et du projet.
+*   **Outils et Pages de Test** :
+    *   `/admin/test-api` : Tests de l'intégration API Strapi.
+    *   `/admin/test-card` : Test du rendu et du design des cartes (`CardTestPage`).
+    *   `/admin/test-seed` : Test de génération d'aléatoire pour les boosters (`SeedTesterPage`).
+    *   `/admin/test-coin` : Test de la physique et des animations du système de pile ou face (`CoinTossTestPage`).
+    *   `/admin/dev-test` : Divers tests de composants en développement (`DevTestPage`).
 
 ---
 
@@ -55,7 +60,7 @@ L'interface utilise `vue-router` pour naviguer entre les différents écrans du 
 *   **Moteur de Jeu** (`src/game/`) :
     *   `GameEngine.js` : Logique pure et immuable du jeu (calcul des captures, winner).
     *   `TurnManager.js` : Gestion des tours et transition IA/Online.
-    *   `WebRTCManager.js` : Gestion Peer-to-Peer pour le mode multijoueur.
+    *   `WebRTCManager.js` : Gestion Peer-to-Peer robuste (WebRTC) pour le mode multijoueur.
     *   `ai.js` : Intelligence artificielle pour les parties solo.
     *   `state.js` : État réactif global (source unique de vérité).
     *   `rules.js` : Registre des règles optionnelles (Same, Plus, Combo, Elements).
@@ -64,9 +69,10 @@ L'interface utilise `vue-router` pour naviguer entre les différents écrans du 
     *   `TripleTriadCardGrid.vue` : Affichage en grille paginée ou horizontale des cartes.
     *   `GameBoard.vue` : Plateau de jeu 3x3.
     *   `PlayerHand.vue` / `OpponentHand.vue` : Mains des joueurs.
-    *   `CoinToss.vue` : Animation de lancer de pièce.
+    *   `CoinToss.vue` : Animation de lancer de pièce intégrant de la physique.
     *   `PackOpening.vue` : Animations d'ouverture de boosters.
     *   `AnimatedCardBack.vue` : Dos de carte animé.
+*   **Rendu Avancé** : Le projet intègre de la modélisation et du rendu 3D via Three.js (ex: pour le FoilEditor) directement au sein des composants Vue via des shaders GLSL.
 
 ### Backend (Strapi 5 / TypeScript)
 *   **API REST** :
@@ -95,18 +101,18 @@ L'interface utilise `vue-router` pour naviguer entre les différents écrans du 
 L'environnement complet est géré via Docker.
 
 1.  **Lancer l'application complète** :
-    ```bash
+    \`\`\`bash
     sudo docker compose up -d
-    ```
+    \`\`\`
     *Le backend Strapi sera accessible sur `http://localhost:1337`.*
     *(Note : Selon la configuration, le frontend peut nécessiter d'être lancé localement pour éviter les conflits de permissions).*
 
 2.  **Lancer le Frontend en local** :
-    ```bash
+    \`\`\`bash
     cd front
     npm install
-    npm run dev
-    ```
+    npm run dev &
+    \`\`\`
     *Le frontend sera accessible sur `http://localhost:5173`.*
 
 3.  **Variables d'environnement** :
