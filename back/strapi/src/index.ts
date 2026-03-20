@@ -113,6 +113,7 @@ export default {
         'api::player-story-progress.player-story-progress.find',
         'api::player-story-progress.player-story-progress.findOne',
         'api::player-story-progress.player-story-progress.claimStepReward',
+        'api::player-story-progress.player-story-progress.unlockStory',
         'api::player-event-log.player-event-log.trackEvent',
         'api::game-config.game-config.find',
       ];
