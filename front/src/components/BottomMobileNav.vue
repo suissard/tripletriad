@@ -60,6 +60,16 @@
         </div>
         <span class="nav-label">Boutique</span>
       </button>
+      <button
+        class="nav-item"
+        :class="{ active: route.path.includes('/wallet/boosters') }"
+        @click="router.push('/wallet/boosters')"
+      >
+        <div class="icon-container">
+          <span style="font-size: 1.5rem;">🎒</span>
+        </div>
+        <span class="nav-label">Boosters</span>
+      </button>
     </div>
   </nav>
 </template>

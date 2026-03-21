@@ -1,14 +1,15 @@
 import { factories } from '@strapi/strapi';
 
 export default {
-  async openBooster(ctx) {
+  async buyBooster(ctx) {
     try {
       const user = ctx.state.user;
       if (!user) {
-        return ctx.unauthorized('You must be logged in to open a booster.');
+        return ctx.unauthorized('You must be logged in to buy a booster.');
       }
 
-      const { type = 'classic' } = ctx.request.body; // 'classic' (coins) or 'premium' (gems)
+      const { type = 'classic', collection = 'base' } = ctx.request.body; // 'classic' (coins) or 'premium' (gems)
+      const isPremium = type === 'premium';
 
       // 1. Fetch user with wallet
       const userWithWallet = await strapi.entityService.findOne(
@@ -22,31 +23,105 @@ export default {
         return ctx.badRequest('Wallet not found.');
       }
 
+      const COST = 100; // Hardcoded for now, can be moved to config later
+      const currency = isPremium ? 'gems' : 'coins';
+
+      if (wallet[currency] < COST) {
+        return ctx.badRequest(`Not enough ${currency} to buy a ${type} booster.`);
+      }
+
+      // 2. Deduct currency and add booster
+      const currentBoosters = wallet.boosters || [];
+      const boosterIndex = currentBoosters.findIndex(b => b.collection === collection && b.isPremium === isPremium);
+
+      if (boosterIndex !== -1) {
+        currentBoosters[boosterIndex].quantity += 1;
+      } else {
+        currentBoosters.push({ collection, isPremium, quantity: 1 });
+      }
+
+      await strapi.entityService.update('api::wallet.wallet', wallet.id, {
+        data: {
+          [currency]: wallet[currency] - COST,
+          boosters: currentBoosters
+        },
+      });
+
+      return {
+        message: 'Booster added to wallet successfully',
+        wallet: {
+          coins: currency === 'coins' ? wallet.coins - COST : wallet.coins,
+          gems: currency === 'gems' ? wallet.gems - COST : wallet.gems,
+          dust: wallet.dust,
+          boosters: currentBoosters
+        }
+      };
+    } catch (err) {
+      console.error("Error buying booster:", err);
+      return ctx.internalServerError('An error occurred while buying the booster.');
+    }
+  },
+
+  async openBooster(ctx) {
+    try {
+      const user = ctx.state.user;
+      if (!user) {
+        return ctx.unauthorized('You must be logged in to open a booster.');
+      }
+
+      const { collection = 'base', isPremium = false } = ctx.request.body;
+
+      // 1. Fetch user with wallet
+      const userWithWallet = await strapi.entityService.findOne(
+        'plugin::users-permissions.user',
+        user.id,
+        { populate: ['wallet'] }
+      ) as any;
+
+      const wallet = userWithWallet?.wallet;
+      if (!wallet) {
+        return ctx.badRequest('Wallet not found.');
+      }
+
+      const currentBoosters = wallet.boosters || [];
+      const boosterIndex = currentBoosters.findIndex(b => b.collection === collection && b.isPremium === isPremium);
+
+      if (boosterIndex === -1 || currentBoosters[boosterIndex].quantity <= 0) {
+        return ctx.badRequest('Booster not found in wallet.');
+      }
+
       // 2. Fetch game config
       const gameConfigs = await strapi.entityService.findMany('api::game-config.game-config', {});
       const gameConfig: any = gameConfigs || {};
 
-      const COST = 100; // Hardcoded for now, can be moved to config later
-      const currency = type === 'premium' ? 'gems' : 'coins';
-
-      if (wallet[currency] < COST) {
-        return ctx.badRequest(`Not enough ${currency} to open a ${type} booster.`);
-      }
-
-      // 3. Fetch all available cards
+      // 3. Fetch all available cards from collection
       const allCards = await strapi.entityService.findMany('api::card.card', {
+        filters: { collectionName: collection },
         populate: { image: true },
         limit: 1000
-      });
+      }) as any[];
 
       if (!allCards || allCards.length === 0) {
-        return ctx.internalServerError('No cards available in the game.');
+        // Fallback to all cards if no cards with collectionName exist
+        const anyCards = await strapi.entityService.findMany('api::card.card', {
+          populate: { image: true },
+          limit: 1000
+        }) as any[];
+        if (!anyCards || anyCards.length === 0) {
+           return ctx.internalServerError('No cards available in the game.');
+        }
+        allCards.push(...anyCards);
       }
 
-      // 4. Deduct currency
+      // 4. Update wallet booster quantity
+      currentBoosters[boosterIndex].quantity -= 1;
+      if (currentBoosters[boosterIndex].quantity <= 0) {
+        currentBoosters.splice(boosterIndex, 1);
+      }
+
       await strapi.entityService.update('api::wallet.wallet', wallet.id, {
         data: {
-          [currency]: wallet[currency] - COST,
+          boosters: currentBoosters
         },
       });
 
@@ -115,7 +190,7 @@ export default {
         else if (rand < cumProbs.uncommon) selectedRarity = 'uncommon';
 
         const card: any = getRandomCardFromPool(selectedRarity);
-        const isDrawnPremium = type === 'premium' ? true : Math.random() * 100 < probPremium;
+        const isDrawnPremium = isPremium ? true : Math.random() * 100 < probPremium;
 
         // Normalize image for frontend
         let imgUrl = card.image?.url ? `${strapiBaseUrl}${card.image.url}` : null;
@@ -143,9 +218,9 @@ export default {
       for (const [cardKey, quantityToAdd] of Object.entries(userCardsToCreateOrUpdate)) {
         const [cardIdStr, isPremiumStr] = cardKey.split('_');
         const cardId = parseInt(cardIdStr, 10);
-        const isPremium = isPremiumStr === 'true';
+        const pStr = isPremiumStr === 'true';
 
-        const existingUserCard = existingUserCards.find(uc => uc.card && uc.card.id === cardId && !!uc.isPremium === isPremium);
+        const existingUserCard = existingUserCards.find(uc => uc.card && uc.card.id === cardId && !!uc.isPremium === pStr);
 
         if (existingUserCard) {
           await strapi.entityService.update('api::user-card.user-card', existingUserCard.id, {
@@ -157,7 +232,7 @@ export default {
               user: user.id,
               card: cardId,
               quantity: quantityToAdd,
-              isPremium: isPremium
+              isPremium: pStr
             }
           });
         }
@@ -167,9 +242,10 @@ export default {
         message: 'Booster opened successfully',
         cards: drawnCards,
         wallet: {
-          coins: currency === 'coins' ? wallet.coins - COST : wallet.coins,
-          gems: currency === 'gems' ? wallet.gems - COST : wallet.gems,
-          dust: wallet.dust
+          coins: wallet.coins,
+          gems: wallet.gems,
+          dust: wallet.dust,
+          boosters: currentBoosters
         }
       };
 
