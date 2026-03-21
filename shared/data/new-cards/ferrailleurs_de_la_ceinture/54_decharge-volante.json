@@ -1,0 +1,15 @@
+{
+  "name": "Décharge Volante",
+  "description": "Ferraille orbitale agglomérée en forme de planète miniature. Base roulante des Ferrailleurs, elle sert de citadelle, de décharge et de place forte. La plus grande anomalie spatiale fabriquée par l'homme.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "7",
+  "rightValue": "8",
+  "bottomValue": "7",
+  "leftValue": "8",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi scrap-punk massive orbital scrapyard station, irregular spherical mass of welded debris containers and ship wreckage, tiny lights from inhabited modules, docking ports everywhere, gravitational pull of debris around it, dwarfing nearby ships, epic scale, highly detailed, floating city of junk"
+}

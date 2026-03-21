@@ -1,0 +1,15 @@
+{
+  "name": "Filon",
+  "description": "Éclaireur minier spécialisé dans la détection de ressources et de passages cachés. Son scanner gravimétrique révèle les failles dans les structures et les défenses.",
+  "element": "None",
+  "elements": [],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "1",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi scrap-punk pathfinder infantry, lightweight spacesuit with gravimetric scanner on shoulder, pointing at hidden passage, dim tunnel lighting, mineral deposits visible, exploratory vibe"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Opérateur Réseau",
+  "description": "Technicien de liaison orbitale assurant le réseau tactique entre les troupes au sol et le commandement orbital. Jamais déconnecté, jamais seul.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Hégémonie martienne",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Communications soldier with hexagonal antenna array on back, holographic display on forearm, standing near a data terminal."
+}

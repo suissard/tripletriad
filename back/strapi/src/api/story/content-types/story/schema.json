@@ -31,7 +31,10 @@
     },
     "costType": {
       "type": "enumeration",
-      "enum": ["coins", "gems"],
+      "enum": [
+        "coins",
+        "gems"
+      ],
       "default": "coins"
     },
     "rewardCards": {

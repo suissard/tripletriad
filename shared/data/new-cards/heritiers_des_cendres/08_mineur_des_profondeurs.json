@@ -1,0 +1,17 @@
+{
+  "name": "Mineur des Profondeurs",
+  "description": "Ingénieur de tunnel qui fore sous les défenses ennemies.",
+  "element": "obsidienne",
+  "faction": "Héritiers des cendres",
+  "topValue": "3",
+  "rightValue": "3",
+  "bottomValue": "4",
+  "leftValue": "2",
+  "rarity": "Common",
+  "prompt": "Mutant miner with heavy drill, hard hat with candles, digging through rubble, post-apocalyptic mine shaft, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "obsidienne"
+  ]
+}

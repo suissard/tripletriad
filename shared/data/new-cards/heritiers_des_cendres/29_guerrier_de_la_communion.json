@@ -1,0 +1,17 @@
+{
+  "name": "Guerrier de la Communion",
+  "description": "Deux corps fusionnés en un seul guerrier.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "6",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "7",
+  "rarity": "Rare",
+  "prompt": "Two-headed mutant warrior with four arms, fused bodies, dual weapons, post-apocalyptic dual fighter, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

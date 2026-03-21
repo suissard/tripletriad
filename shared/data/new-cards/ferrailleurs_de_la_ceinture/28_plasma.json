@@ -1,0 +1,15 @@
+{
+  "name": "Plasma",
+  "description": "Chalumeau de soudure spatiale modifié en arme de guerre. Son jet de plasma brûle à 20 000 degrés. Il sourit derrière sa visière fumée.",
+  "element": "None",
+  "elements": [],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "5",
+  "rightValue": "2",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi scrap-punk heavy infantry wielding modified plasma welding torch as weapon, blue-white hot plasma jet spraying forward, bulky spacesuit with heat shielding and scorched patches, welding mask visor glowing blue, sparks everywhere, dark station interior, highly detailed"
+}

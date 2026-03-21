@@ -1,0 +1,18 @@
+{
+  "name": "Porte-Essaim Mycélium",
+  "description": "Vaisseau-mère du Fléau, une sphère organique titanesque dont la surface est un océan de mycélium vibrant. Son intérieur est une matrice de croissance accélérée, produisant des milliers de créatures par jour. Il n'attaque pas — il inonde.",
+  "element": "spore",
+  "elements": [
+    "spore",
+    "reseau"
+  ],
+  "faction": "Fléau Spore",
+  "topValue": "9",
+  "rightValue": "8",
+  "bottomValue": "7",
+  "leftValue": "8",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi grimdark biomechanical horror, Le Fléau Spore faction. Massive spherical fungal mothership in space, surface covered in living mycelium ocean, pods and organic growths protruding, streams of smaller creatures launching from surface openings, bioluminescent green and purple glow, dark cosmic background, epic scale, highly detailed."
+}

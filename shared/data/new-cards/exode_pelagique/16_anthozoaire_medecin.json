@@ -1,0 +1,15 @@
+{
+  "name": "Anthozoaire Médecin",
+  "description": "Médecin de champ de bataille qui utilise des greffes de corail vivant pour refermer les blessures. Ses tentacules chirurgicales sont d'une précision terrifiante.",
+  "element": "eau",
+  "elements": ["eau", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "1",
+  "rightValue": "2",
+  "bottomValue": "3",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Alien cephalopod combat medic with delicate surgical tentacles, carrying pouches of living coral grafts glowing pink and cyan, lighter suit than other units, gentle but focused posture, bioluminescent medical tools"
+}

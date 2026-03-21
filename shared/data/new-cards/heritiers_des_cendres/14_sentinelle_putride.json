@@ -1,0 +1,17 @@
+{
+  "name": "Sentinelle Putride",
+  "description": "Garde toxique dont l'odeur repousse même ses alliés.",
+  "element": "spore",
+  "faction": "Héritiers des cendres",
+  "topValue": "4",
+  "rightValue": "2",
+  "bottomValue": "6",
+  "leftValue": "3",
+  "rarity": "Common",
+  "prompt": "Heavy mutant guard with toxic shield, spewing poison gas, green pustules, bio-organic armor, post-apocalyptic checkpoint, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "spore"
+  ]
+}

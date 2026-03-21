@@ -16,6 +16,7 @@
           :health="state.pHealth"
           :mana="state.pMana"
           :maxMana="state.pMaxMana"
+          :deckCount="state.pDeck.length"
         />
         <ScorePanel
           label="Adversaire"
@@ -24,6 +25,7 @@
           :health="state.aiHealth"
           :mana="state.aiMana"
           :maxMana="state.aiMaxMana"
+          :deckCount="state.aiDeck.length"
         />
       </div>
 
@@ -96,15 +98,19 @@ function onCoinTossFinished() {
     
     // Generate AI deck
     const aiDeck = [];
-    for (let i = 0; i < 5; i++) {
-        const randomCard = cardLibrary[Math.floor(Math.random() * cardLibrary.length)];
-        aiDeck.push(normalizeCard(randomCard));
+    if (state.isStoryMatch && state.storyEnemyDeckConfig && state.storyEnemyDeckConfig.length > 0) {
+        aiDeck.push(...state.storyEnemyDeckConfig.map(normalizeCard));
+    } else {
+        for (let i = 0; i < 15; i++) {
+            const randomCard = cardLibrary[Math.floor(Math.random() * cardLibrary.length)];
+            aiDeck.push(normalizeCard(randomCard));
+        }
     }
     
     // Draw hands
-    state.deck = aiDeck;
+    state.aiDeck = aiDeck;
     refillHand('ai');
-    state.deck = state.playerDeckSelection;
+    state.pDeck = state.playerDeckSelection || [];
     refillHand('player');
     
     initGameListeners();
@@ -122,7 +128,7 @@ onMounted(() => {
     }
 
     if (route.query.matchId === 'ia' && state.gameState !== 'playing') {
-        if (!state.playerDeckSelection && !state.deck.length) {
+        if (!state.playerDeckSelection && !state.pDeck.length) {
             // No deck selected, go back to menu
             router.replace({ path: '/' });
             return;
@@ -134,7 +140,7 @@ onMounted(() => {
         return;
     }
 
-    if (!state.online && state.gameState !== 'playing') {
+    if (!state.online && state.gameState !== 'playing' && state.gameState !== 'coin-toss') {
         resetGame();
     }
     initGameListeners();

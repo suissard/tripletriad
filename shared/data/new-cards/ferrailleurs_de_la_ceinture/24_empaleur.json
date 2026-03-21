@@ -1,0 +1,15 @@
+{
+  "name": "L'Empaleur",
+  "description": "Arborant un foret minier géant monté sur exosquelette, il transperce les blindages comme du papier d'aluminium. Le bruit de son moteur est la dernière chose qu'on entend.",
+  "element": "None",
+  "elements": [],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "2",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi scrap-punk heavy infantry with exoskeleton-mounted giant mining drill, bulky spacesuit reinforced with hydraulic arms, massive spinning auger bit, engine grease war paint on face, sparks and debris, dark industrial background, cinematic lighting, highly detailed"
+}

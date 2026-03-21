@@ -1,0 +1,17 @@
+{
+  "name": "Sentinelle d'Obsidienne",
+  "description": "Progéniture purement défensive dont le corps est un bloc d'obsidienne noire polie. Immobile mais quasi impénétrable, elle protège les passages souterrains vitaux.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "3",
+  "rightValue": "6",
+  "bottomValue": "6",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Dark sci-fi fantasy, immobile monolithic rock guardian made of polished black obsidian, mirror-like surface reflecting red glow, single glowing eye slit, blocking a dark underground tunnel, volcanic atmosphere, cinematic lighting"
+}

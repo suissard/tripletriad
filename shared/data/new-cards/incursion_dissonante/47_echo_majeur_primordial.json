@@ -1,0 +1,19 @@
+{
+  "name": "Écho Majeur Primordial",
+  "description": "Colosse sans forme fixe fait d'ombres coalescentes et de failles dimensionnelles superposées. Son passage déchire la réalité elle-même, laissant des cicatrices visibles dans l'espace-temps.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle",
+    "radiation",
+    "obsidienne"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "9",
+  "rightValue": "9",
+  "bottomValue": "7",
+  "leftValue": "A",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "Titanic cosmic horror entity made of coalescing shadows and layered dimensional rifts, ten stories tall, space itself cracking and tearing around its form, permanent scars in reality visible as glowing violet fissures, grimdark sci-fi, apocalyptic scale"
+}

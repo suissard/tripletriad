@@ -1,0 +1,15 @@
+{
+  "name": "Le Grand Mandala",
+  "description": "Mandala mécanique vivant de 30 mètres dont chaque segment est un temple de calcul. Son tourbillon défragmentant réduit en poussière numérique tout ce qui entre dans son orbite.",
+  "element": "faille_dimensionnelle",
+  "faction": "Chœur Synthétique",
+  "topValue": "9",
+  "rightValue": "8",
+  "bottomValue": "9",
+  "leftValue": "8",
+  "rarity": "Legendary",
+  "prompt": "Colossal rotating mandala structure, 10 stories tall, each segment a different temple-room, concentric rings of golden binary code spiraling inward, reality warping around it, dimension-fracture effect, supreme cyber-monastery god-machine, grimdark sci-fi TCG card art, ultra detailed",
+  "skills": null,
+  "collectionName": null,
+  "elements": ["faille_dimensionnelle"]
+}

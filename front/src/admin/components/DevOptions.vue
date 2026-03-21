@@ -269,32 +269,26 @@ async function checkAuthStatus() {
 
 <style scoped>
 .dev-options {
-  position: fixed;
-  bottom: 0px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10000;
+  position: relative;
+  width: 100%;
   display: flex;
-  flex-direction: column-reverse;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
   gap: 10px;
-  pointer-events: auto;
-  /* Required as parent '#ui' in App.vue might have pointer-events: none */
 }
 
 .dev-button {
   background: rgba(20, 20, 40, 0.4);
   color: white;
   border: 1px solid #444;
-  padding: 4px 12px;
-  border-radius: 8px 8px 0 0;
+  padding: 8px 12px;
+  border-radius: 8px;
   cursor: pointer;
   font-family: inherit;
   font-size: 0.8rem;
   backdrop-filter: blur(4px);
   transition: all 0.2s ease;
-  opacity: 0.5;
-  border-bottom: none;
+  opacity: 0.8;
 }
 
 .dev-button:hover, .dev-options:hover .dev-button {
@@ -309,10 +303,10 @@ async function checkAuthStatus() {
   border-radius: 8px;
   padding: 15px;
   color: white;
-  width: 250px;
+  width: 100%;
+  box-sizing: border-box;
   backdrop-filter: blur(8px);
-  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.5);
-  margin-bottom: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 .dev-menu h4 {

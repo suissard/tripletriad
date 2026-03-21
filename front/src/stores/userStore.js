@@ -15,7 +15,8 @@ export const useUserStore = defineStore('user', {
         avatar_card: null,
         coins: 0,
         gems: 0,
-        dust: 0
+        dust: 0,
+        boosters: []
       },
     collection: [],
     collectionLoaded: false,
@@ -104,7 +105,8 @@ export const useUserStore = defineStore('user', {
             // Wallet data
             coins: wallet.coins ?? meRes.coins ?? 0,
             gems: wallet.gems ?? meRes.gems ?? 0,
-            dust: wallet.dust ?? meRes.dust ?? 0
+            dust: wallet.dust ?? meRes.dust ?? 0,
+            boosters: wallet.boosters ?? []
           };
           this.syncLocalUserWallets();
         }
@@ -123,6 +125,7 @@ export const useUserStore = defineStore('user', {
         coins: user.coins || 0,
         gems: user.gems || 0,
         dust: user.dust || 0,
+        boosters: user.boosters || [],
         avatar_card: user.avatar_card || null,
         avatar: user.avatar_card?.image?.url 
           ? `${strapiService.MEDIA_URL}${user.avatar_card.image.url}`
@@ -166,6 +169,7 @@ export const useUserStore = defineStore('user', {
         coins: 0,
         gems: 0,
         dust: 0,
+        boosters: [],
         role: null
       };
       this.isLoggedIn = false;
@@ -197,18 +201,36 @@ export const useUserStore = defineStore('user', {
       if (this.collectionLoaded && !force) return;
 
       try {
-        const result = await strapiService.find('user-cards', {
-          populate: ['card'],
-          pagination: { pageSize: 1000 }
+        let items = [];
+        let page = 1;
+        let pageCount = 1;
+
+        do {
+          const result = await strapiService.find('user-cards', {
+            populate: ['card'],
+            pagination: { page, pageSize: 100 }
+          });
+          
+          const rawItems = this.toArray(result);
+          items = [...items, ...rawItems];
+          
+          const meta = result?.meta?.pagination;
+          pageCount = meta?.pageCount || 1;
+          page++;
+        } while (page <= pageCount);
+
+        this.collection = items.map(item => {
+          const card = item.card?.data || item.card; 
+          return {
+            id: item.id,
+            cardId: card?.id || null,
+            cardDocumentId: card?.documentId || null,
+            quantity: item.quantity,
+            isPremium: !!item.isPremium
+          };
         });
-        const items = this.toArray(result);
-        this.collection = items.map(item => ({
-          id: item.id,
-          cardId: item.card?.id,
-          quantity: item.quantity,
-          isPremium: !!item.isPremium
-        }));
         this.collectionLoaded = true;
+
 
         this.strapiConnected = true;
         this.hasEverConnected = true;
@@ -479,6 +501,7 @@ export const useUserStore = defineStore('user', {
         dust: this.user.dust, 
         coins: this.user.coins,
         gems: this.user.gems,
+        boosters: this.user.boosters,
         role: this.user.role
       };
       localStorage.setItem('tt_user', JSON.stringify(updatedUser));

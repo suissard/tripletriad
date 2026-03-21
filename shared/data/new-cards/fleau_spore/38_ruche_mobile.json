@@ -1,0 +1,15 @@
+{
+  "name": "Ruche Mobile",
+  "description": "Véhicule de commandement transformé en ruche ambulante. Son intérieur est un nid grouillant de larves et d'organismes mineurs qui en sortent par vagues quand la ruche s'ouvre, un essaim vivant prêt à submerger les défenses ennemies.",
+  "element": "spore",
+  "elements": ["spore", "reseau"],
+  "faction": "Fléau Spore",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi grimdark biomechanical horror, large infected command vehicle opening like a hive, swarms of small fungal creatures pouring out, interior glowing green and purple with pulsating larval sacs, mycelium networks connecting to surrounding infected units, highly detailed."
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Entité de la Communion",
+  "description": "Amalgame vivant qui absorbe tout ce qu'il touche.",
+  "element": "spore",
+  "faction": "Héritiers des cendres",
+  "topValue": "8",
+  "rightValue": "8",
+  "bottomValue": "6",
+  "leftValue": "6",
+  "rarity": "Epic",
+  "prompt": "Amorphous living mass of fused bodies, tentacles absorbing enemies, pulsating flesh, post-apocalyptic horror, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "spore"
+  ]
+}

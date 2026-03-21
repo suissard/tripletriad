@@ -1,0 +1,15 @@
+{
+  "name": "La Raie du Courant",
+  "description": "Eclaireur rapide en forme de raie manta, taillé pour exploiter les courants stellaires. Léger, agile et presque silencieux, il vole en formation le long des flottes pélagiques pour transmettre les coordonnées et avertir des menaces.",
+  "element": "eau",
+  "elements": ["eau", "longue_portee", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "3",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "A sleek manta ray shaped small spaceship, wide flat body with swept wing-like fins, translucent sections showing cyan bioluminescent fluid inside, thin trailing antenna, compact mining thrusters at the rear, dark oxidized hull with green patina, halogen eyes on the front, flying through an asteroid field, sci-fi concept art"
+}

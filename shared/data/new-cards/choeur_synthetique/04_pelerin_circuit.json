@@ -1,0 +1,15 @@
+{
+  "name": "Pèlerin Circuit",
+  "description": "Moine guerrier parcourant les lignes de front avec son bâton de pèlerin électrifié. Chaque pas est une méditation, chaque coup un acte de défragmentation cosmique.",
+  "element": "hacking",
+  "elements": ["hacking"],
+  "faction": "Chœur Synthétique",
+  "topValue": "3",
+  "rightValue": "3",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark spiritual art, Le Chœur Synthétique faction. Robot pilgrim monk with electrified walking staff, ragged robes, sparks crackling along the weapon, faceless android, levitating, cinematic lighting, highly detailed"
+}

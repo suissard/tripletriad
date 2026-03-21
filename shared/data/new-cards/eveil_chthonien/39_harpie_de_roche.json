@@ -1,0 +1,17 @@
+{
+  "name": "Harpie de Roche",
+  "description": "Progéniture aérienne rare, capable de planer sur des colonnes de gaz volcanique. Rapide et imprévisible, elle frappe les cibles isolées avant de disparaître dans les cendres.",
+  "element": "furtif",
+  "elements": [
+    "furtif"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "3",
+  "rightValue": "6",
+  "bottomValue": "2",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Dark sci-fi fantasy, winged rock creature gliding on volcanic gas jets, jagged stone body with obsidian wing-like appendages, dark ash clouds, volcanic landscape below, glowing red eyes, swift and predatory, cinematic lighting"
+}

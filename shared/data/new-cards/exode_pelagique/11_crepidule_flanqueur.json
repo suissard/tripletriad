@@ -1,0 +1,15 @@
+{
+  "name": "Crépidule Flanqueur",
+  "description": "Flanqueur mobile propulsé par des jets d'eau comprimée intégrés dans son scaphandre. Il glisse sur le champ de bataille pour frapper les flancs avant de disparaître dans la vapeur.",
+  "element": "eau",
+  "elements": ["eau"],
+  "faction": "Exode pélagique",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "3",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Alien cephalopod flanker in streamlined pressure suit with water jet thrusters on legs and back, mid-glide pose trailing steam and mist, compact plasma pistol in tentacle, dynamic action shot, orange and cyan energy trails"
+}

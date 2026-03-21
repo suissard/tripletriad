@@ -1,0 +1,17 @@
+{
+  "name": "Flagellant Révulsé",
+  "description": "Fanatique auto-mutilé dont chaque cicatrice chante la Chanson Dissonante. Il avance en transe, insensible à la douleur, vers l'ennemi.",
+  "element": "None",
+  "elements": [
+    "None"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "4",
+  "rightValue": "1",
+  "bottomValue": "1",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Scarified ecstatic cultist with self-mutilation marks glowing purple, trance state, rolled-back eyes, rushing forward through rubble, grimdark sci-fi horror, cinematic"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Conducteur",
+  "description": "Véhicule de commandement mobile qui coordonne les essaims de drones sur le terrain. Son toit grouille d'antennes neurales.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Mobile command vehicle, slightly elevated dark grey brutalist chassis with multiple antenna arrays radiating cold blue light, holographic tactical display projecting from roof. Human head visible as computing node in command compartment. Surrounded by synchronized drone infantry. Cinematic lighting, highly detailed."
+}

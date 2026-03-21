@@ -1,0 +1,15 @@
+{
+  "name": "Parasite Armurier",
+  "description": "Ancien ingénieur dont le savoir technique a été partiellement conservé par le mycélium. Il reconfigure les armes ennemies capturées, les fusionnant avec la chair fongique pour en faire des lanceurs d'acide organique.",
+  "element": "spore",
+  "elements": ["spore", "longue_portee"],
+  "faction": "Fléau Spore",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi grimdark biomechanical horror, infected engineer fusing captured enemy weapons with organic fungal biomass, acid dripping from modified gun barrel, glowing green veins along weapon, rotting hands with fungal fingers, highly detailed."
+}

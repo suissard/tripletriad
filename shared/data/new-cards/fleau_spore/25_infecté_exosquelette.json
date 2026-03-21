@@ -1,0 +1,15 @@
+{
+  "name": "Infecté Exosquelette",
+  "description": "Soldat dont l'exosquelette mécanique a été entièrement recouvert par le mycélium. Le métal et la chair ne font plus qu'un, les vérins hydrauliques remplacés par des muscles fongiques capables de soulever des débris de béton.",
+  "element": "spore",
+  "elements": ["spore"],
+  "faction": "Fléau Spore",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi grimdark biomechanical horror, infected soldier in hydraulic exoskeleton fully overtaken by fungal mycelium, metal and flesh fused together, glowing green fungal muscles replacing pistons, lifting concrete debris, bioluminescent growths, highly detailed."
+}

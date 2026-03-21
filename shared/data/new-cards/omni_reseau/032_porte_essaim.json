@@ -1,0 +1,15 @@
+{
+  "name": "Porte-Essaim",
+  "description": "Transport blindé massif capable de déployer des centaines de drones en formation synchronisée. Logistique parfaite, aucun gaspillage.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "6",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Massive rectangular transport vehicle, brutalist dark grey armored box shape, opening rear doors with rows of drone soldiers emerging in perfect formation, cold blue lights from neural antennas on roof. Human head visible through front viewport as computing node. Dystopian, cinematic lighting, highly detailed."
+}

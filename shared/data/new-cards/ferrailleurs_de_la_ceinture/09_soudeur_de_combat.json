@@ -1,0 +1,15 @@
+{
+  "name": "Soudeur de Combat",
+  "description": "Vétéran d'abordage armé d'une lance à plasma et d'un bouclier de trappe. Le premier à monter à l'assaut, le dernier à reculer.",
+  "element": "None",
+  "elements": [],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "2",
+  "rightValue": "3",
+  "bottomValue": "1",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi scrap-punk boarding trooper, heavy patched spacesuit, wielding plasma spear and makeshift hull-plating shield, battle-scarred helmet, boarding action, sparks and smoke"
+}

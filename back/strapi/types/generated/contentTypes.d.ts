@@ -471,7 +471,7 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
     faction: Schema.Attribute.Enumeration<
       [
         'neutre',
-        'H\u00E9gemonie martienne',
+        'H\u00E9g\u00E9monie martienne',
         'Exode p\u00E9lagique',
         'H\u00E9ritiers des cendres',
         'Omni-R\u00E9seau',
@@ -1080,12 +1080,14 @@ export interface ApiStoryStepStoryStep extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
     endDialogue: Schema.Attribute.Component<'story.dialogue', true>;
+    enemyDeck: Schema.Attribute.Relation<'oneToOne', 'api::deck.deck'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::story-step.story-step'
     > &
       Schema.Attribute.Private;
+    playerDeck: Schema.Attribute.Relation<'oneToOne', 'api::deck.deck'>;
     publishedAt: Schema.Attribute.DateTime;
     rewardCards: Schema.Attribute.Relation<'manyToMany', 'api::card.card'>;
     startDialogue: Schema.Attribute.Component<'story.dialogue', true>;
@@ -1184,6 +1186,7 @@ export interface ApiWalletWallet extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    boosters: Schema.Attribute.JSON & Schema.Attribute.DefaultTo<[]>;
     coins: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMax<

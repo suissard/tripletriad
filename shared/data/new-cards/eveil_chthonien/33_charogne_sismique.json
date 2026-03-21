@@ -1,0 +1,17 @@
+{
+  "name": "Charogne Sismique",
+  "description": "Mastodonte rampant dont le corps émet des pulses sismiques continus. Désorganise les formations ennemies et fissure les sols avant l'assaut des progénitures plus petites.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Dark sci-fi fantasy, massive quadrupedal rock beast sending seismic waves through the ground, cracked tectonic hide, glowing red fault lines, ground shattering in concentric rings around it, dust and debris, epic battlefield, cinematic lighting"
+}

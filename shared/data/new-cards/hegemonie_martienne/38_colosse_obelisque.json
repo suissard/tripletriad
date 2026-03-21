@@ -1,0 +1,15 @@
+{
+  "name": "Colosse Obélisque",
+  "description": "Méca bipède lourd de 15 mètres au profil monolithique. Double canon plasma dorsal et poings hydrauliques. Marche inexorablement vers l'ennemi, pilonnant tout sur son passage. La colère de l'Hégémonie incarnée.",
+  "element": "obsidienne",
+  "elements": ["obsidienne", "longue_portee"],
+  "faction": "Hégémonie martienne",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Massive 15-meter bipedal mech with monolithic obelisk torso, twin dorsal plasma cannons, hydraulic fists, striding through devastated cityscape, red energy pulsing from joints."
+}

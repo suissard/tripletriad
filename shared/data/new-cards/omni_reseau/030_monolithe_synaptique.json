@@ -1,0 +1,15 @@
+{
+  "name": "Monolithe Synaptique",
+  "description": "Lourde unité d'appui renforcée, véritable forteresse mobile. Ses implants surdimensionnés font de lui un mini-relais tactique ambulant.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "5",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Massive reinforced infantry support unit, towering figure in oversized dark grey armor with multiple antenna arrays and cold blue neural light halo, thick black cables like a nest of snakes behind skull. Heavy geometric weapon, standing immovable, dystopian dark battlefield, cinematic lighting, highly detailed."
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Rôdeur Nuageux",
+  "description": "Crée des nuages de gaz radioactif mortels.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "3",
+  "rightValue": "3",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "rarity": "Common",
+  "prompt": "Mutant robed figure releasing toxic radioactive cloud, gas mask, surrounded by green fog, post-apocalyptic wasteland, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

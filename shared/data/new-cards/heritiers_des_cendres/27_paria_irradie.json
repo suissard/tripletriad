@@ -1,0 +1,17 @@
+{
+  "name": "Paria Irradié",
+  "description": "Kamikaze lourd couvert de charges explosives.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "6",
+  "rightValue": "6",
+  "bottomValue": "1",
+  "leftValue": "6",
+  "rarity": "Rare",
+  "prompt": "Mutant covered in explosive charges, running towards enemy, no fear in eyes, intense radiation glow, post-apocalyptic suicide bomber, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

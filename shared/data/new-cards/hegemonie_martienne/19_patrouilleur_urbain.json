@@ -1,0 +1,15 @@
+{
+  "name": "Patrouilleur Urbain",
+  "description": "Fantassin de combat rapproché en milieu construit. Agile dans les ruines, impitoyable dans les rues, il traque la vermine maison par maison.",
+  "element": "furtif",
+  "elements": ["furtif"],
+  "faction": "Hégémonie martienne",
+  "topValue": "2",
+  "rightValue": "1",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Urban patrol soldier in angular crimson armor clearing a ruined building doorway, compact submachine railgun, tense CQB stance."
+}

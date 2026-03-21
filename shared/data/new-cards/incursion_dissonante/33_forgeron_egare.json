@@ -1,0 +1,17 @@
+{
+  "name": "Forgeron Égaré",
+  "description": "Char d'assaut possédé dont la tourelle tourne d'elle-même, pointant vers les ennemis avant même qu'ils n'apparaissent. La vision psychique du pilote mort prédit les trajectoires.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Possessed tank with turret turning on its own toward invisible enemies, dead crew inside with purple glowing eyes, barrel warped by dimensional distortion, psychic prediction aura, grimdark sci-fi"
+}

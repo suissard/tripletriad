@@ -1,0 +1,18 @@
+{
+  "name": "Gravoir Dimensionnel",
+  "description": "Accumulateur de débris compacts formant un cube massif et lévitant. Sa face inférieure dévore la matière en la convertissant en énergie psychique alimentant les Échos Majeurs.",
+  "element": "radiation",
+  "elements": [
+    "radiation",
+    "obsidienne"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Massive levitating cube of compacted debris, bottom face consuming matter and converting to purple psychic energy, radiating dimensional radiation, impossible geometry surface, cosmic horror grimdark"
+}

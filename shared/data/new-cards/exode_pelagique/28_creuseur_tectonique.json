@@ -1,0 +1,15 @@
+{
+  "name": "Creuseur Tectonique",
+  "description": "Sapeur lourd équipé de foreuses thermiques rotatives. Il creuse des tunnels en pleine bataille pour surgir derrière les lignes ennemies, crachant plasma et débris.",
+  "element": "eau",
+  "elements": ["eau", "longue_portee", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Stocky alien cephalopod in reinforced mining suit with twin rotary thermal drills mounted on arms, orange rust heavy plating, dirt and plasma debris spraying, cyan helmet glow, earth-shaking stance, industrial sci-fi combat art"
+}

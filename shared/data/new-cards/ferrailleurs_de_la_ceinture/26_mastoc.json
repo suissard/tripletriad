@@ -1,0 +1,15 @@
+{
+  "name": "Le Mastoc",
+  "description": "Réparé tant de fois qu'il est plus patchwork que chair. Ses plaques d'armure entassées font de lui une forteresse ambulante. Lent comme une station, dur comme l'acier.",
+  "element": "None",
+  "elements": [],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi scrap-punk heavily armored infantry, layers upon layers of mismatched metal plates, signage panels, welded patches, duct tape binding everything, hulking stance, visor glowing faintly through cracks, grimy industrial backdrop, cinematic, highly detailed"
+}

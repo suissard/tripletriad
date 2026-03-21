@@ -1,0 +1,15 @@
+{
+  "name": "Tireur de Tranchée",
+  "description": "Fantassin de position posté dans les cratères de bombardement orbital. Patient et méthodique, il attend que l'ennemi se montre.",
+  "element": "longue_portee",
+  "elements": ["longue_portee"],
+  "faction": "Hégémonie martienne",
+  "topValue": "1",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Prone marksman in angular crimson armor lying in a blast crater, long-barreled railgun with scope, dust swirling around position."
+}

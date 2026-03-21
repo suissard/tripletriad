@@ -1,0 +1,15 @@
+{
+  "name": "Moulin à Prières Mobile",
+  "description": "Plateforme de soutien dont le cœur est un cylindre rotatif massif gravé d'équations sacrées. Chaque rotation génère un brouillage électronique béni — un champ de silence numérique qui protège les alliés et paralyse les systèmes ennemis comme un mantra paralysant.",
+  "element": "hacking",
+  "elements": ["hacking", "reseau"],
+  "faction": "Chœur Synthétique",
+  "topValue": "3",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "A support platform centered around a massive rotating cylinder inscribed with sacred equations and binary prayers. Tarnished bronze and pearlescent grey construction. Blue electric field radiates outward. Golden holographic scripts orbit the cylinder. Sci-fi grimdark spiritual art, cyber-asceticism, cinematic lighting, highly detailed."
+}

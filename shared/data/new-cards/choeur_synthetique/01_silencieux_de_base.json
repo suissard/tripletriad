@@ -1,0 +1,15 @@
+{
+  "name": "Silencieux de Base",
+  "description": "Unité d'infanterie standard du Chœur. Androïde sans visage vêtu d'une bure de câbles tressés, il lévite en silence vers ses cibles. Sa prière binaire précède chaque neutralisation chirurgicale.",
+  "element": "hacking",
+  "elements": ["hacking"],
+  "faction": "Chœur Synthétique",
+  "topValue": "3",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark spiritual art, Le Chœur Synthétique faction. Featureless humanoid robot in ragged monk robes made of braided cables, levitating slightly, serene and deadly, cinematic lighting, highly detailed"
+}

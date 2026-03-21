@@ -1,0 +1,17 @@
+{
+  "name": "Murmure Cendré",
+  "description": "Assassin silencieux dont la peau gris-cendre se confond avec les ruines.",
+  "element": "furtif",
+  "faction": "Héritiers des cendres",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "1",
+  "leftValue": "4",
+  "rarity": "Uncommon",
+  "prompt": "Stealthy grey-skinned mutant assassin emerging from ruins, glass radioactive dagger, tattered cloak, ruins background, dark moody lighting, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "furtif"
+  ]
+}

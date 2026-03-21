@@ -1,0 +1,17 @@
+{
+  "name": "Roue de l'Apocalypse",
+  "description": "Roue géante incendiaire qui fauche tout sur son passage.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "5",
+  "rightValue": "8",
+  "bottomValue": "2",
+  "leftValue": "4",
+  "rarity": "Rare",
+  "prompt": "Giant flaming wheel vehicle with blades, fire spewing, rolling through enemies, post-apocalyptic, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Valve Dépressive",
+  "description": "Tireur d'élite pélagique armé d'un lance-harpon à longue portée propulsé par une détente brusque de pression. Le projectile transperce les blindages légers avant que la cible n'entende le sifflement.",
+  "element": "longue_portee",
+  "elements": ["longue_portee", "eau"],
+  "faction": "Exode pélagique",
+  "topValue": "2",
+  "rightValue": "1",
+  "bottomValue": "1",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Alien cephalopod sniper in sleek pressure suit, kneeling with a long pneumatic harpoon rifle, massive valve mechanism visible on the weapon, single glowing eye in glass helmet, steam hissing from weapon barrel, cinematic pose"
+}

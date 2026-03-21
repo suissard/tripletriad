@@ -1,0 +1,15 @@
+{
+  "name": "Mur de Pression",
+  "description": "Bouclier vivant en scaphandre massif doté d'un générateur d'ondes de choc. Il avance lentement et repousse tout ce qui approche par murs de force hydraulique.",
+  "element": "eau",
+  "elements": ["eau", "longue_portee", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Massive squat alien cephalopod in bulkiest diving suit imaginable, enormous front-mounted shockwave generator plate, hydraulic pistons on all limbs, cyan pressure rings visible around body, steam explosion effect, dark industrial heavy armor design"
+}

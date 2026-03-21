@@ -1,0 +1,15 @@
+{
+  "name": "Cyclotron des Courants",
+  "description": "Générateur de vortex aquatiques monté sur chenilles massives. Il crée des cyclones d'eau ionisée de plusieurs centaines de mètres, aspirant et broyant tout ce qui se trouve dans son rayon d'action. Arme de siège ultime des Nomades des Abysses.",
+  "element": "eau",
+  "elements": ["eau", "longue_portee", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "9",
+  "rightValue": "6",
+  "bottomValue": "8",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Massive four-story siege engine on heavy tank treads, central turbine column spiraling with cyan bioluminescent water vortex, copper cooling coils visible and cracked, orange plasma leaking from joints, pressure valves spraying steam, surrounded by swirling water cyclone, rust-orange and dark metallic hull, cephalopod operators in glass tanks, dramatic stormy atmosphere, epic concept art"
+}

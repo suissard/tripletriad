@@ -1,0 +1,17 @@
+{
+  "name": "Techno-Chamane Mineur",
+  "description": "Prêtre mutant qui manipule des reliques mineures.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "4",
+  "rightValue": "3",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "rarity": "Uncommon",
+  "prompt": "Mutant shaman with reinforced robes, holding a glowing relic staff, radioactive aura, post-apocalyptic temple, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

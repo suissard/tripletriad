@@ -1,0 +1,17 @@
+{
+  "name": "Cendrier Sentinelle",
+  "description": "Quadrupède couvert de cendres volcaniques, immobile comme un rocher jusqu'à ce qu'une proie s'approche. Attaque par embuscade.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "1",
+  "rightValue": "2",
+  "bottomValue": "3",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Dark sci-fi fantasy, quadrupedal creature covered in volcanic ash camouflage, crouching like a boulder, glowing eyes revealing its presence, rocky hide, ambush predator pose, highly detailed"
+}

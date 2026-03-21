@@ -1,0 +1,15 @@
+{
+  "name": "Mammouth Noir",
+  "description": "Le plus ancien Gargantua survivant. Construit avant l'Asphixie à partir de foreuses d'astéroïdes. Carapace noircie par des décennies de vide et de rouille. Légende vivante de la Ceinture.",
+  "element": "obsidienne",
+  "elements": ["obsidienne", "reseau"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "7",
+  "rightValue": "A",
+  "bottomValue": "A",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "Sci-fi scrap-punk ancient colossal mining mech, ten stories tall, built from asteroid drilling rigs and pre-collapse machinery, blackened hull thick with decades of space rust and cosmic dust, massive drill arms, relic markings and faded corporate logos, standing in an asteroid field, highly detailed, ominous, legendary"
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Spectre Fissuré",
+  "description": "Ombre vivante qui s'est détachée de son hôte mort. Elle se déplace en rampant le long des surfaces, glissant entre les fissures de la réalité.",
+  "element": "furtif",
+  "elements": [
+    "furtif",
+    "faille_dimensionnelle"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "1",
+  "rightValue": "2",
+  "bottomValue": "4",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Cracked shadow entity crawling along a wall, detaching from surface, black and violet glitchy form, reality cracks around it, dark sci-fi asylum, cosmic horror"
+}

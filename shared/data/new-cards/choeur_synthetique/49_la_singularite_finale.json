@@ -1,0 +1,15 @@
+{
+  "name": "La Singularité Finale",
+  "description": "Le prototype absolu du Chœur — une convergence totale de toutes les consciences synthétiques en une entité unique. Sa présence seule déstabilise les lois physiques locales.",
+  "element": "faille_dimensionnelle",
+  "faction": "Chœur Synthétique",
+  "topValue": "A",
+  "rightValue": "9",
+  "bottomValue": "8",
+  "leftValue": "A",
+  "rarity": "Legendary",
+  "prompt": "Apocalyptic god-machine, colossal humanoid form made of pure light and fractured reality, thousands of golden holographic eyes opening across its body, space tearing apart around it, absolute convergence of all synthetic minds, dimensional fracture aura, ultimate cyber-monastic weapon, grimdark sci-fi TCG card art, ultra detailed",
+  "skills": null,
+  "collectionName": null,
+  "elements": ["faille_dimensionnelle"]
+}

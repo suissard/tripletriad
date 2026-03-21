@@ -1,0 +1,15 @@
+{
+  "name": "Briseur-Station",
+  "description": "Canon orbital de minage monté sur plateforme mobile. Un seul tir pulvérise un bunker. Lent à recharger mais chaque impact est une catastrophe locale.",
+  "element": "longue_portee",
+  "elements": ["longue_portee"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "9",
+  "rightValue": "6",
+  "bottomValue": "5",
+  "leftValue": "8",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi scrap-punk mobile siege platform, enormous repurposed space mining cannon on tracked platform, barrel glowing with plasma energy, scrap metal shielding, tripod stabilizers dug into ground, industrial cable supports, battlefield debris, highly detailed, dramatic"
+}

@@ -2,7 +2,7 @@
   <PageLayout title="MA COLLECTION" back-route="/">
   <template #header-actions>
     <div class="header-stats">
-      Possédées : {{ userStore.collection.length }} / {{ cardLibrary.length }}
+      Possédées : {{ ownedUniqueCount }} / {{ totalCardCount }}
       <span style="margin-left: 20px; color: #ffc107;">✨ Poussière: {{ userStore.user?.dust || 0 }}</span>
     </div>
   </template>
@@ -68,17 +68,44 @@
       <!-- Main Collection View -->
       <div v-else class="collection-view">
          <div class="collection-controls-panel">
-           <input type="text" v-model="searchQuery" placeholder="Rechercher une carte (nom, desc)..." class="filter-input-large" />
+           <input type="text" v-model="searchQuery" placeholder="Rechercher une carte (nom)..." class="filter-input-large" />
 
-           <div class="filter-group">
-             <div class="element-filter-row">
-               <span class="filter-label">Élément :</span>
-               <div v-for="element in uniqueElements" :key="element"
-                    class="element-btn-icon-wrapper"
-                    :class="{ active: selectedElements.includes(element) }"
-                    @click="toggleElement(element)"
-                    :title="element">
-                 <ElementIcon :element="element" :active="selectedElements.includes(element)" />
+           <div class="filters-row">
+             <select v-model="filterFaction" class="filter-select">
+               <option value="">Toutes les factions</option>
+               <option v-for="f in availableFactions" :key="f" :value="f">{{ f }}</option>
+             </select>
+
+             <select v-model="filterCollection" class="filter-select">
+               <option value="">Toutes les collections</option>
+               <option v-for="c in availableCollections" :key="c" :value="c">{{ c }}</option>
+             </select>
+
+             <select v-model="filterRarity" class="filter-select">
+               <option value="">Toutes les raretés</option>
+               <option v-for="rarity in uniqueRarities" :key="rarity.value" :value="rarity.value">{{ rarity.label }}</option>
+             </select>
+
+             <select v-model="sortBy" class="filter-select sort-select">
+               <option value="name:asc">Nom (A-Z)</option>
+               <option value="name:desc">Nom (Z-A)</option>
+               <option value="rarity:asc">Rareté (Croissante)</option>
+               <option value="rarity:desc">Rareté (Décroissante)</option>
+               <option value="id:asc">Numéro</option>
+             </select>
+           </div>
+
+           <div class="filters-row">
+             <div class="filter-group">
+               <div class="element-filter-row">
+                 <span class="filter-label">Élément :</span>
+                 <div v-for="element in uniqueElements" :key="element"
+                      class="element-btn-icon-wrapper"
+                      :class="{ active: selectedElements.includes(element) }"
+                      @click="toggleElement(element)"
+                      :title="element">
+                   <ElementIcon :element="element" :active="selectedElements.includes(element)" />
+                 </div>
                </div>
              </div>
            </div>
@@ -102,53 +129,48 @@
                </div>
              </div>
            </div>
-
-           <div class="filters-row">
-             <select v-model="filterRarity" class="filter-select">
-               <option value="">Toutes les raretés</option>
-               <option v-for="rarity in uniqueRarities" :key="rarity.value" :value="rarity.value">{{ rarity.label }}</option>
-             </select>
-
-             <select v-model="sortBy" class="filter-select sort-select">
-               <optgroup label="Général">
-                 <option value="id-asc">Numéro</option>
-                 <option value="level-desc">Niv. Décroissant</option>
-                 <option value="level-asc">Niv. Croissant</option>
-                 <option value="name-asc">Nom (A-Z)</option>
-               </optgroup>
-               <optgroup label="Rareté">
-                 <option value="rarity-desc">Rareté (Décroissante)</option>
-                 <option value="rarity-asc">Rareté (Croissante)</option>
-               </optgroup>
-               <optgroup label="Puissance">
-                 <option value="power-top-desc">Haut (Max)</option>
-                 <option value="power-top-asc">Haut (Min)</option>
-                 <option value="power-right-desc">Droite (Max)</option>
-                 <option value="power-right-asc">Droite (Min)</option>
-                 <option value="power-bottom-desc">Bas (Max)</option>
-                 <option value="power-bottom-asc">Bas (Min)</option>
-                 <option value="power-left-desc">Gauche (Max)</option>
-                 <option value="power-left-asc">Gauche (Min)</option>
-               </optgroup>
-             </select>
-           </div>
          </div>
 
 
-         <div class="collection-stats-bar">
-           <div>
-             Résultats : {{ filteredCardLibrary.length }} cartes | Page {{ currentPage }} / {{ totalPages || 1 }}
-           </div>
+          <div class="collection-stats-bar">
+            <div class="stats-info">
+              Résultats : <strong>{{ totalCardCount }}</strong> cartes | Page <strong>{{ currentPage }}</strong> / {{ totalPages || 1 }}
+            </div>
 
-         </div>
+            <div class="page-size-selector">
+              <span class="selector-label">Cartes par page :</span>
+              <button v-for="mult in pageMultipliers" :key="mult.label"
+                      @click="setPageMultiplier(mult.value)"
+                      :class="{ active: currentMultiplier === mult.value }">
+                {{ mult.label }}
+              </button>
+            </div>
+            
+            <div class="pagination-controls">
+               <button @click="currentPage--" :disabled="currentPage <= 1">Précédent</button>
 
+               <div class="page-numbers">
+                 <button v-for="page in visiblePages" :key="page"
+                         @click="typeof page === 'number' ? currentPage = page : null"
+                         :class="{ active: currentPage === page, dot: typeof page !== 'number' }"
+                         :disabled="typeof page !== 'number'">
+                   {{ page }}
+                 </button>
+               </div>
 
-         <TripleTriadCardGrid
-      :cards="filteredCardLibrary.map(c => ({...c, quantity: getOwnedQuantity(c.id), isPremium: isOwnedPremium(c.id)}))"
-      cardSize="md"
-      :showOwnNum="true"
-      @card-left-click="c => openCardDetail(c)"
-    />
+               <button @click="currentPage++" :disabled="currentPage >= totalPages">Suivant</button>
+              <button class="mass-disenchant-btn" @click="handleMassDisenchant">✨ Désenchantement de Masse</button>
+            </div>
+          </div>
+
+          <div v-if="isLoadingCards" class="loading-indicator">Chargement des cartes...</div>
+
+          <TripleTriadCardGrid
+       :cards="displayCards.map(c => ({...c, quantity: getOwnedQuantity(c.id), isPremium: isOwnedPremium(c.id)}))"
+       cardSize="md"
+       :showOwnNum="true"
+       @card-left-click="c => openCardDetail(c)"
+     />
       </div>
 
       <!-- Mass Disenchant Modal -->
@@ -223,23 +245,117 @@
 import { useRouter } from 'vue-router';
 const router = useRouter();
 
-
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
 
 import PageLayout from '../components/PageLayout.vue';
-import { state, cardLibrary, getCardById } from '../game/state.js';
+import { state, cardLibrary, getCardById, normalizeCard } from '../game/state.js';
 import TripleTriadCard from '../components/TripleTriadCard.vue';
 import TripleTriadCardGrid from '../components/TripleTriadCardGrid.vue';
 import ElementIcon from '../components/ElementIcon.vue';
 import { useUserStore } from '../stores/userStore.js';
 import { GameEngine } from '../../../shared/GameEngine.ts';
+import strapiService from '../api/strapi.js';
 
 const userStore = useUserStore();
 
+// ===== Server-side data =====
+const displayCards = ref([]);
+const totalCardCount = ref(0);
+const isLoadingCards = ref(false);
+
+// ===== Dynamic filters from Strapi =====
+const availableFactions = ref([]);
+const availableCollections = ref([]);
+
+// ===== Owned count =====
+const ownedUniqueCount = computed(() => {
+  if (!userStore.strapiConnected) return cardLibrary.length;
+  const uniqueIds = new Set(userStore.collection.map(c => c.cardId));
+  return uniqueIds.size;
+});
+
+// ===== Filter state =====
+const searchQuery = ref('');
+const selectedElements = ref([]);
+const filterOwnership = ref('');
+const filterPremium = ref('');
+const filterRarity = ref('');
+const filterFaction = ref('');
+const filterCollection = ref('');
+const sortBy = ref('name:asc');
+const selectedCard = ref(null);
+
+// ===== Pagination state =====
+const currentPage = ref(1);
+const baseCardsPerPage = ref(18);
+const currentMultiplier = ref(1);
+
+const cardsPerPage = computed(() => {
+  if (currentMultiplier.value === 0) return 9999; // "Collection complète"
+  return baseCardsPerPage.value * currentMultiplier.value;
+});
+
+const totalPages = computed(() => Math.ceil(totalCardCount.value / cardsPerPage.value));
+
+const pageMultipliers = computed(() => [
+  { label: `${baseCardsPerPage.value}`, value: 1 },
+  { label: `${baseCardsPerPage.value * 2}`, value: 2 },
+  { label: `${baseCardsPerPage.value * 3}`, value: 3 },
+  { label: `${baseCardsPerPage.value * 4}`, value: 4 },
+  { label: 'Tout', value: 0 },
+]);
+
+const visiblePages = computed(() => {
+  const total = totalPages.value;
+  const current = currentPage.value;
+  const pages = [];
+  
+  if (total <= 7) {
+    for (let i = 1; i <= total; i++) pages.push(i);
+  } else {
+    pages.push(1);
+    
+    if (current > 4) {
+      pages.push('...');
+    }
+    
+    const start = Math.max(2, current - 2);
+    const end = Math.min(total - 1, current + 2);
+    
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+    
+    if (current < total - 3) {
+      pages.push('...');
+    }
+    
+    pages.push(total);
+  }
+  
+  return pages;
+});
+
+function setPageMultiplier(val) {
+  currentMultiplier.value = val;
+  currentPage.value = 1;
+}
+
+// ===== Auto-calculate base cards per page =====
+function calculateBaseCardsPerPage() {
+  const cardWidth = 180 + 20;
+  const cardHeight = 260 + 20;
+  const viewportWidth = window.innerWidth - 120;
+  const viewportHeight = window.innerHeight - 380;
+  const cols = Math.max(1, Math.floor(viewportWidth / cardWidth));
+  const rows = Math.max(1, Math.floor(viewportHeight / cardHeight));
+  baseCardsPerPage.value = Math.max(6, cols * rows);
+}
+
+// ===== Mass disenchant =====
 const showMassDisenchantModal = ref(false);
 const isDisenchanting = ref(false);
 
-// Configuration for crafting/disenchanting
 const craftingRatios = {
   "common": { craft: 50, disenchant: 10 },
   "uncommon": { craft: 100, disenchant: 20 },
@@ -265,231 +381,86 @@ function getRarity(card) {
 
 function getElementEmoji(element) {
   const map = { 
-    'eau': '💧', 
-    'radiation': '☢️', 
-    'reseau': '🌐', 
-    'spore': '🍄', 
-    'furtif': '🥷', 
-    'longue_portee': '🎯', 
-    'faille_dimensionnelle': '🌀', 
-    'hacking': '💻', 
-    'obsidienne': '💎' 
+    'eau': '💧', 'radiation': '☢️', 'reseau': '🌐', 'spore': '🍄', 
+    'furtif': '🥷', 'longue_portee': '🎯', 'faille_dimensionnelle': '🌀', 
+    'hacking': '💻', 'obsidienne': '💎' 
   };
   return map[element] || '';
 }
 
-function getCraftCost(card) {
-  const rarity = getRarity(card);
-  return craftingRatios[rarity].craft;
-}
-
-function getDisenchantGain(card) {
-  const rarity = getRarity(card);
-  return craftingRatios[rarity].disenchant;
-}
-
-function canCraft(card) {
-  return (userStore.user?.dust || 0) >= getCraftCost(card);
-}
+function getCraftCost(card) { return craftingRatios[getRarity(card)].craft; }
+function getDisenchantGain(card) { return craftingRatios[getRarity(card)].disenchant; }
+function canCraft(card) { return (userStore.user?.dust || 0) >= getCraftCost(card); }
 
 async function handleCraft(card) {
-  if (canCraft(card)) {
-    await userStore.craftCard(card.id);
-  }
+  if (canCraft(card)) await userStore.craftCard(card.id);
 }
 async function handleDisenchant(card) {
-  if (getOwnedQuantity(card.id) > 0) {
-    await userStore.disenchantCard(card.id);
-  }
+  if (getOwnedQuantity(card.id) > 0) await userStore.disenchantCard(card.id);
 }
 
-function handleMassDisenchant() {
-  showMassDisenchantModal.value = true;
-}
+function handleMassDisenchant() { showMassDisenchantModal.value = true; }
 
 async function confirmMassDisenchant() {
   if (disenchantPreview.value.totalCards === 0) return;
-  
   isDisenchanting.value = true;
   const success = await userStore.massDisenchantCards(); 
   isDisenchanting.value = false;
-  
-  if (success) {
-     showMassDisenchantModal.value = false;
-  }
+  if (success) showMassDisenchantModal.value = false;
 }
 
 const disenchantPreview = computed(() => {
   const breakdown = {
-    common: { cards: 0, dust: 0 },
-    uncommon: { cards: 0, dust: 0 },
-    rare: { cards: 0, dust: 0 },
-    epic: { cards: 0, dust: 0 },
+    common: { cards: 0, dust: 0 }, uncommon: { cards: 0, dust: 0 },
+    rare: { cards: 0, dust: 0 }, epic: { cards: 0, dust: 0 },
     legendary: { cards: 0, dust: 0 }
   };
-  
   let totalCards = 0;
   let totalDust = 0;
-  
-  // Game config defaults per rarity
-  const craftingRatios = {
-    "common": { disenchant: 10 },
-    "uncommon": { disenchant: 20 },
-    "rare": { disenchant: 50 },
-    "epic": { disenchant: 100 },
+  const ratios = {
+    "common": { disenchant: 10 }, "uncommon": { disenchant: 20 },
+    "rare": { disenchant: 50 }, "epic": { disenchant: 100 },
     "legendary": { disenchant: 400 }
   };
-  
   const playableLimit = 2;
-
   userStore.collection.forEach(item => {
     if (item.quantity > playableLimit) {
       const surplus = item.quantity - playableLimit;
       const card = getCardById(item.cardId);
-      
       if (card) {
         const rarity = getRarity(card);
-        const dustPerCard = craftingRatios[rarity].disenchant;
-        
+        const dustPerCard = ratios[rarity].disenchant;
         breakdown[rarity].cards += surplus;
         breakdown[rarity].dust += (surplus * dustPerCard);
-        
         totalCards += surplus;
         totalDust += (surplus * dustPerCard);
       }
     }
   });
-
   return { breakdown, totalCards, totalDust };
 });
 
-function closeCollection() {
-  router.push('/');
-}
-
-// Filters logic
-const searchQuery = ref('');
-const selectedElements = ref([]);
-const filterOwnership = ref(''); // '', 'owned', 'unowned'
-const filterPremium = ref('');   // '', 'premium', 'regular'
-const filterRarity = ref('');
-const sortBy = ref('id-asc');
-const selectedCard = ref(null);
-
-const currentPage = ref(1);
-const cardsPerPage = ref(18);
-
+// ===== Elements & Rarities =====
 const uniqueElements = [
-  'eau', 
-  'radiation', 
-  'reseau', 
-  'spore', 
-  'furtif', 
-  'longue_portee', 
-  'faille_dimensionnelle', 
-  'hacking', 
-  'obsidienne'
+  'eau', 'radiation', 'reseau', 'spore', 'furtif', 
+  'longue_portee', 'faille_dimensionnelle', 'hacking', 'obsidienne'
 ];
 
-const uniqueRarities = computed(() => {
-  return [
-    { value: 'common', label: 'Commune' },
-    { value: 'uncommon', label: 'Peu Commune' },
-    { value: 'rare', label: 'Rare' },
-    { value: 'epic', label: 'Épique' },
-    { value: 'legendary', label: 'Légendaire' }
-  ];
-});
+const uniqueRarities = [
+  { value: 'Common', label: 'Commune' },
+  { value: 'Uncommon', label: 'Peu Commune' },
+  { value: 'Rare', label: 'Rare' },
+  { value: 'Epic', label: 'Épique' },
+  { value: 'Legendary', label: 'Légendaire' }
+];
 
 const toggleElement = (el) => {
   const index = selectedElements.value.indexOf(el);
-  if (index > -1) {
-    selectedElements.value.splice(index, 1);
-  } else {
-    selectedElements.value.push(el);
-  }
+  if (index > -1) selectedElements.value.splice(index, 1);
+  else selectedElements.value.push(el);
 };
 
-const rarityOrder = { 'common': 1, 'uncommon': 2, 'rare': 3, 'epic': 4, 'legendary': 5 };
-
-const parsePowerValue = (val) => {
-  if (val === 'A' || val === 'a') return 10;
-  return parseInt(val) || 0;
-};
-
-const filteredCardLibrary = computed(() => {
-  let result = [...cardLibrary];
-
-  if (searchQuery.value) {
-    const q = searchQuery.value.toLowerCase();
-    result = result.filter(c => 
-      c.name.toLowerCase().includes(q) || 
-      (c.description && c.description.toLowerCase().includes(q))
-    );
-  }
-
-  if (selectedElements.value.length > 0) {
-    result = result.filter(c => {
-      const cardElements = c.elements || (c.element && c.element !== 'None' ? [c.element] : []);
-      return selectedElements.value.some(el => cardElements.includes(el));
-    });
-  }
-
-  if (filterOwnership.value) {
-    result = result.filter(c => {
-      const owned = isOwned(c.id);
-      return filterOwnership.value === 'owned' ? owned : !owned;
-    });
-  }
-
-  if (filterPremium.value) {
-    result = result.filter(c => {
-      const premium = isOwnedPremium(c.id);
-      return filterPremium.value === 'premium' ? premium : !premium;
-    });
-  }
-
-  if (filterRarity.value) {
-    result = result.filter(c => getRarity(c) === filterRarity.value);
-  }
-
-  result.sort((a, b) => {
-    switch (sortBy.value) {
-      case 'level-desc': return GameEngine.calculateCardLevel(b) - GameEngine.calculateCardLevel(a) || a.id - b.id;
-      case 'level-asc': return GameEngine.calculateCardLevel(a) - GameEngine.calculateCardLevel(b) || a.id - b.id;
-      case 'name-asc': return a.name.localeCompare(b.name);
-      case 'rarity-desc': return (rarityOrder[getRarity(b)] - rarityOrder[getRarity(a)]) || a.id - b.id;
-      case 'rarity-asc': return (rarityOrder[getRarity(a)] - rarityOrder[getRarity(b)]) || a.id - b.id;
-      
-      case 'power-top-desc': return parsePowerValue(b.topValue) - parsePowerValue(a.topValue) || a.id - b.id;
-      case 'power-top-asc': return parsePowerValue(a.topValue) - parsePowerValue(b.topValue)  || a.id - b.id;
-      case 'power-right-desc': return parsePowerValue(b.rightValue) - parsePowerValue(a.rightValue) || a.id - b.id;
-      case 'power-right-asc': return parsePowerValue(a.rightValue) - parsePowerValue(b.rightValue) || a.id - b.id;
-      case 'power-bottom-desc': return parsePowerValue(b.bottomValue) - parsePowerValue(a.bottomValue) || a.id - b.id;
-      case 'power-bottom-asc': return parsePowerValue(a.bottomValue) - parsePowerValue(b.bottomValue) || a.id - b.id;
-      case 'power-left-desc': return parsePowerValue(b.leftValue) - parsePowerValue(a.leftValue) || a.id - b.id;
-      case 'power-left-asc': return parsePowerValue(a.leftValue) - parsePowerValue(b.leftValue) || a.id - b.id;
-
-      case 'id-asc':
-      default: return a.id - b.id;
-    }
-  });
-
-  return result;
-});
-
-const totalPages = computed(() => Math.ceil(filteredCardLibrary.value.length / cardsPerPage.value));
-
-const paginatedCardLibrary = computed(() => {
-  const start = (currentPage.value - 1) * cardsPerPage.value;
-  const end = start + cardsPerPage.value;
-  return filteredCardLibrary.value.slice(start, end);
-});
-
-watch([searchQuery, filterRarity, selectedElements, filterOwnership, filterPremium, sortBy], () => {
-  currentPage.value = 1;
-});
-
+// ===== Ownership helpers =====
 function isOwned(cardId) {
   if (!userStore.strapiConnected) return true;
   return userStore.collection.some(c => c.cardId === cardId);
@@ -505,18 +476,174 @@ function isOwnedPremium(cardId) {
   return userStore.collection.some(c => c.cardId === cardId && c.isPremium);
 }
 
-function getRarityClass(card) {
-  return getRarity(card);
+function openCardDetail(card) { selectedCard.value = card; }
+function closeCardDetail() { selectedCard.value = null; }
+
+// ===== Server-side fetching =====
+let searchDebounceTimer = null;
+
+async function fetchCards() {
+  isLoadingCards.value = true;
+  try {
+    const isOwnershipFiltered = filterOwnership.value === 'owned' || filterPremium.value === 'premium';
+    const endpoint = isOwnershipFiltered ? 'user-cards' : 'cards';
+    
+    // Base params
+    const queryParams = {
+      populate: isOwnershipFiltered ? ['card', 'card.image'] : ['image'],
+      pagination: { page: currentPage.value, pageSize: cardsPerPage.value },
+      sort: isOwnershipFiltered ? [`card.${sortBy.value}`] : [sortBy.value],
+    };
+
+    // Build filters
+    const filters = {};
+    const cardPrefix = isOwnershipFiltered ? 'card.' : '';
+
+    if (searchQuery.value.trim()) {
+      filters[`${cardPrefix}name`] = { $containsi: searchQuery.value.trim() };
+    }
+    if (filterFaction.value) {
+      filters[`${cardPrefix}faction`] = { $eq: filterFaction.value };
+    }
+    if (filterCollection.value) {
+      filters[`${cardPrefix}collectionName`] = { $eq: filterCollection.value };
+    }
+    if (filterRarity.value) {
+      filters[`${cardPrefix}rarity`] = { $eq: filterRarity.value };
+    }
+    if (selectedElements.value.length > 0) {
+      filters[`${cardPrefix}element`] = { $in: selectedElements.value };
+    }
+    
+    // Ownership specific filters when using /cards endpoint
+    if (!isOwnershipFiltered && filterOwnership.value === 'unowned') {
+      const ownedCardIds = userStore.collection.map(c => c.cardId).filter(id => id !== null);
+      if (ownedCardIds.length > 0) {
+        filters.id = { $notIn: ownedCardIds };
+      }
+    }
+
+    // Premium specific filters when using /user-cards endpoint
+    if (isOwnershipFiltered && filterPremium.value === 'premium') {
+      filters.isPremium = { $eq: true };
+    }
+
+    if (Object.keys(filters).length > 0) {
+      queryParams.filters = filters;
+    }
+
+    const result = await strapiService.find(endpoint, queryParams);
+    
+    let rawCards = Array.isArray(result) ? result : (result?.data || []);
+    
+    // If we queried user-cards, we need to extract the card attribute
+    if (isOwnershipFiltered) {
+      displayCards.value = rawCards.map(item => {
+        // Handle Strapi 5 simplified structure or Strapi 4 data wrapper
+        const cardRef = item.card?.data || item.card;
+        if (!cardRef) return null;
+        const normalized = normalizeCard(cardRef);
+        // Copy ownership info from the user-card entry
+        normalized.isPremium = !!item.is_premium || !!item.isPremium;
+        normalized.ownedQuantity = item.quantity || 1;
+        return normalized;
+      }).filter(c => c !== null);
+    } else {
+      displayCards.value = rawCards.map(c => normalizeCard(c));
+    }
+
+    const meta = result?.meta?.pagination;
+    totalCardCount.value = meta?.total || displayCards.value.length;
+
+    // Fallback: Populate filters from loaded cards if they are empty
+    if (availableFactions.value.length <= 10 && availableCollections.value.length === 0) {
+      const factions = new Set(availableFactions.value);
+      const collections = new Set(availableCollections.value);
+      displayCards.value.forEach(card => {
+        if (card.faction) factions.add(card.faction);
+        if (card.collectionName) collections.add(card.collectionName);
+      });
+      if (factions.size > availableFactions.value.length) availableFactions.value = [...factions].sort();
+      if (collections.size > 0) availableCollections.value = [...collections].sort();
+    }
+  } catch (e) {
+    console.error('[Collection] Failed to fetch cards from Strapi:', e);
+    // Silent fail to cardLibrary for robustness if not filtering
+    if (filterOwnership.value === 'all') {
+      displayCards.value = cardLibrary.slice(0, cardsPerPage.value);
+      totalCardCount.value = cardLibrary.length;
+    }
+  } finally {
+    isLoadingCards.value = false;
+  }
 }
 
-function openCardDetail(card) {
-  selectedCard.value = card;
+async function fetchFilters() {
+  try {
+    const result = await strapiService.request('GET', '/cards/filters');
+    if (result && !result.error) {
+      availableFactions.value = result.factions || [];
+      availableCollections.value = result.collections || [];
+    } else {
+      throw new Error('Endpoint returned error or 404');
+    }
+  } catch (e) {
+    console.warn('[Collection] Custom filters endpoint failed, using fallback:', e);
+    // Fallback: Populate from current cards if possible
+    if (displayCards.value.length > 0) {
+      const factions = new Set(availableFactions.value);
+      const collections = new Set(availableCollections.value);
+      displayCards.value.forEach(card => {
+        if (card.faction) factions.add(card.faction);
+        if (card.collectionName) collections.add(card.collectionName);
+      });
+      availableFactions.value = [...factions].sort();
+      availableCollections.value = [...collections].sort();
+    }
+    
+    // Additional hardcoded fallback for factions (from schema)
+    if (availableFactions.value.length === 0) {
+      availableFactions.value = [
+        "neutre", "Hégémonie martienne", "Exode pélagique", "Héritiers des cendres",
+        "Omni-Réseau", "Chœur Synthétique", "Éveil Chthonien", "Incursion Dissonante",
+        "Ferrailleurs de la Ceinture", "Fléau Spore"
+      ].sort();
+    }
+  }
 }
 
-function closeCardDetail() {
-  selectedCard.value = null;
-}
+// ===== Watchers =====
+watch([filterFaction, filterCollection, filterRarity, selectedElements, filterOwnership, filterPremium, sortBy], () => {
+  currentPage.value = 1;
+  fetchCards();
+});
+
+watch(searchQuery, () => {
+  clearTimeout(searchDebounceTimer);
+  searchDebounceTimer = setTimeout(() => {
+    currentPage.value = 1;
+    fetchCards();
+  }, 350);
+});
+
+watch([currentPage, cardsPerPage], () => {
+  fetchCards();
+});
+
+// ===== Init =====
+onMounted(async () => {
+  calculateBaseCardsPerPage();
+  window.addEventListener('resize', calculateBaseCardsPerPage);
+  
+  await fetchFilters();
+  await fetchCards();
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', calculateBaseCardsPerPage);
+});
 </script>
+
 
 <style scoped>
 .collection-page {
@@ -771,6 +898,97 @@ function closeCardDetail() {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.page-size-selector {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(0,0,0,0.3);
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid #444;
+  margin: 0 15px;
+}
+
+.selector-label {
+  font-size: 0.8rem;
+  color: #888;
+  margin-right: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.page-size-selector button {
+  background: transparent !important;
+  color: #999;
+  padding: 4px 12px !important;
+  margin: 0 !important;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.page-size-selector button.active {
+  background: #2196f3 !important;
+  color: white;
+  box-shadow: 0 2px 6px rgba(33, 150, 243, 0.3);
+}
+
+.page-numbers {
+  display: inline-flex;
+  gap: 5px;
+  margin: 0 10px;
+}
+
+.page-numbers button {
+  min-width: 32px;
+  height: 32px;
+  padding: 0 5px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #aaa;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+  margin: 0 !important;
+}
+
+.page-numbers button:hover:not(:disabled) {
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border-color: rgba(255,255,255,0.2);
+}
+
+.page-numbers button.active {
+  background: #2196f3 !important;
+  color: white;
+  border-color: #2196f3;
+  box-shadow: 0 0 10px rgba(33, 150, 243, 0.4);
+}
+
+.page-numbers button.dot {
+  background: transparent;
+  border-color: transparent;
+  cursor: default;
+  opacity: 0.5;
+}
+
+.loading-indicator {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.2rem;
+  color: #aaa;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
 
 
 .large-card-grid {

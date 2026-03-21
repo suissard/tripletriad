@@ -1,0 +1,15 @@
+{
+  "name": "Piqueur Grav",
+  "description": "Mineur orbital recyclé en soldat de fortune. Son foret gravitationnel arrache le métal et les chairs avec la même indifférence utilitaire.",
+  "element": "None",
+  "elements": [],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "2",
+  "rightValue": "1",
+  "bottomValue": "1",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi scrap-punk human infantry miner, bulky patched spacesuit covered in duct tape and cables, wielding a modified gravitic mining drill, rusty metal background, grimy industrial aesthetic, cinematic lighting"
+}

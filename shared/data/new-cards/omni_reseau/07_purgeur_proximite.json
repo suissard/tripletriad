@@ -1,0 +1,15 @@
+{
+  "name": "Purgeur de Proximité",
+  "description": "Corps à corps calculé. Le Purgeur charge avec une lame chauffante intégrée au bras, tranchant chair et métal sans un cri. L'Architecte ne gaspille pas de munitions quand l'acier suffit.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "3",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Melee drone soldier with heated blade integrated into forearm, pale blank face, black neural cables. Dark grey armored gauntlets, orange heat glow from blade edge. Close combat stance, dystopian, highly detailed."
+}

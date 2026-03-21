@@ -243,10 +243,11 @@ export function makeCardMesh(data, initialOwner) {
 
 export function refillHand(owner) {
     const hand = owner === 'player' ? state.pHand : state.aiHand;
+    const deck = owner === 'player' ? state.pDeck : state.aiDeck;
     const zPos = owner === 'player' ? 7 : -9;
 
-    while (hand.length < 3 && state.deck.length > 0) {
-        const mesh = makeCardMesh(state.deck.pop(), owner);
+    while (hand.length < 3 && deck.length > 0) {
+        const mesh = makeCardMesh(deck.pop(), owner);
         mesh.position.set(12, 5, zPos);
         if (owner === 'ai') mesh.rotation.y = Math.PI;
         scene.add(mesh);

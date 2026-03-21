@@ -1,0 +1,17 @@
+{
+  "name": "Le Silo Vivant",
+  "description": "Silo de lancement devenu une entité vivante.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "A",
+  "rightValue": "7",
+  "bottomValue": "9",
+  "leftValue": "A",
+  "rarity": "Legendary",
+  "prompt": "Living nuclear silo, concrete walls with flesh, launching missiles, organic technology, apocalyptic, post-apocalyptic, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

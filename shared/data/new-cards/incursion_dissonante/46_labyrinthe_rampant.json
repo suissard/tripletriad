@@ -1,0 +1,18 @@
+{
+  "name": "Labyrinthe Rampant",
+  "description": "Structure fractale mobile faite de murs et couloirs qui se reconfigurent en permanence. Les ennemis piégés à l'intérieur se perdent dans un espace plus grand que l'extérieur.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle",
+    "hacking"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "8",
+  "rightValue": "5",
+  "bottomValue": "6",
+  "leftValue": "9",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Self-reconfiguring fractal maze the size of a fortress, walls shifting and rearranging constantly, corridors opening and closing, trapped soldiers visible inside, impossible non-Euclidean architecture, cosmic horror grimdark sci-fi"
+}

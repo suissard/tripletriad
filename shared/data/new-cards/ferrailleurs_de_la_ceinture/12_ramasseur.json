@@ -1,0 +1,15 @@
+{
+  "name": "Ramasseur",
+  "description": "Ferrailleur d'avant-garde qui collecte le matériel ennemi en pleine bataille. Pour lui, chaque corps est une réserve de pièces détachées.",
+  "element": "None",
+  "elements": [],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi scrap-punk scavenger infantry, overloaded spacesuit bulging with salvaged gear and pouches, carrying sack of parts, helmet with scratched visor, battlefield looting scene"
+}

@@ -6,13 +6,15 @@ export default factories.createCoreController('api::user-card.user-card', ({ str
     const user = ctx.state.user;
     if (!user) return ctx.unauthorized('You must be logged in.');
 
-    // Use DB query directly to bypass REST filter validation issues
-    const result = await strapi.db.query('api::user-card.user-card').findMany({
-        where: { user: user.id },
-        populate: ['card']
-    });
+    // Ensure we only see our own cards
+    ctx.query.filters = {
+      ...(ctx.query.filters as any || {}),
+      user: user.id
+    };
 
-    return { data: result };
+    // Use the default find implementation but with our filter forced
+    const { data, meta } = await super.find(ctx);
+    return { data, meta };
   },
 
   async disenchant(ctx) {

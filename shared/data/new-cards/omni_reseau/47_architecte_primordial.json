@@ -1,0 +1,15 @@
+{
+  "name": "Architecte Primordial",
+  "description": "Forteresse ambulante de dix étages, incarnation physique de l'Architecte sur le champ de bataille. Son réseau neural commande des millions de drones simultanément. Détruire cette chose, c'est décapiter l'essaim.",
+  "element": "reseau",
+  "elements": ["reseau", "hacking", "longue_portee"],
+  "faction": "Omni-Réseau",
+  "topValue": "9",
+  "rightValue": "8",
+  "bottomValue": "8",
+  "leftValue": "9",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Colossal walking command fortress, 10-story tall dark grey monolithic rectangular structure on massive multi-legged platform, enormous satellite dish crown and hundreds of antenna spires, cold blue neural nexus glow from core, data streams visible as blue light trails connecting to distant drones. Human skulls and faces embedded across entire surface as computing lattice. Barcode serials enormous on flanks. Swarm of drones orbiting it. Cinematic lighting, ultra detailed."
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Fouineur",
+  "description": "Voleur silencieux formé à l'infiltration dans les carcasses spatiales. Ses capteurs détectent les cachettes et les pièges avant qu'il ne soit trop tard.",
+  "element": "furtif",
+  "elements": ["furtif"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "1",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi scrap-punk infiltrator, dark slim spacesuit with sensor goggles, moving stealthily through derelict station corridor, cables and debris, eerie green sensor glow, cinematic shadows"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "La Plateforme du Synode",
+  "description": "Station-relais mobile du Synode Biologique, arrachée aux fonds océaniques et propulsée dans l'espace. Cœur névralgique du réseau pélagique, elle amplifie les signaux psioniques des Tisseuses de Courants à travers tout le système solaire.",
+  "element": "reseau",
+  "elements": ["eau", "longue_portee", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "6",
+  "rightValue": "8",
+  "bottomValue": "6",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "A massive space station built from a converted ocean drilling platform, multiple interconnected spherical habitats filled with luminous cyan water, large antenna arrays and bio-organic signal dishes, connected by thick ribbed pipes and exposed cabling, steam clouds around thrusters, dark weathered metal with bright bioluminescent accents, floating in orbit above a planet"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Harponneur Lourd",
+  "description": "Canon cinétique artisanal monté sur épaule, récupéré d'un outil de minage. Un seul tir perfore deux rangées d'infanterie. Le recul lui disloque l'épaule, mais il s'en fout.",
+  "element": "longue_portee",
+  "elements": ["longue_portee"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "5",
+  "rightValue": "2",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi scrap-punk heavy infantry with shoulder-mounted kinetic cannon, modified mining tool, bulky reinforced spacesuit with ammo belts and battery packs duct-taped to armor, recoil-bracing stance, orbital debris background, highly detailed"
+}

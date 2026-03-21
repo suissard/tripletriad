@@ -1,0 +1,15 @@
+{
+  "name": "Torchon",
+  "description": "Soldat du rang, le plus commun des ferrailleurs en armes. Pas brillant, pas rapide, mais coriace comme de la tôle rouillée et tout aussi difficile à entamer.",
+  "element": "None",
+  "elements": [],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "1",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi scrap-punk basic infantry soldier, standard patched spacesuit with makeshift armor plates, rusty assault rifle, slouched posture, gritty battlefield, industrial debris"
+}

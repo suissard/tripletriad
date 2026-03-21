@@ -1,0 +1,15 @@
+{
+  "name": "Épurateur à Flamme",
+  "description": "Spécialiste de la purification fongique. Son lance-flammes industriel carbonise tout contaminé spore sans qu'un murmure ne s'échappe de ses lèvres. L'Architecte a décidé : le feu est la seule hygiène.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "1",
+  "rightValue": "3",
+  "bottomValue": "2",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Pale cyborg soldier wielding heavy industrial flamethrower, black neural cables on spine, cold blue chip glow. Orange fire jet, standardized dark grey armor with burn marks. Dystopian purge atmosphere, highly detailed."
+}

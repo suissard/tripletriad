@@ -1,0 +1,17 @@
+{
+  "name": "Cathédrale Putride",
+  "description": "Un bâtiment d'habitation entier réanimé par le mycélium, marchant sur des colonnes de lianes palpitantes. Ses fenêtres crachent des nuages de spores et ses étages inférieurs abritent des nids grouillants de larves fongiques.",
+  "element": "spore",
+  "elements": [
+    "spore"
+  ],
+  "faction": "Fléau Spore",
+  "topValue": "8",
+  "rightValue": "7",
+  "bottomValue": "6",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi grimdark biomechanical horror, Le Fléau Spore faction. Walking ruined city building animated by fungal mycelium, windows leaking purple toxic spores, massive roots and tendrils acting as legs, bioluminescent fungal growths on walls, crumbling concrete overtaken by alien mushroom colonies, highly detailed, cinematic."
+}

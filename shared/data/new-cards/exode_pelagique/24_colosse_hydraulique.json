@@ -1,0 +1,15 @@
+{
+  "name": "Colosse Hydraulique",
+  "description": "Mastodonte en exosquelette minier quadruple vérin. Ses bras mécaniques broient les fortifications tandis que son réservoir dorsal pulvérise un brouillard de plasma chaud.",
+  "element": "eau",
+  "elements": ["eau", "longue_portee", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "5",
+  "rightValue": "3",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Enormous alien cephalopod in oversized hydraulic mining exoskeleton, four massive pistons as limbs, rust orange heavy plating, giant spherical water-filled head dome, plasma sprayer backpack, steam clouds, brutal industrial sci-fi design"
+}

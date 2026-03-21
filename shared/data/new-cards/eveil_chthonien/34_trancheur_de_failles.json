@@ -1,0 +1,17 @@
+{
+  "name": "Trancheur de Failles",
+  "description": "Crature serpentine rapide dont les arêtes d'obsidienne tranchent l'acier comme du papier. Glisse sur la surface et frappe en passant, ouvrant des brèches dans les lignes ennemies.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "5",
+  "rightValue": "2",
+  "bottomValue": "4",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Dark sci-fi fantasy, sleek serpentine rock creature with razor-sharp obsidian edges along its body, slithering at high speed, cutting through metal barriers, dark volcanic stone, glowing red eyes, dynamic motion, cinematic lighting"
+}

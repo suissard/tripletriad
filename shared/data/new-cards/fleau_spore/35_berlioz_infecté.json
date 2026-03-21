@@ -1,0 +1,15 @@
+{
+  "name": "Berlioz Infecté",
+  "description": "Bulldozer massif dont la lame a été fusionnée avec de la chitine géante. Il ouvre des brèches dans les fortifications en écrasant les murs, son moteur remplacé par un cœur fongique battant au rythme du réseau mycélien.",
+  "element": "spore",
+  "elements": ["spore"],
+  "faction": "Fléau Spore",
+  "topValue": "6",
+  "rightValue": "3",
+  "bottomValue": "6",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi grimdark biomechanical horror, massive infected bulldozer with blade fused with giant chitine plates, fungal heart engine visible through cracked hull, smashing through concrete wall, bioluminescent green pulsing veins, dust and spore cloud, highly detailed."
+}

@@ -5,7 +5,7 @@
       <div class="coins-display">
         🪙 {{ userCoins }} Pièces
       </div>
-      <button class="btn btn-secondary glass-panel px-3 py-1" @click="$emit('close')">X</button>
+      <button class="btn btn-secondary glass-panel px-3 py-1" @click="handleClose">X</button>
     </div>
 
     <div class="shop-content" v-if="!isOpening && !openedCards.length">
@@ -69,6 +69,9 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
 import { ref, computed, onMounted } from 'vue';
 
 import strapiService from '../api/strapi.js';
@@ -141,6 +144,11 @@ const revealCard = (index) => {
   if (openedCards.value[index]) {
     openedCards.value[index].revealed = true;
   }
+};
+
+const handleClose = () => {
+    emit('close');
+    router.push('/');
 };
 
 const allRevealed = computed(() => {

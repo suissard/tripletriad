@@ -11,7 +11,6 @@
     <AlertMessage />
     <NotificationToast />
     <ConfirmationModal />
-    <DevOptions />
   </template>
 </template>
 
@@ -21,7 +20,6 @@ import AppLayout from './layouts/AppLayout.vue';
 import NotificationToast from "./components/NotificationToast.vue";
 import AlertMessage from './components/AlertMessage.vue';
 import ConfirmationModal from './components/ConfirmationModal.vue';
-import DevOptions from './admin/components/DevOptions.vue';
 import { loadCardsFromStrapi } from './game/state.js';
 import { useUserStore } from './stores/userStore.js';
 import { useNotificationStore } from './stores/notificationStore.js';

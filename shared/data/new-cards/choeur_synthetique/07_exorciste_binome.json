@@ -1,0 +1,15 @@
+{
+  "name": "Exorciste Binaire",
+  "description": "Artiste du cyber-exorcisme. Ses mains projettent des équations binaires lumineuses qui désarment les systèmes ennemis comme un exorciste chasse les démons. Chaque opération est un rituel.",
+  "element": "hacking",
+  "elements": ["hacking", "reseau"],
+  "faction": "Chœur Synthétique",
+  "topValue": "4",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark spiritual art, Le Chœur Synthétique faction. Android monk with hands emitting golden binary code streams, ritualistic combat pose, holographic equations floating around, faceless metallic mask, cinematic lighting, highly detailed"
+}

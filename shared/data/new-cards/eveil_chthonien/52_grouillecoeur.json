@@ -1,0 +1,18 @@
+{
+  "name": "Grouillecœur",
+  "description": "Ruche vivante souterraine dont le corps rocheux abrite des milliers de progénitures. Il sert de transport et de ruchère mobile, déversant des essaims dévastateurs sur les positions ennemies.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne",
+    "spore"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "3",
+  "rightValue": "4",
+  "bottomValue": "6",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Dark sci-fi fantasy, epic scale. A massive hunched creature made of porous volcanic rock, its body riddled with holes and tunnels from which thousands of smaller rocky creatures swarm. Glowing magma veins illuminate the tunnel network within. Its shell is cracked obsidian revealing a hive-like interior. Swarm creatures of various sizes emerge in waves. Dust and debris, dramatic lighting, highly detailed."
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Cassier",
+  "description": "Bélier humain qui démolit les portes blindées et les barricades à coups de masse hydraulique. La diplomatie par la force brute.",
+  "element": "None",
+  "elements": [],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "3",
+  "rightValue": "1",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi scrap-punk heavy breacher infantry, massive spacesuit with reinforced plating, wielding hydraulic sledgehammer, engine grease war paint on face, charging pose, debris background"
+}

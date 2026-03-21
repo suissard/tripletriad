@@ -1,0 +1,17 @@
+{
+  "name": "Reliquaire Ambulant",
+  "description": "Cultiste portant sur son dos un fragment de mur d'asile psychiatrique gravé de symboles dimensionnels. Le fragment lévite légèrement au-dessus de ses épaules.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "3",
+  "rightValue": "1",
+  "bottomValue": "3",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Cultist carrying a levitating fragment of asylum wall with alien symbols, broken concrete floating above shoulders, purple dimensional energy, cosmic horror, grimdark"
+}

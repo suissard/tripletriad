@@ -1,0 +1,15 @@
+{
+  "name": "Fantassin de Choc",
+  "description": "Élément de la première vague de débarquement. Largué en capsule blindée, il ouvre la brèche que l'Hégémonie exploite ensuite.",
+  "element": "None",
+  "elements": ["None"],
+  "faction": "Hégémonie martienne",
+  "topValue": "3",
+  "rightValue": "2",
+  "bottomValue": "1",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Shock trooper emerging from a drop pod with heavy angular armor, large rectangular shield and railgun, smoke and debris around, explosive impact behind."
+}

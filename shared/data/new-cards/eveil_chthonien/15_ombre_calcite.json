@@ -1,0 +1,17 @@
+{
+  "name": "Ombre Calcite",
+  "description": "Créature translucide de calcite pure, presque invisible dans la poussière. Elle frappe par surprise avant de se dissoudre dans le sol.",
+  "element": "furtif",
+  "elements": [
+    "furtif"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "3",
+  "rightValue": "1",
+  "bottomValue": "1",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Dark sci-fi fantasy, translucent crystalline calcite creature nearly invisible in dust cloud, ghostly mineral form, faint internal glow, striking from ambush, dust and ash filled air, highly detailed"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "L'Aberration Ultime",
+  "description": "Entité apocalyptique faite de milliers de corps fusionnés.",
+  "element": "spore",
+  "faction": "Héritiers des cendres",
+  "topValue": "8",
+  "rightValue": "A",
+  "bottomValue": "A",
+  "leftValue": "8",
+  "rarity": "Legendary",
+  "prompt": "Ultimate aberration, thousands of fused bodies forming a massive entity, tentacles, multiple faces, apocalyptic horror, post-apocalyptic, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "spore"
+  ]
+}

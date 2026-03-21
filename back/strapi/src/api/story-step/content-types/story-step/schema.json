@@ -40,6 +40,16 @@
       "relation": "manyToMany",
       "target": "api::card.card",
       "inversedBy": "storyStepsRewardedFrom"
+    },
+    "playerDeck": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::deck.deck"
+    },
+    "enemyDeck": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::deck.deck"
     }
   }
 }

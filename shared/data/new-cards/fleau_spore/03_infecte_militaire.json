@@ -1,0 +1,15 @@
+{
+  "name": "Infecté Militaire",
+  "description": "Soldat dont l'armure standard est fracturée de l'intérieur par une croissance fongique fulgurante. Il conserve un rudiment de discipline tactique hérité de son corps hôte.",
+  "element": "spore",
+  "elements": ["spore"],
+  "faction": "Fléau Spore",
+  "topValue": "3",
+  "rightValue": "2",
+  "bottomValue": "3",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark biomechanical horror, infected military soldier. Standard military armor cracked and split open from inside by rapid fungal growth. Mycelium tendrils bursting through shoulder plates and helmet visor. Face partially visible under fungal overlay, one eye replaced by glowing green mushroom. Holding rusted assault rifle fused with organic fungal barrel. Spore mist. Cinematic lighting, highly detailed."
+}

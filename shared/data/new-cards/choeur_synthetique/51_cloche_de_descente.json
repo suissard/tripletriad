@@ -1,0 +1,15 @@
+{
+  "name": "Cloche de Descente",
+  "description": "Module d'assaut orbital en forme de cloche tibétaine géante. En tombant vers la surface, il émet une fréquence de résonance qui neutralise les systèmes électroniques adverses. À l'impact, il libère un escadron de silencieux prêts au combat rapproché.",
+  "element": "hacking",
+  "elements": ["hacking", "longue_portee"],
+  "faction": "Chœur Synthétique",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "7",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Giant Tibetan bell-shaped drop pod descending through atmosphere, ornate bronze surface inscribed with glowing golden binary scripture, shockwave rings expanding outward, contained lightning arcing along its rim, ceramic white interior visible through cracked panels, cyber-monastic assault craft, grimdark sci-fi TCG card art, cinematic descent angle, highly detailed"
+}

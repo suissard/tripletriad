@@ -1,0 +1,15 @@
+{
+  "name": "Vigie des Données",
+  "description": "Sentinelle avancée postée sur les points névralgiques du réseau du Chœur. Ses multiples capteurs balayent le spectre électromagnétique sans relâche. Rien ne lui échappe.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Chœur Synthétique",
+  "topValue": "2",
+  "rightValue": "4",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark spiritual art, Le Chœur Synthétique faction. Tall android sentinel with multiple sensor arrays on head and shoulders, monastic robes, scanning holographic visor, faceless, standing guard, cinematic lighting, highly detailed"
+}

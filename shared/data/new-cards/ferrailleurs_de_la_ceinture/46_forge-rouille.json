@@ -1,0 +1,15 @@
+{
+  "name": "Forge-Rouille",
+  "description": "Atelier de guerre mobile sur chenilles. Ses forges produisent munitions et pièces en continu au front. Autonome, brutale, elle recycle même les carcasses ennemies en armes.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "7",
+  "rightValue": "7",
+  "bottomValue": "6",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi scrap-punk mobile war forge, massive tracked factory vehicle with smokestacks and molten metal pouring, conveyor belts feeding scrap into furnaces, welding sparks and orange glow, scrap armor plating, functional brutalist design, highly detailed, industrial atmosphere"
+}

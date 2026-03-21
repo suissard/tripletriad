@@ -1,0 +1,17 @@
+{
+  "name": "Amas Glitch",
+  "description": "Morceaux d'un immeuble arrachés au sol et maintenus en lévitation par une anomalie gravitationnelle. Des ombres vivantes s'y agrippent et projettent des ondes de terreur.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Floating mass of building debris levitating chaotically, living shadows clinging to concrete slabs, purple gravity anomaly field, pieces of walls and rebar orbiting, cosmic horror grimdark sci-fi, cinematic"
+}

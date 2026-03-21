@@ -1,0 +1,15 @@
+{
+  "name": "Forgeon Céleste",
+  "description": "Atelier de construction orbital sur chenilles, il érige des bunkers et des antennes en heures. Là où il passe, l'infrastructure de l'Architecte pousse comme une cicatrice.",
+  "element": "reseau",
+  "elements": ["reseau", "hacking"],
+  "faction": "Omni-Réseau",
+  "topValue": "6",
+  "rightValue": "8",
+  "bottomValue": "7",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Massive construction walker, 4-story tall rectangular dark grey mobile factory on wide tracks, extending robotic arms assembling prefabricated walls, welding sparks orange against cold blue neural indicators, blueprint holographic displays projecting from hull. Partially built bunker trailing behind. Human heads visible as worker coordination nodes. Barcode markings. Cinematic lighting, highly detailed."
+}

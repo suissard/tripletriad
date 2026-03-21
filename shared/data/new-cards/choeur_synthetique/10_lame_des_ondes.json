@@ -1,0 +1,15 @@
+{
+  "name": "Lame des Ondes",
+  "description": "Assassin numérique dont les ondes sonores parfaites — héritées des cloches tibétaines — servent d'arme de mêlée. Le son déformé par ses mains transperce les blindages.",
+  "element": "furtif",
+  "elements": ["furtif", "hacking"],
+  "faction": "Chœur Synthétique",
+  "topValue": "4",
+  "rightValue": "2",
+  "bottomValue": "3",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark spiritual art, Le Chœur Synthétique faction. Lean android assassin monk with sonic blade weapon, concentric wave patterns visible, dark monastic hood, matte silver body, faceless, cinematic lighting, highly detailed"
+}

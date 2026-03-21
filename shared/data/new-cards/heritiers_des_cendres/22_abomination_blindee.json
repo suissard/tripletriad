@@ -1,0 +1,17 @@
+{
+  "name": "Abomination Blindée",
+  "description": "Mutant massif fusionné avec des plaques de blindage.",
+  "element": "obsidienne",
+  "faction": "Héritiers des cendres",
+  "topValue": "7",
+  "rightValue": "5",
+  "bottomValue": "7",
+  "leftValue": "4",
+  "rarity": "Rare",
+  "prompt": "Massive mutant abomination with armor plates fused into flesh, multiple arms, towering over others, post-apocalyptic battlefield, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "obsidienne"
+  ]
+}

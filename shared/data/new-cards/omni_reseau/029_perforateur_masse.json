@@ -1,0 +1,15 @@
+{
+  "name": "Perforateur Masse-Effectif",
+  "description": "Fantassin renforcé anti-matériel. Ses implants optimisent le tir pour percer blindages et fortifications en synchronisation avec d'autres unités.",
+  "element": "reseau",
+  "elements": ["reseau", "longue_portee"],
+  "faction": "Omni-Réseau",
+  "topValue": "2",
+  "rightValue": "7",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Reinforced anti-material infantry sniper, heavy dark grey armor prone position, massive geometric long rifle with cold blue optic glow, thick black cables from weapon to spine implant. Dead emotionless eye visible in scope, dark battlefield, cinematic lighting, highly detailed."
+}

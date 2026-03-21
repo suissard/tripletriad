@@ -1,0 +1,15 @@
+{
+  "name": "Colosse Chitineux",
+  "description": "Ancien soldat lourd dont le corps a été broyé et reformé par des couches successives de chitine fongique. Il avance lentement mais écrase tout sur son passage, les plaques d'armure craquant sous la pression du mycélium intérieur.",
+  "element": "spore",
+  "elements": ["spore"],
+  "faction": "Fléau Spore",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi grimdark biomechanical horror, massive infected soldier encased in thick layered chitine fungal armor plates, glowing green mycelium veins pulsing under cracked armor, toxic spore fog surrounding, bioluminescent purple fungal growths on shoulders, cinematic lighting, highly detailed."
+}

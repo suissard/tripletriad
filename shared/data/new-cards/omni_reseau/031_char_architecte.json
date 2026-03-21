@@ -1,0 +1,15 @@
+{
+  "name": "Char Architecte",
+  "description": "Tank de commandement mobile, nœud secondaire du réseau neural. Son blindage brutiste abrite un serveur tactique portatif.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Brutalist command tank, monolithic rectangular dark grey hull, perfect symmetry, cold blue antenna array on top, barcode serial markings on armor plate. Human head partially integrated into hull serving as computing node. Dystopian battlefield, cinematic lighting, highly detailed."
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Murmure Blindé",
+  "description": "Guerre-psychique protégée par une carapace de débris métalliques flottants. Sa voix télépathique provoque des hémorragies cérébrales à courte portée.",
+  "element": "radiation",
+  "elements": [
+    "radiation"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Female psychic warrior surrounded by floating metal debris forming armor, telepathic purple waves emanating from mouth, split-open skull revealing purple energy, cosmic horror grimdark sci-fi"
+}

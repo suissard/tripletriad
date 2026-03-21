@@ -1,0 +1,15 @@
+{
+  "name": "Ptérygopode Tireur",
+  "description": "Tireur de précision à longue portée armé d'un canon à geyser modifié. Le projectile de plasma surchauffé traverse les lignes ennemies en laissant un sillage de vapeur aveuglante.",
+  "element": "longue_portee",
+  "elements": ["longue_portee", "eau"],
+  "faction": "Exode pélagique",
+  "topValue": "1",
+  "rightValue": "1",
+  "bottomValue": "1",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Alien cephalopod marksman prone with oversized geyser cannon, cracked focusing lens glowing orange, cooling coils wrapped around weapon, massive steam vent, intense focused eye visible through thick glass helmet, long range battlefield"
+}

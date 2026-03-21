@@ -1,0 +1,15 @@
+{
+  "name": "Moine-Bouclier",
+  "description": "Mur de feu numérique incarné. Ses champs magnétiques projettent un mandala holographique défensif qui absorbe les tirs. Le mur du Chœur est aussi un temple.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Chœur Synthétique",
+  "topValue": "3",
+  "rightValue": "1",
+  "bottomValue": "4",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark spiritual art, Le Chœur Synthétique faction. Defensive robot monk projecting large holographic mandala shield, golden geometric patterns absorbing fire, wide stance, faceless ceramic plate, cinematic lighting, highly detailed"
+}

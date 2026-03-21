@@ -1,0 +1,17 @@
+{
+  "name": "Fanatique Blindé",
+  "description": "Cultiste encasquée dans une armure lourde récupérée sur un soldat ennemi. La distorsion dimensionnelle tord les plaques de métal comme de la cire, les faisant flotter autour du corps.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "4",
+  "rightValue": "3",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Heavily armored cultist with plates of enemy armor warping around their body like wax, floating metal shards, purple glitch energy, rolled-back eyes, cosmic horror, grimdark sci-fi, cinematic lighting"
+}

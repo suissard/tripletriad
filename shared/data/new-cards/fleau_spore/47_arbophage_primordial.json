@@ -1,0 +1,18 @@
+{
+  "name": "Arbophage Primordial",
+  "description": "Un titan végétal ancien dont le tronc est un enchevêtrement de cadavres fossilisés par le mycélium. Ses branches-crénelles crachent des orages de spores à travers des kilomètres, et sa cime est une forteresse vivante peuplée de parasites aériens fongiques.",
+  "element": "spore",
+  "elements": [
+    "spore",
+    "longue_portee"
+  ],
+  "faction": "Fléau Spore",
+  "topValue": "9",
+  "rightValue": "9",
+  "bottomValue": "7",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "Sci-fi grimdark biomechanical horror, Le Fléau Spore faction. Enormous ancient tree-like fungal titan, trunk made of fused fossilized human and animal corpses overtaken by mycelium, massive branches firing spore storm clouds across the horizon, crown fortress teeming with small flying fungal parasites, epic scale, highly detailed, cinematic."
+}

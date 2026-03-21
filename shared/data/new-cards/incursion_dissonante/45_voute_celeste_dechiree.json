@@ -1,0 +1,18 @@
+{
+  "name": "Voûte Céleste Déchirée",
+  "description": "Fragment de ciel arraché et compacté en bouclier orbital ambulant. Les étoiles visibles dans sa surface sont en réalité des yeux qui observent et hurlent.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle",
+    "longue_portee"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "6",
+  "rightValue": "7",
+  "bottomValue": "8",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Enormous chunk of torn sky floating as a living shield, stars visible inside are revealed to be screaming eyes, dark cosmic void leaking from cracks, cosmic horror grimdark sci-fi, impossible geometry"
+}

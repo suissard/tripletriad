@@ -1,0 +1,15 @@
+{
+  "name": "Baveur",
+  "description": "Infecté dont le corps suinte une substance visqueuse collante. Les ennemis touchés sont ralentis et marqués, incapables d'échapper à la marée suivante.",
+  "element": "spore",
+  "elements": ["spore"],
+  "faction": "Fléau Spore",
+  "topValue": "1",
+  "rightValue": "2",
+  "bottomValue": "3",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark biomechanical horror, slimy fungal creature. Bloated humanoid body covered in dripping viscous green mucus, trails of slime behind it. Skin translucent showing fungal organs underneath. Arms outstretched dripping sticky substance. Ground coated in thick slime trail. Other creatures stuck in slime nearby. Sickly green glow. Cinematic lighting, highly detailed, disgusting."
+}

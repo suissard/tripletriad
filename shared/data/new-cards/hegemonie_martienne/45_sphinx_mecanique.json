@@ -1,0 +1,15 @@
+{
+  "name": "Sphinx Mécanique",
+  "description": "Marcheur d'assaut rapide lourd. Une anomalie de vitesse pour sa taille, il tourne les positions ennemies par les flancs et écrase les lignes arrière. La question du Sphinx : « Devant ou derrière ? Les deux, simultanément. »",
+  "element": "longue_portee",
+  "elements": ["longue_portee", "furtif"],
+  "faction": "Hégémonie martienne",
+  "topValue": "8",
+  "rightValue": "8",
+  "bottomValue": "4",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Sleek quadrupedal assault walker in mid-stride, digitigrade legs suggesting speed, angular wolf-like silhouette, dual arm-mounted rail cannons, dust trail behind it, predatory low stance, four stories tall, motion blur on legs."
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Bélier de Granit",
+  "description": "Creature massive au crâne de granit renforcé, chargeant comme un bélier vivant. Pulvérise les murs et les véhicules blindés d'un seul impact titanesque.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "6",
+  "rightValue": "4",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Dark sci-fi fantasy, massive quadrupedal rock beast with a reinforced granite skull charging forward, cracking the earth beneath its feet, dark volcanic body, impact debris, fiery red cracks, battlefield destruction, cinematic lighting"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Mère des Catacombes",
+  "description": "Titan foreur reproductif dont le ventre est un nid vivant. Transporte des essaims de progénitures symbiotiques qu'il déploie en surface comme un débarquement biologique.",
+  "element": "spore",
+  "elements": [
+    "spore"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "3",
+  "rightValue": "4",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Dark sci-fi fantasy, enormous burrowing creature with a distended belly full of smaller rock creatures, emerging from underground cave, dozens of offspring pouring out, dark stone body, bioluminescent orange glow, underground cavern, cinematic lighting"
+}

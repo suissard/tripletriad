@@ -1,0 +1,17 @@
+{
+  "name": "Prophète des Ruines",
+  "description": "Oracle irradié qui voit l'avenir dans les retombées nucléaires.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "3",
+  "rightValue": "1",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "rarity": "Uncommon",
+  "prompt": "Mutant prophet with multiple eyes glowing yellow, reading radioactive fallout patterns, floating slightly, mystical pose, ruins background, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

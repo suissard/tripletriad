@@ -1,0 +1,15 @@
+{
+  "name": "Foraminifère Tactique",
+  "description": "Sous-officier pélagique coordonnant les frappes depuis l'arrière. Ses antennes psioniques maintiennent un maillage tactique permanent entre les escouades via le réseau des Tisseuses.",
+  "element": "reseau",
+  "elements": ["reseau", "longue_portee"],
+  "faction": "Exode pélagique",
+  "topValue": "1",
+  "rightValue": "3",
+  "bottomValue": "2",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Alien cephalopod tactical officer in decorated pressure suit with multiple antennae and cable connections, holographic tactical display floating before tentacles, commanding posture, cyan and violet network lines radiating outward"
+}

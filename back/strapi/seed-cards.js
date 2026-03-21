@@ -17,36 +17,51 @@ async function seedCards() {
     const cardsData = JSON.parse(fs.readFileSync(cardsPath, 'utf8'));
     console.log(`${cardsData.length} cartes trouvées dans le JSON.`);
 
-    // Clear existing cards
-    console.log('Suppression des cartes existantes (optionnel, pour avoir une base propre)...');
-    const existingCards = await app.documents('api::card.card').findMany({ limit: 1000 });
-    for (const c of existingCards) {
-        await app.documents('api::card.card').delete({ documentId: c.documentId });
-    }
-
-    console.log('Insertion des cartes...');
+    // Instead of dropping all cards, we will update-or-create by name
+    console.log('Synchronizing cards (updates existing, creates new)...');
+    
     for (let i = 0; i < cardsData.length; i++) {
-        const card = cardsData[i];
+        const cardData = cardsData[i];
 
         try {
-            await app.documents('api::card.card').create({
-                data: {
-                    name: card.name,
-                    description: card.description,
-                    level: card.level,
-                    element: card.element,
-                    elements: Array.isArray(card.elements) ? card.elements : [card.element || 'None'],
-                    faction: card.faction || 'neutre',
-                    topValue: card.topValue,
-                    rightValue: card.rightValue,
-                    bottomValue: card.bottomValue,
-                    leftValue: card.leftValue
-                },
-                status: 'published' // V5 draft & publish (if enabled, though schema says false, doing it just in case)
+            // Check if card already exists by name
+            const existing = await app.documents('api::card.card').findFirst({
+                filters: { name: cardData.name }
             });
-            process.stdout.write(`\rInsertion : ${i + 1}/${cardsData.length} (${card.name})`);
+
+            const payload = {
+                name: cardData.name,
+                description: cardData.description,
+                level: cardData.level,
+                element: cardData.element,
+                elements: Array.isArray(cardData.elements) ? cardData.elements : [cardData.element || 'None'],
+                faction: cardData.faction || 'neutre',
+                topValue: String(cardData.topValue),
+                rightValue: String(cardData.rightValue),
+                bottomValue: String(cardData.bottomValue),
+                leftValue: String(cardData.leftValue),
+                rarity: cardData.rarity || 'Common',
+                collectionName: cardData.collectionName || 'base'
+            };
+
+            if (existing) {
+                await app.documents('api::card.card').update({
+                    documentId: existing.documentId,
+                    data: payload,
+                    status: 'published'
+                });
+            } else {
+                await app.documents('api::card.card').create({
+                    data: payload,
+                    status: 'published'
+                });
+            }
+            
+            if (i % 20 === 0 || i === cardsData.length - 1) {
+                process.stdout.write(`\rProgress : ${i + 1}/${cardsData.length} (${cardData.name})`);
+            }
         } catch (err) {
-            console.error(`\nErreur lors de l'insertion de la carte ${card.name}:`, err.message);
+            console.error(`\nError with card ${cardData.name}:`, err.message);
         }
     }
 

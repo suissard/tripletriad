@@ -1,0 +1,15 @@
+{
+  "name": "Gardien de Matrice",
+  "description": "Défenseur statique chargé de protéger les infrastructures serveur de l'Architecte. Immuable comme le béton qu'il protège.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "4",
+  "rightValue": "3",
+  "bottomValue": "6",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Reinforced infantry guardian standing perfectly still in front of server rack infrastructure, heavy dark grey armor, emotionless face with cold blue neural implant glow, geometric weapon at rest. Massive underground data center background, dystopian, cinematic lighting, highly detailed."
+}

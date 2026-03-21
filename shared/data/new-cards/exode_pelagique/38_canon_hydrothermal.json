@@ -1,0 +1,15 @@
+{
+  "name": "Canon Hydrothermal",
+  "description": "Affût de bombardement monté sur un châssis de crabe. Son canon-geyser concentre la pression des fonds marins en un jet de plasma surchauffé capable de traverser un blockhaus. Long temps de recharge, impact cataclysmique.",
+  "element": "longue_portee",
+  "elements": ["longue_portee", "eau"],
+  "faction": "Exode pélagique",
+  "topValue": "1",
+  "rightValue": "6",
+  "bottomValue": "3",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Alien artillery crab vehicle with enormous geyser cannon barrel, cracked focusing lenses glowing orange-white, copper cooling coils wrapped around barrel, steam erupting from pressure valves, rust-orange armored chassis on crab legs, plasma charge building at muzzle, dark battlefield, halogen targeting lights"
+}

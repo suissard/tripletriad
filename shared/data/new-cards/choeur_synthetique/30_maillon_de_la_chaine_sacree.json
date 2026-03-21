@@ -1,0 +1,15 @@
+{
+  "name": "Maillon de la Chaîne Sacrée",
+  "description": "Unité blindée de liaison entre les nodes du Chœur. Le Maillon projette des câbles magnétiques qui relient les alliés en réseau, partageant les données de combat en temps réel.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Chœur Synthétique",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Grimdark sci-fi, humanoid robot support monk with heavy reinforced armor, magnetic cables extending from its back linking to unseen allies, worn dark robes over bronze and ceramic plating, faceless smooth metallic visor, golden holographic network lines connecting the body to surroundings, cyber-asceticism, connected warrior, cinematic lighting, highly detailed"
+}

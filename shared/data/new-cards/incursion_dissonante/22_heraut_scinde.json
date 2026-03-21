@@ -1,0 +1,17 @@
+{
+  "name": "Héraut Scindé",
+  "description": "Humain possédé dont le corps s'est fendu en deux profils distincts, chacun parlant simultanément dans des langues impossibles. Son armure de plomb dimensionnel le protège des contre-psychiques.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "5",
+  "rightValue": "3",
+  "bottomValue": "2",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Split-faced human cultist with two profiles on one head, heavy lead-lined armor with alien symbols, purple psychic cracks in armor, two mouths speaking simultaneously, dark cosmic horror, grimdark"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Arche de Pierre",
+  "description": "Vaisseau-semaine des Puristes, relique flottante. Ses cales contiennent les dernières archives de l'ancienne Terre — vraies plantes en pot, tableaux, ADN humain intact. Sa perte serait la fin de leur identité.",
+  "element": "reseau",
+  "elements": ["reseau", "obsidienne"],
+  "faction": "Hégémonie martienne",
+  "topValue": "9",
+  "rightValue": "4",
+  "bottomValue": "9",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Sacred heritage vessel, massive blocky monolithic hull with golden-trimmed observation domes, visible green garden terraces behind armored glass sections, ancient Earth artifacts glowing softly inside, heavily defended with layered shields, dignified but imposing orbital ark."
+}

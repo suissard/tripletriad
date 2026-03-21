@@ -1,0 +1,17 @@
+{
+  "name": "Mendiant des Ombres",
+  "description": "Survivant brisé par la folie qui ramasse les fragments d'ombre laissés par les entités. Il les colle à sa peau comme des pansements.",
+  "element": "furtif",
+  "elements": [
+    "furtif"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "2",
+  "rightValue": "1",
+  "bottomValue": "1",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Mad beggar with shadow fragments stuck to skin like bandages, crouching in dark alley, purple faint glow from shadow pieces, ruined city, cosmic horror, grimdark"
+}

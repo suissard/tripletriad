@@ -1,0 +1,17 @@
+{
+  "name": "Chantre des Cendres",
+  "description": "Psalmodie des Textes Sacrés qui affaiblissent l'ennemi mentalement.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "2",
+  "rightValue": "1",
+  "bottomValue": "5",
+  "leftValue": "1",
+  "rarity": "Common",
+  "prompt": "Mutant preacher chanting with arms raised, radioactive glow from mouth, ragged robes, surrounded by candles on bones, post-apocalyptic shrine, grimdark TCG art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

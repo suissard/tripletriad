@@ -1,0 +1,18 @@
+{
+  "name": "Krakatorn",
+  "description": "Colosse bipède dont la carapace tectonique absorbe et renvoie les tirs. Il écrase les lignes ennemies par sa seule masse titanesque, laissant des cratères en fusion sur son passage.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne",
+    "radiation"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "6",
+  "rightValue": "4",
+  "bottomValue": "7",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Dark sci-fi fantasy, epic scale. A towering bipedal volcanic titan, its body covered in thick asymmetric obsidian armor plates with cracks revealing molten magma underneath. Massive stone fists dragging on the ground. Craters of glowing lava trail behind its feet. Smoky volcanic atmosphere, multiple glowing pupilless red eyes in a rocky skull. Hyper-detailed, cinematic."
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Tireur Harpon",
+  "description": "Artilleur de fortune armé d'un canon-harpon de récupération. Perce les coques de vaisseaux et les armures avec la même efficacité brutale.",
+  "element": "longue_portee",
+  "elements": ["longue_portee"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "1",
+  "rightValue": "3",
+  "bottomValue": "1",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi scrap-punk heavy infantry gunner, bulky spacesuit with tool pouches, wielding oversized harpoon cannon made from salvaged mining equipment, sparks and rust, dark orbital debris background"
+}

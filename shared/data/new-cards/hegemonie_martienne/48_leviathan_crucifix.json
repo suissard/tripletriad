@@ -1,0 +1,15 @@
+{
+  "name": "Léviathan Crucifix",
+  "description": "Forteresse de purification roulante. Son fourneau titanesque incinère la terre mutante sous ses pas tandis que ses champs de confinement guident les populations capturées. Pèlerinage de feu, terminus : le néant.",
+  "element": "obsidienne",
+  "elements": ["obsidienne", "radiation"],
+  "faction": "Hégémonie martienne",
+  "topValue": "8",
+  "rightValue": "7",
+  "bottomValue": "8",
+  "leftValue": "8",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Titanic mobile purification furnace on eight massive treads, towering cruciform heat stacks rising ten stories, molten streams pouring from exhaust vents, containment energy fences extending from flanks, hellish orange-red glow from within, scorched wasteland in its wake."
+}

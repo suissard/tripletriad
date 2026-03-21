@@ -1,0 +1,15 @@
+{
+  "name": "Mineur Tectonique",
+  "description": "Foreuse lourde dont le trépan est devenue une boule de chitine vivante. Elle creuse des tunnels souterrains pour le réseau mycélien, ses vibrations alertant le Fléau Spore de la présence de ressources ou d'abris ennemis enfouis.",
+  "element": "spore",
+  "elements": ["spore", "reseau"],
+  "faction": "Fléau Spore",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "6",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi grimdark biomechanical horror, heavy infected drilling vehicle with drill bit replaced by living chitine sphere covered in spinning fungal teeth, drilling through earth leaving glowing green mycelium tunnel behind, vibrating seismic waves, highly detailed."
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Bloc-Forteresse",
+  "description": "Forteresse mobile imprenable. Murs de conteneurs blindés empilés sur chenilles massives. Base avancée inamovible une fois déployée. Aucune finesse, pure résistance.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "9",
+  "leftValue": "9",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi scrap-punk mobile fortress, towering wall of welded armored cargo containers on massive industrial tracks, gun ports and firing slits, razor wire and scrap barriers, immovable defensive juggernaut, dust and sparks, highly detailed, imposing"
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Mastodonte de Chair Scindée",
+  "description": "Amalgame de cadavres fusionnés en un titan bipède dont le torse s'ouvre sur une faille dimensionnelle béante. Des bras supplémentaires surgissent sans cesse de ses flancs.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle",
+    "radiation"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "9",
+  "rightValue": "7",
+  "bottomValue": "9",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Enormous bipedal titan made of fused corpses and torn flesh, dimensional rift gaping open in chest cavity, extra arms sprouting from sides, purple energy, cosmic horror grimdark sci-fi, towering four stories tall"
+}

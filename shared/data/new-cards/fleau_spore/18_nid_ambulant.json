@@ -1,0 +1,15 @@
+{
+  "name": "Nid Ambulant",
+  "description": "Infecté massif dont le dos est un incubateur fongique grouillant de larves. Chaque pas répand de nouvelles spores et relâche des Éclos prêts au combat.",
+  "element": "spore",
+  "elements": ["spore"],
+  "faction": "Fléau Spore",
+  "topValue": "2",
+  "rightValue": "3",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark biomechanical horror, mobile nest fungal creature. Massive hunched humanoid with back transformed into giant fungal incubator, dozens of small creatures crawling out. Egg-like spore pods attached all over torso. Staggering under weight of fungal growth. Small newborn fungal creatures clinging to legs and arms. Green bioluminescent glow from incubator. Cinematic lighting, highly detailed."
+}

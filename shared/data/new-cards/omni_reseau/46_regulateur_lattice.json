@@ -1,0 +1,15 @@
+{
+  "name": "Régulateur Lattice",
+  "description": "Contrôleur de grille anti-émeute géant. Ses ondes de suppression neutralisent toute résistance dans un rayon large, réduisant les rebelles en drones dociles.",
+  "element": "hacking",
+  "elements": ["hacking", "reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "7",
+  "rightValue": "7",
+  "bottomValue": "7",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Massive crowd-control suppression walker, 4-story tall dark grey rectangular platform with enormous dish arrays and emitters on top, visible sonic/neural suppression waves rippling outward in concentric blue rings, people below collapsing to knees. Human skulls as emitter nodes across surface. Barcode serials, dystopian mass control. Cinematic lighting, highly detailed."
+}

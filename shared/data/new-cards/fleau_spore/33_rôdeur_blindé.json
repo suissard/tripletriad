@@ -1,0 +1,15 @@
+{
+  "name": "Rôdeur Blindé",
+  "description": "Véhicule de reconnaissance blindé dont le système de navigation a été remplacé par un réseau de capteurs mycéliens. Il patrole les ruines en traquant les signatures biologiques non infectées, crachant des jets d'acide fongique.",
+  "element": "spore",
+  "elements": ["spore", "reseau"],
+  "faction": "Fléau Spore",
+  "topValue": "4",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi grimdark biomechanical horror, infected armored reconnaissance vehicle with sensors replaced by glowing fungal antenna network, acid dripping from modified turret, patrolling dark ruins, bioluminescent green sensor tendrils, highly detailed."
+}

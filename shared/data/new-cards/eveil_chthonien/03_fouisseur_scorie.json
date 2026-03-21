@@ -1,0 +1,17 @@
+{
+  "name": "Fouisseur Scorie",
+  "description": "Ver minéral aux anneaux de scories en fusion, il émerge du sol pour agripper les jambes des ennemis et les traîner sous terre.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Dark sci-fi fantasy, small burrowing worm creature made of molten slag rings, emerging from cracked earth, orange glow between segments, grabing tendrils, volcanic underground background, highly detailed"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Rongeur de Murailles",
+  "description": "Infecté dont la mâchoire est renforcée par un béton fongique calcifié. Il ronge les obstacles, les murs et les barricades pour ouvrir des brèches à la marée.",
+  "element": "spore",
+  "elements": ["spore"],
+  "faction": "Fléau Spore",
+  "topValue": "2",
+  "rightValue": "1",
+  "bottomValue": "2",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark biomechanical horror, wall-chewing fungal creature. Hunched humanoid gnawing on concrete wall, jaw massively reinforced with calcified fungal concrete growth. Teeth replaced by grinding stone-like fungal structures. Dust and debris falling. Fingers clawed into wall surface. Mushroom growths on shoulders for leverage. Green fungal saliva dripping. Cinematic lighting, highly detailed, destruction scene."
+}

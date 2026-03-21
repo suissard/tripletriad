@@ -1,0 +1,18 @@
+{
+  "name": "Fusée de Contamination",
+  "description": "Torpille biologique lancée depuis l'orbite, un projectile vivant fait de spores condensées et de chair fongique blindée. À l'impact, il explose en un cratère de mycélium germinatif qui colonise la zone en quelques heures, transformant le sol en terreau hostile.",
+  "element": "spore",
+  "elements": [
+    "spore",
+    "radiation"
+  ],
+  "faction": "Fléau Spore",
+  "topValue": "7",
+  "rightValue": "8",
+  "bottomValue": "6",
+  "leftValue": "8",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi grimdark biomechanical horror, Le Fléau Spore faction. Bio-organic torpedo shaped like a spore seed, covered in armored fungal plates, trailing green bioluminescent exhaust, breaking through atmosphere toward planet surface below, visible impact crater spreading mycelium in background, highly detailed, dynamic action."
+}

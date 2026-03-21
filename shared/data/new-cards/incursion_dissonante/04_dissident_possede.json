@@ -1,0 +1,17 @@
+{
+  "name": "Dissident Possédé",
+  "description": "Soldat ennemi capturé dont le corps obéit désormais à la Chanson Dissonante. Son armure standard se tord comme de la cire autour de membres désarticulés.",
+  "element": "None",
+  "elements": [
+    "None"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "3",
+  "rightValue": "1",
+  "bottomValue": "2",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Possessed soldier in warped military armor, limbs bent at wrong angles, screaming face with rolled-back eyes, purple crackling psychic energy, grimdark sci-fi battlefield"
+}

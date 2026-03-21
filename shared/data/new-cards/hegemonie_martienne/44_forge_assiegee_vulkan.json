@@ -1,0 +1,15 @@
+{
+  "name": "Forge Assiégée de Vulkan",
+  "description": "Forteresse mobile de fabrication et de bombardement. Son forge-plasma produit des munitions sur le champ de bataille tandis que ses canons pilonnent sans relâche. L'usine qui détruit tout en fabriquant les moyens de détruire encore.",
+  "element": "obsidienne",
+  "elements": ["obsidienne", "reseau"],
+  "faction": "Hégémonie martienne",
+  "topValue": "6",
+  "rightValue": "6",
+  "bottomValue": "8",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Massive hexagonal mobile fortress on heavy treads, plasma forge glowing red-orange at its core, multiple heavy cannon barrels protruding from all sides, ammunition conveyor systems visible, smoke and heat distortion, four stories tall, industrial brutalist architecture."
+}

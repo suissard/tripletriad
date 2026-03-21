@@ -1,0 +1,19 @@
+{
+  "name": "Obscurath",
+  "description": "Entité abyssale venue des profondeurs du noyau terrestre, si ancienne qu'elle précède la vie elle-même. Sa seule présence altère la réalité géologique environnante.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle",
+    "obsidienne",
+    "radiation"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "9",
+  "rightValue": "6",
+  "bottomValue": "7",
+  "leftValue": "9",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "Dark sci-fi fantasy, cosmic horror scale. An incomprehensibly vast entity partially emerging from a planet-wide fissure, its form barely visible through layers of rock, magma, and reality distortion. A mass of pupilless eyes of impossible sizes glow through cracks in the earth. The ground warps and reshapes around it — stone becomes liquid, gravity shifts. Ancient beyond measure, alien geometry in its geological body. Terrifying, cosmic, hyper-detailed, painterly epic art."
+}

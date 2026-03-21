@@ -1,0 +1,15 @@
+{
+  "name": "Enterré Ressuscité",
+  "description": "Cadavre de sapeur exhumé par le mycélium, ses outils de tranchée fusionnés à ses bras. Il creuse des tunnels à la vitesse d'une taupe, les parois suintant de spores corrosives qui dissolvent le métal et la pierre.",
+  "element": "spore",
+  "elements": ["spore"],
+  "faction": "Fléau Spore",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi grimdark biomechanical horror, hunched infected sapper with fused shovels and mining tools growing from rotting arms, digging through concrete, glowing green mycelium tendrils spreading from body into tunnel walls, toxic spore mist, dark underground, highly detailed."
+}

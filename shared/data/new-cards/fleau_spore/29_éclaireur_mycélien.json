@@ -1,0 +1,15 @@
+{
+  "name": "Éclaireur Mycélien",
+  "description": "Organisme léger et rapide relié au réseau fongique par des filaments luminescents. Il propage l'infection en avant-garde, ses spores marquant le terrain pour les vagues d'assaut suivantes.",
+  "element": "spore",
+  "elements": ["spore", "reseau"],
+  "faction": "Fléau Spore",
+  "topValue": "3",
+  "rightValue": "4",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi grimdark biomechanical horror, thin agile fungal scout with glowing luminescent filament tendrils trailing behind, light infected armor, spreading green spores like breadcrumbs, dark urban ruins background, bioluminescent trail, highly detailed."
+}

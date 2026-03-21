@@ -1,0 +1,15 @@
+{
+  "name": "Architeuthide Mitrailleur",
+  "description": "Fantassin lourd armé d'un découpeur plasma rotatif monté sur bras mécanique. Le canon tourne en permanence, crachant un filet continu de plasma orange thermique.",
+  "element": "eau",
+  "elements": ["eau", "longue_portee"],
+  "faction": "Exode pélagique",
+  "topValue": "2",
+  "rightValue": "1",
+  "bottomValue": "2",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Alien cephalopod heavy gunner with massive rotary plasma cutter mounted on mechanical arm, continuous stream of orange plasma, heavy asymmetric armor, multiple support cables, steam and sparks flying, aggressive forward position"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Forge des Profondeurs",
+  "description": "Usine de production ambulante des abysses, montée sur six pattes hydrauliques articulées. Elle recycle les débris de guerre en armement et bio-armures pressurisées, alimentant l'effort de guerre pélagique en temps réel. Ses fours à plasma fusionnent les métaux en secondes.",
+  "element": "eau",
+  "elements": ["eau", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "7",
+  "rightValue": "8",
+  "bottomValue": "8",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Four-story mobile factory walking on six hydraulic insect legs, dark industrial hull in rust-orange and matte grey, glowing forge vents emitting orange plasma heat, conveyor belts carrying bio-armor pieces, smokestacks belching steam, transparent cyan water tanks on top showing living organisms inside, scattered copper pipes and exposed wiring, cephalopod engineers visible through grimy windows, brutal utilitarian design, concept art"
+}

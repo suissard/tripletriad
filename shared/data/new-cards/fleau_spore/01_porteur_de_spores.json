@@ -1,0 +1,15 @@
+{
+  "name": "Porteur de Spores",
+  "description": "Cadavre militaire réanimé dont le torse s'est ouvert en un bulbe fongique massif. Il marche sans but apparent, libérant un nuage toxique permanent autour de lui.",
+  "element": "spore",
+  "elements": ["spore"],
+  "faction": "Fléau Spore",
+  "topValue": "3",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark biomechanical horror, fungal plague soldier. Rotting human corpse with chest cavity split open revealing massive pulsating fungal bulb, glowing green spores erupting from torso. Rusted military fatigues torn apart by mycelium tendrils. Thick toxic green spore fog surrounding the figure. Cinematic lighting, highly detailed, dark background."
+}

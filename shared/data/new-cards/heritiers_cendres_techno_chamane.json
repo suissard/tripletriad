@@ -1,0 +1,15 @@
+{
+  "name": "Techno-Chamane Cendré",
+  "description": "Vestige de l'Ancien Monde, ce chamane mutant canalise les reliques nucléaires sacrées. Son corps se désagrège à chaque invocation, mais le Feu Sacré purifie tout sur son passage.",
+  "element": "radiation",
+  "elements": ["radiation"],
+  "faction": "Héritiers des cendres",
+  "topValue": "6",
+  "rightValue": "7",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi grimdark TCG card art, a hunched mutant cultist technomancer with asymmetric body, glowing yellow radioactive tumors across skin, multiple vestigial arms. Wearing ragged wasteland robes made of old anti-radiation tarps. Holding a pristine glowing nuclear warhead relic painfully grafted into his chest, humming with blue-white plasma energy. Toxic wasteland background with ruined silos, green fog, candles on bones. Cinematic dramatic lighting, highly detailed illustration, dark fantasy card game art style, 1:1 aspect ratio."
+}

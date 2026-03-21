@@ -1,0 +1,17 @@
+{
+  "name": "Goliath Digestif",
+  "description": "La plus grande créature terrestre du Fléau, une montagne de chair ambulante dont le corps entier est un estomac gigantesque. Toute matière qu'il traverse — béton, acier, chair — est absorbée et convertie en biomasse fongique. Son passage laisse un sillon de terre stérile et brillante de sucs digestifs.",
+  "element": "spore",
+  "elements": [
+    "spore"
+  ],
+  "faction": "Fléau Spore",
+  "topValue": "8",
+  "rightValue": "9",
+  "bottomValue": "8",
+  "leftValue": "8",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "Sci-fi grimdark biomechanical horror, Le Fléau Spore faction. Gigantic walking stomach creature, body made of translucent skin revealing digested materials inside, slime trail of digestive acids, multiple mouths and stomachs visible through flesh, surrounded by corrosive fumes, massive scale ten stories tall, highly detailed, horrific."
+}

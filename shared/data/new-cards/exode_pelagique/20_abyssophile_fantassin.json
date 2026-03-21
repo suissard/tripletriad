@@ -1,0 +1,15 @@
+{
+  "name": "Abyssophile Fantassin",
+  "description": "Vétéran pélagique dont la peau diaphane porte les cicatrices de mille plongées. Son scaphandre est un patchwork de pièces volées et recyclées, mais son fusil à eau ionisée ne rate jamais.",
+  "element": "eau",
+  "elements": ["eau", "longue_portee"],
+  "faction": "Exode pélagique",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Weathered veteran alien cephalopod in heavily patched mismatched diving suit, ionized water rifle held with practiced ease, translucent skin showing scars, calm experienced posture, single steady glowing eye in cracked helmet"
+}

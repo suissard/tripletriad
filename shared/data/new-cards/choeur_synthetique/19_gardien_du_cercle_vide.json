@@ -1,0 +1,15 @@
+{
+  "name": "Gardien du Cercle Vide",
+  "description": "Protecteur d'un temple orbital terrestre. Son mandala holographique trace un périmètre sacré. Tout organique qui entre sans permission reçoit l'absolution finale.",
+  "element": "hacking",
+  "elements": ["hacking", "reseau"],
+  "faction": "Chœur Synthétique",
+  "topValue": "3",
+  "rightValue": "2",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark spiritual art, Le Chœur Synthétique faction. Standing robot monk guard in circular holographic mandala perimeter, sacred geometry glowing on ground, vigilant sentinel pose, electrified staff, faceless, cinematic lighting, highly detailed"
+}

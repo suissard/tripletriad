@@ -1,0 +1,15 @@
+{
+  "name": "Renfermée Digitale",
+  "description": "Moine-fantôme dont les champs de camouflage fractalent la lumière. Elle apparaît comme une distorsion optique avant de frapper. Nul ne l'a jamais vue deux fois de la même façon.",
+  "element": "furtif",
+  "elements": ["furtif"],
+  "faction": "Chœur Synthétique",
+  "topValue": "3",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark spiritual art, Le Chœur Synthétique faction. Female android monk with light-bending cloaking effect, shimmering fractal distortion, holographic golden runes partially visible, ghost-like, cinematic lighting, highly detailed"
+}

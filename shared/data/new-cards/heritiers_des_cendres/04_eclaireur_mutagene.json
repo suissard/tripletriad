@@ -1,0 +1,17 @@
+{
+  "name": "Eclaireur Mutagène",
+  "description": "Reconnaissance rapide grâce à des mutations surhumaines.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "3",
+  "rightValue": "4",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "rarity": "Common",
+  "prompt": "Fast mutant scout with elongated limbs, planting radioactive mines, agile pose, ragged clothes, green toxic fog, grimdark post-apocalyptic TCG art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Le Berceur de Failles",
+  "description": "Quadrupède titanesque dont chaque pas fracture la croûte terrestre. Sa gueule béante crache des ondes sismiques capables de pulvériser des fortifications entières.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne",
+    "radiation"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "5",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Dark sci-fi fantasy, epic scale. A colossal quadrupedal subterranean beast made of black obsidian plates and cracked volcanic rock. Glowing magma veins pulse across its body. It opens a massive jaw releasing visible shockwaves that fracture the ground. Multiple pupilless orange eyes. Urban ruins embedded in its rocky hide. Cinematic lighting, volcanic dust atmosphere, highly detailed digital painting."
+}

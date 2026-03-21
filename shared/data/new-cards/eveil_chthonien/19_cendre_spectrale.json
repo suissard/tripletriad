@@ -1,0 +1,17 @@
+{
+  "name": "Cendre Spectrale",
+  "description": "Forme humanoïde de cendres compactées, se reformant après chaque destruction. Impossible à tuer définitivement — elle se reconstitue dans les heures.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "2",
+  "rightValue": "3",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Dark sci-fi fantasy, humanoid figure made of compacted volcanic ash, reforming from scattered particles, hollow glowing eyes, ghostly wisps of smoke, dark ruins background, highly detailed"
+}

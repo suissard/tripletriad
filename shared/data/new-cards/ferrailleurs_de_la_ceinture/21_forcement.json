@@ -1,0 +1,15 @@
+{
+  "name": "Forcément",
+  "description": "Blindé de plaques de carrosserie, il charge en premier dans la brèche. Le mur se plie ou c'est lui qui plie. Peu importe, Forcément fonce.",
+  "element": "None",
+  "elements": [],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "5",
+  "rightValue": "3",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi scrap-punk heavy infantry shock trooper, massive human in oversized patchwork armor made from car body panels and metal plates bolted together, duct tape everywhere, charging pose with shoulder ram, sparking welded seams, grimy orbital debris background, cinematic lighting, highly detailed"
+}

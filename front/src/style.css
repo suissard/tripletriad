@@ -35,6 +35,10 @@ body {
     background: var(--bg-deep); 
     color: var(--text-main); 
     font-family: 'Outfit', 'Inter', -apple-system, sans-serif; 
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 /* Glassmorphism Classes */
@@ -213,6 +217,10 @@ textarea {
   padding: 10px 14px;
   transition: all 0.2s;
   outline: none;
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
 }
 
 input:focus, textarea:focus {

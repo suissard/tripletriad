@@ -1,0 +1,17 @@
+{
+  "name": "Dévoreur de Citadelles",
+  "description": "Le plus grand ver foreur connu, capable d'avaler des bâtiments entiers. Son corps titanesque laisse un sillon de destruction sur des kilomètres. Rare et terrifiant.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "5",
+  "rightValue": "3",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Dark sci-fi fantasy, colossal worm creature of unprecedented size swallowing an entire city building, massive circular maw, body of dark tectonic plates stretching to the horizon, magma dripping from mouth, apocalyptic scale, cinematic lighting"
+}

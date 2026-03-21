@@ -1,0 +1,15 @@
+{
+  "name": "Sergent Sapeur",
+  "description": "Chef d'équipe de démolition qui coordonne les charges explosives avec précision chirurgicale. Chaque souffle est calculé depuis l'orbite.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Hégémonie martienne",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "1",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. NCO sapper pointing at a target while holding a detonator, demolition pack on back, network hologram floating from forearm gauntlet."
+}

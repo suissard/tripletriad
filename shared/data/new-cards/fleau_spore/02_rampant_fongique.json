@@ -1,0 +1,15 @@
+{
+  "name": "Rampant Fongique",
+  "description": "Quadrupède infecté qui galope à toute vitesse en rampant, ses membres humains tordus par des lianes mycéliennes. Premier contact avant la marée.",
+  "element": "spore",
+  "elements": ["spore"],
+  "faction": "Fléau Spore",
+  "topValue": "2",
+  "rightValue": "3",
+  "bottomValue": "1",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark biomechanical horror, fast fungal creature. Human body twisted into quadruped crawling posture, limbs elongated and wrapped in purple glowing mycelium tendrils. Jaw unhinged releasing spore clouds. Running at full speed through ruined urban landscape. Green bioluminescent mushrooms growing on back. Cinematic motion blur, highly detailed."
+}

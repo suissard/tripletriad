@@ -1,0 +1,15 @@
+{
+  "name": "Frater Sismique",
+  "description": "Démolisseur lourd équipé d'un générateur d'ondes sismiques au poing. Chaque pas crée des micro-séismes. Conçu pour raser les bunkers et les murs de défense en frappes rapprochées.",
+  "element": "obsidienne",
+  "elements": ["obsidienne"],
+  "faction": "Hégémonie martienne",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Demolition heavy infantry with oversized seismic gauntlet, cracks radiating from ground impact, cratered battlefield environment."
+}

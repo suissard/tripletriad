@@ -1,0 +1,15 @@
+{
+  "name": "Le Tondeur",
+  "description": "Destroyer orbital converti. Son canon gravitationnel déchire la coque des vaisseaux ennemis comme du papier. Béhémot de la flotte de la Ceinture.",
+  "element": "longue_portee",
+  "elements": ["longue_portee"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "9",
+  "rightValue": "6",
+  "bottomValue": "6",
+  "leftValue": "A",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi scrap-punk heavy destroyer spaceship, massive elongated hull with giant forward gravity cannon barrel, scrap armor plating and welded reinforcement beams, weapon batteries along the sides, orbital debris field, industrial brutalist warship design, highly detailed, menacing"
+}

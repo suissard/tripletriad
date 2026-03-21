@@ -187,7 +187,7 @@ function startMultiGame(deck) {
   
   // 2. Set the player deck
   const playerDeck = deck.cards.map(id => normalizeCard(getCardById(id)));
-  state.deck = playerDeck;
+  state.pDeck = playerDeck;
   
   // 3. Move to hosting/joining menu
   state.menuView = 'multi';

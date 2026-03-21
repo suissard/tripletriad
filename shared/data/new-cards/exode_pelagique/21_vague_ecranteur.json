@@ -1,0 +1,15 @@
+{
+  "name": "Vague Écranteur",
+  "description": "Guerrier céphalopode en scaphandre minier lourd reconverti. Ses vérins hydrauliques projettent des ondes de pression dévastatrices à travers son bocal blindé rempli d'eau cyan.",
+  "element": "eau",
+  "elements": ["eau", "longue_portee", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Massive alien cephalopod in heavy industrial diving suit, spherical glass helmet filled with glowing cyan water, hydraulic joints, orange rust plating, verdigris copper details, bioluminescent tentacles visible through visor, battlefield background, dark industrial sci-fi art"
+}

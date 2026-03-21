@@ -1,0 +1,15 @@
+{
+  "name": "Purificateur Flammes",
+  "description": "Nettoyeur à la lance-plasma. Il brûle tout ce que le Haut Commandement juge impur — zones de spores, caches de mutants, villages entiers.",
+  "element": "radiation",
+  "elements": ["radiation"],
+  "faction": "Hégémonie martienne",
+  "topValue": "3",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Flamethrower soldier with rectangular fuel tank and angular plasma nozzle, orange-red flames spraying forward, heavy heat-resistant armor."
+}

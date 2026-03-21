@@ -1,0 +1,15 @@
+{
+  "name": "Acolyte de la Nuit",
+  "description": "Unité d'infiltration nocturne. Son blindage absorbe la lumière et ses pas magnétiques ne produisent aucune vibration. Il est la nuit elle-même, donnée forme.",
+  "element": "furtif",
+  "elements": ["furtif"],
+  "faction": "Chœur Synthétique",
+  "topValue": "3",
+  "rightValue": "3",
+  "bottomValue": "2",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark spiritual art, Le Chœur Synthétique faction. Night-operating android monk with light-absorbing black armor, barely visible golden rune faintly glowing, crouching on building edge, urban stealth, faceless, cinematic lighting, highly detailed"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Léviathan Purgeur",
+  "description": "Plate-forme de purge ultime, dix étages de flammes et d'acier. Ses lance-flammes géants carbonisent tout sur un kilomètre carré, assainissant le sol pour l'Architecte.",
+  "element": "reseau",
+  "elements": ["reseau", "obsidienne"],
+  "faction": "Omni-Réseau",
+  "topValue": "8",
+  "rightValue": "7",
+  "bottomValue": "9",
+  "leftValue": "9",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Titanic purge platform walker, 10-story tall dark grey monolithic rectangular fortress bristling with massive industrial flamethrower turrets, enormous orange fire jets engulfing landscape for kilometers, scorched earth around it, cold blue neural targeting systems visible behind weapon banks. Human skulls as fuel processors embedded in hull. Barcode serials, apocalyptic devastation. Cinematic lighting, ultra detailed."
+}

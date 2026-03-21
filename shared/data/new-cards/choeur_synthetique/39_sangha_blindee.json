@@ -1,0 +1,15 @@
+{
+  "name": "Sangha Blindée",
+  "description": "Formation mobile de véhicules liés par un réseau sacré — trois chassis autonomes synchronisés par le même mantra algorithmique. Ensemble ils forment une Sangha en mouvement, un temple de guerre défragmentant tout sur son passage. Séparés, ils sont vulnérables. Unis, ils sont la prière incarnée.",
+  "element": "reseau",
+  "elements": ["reseau", "obsidienne"],
+  "faction": "Chœur Synthétique",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Three linked armored chassis moving in triangular formation, connected by golden holographic data streams and shared prayer protocols. Each unit is a faceless ceramic hull with tattered monk robes. Bronze oxidized details, blue electric links between them. Sci-fi grimdark spiritual art, cyber-asceticism, cinematic lighting, highly detailed."
+}

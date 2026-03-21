@@ -1,0 +1,15 @@
+{
+  "name": "L'Abordeur",
+  "description": "Spécialiste de l'abordage magnétique. Ses gantelets crachent des harpons de fer qui s'ancrent dans les coques ennemies. Une fois accroché, il ne lâche plus.",
+  "element": "None",
+  "elements": [],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi scrap-punk heavy infantry boarder, bulky reinforced spacesuit with magnetic grappling gauntlets and cable winches, steel harpoons, duct tape patches, aggressive pose mid-lunge, sparks flying, dark spaceship hull background, highly detailed"
+}

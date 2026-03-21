@@ -1,0 +1,15 @@
+{
+  "name": "Marqueur Standard",
+  "description": "Le fantassin de base de l'Omni-Réseau. Un humain asservi dont toute trace d'individualité a été effacée par la puce neurale. Il avance, il tire, il meurt — sans jamais hésiter.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "3",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Standard infantry drone soldier, pale emotionless face, thick black neural cables grafted to skull, cold blue glow. Sleek dark grey mass-produced armor, geometric standard rifle, dystopian hive mind atmosphere. Highly detailed, cinematic lighting."
+}

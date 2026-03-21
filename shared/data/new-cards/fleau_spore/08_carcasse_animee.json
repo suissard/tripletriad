@@ -1,0 +1,15 @@
+{
+  "name": "Carcasse Animée",
+  "description": "Torse et bras d'un cadavre traînant le bas de son corps arraché. Les champignons phosphorescents remplacent les organes manquants et alimentent un mouvement mécanique sans fin.",
+  "element": "spore",
+  "elements": ["spore"],
+  "faction": "Fléau Spore",
+  "topValue": "3",
+  "rightValue": "1",
+  "bottomValue": "1",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark biomechanical horror, animated corpse. Severed human torso dragging itself forward with arms, lower body missing. Glowing phosphorescent mushrooms replacing destroyed organs in open chest cavity. Purple bioluminescent fungi illuminating exposed ribcage. Mycelium tendrils trailing behind like entrails. Rusted military dog tags around neck. Cinematic lighting, highly detailed, disturbing."
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Léviathan Forêt",
+  "description": "Plateforme de forage abyssal convertie en citadelle mobile. Ses bras mécaniques perforent les fonds marins pour extraire le plasma terrestre, tandis que ses batteries de canons à geyser crachent des geysers de vapeur ionisée sur tout ce qui approche.",
+  "element": "eau",
+  "elements": ["eau", "longue_portee"],
+  "faction": "Exode pélagique",
+  "topValue": "8",
+  "rightValue": "6",
+  "bottomValue": "7",
+  "leftValue": "9",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Massive deep-sea oil rig converted into a walking war fortress, four stories tall, rust-orange and verdigris corroded metal, hydraulic crab legs, giant drill arms, cyan bioluminescent water tanks, pressurized steam vents, cephalopod pilot visible in thick glass helmet filled with glowing cyan water, dark industrial aesthetic with bright plasma accents, concept art, dramatic lighting"
+}

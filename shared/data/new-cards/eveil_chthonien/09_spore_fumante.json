@@ -1,0 +1,17 @@
+{
+  "name": "Spore Fumante",
+  "description": "Sphère de pierre poreuse roulant au sol, libérant des gaz volcaniques toxiques. Sa simple présence suffit à asphyxier une tranchée.",
+  "element": "spore",
+  "elements": [
+    "spore"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "3",
+  "rightValue": "2",
+  "bottomValue": "1",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Dark sci-fi fantasy, rolling porous stone sphere releasing toxic volcanic fumes, cracked surface with glowing orange pores, poisonous green smoke mixing with volcanic gas, ground cracking around it, highly detailed"
+}

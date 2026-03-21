@@ -1,0 +1,17 @@
+{
+  "name": "Messager Fumant",
+  "description": "Son corps est en combustion constante, servant de balise vivante.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "2",
+  "rightValue": "3",
+  "bottomValue": "2",
+  "leftValue": "4",
+  "rarity": "Common",
+  "prompt": "Mutant messenger on fire, running through wasteland, signal flare in hand, flames and smoke, post-apocalyptic, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

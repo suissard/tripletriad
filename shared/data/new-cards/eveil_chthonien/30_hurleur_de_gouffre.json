@@ -1,0 +1,17 @@
+{
+  "name": "Hurleur de Gouffre",
+  "description": "Progéniture dont l'immense gueule projette une détonation sismique capable de sonner les troupes et fissurer les structures. Bouche béante de roche fumante, terrifiant en approche.",
+  "element": "spore",
+  "elements": [
+    "spore"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "5",
+  "rightValue": "2",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Dark sci-fi fantasy, rock creature with enormous gaping maw unleashing a sonic shockwave, dark volcanic stone body, smoke and dust erupting from mouth, pupilless glowing eyes, shattered ground around it, cinematic lighting"
+}

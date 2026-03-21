@@ -1,0 +1,15 @@
+{
+  "name": "Cténophore Sapeur",
+  "description": "Saboteur spécialisé dans les charges plasma sous-marines. Il place des mines de pression qui implosent les structures ennemies en créant un vide instantané.",
+  "element": "eau",
+  "elements": ["eau", "longue_portee"],
+  "faction": "Exode pélagique",
+  "topValue": "2",
+  "rightValue": "1",
+  "bottomValue": "2",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Alien cephalopod saboteur crouching to plant a glowing plasma charge, multiple tentacles working precise demolition tools, belt of spherical mines, worn and patched pressure suit, focused single eye in helmet, tense battlefield moment"
+}

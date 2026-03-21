@@ -1,0 +1,15 @@
+{
+  "name": "Nautilaire Signaleur",
+  "description": "Communicant pélagique dont la carapace dorsale est greffée d'un relais réseau organique. Il amplifie les transmissions psioniques du Synode sur le champ de bataille.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "1",
+  "rightValue": "2",
+  "bottomValue": "1",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Alien cephalopod communications unit with nautilus-shell shaped organic relay device grafted to back, glowing network lines pulsing outward, small antenna tentacles raised, light armor, surrounded by faint holographic signal waves"
+}

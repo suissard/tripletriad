@@ -1,0 +1,15 @@
+{
+  "name": "Cnidocyte d'Assaut",
+  "description": "Assaillant rapproché dont les tentacules nues crachent des décharges électriques paralysantes. Sa combinaison de pression est lacérée de brûlures de plasma, trophées de victoires passées.",
+  "element": "eau",
+  "elements": ["eau"],
+  "faction": "Exode pélagique",
+  "topValue": "3",
+  "rightValue": "3",
+  "bottomValue": "2",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Fierce alien cephalopod shock trooper with exposed tentacles crackling with electricity, damaged pressure suit showing raw flesh, aggressive forward stance, glowing cyan veins, dark industrial battlefield background"
+}

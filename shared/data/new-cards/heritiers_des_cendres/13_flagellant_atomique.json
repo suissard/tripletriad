@@ -1,0 +1,17 @@
+{
+  "name": "Flagellant Atomique",
+  "description": "Berserker dont la douleur le rend plus fort à chaque coup reçu.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "3",
+  "rightValue": "3",
+  "bottomValue": "2",
+  "leftValue": "3",
+  "rarity": "Common",
+  "prompt": "Fanatical mutant flagellant whipping himself with metal chain, radioactive glow increasing with pain, wild eyes, post-apocalyptic, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

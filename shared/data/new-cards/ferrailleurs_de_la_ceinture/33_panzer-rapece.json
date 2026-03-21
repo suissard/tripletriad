@@ -1,0 +1,15 @@
+{
+  "name": "Panzer Rapiécé",
+  "description": "Assemblé à partir de trois carcasses différentes. Sa silhouette ne ressemble à rien de connu, mais son canon principal arrête les conversations — et les cœurs.",
+  "element": "None",
+  "elements": [],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi scrap-punk hybrid tank made from three different vehicle hulls welded together, asymmetrical design with mismatched treads and turrets, heavy main cannon, duct tape and bolt repairs, rust and grease, orbital scrapyard background, highly detailed"
+}

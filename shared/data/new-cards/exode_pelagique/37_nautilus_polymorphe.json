@@ -1,0 +1,15 @@
+{
+  "name": "Nautilus Polymorphe",
+  "description": "Transport blindé à morphologie variable. Sa coque spiralée se déforme pour s'adapter au terrain — escargot sur terre, torpille dans l'eau. Les cavités internes abritent une escouade complète de céphalopodes.",
+  "element": "eau",
+  "elements": ["eau", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "6",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Alien nautilus-shaped armored transport vehicle, spiral shell hull made of translucent bio-glass and rusted metal plates, morphing mechanical joints visible, internal compartments glowing cyan with cephalopod silhouettes inside, hydraulic legs extended for ground mode, steam venting from seams"
+}

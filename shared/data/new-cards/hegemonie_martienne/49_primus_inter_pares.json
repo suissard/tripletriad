@@ -1,0 +1,15 @@
+{
+  "name": "Primus Inter Pares",
+  "description": "Titre-commandement suprême du Haut Commandement mobile. Cette plate-forme porte le Premier Stratège et l'arsenal orbital entier de la flotte terrestre. Quand il avance, même les généraux se taisent.",
+  "element": "reseau",
+  "elements": ["reseau", "longue_portee"],
+  "faction": "Hégémonie martienne",
+  "topValue": "8",
+  "rightValue": "8",
+  "bottomValue": "7",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Supreme mobile command platform ten stories tall, crown-like antenna spire at apex, massive holographic orbital map projected around it, throne room visible through armored glass at peak, sleek monolithic wedge shape, golden trim accents alongside crimson, authoritative and regal yet terrifyingly brutal."
+}

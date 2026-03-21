@@ -1,0 +1,18 @@
+{
+  "name": "Éclaireur Glitché",
+  "description": "Entité mineure se téléportant par micro-sauts dimensionnels. Elle flickerre comme un défaut d'affichage, impossible à suivre à l'œil nu.",
+  "element": "furtif",
+  "elements": [
+    "furtif",
+    "faille_dimensionnelle"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "1",
+  "rightValue": "1",
+  "bottomValue": "2",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Glitching humanoid entity flickering between dimensional states, distorted digital-like artifacting, purple magenta neon static, dark sci-fi environment, cosmic horror"
+}

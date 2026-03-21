@@ -1,0 +1,15 @@
+{
+  "name": "Porteur de Corpus",
+  "description": "Monstre à quatre bras portant sur son dos un sac organique gonflé de spores concentrées. Au contact ennemi, le corpus éclate dans une explosion de gaz toxique capable de consumer les filtres à air les plus résistants.",
+  "element": "spore",
+  "elements": ["spore", "radiation"],
+  "faction": "Fléau Spore",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "3",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi grimdark biomechanical horror, four-armed infected heavy soldier carrying massive organic spore sack on back, sack about to burst with glowing green gas, rotting flesh fused with rusted armor, toxic spore fog leaking, cinematic, highly detailed."
+}

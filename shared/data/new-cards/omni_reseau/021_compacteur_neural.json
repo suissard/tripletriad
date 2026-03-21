@@ -1,0 +1,15 @@
+{
+  "name": "Compacteur Neural",
+  "description": "Drone lourd en exosquelette renforcé, conçu pour le combat rapproché en milieu clos. Ses implants spinaux amplifient la force brute de l'Architecte.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "2",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Heavy armored cyborg soldier in bulky exoskeleton, pale blank face, thick black neural cables grafted to skull and spine glowing cold blue. Dark grey composite armor with barcode serial numbers. Brutalist melee crusher weapon connected to wrist implants. Dystopian close-quarters combat, cinematic lighting, highly detailed."
+}

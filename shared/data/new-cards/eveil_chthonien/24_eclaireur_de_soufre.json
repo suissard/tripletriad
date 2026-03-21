@@ -1,0 +1,17 @@
+{
+  "name": "Éclaireur de Soufre",
+  "description": "Progéniture légère et rapide au corps couvert de cristaux de soufre jaunâtre. Traverse le sol comme l'eau et émerge pour frapper avant de replonger dans les profondeurs.",
+  "element": "spore",
+  "elements": [
+    "spore"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "2",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Dark sci-fi fantasy, sleek agile rock creature covered in yellow sulfur crystals, darting through cracked earth, glowing yellow eyes, nimble limbs, volcanic underground tunnels visible, sulfur gas wisps, cinematic lighting"
+}

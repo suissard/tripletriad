@@ -1,0 +1,17 @@
+{
+  "name": "Percuteur Tellurique",
+  "description": "Foreur blindé dont la tête de roche compacte pulvérise les fortifications souterraines. Avance comme un bélier vivant, laissant des tunnels effondrés derrière lui.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "6",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Dark sci-fi fantasy, massive drilling rock creature with a conical armored head of dark basalt, burrowing through underground fortress walls, debris flying, glowing magma veins, dust clouds, cinematic lighting"
+}

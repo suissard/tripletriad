@@ -1,0 +1,17 @@
+{
+  "name": "Grenadier Sacré",
+  "description": "Lance des grenades irradiées bénies par les Techno-Chamanes.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "4",
+  "rightValue": "3",
+  "bottomValue": "3",
+  "leftValue": "3",
+  "rarity": "Common",
+  "prompt": "Mutant grenadier throwing radioactive grenades, chest plate armor, skull decorations, explosion in background, post-apocalyptic grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

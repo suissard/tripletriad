@@ -1,0 +1,17 @@
+{
+  "name": "Titan de Chair Fusionnée",
+  "description": "Colosse fait de centaines de corps fusionnés.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "9",
+  "rightValue": "7",
+  "bottomValue": "8",
+  "leftValue": "7",
+  "rarity": "Epic",
+  "prompt": "Colossal titan made of hundreds of fused mutant bodies, towering over battlefield, multiple limbs, radioactive glow, post-apocalyptic, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

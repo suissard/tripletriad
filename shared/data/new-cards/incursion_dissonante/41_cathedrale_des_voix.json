@@ -1,0 +1,18 @@
+{
+  "name": "Cathédrale des Voix",
+  "description": "Structure vivante issue de gravats lévitant en forme de nef gothique inversée. Des bouches hurlantes couvrent chaque surface murmurant la Chanson Dissonante qui brise les psychés militaires.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle",
+    "radiation"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "6",
+  "rightValue": "8",
+  "bottomValue": "5",
+  "leftValue": "8",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Colossal levitating inverted gothic cathedral made of floating rubble and concrete, screaming mouths covering every surface, purple psychic energy emanating from windows, cosmic horror grimdark sci-fi, cinematic lighting, highly detailed"
+}

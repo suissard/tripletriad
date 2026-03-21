@@ -1,0 +1,17 @@
+{
+  "name": "Thyranoss",
+  "description": "Titre-seisme serpentine dont le corps blindé de basalte perce la roche pure. Il détecte les vibrations à plusieurs kilomètres et surgit sous les cibles avec une précision chirurgicale.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "3",
+  "rightValue": "8",
+  "bottomValue": "5",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Dark sci-fi fantasy, epic scale. A massive serpentine underground worm creature breaching the surface, its body armored with dark basalt plates and obsidian spines. Glowing magma veins run along its segmented body. A ring of pupilless yellow eyes surrounds its drilling head. Dust and rock debris erupt around it. Desert wasteland background, dramatic lighting, highly detailed."
+}

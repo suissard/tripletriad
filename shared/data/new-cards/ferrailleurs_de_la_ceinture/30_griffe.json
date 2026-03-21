@@ -1,0 +1,15 @@
+{
+  "name": "La Griffe",
+  "description": "Assaut rapide avec des lames de découpe plasma. Elle glisse entre les conduits et les câbles comme un rat dans un mur. Quand elle frappe, le sang bout.",
+  "element": "furtif",
+  "elements": ["furtif"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi scrap-punk agile heavy infantry flanker, lean armored figure with plasma cutting blades on forearms, light reinforced spacesuit with cable-harness for swinging, low stance ready to pounce, duct tape and metal scraps, dark maintenance tunnel background, highly detailed"
+}

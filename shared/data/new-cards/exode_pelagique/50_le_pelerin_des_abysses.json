@@ -1,0 +1,15 @@
+{
+  "name": "Le Pélerin des Abysses",
+  "description": "Bathyscaphe d'éclaireur ultra-léger, à la coque translucide remplie d'eau luminescente. Envoyé loin en avant de la flotte, il cartographie les courants stellaires et les failles dimensionnelles pour guider l'Exode.",
+  "element": "eau",
+  "elements": ["eau", "longue_portee", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "A small translucent bathyscaphe spaceship glowing with cyan bioluminescent fluid inside, jellyfish-like hull with thin trailing antennae, floating in deep space among nebulae, industrial mining components welded onto the organic frame, halogen spotlights, steam vents, dark oxidized metal exterior with bright cyan energy accents"
+}

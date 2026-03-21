@@ -1,0 +1,17 @@
+{
+  "name": "Fourmilier Magma",
+  "description": "Insecte géant dont l'abdomen est un réservoir de lave. Il projette des jets de magma brûlant sur les formations ennemies.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "2",
+  "rightValue": "3",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Dark sci-fi fantasy, giant insect creature with a lava-filled abdomen, spraying magma streams, rocky exoskeleton, multiple legs digging into earth, volcanic terrain, highly detailed"
+}

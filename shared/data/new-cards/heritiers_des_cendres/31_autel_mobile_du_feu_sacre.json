@@ -1,0 +1,17 @@
+{
+  "name": "Autel Mobile du Feu Sacré",
+  "description": "Plateforme de tir sur réacteur sacré mobile.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "7",
+  "rightValue": "6",
+  "bottomValue": "5",
+  "leftValue": "7",
+  "rarity": "Rare",
+  "prompt": "Mobile shrine-tank with mounted antimatter cannon, reactor glowing, mutant crew, wasteland vehicle, post-apocalyptic, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

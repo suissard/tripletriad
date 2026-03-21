@@ -1,0 +1,17 @@
+{
+  "name": "Matriarche Sporifique",
+  "description": "Sphère biologique massive au centre d'un réseau de conduits mycéliens. Son ventre distendu bombe et dégonfle rythmiquement, projetant à chaque cycle des tonnes de spores germinatrices qui infectent toute matière organique à des centaines de mètres.",
+  "element": "spore",
+  "elements": [
+    "spore"
+  ],
+  "faction": "Fléau Spore",
+  "topValue": "6",
+  "rightValue": "8",
+  "bottomValue": "7",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi grimdark biomechanical horror, Le Fléau Spore faction. Massive spherical fungal organism with distended pulsating belly, mycelium conduit network radiating outward, clouds of glowing green and purple spores erupting from openings, surrounded by infected terrain, highly detailed, dark atmospheric lighting."
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Ver de Soufre",
+  "description": "Larve massive crachant du soufre en fusion. Sa traînée laissée au sol brûle pendant des heures et empoisonne l'air.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "3",
+  "rightValue": "3",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Dark sci-fi fantasy, massive larva creature made of dark rock, spewing molten sulfur from its mouth, leaving burning yellow trail, underground tunnel background, volcanic glow, highly detailed"
+}

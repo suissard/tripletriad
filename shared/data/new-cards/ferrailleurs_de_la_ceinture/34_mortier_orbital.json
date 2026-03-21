@@ -1,0 +1,15 @@
+{
+  "name": "Mortier Orbital",
+  "description": "Canon cinétique lourd monté sur un châssis de rover. Il projette des obus de ferraille à vitesse orbitale. La trajectoire est imprécise mais le cratère est magnifique.",
+  "element": "longue_portee",
+  "elements": ["longue_portee"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "6",
+  "rightValue": "2",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi scrap-punk mobile artillery platform, large kinetic cannon mounted on rover chassis, massive barrel with copper coil wrappings, scrap metal projectiles loaded, recoil braces dug into ground, dusty orbital environment, cinematic, highly detailed"
+}

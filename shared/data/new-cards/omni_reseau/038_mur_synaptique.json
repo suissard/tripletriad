@@ -1,0 +1,15 @@
+{
+  "name": "Mur Synaptique",
+  "description": "Véhicule fortification mobile. Se déploie comme un mur blindé interconnecté, les drones derrière lui bénéficient de son relais.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "6",
+  "rightValue": "3",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Mobile wall fortress vehicle, wide flat rectangular dark grey armored barrier on tracks with cold blue neural grid lines across surface, antenna spikes on top. Deployed as defensive line, drone soldiers crouching behind it. Brutalist design, barcode markings, cinematic lighting, highly detailed."
+}

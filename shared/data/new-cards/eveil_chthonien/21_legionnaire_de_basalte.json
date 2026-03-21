@@ -1,0 +1,17 @@
+{
+  "name": "Légionnaire de Basalte",
+  "description": "Progéniture blindée de basalte noir, couverte de plaques tectoniques naturelles. Son corps massif absorbe les impacts sans broncher tandis que ses poings de roche fracassent les armures.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Dark sci-fi fantasy, armored humanoid rock creature made of black basalt plates and volcanic stone, glowing red magma cracks across its body, massive fists like boulders, no technology, emerging from cracked earth, volcanic smoke, cinematic lighting, highly detailed"
+}

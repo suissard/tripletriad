@@ -1,0 +1,19 @@
+{
+  "name": "Hivemind Fossile",
+  "description": "La conscience collective du Fléau incarnée dans une entité colossale enterrée depuis des millénaires. Son éveil a déclenché la prolifération mondiale. Chaque membre de l'essaim est un prolongement de son esprit végétatif — une intelligence sans pensée, sans haine, seulement la faim absolue de croissance.",
+  "element": "spore",
+  "elements": [
+    "spore",
+    "reseau",
+    "radiation"
+  ],
+  "faction": "Fléau Spore",
+  "topValue": "9",
+  "rightValue": "8",
+  "bottomValue": "9",
+  "leftValue": "8",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "Sci-fi grimdark biomechanical horror, Le Fléau Spore faction. Colossal ancient fungal entity emerging from underground, body partially fused with rock and ruins, thousands of mycelium tendrils spreading into the ground like a neural network, single massive bioluminescent eye, surrounded by an aura of green and purple spores, epic apocalyptic scale, highly detailed."
+}

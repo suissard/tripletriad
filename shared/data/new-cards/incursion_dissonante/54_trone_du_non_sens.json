@@ -1,0 +1,19 @@
+{
+  "name": "Trône du Non-Sens",
+  "description": "Plateforme de bataille flottante autour d'un trône d'os et de métal tordu. L'Écho Majeur assis dessus commande les anomalies alentour et projette des ondes de folie à l'échelle continentale.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle",
+    "hacking",
+    "radiation"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "9",
+  "rightValue": "7",
+  "bottomValue": "5",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "Massive floating battle platform centered on a throne made of bones and twisted metal, a Major Echo entity sitting on it commanding surrounding anomalies, waves of madness emanating outward, cosmic horror grimdark sci-fi, orbital command throne"
+}

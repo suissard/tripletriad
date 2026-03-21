@@ -1,0 +1,17 @@
+{
+  "name": "Vestale Antimatière",
+  "description": "Manipule une petite ogive nucléaire comme arme de mêlée.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "7",
+  "rightValue": "2",
+  "bottomValue": "1",
+  "leftValue": "7",
+  "rarity": "Rare",
+  "prompt": "Female mutant priestess carrying a small nuclear warhead like a holy relic, anti-radiation suit, glowing warhead, wasteland temple background, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

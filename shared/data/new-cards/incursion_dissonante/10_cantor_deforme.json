@@ -1,0 +1,17 @@
+{
+  "name": "Cantor Déformé",
+  "description": "Chanteur cultiste dont la voix amplifie la Chanson Dissonante. Sa mâchoire déboîtée crache des harmoniques qui font vibrer la matière.",
+  "element": "longue_portee",
+  "elements": [
+    "longue_portee"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "3",
+  "rightValue": "2",
+  "bottomValue": "1",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Deformed cultist singer with dislocated jaw screaming, sound waves visible as purple distortion, vibrating nearby objects, dark asylum setting, cosmic horror, highly detailed"
+}

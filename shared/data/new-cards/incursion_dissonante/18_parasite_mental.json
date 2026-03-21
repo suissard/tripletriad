@@ -1,0 +1,17 @@
+{
+  "name": "Parasite Mental",
+  "description": "Entité psychique sans corps propre, logée dans le crâne d'un humain possédé. Elle contrôle les gestes comme une marionnette grotesque.",
+  "element": "longue_portee",
+  "elements": [
+    "longue_portee"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "1",
+  "rightValue": "4",
+  "bottomValue": "2",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Possessed human with visible psychic parasite glow beneath skull, puppet-like jerky movements, purple tendrils from head, dark sci-fi setting, cosmic horror, grimdark"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Acolyte du Murmure Binaire",
+  "description": "Unité renforcée de suppression électronique. Le Murmure émet des fréquences hypnotiques depuis son armure cerclée d'antennes, paralysant les systèmes nerveux organiques à courte portée.",
+  "element": "hacking",
+  "elements": ["hacking", "reseau"],
+  "faction": "Chœur Synthétique",
+  "topValue": "3",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Grimdark sci-fi, humanoid robot monk with antenna-crowned heavy armor emitting visible sound waves, reinforced bronze plating with cable-like textures, worn dark robes, faceless geometric mask, hands raised projecting binary hypnotic frequencies, golden holographic data ripples, cyber-asceticism, electronic suppression, cinematic lighting, highly detailed"
+}

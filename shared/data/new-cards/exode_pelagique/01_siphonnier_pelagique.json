@@ -1,0 +1,17 @@
+{
+  "name": "Siphonnier Pélagique",
+  "description": "Fantassin de base de l'Exode, armé d'un fusil à pression hydraulique. Le Bocal de son casque scintille d'un cyan calme tandis qu'il ajuste sa valve de tir.",
+  "element": "eau",
+  "elements": ["eau", "longue_portee"],
+  "faction": "Exode pélagique",
+  "topValue": "3",
+  "rightValue": "2",
+  "bottomValue": "1",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Alien cephalopod soldier in heavy industrial diving suit with spherical glass helmet filled with glowing cyan water, holding a hydraulic pressure rifle, rusty orange and verdigris armor, dark mining aesthetic, bioluminescent details"
+}
+
+

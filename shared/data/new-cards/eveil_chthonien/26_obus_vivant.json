@@ -1,0 +1,17 @@
+{
+  "name": "Obus Vivant",
+  "description": "Progéniture sphérique au corps compact de roche dure. Capable de se rouler et de projeter des éclats de pierre en fusion comme un mortier organique. Lent mais redoutable à distance.",
+  "element": "longue_portee",
+  "elements": [
+    "longue_portee"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Dark sci-fi fantasy, spherical armored rock creature spitting molten rock projectiles, compact body of dark volcanic stone, glowing orange maw, crater-like surface, battlefield smoke, dark atmosphere, cinematic lighting"
+}

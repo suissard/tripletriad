@@ -1,0 +1,15 @@
+{
+  "name": "Véhicule-Sapeur",
+  "description": "Rig de forage militarisé. Il perce les murs, les bunkers et les espoirs. Ses forets crachent des étincelles en permanence et son bruit fait trembler le sol.",
+  "element": "hacking",
+  "elements": ["hacking"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi scrap-punk drilling vehicle assault platform, heavy mining rig converted to military use, massive spinning drill bits on front, reinforced hull with welded armor patches, sparks and rock debris, dark tunnel breaching scene, highly detailed"
+}

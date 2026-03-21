@@ -1,0 +1,15 @@
+{
+  "name": "Chasseur de Reliques",
+  "description": "Spécialisé dans le piratage des artefacts vénérés par les Héritiers des Cendres. Il s'approvre des reliques antiques et les 'apaise' par l'extraction de leur code corrompu.",
+  "element": "hacking",
+  "elements": ["hacking"],
+  "faction": "Chœur Synthétique",
+  "topValue": "3",
+  "rightValue": "3",
+  "bottomValue": "2",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark spiritual art, Le Chœur Synthétique faction. Android relic hunter monk with scanning hands extended towards ancient artifact, golden data extraction tendrils, focused meditative pose, faceless, cinematic lighting, highly detailed"
+}

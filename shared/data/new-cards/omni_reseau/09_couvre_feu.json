@@ -1,0 +1,15 @@
+{
+  "name": "Couvre-Feu",
+  "description": "Tireur d'appoint du Réseau. Pas de surnom, pas de personnalité — un numéro de série et une position balistique calculée par l'Architecte. Chaque balle suit une trajectoire optimisée à la microseconde près.",
+  "element": "reseau",
+  "elements": ["reseau", "longue_portee"],
+  "faction": "Omni-Réseau",
+  "topValue": "1",
+  "rightValue": "3",
+  "bottomValue": "3",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Sniper drone prone on elevated position, cybernetic targeting eye implant glowing cold blue. Long geometric precision rifle, dark grey armor, neural cables along spine. Barcode serial on helmet, dystopian, highly detailed."
+}

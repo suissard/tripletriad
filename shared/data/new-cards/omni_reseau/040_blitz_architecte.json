@@ -1,0 +1,15 @@
+{
+  "name": "Blitz Architecte",
+  "description": "Véhicule d'assaut rapide, éclaireur d'élite de l'Architecte. Sa vitesse permet de devancer l'essaim pour frapper en premier.",
+  "element": "reseau",
+  "elements": ["reseau", "furtif"],
+  "faction": "Omni-Réseau",
+  "topValue": "4",
+  "rightValue": "6",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Fast assault scout vehicle, sleek angular dark grey hoverbike or light tracked chassis, minimal armor for speed, cold blue neural antenna trailing light streaks, geometric weapons mounted on sides. Human head computing node integrated into nose. Speed lines, dust trail, dystopian battlefield. Cinematic lighting, highly detailed."
+}

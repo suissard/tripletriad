@@ -1,0 +1,17 @@
+{
+  "name": "Sectateur Errant",
+  "description": "Cultiste fané parcourant les ruines en murmurant des prières inversées. Ses yeux roulés vers l'arrière distinguent les failles dimensionnelles.",
+  "element": "furtif",
+  "elements": [
+    "furtif"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "3",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Emaciated cultist wanderer in torn asylum robes, rolled-back eyes, walking through ruined buildings, faint purple psychic aura, dark grimdark sci-fi, cinematic lighting"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Bouclier-Connexion",
+  "description": "Fantassin renforcé anti-intrusion dont les implants interceptent les tentatives de hacking. Mur vivant contre la subversion électronique.",
+  "element": "reseau",
+  "elements": ["reseau", "hacking"],
+  "faction": "Omni-Réseau",
+  "topValue": "3",
+  "rightValue": "4",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Reinforced infantry electronic warfare specialist, dark armor with extra antenna arrays and blinking cold blue lights on helmet, thick black neural cables, holding geometric rifle with data-stream holographic display. Dystopian atmosphere, highly detailed, cinematic lighting."
+}

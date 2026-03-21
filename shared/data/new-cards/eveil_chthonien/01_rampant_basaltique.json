@@ -1,0 +1,17 @@
+{
+  "name": "Rampant Basaltique",
+  "description": "Créature reptilienne aux écailles de basalte noir, rampant sous les ruines. Sa mâchoire broie l'acier comme du sable.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Dark sci-fi fantasy, small reptilian creature made of black basalt rock, glowing orange cracks, crawling through rubble ruins, multiple small glowing eyes, smoke from its body, cinematic lighting, highly detailed"
+}

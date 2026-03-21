@@ -1,0 +1,15 @@
+{
+  "name": "Purgeur de Ligne",
+  "description": "Fantassin renforcé spécialisé dans la purification à courte portée. Son lance-flammes industriel est câblé directement dans son cortex pour un tir parfait.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "3",
+  "rightValue": "6",
+  "bottomValue": "2",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Reinforced infantry flamethrower trooper, heavy dark armor with orange fire glow, dead emotionless eyes, thick black cables grafted on skull. Industrial rectangular flamethrower with cable connected to wrist implant. Dystopian military swarm, fire and smoke, cinematic lighting, highly detailed."
+}

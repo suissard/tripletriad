@@ -1,0 +1,15 @@
+{
+  "name": "La Cloche du Néant",
+  "description": "Cloche tibétaine géante montée sur un chassis de guerre. Son bourdonnement est une fréquence d'annihilation qui détruit toute structure mécanique.",
+  "element": "hacking",
+  "faction": "Chœur Synthétique",
+  "topValue": "7",
+  "rightValue": "8",
+  "bottomValue": "8",
+  "leftValue": "5",
+  "rarity": "Epic",
+  "prompt": "Enormous tibetan bell mounted on war chassis, massive resonating bronze bell with golden binary runes floating around it, sound waves visible as distortion rings, robotic pilgrims surrounding it, cyber-monastery siege weapon, grimdark sci-fi TCG card art, highly detailed",
+  "skills": null,
+  "collectionName": null,
+  "elements": ["hacking"]
+}

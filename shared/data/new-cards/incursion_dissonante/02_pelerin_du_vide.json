@@ -1,0 +1,17 @@
+{
+  "name": "Pèlerin du Vide",
+  "description": "Cultiste lévitant dont le corps se fracture en géométries impossibles. Il marche entre les dimensions en traînant des fragments de réalité brisée.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "2",
+  "rightValue": "3",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Levitating hooded cultist with fractured impossible geometry body, fragments of broken reality floating around, violet neon glitch aura, cosmic horror, grimdark sci-fi"
+}

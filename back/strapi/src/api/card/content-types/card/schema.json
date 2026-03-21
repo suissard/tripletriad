@@ -21,6 +21,7 @@
     },
     "element": {
       "type": "enumeration",
+      "default": "None",
       "enum": [
         "None",
         "eau",
@@ -32,17 +33,17 @@
         "radiation",
         "reseau",
         "spore"
-      ],
-      "default": "None"
+      ]
     },
     "elements": {
       "type": "json"
     },
     "faction": {
       "type": "enumeration",
+      "default": "neutre",
       "enum": [
         "neutre",
-        "Hégemonie martienne",
+        "Hégémonie martienne",
         "Exode pélagique",
         "Héritiers des cendres",
         "Omni-Réseau",
@@ -51,28 +52,27 @@
         "Incursion Dissonante",
         "Ferrailleurs de la Ceinture",
         "Fléau Spore"
-      ],
-      "default": "neutre"
+      ]
     },
     "topValue": {
       "type": "string",
-      "required": true,
-      "maxLength": 1
+      "maxLength": 1,
+      "required": true
     },
     "rightValue": {
       "type": "string",
-      "required": true,
-      "maxLength": 1
+      "maxLength": 1,
+      "required": true
     },
     "bottomValue": {
       "type": "string",
-      "required": true,
-      "maxLength": 1
+      "maxLength": 1,
+      "required": true
     },
     "leftValue": {
       "type": "string",
-      "required": true,
-      "maxLength": 1
+      "maxLength": 1,
+      "required": true
     },
     "skills": {
       "type": "json"
@@ -90,14 +90,14 @@
     },
     "rarity": {
       "type": "enumeration",
+      "default": "Common",
       "enum": [
         "Common",
         "Uncommon",
         "Rare",
         "Epic",
         "Legendary"
-      ],
-      "default": "Common"
+      ]
     },
     "storiesRewardedFrom": {
       "type": "relation",

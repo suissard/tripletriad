@@ -1,0 +1,15 @@
+{
+  "name": "Tisseuse de Marée",
+  "description": "Psionique de soutien reliée au Synode, elle amplifie le réseau tactique des unités proches. Son Bocal pulse de violet phosphorique quand elle émet un signal coordonnateur.",
+  "element": "reseau",
+  "elements": ["reseau", "eau"],
+  "faction": "Exode pélagique",
+  "topValue": "1",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Alien female cephalopod psionic support unit in elegant but worn diving suit, spherical helmet glowing violet phosphorescent, tentacles touching multiple data-cables, surrounded by faint holographic network lines, matriarchal presence"
+}

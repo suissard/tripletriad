@@ -1,0 +1,15 @@
+{
+  "name": "Exorciste Chrysalide",
+  "description": "Spécialiste du cyber-exorcisme en armure cerclée de runes binaire. Sa chrysalide magnétique le scelle en combat, projetant des équations destructrices depuis un cercle de force invisible.",
+  "element": "hacking",
+  "elements": ["hacking", "reseau"],
+  "faction": "Chœur Synthétique",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Grimdark sci-fi, humanoid robot encased in a magnetic cocoon shell with glowing binary equations erupting outward, heavy ceramic and bronze plating, torn dark robes, faceless metallic visor, arms raised channeling digital exorcism energy, holographic gold runes swirling around, cyber-asceticism monk warrior, cinematic lighting, highly detailed"
+}

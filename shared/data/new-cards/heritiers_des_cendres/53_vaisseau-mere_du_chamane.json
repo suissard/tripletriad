@@ -1,0 +1,17 @@
+{
+  "name": "Vaisseau-Mère du Chamane",
+  "description": "QG volant du Grand Techno-Chamane.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "8",
+  "rightValue": "8",
+  "bottomValue": "7",
+  "leftValue": "A",
+  "rarity": "Epic",
+  "prompt": "Massive cult mothership, sacred technology, teleportation beam, multiple sacred reactors, post-apocalyptic flagship, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

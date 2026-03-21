@@ -759,6 +759,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   object-fit: cover;
   opacity: 0.7;
   z-index: 1;
+  border-radius: 6px;
 }
 
 .card-name-bar {

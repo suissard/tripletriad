@@ -1,0 +1,17 @@
+{
+  "name": "Tremble-Griffe",
+  "description": "Petit prédateur au corps de schiste dont les griffes vibrent à haute fréquence, sectionnant pierre et métal avec une précision chirurgicale.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "2",
+  "rightValue": "4",
+  "bottomValue": "1",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Dark sci-fi fantasy, small agile predator made of dark schist rock, vibrating obsidian claws mid-slash, motion blur on the claws, crouching attack pose, rocky terrain, highly detailed"
+}

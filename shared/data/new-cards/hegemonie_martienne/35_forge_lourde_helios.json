@@ -1,0 +1,15 @@
+{
+  "name": "Forge Lourde Helios",
+  "description": "Véhicule artilleur automoteur montant un canon solaire concentré. Rétracte un miroir orbital géant pour focaliser l'énergie du soleil en un laser destructeur. Vitriole des zones entières d'un seul tir.",
+  "element": "radiation",
+  "elements": ["radiation", "longue_portee"],
+  "faction": "Hégémonie martienne",
+  "topValue": "6",
+  "rightValue": "3",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Heavy self-propelled artillery with large retractable orbital mirror dish, focused solar beam firing, molten ground beneath, angular hull on heavy tracks."
+}

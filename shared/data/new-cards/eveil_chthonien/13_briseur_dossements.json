@@ -1,0 +1,17 @@
+{
+  "name": "Briseur d'Ossements",
+  "description": "Simien de pierre aux bras disproportionnés, broyant les défenses ennemies à mains nues. Chaque coup crée une onde de choc locale.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "2",
+  "rightValue": "1",
+  "bottomValue": "3",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Dark sci-fi fantasy, rock ape creature with oversized arms made of dark stone, slamming fists into ground creating shockwave, glowing red cracks across body, fierce expression, volcanic dust, highly detailed"
+}

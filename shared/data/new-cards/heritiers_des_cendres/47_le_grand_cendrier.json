@@ -1,0 +1,17 @@
+{
+  "name": "Le Grand Cendrier",
+  "description": "Dieu de destruction radioactive qui crache des flots de magma.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "A",
+  "rightValue": "9",
+  "bottomValue": "8",
+  "leftValue": "A",
+  "rarity": "Legendary",
+  "prompt": "Colossal radioactive god towering over cities, breathing nuclear fire, cracked earth, apocalyptic, godzilla-like, post-apocalyptic, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Rapace de la Sentence",
+  "description": "Frégate chasse-tueur. Rapide, agressive, sans pitié. Elle intercepte les vaisseaux ennemis, les découpe au railgun orbital et rentre au port avant que la cible n'ait compris ce qui s'est passé.",
+  "element": "furtif",
+  "elements": ["furtif", "longue_portee"],
+  "faction": "Hégémonie martienne",
+  "topValue": "5",
+  "rightValue": "9",
+  "bottomValue": "5",
+  "leftValue": "9",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Sleek fast attack frigate, elongated needle-nose with twin railgun barrels along the spine, sharp diamond-shaped wings, crimson afterburner trails, predatory banking turn, dark void of space, aggressive pursuit silhouette."
+}

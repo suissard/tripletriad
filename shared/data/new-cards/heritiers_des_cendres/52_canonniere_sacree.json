@@ -1,0 +1,17 @@
+{
+  "name": "Canonnière Sacrée",
+  "description": "Escorteur lourd avec canons à antimatière.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "6",
+  "rightValue": "7",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "rarity": "Uncommon",
+  "prompt": "Sacred gunship with antimatter cannons, sacred shields, cult markings, post-apocalyptic space, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

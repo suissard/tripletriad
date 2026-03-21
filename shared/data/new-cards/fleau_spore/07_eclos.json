@@ -1,0 +1,15 @@
+{
+  "name": "Éclos",
+  "description": "Nouveau-né du Fléau, fraîchement sorti de sa coque sporelle. Petit, rapide, innombrable. Il se jette en masse sur les défenses ennemies.",
+  "element": "spore",
+  "elements": ["spore"],
+  "faction": "Fléau Spore",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "1",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark biomechanical horror, freshly spawned fungal creature. Small humanoid emerging from cracked organic spore pod, wet and glistening. Thin limbs, oversized head with no eyes, mouth full of needle teeth. Green amniotic fluid dripping. Remnants of spore shell still attached to back. Swarm of others behind it. Cinematic lighting, highly detailed, horror atmosphere."
+}

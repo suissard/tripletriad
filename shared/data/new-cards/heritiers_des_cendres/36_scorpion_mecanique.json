@@ -1,0 +1,17 @@
+{
+  "name": "Scorpion Mécanique",
+  "description": "Véhicule multi-pattes avec queue venimeuse.",
+  "element": "spore",
+  "faction": "Héritiers des cendres",
+  "topValue": "5",
+  "rightValue": "6",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "rarity": "Uncommon",
+  "prompt": "Mechanical scorpion vehicle with venomous tail, multiple legs, salvaged parts, post-apocalyptic, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "spore"
+  ]
+}

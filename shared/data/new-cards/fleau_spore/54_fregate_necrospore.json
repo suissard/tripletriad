@@ -1,0 +1,18 @@
+{
+  "name": "Frégate Nécrospore",
+  "description": "Vaisseau de guerre fongique dont la proue est un crâne géant fossilisé par le mycélium, projetant un rayon concentré de spores corrosives. Ses flancs portent des ruches de chasseurs biologiques prêts à s'enrouler autour des vaisseaux ennemis et les consommer de l'intérieur.",
+  "element": "spore",
+  "elements": [
+    "spore",
+    "longue_portee"
+  ],
+  "faction": "Fléau Spore",
+  "topValue": "8",
+  "rightValue": "9",
+  "bottomValue": "7",
+  "leftValue": "8",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi grimdark biomechanical horror, Le Fléau Spore faction. Fungal warship with a massive fossilized skull as its prow, firing concentrated spore beam, sides covered in small organic fighter-craft pods, hull of rusted metal fused with living mycelium, bioluminescent accents, dark space battle scene, highly detailed, epic."
+}

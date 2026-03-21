@@ -5,7 +5,7 @@
     <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] z-0"></div>
 
     <!-- Close Button -->
-    <button @click="$emit('close')" class="absolute top-6 right-6 w-12 h-12 rounded-full glass-panel border border-white/20 hover:border-white/50 hover:bg-white/10 transition-all flex items-center justify-center text-2xl font-light z-50 group">
+    <button @click="router.push('/')" class="absolute top-6 right-6 w-12 h-12 rounded-full glass-panel border border-white/20 hover:border-white/50 hover:bg-white/10 transition-all flex items-center justify-center text-2xl font-light z-50 group">
       <span class="group-hover:rotate-90 transition-transform duration-300">✕</span>
     </button>
 
@@ -31,39 +31,63 @@
       </div>
     </div>
 
-    <!-- Booster Selection -->
-    <div v-if="!packOpened && !isOpening" class="relative z-10 flex flex-wrap justify-center gap-12 mt-4 animate-fade-in">
-      <!-- Classic Pack -->
-      <div class="booster-card classic-theme group" @click="handlePackPurchase('classic')">
-        <div class="booster-inner">
-          <div class="booster-visual">
-            <div class="booster-icon">📦</div>
-            <div class="booster-glow"></div>
-          </div>
-          <div class="booster-info">
-            <h2 class="text-2xl font-black uppercase italic tracking-wider mb-1">Pack Classique</h2>
-            <p class="text-white/60 text-sm mb-6">5 cartes (Épique garantie)</p>
-            <div class="price-tag group-hover:scale-110 transition-transform" :class="{ 'insufficient': wallet.coins < 100 }">
-              <span>100</span>
-              <span class="text-lg ml-1">🪙</span>
+    <!-- Booster Selection Grouped by Collection -->
+    <div v-if="!packOpened && !isOpening" class="relative z-10 w-full max-w-6xl animate-fade-in flex flex-col gap-16 mt-4">
+      <div v-for="coll in availableCollections" :key="coll.id" class="collection-section">
+        <div class="flex items-center gap-6 mb-8 px-4">
+          <div class="h-[2px] flex-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+          <h2 class="text-3xl font-black uppercase italic tracking-[0.2em] text-white/50 whitespace-nowrap">
+            Collection: <span class="text-white">{{ coll.name }}</span>
+          </h2>
+          <div class="h-[2px] flex-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-12">
+          <!-- Classic Pack -->
+          <div class="booster-card classic-theme group" @click="handlePackPurchase('classic', coll.id)">
+            <div class="booster-inner">
+              <div class="booster-visual">
+                <div class="booster-icon">📦</div>
+                <div class="booster-glow"></div>
+              </div>
+              <div class="booster-info">
+                <h2 class="text-2xl font-black uppercase italic tracking-wider mb-1">Pack Classique</h2>
+                <p class="text-white/60 text-sm mb-6">5 cartes (Épique garantie)</p>
+                <div class="price-tag group-hover:scale-110 transition-transform" :class="{ 'insufficient': wallet.coins < 100 && boosterCounts[coll.id]?.classic === 0 }">
+                  <template v-if="boosterCounts[coll.id]?.classic > 0">
+                    <span>{{ boosterCounts[coll.id].classic }}</span>
+                    <span class="text-sm ml-2 font-light opacity-60">Dispo.</span>
+                  </template>
+                  <template v-else>
+                    <span>100</span>
+                    <span class="text-lg ml-1">🪙</span>
+                  </template>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <!-- Premium Pack -->
-      <div class="booster-card premium-theme group" @click="handlePackPurchase('premium')">
-        <div class="booster-inner">
-          <div class="booster-visual">
-            <div class="booster-icon">💎</div>
-            <div class="booster-glow"></div>
-          </div>
-          <div class="booster-info">
-            <h2 class="text-2xl font-black uppercase italic tracking-wider mb-1">Pack Premium</h2>
-            <p class="text-white/60 text-sm mb-6">Meilleur taux de Loot</p>
-            <div class="price-tag group-hover:scale-110 transition-transform" :class="{ 'insufficient': wallet.gems < 100 }">
-              <span>100</span>
-              <span class="text-lg ml-1">💎</span>
+          <!-- Premium Pack -->
+          <div class="booster-card premium-theme group" @click="handlePackPurchase('premium', coll.id)">
+            <div class="booster-inner">
+              <div class="booster-visual">
+                <div class="booster-icon">💎</div>
+                <div class="booster-glow"></div>
+              </div>
+              <div class="booster-info">
+                <h2 class="text-2xl font-black uppercase italic tracking-wider mb-1">Pack Premium</h2>
+                <p class="text-white/60 text-sm mb-6">Meilleur taux de Loot</p>
+                <div class="price-tag group-hover:scale-110 transition-transform" :class="{ 'insufficient': wallet.gems < 100 && boosterCounts[coll.id]?.premium === 0 }">
+                  <template v-if="boosterCounts[coll.id]?.premium > 0">
+                    <span>{{ boosterCounts[coll.id].premium }}</span>
+                    <span class="text-sm ml-2 font-light opacity-60">Dispo.</span>
+                  </template>
+                  <template v-else>
+                    <span>100</span>
+                    <span class="text-lg ml-1">💎</span>
+                  </template>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -128,10 +152,18 @@
           @click="handlePackPurchase(selectedPackType)"
           class="px-16 py-5 text-2xl font-black uppercase italic tracking-tighter rounded-full shadow-[0_0_50px_rgba(255,255,255,0.4)] hover:scale-110 active:scale-95 transition-all flex items-center gap-3"
         >
-          Refaire un tirage
-          <span class="text-xl flex items-center gap-1 opacity-70">
-            (100 {{ selectedPackType === 'premium' ? '💎' : '🪙' }})
-          </span>
+          <template v-if="(selectedPackType === 'premium' ? boosterCounts[selectedCollection]?.premium : boosterCounts[selectedCollection]?.classic) > 0">
+            Ouvrir un autre
+            <span class="text-xl flex items-center gap-1 opacity-70">
+              ({{ selectedPackType === 'premium' ? boosterCounts[selectedCollection]?.premium : boosterCounts[selectedCollection]?.classic }} dispos)
+            </span>
+          </template>
+          <template v-else>
+            Refaire un tirage
+            <span class="text-xl flex items-center gap-1 opacity-70">
+              (100 {{ selectedPackType === 'premium' ? '💎' : '🪙' }})
+            </span>
+          </template>
         </AppButton>
       </template>
     </div>
@@ -147,6 +179,9 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
 import { ref, computed, onMounted } from 'vue';
 import TripleTriadCard from '../components/TripleTriadCard.vue';
 import { state } from '../game/state.js';
@@ -183,12 +218,30 @@ const wallet = computed(() => ({
   gems: userStore.user?.gems || 0,
   dust: userStore.user?.dust || 0
 }));
+const boosters = computed(() => userStore.user?.boosters || []);
+
+const availableCollections = ref([
+ { id: 'base', name: 'Base' },
+ { id: 'expansion_one', name: 'Expansion #1' },
+ { id: 'cyber_warfare', name: 'Cyber Warfare' }
+]);
+
+const boosterCounts = computed(() => {
+  const counts = {};
+  availableCollections.value.forEach(coll => {
+    const classic = boosters.value.filter(b => b.collection === coll.id && !b.isPremium).reduce((sum, b) => sum + b.quantity, 0);
+    const premium = boosters.value.filter(b => b.collection === coll.id && b.isPremium).reduce((sum, b) => sum + b.quantity, 0);
+    counts[coll.id] = { classic, premium };
+  });
+  return counts;
+});
 
 const drawnCards = ref([]);
 const isFlipped = ref([]);
 const isOpening = ref(false);
 const packOpened = ref(false);
 const selectedPackType = ref('classic');
+const selectedCollection = ref('base');
 const errorMessage = ref('');
 const hits = ref(0);
 
@@ -196,15 +249,19 @@ const remainingHits = computed(() => {
   return Math.max(0, maxHits.value - hits.value);
 });
 
-const handlePackPurchase = (type) => {
+const handlePackPurchase = (type, collection = 'base') => {
   selectedPackType.value = type;
+  selectedCollection.value = collection;
   openPack();
 };
 
 const openPack = async () => {
-  const currency = selectedPackType.value === 'premium' ? 'gems' : 'coins';
+  const isPremium = selectedPackType.value === 'premium';
+  const collection = selectedCollection.value;
+  const currency = isPremium ? 'gems' : 'coins';
+  const hasBooster = (boosterCounts.value[collection]?.[selectedPackType.value === 'premium' ? 'premium' : 'classic'] || 0) > 0;
 
-  if (userStore.strapiConnected && wallet.value[currency] < 100) {
+  if (!hasBooster && userStore.strapiConnected && wallet.value[currency] < 100) {
     errorMessage.value = `Pas assez de ${currency === 'gems' ? 'gemmes' : 'pièces'} !`;
     setTimeout(() => errorMessage.value = '', 3000);
     return;
@@ -222,37 +279,77 @@ const openPack = async () => {
     let data;
     if (!userStore.strapiConnected) {
         data = strapiMock.openBooster();
-        data.wallet = { coins: wallet.value.coins - (selectedPackType.value === 'classic' ? 100 : 0), gems: wallet.value.gems - (selectedPackType.value === 'premium' ? 100 : 0), dust: wallet.value.dust };
+        const cost = hasBooster ? 0 : 100;
+        data.wallet = { 
+          coins: wallet.value.coins - (selectedPackType.value === 'classic' ? cost : 0), 
+          gems: wallet.value.gems - (selectedPackType.value === 'premium' ? cost : 0), 
+          dust: wallet.value.dust 
+        };
     } else {
         const token = localStorage.getItem('tt_jwt');
-        const response = await fetch('http://localhost:1337/api/booster/buy', {
+        
+        // 1. Buy if needed
+        if (!hasBooster) {
+          const buyRes = await fetch('http://localhost:1337/api/booster/buy', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ 
+              type: selectedPackType.value,
+              collection: selectedCollection.value 
+            })
+          });
+          if (!buyRes.ok) {
+            const errorData = await buyRes.json();
+            throw new Error(errorData.error?.message || 'Failed to buy pack');
+          }
+          // Update wallet immediately to show deduction
+          const buyData = await buyRes.json();
+          userStore.user.coins = buyData.wallet.coins;
+          userStore.user.gems = buyData.wallet.gems;
+          userStore.user.boosters = buyData.wallet.boosters;
+        }
+
+        // 2. Open
+        const openRes = await fetch('http://localhost:1337/api/booster/open', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
           },
-          body: JSON.stringify({ type: selectedPackType.value })
+          body: JSON.stringify({ 
+            isPremium: isPremium,
+            collection: selectedCollection.value 
+          })
         });
 
-        if (!response.ok) {
-          const errorData = await response.json();
+        if (!openRes.ok) {
+          const errorData = await openRes.json();
           throw new Error(errorData.error?.message || 'Failed to open pack');
         }
 
-        data = await response.json();
+        data = await openRes.json();
     }
-    drawnCards.value = data.cards;
     
-    // Update global wallet (the computed property will reflect this automatically)
+    drawnCards.value = data.cards || [];
+    if (!drawnCards.value.length) {
+       throw new Error("No cards found in pack");
+    }
+    
+    // Update global wallet and boosters
     userStore.user.coins = data.wallet.coins;
     userStore.user.gems = data.wallet.gems;
     userStore.user.dust = data.wallet.dust;
+    userStore.user.boosters = data.wallet.boosters;
     userStore.syncLocalUserWallets();
 
     isFlipped.value = new Array(drawnCards.value.length).fill(false);
 
   } catch (err) {
-    errorMessage.value = err.message;
+    console.error("Open pack error:", err);
+    errorMessage.value = err.message || "Erreur lors de l'ouverture.";
     isOpening.value = false;
     setTimeout(() => errorMessage.value = '', 3000);
   }
@@ -308,7 +405,11 @@ const getGlowClass = (rarity) => {
   -webkit-backdrop-filter: blur(25px);
 }
 
-/* Booster Cards */
+/* Booster Cards & Collections */
+.collection-section {
+  animation: fade-in 1s forwards cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .booster-card {
   width: 320px;
   height: 480px;

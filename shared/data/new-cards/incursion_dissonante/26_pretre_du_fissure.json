@@ -1,0 +1,17 @@
+{
+  "name": "Prêtre du Fissure",
+  "description": "Leader de culte dont les cicatifications rituelles ont ouvert des failles miniatures dans sa propre peau. Son armure de béton et d'acier anti-psychique maintient sa forme corporelle.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Cult priest with miniature dimensional rifts carved into scarified skin, wearing heavy concrete and steel anti-psychic armor, purple light leaking from wounds, levitating slightly, cosmic horror grimdark"
+}

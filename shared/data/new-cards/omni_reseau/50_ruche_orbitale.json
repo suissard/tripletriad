@@ -1,0 +1,15 @@
+{
+  "name": "Ruche Orbitale",
+  "description": "Vaisseau amiral spatial, poste de commandement orbital de l'Architecte. Depuis l'orbite, il coordonne l'ensemble de l'essaim terrestre avec une précision de l'ordre du millimètre.",
+  "element": "reseau",
+  "elements": ["reseau", "longue_portee", "hacking"],
+  "faction": "Omni-Réseau",
+  "topValue": "9",
+  "rightValue": "8",
+  "bottomValue": "9",
+  "leftValue": "8",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Enormous orbital command ship, dark grey monolithic rectangular block-shaped spacecraft bristling with antenna arrays and sensor dishes, cold blue neural glow from bridge core, data streams connecting to planet surface below. Human skulls embedded in hull as processors. Barcode serials massive on hull plating. Drone swarm escorts orbiting. Space battlefield, planet below. Cinematic lighting, ultra detailed."
+}

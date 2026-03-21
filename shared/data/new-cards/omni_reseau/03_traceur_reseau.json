@@ -1,0 +1,15 @@
+{
+  "name": "Traceur-Réseau",
+  "description": "Éclaireur connecté au maillage neural global. Ses yeux remplacés par des capteurs optiques transmettent en temps réel chaque mouvement ennemi à l'Architecte. Il ne voit pas — il observe pour la Grille.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "1",
+  "rightValue": "1",
+  "bottomValue": "4",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Lean scout drone with cybernetic optical implants replacing eyes, glowing cold blue. Black neural cables, lightweight dark grey armor, antenna array on back. Crouching reconnaissance pose, dystopian, highly detailed."
+}

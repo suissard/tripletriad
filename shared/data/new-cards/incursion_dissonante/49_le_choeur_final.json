@@ -1,0 +1,19 @@
+{
+  "name": "Le Chœur Final",
+  "description": "Amas de milliers de corps humains fusionnés en une sphère hurlante de la taille d'un immeuble. Chaque bouche chante une note différente de la Chanson Dissonante, créant une cacophonie qui rend fou quiconque l'entend.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle",
+    "radiation",
+    "hacking"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "8",
+  "rightValue": "A",
+  "bottomValue": "9",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "Spherical colossus made of thousands of fused screaming human bodies ten stories tall, every mouth singing a different dissonant note, reality warping around it from the psychic cacophony, cosmic horror grimdark sci-fi, apocalyptic"
+}

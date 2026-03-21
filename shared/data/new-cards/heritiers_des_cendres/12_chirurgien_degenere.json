@@ -1,0 +1,17 @@
+{
+  "name": "Chirurgien Dégénéré",
+  "description": "Greffiste forcé qui répare les mutants avec des pièces de récup.",
+  "element": "spore",
+  "faction": "Héritiers des cendres",
+  "topValue": "2",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "2",
+  "rarity": "Common",
+  "prompt": "Grotesque mutant surgeon with bone saw, operating on another mutant, blood-spattered medical gear, post-apocalyptic surgery tent, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "spore"
+  ]
+}

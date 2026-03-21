@@ -1,0 +1,17 @@
+{
+  "name": "Fanatique Irradié",
+  "description": "Charge suicide avec grenade nucléaire artisanale. Explosion garantie à la mort.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "2",
+  "rightValue": "1",
+  "bottomValue": "1",
+  "leftValue": "2",
+  "rarity": "Common",
+  "prompt": "Post-apocalyptic TCG card art, ragged mutant cultist charging with a crude nuclear grenade, glowing yellow tumors, wasteland battlefield, dark grimdark style, detailed illustration",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

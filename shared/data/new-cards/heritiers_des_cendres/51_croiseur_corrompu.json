@@ -1,0 +1,17 @@
+{
+  "name": "Croiseur Corrompu",
+  "description": "Vaisseau de combat principal à l'ancienne, corrompu par le culte.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "7",
+  "rightValue": "6",
+  "bottomValue": "6",
+  "leftValue": "7",
+  "rarity": "Rare",
+  "prompt": "Corrupted warship with plasma cannons, nuclear torpedoes, cult symbols, post-apocalyptic space combat, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

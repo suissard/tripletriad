@@ -30,7 +30,10 @@ export interface StoryDialogue extends Struct.ComponentSchema {
   };
   attributes: {
     card: Schema.Attribute.Relation<'oneToOne', 'api::card.card'>;
-    name: Schema.Attribute.String & Schema.Attribute.Required;
+    isNarration: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    name: Schema.Attribute.String;
+    position: Schema.Attribute.Enumeration<['left', 'right']> &
+      Schema.Attribute.DefaultTo<'left'>;
     sentence: Schema.Attribute.Text & Schema.Attribute.Required;
   };
 }

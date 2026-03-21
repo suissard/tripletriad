@@ -1,0 +1,15 @@
+{
+  "name": "La Méduse Souveraine",
+  "description": "Arche-aquarium géante et vaisseau-amiral du Synode Biologique. Une méduse colossale de métal et de verre blindé, abritant des milliers de céphalopodes dans ses cloches pressurisées. Ses tentacules mécaniques projettent des ondes de plasma dévastatrices.",
+  "element": "eau",
+  "elements": ["eau", "longue_portee", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "8",
+  "rightValue": "7",
+  "bottomValue": "A",
+  "leftValue": "9",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "A colossal jellyfish-shaped mothership, massive translucent bell dome filled with glowing cyan water, dozens of mechanical tentacles trailing beneath, halogen floodlights piercing the void, rust-streaked hull covered in barnacles and micro-meteorite scars, steam erupting from asymmetric thrusters, deep space background with stars"
+}

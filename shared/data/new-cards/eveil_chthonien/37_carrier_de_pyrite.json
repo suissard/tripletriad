@@ -1,0 +1,17 @@
+{
+  "name": "Carrier de Pyrite",
+  "description": "Quadrupède lourd dont le dos est une plateforme de roche vivante. Transporte des progénitures vers les lignes de front et projette des éclats de pyrite enflammée.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Dark sci-fi fantasy, massive four-legged rock creature with a flat back carrying smaller stone creatures, golden pyrite glints on its hide, dark basalt body, marching through ruins, volcanic ash sky, cinematic lighting"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Horloge Abolie",
+  "description": "Tour d'horloge déformée dont les aiguilles tournent dans toutes les directions simultanément. Le temps se distord dans son périmètre, figeant les ennemis dans des boucles temporelles.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "5",
+  "rightValue": "9",
+  "bottomValue": "5",
+  "leftValue": "8",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Massive twisted clocktower floating at impossible angle, clock hands spinning in all directions simultaneously, distorted time ripples around it, dark purple and black cosmic horror, grimdark sci-fi, shattered glass floating in stasis"
+}

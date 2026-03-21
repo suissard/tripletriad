@@ -1,0 +1,15 @@
+{
+  "name": "Véhicule Cyber-Ravageur",
+  "description": "Chasseur de cyborgs équipé d'EMP ciblés et de lames énergétiques articulées. Traque spécifiquement les ennemis cybernétiques et les interfaces réseau. Le cauchemar des Synarchistes.",
+  "element": "hacking",
+  "elements": ["hacking"],
+  "faction": "Hégémonie martienne",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Cyber-hunter vehicle with articulated energy blade arms, EMP emitters, six-legged insectoid chassis, hunting through server ruins, red targeting systems active."
+}

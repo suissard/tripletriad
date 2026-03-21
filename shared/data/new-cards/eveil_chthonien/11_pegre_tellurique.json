@@ -1,0 +1,17 @@
+{
+  "name": "Pègre Tellurique",
+  "description": "Nuage compact de graviers magnétiques animés, il se déplace en essaim déchiquetant tout sur son passage comme une meute de piranhas minéraux.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Dark sci-fi fantasy, swarm of animated magnetic gravel fragments swirling like a cloud of mineral piranhas, sharp edges glinting, sandblasting everything in path, dark sky, highly detailed"
+}

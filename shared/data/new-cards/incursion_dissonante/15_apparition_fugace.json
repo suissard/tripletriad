@@ -1,0 +1,18 @@
+{
+  "name": "Apparition Fugace",
+  "description": "Entité éphémère née d'une faille récente. Elle existe quelques minutes avant de se dissoudre, semant la panique dans son bref passage.",
+  "element": "furtif",
+  "elements": [
+    "furtif",
+    "faille_dimensionnelle"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "1",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Flickering ephemeral ghostly entity dissolving at edges, translucent body with visible bones, purple and black smoky aura, dark sci-fi corridor, cosmic horror"
+}

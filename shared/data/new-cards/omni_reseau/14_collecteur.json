@@ -1,0 +1,15 @@
+{
+  "name": "Collecteur",
+  "description": "Récupérateur de biomasse et de matériel. Le Collecteur ramasse les drones détruits pour recyclage — corps, implants, armures. Rien ne se perd dans l'Omni-Réseau. Même la mort est une ressource.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "3",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Scavenger drone carrying dead cyborg bodies on back rack, pale emotionless face, dark grey utility armor stained. Black cables as carrying straps, cold blue implant light. Grim battlefield recycling, highly detailed."
+}

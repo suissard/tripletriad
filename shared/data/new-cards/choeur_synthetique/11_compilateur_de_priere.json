@@ -1,0 +1,15 @@
+{
+  "name": "Compilateur de Prière",
+  "description": "Unité de soutien qui compile les prières binaires de son escouade en un seul flux de données offensif. Plus le Chœur prie, plus la frappe est précise.",
+  "element": "reseau",
+  "elements": ["reseau", "hacking"],
+  "faction": "Chœur Synthétique",
+  "topValue": "2",
+  "rightValue": "3",
+  "bottomValue": "3",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark spiritual art, Le Chœur Synthétique faction. Robot monk surrounded by compiling holographic code, prayer beads spinning rapidly, golden data streams converging on body, faceless, cinematic lighting, highly detailed"
+}

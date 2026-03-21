@@ -1,0 +1,15 @@
+{
+  "name": "Séquence Zéro",
+  "description": "Le dernier recours. La Séquence Zéro surcharge ses implants neurales pour créer une impulsion électromagnétique locale, grillant tout appareil électronique dans un rayon de 50 mètres — y compris elle-même. L'Architecte les remplace en une heure.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "2",
+  "rightValue": "4",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. EMP suicide drone overloading implants, body crackling with cold blue electricity, face contorted in first sign of pain. Dark grey armor sparking, neural cables burning white-blue. Dystopian self-destruct, highly detailed."
+}

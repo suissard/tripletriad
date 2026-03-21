@@ -1,0 +1,15 @@
+{
+  "name": "Paladin Quantique",
+  "description": "L'infanterie renforcée la plus lourde du Chœur. Son armure quantique déphase localement la réalité, le rendant semi-intangible pendant les charges. Chaque pas est un calcul de destruction.",
+  "element": "reseau",
+  "elements": ["reseau", "hacking"],
+  "faction": "Chœur Synthétique",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Grimdark sci-fi, massive humanoid robot paladin in full quantum-shifting heavy armor that distorts the air around it, reinforced white ceramic and bronze plating, tattered dark robes billowing with energy, faceless smooth mask, holding a crackling two-handed electrified staff, golden holographic equations phasing in and out of reality, cyber-asceticism, unstoppable force, cinematic lighting, highly detailed"
+}

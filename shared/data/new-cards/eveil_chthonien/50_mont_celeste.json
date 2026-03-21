@@ -1,0 +1,18 @@
+{
+  "name": "Mont-Céleste",
+  "description": "Titan foreur géant transportant des essaims de progénitures symbiotiques à travers les profondeurs. Il émerge brièvement pour déverser sa cargaison vivante avant de replonger dans le magma.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne",
+    "radiation"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "5",
+  "rightValue": "3",
+  "bottomValue": "7",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Dark sci-fi fantasy, epic scale. A titanic worm-like transport creature breaching the surface like a living volcanic eruption, its cavernous interior filled with smaller swarm creatures spilling out. Dark obsidian armored segments, magma dripping from its mouth. Smaller creatures crawl along its massive body. Dust and debris fly as it emerges. Landscape craters around its breach point. Cinematic, highly detailed sci-fi art."
+}

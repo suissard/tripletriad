@@ -1,0 +1,17 @@
+{
+  "name": "Techno-Guerrier Lourd",
+  "description": "Exosquelette lourd avec canon plasma monté sur l'épaule.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "6",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "rarity": "Uncommon",
+  "prompt": "Heavy mutant in powered exoskeleton, shoulder-mounted plasma cannon, salvaged armor plates, imposing figure, post-apocalyptic, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

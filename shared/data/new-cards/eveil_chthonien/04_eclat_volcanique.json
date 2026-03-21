@@ -1,0 +1,17 @@
+{
+  "name": "Eclat Volcanique",
+  "description": "Fragment de roche animé, flottant dans un nuage de cendres chaudes. Il se projette comme un boulet de canon contre les cibles.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "3",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Dark sci-fi fantasy, floating jagged volcanic rock shard glowing with inner magma, surrounded by hot ash cloud, orange veins of molten rock, no features just pure angry mineral, highly detailed"
+}

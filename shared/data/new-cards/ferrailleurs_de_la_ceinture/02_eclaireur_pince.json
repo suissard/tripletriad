@@ -1,0 +1,15 @@
+{
+  "name": "Éclaireur Pince",
+  "description": "Éclaireur léger qui se faufile dans les carcasses orbitales à la recherche de butin. Ses pinces magnétiques lui permettent de grimper sur n'importe quelle surface.",
+  "element": "furtif",
+  "elements": ["furtif"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "2",
+  "rightValue": "1",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi scrap-punk light scout, slim patched spacesuit with magnetic climbing gauntlets, visor cracked helmet, crouching on rusty hull plating, dim lighting, industrial sci-fi aesthetic"
+}

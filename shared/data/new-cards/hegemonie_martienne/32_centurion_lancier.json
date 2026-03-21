@@ -1,0 +1,15 @@
+{
+  "name": "Centurion Lancier",
+  "description": "Véhicule lance-missiles mobile sur chenilles hexagonales. Salves de projectiles guidés orbitant vers les cibles désignées. Plateforme de bombardement tactique dévastatrice à moyenne portée.",
+  "element": "longue_portee",
+  "elements": ["longue_portee"],
+  "faction": "Hégémonie martienne",
+  "topValue": "6",
+  "rightValue": "4",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Mobile missile launcher vehicle on hexagonal tracked chassis, multiple launch pods angled upward, missiles in flight with red contrails, angular flat design."
+}

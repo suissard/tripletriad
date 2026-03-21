@@ -1,0 +1,17 @@
+{
+  "name": "Fanatique Scarifié",
+  "description": "Cultiste dont la peau est couverte de runes gravées à vif. Chaque symbole est une porte ouverte vers la dimension des Tisseurs.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Fanatical cultist covered in self-carved glowing runes, scars pulsing with violet light, torn rags, ecstatic expression, dark grimdark sci-fi, cosmic horror, cinematic"
+}

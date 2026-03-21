@@ -1,0 +1,15 @@
+{
+  "name": "Colonie Corallienne Vivante",
+  "description": "Récif mobile rampant sur des pattes-échasses. Sa structure corallienne vivante régénère les dégâts et forme un réseau de relais tactiques. Avant-poste ambulant et rempart organique du Synode.",
+  "element": "reseau",
+  "elements": ["reseau", "eau"],
+  "faction": "Exode pélagique",
+  "topValue": "3",
+  "rightValue": "3",
+  "bottomValue": "5",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Mobile living coral reef fortress on spindly mechanical stilts, organic coral growth fused with rusted metal scaffolding, bioluminescent organisms glowing cyan and purple throughout, small alien cephalopods visible tending coral, antenna dishes made of spiral shells, water dripping, dark ocean floor terrain"
+}

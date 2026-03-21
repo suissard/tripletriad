@@ -1,0 +1,15 @@
+{
+  "name": "Câble-Vif",
+  "description": "Technicien de combat qui manie des câbles électrifiés comme des fouets. Chaque coup envoie une décharge qui grille les circuits et les nerfs.",
+  "element": "None",
+  "elements": [],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "1",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi scrap-punk electric whip infantry, modified spacesuit with live cable whips crackling with electricity, dynamic combat pose, sparks arcing between cables, dark industrial corridor"
+}

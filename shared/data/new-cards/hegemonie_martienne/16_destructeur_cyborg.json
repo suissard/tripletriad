@@ -1,0 +1,15 @@
+{
+  "name": "Destructeur de Cyborg",
+  "description": "Spécialiste en neutralisation des implants cybernétiques. Ses rafales électromagnétiques grillent les circuits et font tomber les augmentations.",
+  "element": "hacking",
+  "elements": ["hacking"],
+  "faction": "Hégémonie martienne",
+  "topValue": "2",
+  "rightValue": "3",
+  "bottomValue": "1",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Soldier aiming an EMP pulse rifle with electronic disruption patterns emanating from barrel, angular armor with data-jack ports on helmet."
+}

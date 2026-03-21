@@ -1,0 +1,15 @@
+{
+  "name": "Oratoire Fulminant",
+  "description": "Véhicule d'artillerie conçu comme un oratoire mobile blindé, son autel central déployant un réseau de bâtons de pèlerin géants servant de paratonnerres de combat. Chaque décharge est une invocation : le courant suit les chemins tracés par les mantras holographiques.",
+  "element": "longue_portee",
+  "elements": ["longue_portee"],
+  "faction": "Chœur Synthétique",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "A mobile artillery shrine with an altar-like central structure deploying massive electrified pilgrim staffs as lightning rods. Each discharge follows paths traced by golden holographic mantras. Aged ceramic armor, oxidized bronze, blue-white electricity arcs. Sci-fi grimdark spiritual art, cyber-asceticism, cinematic lighting, highly detailed."
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Titan de la Purge",
+  "description": "Marcheur d'incinération massive. Ses réacteurs napalmiques et ses canons thermiques réduisent des districts entiers en verre fondu. Le nettoyage selon les Puristes : méthodique, absolu, définitif.",
+  "element": "obsidienne",
+  "elements": ["obsidienne", "longue_portee"],
+  "faction": "Hégémonie martienne",
+  "topValue": "5",
+  "rightValue": "8",
+  "bottomValue": "7",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Colossal quadrupedal walker with massive napalm projectors on each flank, molten glass dripping from its scorched legs, firestorm aura around it, brutal geometric silhouette, four stories tall, scorched earth behind it."
+}

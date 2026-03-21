@@ -1,0 +1,15 @@
+{
+  "name": "Criard",
+  "description": "Infecté dont la gorge est un haut-parleur organique. Il émet des stridulations fongiques pour coordonner la marée et désorienter les ennemis par des ultrasons.",
+  "element": "spore",
+  "elements": ["spore", "reseau"],
+  "faction": "Fléau Spore",
+  "topValue": "1",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark biomechanical horror, fungal screamer creature. Humanoid with throat replaced by organic speaker-like fungal structure, mouth wide open emitting visible sound waves and spore bursts. Neck swollen with vibrating membrane. Standing in elevated position on rubble. Other infected creatures visible in background responding to call. Green sonic ripples in toxic fog. Cinematic lighting, highly detailed."
+}

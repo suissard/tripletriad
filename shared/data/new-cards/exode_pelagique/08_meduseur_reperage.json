@@ -1,0 +1,15 @@
+{
+  "name": "Méduseur de Repérage",
+  "description": "Unité de reconnaissance dont le crâne translucide émet des pulsations bioluminescentes pour marquer les cibles. Léger, rapide, presque invisible dans la brume marine.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "1",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Translucent alien cephalopod spotter with jellyfish-like glowing head dome, minimal lightweight armor, bioluminescent pulse patterns on skin, almost ghostly appearance in mist, holding a small targeting device"
+}

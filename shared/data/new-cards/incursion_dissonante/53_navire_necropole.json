@@ -1,0 +1,19 @@
+{
+  "name": "Navire-Nécropole",
+  "description": "Vaisseau de guerre fait de milliers de corps momifiés agglomérés en une coque titanesque. Chaque corps ouvre les yeux en vol et projette des cris psychiques à longue portée.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle",
+    "longue_portee",
+    "radiation"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "8",
+  "rightValue": "6",
+  "bottomValue": "7",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Spaceship made of thousands of mummified fused corpses forming a titanic hull, every body's eyes open and screaming psychic projections, purple energy trails, cosmic horror grimdark sci-fi, warship scale"
+}

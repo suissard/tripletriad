@@ -1,0 +1,15 @@
+{
+  "name": "L'Autel Convergent",
+  "description": "Plateforme de calcul géante où convergent toutes les lignes de prière du Chœur. Les fréquences d'interférence qu'il émet désorientent et désactivent les machines ennemies.",
+  "element": "hacking",
+  "faction": "Chœur Synthétique",
+  "topValue": "9",
+  "rightValue": "5",
+  "bottomValue": "7",
+  "leftValue": "7",
+  "rarity": "Epic",
+  "prompt": "Massive floating altar platform with concentric mandala patterns, converging lines of golden light from all directions, holographic prayer wheels spinning, interfering frequency waves visible, cyber-monastery mobile shrine, grimdark sci-fi TCG card art, highly detailed",
+  "skills": null,
+  "collectionName": null,
+  "elements": ["hacking"]
+}
