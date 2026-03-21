@@ -88,13 +88,8 @@ const openedCards = ref([]);
 const error = ref(null);
 
 onMounted(async () => {
-  // Update coins from user profile
-  try {
-      const res = await strapiService.request('GET', '/users/me');
-      userCoins.value = res?.coins || res?.data?.coins || 0;
-  } catch(e) {
-      console.error("Failed to fetch user coins", e);
-  }
+  // Update local coins from store if needed
+  userCoins.value = userStore.user?.coins || 0;
 
   // Try to fetch booster cost
   try {
@@ -136,7 +131,7 @@ const openBooster = async () => {
                 imageUrl = c.image.url.startsWith('http') ? c.image.url : `http://localhost:1337${c.image.url}`;
             }
             if (!imageUrl) {
-                imageUrl = `https://api.dicebear.com/9.x/bottts/png?seed=${encodeURIComponent(c.name)}&backgroundColor=transparent`;
+                imageUrl = `https://api.dicebear.com/9.x/bottts/svg?seed=${encodeURIComponent(c.name)}&backgroundColor=transparent`;
             }
             return {...c, imageUrl, revealed: false};
         });

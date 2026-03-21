@@ -36,7 +36,7 @@ export function normalizeCard(raw) {
     }
 
     if (!imgUrl) {
-        imgUrl = `https://api.dicebear.com/9.x/bottts/png?seed=${(raw.id || 0) * 42}&backgroundColor=transparent`;
+      imgUrl = `https://api.dicebear.com/9.x/bottts/svg?seed=${(raw.id || 0) * 42}&backgroundColor=transparent`;
     }
 
     return {
@@ -76,7 +76,7 @@ export const createCardData = (i) => {
     };
     return normalizeCard({
         ...raw,
-        imageUrl: `https://api.dicebear.com/9.x/bottts/png?seed=${i * 42}&backgroundColor=transparent`
+        imageUrl: `https://api.dicebear.com/9.x/bottts/svg?seed=${i * 42}&backgroundColor=transparent`
     });
 };
 

@@ -74,7 +74,7 @@ class StrapiApi {
     }
 
     async getMe() {
-        const response = await this.strapiClient.fetch('/users/me?populate=*');
+        const response = await this.strapiClient.fetch('/users/me?populate=role,wallet');
         return await response.json();
     }
 

@@ -124,8 +124,9 @@ export default factories.createCoreController('api::player-story-progress.player
     }
 
     // Get the unlock price from game-config
-    const gameConfig = await strapi.entityService.findMany('api::game-config.game-config');
-    const unlockPrice = (gameConfig as any)?.storyUnlockPrice ?? 500;
+    const gameConfig = await strapi.entityService.findMany('api::game-config.game-config') as any;
+    const config = Array.isArray(gameConfig) ? gameConfig[0] : gameConfig;
+    const unlockPrice = config?.storyUnlockPrice ?? 500;
 
     // Check if user has enough coins in their wallet
     const userWallet = (user as any).wallet;

@@ -106,7 +106,7 @@
             <TripleTriadCard
               :card="{
                 ...formData,
-                imageUrl: formData.imageUrl || `https://api.dicebear.com/9.x/bottts/png?seed=${(formData.id || 0) * 42}&backgroundColor=transparent`
+                imageUrl: formData.imageUrl || `https://api.dicebear.com/9.x/bottts/svg?seed=${(formData.id || 0) * 42}&backgroundColor=transparent`
               }"
               size="md"
               :disableZoom="true"
@@ -122,13 +122,14 @@
 
 <script setup>
 import { ref, watch, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import strapiService from '@/api/strapi';
 import TripleTriadCard from '../../components/TripleTriadCard.vue';
 import PremiumSelect from './PremiumSelect.vue';
 import AdminTable from './AdminTable.vue';
 
 const route = useRoute();
+const router = useRouter();
 const collectionName = ref('');
 const loading = ref(true);
 const error = ref(null);
@@ -225,6 +226,16 @@ const getOptionsForField = (key) => {
 };
 
 const openEditor = (item = null) => {
+  if (collectionName.value === 'decks') {
+      const identifier = item ? (item.documentId || item.id) : null;
+      if (identifier) {
+        router.push(`/admin/deck-editor/${identifier}`);
+      } else {
+        router.push('/admin/deck-editor');
+      }
+      return;
+  }
+
   currentItem.value = item || {};
   formData.value = { ...currentItem.value };
 

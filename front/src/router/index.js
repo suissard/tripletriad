@@ -61,6 +61,19 @@ const routes = [
     meta: { layout: 'BlankLayout', requiresAdminAuth: true }
   },
   {
+    path: '/admin/deck-editor',
+    name: 'admin-deck-editor-new',
+    component: () => import('../views/DeckEditorPage.vue'),
+    meta: { layout: 'BlankLayout', requiresAdminAuth: true }
+  },
+  {
+    path: '/admin/deck-editor/:documentId',
+    name: 'admin-deck-editor-edit',
+    component: () => import('../views/DeckEditorPage.vue'),
+    meta: { layout: 'BlankLayout', requiresAdminAuth: true },
+    props: true
+  },
+  {
     path: '/admin/test-seed',
     name: 'admin-test-seed',
     component: () => import('../admin/views/SeedTesterPage.vue'),

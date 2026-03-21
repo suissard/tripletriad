@@ -98,6 +98,16 @@
     <AppButton
       variant="ghost"
       fullWidth
+      @click="navigate('/admin/deck-editor')"
+      class="premium-nav-item"
+      :class="{ 'premium-nav-item-active': route.path === '/admin/deck-editor' }"
+    >
+      <span class="icon">🃏</span> Éditeur de Deck
+    </AppButton>
+
+    <AppButton
+      variant="ghost"
+      fullWidth
       @click="navigate('/admin/test-card')"
       class="premium-nav-item"
       :class="{ 'premium-nav-item-active': route.path === '/admin/test-card' }"

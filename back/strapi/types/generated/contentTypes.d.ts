@@ -1690,6 +1690,7 @@ export interface PluginUsersPermissionsUser
     timestamps: true;
   };
   attributes: {
+    avatar_card: Schema.Attribute.Relation<'oneToOne', 'api::card.card'>;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     coins: Schema.Attribute.Integer &
       Schema.Attribute.Configurable &

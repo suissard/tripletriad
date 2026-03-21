@@ -43,7 +43,7 @@
               <p class="text-center text-gray-400 mb-4 text-sm">Débloquez cette histoire pour explorer ses étapes et gagner des récompenses exclusives.</p>
               
               <div class="flex items-center gap-2 mb-4 text-primary">
-                <span class="text-3xl font-black" style="color: #FFBF00">{{ unlockPrice }}</span>
+                <span class="text-3xl font-black" style="color: #FFBF00">{{ unlockPrice || 500 }}</span>
                 <span class="font-bold" style="color: #FFBF00">Coins</span>
               </div>
               
@@ -84,6 +84,12 @@
             </div>
           </div>
         </AppCard>
+      </div>
+      
+      <!-- DEBUG -->
+      <div style="background: rgba(255,0,0,0.1); padding: 10px; margin-top: 20px; border: 1px solid red; font-family: monospace; white-space: pre-wrap; font-size: 10px;">
+        <h3>DEBUG PROGRESSES:</h3>
+        {{ JSON.stringify(userStore.storyProgresses, null, 2) }}
       </div>
     </div>
 
@@ -153,7 +159,6 @@ import strapiService from '../api/strapi.js';
 const userStore = useUserStore();
 const isLoading = ref(true);
 const stories = ref([]);
-const progresses = ref([]);
 const expandedStory = ref(null);
 
 // Modal state
@@ -177,14 +182,15 @@ onMounted(async () => {
 
 async function fetchConfig() {
   try {
-    const res = await strapiService.request('GET', '/game-config');
-    if (!res.error && res.data?.attributes?.storyUnlockPrice !== undefined) {
-      unlockPrice.value = res.data.attributes.storyUnlockPrice;
-    } else if (res.data?.storyUnlockPrice !== undefined) {
-      unlockPrice.value = res.data.storyUnlockPrice;
+    const config = await strapiService.getGameConfig();
+    if (config && (config.storyUnlockPrice !== undefined && config.storyUnlockPrice !== null)) {
+      unlockPrice.value = config.storyUnlockPrice;
+    } else {
+      unlockPrice.value = 500;
     }
   } catch (err) {
     console.error('Failed to fetch config details:', err);
+    unlockPrice.value = 500;
   }
 }
 
@@ -211,12 +217,17 @@ async function unlockStory(storyId) {
     userStore.user.coins = data.coins;
     userStore.syncLocalUserWallets();
     
-    // Push the new progress locally and refresh stories to make sure data is in sync
+    // Ensure the new progress object has a reference to the story
+    // since strapi.entityService.create might not populate it by default
     if (data.progress) {
-        progresses.value.push(data.progress);
+        if (!data.progress.story) {
+           data.progress.story = { id: storyId, documentId: storyId }; // We don't know the exact documentId format for the story, so we spoof both or use storyId
+        }
+        userStore.storyProgresses.push(data.progress);
     }
     
-    // Optional: Refresh fully to ensure stable state
+    // Force refresh to be absolutely sure the list is coherent
+    await userStore.fetchUserStoryProgresses(true);
     await fetchStories();
 
   } catch (err) {
@@ -230,17 +241,16 @@ async function unlockStory(storyId) {
 async function fetchStories() {
   isLoading.value = true;
   try {
-    const [storiesRes, progressRes] = await Promise.all([
-      strapiService.find('stories', {
-        populate: ['steps', 'steps.startDialogue', 'steps.endDialogue']
-      }),
-      strapiService.find('player-story-progresses', {
-        filters: { user: userStore.user.id }
-      })
-    ]);
+    // Ensure story progresses are loaded from store
+    await userStore.fetchUserStoryProgresses();
+
+    const storiesRes = await strapiService.find('stories', {
+      populate: ['steps', 'steps.startDialogue', 'steps.endDialogue']
+    });
 
     stories.value = storiesRes.data;
-    progresses.value = progressRes.data;
+    
+    console.log('Loaded progress:', userStore.storyProgresses);
 
   } catch (error) {
     console.error('Failed to fetch stories:', error);
@@ -250,10 +260,21 @@ async function fetchStories() {
 }
 
 function getProgress(storyId) {
-  return progresses.value.find(p => {
-    // Check if relation is populated object or just id
-    const sId = typeof p.story === 'object' && p.story ? p.story.id : p.story;
-    return Number(sId) === Number(storyId);
+  return userStore.storyProgresses.find(p => {
+    if (!p.story) return false;
+    
+    // Check if relation is populated
+    if (typeof p.story === 'object') {
+      const matchId = p.story.id && Number(p.story.id) === Number(storyId);
+      const matchDocId = p.story.documentId && String(p.story.documentId) === String(storyId);
+      return matchId || matchDocId;
+    }
+    
+    // If not populated, it's just an id/documentId string or number
+    const matchRawId = !isNaN(Number(p.story)) && !isNaN(Number(storyId)) && Number(p.story) === Number(storyId);
+    const matchRawDocId = String(p.story) === String(storyId);
+    
+    return matchRawId || matchRawDocId;
   });
 }
 
@@ -322,11 +343,11 @@ async function playCombat() {
     reward.value = data.reward;
 
     // Update local progress
-    const idx = progresses.value.findIndex(p => p.id === data.progress.id);
+    const idx = userStore.storyProgresses.findIndex(p => p.id === data.progress.id);
     if (idx !== -1) {
-      progresses.value[idx] = data.progress;
+      userStore.storyProgresses[idx] = data.progress;
     } else {
-      progresses.value.push(data.progress);
+      userStore.storyProgresses.push(data.progress);
     }
 
     // Show end dialogue

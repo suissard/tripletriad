@@ -88,6 +88,7 @@ export default {
     if (authRole) {
       const actions = [
         // Custom
+        'plugin::users-permissions.user.updateMe',
         'api::user-card.user-card.disenchant',
         'api::user-card.user-card.craft',
         'api::user-card.user-card.massDisenchant',

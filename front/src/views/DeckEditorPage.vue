@@ -4,10 +4,10 @@
       <button class="btn btn-secondary glass-panel" @click="closeDeckEditor">← RETOUR</button>
       <h2 class="page-title">{{ isNew ? 'NOUVEAU DECK' : 'ÉDITER LE DECK' }}</h2>
       <div class="header-actions">
-        <span class="deck-counter" :class="{ full: state.editingDeck.cards.length === 15 }">
-          {{ state.editingDeck.cards.length }} / 15
+        <span class="deck-counter" :class="{ full: state.editingDeck.cards.length === 15 || (isAdminMode && state.editingDeck.cards.length > 0) }">
+          {{ state.editingDeck.cards.length }} {{ isAdminMode ? '' : '/ 15' }}
         </span>
-        <button class="btn btn-primary glass-panel" :disabled="state.editingDeck.cards.length !== 15" @click="saveDeck">
+        <button class="btn btn-primary glass-panel" :disabled="!isAdminMode && state.editingDeck.cards.length !== 15" @click="saveDeck">
           💾 Enregistrer
         </button>
       </div>
@@ -29,6 +29,15 @@
         </div>
 
           <input v-model="state.editingDeck.name" placeholder="Nom du Deck" class="deck-name-input" />
+        </div>
+
+        <div v-if="isAdminMode" class="admin-owner-section glass-panel p-4 mb-4 border border-primary/20">
+          <label class="block text-[10px] font-bold text-primary uppercase tracking-widest mb-2">Propriétaire du Deck</label>
+          <select v-model="selectedOwnerId" class="filter-select w-full bg-black/40 border-primary/10">
+            <option v-for="u in allUsers" :key="u.id" :value="u.documentId || u.id">
+              {{ u.username }} ({{ u.email }})
+            </option>
+          </select>
         </div>
 
         <div v-if="feedback" class="feedback-bar" :class="feedbackType">{{ feedback }}</div>
@@ -135,8 +144,9 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 const router = useRouter();
+const route = useRoute();
 import { ref, computed, onMounted } from 'vue';
 import PageLayout from '../components/PageLayout.vue';
 
@@ -175,6 +185,26 @@ onMounted(async () => {
       router.push('/decks');
     }
   }
+
+  if (isAdminMode.value) {
+    allUsers.value = await userStore.fetchUsers();
+    // If we are editing an existing deck, preset the owner
+    if (props.documentId) {
+        const deck = userStore.userDecks.find(d => d.documentId === props.documentId);
+        // We'll need to fetch the deck detail to get its actual owner if it's not the current user
+        // But for now, let's assume userDecks has all info we need or we'll fetch it
+        try {
+            const res = await strapiService.findOne('decks', props.documentId, { populate: ['user'] });
+            if (res.data && res.data.user) {
+              selectedOwnerId.value = res.data.user.documentId || res.data.user.id;
+            }
+        } catch (e) {
+            console.error("Failed to fetch deck owner", e);
+        }
+    } else {
+        selectedOwnerId.value = userStore.user.documentId || userStore.user.id;
+    }
+  }
 });
 
 const searchQuery = ref('');
@@ -186,6 +216,10 @@ const filterPremium = ref('');
 const importCode = ref('');
 const feedback = ref('');
 const feedbackType = ref('info');
+const allUsers = ref([]);
+const selectedOwnerId = ref(null);
+
+const isAdminMode = computed(() => route.path.startsWith('/admin'));
 
 const uniqueElements = [
   'eau', 'radiation', 'reseau', 'spore', 'furtif', 
@@ -229,11 +263,17 @@ const toggleElement = (el) => {
 const isNew = computed(() => !state.editingDeck.documentId);
 
 function closeDeckEditor() {
-  router.push('/decks');
+  if (isAdminMode.value) {
+    router.push('/admin/decks');
+  } else {
+    router.push('/decks');
+  }
 }
 
 function isOwned(cardId) {
   if (!userStore.strapiConnected) return true; // Offline: all cards owned
+  // If editing an admin deck, we allow all cards
+  if (isAdminMode.value) return true;
   return userStore.collection.some(c => c.cardId === cardId);
 }
 
@@ -244,6 +284,13 @@ function isInDeck(cardId) {
 function toggleCard(cardId) {
   if (!isOwned(cardId)) return;
   const idx = state.editingDeck.cards.indexOf(cardId);
+  
+  if (isAdminMode.value) {
+    // Admin: unconditional add (allow duplicates and ignore limit)
+    state.editingDeck.cards.push(cardId);
+    return;
+  }
+
   if (idx > -1) {
     state.editingDeck.cards.splice(idx, 1);
   } else if (state.editingDeck.cards.length < 15) {
@@ -264,12 +311,19 @@ function setCover(cardId) {
 }
 
 async function saveDeck() {
-  if (state.editingDeck.cards.length !== 15) return;
-  const success = await userStore.saveDeck({ ...state.editingDeck });
+  if (!isAdminMode.value && state.editingDeck.cards.length !== 15) return;
+  
+  // If admin, we should make sure the deck is saved correctly
+  const success = await userStore.saveDeck({ ...state.editingDeck }, selectedOwnerId.value);
+  
   if (success) {
     showFeedback('Deck enregistré !', 'success');
     setTimeout(() => {
-      router.push('/decks');
+      if (route.query.from === 'admin') {
+        router.push('/admin/decks');
+      } else {
+        router.push('/decks');
+      }
     }, 800);
   } else {
     showFeedback('Erreur lors de l\'enregistrement.', 'error');

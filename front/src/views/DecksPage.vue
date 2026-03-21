@@ -13,10 +13,11 @@
             </AppButton>
 
             <div class="decks-grid" v-if="userStore.userDecks.length > 0">
-                <MiniDeck v-for="deck in userStore.userDecks" :key="deck.id" :deck="deck" class="deck-item">
+                <MiniDeck v-for="deck in userStore.userDecks" :key="deck.id" :deck="deck" class="deck-item" @click="openEditDeck(deck)">
                     <template #actions>
-                        <AppButton variant="primary"  class="glass-panel flex-1" @click="openEditDeck(deck)">✏️ Éditer</AppButton>
-                        <AppButton variant="primary"  class="btn-accent glass-panel flex-1" @click="deleteDeck(deck)">🗑️ Supprimer</AppButton>
+                        <AppButton variant="accent" class="action-btn delete-btn" title="Supprimer le deck" @click.stop="deleteDeck(deck)">
+                            <span>🗑️</span>
+                        </AppButton>
                     </template>
                 </MiniDeck>
             </div>
@@ -137,8 +138,48 @@ async function deleteDeck(deck) {
 /* Decks Grid */
 .decks-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 30px;
+}
+
+.action-btn {
+    width: 54px !important;
+    height: 54px !important;
+    min-width: 54px !important;
+    padding: 0 !important;
+    border-radius: 14px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.5rem !important;
+    backdrop-filter: blur(8px) !important;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+.edit-btn {
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.delete-btn {
+    border: 1px solid rgba(255, 40, 80, 0.6) !important;
+    background: rgba(255, 40, 80, 0.4) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 20px rgba(255, 40, 80, 0.3) !important;
+}
+
+.delete-btn:hover {
+    background: rgba(255, 40, 80, 0.6) !important;
+    border-color: rgba(255, 40, 80, 1) !important;
+    transform: scale(1.1) rotate(5deg) !important;
+    box-shadow: 0 0 25px rgba(255, 40, 80, 0.6) !important;
+}
+
+.edit-btn:hover {
+    background: rgba(255, 255, 255, 0.25) !important;
+    border-color: rgba(255, 255, 255, 0.8) !important;
+    transform: scale(1.1) rotate(-5deg) !important;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3) !important;
 }
 
 /* Empty State */

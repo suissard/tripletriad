@@ -5,38 +5,45 @@
     :padding="false"
     @click="$emit('click', deck)"
   >
-    <div class="deck-cover">
-      <img v-if="deck.cover && getCardById(deck.cover)" :src="getCardById(deck.cover).imageUrl || getCardById(deck.cover).img" class="cover-img" />
-      <div v-else class="cover-placeholder">
-        <AnimatedCardBack type="recto" class="fallback-icon" />
-      </div>
-      <div v-if="compact" class="compact-overlay">
-        <div class="deck-name">{{ deck.name }}</div>
-      </div>
+    <div class="deck-background" :class="{ 'placeholder': !deck.cover || !getCardById(deck.cover) }">
+      <img 
+        :src="deck.cover && getCardById(deck.cover) ? (getCardById(deck.cover).imageUrl || getCardById(deck.cover).img || `https://api.dicebear.com/9.x/bottts/svg?seed=${deck.cover}&backgroundColor=transparent`) : `https://api.dicebear.com/9.x/bottts/svg?seed=${deck.name}&backgroundColor=transparent`" 
+        class="bg-img" 
+      />
+      <div class="glass-overlay"></div>
     </div>
 
-    <div v-if="!compact" class="deck-body">
-      <h3 class="deck-name">{{ deck.name }}</h3>
-      <div class="deck-stats">
-        <span class="card-count">{{ deck.cards.length }} / 15 cartes</span>
-        <span v-if="deck.cards.length === 15" class="complete-badge">✓ Complet</span>
-        <span v-else class="incomplete-badge">Incomplet</span>
+    <!-- Main Content Area -->
+    <div v-if="!compact" class="deck-content p-6">
+      <div class="deck-header">
+        <h3 class="deck-title">{{ deck.name }}</h3>
+        <div class="deck-meta">
+          <span class="card-count">{{ deck.cards.length }} / 15 CARTES</span>
+          <span v-if="deck.cards.length === 15" class="status-badge complete">COMPLET</span>
+          <span v-else class="status-badge incomplete">INCOMPLET</span>
+        </div>
       </div>
 
-      <!-- Mini card preview -->
-      <div class="card-preview-row">
-        <img v-for="cardId in deck.cards.slice(0, 5)" :key="cardId" :src="getCardById(cardId)?.imageUrl || getCardById(cardId)?.img"
+      <!-- Preview Row -->
+      <div class="card-previews no-scrollbar">
+        <img v-for="cardId in deck.cards.slice(0, 6)" :key="cardId" 
+          :src="getCardById(cardId)?.imageUrl || getCardById(cardId)?.img || `https://api.dicebear.com/9.x/bottts/svg?seed=${cardId}&backgroundColor=transparent`"
           class="preview-thumb" />
-        <span v-if="deck.cards.length > 5" class="more-cards">+{{ deck.cards.length - 5 }}</span>
+        <span v-if="deck.cards.length > 6" class="more-count">+{{ deck.cards.length - 6 }}</span>
       </div>
     </div>
     
-    <div v-else class="deck-info-compact">
-        <span class="card-count">{{ deck.cards.length }} cartes</span>
-        <span v-if="deck.cards.length === 15" class="complete-badge-mini">✓</span>
+    <!-- Compact Content Area -->
+    <div v-else class="deck-content-compact p-4">
+      <h3 class="deck-title-mini">{{ deck.name }}</h3>
+      <div class="deck-meta-mini">
+        <span class="card-count-mini">{{ deck.cards.length }} CARTES</span>
+        <span v-if="deck.cards.length === 15" class="check-mini">✓</span>
+      </div>
     </div>
 
-    <div v-if="$slots.actions" class="deck-actions flex gap-2 p-2">
+    <!-- Actions Overlay (Top-Right) -->
+    <div v-if="$slots.actions" class="deck-actions-layer">
       <slot name="actions"></slot>
     </div>
   </AppCard>
@@ -58,7 +65,7 @@ const props = defineProps({
   },
   selectable: {
     type: Boolean,
-    default: false
+    default: true
   }
 });
 
@@ -67,168 +74,249 @@ defineEmits(['click']);
 
 <style scoped>
 .mini-deck {
-  background: rgba(255, 255, 255, 0.04);
+  position: relative;
+  min-height: 240px; /* Slightly taller for more gap */
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
+  border-radius: 24px;
   overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
   display: flex;
   flex-direction: column;
-}
-
-.mini-deck.selectable {
   cursor: pointer;
 }
 
-.mini-deck.selectable:hover {
-  border-color: rgba(0, 210, 255, 0.5);
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 210, 255, 0.2);
+.mini-deck.compact {
+  min-height: 140px;
 }
 
-.deck-cover {
-  height: 120px;
-  background: linear-gradient(135deg, rgba(255, 0, 85, 0.1), rgba(0, 210, 255, 0.05));
+/* Ensure AppCard's internal content fills the height */
+.mini-deck :deep(.card-content) {
+  flex: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.mini-deck:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(0, 210, 255, 0.5);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 210, 255, 0.2);
+}
+
+/* Background Layer */
+.deck-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   overflow: hidden;
-  position: relative;
+  pointer-events: none;
 }
 
-.compact .deck-cover {
-  height: 100px;
-}
-
-.cover-img {
+.bg-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.8);
-  transition: filter 0.3s;
+  object-position: top center; /* Align to see the top of the card */
+  filter: brightness(0.4) saturate(1.2) blur(1px);
+  transition: all 0.8s ease;
+  transform: scale(1.05);
 }
 
-.mini-deck.selectable:hover .cover-img {
-  filter: brightness(1);
+.mini-deck:hover .bg-img {
+  filter: brightness(0.6) saturate(1.5) blur(0px);
+  transform: scale(1.15);
 }
 
-.cover-placeholder {
+.fallback-overlay {
   width: 100%;
   height: 100%;
+  background: linear-gradient(135deg, rgba(30, 30, 50, 0.8), rgba(15, 15, 25, 0.9));
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.2);
 }
 
-.fallback-icon {
-  width: 80px;
-  height: 80px;
-  opacity: 0.6;
+.fallback-logo {
+  width: 120px;
+  height: 120px;
+  opacity: 0.15;
+  filter: grayscale(1);
 }
 
-.compact .fallback-icon {
-  width: 60px;
-  height: 60px;
+.glass-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, 
+    rgba(0, 0, 0, 0.4) 0%, 
+    transparent 40%, 
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  z-index: 1;
 }
 
-.deck-body {
-  padding: 20px;
-  flex: 1;
+/* Content Area */
+.deck-content {
+  position: relative;
+  z-index: 10;
+  flex: 1; /* Take all available space */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Align header top, previews bottom */
+  pointer-events: none;
 }
 
-.deck-name {
-  margin: 0 0 8px 0;
-  font-size: 1.3rem;
+.deck-header {
+  padding-top: 4px;
+}
+
+.deck-title {
+  font-size: 1.8rem;
+  font-weight: 900;
   color: white;
-  letter-spacing: 1px;
-  white-space: nowrap;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 1), 0 0 30px rgba(0, 0, 0, 0.5);
+  line-clamp: 1;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.compact-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-  padding: 10px;
+.deck-meta {
   display: flex;
-  align-items: flex-end;
-}
-
-.compact-overlay .deck-name {
-  margin-bottom: 0;
-  font-size: 1rem;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-}
-
-.deck-stats {
-  display: flex;
-  gap: 10px;
   align-items: center;
-  margin-bottom: 12px;
+  gap: 12px;
+  margin-top: 4px;
 }
 
 .card-count {
-  font-size: 0.9rem;
-  color: #888;
-}
-
-.complete-badge {
-  background: rgba(0, 255, 136, 0.15);
-  color: #00ff88;
-  padding: 2px 10px;
-  border-radius: 20px;
   font-size: 0.75rem;
-  font-weight: bold;
-  text-shadow: 0 0 5px rgba(0, 255, 136, 0.5);
+  font-weight: 800;
+  color: rgba(0, 210, 255, 1);
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
-.complete-badge-mini {
-  color: #00ff88;
-  font-weight: bold;
+.status-badge {
+  font-size: 0.65rem;
+  font-weight: 900;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  letter-spacing: 1px;
 }
 
-.incomplete-badge {
-  background: rgba(255, 200, 0, 0.15);
-  color: #ffc800;
-  padding: 2px 10px;
-  border-radius: 20px;
-  font-size: 0.75rem;
+.status-badge.complete {
+  color: #00ffaa;
+  border-color: rgba(0, 255, 170, 0.3);
+  text-shadow: 0 0 10px rgba(0, 255, 170, 0.5);
 }
 
-.card-preview-row {
+.status-badge.incomplete {
+  color: #ffaa00;
+  border-color: rgba(255, 170, 0, 0.3);
+}
+
+.card-previews {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   align-items: center;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  margin-top: auto; /* Push to bottom */
+  margin-right: 72px; /* Space for the larger delete button */
 }
 
 .preview-thumb {
-  width: 32px;
-  height: 32px;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   object-fit: cover;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
-.more-cards {
-  font-size: 0.8rem;
-  color: #666;
+.preview-thumb:hover {
+  transform: translateY(-6px) scale(1.15);
+  border-color: white;
+  z-index: 2;
+  box-shadow: 0 8px 25px rgba(0, 210, 255, 0.4);
+}
+
+.more-count {
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
   margin-left: 4px;
 }
 
-.deck-info-compact {
-  padding: 8px 12px;
+/* Compact Content */
+.deck-content-compact {
+  position: relative;
+  z-index: 10;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.deck-title-mini {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: white;
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+  text-transform: uppercase;
+}
+
+.deck-meta-mini {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(0, 0, 0, 0.2);
+  margin-top: auto;
 }
 
-.deck-info-compact .card-count {
-  font-size: 0.8rem;
-  color: #00d2ff;
+.card-count-mini {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: rgba(0, 210, 255, 1);
+}
+
+.check-mini {
+  color: #00ffaa;
+  font-weight: 900;
+  font-size: 1.2rem;
+  text-shadow: 0 0 10px rgba(0, 255, 170, 0.5);
+}
+
+/* Actions Overlay (Glass Icon Buttons) */
+.deck-actions-layer {
+  position: absolute;
+  bottom: 18px;
+  right: 18px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 </style>
