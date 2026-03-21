@@ -8,11 +8,23 @@
   "attributes": {
     "name": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "sentence": {
       "type": "text",
       "required": true
+    },
+    "isNarration": {
+      "type": "boolean",
+      "default": false
+    },
+    "position": {
+      "type": "enumeration",
+      "enum": [
+        "left",
+        "right"
+      ],
+      "default": "left"
     },
     "card": {
       "type": "relation",

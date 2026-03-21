@@ -78,7 +78,7 @@
 
               <div v-if="isStepActive(story.id, index)" class="step-actions">
                 <AppButton @click.stop="startStep(story, step)" variant="primary">
-                  Jouer l'étape
+                  {{ isStepCompleted(story.id, step.id) ? 'Rejouer l\'étape' : 'Jouer l\'étape' }}
                 </AppButton>
               </div>
             </div>
@@ -94,19 +94,27 @@
     </div>
 
     <!-- Dialogue Modal -->
-    <AppModal v-model="showDialogueModal" title="Histoire">
+    <AppModal v-model="showDialogueModal" :title="currentStep ? currentStep.title : 'Histoire'">
       <div v-if="currentStep" class="dialogue-container">
         <div v-if="dialogueState === 'start'" class="dialogue-box">
           <div
             v-for="(line, idx) in currentStep.startDialogue"
             :key="idx"
             class="dialogue-line"
-            :class="{ 'hero': line.name === 'Héros', 'npc': line.name !== 'Héros' }"
+            :class="{
+              'narration': line.isNarration,
+              'hero': !line.isNarration && line.position === 'right',
+              'npc': !line.isNarration && line.position !== 'right'
+            }"
           >
-            <strong>{{ line.name }} :</strong> {{ line.sentence }}
+            <img v-if="line.card && line.card.image" :src="line.card.image.url" class="dialogue-avatar" />
+            <div class="dialogue-content">
+              <strong v-if="!line.isNarration && line.name">{{ line.name }} :</strong>
+              <span v-html="marked(line.sentence)"></span>
+            </div>
           </div>
           <AppButton @click="playCombat" variant="danger" class="mt-4" fullWidth>
-            Faire le combat (Passer)
+            {{ isReplay ? 'Rejouer l\'étape' : 'Faire le combat (Passer)' }}
           </AppButton>
         </div>
 
@@ -115,9 +123,17 @@
             v-for="(line, idx) in currentStep.endDialogue"
             :key="idx"
             class="dialogue-line"
-            :class="{ 'hero': line.name === 'Héros', 'npc': line.name !== 'Héros' }"
+            :class="{
+              'narration': line.isNarration,
+              'hero': !line.isNarration && line.position === 'right',
+              'npc': !line.isNarration && line.position !== 'right'
+            }"
           >
-            <strong>{{ line.name }} :</strong> {{ line.sentence }}
+            <img v-if="line.card && line.card.image" :src="line.card.image.url" class="dialogue-avatar" />
+            <div class="dialogue-content">
+              <strong v-if="!line.isNarration && line.name">{{ line.name }} :</strong>
+              <span v-html="marked(line.sentence)"></span>
+            </div>
           </div>
 
           <div v-if="reward" class="reward-box mt-4">
@@ -147,7 +163,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
+import { marked } from 'marked';
 import PageLayout from '../components/PageLayout.vue';
 import AppCard from '../components/ui/AppCard.vue';
 import AppButton from '../components/ui/AppButton.vue';
@@ -167,6 +184,7 @@ const currentStory = ref(null);
 const currentStep = ref(null);
 const dialogueState = ref('start'); // 'start' or 'end'
 const reward = ref(null);
+const isReplay = ref(false);
 
 const unlockPrice = ref(500);
 const isUnlocking = ref(false);
@@ -245,7 +263,7 @@ async function fetchStories() {
     await userStore.fetchUserStoryProgresses();
 
     const storiesRes = await strapiService.find('stories', {
-      populate: ['steps', 'steps.startDialogue', 'steps.endDialogue']
+      populate: ['steps', 'steps.startDialogue', 'steps.endDialogue', 'steps.startDialogue.card', 'steps.startDialogue.card.image', 'steps.endDialogue.card', 'steps.endDialogue.card.image']
     });
 
     stories.value = storiesRes.data;
@@ -296,7 +314,7 @@ function isStepActive(storyId, stepIndex) {
   if (!story) return false;
 
   const completedCount = p.completedSteps ? p.completedSteps.length : 0;
-  return stepIndex === completedCount && p.status !== 'completed';
+  return stepIndex <= completedCount;
 }
 
 function isStepLocked(storyId, stepIndex) {
@@ -311,6 +329,7 @@ function toggleStory(storyId) {
 }
 
 function startStep(story, step) {
+  isReplay.value = isStepCompleted(story.id, step.id);
   currentStory.value = story;
   currentStep.value = step;
   dialogueState.value = 'start';
@@ -321,6 +340,10 @@ function startStep(story, step) {
 async function playCombat() {
   // Simulate combat win and claim reward
   try {
+    if (isReplay.value) {
+      dialogueState.value = 'end';
+      return;
+    }
     // using raw fetch to custom route
     const token = localStorage.getItem('tt_jwt');
     const response = await fetch('http://localhost:1337/api/player-story-progress/claim-step-reward', {
@@ -500,6 +523,33 @@ function finishStep() {
   justify-content: flex-end;
 }
 
+
+.dialogue-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.dialogue-content {
+  flex-grow: 1;
+}
+
+.narration {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  font-style: italic;
+  text-align: center;
+  align-self: center;
+  margin: 0 auto;
+  width: 80%;
+  color: #ccc;
+  display: block;
+  padding: 10px 15px;
+}
+
 /* Dialogue styles */
 .dialogue-container {
   max-height: 60vh;
@@ -518,21 +568,30 @@ function finishStep() {
   border-radius: 8px;
   background: rgba(255,255,255,0.1);
   font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.dialogue-content p {
+  margin: 0;
+  display: inline;
 }
 
 .dialogue-line.hero {
   background: rgba(0, 210, 255, 0.15);
-  border-left: 3px solid #00d2ff;
-  align-self: flex-start;
-  margin-right: 20%;
+  border-right: 3px solid #00d2ff;
+  align-self: flex-end;
+  margin-left: 20%;
+  flex-direction: row-reverse;
+  text-align: right;
 }
 
 .dialogue-line.npc {
   background: rgba(255, 100, 100, 0.15);
-  border-right: 3px solid #ff6464;
-  align-self: flex-end;
-  text-align: right;
-  margin-left: 20%;
+  border-left: 3px solid #ff6464;
+  align-self: flex-start;
+  text-align: left;
+  margin-right: 20%;
 }
 
 .reward-box {
