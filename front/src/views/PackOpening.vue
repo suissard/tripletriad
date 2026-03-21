@@ -225,7 +225,7 @@ const openPack = async () => {
         data.wallet = { coins: wallet.value.coins - (selectedPackType.value === 'classic' ? 100 : 0), gems: wallet.value.gems - (selectedPackType.value === 'premium' ? 100 : 0), dust: wallet.value.dust };
     } else {
         const token = localStorage.getItem('tt_jwt');
-        const response = await fetch('http://localhost:1337/api/booster/open', {
+        const response = await fetch('http://localhost:1337/api/booster/buy', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

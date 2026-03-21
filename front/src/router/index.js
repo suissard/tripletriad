@@ -16,6 +16,7 @@ const routes = [
   { path: '/', component: MainMenu },
   { path: '/game', component: GameView },
   { path: '/collection', component: CollectionView },
+  { path: '/wallet/boosters', component: () => import('../views/WalletBoostersPage.vue') },
   { path: '/deck-editor', name: 'deck-editor-new', component: DeckEditorPage },
   { path: '/deck-editor/:documentId', name: 'deck-editor-edit', component: DeckEditorPage, props: true },
   { path: '/decks', component: DecksPage },
