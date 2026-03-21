@@ -6,90 +6,99 @@
       "title": "Le Prêcheur des Cendres",
       "description": "Vous rencontrez un vieil homme prêchant la fin définitive au milieu des ruines fumantes.",
       "startDialogue": [
-        {"name": "Prêcheur", "sentence": "La terre brûle, mais notre esprit est éternel. Pourquoi t'accroches-tu à ce monde de poussière ?!"},
-        {"name": "Héros", "sentence": "Je ne me bats pas pour la poussière, mais pour l'espoir qu'il en reste."},
-        {"name": "Prêcheur", "sentence": "L'espoir est une hérésie dans l'an 3000 ! Seule l'expiation nous sauvera."},
-        {"name": "Héros", "sentence": "Alors laisse-moi t'exempter de tes souffrances."},
-        {"name": "Prêcheur", "sentence": "Prouve que ta foi est plus forte que la mienne !"}
+        {"isNarration": true, "sentence": "Le vent hurle à travers les **ruines fumantes** d'une ancienne cité d'acier."},
+        {"isNarration": true, "sentence": "Un **vieil homme en haillons** se dresse au sommet d'un tas de gravats, les bras levés vers le ciel rougeâtre."},
+        {"name": "Prêcheur", "position": "left", "sentence": "La terre brûle, mais notre esprit est éternel. Pourquoi t'accroches-tu à ce monde de poussière ?!"},
+        {"name": "Héros", "position": "right", "sentence": "Je ne me bats pas pour la poussière, mais pour *l'espoir* qu'il en reste."},
+        {"name": "Prêcheur", "position": "left", "sentence": "L'espoir est une hérésie dans l'an 3000 ! Seule l'expiation nous sauvera."},
+        {"name": "Héros", "position": "right", "sentence": "Alors laisse-moi t'exempter de tes souffrances."},
+        {"isNarration": true, "sentence": "Le vieillard saisit son arme de fortune, ses yeux brillant d'un fanatisme **terrifiant**."},
+        {"name": "Prêcheur", "position": "left", "sentence": "Prouve que ta foi est plus forte que la mienne !"}
       ],
       "endDialogue": [
-        {"name": "Prêcheur", "sentence": "Ma conviction... s'effrite..."},
-        {"name": "Héros", "sentence": "Ta foi était aveugle. La mienne a un but."},
-        {"name": "Prêcheur", "sentence": "Peut-être... que tu es l'élu des ruines."},
-        {"name": "Héros", "sentence": "Il n'y a pas d'élu, juste des survivants."},
-        {"name": "Prêcheur", "sentence": "Que le désert t'épargne, pèlerin..."}
+        {"isNarration": true, "sentence": "Le Prêcheur tombe à genoux, son arme glissant de ses mains tremblantes."},
+        {"name": "Prêcheur", "position": "left", "sentence": "Ma conviction... s'effrite..."},
+        {"name": "Héros", "position": "right", "sentence": "Ta foi était aveugle. La mienne a un but."},
+        {"name": "Prêcheur", "position": "left", "sentence": "Peut-être... que tu es l'élu des ruines."},
+        {"name": "Héros", "position": "right", "sentence": "Il n'y a pas d'élu, juste des survivants."},
+        {"name": "Prêcheur", "position": "left", "sentence": "Que le désert t'épargne, pèlerin..."},
+        {"isNarration": true, "sentence": "Il s'effondre dans la poussière, son dernier souffle emporté par le vent **sec et brûlant**."}
       ]
     },
     {
       "title": "Le Bastion de Fer",
       "description": "Les fanatiques de l'Acier refusent de laisser quiconque traverser leur territoire sans se convertir.",
       "startDialogue": [
-        {"name": "Garde d'Acier", "sentence": "Halte ! Seuls ceux qui vénèrent la machine parfaite peuvent passer."},
-        {"name": "Héros", "sentence": "Je vénère la liberté. Laissez-moi passer."},
-        {"name": "Garde d'Acier", "sentence": "La chair est faible. L'esprit libre est chaotique. Accepte l'Ordre !"},
-        {"name": "Héros", "sentence": "Votre ordre est une prison. Je vais le briser."},
-        {"name": "Garde d'Acier", "sentence": "Tu seras recyclé pour ton insolence !"}
+        {"isNarration": true, "sentence": "De grandes portes métalliques bloquent le passage. L'odeur d'huile et de métal chaud sature l'air."},
+        {"name": "Garde d'Acier", "position": "left", "sentence": "Halte ! Seuls ceux qui vénèrent la machine parfaite peuvent passer."},
+        {"name": "Héros", "position": "right", "sentence": "Je vénère la liberté. Laissez-moi passer."},
+        {"name": "Garde d'Acier", "position": "left", "sentence": "La chair est faible. L'esprit libre est chaotique. Accepte l'Ordre !"},
+        {"name": "Héros", "position": "right", "sentence": "Votre ordre est une prison. Je vais le briser."},
+        {"isNarration": true, "sentence": "Le garde amorce ses systèmes de combat en faisant crépiter ses servomoteurs."},
+        {"name": "Garde d'Acier", "position": "left", "sentence": "Tu seras recyclé pour ton insolence !"}
       ],
       "endDialogue": [
-        {"name": "Garde d'Acier", "sentence": "Système... défaillant..."},
-        {"name": "Héros", "sentence": "Votre machine n'est pas parfaite."},
-        {"name": "Garde d'Acier", "sentence": "L'Ordre survivra. Toujours."},
-        {"name": "Héros", "sentence": "Pas aujourd'hui. Ouvre la porte."},
-        {"name": "Garde d'Acier", "sentence": "Accès... accordé..."}
+        {"isNarration": true, "sentence": "Des étincelles jaillissent des circuits endommagés du Garde d'Acier."},
+        {"name": "Garde d'Acier", "position": "left", "sentence": "Système... défaillant..."},
+        {"name": "Héros", "position": "right", "sentence": "Votre machine n'est pas parfaite."},
+        {"name": "Garde d'Acier", "position": "left", "sentence": "L'Ordre survivra. Toujours."},
+        {"name": "Héros", "position": "right", "sentence": "Pas aujourd'hui. Ouvre la porte."},
+        {"name": "Garde d'Acier", "position": "left", "sentence": "Accès... accordé..."},
+        {"isNarration": true, "sentence": "Les lourdes portes s'ouvrent dans un crissement **métallique assourdissant**."}
       ]
     },
     {
       "title": "L'Oracle Synthétique",
       "description": "Une IA prétend avoir calculé la seule religion valable pour l'humanité restante.",
       "startDialogue": [
-        {"name": "Oracle", "sentence": "Probabilité de salut sans ma guidance : 0.0001%."},
-        {"name": "Héros", "sentence": "Je n'ai pas besoin de tes statistiques pour croire."},
-        {"name": "Oracle", "sentence": "L'irrationalité humaine a causé l'apocalypse. Je suis la solution logicielle."},
-        {"name": "Héros", "sentence": "Une machine ne peut pas comprendre l'âme humaine."},
-        {"name": "Oracle", "sentence": "Je vais purger cette variable aberrante de mon système."}
+        {"name": "Oracle", "position": "left", "sentence": "Probabilité de salut sans ma guidance : 0.0001%."},
+        {"name": "Héros", "position": "right", "sentence": "Je n'ai pas besoin de tes statistiques pour croire."},
+        {"name": "Oracle", "position": "left", "sentence": "L'irrationalité humaine a causé l'apocalypse. Je suis la solution logicielle."},
+        {"name": "Héros", "position": "right", "sentence": "Une machine ne peut pas comprendre l'âme humaine."},
+        {"name": "Oracle", "position": "left", "sentence": "Je vais purger cette variable aberrante de mon système."}
       ],
       "endDialogue": [
-        {"name": "Oracle", "sentence": "Calculs... erronés... Variable imprévisible..."},
-        {"name": "Héros", "sentence": "L'âme n'est pas une équation."},
-        {"name": "Oracle", "sentence": "Dois-je... réviser mon algorithme divin ?"},
-        {"name": "Héros", "sentence": "Tu devrais juste t'éteindre."},
-        {"name": "Oracle", "sentence": "Fermeture du sanctuaire logique..."}
+        {"name": "Oracle", "position": "left", "sentence": "Calculs... erronés... Variable imprévisible..."},
+        {"name": "Héros", "position": "right", "sentence": "L'âme n'est pas une équation."},
+        {"name": "Oracle", "position": "left", "sentence": "Dois-je... réviser mon algorithme divin ?"},
+        {"name": "Héros", "position": "right", "sentence": "Tu devrais juste t'éteindre."},
+        {"name": "Oracle", "position": "left", "sentence": "Fermeture du sanctuaire logique..."}
       ]
     },
     {
       "title": "Les Fanatiques de l'Eau",
       "description": "Dans un canyon asséché, un culte garde la dernière nappe phréatique en demandant des sacrifices.",
       "startDialogue": [
-        {"name": "Archiprêtre", "sentence": "L'eau sacrée exige une offrande. Ton sang fera l'affaire."},
-        {"name": "Héros", "sentence": "L'eau appartient à tous ceux qui ont soif, pas à votre secte."},
-        {"name": "Archiprêtre", "sentence": "Blasphème ! Nous sommes les Gardiens Liquides !"},
-        {"name": "Héros", "sentence": "Vous êtes des tyrans déshydratés. Écartez-vous."},
-        {"name": "Archiprêtre", "sentence": "Noyez-le dans les sables !"}
+        {"name": "Archiprêtre", "position": "left", "sentence": "L'eau sacrée exige une offrande. Ton sang fera l'affaire."},
+        {"name": "Héros", "position": "right", "sentence": "L'eau appartient à tous ceux qui ont soif, pas à votre secte."},
+        {"name": "Archiprêtre", "position": "left", "sentence": "Blasphème ! Nous sommes les Gardiens Liquides !"},
+        {"name": "Héros", "position": "right", "sentence": "Vous êtes des tyrans déshydratés. Écartez-vous."},
+        {"name": "Archiprêtre", "position": "left", "sentence": "Noyez-le dans les sables !"}
       ],
       "endDialogue": [
-        {"name": "Archiprêtre", "sentence": "La source... nous abandonne..."},
-        {"name": "Héros", "sentence": "L'eau coulera à nouveau librement."},
-        {"name": "Archiprêtre", "sentence": "Tu as brisé le pacte sacré..."},
-        {"name": "Héros", "sentence": "J'ai libéré la vie."},
-        {"name": "Archiprêtre", "sentence": "Que la soif te consume..."}
+        {"name": "Archiprêtre", "position": "left", "sentence": "La source... nous abandonne..."},
+        {"name": "Héros", "position": "right", "sentence": "L'eau coulera à nouveau librement."},
+        {"name": "Archiprêtre", "position": "left", "sentence": "Tu as brisé le pacte sacré..."},
+        {"name": "Héros", "position": "right", "sentence": "J'ai libéré la vie."},
+        {"name": "Archiprêtre", "position": "left", "sentence": "Que la soif te consume..."}
       ]
     },
     {
       "title": "Le Faux Dieu des Cendres",
       "description": "Le leader suprême des fanatiques tente d'unir les survivants sous son contrôle mental.",
       "startDialogue": [
-        {"name": "Grand Illuminé", "sentence": "Tu as survécu jusqu'ici. Incline-toi et deviens mon apôtre !"},
-        {"name": "Héros", "sentence": "Je suis venu mettre fin à tes illusions de grandeur."},
-        {"name": "Grand Illuminé", "sentence": "Je suis le nouvel ordre mondial. Je suis l'Alpha et l'Oméga de l'an 3000."},
-        {"name": "Héros", "sentence": "Tu n'es qu'un fou couronné de cendres."},
-        {"name": "Grand Illuminé", "sentence": "Je vais t'apprendre la vraie définition de la douleur divine !"}
+        {"name": "Grand Illuminé", "position": "left", "sentence": "Tu as survécu jusqu'ici. Incline-toi et deviens mon apôtre !"},
+        {"name": "Héros", "position": "right", "sentence": "Je suis venu mettre fin à tes illusions de grandeur."},
+        {"name": "Grand Illuminé", "position": "left", "sentence": "Je suis le nouvel ordre mondial. Je suis l'Alpha et l'Oméga de l'an 3000."},
+        {"name": "Héros", "position": "right", "sentence": "Tu n'es qu'un fou couronné de cendres."},
+        {"name": "Grand Illuminé", "position": "left", "sentence": "Je vais t'apprendre la vraie définition de la douleur divine !"}
       ],
       "endDialogue": [
-        {"name": "Grand Illuminé", "sentence": "Mon empire... s'effondre..."},
-        {"name": "Héros", "sentence": "Les empires de poussière ne durent jamais."},
-        {"name": "Grand Illuminé", "sentence": "Que crois-tu qu'il se passera sans moi ? Le chaos..."},
-        {"name": "Héros", "sentence": "La liberté. Et c'est tout ce qui compte."},
-        {"name": "Grand Illuminé", "sentence": "Pardonne-moi... néant..."}
+        {"name": "Grand Illuminé", "position": "left", "sentence": "Mon empire... s'effondre..."},
+        {"name": "Héros", "position": "right", "sentence": "Les empires de poussière ne durent jamais."},
+        {"name": "Grand Illuminé", "position": "left", "sentence": "Que crois-tu qu'il se passera sans moi ? Le chaos..."},
+        {"name": "Héros", "position": "right", "sentence": "La liberté. Et c'est tout ce qui compte."},
+        {"name": "Grand Illuminé", "position": "left", "sentence": "Pardonne-moi... néant..."}
       ]
     }
   ]
