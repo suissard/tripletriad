@@ -71,27 +71,47 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       const randomCard5 = pool5[Math.floor(Math.random() * pool5.length)];
       drawnCards.push(randomCard5);
 
+      // Batch existence check to avoid N+1 queries
+      const cardCounts = new Map<number, number>();
       for (const card of drawnCards) {
-        const existingUserCards = await strapi.entityService.findMany('api::user-card.user-card', {
-          filters: {
-            user: user.id,
-            card: card.id,
-          },
-        }) as any[];
+        cardCounts.set(card.id, (cardCounts.get(card.id) || 0) + 1);
+      }
 
-        if (existingUserCards && existingUserCards.length > 0) {
-          const userCard = existingUserCards[0];
-          await strapi.entityService.update('api::user-card.user-card', userCard.id, {
+      const cardIds = Array.from(cardCounts.keys());
+      const existingUserCards = await strapi.entityService.findMany('api::user-card.user-card', {
+        filters: {
+          user: user.id,
+          card: {
+            id: {
+              $in: cardIds,
+            },
+          },
+        },
+        populate: ['card'],
+      }) as any[];
+
+      const existingUserCardMap = new Map<number, any>();
+      for (const uc of existingUserCards) {
+        if (uc.card && uc.card.id) {
+          existingUserCardMap.set(uc.card.id, uc);
+        }
+      }
+
+      for (const [cardId, count] of cardCounts) {
+        const existingUserCard = existingUserCardMap.get(cardId);
+
+        if (existingUserCard) {
+          await strapi.entityService.update('api::user-card.user-card', existingUserCard.id, {
             data: {
-              quantity: userCard.quantity + 1,
+              quantity: existingUserCard.quantity + count,
             },
           });
         } else {
           await strapi.entityService.create('api::user-card.user-card', {
             data: {
               user: user.id,
-              card: card.id,
-              quantity: 1,
+              card: cardId,
+              quantity: count,
               isPremium: false,
             },
           });
