@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_story_situation_successes",
+  "info": {
+    "displayName": "Situation: Success",
+    "description": "Ends the current step in success"
+  },
+  "options": {},
+  "attributes": {
+    "situationId": {
+      "type": "string",
+      "required": true
+    },
+    "message": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

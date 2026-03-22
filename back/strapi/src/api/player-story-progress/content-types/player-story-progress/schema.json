@@ -28,8 +28,24 @@
     },
     "progressStatus": {
       "type": "enumeration",
-      "enum": ["locked", "in_progress", "completed"],
+      "enum": [
+        "locked",
+        "in_progress",
+        "completed"
+      ],
       "default": "locked"
+    },
+    "currentStep": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::story-step.story-step"
+    },
+    "currentSituationId": {
+      "type": "string"
+    },
+    "stepHistory": {
+      "type": "json",
+      "description": "JSON array tracking the path taken and results in the current step"
     }
   }
 }

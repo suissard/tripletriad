@@ -1,0 +1,120 @@
+{
+  "title": "La Caverne du Vieux Gobelin",
+  "description": "Une première aventure dans les tréfonds de la montagne.",
+  "situations": [
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "intro",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous entrez dans une caverne sombre et humide. Une odeur rance vous prend à la gorge.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Vieux Gobelin",
+          "sentence": "Hehehe... Un nouvel aventurier ! Que viens-tu faire dans mon domaine ?",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "choix_initial"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "choix_initial",
+      "text": "Que répondez-vous au gobelin ?",
+      "options": [
+        {
+          "text": "Je suis ici pour te combattre et prendre tes trésors !",
+          "nextSituationId": "combat_gobelin"
+        },
+        {
+          "text": "Je cherche juste mon chemin. Laissez-moi passer.",
+          "nextSituationId": "dialogue_pacifique"
+        },
+        {
+          "text": "[Donner 10 pièces d'or] Prends ceci et laisse-moi tranquille.",
+          "nextSituationId": "recompense_corruption",
+          "conditions": [
+            {
+              "type": "hasCoin",
+              "value": "10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "dialogue_pacifique",
+      "dialogues": [
+        {
+          "name": "Vieux Gobelin",
+          "sentence": "Passer ? Personne ne passe sans mon accord ! Ou alors... on joue une petite partie ?",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "combat_gobelin"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "combat_gobelin",
+      "enemyDeck": 1,
+      "playerDeck": 2,
+      "onWinSituationId": "victoire_combat",
+      "onLoseSituationId": "defaite_combat"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "defaite_combat",
+      "dialogues": [
+        {
+          "name": "Vieux Gobelin",
+          "sentence": "Ha ! J'ai gagné ! Maintenant, déguerpis de ma caverne !",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "fin_defaite"
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fin_defaite",
+      "message": "Vous avez été vaincu et expulsé de la caverne."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "victoire_combat",
+      "dialogues": [
+        {
+          "name": "Vieux Gobelin",
+          "sentence": "Argh... Tu es fort. Tiens, prends ça et laisse-moi tranquille.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "recompense_victoire"
+    },
+    {
+      "__component": "story.situation-reward",
+      "situationId": "recompense_victoire",
+      "rewardCoins": 50,
+      "rewardCards": [3],
+      "nextSituationId": "fin_victoire"
+    },
+    {
+      "__component": "story.situation-reward",
+      "situationId": "recompense_corruption",
+      "rewardCoins": -10,
+      "nextSituationId": "fin_victoire"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "fin_victoire",
+      "message": "Vous avez survécu à la rencontre et pouvez continuer votre aventure."
+    }
+  ]
+}
