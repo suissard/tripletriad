@@ -4,7 +4,6 @@
       <div v-if="!userStore.isLoggedIn" class="auth-notice">
         <p>Connectez-vous pour jouer au mode Histoire.</p>
       </div>
-
       <div v-else-if="isLoading" class="loading-state">
         <p>Chargement des histoires...</p>
       </div>
@@ -21,6 +20,17 @@
             <div class="story-info">
               <h3>{{ story.title }}</h3>
               <p class="story-desc">{{ story.description }}</p>
+              <!-- Story-level reward preview -->
+              <div v-if="story.rewardCards?.length" class="story-rewards-badge">
+                <span class="reward-badge-icon">🏆</span>
+                <span class="reward-badge-label">Récompenses de l'histoire :</span>
+                <div class="reward-mini-cards">
+                  <img v-for="card in story.rewardCards.slice(0, 4)" :key="card.id"
+                    :src="getRewardCardThumb(card)" :alt="card.name" :title="card.name"
+                    class="reward-mini-img" />
+                  <span v-if="story.rewardCards.length > 4" class="reward-more">+{{ story.rewardCards.length - 4 }}</span>
+                </div>
+              </div>
             </div>
             <div class="story-status">
               <span v-if="getStoryStatus(story.id) === 'completed'" class="status-badge completed">Terminé</span>
@@ -56,7 +66,10 @@
             </div>
 
             <!-- Story Steps (if unlocked) -->
-            <div v-else v-for="(step, index) in story.steps" :key="step.id" class="step-item" :class="{
+            <div v-else v-for="(step, index) in story.steps" :key="step.id" 
+              class="step-item" 
+              @click="isStepActive(story.id, index) ? startStep(story, step) : null"
+              :class="{
               'completed': isStepCompleted(story.id, step.id),
               'active': isStepActive(story.id, index),
               'locked': isStepLocked(story.id, index)
@@ -70,6 +83,20 @@
                 </div>
               </div>
               <p class="step-desc">{{ step.description }}</p>
+
+              <!-- Step reward preview -->
+              <div v-if="step.rewardCards?.length" class="step-rewards" :class="{ 'is-claimed': isStepCompleted(story.id, step.id) }">
+                <span class="step-reward-label">
+                  <span v-if="isStepCompleted(story.id, step.id)">✅ Obtenue</span>
+                  <span v-else>🎁 Récompense</span>
+                </span>
+                <div class="step-reward-cards">
+                  <img v-for="card in step.rewardCards.slice(0, 3)" :key="card.id"
+                    :src="getRewardCardThumb(card)" :alt="card.name" :title="card.name"
+                    class="step-reward-img" />
+                  <span v-if="step.rewardCards.length > 3" class="reward-more">+{{ step.rewardCards.length - 3 }}</span>
+                </div>
+              </div>
 
               <div v-if="isStepActive(story.id, index)" class="step-actions">
                 <AppButton @click.stop="startStep(story, step)" variant="primary">
@@ -85,7 +112,7 @@
       <Teleport to="body">
         <Transition name="vn-fade">
           <div v-if="showDialogueModal" class="vn-overlay" @click="advanceDialogue">
-            <div v-if="currentStep" class="vn-container" @click.stop="advanceDialogue">
+            <div v-if="currentStep && dialogueState !== 'combat'" class="vn-container" @click.stop="advanceDialogue">
 
               <!-- Background Portraits -->
               <div class="vn-portrait-layer">
@@ -135,14 +162,6 @@
                     </div>
 
                     <div v-if="dialogueState === 'end'" class="vn-end-actions">
-                      <div v-if="reward" class="reward-box-vn">
-                        <h4>Récompense débloquée !</h4>
-                        <div class="reward-card">
-                          <TripleTriadCard v-if="reward" :name="reward.name" :topValue="reward.topValue"
-                            :rightValue="reward.rightValue" :bottomValue="reward.bottomValue" :leftValue="reward.leftValue"
-                            :element="reward.element" :image="reward.image?.url" />
-                        </div>
-                      </div>
                       <AppButton @click.stop="finishStep" variant="primary" size="xl" shadow glow class="finish-btn mt-6">
                         Quitter et continuer 🚪
                       </AppButton>
@@ -160,32 +179,65 @@
         </Transition>
       </Teleport>
 
-      <!-- Embedded Combat Overlay -->
-      <Teleport to="body">
-        <Transition name="vn-fade">
-          <div v-if="showDialogueModal && dialogueState === 'combat'" style="position: fixed; inset: 0; z-index: 2000;">
-            <GameView />
-          </div>
-        </Transition>
-      </Teleport>
-    </div>
-  </PageLayout>
-</template>
+
+ 
+       <!-- Access Refusal / Purchase Modal -->
+       <AppModal v-model="showRefusalModal" title="Accès Verrouillé">
+         <div class="refusal-modal-content">
+           <div class="refusal-icon">🔒</div>
+           <h3>{{ refusalTitle }}</h3>
+           <p>{{ refusalMessage }}</p>
+           
+           <div v-if="canUnlockStory" class="unlock-offer">
+             <div class="price-tag">
+               <span class="price-val">{{ unlockPrice }}</span>
+               <span class="price-unit">Coins</span>
+             </div>
+             <AppButton @click="handleUnlockFromModal" :loading="isUnlocking" 
+               :disabled="userStore.user.coins < unlockPrice" variant="primary" glow>
+               Débloquer l'Histoire
+             </AppButton>
+             <p v-if="userStore.user.coins < unlockPrice" class="funds-error">Fonds insuffisants</p>
+           </div>
+           
+           <AppButton v-else @click="showRefusalModal = false" variant="secondary" outline>
+             Retour aux archives
+           </AppButton>
+         </div>
+       </AppModal>
+
+        <!-- Reward Celebration Modal -->
+        <RewardModal
+          :show="showRewardModal"
+          :reward="reward"
+          title="Récompense débloquée !"
+          :subtitle="currentStep?.title ? `Étape : ${currentStep.title}` : ''"
+          @claimed="onRewardClaimed"
+          @close="onRewardClaimed"
+        />
+ 
+     </div>
+   </PageLayout>
+ </template>
 
 <script setup>
-import { ref, onMounted, computed, nextTick } from 'vue';
+import { ref, onMounted, computed, nextTick, watch } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 import { marked } from 'marked';
 import PageLayout from '../components/PageLayout.vue';
-import GameView from './GameView.vue';
+// GameView is now accessed via /game route, no longer embedded
 import { state as gameState, normalizeCard, cardLibrary } from '../game/state.js';
 import AppCard from '../components/ui/AppCard.vue';
 import AppButton from '../components/ui/AppButton.vue';
 import AppModal from '../components/ui/AppModal.vue';
 import TripleTriadCard from '../components/TripleTriadCard.vue';
+import RewardModal from '../components/RewardModal.vue';
 import { useUserStore } from '../stores/userStore.js';
 import strapiService from '../api/strapi.js';
 
 const userStore = useUserStore();
+const router = useRouter();
+const route = useRoute();
 const isLoading = ref(true);
 const stories = ref([]);
 const expandedStory = ref(null);
@@ -196,6 +248,7 @@ const currentStory = ref(null);
 const currentStep = ref(null);
 const dialogueState = ref('start'); // 'start' or 'end'
 const reward = ref(null);
+const showRewardModal = ref(false);
 const isReplay = ref(false);
 
 // VN Dialogue state
@@ -204,6 +257,16 @@ const activeLineIndex = ref(0);
 const dialogueTimer = ref(null);
 const isDialogueFinished = ref(false);
 const chatLogRef = ref(null);
+ 
+ // Refusal Modal state
+ const showRefusalModal = ref(false);
+ const refusalTitle = ref('');
+ const refusalMessage = ref('');
+ const canUnlockStory = ref(false);
+ const pendingStoryId = ref(null);
+ 
+ // UI session state
+ const shouldSyncDetailToUrl = ref(false);
 
 const activeSpeakerPosition = computed(() => {
   if (displayedLines.value.length === 0) return null;
@@ -221,9 +284,12 @@ const activeSpeakerAvatar = computed(() => {
 
 // Persistent portraits based on decks or current speaker
 const leftSpeakerPortrait = computed(() => {
-  // If current speaker is on left and has a specific card, override
-  if (activeSpeakerPosition.value === 'left' && activeSpeakerAvatar.value) {
-    return activeSpeakerAvatar.value;
+  // Find last line where left speaker used a card
+  for (let i = displayedLines.value.length - 1; i >= 0; i--) {
+    const line = displayedLines.value[i];
+    if (line.position === 'left' && line.card) {
+      return getAvatarUrl(line.card);
+    }
   }
   
   // Fallback to first card of player deck (Hero) or specific hero asset
@@ -235,9 +301,12 @@ const leftSpeakerPortrait = computed(() => {
 });
 
 const rightSpeakerPortrait = computed(() => {
-  // If current speaker is on right and has a specific card, override
-  if (activeSpeakerPosition.value === 'right' && activeSpeakerAvatar.value) {
-    return activeSpeakerAvatar.value;
+  // Find last line where right speaker used a card
+  for (let i = displayedLines.value.length - 1; i >= 0; i--) {
+    const line = displayedLines.value[i];
+    if (line.position === 'right' && line.card) {
+      return getAvatarUrl(line.card);
+    }
   }
   
   // Fallback to first card of enemy deck (NPC)
@@ -254,10 +323,146 @@ onMounted(async () => {
   if (userStore.isLoggedIn) {
     await fetchConfig();
     await fetchStories();
+    await restoreStateFromUrl();
   } else {
     isLoading.value = false;
   }
 });
+
+// URL Synchronization Logic
+function updateUrl() {
+  let newPath = '/story';
+  let query = {}; // Start fresh or specifically clear dialogue-related params
+
+  if (showDialogueModal.value && currentStory.value && currentStep.value) {
+    const stepIndex = currentStory.value.steps.findIndex(s => s.id === currentStep.value.id) + 1;
+    newPath = `/story/${currentStory.value.id}/step/${stepIndex}`;
+    
+    // Preserve existing results/non-dialogue query if currently in modal? 
+    // Actually, user wants them gone when dialog finishes.
+    // If we are IN the modal, we might still have a 'result' query from /game
+    if (route.query.result) query.result = route.query.result;
+
+    // Sync detailed state if enabled
+    if (shouldSyncDetailToUrl.value) {
+      query.line = activeLineIndex.value.toString();
+      query.dialogue = dialogueState.value;
+    }
+  } else if (expandedStory.value) {
+    // Modal is closed, we only keep the expanded story if any
+    query.story = expandedStory.value.toString();
+  }
+
+  // Only update if something changed to avoid redundant history entries
+  const currentQueryStr = JSON.stringify(route.query);
+  const newQueryStr = JSON.stringify(query);
+
+  if (route.path !== newPath || currentQueryStr !== newQueryStr) {
+    router.replace({ path: newPath, query });
+  }
+}
+
+// Watchers for state sync
+watch(expandedStory, updateUrl);
+watch(showDialogueModal, updateUrl);
+watch(dialogueState, updateUrl);
+watch(activeLineIndex, updateUrl);
+
+// Watch for route changes to handle browser navigation (back/forward)
+// We specifically watch params to catch step changes, while restoreStateFromUrl also handles queries
+watch(() => [route.params.storyId, route.params.stepIndex, route.query.result], () => {
+  restoreStateFromUrl();
+});
+
+const processedResultId = ref(null);
+
+async function restoreStateFromUrl() {
+  const { story, dialogue, line, result } = route.query;
+  const storyId = route.params.storyId ? Number(route.params.storyId) : (story ? Number(story) : null);
+  const stepIndex1 = route.params.stepIndex ? Number(route.params.stepIndex) : null;
+
+  if (storyId) {
+    // Basic story access check
+    const status = getStoryStatus(storyId);
+    if (status === 'locked') {
+      refusalTitle.value = "Histoire verrouillée";
+      refusalMessage.value = "Vous devez débloquer cette histoire avant de pouvoir y accéder.";
+      canUnlockStory.value = true;
+      pendingStoryId.value = storyId;
+      showRefusalModal.value = true;
+      return;
+    }
+
+    expandedStory.value = storyId;
+
+    if (stepIndex1) {
+      if (!isStepActive(storyId, stepIndex1 - 1)) {
+        refusalTitle.value = "Étape non atteinte";
+        refusalMessage.value = "Vous devez terminer les étapes précédentes pour accéder à celle-ci.";
+        canUnlockStory.value = false;
+        showRefusalModal.value = true;
+        updateUrl();
+        return;
+      }
+
+      const storyObj = stories.value.find(s => String(s.id) === String(storyId));
+      if (storyObj) {
+        const stepIdx = stepIndex1 - 1;
+        const stepObj = storyObj.steps[stepIdx];
+        if (stepObj) {
+          currentStory.value = storyObj;
+          currentStep.value = stepObj;
+          isReplay.value = isStepCompleted(storyId, stepObj.id);
+          
+          // --- Handle return from /game (Combat Results) ---
+          const currentResultId = `${storyId}-${stepIndex1}-${result}`;
+          if (result && processedResultId.value !== currentResultId) {
+            processedResultId.value = currentResultId;
+            if (result === 'win') {
+              showDialogueModal.value = true;
+              await handleMatchWin(); // Await reward processing
+              return;
+            } else if (result === 'loss') {
+              showDialogueModal.value = true;
+              dialogueState.value = 'start';
+              startDialogueSequence();
+              return;
+            }
+          }
+          
+          // --- Normal dialogue navigation restoration (F5 / Direct Link) ---
+          if (dialogue || line || stepIndex1) {
+            const lineIdx = line ? Number(line) : 0;
+            const targetDialogue = dialogue || 'start';
+            
+            // Avoid restarting dialogue if we are already on this step, state and line
+            const alreadyInCorrectState = showDialogueModal.value && 
+                                         currentStep.value?.id === stepObj.id && 
+                                         dialogueState.value === targetDialogue &&
+                                         activeLineIndex.value === lineIdx;
+                                         
+            if (!alreadyInCorrectState) {
+              shouldSyncDetailToUrl.value = !!(dialogue || line);
+              dialogueState.value = targetDialogue;
+              showDialogueModal.value = true;
+              startDialogueSequence(lineIdx);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+async function handleUnlockFromModal() {
+  if (!pendingStoryId.value) return;
+  await unlockStory(pendingStoryId.value);
+  if (getStoryStatus(pendingStoryId.value) !== 'locked') {
+    showRefusalModal.value = false;
+    // If we were trying to access a step, retry restoration
+    restoreStateFromUrl();
+  }
+}
 
 async function fetchConfig() {
   try {
@@ -325,8 +530,10 @@ async function fetchStories() {
 
     const storiesRes = await strapiService.find('stories', {
       populate: {
+        rewardCards: { populate: ['image'] },
         steps: {
           populate: {
+            rewardCards: { populate: ['image'] },
             startDialogue: {
               populate: {
                 card: { populate: ['image'] }
@@ -349,9 +556,7 @@ async function fetchStories() {
     });
 
     stories.value = storiesRes.data;
-
     console.log('Loaded progress:', userStore.storyProgresses);
-
   } catch (error) {
     console.error('Failed to fetch stories:', error);
   } finally {
@@ -360,27 +565,29 @@ async function fetchStories() {
 }
 
 function getProgress(storyId) {
+  if (!userStore.storyProgresses) return null;
+  
   return userStore.storyProgresses.find(p => {
-    if (!p.story) return false;
+    const storyData = p.story?.data || p.story;
+    if (!storyData) return false;
 
-    // Check if relation is populated
-    if (typeof p.story === 'object') {
-      const matchId = p.story.id && Number(p.story.id) === Number(storyId);
-      const matchDocId = p.story.documentId && String(p.story.documentId) === String(storyId);
-      return matchId || matchDocId;
-    }
+    // Direct ID match
+    const matchId = storyData.id && Number(storyData.id) === Number(storyId);
+    // Document ID match (Strapi 5)
+    const matchDocId = storyData.documentId && String(storyData.documentId) === String(storyId);
+    
+    // Fallback if p.story was just an ID/string (not populated)
+    const matchRaw = !isNaN(Number(p.story)) && Number(p.story) === Number(storyId);
+    const matchRawStr = String(p.story) === String(storyId);
 
-    // If not populated, it's just an id/documentId string or number
-    const matchRawId = !isNaN(Number(p.story)) && !isNaN(Number(storyId)) && Number(p.story) === Number(storyId);
-    const matchRawDocId = String(p.story) === String(storyId);
-
-    return matchRawId || matchRawDocId;
+    return matchId || matchDocId || matchRaw || matchRawStr;
   });
 }
 
 function getStoryStatus(storyId) {
   const p = getProgress(storyId);
-  return p ? p.status : 'locked';
+  if (!p) return 'locked';
+  return p.status || p.progressStatus || 'locked';
 }
 
 function isStepCompleted(storyId, stepId) {
@@ -416,11 +623,12 @@ function startStep(story, step) {
   currentStep.value = step;
   dialogueState.value = 'start';
   reward.value = null;
+  shouldSyncDetailToUrl.value = false; // Reset sync flag for UI-triggered starts
   showDialogueModal.value = true;
   startDialogueSequence();
 }
 
-function startDialogueSequence() {
+function startDialogueSequence(resumeIndex = 0) {
   displayedLines.value = [];
   activeLineIndex.value = 0;
   isDialogueFinished.value = false;
@@ -432,7 +640,20 @@ function startDialogueSequence() {
     return;
   }
 
-  showNextLine();
+  if (resumeIndex > 0) {
+    // Show all lines up to resumeIndex immediately
+    const limit = Math.min(resumeIndex, currentDialogueArray.length);
+    displayedLines.value = currentDialogueArray.slice(0, limit);
+    activeLineIndex.value = limit;
+    
+    if (activeLineIndex.value >= currentDialogueArray.length) {
+      isDialogueFinished.value = true;
+    } else {
+       showNextLine();
+    }
+  } else {
+    showNextLine();
+  }
 }
 
 function showNextLine() {
@@ -486,7 +707,7 @@ function skipAllDialogue() {
 async function playCombat() {
   clearTimeout(dialogueTimer.value);
   try {
-    // Setup Story Match state
+    // Setup Story Match state in gameState before navigating
     let playerDeckCards = currentStep.value.playerDeck?.cards || [];
     let enemyDeckCards = currentStep.value.enemyDeck?.cards || [];
 
@@ -505,87 +726,21 @@ async function playCombat() {
     if (enemyDeckCards.length > 0) {
       gameState.storyEnemyDeckConfig = enemyDeckCards.map(normalizeCard);
     } else {
-      gameState.storyEnemyDeckConfig = []; // fallback to GameView random logic
+      gameState.storyEnemyDeckConfig = [];
     }
 
     gameState.isStoryMatch = true;
     gameState.storyMatchData = { story: currentStory.value, step: currentStep.value };
 
-    // Setup the callback that GameOver will trigger
-    gameState.onStoryMatchEnd = async (won) => {
-      // Clean up game state match flag
-      gameState.isStoryMatch = false;
-      gameState.onStoryMatchEnd = null;
-      gameState.gameState = 'menu'; // Return to idle state
-
-      if (won) {
-        if (isReplay.value) {
-          // Replay -> Skip reward claiming which might fail on backend
-          dialogueState.value = 'end';
-          startDialogueSequence();
-          return;
-        }
-
-        // Submit reward to backend
-        try {
-          const token = localStorage.getItem('tt_jwt');
-          const response = await fetch(`${strapiService.MEDIA_URL}/api/player-story-progress/claim-step-reward`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({
-              storyId: currentStory.value.id,
-              stepId: currentStep.value.id
-            })
-          });
-
-          if (!response.ok) {
-            // Log error but don't crash the dialogue progression
-            console.error('Failed to claim reward:', await response.text());
-            dialogueState.value = 'end';
-            startDialogueSequence();
-            return;
-          }
-
-          const data = await response.json();
-          reward.value = data.reward;
-
-          const idx = userStore.storyProgresses.findIndex(p => p.id === data.progress.id);
-          if (idx !== -1) {
-            userStore.storyProgresses[idx] = data.progress;
-          } else {
-            userStore.storyProgresses.push(data.progress);
-          }
-
-          // Transition to end dialogue seamlessly
-          dialogueState.value = 'end';
-          startDialogueSequence();
-        } catch (error) {
-          console.error('Error claiming step reward:', error);
-          // Fallback to end dialogue even on error
-          dialogueState.value = 'end';
-          startDialogueSequence();
-        }
-      } else {
-        //- **Story-Specific Match Ending:** The "GameOver" screen adapts automatically:
-        //  - Victory offers "CONTINUER L'HISTOIRE" and natively grants the API-driven rewards and triggers the concluding dialogue sequence.
-        //  - Defeat offers "RÉESSAYER" (instant rematch) or "ABANDONNER" (retreat).
-        //- **Bug Fix (Story Resumption):** Fixed an issue where replaying a story step would cause the flow to break after winning (due to attempting to re-claim an already owned reward). Now, replaying correctly skips reward processing and goes straight to the closing dialogue. Added robustness by using dynamic API URLs instead of hardcoded `localhost` links.
-        // Player abandoned or lost cleanly -> Just re-open start dialogue
-        dialogueState.value = 'start';
-        startDialogueSequence();
-      }
-    };
-
-    // Switch view overlay
-    dialogueState.value = 'combat';
-
-    // Trigger GameView init
-    gameState.gameState = 'coin-toss';
-    gameState.coinTossResult = Math.random() < 0.5 ? 'player' : 'ai';
-    gameState.showCoinToss = true;
+    // Navigate to the game page — GameView handles match initialization from URL
+    router.push({ 
+      path: '/game', 
+      query: { 
+        mode: 'story', 
+        storyId: currentStory.value.id, 
+        stepId: currentStep.value.id 
+      } 
+    });
 
   } catch (error) {
     console.error('Error starting combat:', error);
@@ -593,12 +748,91 @@ async function playCombat() {
   }
 }
 
+// Handle returning from /game with a win result
+async function handleMatchWin() {
+  if (isReplay.value) {
+    // Replay -> Skip reward claiming, go straight to end dialogue
+    dialogueState.value = 'end';
+    startDialogueSequence();
+    return;
+  }
+
+  // Submit reward to backend
+  try {
+    const token = localStorage.getItem('tt_jwt');
+    const response = await fetch(`${strapiService.MEDIA_URL}/api/player-story-progress/claim-step-reward`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        storyId: currentStory.value.id,
+        stepId: currentStep.value.id
+      })
+    });
+
+    if (!response.ok) {
+      console.error('Failed to claim reward:', await response.text());
+      dialogueState.value = 'end';
+      startDialogueSequence();
+      return;
+    }
+
+    const data = await response.json();
+    reward.value = data.reward;
+
+    // Update local progress
+    await userStore.fetchUserStoryProgresses(true);
+
+    if (data.reward) {
+      showRewardModal.value = true;
+      return; // Wait for reward modal claim to trigger end dialogue
+    }
+
+    // Transition to end dialogue seamlessly (no reward case)
+    dialogueState.value = 'end';
+    startDialogueSequence();
+  } catch (error) {
+    console.error('Error claiming step reward:', error);
+    dialogueState.value = 'end';
+    startDialogueSequence();
+  }
+}
+
 function finishStep() {
   clearTimeout(dialogueTimer.value);
   showDialogueModal.value = false;
+  showRewardModal.value = false;
   currentStory.value = null;
   currentStep.value = null;
   reward.value = null;
+}
+
+function onRewardClaimed() {
+  showRewardModal.value = false;
+  // Now transition to end dialogue
+  dialogueState.value = 'end';
+  startDialogueSequence();
+}
+
+function getRewardCardThumb(card) {
+  if (!card) return '';
+  const cardData = card.attributes || card;
+  
+  let url = cardData.imageUrl || cardData.img;
+  if (!url && cardData.image?.url) {
+    url = cardData.image.url.startsWith('http') ? cardData.image.url : `${strapiService.MEDIA_URL}${cardData.image.url}`;
+  }
+  if (!url && cardData.image?.data?.attributes?.url) {
+    const attrUrl = cardData.image.data.attributes.url;
+    url = attrUrl.startsWith('http') ? attrUrl : `${strapiService.MEDIA_URL}${attrUrl}`;
+  }
+  if (!url) {
+    const seed = cardData.id || card.id || cardData.name || '0';
+    url = `https://api.dicebear.com/9.x/bottts/svg?seed=${encodeURIComponent(seed)}&backgroundColor=transparent`;
+  }
+  return url;
 }
 
 function getAvatarUrl(card) {
@@ -735,11 +969,66 @@ function getAvatarUrl(card) {
 .step-item.active {
   border-color: var(--color-primary, #00d2ff);
   background: rgba(0, 210, 255, 0.05);
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+}
+
+.step-item.active:hover {
+  background: rgba(0, 210, 255, 0.12);
+  border-color: var(--color-primary, #00d2ff);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 210, 255, 0.2);
+}
+
+.step-item.active:active {
+  transform: translateY(0);
+  background: rgba(0, 210, 255, 0.2);
 }
 
 .step-item.locked {
   opacity: 0.5;
 }
+ 
+ .refusal-modal-content {
+   text-align: center;
+   padding: 1.5rem;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 1.5rem;
+ }
+ 
+ .refusal-icon {
+   font-size: 4rem;
+   margin-bottom: 0.5rem;
+ }
+ 
+ .unlock-offer {
+   background: rgba(255, 191, 0, 0.05);
+   border: 1px solid rgba(255, 191, 0, 0.2);
+   border-radius: 12px;
+   padding: 1.5rem;
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   gap: 1rem;
+ }
+ 
+ .price-tag {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 0.5rem;
+   color: #FFBF00;
+   font-weight: bold;
+   font-size: 1.5rem;
+ }
+ 
+ .funds-error {
+   color: #ff4444;
+   font-size: 0.85rem;
+   margin: 0;
+ }
 
 .step-header {
   display: flex;
@@ -1148,5 +1437,117 @@ function getAvatarUrl(card) {
   flex-shrink: 0;
   border: 2px solid rgba(255, 255, 255, 0.2);
   background: rgba(0, 0, 0, 0.5);
+}
+
+/* Rewards Preview Styles */
+.story-rewards-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+  padding: 0.4rem 0.8rem;
+  background: rgba(255, 191, 0, 0.1);
+  border: 1px dashed rgba(255, 191, 0, 0.3);
+  border-radius: 30px;
+  width: fit-content;
+}
+
+.reward-badge-icon {
+  font-size: 1.2rem;
+}
+
+.reward-badge-label {
+  font-size: 0.85rem;
+  color: #FFD700;
+  font-weight: 600;
+}
+
+.reward-mini-cards {
+  display: flex;
+  align-items: center;
+  margin-left: 0.5rem;
+}
+
+.reward-mini-img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 215, 0, 0.5);
+  margin-left: -10px;
+  object-fit: cover;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  transition: transform 0.2s;
+}
+
+.reward-mini-img:first-child {
+  margin-left: 0;
+}
+
+.reward-mini-img:hover {
+  transform: translateY(-2px) scale(1.2);
+  z-index: 10;
+}
+
+.reward-more {
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #FFD700;
+  margin-left: 0.3rem;
+}
+
+.step-rewards {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: fit-content;
+}
+
+.step-rewards.is-claimed {
+  opacity: 0.6;
+  filter: grayscale(0.5);
+  border-color: rgba(0, 255, 100, 0.3);
+  background: rgba(0, 255, 100, 0.05);
+}
+
+.step-reward-label {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
+.step-rewards.is-claimed .step-reward-label {
+  color: #00ff64;
+  font-weight: 600;
+}
+
+.step-reward-cards {
+  display: flex;
+  align-items: center;
+}
+
+.step-reward-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  margin-left: -5px;
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  transition: transform 0.2s;
+}
+
+.step-reward-img:first-child {
+  margin-left: 0;
+}
+
+.step-reward-img:hover {
+  transform: translateY(-2px) scale(1.1);
+  z-index: 10;
+  border-color: #FFD700;
 }
 </style>

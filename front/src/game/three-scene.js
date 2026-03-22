@@ -43,6 +43,10 @@ export function updateAllCardsFrames() {
 }
 
 export function initScene(container) {
+    // Clean up hands before drawing, as they store Mesh objects
+    state.pHand = [];
+    state.aiHand = [];
+    
     scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x0a0a1a, 0.02);
     camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 100);

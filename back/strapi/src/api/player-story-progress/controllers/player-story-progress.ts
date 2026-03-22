@@ -36,7 +36,7 @@ export default factories.createCoreController('api::player-story-progress.player
         data: {
           user: id,
           story: storyId,
-          status: 'in_progress',
+          progressStatus: 'in_progress',
           completedSteps: []
         }
       });
@@ -79,7 +79,7 @@ export default factories.createCoreController('api::player-story-progress.player
 
     // Update progress
     const updatedSteps = [...completedSteps, stepId];
-    let newStatus = progress.status;
+    let newStatus = progress.progressStatus;
     if (updatedSteps.length >= (story as any).steps.length) {
       newStatus = 'completed';
     }
@@ -87,7 +87,7 @@ export default factories.createCoreController('api::player-story-progress.player
     const updatedProgress = await strapi.entityService.update('api::player-story-progress.player-story-progress', progress.id, {
       data: {
         completedSteps: updatedSteps,
-        status: newStatus
+        progressStatus: newStatus
       }
     });
 
@@ -151,7 +151,7 @@ export default factories.createCoreController('api::player-story-progress.player
         data: {
             user: id,
             story: storyId,
-            status: 'in_progress',
+            progressStatus: 'in_progress',
             completedSteps: []
         }
     });

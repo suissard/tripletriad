@@ -26,7 +26,7 @@
     "completedSteps": {
       "type": "json"
     },
-    "status": {
+    "progressStatus": {
       "type": "enumeration",
       "enum": ["locked", "in_progress", "completed"],
       "default": "locked"

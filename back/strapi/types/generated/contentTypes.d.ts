@@ -990,11 +990,11 @@ export interface ApiPlayerStoryProgressPlayerStoryProgress
       'api::player-story-progress.player-story-progress'
     > &
       Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    status: Schema.Attribute.Enumeration<
+    progressStatus: Schema.Attribute.Enumeration<
       ['locked', 'in_progress', 'completed']
     > &
       Schema.Attribute.DefaultTo<'locked'>;
+    publishedAt: Schema.Attribute.DateTime;
     story: Schema.Attribute.Relation<'manyToOne', 'api::story.story'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

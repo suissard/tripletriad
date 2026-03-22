@@ -22,6 +22,7 @@ const routes = [
   { path: '/decks', component: DecksPage },
   { path: '/boutique', component: PackOpening },
   { path: '/story', component: StoryPage },
+  { path: '/story/:storyId/step/:stepIndex', component: StoryPage },
   { path: '/quests', component: QuestsPage },
 
   // Admin Routes

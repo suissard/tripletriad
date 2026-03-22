@@ -35,105 +35,87 @@ const resultColor = computed(() => {
     return "white";
 });
 
-import { refillHand, cardLibrary, normalizeCard } from '../game/state.js';
-
 function handleReplay() {
     const wasOnline = state.online;
-    const currentDeck = state.pDeck; // Save current player deck
     
-    // Si c'était en ligne, on nettoie le WebRTC et l'URL pour forcer 
-    // la création d'une nouvelle Room au lieu d'une boucle infinie.
     if (wasOnline) {
         webrtc.close();
-        if (route.query.match) {
-            router.replace({ query: {} });
-        }
-        resetGame(30, false);
-        state.pDeck = currentDeck;
+        resetGame();
         state.menuView = 'multi';
-        state.gameState = 'menu';
         router.push('/');
         return;
     }
 
-    // AI match instant replay logic
-    const aiDeck = [];
-    for (let i = 0; i < 5; i++) {
-        const randomCard = cardLibrary[Math.floor(Math.random() * cardLibrary.length)];
-        aiDeck.push(normalizeCard(randomCard));
-    }
-
-    const startingTurn = Math.random() < 0.5 ? 'player' : 'ai';
-
-    resetGame(30, false, startingTurn);
-    state.gameState = 'menu';
-    state.menuView = 'main'; // Doesn't matter, CoinToss is overlay
-    state.coinTossResult = startingTurn;
-    state.showCoinToss = true;
-    router.push('/');
-
-    // The actual match start will be handled after the coin toss animation
-    state.pendingAiGame = async () => {
-        state.gameState = 'playing';
-
-        // Initialize AI match in backend for logging
-        await import('../game/state.js').then(m => m.initAIMatch());
-
-        // Draw AI hand first
-        state.aiDeck = aiDeck;
-        refillHand('ai');
-
-        // Then set and draw player hand
-        state.pDeck = currentDeck;
-        refillHand('player');
-    };
+    // AI match: navigate back to /game?mode=ia with a hard reload for perfectly clean state
+    resetGame();
+    window.location.href = '/game?mode=ia';
 }
 
 function handleStoryWin() {
-    if (state.onStoryMatchEnd) {
-        state.onStoryMatchEnd(true);
+    const story = state.storyMatchData?.story;
+    const step = state.storyMatchData?.step;
+    const storyId = story?.id || story?.documentId || route.query.storyId;
+    
+    // Calculate step index before resetting
+    let stepIndex = 1;
+    if (story && step) {
+        stepIndex = (story.steps?.findIndex(s => String(s.id) === String(step.id)) ?? 0) + 1;
     }
+
+    // Clean up game state after extracting info
+    resetGame();
+    state.isStoryMatch = false;
+    
+    // Navigate back to story page with win result and explicit dialogue state
+    router.push({ 
+        path: `/story/${storyId}/step/${stepIndex}`, 
+        query: { 
+            result: 'win',
+            dialogue: 'end',
+            line: 0
+        } 
+    });
 }
 
 function handleStoryRetry() {
-    // Instant replay with same constraints
-    const currentDeck = state.pDeck; // Save current player deck
-    const startingTurn = Math.random() < 0.5 ? 'player' : 'ai';
-
-    const aiDeck = [];
-    if (state.storyEnemyDeckConfig && state.storyEnemyDeckConfig.length > 0) {
-        aiDeck.push(...state.storyEnemyDeckConfig.map(normalizeCard));
-    } else {
-        for (let i = 0; i < 15; i++) {
-            const randomCard = cardLibrary[Math.floor(Math.random() * cardLibrary.length)];
-            aiDeck.push(normalizeCard(randomCard));
-        }
-    }
-
-    resetGame(30, false, startingTurn);
-    // Keep story match properties intact after reset
-    state.isStoryMatch = true; 
+    const storyId = route.query.storyId || state.storyMatchData?.story?.id || state.storyMatchData?.story?.documentId;
+    const stepId = route.query.stepId || state.storyMatchData?.step?.id || state.storyMatchData?.step?.documentId;
     
-    state.gameState = 'coin-toss';
-    state.coinTossResult = startingTurn;
-    state.showCoinToss = true;
+    resetGame();
     
-    // The coin toss component finishing will trigger `onCoinTossFinished` in GameView
-    // which handles refilling hands and starting the match.
+    // Hard reload to guarantee a completely clean starting state unpolluted by Vue reactivity
+    window.location.href = `/game?mode=story&storyId=${storyId}&stepId=${stepId}`;
 }
 
 function handleStoryQuit() {
-    if (state.onStoryMatchEnd) {
-        state.onStoryMatchEnd(false);
+    const story = state.storyMatchData?.story;
+    const step = state.storyMatchData?.step;
+    const storyId = story?.id || story?.documentId || route.query.storyId;
+    
+    // Calculate step index before resetting
+    let stepIndex = 1;
+    if (story && step) {
+        stepIndex = (story.steps?.findIndex(s => String(s.id) === String(step.id)) ?? 0) + 1;
     }
+
+    // Clean up game state
+    resetGame();
+    state.isStoryMatch = false;
+    
+    // Navigate back to story page with loss result
+    router.push({ 
+        path: `/story/${storyId}/step/${stepIndex}`, 
+        query: { 
+            result: 'loss',
+            dialogue: 'start',
+            line: 0
+        } 
+    });
 }
 
 function handleQuit() {
     if (state.online) {
         webrtc.close();
-        if (route.query.match) {
-            router.replace({ query: {} });
-        }
     }
     resetGame();
     state.menuView = 'main';

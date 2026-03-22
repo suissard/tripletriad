@@ -17,28 +17,11 @@ onMounted(() => {
     initScene(container.value);
     initInput();
     
-    if (state.gameState === 'playing') {
-        if (!state.online || state.isHost) {
-            refillHand('player');
-            refillHand('ai');
-        } else {
-            refillHand('ai');
-            refillHand('player');
-        }
-    }
+    // Hand refilling is now managed entirely by GameView.js and game-actions.js
+    // to prevent double-draw bugs on component remount.
 });
 
-watch(() => state.gameState, (newState) => {
-    if (newState === 'playing') {
-        if (!state.online || state.isHost) {
-            refillHand('player');
-            refillHand('ai');
-        } else {
-            refillHand('ai');
-            refillHand('player');
-        }
-    }
-});
+// watcher removed as state transitions are handled by GameView
 
 onBeforeUnmount(() => {
     cleanupInput();
