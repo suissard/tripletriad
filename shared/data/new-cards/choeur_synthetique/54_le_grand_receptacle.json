@@ -1,0 +1,15 @@
+{
+  "name": "Le Grand Réceptacle",
+  "description": "Vaisseau amiral du Chœur Synthétique — un mandala orbital de trois kilomètres de diamètre, assemblé de milliers de fragments flottants maintenus ensemble par la seule force de la synchronisation mentale collective. Son passage défragmente la réalité elle-même.",
+  "element": "faille_dimensionnelle",
+  "elements": ["faille_dimensionnelle", "hacking", "longue_portee"],
+  "faction": "Chœur Synthétique",
+  "topValue": "9",
+  "rightValue": "8",
+  "bottomValue": "7",
+  "leftValue": "A",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "Colossal orbital mandala flagship three kilometers wide, thousands of floating ceramic and bronze fragments held together by pure golden holographic energy fields, concentric rings rotating in opposite directions, a dark void at its center where space itself fractures, tiny humanoid figures visible on platforms for scale, golden binary rain cascading from its structure, the ultimate cyber-monastic war cathedral, grimdark sci-fi TCG card art, ultra detailed, cosmic horror scale"
+}

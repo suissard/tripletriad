@@ -1,0 +1,17 @@
+{
+  "name": "Gardien du Silo",
+  "description": "Défenseur immobile d'un silo de lancement sacré.",
+  "element": "obsidienne",
+  "faction": "Héritiers des cendres",
+  "topValue": "6",
+  "rightValue": "3",
+  "bottomValue": "7",
+  "leftValue": "4",
+  "rarity": "Uncommon",
+  "prompt": "Mutant guard permanently stationed at a nuclear silo entrance, heavy fixed weapon, mines around, fortified position, post-apocalyptic, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "obsidienne"
+  ]
+}

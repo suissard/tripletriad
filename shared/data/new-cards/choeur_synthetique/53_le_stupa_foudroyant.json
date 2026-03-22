@@ -1,0 +1,15 @@
+{
+  "name": "Le Stupa Foudroyant",
+  "description": "Temple de guerre orbital du Chœur — une flèche monumentale dont le sommet contient un moulin à prières cybernétique de la taille d'un immeuble. Quand il tourne à pleine vitesse, il projette des mantras binaires capables de griller les systèmes d'une flotte entière.",
+  "element": "hacking",
+  "elements": ["hacking", "longue_portee"],
+  "faction": "Chœur Synthétique",
+  "topValue": "7",
+  "rightValue": "8",
+  "bottomValue": "5",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Towering stupa-shaped war temple in low orbit, massive cybernetic prayer wheel at its apex spinning and projecting golden binary streams in all directions, concentric mandala weapon arrays deployed along the hull, aged white ceramic and oxidized bronze plating, blue-white lightning crackling from its peak, fragmented enemy ships in the background, cyber-ascetic warship, grimdark sci-fi TCG card art, highly detailed, dramatic lighting"
+}

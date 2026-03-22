@@ -1,0 +1,15 @@
+{
+  "name": "Le Monastère Errant",
+  "description": "Vaisseau de transport sacré du Chœur — un monastère orbital entier, maintenu en vol par des centaines de champs magnétiques imbriqués. Ses salles contiennent des jardins de données où les IA cultivent leurs âmes algorithmiques entre les batailles.",
+  "element": "reseau",
+  "elements": ["reseau", "hacking"],
+  "faction": "Chœur Synthétique",
+  "topValue": "6",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Massive orbital monastery ship, symmetrical pagoda structure floating in space with no visible engines, multiple tiered levels connected by golden holographic bridges, white ceramic walls with weathered bronze prayer wheels spinning at each corner, internal garden glow visible through translucent panels, cables woven like Buddhist robes trailing behind, cyber-ascetic space temple, grimdark sci-fi TCG card art, highly detailed, epic scale"
+}

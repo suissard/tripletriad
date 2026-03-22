@@ -1,0 +1,15 @@
+{
+  "name": "Singularity de Siège",
+  "description": "Plateforme de siège ultime du Chœur — un monument flottant concentrique qui canalise la puissance d'une singularité miniature contenue dans son cœur. Son rayon de défragmentation peut effacer le code source d'une forteresse entière, la réduisant à un silence mathématique parfait.",
+  "element": "hacking",
+  "elements": ["hacking", "longue_portee"],
+  "faction": "Chœur Synthétique",
+  "topValue": "6",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "A massive siege platform of concentric floating rings centered around a contained miniature singularity — a dark sphere of pure mathematical void. Golden holographic scripture spirals inward. Aged white ceramic and tarnished bronze, blue-white energy beam firing from the center. Sci-fi grimdark spiritual art, cyber-asceticism, cinematic lighting, highly detailed, epic scale."
+}

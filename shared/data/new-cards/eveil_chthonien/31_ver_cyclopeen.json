@@ -1,0 +1,17 @@
+{
+  "name": "Ver Cyclopéen",
+  "description": "Ver titanesque d'un kilomètre de long dont la gueule broyeuse engloutit des bunkers entiers. Sa peau de roche vivante résiste aux tirs concentrés. Véhicule d'assaut souterrain primaire.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "6",
+  "rightValue": "3",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Dark sci-fi fantasy, colossal underground worm creature with a massive circular mouth full of rocky teeth, body made of dark tectonic plates, erupting from the ground, devouring a fortified structure, magma dripping, cinematic lighting, epic scale"
+}

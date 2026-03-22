@@ -1,0 +1,15 @@
+{
+  "name": "Rouille",
+  "description": "Ancien mineur dont l'armure est plus rouillée que fonctionnelle. Sa résistance à la corrosion est légendaire — lui aussi semble rouillé mais indestructible.",
+  "element": "None",
+  "elements": [],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "1",
+  "rightValue": "1",
+  "bottomValue": "3",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi scrap-punk veteran infantry, heavily rusted spacesuit with corroded armor plates, old mining helmet, weathered and tough stance, grime and oxidation everywhere"
+}

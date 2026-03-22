@@ -1,0 +1,15 @@
+{
+  "name": "Corailleur Bâtisseur",
+  "description": "Ingénieur de terrain qui fait pousser des barricades de corail en quelques minutes. Son injecteur de spores transforme n'importe quel sol en rempart organique.",
+  "element": "reseau",
+  "elements": ["reseau", "eau"],
+  "faction": "Exode pélagique",
+  "topValue": "1",
+  "rightValue": "2",
+  "bottomValue": "3",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Alien cephalopod engineer deploying coral growth from a heavy injector tool, pink and orange coral barrier emerging from the ground, multiple tentacles working different tools simultaneously, practical utility-focused suit"
+}

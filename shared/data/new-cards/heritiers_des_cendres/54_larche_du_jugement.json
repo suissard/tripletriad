@@ -1,0 +1,17 @@
+{
+  "name": "L'Arche du Jugement",
+  "description": "Vaisseau apocalyptique capable de détruire des planètes.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "A",
+  "rightValue": "A",
+  "bottomValue": "A",
+  "leftValue": "A",
+  "rarity": "Legendary",
+  "prompt": "Enormous apocalyptic ark ship, planet-destroying antimatter cannon, sacred technology, divine judgment, post-apocalyptic, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

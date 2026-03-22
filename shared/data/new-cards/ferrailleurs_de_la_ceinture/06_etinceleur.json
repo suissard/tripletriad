@@ -1,0 +1,15 @@
+{
+  "name": "Étinceleur",
+  "description": "Soudeur devenu arme vivante. Son chalumeau modifié crache un jet de plasma brûlant qui tranche l'acier et la chair avec la même facilité.",
+  "element": "None",
+  "elements": [],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "3",
+  "rightValue": "2",
+  "bottomValue": "1",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi scrap-punk welder infantry, bulky spacesuit with welding mask visor, dual wielding modified plasma torches, blue flame glow, sparks flying, dark industrial setting"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Pilier de Frappe Rapide",
+  "description": "Unité renforcée à l'architecture surdimensionnée, le Pilier encaisse les lignes ennemies comme un mur de prière. Son exosquelette vibrant amplifie chaque coup de bâton en onde de choc.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Chœur Synthétique",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Grimdark sci-fi, large reinforced humanoid robot with oversized exoskeleton frame, metallic ribcage expanded with hydraulic plating, wearing torn dark monk robes, faceless smooth plate, wielding a massive electrified staff crackling with energy, golden holographic prayers orbiting the body, cyber-asceticism, brutal yet graceful, cinematic lighting, highly detailed"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Le Pèlerin Abysmal",
+  "description": "Colosse moine armé d'un bâton-arcade électrifié de 12 mètres. Sa marche sismique défragmente le sol en mandalas de fissures.",
+  "element": "hacking",
+  "faction": "Chœur Synthétique",
+  "topValue": "8",
+  "rightValue": "7",
+  "bottomValue": "9",
+  "leftValue": "5",
+  "rarity": "Epic",
+  "prompt": "Giant robotic monk robot towering over buildings, massive electrified pilgrim staff, ragged holographic robes, featureless smooth faceplate, golden runes orbiting body, levitating slightly, cyber-asceticism, serene but deadly, grimdark sci-fi TCG card art, highly detailed",
+  "skills": null,
+  "collectionName": null,
+  "elements": ["hacking"]
+}

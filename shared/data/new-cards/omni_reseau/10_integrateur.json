@@ -1,0 +1,15 @@
+{
+  "name": "Intégrateur",
+  "description": "Captureur et reprogrammeur d'humains libres. L'Intégrateur plante de force une puce neurale dans le crâne des prisonniers. En quelques secondes, ils rejoignent l'Essaim. Leurs cris se taisent à jamais.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "2",
+  "rightValue": "1",
+  "bottomValue": "4",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Captor drone holding a neural chip injector device, pale emotionless face. Dark grey armor with restraint equipment, black cables. Cold blue implant glow, ominous forced conversion atmosphere, highly detailed."
+}

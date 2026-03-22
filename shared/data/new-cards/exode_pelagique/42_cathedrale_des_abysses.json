@@ -1,0 +1,15 @@
+{
+  "name": "Cathédrale des Abysses",
+  "description": "Structure bio-coral vivante de quatre étages, véritable temple mobile du Synode Biologique. Elle pulse de psionique collective et projette des boucliers de réfraction capables de dévier les attaques à longue portée, tout en canalisant le réseau neural des Tisseuses de Courants.",
+  "element": "reseau",
+  "elements": ["eau", "reseau", "longue_portee"],
+  "faction": "Exode pélagique",
+  "topValue": "7",
+  "rightValue": "7",
+  "bottomValue": "7",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Giant organic coral cathedral walking on massive tentacle-like roots, four stories tall, bioluminescent cyan and purple phosphorescent veins, translucent glass dome filled with glowing water at the top, psionic energy waves radiating outward, cephalopod priestess visible inside, hybrid of alien architecture and living organism, dark abyssal background with faint light rays, epic scale concept art"
+}

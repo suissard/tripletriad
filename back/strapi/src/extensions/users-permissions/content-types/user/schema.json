@@ -94,6 +94,11 @@
       "target": "api::wallet.wallet",
       "mappedBy": "user"
     },
+    "avatar_card": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::card.card"
+    },
     "storyProgresses": {
       "type": "relation",
       "relation": "oneToMany",

@@ -1,0 +1,18 @@
+{
+  "name": "Abyssalurge",
+  "description": "Océan de ténèbres vertical prenant une silhouette vaguement humanoïde. Son corps est un portail permanent vers la dimension d'origine, aspirant tout ce qui l'entoure dans le néant.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle",
+    "radiation"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "A",
+  "rightValue": "8",
+  "bottomValue": "9",
+  "leftValue": "8",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "Vaguely humanoid colossus made of vertical ocean of pure darkness, body is a permanent portal to another dimension, everything around it being pulled inward like a black hole, ten stories tall, cosmic horror grimdark sci-fi, gravitational distortion"
+}

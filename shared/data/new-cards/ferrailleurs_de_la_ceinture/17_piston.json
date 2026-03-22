@@ -1,0 +1,15 @@
+{
+  "name": "Piston",
+  "description": "Bélier mécanisé qui charge à l'aide de pistons hydrauliques greffés à son exosquelette. Chaque impact est un coup de bélier orbital.",
+  "element": "None",
+  "elements": [],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "3",
+  "rightValue": "1",
+  "bottomValue": "1",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi scrap-punk ram infantry, bulky spacesuit with hydraulic piston arms, charging forward with ramming pose, heavy industrial armor, metal debris flying, kinetic impact"
+}

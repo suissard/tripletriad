@@ -1,0 +1,15 @@
+{
+  "name": "Obélisque Gravé",
+  "description": "Monolithe défensif vertical crachant des salves de missiles guidés. Positionné sur les lignes de front, il verrouille le ciel et le sol avec une efficacité mathématique.",
+  "element": "longue_portee",
+  "elements": ["longue_portee", "reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "5",
+  "rightValue": "9",
+  "bottomValue": "5",
+  "leftValue": "8",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Tall monolithic obelisk defense platform, 4-story vertical rectangular dark grey armored tower bristling with missile pods and targeting arrays, cold blue scanning lights sweeping from apex, symmetrical geometric silhouette. Multiple human skulls embedded as sensor nodes across surface. Barcode serials etched deep into metal. Anti-air contrails in sky. Cinematic lighting, highly detailed."
+}

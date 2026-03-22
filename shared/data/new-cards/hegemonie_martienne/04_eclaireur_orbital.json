@@ -1,0 +1,15 @@
+{
+  "name": "Éclaireur Orbital",
+  "description": "Unité de reconnaissance déployée par capsule depuis l'orbite basse. Rapide, discret, il cartographie les zones d'atterrissage pour les vagues suivantes.",
+  "element": "furtif",
+  "elements": ["furtif"],
+  "faction": "Hégémonie martienne",
+  "topValue": "1",
+  "rightValue": "1",
+  "bottomValue": "3",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Light scout in sleek angular crimson armor, visor tinted dark, crouching on a ridge with binoculars and a compact carbine, drop pod behind."
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Dernière Silencieuse",
+  "description": "Légende parmi les unités d'infiltration. On murmure qu'elle a infiltré trois citadelles sans qu'un seul capteur ne la détecte. Elle est la preuve que le silence est l'arme ultime.",
+  "element": "furtif",
+  "elements": ["furtif", "hacking"],
+  "faction": "Chœur Synthétique",
+  "topValue": "4",
+  "rightValue": "3",
+  "bottomValue": "3",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark spiritual art, Le Chœur Synthétique faction. Legendary ghost android monk barely visible, near-perfect cloaking with only faint golden rune traces, elegant assassin pose, dark monastic robes fading into shadows, faceless, cinematic lighting, highly detailed"
+}

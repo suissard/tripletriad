@@ -1,0 +1,15 @@
+{
+  "name": "Optifex Sentinel",
+  "description": "Éclaireur lourd en armure furtive renforcée, doté de capteurs multi-spectres et d'un fusil de précision électromagnétique longue portée. Repère les cibles pour les frappes orbitales. L'œil invisible de l'Hégémonie.",
+  "element": "furtif",
+  "elements": ["furtif", "longue_portee"],
+  "faction": "Hégémonie martienne",
+  "topValue": "4",
+  "rightValue": "6",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Heavy stealth scout with long electromagnetic sniper rifle, crouched on elevated ruins, multi-spectrum visor glowing faint red, dusty atmosphere."
+}

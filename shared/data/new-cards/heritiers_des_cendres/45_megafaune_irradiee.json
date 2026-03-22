@@ -1,0 +1,17 @@
+{
+  "name": "Mégafaune Irradiée",
+  "description": "Bête géante rendue monstrueuse par les radiations.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "9",
+  "rightValue": "6",
+  "bottomValue": "7",
+  "leftValue": "5",
+  "rarity": "Epic",
+  "prompt": "Giant irradiated beast, radioactive fur and skin, massive claws, breathing toxic fire, post-apocalyptic kaiju, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

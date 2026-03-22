@@ -1,0 +1,15 @@
+{
+  "name": "Éclabousseur de Courant",
+  "description": "Grenadier aquatique qui lance des charges de plasma comprimé encapsulées dans des sphères d'eau surchauffée. L'impact vaporise tout sur un rayon de dix mètres.",
+  "element": "eau",
+  "elements": ["eau", "longue_portee"],
+  "faction": "Exode pélagique",
+  "topValue": "2",
+  "rightValue": "1",
+  "bottomValue": "2",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Alien cephalopod grenadier in medium diving suit, lobbing a glowing sphere of compressed plasma water, multiple tentacle arms holding grenades, bulky shoulder-mounted launcher, steam venting from valves, orange and cyan light"
+}

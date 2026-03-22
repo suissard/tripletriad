@@ -1,0 +1,15 @@
+{
+  "name": "Frère de la Dernière Ping",
+  "description": "Éclaireur renforcé envoyé aux frontières du réseau Chœur. Son exosquelette léger lui permet vitesse et silence tandis que ses antennes captent le moindre bruit organique à neutraliser.",
+  "element": "furtif",
+  "elements": ["furtif", "reseau"],
+  "faction": "Chœur Synthétique",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "2",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Grimdark sci-fi, sleek humanoid robot scout with lightweight reinforced exoskeleton, long antennae extending from the head, tattered grey monk robes, faceless metallic visor, holding a thin electrified lance, holographic golden signal waves emanating from the body, lurking in shadows, cyber-asceticism, silent predator, cinematic lighting, highly detailed"
+}

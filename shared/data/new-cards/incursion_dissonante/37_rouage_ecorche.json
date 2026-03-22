@@ -1,0 +1,18 @@
+{
+  "name": "Rouage Écorché",
+  "description": "Véhicule blindé dont la mécanique interne a été corrompue par un Écho Mineur. Les engrenages tournent dans le mauvais sens, crachant de la distorsion spatiale par les joints.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne",
+    "faille_dimensionnelle"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Corrupted armored vehicle with gears spinning in wrong direction, spatial distortion spraying from joints, metal warped like wax, purple energy from engine, cosmic horror grimdark sci-fi, cinematic"
+}

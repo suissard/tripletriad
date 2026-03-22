@@ -1,0 +1,19 @@
+{
+  "name": "Noyaux-Cendres",
+  "description": "Artillerie orbitale naturelle qui projette des projectiles de roche en fusion vers les vaisseaux en basse orbite. Son cratère dorsal fonctionne comme un canon géothermique.",
+  "element": "radiation",
+  "elements": [
+    "radiation",
+    "obsidienne",
+    "longue_portee"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "2",
+  "rightValue": "7",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Dark sci-fi fantasy, epic scale. A massive stationary creature resembling a living volcano, its crater-mouth aimed skyward launching streams of molten rock into orbit. Its body is rooted in the earth with massive obsidian limbs anchoring it. Glowing magma pools around its base. Trails of fire arc into the dark sky above. Smoke and ash billow from its flanks. Cinematic composition, highly detailed."
+}

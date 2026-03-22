@@ -1,0 +1,15 @@
+{
+  "name": "Codeur de Signal",
+  "description": "Brouilleur de communications ennemies et reprogrammeur de drones hostiles. Ses implants crâniens surdimensionnés lui permettent d'injecter des virus logiques dans les réseaux rivaux. L'Architecte parle à travers lui.",
+  "element": "hacking",
+  "elements": ["hacking", "reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "3",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Hacker drone with oversized cybernetic skull implants, multiple neural ports, pale face with data streams reflected in eyes. Dark grey armor, holographic code floating around hands. Cold blue and green light, highly detailed."
+}

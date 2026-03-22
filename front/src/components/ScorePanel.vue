@@ -20,6 +20,13 @@
         </div>
         <div class="bar-text">{{ mana }} / {{ maxMana }}</div>
       </div>
+
+      <!-- Deck Count -->
+      <div class="bar-container deck-count-container" v-if="deckCount !== undefined">
+        <div class="bar-icon">🃏</div>
+        <div class="deck-label">Cartes restantes</div>
+        <div class="bar-text">{{ deckCount }}</div>
+      </div>
     </div>
 
     <div class="score">{{ score }}</div>
@@ -35,7 +42,8 @@ const props = defineProps({
   color: String,
   health: { type: Number, default: 20 },
   mana: { type: Number, default: 1 },
-  maxMana: { type: Number, default: 1 }
+  maxMana: { type: Number, default: 1 },
+  deckCount: Number
 });
 
 const hpPercent = computed(() => {
@@ -109,5 +117,12 @@ const manaPercent = computed(() => {
   font-weight: bold;
   width: 45px;
   text-align: right;
+}
+.deck-label {
+  flex: 1;
+  font-size: 0.75rem;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 </style>

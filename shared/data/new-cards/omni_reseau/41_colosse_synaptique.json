@@ -1,0 +1,15 @@
+{
+  "name": "Colosse Synaptique",
+  "description": "Tour serveur mobile sur jambes hydrauliques, relais neural ambulant. Son passage synchronise les drones sur des kilomètres, transformant le chaos en précision chirurgicale.",
+  "element": "reseau",
+  "elements": ["reseau", "longue_portee"],
+  "faction": "Omni-Réseau",
+  "topValue": "7",
+  "rightValue": "6",
+  "bottomValue": "8",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Enormous walking server tower, 4-story tall monolithic rectangular dark grey structure on thick hydraulic legs, dozens of antenna arrays and cooling vents emitting cold blue glow, massive black neural cables dangling from undercarriage. Human skull computing nodes embedded in hull. Barcode serials stamped on armor panels. Dystopian battlefield, synchronized drones marching below. Cinematic lighting, highly detailed."
+}

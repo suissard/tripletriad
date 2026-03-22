@@ -1,0 +1,15 @@
+{
+  "name": "Arche Béhémoth",
+  "description": "L'une des arches coloniales originelles, convertie en engin de guerre absolu. Ce bathyscaphe titanesque, entre plateforme pétrolière et forteresse mobile, crache des torrents de vapeur brûlante et de plasma depuis ses propulseurs asymétriques. Là où elle passe, les océans deviennent sanctuaire.",
+  "element": "eau",
+  "elements": ["eau", "longue_portee", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "9",
+  "rightValue": "8",
+  "bottomValue": "9",
+  "leftValue": "9",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "A colossal alien submarine warship combining a deep-sea bathyscaphe and a flying oil platform, ten stories tall, crab-like mechanical legs, bulbous pressure hulls with thick curved glass, asymmetrical thrusters blasting boiling steam, barnacle-encrusted armor plating in rust orange and verdigris, halogen searchlights piercing the darkness, plasma cannons integrated into massive mechanical arms, epic underwater battlefield, concept art, cinematic"
+}

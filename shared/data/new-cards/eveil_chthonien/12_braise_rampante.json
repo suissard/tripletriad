@@ -1,0 +1,17 @@
+{
+  "name": "Braise Rampante",
+  "description": "Serpent de braises vivantes rampant dans les décombres. Sa morsure enflamme les matériaux organiques et fait fondre les blindages légers.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "3",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Dark sci-fi fantasy, serpent made of living embers and hot coals, slithering through rubble, glowing orange body with white-hot core, leaving a trail of fire, ember particles floating, highly detailed"
+}

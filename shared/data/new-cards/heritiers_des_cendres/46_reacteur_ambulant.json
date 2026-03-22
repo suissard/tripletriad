@@ -1,0 +1,17 @@
+{
+  "name": "Réacteur Ambulant",
+  "description": "Réacteur nucléaire vivant qui alimente toute une zone.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "7",
+  "rightValue": "7",
+  "bottomValue": "7",
+  "leftValue": "8",
+  "rarity": "Epic",
+  "prompt": "Walking nuclear reactor with sacred force field, energy beams, mutant attendants, post-apocalyptic power source, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

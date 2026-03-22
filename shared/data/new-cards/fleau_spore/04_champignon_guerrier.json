@@ -1,0 +1,15 @@
+{
+  "name": "Champignon Guerrier",
+  "description": "Entité presque entièrement fongique, ne conservant du corps humain que le squelette comme armature. Ses bras sont devenus des lames de chitine calcifiée.",
+  "element": "spore",
+  "elements": ["spore"],
+  "faction": "Fléau Spore",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark biomechanical horror, fungal warrior creature. Skeletal humanoid frame almost entirely covered in thick fungal mass, arms transformed into sharp calcified chitin blades. Skull exposed with glowing purple mushrooms in eye sockets. Mushroom cap growing from head like a helmet. Compact fighting stance. Toxic spore aura. Cinematic lighting, highly detailed, dark atmospheric background."
+}

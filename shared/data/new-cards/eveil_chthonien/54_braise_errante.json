@@ -1,0 +1,18 @@
+{
+  "name": "Braise-Errante",
+  "description": "Éclaireur aérien sismique dont les membranes de roche feuilletée captent les ondes telluriques. Rapide pour sa taille, il cartographie les failles pour guider les émergences des plus grands titans.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne",
+    "radiation"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Dark sci-fi fantasy, epic scale. A flying creature made of thin layered volcanic rock membranes stretched like wings, with a streamlined obsidian body. Glowing magma veins pulse through its translucent stone wings. Multiple pupilless eyes scan the landscape below. It hovers over a cracked wasteland, leaving trails of ash and embers. Smaller and more agile than other titans. Dramatic sky, highly detailed."
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Cloitre Absolu",
+  "description": "Humain enfermé dans un sarcophage de métal dimensionnel dont les parois intérieures sont couvertes de griffures. Le sarcophage flotte et percute comme un bélier psychique.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne",
+    "faille_dimensionnelle"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "5",
+  "rightValue": "3",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Floating sarcophagus made of dark dimensional metal covered in claw marks from inside, purple energy leaking through cracks, levitating forward as a psychic ram, cosmic horror grimdark sci-fi"
+}

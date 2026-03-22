@@ -1,0 +1,15 @@
+{
+  "name": "Muraille Noxium",
+  "description": "Fantassin renforcé anti-chimique avec filtration intégrale et lance-gaz incendiaire. Protège et nettoie les zones contaminées. Sa présence signifie la stérilisation totale du secteur.",
+  "element": "radiation",
+  "elements": ["radiation"],
+  "faction": "Hégémonie martienne",
+  "topValue": "3",
+  "rightValue": "3",
+  "bottomValue": "6",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Heavy anti-chemical infantry with flamethrower-style incendiary gas launcher, bulky sealed helmet with multiple filter tubes, toxic mist surrounding the figure."
+}

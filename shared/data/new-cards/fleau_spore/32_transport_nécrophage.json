@@ -1,0 +1,15 @@
+{
+  "name": "Transport Nécrophage",
+  "description": "Ancien véhicule de transport de troupes transformé en incubateur mobile. Sa cale déborde de spores en gestation et de larves fongiques prêtes à éclore au contact de l'air libre, chaque impact ouvrant une nouvelle brèche d'infection.",
+  "element": "spore",
+  "elements": ["spore", "radiation"],
+  "faction": "Fléau Spore",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "5",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi grimdark biomechanical horror, infected military transport vehicle overflowing with fungal larvae and green spores from open cargo bay, hull cracked open by pulsating mycelium growths, bioluminescent purple incubation sacs, highly detailed."
+}

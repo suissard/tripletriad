@@ -1,0 +1,15 @@
+{
+  "name": "Ventouseur Défenseur",
+  "description": "Fantassin défensif dont les tentacules ventousées se cramponnent au sol et aux obstacles. Porteur d'un bouclier de réfraction massif découpé dans une coque de bathyscaphe.",
+  "element": "eau",
+  "elements": ["eau"],
+  "faction": "Exode pélagique",
+  "topValue": "1",
+  "rightValue": "3",
+  "bottomValue": "3",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Alien cephalopod defender braced behind massive curved refraction shield made from submarine hull plate, tentacles gripping the ground, heavy scarred armor, glowing cyan shield edge, immovable defensive stance"
+}

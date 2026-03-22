@@ -1,0 +1,17 @@
+{
+  "name": "Canon de Siège Sacré",
+  "description": "Artillerie extrême qui lance des obus nucléaires.",
+  "element": "longue_portee",
+  "faction": "Héritiers des cendres",
+  "topValue": "A",
+  "rightValue": "3",
+  "bottomValue": "4",
+  "leftValue": "A",
+  "rarity": "Epic",
+  "prompt": "Enormous sacred siege cannon, nuclear shells, fixed position, mutant crew worshipping it, post-apocalyptic artillery, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "longue_portee"
+  ]
+}

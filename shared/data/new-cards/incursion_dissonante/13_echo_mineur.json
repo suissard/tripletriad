@@ -1,0 +1,18 @@
+{
+  "name": "Écho Mineur",
+  "description": "Résonance affaiblie d'un Écho Majeur, trop faible pour altérer la réalité mais capable de corrompre les esprits fragiles à distance.",
+  "element": "longue_portee",
+  "elements": [
+    "longue_portee",
+    "faille_dimensionnelle"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "1",
+  "rightValue": "3",
+  "bottomValue": "1",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Minor psychic echo, faint shimmering humanoid distortion in the air, purple ripple effect, surrounded by floating small debris, dark ruined landscape, cosmic horror"
+}

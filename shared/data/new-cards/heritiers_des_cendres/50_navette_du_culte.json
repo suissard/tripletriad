@@ -1,0 +1,15 @@
+{
+  "name": "Navette du Culte",
+  "description": "Petit vaisseau de transport et reconnaissance.",
+  "element": "None",
+  "faction": "Héritiers des cendres",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "2",
+  "leftValue": "4",
+  "rarity": "Common",
+  "prompt": "Small post-apocalyptic cult shuttle, salvaged parts, radioactive symbols, flying through toxic clouds, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": []
+}

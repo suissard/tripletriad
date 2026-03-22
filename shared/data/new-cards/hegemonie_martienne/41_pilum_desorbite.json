@@ -1,0 +1,15 @@
+{
+  "name": "Pilum Désorbité",
+  "description": "Marcheur de débarquement orbital. Tombé du ciel comme un projectile cinétique, il se dresse au cœur de la zone d'impact et opère comme plateforme de siège mobile. Le sol tremble quand il se relève.",
+  "element": "longue_portee",
+  "elements": ["longue_portee", "obsidienne"],
+  "faction": "Hégémonie martienne",
+  "topValue": "7",
+  "rightValue": "6",
+  "bottomValue": "6",
+  "leftValue": "8",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Massive bipedal walker emerging from an orbital drop impact crater, angular monolithic legs, dorsal siege cannon, reentry heat dissipation panels still glowing orange, shockwave rings in the dust around it, four stories tall."
+}

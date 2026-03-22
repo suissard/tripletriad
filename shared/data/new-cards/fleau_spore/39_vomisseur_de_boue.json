@@ -1,0 +1,15 @@
+{
+  "name": "Vomisseur de Boue",
+  "description": "Véhicule lance-flammes dont le réservoir de carburant a été remplacé par un estomac fongique géant produisant une boue organique incandescente. Le liquide adhère à tout, brûle lentement et transforme la matière en substrat fertile pour le mycélium.",
+  "element": "spore",
+  "elements": ["spore", "radiation"],
+  "faction": "Fléau Spore",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi grimdark biomechanical horror, infected flamethrower vehicle spewing glowing green organic molten mud, fuel tank replaced by giant pulsating fungal stomach organ, sticky burning organic matter coating surfaces, bioluminescent flames, highly detailed."
+}

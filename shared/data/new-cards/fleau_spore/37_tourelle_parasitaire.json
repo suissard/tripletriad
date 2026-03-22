@@ -1,0 +1,15 @@
+{
+  "name": "Tourelle Parasitaire",
+  "description": "Station de tir fixe ou mobile dont le mécanisme de rotation a été remplacé par un organe musculaire fongique. Ses trois canons crachent alternativement des spores toxiques, de l'acide corrosif et des éclats d'os infectés.",
+  "element": "spore",
+  "elements": ["spore", "longue_portee"],
+  "faction": "Fléau Spore",
+  "topValue": "4",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi grimdark biomechanical horror, triple-barrel fungal turret on infected vehicle chassis, organic muscle mechanism rotating barrels, spewing toxic green spores, acid and bone fragments, bioluminescent purple growths, highly detailed."
+}

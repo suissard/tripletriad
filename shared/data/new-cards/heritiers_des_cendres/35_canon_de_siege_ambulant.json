@@ -1,0 +1,17 @@
+{
+  "name": "Canon de Siège Ambulant",
+  "description": "Artillerie lourde montée sur chenilles.",
+  "element": "longue_portee",
+  "faction": "Héritiers des cendres",
+  "topValue": "8",
+  "rightValue": "3",
+  "bottomValue": "3",
+  "leftValue": "8",
+  "rarity": "Rare",
+  "prompt": "Walking siege cannon on tracks, massive howitzer barrel, nuclear shells, post-apocalyptic artillery, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "longue_portee"
+  ]
+}

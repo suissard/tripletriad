@@ -1,0 +1,15 @@
+{
+  "name": "Spore-Recycleur",
+  "description": "Expérimentateur douteux qui a appris à cultiver des spores mutagènes dans ses réservoirs d'air. Un allié toxique, au sens propre comme au figuré.",
+  "element": "spore",
+  "elements": ["spore"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "2",
+  "rightValue": "1",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi scrap-punk bio-hazard infantry, spacesuit with fungal growths on tanks and pipes, spore clouds leaking from modified rebreather, sickly green glow, contaminated industrial environment"
+}

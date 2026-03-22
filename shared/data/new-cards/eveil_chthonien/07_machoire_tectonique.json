@@ -1,0 +1,17 @@
+{
+  "name": "Mâchoire Tectonique",
+  "description": "Tête animée sans corps, une gueule de basalte articulée par des tendons de lave. Elle mord et ne lâche plus.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "4",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Dark sci-fi fantasy, floating giant rocky jaw with obsidian teeth, lava dripping from hinges, no body just a massive snapping maw, glowing red interior, dark volcanic background, highly detailed"
+}

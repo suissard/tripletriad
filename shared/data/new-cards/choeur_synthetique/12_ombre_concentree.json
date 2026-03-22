@@ -1,0 +1,15 @@
+{
+  "name": "Ombre Concentrée",
+  "description": "Spécialiste de la guerre d'ombre. Il supprime sa signature énergétique au point de devenir invisible aux capteurs. Un fantôme parmi les fantômes du Chœur.",
+  "element": "furtif",
+  "elements": ["furtif"],
+  "faction": "Chœur Synthétique",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "4",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark spiritual art, Le Chœur Synthétique faction. Nearly invisible android monk, shadow-like with minimal glowing edges, energy signature suppressed, matte black robes, barely visible in darkness, cinematic lighting, highly detailed"
+}

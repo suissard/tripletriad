@@ -1,0 +1,15 @@
+{
+  "name": "Ancre Vivante",
+  "description": "Artilleur d'ancrage en exosquelette surmonté d'un harpon plasma massif. Il plante son arme dans le sol pour créer un point de verrouillage réseau pour les frappes coordonnées.",
+  "element": "reseau",
+  "elements": ["eau", "longue_portee", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Alien cephalopod artillery unit in heavy exoskeleton with enormous plasma harpoon launcher on back, crouching anchoring pose, network energy lines radiating from planted weapon, cyan and orange glow, dark battle-scarred armor, sci-fi tactical illustration"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Faucon-Rouillé",
+  "description": "Corvette d'abordage rapide construite autour d'un vieux moteur de cargo. Pointe de l'essaim, elle percutait les cibles avant que l'équipage ne passe à l'abordage.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "8",
+  "rightValue": "7",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi scrap-punk fast corvette spaceship, wedge-shaped hull made from welded cargo containers and stolen engines, boarding harpoons mounted on front, rust and weld marks, running lights glowing blue, debris field background, highly detailed, dynamic speed lines"
+}

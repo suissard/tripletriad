@@ -1,0 +1,15 @@
+{
+  "name": "Nectaire Grenadier",
+  "description": "Unité de débarquement dont le réservoir dorsal contient du plasma surchauffé sous pression. À bout portant, il ouvre les vannes et inonde la zone d'une nappe de feu liquide.",
+  "element": "eau",
+  "elements": ["eau"],
+  "faction": "Exode pélagique",
+  "topValue": "3",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Alien cephalopod shock grenadier with massive backpack plasma reservoir, heavy valve nozzle aimed forward, suit scarred and scorched from own weapon, aggressive rushing pose, orange plasma glow behind visor"
+}

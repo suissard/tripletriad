@@ -1,0 +1,15 @@
+{
+  "name": "Spatha Ignis",
+  "description": "Assaillant d'élite armé d'une épée à énergie thermique à double tranchant et de gantelets surchargés. Déploiement par chute orbitale directement dans les lignes ennemies. La lame rougeoyante sectionne l'acier comme du papier.",
+  "element": "obsidienne",
+  "elements": ["obsidienne"],
+  "faction": "Hégémonie martienne",
+  "topValue": "6",
+  "rightValue": "5",
+  "bottomValue": "2",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Assault trooper with double-edged red glowing thermal sword, oversized gauntlets, dynamic mid-leap combat pose, sparks flying."
+}

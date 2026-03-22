@@ -1,0 +1,17 @@
+{
+  "name": "Sismique Errant",
+  "description": "Bipède lourd dont chaque pas déclenche des micro-séismes. Son corps de pierre fissurée laisse échapper des lueurs rouges.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "3",
+  "rightValue": "3",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Dark sci-fi fantasy, bipedal rocky creature with cracked stone body, glowing red fissures, each footstep cracking the ground, volcanic dust cloud, no technology, highly detailed"
+}

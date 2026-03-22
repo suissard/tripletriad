@@ -1,0 +1,15 @@
+{
+  "name": "Carapace Foudroyante",
+  "description": "Véhicule d'appui tactique blindé avec canon de suppression à haute cadence et champ de mines électromagnétiques déployables. Verrouille les zones et interdit tout mouvement ennemi.",
+  "element": "longue_portee",
+  "elements": ["longue_portee", "obsidienne"],
+  "faction": "Hégémonie martienne",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Heavy suppression vehicle with rapid-fire cannon turret, electromagnetic mines deploying around it, low angular hull, dust and static electricity in the air."
+}

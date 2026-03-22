@@ -1,0 +1,15 @@
+{
+  "name": "Grenouille Parasite",
+  "description": "Animal infecté — chien ou rat géant — dont le corps est tuméfié de bulbes sporifères. Il bondit sur les ennemis et explose en gerbe de spores à l'impact.",
+  "element": "spore",
+  "elements": ["spore"],
+  "faction": "Fléau Spore",
+  "topValue": "2",
+  "rightValue": "3",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark biomechanical horror, infected animal creature. Mutated dog-like quadruped body swollen with bulging spore pods, mid-leap attack. Skin stretched tight over fungal tumors. Jaw split open revealing fungal growths inside mouth. Green and purple bioluminescent spore pods about to burst on impact. Running through toxic fog. Cinematic action shot, highly detailed."
+}

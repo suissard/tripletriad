@@ -1,0 +1,15 @@
+{
+  "name": "Unité d'Assaut Delta",
+  "description": "Première vague. Les Deltas encaissent les tirs avec une armure légèrement renforcée et ouvrent le feu en marchant. Pas de couverture, pas de retraite — juste l'avancée calculée d'un algorithme de mort.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "3",
+  "rightValue": "3",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Assault infantry drone advancing forward, pale blank face, thick neural cables on skull. Dark grey composite armor with reinforced chest plate, geometric assault rifle firing. Cold blue chip light, dystopian swarm charge, highly detailed."
+}

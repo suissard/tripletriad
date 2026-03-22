@@ -1,0 +1,15 @@
+{
+  "name": "Le Cyclope",
+  "description": "Un seul œil mécanique énorme braqué sur la cible. Canon rail artisanal monté sur exosquelette. Il vise lentement, mais quand il tire, plus rien ne reste.",
+  "element": "longue_portee",
+  "elements": ["longue_portee"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "5",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi scrap-punk heavy infantry sniper with exoskeleton, giant single optical sensor replacing face, massive railgun built from mining equipment on mechanical arm, bulky patched spacesuit, dark orbital background with distant Earth, cinematic, highly detailed"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "L'Ostensoir Quantique",
+  "description": "Réceptacle géant dont les anneaux concentriques calculent en permanence le destin des atomes. Sa lumière désintègre la matière organique au niveau quantique.",
+  "element": "faille_dimensionnelle",
+  "faction": "Chœur Synthétique",
+  "topValue": "5",
+  "rightValue": "9",
+  "bottomValue": "9",
+  "leftValue": "6",
+  "rarity": "Epic",
+  "prompt": "Massive floating quantum reliquary, concentric rotating rings with glowing binary code, golden holographic light beam disintegrating matter, levitating cyber-monastery relic, pristine white ceramic and dark metal, grimdark sci-fi TCG card art, highly detailed",
+  "skills": null,
+  "collectionName": null,
+  "elements": ["faille_dimensionnelle"]
+}

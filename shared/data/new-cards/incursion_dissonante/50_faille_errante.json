@@ -1,0 +1,18 @@
+{
+  "name": "Faille Errante",
+  "description": "Déchirure spatiale autonome de forme ovale traversant l'atmosphère. Son intérieur révèle un autre ciel, un autre monde, et projette des éclairs psychiques depuis son périmètre.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle",
+    "longue_portee"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "6",
+  "rightValue": "5",
+  "bottomValue": "6",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Oval dimensional rift the size of a spaceship flying through atmosphere, interior showing alien sky and impossible geometry, psychic lightning crackling from its edges, cosmic horror grimdark sci-fi, dark purple and black energy"
+}

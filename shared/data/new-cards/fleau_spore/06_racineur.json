@@ -1,0 +1,15 @@
+{
+  "name": "Racineur",
+  "description": "Infecté immobile qui s'est enraciné dans le sol, ses jambes devenues un réseau de racines fongiques. Il sert de relais au réseau mycélien et crée des pièges de lianes.",
+  "element": "spore",
+  "elements": ["spore"],
+  "faction": "Fléau Spore",
+  "topValue": "1",
+  "rightValue": "1",
+  "bottomValue": "4",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark biomechanical horror, rooted fungal creature. Humanoid torso fused into ground, legs dissolved into thick network of glowing mycelium roots spreading across cracked earth. Arms stretched upward with vine-like tendrils. Mushroom caps growing on shoulders. Bioluminescent green root network visible underground. Defensive posture. Cinematic lighting, highly detailed."
+}

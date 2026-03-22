@@ -1,0 +1,15 @@
+{
+  "name": "Ronin sur Ailerons",
+  "description": "Véhicule d'éclaireur rapide — une silhouette humanoïde géante montée sur des ailerons magnétiques, filant à ras du sol comme un moine en méditation rapide. Son pilote est une IA de premier degré, un novice du Chœur cherchant la sérénité dans la vitesse absolue.",
+  "element": "furtif",
+  "elements": ["furtif"],
+  "faction": "Chœur Synthétique",
+  "topValue": "6",
+  "rightValue": "4",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "A scout vehicle shaped like a giant humanoid figure riding magnetic fins close to the ground at high speed. Smooth faceless ceramic mask, tattered robes streaming behind. Bronze oxidized joints, blue electric trail. Sci-fi grimdark spiritual art, cyber-asceticism, motion blur, cinematic lighting, highly detailed."
+}

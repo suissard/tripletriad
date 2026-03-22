@@ -1,0 +1,17 @@
+{
+  "name": "Forteresse Ambulante",
+  "description": "Base mobile blindée avec tourelles multiples.",
+  "element": "obsidienne",
+  "faction": "Héritiers des cendres",
+  "topValue": "7",
+  "rightValue": "6",
+  "bottomValue": "9",
+  "leftValue": "7",
+  "rarity": "Epic",
+  "prompt": "Walking fortress with multiple turrets, heavy armor, mutant army sheltering behind it, post-apocalyptic mobile base, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "obsidienne"
+  ]
+}

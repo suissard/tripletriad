@@ -1,0 +1,18 @@
+{
+  "name": "Veilleur de Nuit",
+  "description": "Sentinelle cultiste postée dans l'obscurité. Son regard percé par la folie détecte toute présence vivante dans un large rayon.",
+  "element": "furtif",
+  "elements": [
+    "furtif",
+    "longue_portee"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "3",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Night watchman cultist standing motionless in total darkness, only glowing purple eyes visible, tattered robes, ruined building, cosmic horror, dark grimdark sci-fi"
+}

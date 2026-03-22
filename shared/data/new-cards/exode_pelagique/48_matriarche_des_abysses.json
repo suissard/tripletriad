@@ -1,0 +1,15 @@
+{
+  "name": "Matriarche des Abysses",
+  "description": "La plus ancienne des Tisseuses de Courants, cette entité psionique titanesque se déplace dans un scaphandre-cathédrale rempli d'eau luminescente. Sa seule présence fait converger les courants océaniques et synchronise les essaims pélagiques sur des milliers de kilomètres.",
+  "element": "eau",
+  "elements": ["eau", "longue_portee", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "7",
+  "rightValue": "A",
+  "bottomValue": "8",
+  "leftValue": "9",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "A titanic alien cephalopod matriarch inside a cathedral-sized diving suit filled with glowing cyan water, massive spherical glass helmet ten stories tall, psionic energy waves rippling outward, surrounded by currents and smaller swarm creatures, deep abyssal ocean, translucent violet-grey skin, hydraulic joints and exposed cables, phosphorescent veins, epic dark underwater scene, concept art"
+}

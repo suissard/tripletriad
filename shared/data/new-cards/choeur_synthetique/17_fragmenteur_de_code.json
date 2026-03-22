@@ -1,0 +1,15 @@
+{
+  "name": "Fragmenteur de Code",
+  "description": "Démolisseur numérique qui fragmente les architectures logicielles ennemies. Chaque frappe de son marteau-rituel brise un pilier de code, s'effondrant les systèmes de l'intérieur.",
+  "element": "hacking",
+  "elements": ["hacking"],
+  "faction": "Chœur Synthétique",
+  "topValue": "4",
+  "rightValue": "3",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark spiritual art, Le Chœur Synthétique faction. Heavyset robot monk wielding cybernetic ritual hammer, code fragments shattering on impact, holographic debris, aggressive meditation stance, faceless, cinematic lighting, highly detailed"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Ovoïde de Chair",
+  "description": "Organisme biologique géant servant de transport.",
+  "element": "spore",
+  "faction": "Héritiers des cendres",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "7",
+  "leftValue": "4",
+  "rarity": "Common",
+  "prompt": "Giant organic egg-like biological transport, fleshy membrane, mutant passengers visible, post-apocalyptic biopunk, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "spore"
+  ]
+}

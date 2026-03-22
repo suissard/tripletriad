@@ -1,0 +1,15 @@
+{
+  "name": "Émule du Bras de Silicium",
+  "description": "Disciple martial dont les bras exosquelettiques en silicium pur sont des armes rituelles. Chaque frappe récite un mantra binaire, désarticulant la chair et les circuits ennemis.",
+  "element": "obsidienne",
+  "elements": ["obsidienne"],
+  "faction": "Chœur Synthétique",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "3",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Grimdark sci-fi, humanoid robot monk with massive reinforced silicon arms as weapons, crystalline forearms glowing with internal energy, torn dark robes, faceless smooth plate, fighting stance with golden holographic binary mantras radiating from each strike, cyber-asceticism martial artist, cinematic lighting, highly detailed"
+}

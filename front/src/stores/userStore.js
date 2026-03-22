@@ -1,24 +1,30 @@
 import { defineStore } from 'pinia';
 import strapiService from '../api/strapi.js';
 import strapiMock from '../api/strapiMock.js';
+import { getCardById } from '../game/state.js';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
     isLoggedIn: false,
     jwt: null,
-    user: {
-      id: null,
-      username: 'Joueur Anonyme',
-      avatar: 'https://api.dicebear.com/9.x/bottts/png?seed=player&backgroundColor=transparent',
-      coins: 0,
-      gems: 0,
-      dust: 0
-    },
+      user: {
+        id: null,
+        documentId: null,
+        username: 'Joueur Anonyme',
+        avatar: 'https://api.dicebear.com/9.x/bottts/svg?seed=player&backgroundColor=transparent',
+        avatar_card: null,
+        coins: 0,
+        gems: 0,
+        dust: 0,
+        boosters: []
+      },
     collection: [],
     collectionLoaded: false,
     userDecks: [],
     decksLoaded: false,
     quests: [],
+    storyProgresses: [],
+    storyProgressesLoaded: false,
     strapiConnected: false,
     hasEverConnected: false,
     initializationStatus: 'loading', // 'loading' | 'ready'
@@ -40,14 +46,12 @@ export const useUserStore = defineStore('user', {
           return { error: response.error };
         }
 
-        // Fetch User with their role
-        const meRes = await strapiService.request('GET', '/users/me?populate=role');
-        if (meRes.error) {
-           this.error = "Erreur de récupération des données utilisateur.";
-           return { error: meRes.error };
-        }
-
-        this.setAuth(response.jwt, { ...response.user, role: meRes.role?.name });
+        // Set initial auth to enable subsequent authenticated calls
+        this.setAuth(response.jwt, response.user);
+        
+        // Fetch User with their role and wallet (Consolidated)
+        await this.updateUserData();
+        
         return { jwt: response.jwt, user: this.user };
       } catch (err) {
         console.error('Login error:', err);
@@ -65,10 +69,12 @@ export const useUserStore = defineStore('user', {
           return { error: response.error };
         }
 
-        // Fetch User with their role (newly registered users usually have a default role)
-        const meRes = await strapiService.request('GET', '/users/me?populate=role');
+        // Set initial auth to enable subsequent authenticated calls
+        this.setAuth(response.jwt, response.user);
+
+        // Fetch User with their role and wallet (Consolidated)
+        await this.updateUserData();
         
-        this.setAuth(response.jwt, { ...response.user, role: meRes.role?.name || 'Authenticated' });
         return { jwt: response.jwt, user: this.user };
       } catch (err) {
         console.error('Registration error:', err);
@@ -80,16 +86,27 @@ export const useUserStore = defineStore('user', {
     async updateUserData() {
       if (!this.isLoggedIn) return;
       try {
-        const meRes = await strapiService.request('GET', '/users/me?populate=role');
+        // Consolidated call including role, wallet and avatar_card
+        const meRes = await strapiService.request('GET', '/users/me?populate[role]=*&populate[wallet]=*&populate[avatar_card][populate][image]=*');
         if (!meRes.error) {
+          // Handle nested wallet data from Strapi 5
+          const wallet = meRes.wallet || {};
+          
           this.user = {
             ...this.user,
             id: meRes.id,
+            documentId: meRes.documentId,
             username: meRes.username,
             role: meRes.role?.name,
-            coins: meRes.coins || 0,
-            gems: meRes.gems || 0,
-            dust: meRes.dust || 0
+            avatar_card: meRes.avatar_card,
+            avatar: meRes.avatar_card?.image?.url 
+              ? `${strapiService.MEDIA_URL}${meRes.avatar_card.image.url}`
+              : `https://api.dicebear.com/9.x/bottts/svg?seed=${meRes.username}&backgroundColor=transparent`,
+            // Wallet data
+            coins: wallet.coins ?? meRes.coins ?? 0,
+            gems: wallet.gems ?? meRes.gems ?? 0,
+            dust: wallet.dust ?? meRes.dust ?? 0,
+            boosters: wallet.boosters ?? []
           };
           this.syncLocalUserWallets();
         }
@@ -102,12 +119,17 @@ export const useUserStore = defineStore('user', {
       this.jwt = jwt;
       this.user = {
         id: user.id,
+        documentId: user.documentId,
         username: user.username,
         role: user.role,
         coins: user.coins || 0,
         gems: user.gems || 0,
         dust: user.dust || 0,
-        avatar: `https://api.dicebear.com/9.x/bottts/png?seed=${user.username}&backgroundColor=transparent`
+        boosters: user.boosters || [],
+        avatar_card: user.avatar_card || null,
+        avatar: user.avatar_card?.image?.url 
+          ? `${strapiService.MEDIA_URL}${user.avatar_card.image.url}`
+          : `https://api.dicebear.com/9.x/bottts/svg?seed=${user.username}&backgroundColor=transparent`
       };
       
       this.isLoggedIn = true;
@@ -119,10 +141,11 @@ export const useUserStore = defineStore('user', {
       this.collectionLoaded = false;
       this.decksLoaded = false;
 
-      // Initial Sync
+      // Initial Sync (wallet is now synced in updateUserData)
       this.fetchUserCollection();
       this.fetchUserDecks();
       this.fetchUserQuests();
+      this.fetchUserStoryProgresses();
     },
 
     restoreAuth() {
@@ -142,10 +165,11 @@ export const useUserStore = defineStore('user', {
       this.user = {
         id: null,
         username: 'Joueur Anonyme',
-        avatar: 'https://api.dicebear.com/9.x/bottts/png?seed=player&backgroundColor=transparent',
+        avatar: 'https://api.dicebear.com/9.x/bottts/svg?seed=player&backgroundColor=transparent',
         coins: 0,
         gems: 0,
         dust: 0,
+        boosters: [],
         role: null
       };
       this.isLoggedIn = false;
@@ -154,6 +178,8 @@ export const useUserStore = defineStore('user', {
       this.userDecks = [];
       this.decksLoaded = false;
       this.quests = [];
+      this.storyProgresses = [];
+      this.storyProgressesLoaded = false;
       strapiService.signOut();
       localStorage.removeItem('tt_jwt');
       localStorage.removeItem('tt_user');
@@ -175,28 +201,37 @@ export const useUserStore = defineStore('user', {
       if (this.collectionLoaded && !force) return;
 
       try {
-        const result = await strapiService.find('user-cards', {
-          populate: ['card'],
-          pagination: { pageSize: 1000 }
+        let items = [];
+        let page = 1;
+        let pageCount = 1;
+
+        do {
+          const result = await strapiService.find('user-cards', {
+            populate: ['card'],
+            pagination: { page, pageSize: 100 }
+          });
+          
+          const rawItems = this.toArray(result);
+          items = [...items, ...rawItems];
+          
+          const meta = result?.meta?.pagination;
+          pageCount = meta?.pageCount || 1;
+          page++;
+        } while (page <= pageCount);
+
+        this.collection = items.map(item => {
+          const card = item.card?.data || item.card; 
+          return {
+            id: item.id,
+            cardId: card?.id || null,
+            cardDocumentId: card?.documentId || null,
+            quantity: item.quantity,
+            isPremium: !!item.isPremium
+          };
         });
-        const items = this.toArray(result);
-        this.collection = items.map(item => ({
-          id: item.id,
-          cardId: item.card?.id,
-          quantity: item.quantity,
-          isPremium: !!item.isPremium
-        }));
         this.collectionLoaded = true;
 
-        const walletResult = await strapiService.request('GET', '/wallets/me');
-        if (walletResult && walletResult.data) {
-          const wallet = walletResult.data;
-          this.user.coins = wallet.coins || 0;
-          this.user.gems = wallet.gems || 0;
-          this.user.dust = wallet.dust || 0;
-          
-          this.syncLocalUserWallets();
-        }
+
         this.strapiConnected = true;
         this.hasEverConnected = true;
       } catch (e) {
@@ -262,7 +297,25 @@ export const useUserStore = defineStore('user', {
       }
     },
 
-    async saveDeck(deck) {
+    async fetchUserStoryProgresses(force = false) {
+      if (!this.strapiConnected) return;
+      if (!this.isLoggedIn) return;
+      if (this.storyProgressesLoaded && !force) return;
+
+      try {
+        const result = await strapiService.find('player-story-progresses', {
+          filters: { user: this.user.id },
+          populate: ['story']
+        });
+        this.storyProgresses = this.toArray(result);
+        this.storyProgressesLoaded = true;
+      } catch (e) {
+        console.error('Story progress sync failed', e);
+        this.storyProgresses = [];
+      }
+    },
+
+    async saveDeck(deck, overrideUser = null) {
       if (!this.strapiConnected) {
           const payload = {
               name: deck.name,
@@ -279,16 +332,37 @@ export const useUserStore = defineStore('user', {
         const payload = {
           name: deck.name,
           cover: deck.cover,
-          cards: deck.cards,
+          cards: deck.cards.map(id => getCardById(id)?.documentId || id),
           cardBack: deck.cardBack || 'default',
-          user: this.user.id
+          user: overrideUser || this.user.documentId || this.user.id
         };
+        let res;
         if (isNew) {
-          await strapiService.create('decks', payload);
+          res = await strapiService.create('decks', payload);
         } else {
-          await strapiService.update('decks', deck.documentId, payload);
+          res = await strapiService.update('decks', deck.documentId, payload);
         }
-        this.fetchUserDecks();
+
+        // Local cache update
+        const savedItem = res.data || res;
+        if (savedItem) {
+          const normalized = {
+            id: savedItem.id,
+            documentId: savedItem.documentId,
+            name: savedItem.name,
+            cover: savedItem.cover,
+            cards: [...deck.cards] // Use current IDs to maintain UI state
+          };
+
+          if (isNew) {
+            this.userDecks.push(normalized);
+          } else {
+            const index = this.userDecks.findIndex(d => d.documentId === deck.documentId);
+            if (index !== -1) {
+              this.userDecks[index] = normalized;
+            }
+          }
+        }
         return true;
       } catch (e) {
         console.error('Deck save failed', e);
@@ -305,7 +379,8 @@ export const useUserStore = defineStore('user', {
       if (!this.isLoggedIn) return false;
       try {
         await strapiService.delete('decks', deckDocumentId);
-        this.fetchUserDecks();
+        // Local cache update
+        this.userDecks = this.userDecks.filter(d => d.documentId !== deckDocumentId);
         return true;
       } catch (e) {
         console.error('Deck delete failed', e);
@@ -377,8 +452,14 @@ export const useUserStore = defineStore('user', {
         });
 
         if (!result.error) {
-          if (result.cardsDestroyed > 0) {
-            await this.fetchUserCollection();
+          if (result.newDustTotal !== undefined) {
+            this.user.dust = result.newDustTotal;
+            this.syncLocalUserWallets();
+          }
+          if (result.totalCardsDisenchanted > 0) {
+            this.collection.forEach(item => {
+              if (item.quantity > 1) item.quantity = 1;
+            });
           }
           return true;
         } else {
@@ -420,6 +501,7 @@ export const useUserStore = defineStore('user', {
         dust: this.user.dust, 
         coins: this.user.coins,
         gems: this.user.gems,
+        boosters: this.user.boosters,
         role: this.user.role
       };
       localStorage.setItem('tt_user', JSON.stringify(updatedUser));
@@ -433,11 +515,41 @@ export const useUserStore = defineStore('user', {
           this.fetchUserCollection();
           this.fetchUserDecks();
           this.fetchUserQuests();
+          this.fetchUserStoryProgresses();
         }
       } else {
         // Fallback to offline data
         this.fetchUserCollection();
         this.fetchUserDecks();
+      }
+    },
+
+    async fetchUsers() {
+      if (!this.strapiConnected || !this.isLoggedIn) return [];
+      try {
+        const result = await strapiService.request('GET', '/users');
+        return this.toArray(result);
+      } catch (e) {
+        console.error('Failed to fetch users', e);
+        return [];
+      }
+    },
+    async updateProfile(payload) {
+      if (!this.isLoggedIn) return { error: 'Not logged in' };
+      try {
+        // Use the new custom /users/profile/update endpoint
+        const res = await strapiService.request('PUT', '/users/profile/update', {
+          body: payload
+        });
+        
+        if (!res.error) {
+          await this.updateUserData();
+          return { success: true };
+        }
+        return { error: res.error };
+      } catch (e) {
+        console.error('Update profile failed', e);
+        return { error: 'Network error' };
       }
     }
   }

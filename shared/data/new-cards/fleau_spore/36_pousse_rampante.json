@@ -1,0 +1,15 @@
+{
+  "name": "Pousse Rampante",
+  "description": "Véhicule léger transformé en support de propagation. Ses roues sont devenues des tentacules fongiques qui s'accrochent au sol et aux murs, étendant des filaments mycéliens partout où il passe comme un semeur d'infection mécanique.",
+  "element": "spore",
+  "elements": ["spore", "furtif"],
+  "faction": "Fléau Spore",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi grimdark biomechanical horror, small infected vehicle with wheels replaced by fungal tentacle appendages gripping ground and walls, leaving glowing green mycelium filament trail behind, silent creeping through dark corridors, highly detailed."
+}

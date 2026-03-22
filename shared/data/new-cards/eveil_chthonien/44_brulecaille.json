@@ -1,0 +1,18 @@
+{
+  "name": "Brûlécaille",
+  "description": "Artillerie volcanique vivante dont le dos projette des geysers de magma en fusion. Il bombarde les positions ennemies depuis des kilomètres, transformant le champ de bataille en océan de lave.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne",
+    "radiation"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "8",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Dark sci-fi fantasy, epic scale. A massive quadrupedal creature with a volcano-like dorsal ridge erupting streams of glowing magma into the sky. Its body is dark volcanic rock with obsidian spikes. Magma projectiles arc through the air trailing smoke. Multiple pupilless eyes glow orange beneath a craggy brow. Battlefield of ruined structures, ash-filled sky, cinematic composition, highly detailed."
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Guerrier Scarifié",
+  "description": "Corps couvert de scarifications rituelles qui résistent aux impacts.",
+  "element": "obsidienne",
+  "faction": "Héritiers des cendres",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "rarity": "Common",
+  "prompt": "Muscular scarified mutant warrior with spiked mace, ritual scars glowing yellow, post-apocalyptic gladiator, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "obsidienne"
+  ]
+}

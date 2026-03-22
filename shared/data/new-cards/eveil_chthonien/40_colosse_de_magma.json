@@ -1,0 +1,17 @@
+{
+  "name": "Colosse de Magma",
+  "description": "Le plus massif des véhicules chthoniens. Un titan de marche dont le cœur est un fourneau de magma pur. Écrase et brûle tout sur son passage. Immobile entre les assauts, invincible en mouvement.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "6",
+  "rightValue": "6",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "Dark sci-fi fantasy, apocalyptic colossus made of dark volcanic rock with rivers of molten magma flowing across its body, towering over a ruined city, glowing orange core visible through chest cavity, pupilless eyes, smoke and ash, epic scale, cinematic lighting"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Chasseur de Têtes",
+  "description": "Guerrier obsédé par la collection de trophées.",
+  "element": "obsidienne",
+  "faction": "Héritiers des cendres",
+  "topValue": "5",
+  "rightValue": "6",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "rarity": "Uncommon",
+  "prompt": "Mutant headhunter with heavy axe, armor made of enemy remains, skull trophies, post-apocalyptic warrior, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "obsidienne"
+  ]
+}

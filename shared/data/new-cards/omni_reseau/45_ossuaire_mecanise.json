@@ -1,0 +1,15 @@
+{
+  "name": "Ossuaire Mécanisé",
+  "description": "Recycleur de cadavres ambulant. Les corps des ennemis et des drones détruits sont retraités sur place, reconvertis en nouvelles unités pour l'essaim. Rien ne se perd.",
+  "element": "reseau",
+  "elements": ["reseau", "radiation"],
+  "faction": "Omni-Réseau",
+  "topValue": "6",
+  "rightValue": "7",
+  "bottomValue": "8",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Gruesome mobile recycling walker, 4-story tall dark grey rectangular grinder-factory on treads, conveyor belts feeding corpses into industrial maw, fresh drone bodies emerging from output chute still dripping, cold blue glow from processing chambers, sickly orange warning lights. Barcode serials, brutalist design. Battlefield carnage surrounding it. Cinematic lighting, highly detailed."
+}

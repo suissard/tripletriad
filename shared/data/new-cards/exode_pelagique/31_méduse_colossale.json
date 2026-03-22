@@ -1,0 +1,15 @@
+{
+  "name": "Méduse Colossale",
+  "description": "Un bathyscaphe bioluminescent inspiré des cnidaires abyssaux. Son dôme translucide abrite un réseau de tentacules-écrans qui diffractent les tirs ennemis. Plateforme de défense mobile de première ligne.",
+  "element": "eau",
+  "elements": ["eau", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "2",
+  "rightValue": "6",
+  "bottomValue": "7",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Colossal alien jellyfish submarine, translucent dome filled with glowing cyan water, tentacles forming energy shields, rust-orange hull plating covered in barnacles, bioluminescent veins, dark ocean abyss background, sci-fi concept art"
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Phréathor",
+  "description": "Léviathan tellurique surgissant des abysses terrestres, son corps serpentant depuis le manteau jusqu'à la surface. Il change la géographie au gré de son passage, créant montagnes et ravins.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle",
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "7",
+  "rightValue": "9",
+  "bottomValue": "5",
+  "leftValue": "8",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "Dark sci-fi fantasy, apocalyptic scale. An impossibly long serpentine titan emerging from deep underground, its body stretching from deep cracks in the earth into the smoky sky. Segments of obsidian armor and magma-filled fissures along its immense body. A colossal drilling head with concentric rings of pupilless glowing eyes. The landscape reshapes behind it — new mountains rise, valleys form. Geological cataclysm, cinematic, hyper-detailed."
+}

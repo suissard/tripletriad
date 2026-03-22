@@ -1,0 +1,15 @@
+{
+  "name": "Sentinelle de la Grille",
+  "description": "Stationnée devant les portes des fermes serveurs, la Sentinelle ne bouge pas pendant des semaines. Son corps est un verrou biologique : l'Architecte la désactive quand elle n'a plus d'utilité.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "4",
+  "rightValue": "1",
+  "bottomValue": "4",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Standing guard drone soldier, perfectly still, pale emotionless face. Heavy dark grey armor, shield integrated in left arm, neural cables glowing cold blue. Fortress background, dystopian sentry, highly detailed."
+}

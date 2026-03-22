@@ -1,0 +1,15 @@
+{
+  "name": "Kraken Titanesque",
+  "description": "Ferme serveur vivante de dix étages, centre de données ambulant. Sa biomasse de calcul absorbe les défenses ennemies par déni de service organique, inondant les réseaux de milliards de requêtes.",
+  "element": "reseau",
+  "elements": ["reseau", "hacking"],
+  "faction": "Omni-Réseau",
+  "topValue": "8",
+  "rightValue": "9",
+  "bottomValue": "7",
+  "leftValue": "8",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Enormous mobile data center walker, 10-story tall dark grey rectangular server farm on titanic treads, rows upon rows of blinking server racks visible through armored glass slits, cooling towers venting white vapor, cold blue data streams pulsing through external cables. Thousands of human heads fused into walls as organic processors. Barcode markings, industrial brutalism. Cinematic lighting, ultra detailed."
+}

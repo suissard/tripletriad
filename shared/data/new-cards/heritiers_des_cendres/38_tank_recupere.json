@@ -1,0 +1,17 @@
+{
+  "name": "Tank Récupéré",
+  "description": "Char d'assaut ancien réparé avec des pièces de fortune.",
+  "element": "obsidienne",
+  "faction": "Héritiers des cendres",
+  "topValue": "6",
+  "rightValue": "5",
+  "bottomValue": "6",
+  "leftValue": "5",
+  "rarity": "Common",
+  "prompt": "Old tank repaired with salvaged parts, mismatched armor, mutant crew, post-apocalyptic military vehicle, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "obsidienne"
+  ]
+}

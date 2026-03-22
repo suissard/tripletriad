@@ -1,0 +1,17 @@
+{
+  "name": "Pèlerin Toxique",
+  "description": "Guérisseur mutant qui injecte des mutagènes pour soigner ses frères.",
+  "element": "spore",
+  "faction": "Héritiers des cendres",
+  "topValue": "1",
+  "rightValue": "2",
+  "bottomValue": "3",
+  "leftValue": "1",
+  "rarity": "Common",
+  "prompt": "Post-apocalyptic mutant healer in tattered anti-radiation robes, holding glowing syringes, spore clouds around, wasteland shrine background, grimdark TCG art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "spore"
+  ]
+}

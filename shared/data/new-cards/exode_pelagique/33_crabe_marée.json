@@ -1,0 +1,15 @@
+{
+  "name": "Crabe Marée",
+  "description": "Véhicule d'assaut crustacé à six pattes hydrauliques. Ses pinces-cisailles sectionnent le blindage ennemi tandis que son corps bulbeux projette des jets d'eau surchauffée. Le fer de lance des frappes fluides.",
+  "element": "eau",
+  "elements": ["eau", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Alien crab assault vehicle, six hydraulic mechanical legs, massive pincer claws with plasma edges, bulbous pressure-resistant body dome filled with glowing cyan fluid, rust-orange armored shell covered in space barnacles, steam erupting from joints, halogen eyes, dark battlefield"
+}

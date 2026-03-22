@@ -1,0 +1,15 @@
+{
+  "name": "Tourmenteur",
+  "description": "Brute dont le crâne a été remplacé par un champignon géant pulsant, capable d'émettre des ondes sonores basses fréquences qui désorientent et affaiblissent les ennemis proches avant que la marée fongique ne les engloutisse.",
+  "element": "spore",
+  "elements": ["spore", "radiation"],
+  "faction": "Fléau Spore",
+  "topValue": "5",
+  "rightValue": "3",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi grimdark biomechanical horror, massive brute infected soldier with giant pulsating mushroom replacing head, emitting visible sound waves and spore clouds, heavy cracked armor, bioluminescent purple glow, surrounding enemies disoriented, highly detailed."
+}

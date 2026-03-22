@@ -1,0 +1,15 @@
+{
+  "name": "Grenadier Thermique",
+  "description": "Bombardier de ligne martien armé de grenades incendiaires à plasma. Coulée de feu rougeoyant dans les nids de mutants.",
+  "element": "radiation",
+  "elements": ["radiation"],
+  "faction": "Hégémonie martienne",
+  "topValue": "3",
+  "rightValue": "1",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Infantry soldier carrying a bandolier of hexagonal plasma grenades, launcher device on arm, radioactive hazard symbols on belt."
+}

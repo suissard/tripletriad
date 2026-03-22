@@ -1,0 +1,17 @@
+{
+  "name": "Brute Mutante Massive",
+  "description": "Colosse musclé aux bras surdimensionnés.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "8",
+  "rightValue": "4",
+  "bottomValue": "6",
+  "leftValue": "3",
+  "rarity": "Uncommon",
+  "prompt": "Enormous muscular mutant with oversized arms, charging forward, radioactive veins glowing, post-apocalyptic gladiator, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

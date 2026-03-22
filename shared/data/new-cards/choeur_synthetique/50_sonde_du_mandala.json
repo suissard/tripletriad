@@ -1,0 +1,15 @@
+{
+  "name": "Sonde du Mandala",
+  "description": "Éclaireur orbital du Chœur — un module de descente triangulaire qui oscille en silence autour des zones de conflit. Ses capteurs quantiques cartographient les signatures de code source terrestres, traçant les mandalas invisibles de l'architecture numérique planétaire.",
+  "element": "reseau",
+  "elements": ["reseau", "furtif"],
+  "faction": "Chœur Synthétique",
+  "topValue": "4",
+  "rightValue": "6",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Small triangular scout vessel hovering in orbit, three golden holographic mandala rings rotating around its hull, smooth white ceramic plating with aged bronze trim, no visible engine — pure magnetic levitation, trailing faint blue energy, cyber-ascetic space monastery aesthetic, grimdark sci-fi TCG card art, highly detailed"
+}

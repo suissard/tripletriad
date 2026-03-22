@@ -1,0 +1,17 @@
+{
+  "name": "Carapace de Lave",
+  "description": "Progéniture dont la carapace dorsale est un réservoir de lave en fusion. Peut se renfermer comme un bouclier vivant ou projeter des jets de magma sur les assaillants.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Dark sci-fi fantasy, hunched rock creature with a massive shell of cooled lava dripping molten magma, defensive posture, glowing orange cracks across dark stone armor, volcanic environment, cinematic lighting"
+}

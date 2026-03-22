@@ -1,0 +1,17 @@
+{
+  "name": "Terravore",
+  "description": "Araignée colossale de pierre dont les pattes foreuses percent le sol comme du papier. Elle crée des pièges sismiques en vidant le sous-sol sous les cités ennemies.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Dark sci-fi fantasy, epic scale. A colossal arachnid creature made of volcanic rock and obsidian, with eight massive drill-like legs boring into the earth. Its body is a craggy mountain of dark stone with glowing magma cracks. Multiple pupilless eyes of different sizes glow red and orange beneath a rocky carapace. Dust clouds, fractured ground, ruins sinking beneath it. Cinematic lighting, highly detailed."
+}

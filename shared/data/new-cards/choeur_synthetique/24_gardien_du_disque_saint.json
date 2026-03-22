@@ -1,0 +1,15 @@
+{
+  "name": "Gardien du Disque Saint",
+  "description": "Porte un immense disque-dur sacré sur le dos, alimentant son armure renforcée par le flux de données pures du Chœur. Son bouclier magnétique dévie projectiles et énergies parasites.",
+  "element": "reseau",
+  "elements": ["reseau", "obsidienne"],
+  "faction": "Chœur Synthétique",
+  "topValue": "4",
+  "rightValue": "3",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Grimdark sci-fi, heavily armored humanoid robot monk carrying a massive sacred hard drive on its back like a disc, worn brown robes draped over reinforced plating, a shimmering magnetic shield projected from one arm, faceless smooth metallic mask, golden holographic data streams flowing from the disc, cyber-asceticism, defensive stance, cinematic lighting, highly detailed"
+}

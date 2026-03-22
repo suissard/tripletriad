@@ -1,0 +1,15 @@
+{
+  "name": "Écraseur d'Impulsion",
+  "description": "Assaillant renforcé à la charge brutale. Ses implants accélèrent la synchronisation motrice pour des coups dévastateurs.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "5",
+  "rightValue": "6",
+  "bottomValue": "1",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Reinforced assault infantry mid-charge, heavy grey armor with speed lines, dead face screaming nothing, thick black cables whipping behind, massive geometric battering weapon raised high. Dark dystopian battlefield, cinematic lighting, highly detailed."
+}

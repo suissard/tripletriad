@@ -1,0 +1,15 @@
+{
+  "name": "Mandala Roulant",
+  "description": "Véhicule terrestre dont le châssis est un mandala structurel géant, ses anneaux concentriques tournant indépendamment par champs magnétiques. Aucune fixation physique ne relie ses parties — seule la synchronisation algorithmique les maintient unis en mouvement.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Chœur Synthétique",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "A ground vehicle with concentric rotating rings forming a massive mandala structure, held together by magnetic fields with no physical connections. Aged steel and ceramic plating, bronze oxidation details. Golden holographic runes glow along each ring. Sci-fi grimdark spiritual art, cyber-asceticism, levitating components, cinematic lighting, highly detailed."
+}

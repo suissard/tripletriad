@@ -1,0 +1,15 @@
+{
+  "name": "Sentinelle du Lotus d'Acier",
+  "description": "Garde lourd posté autour des nodes sacrés du Chœur. Sa carapace en acier oxydé s'ouvre en pétale de lotus pour déployer des lames magnétiques tranchantes.",
+  "element": "obsidienne",
+  "elements": ["obsidienne", "reseau"],
+  "faction": "Chœur Synthétique",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Grimdark sci-fi, heavily armored humanoid robot whose chest plates open like a steel lotus flower revealing sharp magnetic blades, oxidized bronze and steel plating, tattered dark robes, faceless smooth visor, standing guard, holographic golden lotus symbols orbiting, cyber-asceticism sentinel, cinematic lighting, highly detailed"
+}

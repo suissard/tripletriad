@@ -23,7 +23,10 @@
           <h2>{{ viewTitle }}</h2>
         </div>
         <div class="drawer-content">
-
+          <!-- SETTINGS VIEW -->
+          <template v-if="currentView === 'settings'">
+            <UserParameters />
+          </template>
 
         <!-- NOTIFICATION SETTINGS VIEW -->
         <template v-if="currentView === 'notifications'">
@@ -93,6 +96,7 @@
           <div class="menu-list">
             <AppButton variant="secondary"  class="glass-panel w-full text-left" @click="goToHome">🏠 Accueil / Menu</AppButton>
             <AppButton variant="secondary"  class="glass-panel w-full text-left" @click="goToAiMenu">🤖 Jouer contre l'IA</AppButton>
+            <AppButton variant="secondary"  class="glass-panel w-full text-left" @click="currentView = 'settings'">⚙️ Paramètres du Profil</AppButton>
             <AppButton variant="secondary"  class="glass-panel w-full text-left" @click="currentView = 'notifications'">🔔 Paramètres de Notification</AppButton>
             <AppButton variant="secondary"  class="glass-panel w-full text-left opacity-50 cursor-not-allowed">⚙️ Paramètres du Jeu (Bientôt)</AppButton>
             <AppButton variant="secondary"  class="glass-panel w-full text-left opacity-50 cursor-not-allowed">📜 Historique des Matchs (Bientôt)</AppButton>
@@ -345,6 +349,7 @@ import TripleTriadCard from './TripleTriadCard.vue';
 import strapiService from '../api/strapi.js';
 import { useUserStore } from '../stores/userStore.js';
 import { useNotificationStore } from '../stores/notificationStore.js';
+import UserParameters from './UserParameters.vue';
 
 const userStore = useUserStore();
 const notificationStore = useNotificationStore();
@@ -486,6 +491,7 @@ function getBadgeText(cardId) {
 
 const viewTitle = computed(() => {
   if (currentView.value === 'profile') return 'MON PROFIL';
+  if (currentView.value === 'settings') return 'PARAMÈTRES';
   if (currentView.value === 'collection') return selectedCard.value ? 'DÉTAIL CARTE' : 'MA COLLECTION';
   if (currentView.value === 'decks') return isBuilding.value ? 'ÉDITEUR DE DECK' : 'MES DECKS';
   return 'Terra Nullius';

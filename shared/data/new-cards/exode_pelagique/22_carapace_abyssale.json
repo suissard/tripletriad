@@ -1,0 +1,15 @@
+{
+  "name": "Carapace Abyssale",
+  "description": "Unité d'élite blindée dont l'armure est greffée de corail vivant et de polymères pressurisés. Ses deux canons à geyser crachent des jets de plasma bouillant à courte portée.",
+  "element": "eau",
+  "elements": ["eau", "longue_portee", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Heavy armored alien cephalopod with living coral fused to dark rust-colored plates, two massive geyser cannons mounted on shoulders, cyan bioluminescent veins, thick glass dome helmet, steam venting from joints, sci-fi military illustration"
+}

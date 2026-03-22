@@ -1,0 +1,15 @@
+{
+  "name": "Le Broyeur",
+  "description": "Chenilles récupérées sur une foreuse orbitale, blindage en conteneurs de fret soudés. Il avance, et tout ce qui est devant disparaît sous les chenilles.",
+  "element": "None",
+  "elements": [],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "5",
+  "rightValue": "3",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi scrap-punk tank made from welded cargo containers and mining drill treads, massive blunt front ram, rusty metal plating, exhaust fumes, sparks from grinding debris, grimy industrial landscape, cinematic, highly detailed"
+}

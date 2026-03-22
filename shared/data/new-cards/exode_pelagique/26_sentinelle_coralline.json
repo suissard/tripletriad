@@ -1,0 +1,15 @@
+{
+  "name": "Sentinelle Coralline",
+  "description": "Défenseur stationnaire dont l'armure est colonisée par du corail vivant blindé. Il se confond avec les récifs et crache des épines calcifiées imprégnées de neurotoxine.",
+  "element": "eau",
+  "elements": ["eau", "longue_portee", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "4",
+  "rightValue": "3",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Alien cephalopod sentinel encrusted with living coral armor, blending into reef-like fortification, calcified spine launcher on shoulder, cyan bioluminescent spots, dark oceanic tones with rust accents, defensive crouching pose, sci-fi illustration"
+}

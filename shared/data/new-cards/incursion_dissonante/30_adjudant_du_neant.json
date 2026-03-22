@@ -1,0 +1,17 @@
+{
+  "name": "Adjudant du Néant",
+  "description": "Ancien officier dont la possession a figé l'expression de terreur sur son visage. Son exosquelette gravitationnel lui permet de marcher sur les murs et les plafonds.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Former military officer with frozen terror expression, wearing gravity-defying exoskeleton walking on wall upside down, purple anti-gravity field, dead eyes, cosmic horror grimdark sci-fi"
+}

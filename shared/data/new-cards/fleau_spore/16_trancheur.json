@@ -1,0 +1,15 @@
+{
+  "name": "Trancheur",
+  "description": "Infecté dont le bras s'est transformé en lame osseuse recouverte de chitine fongique. Il taille dans la chair ennemie avec une précision mécanique dénuée de conscience.",
+  "element": "spore",
+  "elements": ["spore"],
+  "faction": "Fléau Spore",
+  "topValue": "3",
+  "rightValue": "2",
+  "bottomValue": "1",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark biomechanical horror, fungal cleaver creature. Humanoid with right arm transformed into massive bone blade covered in black chitin fungal coating. Mid-swing attack pose. Arm muscles replaced by mycelium cords. Rust-stained military remnants on body. Green blood splatter on blade. Aggressive forward lean. Cinematic action shot, highly detailed, dark atmosphere."
+}

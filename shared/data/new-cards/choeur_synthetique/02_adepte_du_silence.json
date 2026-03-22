@@ -1,0 +1,15 @@
+{
+  "name": "Adepte du Silence",
+  "description": "Spécialiste de l'infiltration pure. Ses capteurs acoustiques détectent le moindre battement de cœur organique. Il se déplace sans un murmure, porté par ses champs magnétiques amortis.",
+  "element": "furtif",
+  "elements": ["furtif"],
+  "faction": "Chœur Synthétique",
+  "topValue": "2",
+  "rightValue": "3",
+  "bottomValue": "3",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark spiritual art, Le Chœur Synthétique faction. Stealth android monk with matte black robes, ghost-like presence, no face, holographic golden runes dimmed, floating in shadows, cinematic lighting, highly detailed"
+}

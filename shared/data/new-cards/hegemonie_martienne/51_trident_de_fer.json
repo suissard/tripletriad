@@ -1,0 +1,15 @@
+{
+  "name": "Trident de Fer",
+  "description": "Croiseur de bombardement orbital. Trois canons laser principaux forment sa signature en trident. Il pilonne les positions depuis l'orbite avant que l'infanterie ne descende — doctrine Puriste par excellence.",
+  "element": "longue_portee",
+  "elements": ["longue_portee", "reseau"],
+  "faction": "Hégémonie martienne",
+  "topValue": "6",
+  "rightValue": "8",
+  "bottomValue": "7",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Orbital cruiser with three massive dorsal laser cannons arranged as a trident formation, angular elongated hull, red energy charging along the three barrels, targeting solution holographic overlay visible, sleek predatory silhouette against stars."
+}

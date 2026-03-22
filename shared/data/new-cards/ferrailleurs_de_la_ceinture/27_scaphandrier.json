@@ -1,0 +1,15 @@
+{
+  "name": "Le Scaphandrier",
+  "description": "Porte un vieux scaphandre spatial blindé, hors d'usage mais blindé de plaques supplémentaires. Il ouvre les sas à la masse. Pas besoin de finesse quand on a un marteau orbital.",
+  "element": "None",
+  "elements": [],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi scrap-punk heavy infantry in old bulky spacesuit reinforced with welded armor plates, wielding a massive sledgehammer, cracked visor with duct tape repairs, breaching an airlock door, sparks and atmosphere venting, highly detailed"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Murmure Errant",
+  "description": "Écho psychique piégé dans un corps de chair. Il erre sans but apparent, mais chaque pas propage des ondes de folie dans son sillage.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "3",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Wandering ghostly cultist with distorted reality ripple trailing behind, torn robes floating in zero gravity, purple and black energy, ruined asylum corridor, cosmic horror"
+}

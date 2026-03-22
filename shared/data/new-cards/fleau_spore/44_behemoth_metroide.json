@@ -1,0 +1,18 @@
+{
+  "name": "Béhémoth Métroïde",
+  "description": "L'abomination la plus terrifiante issue des tunnels de métro, un ver-fonge de la taille d'un immeuble dont la gueule est un ancien tunnel bouché de chair. Il creuse et dévore tout ce qu'il rencontre, digérant béton et acier en biomasse assimilable.",
+  "element": "spore",
+  "elements": [
+    "spore",
+    "obsidienne"
+  ],
+  "faction": "Fléau Spore",
+  "topValue": "7",
+  "rightValue": "6",
+  "bottomValue": "7",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi grimdark biomechanical horror, Le Fléau Spore faction. Enormous tunnel worm creature emerging from destroyed metro station, maw made of concrete and metal fragments fused with fungal flesh, bioluminescent purple interior throat, mycelium tendrils bursting from its body, dark underground setting, highly detailed."
+}

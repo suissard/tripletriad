@@ -1,0 +1,15 @@
+{
+  "name": "Aegis Absolutus",
+  "description": "Marcheur de défense absolue. Boucliers énergétiques concentriques et systèmes de défense ponctuelle créant une zone d'invulnérabilité mobile. Ce qu'Aegis protège, rien ne le détruit — du moins c'est ce qu'ils prétendent.",
+  "element": "obsidienne",
+  "elements": ["obsidienne", "reseau"],
+  "faction": "Hégémonie martienne",
+  "topValue": "9",
+  "rightValue": "5",
+  "bottomValue": "9",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Massive defensive bipedal walker with overlapping hexagonal energy shield layers surrounding it, point-defense laser turrets on every surface, blocky fortress-like torso, glowing red shield edges, four stories tall, impregnable fortress aesthetic."
+}

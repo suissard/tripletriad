@@ -1,0 +1,15 @@
+{
+  "name": "Résonateur des Courants",
+  "description": "Plateforme bio-résonante pilotée par une Tisseuse de Courants psionique. Amplifie les signaux du réseau pélagique et projette des ondes de pression capables de pulvériser les structures. Cerveau stratégique mobile.",
+  "element": "reseau",
+  "elements": ["reseau", "eau"],
+  "faction": "Exode pélagique",
+  "topValue": "2",
+  "rightValue": "4",
+  "bottomValue": "7",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Alien command vehicle with massive spherical bio-glass dome filled with luminous purple water, psionic tentacle antenna arrays extending outward, organic coral-like hull merged with copper machinery, pressure wave rings emanating from emitter dish, ethereal bioluminescent glow, deep ocean darkness"
+}

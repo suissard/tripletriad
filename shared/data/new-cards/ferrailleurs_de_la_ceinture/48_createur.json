@@ -1,0 +1,15 @@
+{
+  "name": "Le Créateur",
+  "description": "Usine mobile géante qui transforme les débris en armes et drones en marchant. Armée autonome en un seul engin. Il construit la guerre aussi vite qu'il la mène.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "9",
+  "rightValue": "8",
+  "bottomValue": "7",
+  "leftValue": "A",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "Sci-fi scrap-punk colossal mobile factory walker, ten stories of conveyor belts furnaces and assembly lines, spawning drones and war machines from its body, molten metal rivers, smokestacks belching black smoke, scrap metal armor, industrial god, highly detailed, epic dramatic lighting"
+}

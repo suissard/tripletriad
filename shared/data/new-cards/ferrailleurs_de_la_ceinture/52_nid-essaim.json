@@ -1,0 +1,15 @@
+{
+  "name": "Nid d'Essaim",
+  "description": "Porte-drone improvisé. Des centaines de mini-vaisseaux surgissent de ses flancs comme des guêpes d'un nid. Inonde les défenses ennemies par la masse.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "6",
+  "rightValue": "6",
+  "bottomValue": "A",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi scrap-punk drone carrier spaceship, bloated cylindrical hull with dozens of launch bays opening, hundreds of tiny fighters swarming out, welded container modules, blinking lights and antenna arrays, chaotic formation, highly detailed, overwhelming scale"
+}

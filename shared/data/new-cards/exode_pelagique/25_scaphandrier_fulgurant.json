@@ -1,0 +1,15 @@
+{
+  "name": "Scaphandrier Fulgurant",
+  "description": "Éclaireur lourd en scaphandre léger renforcé, équipé de bobines Tesla aquatiques. Il projette des arcs électriques à travers des jets d'eau ionisée intégrés à ses bras.",
+  "element": "longue_portee",
+  "elements": ["eau", "longue_portee", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Lean alien cephalopod in streamlined reinforced diving suit, Tesla coil gauntlets crackling with electricity, water jets spraying ionized streams from forearms, orange and cyan color scheme, dynamic running pose, sci-fi action art"
+}

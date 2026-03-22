@@ -1,0 +1,18 @@
+{
+  "name": "Écorcheur d'Ame",
+  "description": "Entité mineure logée dans un exosquelette militaire déformé. Ses quatre bras allongés projettent des lames de distorsion psychique qui découpent la raison en même temps que la chair.",
+  "element": "radiation",
+  "elements": [
+    "radiation",
+    "faille_dimensionnelle"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Extra-dimensional entity wearing deformed military exoskeleton, four elongated arms projecting psychic distortion blades, floating shadow tendrils, purple and black aura, cosmic horror, grimdark sci-fi"
+}

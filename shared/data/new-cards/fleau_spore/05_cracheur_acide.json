@@ -1,0 +1,15 @@
+{
+  "name": "Cracheur Acide",
+  "description": "Infecté dont la mâchoire est décrochée en permanence, crachant un jet d'acide fongique corrosif. Les glandes vésiculaires sur son cou se remplissent entre chaque salve.",
+  "element": "spore",
+  "elements": ["spore"],
+  "faction": "Fléau Spore",
+  "topValue": "1",
+  "rightValue": "3",
+  "bottomValue": "1",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark biomechanical horror, acid-spitting fungal creature. Humanoid with permanently unhinged jaw, thick green acidic bile dripping from mouth. Swollen vesicle glands on neck pulsating. Chest armor corroded by own acid. Green toxic spray mid-spit. Rusted helmet cracked open with fungal growths. Cinematic action pose, highly detailed."
+}

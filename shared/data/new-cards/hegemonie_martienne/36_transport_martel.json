@@ -1,0 +1,15 @@
+{
+  "name": "Transport Martel",
+  "description": "Transport de troupes blindé au blindage en chevron. Protège et dépose les légionnaires sous le feu ennemi. Ram avant massif pour enfoncer les barricades. Le bélier de l'Hégémonie.",
+  "element": "obsidienne",
+  "elements": ["obsidienne"],
+  "faction": "Hégémonie martienne",
+  "topValue": "4",
+  "rightValue": "3",
+  "bottomValue": "5",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Armored troop transport with chevron-pattern armor, massive front battering ram, rear troop doors open, angular boxy design with hexagonal grilles."
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Suinteur Acide",
+  "description": "Amas de chair minérale suintant un acide géothermique capable de dissoudre le blindage. Il s'accroche et corrode lentement.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "1",
+  "rightValue": "2",
+  "bottomValue": "3",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Dark sci-fi fantasy, amorphous mineral flesh creature oozing green-yellow geothermal acid, clinging to a metal surface dissolving it, cracked rocky skin, hissing steam, highly detailed"
+}

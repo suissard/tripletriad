@@ -1,0 +1,15 @@
+{
+  "name": "Léviathan Corallien",
+  "description": "Une forteresse vivante de corail bioluminescent et de tentacules massives, le Léviathan Corallien est une entité colossale qui avance lentement à travers les océans, déversant des torrents de plasma surchauffé depuis ses geysers dorsaux. Chaque pas fait trembler les fonds marins.",
+  "element": "eau",
+  "elements": ["eau", "longue_portee", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "9",
+  "rightValue": "8",
+  "bottomValue": "A",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "A colossal alien coral reef creature towering 10 stories tall, bioluminescent cyan and purple, massive tentacles trailing behind, geysers of superheated plasma erupting from its dorsal ridge, deep ocean abyss background, bio-mechanical mining equipment fused into its shell, translucent skin revealing internal fluid chambers, epic scale, cinematic lighting, concept art style"
+}

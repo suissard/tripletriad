@@ -1,0 +1,15 @@
+{
+  "name": "Droneur",
+  "description": "Opérateur de drones de reconnaissance bricolés à partir de pièces détachées. Ses petits yeux mécaniques repèrent les ennemis et les faiblesses de coque.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "1",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi scrap-punk drone operator, patched spacesuit with antenna array on back, small jury-rigged scout drones hovering around, control gauntlet, dark orbital station background"
+}

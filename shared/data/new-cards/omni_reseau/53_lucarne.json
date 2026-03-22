@@ -1,0 +1,15 @@
+{
+  "name": "Lucarne",
+  "description": "Vaisseau de brouillage neural, il couvre des théâtres d'opérations entiers de parasites. Les communications ennemies s'effondrent, les drones de l'Architecte restent synchronisés.",
+  "element": "hacking",
+  "elements": ["hacking", "reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "8",
+  "rightValue": "7",
+  "bottomValue": "8",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Electronic warfare ship, dark grey disc-shaped spacecraft with enormous dish arrays spinning on top and bottom, visible interference waves rippling outward in cold blue, enemy communications shown as shattered holographic signals. Brutalist geometric angular hull. Human heads as jamming processors mounted on antenna struts. Barcode serials. Cinematic lighting, highly detailed."
+}

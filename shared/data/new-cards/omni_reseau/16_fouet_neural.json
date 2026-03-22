@@ -1,0 +1,15 @@
+{
+  "name": "Fouet Neural",
+  "description": "Contrôleur de drones défaillants. Le Fouet envoie des décharges électriques via ses câbles pour forcer les drones endommagés à reprendre le combat. La douleur n'existe pas dans l'Essaim — seulement l'efficacité.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "2",
+  "rightValue": "4",
+  "bottomValue": "1",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Controller drone with long electrified neural cables as whips, crackling blue electricity, pale face. Dark grey armor with electrode gauntlets, cold blue lightning arcs. Dystopian punishment unit, highly detailed."
+}

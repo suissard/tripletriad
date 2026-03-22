@@ -1,0 +1,17 @@
+{
+  "name": "Ossature Errante",
+  "description": "Squelette d'un ancien combattant animé par une ombre dimensionnelle. Les os flottent dans un exosquelette vide, les articulations craquant dans des angles impossibles.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Animated skeleton floating inside empty military exoskeleton, bones cracking at impossible angles, purple shadow entity inside the armor, glitch effect around joints, cosmic horror grimdark"
+}

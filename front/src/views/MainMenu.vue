@@ -138,7 +138,7 @@ function startAiGame(deck) {
   const playerDeck = deck.cards.map(id => normalizeCard(getCardById(id)));
   state.playerDeckSelection = playerDeck;
   
-  router.push({ path: '/game', query: { matchId: 'ia' } });
+  router.push({ path: '/game', query: { mode: 'ia', deckId: deck.documentId || deck.id } });
 }
 
 function onCoinTossFinished() {
@@ -187,7 +187,7 @@ function startMultiGame(deck) {
   
   // 2. Set the player deck
   const playerDeck = deck.cards.map(id => normalizeCard(getCardById(id)));
-  state.deck = playerDeck;
+  state.pDeck = playerDeck;
   
   // 3. Move to hosting/joining menu
   state.menuView = 'multi';
@@ -207,7 +207,7 @@ const handleNetworkMessage = (msg) => {
 
       state.pendingMultiGame = () => {
         state.gameState = 'playing';
-        router.push({ path: '/game', query: { match: multiState.uuid || multiState.joinUuid } });
+        router.push({ path: '/game', query: { mode: 'multi', match: multiState.uuid || multiState.joinUuid } });
       };
     }
   };
@@ -239,7 +239,7 @@ onMounted(() => {
 
           state.pendingMultiGame = () => {
             state.gameState = 'playing';
-            router.push({ path: '/game', query: { match: multiState.uuid } });
+            router.push({ path: '/game', query: { mode: 'multi', match: multiState.uuid } });
           };
           
           webrtc.sendMessage({ type: 'init', startingPlayer });

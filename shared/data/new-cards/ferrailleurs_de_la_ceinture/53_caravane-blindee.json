@@ -1,0 +1,15 @@
+{
+  "name": "Caravane Blindée",
+  "description": "Train spatial de conteneurs militarisés. Chaque wagon est un bunker roulant rempli de marchandises et de soldats. Le cordon ombilical de la Ceinture.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "7",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi scrap-punk space train, chain of armored cargo containers connected by reinforced docking clamps, small engines on each segment, gun turrets on top modules, traveling through asteroid field, convoy formation, industrial lights, highly detailed, convoy aesthetic"
+}

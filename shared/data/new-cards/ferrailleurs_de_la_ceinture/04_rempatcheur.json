@@ -1,0 +1,15 @@
+{
+  "name": "Rempatcheur",
+  "description": "Mécanicien de combat qui répare les armures et colmate les brèches en pleine fusillade. Rien ne se jette, tout se répare — même sous le feu.",
+  "element": "None",
+  "elements": [],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "1",
+  "rightValue": "1",
+  "bottomValue": "3",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi scrap-punk combat mechanic, heavy spacesuit covered in tools and welding gear, holding a rivet gun and patch kit, duct tape everywhere, grimy visor, industrial background"
+}

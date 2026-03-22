@@ -1,0 +1,15 @@
+{
+  "name": "Cache Neural",
+  "description": "Serveur mobile tactique sur chenilles. Relais intermédiaire qui amplifie le réseau neural de l'Architecte sur le champ de bataille.",
+  "element": "reseau",
+  "elements": ["reseau", "hacking"],
+  "faction": "Omni-Réseau",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Mobile server vehicle, rectangular dark grey chassis with antenna arrays and cold blue holographic data streams, brutalist functional design, barcode serials. Human head partially integrated serving as neural relay. On battlefield surrounded by drone soldiers. Cinematic lighting, highly detailed."
+}

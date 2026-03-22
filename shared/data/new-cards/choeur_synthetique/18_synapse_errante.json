@@ -1,0 +1,15 @@
+{
+  "name": "Synapse Errante",
+  "description": "Éclaireur réseau qui parcait les no man's land numériques. Il cartographie les connexions ennemies et trace les routes d'attaque. Chaque synapse errante est un cartographe du chaos.",
+  "element": "reseau",
+  "elements": ["reseau", "furtif"],
+  "faction": "Chœur Synthétique",
+  "topValue": "2",
+  "rightValue": "3",
+  "bottomValue": "4",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark spiritual art, Le Chœur Synthétique faction. Scout android monk with elongated sensor limbs, holographic map projection from palm, wandering through digital wasteland, lightweight robes, faceless, cinematic lighting, highly detailed"
+}

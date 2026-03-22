@@ -1,0 +1,16 @@
+{
+  "name": "Purificateur",
+  "description": "Fantassin de base de l'Hégémonie, vêtu d'une armure carmin lisse et sans aspérité. Promeut l'idéal puriste par la force du railgun.",
+  "element": "None",
+  "elements": ["None"],
+  "faction": "Hégémonie martienne",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "1",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Basic infantry soldier holding a geometric rectangular railgun rifle, standing at attention, helmet with narrow slit visor."
+}
+

@@ -1,0 +1,15 @@
+{
+  "name": "Sondeur Tactique",
+  "description": "Avant-garde numérique. La Sondeur pénètre les lignes ennemies pour cartographier les défenses et injecter des virus dans les systèmes locaux. Un drone jetable — mais les données qu'il renvoie valent des milliers de vies.",
+  "element": "hacking",
+  "elements": ["hacking", "reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "1",
+  "rightValue": "2",
+  "bottomValue": "4",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Infiltration drone scout with hacking interface visor, data streams on screen, pale face underneath. Sleek dark grey stealth-optimized armor, neural cables, cold blue holographic map projection. Dystopian spy, highly detailed."
+}

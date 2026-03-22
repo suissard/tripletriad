@@ -1,0 +1,15 @@
+{
+  "name": "Phalange Orbital",
+  "description": "Transporteur militarisé de troupes lourdes. Il largue des colonnes de super-soldats blindés directement en zone de combat. Chaque Phalange est un débarquement — et chaque débarquement est une déclaration de guerre.",
+  "element": "obsidienne",
+  "elements": ["obsidienne", "reseau"],
+  "faction": "Hégémonie martienne",
+  "topValue": "7",
+  "rightValue": "5",
+  "bottomValue": "7",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Heavy military dropship, boxy angular hull with massive ventral drop bay doors open, rows of armored troopers visible in deployment racks, atmospheric entry flames on leading edges, descending through clouds, wedge-shaped silhouette, brutal functional design."
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Magnéto",
+  "description": "Soldat équipé d'un générateur magnétique portable. Il manipule les projectiles et les débris métalliques pour créer un bouclier défensif improvisé.",
+  "element": "None",
+  "elements": [],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "1",
+  "rightValue": "1",
+  "bottomValue": "3",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi scrap-punk magnetic infantry, heavy spacesuit with bulky magnetic generator backpack, floating metal debris forming shield around soldier, blue magnetic field glow, industrial setting"
+}

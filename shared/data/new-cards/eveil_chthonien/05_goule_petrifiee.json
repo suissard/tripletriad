@@ -1,0 +1,17 @@
+{
+  "name": "Goule Pétrifiée",
+  "description": "Cadavre minéralisé recouvert de cristaux de soufre, ramené à la vie par l'énergie tellurique. Ses griffes d'obsidienne lacèrent sans distinction.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "3",
+  "rightValue": "3",
+  "bottomValue": "2",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Dark sci-fi fantasy, petrified humanoid corpse covered in sulfur crystals and obsidian growths, clawed hands, hollow glowing eyes, walking through ash and ruins, highly detailed"
+}

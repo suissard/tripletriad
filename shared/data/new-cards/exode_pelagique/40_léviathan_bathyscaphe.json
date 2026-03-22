@@ -1,0 +1,15 @@
+{
+  "name": "Léviathan Bathyscaphe",
+  "description": "Monstre de commandement et de siège. Coque bathyscaphe géante portée par des bras-céphalopodes mécaniques, armée de canons à geyser et d'un réseau psionique avancé. Le prédateur ultime des abysses déployé sur terre.",
+  "element": "longue_portee",
+  "elements": ["longue_portee", "eau", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Enormous alien bathyscaphe leviathan with giant spherical pressure hull filled with glowing cyan water, eight massive mechanical tentacle-arms for locomotion, multiple geyser cannons mounted on hull, psionic antenna array crown glowing purple, rust-orange and verdigris corroded plating, epic scale battlefield, halogen spotlights piercing darkness"
+}

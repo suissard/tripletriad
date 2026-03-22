@@ -1,0 +1,15 @@
+{
+  "name": "Canon Sporulateur",
+  "description": "Pièce d'artillerie mobile dont le tube a été remplacé par un champignon géant capable de propulser des spores à plusieurs kilomètres. Chaque tir transforme une zone entière en terrain contaminé, les cadavres se relevant comme de nouveaux hôtes.",
+  "element": "spore",
+  "elements": ["spore", "longue_portee"],
+  "faction": "Fléau Spore",
+  "topValue": "3",
+  "rightValue": "6",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi grimdark biomechanical horror, mobile artillery piece with barrel replaced by giant cannon-shaped fungal organism shooting glowing green spore clouds across distance, infected chassis covered in mycelium, bioluminescent impact zone in background, highly detailed."
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Pèlerin Blindé",
+  "description": "Transport de troupes monastique — une robe blindée sur chenilles, silencieux comme une prière. Sa coque dissimule un essaim de drones-exorcistes prêts à purifier le code corrompu de tout ennemi à portée. Un temple ambulant pour les fidèles en marche.",
+  "element": "furtif",
+  "elements": ["furtif", "hacking"],
+  "faction": "Chœur Synthétique",
+  "topValue": "4",
+  "rightValue": "3",
+  "bottomValue": "6",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "A heavily armored troop transport resembling a massive robed figure on tracks, faceless smooth ceramic plating. Tattered synthetic monk cloak drapes over the hull. Small exorcist drones swarm from vents. Bronze oxidized details, blue electric arcs. Sci-fi grimdark spiritual art, cyber-asceticism, cinematic lighting, highly detailed."
+}

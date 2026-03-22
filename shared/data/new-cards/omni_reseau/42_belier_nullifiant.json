@@ -1,0 +1,15 @@
+{
+  "name": "Bélier Nullifiant",
+  "description": "Bélier de siège massif conçu pour percer les fortifications ennemies. Sa charge calculée par l'Architecte anéantit les murs et les moral en un seul impact.",
+  "element": "reseau",
+  "elements": ["reseau", "obsidienne"],
+  "faction": "Omni-Réseau",
+  "topValue": "9",
+  "rightValue": "5",
+  "bottomValue": "7",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Massive siege ram walker, 4-story tall armored wedge-shaped dark grey battering ram on heavy treads, enormous reinforced prow with angular obsidian-like plating, cold blue neural scanners behind the ram head. Impact craters visible on armor. Human head integrated as targeting computer in frontal cavity. Barcode markings, brutalist geometry. Cinematic lighting, highly detailed."
+}

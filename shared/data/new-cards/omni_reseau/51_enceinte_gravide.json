@@ -1,0 +1,15 @@
+{
+  "name": "Enceinte Gravide",
+  "description": "Transporteur de drones lourd, ventre gonflé de milliers de soldats en stase. Un largage de l'Enceinte déverse une pluie de corps sur le champ de bataille.",
+  "element": "reseau",
+  "elements": ["reseau", "furtif"],
+  "faction": "Omni-Réseau",
+  "topValue": "7",
+  "rightValue": "6",
+  "bottomValue": "8",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Massive dropship carrier, bloated dark grey rectangular spacecraft with enormous cargo bay doors opening mid-flight, thousands of small figures falling like rain toward battlefield below, cold blue stasis glow from interior cargo holds, minimal weapons, brutalist geometric hull. Barcode serials, human heads visible as drop coordination nodes. Atmosphere entry fire on hull. Cinematic lighting, highly detailed."
+}

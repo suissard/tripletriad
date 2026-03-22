@@ -1,0 +1,15 @@
+{
+  "name": "Torpille Roulante",
+  "description": "Un moteur-fusée monté sur roues avec un pilote accroché. Accélère à fond, lâche la charge explosive, et prie pour s'en sortir. Taux de survie : débattu.",
+  "element": "None",
+  "elements": [],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "6",
+  "rightValue": "3",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi scrap-punk rocket-powered suicide vehicle, crude wheeled chassis with massive booster engine, strapped explosive cargo, pilot barely hanging on, speed lines and fire trail, reckless kamikaze energy, dusty wasteland, highly detailed"
+}

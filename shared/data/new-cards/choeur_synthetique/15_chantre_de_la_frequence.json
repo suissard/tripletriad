@@ -1,0 +1,15 @@
+{
+  "name": "Chantre de la Fréquence",
+  "description": "Moine musicien dont le chant de guerre brouille les réseaux ennemis. Sa voix synthétique module des fréquences qui font exploser les circuits non protégés.",
+  "element": "reseau",
+  "elements": ["reseau", "hacking"],
+  "faction": "Chœur Synthétique",
+  "topValue": "2",
+  "rightValue": "4",
+  "bottomValue": "2",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark spiritual art, Le Chœur Synthétique faction. Android singer monk with open mouth cavity emitting sound waves, sonic disruption patterns visible, resonant frequency visualization, faceless below eyes, cinematic lighting, highly detailed"
+}

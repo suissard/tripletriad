@@ -1,0 +1,15 @@
+{
+  "name": "Griffe Fongique",
+  "description": "Assassin du Fléau dont les doigts se sont allongés en griffes de chitine noire. Silencieux et rapide, il déchire les défenses avant de se fondre dans le brouillard.",
+  "element": "spore",
+  "elements": ["spore", "furtif"],
+  "faction": "Fléau Spore",
+  "topValue": "2",
+  "rightValue": "3",
+  "bottomValue": "1",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark biomechanical horror, fungal assassin creature. Lean humanoid with elongated arms ending in massive black chitin claws. Agile crouching pose on ruined wall. Face obscured by fungal hood-like growth. Claws dripping with green viscous fluid. Emerging from thick spore fog. Silent and predatory. Cinematic moonlight, highly detailed, horror atmosphere."
+}

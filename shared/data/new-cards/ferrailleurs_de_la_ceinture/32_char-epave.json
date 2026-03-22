@@ -1,0 +1,15 @@
+{
+  "name": "Char-Épave",
+  "description": "Un ancien char militaire terrestre, ressuscité avec des pièces de fortune. Le moteur tousse, la coque grince, mais il a survécu à la fin du monde une fois — il peut le refaire.",
+  "element": "None",
+  "elements": [],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "4",
+  "rightValue": "3",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi scrap-punk resurrected military tank, old Earth battle tank patched with mismatched metal sheets and cargo panels, rust everywhere, exhaust black smoke, battle-scarred hull with fresh welds, post-apocalyptic wasteland background, cinematic lighting, highly detailed"
+}

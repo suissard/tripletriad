@@ -1,0 +1,15 @@
+{
+  "name": "Verrou de Ruche",
+  "description": "Fantassin renforcé dont l'armure intègre un relais tactique. La moindre info captée est instantanément redistribuée à l'ensemble du réseau.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Reinforced infantry communications specialist, dark grey armor with antenna spine array and cold blue holographic tactical display floating near face, thick black cables connecting helmet to backpack. Standing on elevated position scanning horizon, dystopian, highly detailed, cinematic lighting."
+}

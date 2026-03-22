@@ -1,0 +1,15 @@
+{
+  "name": "Résonateur",
+  "description": "Le Résonateur émet des pulsations soniques qui désorientent l'ennemi et synchronisent les drones alliés. Son crâne est un instrument de guerre : chaque os a été remplacé par un résonateur acoustique.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "2",
+  "rightValue": "3",
+  "bottomValue": "2",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Sonic drone with modified skull containing acoustic resonators, visible vibrations, pale face. Dark grey armor with speaker arrays on shoulders, cold blue energy waves. Dystopian sound warfare, highly detailed."
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Médecin de Campagne",
+  "description": "Chirurgien militaire de l'Hégémonie, spécialisé en greffes rapides et stims d'urgence. Sauve les corps, pas les esprits.",
+  "element": "None",
+  "elements": ["None"],
+  "faction": "Hégémonie martienne",
+  "topValue": "1",
+  "rightValue": "2",
+  "bottomValue": "3",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Field medic with white-crimson armor with cross insignia, medical injector gauntlet, kneeling beside a wounded soldier."
+}

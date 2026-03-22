@@ -1,0 +1,15 @@
+{
+  "name": "Grimpeur de Murailles",
+  "description": "Infanterie renforcée aux mains et pieds transformés en crampons chitineux. Elle escalade les fortifications avec une agilité dérangeante pour un organisme aussi massif, laissant derrière elle une trace de spores adhésives.",
+  "element": "spore",
+  "elements": ["spore", "furtif"],
+  "faction": "Fléau Spore",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi grimdark biomechanical horror, massive infected soldier climbing concrete wall with chitine spike fingers and toes, leaving glowing green adhesive spore trail behind, cracked armor with fungal growths, toxic mist, highly detailed."
+}

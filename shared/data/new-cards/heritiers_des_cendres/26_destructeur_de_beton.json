@@ -1,0 +1,17 @@
+{
+  "name": "Destructeur de Béton",
+  "description": "Ingénieur de siège avec foreuse lourde.",
+  "element": "obsidienne",
+  "faction": "Héritiers des cendres",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "rarity": "Uncommon",
+  "prompt": "Heavy mutant demolition worker with massive concrete drill, anti-shrapnel armor, destroying a wall, post-apocalyptic siege, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "obsidienne"
+  ]
+}

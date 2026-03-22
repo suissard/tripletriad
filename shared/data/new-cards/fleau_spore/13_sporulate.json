@@ -1,0 +1,15 @@
+{
+  "name": "Sporulate",
+  "description": "Infecté dont le crâne a été remplacé par un chapeau fongique géant. À la mort de l'hôte, le chapeau éclate et propage l'infection sur des dizaines de mètres.",
+  "element": "spore",
+  "elements": ["spore"],
+  "faction": "Fléau Spore",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "3",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark biomechanical horror, sporulating fungal creature. Humanoid body with head completely replaced by giant mushroom cap, ready to burst. Cap surface rippling with pressure, tiny spore holes visible. Body in death throes, arms reaching outward. Green and purple spores already leaking from cap edges. Surrounding ground covered in fungal growth from previous explosions. Cinematic lighting, highly detailed."
+}

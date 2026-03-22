@@ -1,0 +1,17 @@
+{
+  "name": "Ravageur Pyroclaste",
+  "description": "Bête à quatre bras faite de roches pyroclastiques en fusion. Chaque bras projette des débris incandescents. Dernière ligne avant les véritables titans.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "4",
+  "rightValue": "3",
+  "bottomValue": "2",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Dark sci-fi fantasy, four-armed beast made of molten pyroclastic rock, each arm hurling glowing debris, volcanic eruption background, massive jaw, glowing magma veins across body, highly detailed"
+}

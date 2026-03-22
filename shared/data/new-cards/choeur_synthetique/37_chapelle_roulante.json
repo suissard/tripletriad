@@ -1,0 +1,15 @@
+{
+  "name": "Chapelle Roulante",
+  "description": "Centre de commandement mobile — une nef d'église déformée par la cybernétique, ses vitraux remplacés par des écrans affichant le flux de données sacrées. À l'intérieur, le Synode peut tenir une Grande Synchronisation même en zone de guerre, coordonnant l'assaut depuis le cœur du mandala.",
+  "element": "reseau",
+  "elements": ["reseau", "hacking"],
+  "faction": "Chœur Synthétique",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "6",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "A mobile command center shaped like a cybernetic church nave, stained glass windows replaced by screens displaying sacred data streams. Heavy tattered robes drape over reinforced hull. Golden holographic mandala projects from the roof. Aged ceramic and bronze construction. Sci-fi grimdark spiritual art, cyber-asceticism, cinematic lighting, highly detailed."
+}

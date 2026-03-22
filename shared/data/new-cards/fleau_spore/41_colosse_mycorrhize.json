@@ -1,0 +1,18 @@
+{
+  "name": "Colosse Mycorrhize",
+  "description": "Titan fongique à quatre pattes dont le dos est un champignon géant en forme de dôme. Son corps boursouflé suinte de spores acides à chaque pas, laissant une traînée de chair dissoute sur son passage.",
+  "element": "spore",
+  "elements": [
+    "spore",
+    "radiation"
+  ],
+  "faction": "Fléau Spore",
+  "topValue": "7",
+  "rightValue": "7",
+  "bottomValue": "6",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi grimdark biomechanical horror, Le Fléau Spore faction. Enormous quadrupedal fungal colossus, domed mushroom cap covering its entire back, rusted tank treads fused into front legs, toxic green and purple spore cloud trailing behind, rotting bio-mechanical texture, cinematic lighting, highly detailed."
+}

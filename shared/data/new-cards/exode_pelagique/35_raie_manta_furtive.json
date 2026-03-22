@@ -1,0 +1,15 @@
+{
+  "name": "Raie Manta Furtive",
+  "description": "Éclaireur blindé profilé comme une raie manta géante. Sa peau chromatique absorbe les radars et ses ailes dorsales déploient des antennes-reseau à longue portée. Il frappe et disparaît dans les courants.",
+  "element": "furtif",
+  "elements": ["longue_portee", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "3",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Giant alien manta ray stealth vehicle, flat aerodynamic body with chromatophore camouflage skin shifting between dark grey and deep blue, dorsal antenna arrays glowing faintly cyan, angular mechanical wing tips with sensor pods, barely visible against dark ocean, bioluminescent underbelly veins"
+}

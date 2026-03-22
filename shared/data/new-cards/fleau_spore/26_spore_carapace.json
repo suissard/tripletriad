@@ -1,0 +1,15 @@
+{
+  "name": "Spore Carapace",
+  "description": "Unité d'assaut dont le corps entier est recouvert d'une carapace de spores comprimées, aussi dure que du béton armé. Quand elle meurt, la carapace se fissure et libère un nuage de spores mutagènes qui transforme les cadavres proches.",
+  "element": "spore",
+  "elements": ["spore", "radiation"],
+  "faction": "Fléau Spore",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "6",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi grimdark biomechanical horror, heavily armored fungal soldier encased in compressed spore shell armor like concrete, cracks glowing green, ready to burst, surrounded by dense toxic spore mist, bioluminescent veins, highly detailed."
+}

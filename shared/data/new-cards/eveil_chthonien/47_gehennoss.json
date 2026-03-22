@@ -1,0 +1,19 @@
+{
+  "name": "Géhennoss",
+  "description": "Titan primordial dont le cœur est un volcan actif. Son éveil provoque des cataclysmes planétaires — séismes, tsunamis, éruptions. Aucune armée ne peut l'affronter en rase campagne.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne",
+    "radiation",
+    "faille_dimensionnelle"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "8",
+  "rightValue": "7",
+  "bottomValue": "9",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "Dark sci-fi fantasy, apocalyptic scale. A mountain-sized primordial titan rising from the earth, its body a living volcano with rivers of magma flowing down obsidian cliffs. Its gaping maw opens to reveal a core of pure molten fury. Multiple pupilless eyes blaze like miniature suns. Earthquakes crack the landscape around it, buildings crumble, ash fills the sky. Fossils and ancient ruins embedded in its titanic frame. Ultimate boss creature, cinematic, hyper-detailed."
+}

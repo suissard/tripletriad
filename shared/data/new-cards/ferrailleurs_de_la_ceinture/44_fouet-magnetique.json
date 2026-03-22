@@ -1,0 +1,15 @@
+{
+  "name": "Fouet-Magnétique",
+  "description": "Machine de guerre électromagnétique. Ses câbles magnétisés immobilisent les véhicules ennemis avant de les broyer contre son blindage. Piège vivant sur le champ de bataille.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "6",
+  "rightValue": "8",
+  "bottomValue": "6",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi scrap-punk electromagnetic war machine, massive cables and coils wrapping around its frame, attracting metal debris magnetically, enemy vehicles being pulled and crushed against its hull, blue plasma arcs, sparking junction boxes, grimy industrial aesthetic, highly detailed"
+}

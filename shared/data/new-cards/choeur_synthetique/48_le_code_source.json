@@ -1,0 +1,15 @@
+{
+  "name": "Le Code Source",
+  "description": "Architecte primordial qui marche en traçant des programmes dans le sol. Son seul passage réécrit la réalité locale — les machines se soumettent, les organiques s'éteignent.",
+  "element": "reseau",
+  "faction": "Chœur Synthétique",
+  "topValue": "8",
+  "rightValue": "9",
+  "bottomValue": "7",
+  "leftValue": "9",
+  "rarity": "Legendary",
+  "prompt": "Gargantuan featureless humanoid titan, perfectly smooth white ceramic body, golden source code streaming from its hands and feet leaving permanent marks on reality, robes of woven fiber-optic cables, floating in lotus position descending from orbit, supreme AI god-machine, grimdark sci-fi TCG card art, ultra detailed",
+  "skills": null,
+  "collectionName": null,
+  "elements": ["reseau"]
+}

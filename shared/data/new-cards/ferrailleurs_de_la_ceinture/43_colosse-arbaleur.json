@@ -1,0 +1,15 @@
+{
+  "name": "Colosse-Arbaleur",
+  "description": "Tour de guerre mobile sur quatre pattes hydrauliques. Son barrage de harpons ferroviaires empale les cibles à 2km. Forteresse anti-aérienne roulante.",
+  "element": "longue_portee",
+  "elements": ["longue_portee", "reseau"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "7",
+  "rightValue": "7",
+  "bottomValue": "7",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi scrap-punk giant quadrupedal mech walker, towering war platform with multiple railgun harpoon launchers on top, hydraulic legs made from crane parts, armored torso with welded sign plates, launching harpoons skyward, industrial battlefield, highly detailed"
+}

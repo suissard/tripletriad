@@ -36,11 +36,12 @@ export function normalizeCard(raw) {
     }
 
     if (!imgUrl) {
-        imgUrl = `https://api.dicebear.com/9.x/bottts/png?seed=${(raw.id || 0) * 42}&backgroundColor=transparent`;
+      imgUrl = `https://api.dicebear.com/9.x/bottts/svg?seed=${(raw.id || 0) * 42}&backgroundColor=transparent`;
     }
 
     return {
         id: raw.id,
+        documentId: raw.documentId,
         name: raw.name || `Card #${raw.id}`,
         description: raw.description || '',
         level: GameEngine.calculateCardLevel(raw),
@@ -58,7 +59,8 @@ export function normalizeCard(raw) {
         imageUrl: imgUrl,
         revealed: raw.revealed !== undefined ? raw.revealed : true,
         isPremium: false, // Will be set by ownership logic in components
-        rarity: raw.rarity || null
+        rarity: raw.rarity || null,
+        collectionName: raw.collectionName || 'base'
     };
 }
 
@@ -75,7 +77,7 @@ export const createCardData = (i) => {
     };
     return normalizeCard({
         ...raw,
-        imageUrl: `https://api.dicebear.com/9.x/bottts/png?seed=${i * 42}&backgroundColor=transparent`
+        imageUrl: `https://api.dicebear.com/9.x/bottts/svg?seed=${i * 42}&backgroundColor=transparent`
     });
 };
 
@@ -116,7 +118,8 @@ function normalizeBoard(board) {
 export const state = reactive({
   premiumMode: 'random', // random | image
   holoFineness: 0.05, // default texture scale for SVG filter
-  deck: [],
+  pDeck: [],
+  aiDeck: [],
     // Board: Array of { data: cardDataObj, owner: 'player'|'ai' } | null
     board: Array(9).fill(null),
     // Hands: Arrays of plain card data objects
@@ -172,6 +175,12 @@ export const state = reactive({
 
     // UI/Dragging
     hoveredSlotIndex: null,
+
+    // Story Mode
+    isStoryMatch: false,
+    storyEnemyDeckConfig: [],
+    onStoryMatchEnd: null,
+    storyMatchData: null,
 });
 
 export function getCardById(id) {
@@ -184,17 +193,26 @@ export function getCardById(id) {
 export async function loadCardsFromStrapi() {
     console.log("[GameManager] Fetching cards from Strapi...");
     try {
-        const result = await strapiService.find('cards', {
-            populate: ['image'],
-            pagination: { pageSize: 1000 }
-        });
+        let allCards = [];
+        let page = 1;
+        let pageCount = 1;
+
+        do {
+            const result = await strapiService.find('cards', {
+                populate: ['image'],
+                pagination: { page, pageSize: 100 }
+            });
+            
+            const rawCards = Array.isArray(result) ? result : (result?.data || []);
+            allCards = [...allCards, ...rawCards];
+            
+            const meta = result?.meta?.pagination;
+            pageCount = meta?.pageCount || 1;
+            page++;
+        } while (page <= pageCount);
         
-        // Handle both array and { data: [...] } formats
-        const rawCards = Array.isArray(result) ? result : (result?.data || []);
-        
-        if (rawCards.length > 0) {
-            const normalized = rawCards.map(c => normalizeCard(c));
-            // Update the reactive array in place
+        if (allCards.length > 0) {
+            const normalized = allCards.map(c => normalizeCard(c));
             cardLibrary.splice(0, cardLibrary.length, ...normalized);
             console.log(`[GameManager] Successfully loaded ${cardLibrary.length} cards from Strapi.`);
         } else {
@@ -204,6 +222,7 @@ export async function loadCardsFromStrapi() {
         console.error("[GameManager] Failed to load cards from Strapi:", error);
     }
 }
+
 
 
 
@@ -312,16 +331,18 @@ export function hydrate(forcedState) {
 
 
 export function initDeck(size) {
-    state.deck = Array.from({ length: size }, (_, i) => createCardData(i));
+    state.pDeck = Array.from({ length: size }, (_, i) => createCardData(i));
+    state.aiDeck = Array.from({ length: size }, (_, i) => createCardData(i + size));
 }
 
 /**
  * Draw cards from deck to fill a hand to 3 cards (pure data, no scene manipulation).
  */
 export function refillHand(owner) {
+    const deck = owner === 'player' ? state.pDeck : state.aiDeck;
     const hand = owner === 'player' ? state.pHand : state.aiHand;
-    while (hand.length < 3 && state.deck.length > 0) {
-        const card = state.deck.pop();
+    while (hand.length < 3 && deck.length > 0) {
+        const card = deck.pop();
         if (owner === 'ai') {
             card.revealed = false; // AI cards are face-down by default
         }
@@ -344,6 +365,8 @@ export function resetGame(deckSize = 30, goToMenu = true, forcedTurn = null) {
     state.matchId = null;
     state.pHand = [];
     state.aiHand = [];
+    state.pDeck = [];
+    state.aiDeck = [];
     state.selectedCardIndex = null;
     
     if (forcedTurn) {

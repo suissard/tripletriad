@@ -1,0 +1,15 @@
+{
+  "name": "Bathynome Pionnier",
+  "description": "Éclaireur lourd qui cartographie les fonds en temps réel par sonar pulsé. Ses données alimentent le réseau tactique, révélant les positions ennemies même à travers les murs.",
+  "element": "reseau",
+  "elements": ["reseau", "eau"],
+  "faction": "Exode pélagique",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "1",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Alien cephalopod pathfinder with bulky sonar equipment mounted on shoulders, multiple tentacles operating mapping device, spherical helmet with scanning rings, worn industrial armor, faint echolocation rings visible around the figure"
+}

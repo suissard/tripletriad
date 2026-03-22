@@ -1,0 +1,17 @@
+{
+  "name": "Sentinelle Résonante",
+  "description": "Garde cultiste dont l'armure vibre en permanence à une fréquence dissonante. Les projectiles conventionnels ricochent sur le champ de distorsion acoustique qui l'entoure.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "3",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Cultist guard in heavy vibrating armor creating sound distortion waves around body, purple acoustic shockwaves deflecting projectiles, glowing runes, cosmic horror grimdark sci-fi, cinematic lighting"
+}

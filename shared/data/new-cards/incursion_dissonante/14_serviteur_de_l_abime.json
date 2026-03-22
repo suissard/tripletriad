@@ -1,0 +1,17 @@
+{
+  "name": "Serviteur de l'Abîme",
+  "description": "Cultiste profondément corrompu dont les yeux sont devenus des failles dimensionnelles. Il voit l'autre côté et sert de phare pour l'Incursion.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "3",
+  "rightValue": "3",
+  "bottomValue": "1",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Deeply corrupted cultist whose eye sockets are tiny dimensional rifts with purple light, kneeling in prayer, reality warping around them, cosmic horror, grimdark sci-fi"
+}

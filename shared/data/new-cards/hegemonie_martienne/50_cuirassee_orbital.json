@@ -1,0 +1,15 @@
+{
+  "name": "Le Vengeur Cramoisi",
+  "description": "Super-cuirassé orbital. Le poing de fer de la flotte martienne, armé de canons cinétiques capables de vitrifier des continents. Sa silhouette en V découpée contre les étoiles signifie la fin de toute résistance.",
+  "element": "longue_portee",
+  "elements": ["longue_portee", "obsidienne"],
+  "faction": "Hégémonie martienne",
+  "topValue": "9",
+  "rightValue": "7",
+  "bottomValue": "6",
+  "leftValue": "A",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Massive orbital battleship in sharp V-wedge formation, crimson hull plating, rows of kinetic bombardment barrels along ventral spine, thrusters fused into the angular fuselage, planet Earth visible below, imposing monolith in low orbit, brutalist warship design."
+}

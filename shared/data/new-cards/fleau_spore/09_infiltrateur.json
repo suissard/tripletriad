@@ -1,0 +1,15 @@
+{
+  "name": "Infiltrateur",
+  "description": "Infecté en phase précoce, encore presque humain en apparence. Les spores invisibles qu'il exhale contaminent discrètement les lignes arrière ennemies.",
+  "element": "spore",
+  "elements": ["spore", "furtif"],
+  "faction": "Fléau Spore",
+  "topValue": "2",
+  "rightValue": "1",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark biomechanical horror, early-stage infected infiltrator. Nearly human-looking soldier in damaged military gear, subtle signs of infection. Veins glowing faintly green under skin. Thin wisps of invisible spores from breath. Slightly too-wide smile, eyes with faint purple glow. Standing in shadows of ruined building. Deceptive calm before horror reveal. Cinematic lighting, highly detailed."
+}

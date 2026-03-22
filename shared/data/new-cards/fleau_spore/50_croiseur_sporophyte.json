@@ -1,0 +1,18 @@
+{
+  "name": "Croiseur Sporophyte",
+  "description": "Vaisseau de ligne fongique, ancien cargo orbital digéré et animé par le mycélium. Sa coque métallique est percée de milliers de capsules de dispersion de spores qui recouvrent les planètes cibles avant l'arrivée des essaims terrestres.",
+  "element": "spore",
+  "elements": [
+    "spore",
+    "longue_portee"
+  ],
+  "faction": "Fléau Spore",
+  "topValue": "8",
+  "rightValue": "7",
+  "bottomValue": "7",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi grimdark biomechanical horror, Le Fléau Spore faction. Massive fungal-infected space cargo ship in orbit, hull covered with spore dispersal pods, green bioluminescent veins across metal surface, clouds of spores ejecting from openings, mycelium tendrils growing from cargo bay doors, dark space background, highly detailed."
+}

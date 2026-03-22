@@ -1,0 +1,15 @@
+{
+  "name": "Éclat Entropique",
+  "description": "Bombardier spatial à décharge de plasma. Son unique tir annihile des quartiers entiers. L'Architecte ne l'utilise que lorsque l'optimisation exige un nettoyage total.",
+  "element": "longue_portee",
+  "elements": ["longue_portee", "radiation"],
+  "faction": "Omni-Réseau",
+  "topValue": "6",
+  "rightValue": "A",
+  "bottomValue": "5",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Sleek orbital bombardment ship, elongated dark grey angular spacecraft with massive ventral plasma cannon glowing orange-hot, cold blue targeting scanners along spine, geometric brutalist design, thruster trails. Human skull as firing computer visible in dorsal turret. Barcode markings, radiation warning symbols on hull. Explosion below on planetary surface. Cinematic lighting, highly detailed."
+}

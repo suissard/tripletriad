@@ -1,0 +1,15 @@
+{
+  "name": "Hastari Plasma",
+  "description": "Porte-lance énergétique lourd dont le projectile de plasma concentré traverse les blindages les plus épais. Formation serrée en ligne de pique énergétique. Avancée inexorable sur le champ de bataille.",
+  "element": "longue_portee",
+  "elements": ["longue_portee"],
+  "faction": "Hégémonie martienne",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Heavy infantry phalanx line with long plasma lance weapons, glowing red energy tips, advancing in tight formation, desert wasteland."
+}

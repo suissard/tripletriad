@@ -1,0 +1,17 @@
+{
+  "name": "Tireur des Cratères",
+  "description": "Sniper posté dans les cratères sacrés avec un fusil à plasma récupéré.",
+  "element": "longue_portee",
+  "faction": "Héritiers des cendres",
+  "topValue": "5",
+  "rightValue": "2",
+  "bottomValue": "1",
+  "leftValue": "6",
+  "rarity": "Common",
+  "prompt": "Post-apocalyptic mutant sniper crouching in a radioactive crater, aiming a salvaged plasma rifle, glowing yellow eyes, toxic wasteland, TCG card art grimdark",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "longue_portee"
+  ]
+}

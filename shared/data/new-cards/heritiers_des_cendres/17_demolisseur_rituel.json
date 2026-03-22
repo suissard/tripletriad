@@ -1,0 +1,17 @@
+{
+  "name": "Démolisseur Rituel",
+  "description": "Pose des charges explosives sacrées pour détruire les fortifications.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "1",
+  "leftValue": "1",
+  "rarity": "Uncommon",
+  "prompt": "Mutant demolition expert setting up blessed explosive charges on a fortress wall, determined expression, post-apocalyptic siege, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Noyau Pulsatile",
+  "description": "Organe central d'un réseau mycélien étendu, un cœur fongique géant battant lentement au sommet d'un monticule de chair pétrifiée. Chaque pulsation émet un signal de croissance qui accélère la prolifération de toutes les créatures du Fléau dans un rayon colossal.",
+  "element": "spore",
+  "elements": [
+    "spore",
+    "reseau"
+  ],
+  "faction": "Fléau Spore",
+  "topValue": "9",
+  "rightValue": "7",
+  "bottomValue": "7",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi grimdark biomechanical horror, Le Fléau Spore faction. Enormous pulsating heart-like fungal organ atop a mound of petrified flesh, green veins of energy radiating outward into the ground, spore clouds expanding with each pulse, surrounded by growing fungal colonies, bioluminescent purple glow, highly detailed, dark and dramatic."
+}

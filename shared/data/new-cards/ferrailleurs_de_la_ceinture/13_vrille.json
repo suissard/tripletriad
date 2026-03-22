@@ -1,0 +1,15 @@
+{
+  "name": "Vrille",
+  "description": "Spécialiste du combat rapproché en micro-gravité. Ses gantelets rotatifs arrachent les plaques d'armure comme des capsules de conserve.",
+  "element": "None",
+  "elements": [],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "2",
+  "rightValue": "3",
+  "bottomValue": "1",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi scrap-punk CQC infantry, reinforced spacesuit with rotating drill gauntlets, aggressive stance, engine grease war paint, zero-gravity combat, sparks and metal shavings"
+}

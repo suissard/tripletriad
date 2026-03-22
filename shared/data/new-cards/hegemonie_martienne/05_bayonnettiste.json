@@ -1,0 +1,15 @@
+{
+  "name": "Baïonnettiste",
+  "description": "Fantassin d'assaut rapproché de l'Hégémonie. Sa baïonnette à énergie thermique projette une lame rougeoyante capable de trancher l'acier.",
+  "element": "obsidienne",
+  "elements": ["obsidienne"],
+  "faction": "Hégémonie martienne",
+  "topValue": "3",
+  "rightValue": "2",
+  "bottomValue": "1",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Soldier charging forward with railgun rifle fitted with glowing red energy bayonet, aggressive stance, angular obsidian-black armor."
+}

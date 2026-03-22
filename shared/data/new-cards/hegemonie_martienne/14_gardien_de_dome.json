@@ -1,0 +1,15 @@
+{
+  "name": "Gardien de Dôme",
+  "description": "Sentinelle affectée à la défense des habitats pressurisés de l'Hégémonie. Immobile comme une statue, réactif comme un laser.",
+  "element": "None",
+  "elements": ["None"],
+  "faction": "Hégémonie martienne",
+  "topValue": "2",
+  "rightValue": "1",
+  "bottomValue": "3",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Standing guard in heavy angular armor, railgun held across chest, standing before a massive hexagonal dome airlock door."
+}

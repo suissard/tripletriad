@@ -1,0 +1,15 @@
+{
+  "name": "Praeco Anathème",
+  "description": "Unité de guerre psychologique en armure renforcée amplifiant la voix par haut-parleurs directionnels. Diffuse des ultimatums et des fréquences destructrices. Brise le moral avant de briser les os.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Hégémonie martienne",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Psychological warfare heavy infantry with directional speaker arrays on helmet and shoulders, imposing stance, soundwave distortions visible in air around the figure."
+}

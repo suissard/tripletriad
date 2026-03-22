@@ -1,0 +1,18 @@
+{
+  "name": "Sismographe Vivant",
+  "description": "Obélisque rampant dont les parois gravitationnelles émettent des ondes de choc localisées. Il fait trembler le sol et pulvériser les fondations en marchant vers ses cibles.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle",
+    "obsidienne"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "7",
+  "rightValue": "6",
+  "bottomValue": "9",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Crawling black obelisk the size of a building with gravitational distortion waves emanating from its surface, shattering the ground beneath it, cracks spreading through concrete, cosmic horror grimdark sci-fi, seismic energy ripples"
+}

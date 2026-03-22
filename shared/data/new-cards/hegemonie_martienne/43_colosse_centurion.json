@@ -1,0 +1,15 @@
+{
+  "name": "Colosse Centurion",
+  "description": "Marcheur de commandement régimentaire. Centre nerveux mobile du Haut Commandement au sol, entouré de relais tactiques et de batteries défensives. Celui qui contrôle le Colosse contrôle la bataille.",
+  "element": "reseau",
+  "elements": ["reseau", "longue_portee"],
+  "faction": "Hégémonie martienne",
+  "topValue": "8",
+  "rightValue": "7",
+  "bottomValue": "6",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Tall bipedal command walker with a crowned antenna array on top, holographic tactical displays floating around the torso, multiple point-defense turrets, communication dishes, regal but brutal proportions, four stories tall."
+}

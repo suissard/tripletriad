@@ -1,0 +1,15 @@
+{
+  "name": "Gueule de Tethys",
+  "description": "Bathyscaphe géant de guerre, un mouroir flottant armé de découpeurs plasma rotatifs et de canons à pression dévastatrice. Sa carapace bulbeuse en acier oxydé cache un arsenal capable de faire couler une flotte entière en quelques salves.",
+  "element": "eau",
+  "elements": ["eau", "longue_portee"],
+  "faction": "Exode pélagique",
+  "topValue": "6",
+  "rightValue": "9",
+  "bottomValue": "5",
+  "leftValue": "8",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Enormous bulbous bathyscaphe warship on land, four stories tall, rust and verdigris armored hull covered in barnacles and micrometeorite scars, massive rotating plasma cutters on articulated arms, halogen searchlights piercing darkness, asymmetric thrusters spewing boiling steam, cephalopod crew visible through thick reinforced glass filled with luminous cyan water, industrial brutal design, epic sci-fi concept art"
+}

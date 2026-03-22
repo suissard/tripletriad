@@ -1,0 +1,17 @@
+{
+  "name": "Croute Rampante",
+  "description": "Plaque de croûte terrestre animée rampant comme un crabe. Lourde et lente, elle résiste à presque tout mais fonce en ligne droite.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "2",
+  "rightValue": "1",
+  "bottomValue": "3",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Dark sci-fi fantasy, animated tectonic crust plate moving like a crab, heavy dark stone shell, legs of fused rock emerging from edges, unstoppable forward march, cracked earth trail behind, highly detailed"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Fanal",
+  "description": "Éclaireur lumineux du Réseau. Le Fanal projette un faisceau bleu froid qui illumine le champ de bave et marque les cibles pour l'artillerie. Son crâne est un phare — littéralement ouvert pour laisser passer la lumière de l'Architecte.",
+  "element": "reseau",
+  "elements": ["reseau", "longue_portee"],
+  "faction": "Omni-Réseau",
+  "topValue": "1",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Illuminator drone with skull opened to emit cold blue searchlight beam, pale face split by light. Dark grey armor, targeting laser on rifle. Dystopian night battlefield, cold blue spotlight, highly detailed."
+}

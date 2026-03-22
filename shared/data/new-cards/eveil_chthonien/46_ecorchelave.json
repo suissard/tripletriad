@@ -1,0 +1,18 @@
+{
+  "name": "Écorchelave",
+  "description": "Défenseur ancestral dont la carapace de pierre fossile est incrustée de millénaires d'histoire terrestre. Il forme un rempart vivant que seuls les lasers orbitaux peuvent espérer entamer.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne",
+    "radiation"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "8",
+  "rightValue": "3",
+  "bottomValue": "6",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Dark sci-fi fantasy, epic scale. An immense quadrupedal fortress-like creature, its body encrusted with fossils, ancient bones, and embedded human ruins from millennia past. Thick obsidian armor plating with deep cracks revealing molten magma underneath. Smoke rises from its back. A single massive pupilless eye glows deep orange. Standing as an impenetrable wall. Dramatic volcanic landscape, highly detailed."
+}

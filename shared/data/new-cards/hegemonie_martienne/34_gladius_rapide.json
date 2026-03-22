@@ -1,0 +1,15 @@
+{
+  "name": "Gladius Rapide",
+  "description": "Véhicule d'éclairage blindé rapide au profil bas en V. Mitrailleuse jumelle et système de brouillage actif. Éclaire le terrain pour les frappes orbitales et harcèle les positions ennemies.",
+  "element": "furtif",
+  "elements": ["furtif", "reseau"],
+  "faction": "Hégémonie martienne",
+  "topValue": "4",
+  "rightValue": "6",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Fast low-profile V-shaped armored scout vehicle, twin machine guns, active jamming antenna array, speeding across dusty wasteland, dust trail behind."
+}

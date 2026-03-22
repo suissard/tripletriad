@@ -5,11 +5,11 @@
       <div class="coins-display">
         🪙 {{ userCoins }} Pièces
       </div>
-      <button class="btn btn-secondary glass-panel px-3 py-1" @click="$emit('close')">X</button>
+      <button class="btn btn-secondary glass-panel px-3 py-1" @click="handleClose">X</button>
     </div>
 
     <div class="shop-content" v-if="!isOpening && !openedCards.length">
-      <div class="booster-pack" @click="openBooster">
+      <div class="booster-pack" @click="buyBooster">
         <div class="booster-image">
           📦
         </div>
@@ -17,7 +17,7 @@
           <h3>Booster Classique</h3>
           <p>Contient 5 cartes aléatoires</p>
           <button class="btn btn-primary glass-panel" :disabled="userCoins < boosterCost">
-            Ouvrir ({{ boosterCost }} 🪙)
+            Acheter ({{ boosterCost }} 🪙)
           </button>
         </div>
       </div>
@@ -25,7 +25,7 @@
     </div>
 
     <div class="opening-scene" v-else-if="isOpening">
-      <div class="shaking-booster">📦</div>
+      <div class="shaking-booster">🛒</div>
       <p>Ouverture en cours...</p>
     </div>
 
@@ -69,6 +69,9 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
 import { ref, computed, onMounted } from 'vue';
 
 import strapiService from '../api/strapi.js';
@@ -88,13 +91,8 @@ const openedCards = ref([]);
 const error = ref(null);
 
 onMounted(async () => {
-  // Update coins from user profile
-  try {
-      const res = await strapiService.request('GET', '/users/me');
-      userCoins.value = res?.coins || res?.data?.coins || 0;
-  } catch(e) {
-      console.error("Failed to fetch user coins", e);
-  }
+  // Update local coins from store if needed
+  userCoins.value = userStore.user?.coins || 0;
 
   // Try to fetch booster cost
   try {
@@ -107,49 +105,37 @@ onMounted(async () => {
   }
 });
 
-const openBooster = async () => {
+const buyBooster = async () => {
   if (userCoins.value < boosterCost.value) {
     error.value = "Pas assez de pièces !";
     return;
   }
 
   error.value = null;
-  isOpening.value = true;
+  isOpening.value = true; // reusing isOpening for the buy animation state
 
   try {
     let response;
     if (!userStore.strapiConnected) {
-        response = strapiMock.openBooster();
+        // mock behavior for offline
         userStore.user.coins -= boosterCost.value;
         userStore.syncLocalUserWallets();
-    } else {
-        response = await strapiService.request('POST', '/booster/open');
-    }
-
-    setTimeout(() => {
         isOpening.value = false;
-        // Add revealed state to each card
-        openedCards.value = (response?.cards || response?.data?.cards || []).map(c => {
-            // Normalize image: Strapi returns image.url, but TripleTriadCard expects card.imageUrl
-            let imageUrl = c.img || c.imageUrl;
-            if (!imageUrl && c.image?.url) {
-                imageUrl = c.image.url.startsWith('http') ? c.image.url : `http://localhost:1337${c.image.url}`;
-            }
-            if (!imageUrl) {
-                imageUrl = `https://api.dicebear.com/9.x/bottts/png?seed=${encodeURIComponent(c.name)}&backgroundColor=transparent`;
-            }
-            return {...c, imageUrl, revealed: false};
+        error.value = "Acheté (Mode Hors Ligne)";
+    } else {
+        response = await strapiService.request('POST', '/booster/buy', {
+            type: 'classic',
+            collection: 'base'
         });
-        userCoins.value = response?.coins || response?.data?.coins || 0;
+        userCoins.value = response?.wallet?.coins ?? userCoins.value;
         emit('update-coins', userCoins.value);
-        
-        // Update the collection cache so new cards appear immediately
-        userStore.fetchUserCollection();
-    }, 1500); // 1.5s shaking animation
-
+        userStore.fetchUserCollection(); // refresh if needed
+        isOpening.value = false;
+        error.value = "Booster ajouté à votre collection !";
+    }
   } catch (err) {
     console.error(err);
-    error.value = err.response?.data?.error?.message || "Erreur lors de l'ouverture.";
+    error.value = err.response?.data?.error?.message || "Erreur lors de l'achat.";
     isOpening.value = false;
   }
 };
@@ -158,6 +144,11 @@ const revealCard = (index) => {
   if (openedCards.value[index]) {
     openedCards.value[index].revealed = true;
   }
+};
+
+const handleClose = () => {
+    emit('close');
+    router.push('/');
 };
 
 const allRevealed = computed(() => {

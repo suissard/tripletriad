@@ -1,0 +1,15 @@
+{
+  "name": "Nœud de Réseau",
+  "description": "Point de relais vivant du Chœur. Connecté au Synode décentralisé, il coordonne les données tactiques de son escouade en temps réel. Sans lui, le silence devient chaos.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Chœur Synthétique",
+  "topValue": "2",
+  "rightValue": "2",
+  "bottomValue": "4",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark spiritual art, Le Chœur Synthétique faction. Android monk with multiple antenna-like protrusions from head, glowing network lines across body, holographic data streams, faceless, cinematic lighting, highly detailed"
+}

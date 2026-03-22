@@ -1,0 +1,15 @@
+{
+  "name": "Léviathan Scrapé",
+  "description": "Station-marche colossale assemblée de plates-formes spatiales reliées. 10 étages de métal rapiécé qui dévore tout sur son passage. Dieu mécanique de la Ceinture.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "8",
+  "rightValue": "8",
+  "bottomValue": "8",
+  "leftValue": "9",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "Sci-fi scrap-punk colossal walking fortress, ten stories tall assembled from connected space station platforms, massive hydraulic legs, dozens of weapons and antennas, scrap metal hull covered in welded plates and cargo containers, towering over a ruined cityscape, apocalyptic sky, highly detailed, epic scale"
+}

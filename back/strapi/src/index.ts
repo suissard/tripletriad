@@ -88,6 +88,7 @@ export default {
     if (authRole) {
       const actions = [
         // Custom
+        'plugin::users-permissions.user.updateMe',
         'api::user-card.user-card.disenchant',
         'api::user-card.user-card.craft',
         'api::user-card.user-card.massDisenchant',
@@ -113,6 +114,7 @@ export default {
         'api::player-story-progress.player-story-progress.find',
         'api::player-story-progress.player-story-progress.findOne',
         'api::player-story-progress.player-story-progress.claimStepReward',
+        'api::player-story-progress.player-story-progress.unlockStory',
         'api::player-event-log.player-event-log.trackEvent',
         'api::game-config.game-config.find',
       ];

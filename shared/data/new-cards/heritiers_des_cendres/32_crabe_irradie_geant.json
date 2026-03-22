@@ -1,0 +1,17 @@
+{
+  "name": "Crabe Irradié Géant",
+  "description": "Crabe monstrueux irradié utilisé comme monture de guerre.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "8",
+  "rightValue": "5",
+  "bottomValue": "7",
+  "leftValue": "6",
+  "rarity": "Rare",
+  "prompt": "Giant irradiated crab monster with glowing shell, ridden by mutant warriors, pincers ready, post-apocalyptic battlefield, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

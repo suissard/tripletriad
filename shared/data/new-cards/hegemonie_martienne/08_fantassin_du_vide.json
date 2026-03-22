@@ -1,0 +1,15 @@
+{
+  "name": "Fantassin du Vide",
+  "description": "Vétéran de la guerre spatiale habitué au combat en micro-gravité. Déployé par capsule de choc, il adapte ses réflexes zéro-G au sol terrestre.",
+  "element": "None",
+  "elements": ["None"],
+  "faction": "Hégémonie martienne",
+  "topValue": "2",
+  "rightValue": "3",
+  "bottomValue": "1",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Space veteran in angular crimson armor with micro-thruster ports on shoulders, dual wielding compact railguns, floating slightly above ground."
+}

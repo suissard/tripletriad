@@ -1,0 +1,17 @@
+{
+  "name": "Prophète de la Faille",
+  "description": "Cultiste marqué par un Écho Majeur, capable d'ouvrir de micro-brèches dimensionnelles. Son corps lévite et se déforme au rythme des visions.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "2",
+  "rightValue": "4",
+  "bottomValue": "1",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Prophet cultist levitating with small dimensional rifts opening around hands, body distorted in impossible angles, violet neon energy, cosmic horror, grimdark, cinematic"
+}

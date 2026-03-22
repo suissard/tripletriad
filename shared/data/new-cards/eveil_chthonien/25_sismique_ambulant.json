@@ -1,0 +1,17 @@
+{
+  "name": "Sismique Ambulant",
+  "description": "Progéniture massive dont chaque pas déclenche une onde sismique. Son corps vibre en permanence, projetant des pulsations telluriques qui disloquent les formations ennemies.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Dark sci-fi fantasy, massive rock creature stomping the ground sending seismic shockwaves, body made of fractured tectonic plates, glowing red cracks, dust and debris flying, ground shattering around it, epic scale, cinematic lighting"
+}

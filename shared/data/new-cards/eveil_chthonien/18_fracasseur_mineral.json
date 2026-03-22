@@ -1,0 +1,17 @@
+{
+  "name": "Fracasseur Minéral",
+  "description": "Quadrupède massif chargeant comme un bélier. Son crâne de quartzite pulvérise les barricades d'un seul coup de tête.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "3",
+  "rightValue": "2",
+  "bottomValue": "1",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Dark sci-fi fantasy, massive quadrupedal mineral beast charging forward, quartzite skull used as battering ram, dust explosion at impact, rocky hide, powerful legs, highly detailed"
+}

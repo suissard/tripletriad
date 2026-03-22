@@ -1,0 +1,15 @@
+{
+  "name": "Soldat Anti-Mutant",
+  "description": "Chasseur spécialisé dans l'élimination des mutants. Son armure est traitée anti-spores et son arme délivre des salves ioniques ciblées.",
+  "element": "None",
+  "elements": ["None"],
+  "faction": "Hégémonie martienne",
+  "topValue": "3",
+  "rightValue": "1",
+  "bottomValue": "2",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Heavy infantry with sealed reinforced armor, ion blaster emitting blue-white pulses, anti-contamination suit overlays."
+}

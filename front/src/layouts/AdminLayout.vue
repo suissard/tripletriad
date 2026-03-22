@@ -22,7 +22,7 @@
       </header>
 
       <!-- Main view -->
-      <main class="flex-1 overflow-y-auto custom-scrollbar relative z-10">
+      <main class="flex-1 overflow-y-auto custom-scrollbar">
         <slot />
       </main>
     </div>

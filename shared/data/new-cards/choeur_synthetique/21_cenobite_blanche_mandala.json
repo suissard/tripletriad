@@ -1,0 +1,15 @@
+{
+  "name": "Cénobite Blindé du Mandala",
+  "description": "Moine-armure lourd dont le corps céramique gravé de mandalas lumineurs absorbe les chocs. Protège les frontières sacrées du réseau Chœur avec une immobilité sereine.",
+  "element": "reseau",
+  "elements": ["reseau", "obsidienne"],
+  "faction": "Chœur Synthétique",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Grimdark sci-fi, heavily armored humanoid robot monk with a cracked ceramic body etched with glowing golden mandala patterns, ragged brown robes over heavy plating, levitating slightly, faceless smooth metallic mask, holding a short electrified staff, cyber-asceticism, serene and immovable, cinematic lighting, highly detailed"
+}

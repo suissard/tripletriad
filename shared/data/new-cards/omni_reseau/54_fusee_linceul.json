@@ -1,0 +1,15 @@
+{
+  "name": "Fusée Linceul",
+  "description": "Chasseur léger autonome, drone spatial d'interception. Conçu en masse, chaque Linceul est piloté par un crâne greffé. Ils meurent par centaines mais remplissent leur objectif.",
+  "element": "furtif",
+  "elements": ["furtif", "reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "5",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Small autonomous interceptor fighter, angular dark grey wedge-shaped drone spacecraft, single human skull fused into cockpit as pilot-computer, cold blue neural glow from eye sockets, geometric minimal weapons, mass-produced look with barcode serials on wings. Swarm formation of identical fighters in background. Space battlefield. Cinematic lighting, highly detailed."
+}

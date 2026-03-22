@@ -1,0 +1,18 @@
+{
+  "name": "Le Soufre-Noir",
+  "description": "Volcan ambulant crachant des nuages toxiques de soufre et de cendres. Son passage assombrit le ciel sur des centaines de kilomètres, suffoquant tout ce qui respire.",
+  "element": "radiation",
+  "elements": [
+    "radiation",
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "4",
+  "rightValue": "6",
+  "bottomValue": "2",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Dark sci-fi fantasy, epic scale. A colossal walking volcanic creature, part mountain part beast, constantly erupting clouds of black smoke and yellow sulfur gas from its crater-like head. Its body is dark volcanic stone with rivers of yellow-tinged magma. The sky behind it is choked with toxic ash clouds. Smaller rocky creatures flee from its toxic breath. Atmospheric, cinematic, highly detailed."
+}

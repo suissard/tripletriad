@@ -1,0 +1,15 @@
+{
+  "name": "Marcheur Toxique",
+  "description": "Infecté dont le corps entier est un réacteur chimique ambulant. La peau craquelée laisse échapper des gaz verdâtres, et ses pas marquent le sol de brûlures acides.",
+  "element": "spore",
+  "elements": ["spore", "radiation"],
+  "faction": "Fléau Spore",
+  "topValue": "3",
+  "rightValue": "3",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark biomechanical horror, toxic walking fungal creature. Humanoid body with cracked skin leaking green toxic gas, entire body a walking chemical reactor. Footsteps leaving acid burns on ground. Glowing green veins visible through translucent sickly skin. Gas mask fused to face, cracked and useless. Cloud of green vapor around lower body. Cinematic lighting, highly detailed."
+}

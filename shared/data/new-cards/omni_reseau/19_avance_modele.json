@@ -1,0 +1,15 @@
+{
+  "name": "Avance-Modèle",
+  "description": "Prototype d'infanterie de nouvelle génération. Légèrement plus rapide, légèrement plus résistant — l'Architecte teste en permanence de nouveaux paramètres biomécaniques. Si l'Avance survit 48h, le modèle est validé pour la production en série.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "3",
+  "rightValue": "2",
+  "bottomValue": "3",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Prototype infantry drone with experimental enhanced cybernetics, exposed wiring and new implant types, pale face. Dark grey prototype armor with test markings, cold blue and orange light. Dystopian field test, highly detailed."
+}

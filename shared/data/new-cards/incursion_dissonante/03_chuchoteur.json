@@ -1,0 +1,17 @@
+{
+  "name": "Chuchoteur",
+  "description": "Entité immatérielle murmurant des secrets dans les oreilles des dormeurs. Sa voix traverse les murs et brise les esprits les plus solides.",
+  "element": "longue_portee",
+  "elements": [
+    "longue_portee"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "1",
+  "rightValue": "3",
+  "bottomValue": "3",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Ethereal whispering shadow entity pressing through a wall, faint purple tendrils reaching toward a sleeping figure, dark asylum setting, cosmic horror, highly detailed"
+}

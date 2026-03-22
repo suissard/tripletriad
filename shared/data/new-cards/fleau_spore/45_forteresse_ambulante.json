@@ -1,0 +1,17 @@
+{
+  "name": "Forteresse Ambulante",
+  "description": "Un char lourd digéré et transformé en nid fortifié. Ses chenilles crachent des éclats de mycélium, sa tourelle infectée projette des projectiles de chair fongique, et ses flancs sont des ruches grouillantes de créatures mineures prêtes à envahir toute position ennemie.",
+  "element": "spore",
+  "elements": [
+    "spore"
+  ],
+  "faction": "Fléau Spore",
+  "topValue": "8",
+  "rightValue": "8",
+  "bottomValue": "6",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi grimdark biomechanical horror, Le Fléau Spore faction. Heavily armored tank completely consumed by fungal growth, turret transformed into fleshy bio-cannon, sides covered in hive openings leaking smaller infected creatures, rusted metal treads fused with mycelium, green bioluminescent veins, highly detailed, cinematic."
+}

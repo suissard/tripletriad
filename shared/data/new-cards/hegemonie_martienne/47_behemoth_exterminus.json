@@ -1,0 +1,15 @@
+{
+  "name": "Béhémoth Exterminus",
+  "description": "Plate-forme de siège mobile de niveau continental. Sa lentille de focalisation orbital concentre un rayon capable de vitrifier des vallées entières. L'arme de dissuasion ultime de l'Hégémonie — et sa preuve de folie.",
+  "element": "longue_portee",
+  "elements": ["longue_portee", "obsidienne"],
+  "faction": "Hégémonie martienne",
+  "topValue": "9",
+  "rightValue": "9",
+  "bottomValue": "8",
+  "leftValue": "9",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Legendary",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Enormous ten-story quadrupedal siege engine with a massive orbital focusing lens on its dorsal ridge, aiming skyward, lens glowing with concentrated red energy, mountains dwarfed beside it, angular brutalist monolith on legs, ground cracking under its weight."
+}

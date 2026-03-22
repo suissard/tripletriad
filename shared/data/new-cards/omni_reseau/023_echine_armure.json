@@ -1,0 +1,15 @@
+{
+  "name": "Échine-Armure",
+  "description": "Unité renforcée dont l'armure composite est fusionnée à la colonne vertébrale. Bouclier frontal inamovible, posture statique, résistance maximale.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Uncommon",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Reinforced infantry with massive spine-integrated armor, bulky grey composite plating fused with black cables along the back, holding heavy shield, emotionless pale face with cold blue neural chip glow. Standing defensive position, dystopian atmosphere, cinematic lighting, highly detailed."
+}

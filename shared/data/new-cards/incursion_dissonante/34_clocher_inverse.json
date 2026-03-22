@@ -1,0 +1,17 @@
+{
+  "name": "Clocher Inversé",
+  "description": "Flèche d'église arrachée et retournée, pointant vers le sol. Elle lévite et foncent sur les formations ennemies, les vibrations religieuses inversées affolant les croyants.",
+  "element": "obsidienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Inverted church steeple floating upside-down as a ram, crumbling stone covered in inverted religious symbols, gravity-defying impact weapon, purple dimensional energy, cosmic horror grimdark"
+}

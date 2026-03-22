@@ -1,0 +1,15 @@
+{
+  "name": "Tisseuse de Marées",
+  "description": "Psionique matriarcale en armure pressurisée, elle coordonne l'attaque via le réseau synaptique pélagique. Son bocal crache des bulles ionisantes qui court-circuitent l'ennemi.",
+  "element": "reseau",
+  "elements": ["eau", "longue_portee", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Elegant female alien cephalopod psion in translucent exosuit, large spherical helmet with glowing cyan water and psionic energy tendrils, copper filigree details, verdigris plating, neural cables extending from headpiece, ethereal bioluminescent aura, sci-fi concept art"
+}

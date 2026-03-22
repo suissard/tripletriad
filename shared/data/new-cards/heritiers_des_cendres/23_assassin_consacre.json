@@ -1,0 +1,17 @@
+{
+  "name": "Assassin Consacré",
+  "description": "Tueur d'élite avec une lame d'antimatière.",
+  "element": "furtif",
+  "faction": "Héritiers des cendres",
+  "topValue": "4",
+  "rightValue": "8",
+  "bottomValue": "2",
+  "leftValue": "6",
+  "rarity": "Rare",
+  "prompt": "Elite mutant assassin in lightweight enhanced armor, antimatter blade glowing, stealthy pose, post-apocalyptic rooftop, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "furtif"
+  ]
+}

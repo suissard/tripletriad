@@ -1,0 +1,17 @@
+{
+  "name": "Porteur d'Idole",
+  "description": "Porte une relique nucléaire sacrée sur son dos, irradiant tout autour.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "4",
+  "rightValue": "1",
+  "bottomValue": "4",
+  "leftValue": "1",
+  "rarity": "Uncommon",
+  "prompt": "Hunched mutant carrying a glowing nuclear idol strapped to his back, radiation aura, other mutants kneeling, wasteland procession, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

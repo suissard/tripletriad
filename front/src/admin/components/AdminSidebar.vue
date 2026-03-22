@@ -98,6 +98,16 @@
     <AppButton
       variant="ghost"
       fullWidth
+      @click="navigate('/admin/deck-editor')"
+      class="premium-nav-item"
+      :class="{ 'premium-nav-item-active': route.path === '/admin/deck-editor' }"
+    >
+      <span class="icon">🃏</span> Éditeur de Deck
+    </AppButton>
+
+    <AppButton
+      variant="ghost"
+      fullWidth
       @click="navigate('/admin/test-card')"
       class="premium-nav-item"
       :class="{ 'premium-nav-item-active': route.path === '/admin/test-card' }"
@@ -106,7 +116,8 @@
     </AppButton>
 
     <div class="mt-auto pt-10 border-t border-white/5">
-      <AppButton variant="ghost" fullWidth @click="goHome" class="w-full flex items-center justify-between px-6 py-5 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/5 hover:border-white/10 transition-all group text-[10px] font-black uppercase tracking-widest">
+      <DevOptions />
+      <AppButton variant="ghost" fullWidth @click="goHome" class="w-full flex items-center justify-between px-6 py-5 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/5 hover:border-white/10 transition-all group text-[10px] font-black uppercase tracking-widest mt-4">
         <span class="text-gray-400 group-hover:text-white">Retour Accueil</span>
         <span class="opacity-30 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-primary font-bold">←</span>
       </AppButton>
@@ -117,6 +128,7 @@
 <script setup>
 import { useRouter, useRoute } from 'vue-router';
 import AppButton from '../../components/ui/AppButton.vue';
+import DevOptions from './DevOptions.vue';
 import { useUserStore } from '../../stores/userStore';
 import { state } from '../../game/state.js';
 

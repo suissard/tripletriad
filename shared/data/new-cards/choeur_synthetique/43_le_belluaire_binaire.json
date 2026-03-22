@@ -1,0 +1,15 @@
+{
+  "name": "Le Belluaire Binaire",
+  "description": "Ogre mécanique dont la peau est un écran vivant d'équations binaires. Chaque impact sur son blindage est analysé, mémorisé, puis renvoyé.",
+  "element": "reseau",
+  "faction": "Chœur Synthétique",
+  "topValue": "8",
+  "rightValue": "6",
+  "bottomValue": "6",
+  "leftValue": "9",
+  "rarity": "Epic",
+  "prompt": "Hulking robotic beast titan covered in scrolling binary code across its surface, adaptive armor plates, featureless faceplate with golden holographic halos, cable-robe draped over massive shoulders, cyber-monk colossus, grimdark sci-fi TCG card art, highly detailed",
+  "skills": null,
+  "collectionName": null,
+  "elements": ["reseau"]
+}

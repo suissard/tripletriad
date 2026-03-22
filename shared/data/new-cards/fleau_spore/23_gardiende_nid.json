@@ -1,0 +1,15 @@
+{
+  "name": "Gardien de Nid",
+  "description": "Massive forme en armure lourde plantée devant une ruche fongique, ses bras transformés en lames de chitine capables de trancher un blindage léger. L'organisme s'arrache des morceaux de chair pour les relancer en projectiles sporulants.",
+  "element": "spore",
+  "elements": ["spore", "longue_portee"],
+  "faction": "Fléau Spore",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi grimdark biomechanical horror, massive armored fungal guardian standing before a giant pulsating nest, chitine blade arms, ripping flesh chunks as projectiles, bioluminescent purple veins, surrounded by thick toxic spore cloud, grimdark, highly detailed."
+}

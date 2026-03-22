@@ -1,0 +1,17 @@
+{
+  "name": "Ver des Cendres",
+  "description": "Ver géant qui émerge du sol pour dévorer l'ennemi.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "6",
+  "rightValue": "4",
+  "bottomValue": "3",
+  "leftValue": "6",
+  "rarity": "Rare",
+  "prompt": "Giant radioactive sandworm emerging from ground, massive jaws, molten rock dripping, wasteland, post-apocalyptic, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": [
+    "radiation"
+  ]
+}

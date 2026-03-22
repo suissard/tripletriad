@@ -1,0 +1,15 @@
+{
+  "name": "Caporal Vétéran",
+  "description": "Sous-officier aguerri de l'Hégémonie, promu après dix descentes orbitales. Il mène par l'exemple et le mépris de la mort.",
+  "element": "None",
+  "elements": ["None"],
+  "faction": "Hégémonie martienne",
+  "topValue": "3",
+  "rightValue": "2",
+  "bottomValue": "2",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Veteran corporal with scratched but well-maintained crimson armor, angular half-cape over one shoulder, commanding gesture with railgun pointed forward."
+}

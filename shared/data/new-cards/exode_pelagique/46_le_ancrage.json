@@ -1,0 +1,15 @@
+{
+  "name": "L'Ancrage",
+  "description": "Céphalopode géant bio-ingénieré, quatre étages de muscle et de cartilage renforcé par une armature métallique greffée. Véritable forteresse vivante du réseau pélagique, il ancre les lignes de front en déployant des tentacules-électrodes qui électrifient le sol et crachent du plasma ionisé à longue portée.",
+  "element": "eau",
+  "elements": ["eau", "longue_portee", "reseau"],
+  "faction": "Exode pélagique",
+  "topValue": "8",
+  "rightValue": "7",
+  "bottomValue": "6",
+  "leftValue": "9",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Colossal four-story cephalopod kaiju, translucent grey-violet skin revealing bioluminescent veins, grafted metal armor plates in rust-orange and verdigris, massive electrified tentacles spreading outward, cyan plasma arcs between tentacle tips, glass cockpit dome on head filled with glowing water, hydraulic joints visible at tentacle bases, surrounded by electrical discharge on wet ground, dark moody atmosphere, epic giant monster concept art"
+}

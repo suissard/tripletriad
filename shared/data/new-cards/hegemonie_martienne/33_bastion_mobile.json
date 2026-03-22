@@ -1,0 +1,15 @@
+{
+  "name": "Bastion Mobile",
+  "description": "Forteresse roulante transportant une garnison entière. Murs rétractables en acier cramoisie et batteries anti-aériennes intégrées. Se déploie en position de siège en quelques secondes.",
+  "element": "obsidienne",
+  "elements": ["obsidienne"],
+  "faction": "Hégémonie martienne",
+  "topValue": "3",
+  "rightValue": "4",
+  "bottomValue": "6",
+  "leftValue": "5",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Rare",
+  "prompt": "Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring. Massive mobile fortress vehicle with retractable crimson walls, anti-aircraft batteries, angular monolithic box shape, deployed siege mode with walls extended."
+}

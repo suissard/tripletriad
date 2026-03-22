@@ -16,11 +16,13 @@ const routes = [
   { path: '/', component: MainMenu },
   { path: '/game', component: GameView },
   { path: '/collection', component: CollectionView },
+  { path: '/wallet/boosters', component: () => import('../views/WalletBoostersPage.vue') },
   { path: '/deck-editor', name: 'deck-editor-new', component: DeckEditorPage },
   { path: '/deck-editor/:documentId', name: 'deck-editor-edit', component: DeckEditorPage, props: true },
   { path: '/decks', component: DecksPage },
   { path: '/boutique', component: PackOpening },
   { path: '/story', component: StoryPage },
+  { path: '/story/:storyId/step/:stepIndex', component: StoryPage },
   { path: '/quests', component: QuestsPage },
 
   // Admin Routes
@@ -59,6 +61,19 @@ const routes = [
     name: 'admin-test-card',
     component: () => import('../admin/views/CardTestPage.vue'),
     meta: { layout: 'BlankLayout', requiresAdminAuth: true }
+  },
+  {
+    path: '/admin/deck-editor',
+    name: 'admin-deck-editor-new',
+    component: () => import('../views/DeckEditorPage.vue'),
+    meta: { layout: 'BlankLayout', requiresAdminAuth: true }
+  },
+  {
+    path: '/admin/deck-editor/:documentId',
+    name: 'admin-deck-editor-edit',
+    component: () => import('../views/DeckEditorPage.vue'),
+    meta: { layout: 'BlankLayout', requiresAdminAuth: true },
+    props: true
   },
   {
     path: '/admin/test-seed',

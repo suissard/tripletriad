@@ -1,0 +1,18 @@
+{
+  "name": "Chantre des Anomalies",
+  "description": "Cultiste dont la voix ouvre de petites anomalies gravitationnelles. Il chante sans cesse, créant des zones de gravité inversée autour de lui.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle",
+    "longue_portee"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "2",
+  "rightValue": "3",
+  "bottomValue": "2",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Chanting cultist with mouth wide open, objects floating upward around him due to gravity anomaly, purple energy waves emanating, grimdark sci-fi, cosmic horror"
+}

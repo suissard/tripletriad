@@ -1,0 +1,15 @@
+{
+  "name": "Chasseur de Reliques",
+  "description": "Pille les ruines à la recherche d'armes de l'Ancien Monde.",
+  "element": "None",
+  "faction": "Héritiers des cendres",
+  "topValue": "3",
+  "rightValue": "4",
+  "bottomValue": "3",
+  "leftValue": "3",
+  "rarity": "Common",
+  "prompt": "Mutant scavenger searching through ruins, holding a shiny ancient weapon, bags of salvaged tech, post-apocalyptic landscape, grimdark TCG card art",
+  "skills": null,
+  "collectionName": null,
+  "elements": []
+}

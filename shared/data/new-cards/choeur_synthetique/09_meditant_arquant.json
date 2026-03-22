@@ -1,0 +1,15 @@
+{
+  "name": "Méditant Arcant",
+  "description": "Moine d'assaut dont les arcs électriques crépitent le long d'une lance épurée. En état de méditation profonde, il perce les défenses comme un mantra perce le silence.",
+  "element": "hacking",
+  "elements": ["hacking"],
+  "faction": "Chœur Synthétique",
+  "topValue": "3",
+  "rightValue": "3",
+  "bottomValue": "3",
+  "leftValue": "1",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark spiritual art, Le Chœur Synthétique faction. Robot monk meditating while levitating, electrified lance across lap, golden holographic mandala orbiting, serene combat stance, faceless, cinematic lighting, highly detailed"
+}

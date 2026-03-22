@@ -1,0 +1,19 @@
+{
+  "name": "Sarcophage Orbital",
+  "description": "Cercueil titanesque de métal noir et de chair pétrifiée en orbite basse. Il tombe sur les zones ennemies comme un missile guidé psychiquement, libérant son contenu horrifique à l'impact.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "faille_dimensionnelle",
+    "obsidienne",
+    "radiation"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "7",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "6",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Titanic black metal and petrified flesh coffin in low orbit, falling toward the ground as a psychically guided missile, trails of purple energy behind it, cosmic horror grimdark sci-fi, orbital bombardment"
+}

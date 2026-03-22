@@ -1,0 +1,15 @@
+{
+  "name": "Déchiffreur",
+  "description": "Pirate informatique de fortune qui s'attaque aux systèmes ennemis avec des virus de conteneur. Martien par dépit, ferrailleur par vengeance.",
+  "element": "hacking",
+  "elements": ["hacking"],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "1",
+  "rightValue": "1",
+  "bottomValue": "3",
+  "leftValue": "2",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi scrap-punk hacker infantry, modified spacesuit with jury-rigged computer interface on wrist, holographic code display, dark visor, cables connecting to equipment, grimy tech aesthetic"
+}

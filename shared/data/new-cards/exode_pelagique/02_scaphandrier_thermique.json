@@ -1,0 +1,15 @@
+{
+  "name": "Scaphandrier Thermique",
+  "description": "Mineur pélagique reconverti en soldat d'assaut, sa scie thermique circulaire crache des gerbes d'étincelles en fusion. Les vérins hydrauliques de son scaphandre grondent à chaque pas.",
+  "element": "eau",
+  "elements": ["eau"],
+  "faction": "Exode pélagique",
+  "topValue": "2",
+  "rightValue": "1",
+  "bottomValue": "3",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Massive alien cephalopod in bulky repurposed mining exosuit, wielding a glowing circular thermal saw, heavy hydraulic joints, rust and verdigris covered armor plates, orange plasma glow, industrial brutal aesthetic"
+}

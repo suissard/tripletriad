@@ -1,0 +1,15 @@
+{
+  "name": "Relais Synapse",
+  "description": "Antenne biologique ambulante. Le Relais amplifie le signal neural de l'Architecte dans les zones de combat, synchronisant des milliers de drones sur une même impulsion. Détruire un Relais, c'est aveugler tout un secteur.",
+  "element": "reseau",
+  "elements": ["reseau"],
+  "faction": "Omni-Réseau",
+  "topValue": "1",
+  "rightValue": "4",
+  "bottomValue": "1",
+  "leftValue": "3",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Common",
+  "prompt": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Support drone with large antenna dish mounted on back, multiple neural cables extending outward, cold blue signal waves. Pale face, dark grey light armor, barcode on cheek. Dystopian communication relay, highly detailed."
+}

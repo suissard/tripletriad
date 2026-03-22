@@ -1,0 +1,17 @@
+{
+  "name": "Navette Assimilatrice",
+  "description": "Transport orbital fongique, une nacelle en forme de spore géante utilisée pour déposer des charges biologiques massives sur les surfaces planétaires. Sa coque fusionne avec la cible à l'atterrissage, servant immédiatement de colonie germinative.",
+  "element": "spore",
+  "elements": [
+    "spore"
+  ],
+  "faction": "Fléau Spore",
+  "topValue": "7",
+  "rightValue": "7",
+  "bottomValue": "8",
+  "leftValue": "7",
+  "skills": null,
+  "collectionName": null,
+  "rarity": "Epic",
+  "prompt": "Sci-fi grimdark biomechanical horror, Le Fléau Spore faction. Organic shuttle pod shaped like a giant fungal seed, landing on alien terrain, coalescing with the ground upon contact, tendrils spreading from base into soil, passengers emerging as infected creatures, green and purple bioluminescent glow, highly detailed, atmospheric."
+}
