@@ -7,6 +7,7 @@ import PackOpening from '../views/PackOpening.vue'
 import MainMenu from '../views/MainMenu.vue'
 import StoryPage from '../views/StoryPage.vue'
 import QuestsPage from '../views/QuestsPage.vue'
+import StoryStepView from '../views/StoryStepView.vue'
 
 import { useUserStore } from '../stores/userStore'
 // On ne peut pas importer useLayoutStore ici directement car pinia n'est peut-être pas encore instancié.
@@ -22,7 +23,7 @@ const routes = [
   { path: '/decks', component: DecksPage },
   { path: '/boutique', component: PackOpening },
   { path: '/story', component: StoryPage },
-  { path: '/story/:storyId/step/:stepIndex', component: StoryPage },
+  { path: '/story/:storyId/step/:stepIndex', component: StoryStepView },
   { path: '/quests', component: QuestsPage },
 
   // Admin Routes
@@ -85,6 +86,12 @@ const routes = [
     path: '/admin/test-coin',
     name: 'admin-test-coin',
     component: () => import('../admin/views/CoinTossTestPage.vue'),
+    meta: { requiresAdminAuth: true }
+  },
+  {
+    path: '/admin/loading-test',
+    name: 'admin-loading-test',
+    component: () => import('../admin/views/LoadingTestPage.vue'),
     meta: { requiresAdminAuth: true }
   },
   {
