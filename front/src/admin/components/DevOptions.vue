@@ -154,7 +154,6 @@ async function saveSettings() {
         premiumMode: devSettings.premiumMode,
         holoFineness: devSettings.holoFineness
       });
-      console.log('User settings saved to Strapi');
     } catch (err) {
       console.error('Failed to save settings to Strapi:', err);
     }
