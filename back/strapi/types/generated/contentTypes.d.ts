@@ -984,6 +984,11 @@ export interface ApiPlayerStoryProgressPlayerStoryProgress
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    currentSituationId: Schema.Attribute.String;
+    currentStep: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::story-step.story-step'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -995,6 +1000,7 @@ export interface ApiPlayerStoryProgressPlayerStoryProgress
     > &
       Schema.Attribute.DefaultTo<'locked'>;
     publishedAt: Schema.Attribute.DateTime;
+    stepHistory: Schema.Attribute.JSON;
     story: Schema.Attribute.Relation<'manyToOne', 'api::story.story'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1079,18 +1085,23 @@ export interface ApiStoryStepStoryStep extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
-    endDialogue: Schema.Attribute.Component<'story.dialogue', true>;
-    enemyDeck: Schema.Attribute.Relation<'oneToOne', 'api::deck.deck'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::story-step.story-step'
     > &
       Schema.Attribute.Private;
-    playerDeck: Schema.Attribute.Relation<'oneToOne', 'api::deck.deck'>;
     publishedAt: Schema.Attribute.DateTime;
-    rewardCards: Schema.Attribute.Relation<'manyToMany', 'api::card.card'>;
-    startDialogue: Schema.Attribute.Component<'story.dialogue', true>;
+    situations: Schema.Attribute.DynamicZone<
+      [
+        'story.situation-dialogue',
+        'story.situation-battle',
+        'story.situation-choice',
+        'story.situation-reward',
+        'story.situation-game-over',
+        'story.situation-success',
+      ]
+    >;
     story: Schema.Attribute.Relation<'manyToOne', 'api::story.story'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;

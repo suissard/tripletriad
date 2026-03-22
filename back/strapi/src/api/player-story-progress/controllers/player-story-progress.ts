@@ -12,9 +12,15 @@ export default factories.createCoreController('api::player-story-progress.player
     const story = await strapi.entityService.findOne('api::story.story', storyId, {
       populate: {
         steps: {
-          populate: ['rewardCards']
+          populate: {
+            situations: {
+              populate: {
+                rewardCards: true
+              }
+            }
+          }
         }
-      }
+      } as any
     });
 
     if (!story) {
@@ -25,6 +31,10 @@ export default factories.createCoreController('api::player-story-progress.player
     if (!step) {
       return ctx.notFound('Step not found in this story');
     }
+
+    // Find reward cards in situations
+    const rewardSituation = (step as any).situations?.find((s: any) => s.__component === 'story.situation-reward');
+    const stepRewardCards = rewardSituation?.rewardCards || [];
 
     // Find progress
     let progress = await strapi.db.query('api::player-story-progress.player-story-progress').findOne({
@@ -51,9 +61,9 @@ export default factories.createCoreController('api::player-story-progress.player
 
     // Add reward
     let rewardedCard = null;
-    if (step.rewardCards && step.rewardCards.length > 0) {
+    if (stepRewardCards && stepRewardCards.length > 0) {
       // pick a random card from the rewards
-      const randomCard = step.rewardCards[Math.floor(Math.random() * step.rewardCards.length)];
+      const randomCard = stepRewardCards[Math.floor(Math.random() * stepRewardCards.length)];
 
       // give card to user
       const existingUserCard = await strapi.db.query('api::user-card.user-card').findOne({

@@ -22,6 +22,41 @@ export interface FoilLayer extends Struct.ComponentSchema {
   };
 }
 
+export interface StoryChoiceCondition extends Struct.ComponentSchema {
+  collectionName: 'components_story_choice_conditions';
+  info: {
+    description: 'Condition required to unlock a choice option';
+    displayName: 'Choice Condition';
+  };
+  attributes: {
+    type: Schema.Attribute.Enumeration<
+      [
+        'hasCard',
+        'hasCoin',
+        'hasGem',
+        'hasVisitedSituation',
+        'hasWonBattle',
+        'hasLostBattle',
+      ]
+    > &
+      Schema.Attribute.Required;
+    value: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface StoryChoiceOption extends Struct.ComponentSchema {
+  collectionName: 'components_story_choice_options';
+  info: {
+    description: 'An option within a multiple-choice situation';
+    displayName: 'Choice Option';
+  };
+  attributes: {
+    conditions: Schema.Attribute.Component<'story.choice-condition', true>;
+    nextSituationId: Schema.Attribute.String & Schema.Attribute.Required;
+    text: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface StoryDialogue extends Struct.ComponentSchema {
   collectionName: 'components_story_dialogues';
   info: {
@@ -38,11 +73,99 @@ export interface StoryDialogue extends Struct.ComponentSchema {
   };
 }
 
+export interface StorySituationBattle extends Struct.ComponentSchema {
+  collectionName: 'components_story_situation_battles';
+  info: {
+    description: 'A battle with branching outcomes';
+    displayName: 'Situation: Battle';
+  };
+  attributes: {
+    enemyDeck: Schema.Attribute.Relation<'oneToOne', 'api::deck.deck'>;
+    onLoseSituationId: Schema.Attribute.String;
+    onWinSituationId: Schema.Attribute.String & Schema.Attribute.Required;
+    playerDeck: Schema.Attribute.Relation<'oneToOne', 'api::deck.deck'>;
+    situationId: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface StorySituationChoice extends Struct.ComponentSchema {
+  collectionName: 'components_story_situation_choices';
+  info: {
+    description: 'A situation where the player makes a choice';
+    displayName: 'Situation: Choice';
+  };
+  attributes: {
+    options: Schema.Attribute.Component<'story.choice-option', true>;
+    situationId: Schema.Attribute.String & Schema.Attribute.Required;
+    text: Schema.Attribute.Text & Schema.Attribute.Required;
+  };
+}
+
+export interface StorySituationDialogue extends Struct.ComponentSchema {
+  collectionName: 'components_story_situation_dialogues';
+  info: {
+    description: 'A dialogue sequence before moving to the next situation';
+    displayName: 'Situation: Dialogue';
+  };
+  attributes: {
+    dialogues: Schema.Attribute.Component<'story.dialogue', true>;
+    nextSituationId: Schema.Attribute.String;
+    situationId: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface StorySituationGameOver extends Struct.ComponentSchema {
+  collectionName: 'components_story_situation_game_overs';
+  info: {
+    description: 'Ends the current step in failure';
+    displayName: 'Situation: Game Over';
+  };
+  attributes: {
+    message: Schema.Attribute.String & Schema.Attribute.Required;
+    situationId: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface StorySituationReward extends Struct.ComponentSchema {
+  collectionName: 'components_story_situation_rewards';
+  info: {
+    description: 'A situation that gives the player a reward';
+    displayName: 'Situation: Reward';
+  };
+  attributes: {
+    nextSituationId: Schema.Attribute.String;
+    rewardCards: Schema.Attribute.Relation<'oneToMany', 'api::card.card'>;
+    rewardCoins: Schema.Attribute.Integer;
+    rewardGems: Schema.Attribute.Integer;
+    situationId: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface StorySituationSuccess extends Struct.ComponentSchema {
+  collectionName: 'components_story_situation_successes';
+  info: {
+    description: 'Ends the current step in success';
+    displayName: 'Situation: Success';
+  };
+  attributes: {
+    message: Schema.Attribute.String & Schema.Attribute.Required;
+    situationId: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'foil.layer': FoilLayer;
+      'story.choice-condition': StoryChoiceCondition;
+      'story.choice-option': StoryChoiceOption;
       'story.dialogue': StoryDialogue;
+      'story.situation-battle': StorySituationBattle;
+      'story.situation-choice': StorySituationChoice;
+      'story.situation-dialogue': StorySituationDialogue;
+      'story.situation-game-over': StorySituationGameOver;
+      'story.situation-reward': StorySituationReward;
+      'story.situation-success': StorySituationSuccess;
     }
   }
 }
