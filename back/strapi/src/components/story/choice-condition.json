@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_story_choice_conditions",
+  "info": {
+    "displayName": "Choice Condition",
+    "description": "Condition required to unlock a choice option"
+  },
+  "options": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "hasCard",
+        "hasCoin",
+        "hasGem",
+        "hasVisitedSituation",
+        "hasWonBattle",
+        "hasLostBattle"
+      ],
+      "required": true
+    },
+    "value": {
+      "type": "string",
+      "required": true,
+      "description": "Card ID, amount of coins/gems, or Situation ID"
+    }
+  }
+}

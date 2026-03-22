@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_story_choice_options",
+  "info": {
+    "displayName": "Choice Option",
+    "description": "An option within a multiple-choice situation"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true
+    },
+    "nextSituationId": {
+      "type": "string",
+      "required": true
+    },
+    "conditions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "story.choice-condition"
+    }
+  }
+}

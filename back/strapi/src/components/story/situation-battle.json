@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_story_situation_battles",
+  "info": {
+    "displayName": "Situation: Battle",
+    "description": "A battle with branching outcomes"
+  },
+  "options": {},
+  "attributes": {
+    "situationId": {
+      "type": "string",
+      "required": true
+    },
+    "enemyDeck": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::deck.deck"
+    },
+    "playerDeck": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::deck.deck"
+    },
+    "onWinSituationId": {
+      "type": "string",
+      "required": true
+    },
+    "onLoseSituationId": {
+      "type": "string"
+    }
+  }
+}
