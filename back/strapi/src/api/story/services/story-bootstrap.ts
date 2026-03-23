@@ -24,15 +24,16 @@ export async function bootstrapStories(strapi: any) {
 
     // Get all cards for random rewards
     const allCards = await strapi.entityService.findMany('api::card.card', {
-      fields: ['id']
+      fields: ['id', 'name']
     });
     const cardIds = allCards.map((c: any) => c.id);
 
     // Get all decks for validation
     const allDecks = await strapi.entityService.findMany('api::deck.deck', {
-      fields: ['id']
+      fields: ['id', 'name']
     });
     const deckIds = allDecks.map((d: any) => d.id);
+    const deckMap = new Map(allDecks.map((d: any) => [d.name, d.id]));
 
     const storiesToProcess = [];
 
@@ -106,6 +107,10 @@ export async function bootstrapStories(strapi: any) {
             }
             // Validate decks in battle
             if (cleanSit.__component === 'story.situation-battle') {
+              if (cleanSit.enemyDeckName && deckMap.has(cleanSit.enemyDeckName)) cleanSit.enemyDeck = deckMap.get(cleanSit.enemyDeckName);
+              if (cleanSit.playerDeckName && deckMap.has(cleanSit.playerDeckName)) cleanSit.playerDeck = deckMap.get(cleanSit.playerDeckName);
+              delete cleanSit.enemyDeckName;
+              delete cleanSit.playerDeckName;
               if (cleanSit.enemyDeck && !deckIds.includes(Number(cleanSit.enemyDeck))) delete cleanSit.enemyDeck;
               if (cleanSit.playerDeck && !deckIds.includes(Number(cleanSit.playerDeck))) delete cleanSit.playerDeck;
             }

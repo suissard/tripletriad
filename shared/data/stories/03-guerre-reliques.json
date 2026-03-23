@@ -1,0 +1,245 @@
+{
+  "title": "La Guerre des Reliques : L'Usine Cendrée",
+  "description": "Les Héritiers des Cendres et le Chœur Synthétique s'affrontent pour le contrôle d'une antique méga-usine.",
+  "situations": [
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "intro",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Devant vous s'élève une méga-usine abandonnée. Le sol crépite sous les radiations. Une escouade de mutants s'approche d'un bataillon de robots rouillés.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Éveillé du Chœur",
+          "sentence": "Protocole de Terre Sainte activé. Les anomalies génétiques doivent reculer. Vos armes primitives ne vous sauveront pas de notre hacking.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Aberration Mutante",
+          "sentence": "Gaaarh ! La chair fondra votre métal ! Reliques sacrées... feu divin !",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "choix_initial"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "choix_initial",
+      "text": "Une bataille s'engage. De quel côté allez-vous pencher ?",
+      "options": [
+        {
+          "text": "Rejoindre le Chœur Synthétique. La technologie prévaudra.",
+          "nextSituationId": "alliance_choeur"
+        },
+        {
+          "text": "Soutenir les Héritiers des Cendres. Leur puissance brute est terrifiante.",
+          "nextSituationId": "alliance_mutant"
+        },
+        {
+          "text": "Attendre que les lasers aliens de l'Exode Pélagique frappent, ils cherchent sûrement de la glace ici.",
+          "nextSituationId": "attente_pelagique"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "alliance_choeur",
+      "dialogues": [
+        {
+          "name": "Éveillé du Chœur",
+          "sentence": "Unité organique auxiliaire acceptée. Protégez notre noyau pendant l'intrusion du pare-feu mutant.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "combat_mutant"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "combat_mutant",
+      "enemyDeckName": "Les Héritiers des Cendres",
+      "onWinSituationId": "victoire_choeur",
+      "onLoseSituationId": "defaite_choeur"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "victoire_choeur",
+      "dialogues": [
+        {
+          "name": "Éveillé du Chœur",
+          "sentence": "Hacking réussi. Surcharge du réacteur d'antimatière mutant imminente. Victoire calculée à 100%.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "L'arme du mutant explose dans un éclat aveuglant, carbonisant ses alliés. L'usine appartient aux robots.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "recompense_choeur"
+    },
+    {
+      "__component": "story.situation-reward",
+      "situationId": "recompense_choeur",
+      "nextSituationId": "fin_choeur"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "defaite_choeur",
+      "dialogues": [
+        {
+          "name": "Aberration Mutante",
+          "sentence": "Métal broyé ! Chair triomphante !",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "fin_mort_mutante"
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fin_mort_mutante",
+      "message": "Vous avez été pulvérisé par une ogive d'antimatière instable des Héritiers des Cendres."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "alliance_mutant",
+      "dialogues": [
+        {
+          "name": "Aberration Mutante",
+          "sentence": "L'étranger saigne rouge ! Combat avec nous ! Brise leurs crânes de fer !",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "combat_robot"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "combat_robot",
+      "enemyDeckName": "Le Chœur Synthétique",
+      "onWinSituationId": "victoire_mutant",
+      "onLoseSituationId": "defaite_mutant"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "victoire_mutant",
+      "dialogues": [
+        {
+          "name": "Aberration Mutante",
+          "sentence": "Le fer pleure des étincelles. L'Usine est nôtre ! Prends ça, enfant du ciel.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "recompense_mutant"
+    },
+    {
+      "__component": "story.situation-reward",
+      "situationId": "recompense_mutant",
+      "nextSituationId": "fin_mutant"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "defaite_mutant",
+      "dialogues": [
+        {
+          "name": "Éveillé du Chœur",
+          "sentence": "Élimination de la menace organique confirmée. Démarrage de la chaîne de montage.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "fin_mort_robot"
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fin_mort_robot",
+      "message": "Les algorithmes de guerre du Chœur Synthétique ont eu raison de vous."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "attente_pelagique",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Un éclair bleuté déchire l'air. Un escadron de Céphalopodes en exosquelettes se téléporte au milieu de la bataille. Leurs lasers hydro-thermiques font fondre le Chœur Synthétique instantanément !",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Céphalopode Mineur",
+          "sentence": "*Bruits aquatiques étouffés* (Purifiez cette zone ! Abattez ces mutants !)",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "combat_pelagique"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "combat_pelagique",
+      "enemyDeckName": "L'Exode Pélagique",
+      "onWinSituationId": "victoire_pelagique",
+      "onLoseSituationId": "defaite_pelagique"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "victoire_pelagique",
+      "dialogues": [
+        {
+          "name": "Céphalopode Mineur",
+          "sentence": "*Glouglous frénétiques* (Repli spatial tactique ! Trop de résistance humaine !)",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "recompense_pelagique"
+    },
+    {
+      "__component": "story.situation-reward",
+      "situationId": "recompense_pelagique",
+      "nextSituationId": "fin_pelagique"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "defaite_pelagique",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Les lasers miniers extra-terrestres vous transpercent. L'Exode Pélagique continue son implacable nettoyage thermique.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "fin_mort_pelagique"
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fin_mort_pelagique",
+      "message": "Vous avez été désintégré par l'arsenal alien de l'Exode Pélagique."
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "fin_choeur",
+      "message": "Grâce à vous, le Chœur a étendu son emprise technologique."
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "fin_mutant",
+      "message": "Les Héritiers ont purifié la zone avec l'antimatière sacrée."
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "fin_pelagique",
+      "message": "Vous avez survécu à un raid de téléportation inattendu de l'Exode Pélagique."
+    }
+  ]
+}
