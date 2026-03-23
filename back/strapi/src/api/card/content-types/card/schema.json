@@ -104,12 +104,6 @@
       "relation": "manyToMany",
       "target": "api::story.story",
       "mappedBy": "rewardCards"
-    },
-    "storyStepsRewardedFrom": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::story-step.story-step",
-      "mappedBy": "rewardCards"
     }
   }
 }

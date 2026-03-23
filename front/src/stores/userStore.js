@@ -28,11 +28,13 @@ export const useUserStore = defineStore('user', {
     strapiConnected: false,
     hasEverConnected: false,
     initializationStatus: 'loading', // 'loading' | 'ready'
+    isOfflineStoryMode: false,
     error: null
   }),
 
   getters: {
     isOffline: (state) => !state.strapiConnected,
+    isGuestStoryMode: (state) => state.isOfflineStoryMode || (!state.isLoggedIn && !state.strapiConnected),
     isAdmin: (state) => state.user?.role === 'Admin' || state.user?.role === 'Super Admin'
   },
 
@@ -173,6 +175,7 @@ export const useUserStore = defineStore('user', {
         role: null
       };
       this.isLoggedIn = false;
+      this.isOfflineStoryMode = false;
       this.collection = [];
       this.collectionLoaded = false;
       this.userDecks = [];
@@ -616,6 +619,9 @@ export const useUserStore = defineStore('user', {
         console.error('Update profile failed', e);
         return { error: 'Network error' };
       }
+    },
+    toggleOfflineStoryMode(value) {
+      this.isOfflineStoryMode = value;
     }
   }
 });

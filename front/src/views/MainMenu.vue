@@ -2,7 +2,7 @@
   <div id="main-menu" v-if="state.gameState === 'menu' ">
 
     <div v-if="state.menuView === 'main'" class="menu-buttons">
-      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openStory" :disabled="!userStore.strapiConnected">MODE HISTOIRE 📖</AppButton>
+      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openStory">MODE HISTOIRE 📖</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openQuests" :disabled="!userStore.strapiConnected">QUÊTES JOURNALIÈRES 🎯</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="state.menuView = 'ai'">JOUER CONTRE UNE IA 🤖</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="state.menuView = 'multi-deck'" :disabled="!userStore.strapiConnected">PARTIE MULTIJOUEUR 🌍</AppButton>

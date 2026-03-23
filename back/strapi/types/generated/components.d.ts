@@ -37,6 +37,7 @@ export interface StoryChoiceCondition extends Struct.ComponentSchema {
         'hasVisitedSituation',
         'hasWonBattle',
         'hasLostBattle',
+        'hasItem',
       ]
     > &
       Schema.Attribute.Required;

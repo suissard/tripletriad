@@ -508,10 +508,6 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
       'manyToMany',
       'api::story.story'
     >;
-    storyStepsRewardedFrom: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::story-step.story-step'
-    >;
     topValue: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{

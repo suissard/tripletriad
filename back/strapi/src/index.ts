@@ -181,71 +181,32 @@ export default {
     await generateQuestTemplates(strapi);
     console.log('✅ Quest templates generated.');
 
-    // 3. Setup Default Cards from shared/data/cards.json
     try {
       const { bootstrapCards } = require('./api/card/services/card-bootstrap');
       await bootstrapCards(strapi);
+      console.log('✅ Cards bootstrapped.');
     } catch (err) {
       console.error('❌ Error bootstrapping cards:', err);
     }
-    }
+
     // 3.3. Bootstrapping decks
     try {
       const { bootstrapDecks } = require('./api/deck/services/deck-bootstrap');
       await bootstrapDecks(strapi);
+      console.log('✅ Decks bootstrapped.');
     } catch (err) {
       console.error('❌ Error bootstrapping decks:', err);
     }
 
     // 3.4. Bootstrapping stories
-    // 3.3. Bootstrapping decks
     try {
-      const { bootstrapDecks } = require('./api/deck/services/deck-bootstrap');
-      await bootstrapDecks(strapi);
-    } catch (err) {
-      console.error('❌ Error bootstrapping decks:', err);
-    }
-
-    try {
-    // 3.3. Bootstrapping decks
-    try {
-      const { bootstrapDecks } = require('./api/deck/services/deck-bootstrap');
-      await bootstrapDecks(strapi);
-    } catch (err) {
-      console.error('❌ Error bootstrapping decks:', err);
-    }
-
       const { bootstrapStories } = require('./api/story/services/story-bootstrap');
-    // 3.3. Bootstrapping decks
-    try {
-      const { bootstrapDecks } = require('./api/deck/services/deck-bootstrap');
-      await bootstrapDecks(strapi);
-    } catch (err) {
-      console.error('❌ Error bootstrapping decks:', err);
-    }
-
       await bootstrapStories(strapi);
-    // 3.3. Bootstrapping decks
-    try {
-      const { bootstrapDecks } = require('./api/deck/services/deck-bootstrap');
-      await bootstrapDecks(strapi);
+      console.log('✅ Stories bootstrapped.');
     } catch (err) {
-      console.error('❌ Error bootstrapping decks:', err);
-    }
-
-    } catch (err) {
-    // 3.3. Bootstrapping decks
-    try {
-      const { bootstrapDecks } = require('./api/deck/services/deck-bootstrap');
-      await bootstrapDecks(strapi);
-    } catch (err) {
-      console.error('❌ Error bootstrapping decks:', err);
-    }
-
       console.error('❌ Error bootstrapping stories:', err);
     }
 
-    // 3.5. Backfill existing users to ensure they have enough active/pending quests
     // 3.5. Backfill existing users to ensure they have enough active/pending quests
     const allUsers = await strapi.entityService.findMany('plugin::users-permissions.user');
     const { assignQuestsToUser } = require('./api/player-quest/services/quest-assignment');

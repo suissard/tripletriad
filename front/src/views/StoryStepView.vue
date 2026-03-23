@@ -101,7 +101,7 @@ const storyId = computed(() => Number(route.params.storyId));
 const stepIndex = computed(() => Number(route.params.stepIndex));
 
 onMounted(async () => {
-  if (!userStore.isLoggedIn) {
+  if (!userStore.isLoggedIn && !userStore.isOfflineStoryMode) {
     router.push('/story');
     return;
   }
@@ -120,6 +120,11 @@ async function fetchConfig() {
 async function loadStepData() {
   isLoading.value = true;
   try {
+    if (userStore.isOfflineStoryMode) {
+      await fetchLocalStepData();
+      return;
+    }
+    
     await userStore.fetchUserStoryProgresses();
     const storiesRes = await strapiService.find('stories', {
       filters: { id: storyId.value },
@@ -127,14 +132,23 @@ async function loadStepData() {
         steps: {
           populate: {
             situations: {
-              populate: {
-                dialogues: { populate: { card: { populate: ['image'] } } },
-                options: true,
-                rewardCards: { populate: ['image'] }
+              on: {
+                'story.situation-reward': {
+                  populate: { rewardCards: { populate: ['image'] } }
+                },
+                'story.situation-battle': {
+                  populate: { 
+                    playerDeck: { populate: { cards: { populate: ['image'] } } },
+                    enemyDeck: { populate: { cards: { populate: ['image'] } } }
+                  }
+                },
+                'story.situation-dialogue': {
+                  populate: { 
+                    dialogues: { populate: { card: { populate: ['image'] } } }
+                  }
+                }
               }
-            },
-            playerDeck: { populate: { cards: { populate: ['image'] } } },
-            enemyDeck: { populate: { cards: { populate: ['image'] } } }
+            }
           }
         }
       }
@@ -195,6 +209,59 @@ async function loadStepData() {
   }
 }
 
+async function fetchLocalStepData() {
+  try {
+    const modules = import.meta.glob('../../../../shared/data/stories/*.json', { eager: true });
+    // Identify which story it is. StoryId in offline mode is "local-N" where N is 1-based index
+    const storyIdx = String(route.params.storyId).startsWith('local-') 
+      ? parseInt(String(route.params.storyId).replace('local-', '')) - 1
+      : 0;
+
+    const moduleEntries = Object.entries(modules);
+    if (storyIdx < 0 || storyIdx >= moduleEntries.length) {
+      throw new Error("Story not found");
+    }
+
+    const storyData = moduleEntries[storyIdx][1].default || moduleEntries[storyIdx][1];
+    currentStory.value = storyData;
+    
+    // In local JSON, we might have steps array or situations array (single step)
+    let steps = [];
+    if (storyData.steps) {
+      steps = storyData.steps;
+    } else if (storyData.situations) {
+      steps = [{
+        title: storyData.title,
+        description: storyData.description,
+        situations: storyData.situations
+      }];
+    }
+
+    const stepIdx = stepIndex.value - 1;
+    currentStep.value = steps[stepIdx];
+
+    if (currentStep.value) {
+      isReplay.value = false;
+      
+      // Handling return from battle
+      if (route.query.result && route.query.fromSituation) {
+         const battleSituation = currentStep.value.situations.find(s => s.situationId === route.query.fromSituation);
+         if (battleSituation) {
+            const nextId = route.query.result === 'win' ? battleSituation.onWinSituationId : battleSituation.onLoseSituationId;
+            await loadSituation(nextId);
+         } else {
+            await loadSituation(currentStep.value.situations[0].situationId);
+         }
+      } else {
+         await loadSituation(currentStep.value.situations[0].situationId);
+      }
+    }
+  } catch (err) {
+    console.error('Failed to load local step data:', err);
+    router.push('/story');
+  }
+}
+
 async function loadSituation(situationId) {
   if (!situationId || !currentStep.value) {
     finishStep(true);
@@ -219,18 +286,15 @@ async function nextSituation() {
   if (!currentSituation.value) return;
   const nextId = currentSituation.value.nextSituationId;
 
-  if (!nextId) {
-    finishStep(true);
-    return;
-  }
-
   // Save progress on transition
-  await userStore.saveStepProgress(storyId.value, currentStep.value.id, nextId);
+  if (!userStore.isOfflineStoryMode) {
+    await userStore.saveStepProgress(storyId.value, currentStep.value.id, nextId);
+  }
   await loadSituation(nextId);
 }
 
 function getProgress(storyId) {
-  if (!userStore.storyProgresses) return null;
+  if (userStore.isOfflineStoryMode || !userStore.storyProgresses) return null;
   return userStore.storyProgresses.find(p => {
     const storyData = p.story?.data || p.story;
     if (!storyData) return false;
@@ -242,11 +306,13 @@ function getProgress(storyId) {
 }
 
 function isStepCompleted(storyId, stepId) {
+  if (userStore.isOfflineStoryMode) return false;
   const p = getProgress(storyId);
   return p && p.completedSteps && p.completedSteps.includes(stepId);
 }
 
 function isStepActive(storyId, stepIdx) {
+  if (userStore.isOfflineStoryMode) return true;
   const p = getProgress(storyId);
   if (!p) return false;
   const completedCount = p.completedSteps ? p.completedSteps.length : 0;
@@ -263,17 +329,22 @@ async function handleChoice(option) {
   };
 
   const nextId = option.nextSituationId;
-  const res = await userStore.saveStepProgress(storyId.value, currentStep.value.id, nextId, historyEntry);
-  if (res) {
-    await loadSituation(nextId);
-  } else {
-    console.error("Failed to save choice progress");
+  
+  if (!userStore.isOfflineStoryMode) {
+    await userStore.saveStepProgress(storyId.value, currentStep.value.id, nextId, historyEntry);
   }
+  
+  await loadSituation(nextId);
 }
 
-// Reward Logic
 async function processReward(situation) {
   try {
+    if (userStore.isOfflineStoryMode) {
+      // In offline mode, rewards are just skipped or shown as placeholders
+      // For now, let's just proceed to next situation
+      nextSituation();
+      return;
+    }
     const res = await userStore.claimSituationReward(storyId.value, currentStep.value.id, situation.situationId);
     if (res && (res.reward || res.coins)) {
       reward.value = res.reward;
@@ -299,8 +370,8 @@ async function playCombat() {
   if (currentSituation.value?.__component !== 'story.situation-battle') return;
 
   try {
-    let playerDeckCards = currentStep.value.playerDeck?.cards || [];
-    let enemyDeckCards = currentStep.value.enemyDeck?.cards || [];
+    let playerDeckCards = currentSituation.value.playerDeck?.cards || [];
+    let enemyDeckCards = currentSituation.value.enemyDeck?.cards || [];
 
     if (playerDeckCards.length > 0) {
       gameState.playerDeckSelection = playerDeckCards.map(normalizeCard);
@@ -337,15 +408,17 @@ function quitStep() {
 
 async function restartStep() {
   const firstSituation = currentStep.value.situations[0];
-  await userStore.saveStepProgress(storyId.value, currentStep.value.id, firstSituation.situationId, {
-    action: 'start',
-    timestamp: new Date().toISOString()
-  });
+  if (!userStore.isOfflineStoryMode) {
+    await userStore.saveStepProgress(storyId.value, currentStep.value.id, firstSituation.situationId, {
+      action: 'start',
+      timestamp: new Date().toISOString()
+    });
+  }
   await loadSituation(firstSituation.situationId);
 }
 
 async function finishStep(completed = false) {
-  if (completed) {
+  if (completed && !userStore.isOfflineStoryMode) {
      // Trigger legacy claimStepReward with no situationId to complete the step
      try {
        const token = localStorage.getItem('tt_jwt');

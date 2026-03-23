@@ -36,5 +36,5 @@ services:
       APP_KEYS: ${APP_KEYS}
       NODE_ENV: development
     command: >
-      sh -c "npm install && npm run develop"
+      sh -c "npm install --no-audit --no-fund --loglevel=error && npm run develop"
     restart: unless-stopped

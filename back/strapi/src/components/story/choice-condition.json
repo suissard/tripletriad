@@ -14,7 +14,8 @@
         "hasGem",
         "hasVisitedSituation",
         "hasWonBattle",
-        "hasLostBattle"
+        "hasLostBattle",
+        "hasItem"
       ],
       "required": true
     },

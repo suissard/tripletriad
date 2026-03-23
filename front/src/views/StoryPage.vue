@@ -1,8 +1,11 @@
 <template>
   <PageLayout title="MODE HISTOIRE" backRoute="/">
     <div class="story-container">
-      <div v-if="!userStore.isLoggedIn" class="auth-notice">
-        <p>Connectez-vous pour jouer au mode Histoire.</p>
+      <div v-if="!userStore.isLoggedIn && !userStore.isOfflineStoryMode" class="auth-notice">
+        <p>Connectez-vous pour jouer au mode Histoire ou jouez en mode invité.</p>
+        <div class="auth-actions">
+           <AppButton @click="userStore.toggleOfflineStoryMode(true)" variant="secondary" outline>Mode Invité (Hors Ligne)</AppButton>
+        </div>
       </div>
       <div v-else-if="isLoading" class="loading-state">
         <div class="loading-spinner large">✨</div>
@@ -135,6 +138,12 @@
            </AppButton>
          </div>
        </AppModal>
+
+      <div v-if="userStore.isOfflineStoryMode" class="offline-notice">
+        <div class="offline-badge">MODE HORS LIGNE</div>
+        <p>Toutes les histoires sont débloquées. Votre progression ne sera pas sauvegardée.</p>
+        <AppButton @click="userStore.toggleOfflineStoryMode(false); router.push('/')" size="sm" variant="secondary" outline>Quitter le mode hors ligne</AppButton>
+      </div>
      </div>
   </PageLayout>
 </template>
@@ -166,12 +175,25 @@ const canUnlockStory = ref(false);
 const pendingStoryId = ref(null);
 
 onMounted(async () => {
-  if (userStore.isLoggedIn) {
+  if (userStore.isOfflineStoryMode) {
+    await fetchLocalStories();
+    await restoreStateFromUrl();
+  } else if (userStore.isLoggedIn) {
     await fetchConfig();
     await fetchStories();
     await restoreStateFromUrl();
   } else {
     isLoading.value = false;
+  }
+});
+
+watch(() => userStore.isOfflineStoryMode, async (newVal) => {
+  if (newVal) {
+    await fetchLocalStories();
+  } else if (userStore.isLoggedIn) {
+    await fetchStories();
+  } else {
+    stories.value = [];
   }
 });
 
@@ -217,6 +239,55 @@ async function handleUnlockFromModal() {
   if (getStoryStatus(pendingStoryId.value) !== 'locked') {
     showRefusalModal.value = false;
     restoreStateFromUrl();
+  }
+}
+
+async function fetchLocalStories() {
+  isLoading.value = true;
+  try {
+    // Vite handles relative paths in glob
+    const modules = import.meta.glob('../../../../shared/data/stories/*.json', { eager: true });
+    
+    const localStories = Object.entries(modules).map(([path, module], index) => {
+      const storyData = module.default || module;
+      // Map local format to UI format if needed
+      // Our UI expects steps: [ { title, description, rewardCards: [] } ]
+      // The JSON has situations at root or steps.
+      
+      let steps = [];
+      if (storyData.steps) {
+        steps = storyData.steps.map(step => {
+          return {
+            ...step,
+            rewardCards: step.rewardCards || []
+          };
+        });
+      } else if (storyData.situations) {
+        // Single step story
+        steps = [{
+          id: `local-step-${index}`,
+          title: storyData.title,
+          description: storyData.description,
+          situations: storyData.situations,
+          rewardCards: []
+        }];
+      }
+
+      return {
+        id: `local-${index + 1}`,
+        idReal: index + 1, // Useful for mapping to local files if needed
+        title: storyData.title,
+        description: storyData.description,
+        steps: steps,
+        rewardCards: storyData.rewardCards || []
+      };
+    });
+
+    stories.value = localStories;
+  } catch (err) {
+    console.error('Failed to load local stories:', err);
+  } finally {
+    isLoading.value = false;
   }
 }
 
@@ -272,10 +343,34 @@ async function fetchStories() {
     const storiesRes = await strapiService.find('stories', {
       populate: {
         rewardCards: { populate: ['image'] },
-        steps: { populate: { rewardCards: { populate: ['image'] } } }
+        steps: { 
+          populate: { 
+            situations: { 
+              on: {
+                'story.situation-reward': {
+                  populate: { rewardCards: { populate: ['image'] } }
+                }
+              }
+            } 
+          } 
+        }
       }
     });
-    stories.value = storiesRes.data;
+
+    // Map steps to extract rewardCards from situations for easier display in template
+    stories.value = storiesRes.data.map(story => {
+      const steps = (story.steps || []).map(step => {
+        const rewardSituation = step.situations?.find(s => s.__component === 'story.situation-reward');
+        return {
+          ...step,
+          rewardCards: rewardSituation?.rewardCards || []
+        };
+      });
+      return {
+        ...story,
+        steps
+      };
+    });
   } catch (error) {
     console.error('Failed to fetch stories:', error);
   } finally {
@@ -295,17 +390,20 @@ function getProgress(storyId) {
 }
 
 function getStoryStatus(storyId) {
+  if (userStore.isOfflineStoryMode) return 'in_progress';
   const p = getProgress(storyId);
   if (!p) return 'locked';
   return p.status || p.progressStatus || 'locked';
 }
 
 function isStepCompleted(storyId, stepId) {
+  if (userStore.isOfflineStoryMode) return false;
   const p = getProgress(storyId);
   return p && p.completedSteps && p.completedSteps.includes(stepId);
 }
 
 function isStepActive(storyId, stepIndex) {
+  if (userStore.isOfflineStoryMode) return true;
   const p = getProgress(storyId);
   if (!p) return false;
   const completedCount = p.completedSteps ? p.completedSteps.length : 0;
@@ -313,6 +411,7 @@ function isStepActive(storyId, stepIndex) {
 }
 
 function isStepLocked(storyId, stepIndex) {
+  if (userStore.isOfflineStoryMode) return false;
   const p = getProgress(storyId);
   if (!p) return true;
   const completedCount = p.completedSteps ? p.completedSteps.length : 0;
@@ -355,12 +454,36 @@ function getRewardCardThumb(card) {
   padding-bottom: calc(2rem + env(safe-area-inset-bottom) + 80px);
 }
 
-.auth-notice, .loading-state, .no-quests {
+.auth-notice, .loading-state, .no-quests, .offline-notice {
   text-align: center;
   padding: 4rem 2rem;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 1rem;
   border: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+.auth-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.offline-notice {
+  margin-top: 3rem;
+  border-color: var(--color-primary);
+  background: rgba(0, 210, 255, 0.05);
+}
+
+.offline-badge {
+  display: inline-block;
+  background: var(--color-primary);
+  color: black;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.7rem;
+  margin-bottom: 1rem;
 }
 
 .empty-icon { font-size: 4rem; margin-bottom: 1rem; }
