@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_story_situation_choices",
+  "info": {
+    "displayName": "Situation: Choice",
+    "description": "A situation where the player makes a choice"
+  },
+  "options": {},
+  "attributes": {
+    "situationId": {
+      "type": "string",
+      "required": true
+    },
+    "text": {
+      "type": "text",
+      "required": true
+    },
+    "options": {
+      "type": "component",
+      "repeatable": true,
+      "component": "story.choice-option"
+    }
+  }
+}

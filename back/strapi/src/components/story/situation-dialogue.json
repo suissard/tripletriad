@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_story_situation_dialogues",
+  "info": {
+    "displayName": "Situation: Dialogue",
+    "description": "A dialogue sequence before moving to the next situation"
+  },
+  "options": {},
+  "attributes": {
+    "situationId": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    },
+    "dialogues": {
+      "type": "component",
+      "repeatable": true,
+      "component": "story.dialogue"
+    },
+    "nextSituationId": {
+      "type": "string"
+    }
+  }
+}

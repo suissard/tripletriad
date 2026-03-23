@@ -25,31 +25,16 @@
       "target": "api::story.story",
       "inversedBy": "steps"
     },
-    "startDialogue": {
-      "type": "component",
-      "repeatable": true,
-      "component": "story.dialogue"
-    },
-    "endDialogue": {
-      "type": "component",
-      "repeatable": true,
-      "component": "story.dialogue"
-    },
-    "rewardCards": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::card.card",
-      "inversedBy": "storyStepsRewardedFrom"
-    },
-    "playerDeck": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::deck.deck"
-    },
-    "enemyDeck": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::deck.deck"
+    "situations": {
+      "type": "dynamiczone",
+      "components": [
+        "story.situation-dialogue",
+        "story.situation-battle",
+        "story.situation-choice",
+        "story.situation-reward",
+        "story.situation-game-over",
+        "story.situation-success"
+      ]
     }
   }
 }

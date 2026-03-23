@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_story_situation_rewards",
+  "info": {
+    "displayName": "Situation: Reward",
+    "description": "A situation that gives the player a reward"
+  },
+  "options": {},
+  "attributes": {
+    "situationId": {
+      "type": "string",
+      "required": true
+    },
+    "rewardCards": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::card.card"
+    },
+    "rewardCoins": {
+      "type": "integer"
+    },
+    "rewardGems": {
+      "type": "integer"
+    },
+    "nextSituationId": {
+      "type": "string"
+    }
+  }
+}

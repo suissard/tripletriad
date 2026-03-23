@@ -14,31 +14,31 @@
   --primary-glow: color-mix(in srgb, var(--color-primary) 40%, transparent);
   --secondary: var(--color-secondary);
   --accent: var(--color-accent);
-  
+
   --text-main: #e0e0f0;
   --text-dim: #94a3b8;
-  
+
   /* Glassmorphism */
   --glass-bg: rgba(255, 255, 255, 0.05);
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-blur: blur(5px);
-  
+
   /* Shadow Levels */
   --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
 }
 
-body { 
-    margin: 0; 
-    overflow: hidden; 
-    background: var(--bg-deep); 
-    color: var(--text-main); 
-    font-family: 'Outfit', 'Inter', -apple-system, sans-serif; 
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+body {
+  margin: 0;
+  overflow: hidden;
+  background: var(--bg-deep);
+  color: var(--text-main);
+  font-family: 'Outfit', 'Inter', -apple-system, sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 /* Glassmorphism Classes */
@@ -223,32 +223,84 @@ textarea {
   -ms-user-select: text;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 2px var(--primary-glow);
 }
+
 /* Premium Settings Classes */
-.uppercase { text-transform: uppercase; }
-.tracking-tight { letter-spacing: -0.025em; }
-.tracking-wide { letter-spacing: 0.025em; }
-.tracking-widest { letter-spacing: 0.1em; }
-.tracking-premium { letter-spacing: 0.3em; }
+.uppercase {
+  text-transform: uppercase;
+}
 
-.text-xs { font-size: 0.75rem; }
-.text-sm { font-size: 0.875rem; }
-.text-lg { font-size: 1.125rem; }
-.text-base { font-size: 1rem; }
+.tracking-tight {
+  letter-spacing: -0.025em;
+}
 
-.font-black { font-weight: 900; }
-.font-bold { font-weight: 700; }
+.tracking-wide {
+  letter-spacing: 0.025em;
+}
 
-.gap-4 { gap: 1rem; }
-.px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
-.py-4 { padding-top: 1rem; padding-bottom: 1rem; }
-.rounded-2xl { border-radius: 1rem; }
+.tracking-widest {
+  letter-spacing: 0.1em;
+}
 
-.backdrop-blur-md { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-.backdrop-blur-xl { backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
+.tracking-premium {
+  letter-spacing: 0.3em;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+}
+
+.text-base {
+  font-size: 1rem;
+}
+
+.font-black {
+  font-weight: 900;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.rounded-2xl {
+  border-radius: 1rem;
+}
+
+.backdrop-blur-md {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.backdrop-blur-xl {
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
 
 /* Sidebar Premium Component */
 .premium-nav-item {
@@ -262,7 +314,8 @@ input:focus, textarea:focus {
   font-weight: 900;
   font-size: 11px;
   letter-spacing: 0.2em;
-  color: #64748b; /* text-gray-500 */
+  color: #64748b;
+  /* text-gray-500 */
   border: 1px solid transparent;
   text-decoration: none;
 }
@@ -298,4 +351,39 @@ input:focus, textarea:focus {
   opacity: 1;
   filter: grayscale(0);
   filter: drop-shadow(0 0 8px rgba(255, 191, 0, 0.5));
+}
+
+/* Premium Loading Indicator */
+.is-loading-premium {
+  --loader-speed: 800ms;
+  position: relative !important;
+  /* z-index: 10; */
+}
+
+
+.is-loading-premium::after {
+  content: "";
+  position: absolute;
+  /* z-index: -2; */
+  inset: 0px;
+  border-radius: inherit;
+  box-shadow:
+    0 0 15px var(--color-primary),
+    0 0 30px var(--primary-glow),
+    0 0 60px color-mix(in srgb, var(--color-primary) 20%, transparent);
+  animation: pulse-halo-premium 1s ease-in-out infinite;
+  pointer-events: none;
+}
+
+
+@keyframes pulse-halo-premium {
+
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }

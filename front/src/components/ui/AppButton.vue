@@ -18,8 +18,9 @@
         }"></div>
         <canvas ref="canvasRef" class="cracks-canvas"></canvas>
     </div>
-    <div class="glass-content">
-      <slot></slot>
+    <div class="glass-content" :class="{ 'is-loading': loading }">
+      <div v-if="loading" class="btn-spinner"></div>
+      <slot v-else></slot>
     </div>
   </button>
 </template>
@@ -41,6 +42,10 @@ const props = defineProps({
     default: false,
   },
   fullWidth: {
+    type: Boolean,
+    default: false,
+  },
+  loading: {
     type: Boolean,
     default: false,
   }
@@ -292,5 +297,22 @@ onBeforeUnmount(() => {
 }
 .impact-shake {
     animation: hammer-hit 0.2s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.is-loading {
+  gap: 10px;
+}
+
+.btn-spinner {
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: btn-rotate 0.8s linear infinite;
+}
+
+@keyframes btn-rotate {
+  to { transform: rotate(360deg); }
 }
 </style>

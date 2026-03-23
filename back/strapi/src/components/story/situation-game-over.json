@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_story_situation_game_overs",
+  "info": {
+    "displayName": "Situation: Game Over",
+    "description": "Ends the current step in failure"
+  },
+  "options": {},
+  "attributes": {
+    "situationId": {
+      "type": "string",
+      "required": true
+    },
+    "message": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
