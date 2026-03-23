@@ -62,6 +62,7 @@
     {
       "__component": "story.situation-battle",
       "situationId": "combat_mutant",
+      "enemyDeckName": "Les Héritiers des Cendres",
       "onWinSituationId": "victoire_choeur",
       "onLoseSituationId": "defaite_choeur"
     },
@@ -123,6 +124,7 @@
     {
       "__component": "story.situation-battle",
       "situationId": "combat_robot",
+      "enemyDeckName": "Le Chœur Synthétique",
       "onWinSituationId": "victoire_mutant",
       "onLoseSituationId": "defaite_mutant"
     },
@@ -184,6 +186,7 @@
     {
       "__component": "story.situation-battle",
       "situationId": "combat_pelagique",
+      "enemyDeckName": "L'Exode Pélagique",
       "onWinSituationId": "victoire_pelagique",
       "onLoseSituationId": "defaite_pelagique"
     },

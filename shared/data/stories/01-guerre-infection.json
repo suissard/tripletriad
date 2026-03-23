@@ -62,6 +62,7 @@
     {
       "__component": "story.situation-battle",
       "situationId": "combat_spore",
+      "enemyDeckName": "Le Fléau Spore",
       "onWinSituationId": "victoire_spore",
       "onLoseSituationId": "defaite_spore"
     },
@@ -128,6 +129,7 @@
     {
       "__component": "story.situation-battle",
       "situationId": "combat_dissonant",
+      "enemyDeckName": "L'Incursion Dissonante",
       "onWinSituationId": "victoire_dissonant",
       "onLoseSituationId": "defaite_dissonant"
     },
@@ -194,6 +196,7 @@
     {
       "__component": "story.situation-battle",
       "situationId": "combat_drone_possede",
+      "enemyDeckName": "L'Incursion Dissonante",
       "onWinSituationId": "victoire_dissonant",
       "onLoseSituationId": "defaite_dissonant"
     }

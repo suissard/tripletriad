@@ -95,6 +95,7 @@
     {
       "__component": "story.situation-battle",
       "situationId": "combat_mars",
+      "enemyDeckName": "L'Hégémonie Martienne",
       "onWinSituationId": "victoire_mars",
       "onLoseSituationId": "defaite_mars"
     },
@@ -156,6 +157,7 @@
     {
       "__component": "story.situation-battle",
       "situationId": "combat_ferrailleur",
+      "enemyDeckName": "Les Ferrailleurs",
       "onWinSituationId": "victoire_ferrailleur",
       "onLoseSituationId": "defaite_ferrailleur"
     },

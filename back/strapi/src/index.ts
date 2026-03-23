@@ -183,57 +183,65 @@ export default {
 
     // 3. Setup Default Cards from shared/data/cards.json
     try {
-      const path = require('path');
-      const fs = require('fs');
-      const cardsFilePath = path.join(strapi.dirs.app.src, 'shared', 'data', 'cards.json');
-      
-      if (fs.existsSync(cardsFilePath)) {
-        const cardsData = JSON.parse(fs.readFileSync(cardsFilePath, 'utf8'));
-        const cardsCount = await strapi.entityService.count('api::card.card');
-
-        if (cardsCount < cardsData.length) {
-          console.log(`🔄 DB has ${cardsCount} cards, shared/cards.json has ${cardsData.length}. Re-seeding...`);
-          // Use db.query to delete all
-          await strapi.db.query('api::card.card').deleteMany({});
-
-          for (const c of cardsData) {
-            // Map level to rarity
-            let rarity = 'Common';
-            if (c.level <= 2) rarity = 'Common';
-            else if (c.level <= 4) rarity = 'Uncommon';
-            else if (c.level <= 6) rarity = 'Rare';
-            else if (c.level <= 8) rarity = 'Epic';
-            else rarity = 'Legendary';
-
-            await strapi.entityService.create('api::card.card', { 
-              data: {
-                name: c.name,
-                description: c.description,
-                level: c.level,
-                element: c.element || 'None',
-                elements: Array.isArray(c.elements) ? c.elements : [c.element || 'None'],
-                faction: c.faction || 'neutre',
-                topValue: String(c.topValue),
-                rightValue: String(c.rightValue),
-                bottomValue: String(c.bottomValue),
-                leftValue: String(c.leftValue),
-                rarity: rarity
-              }
-            });
-          }
-          console.log(`✅ ${cardsData.length} cards seeded from shared database.`);
-        }
-      } else {
-        console.error('❌ cards.json not found at', cardsFilePath);
-      }
+      const { bootstrapCards } = require('./api/card/services/card-bootstrap');
+      await bootstrapCards(strapi);
     } catch (err) {
-      console.error('❌ Error seeding cards:', err);
+      console.error('❌ Error bootstrapping cards:', err);
     }
-    // 3.4. Bootstrapping stories
+    }
+    // 3.3. Bootstrapping decks
     try {
-      const { bootstrapStories } = require('./api/story/services/story-bootstrap');
-      await bootstrapStories(strapi);
+      const { bootstrapDecks } = require('./api/deck/services/deck-bootstrap');
+      await bootstrapDecks(strapi);
     } catch (err) {
+      console.error('❌ Error bootstrapping decks:', err);
+    }
+
+    // 3.4. Bootstrapping stories
+    // 3.3. Bootstrapping decks
+    try {
+      const { bootstrapDecks } = require('./api/deck/services/deck-bootstrap');
+      await bootstrapDecks(strapi);
+    } catch (err) {
+      console.error('❌ Error bootstrapping decks:', err);
+    }
+
+    try {
+    // 3.3. Bootstrapping decks
+    try {
+      const { bootstrapDecks } = require('./api/deck/services/deck-bootstrap');
+      await bootstrapDecks(strapi);
+    } catch (err) {
+      console.error('❌ Error bootstrapping decks:', err);
+    }
+
+      const { bootstrapStories } = require('./api/story/services/story-bootstrap');
+    // 3.3. Bootstrapping decks
+    try {
+      const { bootstrapDecks } = require('./api/deck/services/deck-bootstrap');
+      await bootstrapDecks(strapi);
+    } catch (err) {
+      console.error('❌ Error bootstrapping decks:', err);
+    }
+
+      await bootstrapStories(strapi);
+    // 3.3. Bootstrapping decks
+    try {
+      const { bootstrapDecks } = require('./api/deck/services/deck-bootstrap');
+      await bootstrapDecks(strapi);
+    } catch (err) {
+      console.error('❌ Error bootstrapping decks:', err);
+    }
+
+    } catch (err) {
+    // 3.3. Bootstrapping decks
+    try {
+      const { bootstrapDecks } = require('./api/deck/services/deck-bootstrap');
+      await bootstrapDecks(strapi);
+    } catch (err) {
+      console.error('❌ Error bootstrapping decks:', err);
+    }
+
       console.error('❌ Error bootstrapping stories:', err);
     }
 

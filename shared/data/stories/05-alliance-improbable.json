@@ -74,6 +74,7 @@
     {
       "__component": "story.situation-battle",
       "situationId": "combat_alliance",
+      "enemyDeckName": "Le Chœur Synthétique",
       "onWinSituationId": "victoire_alliance",
       "onLoseSituationId": "defaite_alliance"
     },
@@ -135,6 +136,7 @@
     {
       "__component": "story.situation-battle",
       "situationId": "combat_chaos",
+      "enemyDeckName": "Les Héritiers des Cendres",
       "onWinSituationId": "victoire_chaos",
       "onLoseSituationId": "defaite_chaos"
     },
