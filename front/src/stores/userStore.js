@@ -297,6 +297,71 @@ export const useUserStore = defineStore('user', {
       }
     },
 
+
+    async saveStepProgress(storyId, stepId, currentSituationId, historyEntry = null) {
+      if (!this.strapiConnected) return null;
+      if (!this.isLoggedIn) return null;
+
+      try {
+        const token = localStorage.getItem('tt_jwt');
+        const response = await fetch(`${import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337'}/api/player-story-progress/save-step-progress`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ storyId, stepId, currentSituationId, historyEntry })
+        });
+
+        if (!response.ok) {
+           const err = await response.json();
+           throw new Error(err.error?.message || 'Failed to save progress');
+        }
+
+        const data = await response.json();
+        await this.fetchUserStoryProgresses(true);
+        return data;
+      } catch (e) {
+        console.error('saveStepProgress failed', e);
+        return null;
+      }
+    },
+
+    async claimSituationReward(storyId, stepId, situationId) {
+      if (!this.strapiConnected) return null;
+      if (!this.isLoggedIn) return null;
+
+      try {
+        const token = localStorage.getItem('tt_jwt');
+        const response = await fetch(`${import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337'}/api/player-story-progress/claim-step-reward`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ storyId, stepId, situationId })
+        });
+
+        if (!response.ok) {
+           const err = await response.json();
+           throw new Error(err.error?.message || 'Failed to claim reward');
+        }
+
+        const data = await response.json();
+
+        if (data.coins) {
+           this.user.coins += data.coins;
+           this.syncLocalUserWallets();
+        }
+
+        await this.fetchUserStoryProgresses(true);
+        return data;
+      } catch (e) {
+        console.error('claimSituationReward failed', e);
+        return null;
+      }
+    },
+
     async fetchUserStoryProgresses(force = false) {
       if (!this.strapiConnected) return;
       if (!this.isLoggedIn) return;

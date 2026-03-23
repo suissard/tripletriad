@@ -16,5 +16,13 @@ export default {
         policies: [],
       },
     },
+    {
+      method: 'POST',
+      path: '/player-story-progress/save-step-progress',
+      handler: 'player-story-progress.saveStepProgress',
+      config: {
+        policies: [],
+      },
+    },
   ],
 };
