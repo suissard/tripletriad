@@ -1,0 +1,222 @@
+{
+  "title": "La Guerre Matérielle : Le Géant de Magma",
+  "description": "Un Béhémoth s'est réveillé sous une cité en ruines. Mars et les Ferrailleurs s'y croisent dans un chaos destructeur.",
+  "situations": [
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "intro",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Le sol tremble violemment. Une fissure crachant du magma s'ouvre au cœur des gratte-ciels effondrés.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Ferrailleur Nomade",
+          "sentence": "Par tous les boulons rouillés ! Un Béhémoth de l'Éveil Chthonien ! Nos lasers bricolés ne lui feront rien !",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "choix_initial"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "choix_initial",
+      "text": "L'immense colosse de roche obsidienne émerge. Que faire ?",
+      "options": [
+        {
+          "text": "Fuir avec les Ferrailleurs vers leur vaisseau rafistolé.",
+          "nextSituationId": "fuite_ferrailleur"
+        },
+        {
+          "text": "Se cacher et observer la situation.",
+          "nextSituationId": "observation_behemoth"
+        },
+        {
+          "text": "Tenter un tir de sniper sur l'œil de magma du Béhémoth.",
+          "nextSituationId": "combat_impossible"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "combat_impossible",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Votre tir rebondit pathétiquement sur son blindage de roche massive. Le Béhémoth tourne son regard incandescent vers vous et frappe le sol.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "fin_ecrase"
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fin_ecrase",
+      "message": "Vous avez été vitrifié et écrasé par un titan de magma. Une mort brûlante et immédiate."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "observation_behemoth",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Alors que le Béhémoth rugit, le ciel se déchire. Un rayon de lumière écarlate descend depuis l'orbite avec un sifflement assourdissant.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Commandant Puriste",
+          "sentence": "[Radio] Frappe orbitale martienne confirmée. Cible géante verrouillée. Éradication de la vermine en cours.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "choix_mars"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "choix_mars",
+      "text": "Le pilier de feu martien frappe le Béhémoth, le forçant à reculer. Des soldats en armure immaculée atterrissent.",
+      "options": [
+        {
+          "text": "Aider les troupes de Mars à achever le monstre affaibli.",
+          "nextSituationId": "combat_mars"
+        },
+        {
+          "text": "Profiter de la confusion pour piller les largages martiens.",
+          "nextSituationId": "pillage_mars"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "combat_mars",
+      "onWinSituationId": "victoire_mars",
+      "onLoseSituationId": "defaite_mars"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "victoire_mars",
+      "dialogues": [
+        {
+          "name": "Commandant Puriste",
+          "sentence": "Impressionnant, pour un sauvage de la Terre. Prends cette ration, tu l'as méritée. Mars vaincra.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "recompense_mars"
+    },
+    {
+      "__component": "story.situation-reward",
+      "situationId": "recompense_mars",
+      "nextSituationId": "fin_victoire"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "defaite_mars",
+      "dialogues": [
+        {
+          "name": "Commandant Puriste",
+          "sentence": "Quelle déception. Vous, les terriens, êtes vraiment pathétiques.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "fin_defaite_mars"
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fin_defaite_mars",
+      "message": "Le Béhémoth a écrasé vos défenses. Les Martiens n'ont pas daigné vous sauver."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "pillage_mars",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous rampez jusqu'à une caisse de ravitaillement martienne, mais un Ferrailleur vous bloque la route avec un plasma lourd.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Ferrailleur Nomade",
+          "sentence": "Pas si vite ! Ce butin orbitale est à nous ! On sabote leur ravitaillement, pas touche !",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "combat_ferrailleur"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "combat_ferrailleur",
+      "onWinSituationId": "victoire_ferrailleur",
+      "onLoseSituationId": "defaite_ferrailleur"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "victoire_ferrailleur",
+      "dialogues": [
+        {
+          "name": "Ferrailleur Nomade",
+          "sentence": "Argh ! Ok, garde la caisse ! On se tire avant que les Puristes ne nous voient !",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "recompense_ferrailleur"
+    },
+    {
+      "__component": "story.situation-reward",
+      "situationId": "recompense_ferrailleur",
+      "nextSituationId": "fin_victoire"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "defaite_ferrailleur",
+      "dialogues": [
+        {
+          "name": "Ferrailleur Nomade",
+          "sentence": "Ha ! T'as pas le niveau pour la Ceinture, mon gars !",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "fin_defaite_ferrailleur"
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fin_defaite_ferrailleur",
+      "message": "Vous avez été abattu par un Ferrailleur. Vos biens seront recyclés."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "fuite_ferrailleur",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous sautez dans le vaisseau rustique des Ferrailleurs. Ils décollent de justesse alors que le poing du Béhémoth pulvérise l'aire d'atterrissage.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "fin_fuite"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "fin_fuite",
+      "message": "Vous avez survécu en fuyant l'Éveil Chthonien, rejoignant brièvement les nomades de la Ceinture."
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "fin_victoire",
+      "message": "Vous avez tiré votre épingle du jeu au milieu d'une guerre de titans."
+    }
+  ]
+}

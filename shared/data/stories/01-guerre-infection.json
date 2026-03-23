@@ -1,0 +1,201 @@
+{
+  "title": "La Guerre de l'Infection : Propagation",
+  "description": "L'Omni-Réseau affronte le Fléau Spore et l'Incursion Dissonante. Au milieu du chaos, une décision cruciale doit être prise.",
+  "situations": [
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "intro",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Les terres désolées sont recouvertes d'une épaisse brume verdâtre. L'air est lourd, saturé de spores luisantes.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Drone de l'Omni-Réseau",
+          "sentence": "[BIP] ... Menace fongique détectée. Protocole de purification activé. Les macro-serveurs doivent être protégés.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "choix_initial"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "choix_initial",
+      "text": "Le Drone biologique pucé se tourne vers vous, son regard vide vous fixant froidement. Que faites-vous ?",
+      "options": [
+        {
+          "text": "Aider l'Omni-Réseau à purifier la zone au lance-flammes.",
+          "nextSituationId": "aide_omni_reseau"
+        },
+        {
+          "text": "Laisser le Fléau Spore engloutir le drone et fuir.",
+          "nextSituationId": "fuite_spore"
+        },
+        {
+          "text": "Tenter de pirater la puce neurale du Drone avec un module étrange trouvé plus tôt.",
+          "nextSituationId": "piratage_dissonant",
+          "conditions": [
+            {
+              "type": "hasItem",
+              "value": "Module Dissonant"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "aide_omni_reseau",
+      "dialogues": [
+        {
+          "name": "Drone de l'Omni-Réseau",
+          "sentence": "Allié temporaire reconnu. Fourniture d'armement incendiaire. Attention : la biomasse approche.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "combat_spore"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "combat_spore",
+      "onWinSituationId": "victoire_spore",
+      "onLoseSituationId": "defaite_spore"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "victoire_spore",
+      "dialogues": [
+        {
+          "name": "Drone de l'Omni-Réseau",
+          "sentence": "Zone purifiée. Taux de spores redescendu à un niveau acceptable. L'Architecte vous remercie pour votre efficacité mécanique.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "recompense_omni"
+    },
+    {
+      "__component": "story.situation-reward",
+      "situationId": "recompense_omni",
+      "nextSituationId": "fin_victoire"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "defaite_spore",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "La marée fongique est trop nombreuse. Le drone est submergé, et bientôt, les vrilles de mycélium s'infiltrent sous votre armure...",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "fin_defaite"
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fin_defaite",
+      "message": "Vous avez été assimilé par le Fléau Spore. Vous faites désormais partie de la biomasse du Bulbe Mère."
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "fin_victoire",
+      "message": "Vous survivez un jour de plus dans cette guerre d'infection, gagnant l'étrange respect d'une intelligence artificielle sans âme."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "fuite_spore",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous reculez dans les ombres alors qu'une vague de chair mutante et de champignons fluorescents submerge le drone. Mais soudain, l'air crépite d'énergie violette.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Voix de la Faille",
+          "sentence": "Tu crois pouvoir fuir, petit être de matière ? La déchirure dimensionnelle t'appelle...",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "combat_dissonant"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "combat_dissonant",
+      "onWinSituationId": "victoire_dissonant",
+      "onLoseSituationId": "defaite_dissonant"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "defaite_dissonant",
+      "dialogues": [
+        {
+          "name": "Voix de la Faille",
+          "sentence": "Ton esprit m'appartient. Ton corps sera mon nouveau réceptacle...",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "fin_possession"
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fin_possession",
+      "message": "Votre esprit s'est brisé. Une entité de l'Incursion Dissonante a pris possession de votre corps."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "victoire_dissonant",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous repoussez l'ombre cosmique. L'entité se dissipe dans un cri strident, laissant derrière elle une étrange résonance énergétique.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "recompense_dissonance"
+    },
+    {
+      "__component": "story.situation-reward",
+      "situationId": "recompense_dissonance",
+      "nextSituationId": "fin_survie_faille"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "fin_survie_faille",
+      "message": "Vous avez échappé à la fois à l'infection fongique et à la folie dimensionnelle."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "piratage_dissonant",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Le module étrange émet une lueur violette. Vous le branchez sur le port du drone. Immédiatement, le soldat cyborg se met à hurler d'une voix non-humaine, possédé.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Drone Possédé",
+          "sentence": "NOUS SOMMES LÉGION. LE RÉSEAU EST CORROMPU. L'ARCHITECTE EST FOU. MEURS, SAC DE CHAIR !",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "combat_drone_possede"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "combat_drone_possede",
+      "onWinSituationId": "victoire_dissonant",
+      "onLoseSituationId": "defaite_dissonant"
+    }
+  ]
+}
