@@ -1,0 +1,5 @@
+{
+  "__component": "story.situation-reward",
+  "situationId": "recompense_mission",
+  "nextSituationId": "combat_spore"
+}

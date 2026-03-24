@@ -1,0 +1,37 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "dissimuler_breche",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "D'un geste rapide, vous plaquez votre main sur la brèche. Les filaments verdâtres se compriment sous votre gant. Si Lyra n'a pas vu, si Veyra ne demande pas d'inspection détaillée, vous pouvez peut-être passer.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Soldat Kael",
+      "sentence": "Simple éclat de métal, Commandant. Armure fonctionnelle à 94%. Prêt au combat.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Commandant Veyra",
+      "sentence": "Bien. La mission continue. Nous devons sécuriser la station de communications ferrailleur au sommet de la Crête. Si nous perdons cette position, toute la zone orbitale est compromise. Soldat Kael, vous êtes en tête. Montrez-leur ce que Mars peut faire.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Vous hochez la tête. Sous votre armure, les spores commencent à picoter. Une chaleur étrange s'installe dans votre bras. Vous avez peut-être quelques heures. Peut-être moins. Mais la mission passe avant la pureté. N'est-ce pas ?",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Soldat Lyra",
+      "sentence": "Kael. Ton bras gauche. Il tremble. T'es sûr que t'es bon ?",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "recompense_mission"
+}

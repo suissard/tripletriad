@@ -1,0 +1,1 @@
+{"__component":"story.situation-choice","situationId":"s3c","text":"La fusion est instable. Que faites-vous ?","options":[{"text":"Persister dans la fusion","nextSituationId":"s4c"},{"text":"Abort et retour au Chœur","nextSituationId":"s5c"}]}

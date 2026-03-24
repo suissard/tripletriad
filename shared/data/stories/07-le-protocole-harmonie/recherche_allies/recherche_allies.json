@@ -1,0 +1,25 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "recherche_allies",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous décidez de chercher des survivants hors-réseau, ceux qui vivent sans puces.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Le Drone",
+      "sentence": "Je dois trouver des réponses. Pourquoi ressens-je cela?",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Vous captez un signal faible, brouillé, provenant des ruines anciennes.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "chercher_contact"
+}

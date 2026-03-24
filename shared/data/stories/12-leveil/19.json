@@ -1,0 +1,13 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "19",
+  "dialogues": [
+    {
+      "name": "N",
+      "sentence": "La chaleur dans ton ventre devient une faim ardente. Tu sens que tu pourrais dévorer tout ce qui bouge autour de toi.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "23"
+}

@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "choix_initial",
+  "text": "Votre avant-poste dérive. Les bocaux grésillent. L'Ambassadeur attend votre décision.",
+  "options": [
+    {
+      "text": "Attaquer le glacier terrestre. Prendre la glace aux titans.",
+      "nextSituationId": "dialogue_glacier"
+    },
+    {
+      "text": "Contacter les Ferrailleurs. Négocier du carburant.",
+      "nextSituationId": "dialogue_ferrailleurs"
+    },
+    {
+      "text": "Activer le protocole Puits Gravitationnel. Se sacrifier pour les autres.",
+      "nextSituationId": "dialogue_sacrifice"
+    }
+  ]
+}

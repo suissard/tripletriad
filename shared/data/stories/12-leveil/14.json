@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "14",
+  "text": "Le essaim grogne, attendant ta décision. Que fais-tu ?",
+  "options": [
+    {
+      "text": "Rejoindre l'essaim et écraser la fleur sous ton pied",
+      "nextSituationId": "16"
+    },
+    {
+      "text": "Te protéger devant les enfants, affrontant ton essaim",
+      "nextSituationId": "17"
+    },
+    {
+      "text": "Fuir avec les enfants vers les souterrains de la ville",
+      "nextSituationId": "18"
+    }
+  ]
+}

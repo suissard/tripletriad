@@ -1,0 +1,23 @@
+{
+  "title": "La Marée Verte",
+  "description": "Le dernier bastion humain résiste à l'avancée du Fléau Spore. Les provisions s'épuisent. Les défenses cèdent. Tenir, percer, ou se laisser absorber ?",
+  "faction_focus": "Le Fléau Spore",
+  "factions_involved": ["Le Fléau Spore", "L'Éveil Chthonien"],
+  "entry_point": "intro.json",
+  "situations": [
+    {"file": "intro.json", "situationId": "intro", "type": "dialogue"},
+    {"file": "choix_initial.json", "situationId": "choix_initial", "type": "choice"},
+    {"file": "branche_tenir/tenir_choice.json", "situationId": "branche_tenir/tenir_choice", "type": "choice"},
+    {"file": "branche_tenir/tenir_dialogue_pre.json", "situationId": "branche_tenir/tenir_dialogue_pre", "type": "dialogue"},
+    {"file": "branche_tenir/tenir_battle.json", "situationId": "branche_tenir/tenir_battle", "type": "battle"},
+    {"file": "branche_tenir/tenir_win.json", "situationId": "branche_tenir/tenir_win", "type": "success"},
+    {"file": "branche_tenir/tenir_lose.json", "situationId": "branche_tenir/tenir_lose", "type": "game-over"},
+    {"file": "branche_percer/percer_dialogue.json", "situationId": "branche_percer/percer_dialogue", "type": "dialogue"},
+    {"file": "branche_percer/percer_choice.json", "situationId": "branche_percer/percer_choice", "type": "choice"},
+    {"file": "branche_percer/percer_battle.json", "situationId": "branche_percer/percer_battle", "type": "battle"},
+    {"file": "branche_percer/percer_success.json", "situationId": "branche_percer/percer_success", "type": "success"},
+    {"file": "branche_surrendre/surrendre_choice.json", "situationId": "branche_surrendre/surrendre_choice", "type": "choice"},
+    {"file": "branche_surrendre/surrendre_dialogue.json", "situationId": "branche_surrendre/surrendre_dialogue", "type": "dialogue"},
+    {"file": "branche_surrendre/surrendre_success.json", "situationId": "branche_surrendre/surrendre_success", "type": "success"}
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "combat_martien",
+  "enemyDeckName": "L'Hégémonie Martienne",
+  "onWinSituationId": "fin_libre",
+  "onLoseSituationId": "fin_trahison"
+}

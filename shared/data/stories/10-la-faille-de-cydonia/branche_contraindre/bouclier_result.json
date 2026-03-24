@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "branche_contraindre/bouclier_result",
+  "text": "Le bouclier harmonique fonctionne partiellement, mais la dissonance trouve des failles. Que faites-vous ?",
+  "options": [
+    {
+      "text": "Renforcer le bouclier avec plus d'énergie",
+      "nextSituationId": "branche_contraindre/bouclier_renforce"
+    },
+    {
+      "text": "Essayer une approche différente : la communication",
+      "nextSituationId": "branche_contraindre/communication"
+    },
+    {
+      "text": "Accepter que le bouclier ne soit qu'une solution temporaire",
+      "nextSituationId": "branche_contraindre/acceptation"
+    }
+  ]
+}

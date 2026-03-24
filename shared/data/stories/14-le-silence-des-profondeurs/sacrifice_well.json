@@ -1,0 +1,13 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "sacrifice_well",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "[Vibrations profondes, comme une voix du fond des profondeurs] Tu sacrifies ton corps pour créer un puits gravitationnel. La comète-glace se stabilise, mais tu meurs.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "success_well"
+}

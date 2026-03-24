@@ -1,0 +1,34 @@
+﻿{
+ "_meta": "Modèle de structure pour générer la direction artistique d'une faction de TCG via IA.",
+ "nom_faction": "L'Éveil Chthonien",
+ "direction_artistique": {
+   "mots_cles_globaux": "Colossal, primordial, tellurique, magma, organique-rocheux.",
+   "couleurs": {
+     "repartition": "70% Sombre et minéral / 20% Incandescent / 10% Cendré.",
+     "principales": "Noir obsidienne, Gris basalte mat, Brun terre calcinée.",
+     "secondaires": "Gris cendre, Tons rocailleux ternes.",
+     "accents_et_energie": "Rouge/Orange magma (incandescence interne), Jaune soufre brûlant."
+   },
+   "anatomie_et_biologie": {
+     "description": "Titans biologiques primordiaux et bêtes souterraines. Peau rugueuse formée de plaques tectoniques, roche volcanique et magma. Yeux multiples sans pupilles, immenses gueules broyeuses. Des fossiles et des débris de ruines humaines sont incrustés dans leur chair rocheuse."
+   },
+   "armures_et_vetements": {
+     "concept_global": "Aucune technologie ni vêtement. Armure naturelle constituée par la croûte terrestre et le refroidissement du magma.",
+     "structure": "Carapaces tectoniques impénétrables, plaques d'obsidienne asymétriques et tranchantes.",
+     "casques_et_visages": "Crânes massifs osseux ou minéraux, gueules béantes d'où s'échappe de la fumée noire, cornes de pierre brute.",
+     "details_cles": "Failles rougeoyantes sur le corps laissant entrevoir un cœur de magma, fumée volcanique s'échappant en permanence des interstices."
+   },
+   "armes_et_equipements": {
+     "concept": "Aucune arme manufacturée. Le corps titanesque, la masse brute et l'énergie géothermique sont l'armement.",
+     "formes": "Griffes foreuses géantes capables de broyer la roche, appendices contondants colossaux.",
+     "details_visuels": "Jets de magma en fusion crachés des entrailles, ondes sismiques détruisant le sol, poussière étouffante."
+   },
+   "vehicules_et_vaisseaux": {
+     "concept": "Aucun véhicule. Le déplacement se fait sous terre tel des séismes vivants. Les \"transports\" sont de gigantesques vers ou titans foreurs transportant des progénitures symbiotiques.",
+     "geometrie": "Formes bestiales monolithiques fendant la terre, cratères béants, éruptions de lave marquant leur passage."
+   }
+ },
+ "prompt_engineering": {
+   "master_prompt_adn": "Dark sci-fi fantasy, epic scale, L'Eveil Chthonien faction. Colossal subterranean primordial monster made of dark jagged obsidian rocks, cooled lava, and glowing magma veins. No technology, organic geological creature. Multiple glowing pupilless eyes, massive rocky maw, urban ruins embedded in its stony flesh. Emerging violently from the ground, erupting volcanic smoke, cinematic lighting, highly detailed."
+ }
+}

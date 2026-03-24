@@ -1,0 +1,31 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "aide_survivante",
+  "dialogues": [
+    {
+      "name": "Le Drone",
+      "sentence": "Je ne suis pas comme les autres. Quelque chose en moi a changé après l'exposition aux spores.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Survivante",
+      "sentence": "Les spores ne laissent que la mort ou la folie. Tu es une erreur... ou une évolution.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Le Drone",
+      "sentence": "Je veux comprendre. Aide-moi, et je vous protégerai tous deux des Purificateurs.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Survivante",
+      "sentence": "Très bien. Mais nous devons partir vite. Je sens leur présence.",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "combat_purificateurs"
+}

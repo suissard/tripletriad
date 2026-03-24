@@ -1,0 +1,518 @@
+{
+ "title": "Les Ferrailleurs et le Cuirassé Martien",
+  "description": "Une bande de Ferrailleurs de la Ceinture découvre un cuirassé martien endommagé dérivant dans la ceinture de débris, mais doit choisir entre piller rapidement, attendre que les ennemis s'entre-tuent, ou tenter de négocier avec les survivants martiens, tout en évitant l'éveil d'un essaim de Béhémoths.",
+  "situations": [
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s0",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Les capteurs de votre vaisseau grésillent dans le vide sombre de la ceinture d'astéroïdes. Devant vous, le géant martien 'Valkyrie' repose blessé, sa coeur blindé éventré, des flammes bleuâtres léchant ses entrailles. Les signaux de détresse martiens sont faibles mais clairs. Soudain, des pings radar : des intercepteurs martiens filent vers l'épave. Et plus loin, sous la croûte d'astéroïde sombre, des vibrations profondes... quelque chose d'énorme se réveille.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Rook",
+          "sentence": "Putain, c'est le jackpot ! Un cuirassé de ligne intact à 70% ? Même endommagé, ça vaut des décennies de ferraille. On pourrait vivre comme des rois sur Cérès.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Kip",
+          "sentence": "Attends, Rook. Tu vois ces marques de brûlure ? C'est pas un simple impact. Quelque chose l'a éventré de l'intérieur. Et ces vibrations... Putain, je reconnais cette fréquence. Des Béhémoths. Ils dormaient dans cet astéroïde, et le choc les a réveillés.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Rook ajuste ses lunettes teintées, Kip serre la poignée de son pistolet à plasma fait maison. La capitaine Vex, une cyborg à moitié aveugle d'un œil, observe silencieusement les données défiler sur son implant.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Vex",
+          "sentence": "Trois choix. On fonce maintenant pour prendre ce qu'on peut avant l'arrivée des Martiens. On se cache et on laisse les Martiens et les bestioles s'entretuer, puis on ramasse les miettes. Ou on essaie de contacter les survivants martiens... pour voir s'ils veulent bien partager un peu de leur technologie avant de crever.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s1"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "s1",
+      "text": "Que décidez-vous, Ferrailleur ?",
+      "options": [
+        {
+          "text": "Foncer maintenant - Piller avant l'arrivée des Martiens",
+          "nextSituationId": "s2"
+        },
+        {
+          "text": "Se cacher et attendre - Laisser les ennemis s'entretuer",
+          "nextSituationId": "s10"
+        },
+        {
+          "text": "Contacter les Martiens - Négocier pour des infos ou de l'aide",
+          "nextSituationId": "s19"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s2",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vex ordonne : Tous aux postes ! Vos propulseurs à fusion crachent du bleu tandis que vous foncez vers la béance dans la coque du Valkyrie. Les alarmes martiennes hurlent dans vos écouteurs. Kip vérifie les scanners : des signatures énergétiques approchent vite - deux intercepteurs de classe 'Ares', armés jusqu'aux dents.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Rook",
+          "sentence": "Putain, ils sont déjà là ! On a peut-être deux minutes avant qu'ils ne nous réduisent en poussières. Vite, choppez ce que vous pouvez et dégagez !",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Kip",
+          "sentence": "La salle des machines est à tribord ! Si on prend leur cœur à fusion, on est riches pour dix ans ! Mais si on reste trop longtemps...",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s3"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "s3",
+      "text": "Que faites-vous pendant l'approche des intercepteurs ?",
+      "options": [
+        {
+          "text": "Essayer de détruire les intercepteurs avec vos armes",
+          "nextSituationId": "s4"
+        },
+        {
+          "text": "Tenter de leur échapper en manœuvrant dans les débris",
+          "nextSituationId": "s7"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "s4",
+      "enemyDeckName": "L'Hégémonie Martienne",
+      "onWinSituationId": "s5",
+      "onLoseSituationId": "s6"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "s5",
+      "message": "Vos tirs font mouche ! Un intercepteur explose en gerbe de métal fondu, l'autre prend la fuite. Vous avez sécurisé le périmètre assez longtemps pour extraire le cœur à fusion du Valkyrie. Alors que vous vous éloignez, l'essaim de Béhémoths émerge enfin de l'astéroïde, dévastant ce qui restait du cuirassé martien. Vous êtes riches, mais le prix de votre cupidité résonne dans vos têtes : des centaines de vies martiennes perdues pour quelques cristaux de fusion. La nuit est longue, et l'espace n'oublie pas."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "s6",
+      "message": "Un tir d'intercepteur transperce votre bouclier arrière. Les alarmes hurlent : perte d'oxygène dans la soute principale ! Vous voyez Rook être aspiré dans le vide, ses yeux écarquillés fixant les étoiles tandis que votre vaisseau commence à se disloquer. Dernière pensée avant l'obscurité : peut-être que la prudence aurait été payante..."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s7",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vex pousse les propulseurs au maximum, slalomant entre les rochers métalliques et les épaves anciennes. Les intercepteurs martiens perdent votre trace dans le labyrinthe de débris. Vous parvenez à glisser dans la béance du Valkyrie sans être détectés.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Kip",
+          "sentence": "On est dedans. L'air intérieur est chaud, chargé d'ozone et de métal fondu. Les panneaux d'urgence clignotent en rouge. Selon ces schémas, la salle des machines est à deux niveaux en dessous... mais il faut passer par l'habitat équipage. Je capte des signaux de vie faibles.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Rook",
+          "sentence": "Des survivants ? Tant mieux, on pourra peut-être leur voler leurs accès de sécurité avant de les laisser crever. Ou... on pourrait les aider. Après tout, ils sont aussi foutus que nous si ces bestioles débarquent.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s8"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "s8",
+      "text": "Que faites-vous concernant les signes de vie martiens ?",
+      "options": [
+        {
+          "text": "Ignorer et foncer directement vers la salle des machines",
+          "nextSituationId": "s9"
+        },
+        {
+          "text": "Détourner par l'habitat pour voir si on peut aider ou négocier",
+          "nextSituationId": "s14"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s9",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous filerez vers la salle des machines, ignorant les faibles bips de détresse martiens. Kip désamorce les systèmes de sécurité avec une expertise acquise dans les docks les plus louches de la ceinture. Finalement, vous voyez le cœur à fusion pulser doucement dans son berceau de kontreinium.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Rook",
+          "sentence": "Putain, c'est beau. Allez, on le décroche et on dégage avant que...",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "s12"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "s10",
+      "enemyDeckName": "L'Éveil Chthonien",
+      "onWinSituationId": "s11",
+      "onLoseSituationId": "s12"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "s11",
+      "message": "Vos charges à gravité bien placées provoquent un éboulement qui ensevelit l'entrée de la caverne où les Béhémoths émergent. Vous gagnez un temps précieux. En fouillant rapidement les débris externes du Valkyrie, vous récupérez des panneaux solaires martiens de pointe et une réserve d'eau purifiée - un butin modeste mais vital. Alors que vous vous éloignez, le sol tremble une dernière fois : les Béhémoths ont finalement trouvé une sortie, mais ils sont partis chasser ailleurs. Vous avez survécu grâce à votre rapidité d'exécution, non à votre force.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "s12",
+      "message": "Le sol sous vos bottes effectue soudainement un mouvement de va-et-vient gigantesque. Des plaques de kontreinium se tordent comme du papier sous l'effet d'une force titanesque. À travers les écoutilles, vous voyez des tentacules de roche en fusion jaillir de l'astéroïde, écrasant le Valkyrie comme un insecte. Votre vaisseau est projeté dans le vide, tournant désespérément tandis que la pression vous écrase de l'intérieur. Dernière vision : l'œil unique d'un Titan primordiaux vous fixant avant que tout ne devienne noir."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s13",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous décidez de vous cacher dans un champ de débris radioactifs, coupant vos moteurs et laissant seulement vos systèmes passifs en veille. De votre cachette, vous assistez à un spectacle d'apocalypse : les intercepteurs martiens arrivent en formation d'attaque, leurs lasers frappant le Valkyrie déjà mourant. Soudain, le sol de l'astéroïde explose en gerbes de roche en fusion - les Béhémoths sont réveillés et attaquent avec une fureur aveugle.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Kip",
+          "sentence": "Putain... ils se déchirent comme des bêtes ! Regardez cet intercepteur se faire écraser par une patte de roche ! Et là, un autre qui lance un missile directement dans la gueule d'un Béhémoth ! C'est le chaos le plus pur que j'aie jamais vu !",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Rook",
+          "sentence": "Attendez... attendez une seconde ! La bataille semble se calmer du côté martien... leurs intercepteurs sont en retraite ou détruits. Mais les Béhémoths... ils semblent se diriger vers quelque chose. Attendez, ils remontent vers la fissure par laquelle on est entrés ! Ils sentent la chaleur du cœur à fusion encore actif !",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s15"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "s14",
+      "text": "La bataille fait rage. Que faites-vous maintenant ?",
+      "options": [
+        {
+          "text": "Filer maintenant pendant qu'ils sont occupés - Prendre ce que vous pouvez et fuir",
+          "nextSituationId": "s16"
+        },
+        {
+          "text": "Attendre de voir qui gagne - Puis agir en conséquence",
+          "nextSituationId": "s17"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "s15",
+      "message": "Vous profitez du chaos pour glisser dans les débris externes du Valkyrie. Vous arrachez rapidement un casque de commandement martien encore chaud, des fioles de nanomédecine et un sac de rares minerais destinés à leur cuisine. Juste au moment où vous remontez dans votre vaisseau, un Béhémoth émerge de l'astéroïde et pousse un rugissement qui fait vibrer vos dents. Vous décoller à toutes voiles, laissant derrière vous le champ de bataille où métallique et organique se mêlent dans une danse de destruction. Vous avez peu, mais vous avez votre vie - et une histoire qui fera rêver les jeunes Ferrailleurs autour d'un feu de secours.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "s16",
+      "message": "Alors que vous commencez à remonter dans votre vaisseau, une patte de Béhémoth jaillit de la poussière lunaire et écrase votre trappe d'accès. Le métal se plie comme du papier aluminium, projetant des éclats dans la cabine. Vous perdez le contrôle, votre vaisseau part en tonneau vers l'astéroïde voisin. Dernière pensée avant l'impact : la cupidité ne pardonne pas dans la ceinture."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s17",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous décidez d'attendre. Les échanges deviennent de plus en plus barbares. Les Martiens utilisent des tactiques de précision, visant les articulations des créatures, tandis que les Béhémoths écrasent tout sur leur passage avec une force aveugle. Finalement, après ce qui semble être des heures, le silence retombe. Le champ de débris est jonché d'épaves martiennes fumantes et de morceaux de roche en fusion qui refroidissent lentement. Au centre, trois Béhémoths majestueux se tiennent immobile, leurs corps encore phosphorescents, avant de lentement retourner dans les profondeurs de l'astéroïde.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Vex",
+          "sentence": "Ils sont partis... ou du moins, ils sont retournés dormir. Maintenant, c'est notre tour. Mais attention, le Valkyrie est dans un état pitoyable. La plupart de ses systèmes vitaux sont hors ligne. Toutefois, la salle des machines pourrait encore contenir des éléments intacts si on est prêts à prendre des risques.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s18"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "s18",
+      "text": "Que faites-vous maintenant que les Béhémoths se sont retirés ?",
+      "options": [
+        {
+          "text": "Risquer une entrée rapide pour prendre ce qui reste de valeur",
+          "nextSituationId": "s19"
+        },
+        {
+          "text": "Faire une inspection minutieuse avant d'entrer - Plus sûr mais plus long",
+          "nextSituationId": "s22"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "s19",
+      "message": "Vous décidez de prendre le risque. En courant à travers les couloirs éventrés du Valkyrie, vous évitez de justesse une poutre qui se détache et saisissez ce que vous pouvez : un noyau d'ordinateur de navigation martien, encore fonctionnel, et une caisse de filaments de superconducteur. Juste as vous remontez dans votre vaisseau, un gémissement profond vient de l'astéroïde derrière vous. Les Béhémoths semblent avoir détecté votre présence et remontent à la surface. Vous mettez les gaz à plein régime, ressentant les vibrations de leurs pas résonner à travers votre coque tandis que vous filez vers la sécurité. Vous avez gagné ce round, mais vous savez que la ceinture n'oublie jamais ceux qui lui empruntent son pouvoir.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "s20",
+      "message": "Vous décidez d'être prudent. Vous passez près de vingt minutes à scanner les environs avec vos capteurs les plus sensibles, cherchant le moindre signe de mouvement. Finalement, convaincu que la zone est sûre, vous ordonnez l'approche. Au moment où vos pattes d'amarrage touchent la coque du Valkyrie, une secousse gigantesque traverse l'astéroïde. Le sol se fissure exactement sous votre point d'entrée, et une vague de roche en fusion jaillit vers le haut, engloutissant votre vaisseau avant même que vous n'ayez eu le temps de crier. La patience est une vertu, mais dans la ceinture, même la prudence peut être punie par la puissance brute de la planète elle-même."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s21",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Au lieu de fuir ou d'attaquer, vous décidez d'ouvrir un canal de communication avec le Valkyrie martien. Vos signaux, bien que primitifs, parviennent à travers l'interférence de la bataille. Après quelques minutes de bips et de grésillements, une voix métallique répond, lourdement accentuée mais compréhensible.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Officier Martien",
+          "sentence": "Ceci est le Valkyrie, commande martienne. État critique. Systèmes de soutien vitaux à 12%. Demande d'assistance. Répète : demande d'assistance.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Kip",
+          "sentence": "Putain, ils veulent qu'on les aide ! Après tout ce qu'ils nous ont fait pendant la guerre de la Ceinture ? Rook, tu te souviens de ce qu'ils ont fait à la colonie de Ganymède ?",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Rook",
+          "sentence": "Ouais, je me souviens. Mais regarde-les, Kip. Ils sont en train de crever là, seuls dans le noir, tandis que des monstres de pierre essaient de les manger. Même un chien blessé mérite pas ça. Et puis... imagine ce qu'ils pourraient nous donner en échange. Leur technologie médicale seule vaut une fortune.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Vex",
+          "sentence": "Trois options. On les aide à réparer suffisamment leur vaisseau pour qu'ils puissent partir, en échange de technologie ou de renseignements. On prétends les aider tout en cherchant à les voler ou à les trahir. Ou on refuse catégoriquement - après tout, ils méritent peut-être leur sort.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s23"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "s22",
+      "text": "Comment réagissez-vous à leur demande d'assistance ?",
+      "options": [
+        {
+          "text": "Les aider réellement - Réparer leur vaisseau en échange de technologie",
+          "nextSituationId": "s24"
+        },
+        {
+          "text": "Feindre l'aide tout en planifiant un vol ou une trahison",
+          "nextSituationId": "s28"
+        },
+        {
+          "text": "Refuser et préparer une embuscade pour les finir",
+          "nextSituationId": "s32"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s23",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vex transmet les coordonnées d'amarrage sécurisée. Les Martiens, désespérés, acceptent votre aide. Vous et Kip vous équipé de combinaisons de secours et pénétrez dans le Valkyrie par une écoutille secondaire. L'intérieur est un cauchemar : des panneaux arrachés, du sang séché mélangé à de l'huile, des alarmes qui hurlent dans le vide. Vous trouvez l'officier martien blessé dans le poste de commandement, son uniforme maculé, mais ses yeux encore vif d'intelligence militaire.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Officier Martien",
+          "sentence": "Vous risquez beaucoup pour nous, Ferrailleurs. Pourquoi ? La guerre entre nos peuples est ancienne et sanglante.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Rook",
+          "sentence": "Écoute, on est pas des saints. Mais même en enfer, on respecte un combattant qui se bat jusqu'au bout. Plus... y'a peut-être un profit à tirer de cette situation. Vous nous donnez accès à vos bases de données médicales, on vous remet en état de voler. Deal ?",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Officier Martien",
+          "sentence": "Accord. Nous transférerons les protocoles de guérison par nanites et les schémas de nos réacteurs à antimatière en échange de votre assistance technique. Commencez par les échangeurs de chaleur principaux - ils sont hors ligne depuis l'impact initial.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "s25"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s24",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Les heures passent dans un silence professionnel, interrompu seulement par le bourdonnement des outils et les gelegentliches instructions martiennes. Vous travaillez avec une efficacité surprenante, échangeant des tuyaux de refroidissement contre des connaissances sur la régénération tissulaire par nanites. Kip, malgré ses réserves initiales, semble même apprécier l'échange technique avec les ingénieurs martiens.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Kip",
+          "sentence": "Putain, qui aurait cru que ces martiens seraient aussi pointilleux sur les spécifications de contrainte thermique ? Leurs manuels sont presque beaux, d'une certaine manière. Même si j'espère qu'ils crèveront dans leur prochain combat contre ces putains de Béhémoths.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Finalement, après avoir stabilisé les systèmes vitaux et remis en ligne les propulseurs d'appoint, le Valkyrie tremble légèrement alors que ses moteurs principaux se réveillent. L'officier martien vous fait face, son expression difficile à lire derrière son casque endommagé.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Officier Martien",
+          "sentence": "Votre travail est exemplary. Comme convenu, voici les fichiers demandés. Et... acceptez ceci en plus. Une coordonnée vers une ancienne station de recherche martienne abandonnée dans la ceinture extérieure. On y a laissé des réserves non réclamées - nourriture, eau, pièces de rechange. Considérez-le comme... un geste de respect entre survivants.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s25"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "s25",
+      "message": "Alors que vous vous éloignez du Valkyrie maintenant fonctionnel, vous activez les fichiers transférés. Les schémas de réacteur à antimatière pourraient révolutionner vos réserves d'énergie, et les protocoles de nanites pourraient sauver des vies lors de vos prochaines expéditions dangereuses. Mais la véritable trésor est la coordonnée vers la station abandonnée - un potentiel jackpot qui pourrait sécuriser votre bande pour des années. Vous avez choisi la compassion dans un univers qui récompense rarement la vertu, et pourtant, l'univers semble vous avoir rendu votre générosité avec des intérêts. Parfois, même dans les profondeurs les plus sombres de la ceinture, l'honneur trouve son chemin."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s26",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous décidez de feindre la coopération tout en cherchant des opportunités pour voler ou prendre un avantage décisif. Vous travaillez ostensiblement sur les systèmes de soutien vitaux tout en faisant glisser des dispositifs d'écoute dans les conduits de maintenance et en scannant discrètement les bases de données accessibles.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Kip",
+          "sentence": "Regarde ça, Vex ! Leurs archives médicales contiennent des formules pour des antidotes contre presque tous les poisons connus dans la ceinture. Et là... leurs codes de lancement pour les torpilles à plasma ! Si on pouvait juste...",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Rook",
+          "sentence": "Attention, Kip ! Un officier vient de faire son ronde. Range ce truc avant qu'il ne te voie baver devant leurs secrets. On joue le jeu pour l'instant, mais on garde un œil sur la sortie.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s27"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "s27",
+      "text": "Que faites-vous avec les informations que vous avez rassemblées ?",
+      "options": [
+        {
+          "text": "Tenter un vol hardi pendant les dernières réparations",
+          "nextSituationId": "s30"
+        },
+        {
+          "text": "Attendre leur départ pour piller l'épave abandonné",
+          "nextSituationId": "s28"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s28",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous décidez d'attendre leur départ, croyant que les Martiens partiront bientôt maintenant que leur vaisseau est fonctionnel. Vous vous cachez dans un cratère voisin, surveillant leurs mouvements. Finalement, après ce qui semble être une éternité, vous voyez le Valkyrie allumer ses propulseurs de manœuvre et commencer à s'éloigner de l'astéroïde.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Vex",
+          "sentence": "Ils partent... enfin. Maintenant, c'est notre tour. Mais faites attention - ils pourraient nous avoir laissé un piège ou une balise de suivi. Kip, scanne les environs pour détecter toute anomalie.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Kip",
+          "sentence": "Rien d'anormal... attendez, un truc bizarre. Leur départ est trop propre. Trop ordonné. Comme s'ils savaient exactement où ils allaient. Et regarde ces émissions résiduelles... c'est presque comme s'ils nous avaient scannés en détail pendant qu'on travaillait. Putain, je crois qu'ils nous ont eus.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "s29"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "s29",
+      "text": "Que faites-vous face à cette découverte inquiétante ?",
+      "options": [
+        {
+          "text": "Partir immédiatement - Couper vos pertes et fuir",
+          "nextSituationId": "s30"
+        },
+        {
+          "text": "Confronter les Martiens avant leur départ - Exiger des explications",
+          "nextSituationId": "s32"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "s30",
+      "message": "Vous décidez de couper court et d'activer vos propulseurs à pleine puissance. Juste as vous commencez à vous éloigner, une salve de tirs précis jaillit du Valkyrie en retraite - non pas pour détruire, mais pour désactiver. Un faisceau d'ionisation frappe votre vaisseau, brouillant temporairement vos systèmes de navigation et de communications. Dans le chaos qui suit, vous voyez quelque chose d'étrange : les Martiens ne fuient pas les Béhémoths, ils semblent les guider vers quelque chose. Vers vous. Avant que vous ne puissiez réagir, une formation de créatures rochelles jaillit de l'astéroïde, attirée par une fréquence énergétique que seuls les Martiens pouvaient produire. Vous avez été utilisés comme appât. Votre dernier pensée alors que la première patte vous atteint est un mélange d'admiration pour leur stratégie et de terreur devant leur froideur calculatrice."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "s31",
+      "message": "Vous décidez de rester et de piller l'épave une fois les Martiens partis. Vous entrez dans le Valkyrie maintenant silencieux, vos lampes frontales trouvant leur chemin à travers l'obscurité. Tout en rassemblant des pièces de valeur - des alliages rares, des ordinateurs de bord encore fonctionnels - vous entendez un craquement inquiétant venant des profondeurs du vaisseau. Les panneaux du sol commencent à se soulever légèrement, comme si quelque chose d'enorme bougeait en dessous. Soudain, avec un grognement qui fait vibrer vos dents, le plancher sous vos pieds explose vers l'extérieur dans une gerbe de métal fondu et de roche en fusion. Un membre de Béhémoth, libéré de sa prison cachée dans les soutes du vaisseau, vous saisit avant que vous n'ayez eu le temps de crier. Vous avez sous-estimé à quel point les Martiens étaient prêts à sacrifier leur propre vaisseau pour éliminer une menace... ou peut-être ont-ils simplement été moins prudents que vous ne le pensiez."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "s32",
+      "message": "Vous décidez de confronter les Martiens directement. Vous sortez de votre cachette et faites signe au Valkyrie de s'arrêter. L'officier qui vous avait parlé précédemment apparaît à l'écouteille principale, son expression fermée. \"Vous avez découvert notre supercherie\", dit-il simplement. \"Nous avions besoin de temps pour achever nos réparations et préparer une contre-offensive contre les Béhémoths. Votre présence ici a compromis notre position.\" Avant que vous ne puissiez répondre, une salve de tirs précis jaillit du vaisseau, visant non pas à détruire mais à incapaciter. Vos systèmes de défense sont submergés par une décharge d'ions qui fait fondre vos circuits les plus sensibles. Alors que vous dériverez hors de contrôle, vous voyez les Martiens accomplir ce qu'ils étaient venus faire : larguer des charges spéciales dans la fissure de l'astéroïde, provoquant un effondrement contrôlé qui ensevelit les émergents Béhémoths sous des tonnes de roche. Vous avez été éliminé non par méchanceté, mais par nécessité stratégique dans une guerre que vous ne comprenez pas entièrement."
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "s33",
+      "message": "Malgré l'avertissement de Kip, vous décidez de rester assez longtemps pour planter une petite charge de déformation sur le casco extérieur du Valkyrie - suffisamment pour endommager leurs propulseurs lorsqu'ils tenteront de partir, mais pas assez pour les détruire complètement. Vous espérez ainsi les ralentir ou les obliger à atterrir quelque part où vous pourriez les attaquer plus tard. Juste as vous activez la détonateur à distance, cependant, vous recevez une transmission inattendue de l'officier martien : \"Nous savons ce que vous avez fait. Considérez ceci comme un avertissement : la prochaine fois, nous ne serons pas aussi cléments.\" La charge explose comme prévu, endommageant effectivement l'un des vecteurs de poussée martien. Alors que vous vous éloignez, vous voyez le Valkyrie lutter pour maintenir sa trajectoire, consumant davantage de carburant que prévu. Vous avez gagné une petite victoire, mais vous avez également fait des ennemis puissants et vindicatifs dans un univers où les représailles sont souvent paires."
+    }
+  ]
+}

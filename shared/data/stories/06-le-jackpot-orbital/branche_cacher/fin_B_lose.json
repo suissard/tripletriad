@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-game-over",
+  "situationId": "fin_B_lose",
+  "message": "Un tentacule géant écrase votre vaisseau. Les lumières s'éteignent alors que vous êtes entraîné vers les profondeurs rocheuses, jamais à revoir la lumière des étoiles. Game Over.",
+  "isNarration": true,
+  "position": "left"
+}

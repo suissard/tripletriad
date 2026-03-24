@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "s10",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "Vous coupez les propulseurs et laissez votre dérive vous cacher derrière l'astéroïde massif.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Kip",
+      "sentence": "Les capteurs sont brouillés... mais quelque chose remue sous la roche.",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "s13"
+}

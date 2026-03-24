@@ -1,0 +1,13 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "25",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "L'essaim recule, confus par ta résistance. Un bébé titan te regarde avec ses yeux sans pupilles. Pour la première fois, un Béhémoth hésite. Tu as changé les règles de l'Éveil. Les enfants te touchent la main de basalte. Ils ne te craignent plus.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "32"
+}

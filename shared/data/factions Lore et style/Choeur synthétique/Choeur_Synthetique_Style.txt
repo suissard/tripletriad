@@ -1,0 +1,34 @@
+﻿{
+ "_meta": "Modèle de structure pour générer la direction artistique d'une faction de TCG via IA.",
+ "nom_faction": "Le Chœur Synthétique",
+ "direction_artistique": {
+   "mots_cles_globaux": "Cyber-ascétisme, moines numériques, lévitation, hologrammes, sérénité martiale.",
+   "couleurs": {
+     "repartition": "60% Métaux usés et céramique / 30% Tissus sombres / 10% Hologrammes lumineux.",
+     "principales": "Acier patiné, Blanc céramique vieilli, Gris perle.",
+     "secondaires": "Brun moine délavé, Noir mat (câbles tressés), Bronze oxydé.",
+     "accents_et_energie": "Or holographique (runes, mantras), Bleu électrique clair (bâtons, lévitation)."
+   },
+   "anatomie_et_biologie": {
+     "description": "Androïdes humanoïdes lisses et silencieux. Totalement dépourvus de traits faciaux humains (pas d'yeux, ni nez, ni bouche) pour marquer la rupture avec la chair."
+   },
+   "armures_et_vetements": {
+     "concept_global": "L'ascétisme monastique appliqué à la robotique. La bure dissimule la machine dans une quête de pureté logicielle.",
+     "structure": "Robes de moine amples et usées faites de fibres synthétiques épaisses ou de faisceaux de câbles tressés. Lévitation magnétique constante.",
+     "casques_et_visages": "Plaques faciales totalement lisses (écrans ou métal plein), ou masques géométriques imperturbables.",
+     "details_cles": "Chapelets fabriqués à partir de minuscules disques durs ou processeurs. Symboles runiques holographiques dorés orbitant autour d'eux."
+   },
+   "armes_et_equipements": {
+     "concept": "Outils de \"défragmentation\" et d'exorcisme numérique. Armes de mêlée gracieuses et émetteurs de hacking foudroyant.",
+     "formes": "Longs bâtons de pèlerin électrifiés, lances épurées, objets rituels comme des moulins à prières cybernétiques.",
+     "details_visuels": "Arcs électriques crépitant le long des bâtons, projection d'équations binaires lumineuses lors des attaques."
+   },
+   "vehicules_et_vaisseaux": {
+     "concept": "Temples volants, monastères silencieux et modules de descente s'inspirant de l'art bouddhiste et des cloches tibétaines.",
+     "geometrie": "Symétrie absolue, mandalas structurels, pièces flottantes maintenues ensemble par des champs magnétiques (aucune fixation physique)."
+   }
+ },
+ "prompt_engineering": {
+   "master_prompt_adn": "Sci-fi grimdark spiritual art, Le Chœur Synthétique faction. Heavily modified, featureless humanoid robot wearing a ragged mechanical monk cloak. Levitating slightly off the ground. Glowing golden holographic runic symbols floating around its metallic body. Holding a crackling electrified staff, cyber-asceticism, serene but deadly, cinematic lighting, highly detailed."
+ }
+}

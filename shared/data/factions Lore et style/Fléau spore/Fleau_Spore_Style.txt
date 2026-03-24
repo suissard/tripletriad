@@ -1,0 +1,34 @@
+﻿{
+ "_meta": "Modèle de structure pour générer la direction artistique d'une faction de TCG via IA.",
+ "nom_faction": "Le Fléau Spore",
+ "direction_artistique": {
+   "mots_cles_globaux": "Horreur bio-mécanique, parasite, fongique, putréfaction, prolifération, asymétrique.",
+   "couleurs": {
+     "repartition": "60% Terne et sombre / 30% Organique maladif / 10% Accents bioluminescents.",
+     "principales": "Vert kaki crasseux, Brun terreux humide, Gris asphalte sombre.",
+     "secondaires": "Chair nécrosée, Violet ecchymose, Blanc cassé (moisissures).",
+     "accents_et_energie": "Vert fluo toxique, Violet bioluminescent (spores, gaz, champignons palpitants)."
+   },
+   "anatomie_et_biologie": {
+     "description": "Cadavres humains ou animaux assimilés, gonflés par les gaz putrides. Chair fusionnée avec des excroissances fongiques, bulbes palpitants et lianes de mycélium. Les yeux et organes manquants sont remplacés par des champignons luisants."
+   },
+   "armures_et_vetements": {
+     "concept_global": "Équipements humains standards détruits et disloqués de l'intérieur par une croissance fongique fulgurante. Le mycélium agit comme tissu conjonctif.",
+     "structure": "Plaques d'armure fracturées et écartelées, maintenues ensemble par des enchevêtrements de racines fongiques. Zéro symétrie.",
+     "casques_et_visages": "Casques militaires éventrés d'où débordent des amas de champignons. Visages humains déformés, mâchoires décrochées crachant un épais brouillard de spores.",
+     "details_cles": "Lianes pulpeuses s'enroulant autour des membres, branchies fongiques relâchant des gaz toxiques, polypores en plateau poussant sur les épaules et le dos."
+   },
+   "armes_et_equipements": {
+     "concept": "Armes humaines assimilées, la chair fongique ayant fusionné avec la mécanique pour tirer des projectiles organiques ou de l'acide.",
+     "formes": "Fusils et outils boursouflés, canons tordus englobés dans la biomasse, chargeurs remplacés par des sacs à spores bulbeux.",
+     "details_visuels": "Métal rongé et rouillé, veines d'énergie verte palpitant le long du canon, fumée remplacée par des nuages de spores toxiques au niveau de la bouche de l'arme."
+   },
+   "vehicules_et_vaisseaux": {
+     "concept": "Épaves de véhicules militaires terrestres (chars, transports) digérés et animés par le réseau mycélien pour servir de nids mobiles béants.",
+     "geometrie": "Châssis métalliques angulaires et rigides étouffés, déformés et recouverts par des masses sphériques et molles de champignons géants."
+   }
+ },
+ "prompt_engineering": {
+   "master_prompt_adn": "Sci-fi grimdark biomechanical horror, Le Fléau Spore faction. Horrific soldier or machine fully infected by glowing alien fungal spores. Rotting flesh fused with scavenged rusted metal armor. Thick, glowing green and purple mycelium tendrils violently breaking through armor plating. Bioluminescent fungal growths, pulsating parasitic bulges, surrounded by thick toxic spore fog, cinematic lighting, highly detailed."
+ }
+}

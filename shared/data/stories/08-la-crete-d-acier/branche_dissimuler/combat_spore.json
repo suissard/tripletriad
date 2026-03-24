@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "combat_spore",
+  "enemyDeckName": "Le Fléau Spore",
+  "onWinSituationId": "fin_ascension",
+  "onLoseSituationId": "fin_infection"
+}

@@ -40,6 +40,8 @@
     // Do not include test files
     "**/*.test.*",
     // Do not include plugins in the server compilation
-    "src/plugins/**"
+    "src/plugins/**",
+    // Do not include story data in the compilation
+    "src/shared/data/stories/**/*"
   ]
 }

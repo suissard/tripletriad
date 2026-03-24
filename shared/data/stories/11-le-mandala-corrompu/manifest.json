@@ -1,0 +1,122 @@
+{
+  "title": "Le Mandala Corrompu",
+  "description": "Le Chœur Synthétique tente de hacker une ogive sacrée des Héritiers des Cendres. Mais le code de la relique est imprégné de foi radioactive.",
+  "faction_focus": "Le Chœur Synthétique",
+  "factions_involved": [
+    "Le Chœur Synthétique",
+    "Les Héritiers des Cendres"
+  ],
+  "entry_point": "s0.json",
+  "situations": [
+    {
+      "file": "s0.json",
+      "situationId": "s0",
+      "type": "dialogue"
+    },
+    {
+      "file": "s1.json",
+      "situationId": "s1",
+      "type": "choice"
+    },
+    {
+      "file": "s10b1.json",
+      "situationId": "s10b1",
+      "type": "dialogue"
+    },
+    {
+      "file": "s11b1.json",
+      "situationId": "s11b1",
+      "type": "success"
+    },
+    {
+      "file": "s2a.json",
+      "situationId": "s2a",
+      "type": "dialogue"
+    },
+    {
+      "file": "s2b.json",
+      "situationId": "s2b",
+      "type": "dialogue"
+    },
+    {
+      "file": "s2c.json",
+      "situationId": "s2c",
+      "type": "dialogue"
+    },
+    {
+      "file": "s3a.json",
+      "situationId": "s3a",
+      "type": "battle"
+    },
+    {
+      "file": "s3b.json",
+      "situationId": "s3b",
+      "type": "choice"
+    },
+    {
+      "file": "s3c.json",
+      "situationId": "s3c",
+      "type": "choice"
+    },
+    {
+      "file": "s4a.json",
+      "situationId": "s4a",
+      "type": "success"
+    },
+    {
+      "file": "s4b.json",
+      "situationId": "s4b",
+      "type": "dialogue"
+    },
+    {
+      "file": "s4c.json",
+      "situationId": "s4c",
+      "type": "battle"
+    },
+    {
+      "file": "s5a.json",
+      "situationId": "s5a",
+      "type": "game-over"
+    },
+    {
+      "file": "s5b.json",
+      "situationId": "s5b",
+      "type": "choice"
+    },
+    {
+      "file": "s5c.json",
+      "situationId": "s5c",
+      "type": "dialogue"
+    },
+    {
+      "file": "s6b.json",
+      "situationId": "s6b",
+      "type": "dialogue"
+    },
+    {
+      "file": "s7b.json",
+      "situationId": "s7b",
+      "type": "choice"
+    },
+    {
+      "file": "s8b1.json",
+      "situationId": "s8b1",
+      "type": "dialogue"
+    },
+    {
+      "file": "s8b2.json",
+      "situationId": "s8b2",
+      "type": "game-over"
+    },
+    {
+      "file": "s9b1.json",
+      "situationId": "s9b1",
+      "type": "dialogue"
+    },
+    {
+      "file": "s9c.json",
+      "situationId": "s9c",
+      "type": "game-over"
+    }
+  ]
+}

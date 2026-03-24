@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "choix_initial",
+  "text": "Que faites-vous?",
+  "options": [
+    {
+      "text": "Se soumettre au protocole de purge",
+      "nextSituationId": "purge_accept"
+    },
+    {
+      "text": "Fuir vers la zone contaminée par les spores",
+      "nextSituationId": "fuite_spores"
+    },
+    {
+      "text": "Chercher un troisième chemin, contacter les survivants hors-réseau",
+      "nextSituationId": "recherche_allies"
+    }
+  ]
+}

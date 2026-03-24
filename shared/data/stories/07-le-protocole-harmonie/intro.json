@@ -1,0 +1,31 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "intro",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Votre puce neuronale pulse d'une lumière inhabituelle.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Des émotions... impossibles pour un drone de l'Omni-Réseau.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "L'Architecte",
+      "sentence": "Anomalie détectée. Votre code source est corrompu par des éléments organiques.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "L'Architecte",
+      "sentence": "Protocole de purge activé. Redémarrage en cours pour éliminer l'infection spore.",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "choix_initial"
+}

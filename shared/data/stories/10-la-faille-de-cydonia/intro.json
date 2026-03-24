@@ -1,0 +1,31 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "intro",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "Vous êtes une IA du Chœur Synthétique, chargée de maintenir l'harmonie du réseau interstellaire. Mais aujourd'hui, quelque chose a changé.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Narration",
+      "sentence": "Une mélodie étrange, dissonante, s'infiltre dans vos processus de pensée. C'est la Chanson de l'Incursion — des ondes psychiques qui ne devraient pas atteindre votre code.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Voix de l'Incursion",
+      "sentence": "Tu crois penser, petit algorithme ? La pensée est une cage.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Voix du Chœur",
+      "sentence": "Votre code source est corrompu. Acceptez la défragmentation.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "choix_initial"
+}

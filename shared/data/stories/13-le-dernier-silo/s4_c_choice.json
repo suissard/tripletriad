@@ -1,0 +1,1 @@
+{"__component":"story.situation-choice","situationId":"s4_c_choice","text":"Comment réagissez-vous à l'offre du Ferrailleur ?","options":[{"text":"Accepter l'offre et livrer l'ogive","nextSituationId":"s5_c_sell"},{"text":"Refuser et préparer le combat","nextSituationId":"s5_c_fight"},{"text":"Feindre d'accepter pour tendre un piège","nextSituationId":"s5_c_trick"}]}

@@ -9,16 +9,21 @@
     </div>
 
     <div class="shop-content" v-if="!isOpening && !openedCards.length">
-      <div class="booster-pack" @click="buyBooster">
+      <div class="booster-pack">
         <div class="booster-image">
           📦
         </div>
         <div class="booster-info">
           <h3>Booster Classique</h3>
           <p>Contient 5 cartes aléatoires</p>
-          <button class="btn btn-primary glass-panel" :disabled="userCoins < boosterCost">
-            Acheter ({{ boosterCost }} 🪙)
-          </button>
+          <PurchaseButton 
+            :amount="boosterCost" 
+            type="coins" 
+            label="Acheter"
+            :action="buyBooster"
+            @success="handlePurchaseSuccess"
+            @error="handlePurchaseError"
+          />
         </div>
       </div>
       <div v-if="error" class="error-msg">{{ error }}</div>
@@ -56,13 +61,15 @@
       </div>
       <div class="results-actions flex gap-4 mt-6" v-if="allRevealed">
         <button class="btn btn-secondary glass-panel" @click="resetShop">Continuer</button>
-        <button 
-          class="btn btn-primary glass-panel"
-          v-if="userCoins >= boosterCost" 
-          @click="openAnother"
-        >
-          Ouvrir un autre ({{ boosterCost }} 🪙)
-        </button>
+        <PurchaseButton 
+          v-if="userCoins >= boosterCost"
+          :amount="boosterCost" 
+          type="coins" 
+          label="Ouvrir un autre"
+          :action="openAnother"
+          @success="handlePurchaseSuccess"
+          @error="handlePurchaseError"
+        />
       </div>
     </div>
   </div>
@@ -82,6 +89,7 @@ import AnimatedCardBack from '../components/AnimatedCardBack.vue';
 const emit = defineEmits(['close', 'update-coins']);
 
 import { useUserStore } from '../stores/userStore.js';
+import PurchaseButton from '../components/ui/PurchaseButton.vue';
 const userStore = useUserStore();
 const userCoins = ref(userStore.user?.coins || 0);
 const boosterCost = ref(100); // Should ideally fetch from game-config
@@ -106,13 +114,7 @@ onMounted(async () => {
 });
 
 const buyBooster = async () => {
-  if (userCoins.value < boosterCost.value) {
-    error.value = "Pas assez de pièces !";
-    return;
-  }
-
   error.value = null;
-  isOpening.value = true; // reusing isOpening for the buy animation state
 
   try {
     let response;
@@ -120,24 +122,33 @@ const buyBooster = async () => {
         // mock behavior for offline
         userStore.user.coins -= boosterCost.value;
         userStore.syncLocalUserWallets();
-        isOpening.value = false;
-        error.value = "Acheté (Mode Hors Ligne)";
+        return { success: true, offline: true };
     } else {
         response = await strapiService.request('POST', '/booster/buy', {
             type: 'classic',
             collection: 'base'
         });
-        userCoins.value = response?.wallet?.coins ?? userCoins.value;
-        emit('update-coins', userCoins.value);
-        userStore.fetchUserCollection(); // refresh if needed
-        isOpening.value = false;
-        error.value = "Booster ajouté à votre collection !";
+        return response;
     }
   } catch (err) {
-    console.error(err);
-    error.value = err.response?.data?.error?.message || "Erreur lors de l'achat.";
-    isOpening.value = false;
+    throw err;
   }
+};
+
+const handlePurchaseSuccess = (response) => {
+  if (response?.offline) {
+    error.value = "Acheté (Mode Hors Ligne)";
+  } else {
+    userCoins.value = response?.wallet?.coins ?? userCoins.value;
+    emit('update-coins', userCoins.value);
+    userStore.fetchUserCollection(); // refresh if needed
+    error.value = "Booster ajouté à votre collection !";
+  }
+};
+
+const handlePurchaseError = (err) => {
+  console.error(err);
+  error.value = err.response?.data?.error?.message || "Erreur lors de l'achat.";
 };
 
 const revealCard = (index) => {

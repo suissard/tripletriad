@@ -1,0 +1,13 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "10",
+  "dialogues": [
+    {
+      "name": "N",
+      "sentence": "Tu renifles la fleur avec dégoût et la rejettes d'un coup de tête. Elle s'écrase contre un mur noirci, ses pétales se fanant instantanément.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "13"
+}

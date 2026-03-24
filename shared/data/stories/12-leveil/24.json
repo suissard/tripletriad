@@ -1,0 +1,13 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "24",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Tu as suivi l'instinct. La ville n'est plus qu'un cratère fumant. Ton essaim rugit de victoire. Mais la nuit, quand le silence revient, tu entends un son que les titans ne connaissent pas. Un sanglot. L'enfant que tu n'as pas protégé te hante dans les profondeurs.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "31"
+}

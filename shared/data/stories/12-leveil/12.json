@@ -1,0 +1,13 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "12",
+  "dialogues": [
+    {
+      "name": "N",
+      "sentence": "Tu avales la fleur sèche. Son goût est amer et poussiéreux, mais une étrange chaleur se répand dans ton ventre.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "15"
+}

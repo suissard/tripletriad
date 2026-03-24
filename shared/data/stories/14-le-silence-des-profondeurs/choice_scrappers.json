@@ -1,0 +1,15 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "choice_scrappers",
+  "text": "Les ferrailleurs te proposent un marché : ton sang en échange de carburant. Que fais-tu ?",
+  "options": [
+    {
+      "text": "Accepter l'échange",
+      "nextSituationId": "success_trade"
+    },
+    {
+      "text": "Refuser et partir",
+      "nextSituationId": "gameover_scrappers_betrayal"
+    }
+  ]
+}

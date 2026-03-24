@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "9",
+  "text": "Que fais-tu de la fleur offerte ?",
+  "options": [
+    {
+      "text": "La rejeter d'un coup de tête, dégoûté par cette fragilité",
+      "nextSituationId": "10"
+    },
+    {
+      "text": "La prendre délicatement dans ta gueule et la garder près de ton cœur",
+      "nextSituationId": "11"
+    },
+    {
+      "text": "La manger, suivant ton instinct de consommateur de matière organique",
+      "nextSituationId": "12"
+    }
+  ]
+}

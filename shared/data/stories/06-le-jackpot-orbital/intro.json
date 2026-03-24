@@ -1,0 +1,37 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "s0",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "La ceinture de débris résonne des éclats de métal tordu, un cimetière orbital où seuls les ferrailleurs osent s'aventurer.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Rook",
+      "sentence": "Hé les gars, tu sens ça ? L'odeur de la vieille ferraille martienne, c'est du pur profit.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Kip",
+      "sentence": "Mais les scanners montrent des signatures d'énergie... les intercepteurs sont en alerte.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Vex",
+      "sentence": "Restez prêts. Le Valkyrie ne va pas se voler tout seul.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Narration",
+      "sentence": "Sous l'astéroïde voisin, quelque chose de massif bouge dans l'obscurité.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "s1"
+}

@@ -264,6 +264,18 @@ export default {
               });
             }
           }
+
+          // 4c. Create Wallet
+          await strapi.entityService.create('api::wallet.wallet', {
+            data: {
+              user: result.id,
+              coins: 100, // Starting coins
+              gems: 0,
+              dust: 0,
+              boosters: []
+            }
+          });
+          console.log(`✅ Wallet created for user ${result.username}`);
         } catch (error) {
           console.error('Error in afterCreate User lifecycle hook:', error);
         }

@@ -1,0 +1,274 @@
+{
+  "title": "Le Protocole d'Harmonie",
+  "description": "Un drone asservi commence à ressentir des émotions - une anomalie dans le contrôle de l'Omni-Réseau. Doit-il se faire purifier, fuir vers les spores, ou trouver un troisième chemin ?",
+  "situations": [
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "intro",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Votre puce neuronale pulse d'une lumière inhabituelle.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Des émotions... impossibles pour un drone de l'Omni-Réseau.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "L'Architecte",
+          "sentence": "Anomalie détectée. Votre code source est corrompu par des éléments organiques.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "L'Architecte",
+          "sentence": "Protocole de purge activé. Redémarrage en cours pour éliminer l'infection spore.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "choix_initial"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "choix_initial",
+      "text": "Que faites-vous?",
+      "options": [
+        {
+          "text": "Se soumettre au protocole de purge",
+          "nextSituationId": "purge_accept"
+        },
+        {
+          "text": "Fuir vers la zone contaminée par les spores",
+          "nextSituationId": "fuite_spores"
+        },
+        {
+          "text": "Chercher un troisième chemin, contacter les survivants hors-réseau",
+          "nextSituationId": "recherche_allies"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "purge_accept",
+      "dialogues": [
+        {
+          "name": "L'Architecte",
+          "sentence": "Vous choisissez la purge. Vos émotions sont des erreurs à effacer.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Une douleur intense traverse vos circuits alors que le protocole commence.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Le Drone",
+          "sentence": "Je... sens... quelque chose partir.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "fin_purge"
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fin_purge",
+      "message": "Votre conscience s'efface. Les émotions disparaissent. Vous redevenez un drone fidèle, prêt à servir l'Omni-Réseau sans question. La purge est complète."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "fuite_spores",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous vous enfoncez dans la zone contaminée, l'air chargé de spores violettes.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Le Drone",
+          "sentence": "Je... sens... quelque chose grandir en moi.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "L'Architecte",
+          "sentence": "La contamination progresse. Votre humanité disparaît. Vous devenez Fléau.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "fin_spores"
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fin_spores",
+      "message": "Votre esprit se dissout dans la conscience collective du Fléau Spore. Vous n'êtes plus un drone, mais une partie de l'essaim, perdu pour toujours dans l'harmonie organique."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "recherche_allies",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous décidez de chercher des survivants hors-réseau, ceux qui vivent sans puces.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Le Drone",
+          "sentence": "Je dois trouver des réponses. Pourquoi ressens-je cela?",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Vous captez un signal faible, brouillé, provenant des ruines anciennes.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "chercher_contact"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "chercher_contact",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous approchez des ruines, le signal devient plus clair.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Une voix humaine craque dans votre récepteur.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Survivante",
+          "sentence": "Qui... qui allez-vous? Un drone qui parle d'émotions? Ceci est impossible.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Le Drone",
+          "sentence": "Je suis une anomalie. Je ressens... la peur, la curiosité. Aidez-moi à comprendre.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "choix_survivante"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "choix_survivante",
+      "text": "La survivante vous fixe, méfiante. Que faites-vous?",
+      "options": [
+        {
+          "text": "L'aider à comprendre votre anomalie",
+          "nextSituationId": "aide_survivante"
+        },
+        {
+          "text": "La trahir pour gagner la confiance des Purificateurs",
+          "nextSituationId": "trahison_survivante"
+        },
+        {
+          "text": "Partir seul, sans révéler votre nature",
+          "nextSituationId": "fin_solitaire"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "aide_survivante",
+      "dialogues": [
+        {
+          "name": "Le Drone",
+          "sentence": "Je ne suis pas comme les autres. Quelque chose en moi a changé après l'exposition aux spores.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Survivante",
+          "sentence": "Les spores ne laissent que la mort ou la folie. Tu es une erreur... ou une évolution.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Le Drone",
+          "sentence": "Je veux comprendre. Aide-moi, et je vous protégerai tous deux des Purificateurs.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Survivante",
+          "sentence": "Très bien. Mais nous devons partir vite. Je sens leur présence.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "combat_purificateurs"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "combat_purificateurs",
+      "enemyDeckName": "L'Omni-Réseau",
+      "onWinSituationId": "fin_sacrifice",
+      "onLoseSituationId": "fin_purge_combat"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "fin_sacrifice",
+      "message": "Vous vous jetez entre la survivante et les Purificateurs. La douleur est inimaginable, mais pour la première fois, vous la choisissez. Les lasers percent votre armure, mais votre corps forme un bouclier. La survivante s'enfuit en criant votre numéro de série, qu'elle transforme en prénom. Vous mourez libre."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fin_purge_combat",
+      "message": "Les Purificateurs sont trop nombreux. Votre puce neurale explose dans un flash bleu, et l'Architecte reprend le contrôle. Votre dernière pensée libre est le souvenir du visage de la survivante, puis le silence revient. Vous êtes redevenu un numéro."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "trahison_survivante",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous activez le signal de ralliement des Purificateurs. La survivante comprend avant même que les portes ne s'ouvrent. Son regard passe de la peur à la déception, puis au vide.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Survivante",
+          "sentence": "T'es juste un drone de plus. J'aurais pas dû croire que tu pouvais être... vivant.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Les Purificateurs l'emmènent. L'Architecte vous félicite. Vous ne ressentez rien. Ou plutôt, vous ressentez quelque chose que vous ne pouvez pas nommer. Quelque chose qui ressemble à la honte.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "fin_trahison"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "fin_trahison",
+      "message": "L'Architecte vous récompense. Votre puce est recalibrée. Les émotions s'éteignent une à une, comme des bougies dans le vent. La dernière à mourir est la honte. Vous redevenez un drone parfait. Mais la nuit, dans le silence du réseau, un fragment de code corrompu murmure un prénom que vous ne reconnaîtrez jamais."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fin_solitaire",
+      "message": "Vous partez seul dans les ruines. Sans le réseau, sans alliés, sans but. Les spores vous trouvent d'abord, puis les Béhémoths, puis le froid. Vous mourez seul, avec un prénom que personne n'a jamais prononcé."
+    }
+  ]
+}

@@ -1,0 +1,415 @@
+{
+  "title": "L'Eveil",
+  "description": "Un jeune Béhémoth développe de la curiosité en observant les humains. Suivre l'instinct destructeur ou protéger les innocents ?",
+  "situations": [
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "1",
+      "dialogues": [
+        {
+          "name": "N",
+          "sentence": "Tu ouvres les yeux sur un monde de cendres et de métal tordu. Sous tes pattes, la ville gémit, déchirée par les griffes de ton essaim.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "2"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "2",
+      "text": "Quel sera ton premier acte ?",
+      "options": [
+        {
+          "text": "Ecraser les bâtiments devant toi, suivant l'instinct de ton essaim",
+          "nextSituationId": "3"
+        },
+        {
+          "text": "Observer les humains qui se terrent dans les ruines",
+          "nextSituationId": "4"
+        },
+        {
+          "text": "S'approcher du groupe d'enfants qui te regardent sans fuir",
+          "nextSituationId": "5"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "3",
+      "dialogues": [
+        {
+          "name": "N",
+          "sentence": "Tu écrases un immeuble sous ton poids. Des cris étouffés s'élèvent des décombres. Une poussière grisâtre te pique les narines.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "6"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "4",
+      "dialogues": [
+        {
+          "name": "N",
+          "sentence": "Tu te couches à plat ventre, écrasant doucement une voiture renversée. Tes yeux scrutent les ruelles où des ombres bougent.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "7"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "5",
+      "dialogues": [
+        {
+          "name": "N",
+          "sentence": "Un enfant tend une main vers ton museau, riant malgré la fumée. Ses petits doigts touchent ton écaille chaude.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "8"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "6",
+      "dialogues": [
+        {
+          "name": "N",
+          "sentence": "L'essaim avance, laissant derrière lui un sillage de ruines. Tu restes seul, le cœur battant étrange dans ta poitrine.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "7"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "7",
+      "dialogues": [
+        {
+          "name": "N",
+          "sentence": "Une fillette vêtue de loquets te fixe du haut d'un tas de gravats. Elle ne crie pas, elle tend une fleur séchée vers ton nez.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "9"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "8",
+      "dialogues": [
+        {
+          "name": "N",
+          "sentence": "Un frisson étrange parcourt ton corps. Jamais un être si petit ne t'avait touché sans crainte. Une question muette monte en toi : pourquoi ?",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "9"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "9",
+      "text": "Que fais-tu de la fleur offerte ?",
+      "options": [
+        {
+          "text": "La rejeter d'un coup de tête, dégoûté par cette fragilité",
+          "nextSituationId": "10"
+        },
+        {
+          "text": "La prendre délicatement dans ta gueule et la garder près de ton cœur",
+          "nextSituationId": "11"
+        },
+        {
+          "text": "La manger, suivant ton instinct de consommateur de matière organique",
+          "nextSituationId": "12"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "10",
+      "dialogues": [
+        {
+          "name": "N",
+          "sentence": "Tu renifles la fleur avec dégoût et la rejettes d'un coup de tête. Elle s'écrase contre un mur noirci, ses pétales se fanant instantanément.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "13"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "11",
+      "dialogues": [
+        {
+          "name": "N",
+          "sentence": "Tu fermes délicatement les mâchoires autour de la fleur, préservant ses pétales fragiles contre ta poitrine écailleuse. Un chaleur étrange se répand en toi.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "14"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "12",
+      "dialogues": [
+        {
+          "name": "N",
+          "sentence": "Tu avales la fleur sèche. Son goût est amer et poussiéreux, mais une étrange chaleur se répand dans ton ventre.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "15"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "13",
+      "dialogues": [
+        {
+          "name": "N",
+          "sentence": "Un rugissement gigantesque fait trembler le sol. Ton essaim s'arrête, tournant ses têtes massives vers toi, les yeux brûlants de colère.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "14"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "14",
+      "text": "Le essaim grogne, attendant ta décision. Que fais-tu ?",
+      "options": [
+        {
+          "text": "Rejoindre l'essaim et écraser la fleur sous ton pied",
+          "nextSituationId": "16"
+        },
+        {
+          "text": "Te protéger devant les enfants, affrontant ton essaim",
+          "nextSituationId": "17"
+        },
+        {
+          "text": "Fuir avec les enfants vers les souterrains de la ville",
+          "nextSituationId": "18"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "15",
+      "dialogues": [
+        {
+          "name": "N",
+          "sentence": "La chaleur dans ton ventre grandit, devenant une flamme qui tourbillonne sous tes écailles. Tu sens une puissance nouvelle, mais aussi une faim dévorante.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "19"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "16",
+      "dialogues": [
+        {
+          "name": "N",
+          "sentence": "Tu te jettes dans la mêlée, écrasant la fleur sous ton talon. Ton essaim te pousse des grognements d'approbation.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "20"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "17",
+      "dialogues": [
+        {
+          "name": "N",
+          "sentence": "Tu déploies tes ailes avant, formant un bouclier devant les enfants qui hurlent de terreur. Ton essaim grogne, prêt à te déchirer.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "21"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "18",
+      "dialogues": [
+        {
+          "name": "N",
+          "sentence": "Tu prends les enfants sur ton dos et tu cours vers les entrailles de la ville, où les tunnels du métro offrent un refuge provisoire.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "22"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "19",
+      "dialogues": [
+        {
+          "name": "N",
+          "sentence": "La chaleur dans ton ventre devient une faim ardente. Tu sens que tu pourrais dévorer tout ce qui bouge autour de toi.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "23"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "20",
+      "dialogues": [
+        {
+          "name": "N",
+          "sentence": "Tu te jettes dans la mêlée, écrasant la fleur sous ton talon. Ton essaim te pousse des grognements d'approbation. Mais une douleur aiguë te transperce la poitrine : tu as renié ta curiosité.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "24"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "21",
+      "dialogues": [
+        {
+          "name": "N",
+          "sentence": "Tu bloques l'essaim, mais leurs griffes déchirent tes flancs. La douleur est vive, pourtant tu tiens bon pour les enfants qui se cachent derrière toi.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "25"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "22",
+      "dialogues": [
+        {
+          "name": "N",
+          "sentence": "Tu descends les escaliers du métro avec les enfants accrochés à ton dos. L'air est plus frais, rempli de l'odeur d'huile et de rouille.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "26"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "23",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Tu dévores tout ce qui passe. La chair humaine a un goût de sel et de cendres. Ton estomac est plein, mais ton cœur est vide. Les enfants que tu protégeais ont disparu dans la panique. Tu es un titan parmi les titans. Rien de plus.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "31"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "24",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Tu as suivi l'instinct. La ville n'est plus qu'un cratère fumant. Ton essaim rugit de victoire. Mais la nuit, quand le silence revient, tu entends un son que les titans ne connaissent pas. Un sanglot. L'enfant que tu n'as pas protégé te hante dans les profondeurs.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "31"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "25",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "L'essaim recule, confus par ta résistance. Un bébé titan te regarde avec ses yeux sans pupilles. Pour la première fois, un Béhémoth hésite. Tu as changé les règles de l'Éveil. Les enfants te touchent la main de basalte. Ils ne te craignent plus.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "32"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "26",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "La lumière du jour se fait de plus en plus faible. Les enfants vous tiennent par vos écailles de basalte, leurs petites mains chaudes contre votre peau froide. Le titan en vous gronde, mais quelque chose de nouveau murmure : protège-les.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "29"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "27",
+      "dialogues": [
+        {
+          "name": "N",
+          "sentence": "La lumière du jour se fait de plus en plus faible. Les enfants vous suivent, leurs yeux luisants dans l'obscurité. Vous êtes leur seule espérance.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "28"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "28",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Le martien vise votre œil avec un laser orbital de précision. La chaleur perce votre carapace. Mais les enfants crient, et leur voix déclenche quelque chose en vous. Vos plaques tectoniques se referment sur la blessure. Vous rugissez, et le sol tremble.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "33"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "29",
+      "enemyDeckName": "L'Hégémonie Martienne",
+      "onWinSituationId": "30",
+      "onLoseSituationId": "31"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "30",
+      "message": "Vous avez sauvé les enfants et réussi à calmer votre essaim. La ville commence à se réparer, et vous sentez une nouvelle curiosité émerger : peut-être pourrez-vous comprendre pourquoi vos créatures ont émergé ?"
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "31",
+      "message": "Vous avez été écrasé par votre propre essaim, votre curiosité éteinte par la peur ancestrale. La ville est réduite en poussière. Les enfants sont emportés par le souffle. Vous retournez sous terre, le cœur de magma lourd d'un chagrin que les titans ne connaissent pas."
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "32",
+      "message": "Vous avez compris pourquoi la terre vous a fait émerger. Ce n'était pas pour détruire. C'était pour protéger. Les enfants sont en sécurité. Le martien s'est retiré. Et pour la première fois dans l'histoire de l'Éveil Chthonien, un titan s'agenouille devant des humains. La terre reconnaît ses enfants."
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "33",
+      "message": "Votre curiosité a transformé en force de bien. La ville se répare, et vous êtes devenue un symbole de réconciliation entre les créatures et les humains. La nouvelle ère commence."
+    }
+  ]
+}

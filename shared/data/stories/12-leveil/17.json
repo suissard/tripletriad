@@ -1,0 +1,13 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "17",
+  "dialogues": [
+    {
+      "name": "N",
+      "sentence": "Tu déploies tes ailes avant, formant un bouclier devant les enfants qui hurlent de terreur. Ton essaim grogne, prêt à te déchirer.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "21"
+}

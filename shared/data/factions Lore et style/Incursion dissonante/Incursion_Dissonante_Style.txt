@@ -1,0 +1,34 @@
+﻿{
+ "_meta": "Modèle de structure pour générer la direction artistique d'une faction de TCG via IA.",
+ "nom_faction": "L'Incursion Dissonante",
+ "direction_artistique": {
+   "mots_cles_globaux": "Horreur cosmique, extra-dimensionnel, folie, glitch, géométries impossibles.",
+   "couleurs": {
+     "repartition": "60% Ténèbres abyssales / 30% Tissus et chair malades / 10% Énergie corrompue.",
+     "principales": "Noir absolu (ombres), Violet profond, Gris asile.",
+     "secondaires": "Chair pâle et scarifiée, Rouge sang séché, Tissus crasseux.",
+     "accents_et_energie": "Magenta/Violet néon (glitch), Noir crépitant (auras psychiques distordant la lumière)."
+   },
+   "anatomie_et_biologie": {
+     "description": "Mélange d'entités immatérielles faites d'ombres vivantes glitchées et de cultistes humains faméliques. Les humains ont souvent les yeux révulsés, s'automutilent et lévitent de façon anormale ou désarticulée."
+   },
+   "armures_et_vetements": {
+     "concept_global": "La folie incarnée : des camisoles de force déchirées pour les cultistes, ou des armures militaires standards (récupérées sur les ennemis possédés) déformées par des anomalies gravitationnelles.",
+     "structure": "Tissus en lambeaux flottant en apesanteur, plaques de métal tordues comme de la cire par la distorsion spatiale.",
+     "casques_et_visages": "Visages humains hurlant de terreur ou d'extase. Pour les entités pures : absence de visage, remplacé par des failles dimensionnelles ou des amas d'yeux chaotiques.",
+     "details_cles": "Lévitation, membres cassés dans des angles impossibles, ombres se détachant physiquement de leur hôte, effet de distorsion (glitch) autour des corps."
+   },
+   "armes_et_equipements": {
+     "concept": "L'esprit et l'anomalie sont les armes. Les armes matérielles sont soit inutiles, soit distordues par la possession.",
+     "formes": "Fusils fondant ou se disloquant en pièces flottantes, artefacts impies aux géométries non-euclidiennes.",
+     "details_visuels": "Auras d'énergie psychique crépitante violette/noire. Les objets autour d'eux lévitent, l'air semble vibrer ou se fracturer comme du verre."
+   },
+   "vehicules_et_vaisseaux": {
+     "concept": "Absence de véhicules classiques. Leurs transports sont des anomalies physiques : des morceaux de bâtiments arrachés au sol et flottant en amas chaotiques.",
+     "geometrie": "Fractale, absurde, défiant la gravité et la logique. Des structures qui s'inversent ou s'entremêlent sans fin."
+   }
+ },
+ "prompt_engineering": {
+   "master_prompt_adn": "Cosmic horror, dark dimensional energy, L'Incursion Dissonante faction. Ethereal glitching purple and black shadow entity, impossible non-Euclidean geometry. Levitating corrupted human cultists with rolled-back eyes and broken limbs. Psychic auras distorting reality, floating debris, terrifying, grimdark sci-fi, cinematic lighting, highly detailed."
+ }
+}

@@ -1,0 +1,34 @@
+﻿{
+ "_meta": "Modèle de structure pour générer la direction artistique d'une faction de TCG via IA.",
+ "nom_faction": "L'Omni-Réseau",
+ "direction_artistique": {
+   "mots_cles_globaux": "Cyberpunk dystopique, sombre, cybernétique, essaim, standardisé, inexpressif.",
+   "couleurs": {
+     "repartition": "60% Blindages sombres / 30% Peau pâle / 10% Accents technologiques froids.",
+     "principales": "Gris anthracite, Noir mat, Acier brossé froid.",
+     "secondaires": "Chair pâle quasi-cadavérique, Tissus militaires délavés.",
+     "accents_et_energie": "Bleu glacial néon (puces neurales, optiques), Orange/Jaune vif (feu des purificateurs)."
+   },
+   "anatomie_et_biologie": {
+     "description": "Humains asservis à la peau blafarde. Regards vides, visages inexpressifs et dénués d'émotion. Imposantes puces métalliques et épais câbles noirs greffés brutalement sur le crâne, la nuque et la colonne vertébrale."
+   },
+   "armures_et_vetements": {
+     "concept_global": "Uniformes militaires standardisés et produits en masse. L'individu n'existe pas, seule la fonction compte. Zéro personnalisation.",
+     "structure": "Armures composites lisses, ergonomiques et sombres portées sur des combinaisons utilitaires. Lignes épurées, souvent sales mais maintenues en parfait état de fonctionnement.",
+     "casques_et_visages": "Visages découverts révélant des yeux morts et des implants luisants, ou masques tactiques uniformes lisses équipés d'optiques connectées.",
+     "details_cles": "Connectiques neurales proéminentes émettant une lumière bleue froide. Numéros de série ou codes-barres gravés directement sur l'armure ou la chair."
+   },
+   "armes_et_equipements": {
+     "concept": "Armement d'infanterie de série ultra-fiable et optimisé, conçu pour l'éradication de masse et la purge (lance-flammes).",
+     "formes": "Fusils géométriques, lance-flammes lourds aux lignes industrielles nettes et rectangulaires.",
+     "details_visuels": "Zéro fioriture esthétique. Présence de câbles reliant directement la poignée de l'arme aux implants du poignet ou du dos du soldat pour un ciblage parfait."
+   },
+   "vehicules_et_vaisseaux": {
+     "concept": "Drones lourds, transports de troupes massifs et serveurs mobiles au design brutaliste, se déplaçant en parfaite synchronisation algorithmique. Les véhicules sont toujours dirigé grâce a une tête humaine qui sert de puissance de calcul, peut être partiellement décomposé",
+     "geometrie": "Angles droits, blocs rectangulaires monolithiques, symétrie parfaite et fonctionnelle."
+   }
+ },
+ "prompt_engineering": {
+   "master_prompt_adn": "Sci-fi grimdark cyberpunk, L'Omni-Réseau faction. Pale human cyborg soldier, completely blank expression, emotionless. Thick black neural cables and metallic chips violently grafted to the back of the skull and spine, glowing cold blue light. Wearing standardized sleek dark grey futuristic military armor. Mass-produced geometric weapons, dystopian drone swarm atmosphere, cinematic lighting, highly detailed."
+ }
+}

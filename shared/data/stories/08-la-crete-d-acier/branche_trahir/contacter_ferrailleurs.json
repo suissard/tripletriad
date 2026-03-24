@@ -1,0 +1,43 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "contacter_ferrailleurs",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous vous éloignez du groupe sous prétexte de vérifier un capteur. Le canal de communication ferrailleur grésille. Après trois tentatives, une voix rauque perce le bruit blanc.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Capitaine Ferrailleur Ratch",
+      "sentence": "Ah, un Puriste sur notre fréquence ? T'as perdu ton chemin, bouchon rouge ? Ou tu veux qu'on te raccompagne à la maison ?",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Soldat Kael",
+      "sentence": "Mon armure est percée. Spores détectées. Vos médecins de la Ceinture ont-ils un traitement ? Je peux vous donner les coordonnées de la prochaine frappe orbitale en échange.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Capitaine Ratch",
+      "sentence": "Oh putain. Un Puriste contaminé qui veut négocier. C'est le jour le plus bizarre de ma carrière de pirate. Ok, petit gars. On a un docteur qui a bossé sur des anti-fongiques vénusiens. Mais le prix, c'est pas juste les coordonnées. On veut tes codes d'accès aux réserves de carburant orbital de ton escouade.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Les codes de carburant. Donner ces codes signifie priver votre escouade de ravitaillement pendant des semaines. C'est condamner vos camarades à mort. Mais les spores atteignent votre cou. Vous avez vingt minutes.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Soldat Lyra",
+      "sentence": "Kael ! Reviens ici ! Qu'est-ce que tu fabriques loin du groupe ?",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "combat_martien"
+}

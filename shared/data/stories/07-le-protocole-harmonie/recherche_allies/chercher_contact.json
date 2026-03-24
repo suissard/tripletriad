@@ -1,0 +1,31 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "chercher_contact",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous approchez des ruines, le signal devient plus clair.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Une voix humaine craque dans votre récepteur.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Survivante",
+      "sentence": "Qui... qui allez-vous? Un drone qui parle d'émotions? Ceci est impossible.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Le Drone",
+      "sentence": "Je suis une anomalie. Je ressens... la peur, la curiosité. Aidez-moi à comprendre.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "choix_survivante"
+}

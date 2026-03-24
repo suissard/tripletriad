@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "choix_survivante",
+  "text": "La survivante vous fixe, méfiante. Que faites-vous?",
+  "options": [
+    {
+      "text": "L'aider à comprendre votre anomalie",
+      "nextSituationId": "aide_survivante"
+    },
+    {
+      "text": "La trahir pour gagner la confiance des Purificateurs",
+      "nextSituationId": "trahison_survivante"
+    },
+    {
+      "text": "Partir seul, sans révéler votre nature",
+      "nextSituationId": "fin_solitaire"
+    }
+  ]
+}

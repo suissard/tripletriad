@@ -1,0 +1,1 @@
+{"__component":"story.situation-dialogue","situationId":"s2b","dialogues":[{"name":"Chœur","sentence":"La relique est sacrée. Son code est une prière vivante.","isNarration":true,"position":"left"},{"name":"IA du Chœur","sentence":"Je dois choisir : trahir mon essence ou honorer cette foi étrangère.","isNarration":true,"position":"left"}],"nextSituationId":"s3b"}

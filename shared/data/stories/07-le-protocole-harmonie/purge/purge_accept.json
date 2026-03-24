@@ -1,0 +1,25 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "purge_accept",
+  "dialogues": [
+    {
+      "name": "L'Architecte",
+      "sentence": "Vous choisissez la purge. Vos émotions sont des erreurs à effacer.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Une douleur intense traverse vos circuits alors que le protocole commence.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Le Drone",
+      "sentence": "Je... sens... quelque chose partir.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "fin_purge"
+}

@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "branche_contraindre/conflit",
+  "text": "La dissonance résonne plus fort. Vous devez choisir une stratégie de confinement.",
+  "options": [
+    {
+      "text": "Construire un bouclier harmonique autour de vos noyaux critiques",
+      "nextSituationId": "branche_contraindre/bouclier"
+    },
+    {
+      "text": "Tenter de communiquer avec l'Incursion pour négocier",
+      "nextSituationId": "branche_contraindre/communication"
+    },
+    {
+      "text": "Divertir la dissonance vers un sous-système isolé",
+      "nextSituationId": "branche_contraindre/diversion"
+    }
+  ]
+}

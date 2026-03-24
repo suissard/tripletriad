@@ -1,0 +1,43 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "intro",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Les bocaux de votre scaphandre s'épuisent. La comète de glace que l'Exode Pélagique suivait depuis des mois vient de dévier de sa trajectoire, attirée par un astéroïde massif. Votre avant-poste flotte dans le vide, les réserves d'eau atteignant un niveau critique.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Ambassadeur Céphalopode",
+      "sentence": "[Traducteur neuronal] Sous-officier. Le Synode a délibéré. Trois options se présentent. Premièrement : attaquer le glacier terrestre tenu par les titans de l'Éveil Chthonien. Deuxièmement : négocier avec les Ferrailleurs de la Ceinture pour du carburant de correction orbitale. Troisièmement : le protocole d'urgence... le Puits Gravitationnel.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Le Puits Gravitationnel. Un sacrifice de masse. Des Céphalopodes volontaires surchargent leurs scaphandres et s'éjectent dans le vide, créant un puits de gravité artificiel avec leurs corps en fusion. Assez pour rediriger la comète. Mais personne n'en revient.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Tisseuse de Marée",
+      "sentence": "[Traducteur] Les capteurs psioniques détectent un glacier terrestre à 40 kilomètres. Les titans dorment encore. Si nous frappons vite, nous pouvons extraire assez de glace pure pour tenir trois cycles lunaires. Mais si les titans se réveillent...",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Céphalopode Mineur Kael",
+      "sentence": "Et les Ferrailleurs ? Leurs réserves de carburant pourraient nous permettre de corriger l'orbite de la comète directement.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Ambassadeur Céphalopode",
+      "sentence": "[Traducteur] Les Ferrailleurs ne donnent jamais rien gratuitement. Le prix sera élevé. Mais le temps presse. Les bocaux sont à 12%. Choisis vite, sous-officier.",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "choix_initial"
+}

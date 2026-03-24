@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-game-over",
+  "situationId": "fin_C_lose",
+  "message": "Les défenses s'activent avant que vous ne puissiez finir votre phrase. Des tourelles automatisées vous déchiquettent en mille morceaux métalliques. Game Over.",
+  "isNarration": true,
+  "position": "left"
+}

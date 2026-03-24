@@ -1,0 +1,15 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "branche_surrendre/surrendre_choice",
+  "text": "Vous posez votre arme. Les spores s'approchent, luminescentes, presque... douces. Quelque part dans le mycélium, vous entendez un murmure. Pas des mots, mais une sensation. Appartenance. Paix. Fin de la douleur. Que faites-vous ?",
+  "options": [
+    {
+      "text": "Ouvrir les bras. Accepter l'assimilation.",
+      "nextSituationId": "branche_surrendre/surrendre_dialogue"
+    },
+    {
+      "text": "Non. Rallumer votre lance-flammes une dernière fois.",
+      "nextSituationId": "branche_tenir/tenir_battle"
+    }
+  ]
+}

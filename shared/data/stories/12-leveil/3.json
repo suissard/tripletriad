@@ -1,0 +1,13 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "3",
+  "dialogues": [
+    {
+      "name": "N",
+      "sentence": "Tu écrases un immeuble sous ton poids. Des cris étouffés s'élèvent des décombres. Une poussière grisâtre te pique les narines.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "6"
+}

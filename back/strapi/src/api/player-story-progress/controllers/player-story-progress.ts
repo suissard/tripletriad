@@ -19,9 +19,11 @@ export default factories.createCoreController(
             steps: {
               populate: {
                 situations: {
-                  populate: {
-                    rewardCards: true,
-                  },
+                  on: {
+                    'story.situation-reward': {
+                      populate: { rewardCards: { populate: ['image'] } }
+                    }
+                  }
                 },
               },
             },
@@ -106,18 +108,28 @@ export default factories.createCoreController(
         const rewardCoins = rewardSituation.rewardCoins || 0;
 
         if (rewardCoins !== 0) {
-          const userDetails = await strapi.entityService.findOne(
+          let userDetails = await strapi.entityService.findOne(
             "plugin::users-permissions.user",
             userId,
             {
               populate: ["wallet"],
             },
-          );
+          ) as any;
+
+          let wallet = userDetails.wallet;
+          if (!wallet) {
+            // Lazy create wallet if missing
+            wallet = await strapi.entityService.create('api::wallet.wallet', {
+              data: { user: userId, coins: 100, gems: 0, dust: 0 }
+            });
+            console.log(`Created missing wallet for user ${userId}`);
+          }
+
           await strapi.entityService.update(
             "api::wallet.wallet",
-            (userDetails as any).wallet.id,
+            wallet.id,
             {
-              data: { coins: (userDetails as any).wallet.coins + rewardCoins },
+              data: { coins: wallet.coins + rewardCoins },
             },
           );
           coinsRewarded = rewardCoins;
@@ -288,7 +300,23 @@ export default factories.createCoreController(
           "api::story.story",
           storyId,
           {
-            populate: { steps: { populate: { situations: true } } },
+            populate: {
+              steps: {
+                populate: {
+                  situations: {
+                    on: {
+                      'story.situation-choice': {
+                        populate: {
+                          options: {
+                            populate: ['conditions']
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            } as any,
           },
         )) as any;
 
@@ -310,26 +338,33 @@ export default factories.createCoreController(
             (o: any) => o.nextSituationId === historyEntry.result,
           );
           if (option && option.conditions && option.conditions.length > 0) {
-            const userDetails = await strapi.entityService.findOne(
-              "plugin::users-permissions.user",
-              userId,
-              {
-                populate: ["wallet"],
-              },
-            );
-
             for (const condition of option.conditions) {
               if (condition.type === "hasCoin") {
                 const cost = parseInt(condition.value, 10);
-                if ((userDetails as any).wallet.coins < cost) {
+                const userDetails = await strapi.entityService.findOne(
+                  "plugin::users-permissions.user",
+                  userId,
+                  {
+                    populate: ["wallet"],
+                  },
+                ) as any;
+
+                let wallet = userDetails.wallet;
+                if (!wallet) {
+                  wallet = await strapi.entityService.create("api::wallet.wallet", {
+                    data: { user: userId, coins: 100, gems: 0, dust: 0 },
+                  });
+                }
+
+                if (wallet.coins < cost) {
                   return ctx.badRequest("Condition not met: Not enough coins");
                 }
                 // Deduct cost
                 await strapi.entityService.update(
                   "api::wallet.wallet",
-                  (userDetails as any).wallet.id,
+                  wallet.id,
                   {
-                    data: { coins: (userDetails as any).wallet.coins - cost },
+                    data: { coins: wallet.coins - cost },
                   },
                 );
               }

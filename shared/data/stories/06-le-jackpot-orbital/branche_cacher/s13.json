@@ -1,0 +1,16 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "s13",
+  "text": "Que faire maintenant ?",
+  "options": [
+    {
+      "text": "Attaquer les créatures de front",
+      "nextSituationId": "s14"
+    },
+    {
+      "text": "Tenter de glisser entre leurs tentacules",
+      "nextSituationId": "s14"
+    }
+  ],
+  "nextSituationId": "s14"
+}

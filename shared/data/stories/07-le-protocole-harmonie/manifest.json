@@ -1,0 +1,25 @@
+{
+  "title": "Le Protocole d'Harmonie",
+  "description": "Un drone asservi commence à ressentir des émotions - une anomalie dans le contrôle de l'Omni-Réseau. Doit-il se faire purifier, fuir vers les spores, ou trouver un troisième chemin ?",
+  "faction_focus": "L'Omni-Réseau",
+  "factions_involved": ["L'Omni-Réseau", "Le Fléau Spore"],
+  "entry_point": "intro.json",
+  "situations": [
+    {"file": "intro.json", "situationId": "intro", "type": "dialogue"},
+    {"file": "choix_initial.json", "situationId": "choix_initial", "type": "choice"},
+    {"file": "purge/purge_accept.json", "situationId": "purge_accept", "type": "dialogue"},
+    {"file": "purge/fin_purge.json", "situationId": "fin_purge", "type": "game-over"},
+    {"file": "spores/fuite_spores.json", "situationId": "fuite_spores", "type": "dialogue"},
+    {"file": "spores/fin_spores.json", "situationId": "fin_spores", "type": "game-over"},
+    {"file": "recherche_allies/recherche_allies.json", "situationId": "recherche_allies", "type": "dialogue"},
+    {"file": "recherche_allies/chercher_contact.json", "situationId": "chercher_contact", "type": "dialogue"},
+    {"file": "recherche_allies/choix_survivante.json", "situationId": "choix_survivante", "type": "choice"},
+    {"file": "recherche_allies/aide_survivante.json", "situationId": "aide_survivante", "type": "dialogue"},
+    {"file": "recherche_allies/combat_purificateurs.json", "situationId": "combat_purificateurs", "type": "battle"},
+    {"file": "recherche_allies/fin_sacrifice.json", "situationId": "fin_sacrifice", "type": "success"},
+    {"file": "recherche_allies/fin_purge_combat.json", "situationId": "fin_purge_combat", "type": "game-over"},
+    {"file": "recherche_allies/trahison_survivante.json", "situationId": "trahison_survivante", "type": "dialogue"},
+    {"file": "recherche_allies/fin_trahison.json", "situationId": "fin_trahison", "type": "success"},
+    {"file": "recherche_allies/fin_solitaire.json", "situationId": "fin_solitaire", "type": "game-over"}
+  ]
+}

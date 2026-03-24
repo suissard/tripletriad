@@ -1,0 +1,25 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "dialogue_glacier",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vos scaphandres à propulsion vous propulsent vers le glacier. La masse de glace pure brille comme un joyau dans le noir spatial. Mais en approchant, le sol tremble. L'astéroïde sur lequel repose le glacier se fissure. Une plaie de magma s'ouvre. Les Béhémoths se réveillent.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Tisseuse de Marée",
+      "sentence": "[Traducteur, voix tremblante] Les signatures thermiques explosent. Les titans... ils sentent notre eau. Ils viennent vers nous. Préparez les lasers miniers !",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Un poing de roche en fusion perce la surface du glacier. Un œil sans pupille, gros comme votre vaisseau, vous observe depuis les entrailles de la pierre. Le titan n'a pas de bouche pour parler. Il rugit dans le vide, et même sans son, la vibration brise un de vos réservoirs secondaires.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "battle_glacier"
+}

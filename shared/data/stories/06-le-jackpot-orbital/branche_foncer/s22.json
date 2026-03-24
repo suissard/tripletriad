@@ -1,0 +1,16 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "s22",
+  "text": "Comment répondre ?",
+  "options": [
+    {
+      "text": "Proposer un partage du butin",
+      "nextSituationId": "s23"
+    },
+    {
+      "text": "Menacer de les dénoncer aux pirates de la ceinture",
+      "nextSituationId": "s23"
+    }
+  ],
+  "nextSituationId": "s23"
+}

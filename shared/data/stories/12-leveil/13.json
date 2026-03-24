@@ -1,0 +1,13 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "13",
+  "dialogues": [
+    {
+      "name": "N",
+      "sentence": "Un rugissement gigantesque fait trembler le sol. Ton essaim s'arrête, tournant ses têtes massives vers toi, les yeux brûlants de colère.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "14"
+}

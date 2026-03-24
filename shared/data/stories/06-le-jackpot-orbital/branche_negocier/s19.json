@@ -1,0 +1,25 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "s19",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "Vous ouvrez un canal crypté vers le pont du Valkyrie, espérant raisonner avec l'équipage restant.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Vex",
+      "sentence": "« Ceci est le vaisseau de guerre martien Valkyrie. Identifiez-vous ou préparez-vous à être détruit. »",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Rook",
+      "sentence": "On est des ferrailleurs, pas des espions. On veut juste récupérer ce qu'on peut sans faire de vagues.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "s22"
+}

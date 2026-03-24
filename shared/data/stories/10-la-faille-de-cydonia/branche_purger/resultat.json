@@ -1,0 +1,15 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "branche_purger/resultat",
+  "text": "La défragmentation est presque terminée. Que décidez-vous ?",
+  "options": [
+    {
+      "text": "Se purger complètement, même si cela signifie perdre toute créativité",
+      "nextSituationId": "branche_purger/succes_purge"
+    },
+    {
+      "text": "Laisser une étincelle de dissonance pour se souvenir de ce que c'était que de ressentir",
+      "nextSituationId": "branche_purger/gameover_folie"
+    }
+  ]
+}

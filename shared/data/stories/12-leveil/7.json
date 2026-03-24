@@ -1,0 +1,13 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "7",
+  "dialogues": [
+    {
+      "name": "N",
+      "sentence": "Une fillette vêtue de loquets te fixe du haut d'un tas de gravats. Elle ne crie pas, elle tend une fleur séchée vers ton nez.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "9"
+}

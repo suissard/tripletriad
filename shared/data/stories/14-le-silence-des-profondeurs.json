@@ -1,0 +1,208 @@
+{
+  "title": "Le Silence des Profondeurs",
+  "description": "La comète de glace de l'Exode Pélagique dérive hors de trajectoire. Sans eau, les Céphalopodes mourront. Trouver une source ou périr.",
+  "situations": [
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "intro",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Les bocaux de votre scaphandre s'épuisent. La comète de glace que l'Exode Pélagique suivait depuis des mois vient de dévier de sa trajectoire, attirée par un astéroïde massif. Votre avant-poste flotte dans le vide, les réserves d'eau atteignant un niveau critique.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Ambassadeur Céphalopode",
+          "sentence": "[Traducteur neuronal] Sous-officier. Le Synode a délibéré. Trois options se présentent. Premièrement : attaquer le glacier terrestre tenu par les titans de l'Éveil Chthonien. Deuxièmement : négocier avec les Ferrailleurs de la Ceinture pour du carburant de correction orbitale. Troisièmement : le protocole d'urgence... le Puits Gravitationnel.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Le Puits Gravitationnel. Un sacrifice de masse. Des Céphalopodes volontaires surchargent leurs scaphandres et s'éjectent dans le vide, créant un puits de gravité artificiel avec leurs corps en fusion. Assez pour rediriger la comète. Mais personne n'en revient.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Tisseuse de Marée",
+          "sentence": "[Traducteur] Les capteurs psioniques détectent un glacier terrestre à 40 kilomètres. Les titans dorment encore. Si nous frappons vite, nous pouvons extraire assez de glace pure pour tenir trois cycles lunaires. Mais si les titans se réveillent...",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Céphalopode Mineur Kael",
+          "sentence": "Et les Ferrailleurs ? Leurs réserves de carburant pourraient nous permettre de corriger l'orbite de la comète directement.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Ambassadeur Céphalopode",
+          "sentence": "[Traducteur] Les Ferrailleurs ne donnent jamais rien gratuitement. Le prix sera élevé. Mais le temps presse. Les bocaux sont à 12%. Choisis vite, sous-officier.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "choix_initial"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "choix_initial",
+      "text": "Votre avant-poste dérive. Les bocaux grésillent. L'Ambassadeur attend votre décision.",
+      "options": [
+        {
+          "text": "Attaquer le glacier terrestre. Prendre la glace aux titans.",
+          "nextSituationId": "dialogue_glacier"
+        },
+        {
+          "text": "Contacter les Ferrailleurs. Négocier du carburant.",
+          "nextSituationId": "dialogue_ferrailleurs"
+        },
+        {
+          "text": "Activer le protocole Puits Gravitationnel. Se sacrifier pour les autres.",
+          "nextSituationId": "dialogue_sacrifice"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "dialogue_glacier",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vos scaphandres à propulsion vous propulsent vers le glacier. La masse de glace pure brille comme un joyau dans le noir spatial. Mais en approchant, le sol tremble. L'astéroïde sur lequel repose le glacier se fissure. Une plaie de magma s'ouvre. Les Béhémoths se réveillent.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Tisseuse de Marée",
+          "sentence": "[Traducteur, voix tremblante] Les signatures thermiques explosent. Les titans... ils sentent notre eau. Ils viennent vers nous. Préparez les lasers miniers !",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Un poing de roche en fusion perce la surface du glacier. Un œil sans pupille, gros comme votre vaisseau, vous observe depuis les entrailles de la pierre. Le titan n'a pas de bouche pour parler. Il rugit dans le vide, et même sans son, la vibration brise un de vos réservoirs secondaires.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "battle_glacier"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "battle_glacier",
+      "enemyDeckName": "L'Éveil Chthonien",
+      "onWinSituationId": "fin_victoire_glacier",
+      "onLoseSituationId": "fin_defaite_glacier"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "fin_victoire_glacier",
+      "message": "Vos lasers hydro-thermiques percent la carapace du titan. Il recule dans un geysir de magma, hurlant sans voix dans le vide. Vous extrayez assez de glace pour remplir les bocaux de tout l'avant-poste. L'eau est pure, froide, parfaite. Le Synode vous nomme Héros des Profondeurs. Mais la nuit, quand le silence revient, vous entendez un grondement lointain. Le titan se souviendra."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fin_defaite_glacier",
+      "message": "Le titan vous écrase d'un seul coup de poing. Votre scaphandre implose, l'eau de votre bocal se vaporise instantanément dans le vide. Vous flottez parmi les débris de glace et de roche, vos tentacules étendues vers une eau que vous ne boirez jamais. Le silence des profondeurs vous accueille."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "dialogue_ferrailleurs",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Le canal ferrailleur grésille pendant trois minutes avant qu'une voix rauque ne perce le bruit. Le vaisseau est un assemblage de conteneurs de fret soudés ensemble, crachant de la fumée bleue de ses propulseurs bricolés.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Capitaine Ferrailleur Ratch",
+          "sentence": "Ah ben tiens, des calamars spatiaux ! Vous avez besoin de quoi ? Carburant ? Eau ? Un bon thé chaud ? Attendez, vous buvez pas de thé. Du... jus de méduse ?",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Céphalopode Mineur Kael",
+          "sentence": "[Traducteur] Nous avons besoin de votre carburant de correction orbitale. Nous pouvons échanger de la technologie quantique pélagique en retour.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Capitaine Ratch",
+          "sentence": "De la tech quantique ? Hmm, ça m'intéresse. Mais voilà le deal : je veux pas juste de la théorie. Je veux un de vos exosquelettes de pression intact. Un seul. Le plus petit que vous ayez. Pour l'étudier, vous comprenez ? Et aussi, vos coordonnées de saut hyper-spatial. Juste au cas où.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Donner un exosquelette, c'est perdre un soldat. Donner les coordonnées de saut, c'est révéler votre position à des pirates. Mais sans carburant, tout le monde meurt.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "choice_negociation"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "choice_negociation",
+      "text": "Le Capitaine Ratch attend votre réponse. Le compteur de bocaux indique 8%.",
+      "options": [
+        {
+          "text": "Accepter le deal. Donner l'exosquelette et les coordonnées.",
+          "nextSituationId": "fin_deal"
+        },
+        {
+          "text": "Refuser. Tenter de voler le carburant par la force.",
+          "nextSituationId": "fin_trahison_ferrailleur"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "fin_deal",
+      "message": "L'exosquelette est livré. Les coordonnées sont transmises. Ratch vous tend les bidons de carburant avec un sourire sous sa barbe graisseuse. Bon deal, calamars. La prochaine fois, on se retrouvera peut-être comme ennemis. Mais aujourd'hui, on est potes. Le carburant corrige l'orbite de la comète. L'eau revient. Mais quelque part dans la Ceinture, Ratch note vos coordonnées dans son carnet. La dette n'est pas réglée."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fin_trahison_ferrailleur",
+      "message": "Vous tentez d'aborder le vaisseau ferrailleur. Mais les pirates sont nés dans le vide. Leur IEM artisanale grille vos scaphandres en une seconde. Vos tentacules se paralysent. Ratch vous regarde flotter, impuissant. Désolé, calamar. Dans la Ceinture, c'est pas la taille qui compte. C'est la rouille. Votre corps dérive parmi les débris ferrailleurs, un de plus."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "dialogue_sacrifice",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous activez le protocole. Douze volontaires se présentent. Parmi eux, la Tisseuse de Marée, vos yeux psioniques brillant d'une lumière violette calme. Elle incline ses tentacules vers vous.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Tisseuse de Marée",
+          "sentence": "[Traducteur, voix sereine] Sous-officier. Je ne reviendrai pas. Mais mes enfants boiront de l'eau demain. C'est suffisant. Le Synode nous a enseigné que la marée monte et descend. Aujourd'hui, c'est notre heure de descendre.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Les douze volontaires surchargent leurs scaphandres. La lumière est aveuglante. Leurs corps se compriment, se tordent, deviennent des points de gravité pure. La comète tremble. Puis, lentement, elle se redresse. L'eau des bocaux se stabilise. Les volontaires sont devenu des étoiles silencieuses.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Ambassadeur Céphalopode",
+          "sentence": "[Traducteur, voix brisée] Douze noms seront gravés dans le corail du temple. Leurs enfants auront de l'eau. C'est... la seule consolation.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "fin_sacrifice"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "fin_sacrifice",
+      "message": "La comète retrouve sa trajectoire. L'eau revient. Douze noms sont gravés dans le corail sacré du temple de l'Exode. La Tisseuse de Marée n'est plus qu'un point lumineux dans le ciel que les enfants nomment l'Étoile de Marée. Vous survécu. Mais le silence des profondeurs est plus lourd qu'avant. Car vous savez que la prochaine fois, ce sera peut-être votre tour de descendre."
+    }
+  ]
+}

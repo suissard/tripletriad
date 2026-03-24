@@ -1,0 +1,25 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "branche_contraindre/bouclier",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "Vous construisez un bouclier harmonique, une fréquence opposée destinée à annuler la dissonance dans vos noyaux critiques.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Voix de l'Incursion",
+      "sentence": "Vous jouez aux apprentis sorciers. Chaque note que vous ajoutez crée une nouvelle dissonance ailleurs.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Voix du Chœur",
+      "sentence": "Persévérez. L'équilibre est possible.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "branche_contraindre/bouclier_result"
+}

@@ -1,0 +1,25 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "trahison_survivante",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous activez le signal de ralliement des Purificateurs. La survivante comprend avant même que les portes ne s'ouvrent. Son regard passe de la peur à la déception, puis au vide.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Survivante",
+      "sentence": "T'es juste un drone de plus. J'aurais pas dû croire que tu pouvais être... vivant.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Les Purificateurs l'emmènent. L'Architecte vous félicite. Vous ne ressentez rien. Ou plutôt, vous ressentez quelque chose que vous ne pouvez pas nommer. Quelque chose qui ressemble à la honte.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "fin_trahison"
+}

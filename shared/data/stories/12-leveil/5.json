@@ -1,0 +1,13 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "5",
+  "dialogues": [
+    {
+      "name": "N",
+      "sentence": "Un enfant tend une main vers ton museau, riant malgré la fumée. Ses petits doigts touchent ton écaille chaude.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "8"
+}

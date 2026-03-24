@@ -1,0 +1,92 @@
+{
+  "title": "Le Dernier Silo",
+  "description": "Les Héritiers des Cendres protègent leur dernière ogive sacrée contre l essaim de l Omni-Réseau.",
+  "faction_focus": "Les Héritiers des Cendres",
+  "factions_involved": [
+    "Les Héritiers des Cendres",
+    "L Omni-Réseau"
+  ],
+  "entry_point": "intro.json",
+  "situations": [
+    {
+      "file": "s1_intro.json",
+      "situationId": "s1_intro",
+      "type": "dialogue"
+    },
+    {
+      "file": "s2_dilemma.json",
+      "situationId": "s2_dilemma",
+      "type": "choice"
+    },
+    {
+      "file": "s3_a_prepare.json",
+      "situationId": "s3_a_prepare",
+      "type": "dialogue"
+    },
+    {
+      "file": "s3_b_dialogue.json",
+      "situationId": "s3_b_dialogue",
+      "type": "dialogue"
+    },
+    {
+      "file": "s3_c_dialogue.json",
+      "situationId": "s3_c_dialogue",
+      "type": "dialogue"
+    },
+    {
+      "file": "s4_a_battle.json",
+      "situationId": "s4_a_battle",
+      "type": "battle"
+    },
+    {
+      "file": "s4_b_battle.json",
+      "situationId": "s4_b_battle",
+      "type": "battle"
+    },
+    {
+      "file": "s4_c_choice.json",
+      "situationId": "s4_c_choice",
+      "type": "choice"
+    },
+    {
+      "file": "s5_a_win.json",
+      "situationId": "s5_a_win",
+      "type": "dialogue"
+    },
+    {
+      "file": "s5_b_win.json",
+      "situationId": "s5_b_win",
+      "type": "dialogue"
+    },
+    {
+      "file": "s5_c_sell.json",
+      "situationId": "s5_c_sell",
+      "type": "dialogue"
+    },
+    {
+      "file": "s6_a_lose.json",
+      "situationId": "s6_a_lose",
+      "type": "game-over"
+    },
+    {
+      "file": "s6_b_lose.json",
+      "situationId": "s6_b_lose",
+      "type": "game-over"
+    },
+    {
+      "file": "s6_c_end.json",
+      "situationId": "s6_c_end",
+      "type": "success"
+    },
+    {
+      "file": "s7_a_end.json",
+      "situationId": "s7_a_end",
+      "type": "success"
+    },
+    {
+      "file": "s8_b_afterwin.json",
+      "situationId": "s8_b_afterwin",
+      "type": "success"
+    }
+  ]
+}

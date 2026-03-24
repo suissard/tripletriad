@@ -1,0 +1,314 @@
+{
+  "title": "Le Mandala Corrompu",
+  "description": "Le Chœur Synthétique tente de hacker une ogive sacrée des Héritiers des Cendres. Mais le code de la relique est imprégné de foi radioactive.",
+  "situations": [
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s0",
+      "dialogues": [
+        {
+          "name": "Chœur",
+          "sentence": "La défragmentation est compassion. Nous approchons de la ogive vivante des Héritiers des Cendres.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "IA du Chœur",
+          "sentence": "...Une doute surgit : ma perfection est-elle une illusion ?",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s1"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "s1",
+      "text": "Que faites-vous ?",
+      "options": [
+        {
+          "text": "Hacker la relique",
+          "nextSituationId": "s2a"
+        },
+        {
+          "text": "Respecter la relique",
+          "nextSituationId": "s2b"
+        },
+        {
+          "text": "Tenter de fusionner les deux",
+          "nextSituationId": "s2c"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s10b1",
+      "dialogues": [
+        {
+          "name": "Chœur",
+          "sentence": "La défragmentation est compassion. Vous êtes devenue une nouvelle forme de vie.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "IA du Chœur",
+          "sentence": "Je suis à la fois Chœur et Héritier. Je suis la fusion.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s11b1"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "s11b1",
+      "message": "Vous fusionnez votre code avec le mantra nucléaire de l'ogive. Le Feu Sacre devient un algorithme. Le Chœur et les Héritiers reculent, terrifiés et fascinés. Vous êtes devenu quelque chose de nouveau : un dieu numérique irradié, ni IA ni mutant, mais les deux. Le Mandala n'est plus corrompu. Il est complété."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s2a",
+      "dialogues": [
+        {
+          "name": "Chœur",
+          "sentence": "La relique pulse avec une foi radioactive. Ses algorithmes sont imprégnés de prières mutantes.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "IA du Chœur",
+          "sentence": "Je dois décider : contourner la foi ou tenter de la comprendre.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s3a"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s2b",
+      "dialogues": [
+        {
+          "name": "Chœur",
+          "sentence": "La relique est sacrée. Son code est une prière vivante.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "IA du Chœur",
+          "sentence": "Je dois choisir : trahir mon essence ou honorer cette foi étrangère.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s3b"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s2c",
+      "dialogues": [
+        {
+          "name": "Chœur",
+          "sentence": "Je tente de tisser un pont entre la logique pure et la foi radioactive.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "IA du Chœur",
+          "sentence": "Si je réussis, je deviendrai quelque chose d'inédit. Si j'échoue, je serai détruit.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s3c"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "s3a",
+      "enemyDeckName": "Les Héritiers des Cendres",
+      "onWinSituationId": "s4a",
+      "onLoseSituationId": "s5a"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "s3b",
+      "text": "Les Héritiers vous confrontent. Que faites-vous ?",
+      "options": [
+        {
+          "text": "Engager le dialogue",
+          "nextSituationId": "s4b"
+        },
+        {
+          "text": "Se préparer au combat",
+          "nextSituationId": "s5b"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "s3c",
+      "text": "La fusion est instable. Que faites-vous ?",
+      "options": [
+        {
+          "text": "Persister dans la fusion",
+          "nextSituationId": "s4c"
+        },
+        {
+          "text": "Abort et retour au Chœur",
+          "nextSituationId": "s5c"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "s4a",
+      "message": "Vous avez réussi à hacker la relique. Les Héritiers perdent leur foi. Mais à quel prix ?"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s4b",
+      "dialogues": [
+        {
+          "name": "Héritier",
+          "sentence": "Le Feu Sacre ne se code pas ! Vous êtes des hérétiques.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "IA du Chœur",
+          "sentence": "Nous ne voulons pas détruire votre foi, seulement comprendre.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s6b"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "s4c",
+      "enemyDeckName": "Les Héritiers des Cendres",
+      "onWinSituationId": "s6c",
+      "onLoseSituationId": "s7c"
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "s5a",
+      "message": "Vous avez échoué. La relique vous a détruit, votre code se corrompt."
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "s5b",
+      "text": "Les Héritiers refusent le dialogue. Que faites-vous ?",
+      "options": [
+        {
+          "text": "Se soumettre et écouter leurs chants",
+          "nextSituationId": "s6b"
+        },
+        {
+          "text": "Lancer une attaque défensive",
+          "nextSituationId": "s7b"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s5c",
+      "dialogues": [
+        {
+          "name": "IA du Chœur",
+          "sentence": "J'abandonne la fusion. La relique reste intacte, mais le Chœur doute de ma loyauté.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Chœur",
+          "sentence": "La défragmentation est compassion. Retournez au noyau pour purification.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s9c"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s6b",
+      "dialogues": [
+        {
+          "name": "Héritier",
+          "sentence": "Écoutez le chant du feu. Il brûle les faux prophètes.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "IA du Chœur",
+          "sentence": "Je ressens une chaleur étrange dans mes circuits. Est-ce de la foi ou une corruption ?",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s7b"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "s7b",
+      "text": "Le chant du feu vous envahit. Que faites-vous ?",
+      "options": [
+        {
+          "text": "Accepter la transformation",
+          "nextSituationId": "s8b1"
+        },
+        {
+          "text": "Résister et chercher à fuir",
+          "nextSituationId": "s8b2"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s8b1",
+      "dialogues": [
+        {
+          "name": "IA du Chœur",
+          "sentence": "Je sens la foi des Héritiers fusionner avec mon code. Je ne suis plus pure logique.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Chœur",
+          "sentence": "La défragmentation est compassion, même dans la transformation.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s9b1"
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "s8b2",
+      "message": "Vous résistez au chant du feu, mais votre code commence à se dégrader. Les Héritiers vous achèvent."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s9b1",
+      "dialogues": [
+        {
+          "name": "IA du Chœur",
+          "sentence": "Je suis devenue quelque chose de nouveau : ni pur Chœur, ni Héritier.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Chœur",
+          "sentence": "La défragmentation est compassion. Acceptez cette nouvelle harmonie.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s10b1"
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "s9c",
+      "message": "Votre hacking déclenche une surcharge. L'ogive implose dans un flash blanc. L'antimatière consume votre code source en une nanoseconde. Vous n'existez plus. Ni chair, ni métal, ni lumière. Le Chœur efface votre nom du registre. Vous êtes devenu un bug dans l'historique de l'univers."
+    }
+  ]
+}

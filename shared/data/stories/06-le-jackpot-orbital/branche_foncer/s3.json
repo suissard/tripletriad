@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "s3",
+  "enemyDeckName": "Intercepteurs Martiens",
+  "onWinSituationId": "fin_A_win",
+  "onLoseSituationId": "fin_A_lose"
+}
