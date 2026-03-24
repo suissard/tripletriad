@@ -12,6 +12,7 @@
         'is-flat': flat,
         'has-custom-border': !!borderColor,
         'is-flipping': isFlipping,
+        'is-shaking': isShaking,
         'is-compact': compact
       }
     ]"
@@ -85,6 +86,9 @@
           <div class="unowned-overlay" v-if="unowned">🔒</div>
         </template>
 
+        <!-- Broken Glass Impact Effect for Captures -->
+          <BrokenGlassOverlay v-if="card.impactDirection" :direction="card.impactDirection" />
+
         <!-- BASE CARD FACE (Fallback revealed false) -->
         <template v-else>
           <AnimatedCardBack v-if="cardBack === 'animated'" class="card-back-img" /><img v-else src="/card-back.svg" class="card-back-img" alt="Card Back" />
@@ -127,6 +131,7 @@
 <script setup>
 import { computed, ref, useAttrs, watch } from "vue";
 import AnimatedCardBack from "./AnimatedCardBack.vue";
+import BrokenGlassOverlay from "./BrokenGlassOverlay.vue";
 import ElementIcon from "./ElementIcon.vue";
 import CardDetailModal from "./CardDetailModal.vue";
 import { state } from '../game/state.js';
@@ -459,9 +464,18 @@ function handleLeave() {
   mouseStyle.value = { '--mx': '50%', '--my': '50%', '--posx': '50%', '--posy': '50%' };
 }
 
+// --- Capture Impact Animation ---
+const isShaking = ref(false);
+watch(() => props.card.impactDirection, (newVal) => {
+  if (newVal) {
+    isShaking.value = true;
+    setTimeout(() => { isShaking.value = false; }, 300);
+  }
+});
+
 // --- Capture Flip Animation ---
 watch(() => props.borderColor, (newVal, oldVal) => {
-  if (oldVal && newVal !== oldVal) {
+  if (oldVal && newVal !== oldVal && !props.card.impactDirection) {
     isFlipping.value = true;
     setTimeout(() => {
       isFlipping.value = false;
@@ -508,7 +522,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   background: #1a1a2e;
   border: var(--card-border-width, 2px) solid #333;
   box-sizing: border-box;
-  transition: border-color 0.3s ease, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: border-color 0.8s ease, box-shadow 0.8s ease, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Ensure children are clipped only on their own side if needed */
@@ -664,6 +678,17 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 
 .tt-card.is-compact .card-stats-cross::before {
   display: none !important;
+}
+
+@keyframes hammer-hit {
+    0% { transform: translate(0, 0); filter: brightness(1); }
+    10% { transform: translate(-4px, 3px); filter: brightness(1.3); }
+    20% { transform: translate(3px, -2px); filter: brightness(1); }
+    30% { transform: translate(-2px, 1px); }
+    40% { transform: translate(0, 0); }
+}
+.tt-card.is-shaking:not(.is-flat) {
+    animation: hammer-hit 0.3s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 }
 
 @keyframes flip-360 {
