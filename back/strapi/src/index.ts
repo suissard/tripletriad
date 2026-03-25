@@ -118,6 +118,8 @@ export default {
         'api::player-story-progress.player-story-progress.saveStepProgress',
         'api::player-event-log.player-event-log.trackEvent',
         'api::game-config.game-config.find',
+        'api::board-background.board-background.find',
+        'api::board-background.board-background.findOne',
       ];
 
       for (const action of actions) {
@@ -142,6 +144,8 @@ export default {
     if (publicRole) {
       const publicActions = [
         'api::game-config.game-config.find',
+        'api::board-background.board-background.find',
+        'api::board-background.board-background.findOne',
       ];
 
       for (const action of publicActions) {

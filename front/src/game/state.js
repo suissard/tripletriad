@@ -171,6 +171,7 @@ export const state = reactive({
 
     // Starting Flow
     showCoinToss: false,
+    boardBackground: null,
     coinTossResult: 'player', // 'player' | 'ai'
 
     // UI/Dragging
