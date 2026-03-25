@@ -6,6 +6,10 @@
   },
   "options": {},
   "attributes": {
+    "color": {
+      "type": "string",
+      "required": false
+    },
     "situationId": {
       "type": "string",
       "required": true,

@@ -2,6 +2,6 @@
   "__component": "story.situation-battle",
   "situationId": "29",
   "enemyDeckName": "L'Hégémonie Martienne",
-  "onWinSituationId": "30",
+  "onWinSituationId": "nouvelle_etape_1",
   "onLoseSituationId": "31"
 }

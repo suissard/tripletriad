@@ -1,1 +1,7 @@
-{"__component":"story.situation-battle","situationId":"branche_tenir/tenir_battle","enemyDeckName":"Le Fléau Spore","onWinSituationId":"branche_tenir/tenir_win","onLoseSituationId":"branche_tenir/tenir_lose"}
+{
+  "__component": "story.situation-battle",
+  "situationId": "branche_tenir/tenir_battle",
+  "enemyDeckName": "Le Fléau Spore",
+  "onWinSituationId": "nouvelle_etape_1",
+  "onLoseSituationId": "branche_tenir/tenir_lose"
+}

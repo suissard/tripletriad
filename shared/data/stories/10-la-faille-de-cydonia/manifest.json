@@ -107,6 +107,16 @@
       "file": "branche_purger/succes_purge.json",
       "situationId": "branche_purger/succes_purge",
       "type": "success"
+    },
+    {
+      "file": "branche_embrasser/nouvelle_etape_1.json",
+      "situationId": "nouvelle_etape_1",
+      "type": "situation-dialogue"
+    },
+    {
+      "file": "branche_embrasser/nouvelle_etape_2.json",
+      "situationId": "nouvelle_etape_2",
+      "type": "situation-choice"
     }
   ]
 }

@@ -93,7 +93,7 @@
       "__component": "story.situation-battle",
       "situationId": "battle_glacier",
       "enemyDeckName": "L'Éveil Chthonien",
-      "onWinSituationId": "fin_victoire_glacier",
+      "onWinSituationId": "nouvelle_etape_1",
       "onLoseSituationId": "fin_defaite_glacier"
     },
     {
@@ -203,6 +203,44 @@
       "__component": "story.situation-success",
       "situationId": "fin_sacrifice",
       "message": "La comète retrouve sa trajectoire. L'eau revient. Douze noms sont gravés dans le corail sacré du temple de l'Exode. La Tisseuse de Marée n'est plus qu'un point lumineux dans le ciel que les enfants nomment l'Étoile de Marée. Vous survécu. Mais le silence des profondeurs est plus lourd qu'avant. Car vous savez que la prochaine fois, ce sera peut-être votre tour de descendre."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "nouvelle_etape_1",
+      "color": "rgba(40, 20, 60, 0.8)",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Mais l'univers est cruel, et votre décision finale ne vient pas sans un dernier jugement. Un choix déchirant s'impose, le poids du monde sur vos épaules.",
+          "isNarration": true,
+          "position": "left",
+          "color": "rgba(255, 100, 100, 0.4)"
+        },
+        {
+          "name": "Voix de l'Abîme",
+          "sentence": "Ton âme est-elle prête à assumer le fardeau de tes choix ? Abandonnes-tu tes idéaux pour survivre ?",
+          "isNarration": false,
+          "position": "right",
+          "color": "rgba(100, 255, 100, 0.4)"
+        }
+      ],
+      "nextSituationId": "nouvelle_etape_2"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "nouvelle_etape_2",
+      "color": "rgba(50, 0, 0, 0.9)",
+      "text": "Le dilemme moral ultime vous fait face.",
+      "options": [
+        {
+          "text": "Sacrifier mes convictions pour mon salut",
+          "nextSituationId": "fin_victoire_glacier"
+        },
+        {
+          "text": "Mourir pour mes idéaux",
+          "nextSituationId": "fin_victoire_glacier"
+        }
+      ]
     }
   ]
 }

@@ -30,6 +30,10 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::card.card"
+    },
+    "color": {
+      "type": "string",
+      "required": false
     }
   }
 }

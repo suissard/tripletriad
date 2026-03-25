@@ -172,6 +172,16 @@
       "file": "33.json",
       "situationId": "33",
       "type": "success"
+    },
+    {
+      "file": "nouvelle_etape_1.json",
+      "situationId": "nouvelle_etape_1",
+      "type": "situation-dialogue"
+    },
+    {
+      "file": "nouvelle_etape_2.json",
+      "situationId": "nouvelle_etape_2",
+      "type": "situation-choice"
     }
   ]
 }

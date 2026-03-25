@@ -2,6 +2,6 @@
   "__component": "story.situation-battle",
   "situationId": "battle_glacier",
   "enemyDeckName": "L'Éveil Chthonien",
-  "onWinSituationId": "fin_victoire_glacier",
+  "onWinSituationId": "nouvelle_etape_1",
   "onLoseSituationId": "fin_defaite_glacier"
 }

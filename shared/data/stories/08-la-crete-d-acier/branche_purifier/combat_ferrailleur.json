@@ -2,6 +2,6 @@
   "__component": "story.situation-battle",
   "situationId": "combat_ferrailleur",
   "enemyDeckName": "Les Ferrailleurs de la Ceinture",
-  "onWinSituationId": "fin_mort_honorable",
+  "onWinSituationId": "nouvelle_etape_1",
   "onLoseSituationId": "fin_deserteur"
 }

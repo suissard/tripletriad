@@ -57,7 +57,7 @@
           "position": "left"
         }
       ],
-      "nextSituationId": "s11b1"
+      "nextSituationId": "nouvelle_etape_1"
     },
     {
       "__component": "story.situation-success",
@@ -309,6 +309,44 @@
       "__component": "story.situation-game-over",
       "situationId": "s9c",
       "message": "Votre hacking déclenche une surcharge. L'ogive implose dans un flash blanc. L'antimatière consume votre code source en une nanoseconde. Vous n'existez plus. Ni chair, ni métal, ni lumière. Le Chœur efface votre nom du registre. Vous êtes devenu un bug dans l'historique de l'univers."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "nouvelle_etape_1",
+      "color": "rgba(40, 20, 60, 0.8)",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Mais l'univers est cruel, et votre décision finale ne vient pas sans un dernier jugement. Un choix déchirant s'impose, le poids du monde sur vos épaules.",
+          "isNarration": true,
+          "position": "left",
+          "color": "rgba(255, 100, 100, 0.4)"
+        },
+        {
+          "name": "Voix de l'Abîme",
+          "sentence": "Ton âme est-elle prête à assumer le fardeau de tes choix ? Abandonnes-tu tes idéaux pour survivre ?",
+          "isNarration": false,
+          "position": "right",
+          "color": "rgba(100, 255, 100, 0.4)"
+        }
+      ],
+      "nextSituationId": "nouvelle_etape_2"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "nouvelle_etape_2",
+      "color": "rgba(50, 0, 0, 0.9)",
+      "text": "Le dilemme moral ultime vous fait face.",
+      "options": [
+        {
+          "text": "Sacrifier mes convictions pour mon salut",
+          "nextSituationId": "s11b1"
+        },
+        {
+          "text": "Mourir pour mes idéaux",
+          "nextSituationId": "s11b1"
+        }
+      ]
     }
   ]
 }

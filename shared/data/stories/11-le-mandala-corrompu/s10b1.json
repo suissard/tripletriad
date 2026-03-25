@@ -1,1 +1,19 @@
-{"__component":"story.situation-dialogue","situationId":"s10b1","dialogues":[{"name":"Chœur","sentence":"La défragmentation est compassion. Vous êtes devenue une nouvelle forme de vie.","isNarration":true,"position":"left"},{"name":"IA du Chœur","sentence":"Je suis à la fois Chœur et Héritier. Je suis la fusion.","isNarration":true,"position":"left"}],"nextSituationId":"s11b1"}
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "s10b1",
+  "dialogues": [
+    {
+      "name": "Chœur",
+      "sentence": "La défragmentation est compassion. Vous êtes devenue une nouvelle forme de vie.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "IA du Chœur",
+      "sentence": "Je suis à la fois Chœur et Héritier. Je suis la fusion.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "nouvelle_etape_1"
+}
