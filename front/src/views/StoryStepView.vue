@@ -38,7 +38,7 @@
           <!-- Dialogue Area -->
           <div class="vn-dialogue-area">
             <div class="vn-chat-log" ref="chatLogRef">
-              <div v-for="(line, idx) in persistentLog" :key="idx" class="dialogue-line" :class="{
+              <div v-for="(line, idx) in persistentLog" :key="idx" class="dialogue-line" :style="getLineStyle(line)" :class="{
                 'narration': line.isNarration,
                 'hero': !line.isNarration && line.position === 'left',
                 'npc': !line.isNarration && line.position === 'right',
@@ -52,7 +52,7 @@
               </div>
 
               <!-- Choice follows the discussion -->
-              <div v-if="isChoiceActive" class="choice-tile fade-in-up">
+              <div v-if="isChoiceActive" class="choice-tile fade-in-up" :style="getSituationStyle(currentSituation)">
                 <h3 class="choice-title">{{ currentSituation.text || 'Que voulez-vous faire ?' }}</h3>
                 <div class="choices-list">
                   <AppButton v-for="(option, idx) in currentSituation.options" :key="idx"
@@ -67,7 +67,7 @@
               </div>
 
               <!-- Battle follows the discussion -->
-              <div v-if="currentSituation?.__component === 'story.situation-battle'" class="choice-tile fade-in-up battle-tile">
+              <div v-if="currentSituation?.__component === 'story.situation-battle'" class="choice-tile fade-in-up battle-tile" :style="getSituationStyle(currentSituation)">
                 <h3 class="choice-title">Un combat se prépare : {{ currentSituation.enemyDeckName }}</h3>
                 <AppButton @click.stop="playCombat" variant="danger" size="xl" shadow glow class="combat-btn">
                   Entrer en combat ⚔️
@@ -75,7 +75,7 @@
               </div>
 
               <!-- Success/End follows the discussion -->
-              <div v-if="currentSituation?.__component === 'story.situation-success'" class="choice-tile fade-in-up success-tile">
+              <div v-if="currentSituation?.__component === 'story.situation-success'" class="choice-tile fade-in-up success-tile" :style="getSituationStyle(currentSituation)">
                 <h3 class="choice-title">Félicitations !</h3>
                 <p class="mb-6 opacity-80">{{ currentSituation.message }}</p>
                 <AppButton @click.stop="finishStep(true)" variant="success" size="lg">
@@ -84,7 +84,7 @@
               </div>
 
               <!-- Game Over follows the discussion -->
-              <div v-if="currentSituation?.__component === 'story.situation-game-over'" class="choice-tile fade-in-up game-over-tile">
+              <div v-if="currentSituation?.__component === 'story.situation-game-over'" class="choice-tile fade-in-up game-over-tile" :style="getSituationStyle(currentSituation)">
                 <h3 class="choice-title">Fin de l'aventure</h3>
                 <p class="mb-6 opacity-80">{{ currentSituation.message }}</p>
                 <div class="flex gap-4">
@@ -151,6 +151,16 @@ import SituationGameOver from '../components/story/SituationGameOver.vue';
 const userStore = useUserStore();
 const router = useRouter();
 const route = useRoute();
+
+const getLineStyle = (line) => {
+  if (!line.color) return {};
+  return { backgroundColor: line.color, borderColor: line.color };
+};
+
+const getSituationStyle = (situation) => {
+  if (!situation?.color) return {};
+  return { backgroundColor: situation.color, borderColor: situation.color };
+};
 
 const isLoading = ref(true);
 const currentStory = ref(null);

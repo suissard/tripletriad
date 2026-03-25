@@ -1,0 +1,22 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "nouvelle_etape_1",
+  "color": "rgba(40, 20, 60, 0.8)",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Mais l'univers est cruel, et votre décision finale ne vient pas sans un dernier jugement. Un choix déchirant s'impose, le poids du monde sur vos épaules.",
+      "isNarration": true,
+      "position": "left",
+      "color": "rgba(255, 100, 100, 0.4)"
+    },
+    {
+      "name": "Voix de l'Abîme",
+      "sentence": "Ton âme est-elle prête à assumer le fardeau de tes choix ? Abandonnes-tu tes idéaux pour survivre ?",
+      "isNarration": false,
+      "position": "right",
+      "color": "rgba(100, 255, 100, 0.4)"
+    }
+  ],
+  "nextSituationId": "nouvelle_etape_2"
+}

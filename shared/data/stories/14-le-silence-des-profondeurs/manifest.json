@@ -2,20 +2,82 @@
   "title": "Le Silence des Profondeurs",
   "description": "La comète de glace de l'Exode Pélagique dérive hors de trajectoire. Sans eau, les Céphalopodes mourront. Trouver une source ou périr.",
   "faction_focus": "L'Exode Pélagique",
-  "factions_involved": ["L'Exode Pélagique", "L'Éveil Chthonien", "Les Ferrailleurs de la Ceinture"],
+  "factions_involved": [
+    "L'Exode Pélagique",
+    "L'Éveil Chthonien",
+    "Les Ferrailleurs de la Ceinture"
+  ],
   "entry_point": "intro.json",
   "situations": [
-    {"file": "intro.json", "situationId": "intro", "type": "dialogue"},
-    {"file": "choix_initial.json", "situationId": "choix_initial", "type": "choice"},
-    {"file": "branche_glacier/dialogue_glacier.json", "situationId": "dialogue_glacier", "type": "dialogue"},
-    {"file": "branche_glacier/battle_glacier.json", "situationId": "battle_glacier", "type": "battle"},
-    {"file": "branche_glacier/fin_victoire_glacier.json", "situationId": "fin_victoire_glacier", "type": "success"},
-    {"file": "branche_glacier/fin_defaite_glacier.json", "situationId": "fin_defaite_glacier", "type": "game-over"},
-    {"file": "branche_ferrailleurs/dialogue_ferrailleurs.json", "situationId": "dialogue_ferrailleurs", "type": "dialogue"},
-    {"file": "branche_ferrailleurs/choice_negociation.json", "situationId": "choice_negociation", "type": "choice"},
-    {"file": "branche_ferrailleurs/fin_deal.json", "situationId": "fin_deal", "type": "success"},
-    {"file": "branche_ferrailleurs/fin_trahison_ferrailleur.json", "situationId": "fin_trahison_ferrailleur", "type": "game-over"},
-    {"file": "branche_sacrifice/dialogue_sacrifice.json", "situationId": "dialogue_sacrifice", "type": "dialogue"},
-    {"file": "branche_sacrifice/fin_sacrifice.json", "situationId": "fin_sacrifice", "type": "success"}
+    {
+      "file": "intro.json",
+      "situationId": "intro",
+      "type": "dialogue"
+    },
+    {
+      "file": "choix_initial.json",
+      "situationId": "choix_initial",
+      "type": "choice"
+    },
+    {
+      "file": "branche_glacier/dialogue_glacier.json",
+      "situationId": "dialogue_glacier",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_glacier/battle_glacier.json",
+      "situationId": "battle_glacier",
+      "type": "battle"
+    },
+    {
+      "file": "branche_glacier/fin_victoire_glacier.json",
+      "situationId": "fin_victoire_glacier",
+      "type": "success"
+    },
+    {
+      "file": "branche_glacier/fin_defaite_glacier.json",
+      "situationId": "fin_defaite_glacier",
+      "type": "game-over"
+    },
+    {
+      "file": "branche_ferrailleurs/dialogue_ferrailleurs.json",
+      "situationId": "dialogue_ferrailleurs",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_ferrailleurs/choice_negociation.json",
+      "situationId": "choice_negociation",
+      "type": "choice"
+    },
+    {
+      "file": "branche_ferrailleurs/fin_deal.json",
+      "situationId": "fin_deal",
+      "type": "success"
+    },
+    {
+      "file": "branche_ferrailleurs/fin_trahison_ferrailleur.json",
+      "situationId": "fin_trahison_ferrailleur",
+      "type": "game-over"
+    },
+    {
+      "file": "branche_sacrifice/dialogue_sacrifice.json",
+      "situationId": "dialogue_sacrifice",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_sacrifice/fin_sacrifice.json",
+      "situationId": "fin_sacrifice",
+      "type": "success"
+    },
+    {
+      "file": "branche_glacier/nouvelle_etape_1.json",
+      "situationId": "nouvelle_etape_1",
+      "type": "situation-dialogue"
+    },
+    {
+      "file": "branche_glacier/nouvelle_etape_2.json",
+      "situationId": "nouvelle_etape_2",
+      "type": "situation-choice"
+    }
   ]
 }
