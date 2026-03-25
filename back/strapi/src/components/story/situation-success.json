@@ -17,6 +17,10 @@
     "message": {
       "type": "string",
       "required": true
+    },
+    "variables": {
+      "type": "json",
+      "description": "Variable assignments e.g. { 'story_completed': true }"
     }
   }
 }

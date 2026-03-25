@@ -620,6 +620,32 @@ export const useUserStore = defineStore('user', {
         return { error: 'Network error' };
       }
     },
+    async resetStoryProgress(storyId) {
+      if (!this.strapiConnected || !this.isLoggedIn) return null;
+      try {
+        const token = localStorage.getItem('tt_jwt');
+        const response = await fetch(`${import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337'}/api/player-story-progress/reset`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ storyId })
+        });
+
+        if (!response.ok) {
+          const err = await response.json();
+          throw new Error(err.error?.message || 'Failed to reset progress');
+        }
+
+        const data = await response.json();
+        await this.fetchUserStoryProgresses(true);
+        return data;
+      } catch (e) {
+        console.error('resetStoryProgress failed', e);
+        return null;
+      }
+    },
     toggleOfflineStoryMode(value) {
       this.isOfflineStoryMode = value;
     }

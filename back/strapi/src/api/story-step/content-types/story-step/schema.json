@@ -46,6 +46,11 @@
         "videos",
         "audios"
       ]
+    },
+    "conditions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "story.choice-condition"
     }
   }
 }

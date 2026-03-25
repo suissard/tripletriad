@@ -24,5 +24,13 @@ export default {
         policies: [],
       },
     },
+    {
+      method: 'POST',
+      path: '/player-story-progress/reset',
+      handler: 'player-story-progress.resetProgress',
+      config: {
+        policies: [],
+      },
+    },
   ],
 };

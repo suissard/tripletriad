@@ -1,5 +1,5 @@
 <template>
-  <PageLayout>
+  <PageLayout title="Archives">
     <div class="story-container">
       <header class="page-header">
         <h1>Archives de Terra Nullius</h1>
@@ -23,12 +23,13 @@
         <p>Décryptage des archives...</p>
       </div>
 
-      <div v-else-if="!userStore.isAuthenticated && !userStore.isOfflineStoryMode" class="auth-notice">
+      <div v-else-if="!userStore.isLoggedIn && !userStore.isOfflineStoryMode" class="auth-notice">
         <div class="empty-icon">🔒</div>
         <h3>Accès Restreint</h3>
         <p>Identifiez-vous pour accéder aux archives ou jouez en mode hors-ligne.</p>
         <div class="auth-actions">
           <AppButton variant="primary" @click="router.push('/login')">S'identifier</AppButton>
+          <AppButton variant="ghost" @click="toggleOffline">Jouer Hors-ligne</AppButton>
         </div>
       </div>
 
@@ -37,7 +38,7 @@
         <p>Vous consultez les histoires locales. La progression n'est pas sauvegardée sur le serveur.</p>
       </div>
 
-      <div v-if="!isLoading && (!stories || stories.length === 0)" class="no-quests">
+      <div v-else-if="!isLoading && (!stories || stories.length === 0)" class="no-quests">
         <div class="empty-icon">📭</div>
         <h3>Aucune histoire disponible</h3>
         <p>Les archives sont vides pour le moment.</p>
@@ -156,7 +157,7 @@ const isUnlocking = ref(false);
 const currentFilter = ref('all');
 
 onMounted(async () => {
-  if (!userStore.isAuthenticated && !userStore.isOfflineStoryMode) {
+  if (!userStore.isLoggedIn && !userStore.isOfflineStoryMode) {
     isLoading.value = false;
     return;
   }
@@ -168,6 +169,11 @@ onMounted(async () => {
     await fetchStories();
   }
 });
+
+async function toggleOffline() {
+  userStore.toggleOfflineStoryMode(true);
+  await fetchLocalStories();
+}
 
 function getFilterLabel(filter) {
   const labels = {
@@ -199,7 +205,7 @@ function handleLockedStoryClick(story) {
 async function fetchLocalStories() {
   isLoading.value = true;
   try {
-    const modules = import.meta.glob('../../../../shared/data/stories/*.json', { eager: true });
+    const modules = import.meta.glob('../../../shared/data/stories/*.json', { eager: true });
     
     const localStories = Object.entries(modules).map(([path, module], index) => {
       const storyData = module.default || module;

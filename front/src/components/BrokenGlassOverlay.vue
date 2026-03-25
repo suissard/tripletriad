@@ -113,7 +113,7 @@ const triggerImpact = () => {
         points = [ {x: cx, y: cy} ]; // Fallback center
     }
 
-    const holeRadius = 40; // 80px diameter
+    const holeRadius = 20; // 40px diameter
 
     points.forEach(p => {
         // Add random slight jitter
@@ -146,6 +146,29 @@ watch(() => props.direction, (newVal) => {
     if (newVal) {
         nextTick(() => {
             setTimeout(triggerImpact, 50);
+            
+            // Reconstitution effect after 1.5s
+            setTimeout(() => {
+                const start = Date.now();
+                const duration = 1000;
+                
+                const animate = () => {
+                    const elapsed = Date.now() - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    
+                    if (wrapperRef.value) {
+                        wrapperRef.value.style.opacity = 1 - progress;
+                    }
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        hasImpact.value = false;
+                        if (wrapperRef.value) wrapperRef.value.style.opacity = 1;
+                    }
+                };
+                requestAnimationFrame(animate);
+            }, 1500);
         });
     } else {
         hasImpact.value = false;

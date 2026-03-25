@@ -477,9 +477,13 @@ watch(() => props.card.impactDirection, (newVal) => {
 watch(() => props.borderColor, (newVal, oldVal) => {
   if (oldVal && newVal !== oldVal && !props.card.impactDirection) {
     isFlipping.value = true;
+    isShaking.value = true; // Add shake on capture
     setTimeout(() => {
       isFlipping.value = false;
     }, 600);
+    setTimeout(() => {
+      isShaking.value = false;
+    }, 300);
   }
 });
 </script>

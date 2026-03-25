@@ -37,6 +37,12 @@
                 </div>
               </div>
             </div>
+
+            <div class="story-actions">
+              <AppButton variant="ghost" class="reset-btn" @click="resetStory">
+                🔄 Réinitialiser l'Archive
+              </AppButton>
+            </div>
           </div>
         </div>
 
@@ -48,7 +54,7 @@
               'active': isStepActive(index),
               'locked': isStepLocked(index)
             }"
-            @click="isStepActive(index) ? startStep(step) : null"
+            @click="!isStepLocked(index) ? startStep(step) : null"
           >
             <div class="step-cover-container">
               <img :src="getStepCover(step, index)" class="step-cover-img" />
@@ -142,6 +148,7 @@ async function fetchStrapiStory() {
       steps: { 
         populate: { 
           image: true,
+          conditions: true,
           situations: { 
             on: {
               'story.situation-reward': {
@@ -168,7 +175,7 @@ async function fetchStrapiStory() {
 }
 
 async function fetchLocalStory() {
-  const modules = import.meta.glob('../../../../shared/data/stories/*.json', { eager: true });
+  const modules = import.meta.glob('../../../shared/data/stories/*.json', { eager: true });
   const storyList = Object.entries(modules).map(([path, module], index) => {
     const storyData = module.default || module;
     let steps = [];
@@ -209,25 +216,87 @@ function getProgress() {
   });
 }
 
+async function resetStory() {
+  if (!confirm('Voulez-vous vraiment réinitialiser votre progression dans cette histoire ? Tous vos choix et étapes franchies seront effacés.')) {
+    return;
+  }
+  
+  isLoading.value = true;
+  try {
+    const res = await userStore.resetStoryProgress(props.storyId);
+    if (res) {
+      // Reload everything
+      await fetchData();
+    }
+  } catch (err) {
+    console.error('Failed to reset story:', err);
+  } finally {
+    isLoading.value = false;
+  }
+}
+
 function isStepCompleted(stepId) {
   if (userStore.isOfflineStoryMode) return false;
   const p = getProgress();
   return p && p.completedSteps && p.completedSteps.includes(stepId);
 }
 
+function checkCondition(condition, progress) {
+  if (!condition || !progress) return true;
+  
+  const variables = progress.variables || {};
+  const completedSteps = progress.completedSteps || [];
+  
+  switch (condition.type) {
+    case 'hasVisitedSituation':
+      // Look in stepHistory if we visited a specific situation
+      return (progress.stepHistory || []).some(h => h.situationId === condition.value);
+    
+    case 'hasWonBattle':
+      // Simplified: check if a step identified by condition.value is completed
+      // or if there is a battle win in stepHistory
+      return completedSteps.includes(condition.value) || 
+             (progress.stepHistory || []).some(h => h.action === 'battle_win' && h.situationId === condition.value);
+             
+    case 'hasFlag':
+      return !!variables[condition.value];
+    
+    case 'variableEquals':
+      const [key, val] = condition.value.split(':');
+      return String(variables[key]) === String(val);
+
+    default:
+      return true;
+  }
+}
+
 function isStepActive(stepIndex) {
   if (userStore.isOfflineStoryMode) return true;
-  const p = getProgress();
-  if (!p) return false;
-  const completedCount = p.completedSteps ? p.completedSteps.length : 0;
-  return stepIndex <= completedCount;
+  return !isStepLocked(stepIndex);
 }
 
 function isStepLocked(stepIndex) {
   if (userStore.isOfflineStoryMode) return false;
   const p = getProgress();
   if (!p) return true;
+  
+  const step = story.value?.steps[stepIndex];
+  if (!step) return true;
+
+  // First check linear progression (default)
   const completedCount = p.completedSteps ? p.completedSteps.length : 0;
+  if (stepIndex > completedCount) {
+    // Check if there are explicit conditions
+    if (!step.conditions || step.conditions.length === 0) {
+      return true; // Still locked because linear
+    }
+  }
+
+  // If there are conditions, they MUST be met
+  if (step.conditions && step.conditions.length > 0) {
+    return !step.conditions.every(c => checkCondition(c, p));
+  }
+
   return stepIndex > completedCount;
 }
 
@@ -396,6 +465,24 @@ function getRewardCardThumb(card) {
   font-size: 0.95rem;
   font-weight: 600;
   color: #fff;
+}
+
+.story-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.reset-btn {
+  font-size: 0.85rem;
+  color: #ff4444;
+  border-color: rgba(255, 68, 68, 0.2);
+}
+
+.reset-btn:hover {
+  background: rgba(255, 68, 68, 0.1);
+  color: #ff6666;
+  border-color: rgba(255, 68, 68, 0.5);
 }
 
 .steps-list {

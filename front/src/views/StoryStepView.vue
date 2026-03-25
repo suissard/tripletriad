@@ -1,5 +1,5 @@
 <template>
-  <PageLayout :title="currentStep?.title || 'MODE HISTOIRE'" :backRoute="'/story?story=' + storyId">
+  <PageLayout :title="currentStep?.title || currentStory?.title || 'MODE HISTOIRE'" :backRoute="'/story?story=' + storyId">
     <div class="vn-view">
       <div v-if="isLoading" class="loading-state">
         <div class="loading-spinner large">✨</div>
@@ -55,14 +55,25 @@
               <div v-if="isChoiceActive" class="choice-tile fade-in-up" :style="getSituationStyle(currentSituation)">
                 <h3 class="choice-title">{{ currentSituation.text || 'Que voulez-vous faire ?' }}</h3>
                 <div class="choices-list">
-                  <AppButton v-for="(option, idx) in currentSituation.options" :key="idx"
-                    @click.stop="handleChoice(option)"
-                    :variant="isChoiceSelectable(option) ? 'primary' : 'ghost'"
-                    :disabled="!isChoiceSelectable(option)"
-                    class="choice-item">
-                    {{ option.text }}
-                    <span v-if="!isChoiceSelectable(option)" class="text-xs text-red-400 ml-2">(Conditions non remplies)</span>
-                  </AppButton>
+                  <template v-for="(option, idx) in currentSituation.options" :key="idx">
+                    <PurchaseButton 
+                      v-if="getCoinCondition(option)"
+                      :amount="parseInt(getCoinCondition(option).value, 10)"
+                      type="coins"
+                      :label="option.text"
+                      variant="primary"
+                      @click.stop="handleChoice(option)"
+                      class="choice-item"
+                    />
+                    <AppButton v-else
+                      @click.stop="handleChoice(option)"
+                      :variant="isChoiceSelectable(option) ? 'primary' : 'ghost'"
+                      :disabled="!isChoiceSelectable(option)"
+                      class="choice-item">
+                      {{ option.text }}
+                      <span v-if="!isChoiceSelectable(option)" class="text-xs text-red-400 ml-2">(Conditions non remplies)</span>
+                    </AppButton>
+                  </template>
                 </div>
               </div>
 
@@ -147,6 +158,7 @@ import SituationDialogue from '../components/story/SituationDialogue.vue';
 import SituationBattle from '../components/story/SituationBattle.vue';
 import SituationSuccess from '../components/story/SituationSuccess.vue';
 import SituationGameOver from '../components/story/SituationGameOver.vue';
+import PurchaseButton from '../components/ui/PurchaseButton.vue';
 
 const userStore = useUserStore();
 const router = useRouter();
@@ -350,7 +362,7 @@ async function loadStepData() {
 
 async function fetchLocalStepData() {
   try {
-    const modules = import.meta.glob('../../../../shared/data/stories/*.json', { eager: true });
+    const modules = import.meta.glob('../../../shared/data/stories/*.json', { eager: true });
     const storyIdx = String(route.params.storyId).startsWith('local-') 
       ? parseInt(String(route.params.storyId).replace('local-', '')) - 1
       : 0;
@@ -390,9 +402,29 @@ async function loadSituation(situationId) {
     return;
   }
 
-  const situation = currentStep.value.situations.find(s => s.situationId === situationId);
+  let situation = currentStep.value.situations.find(s => s.situationId === situationId);
+  
+  // If not found in current step, search in all steps
+  if (!situation && currentStory.value?.steps) {
+    const foundStep = currentStory.value.steps.find(step => 
+       step.situations?.some(s => s.situationId === situationId)
+    );
+    if (foundStep) {
+      console.log(`StoryStepView: Jumping to step ${foundStep.title} for situation ${situationId}`);
+      currentStep.value = foundStep;
+      situation = foundStep.situations.find(s => s.situationId === situationId);
+      
+      // Update URL to reflect new step index
+      const newStepIdx = currentStory.value.steps.indexOf(foundStep);
+      router.replace({ 
+        path: `/story/${storyId.value}/step/${newStepIdx + 1}`,
+        query: route.query 
+      });
+    }
+  }
+
   if (!situation) {
-    console.error(`Situation ${situationId} not found`);
+    console.error(`Situation ${situationId} not found in any step of story`);
     finishStep(true);
     return;
   }
@@ -492,7 +524,7 @@ async function handleChoice(option) {
       action: 'choice',
       result: nextId,
       timestamp: new Date().toISOString()
-    });
+    }, option.variables);
   }
   await loadSituation(nextId);
 }
@@ -503,6 +535,10 @@ function isChoiceSelectable(option) {
     if (condition.type === 'hasCoin' && userStore.user.coins < parseInt(condition.value, 10)) return false;
   }
   return true;
+}
+
+function getCoinCondition(option) {
+  return option.conditions?.find(c => c.type === 'hasCoin');
 }
 
 async function processReward(situation) {
@@ -577,6 +613,12 @@ async function restartStep() {
 async function finishStep(completed = false) {
   if (completed && !userStore.isOfflineStoryMode) {
      try {
+       // Save success variables if any
+       const vars = (currentSituation.value?.__component === 'story.situation-success') ? currentSituation.value.variables : null;
+       if (vars) {
+         await userStore.saveStepProgress(storyId.value, currentStep.value.id, currentSituation.value.situationId, null, vars);
+       }
+
        const token = localStorage.getItem('tt_jwt');
        await fetch(`${import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337'}/api/player-story-progress/claim-step-reward`, {
           method: 'POST',

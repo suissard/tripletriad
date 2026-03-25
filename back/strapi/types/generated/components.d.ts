@@ -55,6 +55,7 @@ export interface StoryChoiceOption extends Struct.ComponentSchema {
     conditions: Schema.Attribute.Component<'story.choice-condition', true>;
     nextSituationId: Schema.Attribute.String & Schema.Attribute.Required;
     text: Schema.Attribute.String & Schema.Attribute.Required;
+    variables: Schema.Attribute.JSON;
   };
 }
 
@@ -66,6 +67,7 @@ export interface StoryDialogue extends Struct.ComponentSchema {
   };
   attributes: {
     card: Schema.Attribute.Relation<'oneToOne', 'api::card.card'>;
+    color: Schema.Attribute.String;
     isNarration: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     name: Schema.Attribute.String;
     position: Schema.Attribute.Enumeration<['left', 'right']> &
@@ -81,6 +83,7 @@ export interface StorySituationBattle extends Struct.ComponentSchema {
     displayName: 'Situation: Battle';
   };
   attributes: {
+    color: Schema.Attribute.String;
     enemyDeck: Schema.Attribute.Relation<'oneToOne', 'api::deck.deck'>;
     onLoseSituationId: Schema.Attribute.String;
     onWinSituationId: Schema.Attribute.String & Schema.Attribute.Required;
@@ -96,6 +99,7 @@ export interface StorySituationChoice extends Struct.ComponentSchema {
     displayName: 'Situation: Choice';
   };
   attributes: {
+    color: Schema.Attribute.String;
     options: Schema.Attribute.Component<'story.choice-option', true>;
     situationId: Schema.Attribute.String & Schema.Attribute.Required;
     text: Schema.Attribute.Text & Schema.Attribute.Required;
@@ -109,6 +113,7 @@ export interface StorySituationDialogue extends Struct.ComponentSchema {
     displayName: 'Situation: Dialogue';
   };
   attributes: {
+    color: Schema.Attribute.String;
     dialogues: Schema.Attribute.Component<'story.dialogue', true>;
     nextSituationId: Schema.Attribute.String;
     situationId: Schema.Attribute.String & Schema.Attribute.Required;
@@ -122,6 +127,7 @@ export interface StorySituationGameOver extends Struct.ComponentSchema {
     displayName: 'Situation: Game Over';
   };
   attributes: {
+    color: Schema.Attribute.String;
     message: Schema.Attribute.String & Schema.Attribute.Required;
     situationId: Schema.Attribute.String & Schema.Attribute.Required;
   };
@@ -134,6 +140,7 @@ export interface StorySituationReward extends Struct.ComponentSchema {
     displayName: 'Situation: Reward';
   };
   attributes: {
+    color: Schema.Attribute.String;
     nextSituationId: Schema.Attribute.String;
     rewardCards: Schema.Attribute.Relation<'oneToMany', 'api::card.card'>;
     rewardCoins: Schema.Attribute.Integer;
@@ -149,8 +156,10 @@ export interface StorySituationSuccess extends Struct.ComponentSchema {
     displayName: 'Situation: Success';
   };
   attributes: {
+    color: Schema.Attribute.String;
     message: Schema.Attribute.String & Schema.Attribute.Required;
     situationId: Schema.Attribute.String & Schema.Attribute.Required;
+    variables: Schema.Attribute.JSON;
   };
 }
 

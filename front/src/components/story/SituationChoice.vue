@@ -3,14 +3,25 @@
     <div class="choice-card fade-in-up">
       <h3 class="choice-title">{{ situation.text || 'Que voulez-vous faire ?' }}</h3>
       <div class="choices-list">
-        <AppButton v-for="(option, idx) in situation.options" :key="idx"
-          @click.stop="handleChoice(option)"
-          :variant="isChoiceSelectable(option) ? 'primary' : 'ghost'"
-          :disabled="!isChoiceSelectable(option)"
-          class="choice-item">
-          {{ option.text }}
-          <span v-if="!isChoiceSelectable(option)" class="text-xs text-red-400 ml-2">(Conditions non remplies)</span>
-        </AppButton>
+        <template v-for="(option, idx) in situation.options" :key="idx">
+          <PurchaseButton 
+            v-if="getCoinCondition(option)"
+            :amount="parseInt(getCoinCondition(option).value, 10)"
+            type="coins"
+            :label="option.text"
+            variant="primary"
+            @click.stop="handleChoice(option)"
+            class="choice-item"
+          />
+          <AppButton v-else
+            @click.stop="handleChoice(option)"
+            :variant="isChoiceSelectable(option) ? 'primary' : 'ghost'"
+            :disabled="!isChoiceSelectable(option)"
+            class="choice-item">
+            {{ option.text }}
+            <span v-if="!isChoiceSelectable(option)" class="text-xs text-red-400 ml-2">(Conditions non remplies)</span>
+          </AppButton>
+        </template>
       </div>
     </div>
   </div>
@@ -19,6 +30,7 @@
 <script setup>
 import { useUserStore } from '../../stores/userStore.js';
 import AppButton from '../ui/AppButton.vue';
+import PurchaseButton from '../ui/PurchaseButton.vue';
 
 const props = defineProps({
   situation: { type: Object, required: true }
@@ -34,6 +46,10 @@ function isChoiceSelectable(option) {
     }
   }
   return true;
+}
+
+function getCoinCondition(option) {
+  return option.conditions?.find(c => c.type === 'hasCoin');
 }
 
 function handleChoice(option) {
