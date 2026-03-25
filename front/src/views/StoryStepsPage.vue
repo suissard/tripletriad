@@ -1,28 +1,40 @@
 <template>
-  <PageLayout :title="story?.title || 'ÉTAPES DE L\'HISTOIRE'" backRoute="/story">
+  <PageLayout>
     <div class="steps-container">
+      <AppButton variant="ghost" class="back-btn" @click="router.push('/story')">
+        ⬅ Retour aux Archives
+      </AppButton>
+
       <div v-if="isLoading" class="loading-state">
-        <div class="loading-spinner large">✨</div>
-        <p>Chargement des étapes...</p>
+        <span class="loading-spinner">⚙️</span>
+        <p>Analyse de la séquence mémorielle...</p>
       </div>
 
       <div v-else-if="!story" class="no-story">
-        <div class="empty-icon">❓</div>
-        <h3>Histoire non trouvée</h3>
-        <p>Cette histoire n'existe pas ou n'est plus disponible.</p>
-        <AppButton @click="router.push('/story')" variant="primary">Retour aux histoires</AppButton>
+        <div class="empty-icon">❌</div>
+        <h3>Archive Introuvable</h3>
+        <p>Cette séquence semble corrompue ou inaccessible.</p>
+        <AppButton variant="primary" @click="router.push('/story')">Retour</AppButton>
       </div>
 
-      <div v-else class="story-content">
+      <div v-else class="story-content-wrapper">
         <div class="story-header-detail">
-          <p class="story-description">{{ story.description }}</p>
+          <div class="header-cover" v-if="getStoryCover(story)">
+            <img :src="getStoryCover(story)" :alt="story.title" class="story-cover-image" />
+            <div class="cover-overlay"></div>
+          </div>
           
-          <div v-if="story.rewardCards?.length" class="story-rewards-banner">
-            <span class="reward-title">Récompenses finales :</span>
-            <div class="reward-cards-list">
-              <div v-for="card in story.rewardCards" :key="card.id" class="reward-card-item">
-                <img :src="getRewardCardThumb(card)" :alt="card.name" class="reward-img" />
-                <span class="reward-name">{{ card.name }}</span>
+          <div class="header-text-content">
+            <h1>{{ story.title }}</h1>
+            <p class="story-description">{{ story.description }}</p>
+
+            <div v-if="story.rewardCards && story.rewardCards.length > 0" class="story-rewards-banner">
+              <span class="reward-title">Récompenses de l'archive :</span>
+              <div class="reward-cards-list">
+                <div v-for="card in story.rewardCards" :key="card.id" class="reward-card-item">
+                  <img :src="getRewardCardThumb(card)" :alt="card.name" class="reward-img" />
+                  <span class="reward-name">{{ card.name }}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -38,35 +50,40 @@
             }"
             @click="isStepActive(index) ? startStep(step) : null"
           >
-            <div class="step-card-header">
-              <div class="step-num">Étape {{ index + 1 }}</div>
-              <div class="step-status">
-                <span v-if="isStepCompleted(step.id)" class="status-icon success">✅</span>
-                <span v-else-if="isStepLocked(index)" class="status-icon lock">🔒</span>
-                <span v-else class="status-icon active">⚔️</span>
+            <div class="step-cover-container">
+              <img :src="getStepCover(step, index)" class="step-cover-img" />
+              <div class="step-overlay-gradient"></div>
+
+              <div class="step-card-header">
+                <div class="step-num">Séquence {{ index + 1 }}</div>
+                <div class="step-status">
+                  <span v-if="isStepCompleted(step.id)" class="status-icon success" title="Terminée">✅</span>
+                  <span v-else-if="isStepLocked(index)" class="status-icon lock" title="Verrouillée">🔒</span>
+                  <span v-else class="status-icon active" title="Disponible">⚔️</span>
+                </div>
               </div>
             </div>
 
-            <div class="step-card-body">
+            <div class="step-content">
               <h3>{{ step.title }}</h3>
               <p>{{ step.description }}</p>
-            </div>
 
-            <div v-if="step.rewardCards?.length" class="step-item-rewards" :class="{ 'claimed': isStepCompleted(step.id) }">
-              <div class="reward-mini-label">
-                {{ isStepCompleted(step.id) ? 'Récompense obtenue' : 'Récompense d\'étape' }}
+              <div v-if="step.rewardCards?.length" class="step-item-rewards" :class="{ 'claimed': isStepCompleted(step.id) }">
+                <div class="reward-mini-label">
+                  {{ isStepCompleted(step.id) ? 'Données extraites' : 'Données à extraire' }}
+                </div>
+                <div class="reward-mini-images">
+                  <img v-for="card in step.rewardCards" :key="card.id"
+                    :src="getRewardCardThumb(card)" :alt="card.name"
+                    class="mini-card-img" />
+                </div>
               </div>
-              <div class="reward-mini-images">
-                <img v-for="card in step.rewardCards" :key="card.id" 
-                  :src="getRewardCardThumb(card)" :alt="card.name" 
-                  class="mini-card-img" />
-              </div>
-            </div>
 
-            <div v-if="isStepActive(index)" class="step-card-footer">
-              <AppButton variant="primary" glow>
-                {{ isStepCompleted(step.id) ? 'Rejouer' : 'Commencer' }}
-              </AppButton>
+              <div v-if="isStepActive(index)" class="step-card-footer">
+                <AppButton :variant="isStepCompleted(step.id) ? 'ghost' : 'primary'" glow>
+                  {{ isStepCompleted(step.id) ? 'Revivre' : 'Initier' }}
+                </AppButton>
+              </div>
             </div>
           </div>
         </div>
@@ -76,7 +93,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import PageLayout from '../components/PageLayout.vue';
 import AppButton from '../components/ui/AppButton.vue';
@@ -120,9 +137,11 @@ async function fetchStrapiStory() {
   await userStore.fetchUserStoryProgresses();
   const res = await strapiService.findOne('stories', props.storyId, {
     populate: {
+      image: true,
       rewardCards: { populate: ['image'] },
       steps: { 
         populate: { 
+          image: true,
           situations: { 
             on: {
               'story.situation-reward': {
@@ -217,6 +236,26 @@ function startStep(step) {
   router.push(`/story/${props.storyId}/step/${stepIdx + 1}`);
 }
 
+function getStoryCover(storyData) {
+  if (!storyData) return '';
+  const data = storyData.attributes || storyData;
+  if (data.image?.url) {
+    return data.image.url.startsWith('http') ? data.image.url : `${strapiService.MEDIA_URL}${data.image.url}`;
+  }
+  const seed = data.id || data.documentId || data.title || '0';
+  return `https://api.dicebear.com/9.x/glass/svg?seed=${encodeURIComponent(seed)}&backgroundColor=1a1a1a`;
+}
+
+function getStepCover(step, index) {
+  if (!step) return '';
+  const data = step.attributes || step;
+  if (data.image?.url) {
+    return data.image.url.startsWith('http') ? data.image.url : `${strapiService.MEDIA_URL}${data.image.url}`;
+  }
+  const seed = data.id || data.title || `step-${index}`;
+  return `https://api.dicebear.com/9.x/shapes/svg?seed=${encodeURIComponent(seed)}&backgroundColor=1a1a1a`;
+}
+
 function getRewardCardThumb(card) {
   if (!card) return '';
   const cardData = card.attributes || card;
@@ -238,11 +277,18 @@ function getRewardCardThumb(card) {
 
 <style scoped>
 .steps-container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  padding-bottom: 5rem;
+  padding-bottom: calc(5rem + env(safe-area-inset-bottom));
 }
+
+.back-btn {
+  margin-bottom: 2rem;
+  font-weight: 600;
+  color: #aaa;
+}
+.back-btn:hover { color: #fff; }
 
 .loading-state, .no-story {
   text-align: center;
@@ -252,36 +298,74 @@ function getRewardCardThumb(card) {
   border: 1px dashed rgba(255, 255, 255, 0.1);
 }
 
+.empty-icon { font-size: 4rem; margin-bottom: 1rem; }
+
 .story-header-detail {
   margin-bottom: 3rem;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 2rem;
+  background: rgba(20, 20, 20, 0.7);
+  backdrop-filter: blur(10px);
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.header-cover {
+  width: 100%;
+  height: 250px;
+  position: relative;
+}
+
+.story-cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cover-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to bottom, transparent, rgba(20, 20, 20, 1));
+}
+
+.header-text-content {
+  padding: 0 2.5rem 2.5rem 2.5rem;
+  position: relative;
+  z-index: 2;
+  margin-top: -3rem; /* overlap with gradient */
+}
+
+.header-text-content h1 {
+  font-size: 2.8rem;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+  text-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
 }
 
 .story-description {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   line-height: 1.6;
   opacity: 0.9;
   margin-bottom: 2rem;
+  color: #e0e0e0;
 }
 
 .story-rewards-banner {
-  background: rgba(255, 215, 0, 0.05);
-  border: 1px solid rgba(255, 215, 0, 0.2);
-  padding: 1rem;
+  background: color-mix(in srgb, var(--color-primary) 5%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+  padding: 1.5rem;
   border-radius: 12px;
 }
 
 .reward-title {
   display: block;
-  font-weight: bold;
-  color: #FFD700;
+  font-weight: 700;
+  color: var(--color-primary);
   margin-bottom: 1rem;
   font-size: 0.9rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
 }
 
 .reward-cards-list {
@@ -294,35 +378,36 @@ function getRewardCardThumb(card) {
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.5);
   padding: 0.5rem 1rem 0.5rem 0.5rem;
   border-radius: 8px;
-  border: 1px solid rgba(255, 215, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .reward-img {
-  width: 40px;
-  height: 40px;
-  border-radius: 4px;
+  width: 45px;
+  height: 45px;
+  border-radius: 6px;
   object-fit: cover;
-  border: 1px solid rgba(255, 215, 0, 0.3);
+  border: 1px solid var(--color-primary);
 }
 
 .reward-name {
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
 }
 
 .steps-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 2rem;
 }
 
 .step-card {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(20, 20, 20, 0.8);
+  backdrop-filter: blur(10px);
   border-radius: 16px;
-  padding: 1.5rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: column;
@@ -332,72 +417,135 @@ function getRewardCardThumb(card) {
 }
 
 .step-card.active {
-  background: rgba(0, 210, 255, 0.05);
-  border-color: rgba(0, 210, 255, 0.3);
+  border-color: rgba(0, 210, 255, 0.4);
   cursor: pointer;
+  box-shadow: 0 0 15px color-mix(in srgb, var(--color-primary) 10%, transparent);
 }
 
 .step-card.active:hover {
   transform: translateY(-5px);
-  background: rgba(0, 210, 255, 0.1);
-  border-color: rgba(0, 210, 255, 0.5);
-  box-shadow: 0 10px 30px rgba(0, 210, 255, 0.15);
+  border-color: var(--color-primary);
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--color-primary) 25%, transparent);
 }
 
 .step-card.completed {
   border-color: rgba(0, 255, 100, 0.3);
 }
 
+.step-card.completed:hover {
+  cursor: pointer;
+  transform: translateY(-5px);
+  border-color: rgba(0, 255, 100, 0.6);
+  box-shadow: 0 10px 30px rgba(0, 255, 100, 0.15);
+}
+
 .step-card.locked {
   opacity: 0.6;
-  filter: grayscale(0.5);
+  filter: grayscale(0.8);
+}
+
+.step-cover-container {
+  position: relative;
+  height: 140px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.step-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.step-card:hover .step-cover-img {
+  transform: scale(1.05);
+}
+
+.step-overlay-gradient {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(20,20,20,1));
 }
 
 .step-card-header {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  right: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.2rem;
+  z-index: 2;
 }
 
 .step-num {
   font-weight: 800;
   font-size: 0.8rem;
   text-transform: uppercase;
-  color: var(--color-primary);
+  color: #fff;
   letter-spacing: 2px;
+  background: rgba(0,0,0,0.5);
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.1);
 }
+
+.step-card.active .step-num { color: var(--color-primary); border-color: color-mix(in srgb, var(--color-primary) 30%, transparent); }
+.step-card.completed .step-num { color: #00ff64; border-color: rgba(0, 255, 100, 0.3); }
 
 .step-status {
   font-size: 1.2rem;
+  background: rgba(0,0,0,0.5);
+  border-radius: 50%;
+  width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
-.step-card-body h3 {
+.step-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  position: relative;
+  z-index: 2;
+  margin-top: -2rem; /* Bring content up slightly over the gradient */
+}
+
+.step-content h3 {
   margin: 0 0 0.8rem 0;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
-.step-card-body p {
-  font-size: 0.9rem;
+.step-content p {
+  font-size: 0.95rem;
   line-height: 1.5;
-  opacity: 0.7;
+  opacity: 0.8;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin-bottom: 1.5rem;
+  color: #e0e0e0;
 }
 
 .step-item-rewards {
   margin-top: auto;
   padding-top: 1.2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .reward-mini-label {
   font-size: 0.75rem;
-  opacity: 0.5;
+  color: #aaa;
   margin-bottom: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .reward-mini-images {
@@ -406,11 +554,16 @@ function getRewardCardThumb(card) {
 }
 
 .mini-card-img {
-  width: 32px;
-  height: 32px;
-  border-radius: 4px;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   object-fit: cover;
+}
+
+.step-item-rewards.claimed .mini-card-img {
+  border-color: #00ff64;
+  box-shadow: 0 0 10px rgba(0, 255, 100, 0.2);
 }
 
 .step-card-footer {
@@ -425,6 +578,7 @@ function getRewardCardThumb(card) {
   display: inline-block;
   animation: rotate 1.5s linear infinite;
   font-size: 3rem;
+  margin-bottom: 1rem;
 }
 
 @keyframes rotate {
@@ -433,8 +587,8 @@ function getRewardCardThumb(card) {
 }
 
 @media (max-width: 600px) {
-  .steps-list {
-    grid-template-columns: 1fr;
-  }
+  .steps-list { grid-template-columns: 1fr; }
+  .header-text-content { padding: 0 1.5rem 1.5rem 1.5rem; }
+  .header-text-content h1 { font-size: 2rem; }
 }
 </style>

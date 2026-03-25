@@ -1,89 +1,141 @@
 <template>
-  <PageLayout title="MODE HISTOIRE" backRoute="/">
+  <PageLayout>
     <div class="story-container">
-      <div v-if="!userStore.isLoggedIn && !userStore.isOfflineStoryMode" class="auth-notice">
-        <p>Connectez-vous pour jouer au mode Histoire ou jouez en mode invité.</p>
-        <div class="auth-actions">
-           <AppButton @click="userStore.toggleOfflineStoryMode(true)" variant="secondary" outline>Mode Invité (Hors Ligne)</AppButton>
+      <header class="page-header">
+        <h1>Archives de Terra Nullius</h1>
+        <p>Revivez les événements marquants et débloquez de nouvelles cartes.</p>
+
+        <div class="filter-tabs">
+          <button
+            v-for="filter in ['all', 'progress', 'completed', 'locked']"
+            :key="filter"
+            class="filter-tab"
+            :class="{ active: currentFilter === filter }"
+            @click="currentFilter = filter"
+          >
+            {{ getFilterLabel(filter) }}
+          </button>
         </div>
-      </div>
-      <div v-else-if="isLoading" class="loading-state">
-        <div class="loading-spinner large">✨</div>
-        <p>Chargement des histoires...</p>
+      </header>
+
+      <div v-if="isLoading" class="loading-state">
+        <span class="loading-spinner">⌛</span>
+        <p>Décryptage des archives...</p>
       </div>
 
-      <div v-else-if="stories.length === 0" class="no-quests">
-        <div class="empty-icon">📖</div>
+      <div v-else-if="!userStore.isAuthenticated && !userStore.isOfflineStoryMode" class="auth-notice">
+        <div class="empty-icon">🔒</div>
+        <h3>Accès Restreint</h3>
+        <p>Identifiez-vous pour accéder aux archives ou jouez en mode hors-ligne.</p>
+        <div class="auth-actions">
+          <AppButton variant="primary" @click="router.push('/login')">S'identifier</AppButton>
+        </div>
+      </div>
+
+      <div v-else-if="userStore.isOfflineStoryMode" class="offline-notice">
+        <div class="offline-badge">MODE HORS-LIGNE</div>
+        <p>Vous consultez les histoires locales. La progression n'est pas sauvegardée sur le serveur.</p>
+      </div>
+
+      <div v-if="!isLoading && (!stories || stories.length === 0)" class="no-quests">
+        <div class="empty-icon">📭</div>
         <h3>Aucune histoire disponible</h3>
         <p>Les archives sont vides pour le moment.</p>
       </div>
 
-      <div v-else class="stories-list">
-        <AppCard v-for="story in stories" :key="story.id" class="story-card" 
-          @click="getStoryStatus(story.documentId || story.id) !== 'locked' ? router.push({ name: 'story-steps', params: { storyId: story.documentId || story.id } }) : handleLockedStoryClick(story)">
-          <div class="story-header">
-            <div class="story-info">
-              <h3>{{ story.title }}</h3>
-              <p class="story-desc">{{ story.description }}</p>
-              <!-- Story-level reward preview -->
-              <div v-if="story.rewardCards?.length" class="story-rewards-badge">
-                <span class="reward-badge-icon">🏆</span>
-                <span class="reward-badge-label">Récompenses de l'histoire :</span>
-                <div class="reward-mini-cards">
-                  <img v-for="card in story.rewardCards.slice(0, 4)" :key="card.id"
-                    :src="getRewardCardThumb(card)" :alt="card.name" :title="card.name"
-                    class="reward-mini-img" />
-                  <span v-if="story.rewardCards.length > 4" class="reward-more">+{{ story.rewardCards.length - 4 }}</span>
-                </div>
+      <div v-else class="stories-grid">
+        <AppCard v-for="story in filteredStories" :key="story.id" class="story-card"
+          @click="getStoryStatus(story.documentId || story.id) !== 'locked' ? router.push({ name: 'story-steps', params: { storyId: story.documentId || story.id } }) : handleLockedStoryClick(story)"
+          :class="getStoryStatus(story.documentId || story.id)"
+          glow
+        >
+          <div class="story-cover">
+            <img :src="getStoryCover(story)" :alt="story.title" class="cover-image" />
+            <div class="story-status-overlay">
+              <span class="status-badge" :class="getStoryStatus(story.documentId || story.id)">
+                {{ getStatusLabel(getStoryStatus(story.documentId || story.id)) }}
+              </span>
+            </div>
+          </div>
+
+          <div class="story-content">
+            <h3 class="story-title">{{ story.title }}</h3>
+            <p class="story-desc">{{ story.description }}</p>
+
+            <div class="story-progress-section">
+              <div class="progress-labels">
+                <span>Progression</span>
+                <span>{{ getCompletedStepsCount(story) }} / {{ story.steps?.length || 0 }} Étapes</span>
+              </div>
+              <div class="progress-bar-container">
+                <div class="progress-bar-fill" :style="{ width: getProgressPercentage(story) + '%' }"></div>
               </div>
             </div>
-            <div class="story-status">
-              <span v-if="getStoryStatus(story.documentId || story.id) === 'completed'" class="status-badge completed">Terminé</span>
-              <span v-else-if="getStoryStatus(story.documentId || story.id) === 'in_progress'" class="status-badge progress">En cours</span>
-              <span v-else class="status-badge locked">Bloqué</span>
-              <span class="view-steps-btn">Voir les étapes →</span>
+
+            <div v-if="story.rewardCards && story.rewardCards.length > 0" class="story-rewards-mini">
+              <span class="reward-icon">🎁</span>
+              <div class="reward-mini-cards">
+                <img v-for="(card, i) in story.rewardCards.slice(0, 3)" :key="card.id || i"
+                     :src="getRewardCardThumb(card)" class="reward-mini-img" :title="card.name" />
+                <span v-if="story.rewardCards.length > 3" class="reward-more">+{{ story.rewardCards.length - 3 }}</span>
+              </div>
+            </div>
+
+            <div class="story-footer">
+              <AppButton
+                v-if="getStoryStatus(story.documentId || story.id) !== 'locked'"
+                variant="ghost"
+                class="view-steps-btn"
+              >
+                Voir les étapes ➔
+              </AppButton>
+              <AppButton
+                v-else
+                variant="danger"
+                class="view-steps-btn"
+              >
+                🔒 Débloquer ({{ unlockPrice }} 🪙)
+              </AppButton>
             </div>
           </div>
         </AppCard>
       </div>
 
-       <!-- Access Refusal / Purchase Modal -->
-       <AppModal v-model="showRefusalModal" title="Accès Verrouillé">
-         <div class="refusal-modal-content">
-           <div class="refusal-icon">🔒</div>
-           <h3>{{ refusalTitle }}</h3>
-           <p>{{ refusalMessage }}</p>
-           
-           <div v-if="canUnlockStory" class="unlock-offer">
-             <div class="price-tag">
-               <span class="price-val">{{ unlockPrice }}</span>
-               <span class="price-unit">Coins</span>
-             </div>
-             <AppButton @click="handleUnlockFromModal" :loading="isUnlocking" 
-               :disabled="userStore.user.coins < unlockPrice" variant="primary" glow>
-               Débloquer l'Histoire
-             </AppButton>
-             <p v-if="userStore.user.coins < unlockPrice" class="funds-error">Fonds insuffisants</p>
-           </div>
-           
-           <AppButton v-else @click="showRefusalModal = false" variant="secondary" outline>
-             Retour aux archives
-           </AppButton>
-         </div>
-       </AppModal>
+      <AppModal v-model="showUnlockModal" title="Archive Verrouillée">
+        <div v-if="selectedLockedStory" class="refusal-modal-content">
+          <div class="refusal-icon">🔒</div>
+          <h3>Accès Refusé</h3>
+          <p>Cette archive nécessite une habilitation supérieure.</p>
 
-      <div v-if="userStore.isOfflineStoryMode" class="offline-notice">
-        <div class="offline-badge">MODE HORS LIGNE</div>
-        <p>Toutes les histoires sont débloquées. Votre progression ne sera pas sauvegardée.</p>
-        <AppButton @click="userStore.toggleOfflineStoryMode(false); router.push('/')" size="sm" variant="secondary" outline>Quitter le mode hors ligne</AppButton>
-      </div>
-     </div>
+          <div class="unlock-offer">
+            <p>Voulez-vous débloquer l'accès avec vos crédits ?</p>
+            <div class="price-tag">
+              <span>🪙</span> {{ unlockPrice }} Crédits
+            </div>
+            <p v-if="userStore.user.coins < unlockPrice" class="funds-error">
+              Fonds insuffisants. Vous avez {{ userStore.user.coins }} 🪙.
+            </p>
+          </div>
+
+          <AppButton
+            variant="primary"
+            :disabled="userStore.user.coins < unlockPrice || isUnlocking"
+            @click="unlockStory(selectedLockedStory.documentId || selectedLockedStory.id)"
+            glow
+          >
+            <span v-if="isUnlocking" class="loading-spinner">⌛</span>
+            <span v-else>Autoriser le prélèvement</span>
+          </AppButton>
+        </div>
+      </AppModal>
+
+    </div>
   </PageLayout>
 </template>
 
 <script setup>
-import { ref, onMounted, computed, watch } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+import { ref, onMounted, computed } from 'vue';
+import { useRouter } from 'vue-router';
 import PageLayout from '../components/PageLayout.vue';
 import AppCard from '../components/ui/AppCard.vue';
 import AppButton from '../components/ui/AppButton.vue';
@@ -91,100 +143,70 @@ import AppModal from '../components/ui/AppModal.vue';
 import { useUserStore } from '../stores/userStore.js';
 import strapiService from '../api/strapi.js';
 
-const userStore = useUserStore();
 const router = useRouter();
-const route = useRoute();
+const userStore = useUserStore();
 
-const isLoading = ref(true);
 const stories = ref([]);
-const expandedStory = ref(null); // Keep for legacy or remove if no longer used. Actually, let's remove it if we don't need it.
+const isLoading = ref(true);
 const unlockPrice = ref(500);
-const isUnlocking = ref(false);
 
-const showRefusalModal = ref(false);
-const refusalTitle = ref('');
-const refusalMessage = ref('');
-const canUnlockStory = ref(false);
-const pendingStoryId = ref(null);
+const showUnlockModal = ref(false);
+const selectedLockedStory = ref(null);
+const isUnlocking = ref(false);
+const currentFilter = ref('all');
 
 onMounted(async () => {
+  if (!userStore.isAuthenticated && !userStore.isOfflineStoryMode) {
+    isLoading.value = false;
+    return;
+  }
+
   if (userStore.isOfflineStoryMode) {
     await fetchLocalStories();
-    await restoreStateFromUrl();
-  } else if (userStore.isLoggedIn) {
+  } else {
     await fetchConfig();
     await fetchStories();
-    await restoreStateFromUrl();
-  } else {
-    isLoading.value = false;
   }
 });
 
-watch(() => userStore.isOfflineStoryMode, async (newVal) => {
-  if (newVal) {
-    await fetchLocalStories();
-  } else if (userStore.isLoggedIn) {
-    await fetchStories();
-  } else {
-    stories.value = [];
-  }
-});
-
-async function restoreStateFromUrl() {
-  const { story } = route.query;
-  const storyId = route.params.storyId ? Number(route.params.storyId) : (story ? Number(story) : null);
-
-  if (storyId) {
-    const status = getStoryStatus(storyId);
-    if (status === 'locked') {
-      const storyObj = stories.value.find(s => Number(s.id) === Number(storyId));
-      if (storyObj) handleLockedStoryClick(storyObj);
-      return;
-    }
-    // Instead of expanding, we navigate if deep linked via query
-    router.push({ name: 'story-steps', params: { storyId: storyObj.documentId || storyId } });
-  }
+function getFilterLabel(filter) {
+  const labels = {
+    'all': 'Toutes',
+    'progress': 'En cours',
+    'completed': 'Terminées',
+    'locked': 'Bloquées'
+  };
+  return labels[filter];
 }
+
+const filteredStories = computed(() => {
+  if (!stories.value) return [];
+  if (currentFilter.value === 'all') return stories.value;
+  return stories.value.filter(story => {
+    const status = getStoryStatus(story.documentId || story.id);
+    if (currentFilter.value === 'completed') return status === 'completed';
+    if (currentFilter.value === 'locked') return status === 'locked';
+    if (currentFilter.value === 'progress') return status === 'in_progress';
+    return true;
+  });
+});
 
 function handleLockedStoryClick(story) {
-  refusalTitle.value = "Histoire verrouillée";
-  refusalMessage.value = "Vous devez débloquer cette histoire avant de pouvoir y accéder.";
-  canUnlockStory.value = true;
-  pendingStoryId.value = story.documentId || story.id;
-  showRefusalModal.value = true;
-}
-
-async function handleUnlockFromModal() {
-  if (!pendingStoryId.value) return;
-  await unlockStory(pendingStoryId.value);
-  if (getStoryStatus(pendingStoryId.value) !== 'locked') {
-    showRefusalModal.value = false;
-    router.push({ name: 'story-steps', params: { storyId: pendingStoryId.value } });
-  }
+  selectedLockedStory.value = story;
+  showUnlockModal.value = true;
 }
 
 async function fetchLocalStories() {
   isLoading.value = true;
   try {
-    // Vite handles relative paths in glob
     const modules = import.meta.glob('../../../../shared/data/stories/*.json', { eager: true });
     
     const localStories = Object.entries(modules).map(([path, module], index) => {
       const storyData = module.default || module;
-      // Map local format to UI format if needed
-      // Our UI expects steps: [ { title, description, rewardCards: [] } ]
-      // The JSON has situations at root or steps.
-      
       let steps = [];
       if (storyData.steps) {
-        steps = storyData.steps.map(step => {
-          return {
-            ...step,
-            rewardCards: step.rewardCards || []
-          };
-        });
+        steps = storyData.steps.map(step => ({ ...step, rewardCards: step.rewardCards || [] }));
       } else if (storyData.situations) {
-        // Single step story
         steps = [{
           id: `local-step-${index}`,
           title: storyData.title,
@@ -196,7 +218,7 @@ async function fetchLocalStories() {
 
       return {
         id: `local-${index + 1}`,
-        idReal: index + 1, // Useful for mapping to local files if needed
+        idReal: index + 1,
         title: storyData.title,
         description: storyData.description,
         steps: steps,
@@ -250,6 +272,7 @@ async function unlockStory(storyId) {
 
     await userStore.fetchUserStoryProgresses(true);
     await fetchStories();
+    showUnlockModal.value = false;
   } catch (err) {
     console.error(err);
   } finally {
@@ -263,6 +286,7 @@ async function fetchStories() {
     await userStore.fetchUserStoryProgresses();
     const storiesRes = await strapiService.find('stories', {
       populate: {
+        image: true,
         rewardCards: { populate: ['image'] },
         steps: { 
           populate: { 
@@ -278,7 +302,6 @@ async function fetchStories() {
       }
     });
 
-    // Map steps to extract rewardCards from situations for easier display in template
     stories.value = storiesRes.data.map(story => {
       const steps = (story.steps || []).map(step => {
         const rewardSituation = step.situations?.find(s => s.__component === 'story.situation-reward');
@@ -314,29 +337,44 @@ function getStoryStatus(storyId) {
   if (userStore.isOfflineStoryMode) return 'in_progress';
   const p = getProgress(storyId);
   if (!p) return 'locked';
-  return p.status || p.progressStatus || 'locked';
+
+  if (p.status === 'completed' || p.progressStatus === 'completed') return 'completed';
+
+  // Calculate completion if not explicitly set
+  const story = stories.value.find(s => String(s.documentId || s.id) === String(storyId));
+  if (story && story.steps && p.completedSteps) {
+      if (p.completedSteps.length >= story.steps.length) return 'completed';
+  }
+
+  return 'in_progress';
 }
 
-function isStepCompleted(storyId, stepId) {
-  if (userStore.isOfflineStoryMode) return false;
-  const p = getProgress(storyId);
-  return p && p.completedSteps && p.completedSteps.includes(stepId);
+function getStatusLabel(status) {
+  if (status === 'completed') return 'Terminée';
+  if (status === 'in_progress') return 'En cours';
+  return 'Bloquée';
 }
 
-function isStepActive(storyId, stepIndex) {
-  if (userStore.isOfflineStoryMode) return true;
-  const p = getProgress(storyId);
-  if (!p) return false;
-  const completedCount = p.completedSteps ? p.completedSteps.length : 0;
-  return stepIndex <= completedCount;
+function getCompletedStepsCount(story) {
+  if (userStore.isOfflineStoryMode) return 0;
+  const p = getProgress(story.documentId || story.id);
+  return p && p.completedSteps ? p.completedSteps.length : 0;
 }
 
-function isStepLocked(storyId, stepIndex) {
-  if (userStore.isOfflineStoryMode) return false;
-  const p = getProgress(storyId);
-  if (!p) return true;
-  const completedCount = p.completedSteps ? p.completedSteps.length : 0;
-  return stepIndex > completedCount;
+function getProgressPercentage(story) {
+  const total = story.steps?.length || 1;
+  const completed = getCompletedStepsCount(story);
+  return Math.min(100, Math.round((completed / total) * 100));
+}
+
+function getStoryCover(story) {
+  const storyData = story.attributes || story;
+  if (storyData.image?.url) {
+    return storyData.image.url.startsWith('http') ? storyData.image.url : `${strapiService.MEDIA_URL}${storyData.image.url}`;
+  }
+  // Fallback if no image
+  const seed = storyData.id || storyData.documentId || storyData.title || '0';
+  return `https://api.dicebear.com/9.x/glass/svg?seed=${encodeURIComponent(seed)}&backgroundColor=1a1a1a`;
 }
 
 function getRewardCardThumb(card) {
@@ -360,10 +398,59 @@ function getRewardCardThumb(card) {
 
 <style scoped>
 .story-container {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
   padding-bottom: calc(2rem + env(safe-area-inset-bottom) + 80px);
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+}
+
+.page-header p {
+  color: #aaa;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.filter-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.filter-tab {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #aaa;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.filter-tab:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.filter-tab.active {
+  background: color-mix(in srgb, var(--color-primary) 20%, transparent);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: 0 0 15px color-mix(in srgb, var(--color-primary) 30%, transparent);
 }
 
 .auth-notice, .loading-state, .no-quests, .offline-notice {
@@ -400,57 +487,191 @@ function getRewardCardThumb(card) {
 
 .empty-icon { font-size: 4rem; margin-bottom: 1rem; }
 
-.stories-list { display: flex; flex-direction: column; gap: 1.5rem; }
-
-.story-card { overflow: hidden; transition: all 0.3s ease; }
-
-.story-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  padding: 1rem;
+.stories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
 }
 
-.story-header:hover { background: rgba(255, 255, 255, 0.05); }
+.story-card {
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  padding: 0 !important; /* Override AppCard default padding */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(20, 20, 20, 0.8);
+  backdrop-filter: blur(10px);
+}
 
-.story-info h3 { margin: 0 0 0.5rem 0; color: var(--color-primary, #00d2ff); }
+.story-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.3);
+}
 
-.story-desc { margin: 0; font-size: 0.9rem; opacity: 0.8; }
+.story-card.in_progress:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--color-primary) 20%, transparent);
+}
 
-.story-status { display: flex; align-items: center; gap: 1.5rem; }
+.story-card.completed {
+  border-color: rgba(0, 255, 100, 0.3);
+}
 
-.status-badge { padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
+.story-card.completed:hover {
+  border-color: rgba(0, 255, 100, 0.6);
+  box-shadow: 0 10px 30px rgba(0, 255, 100, 0.15);
+}
 
-.status-badge.completed { background: rgba(0, 255, 100, 0.15); color: #00ff64; border: 1px solid rgba(0, 255, 100, 0.3); }
-.status-badge.progress { background: rgba(0, 210, 255, 0.15); color: #00d2ff; border: 1px solid rgba(0, 210, 255, 0.3); }
-.status-badge.locked { background: rgba(255, 255, 255, 0.05); color: #aaa; border: 1px solid rgba(255, 255, 255, 0.1); }
+.story-card.locked {
+  opacity: 0.7;
+  filter: grayscale(0.8);
+}
+
+.story-card.locked:hover {
+  filter: grayscale(0.5);
+  border-color: #ff4444;
+}
+
+.story-cover {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+}
+
+.cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.story-card:hover .cover-image {
+  transform: scale(1.05);
+}
+
+.story-status-overlay {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.status-badge {
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  backdrop-filter: blur(5px);
+}
+
+.status-badge.completed { background: rgba(0, 255, 100, 0.2); color: #00ff64; border: 1px solid rgba(0, 255, 100, 0.5); }
+.status-badge.in_progress { background: color-mix(in srgb, var(--color-primary) 20%, transparent); color: var(--color-primary); border: 1px solid var(--color-primary); }
+.status-badge.locked { background: rgba(0, 0, 0, 0.6); color: #aaa; border: 1px solid rgba(255, 255, 255, 0.2); }
+
+.story-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.story-title {
+  margin: 0 0 0.5rem 0;
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.story-card.in_progress .story-title { color: var(--color-primary); }
+.story-card.completed .story-title { color: #00ff64; }
+
+.story-desc {
+  margin: 0 0 1.5rem 0;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+.story-progress-section {
+  margin-bottom: 1.5rem;
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #aaa;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.progress-bar-container {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 3px;
+  transition: width 0.5s ease-in-out;
+}
+
+.story-card.completed .progress-bar-fill {
+  background: #00ff64;
+}
+
+.story-rewards-mini {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.reward-icon {
+  font-size: 1.2rem;
+}
+
+.reward-mini-cards {
+  display: flex;
+  align-items: center;
+}
+
+.reward-mini-img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #222;
+  margin-left: -10px;
+  object-fit: cover;
+  background: #333;
+}
+
+.reward-mini-img:first-child { margin-left: 0; }
+.reward-more { font-size: 0.75rem; color: #aaa; margin-left: 0.5rem; font-weight: bold; }
+
+.story-footer {
+  margin-top: auto;
+}
 
 .view-steps-btn {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--color-primary);
-  opacity: 0.7;
-  transition: all 0.2s ease;
+  width: 100%;
 }
-
-.story-card:hover .view-steps-btn {
-  opacity: 1;
-  transform: translateX(5px);
-}
-
-.story-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem;
-}
-
-.story-header:hover { background: rgba(255, 255, 255, 0.03); }
-
-.story-info h3 { margin: 0 0 0.5rem 0; color: var(--color-primary, #00d2ff); font-size: 1.4rem; }
-
-.story-desc { margin: 0; font-size: 0.95rem; opacity: 0.7; line-height: 1.4; }
 
 .refusal-modal-content {
   text-align: center;
@@ -485,33 +706,6 @@ function getRewardCardThumb(card) {
 }
 
 .funds-error { color: #ff4444; font-size: 0.85rem; }
-
-.story-rewards-badge {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background: rgba(255, 191, 0, 0.08);
-  border: 1px solid rgba(255, 191, 0, 0.2);
-  border-radius: 30px;
-  width: fit-content;
-}
-
-.reward-badge-icon { font-size: 1.2rem; }
-.reward-badge-label { font-size: 0.8rem; color: #FFD700; font-weight: 600; text-transform: uppercase; }
-.reward-mini-cards { display: flex; align-items: center; margin-left: 0.5rem; }
-.reward-mini-img {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 2px solid #1a1a1a;
-  margin-left: -12px;
-  object-fit: cover;
-  background: #333;
-}
-.reward-mini-img:first-child { margin-left: 0; }
-.reward-more { font-size: 0.75rem; color: #FFD700; margin-left: 0.5rem; font-weight: bold; }
 
 .loading-spinner { display: inline-block; animation: rotate 1.5s linear infinite; }
 @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
