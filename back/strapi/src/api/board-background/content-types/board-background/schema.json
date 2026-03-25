@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "board_backgrounds",
+  "info": {
+    "singularName": "board-background",
+    "pluralName": "board-backgrounds",
+    "displayName": "Board Background",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}
