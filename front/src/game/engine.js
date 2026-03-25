@@ -10,9 +10,13 @@ export const sleep = ms => new Promise(r => setTimeout(r, ms));
  * Capture a card on the board: change owner + reveal it.
  * boardEntry = state.board[i] = { data: {...}, owner: 'player'|'ai' }
  */
-export function captureCard(boardEntry, newOwner) {
+export function captureCard(boardEntry, newOwner, direction = null) {
     boardEntry.data.revealed = true;
     boardEntry.owner = newOwner;
+    if (direction) {
+        boardEntry.data.impactDirection = direction;
+        // Ensure reactive update trigger if needed, but modifying data object should suffice
+    }
 
     // Deduct HP
     if (newOwner === 'player') {
@@ -79,7 +83,7 @@ export async function resolveRules(startIndex, owner) {
         const adj = state.board[n.i];
         if (adj && adj.owner !== owner && centerEntry.data[n.dir] > adj.data[n.opp]) {
             if (!complexCaptures.has(adj)) {
-                captureCard(adj, owner);
+                captureCard(adj, owner, n.opp); // The side of adj that was attacked is its opp side
                 actionRecord.capturedCards.push(adj.data);
             }
         }
@@ -100,7 +104,7 @@ export async function resolveRules(startIndex, owner) {
         getNeighbors(currentIdx).forEach(n => {
             const adj = state.board[n.i];
             if (adj && adj.owner !== owner && comboEntry.data[n.dir] > adj.data[n.opp]) {
-                captureCard(adj, owner);
+                captureCard(adj, owner, n.opp);
                 actionRecord.capturedCards.push(adj.data);
                 comboStack.push(n.i);
                 newCaptures = true;
