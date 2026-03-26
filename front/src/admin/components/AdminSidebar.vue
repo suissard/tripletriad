@@ -72,7 +72,17 @@
       class="premium-nav-item"
       :class="{ 'premium-nav-item-active': route.path === '/admin/cartographie' }"
     >
-      <span class="icon">🗺️</span> Cartographie Archi.
+      <span class="icon">🗺️</span> Archi. Statique
+    </AppButton>
+
+    <AppButton
+      variant="ghost"
+      fullWidth
+      @click="navigate('/admin/cartographie-dyn')"
+      class="premium-nav-item"
+      :class="{ 'premium-nav-item-active': route.path === '/admin/cartographie-dyn' }"
+    >
+      <span class="icon">🔭</span> Archi. Dynamique
     </AppButton>
 
     <AppButton
