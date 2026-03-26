@@ -59,6 +59,18 @@ const routes = [
     meta: { requiresAdminAuth: true }
   },
   {
+    path: '/admin/cartographie-dyn',
+    name: 'admin-cartographie-dyn',
+    component: () => import('../admin/views/DynamicArchitectureMapPage.vue'),
+    meta: { requiresAdminAuth: true }
+  },
+  {
+    path: '/admin/cartographie-dyn',
+    name: 'admin-cartographie-dyn',
+    component: () => import(../admin/views/DynamicArchitectureMapPage.vue),
+    meta: { requiresAdminAuth: true }
+  },
+  {
     path: '/admin/test-card',
     name: 'admin-test-card',
     component: () => import('../admin/views/CardTestPage.vue'),
