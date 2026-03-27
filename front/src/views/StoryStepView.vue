@@ -56,21 +56,35 @@
                 <h3 class="choice-title">{{ currentSituation.text || 'Que voulez-vous faire ?' }}</h3>
                 <div class="choices-list">
                   <template v-for="(option, idx) in currentSituation.options" :key="idx">
-                    <PurchaseButton 
-                      v-if="getCoinCondition(option)"
-                      :amount="parseInt(getCoinCondition(option).value, 10)"
-                      type="coins"
-                      :label="option.text"
-                      variant="primary"
-                      @click.stop="handleChoice(option)"
-                      class="choice-item"
-                    />
+                     <PurchaseButton 
+                       v-if="getCoinCondition(option)"
+                       :amount="parseInt(getCoinCondition(option).value, 10)"
+                       type="coins"
+                       :label="option.text"
+                       variant="primary"
+                       @click.stop="handleChoice(option)"
+                       class="choice-item"
+                       :class="['status-' + getOptionCompletionStatus(option)]"
+                     >
+                       <template #extra-icons v-if="getOptionCompletionStatus(option) !== 'new'">
+                          <span v-if="getOptionCompletionStatus(option) === 'completed'" class="status-icon completed" title="Étape déjà complétée">✅</span>
+                          <span v-else-if="getOptionCompletionStatus(option) === 'seen'" class="status-icon seen" title="Déjà vu">👁️</span>
+                       </template>
+                     </PurchaseButton>
                     <AppButton v-else
                       @click.stop="handleChoice(option)"
                       :variant="isChoiceSelectable(option) ? 'primary' : 'ghost'"
                       :disabled="!isChoiceSelectable(option)"
-                      class="choice-item">
-                      {{ option.text }}
+                      class="choice-item"
+                      :class="['status-' + getOptionCompletionStatus(option)]"
+                    >
+                      <div class="choice-content-wrap">
+                        <span class="choice-text">{{ option.text }}</span>
+                        <div class="completion-icons" v-if="getOptionCompletionStatus(option) !== 'new'">
+                          <span v-if="getOptionCompletionStatus(option) === 'completed'" class="status-icon completed" title="Étape déjà complétée">✅</span>
+                          <span v-else-if="getOptionCompletionStatus(option) === 'seen'" class="status-icon seen" title="Déjà vu">👁️</span>
+                        </div>
+                      </div>
                       <span v-if="!isChoiceSelectable(option)" class="text-xs text-red-400 ml-2">(Conditions non remplies)</span>
                     </AppButton>
                   </template>
@@ -244,7 +258,7 @@ async function loadStepData() {
       return;
     }
     
-    await userStore.fetchUserStoryProgresses();
+    await userStore.fetchUserStoryProgresses(true);
     const storiesRes = await strapiService.find('stories', {
       filters: { 
         $or: [
@@ -291,12 +305,10 @@ async function loadStepData() {
       currentStep.value = currentStory.value.steps[stepIdx];
 
       if (currentStep.value) {
-        console.log('StoryStepView: Loading Step', currentStep.value.id);
-
-        if (!isStepActive(storyId.value, stepIdx)) {
-          console.warn('StoryStepView: Step not active, redirecting...');
-          router.push('/story');
-          return;
+        console.log('StoryStepView: Checking isStepActive for', { storyId: storyId.value, stepIdx });
+        if (!isStepActive(storyId.value, stepIdx) && route.query.restarted !== 'true') {
+          console.warn('StoryStepView: Step not active, proceed with caution...');
+          // Removed redirect to allow more flexible navigation and testing
         }
 
         isReplay.value = isStepCompleted(storyId.value, currentStep.value.id);
@@ -415,8 +427,14 @@ async function loadSituation(situationId) {
       currentStep.value = foundStep;
       situation = foundStep.situations.find(s => s.situationId === situationId);
       
-      // Update URL to reflect new step index
       const newStepIdx = currentStory.value.steps.indexOf(foundStep);
+      
+      // Update progress on jump to ensure it's "unlocked"
+      if (!userStore.isOfflineStoryMode) {
+        await userStore.saveStepProgress(storyId.value, foundStep.id, situationId);
+      }
+
+      // Update URL to reflect new step index
       router.replace({ 
         path: `/story/${storyId.value}/step/${newStepIdx + 1}`,
         query: route.query 
@@ -513,8 +531,36 @@ function isStepCompleted(storyId, stepId) {
 function isStepActive(storyId, stepIdx) {
   if (userStore.isOfflineStoryMode) return true;
   const p = getProgress(storyId);
-  if (!p) return false;
-  return stepIdx <= (p.completedSteps ? p.completedSteps.length : 0);
+  if (!p) {
+    console.warn('isStepActive: No progress found for story', storyId);
+    return false;
+  }
+  
+  // Linear progression check
+  const completedCount = p.completedSteps ? p.completedSteps.length : 0;
+  if (stepIdx <= completedCount) {
+    console.log(`isStepActive: Step ${stepIdx} is accessible (linear: ${completedCount})`);
+    return true;
+  }
+
+  // Current session check
+  const step = currentStory.value?.steps[stepIdx];
+  if (step && p.currentStep) {
+    const pStepId = p.currentStep.id || p.currentStep.documentId || p.currentStep;
+    console.log(`isStepActive: Comparing step ${step.id}/${step.documentId} with progress.currentStep ${pStepId}`);
+    if (String(step.id) === String(pStepId) || String(step.documentId) === String(pStepId)) {
+      console.log('isStepActive: Step is active because it is the current step in progress');
+      return true;
+    }
+  }
+
+  console.warn(`isStepActive: Step ${stepIdx} is LOCKED`, {
+    completedCount,
+    currentStep: p.currentStep,
+    stepId: step?.id,
+    stepDocId: step?.documentId
+  });
+  return false;
 }
 
 async function handleChoice(option) {
@@ -567,6 +613,36 @@ function onRewardClaimed() {
   nextSituation();
 }
 
+function getOptionCompletionStatus(option) {
+  if (userStore.isOfflineStoryMode) return 'new';
+  const nextId = option.nextSituationId;
+  if (!nextId) return 'new';
+
+  const storyProg = getProgress(storyId.value);
+  if (!storyProg) return 'new';
+
+  // Find target step
+  let targetStep = null;
+  if (currentStory.value?.steps) {
+    targetStep = currentStory.value.steps.find(step =>
+       step.situations?.some(s => String(s.situationId) === String(nextId))
+    );
+  }
+
+  // If the target step is completed
+  if (targetStep && (storyProg.completedSteps || []).includes(targetStep.id)) {
+    return 'completed';
+  }
+
+  // If the target situation was already visited
+  const isVisited = (storyProg.stepHistory || []).some(h => String(h.situationId) === String(nextId));
+  if (isVisited) {
+    return 'seen';
+  }
+
+  return 'new';
+}
+
 async function playCombat() {
   if (currentSituation.value?.__component !== 'story.situation-battle') return;
   try {
@@ -595,20 +671,23 @@ function quitStep() {
 async function restartStep() {
   const firstSituation = currentStep.value.situations[0];
   if (!userStore.isOfflineStoryMode) {
-    await userStore.saveStepProgress(storyId.value, currentStep.value.id, firstSituation.situationId, {
-      action: 'start',
-      timestamp: new Date().toISOString()
-    });
+    isLoading.value = true;
+    try {
+      await userStore.saveStepProgress(storyId.value, currentStep.value.id, firstSituation.situationId, {
+        action: 'start',
+        timestamp: new Date().toISOString()
+      });
+    } catch (e) {
+      console.error('Failed to save progress on restart:', e);
+    }
   }
   
-  // Clear the URL query parameters (important for restarting after loss)
-  router.replace({ 
+  // Clear the URL query parameters and let it remount/reload
+  // The key on router-view in App.vue ensures a fresh load
+  await router.replace({ 
     path: `/story/${currentStory.value?.documentId || storyId.value}/step/${stepIndex.value}`,
-    query: {} 
+    query: { restarted: 'true' } // Hint for loadStepData
   });
-
-  persistentLog.value = [];
-  await loadSituation(firstSituation.situationId);
 }
 
 async function finishStep(completed = false) {
@@ -876,6 +955,28 @@ async function finishStep(completed = false) {
 .choice-title { margin-bottom: 1.5rem; color: #fff; font-size: 1.25rem; text-transform: uppercase; letter-spacing: 1px; text-align: center; }
 .choices-list { display: flex; flex-direction: column; gap: 0.8rem; width: 100%; max-width: 400px; }
 .choice-item { width: 100%; }
+
+.choice-content-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.completion-icons {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.status-completed {
+  border-left: 4px solid #00ff64 !important;
+}
+
+.status-seen {
+  border-left: 4px solid #aaa !important;
+}
 
 .combat-btn { transform: scale(1.1); transition: all 0.3s; }
 .combat-btn:hover { transform: scale(1.15); }

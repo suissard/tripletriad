@@ -2,12 +2,15 @@
   <div id="main-menu" v-if="state.gameState === 'menu' ">
 
     <div v-if="state.menuView === 'main'" class="menu-buttons">
+      <AppButton v-if="userStore.latestStoryProgress" fullWidth variant="ghost" class="resume-story-btn" @click="resumeStory">
+        ▶️ REPRENDRE L'AVENTURE : {{ (userStore.latestStoryProgress.story?.data || userStore.latestStoryProgress.story)?.title || 'Suite' }}
+      </AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openStory">MODE HISTOIRE 📖</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openQuests" :disabled="!userStore.strapiConnected">QUÊTES JOURNALIÈRES 🎯</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="state.menuView = 'ai'">JOUER CONTRE UNE IA 🤖</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="state.menuView = 'multi-deck'" :disabled="!userStore.strapiConnected">PARTIE MULTIJOUEUR 🌍</AppButton>
-      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openCollection" :disabled="!userStore.strapiConnected">MA COLLECTION 📚</AppButton>
-      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openDecks" :disabled="!userStore.strapiConnected">MES DECKS 🎴</AppButton>
+      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openCollection">MA COLLECTION 📚</AppButton>
+      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openDecks">MES DECKS 🎴</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openBoutique" :disabled="!userStore.strapiConnected">BOUTIQUE 💎</AppButton>
       <!-- <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="router.push('/test-card')" style="margin-top:20px; background:linear-gradient(45deg, #f093fb 0%, #f5576c 100%)">TESTER LA CARTE 🧪</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="router.push('/test-coin')" style="margin-top:10px; background:linear-gradient(45deg, #84fab0 0%, #8fd3f4 100%)">TESTER LA PIÈCE 🪙</AppButton> -->
@@ -101,8 +104,41 @@ import CoinToss from '../components/CoinToss.vue';
 import AnimatedCardBack from '../components/AnimatedCardBack.vue';
 import MiniDeck from '../components/MiniDeck.vue';
 import { useUserStore } from '../stores/userStore.js';
+import strapiService from '../api/strapi.js';
 
 const userStore = useUserStore();
+
+async function resumeStory() {
+  const p = userStore.latestStoryProgress;
+  if (!p) return;
+
+  const storyData = p.story?.data || p.story;
+  const storyId = storyData?.documentId || storyData?.id || storyData;
+  
+  const stepData = p.currentStep?.data || p.currentStep;
+  const stepId = stepData?.documentId || stepData?.id || stepData;
+
+  if (!storyId || !stepId) return;
+
+  try {
+    const res = await strapiService.findOne('stories', storyId, {
+      populate: ['steps']
+    });
+
+    if (res.data) {
+      const steps = res.data.steps || [];
+      const stepIdx = steps.findIndex(s => String(s.documentId || s.id) === String(stepId));
+      if (stepIdx !== -1) {
+        router.push(`/story/${storyId}/step/${stepIdx + 1}`);
+      } else {
+        router.push(`/story/${storyId}/steps`);
+      }
+    }
+  } catch (e) {
+    console.error('Failed to resume story:', e);
+    router.push('/story');
+  }
+}
 
 function openStory() {
   router.push('/story');
@@ -310,6 +346,23 @@ async function joinGame() {
     padding-top: 120px;
     box-sizing: border-box;
 }
+.resume-story-btn {
+  margin-bottom: 1.5rem;
+  background: linear-gradient(45deg, rgba(0, 210, 255, 0.1), rgba(0, 255, 100, 0.1));
+  border: 1px solid rgba(0, 210, 255, 0.3);
+  color: #fff;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  animation: pulse-border 2s infinite;
+}
+
+@keyframes pulse-border {
+  0% { border-color: rgba(0, 210, 255, 0.3); box-shadow: 0 0 0px rgba(0, 210, 255, 0); }
+  50% { border-color: rgba(0, 210, 255, 0.6); box-shadow: 0 0 15px rgba(0, 210, 255, 0.2); }
+  100% { border-color: rgba(0, 210, 255, 0.3); box-shadow: 0 0 0px rgba(0, 210, 255, 0); }
+}
+
 .menu-buttons {
     display: flex;
     flex-direction: column;

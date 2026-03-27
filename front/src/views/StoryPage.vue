@@ -83,20 +83,31 @@
             </div>
 
             <div class="story-footer">
-              <AppButton
-                v-if="getStoryStatus(story.documentId || story.id) !== 'locked'"
-                variant="ghost"
-                class="view-steps-btn"
-              >
-                Voir les étapes ➔
-              </AppButton>
-              <AppButton
-                v-else
-                variant="danger"
-                class="view-steps-btn"
-              >
-                🔒 Débloquer ({{ unlockPrice }} 🪙)
-              </AppButton>
+              <div class="story-actions-row">
+                <AppButton
+                  v-if="getStoryStatus(story.documentId || story.id) === 'in_progress'"
+                  variant="primary"
+                  class="resume-btn"
+                  @click.stop="resumeStory(story)"
+                  glow
+                >
+                  ▶️ Reprendre
+                </AppButton>
+                <AppButton
+                  v-if="getStoryStatus(story.documentId || story.id) !== 'locked'"
+                  variant="ghost"
+                  class="view-steps-btn"
+                >
+                  {{ getStoryStatus(story.documentId || story.id) === 'completed' ? 'Revoir les étapes' : 'Étapes' }} ➔
+                </AppButton>
+                <AppButton
+                  v-else
+                  variant="danger"
+                  class="view-steps-btn"
+                >
+                  🔒 Débloquer ({{ unlockPrice }} 🪙)
+                </AppButton>
+              </div>
             </div>
           </div>
         </AppCard>
@@ -171,6 +182,30 @@ onMounted(async () => {
   }
 });
 
+function resumeStory(story) {
+  const p = getProgress(story.documentId || story.id);
+  if (!p) return;
+
+  const storyId = story.documentId || story.id;
+  const stepId = p.currentStep?.documentId || p.currentStep?.id || p.currentStep;
+
+  if (!stepId) {
+    // If no specific step recorded, go to steps list
+    router.push({ name: 'story-steps', params: { storyId } });
+    return;
+  }
+
+  // Find step index
+  const steps = story.steps || [];
+  const stepIdx = steps.findIndex(s => String(s.documentId || s.id) === String(stepId));
+  
+  if (stepIdx !== -1) {
+    router.push(`/story/${storyId}/step/${stepIdx + 1}`);
+  } else {
+    router.push({ name: 'story-steps', params: { storyId } });
+  }
+}
+
 async function toggleOffline() {
   userStore.toggleOfflineStoryMode(true);
   await fetchLocalStories();
@@ -188,13 +223,35 @@ function getFilterLabel(filter) {
 
 const filteredStories = computed(() => {
   if (!stories.value) return [];
-  if (currentFilter.value === 'all') return stories.value;
-  return stories.value.filter(story => {
-    const status = getStoryStatus(story.documentId || story.id);
-    if (currentFilter.value === 'completed') return status === 'completed';
-    if (currentFilter.value === 'locked') return status === 'locked';
-    if (currentFilter.value === 'progress') return status === 'in_progress';
-    return true;
+  
+  let baseStories = stories.value;
+  if (currentFilter.value !== 'all') {
+    baseStories = stories.value.filter(story => {
+      const status = getStoryStatus(story.documentId || story.id);
+      if (currentFilter.value === 'completed') return status === 'completed';
+      if (currentFilter.value === 'locked') return status === 'locked';
+      if (currentFilter.value === 'progress') return status === 'in_progress';
+      return true;
+    });
+  }
+
+  // Define status priorities correctly
+  const statusScores = {
+    'completed': 0,
+    'in_progress': 1,
+    'locked': 2
+  };
+
+  // Return a sorted copy of the results
+  return [...baseStories].sort((a, b) => {
+    const statusA = getStoryStatus(a.documentId || a.id);
+    const statusB = getStoryStatus(b.documentId || b.id);
+    
+    const diff = (statusScores[statusA] ?? 3) - (statusScores[statusB] ?? 3);
+    if (diff !== 0) return diff;
+    
+    // Sort secondary by title
+    return (a.title || '').localeCompare(b.title || '');
   });
 });
 
@@ -601,6 +658,7 @@ function getRewardCardThumb(card) {
   opacity: 0.7;
   line-height: 1.5;
   display: -webkit-box;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -677,7 +735,18 @@ function getRewardCardThumb(card) {
 }
 
 .view-steps-btn {
+  flex-grow: 1;
+}
+
+.story-actions-row {
+  display: flex;
+  gap: 0.8rem;
   width: 100%;
+}
+
+.resume-btn {
+  flex-grow: 2;
+  font-weight: 800;
 }
 
 .refusal-modal-content {

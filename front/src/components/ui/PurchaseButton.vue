@@ -9,6 +9,9 @@
       @click="handlePurchase"
     >
       <div class="purchase-btn-content">
+        <div v-if="$slots['extra-icons']" class="extra-icons">
+          <slot name="extra-icons"></slot>
+        </div>
         <span v-if="label" class="label">{{ label }}</span>
         <span class="price">
           <span class="amount">{{ amount }}</span>
@@ -137,6 +140,12 @@ const handlePurchase = async (event) => {
 
 .purchase-btn {
   min-width: 140px;
+}
+
+.extra-icons {
+  display: flex;
+  align-items: center;
+  margin-right: -4px;
 }
 
 .purchase-btn-content {

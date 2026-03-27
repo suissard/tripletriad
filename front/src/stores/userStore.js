@@ -36,7 +36,18 @@ export const useUserStore = defineStore('user', {
   getters: {
     isOffline: (state) => !state.strapiConnected,
     isGuestStoryMode: (state) => state.isOfflineStoryMode || (!state.isLoggedIn && !state.strapiConnected),
-    isAdmin: (state) => state.user?.role === 'Admin' || state.user?.role === 'Super Admin'
+    isAdmin: (state) => state.user?.role === 'Admin' || state.user?.role === 'Super Admin',
+    latestStoryProgress: (state) => {
+      if (!state.storyProgresses || state.storyProgresses.length === 0) return null;
+      // Filter for in-progress stories and sort by updatedAt descending
+      return [...state.storyProgresses]
+        .filter(p => p.status !== 'completed' && p.progressStatus !== 'completed')
+        .sort((a, b) => {
+          const dateA = new Date(a.updatedAt || a.updated_at || 0);
+          const dateB = new Date(b.updatedAt || b.updated_at || 0);
+          return dateB - dateA;
+        })[0] || null;
+    }
   },
 
   actions: {
@@ -373,8 +384,8 @@ export const useUserStore = defineStore('user', {
 
       try {
         const result = await strapiService.find('player-story-progresses', {
-          filters: { user: this.user.id },
-          populate: ['story']
+          filters: { user: { id: { $eq: this.user.id } } },
+          populate: ['story', 'currentStep']
         });
         this.storyProgresses = this.toArray(result);
         this.storyProgressesLoaded = true;

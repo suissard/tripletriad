@@ -1,5 +1,5 @@
 <template>
-  <PageLayout>
+  <PageLayout :title="story?.title || 'Archive'">
     <div class="steps-container">
       <AppButton variant="ghost" class="back-btn" @click="router.push('/story')">
         ⬅ Retour aux Archives
@@ -47,24 +47,24 @@
         </div>
 
         <div class="steps-list">
-          <div v-for="(step, index) in story.steps" :key="step.id || index" 
+          <div v-for="step in sortedSteps" :key="step.id || step.originalIndex" 
             class="step-card" 
             :class="{
               'completed': isStepCompleted(step.id),
-              'active': isStepActive(index),
-              'locked': isStepLocked(index)
+              'active': isStepActive(step),
+              'locked': isStepLocked(step)
             }"
-            @click="!isStepLocked(index) ? startStep(step) : null"
+            @click="!isStepLocked(step) ? startStep(step) : null"
           >
             <div class="step-cover-container">
-              <img :src="getStepCover(step, index)" class="step-cover-img" />
+              <img :src="getStepCover(step, step.originalIndex)" class="step-cover-img" />
               <div class="step-overlay-gradient"></div>
 
               <div class="step-card-header">
-                <div class="step-num">Séquence {{ index + 1 }}</div>
+                <div class="step-num">Séquence {{ step.originalIndex + 1 }}</div>
                 <div class="step-status">
                   <span v-if="isStepCompleted(step.id)" class="status-icon success" title="Terminée">✅</span>
-                  <span v-else-if="isStepLocked(index)" class="status-icon lock" title="Verrouillée">🔒</span>
+                  <span v-else-if="isStepLocked(step)" class="status-icon lock" title="Verrouillée">🔒</span>
                   <span v-else class="status-icon active" title="Disponible">⚔️</span>
                 </div>
               </div>
@@ -85,7 +85,7 @@
                 </div>
               </div>
 
-              <div v-if="isStepActive(index)" class="step-card-footer">
+              <div v-if="isStepActive(step)" class="step-card-footer">
                 <AppButton :variant="isStepCompleted(step.id) ? 'ghost' : 'primary'" glow>
                   {{ isStepCompleted(step.id) ? 'Revivre' : 'Initier' }}
                 </AppButton>
@@ -99,7 +99,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import PageLayout from '../components/PageLayout.vue';
 import AppButton from '../components/ui/AppButton.vue';
@@ -120,6 +120,30 @@ const route = useRoute();
 
 const isLoading = ref(true);
 const story = ref(null);
+
+const sortedSteps = computed(() => {
+  if (!story.value?.steps) return [];
+  
+  const p = getProgress();
+  const completedSteps = p?.completedSteps || [];
+  
+  return [...story.value.steps].sort((a, b) => {
+    const isACompleted = completedSteps.includes(a.id);
+    const isBCompleted = completedSteps.includes(b.id);
+    
+    if (isACompleted && !isBCompleted) return -1;
+    if (!isACompleted && isBCompleted) return 1;
+    
+    if (isACompleted && isBCompleted) {
+      const indexA = completedSteps.indexOf(a.id);
+      const indexB = completedSteps.indexOf(b.id);
+      return indexA - indexB; // Done first = lower index
+    }
+    
+    // Both not completed: keep original narrative order
+    return (a.originalIndex ?? 0) - (b.originalIndex ?? 0);
+  });
+});
 
 onMounted(async () => {
   await fetchData();
@@ -164,10 +188,11 @@ async function fetchStrapiStory() {
 
   if (res.data) {
     const s = res.data;
-    const steps = (s.steps || []).map(step => {
+    const steps = (s.steps || []).map((step, idx) => {
       const rewardSituation = step.situations?.find(sit => sit.__component === 'story.situation-reward');
       return {
         ...step,
+        originalIndex: idx,
         rewardCards: rewardSituation?.rewardCards || []
       };
     });
@@ -196,7 +221,7 @@ async function fetchLocalStory() {
       idReal: index + 1,
       title: storyData.title,
       description: storyData.description,
-      steps,
+      steps: steps.map((st, sIdx) => ({ ...st, originalIndex: sIdx })),
       rewardCards: storyData.rewardCards || []
     };
   });
@@ -271,18 +296,27 @@ function checkCondition(condition, progress) {
   }
 }
 
-function isStepActive(stepIndex) {
+function isStepActive(step) {
   if (userStore.isOfflineStoryMode) return true;
-  return !isStepLocked(stepIndex);
+  return !isStepLocked(step);
 }
 
-function isStepLocked(stepIndex) {
+function isStepLocked(step) {
   if (userStore.isOfflineStoryMode) return false;
+  if (!step) return true;
+  
   const p = getProgress();
   if (!p) return true;
   
-  const step = story.value?.steps[stepIndex];
-  if (!step) return true;
+  const stepIndex = step.originalIndex;
+
+  // If it's the current step in progress, it's definitely NOT locked
+  if (p.currentStep) {
+    const pStepId = p.currentStep.id || p.currentStep.documentId || p.currentStep;
+    if (String(step.id) === String(pStepId) || String(step.documentId) === String(pStepId)) {
+      return false;
+    }
+  }
 
   // First check linear progression (default)
   const completedCount = p.completedSteps ? p.completedSteps.length : 0;

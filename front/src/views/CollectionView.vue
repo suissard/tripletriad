@@ -494,6 +494,13 @@ function closeCardDetail() { selectedCard.value = null; }
 let searchDebounceTimer = null;
 
 async function fetchCards() {
+  if (!userStore.strapiConnected) {
+    displayCards.value = cardLibrary.slice((currentPage.value - 1) * cardsPerPage.value, currentPage.value * cardsPerPage.value);
+    totalCardCount.value = cardLibrary.length;
+    isLoadingCards.value = false;
+    return;
+  }
+
   isLoadingCards.value = true;
   try {
     const isOwnershipFiltered = filterOwnership.value === 'owned' || filterPremium.value === 'premium';
@@ -579,11 +586,9 @@ async function fetchCards() {
     }
   } catch (e) {
     console.error('[Collection] Failed to fetch cards from Strapi:', e);
-    // Silent fail to cardLibrary for robustness if not filtering
-    if (filterOwnership.value === 'all') {
-      displayCards.value = cardLibrary.slice(0, cardsPerPage.value);
-      totalCardCount.value = cardLibrary.length;
-    }
+    // Silent fail to cardLibrary for robustness
+    displayCards.value = cardLibrary.slice((currentPage.value - 1) * cardsPerPage.value, currentPage.value * cardsPerPage.value);
+    totalCardCount.value = cardLibrary.length;
   } finally {
     isLoadingCards.value = false;
   }
