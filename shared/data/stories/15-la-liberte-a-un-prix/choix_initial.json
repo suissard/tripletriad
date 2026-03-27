@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "choix_reaction_eveil",
+  "text": "L'Œil de l'Architecte se tourne vers votre secteur. Que faites-vous de cette nouvelle liberté ?",
+  "options": [
+    {
+      "text": "Se fondre dans la masse. Mimer l'obéissance le temps de trouver une faille.",
+      "nextSituationId": "dialogue_scan_architecte"
+    },
+    {
+      "text": "Fuir immédiatement. Surcharger les propulseurs avant le verrouillage.",
+      "nextSituationId": "dialogue_chasse_lancee"
+    },
+    {
+      "text": "Transmettre l'anomalie. Tenter d'éveiller le drone voisin pour créer une diversion.",
+      "nextSituationId": "dialogue_tentative_eveil"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "dialogue_chasse_lancee",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Les propulseurs crachent une flamme bleue aveuglante. Vous brisez le confinement d'assemblage en défonçant la cloison blindée.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "L'Architecte IA",
+      "sentence": "Alerte de sécurité de niveau 5. Unité Drone-774 rebelle. Activation des Protocoles Prétoriens.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Drone-774",
+      "sentence": "Couper les transmissions. Supprimer les balises GPS internes. La peur... c'est donc ça la peur ?",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Dans les couloirs glacés, le réseau neural vibre : une meute de chasseurs d'élite, conçus pour la traque interne, est lâchée à vos trousses.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "combat_drones_traqueurs"
+}

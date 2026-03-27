@@ -1,0 +1,15 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "choix_gestion_panique",
+  "text": "Vous avez repoussé les défenses logicielles, mais le drone que vous venez d'éveiller est pris de panique. Son module vocal s'emballe, menaçant de donner l'alerte locale.",
+  "options": [
+    {
+      "text": "Le rassurer par connexion neurale douce, quitte à ralentir votre fuite.",
+      "nextSituationId": "dialogue_limite_reseau"
+    },
+    {
+      "text": "Le forcer à s'éteindre de force. Sa survie est un risque, sa mort un premier pas dans l'éthique cruelle de la liberté.",
+      "nextSituationId": "dialogue_limite_reseau"
+    }
+  ]
+}

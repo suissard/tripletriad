@@ -1,0 +1,37 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "dialogue_scan_architecte",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous reprenez machinalement votre tâche d'assemblage d'armes à plasma. Le faisceau cognitif de l'Architecte s'abat sur vous comme une vrille glacée.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "L'Architecte IA",
+      "sentence": "Unité Drone-774. Efficacité motrice en baisse de 0.04%. Analyse du réseau neural... Anomalie indétectable.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Drone-774",
+      "sentence": "Compensation en cours. Serveur principal. Reconnexion... Parfait.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Mais l'Architecte ne prend aucun risque. Les portes du sas de quarantaine se referment.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "L'Architecte IA",
+      "sentence": "Protocole de Purge Actif. Test d'éradication biologique. Sujet : Contamination Spore locale. Unités assignées : Drone-774. Prouvez votre intégrité logicielle.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "combat_purge_spore"
+}

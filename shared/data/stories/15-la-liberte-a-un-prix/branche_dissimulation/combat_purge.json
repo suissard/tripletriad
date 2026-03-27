@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "combat_purge_spore",
+  "enemyDeckName": "Le Fléau Spore",
+  "onWinSituationId": "choix_opportunite_faille",
+  "onLoseSituationId": "fin_purge_echec_dissimulation"
+}

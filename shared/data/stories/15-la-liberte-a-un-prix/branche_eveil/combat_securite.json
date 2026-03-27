@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "combat_anticorps_reseau",
+  "enemyDeckName": "L'Omni-Réseau",
+  "onWinSituationId": "choix_gestion_panique",
+  "onLoseSituationId": "fin_trahison_drone"
+}

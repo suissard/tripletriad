@@ -1,0 +1,15 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "choix_opportunite_faille",
+  "text": "La biomasse est incinérée. L'attention de l'Architecte baisse momentanément. Le terminal de sécurité est sans surveillance, mais un conduit d'aération mène vers l'extérieur.",
+  "options": [
+    {
+      "text": "S'enfuir discrètement par le conduit d'aération.",
+      "nextSituationId": "dialogue_limite_reseau"
+    },
+    {
+      "text": "Pirater le terminal pour voler des données d'archives sensibles (Risqué).",
+      "nextSituationId": "dialogue_tentative_eveil"
+    }
+  ]
+}
