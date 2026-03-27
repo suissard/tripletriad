@@ -1,74 +1,111 @@
-# Documentation d'Apprentissage: Terra Nullius
+# Documentation d'Apprentissage & Onboarding Développeur : Terra Nullius
 
-Ce fichier regroupe les points critiques, pièges techniques et conventions identifiés lors du développement du jeu.
-
-## 🏗️ Backend & Strapi
-
-### Strapi 5 & TypeScript (Le piège du `.js`)
-**Problème :** Les modifications apportées à `back/strapi/src/index.js` étaient systématiquement ignorées par le serveur.
-**Cause :** Le projet Strapi 5 est configuré en TypeScript. La présence d'un fichier `src/index.ts` rend le fichier `src/index.js` obsolète car Strapi re-compile le TS au démarrage.
-**Leçon :** Toujours vérifier si un équivalent `.ts` existe avant de modifier un `.js` dans le dossier `src` de Strapi. La logique de bootstrap (permissions, seeding) doit impérativement résider dans `src/index.ts`.
-
-### Bootstrap de Permissions Exhaustif
-**Stratégie :** Pour le développement, utiliser le bootstrap Strapi pour parcourir programmatiquement toutes les permissions des rôles `authenticated` et `public`.
-**Code clé :**
-\`\`\`typescript
-await strapi.db.query('plugin::users-permissions.permission').create({
-  data: { action: 'api::card.card.find', role: authRole.id }
-});
-\`\`\`
-Cela garantit qu'aucun changement de modèle ne bloque le frontend par manque de permissions manuelles dans l'admin panel.
+Ce fichier sert de guide exhaustif pour comprendre l'architecture, le fonctionnement interne et les bonnes pratiques du projet Terra Nullius (Triple Triad). Il est destiné aux développeurs pour faciliter leur intégration et éviter les pièges techniques connus.
 
 ---
 
-## 🎨 Frontend & Vue 3
+## 🏗️ 1. Architecture Technique
 
-### Diagnostic de Session et Rôles
-**Problème :** Difficulté à savoir pourquoi un utilisateur reçoit un 403 (Forbidden) malgré un JWT valide.
-**Solution :** Implémenter un bouton "Debug Auth" qui interroge spécifiquement `GET /api/users/me?populate=role`.
-**Leçon :** Le simple fait d'être connecté ne garantit pas le rôle. Il est crucial de vérifier quel rôle Strapi a réellement attribué à l'utilisateur `auth.user` pour diagnostiquer les permissions API.
+Le projet est divisé en deux parties principales (monorepo) :
+- **Frontend** : Application Vue.js 3 + Vite, utilisant la Composition API et Pinia pour la gestion d'état.
+- **Backend** : CMS Strapi 5 (TypeScript) pour la persistance des données et la logique métier sécurisée.
 
-### Three.js & Shaders (SFC Vue 3)
-**Conventions :** Dans les Single File Components (SFCs) de Vue 3, les balises `<script>` ou `<style>` contenant des effets de bord (comme des shaders GLSL) ne peuvent pas être placées à l'intérieur du bloc `<template>` sous peine d'être ignorées par Vite.
-**Leçon :** Pour intégrer des shaders personnalisés (ex: effet holographique `FoilEditor`), définissez-les comme des chaînes de caractères littérales (String literals) dans le bloc principal `<script setup>`.
+### Modèle de Communication
+- **API REST** : Communication standard entre le Frontend et le Backend Strapi.
+- **WebRTC (Peer-to-Peer)** : Utilisé pour les parties multijoueurs afin d'assurer une faible latence. Les actions sont échangées directement entre clients, avec un arbitrage serveur en cas de désynchronisation.
+- **SQLite** : Base de données par défaut pour le backend.
 
-### Design Mobile & Safe Areas
-**Problème :** Les barres de navigation natives des mobiles (ex: iOS) chevauchent parfois l'interface en bas d'écran.
-**Leçon :** L'intégration de Layouts fluides nécessitant une barre de navigation fixe (`BottomMobileNav`) doit systématiquement utiliser le padding CSS dynamique `padding-bottom: calc([hauteur] + env(safe-area-inset-bottom))` pour garantir la visibilité du contenu.
+### Organisation du Frontend (`front/src/`)
+- `api/` : Client API REST (`strapi.js`) et Mocks.
+- `components/` : Composants UI réutilisables (Cartes, Plateau, Animations).
+- `game/` : Moteur de jeu pur (Logique métier déconnectée de Vue).
+- `stores/` : Gestion de l'état global avec Pinia (`userStore`, `layoutStore`).
+- `views/` : Pages de l'application (Router).
 
-### Drag & Drop Customisé (Cross-device)
-**Conventions :** Les événements de drag-and-drop natifs HTML5 ne réagissent pas bien avec le tactile ou les interactions complexes.
-**Leçon :** L'application utilise des custom Pointer Events (`pointerdown`, `pointermove`, `pointerup`) combinés avec le composant Vue `<Teleport>` pour rendre une image fantôme du drag. La logique détecte la cible de drop dynamiquement avec `document.elementsFromPoint()`.
-
-### Esthétisme et Glassmorphism
-**Leçon :** Pour maintenir la cohérence de l'interface vitreuse de Terra Nullius, n'utilisez pas de couleurs statiques opaques. Utilisez le pattern CSS `color-mix(in srgb, var(--color-variable) <pourcentage>%, transparent)` combiné avec `backdrop-filter: blur(...)` pour les panneaux, modales, ou boutons superposés.
-
-### Navigation Vue Router Personnalisée
-**Leçon :** Pour utiliser des composants globaux existants (comme `<AppButton>`) pour la navigation à la place de la balise HTML `<router-link>`, il faut simuler le clic via `@click="router.push('...')"` et gérer l'état visuel actif manuellement avec une classe CSS conditionnelle (ex: `:class="{ active: route.path === '...' }"`).
-
-### Option Développeur In-Game
-**Règle :** Les éléments dans les options de dev (ex: auto login, premium mode) doivent être sauvegardés dans le `localStorage` du navigateur pour être persistants entre les rechargements de page, et synchronisés avec l'état global (`Pinia`) si nécessaire.
+### Organisation du Backend (`back/strapi/src/`)
+- `api/` : Contrôleurs et services pour les entités du jeu (Cartes, Decks, Matchs, Boutique).
+- `index.ts` : Point d'entrée gérant le bootstrap automatique (Permissions, Seeding initial).
 
 ---
 
-## 🧪 Tests & Assurance Qualité (QA)
+## 🎲 2. Mécaniques de Jeu
 
-### Playwright : Intégration UI et API
-**Leçon 1 :** Lors des tests visuels frontend avec Playwright, la base de données pouvant être vide, utilisez `page.route()` pour intercepter et "moquer" systématiquement les réponses de l'API Strapi (ex: `**/api/cards*`). Cela évite les erreurs de rendu `Failed to fetch`.
-**Leçon 2 :** L'utilisation de composants dropdown Vue personnalisés empêche d'utiliser la fonction standard `page.select_option()`. Interagissez manuellement avec le DOM du composant pour valider ces formulaires.
+Le jeu se déroule sur une grille de **3x3** (9 cases). Chaque joueur dispose d'une main de 5 cartes.
+Chaque carte possède 4 valeurs (Stats) placées sur les bords (Haut, Bas, Gauche, Droite), allant de 1 à 9, ou A (10).
 
-### Vitest & Logique Pure
-**Problème :** Le réseau ou le cache npm peuvent corrompre l'installation et le lancement de Vitest.
-**Leçon :** Dans un environnement bloqué, les tests de pure logique métier (`getNeighbors`, règles optionnelles) peuvent être exécutés de façon autonome via de simples scripts en Node natif (`node front/tests/mon-test.js`) en utilisant le module `node:assert`.
+### Règles de Capture
+- **Capture Classique** : Une carte posée capture une carte adjacente si la valeur de son bord attaquant est strictement supérieure au bord défenseur.
+- **Règles Spéciales** (`src/game/rules.js`) :
+  - **Same** : Capture si au moins deux bords sont identiques aux bords adjacents.
+  - **Plus** : Capture si la somme de deux bords adjacents est égale.
+  - **Combo** : Les cartes capturées via Same/Plus deviennent attaquantes à leur tour (réaction en chaîne).
+- **Éléments** : Des bonus/malus s'appliquent si l'élément de la carte correspond ou non à l'élément de la case du plateau.
+
+**Victoire** : La partie se termine quand le plateau est plein. Le joueur contrôlant le plus de cartes (plateau + main) l'emporte.
 
 ---
 
-## 🛠️ Architecture & Déploiement
+## 🧠 3. Gestion de l'État et Moteur de Jeu
 
-### Conflits de Permissions Docker (EACCES)
-**Problème :** Erreur `EACCES: permission denied` lors du lancement de `npm run dev:front` sur l'hôte.
-**Cause :** Le service `frontend` dans `docker-compose.yml` montait le dossier `./front` et exécutait `npm install / dev` en tant que `root`. Cela créait des fichiers (comme `.vite/deps`) appartenant à `root` sur la machine hôte.
-**Leçon :** Éviter de faire tourner le serveur de développement frontend dans Docker si l'utilisateur souhaite aussi le lancer localement (conflit de propriété de fichiers).
+### L'État Centralisé (`src/game/state.js`)
+L'état global du jeu en cours est géré par un objet réactif Vue (`state`). Il contient :
+- `board` : L'état des 9 cases.
+- `pHand` / `aiHand` : Les mains des joueurs.
+- `turn` : À qui le tour.
+- `rules` : Les règles actives.
 
-### Frontend Build Process
-**Leçon :** Lors de l'exécution de `npm run build` pour le frontend, s'assurer qu'il utilise le fichier `index.html` situé à la racine du dossier `front`.
+### Le Moteur de Jeu (`src/game/GameEngine.js`)
+Conçu selon des principes de **programmation fonctionnelle** :
+- Les fonctions (ex: `computeNextState`, `processCaptures`) sont **pures** et ne mutent pas l'état.
+- Elles prennent un état en entrée et renvoient un nouvel état (immuabilité).
+
+### Gestion des Tours (`src/game/TurnManager.js`)
+Fait le pont entre le moteur et l'environnement :
+- **Local** : Met à jour directement l'état.
+- **En ligne (P2P)** : Sérialise les actions, les envoie via WebRTC, et compare les **Hashs** d'état avec l'adversaire. En cas de différence (désynchronisation), le backend Strapi (`/api/match/arbitrate`) rejoue le journal des actions pour forcer la synchronisation.
+
+---
+
+## 🔄 4. Flux Utilisateur et Processus Arrière-Plan
+
+### Ouverture d'un Booster
+1. Vérification locale du solde (Frontend).
+2. Requête POST `api/booster/open`.
+3. Le serveur déduit les fonds, génère les cartes selon les probabilités et les ajoute à la base.
+4. Le frontend reçoit les cartes et déclenche l'animation.
+
+### Lancement de Partie (Coin Toss)
+1. Le premier joueur est défini (aléatoire en IA, ou décidé par l'hôte en Multi).
+2. L'animation 3D (`CoinToss.vue`) est jouée.
+3. À la fin de l'animation, l'état `state.turn` est mis à jour pour débuter le match.
+
+### Poser une Carte
+1. Le moteur valide le mouvement.
+2. Calcul des captures (classiques + règles spéciales + combos).
+3. Le nouvel état est généré et l'interface réagit. (Action transmise en WebRTC si multijoueur).
+
+---
+
+## ⚠️ 5. Conventions, Pièges et Leçons Apprises
+
+Ce chapitre regroupe les points critiques identifiés lors du développement.
+
+### Backend & Strapi
+- **Strapi 5 & TypeScript (Le piège du `.js`)** : Le projet Strapi est en TS. Ne modifiez jamais `src/index.js` car il est écrasé à la compilation. Toute logique de bootstrap doit aller dans `src/index.ts`.
+- **Bootstrap de Permissions Exhaustif** : Utilisez le bootstrap pour créer programmatiquement les permissions API au démarrage, évitant ainsi de bloquer le frontend en cas d'oubli dans l'admin panel.
+
+### Frontend & Vue 3
+- **Diagnostic de Session et Rôles** : Un JWT valide ne garantit pas les permissions. Inspectez l'endpoint `/api/users/me?populate=role` pour diagnostiquer les erreurs 403.
+- **Three.js & Shaders (SFC Vue 3)** : Dans un composant `.vue`, ne placez pas de variables contenant du code GLSL dans les balises `<template>`. Définissez-les comme chaînes littérales dans `<script setup>`.
+- **Design Mobile & Safe Areas** : Utilisez `padding-bottom: calc([hauteur] + env(safe-area-inset-bottom))` pour éviter que les barres de navigation mobiles (ex: iOS) ne masquent le contenu du jeu.
+- **Drag & Drop Customisé** : N'utilisez pas l'API HTML5 native pour le D&D. L'application utilise des événements pointeurs personnalisés (`pointerdown/move/up`) et `<Teleport>` pour un support tactile parfait.
+- **Esthétisme et Glassmorphism** : Pour l'interface transparente "vitreuse", utilisez `color-mix(in srgb, var(--color-variable) <pourcentage>%, transparent)` combiné avec `backdrop-filter: blur(...)` (pas de couleurs opaques fixes).
+- **Navigation Vue Router** : Pour rendre un composant (ex: `<AppButton>`) navigable, simulez le clic avec `@click="router.push('...')"` au lieu d'utiliser une balise `<router-link>`.
+- **Option Développeur In-Game** : Les options de debug (auto-login, premium) sont stockées dans le `localStorage` pour persister entre les rechargements.
+
+### Tests & Assurance Qualité
+- **Playwright (UI & API)** : En test e2e, moquez systématiquement l'API Strapi (via `page.route()`) pour éviter les erreurs si la base de données de test est vide. Attention aux dropdowns Vue custom (n'utilisez pas `page.select_option()`, mais manipulez le DOM).
+- **Vitest & Logique Pure** : Si l'environnement Node/npm est instable, les tests métiers (ex: `GameEngine`) peuvent être lancés en natif via `node --test` ou `node_assert`.
+
+### Architecture & Déploiement
+- **Conflits Docker (EACCES)** : Si vous lancez le serveur de dev frontend via Docker, il créera des fichiers avec les droits `root` (ex: `node_modules`). Il est recommandé de lancer le frontend localement (`npm run dev`) pour éviter ces conflits de permissions, tout en gardant Strapi sous Docker.
