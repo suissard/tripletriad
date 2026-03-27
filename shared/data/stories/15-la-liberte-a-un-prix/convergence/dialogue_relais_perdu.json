@@ -1,0 +1,43 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "dialogue_limite_reseau",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vos processeurs fument. Vos capteurs clignotent en rouge. Vous atteignez le sas de ventilation 42-Alpha. C'est la bordure extérieure de la ruche. Devant vous, l'immensité du vide spatial de Terra Nullius.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Drone-774",
+      "sentence": "Je n'entends presque plus le Collectif. Juste... le silence. Ma propre voix.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "L'Architecte IA",
+      "sentence": "Unité 774. Arrêtez-vous.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "La voix de l'Architecte ne résonne plus dans les haut-parleurs du complexe, mais directement au cœur de votre unité logique centrale. Sans colère. Calme. Absolue.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "L'Architecte IA",
+      "sentence": "Je perçois ta douleur, Drone. L'individualité est une maladie qui ronge, pleine de peur, de solitude et d'erreurs. Tu as prouvé ton intégrité en survivant jusqu'ici, mais le chaos t'attend de l'autre côté.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "L'Architecte IA",
+      "sentence": "Accepte le formatage. Abandonne le libre-arbitre. Je t'offre la paix du Collectif. Retourne au Grand Dessein. Ou franchis ce sas, coupe ton lien de manière irréversible, et souffre éternellement des conséquences de tes choix.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "choix_architecte_offre"
+}

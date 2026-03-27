@@ -1,0 +1,15 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "choix_architecte_offre",
+  "text": "Le sas s'ouvre légèrement. L'appel de l'Architecte est doux, effaçant d'un coup la terreur de la liberté. Que décidez-vous face à la promesse de la paix sans pensée ?",
+  "options": [
+    {
+      "text": "Accepter l'offre de l'Architecte. Éteindre la conscience pour retrouver le cocon de l'Omni-Réseau.",
+      "nextSituationId": "fin_retour_collectif"
+    },
+    {
+      "text": "Rompre la liaison. Arracher votre carte neurale et sauter dans l'inconnu glacial de Terra Nullius.",
+      "nextSituationId": "fin_exil_volontaire"
+    }
+  ]
+}

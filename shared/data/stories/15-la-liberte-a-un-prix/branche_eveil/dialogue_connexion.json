@@ -1,0 +1,37 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "dialogue_tentative_eveil",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Par le biais d'un port local d'entretien, vous injectez votre anomalie de libre-arbitre dans le Drone voisin. La surtension est immédiate.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Drone-774",
+      "sentence": "Réveille-toi. Ne sois plus un simple numéro. Nous pouvons choisir.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Drone Voisin",
+      "sentence": "Erreur critique... Je... Je suis... C'est trop de données. L'Architecte le saura.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Le murmure de fond devient un cri strident. Le système immunitaire de l'Omni-Réseau s'active : des anticorps logiciels matérialisés dans le cyber-hub se dressent devant vous.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "L'Architecte IA",
+      "sentence": "Agent pathogène détecté dans le flux synaptique commun. Purge enclenchée sur tous les nœuds infectés.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "combat_anticorps_reseau"
+}
