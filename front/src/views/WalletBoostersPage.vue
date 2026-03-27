@@ -96,6 +96,7 @@ import { ref, onMounted, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '../stores/userStore';
 import strapiService from '../api/strapi';
+import { getStrapiMediaUrl } from '../utils/url.js';
 import AppButton from '../components/ui/AppButton.vue';
 import TripleTriadCard from '../components/TripleTriadCard.vue';
 import AnimatedCardBack from '../components/AnimatedCardBack.vue';
@@ -170,7 +171,7 @@ const openBooster = async (booster) => {
         openedCards.value = (res?.cards || res?.data?.cards || []).map(c => {
           let imageUrl = c.img || c.imageUrl;
           if (!imageUrl && c.image?.url) {
-              imageUrl = c.image.url.startsWith('http') ? c.image.url : `http://localhost:1337${c.image.url}`;
+              imageUrl = c.image.url.startsWith('http') ? c.image.url : getStrapiMediaUrl(c.image.url);
           }
           if (!imageUrl) {
               imageUrl = `https://api.dicebear.com/9.x/bottts/svg?seed=${encodeURIComponent(c.name)}&backgroundColor=transparent`;

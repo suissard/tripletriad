@@ -52,6 +52,7 @@
 import { ref, computed, watch, nextTick } from 'vue';
 import TripleTriadCard from './TripleTriadCard.vue';
 import strapiService from '../api/strapi.js';
+import { getStrapiMediaUrl } from '../utils/url.js';
 
 const props = defineProps({
   show: { type: Boolean, default: false },
@@ -73,11 +74,11 @@ const normalizedCard = computed(() => {
   
   let imageUrl = card.imageUrl || card.img;
   if (!imageUrl && card.image?.url) {
-    imageUrl = card.image.url.startsWith('http') ? card.image.url : `${strapiService.MEDIA_URL}${card.image.url}`;
+    imageUrl = card.image.url.startsWith('http') ? card.image.url : getStrapiMediaUrl(card.image.url);
   }
   if (!imageUrl && card.image?.data?.attributes?.url) {
     const attrUrl = card.image.data.attributes.url;
-    imageUrl = attrUrl.startsWith('http') ? attrUrl : `${strapiService.MEDIA_URL}${attrUrl}`;
+    imageUrl = attrUrl.startsWith('http') ? attrUrl : getStrapiMediaUrl(attrUrl);
   }
   if (!imageUrl) {
     const seed = card.id || props.reward.id || card.name || '0';

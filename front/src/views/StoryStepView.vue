@@ -153,6 +153,7 @@ import AppButton from '../components/ui/AppButton.vue';
 import RewardModal from '../components/RewardModal.vue';
 import { useUserStore } from '../stores/userStore.js';
 import strapiService from '../api/strapi.js';
+import { getStrapiUrl, getStrapiMediaUrl } from '../utils/url.js';
 
 import SituationDialogue from '../components/story/SituationDialogue.vue';
 import SituationBattle from '../components/story/SituationBattle.vue';
@@ -483,7 +484,7 @@ function getAvatarUrl(card) {
   if (!card) return '';
   let url = card.imageUrl || card.img;
   if (!url && card.image?.url) {
-    url = card.image.url.startsWith('http') ? card.image.url : `${strapiService.MEDIA_URL}${card.image.url}`;
+    url = card.image.url.startsWith('http') ? card.image.url : getStrapiMediaUrl(card.image.url);
   }
   if (!url) {
     const seed = card.id || card.documentId || card.name || '0';
@@ -620,7 +621,7 @@ async function finishStep(completed = false) {
        }
 
        const token = localStorage.getItem('tt_jwt');
-       await fetch(`${import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337'}/api/player-story-progress/claim-step-reward`, {
+       await fetch(getStrapiUrl('/player-story-progress/claim-step-reward'), {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

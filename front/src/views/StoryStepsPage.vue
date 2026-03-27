@@ -105,6 +105,7 @@ import PageLayout from '../components/PageLayout.vue';
 import AppButton from '../components/ui/AppButton.vue';
 import { useUserStore } from '../stores/userStore.js';
 import strapiService from '../api/strapi.js';
+import { getStrapiMediaUrl } from '../utils/url.js';
 
 const props = defineProps({
   storyId: {
@@ -309,7 +310,7 @@ function getStoryCover(storyData) {
   if (!storyData) return '';
   const data = storyData.attributes || storyData;
   if (data.image?.url) {
-    return data.image.url.startsWith('http') ? data.image.url : `${strapiService.MEDIA_URL}${data.image.url}`;
+    return data.image.url.startsWith('http') ? data.image.url : getStrapiMediaUrl(data.image.url);
   }
   const seed = data.id || data.documentId || data.title || '0';
   return `https://api.dicebear.com/9.x/glass/svg?seed=${encodeURIComponent(seed)}&backgroundColor=1a1a1a`;
@@ -319,7 +320,7 @@ function getStepCover(step, index) {
   if (!step) return '';
   const data = step.attributes || step;
   if (data.image?.url) {
-    return data.image.url.startsWith('http') ? data.image.url : `${strapiService.MEDIA_URL}${data.image.url}`;
+    return data.image.url.startsWith('http') ? data.image.url : getStrapiMediaUrl(data.image.url);
   }
   const seed = data.id || data.title || `step-${index}`;
   return `https://api.dicebear.com/9.x/shapes/svg?seed=${encodeURIComponent(seed)}&backgroundColor=1a1a1a`;
@@ -330,11 +331,11 @@ function getRewardCardThumb(card) {
   const cardData = card.attributes || card;
   let url = cardData.imageUrl || cardData.img;
   if (!url && cardData.image?.url) {
-    url = cardData.image.url.startsWith('http') ? cardData.image.url : `${strapiService.MEDIA_URL}${cardData.image.url}`;
+    url = cardData.image.url.startsWith('http') ? cardData.image.url : getStrapiMediaUrl(cardData.image.url);
   }
   if (!url && cardData.image?.data?.attributes?.url) {
     const attrUrl = cardData.image.data.attributes.url;
-    url = attrUrl.startsWith('http') ? attrUrl : `${strapiService.MEDIA_URL}${attrUrl}`;
+    url = attrUrl.startsWith('http') ? attrUrl : getStrapiMediaUrl(attrUrl);
   }
   if (!url) {
     const seed = cardData.id || card.id || cardData.name || '0';

@@ -1,3 +1,5 @@
+import { getStrapiUrl } from '../utils/url.js';
+
 export class WebRTCManager {
     constructor() {
         this.peerConnection = null;
@@ -19,7 +21,7 @@ export class WebRTCManager {
         this.messageListeners = [];
         this.onError = null;
 
-        this.strapiUrl = import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337';
+        // this.strapiUrl removed in favor of getStrapiUrl utility
     }
 
     // Helper to generate a simple UUID
@@ -103,7 +105,7 @@ export class WebRTCManager {
             const completeOffer = await this.gatherIceCandidates();
 
             // Send to Strapi
-            const response = await fetch(`${this.strapiUrl}/api/webrtc/matches`, {
+            const response = await fetch(getStrapiUrl('/webrtc/matches'), {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -133,7 +135,7 @@ export class WebRTCManager {
                     return;
                 }
 
-                const response = await fetch(`${this.strapiUrl}/api/webrtc/matches/${this.uuid}`);
+                const response = await fetch(getStrapiUrl(`/webrtc/matches/${this.uuid}`));
                 if (!response.ok) return;
 
                 const { data } = await response.json();
@@ -162,7 +164,7 @@ export class WebRTCManager {
             };
 
             // Fetch offer from Strapi
-            const response = await fetch(`${this.strapiUrl}/api/webrtc/matches/${uuid}`);
+            const response = await fetch(getStrapiUrl(`/webrtc/matches/${uuid}`));
             if (!response.ok) throw new Error("Match not found");
 
             const { data } = await response.json();
@@ -176,7 +178,7 @@ export class WebRTCManager {
             const completeAnswer = await this.gatherIceCandidates();
 
             // Send answer to Strapi
-            const putResponse = await fetch(`${this.strapiUrl}/api/webrtc/matches/${uuid}`, {
+            const putResponse = await fetch(getStrapiUrl(`/webrtc/matches/${uuid}`), {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ answer: completeAnswer })

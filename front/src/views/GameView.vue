@@ -114,6 +114,7 @@ import GameOver from '../components/GameOver.vue';
 import CoinToss from '../components/CoinToss.vue';
 import { useRouter, useRoute } from 'vue-router';
 import { cardLibrary, getCardById, normalizeCard, initAIMatch } from '../game/state.js';
+import { getStrapiMediaUrl } from '../utils/url.js';
 
 const router = useRouter();
 const route = useRoute();
@@ -201,7 +202,7 @@ onMounted(async () => {
             const bg = bgData.attributes || bgData;
             const img = bg.image?.data?.attributes || bg.image;
             if (img && img.url) {
-                state.boardBackground = img.url.startsWith('http') ? img.url : `${strapiService.MEDIA_URL}${img.url}`;
+                state.boardBackground = img.url.startsWith('http') ? img.url : getStrapiMediaUrl(img.url);
             }
         } else {
             const bgRes = await strapiService.request('GET', `/board-backgrounds?populate=image`);
@@ -211,7 +212,7 @@ onMounted(async () => {
                 const bg = randomBg.attributes || randomBg;
                 const img = bg.image?.data?.attributes || bg.image;
                 if (img && img.url) {
-                    state.boardBackground = img.url.startsWith('http') ? img.url : `${strapiService.MEDIA_URL}${img.url}`;
+                    state.boardBackground = img.url.startsWith('http') ? img.url : getStrapiMediaUrl(img.url);
                 }
             }
         }

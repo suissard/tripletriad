@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import strapiService from '../api/strapi.js';
 import strapiMock from '../api/strapiMock.js';
 import { getCardById } from '../game/state.js';
+import { getStrapiUrl, getStrapiMediaUrl } from '../utils/url.js';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -102,7 +103,7 @@ export const useUserStore = defineStore('user', {
             role: meRes.role?.name,
             avatar_card: meRes.avatar_card,
             avatar: meRes.avatar_card?.image?.url 
-              ? `${strapiService.MEDIA_URL}${meRes.avatar_card.image.url}`
+              ? getStrapiMediaUrl(meRes.avatar_card.image.url)
               : `https://api.dicebear.com/9.x/bottts/svg?seed=${meRes.username}&backgroundColor=transparent`,
             // Wallet data
             coins: wallet.coins ?? meRes.coins ?? 0,
@@ -130,7 +131,7 @@ export const useUserStore = defineStore('user', {
         boosters: user.boosters || [],
         avatar_card: user.avatar_card || null,
         avatar: user.avatar_card?.image?.url 
-          ? `${strapiService.MEDIA_URL}${user.avatar_card.image.url}`
+          ? getStrapiMediaUrl(user.avatar_card.image.url)
           : `https://api.dicebear.com/9.x/bottts/svg?seed=${user.username}&backgroundColor=transparent`
       };
       
@@ -307,7 +308,7 @@ export const useUserStore = defineStore('user', {
 
       try {
         const token = localStorage.getItem('tt_jwt');
-        const response = await fetch(`${import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337'}/api/player-story-progress/save-step-progress`, {
+        const response = await fetch(getStrapiUrl('/player-story-progress/save-step-progress'), {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -336,7 +337,7 @@ export const useUserStore = defineStore('user', {
 
       try {
         const token = localStorage.getItem('tt_jwt');
-        const response = await fetch(`${import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337'}/api/player-story-progress/claim-step-reward`, {
+        const response = await fetch(getStrapiUrl('/player-story-progress/claim-step-reward'), {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -624,7 +625,7 @@ export const useUserStore = defineStore('user', {
       if (!this.strapiConnected || !this.isLoggedIn) return null;
       try {
         const token = localStorage.getItem('tt_jwt');
-        const response = await fetch(`${import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337'}/api/player-story-progress/reset`, {
+        const response = await fetch(getStrapiUrl('/player-story-progress/reset'), {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

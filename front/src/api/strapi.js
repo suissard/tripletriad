@@ -1,9 +1,10 @@
 import { strapi as createStrapiClient } from '@strapi/client';
+import { getStrapiUrl, getStrapiMediaUrl } from '../utils/url.js';
 
 class StrapiApi {
     constructor() {
-        this.BASE_URL = 'http://localhost:1337/api';
-        this.MEDIA_URL = 'http://localhost:1337';
+        this.BASE_URL = getStrapiUrl();
+        this.MEDIA_URL = getStrapiMediaUrl();
         this.token = null;
         this.strapiClient = this._createClient();
     }

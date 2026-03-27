@@ -190,6 +190,7 @@ import strapiMock from '../api/strapiMock.js';
 import TripleTriadCardGrid from '../components/TripleTriadCardGrid.vue';
 import AppButton from '../components/ui/AppButton.vue';
 import strapiService from '../api/strapi.js';
+import { getStrapiUrl } from '../utils/url.js';
 
 const userStore = useUserStore();
 
@@ -290,7 +291,7 @@ const openPack = async () => {
         
         // 1. Buy if needed
         if (!hasBooster) {
-          const buyRes = await fetch('http://localhost:1337/api/booster/buy', {
+          const buyRes = await fetch(getStrapiUrl('/booster/buy'), {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -313,7 +314,7 @@ const openPack = async () => {
         }
 
         // 2. Open
-        const openRes = await fetch('http://localhost:1337/api/booster/open', {
+        const openRes = await fetch(getStrapiUrl('/booster/open'), {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

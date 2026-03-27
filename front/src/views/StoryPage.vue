@@ -143,6 +143,7 @@ import AppButton from '../components/ui/AppButton.vue';
 import AppModal from '../components/ui/AppModal.vue';
 import { useUserStore } from '../stores/userStore.js';
 import strapiService from '../api/strapi.js';
+import { getStrapiUrl, getStrapiMediaUrl } from '../utils/url.js';
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -256,7 +257,7 @@ async function unlockStory(storyId) {
   isUnlocking.value = true;
   try {
     const token = localStorage.getItem('tt_jwt');
-    const response = await fetch(`${strapiService.MEDIA_URL}/api/player-story-progress/unlock-story`, {
+    const response = await fetch(getStrapiUrl('/player-story-progress/unlock-story'), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -376,7 +377,7 @@ function getProgressPercentage(story) {
 function getStoryCover(story) {
   const storyData = story.attributes || story;
   if (storyData.image?.url) {
-    return storyData.image.url.startsWith('http') ? storyData.image.url : `${strapiService.MEDIA_URL}${storyData.image.url}`;
+    return storyData.image.url.startsWith('http') ? storyData.image.url : getStrapiMediaUrl(storyData.image.url);
   }
   // Fallback if no image
   const seed = storyData.id || storyData.documentId || storyData.title || '0';
@@ -388,11 +389,11 @@ function getRewardCardThumb(card) {
   const cardData = card.attributes || card;
   let url = cardData.imageUrl || cardData.img;
   if (!url && cardData.image?.url) {
-    url = cardData.image.url.startsWith('http') ? cardData.image.url : `${strapiService.MEDIA_URL}${cardData.image.url}`;
+    url = cardData.image.url.startsWith('http') ? cardData.image.url : getStrapiMediaUrl(cardData.image.url);
   }
   if (!url && cardData.image?.data?.attributes?.url) {
     const attrUrl = cardData.image.data.attributes.url;
-    url = attrUrl.startsWith('http') ? attrUrl : `${strapiService.MEDIA_URL}${attrUrl}`;
+    url = attrUrl.startsWith('http') ? attrUrl : getStrapiMediaUrl(attrUrl);
   }
   if (!url) {
     const seed = cardData.id || card.id || cardData.name || '0';
