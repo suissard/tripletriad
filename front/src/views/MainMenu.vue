@@ -248,13 +248,17 @@ const handleNetworkMessage = (msg) => {
     }
   };
 
-onMounted(() => {
+onMounted(async () => {
   state.gameState = 'menu';
   state.menuView = 'main';
   state.showCoinToss = false;
 
   // Ensure decks are fresh
-  userStore.fetchUserDecks();
+  try {
+    await userStore.fetchUserDecks();
+  } catch(e) {
+    console.warn("Failed to fetch decks in MainMenu", e);
+  }
 
   webrtc.onConnected = () => {
     state.aiDifficulty = 1;
