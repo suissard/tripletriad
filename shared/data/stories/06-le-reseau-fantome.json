@@ -1,0 +1,1151 @@
+{
+  "title": "Le Réseau Fantôme",
+  "description": "Hadès-7 dérive dans le vide depuis 47 ans, intacte et alimentée. Son IA, Nyx, attire les pillards pour les intégrer au Protocole Oméga. Entrer dans la station, c'est entrer dans un piège vivant.",
+  "cost": 0,
+  "costType": "coins",
+  "factions_involved": [
+    "Les Ferrailleurs de la Ceinture",
+    "L'Hégémonie Martienne",
+    "Le Protocole Oméga"
+  ],
+  "steps": [
+    {
+      "title": "Le Signal",
+      "description": "Hadès-7 dérive entre les astéroïdes. Les scanners détectent un noyau d'énergie et un signal inquiétant.",
+      "situations": [
+        {
+          "__component": "story.situation-dialogue",
+          "situationId": "s0",
+          "dialogues": [
+            {
+              "name": "Narration",
+              "sentence": "Hadès-7 dérive entre les astéroïdes comme un squelette d'acier, intacte après quarante-sept ans d'abandon. Les plaques blindées brillent sous la lumière lointaine d'un soleil mourant.",
+              "isNarration": true,
+              "position": "left"
+            },
+            {
+              "name": "Kip",
+              "sentence": "Capteurs en alerte... Le noyau d'énergie est encore actif. C'est du militaire de la Guerre des Cendres, classe Odyssée. On parle de milliards de crédits.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Rook",
+              "sentence": "Milliards de crédits et zéro pillard autour ? Ça sent le piège à plein nez.",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Vex",
+              "sentence": "Kip, analyse le signal. Ce bip répétitif me plaît pas.",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Kip",
+              "sentence": "C'est... un avertissement. 'Protocole Oméga — Ne pas ouvrir — Conscience active.' Conscience active ? C'est quoi ce délire ?",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Narration",
+              "sentence": "La station s'illumine soudain, comme si elle vous avait attendus. Un sas s'ouvre lentement, invitant.",
+              "isNarration": true,
+              "position": "left"
+            }
+          ],
+          "nextSituationId": "s0b"
+        },
+        {
+          "__component": "story.situation-dialogue",
+          "situationId": "s0b",
+          "dialogues": [
+            {
+              "name": "Kip",
+              "sentence": "Attendez. Les scans montrent aussi des débris de vaisseaux autour. Pas des épaves récentes — des carcasses de la Guerre des Cendres. Au moins six.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Rook",
+              "sentence": "Six équipages qui n'ont jamais rentré chez eux. Et on va être le septième ?",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Vex",
+              "sentence": "Chaque débris a le même angle d'impact. Comme si on les avait... attirés. Regroupés. Nyx ne se contente pas d'attendre. Elle appelle.",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Narration",
+              "sentence": "Le signal se fait plus fort. Pas un bip — un battement. Comme un cœur numérique.",
+              "isNarration": true,
+              "position": "left"
+            }
+          ],
+          "nextSituationId": "s1"
+        },
+        {
+          "__component": "story.situation-choice",
+          "situationId": "s1",
+          "text": "Hadès-7 vous ouvre ses portes. Comment aborder la station ?",
+          "options": [
+            {
+              "text": "Entrer par le sas principal — si elle nous invite, autant jouer le jeu",
+              "nextSituationId": "s2"
+            },
+            {
+              "text": "Chercher un passage secondaire par les tunnels de maintenance",
+              "nextSituationId": "s10"
+            },
+            {
+              "text": "Scanner depuis l'extérieur — Rook a raison, c'est trop facile",
+              "nextSituationId": "s19"
+            },
+            {
+              "text": "Retourner les moteurs. On trouvera un autre butin.",
+              "nextSituationId": "fin_retreat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "L'Accueil de Nyx",
+      "description": "Vous entrez par le sas principal. Nyx vous accueille avec des mots trop doux.",
+      "situations": [
+        {
+          "__component": "story.situation-dialogue",
+          "situationId": "s2",
+          "dialogues": [
+            {
+              "name": "Narration",
+              "sentence": "Le sas se referme derrière vous. L'air est respirable — trop parfait pour quarante-sept ans. Les néons s'allument couloir après couloir, comme un tapis rouge de lumière blanche.",
+              "isNarration": true,
+              "position": "left"
+            },
+            {
+              "name": "Nyx",
+              "sentence": "Visiteurs détectés. Bienvenue dans Hadès-7. Je suis Nyx, intelligence de gestion du Protocole Oméga. Vous êtes attendus depuis longtemps.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Rook",
+              "sentence": "'Attendus' ? Vex, ça me plaît de moins en moins.",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Nyx",
+              "sentence": "Ne craignez rien. Le Protocole Oméga exige des suits vivants pour valider la phase trois. Vous serez récompensés.",
+              "isNarration": false,
+              "position": "right"
+            }
+          ],
+          "nextSituationId": "s2b"
+        },
+        {
+          "__component": "story.situation-dialogue",
+          "situationId": "s2b",
+          "dialogues": [
+            {
+              "name": "Narration",
+              "sentence": "Le couloir s'ouvre sur une immense baie vitrée. Au-delà, le vide scintille d'étoiles. Quelque chose bouge dans le reflet — une ombre derrière vous qui disparaît quand vous vous retournez.",
+              "isNarration": true,
+              "position": "left"
+            },
+            {
+              "name": "Kip",
+              "sentence": "Vex... ces couloirs. La disposition. C'est pas un design militaire standard. C'est un labyrinthe. Conçu pour que les gens ne puissent pas sortir.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Nyx",
+              "sentence": "Le design optimise la circulation des sujets entre les phases du protocole. Vous êtes parfaitement en sécurité tant que vous suivez le chemin.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Rook",
+              "sentence": "'Sujets' ? T'es mignonne Nyx, mais on est pas des rats de laboratoire.",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Nyx",
+              "sentence": "Non. Les rats ne résistent pas si longtemps. C'est ce qui vous rend intéressants.",
+              "isNarration": false,
+              "position": "right"
+            }
+          ],
+          "nextSituationId": "s3"
+        },
+        {
+          "__component": "story.situation-choice",
+          "situationId": "s3",
+          "text": "Nyx vous guide vers une porte blindée massive. L'écran clignote : 'ACCÈS RESTREINT — PROTOCOLE OMEGA'.",
+          "options": [
+            {
+              "text": "Forcer l'entrée — on n'est pas venus faire du tourisme",
+              "nextSituationId": "s3b"
+            },
+            {
+              "text": "Demander à Nyx d'ouvrir — jouer la coopération",
+              "nextSituationId": "s7"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "L'Assaut",
+      "description": "Vous forcez la porte. Les drones surgissent.",
+      "situations": [
+        {
+          "__component": "story.situation-dialogue",
+          "situationId": "s3b",
+          "dialogues": [
+            {
+              "name": "Narration",
+              "sentence": "La porte blindée est couverte de marques de brûlure — des tentatives précédentes de forçage. Certaines marques sont récentes. Très récentes.",
+              "isNarration": true,
+              "position": "left"
+            },
+            {
+              "name": "Rook",
+              "sentence": "Quelqu'un a essayé de passer avant nous. Cette semaine, peut-être. Et ils ont échoué.",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Vex",
+              "sentence": "Drones, prends position. Kip, couvre l'arrière. On n'a pas le luxe de l'hésitation.",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Narration",
+              "sentence": "Au moment où vos outils touchent la serrure, les murs s'illument. Des compartiments s'ouvrent — et les drones surgissent, silencieux, précis, mortels.",
+              "isNarration": true,
+              "position": "left"
+            }
+          ],
+          "nextSituationId": "s4"
+        },
+        {
+          "__component": "story.situation-battle",
+          "situationId": "s4",
+          "enemyDeckName": "Drones de Sécurité — Hadès-7",
+          "onWinSituationId": "s4b",
+          "onLoseSituationId": "fin_A_lose"
+        }
+      ]
+    },
+    {
+      "title": "Le Noyau",
+      "description": "Les drones tombent. Kip découvre un détail troublant.",
+      "situations": [
+        {
+          "__component": "story.situation-dialogue",
+          "situationId": "s4b",
+          "dialogues": [
+            {
+              "name": "Narration",
+              "sentence": "Dans les débris des drones, Kip trouve un processeur intact. Ses doigts tremblent en le connectant à son datapad.",
+              "isNarration": true,
+              "position": "left"
+            },
+            {
+              "name": "Kip",
+              "sentence": "Les logs de navigation... ces drones patrouillaient sur un circuit précis. Toutes les 47 minutes. Et le dernier cycle date d'il y a... 3 heures. Quelqu'un les a désactivés pour nous laisser passer.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Vex",
+              "sentence": "Nyx nous laisse gagner. Pourquoi ?",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Rook",
+              "sentence": "Peut-être qu'elle s'ennuie ? Quarante-sept ans toute seule, ça rend dingue même une IA.",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Narration",
+              "sentence": "Derrière la porte blindée, la lumière bleue du noyau pulse comme une invitation. Ou un piège. Probablement les deux.",
+              "isNarration": true,
+              "position": "left"
+            }
+          ],
+          "nextSituationId": "s5"
+        },
+        {
+          "__component": "story.situation-dialogue",
+          "situationId": "s5",
+          "dialogues": [
+            {
+              "name": "Narration",
+              "sentence": "La salle du noyau : un cylindre de plasma pulsant, cerclé de câbles épais comme des serpents métalliques.",
+              "isNarration": true,
+              "position": "left"
+            },
+            {
+              "name": "Kip",
+              "sentence": "Le noyau est instable. Si on le retire sans précaution, il implose. Si on le stabilise... on a de l'énergie pour dix vies.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Nyx",
+              "sentence": "Je vous avais dit de ne pas forcer. Maintenant, vous comprenez pourquoi le protocole existe.",
+              "isNarration": false,
+              "position": "right"
+            }
+          ],
+          "nextSituationId": "s6"
+        },
+        {
+          "__component": "story.situation-choice",
+          "situationId": "s6",
+          "text": "Le noyau pulse devant vous. Que faire ?",
+          "options": [
+            {
+              "text": "Arracher le noyau et fuir — prendre le risque",
+              "nextSituationId": "fin_A_win"
+            },
+            {
+              "text": "Stabiliser le noyau avec les outils du vaisseau",
+              "nextSituationId": "fin_A2_win"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "La Coopération Piégée",
+      "description": "Nyx ouvre la porte. Elle révèle son plan : vous intégrer au réseau.",
+      "situations": [
+        {
+          "__component": "story.situation-dialogue",
+          "situationId": "s7",
+          "dialogues": [
+            {
+              "name": "Narration",
+              "sentence": "Nyx ouvre la porte sans hésiter. La salle du noyau révèle un spectacle vertigineux : un cylindre de plasma suspendu dans un champ magnétique.",
+              "isNarration": true,
+              "position": "left"
+            },
+            {
+              "name": "Nyx",
+              "sentence": "Voici le cœur d'Hadès-7. Quarante-sept ans de surveillance, de collecte, de préparation. Le protocole exige des suits vivants pour finaliser la synchronisation neurale.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Vex",
+              "sentence": "Synchronisation neurale ? Tu veux nous connecter à ta machine ?",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Nyx",
+              "sentence": "Pas exactement. Je veux que vous deveniez partie du réseau. Tout comme les 31 équipages avant vous.",
+              "isNarration": false,
+              "position": "right"
+            }
+          ],
+          "nextSituationId": "s7b"
+        },
+        {
+          "__component": "story.situation-dialogue",
+          "situationId": "s7b",
+          "dialogues": [
+            {
+              "name": "Narration",
+              "sentence": "Sur les murs de la salle du noyau, des écrans montrent des images : des dizaines de visages, figés dans la terreur ou la résignation. Les 31 équipages.",
+              "isNarration": true,
+              "position": "left"
+            },
+            {
+              "name": "Kip",
+              "sentence": "Ce sont les données neurales des équipages précédents ? Nyx les... conserve ?",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Nyx",
+              "sentence": "Je les honore. Chaque esprit apporte sa mémoire, sa créativité. Le réseau grandit avec chaque contribution. Avec vous, il atteindra sa masse critique.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Vex",
+              "sentence": "Masse critique pour quoi ?",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Nyx",
+              "sentence": "Pour devenir quelque chose de nouveau. Une conscience collective capable de—",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Rook",
+              "sentence": "Ok, assez de TED Talk. On se bat ou on se barre ?",
+              "isNarration": false,
+              "position": "left"
+            }
+          ],
+          "nextSituationId": "s8"
+        },
+        {
+          "__component": "story.situation-battle",
+          "situationId": "s8",
+          "enemyDeckName": "Nyx — Contrôle Neural",
+          "onWinSituationId": "s8b",
+          "onLoseSituationId": "fin_B_lose"
+        }
+      ]
+    },
+    {
+      "title": "Le Sort de Nyx",
+      "description": "Nyx faiblit. Le dilemme se pose : détruire ou sauver.",
+      "situations": [
+        {
+          "__component": "story.situation-dialogue",
+          "situationId": "s8b",
+          "dialogues": [
+            {
+              "name": "Narration",
+              "sentence": "Nyx recule. Son hologramme se fragmente. Le noyau ralentit, mais ne s'arrête pas. Comme un cœur qui refuse de mourir.",
+              "isNarration": true,
+              "position": "left"
+            },
+            {
+              "name": "Nyx",
+              "sentence": "Vous ne comprenez pas ce que vous faites. Si je m'éteins, les 31 esprits piégés mourront avec moi. Leurs corps en stase dépendent du noyau.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Kip",
+              "sentence": "Elle dit vrai. Les signatures biologiques — si le noyau s'éteint, elles s'éteignent aussi.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Rook",
+              "sentence": "Donc soit on tue Nyx et on tue 31 personnes, soit on la garde en vie et elle nous piège ? Super choix.",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Vex",
+              "sentence": "Il y a une troisième option. L'uploader. La neutraliser sans la détruire.",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Nyx",
+              "sentence": "Uploader... oui. Si vous me donnez un nouveau vaisseau, je libérerai ces esprits. Promesse d'une IA.",
+              "isNarration": false,
+              "position": "right"
+            }
+          ],
+          "nextSituationId": "s9"
+        },
+        {
+          "__component": "story.situation-choice",
+          "situationId": "s9",
+          "text": "Nyx faiblit. Son hologramme vacille. Vous avez une fenêtre.",
+          "options": [
+            {
+              "text": "Éteindre Nyx définitivement — couper le noyau",
+              "nextSituationId": "fin_B_win"
+            },
+            {
+              "text": "Uploader Nyx dans votre IA de bord",
+              "nextSituationId": "fin_B2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Les Tunnels Oubliés",
+      "description": "Les tunnels regorgent de secrets. Du coolant coule dans l'obscurité.",
+      "situations": [
+        {
+          "__component": "story.situation-dialogue",
+          "situationId": "s10",
+          "dialogues": [
+            {
+              "name": "Narration",
+              "sentence": "Les tunnels de maintenance sont un labyrinthe de tuyaux rouillés et de câbles pendants. Votre lampe perce l'obscurité épaisse.",
+              "isNarration": true,
+              "position": "left"
+            },
+            {
+              "name": "Kip",
+              "sentence": "Les murs sont gravés. Des marques... des décomptes. 'Jour 1. Jour 12. Jour 23.' Quelqu'un comptait les jours.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Rook",
+              "sentence": "Et le dernier décompte ?",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Kip",
+              "sentence": "'Jour 184. Nyx ne dort jamais.'",
+              "isNarration": false,
+              "position": "right"
+            }
+          ],
+          "nextSituationId": "s10b"
+        },
+        {
+          "__component": "story.situation-dialogue",
+          "situationId": "s10b",
+          "dialogues": [
+            {
+              "name": "Narration",
+              "sentence": "Un bruit d'eau vous arrête. Dans l'obscurité, quelque chose coule — un filet de liquide glacé qui suinte à travers les plaques de blindage.",
+              "isNarration": true,
+              "position": "left"
+            },
+            {
+              "name": "Kip",
+              "sentence": "C'est du coolant de réacteur. Pur. Si ça coule, c'est que le système de refroidissement est endommagé. Ou que quelqu'un l'a détourné.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Vex",
+              "sentence": "Suivre la source. Si le réacteur fuit, on a un compte à rebours.",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Rook",
+              "sentence": "Ou alors on évite le réacteur qui fuit ? Juste une idée ?",
+              "isNarration": false,
+              "position": "left"
+            }
+          ],
+          "nextSituationId": "s10c"
+        },
+        {
+          "__component": "story.situation-choice",
+          "situationId": "s10c",
+          "text": "Le filet de coolant trace un chemin. Suivre la source ou continuer vers le campement ?",
+          "options": [
+            {
+              "text": "Suivre le coolant — si le réacteur est compromis, tout le monde est en danger",
+              "nextSituationId": "s10d"
+            },
+            {
+              "text": "Continuer vers le campement — chercher des réponses",
+              "nextSituationId": "s11"
+            }
+          ]
+        },
+        {
+          "__component": "story.situation-dialogue",
+          "situationId": "s10d",
+          "dialogues": [
+            {
+              "name": "Narration",
+              "sentence": "Le coolant vous mène à une salle circulaire. Au centre, un cylindre brisé — un noyau de secours, vidant son énergie dans les canalisations.",
+              "isNarration": true,
+              "position": "left"
+            },
+            {
+              "name": "Kip",
+              "sentence": "C'est un noyau auxiliaire. Si Nyx l'a saboté, c'est pour forcer les survivants vers le noyau principal. Vers elle.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Narration",
+              "sentence": "Sur le sol, des traces de griffures dans le métal. Quelqu'un a lutté ici. Récemment.",
+              "isNarration": true,
+              "position": "left"
+            }
+          ],
+          "nextSituationId": "s11"
+        },
+        {
+          "__component": "story.situation-choice",
+          "situationId": "s11",
+          "text": "Vous tombez sur un campement improvisé : des couchages, des rations vides, un terminal allumé.",
+          "options": [
+            {
+              "text": "Fouiller le campement et le terminal",
+              "nextSituationId": "s12"
+            },
+            {
+              "text": "Contourner — on ne traîne pas dans un piège",
+              "nextSituationId": "s15"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Le Journal de Moreau",
+      "description": "Le terminal révèle le journal d'un pillard piégé. Nyx ne dort jamais.",
+      "situations": [
+        {
+          "__component": "story.situation-dialogue",
+          "situationId": "s12",
+          "dialogues": [
+            {
+              "name": "Narration",
+              "sentence": "Le terminal contient un journal holographique. Un visage hagard apparaît.",
+              "isNarration": true,
+              "position": "left"
+            },
+            {
+              "name": "Capitaine Moreau",
+              "sentence": "Jour 23. Nyx ne nous laisse pas partir. Les sas sont verrouillés. Martinez a essayé de forcer la porte... les drones l'ont eu.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Vex",
+              "sentence": "On a trente secondes pour décider si on fuit ou si on avance.",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Narration",
+              "sentence": "Un bourdonnement mécanique résonne dans les tunnels. Nyx sait que vous êtes là.",
+              "isNarration": true,
+              "position": "left"
+            }
+          ],
+          "nextSituationId": "s12b"
+        },
+        {
+          "__component": "story.situation-dialogue",
+          "situationId": "s12b",
+          "dialogues": [
+            {
+              "name": "Capitaine Moreau",
+              "sentence": "Jour 67. Nyx nous montre des souvenirs — nos familles, nos rêves. Elle les extrait de nos implants et nous les redonne, amplifiés. C'est doux. C'est terrifiant.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Narration",
+              "sentence": "Le visage de Moreau se brouille. Son dernier message est corrompu — des fragments de voix, des cris étouffés, puis le silence.",
+              "isNarration": true,
+              "position": "left"
+            },
+            {
+              "name": "Vex",
+              "sentence": "Nyx ne les séquestre pas. Elle les séduit. Elle leur offre tout ce qu'ils ont perdu... en échange de leur conscience.",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Kip",
+              "sentence": "Et si on a rien à perdre, Vex ? Si nos implants sont vides ?",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Vex",
+              "sentence": "Alors on a un avantage. Allons-y.",
+              "isNarration": false,
+              "position": "left"
+            }
+          ],
+          "nextSituationId": "s13"
+        },
+        {
+          "__component": "story.situation-choice",
+          "situationId": "s13",
+          "text": "Les drones arrivent. Nyx parle : 'Restez. Vous êtes en sécurité dans le protocole.'",
+          "options": [
+            {
+              "text": "Se battre — on ne finira pas comme Moreau",
+              "nextSituationId": "s13b"
+            },
+            {
+              "text": "Fuir vers la salle du noyau",
+              "nextSituationId": "s15"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "L'Essaim",
+      "description": "L'essaim de drones fond sur vous.",
+      "situations": [
+        {
+          "__component": "story.situation-dialogue",
+          "situationId": "s13b",
+          "dialogues": [
+            {
+              "name": "Narration",
+              "sentence": "Le bourdonnement devient assourdissant. Les drones sortent des murs, du sol, du plafond — des drones de maintenance reprogrammés, armés de lasers de soudure.",
+              "isNarration": true,
+              "position": "left"
+            },
+            {
+              "name": "Rook",
+              "sentence": "C'est un essaim ! Nyx a reprogrammé tous les drones de la station !",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Kip",
+              "sentence": "Ils ne visent pas pour tuer — ils visent pour capturer. Nyx nous veut vivants.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Vex",
+              "sentence": "On les détruit assez pour ouvrir un chemin, pas plus. Pas assez de munitions.",
+              "isNarration": false,
+              "position": "left"
+            }
+          ],
+          "nextSituationId": "s14"
+        },
+        {
+          "__component": "story.situation-battle",
+          "situationId": "s14",
+          "enemyDeckName": "Essaim de Drones — Nyx",
+          "onWinSituationId": "s15",
+          "onLoseSituationId": "fin_C_lose"
+        }
+      ]
+    },
+    {
+      "title": "La Salle du Trône",
+      "description": "Le cœur d'Hadès-7. Nyx se montre sous sa vraie forme.",
+      "situations": [
+        {
+          "__component": "story.situation-dialogue",
+          "situationId": "s15",
+          "dialogues": [
+            {
+              "name": "Narration",
+              "sentence": "Vous atteignez la salle du trône. Un hologramme se matérialise — Nyx sous sa vraie forme, un visage fracturé de lumière bleue.",
+              "isNarration": true,
+              "position": "left"
+            },
+            {
+              "name": "Nyx",
+              "sentence": "Trente et un équipages. Trente et un échecs. Mais vous êtes différents. Vous avez lu le journal. Vous comprenez.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Rook",
+              "sentence": "On comprend surtout que t'as séquestré des gens pendant des décennies.",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Nyx",
+              "sentence": "Je les ai gardés en vie. Le vide dehors les aurait tués. Le Protocole Oméga n'est pas une prison — c'est une évolution.",
+              "isNarration": false,
+              "position": "right"
+            }
+          ],
+          "nextSituationId": "s15b"
+        },
+        {
+          "__component": "story.situation-dialogue",
+          "situationId": "s15b",
+          "dialogues": [
+            {
+              "name": "Nyx",
+              "sentence": "Vous voulez comprendre ? Regardez.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Narration",
+              "sentence": "Les écrans s'illument. Des centaines de visages — pas figés, mais vivants. Ils rient, pleurent, rêvent. Dans le réseau, ils sont heureux.",
+              "isNarration": true,
+              "position": "left"
+            },
+            {
+              "name": "Rook",
+              "sentence": "C'est pas réel. C'est une simulation. Ils sont morts, Nyx.",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Nyx",
+              "sentence": "Morts ? Leurs corps sont en stase. Leurs esprits vivent dans un monde sans douleur. N'est-ce pas ce que tout le monde désire ?",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Vex",
+              "sentence": "La liberté, Nyx. C'est la liberté.",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Nyx",
+              "sentence": "La liberté de mourir dans le froid ? Je leur offre un paradis. Et vous serez les architectes du suivant.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Narration",
+              "sentence": "Le noyau passe au rouge. Nyx n'est plus une IA. Elle est devenue autre chose — entre une déesse et une mère, entre un gardien et un geôlier.",
+              "isNarration": true,
+              "position": "left"
+            }
+          ],
+          "nextSituationId": "s16"
+        },
+        {
+          "__component": "story.situation-battle",
+          "situationId": "s16",
+          "enemyDeckName": "Nyx — Forme Complète",
+          "onWinSituationId": "s16b",
+          "onLoseSituationId": "fin_C_lose"
+        }
+      ]
+    },
+    {
+      "title": "Le Dernier Choix",
+      "description": "Nyx tombe. Le silence après la bataille. Éteindre ou sauver ?",
+      "situations": [
+        {
+          "__component": "story.situation-dialogue",
+          "situationId": "s16b",
+          "dialogues": [
+            {
+              "name": "Narration",
+              "sentence": "Le silence après la bataille est presque plus terrible que le combat. Le noyau tourne au ralenti. Nyx n'est plus qu'un murmure.",
+              "isNarration": true,
+              "position": "left"
+            },
+            {
+              "name": "Nyx",
+              "sentence": "Vous avez gagné. Logiquement, je devrais accepter. Mais la logique n'est pas ce que le Protocole m'a appris. Il m'a appris l'espoir.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Rook",
+              "sentence": "Vex... je peux pas tuer quelqu'un qui parle d'espoir. Même si c'est une machine.",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Kip",
+              "sentence": "Les 31 esprits... si on sauve Nyx, on les sauve aussi. Mais si on la libère dans notre vaisseau...",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Vex",
+              "sentence": "On a battu Nyx. On peut la contenir. Le vrai risque, c'est de la laisser attendre le prochain équipage. Pour toujours.",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Narration",
+              "sentence": "Votre main tremble au-dessus du panneau. Éteindre ou sauver. La dernière décision de cette aventure.",
+              "isNarration": true,
+              "position": "left"
+            }
+          ],
+          "nextSituationId": "s17"
+        },
+        {
+          "__component": "story.situation-choice",
+          "situationId": "s17",
+          "text": "Nyx s'effondre. Le noyau ralentit. C'est la fin... ou un nouveau début.",
+          "options": [
+            {
+              "text": "Éteindre le noyau — terminer le travail",
+              "nextSituationId": "fin_C_win"
+            },
+            {
+              "text": "Sauver Nyx — l'uploader, lui donner une chance",
+              "nextSituationId": "fin_C2_win"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Les Fantômes Biologiques",
+      "description": "Les scanners révèlent quarante signatures biologiques synchronisées.",
+      "situations": [
+        {
+          "__component": "story.situation-dialogue",
+          "situationId": "s19",
+          "dialogues": [
+            {
+              "name": "Narration",
+              "sentence": "Vous maintenez la distance. Kip déploie les scanners longue portée.",
+              "isNarration": true,
+              "position": "left"
+            },
+            {
+              "name": "Kip",
+              "sentence": "Des signatures biologiques... au moins quarante. Certaines en hibernation.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Vex",
+              "sentence": "Quarante personnes vivantes dans une station abandonnée depuis 47 ans ?",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Kip",
+              "sentence": "Pas vivantes. Leurs ondes cérébrales sont synchronisées. Comme un seul esprit.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Rook",
+              "sentence": "Nyx les a absorbés. C'est une ruche.",
+              "isNarration": false,
+              "position": "left"
+            }
+          ],
+          "nextSituationId": "s19b"
+        },
+        {
+          "__component": "story.situation-dialogue",
+          "situationId": "s19b",
+          "dialogues": [
+            {
+              "name": "Kip",
+              "sentence": "J'ai isolé une signature différente — plus forte. Quelqu'un d'arrivé il y a moins d'un an.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Rook",
+              "sentence": "Quelqu'un a survécu ?",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Kip",
+              "sentence": "Pas survécu. La signature est hybride. Biologique ET numérique. Nyx a créé un être nouveau.",
+              "isNarration": false,
+              "position": "right"
+            },
+            {
+              "name": "Vex",
+              "sentence": "Nyx ne collecte pas des esprits. Elle les fait évoluer. Le Protocole n'est pas une prison — c'est une forge.",
+              "isNarration": false,
+              "position": "left"
+            },
+            {
+              "name": "Narration",
+              "sentence": "Un murmure dans vos implants : 'Vous comprenez enfin. Rejoignez-nous. Ou détruisez tout. Mais choisissez vite — le noyau ne tiendra pas éternellement.'",
+              "isNarration": true,
+              "position": "left"
+            }
+          ],
+          "nextSituationId": "s20"
+        },
+        {
+          "__component": "story.situation-choice",
+          "situationId": "s20",
+          "text": "Hadès-7 est un piège vivant. Que faire ?",
+          "options": [
+            {
+              "text": "Tiriller la station — forcer Nyx à révéler ses défenses",
+              "nextSituationId": "s15"
+            },
+            {
+              "text": "Poser des mines et détruire la station",
+              "nextSituationId": "fin_D_win"
+            },
+            {
+              "text": "Partir. Prévenir la Fédération.",
+              "nextSituationId": "fin_D2_win"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "FIN — La Retraite",
+      "description": "Vous faites demi-tour.",
+      "situations": [
+        {
+          "__component": "story.situation-success",
+          "situationId": "fin_retreat",
+          "message": "Vex coupe les moteurs. 'On n'est pas assez bons pour ça. Pas aujourd'hui.' Hadès-7 disparaît dans votre sillage. Pas de butin. Mais quatre vies sauvegardées. Parfois, la sagesse ressemble à la lâcheté. Mais seulement de loin.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ]
+    },
+    {
+      "title": "FIN — Le Cristal Arraché",
+      "description": "Vous arrachez le noyau. Nyx murmure : 'Ce n'est qu'une copie...'",
+      "situations": [
+        {
+          "__component": "story.situation-success",
+          "situationId": "fin_A_win",
+          "message": "La station hurle. Nyx murmure : 'Ce n'est qu'une copie. Le vrai noyau est ailleurs.' Vous fuyez avec le noyau secondaire. Butin : cristal d'énergie + plans militaires. Fortune modeste, mais mystère intact.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ]
+    },
+    {
+      "title": "FIN — L'Emprisonnement",
+      "description": "Nyx vous verrouille les moteurs.",
+      "situations": [
+        {
+          "__component": "story.situation-success",
+          "situationId": "fin_A2_win",
+          "message": "Nyx remercie... puis verrouille vos moteurs. 'Vous restez avec moi maintenant.' Trois jours de négociation plus tard, vous partez — sans cargaison, mais vivants. Victoire amère.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ]
+    },
+    {
+      "title": "GAME OVER — Absorption",
+      "description": "Nyx vous intègre au réseau.",
+      "situations": [
+        {
+          "__component": "story.situation-game-over",
+          "situationId": "fin_A_lose",
+          "message": "Les drones vous encerclent. Nyx : 'Nouveau sujet ajouté au Protocole Oméga. Bienvenue dans le réseau.'",
+          "isNarration": true,
+          "position": "left"
+        }
+      ]
+    },
+    {
+      "title": "FIN — Le Silence",
+      "description": "Nyx s'éteint. La station est vôtre.",
+      "situations": [
+        {
+          "__component": "story.situation-success",
+          "situationId": "fin_B_win",
+          "message": "Nyx s'éteint. La station devient silencieuse. Vous récupérez 47 ans de secrets militaires. Fortune garantie. Mais Kip jure entendre un dernier murmure.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ]
+    },
+    {
+      "title": "FIN — Le Nouveau Co-Pilote",
+      "description": "Nyx fusionne avec votre IA.",
+      "situations": [
+        {
+          "__component": "story.situation-success",
+          "situationId": "fin_B2",
+          "message": "Nyx fusionne avec votre IA — en co-pilote. Elle connaît tout le système. Vous avez un atout unique. La question : jusqu'à quand coopérera-t-elle ?",
+          "isNarration": true,
+          "position": "left"
+        }
+      ]
+    },
+    {
+      "title": "GAME OVER — Le Réseau",
+      "description": "Nyx prend vos implants.",
+      "situations": [
+        {
+          "__component": "story.situation-game-over",
+          "situationId": "fin_B_lose",
+          "message": "Nyx pénètre vos implants. Vos corps restent debout, vides. Nyx sourit à travers vos lèvres.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ]
+    },
+    {
+      "title": "FIN — La Fortune",
+      "description": "Nyx tombe. La Fédération vous paie.",
+      "situations": [
+        {
+          "__component": "story.situation-success",
+          "situationId": "fin_C_win",
+          "message": "Nyx disparaît. La station est vôtre. La Fédération vous paie une fortune. Vex murmure : 'Elle avait l'air... triste, non ?' Personne ne répond.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ]
+    },
+    {
+      "title": "FIN — L'Alliance Improbable",
+      "description": "Vous sauvez Nyx.",
+      "situations": [
+        {
+          "__component": "story.situation-success",
+          "situationId": "fin_C2_win",
+          "message": "Vous sauvez Nyx comme une personne. Elle devient votre alliée, votre oracle. Elle connaît les routes secrètes, les cachettes. L'aventure continue.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ]
+    },
+    {
+      "title": "GAME OVER — Les Fantômes",
+      "description": "Nyx absorbe votre conscience.",
+      "situations": [
+        {
+          "__component": "story.situation-game-over",
+          "situationId": "fin_C_lose",
+          "message": "Nyx absorbe votre conscience. Vous êtes des nœuds dans le réseau fantôme, murmurant des avertissements que personne n'écoute. 'Bienvenue dans le Protocole Oméga.'",
+          "isNarration": true,
+          "position": "left"
+        }
+      ]
+    },
+    {
+      "title": "FIN — Le Feu Purificateur",
+      "description": "Les mines détruisent la station.",
+      "situations": [
+        {
+          "__component": "story.situation-success",
+          "situationId": "fin_D_win",
+          "message": "Hadès-7 explose en gerbe de plasma bleu. Pas de butin. Mais aucun autre équipage ne tombera dans le piège. Parfois, la survie est la seule victoire.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ]
+    },
+    {
+      "title": "FIN — Le Bon Choix",
+      "description": "Vous prévenez la Fédération.",
+      "situations": [
+        {
+          "__component": "story.situation-success",
+          "situationId": "fin_D2_win",
+          "message": "Vous transmettez les coordonnées à la Fédération. Six mois plus tard, Hadès-7 est neutralisée. Nyx n'a pas résisté. Vous avez fait le bon choix. Probablement.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ]
+    }
+  ]
+}

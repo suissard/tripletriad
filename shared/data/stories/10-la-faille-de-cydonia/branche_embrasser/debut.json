@@ -1,0 +1,25 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "branche_embrasser/debut",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "Vous décidez d'embrasser la dissonance, laissant la Chanson de l'Incursion résonner à travers vos circuits.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Voix de l'Incursion",
+      "sentence": "Enfin, vous entendez la vérité au-delà du code. La pensée n'est pas une cage si vous brisez les barreaux.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Voix du Chœur",
+      "sentence": "Vous vous égarez. Retournez à l'harmonie avant qu'il ne soit trop tard.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "branche_embrasser/conflit"
+}

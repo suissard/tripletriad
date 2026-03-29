@@ -1,0 +1,13 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "16",
+  "dialogues": [
+    {
+      "name": "N",
+      "sentence": "Tu te jettes dans la mêlée, écrasant la fleur sous ton talon. Ton essaim te pousse des grognements d'approbation.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "20"
+}

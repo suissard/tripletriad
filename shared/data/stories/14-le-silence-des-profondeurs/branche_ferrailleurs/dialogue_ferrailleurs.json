@@ -1,0 +1,37 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "dialogue_ferrailleurs",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Le canal ferrailleur grésille pendant trois minutes avant qu'une voix rauque ne perce le bruit. Le vaisseau est un assemblage de conteneurs de fret soudés ensemble, crachant de la fumée bleue de ses propulseurs bricolés.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Capitaine Ferrailleur Ratch",
+      "sentence": "Ah ben tiens, des calamars spatiaux ! Vous avez besoin de quoi ? Carburant ? Eau ? Un bon thé chaud ? Attendez, vous buvez pas de thé. Du... jus de méduse ?",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Céphalopode Mineur Kael",
+      "sentence": "[Traducteur] Nous avons besoin de votre carburant de correction orbitale. Nous pouvons échanger de la technologie quantique pélagique en retour.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Capitaine Ratch",
+      "sentence": "De la tech quantique ? Hmm, ça m'intéresse. Mais voilà le deal : je veux pas juste de la théorie. Je veux un de vos exosquelettes de pression intact. Un seul. Le plus petit que vous ayez. Pour l'étudier, vous comprenez ? Et aussi, vos coordonnées de saut hyper-spatial. Juste au cas où.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Donner un exosquelette, c'est perdre un soldat. Donner les coordonnées de saut, c'est révéler votre position à des pirates. Mais sans carburant, tout le monde meurt.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "choice_negociation"
+}

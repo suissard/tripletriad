@@ -1,4 +1,6 @@
-const BASE_URL = 'http://localhost:1337/api';
+import { getStrapiUrl } from '../../utils/url.js';
+
+const BASE_URL = getStrapiUrl();
 
 class StrapiService {
   constructor() {
@@ -33,7 +35,7 @@ class StrapiService {
     }
 
     try {
-      const response = await fetch(`${BASE_URL}${path}`, config);
+      const response = await fetch(`${BASE_URL}${path.startsWith('/') ? path : '/' + path}`, config);
       const contentType = response.headers.get('content-type');
       if (contentType && contentType.indexOf('application/json') !== -1) {
           const data = await response.json();

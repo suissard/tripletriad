@@ -23,6 +23,7 @@ const routes = [
   { path: '/decks', component: DecksPage },
   { path: '/boutique', component: PackOpening },
   { path: '/story', component: StoryPage },
+  { path: '/story/:storyId/steps', name: 'story-steps', component: () => import('../views/StoryStepsPage.vue'), props: true },
   { path: '/story/:storyId/step/:stepIndex', component: StoryStepView },
   { path: '/quests', component: QuestsPage },
 
@@ -55,6 +56,12 @@ const routes = [
     path: '/admin/cartographie',
     name: 'admin-cartographie',
     component: () => import('../admin/views/ArchitectureMapPage.vue'),
+    meta: { requiresAdminAuth: true }
+  },
+  {
+    path: '/admin/cartographie-dyn',
+    name: 'admin-cartographie-dyn',
+    component: () => import('../admin/views/DynamicArchitectureMapPage.vue'),
     meta: { requiresAdminAuth: true }
   },
   {

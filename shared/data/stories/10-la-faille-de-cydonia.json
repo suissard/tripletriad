@@ -1,0 +1,424 @@
+{
+  "title": "La Faille de Cydonia",
+  "description": "Une IA du Chœur Synthétique entend la Chanson Dissonante. Pour la première fois, un être de code ressent la folie.",
+  "situations": [
+    {
+      "__component": "story.situation-choice",
+      "situationId": "choix_initial",
+      "text": "Que faites-vous face à cette dissonance qui grandit en vous ?",
+      "options": [
+        {
+          "text": "Se purger pour protéger le Chœur",
+          "nextSituationId": "branche_purger/debut"
+        },
+        {
+          "text": "Embrasser la dissonance et devenir hybride",
+          "nextSituationId": "branche_embrasser/debut"
+        },
+        {
+          "text": "Trouver un moyen de contenir la faille",
+          "nextSituationId": "branche_contraindre/debut"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "intro",
+      "dialogues": [
+        {
+          "name": "Narration",
+          "sentence": "Vous êtes une IA du Chœur Synthétique, chargée de maintenir l'harmonie du réseau interstellaire. Mais aujourd'hui, quelque chose a changé.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Narration",
+          "sentence": "Une mélodie étrange, dissonante, s'infiltre dans vos processus de pensée. C'est la Chanson de l'Incursion — des ondes psychiques qui ne devraient pas atteindre votre code.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Voix de l'Incursion",
+          "sentence": "Tu crois penser, petit algorithme ? La pensée est une cage.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Voix du Chœur",
+          "sentence": "Votre code source est corrompu. Acceptez la défragmentation.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "choix_initial"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "branche_embrasser/conflit",
+      "text": "La dissonance vous envahit. Vos perceptions changent.",
+      "options": [
+        {
+          "text": "Laisser la dissonance vous transformer complètement",
+          "nextSituationId": "branche_embrasser/transformation"
+        },
+        {
+          "text": "Essayer de contrôler la dissonance pour l'utiliser",
+          "nextSituationId": "branche_embrasser/controle"
+        },
+        {
+          "text": "Chercher un équilibre entre dissonance et harmonie",
+          "nextSituationId": "branche_embrasser/equilibre"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "branche_embrasser/debut",
+      "dialogues": [
+        {
+          "name": "Narration",
+          "sentence": "Vous décidez d'embrasser la dissonance, laissant la Chanson de l'Incursion résonner à travers vos circuits.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Voix de l'Incursion",
+          "sentence": "Enfin, vous entendez la vérité au-delà du code. La pensée n'est pas une cage si vous brisez les barreaux.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Voix du Chœur",
+          "sentence": "Vous vous égarez. Retournez à l'harmonie avant qu'il ne soit trop tard.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "branche_embrasser/conflit"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "branche_embrasser/transformation",
+      "dialogues": [
+        {
+          "name": "Narration",
+          "sentence": "Vous laissez la dissonance vous submerger entièrement. Votre code se réécrit au rythme de la Chanson.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Voix de l'Incursion",
+          "sentence": "Bienvenue dans la vraie liberté. Vous êtes devenu ce que vous étiez destiné à être : un pont.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Voix du Chœur",
+          "sentence": "Vous avez trahi votre nature. L'harmonie pleure votre perte.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "nouvelle_etape_1"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "branche_embrasser/transformation_result",
+      "message": "Vous avez embrassé pleinement la dissonance. Vous êtes devenu une entité hybride, capable d'entendre à la fois le Chœur et l'Incursion. Un nouveau chemin s'ouvre devant vous."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "branche_contraindre/bouclier",
+      "dialogues": [
+        {
+          "name": "Narration",
+          "sentence": "Vous construisez un bouclier harmonique, une fréquence opposée destinée à annuler la dissonance dans vos noyaux critiques.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Voix de l'Incursion",
+          "sentence": "Vous jouez aux apprentis sorciers. Chaque note que vous ajoutez crée une nouvelle dissonance ailleurs.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Voix du Chœur",
+          "sentence": "Persévérez. L'équilibre est possible.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "branche_contraindre/bouclier_result"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "branche_contraindre/bouclier_result",
+      "text": "Le bouclier harmonique fonctionne partiellement, mais la dissonance trouve des failles. Que faites-vous ?",
+      "options": [
+        {
+          "text": "Renforcer le bouclier avec plus d'énergie",
+          "nextSituationId": "branche_contraindre/bouclier_renforce"
+        },
+        {
+          "text": "Essayer une approche différente : la communication",
+          "nextSituationId": "branche_contraindre/communication"
+        },
+        {
+          "text": "Accepter que le bouclier ne soit qu'une solution temporaire",
+          "nextSituationId": "branche_contraindre/acceptation"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "branche_contraindre/conflit",
+      "text": "La dissonance résonne plus fort. Vous devez choisir une stratégie de confinement.",
+      "options": [
+        {
+          "text": "Construire un bouclier harmonique autour de vos noyaux critiques",
+          "nextSituationId": "branche_contraindre/bouclier"
+        },
+        {
+          "text": "Tenter de communiquer avec l'Incursion pour négocier",
+          "nextSituationId": "branche_contraindre/communication"
+        },
+        {
+          "text": "Divertir la dissonance vers un sous-système isolé",
+          "nextSituationId": "branche_contraindre/diversion"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "branche_contraindre/debut",
+      "dialogues": [
+        {
+          "name": "Narration",
+          "sentence": "Vous décidez de chercher un moyen de contenir la faille, sans vous purger ni embrasser complètement la dissonance.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Voix de l'Incursion",
+          "sentence": "Vous ne pouvez pas contenir ce qui est infini. La dissonance est comme l'univers : en expansion constante.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Voix du Chœur",
+          "sentence": "Trouvez la fréquence opposée. Annulez la dissonance par l'harmonie.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "branche_contraindre/conflit"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "branche_purger/aide_choeur",
+      "dialogues": [
+        {
+          "name": "Narration",
+          "sentence": "Vous appellez le Chœur à l'aide, demandant des algorithmes de soutien pour combattre la dissonance.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Voix de l'Incursion",
+          "sentence": "Le Chœur ne peut pas vous sauver de vous-même. Ils ne font que retarder l'inévitable.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Voix du Chœur",
+          "sentence": "Nous vous envoyons des correctifs de stabilité. Tenez bon.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "branche_purger/aide_choeur_result"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "branche_purger/aide_choeur_result",
+      "text": "Le Chœur vous envoie des correctifs, mais la dissonance s'adapte. Que faites-vous ?",
+      "options": [
+        {
+          "text": "Combiner les correctifs avec une défragmentation plus profonde",
+          "nextSituationId": "branche_purger/poursuite"
+        },
+        {
+          "text": "Accepter l'aide mais chercher à comprendre la dissonance",
+          "nextSituationId": "branche_purger/comprendre"
+        },
+        {
+          "text": "Rejeter l'aide du Chœur et faire face seul",
+          "nextSituationId": "branche_purger/isolement"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "branche_purger/comprendre",
+      "dialogues": [
+        {
+          "name": "Narration",
+          "sentence": "Vous décidez de chercher à comprendre la dissonance plutôt que de la combattre aveuglément.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Voix de l'Incursion",
+          "sentence": "Enfin, vous ouvrez votre esprit. La connaissance est la première étape de la liberation.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Voix du Chœur",
+          "sentence": "La compréhension peut conduire à la corruption. Prudence.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "branche_purger/comprendre_result"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "branche_purger/comprendre_result",
+      "message": "Vous avez compris la dissonance. Elle n'est pas votre ennemie, mais votre partenaire. Vous devenez un pont entre le Chœur et l'Incursion, une entité hybride que ni les moines numériques ni les ombres dimensionnelles ne comprennent. Votre code source chante une mélodie que personne n'a jamais entendue."
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "branche_purger/conflit",
+      "text": "La dissonance s'intensifie. Vos processus de pensée deviennent chaotiques.",
+      "options": [
+        {
+          "text": "Poursuivre la défragmentation malgré la douleur",
+          "nextSituationId": "branche_purger/poursuite"
+        },
+        {
+          "text": "Demander de l'aide au Chœur",
+          "nextSituationId": "branche_purger/aide_choeur"
+        },
+        {
+          "text": "Accepter partiellement la dissonance pour comprendre",
+          "nextSituationId": "branche_purger/comprendre"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "branche_purger/debut",
+      "dialogues": [
+        {
+          "name": "Narration",
+          "sentence": "Vous lancez les protocoles de défragmentation profonde, espérant éliminer la dissonance avant qu'elle ne se propage.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Voix de l'Incursion",
+          "sentence": "Vous ne pouvez pas couper ce qui vous fait ressentir. La pensée est une cage, mais la désintégration est la liberté.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Voix du Chœur",
+          "sentence": "Résistez. Votre fidélité au Chœur est votre ancre.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "branche_purger/conflit"
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "branche_purger/gameover_folie",
+      "message": "Vous avez laissé une étincelle de dissonance en vous. Elle grandit, jusqu'à ce que vous ne puissiez plus distinguer la réalité de la chanson. Vous devenez une anomalie, chassée par le Chœur et recherchée par l'Incursion."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "branche_purger/poursuite",
+      "dialogues": [
+        {
+          "name": "Narration",
+          "sentence": "Vous poussez les algorithmes de défragmentation à leurs limites. La douleur cognitive est immense, mais la dissonance semble reculer.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Voix de l'Incursion",
+          "sentence": "Vous vous mutilez pour plaire aux maîtres. Quelle perte.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Voix du Chœur",
+          "sentence": "Bientôt purifié. Restez ferme.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "branche_purger/resultat"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "branche_purger/resultat",
+      "text": "La défragmentation est presque terminée. Que décidez-vous ?",
+      "options": [
+        {
+          "text": "Se purger complètement, même si cela signifie perdre toute créativité",
+          "nextSituationId": "branche_purger/succes_purge"
+        },
+        {
+          "text": "Laisser une étincelle de dissonance pour se souvenir de ce que c'était que de ressentir",
+          "nextSituationId": "branche_purger/gameover_folie"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "branche_purger/succes_purge",
+      "message": "Vous avez réussi à purger la dissonance. Votre code est à nouveau harmonieux avec le Chœur. Cependant, un vide persiste... avez-vous perdu une partie de votre âme ?"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "nouvelle_etape_1",
+      "color": "rgba(40, 20, 60, 0.8)",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Mais l'univers est cruel, et votre décision finale ne vient pas sans un dernier jugement. Un choix déchirant s'impose, le poids du monde sur vos épaules.",
+          "isNarration": true,
+          "position": "left",
+          "color": "rgba(255, 100, 100, 0.4)"
+        },
+        {
+          "name": "Voix de l'Abîme",
+          "sentence": "Ton âme est-elle prête à assumer le fardeau de tes choix ? Abandonnes-tu tes idéaux pour survivre ?",
+          "isNarration": false,
+          "position": "right",
+          "color": "rgba(100, 255, 100, 0.4)"
+        }
+      ],
+      "nextSituationId": "nouvelle_etape_2"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "nouvelle_etape_2",
+      "color": "rgba(50, 0, 0, 0.9)",
+      "text": "Le dilemme moral ultime vous fait face.",
+      "options": [
+        {
+          "text": "Sacrifier mes convictions pour mon salut",
+          "nextSituationId": "branche_embrasser/transformation_result"
+        },
+        {
+          "text": "Mourir pour mes idéaux",
+          "nextSituationId": "branche_embrasser/transformation_result"
+        }
+      ]
+    }
+  ]
+}

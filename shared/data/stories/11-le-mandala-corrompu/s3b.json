@@ -1,0 +1,1 @@
+{"__component":"story.situation-choice","situationId":"s3b","text":"Les Héritiers vous confrontent. Que faites-vous ?","options":[{"text":"Engager le dialogue","nextSituationId":"s4b"},{"text":"Se préparer au combat","nextSituationId":"s5b"}]}

@@ -1,0 +1,1 @@
+{"__component":"story.situation-choice","situationId":"branche_tenir/tenir_choice","text":"Vous décidez de tenir la position. Que faites-vous ?","options":[{"text":"Préparer les défenses et attendre l'assaut","nextSituationId":"branche_tenir/tenir_dialogue_pre"},{"text":"Lancer une contre-attaque immédiate","nextSituationId":"branche_tenir/tenir_battle"}]}

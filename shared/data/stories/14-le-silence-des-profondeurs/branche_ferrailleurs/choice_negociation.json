@@ -1,0 +1,15 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "choice_negociation",
+  "text": "Le Capitaine Ratch attend votre réponse. Le compteur de bocaux indique 8%.",
+  "options": [
+    {
+      "text": "Accepter le deal. Donner l'exosquelette et les coordonnées.",
+      "nextSituationId": "fin_deal"
+    },
+    {
+      "text": "Refuser. Tenter de voler le carburant par la force.",
+      "nextSituationId": "fin_trahison_ferrailleur"
+    }
+  ]
+}

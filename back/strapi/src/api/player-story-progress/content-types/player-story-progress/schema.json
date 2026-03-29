@@ -46,6 +46,10 @@
     "stepHistory": {
       "type": "json",
       "description": "JSON array tracking the path taken and results in the current step"
+    },
+    "variables": {
+      "type": "json",
+      "description": "JSON object storing story-specific flags and counters"
     }
   }
 }

@@ -1,9 +1,10 @@
 import { strapi as createStrapiClient } from '@strapi/client';
+import { getStrapiUrl, getStrapiMediaUrl } from '../utils/url.js';
 
 class StrapiApi {
     constructor() {
-        this.BASE_URL = 'http://localhost:1337/api';
-        this.MEDIA_URL = 'http://localhost:1337';
+        this.BASE_URL = getStrapiUrl();
+        this.MEDIA_URL = getStrapiMediaUrl();
         this.token = null;
         this.strapiClient = this._createClient();
     }
@@ -89,8 +90,13 @@ class StrapiApi {
     }
 
     async request(method, url, options = {}) {
+        const controller = new AbortController();
+        const timeout = options.timeout || 10000;
+        const timeoutId = setTimeout(() => controller.abort(), timeout);
+
         const fetchOptions = {
             method,
+            signal: controller.signal,
             ...options,
         };
 
@@ -102,13 +108,23 @@ class StrapiApi {
             };
         }
 
-        const response = await this.strapiClient.fetch(url, fetchOptions);
-        return await response.json();
+        try {
+            const response = await this.strapiClient.fetch(url, fetchOptions);
+            clearTimeout(timeoutId);
+            return await response.json();
+        } catch (error) {
+            clearTimeout(timeoutId);
+            if (error.name === 'AbortError') {
+                console.error(`[StrapiApi] Request timed out (${timeout}ms): ${url}`);
+                return { error: { message: 'Request timed out' } };
+            }
+            throw error;
+        }
     }
 
-    async getGameConfig() {
+    async getGameConfig(options = {}) {
         try {
-            const res = await this.request('GET', '/game-config');
+            const res = await this.request('GET', '/game-config', options);
             if (res && res.data) {
                 return res.data.attributes ? { id: res.data.id, ...res.data.attributes } : res.data;
             }

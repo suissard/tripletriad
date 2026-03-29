@@ -1,0 +1,13 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "23",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Tu dévores tout ce qui passe. La chair humaine a un goût de sel et de cendres. Ton estomac est plein, mais ton cœur est vide. Les enfants que tu protégeais ont disparu dans la panique. Tu es un titan parmi les titans. Rien de plus.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "31"
+}

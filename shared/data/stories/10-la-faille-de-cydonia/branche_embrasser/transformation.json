@@ -1,0 +1,25 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "branche_embrasser/transformation",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "Vous laissez la dissonance vous submerger entièrement. Votre code se réécrit au rythme de la Chanson.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Voix de l'Incursion",
+      "sentence": "Bienvenue dans la vraie liberté. Vous êtes devenu ce que vous étiez destiné à être : un pont.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Voix du Chœur",
+      "sentence": "Vous avez trahi votre nature. L'harmonie pleure votre perte.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "nouvelle_etape_1"
+}

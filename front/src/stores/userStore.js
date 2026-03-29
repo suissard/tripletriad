@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import strapiService from '../api/strapi.js';
 import strapiMock from '../api/strapiMock.js';
 import { getCardById } from '../game/state.js';
+import { getStrapiUrl, getStrapiMediaUrl } from '../utils/url.js';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -28,12 +29,25 @@ export const useUserStore = defineStore('user', {
     strapiConnected: false,
     hasEverConnected: false,
     initializationStatus: 'loading', // 'loading' | 'ready'
+    isOfflineStoryMode: false,
     error: null
   }),
 
   getters: {
     isOffline: (state) => !state.strapiConnected,
-    isAdmin: (state) => state.user?.role === 'Admin' || state.user?.role === 'Super Admin'
+    isGuestStoryMode: (state) => state.isOfflineStoryMode || (!state.isLoggedIn && !state.strapiConnected),
+    isAdmin: (state) => state.user?.role === 'Admin' || state.user?.role === 'Super Admin',
+    latestStoryProgress: (state) => {
+      if (!state.storyProgresses || state.storyProgresses.length === 0) return null;
+      // Filter for in-progress stories and sort by updatedAt descending
+      return [...state.storyProgresses]
+        .filter(p => p.status !== 'completed' && p.progressStatus !== 'completed')
+        .sort((a, b) => {
+          const dateA = new Date(a.updatedAt || a.updated_at || 0);
+          const dateB = new Date(b.updatedAt || b.updated_at || 0);
+          return dateB - dateA;
+        })[0] || null;
+    }
   },
 
   actions: {
@@ -100,7 +114,7 @@ export const useUserStore = defineStore('user', {
             role: meRes.role?.name,
             avatar_card: meRes.avatar_card,
             avatar: meRes.avatar_card?.image?.url 
-              ? `${strapiService.MEDIA_URL}${meRes.avatar_card.image.url}`
+              ? getStrapiMediaUrl(meRes.avatar_card.image.url)
               : `https://api.dicebear.com/9.x/bottts/svg?seed=${meRes.username}&backgroundColor=transparent`,
             // Wallet data
             coins: wallet.coins ?? meRes.coins ?? 0,
@@ -128,7 +142,7 @@ export const useUserStore = defineStore('user', {
         boosters: user.boosters || [],
         avatar_card: user.avatar_card || null,
         avatar: user.avatar_card?.image?.url 
-          ? `${strapiService.MEDIA_URL}${user.avatar_card.image.url}`
+          ? getStrapiMediaUrl(user.avatar_card.image.url)
           : `https://api.dicebear.com/9.x/bottts/svg?seed=${user.username}&backgroundColor=transparent`
       };
       
@@ -173,6 +187,7 @@ export const useUserStore = defineStore('user', {
         role: null
       };
       this.isLoggedIn = false;
+      this.isOfflineStoryMode = false;
       this.collection = [];
       this.collectionLoaded = false;
       this.userDecks = [];
@@ -304,7 +319,7 @@ export const useUserStore = defineStore('user', {
 
       try {
         const token = localStorage.getItem('tt_jwt');
-        const response = await fetch(`${import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337'}/api/player-story-progress/save-step-progress`, {
+        const response = await fetch(getStrapiUrl('/player-story-progress/save-step-progress'), {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -333,7 +348,7 @@ export const useUserStore = defineStore('user', {
 
       try {
         const token = localStorage.getItem('tt_jwt');
-        const response = await fetch(`${import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337'}/api/player-story-progress/claim-step-reward`, {
+        const response = await fetch(getStrapiUrl('/player-story-progress/claim-step-reward'), {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -369,8 +384,8 @@ export const useUserStore = defineStore('user', {
 
       try {
         const result = await strapiService.find('player-story-progresses', {
-          filters: { user: this.user.id },
-          populate: ['story']
+          filters: { user: { id: { $eq: this.user.id } } },
+          populate: ['story', 'currentStep']
         });
         this.storyProgresses = this.toArray(result);
         this.storyProgressesLoaded = true;
@@ -616,6 +631,35 @@ export const useUserStore = defineStore('user', {
         console.error('Update profile failed', e);
         return { error: 'Network error' };
       }
+    },
+    async resetStoryProgress(storyId) {
+      if (!this.strapiConnected || !this.isLoggedIn) return null;
+      try {
+        const token = localStorage.getItem('tt_jwt');
+        const response = await fetch(getStrapiUrl('/player-story-progress/reset'), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ storyId })
+        });
+
+        if (!response.ok) {
+          const err = await response.json();
+          throw new Error(err.error?.message || 'Failed to reset progress');
+        }
+
+        const data = await response.json();
+        await this.fetchUserStoryProgresses(true);
+        return data;
+      } catch (e) {
+        console.error('resetStoryProgress failed', e);
+        return null;
+      }
+    },
+    toggleOfflineStoryMode(value) {
+      this.isOfflineStoryMode = value;
     }
   }
 });

@@ -1,0 +1,34 @@
+﻿{
+ "_meta": "Modèle de structure pour générer la direction artistique d'une faction de TCG via IA.",
+ "nom_faction": "Les Ferrailleurs de la Ceinture",
+ "direction_artistique": {
+   "mots_cles_globaux": "Scrap-punk, industriel, bricolé, asymétrique, Mad Max en apesanteur.",
+   "couleurs": {
+     "repartition": "60% Métaux usés / 30% Tenues de travail crasseuses / 10% Accents énergétiques.",
+     "principales": "Acier oxydé, Orange rouille, Gris industriel.",
+     "secondaires": "Tissus synthétiques délavés, Noir graisse de moteur, Jaune chantier écaillé.",
+     "accents_et_energie": "Bleu plasma chaud (chalumeaux, moteurs bricolés), Étincelles vives."
+   },
+   "anatomie_et_biologie": {
+     "description": "Humains marqués par la rudesse de l'espace. Visages maculés de cambouis, cicatrices, peintures de guerre faites avec de la graisse de moteur."
+   },
+   "armures_et_vetements": {
+     "concept_global": "Combinaisons spatiales de minage obsolètes et rapiécées à l'extrême pour la survie et l'abordage.",
+     "structure": "Tenues épaisses, asymétriques et surchargées. Plaques d'armures improvisées à partir de vieux panneaux de signalisation ou de carrosseries.",
+     "casques_et_visages": "Casques de soudeur spatiaux, scaphandres fissurés réparés avec du gros ruban adhésif, visières opaques rayées.",
+     "details_cles": "Câbles apparents, ruban adhésif omniprésent (duct tape), harnais couverts de poches à outils et de mousquetons."
+   },
+   "armes_et_equipements": {
+     "concept": "Outils d'extraction minière militarisés et armement de récupération.",
+     "formes": "Massives, encombrantes et purement fonctionnelles (fusils harpons, scies circulaires, canons cinétiques).",
+     "details_visuels": "Soudures grossières, bobines de cuivre exposées pour les IEM artisanales, batteries de fortune scotchées à l'arme."
+   },
+   "vehicules_et_vaisseaux": {
+     "concept": "Essaim de vaisseaux Frankenstein créés à partir de conteneurs de fret, de propulseurs volés et de stations spatiales démantelées.",
+     "geometrie": "Absolument aucun aérodynamisme. Assemblages hétéroclites, modules carrés empilés et bras mécaniques articulés."
+   }
+ },
+ "prompt_engineering": {
+   "master_prompt_adn": "Sci-fi grimdark industrial scrap-punk, Les Ferrailleurs faction. Grimy space scavenger in a patchwork bulky spacesuit covered in duct tape, tools, pouches and cables. Face marked with engine grease war paint. Wielding a brutally modified heavy plasma mining tool, rusty metal plates, dark asteroid mining background, cinematic lighting, highly detailed."
+ }
+}

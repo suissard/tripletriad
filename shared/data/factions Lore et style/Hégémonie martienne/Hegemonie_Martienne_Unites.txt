@@ -1,0 +1,41 @@
+﻿🔴 Hégémonie Martienne (Les Puristes) - Liste des Unités
+1. Légionnaire d'Hellas 🪖
+* Forces : Faible coût, solide en groupe (synergie de phalange).
+* Faiblesses : Lent, dégâts individuels moyens.
+* Prompt Image : Sci-fi illustration, Martian human soldier in sleek red and grey power armor, holding a heavy kinetic rifle, dusty red landscape background, realistic, highly detailed, dramatic lighting.
+2. Nettoyeur d'Assaut Ares 🚀
+* Forces : Mobilité extrême (jetpack), dégâts de zone (lance-flammes).
+* Faiblesses : Très fragile si attaqué à longue distance.
+* Prompt Image : Sci-fi illustration, aggressive Martian shock trooper with a jetpack, wielding a high-tech flamethrower, heavy fire and smoke, dynamic action pose, crimson armor.
+3. Exosquelette Lourd "Goliath" 🤖
+* Forces : Dégâts massifs (anti-blindage), armure quasi impénétrable.
+* Faiblesses : Coût de déploiement énorme, vulnérable aux attaques IEM/Piratage.
+* Prompt Image : Sci-fi illustration, massive bipedal mech suit in crimson and dark steel, armed with shoulder missile pods and gatling guns, towering over a ruined city.
+4. Spectre de Cydonia (Sniper) 🎯
+* Forces : Frappe de précision mortelle, furtivité (ciblage difficile).
+* Faiblesses : Inutile au corps-à-corps, très peu de points de vie.
+* Prompt Image : Sci-fi illustration, stealthy Martian sniper in an active camouflage cloak, aiming a long glowing railgun, perched on a ruined skyscraper, cyberpunk lighting.
+5. Rover d'Interception "Phobos" 🏎️
+* Forces : Frappe éclair, capacité de contourner les lignes ennemies.
+* Faiblesses : Blindage léger, détruit instantanément par l'artillerie.
+* Prompt Image : Sci-fi illustration, fast 6-wheeled Martian assault rover, mounted plasma turret, drifting through a blasted warzone, dust trails, aggressive angular design.
+6. Officier Stratège Puriste 🎖️
+* Forces : Améliore l'attaque et la défense des unités adjacentes.
+* Faiblesses : Cible prioritaire de l'ennemi, très faible en combat singulier.
+* Prompt Image : Sci-fi illustration, imposing Martian military commander in an elegant high-tech uniform with red accents, holding a holographic tactical datapad, battlefield in the background.
+7. Batterie d'Artillerie "Olympus" 💥
+* Forces : Attaque n'importe où sur le plateau, ignore les abris.
+* Faiblesses : Immobile, incapable de riposter contre une attaque de mêlée.
+* Prompt Image : Sci-fi illustration, heavily entrenched Martian artillery cannon, glowing energy coils, firing a massive beam into the dark sky, futuristic military base setting.
+8. Intercepteur Atmosphérique "Deimos" 🛩️
+* Forces : Ignore le terrain, insaisissable pour l'infanterie classique.
+* Faiblesses : Sensible aux unités Anti-Aériennes, doit passer un tour pour recharger.
+* Prompt Image : Sci-fi illustration, sleek aerodynamic Martian fighter jet, dark red and black hull, hovering close to the ground, firing glowing missiles, high speed motion blur.
+9. Phalange Bouclier-Égide 🛡️
+* Forces : Bloque totalement les attaques frontales, protège les tireurs.
+* Faiblesses : Mobilité nulle, très vulnérable aux attaques sur le flanc ou par l'arrière.
+* Prompt Image : Sci-fi illustration, line of heavy Martian infantry locking massive energy shields together to form a glowing transparent barricade, holding the line against laser fire.
+10. Garde Écarlate de l'Hégémon 🩸
+* Forces : Unité d'élite polyvalente, statistiques maximales, perce les boucliers.
+* Faiblesses : Unité unique (1 seule par deck), ne peut pas être soignée.
+* Prompt Image : Sci-fi illustration, elite Martian royal guard, ornate crimson and gold power armor, wielding a blazing energy halberd, heroic and imposing stance, cinematic lighting.

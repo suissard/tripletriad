@@ -1,0 +1,25 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "branche_percer/percer_dialogue",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous enfoncez la porte blindée avec une charge explosive. L'air extérieur vous frappe comme un mur : chaud, épais, saturé de spores vertes qui dansent dans la lumière rouge du ciel. Le paysage est méconnaissable. Les buildings sont recouverts de lianes fongiques. Les rues sont des artères de mycélium palpitant.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Caporal Voss",
+      "sentence": "Mon Dieu. C'est... c'est beau, en fait. Terrifiant, mais beau. On dirait que la planète a décidé de nous remplacer.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Soudain, le sol tremble. Pas les spores, cette fois. Quelque chose de plus lourd. Plus chaud. Une fissure s'ouvre dans l'asphalte et de la lave jaillit en geyser. L'Éveil Chthonien. Les titans ont senti la biomasse du Fléau et viennent la dévorer. Vous êtes pris entre deux apocalypses.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "branche_percer/percer_choice"
+}

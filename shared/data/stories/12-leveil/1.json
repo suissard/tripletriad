@@ -1,0 +1,13 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "1",
+  "dialogues": [
+    {
+      "name": "N",
+      "sentence": "Tu ouvres les yeux sur un monde de cendres et de métal tordu. Sous tes pattes, la ville gémit, déchirée par les griffes de ton essaim.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "2"
+}

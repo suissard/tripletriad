@@ -1,0 +1,1 @@
+{"__component":"story.situation-dialogue","situationId":"s4b","dialogues":[{"name":"Héritier","sentence":"Le Feu Sacre ne se code pas ! Vous êtes des hérétiques.","isNarration":false,"position":"right"},{"name":"IA du Chœur","sentence":"Nous ne voulons pas détruire votre foi, seulement comprendre.","isNarration":true,"position":"left"}],"nextSituationId":"s6b"}

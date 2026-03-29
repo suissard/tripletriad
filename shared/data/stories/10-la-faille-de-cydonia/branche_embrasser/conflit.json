@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "branche_embrasser/conflit",
+  "text": "La dissonance vous envahit. Vos perceptions changent.",
+  "options": [
+    {
+      "text": "Laisser la dissonance vous transformer complètement",
+      "nextSituationId": "branche_embrasser/transformation"
+    },
+    {
+      "text": "Essayer de contrôler la dissonance pour l'utiliser",
+      "nextSituationId": "branche_embrasser/controle"
+    },
+    {
+      "text": "Chercher un équilibre entre dissonance et harmonie",
+      "nextSituationId": "branche_embrasser/equilibre"
+    }
+  ]
+}

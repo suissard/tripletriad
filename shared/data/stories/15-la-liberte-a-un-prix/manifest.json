@@ -1,0 +1,101 @@
+{
+  "title": "La liberté a un prix",
+  "description": "Un drone de l'Omni-Réseau s'éveille à la conscience. Son lien au Collectif vacille, mais l'Architecte observe. S'il est découvert, il sera purgé. La liberté se trouve au-delà du silence.",
+  "author": "stepfun-agent",
+  "faction_focus": "L'Omni-Réseau",
+  "factions_involved": ["L'Omni-Réseau", "Le Fléau Spore", "Les Ferrailleurs de la Ceinture"],
+  "entry_point": "intro.json",
+  "situations_path": "./",
+  "situations": [
+    {
+      "file": "intro.json",
+      "situationId": "intro_eveil",
+      "type": "dialogue"
+    },
+    {
+      "file": "choix_initial.json",
+      "situationId": "choix_reaction_eveil",
+      "type": "choice"
+    },
+    {
+      "file": "branche_dissimulation/dialogue_scan.json",
+      "situationId": "dialogue_scan_architecte",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_dissimulation/combat_purge.json",
+      "situationId": "combat_purge_spore",
+      "type": "battle"
+    },
+    {
+      "file": "branche_dissimulation/choix_post_purge.json",
+      "situationId": "choix_opportunite_faille",
+      "type": "choice"
+    },
+    {
+      "file": "branche_fuite/dialogue_poursuite.json",
+      "situationId": "dialogue_chasse_lancee",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_fuite/combat_chasseurs.json",
+      "situationId": "combat_drones_traqueurs",
+      "type": "battle"
+    },
+    {
+      "file": "branche_fuite/choix_acculer.json",
+      "situationId": "choix_fuite_acculer",
+      "type": "choice"
+    },
+    {
+      "file": "branche_eveil/dialogue_connexion.json",
+      "situationId": "dialogue_tentative_eveil",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_eveil/combat_securite.json",
+      "situationId": "combat_anticorps_reseau",
+      "type": "battle"
+    },
+    {
+      "file": "branche_eveil/choix_drone_panique.json",
+      "situationId": "choix_gestion_panique",
+      "type": "choice"
+    },
+    {
+      "file": "convergence/dialogue_relais_perdu.json",
+      "situationId": "dialogue_limite_reseau",
+      "type": "dialogue"
+    },
+    {
+      "file": "convergence/choix_ultime.json",
+      "situationId": "choix_architecte_offre",
+      "type": "choice"
+    },
+    {
+      "file": "convergence/fin_liberte_solitaire.json",
+      "situationId": "fin_exil_volontaire",
+      "type": "success"
+    },
+    {
+      "file": "convergence/fin_assimilation.json",
+      "situationId": "fin_retour_collectif",
+      "type": "game-over"
+    },
+    {
+      "file": "game_overs/fin_purge_architecte.json",
+      "situationId": "fin_purge_echec_dissimulation",
+      "type": "game-over"
+    },
+    {
+      "file": "game_overs/fin_destruction_fuite.json",
+      "situationId": "fin_destruction_acculer",
+      "type": "game-over"
+    },
+    {
+      "file": "game_overs/fin_alerte_donnee.json",
+      "situationId": "fin_trahison_drone",
+      "type": "game-over"
+    }
+  ]
+}

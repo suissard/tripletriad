@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "choix_initial",
+  "text": "Les spores rampent le long de votre armure. Le Commandant Veyra attend votre rapport. Soldat Lyra observe votre main tremblante sur le bouton. Que faites-vous ?",
+  "options": [
+    {
+      "text": "Suivre le protocole. Se dénoncer et accepter la purification.",
+      "nextSituationId": "se_delater"
+    },
+    {
+      "text": "Dissimuler la brèche. Personne n'a vu les spores. Poursuivre la mission.",
+      "nextSituationId": "dissimuler_breche"
+    },
+    {
+      "text": "Contacter secrètement les Ferrailleurs. Ils ont peut-être un remède... contre un prix.",
+      "nextSituationId": "contacter_ferrailleurs"
+    }
+  ]
+}

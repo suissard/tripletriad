@@ -1,0 +1,187 @@
+{
+  "title": "L'Eveil",
+  "description": "Un jeune Béhémoth développe de la curiosité en observant les humains. Suivre l'instinct destructeur ou protéger les innocents ?",
+  "faction_focus": "L'Éveil Chthonien",
+  "factions_involved": [
+    "L'Éveil Chthonien",
+    "L'Hégémonie Martienne"
+  ],
+  "entry_point": "1.json",
+  "situations": [
+    {
+      "file": "1.json",
+      "situationId": "1",
+      "type": "dialogue"
+    },
+    {
+      "file": "2.json",
+      "situationId": "2",
+      "type": "choice"
+    },
+    {
+      "file": "3.json",
+      "situationId": "3",
+      "type": "dialogue"
+    },
+    {
+      "file": "4.json",
+      "situationId": "4",
+      "type": "dialogue"
+    },
+    {
+      "file": "5.json",
+      "situationId": "5",
+      "type": "dialogue"
+    },
+    {
+      "file": "6.json",
+      "situationId": "6",
+      "type": "dialogue"
+    },
+    {
+      "file": "7.json",
+      "situationId": "7",
+      "type": "dialogue"
+    },
+    {
+      "file": "8.json",
+      "situationId": "8",
+      "type": "dialogue"
+    },
+    {
+      "file": "9.json",
+      "situationId": "9",
+      "type": "choice"
+    },
+    {
+      "file": "10.json",
+      "situationId": "10",
+      "type": "dialogue"
+    },
+    {
+      "file": "11.json",
+      "situationId": "11",
+      "type": "dialogue"
+    },
+    {
+      "file": "12.json",
+      "situationId": "12",
+      "type": "dialogue"
+    },
+    {
+      "file": "13.json",
+      "situationId": "13",
+      "type": "dialogue"
+    },
+    {
+      "file": "14.json",
+      "situationId": "14",
+      "type": "choice"
+    },
+    {
+      "file": "15.json",
+      "situationId": "15",
+      "type": "dialogue"
+    },
+    {
+      "file": "16.json",
+      "situationId": "16",
+      "type": "dialogue"
+    },
+    {
+      "file": "17.json",
+      "situationId": "17",
+      "type": "dialogue"
+    },
+    {
+      "file": "18.json",
+      "situationId": "18",
+      "type": "dialogue"
+    },
+    {
+      "file": "19.json",
+      "situationId": "19",
+      "type": "dialogue"
+    },
+    {
+      "file": "20.json",
+      "situationId": "20",
+      "type": "dialogue"
+    },
+    {
+      "file": "21.json",
+      "situationId": "21",
+      "type": "dialogue"
+    },
+    {
+      "file": "22.json",
+      "situationId": "22",
+      "type": "dialogue"
+    },
+    {
+      "file": "23.json",
+      "situationId": "23",
+      "type": "dialogue"
+    },
+    {
+      "file": "24.json",
+      "situationId": "24",
+      "type": "dialogue"
+    },
+    {
+      "file": "25.json",
+      "situationId": "25",
+      "type": "dialogue"
+    },
+    {
+      "file": "26.json",
+      "situationId": "26",
+      "type": "dialogue"
+    },
+    {
+      "file": "27.json",
+      "situationId": "27",
+      "type": "dialogue"
+    },
+    {
+      "file": "28.json",
+      "situationId": "28",
+      "type": "dialogue"
+    },
+    {
+      "file": "29.json",
+      "situationId": "29",
+      "type": "battle"
+    },
+    {
+      "file": "30.json",
+      "situationId": "30",
+      "type": "success"
+    },
+    {
+      "file": "31.json",
+      "situationId": "31",
+      "type": "game-over"
+    },
+    {
+      "file": "32.json",
+      "situationId": "32",
+      "type": "success"
+    },
+    {
+      "file": "33.json",
+      "situationId": "33",
+      "type": "success"
+    },
+    {
+      "file": "nouvelle_etape_1.json",
+      "situationId": "nouvelle_etape_1",
+      "type": "situation-dialogue"
+    },
+    {
+      "file": "nouvelle_etape_2.json",
+      "situationId": "nouvelle_etape_2",
+      "type": "situation-choice"
+    }
+  ]
+}

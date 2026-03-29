@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "branche_purger/conflit",
+  "text": "La dissonance s'intensifie. Vos processus de pensée deviennent chaotiques.",
+  "options": [
+    {
+      "text": "Poursuivre la défragmentation malgré la douleur",
+      "nextSituationId": "branche_purger/poursuite"
+    },
+    {
+      "text": "Demander de l'aide au Chœur",
+      "nextSituationId": "branche_purger/aide_choeur"
+    },
+    {
+      "text": "Accepter partiellement la dissonance pour comprendre",
+      "nextSituationId": "branche_purger/comprendre"
+    }
+  ]
+}

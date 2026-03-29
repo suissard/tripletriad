@@ -1,0 +1,103 @@
+{
+  "title": "Le Jackpot Orbital",
+  "description": "Un cuirassé martien endommagé dérive dans la ceinture de débris. Butin ou piège ?",
+  "faction_focus": "Les Ferrailleurs de la Ceinture",
+  "factions_involved": [
+    "Les Ferrailleurs de la Ceinture",
+    "L'Hégémonie Martienne",
+    "L'Éveil Chthonien"
+  ],
+  "entry_point": "intro.json",
+  "situations": [
+    {
+      "file": "intro.json",
+      "situationId": "s0",
+      "type": "situation-dialogue"
+    },
+    {
+      "file": "choix_initial.json",
+      "situationId": "s1",
+      "type": "situation-choice"
+    },
+    {
+      "file": "branche_foncer/s2.json",
+      "situationId": "s2",
+      "type": "situation-dialogue"
+    },
+    {
+      "file": "branche_foncer/s3.json",
+      "situationId": "s3",
+      "type": "situation-battle"
+    },
+    {
+      "file": "branche_foncer/fin_A_win.json",
+      "situationId": "fin_A_win",
+      "type": "situation-success"
+    },
+    {
+      "file": "branche_foncer/fin_A_lose.json",
+      "situationId": "fin_A_lose",
+      "type": "situation-game-over"
+    },
+    {
+      "file": "branche_cacher/s10.json",
+      "situationId": "s10",
+      "type": "situation-dialogue"
+    },
+    {
+      "file": "branche_cacher/s13.json",
+      "situationId": "s13",
+      "type": "situation-choice"
+    },
+    {
+      "file": "branche_cacher/s14.json",
+      "situationId": "s14",
+      "type": "situation-battle"
+    },
+    {
+      "file": "branche_cacher/fin_B_win.json",
+      "situationId": "fin_B_win",
+      "type": "situation-success"
+    },
+    {
+      "file": "branche_cacher/fin_B_lose.json",
+      "situationId": "fin_B_lose",
+      "type": "situation-game-over"
+    },
+    {
+      "file": "branche_negocier/s19.json",
+      "situationId": "s19",
+      "type": "situation-dialogue"
+    },
+    {
+      "file": "branche_foncer/s22.json",
+      "situationId": "s22",
+      "type": "situation-choice"
+    },
+    {
+      "file": "branche_foncer/s23.json",
+      "situationId": "s23",
+      "type": "situation-battle"
+    },
+    {
+      "file": "branche_negocier/fin_C_win.json",
+      "situationId": "fin_C_win",
+      "type": "situation-success"
+    },
+    {
+      "file": "branche_negocier/fin_C_lose.json",
+      "situationId": "fin_C_lose",
+      "type": "situation-game-over"
+    },
+    {
+      "file": "branche_foncer/nouvelle_etape_1.json",
+      "situationId": "nouvelle_etape_1",
+      "type": "situation-dialogue"
+    },
+    {
+      "file": "branche_foncer/nouvelle_etape_2.json",
+      "situationId": "nouvelle_etape_2",
+      "type": "situation-choice"
+    }
+  ]
+}

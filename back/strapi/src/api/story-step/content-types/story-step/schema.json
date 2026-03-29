@@ -35,6 +35,22 @@
         "story.situation-game-over",
         "story.situation-success"
       ]
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "conditions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "story.choice-condition"
     }
   }
 }

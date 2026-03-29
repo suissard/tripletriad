@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-success",
+  "situationId": "fin_C_win",
+  "message": "L'équipage accepte votre offre : une partie du butin en échange de votre aide pour réparer les moteurs. Vous quittez les lieux avec des crédits, des components rares et le respect des Martiens. Victoire !",
+  "isNarration": true,
+  "position": "left"
+}

@@ -1,0 +1,4506 @@
+[
+  {
+    "id": "node_1",
+    "type": "default",
+    "label": "App.vue\n(App.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 100,
+      "y": 100
+    },
+    "data": {
+      "filePath": "App.vue"
+    }
+  },
+  {
+    "id": "node_2",
+    "type": "default",
+    "label": "strapi.js\n(admin/api/strapi.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1200,
+      "y": 100
+    },
+    "data": {
+      "filePath": "admin/api/strapi.js"
+    }
+  },
+  {
+    "id": "node_3",
+    "type": "default",
+    "label": "AdminSidebar.vue\n(admin/components/AdminSidebar.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 300,
+      "y": 100
+    },
+    "data": {
+      "filePath": "admin/components/AdminSidebar.vue"
+    }
+  },
+  {
+    "id": "node_4",
+    "type": "default",
+    "label": "AdminTable.vue\n(admin/components/AdminTable.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 500,
+      "y": 100
+    },
+    "data": {
+      "filePath": "admin/components/AdminTable.vue"
+    }
+  },
+  {
+    "id": "node_5",
+    "type": "default",
+    "label": "DevOptions.vue\n(admin/components/DevOptions.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 700,
+      "y": 100
+    },
+    "data": {
+      "filePath": "admin/components/DevOptions.vue"
+    }
+  },
+  {
+    "id": "node_6",
+    "type": "default",
+    "label": "DynamicEditor.vue\n(admin/components/DynamicEditor.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 900,
+      "y": 100
+    },
+    "data": {
+      "filePath": "admin/components/DynamicEditor.vue"
+    }
+  },
+  {
+    "id": "node_7",
+    "type": "default",
+    "label": "HelloWorld.vue\n(admin/components/HelloWorld.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 100,
+      "y": 250
+    },
+    "data": {
+      "filePath": "admin/components/HelloWorld.vue"
+    }
+  },
+  {
+    "id": "node_8",
+    "type": "default",
+    "label": "PremiumSelect.vue\n(admin/components/PremiumSelect.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 300,
+      "y": 250
+    },
+    "data": {
+      "filePath": "admin/components/PremiumSelect.vue"
+    }
+  },
+  {
+    "id": "node_9",
+    "type": "default",
+    "label": "ArchitectureMapPage.vue\n(admin/views/ArchitectureMapPage.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 500,
+      "y": 250
+    },
+    "data": {
+      "filePath": "admin/views/ArchitectureMapPage.vue"
+    }
+  },
+  {
+    "id": "node_10",
+    "type": "default",
+    "label": "CardTestPage.vue\n(admin/views/CardTestPage.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 700,
+      "y": 250
+    },
+    "data": {
+      "filePath": "admin/views/CardTestPage.vue"
+    }
+  },
+  {
+    "id": "node_11",
+    "type": "default",
+    "label": "CoinTossTestPage.vue\n(admin/views/CoinTossTestPage.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 900,
+      "y": 250
+    },
+    "data": {
+      "filePath": "admin/views/CoinTossTestPage.vue"
+    }
+  },
+  {
+    "id": "node_12",
+    "type": "default",
+    "label": "DashboardView.vue\n(admin/views/DashboardView.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 100,
+      "y": 400
+    },
+    "data": {
+      "filePath": "admin/views/DashboardView.vue"
+    }
+  },
+  {
+    "id": "node_13",
+    "type": "default",
+    "label": "DevTestPage.vue\n(admin/views/DevTestPage.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 300,
+      "y": 400
+    },
+    "data": {
+      "filePath": "admin/views/DevTestPage.vue"
+    }
+  },
+  {
+    "id": "node_14",
+    "type": "default",
+    "label": "DynamicArchitectureMapPage.vue\n(admin/views/DynamicArchitectureMapPage.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 500,
+      "y": 400
+    },
+    "data": {
+      "filePath": "admin/views/DynamicArchitectureMapPage.vue"
+    }
+  },
+  {
+    "id": "node_15",
+    "type": "default",
+    "label": "FoilEditorView.vue\n(admin/views/FoilEditorView.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 700,
+      "y": 400
+    },
+    "data": {
+      "filePath": "admin/views/FoilEditorView.vue"
+    }
+  },
+  {
+    "id": "node_16",
+    "type": "default",
+    "label": "GameConfigView.vue\n(admin/views/GameConfigView.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 900,
+      "y": 400
+    },
+    "data": {
+      "filePath": "admin/views/GameConfigView.vue"
+    }
+  },
+  {
+    "id": "node_17",
+    "type": "default",
+    "label": "LoadingTestPage.vue\n(admin/views/LoadingTestPage.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 100,
+      "y": 550
+    },
+    "data": {
+      "filePath": "admin/views/LoadingTestPage.vue"
+    }
+  },
+  {
+    "id": "node_18",
+    "type": "default",
+    "label": "SeedTesterPage.vue\n(admin/views/SeedTesterPage.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 300,
+      "y": 550
+    },
+    "data": {
+      "filePath": "admin/views/SeedTesterPage.vue"
+    }
+  },
+  {
+    "id": "node_19",
+    "type": "default",
+    "label": "strapi.js\n(api/strapi.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1400,
+      "y": 100
+    },
+    "data": {
+      "filePath": "api/strapi.js"
+    }
+  },
+  {
+    "id": "node_20",
+    "type": "default",
+    "label": "strapiMock.js\n(api/strapiMock.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1600,
+      "y": 100
+    },
+    "data": {
+      "filePath": "api/strapiMock.js"
+    }
+  },
+  {
+    "id": "node_21",
+    "type": "default",
+    "label": "ActionLog.vue\n(components/ActionLog.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 500,
+      "y": 550
+    },
+    "data": {
+      "filePath": "components/ActionLog.vue"
+    }
+  },
+  {
+    "id": "node_22",
+    "type": "default",
+    "label": "AlertMessage.vue\n(components/AlertMessage.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 700,
+      "y": 550
+    },
+    "data": {
+      "filePath": "components/AlertMessage.vue"
+    }
+  },
+  {
+    "id": "node_23",
+    "type": "default",
+    "label": "AnimatedCardBack.vue\n(components/AnimatedCardBack.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 900,
+      "y": 550
+    },
+    "data": {
+      "filePath": "components/AnimatedCardBack.vue"
+    }
+  },
+  {
+    "id": "node_24",
+    "type": "default",
+    "label": "BottomMobileNav.vue\n(components/BottomMobileNav.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 100,
+      "y": 700
+    },
+    "data": {
+      "filePath": "components/BottomMobileNav.vue"
+    }
+  },
+  {
+    "id": "node_25",
+    "type": "default",
+    "label": "BrokenGlassOverlay.vue\n(components/BrokenGlassOverlay.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 300,
+      "y": 700
+    },
+    "data": {
+      "filePath": "components/BrokenGlassOverlay.vue"
+    }
+  },
+  {
+    "id": "node_26",
+    "type": "default",
+    "label": "CardDetailModal.vue\n(components/CardDetailModal.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 500,
+      "y": 700
+    },
+    "data": {
+      "filePath": "components/CardDetailModal.vue"
+    }
+  },
+  {
+    "id": "node_27",
+    "type": "default",
+    "label": "CoinBase.vue\n(components/CoinBase.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 700,
+      "y": 700
+    },
+    "data": {
+      "filePath": "components/CoinBase.vue"
+    }
+  },
+  {
+    "id": "node_28",
+    "type": "default",
+    "label": "CoinToss.vue\n(components/CoinToss.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 900,
+      "y": 700
+    },
+    "data": {
+      "filePath": "components/CoinToss.vue"
+    }
+  },
+  {
+    "id": "node_29",
+    "type": "default",
+    "label": "ConfirmationModal.vue\n(components/ConfirmationModal.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 100,
+      "y": 850
+    },
+    "data": {
+      "filePath": "components/ConfirmationModal.vue"
+    }
+  },
+  {
+    "id": "node_30",
+    "type": "default",
+    "label": "ElementIcon.vue\n(components/ElementIcon.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 300,
+      "y": 850
+    },
+    "data": {
+      "filePath": "components/ElementIcon.vue"
+    }
+  },
+  {
+    "id": "node_31",
+    "type": "default",
+    "label": "EndTurnButton.vue\n(components/EndTurnButton.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 500,
+      "y": 850
+    },
+    "data": {
+      "filePath": "components/EndTurnButton.vue"
+    }
+  },
+  {
+    "id": "node_32",
+    "type": "default",
+    "label": "FactionIcon.vue\n(components/FactionIcon.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 700,
+      "y": 850
+    },
+    "data": {
+      "filePath": "components/FactionIcon.vue"
+    }
+  },
+  {
+    "id": "node_33",
+    "type": "default",
+    "label": "GameBoard.vue\n(components/GameBoard.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 900,
+      "y": 850
+    },
+    "data": {
+      "filePath": "components/GameBoard.vue"
+    }
+  },
+  {
+    "id": "node_34",
+    "type": "default",
+    "label": "GameCanvas.vue\n(components/GameCanvas.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 100,
+      "y": 1000
+    },
+    "data": {
+      "filePath": "components/GameCanvas.vue"
+    }
+  },
+  {
+    "id": "node_35",
+    "type": "default",
+    "label": "GameOver.vue\n(components/GameOver.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 300,
+      "y": 1000
+    },
+    "data": {
+      "filePath": "components/GameOver.vue"
+    }
+  },
+  {
+    "id": "node_36",
+    "type": "default",
+    "label": "HelloWorld.vue\n(components/HelloWorld.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 500,
+      "y": 1000
+    },
+    "data": {
+      "filePath": "components/HelloWorld.vue"
+    }
+  },
+  {
+    "id": "node_37",
+    "type": "default",
+    "label": "InitialLoader.vue\n(components/InitialLoader.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 700,
+      "y": 1000
+    },
+    "data": {
+      "filePath": "components/InitialLoader.vue"
+    }
+  },
+  {
+    "id": "node_38",
+    "type": "default",
+    "label": "LeftDrawer.vue\n(components/LeftDrawer.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 900,
+      "y": 1000
+    },
+    "data": {
+      "filePath": "components/LeftDrawer.vue"
+    }
+  },
+  {
+    "id": "node_39",
+    "type": "default",
+    "label": "MiniDeck.vue\n(components/MiniDeck.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 100,
+      "y": 1150
+    },
+    "data": {
+      "filePath": "components/MiniDeck.vue"
+    }
+  },
+  {
+    "id": "node_40",
+    "type": "default",
+    "label": "NotificationToast.vue\n(components/NotificationToast.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 300,
+      "y": 1150
+    },
+    "data": {
+      "filePath": "components/NotificationToast.vue"
+    }
+  },
+  {
+    "id": "node_41",
+    "type": "default",
+    "label": "OpponentHand.vue\n(components/OpponentHand.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 500,
+      "y": 1150
+    },
+    "data": {
+      "filePath": "components/OpponentHand.vue"
+    }
+  },
+  {
+    "id": "node_42",
+    "type": "default",
+    "label": "PageLayout.vue\n(components/PageLayout.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 700,
+      "y": 1150
+    },
+    "data": {
+      "filePath": "components/PageLayout.vue"
+    }
+  },
+  {
+    "id": "node_43",
+    "type": "default",
+    "label": "PlayerHand.vue\n(components/PlayerHand.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 900,
+      "y": 1150
+    },
+    "data": {
+      "filePath": "components/PlayerHand.vue"
+    }
+  },
+  {
+    "id": "node_44",
+    "type": "default",
+    "label": "QuestItem.vue\n(components/QuestItem.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 100,
+      "y": 1300
+    },
+    "data": {
+      "filePath": "components/QuestItem.vue"
+    }
+  },
+  {
+    "id": "node_45",
+    "type": "default",
+    "label": "QuestModal.vue\n(components/QuestModal.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 300,
+      "y": 1300
+    },
+    "data": {
+      "filePath": "components/QuestModal.vue"
+    }
+  },
+  {
+    "id": "node_46",
+    "type": "default",
+    "label": "RewardModal.vue\n(components/RewardModal.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 500,
+      "y": 1300
+    },
+    "data": {
+      "filePath": "components/RewardModal.vue"
+    }
+  },
+  {
+    "id": "node_47",
+    "type": "default",
+    "label": "RightDrawer.vue\n(components/RightDrawer.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 700,
+      "y": 1300
+    },
+    "data": {
+      "filePath": "components/RightDrawer.vue"
+    }
+  },
+  {
+    "id": "node_48",
+    "type": "default",
+    "label": "RulesPanel.vue\n(components/RulesPanel.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 900,
+      "y": 1300
+    },
+    "data": {
+      "filePath": "components/RulesPanel.vue"
+    }
+  },
+  {
+    "id": "node_49",
+    "type": "default",
+    "label": "ScorePanel.vue\n(components/ScorePanel.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 100,
+      "y": 1450
+    },
+    "data": {
+      "filePath": "components/ScorePanel.vue"
+    }
+  },
+  {
+    "id": "node_50",
+    "type": "default",
+    "label": "TopNavbar.vue\n(components/TopNavbar.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 300,
+      "y": 1450
+    },
+    "data": {
+      "filePath": "components/TopNavbar.vue"
+    }
+  },
+  {
+    "id": "node_51",
+    "type": "default",
+    "label": "TripleTriadCard.vue\n(components/TripleTriadCard.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 500,
+      "y": 1450
+    },
+    "data": {
+      "filePath": "components/TripleTriadCard.vue"
+    }
+  },
+  {
+    "id": "node_52",
+    "type": "default",
+    "label": "TripleTriadCardGrid.vue\n(components/TripleTriadCardGrid.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 700,
+      "y": 1450
+    },
+    "data": {
+      "filePath": "components/TripleTriadCardGrid.vue"
+    }
+  },
+  {
+    "id": "node_53",
+    "type": "default",
+    "label": "UserParameters.vue\n(components/UserParameters.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 900,
+      "y": 1450
+    },
+    "data": {
+      "filePath": "components/UserParameters.vue"
+    }
+  },
+  {
+    "id": "node_54",
+    "type": "default",
+    "label": "SituationBattle.vue\n(components/story/SituationBattle.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 100,
+      "y": 1600
+    },
+    "data": {
+      "filePath": "components/story/SituationBattle.vue"
+    }
+  },
+  {
+    "id": "node_55",
+    "type": "default",
+    "label": "SituationChoice.vue\n(components/story/SituationChoice.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 300,
+      "y": 1600
+    },
+    "data": {
+      "filePath": "components/story/SituationChoice.vue"
+    }
+  },
+  {
+    "id": "node_56",
+    "type": "default",
+    "label": "SituationDialogue.vue\n(components/story/SituationDialogue.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 500,
+      "y": 1600
+    },
+    "data": {
+      "filePath": "components/story/SituationDialogue.vue"
+    }
+  },
+  {
+    "id": "node_57",
+    "type": "default",
+    "label": "SituationGameOver.vue\n(components/story/SituationGameOver.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 700,
+      "y": 1600
+    },
+    "data": {
+      "filePath": "components/story/SituationGameOver.vue"
+    }
+  },
+  {
+    "id": "node_58",
+    "type": "default",
+    "label": "SituationSuccess.vue\n(components/story/SituationSuccess.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 900,
+      "y": 1600
+    },
+    "data": {
+      "filePath": "components/story/SituationSuccess.vue"
+    }
+  },
+  {
+    "id": "node_59",
+    "type": "default",
+    "label": "AppButton.vue\n(components/ui/AppButton.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 100,
+      "y": 1750
+    },
+    "data": {
+      "filePath": "components/ui/AppButton.vue"
+    }
+  },
+  {
+    "id": "node_60",
+    "type": "default",
+    "label": "AppCard.vue\n(components/ui/AppCard.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 300,
+      "y": 1750
+    },
+    "data": {
+      "filePath": "components/ui/AppCard.vue"
+    }
+  },
+  {
+    "id": "node_61",
+    "type": "default",
+    "label": "AppModal.vue\n(components/ui/AppModal.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 500,
+      "y": 1750
+    },
+    "data": {
+      "filePath": "components/ui/AppModal.vue"
+    }
+  },
+  {
+    "id": "node_62",
+    "type": "default",
+    "label": "AppPanel.vue\n(components/ui/AppPanel.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 700,
+      "y": 1750
+    },
+    "data": {
+      "filePath": "components/ui/AppPanel.vue"
+    }
+  },
+  {
+    "id": "node_63",
+    "type": "default",
+    "label": "PurchaseButton.vue\n(components/ui/PurchaseButton.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 900,
+      "y": 1750
+    },
+    "data": {
+      "filePath": "components/ui/PurchaseButton.vue"
+    }
+  },
+  {
+    "id": "node_64",
+    "type": "default",
+    "label": "factions.js\n(data/factions.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1200,
+      "y": 250
+    },
+    "data": {
+      "filePath": "data/factions.js"
+    }
+  },
+  {
+    "id": "node_65",
+    "type": "default",
+    "label": "GameEngine.js\n(game/GameEngine.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1400,
+      "y": 250
+    },
+    "data": {
+      "filePath": "game/GameEngine.js"
+    }
+  },
+  {
+    "id": "node_66",
+    "type": "default",
+    "label": "TurnManager.js\n(game/TurnManager.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1600,
+      "y": 250
+    },
+    "data": {
+      "filePath": "game/TurnManager.js"
+    }
+  },
+  {
+    "id": "node_67",
+    "type": "default",
+    "label": "WebRTCManager.js\n(game/WebRTCManager.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1200,
+      "y": 400
+    },
+    "data": {
+      "filePath": "game/WebRTCManager.js"
+    }
+  },
+  {
+    "id": "node_68",
+    "type": "default",
+    "label": "ai.js\n(game/ai.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1400,
+      "y": 400
+    },
+    "data": {
+      "filePath": "game/ai.js"
+    }
+  },
+  {
+    "id": "node_69",
+    "type": "default",
+    "label": "constants.js\n(game/constants.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1600,
+      "y": 400
+    },
+    "data": {
+      "filePath": "game/constants.js"
+    }
+  },
+  {
+    "id": "node_70",
+    "type": "default",
+    "label": "engine.js\n(game/engine.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1200,
+      "y": 550
+    },
+    "data": {
+      "filePath": "game/engine.js"
+    }
+  },
+  {
+    "id": "node_71",
+    "type": "default",
+    "label": "events.js\n(game/events.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1400,
+      "y": 550
+    },
+    "data": {
+      "filePath": "game/events.js"
+    }
+  },
+  {
+    "id": "node_72",
+    "type": "default",
+    "label": "game-actions.js\n(game/game-actions.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1600,
+      "y": 550
+    },
+    "data": {
+      "filePath": "game/game-actions.js"
+    }
+  },
+  {
+    "id": "node_73",
+    "type": "default",
+    "label": "getNeighbors.js\n(game/getNeighbors.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1200,
+      "y": 700
+    },
+    "data": {
+      "filePath": "game/getNeighbors.js"
+    }
+  },
+  {
+    "id": "node_74",
+    "type": "default",
+    "label": "input.js\n(game/input.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1400,
+      "y": 700
+    },
+    "data": {
+      "filePath": "game/input.js"
+    }
+  },
+  {
+    "id": "node_75",
+    "type": "default",
+    "label": "logger.js\n(game/logger.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1600,
+      "y": 700
+    },
+    "data": {
+      "filePath": "game/logger.js"
+    }
+  },
+  {
+    "id": "node_76",
+    "type": "default",
+    "label": "notificationManager.js\n(game/notificationManager.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1200,
+      "y": 850
+    },
+    "data": {
+      "filePath": "game/notificationManager.js"
+    }
+  },
+  {
+    "id": "node_77",
+    "type": "default",
+    "label": "rules.js\n(game/rules.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1400,
+      "y": 850
+    },
+    "data": {
+      "filePath": "game/rules.js"
+    }
+  },
+  {
+    "id": "node_78",
+    "type": "default",
+    "label": "state.js\n(game/state.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1600,
+      "y": 850
+    },
+    "data": {
+      "filePath": "game/state.js"
+    }
+  },
+  {
+    "id": "node_79",
+    "type": "default",
+    "label": "three-scene.js\n(game/three-scene.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1200,
+      "y": 1000
+    },
+    "data": {
+      "filePath": "game/three-scene.js"
+    }
+  },
+  {
+    "id": "node_80",
+    "type": "default",
+    "label": "AdminLayout.vue\n(layouts/AdminLayout.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 100,
+      "y": 1900
+    },
+    "data": {
+      "filePath": "layouts/AdminLayout.vue"
+    }
+  },
+  {
+    "id": "node_81",
+    "type": "default",
+    "label": "AppLayout.vue\n(layouts/AppLayout.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 300,
+      "y": 1900
+    },
+    "data": {
+      "filePath": "layouts/AppLayout.vue"
+    }
+  },
+  {
+    "id": "node_82",
+    "type": "default",
+    "label": "BlankLayout.vue\n(layouts/BlankLayout.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 500,
+      "y": 1900
+    },
+    "data": {
+      "filePath": "layouts/BlankLayout.vue"
+    }
+  },
+  {
+    "id": "node_83",
+    "type": "default",
+    "label": "PlayerLayout.vue\n(layouts/PlayerLayout.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 700,
+      "y": 1900
+    },
+    "data": {
+      "filePath": "layouts/PlayerLayout.vue"
+    }
+  },
+  {
+    "id": "node_84",
+    "type": "default",
+    "label": "main.js\n(main.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1400,
+      "y": 1000
+    },
+    "data": {
+      "filePath": "main.js"
+    }
+  },
+  {
+    "id": "node_85",
+    "type": "default",
+    "label": "index.js\n(router/index.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1600,
+      "y": 1000
+    },
+    "data": {
+      "filePath": "router/index.js"
+    }
+  },
+  {
+    "id": "node_86",
+    "type": "default",
+    "label": "layoutStore.js\n(stores/layoutStore.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1200,
+      "y": 1150
+    },
+    "data": {
+      "filePath": "stores/layoutStore.js"
+    }
+  },
+  {
+    "id": "node_87",
+    "type": "default",
+    "label": "notificationStore.js\n(stores/notificationStore.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1400,
+      "y": 1150
+    },
+    "data": {
+      "filePath": "stores/notificationStore.js"
+    }
+  },
+  {
+    "id": "node_88",
+    "type": "default",
+    "label": "userStore.js\n(stores/userStore.js)",
+    "style": {
+      "backgroundColor": "#1f6feb",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 1600,
+      "y": 1150
+    },
+    "data": {
+      "filePath": "stores/userStore.js"
+    }
+  },
+  {
+    "id": "node_89",
+    "type": "default",
+    "label": "BoutiquePage.vue\n(views/BoutiquePage.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 900,
+      "y": 1900
+    },
+    "data": {
+      "filePath": "views/BoutiquePage.vue"
+    }
+  },
+  {
+    "id": "node_90",
+    "type": "default",
+    "label": "CollectionView.vue\n(views/CollectionView.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 100,
+      "y": 2050
+    },
+    "data": {
+      "filePath": "views/CollectionView.vue"
+    }
+  },
+  {
+    "id": "node_91",
+    "type": "default",
+    "label": "DeckEditorPage.vue\n(views/DeckEditorPage.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 300,
+      "y": 2050
+    },
+    "data": {
+      "filePath": "views/DeckEditorPage.vue"
+    }
+  },
+  {
+    "id": "node_92",
+    "type": "default",
+    "label": "DecksPage.vue\n(views/DecksPage.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 500,
+      "y": 2050
+    },
+    "data": {
+      "filePath": "views/DecksPage.vue"
+    }
+  },
+  {
+    "id": "node_93",
+    "type": "default",
+    "label": "GameView.vue\n(views/GameView.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 700,
+      "y": 2050
+    },
+    "data": {
+      "filePath": "views/GameView.vue"
+    }
+  },
+  {
+    "id": "node_94",
+    "type": "default",
+    "label": "MainMenu.vue\n(views/MainMenu.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 900,
+      "y": 2050
+    },
+    "data": {
+      "filePath": "views/MainMenu.vue"
+    }
+  },
+  {
+    "id": "node_95",
+    "type": "default",
+    "label": "PackOpening.vue\n(views/PackOpening.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 100,
+      "y": 2200
+    },
+    "data": {
+      "filePath": "views/PackOpening.vue"
+    }
+  },
+  {
+    "id": "node_96",
+    "type": "default",
+    "label": "QuestsPage.vue\n(views/QuestsPage.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 300,
+      "y": 2200
+    },
+    "data": {
+      "filePath": "views/QuestsPage.vue"
+    }
+  },
+  {
+    "id": "node_97",
+    "type": "default",
+    "label": "StoryPage.vue\n(views/StoryPage.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 500,
+      "y": 2200
+    },
+    "data": {
+      "filePath": "views/StoryPage.vue"
+    }
+  },
+  {
+    "id": "node_98",
+    "type": "default",
+    "label": "StoryStepView.vue\n(views/StoryStepView.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 700,
+      "y": 2200
+    },
+    "data": {
+      "filePath": "views/StoryStepView.vue"
+    }
+  },
+  {
+    "id": "node_99",
+    "type": "default",
+    "label": "StoryStepsPage.vue\n(views/StoryStepsPage.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 900,
+      "y": 2200
+    },
+    "data": {
+      "filePath": "views/StoryStepsPage.vue"
+    }
+  },
+  {
+    "id": "node_100",
+    "type": "default",
+    "label": "WalletBoostersPage.vue\n(views/WalletBoostersPage.vue)",
+    "style": {
+      "backgroundColor": "#238636",
+      "color": "#fff",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px"
+    },
+    "position": {
+      "x": 100,
+      "y": 2350
+    },
+    "data": {
+      "filePath": "views/WalletBoostersPage.vue"
+    }
+  },
+  {
+    "id": "api_101",
+    "label": "API: users (UPDATE)",
+    "style": {
+      "backgroundColor": "#d29922",
+      "color": "#000",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px",
+      "fontWeight": "bold"
+    },
+    "position": {
+      "x": 100,
+      "y": 1200
+    },
+    "data": {}
+  },
+  {
+    "id": "api_102",
+    "label": "API: cards (FIND)",
+    "style": {
+      "backgroundColor": "#d29922",
+      "color": "#000",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px",
+      "fontWeight": "bold"
+    },
+    "position": {
+      "x": 300,
+      "y": 1200
+    },
+    "data": {}
+  },
+  {
+    "id": "api_103",
+    "label": "API: foil-effects (FIND)",
+    "style": {
+      "backgroundColor": "#d29922",
+      "color": "#000",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px",
+      "fontWeight": "bold"
+    },
+    "position": {
+      "x": 500,
+      "y": 1200
+    },
+    "data": {}
+  },
+  {
+    "id": "api_104",
+    "label": "API: foil-effects (UPDATE)",
+    "style": {
+      "backgroundColor": "#d29922",
+      "color": "#000",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px",
+      "fontWeight": "bold"
+    },
+    "position": {
+      "x": 700,
+      "y": 1200
+    },
+    "data": {}
+  },
+  {
+    "id": "api_105",
+    "label": "API: foil-effects (CREATE)",
+    "style": {
+      "backgroundColor": "#d29922",
+      "color": "#000",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px",
+      "fontWeight": "bold"
+    },
+    "position": {
+      "x": 100,
+      "y": 1350
+    },
+    "data": {}
+  },
+  {
+    "id": "api_106",
+    "label": "API: player-quests (FIND)",
+    "style": {
+      "backgroundColor": "#d29922",
+      "color": "#000",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px",
+      "fontWeight": "bold"
+    },
+    "position": {
+      "x": 300,
+      "y": 1350
+    },
+    "data": {}
+  },
+  {
+    "id": "api_107",
+    "label": "API: user-cards (FIND)",
+    "style": {
+      "backgroundColor": "#d29922",
+      "color": "#000",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px",
+      "fontWeight": "bold"
+    },
+    "position": {
+      "x": 500,
+      "y": 1350
+    },
+    "data": {}
+  },
+  {
+    "id": "api_108",
+    "label": "API: decks (FIND)",
+    "style": {
+      "backgroundColor": "#d29922",
+      "color": "#000",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px",
+      "fontWeight": "bold"
+    },
+    "position": {
+      "x": 700,
+      "y": 1350
+    },
+    "data": {}
+  },
+  {
+    "id": "api_109",
+    "label": "API: player-story-progresses (FIND)",
+    "style": {
+      "backgroundColor": "#d29922",
+      "color": "#000",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px",
+      "fontWeight": "bold"
+    },
+    "position": {
+      "x": 100,
+      "y": 1500
+    },
+    "data": {}
+  },
+  {
+    "id": "api_110",
+    "label": "API: decks (CREATE)",
+    "style": {
+      "backgroundColor": "#d29922",
+      "color": "#000",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px",
+      "fontWeight": "bold"
+    },
+    "position": {
+      "x": 300,
+      "y": 1500
+    },
+    "data": {}
+  },
+  {
+    "id": "api_111",
+    "label": "API: decks (UPDATE)",
+    "style": {
+      "backgroundColor": "#d29922",
+      "color": "#000",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px",
+      "fontWeight": "bold"
+    },
+    "position": {
+      "x": 500,
+      "y": 1500
+    },
+    "data": {}
+  },
+  {
+    "id": "api_112",
+    "label": "API: decks (DELETE)",
+    "style": {
+      "backgroundColor": "#d29922",
+      "color": "#000",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px",
+      "fontWeight": "bold"
+    },
+    "position": {
+      "x": 700,
+      "y": 1500
+    },
+    "data": {}
+  },
+  {
+    "id": "api_113",
+    "label": "API: decks (FINDONE)",
+    "style": {
+      "backgroundColor": "#d29922",
+      "color": "#000",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px",
+      "fontWeight": "bold"
+    },
+    "position": {
+      "x": 100,
+      "y": 1650
+    },
+    "data": {}
+  },
+  {
+    "id": "api_114",
+    "label": "API: http://localhost:1337/api/booster/buy",
+    "style": {
+      "backgroundColor": "#d29922",
+      "color": "#000",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px",
+      "fontWeight": "bold"
+    },
+    "position": {
+      "x": 300,
+      "y": 1650
+    },
+    "data": {}
+  },
+  {
+    "id": "api_115",
+    "label": "API: http://localhost:1337/api/booster/open",
+    "style": {
+      "backgroundColor": "#d29922",
+      "color": "#000",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px",
+      "fontWeight": "bold"
+    },
+    "position": {
+      "x": 500,
+      "y": 1650
+    },
+    "data": {}
+  },
+  {
+    "id": "api_116",
+    "label": "API: stories (FIND)",
+    "style": {
+      "backgroundColor": "#d29922",
+      "color": "#000",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px",
+      "fontWeight": "bold"
+    },
+    "position": {
+      "x": 700,
+      "y": 1650
+    },
+    "data": {}
+  },
+  {
+    "id": "api_117",
+    "label": "API: stories (FINDONE)",
+    "style": {
+      "backgroundColor": "#d29922",
+      "color": "#000",
+      "border": "none",
+      "borderRadius": "8px",
+      "padding": "10px",
+      "fontWeight": "bold"
+    },
+    "position": {
+      "x": 100,
+      "y": 1800
+    },
+    "data": {}
+  },
+  {
+    "id": "edge_node_1_node_81",
+    "source": "node_1",
+    "target": "node_81",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_1_node_40",
+    "source": "node_1",
+    "target": "node_40",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_1_node_22",
+    "source": "node_1",
+    "target": "node_22",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_1_node_29",
+    "source": "node_1",
+    "target": "node_29",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_1_node_78",
+    "source": "node_1",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_1_node_88",
+    "source": "node_1",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_1_node_87",
+    "source": "node_1",
+    "target": "node_87",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_1_node_76",
+    "source": "node_1",
+    "target": "node_76",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_1_node_19",
+    "source": "node_1",
+    "target": "node_19",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_1_node_37",
+    "source": "node_1",
+    "target": "node_37",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_1_node_38",
+    "source": "node_1",
+    "target": "node_38",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_3_node_59",
+    "source": "node_3",
+    "target": "node_59",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_3_node_5",
+    "source": "node_3",
+    "target": "node_5",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_3_node_88",
+    "source": "node_3",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_3_node_78",
+    "source": "node_3",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_5_node_78",
+    "source": "node_5",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_5_node_19",
+    "source": "node_5",
+    "target": "node_19",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_5_node_88",
+    "source": "node_5",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_5_node_86",
+    "source": "node_5",
+    "target": "node_86",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_5_api_101",
+    "source": "node_5",
+    "target": "api_101",
+    "label": "UPDATE",
+    "animated": true,
+    "style": {
+      "stroke": "#d29922"
+    }
+  },
+  {
+    "id": "edge_node_6_node_51",
+    "source": "node_6",
+    "target": "node_51",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_6_node_8",
+    "source": "node_6",
+    "target": "node_8",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_6_node_4",
+    "source": "node_6",
+    "target": "node_4",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_9_node_59",
+    "source": "node_9",
+    "target": "node_59",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_10_node_42",
+    "source": "node_10",
+    "target": "node_42",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_10_node_51",
+    "source": "node_10",
+    "target": "node_51",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_11_node_28",
+    "source": "node_11",
+    "target": "node_28",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_11_node_64",
+    "source": "node_11",
+    "target": "node_64",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_13_node_88",
+    "source": "node_13",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_13_node_19",
+    "source": "node_13",
+    "target": "node_19",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_14_node_59",
+    "source": "node_14",
+    "target": "node_59",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_15_node_62",
+    "source": "node_15",
+    "target": "node_62",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_15_node_59",
+    "source": "node_15",
+    "target": "node_59",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_15_node_8",
+    "source": "node_15",
+    "target": "node_8",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_15_api_102",
+    "source": "node_15",
+    "target": "api_102",
+    "label": "FIND",
+    "animated": true,
+    "style": {
+      "stroke": "#d29922"
+    }
+  },
+  {
+    "id": "edge_node_15_api_103",
+    "source": "node_15",
+    "target": "api_103",
+    "label": "FIND",
+    "animated": true,
+    "style": {
+      "stroke": "#d29922"
+    }
+  },
+  {
+    "id": "edge_node_15_api_104",
+    "source": "node_15",
+    "target": "api_104",
+    "label": "UPDATE",
+    "animated": true,
+    "style": {
+      "stroke": "#d29922"
+    }
+  },
+  {
+    "id": "edge_node_15_api_105",
+    "source": "node_15",
+    "target": "api_105",
+    "label": "CREATE",
+    "animated": true,
+    "style": {
+      "stroke": "#d29922"
+    }
+  },
+  {
+    "id": "edge_node_18_node_42",
+    "source": "node_18",
+    "target": "node_42",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_21_node_78",
+    "source": "node_21",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_22_node_78",
+    "source": "node_22",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_26_node_30",
+    "source": "node_26",
+    "target": "node_30",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_26_node_78",
+    "source": "node_26",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_26_node_88",
+    "source": "node_26",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_26_node_63",
+    "source": "node_26",
+    "target": "node_63",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_28_node_64",
+    "source": "node_28",
+    "target": "node_64",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_28_node_32",
+    "source": "node_28",
+    "target": "node_32",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_28_node_27",
+    "source": "node_28",
+    "target": "node_27",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_29_node_78",
+    "source": "node_29",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_31_node_78",
+    "source": "node_31",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_31_node_72",
+    "source": "node_31",
+    "target": "node_72",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_31_node_75",
+    "source": "node_31",
+    "target": "node_75",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_32_node_64",
+    "source": "node_32",
+    "target": "node_64",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_32_node_30",
+    "source": "node_32",
+    "target": "node_30",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_33_node_78",
+    "source": "node_33",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_33_node_72",
+    "source": "node_33",
+    "target": "node_72",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_33_node_51",
+    "source": "node_33",
+    "target": "node_51",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_34_node_79",
+    "source": "node_34",
+    "target": "node_79",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_34_node_74",
+    "source": "node_34",
+    "target": "node_74",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_34_node_78",
+    "source": "node_34",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_35_node_78",
+    "source": "node_35",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_38_node_78",
+    "source": "node_38",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_38_node_94",
+    "source": "node_38",
+    "target": "node_94",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_38_node_3",
+    "source": "node_38",
+    "target": "node_3",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_39_node_78",
+    "source": "node_39",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_39_node_60",
+    "source": "node_39",
+    "target": "node_60",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_39_node_23",
+    "source": "node_39",
+    "target": "node_23",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_40_node_87",
+    "source": "node_40",
+    "target": "node_87",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_41_node_78",
+    "source": "node_41",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_41_node_51",
+    "source": "node_41",
+    "target": "node_51",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_43_node_78",
+    "source": "node_43",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_43_node_72",
+    "source": "node_43",
+    "target": "node_72",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_43_node_51",
+    "source": "node_43",
+    "target": "node_51",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_45_node_19",
+    "source": "node_45",
+    "target": "node_19",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_45_api_106",
+    "source": "node_45",
+    "target": "api_106",
+    "label": "FIND",
+    "animated": true,
+    "style": {
+      "stroke": "#d29922"
+    }
+  },
+  {
+    "id": "edge_node_46_node_51",
+    "source": "node_46",
+    "target": "node_51",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_46_node_19",
+    "source": "node_46",
+    "target": "node_19",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_47_node_78",
+    "source": "node_47",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_47_node_51",
+    "source": "node_47",
+    "target": "node_51",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_47_node_19",
+    "source": "node_47",
+    "target": "node_19",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_47_node_88",
+    "source": "node_47",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_47_node_87",
+    "source": "node_47",
+    "target": "node_87",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_47_node_53",
+    "source": "node_47",
+    "target": "node_53",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_48_node_78",
+    "source": "node_48",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_48_node_77",
+    "source": "node_48",
+    "target": "node_77",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_50_node_78",
+    "source": "node_50",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_50_node_88",
+    "source": "node_50",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_50_node_45",
+    "source": "node_50",
+    "target": "node_45",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_51_node_23",
+    "source": "node_51",
+    "target": "node_23",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_51_node_25",
+    "source": "node_51",
+    "target": "node_25",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_51_node_30",
+    "source": "node_51",
+    "target": "node_30",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_51_node_26",
+    "source": "node_51",
+    "target": "node_26",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_51_node_78",
+    "source": "node_51",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_51_node_88",
+    "source": "node_51",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_52_node_51",
+    "source": "node_52",
+    "target": "node_51",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_53_node_88",
+    "source": "node_53",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_53_node_78",
+    "source": "node_53",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_53_node_52",
+    "source": "node_53",
+    "target": "node_52",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_54_node_59",
+    "source": "node_54",
+    "target": "node_59",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_55_node_88",
+    "source": "node_55",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_55_node_59",
+    "source": "node_55",
+    "target": "node_59",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_55_node_63",
+    "source": "node_55",
+    "target": "node_63",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_56_node_88",
+    "source": "node_56",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_56_node_19",
+    "source": "node_56",
+    "target": "node_19",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_57_node_59",
+    "source": "node_57",
+    "target": "node_59",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_58_node_59",
+    "source": "node_58",
+    "target": "node_59",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_63_node_88",
+    "source": "node_63",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_63_node_59",
+    "source": "node_63",
+    "target": "node_59",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_66_node_65",
+    "source": "node_66",
+    "target": "node_65",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_66_node_71",
+    "source": "node_66",
+    "target": "node_71",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_68_node_78",
+    "source": "node_68",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_68_node_70",
+    "source": "node_68",
+    "target": "node_70",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_68_node_77",
+    "source": "node_68",
+    "target": "node_77",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_70_node_78",
+    "source": "node_70",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_70_node_77",
+    "source": "node_70",
+    "target": "node_77",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_70_node_73",
+    "source": "node_70",
+    "target": "node_73",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_72_node_78",
+    "source": "node_72",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_72_node_70",
+    "source": "node_72",
+    "target": "node_70",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_72_node_68",
+    "source": "node_72",
+    "target": "node_68",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_74_node_78",
+    "source": "node_74",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_74_node_79",
+    "source": "node_74",
+    "target": "node_79",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_74_node_70",
+    "source": "node_74",
+    "target": "node_70",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_74_node_68",
+    "source": "node_74",
+    "target": "node_68",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_74_node_70",
+    "source": "node_74",
+    "target": "node_70",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_75_node_78",
+    "source": "node_75",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_75_node_19",
+    "source": "node_75",
+    "target": "node_19",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_76_node_71",
+    "source": "node_76",
+    "target": "node_71",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_76_node_87",
+    "source": "node_76",
+    "target": "node_87",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_78_node_77",
+    "source": "node_78",
+    "target": "node_77",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_78_node_67",
+    "source": "node_78",
+    "target": "node_67",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_78_node_66",
+    "source": "node_78",
+    "target": "node_66",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_78_node_65",
+    "source": "node_78",
+    "target": "node_65",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_78_node_71",
+    "source": "node_78",
+    "target": "node_71",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_78_node_19",
+    "source": "node_78",
+    "target": "node_19",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_78_node_75",
+    "source": "node_78",
+    "target": "node_75",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_78_api_102",
+    "source": "node_78",
+    "target": "api_102",
+    "label": "FIND",
+    "animated": true,
+    "style": {
+      "stroke": "#d29922"
+    }
+  },
+  {
+    "id": "edge_node_79_node_78",
+    "source": "node_79",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_79_node_69",
+    "source": "node_79",
+    "target": "node_69",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_80_node_88",
+    "source": "node_80",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_80_node_78",
+    "source": "node_80",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_80_node_59",
+    "source": "node_80",
+    "target": "node_59",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_81_node_86",
+    "source": "node_81",
+    "target": "node_86",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_81_node_83",
+    "source": "node_81",
+    "target": "node_83",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_81_node_80",
+    "source": "node_81",
+    "target": "node_80",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_81_node_82",
+    "source": "node_81",
+    "target": "node_82",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_83_node_50",
+    "source": "node_83",
+    "target": "node_50",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_83_node_47",
+    "source": "node_83",
+    "target": "node_47",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_83_node_24",
+    "source": "node_83",
+    "target": "node_24",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_84_node_1",
+    "source": "node_84",
+    "target": "node_1",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_84_node_59",
+    "source": "node_84",
+    "target": "node_59",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_84_node_60",
+    "source": "node_84",
+    "target": "node_60",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_84_node_62",
+    "source": "node_84",
+    "target": "node_62",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_84_node_61",
+    "source": "node_84",
+    "target": "node_61",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_84_node_88",
+    "source": "node_84",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_85_node_93",
+    "source": "node_85",
+    "target": "node_93",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_85_node_90",
+    "source": "node_85",
+    "target": "node_90",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_85_node_91",
+    "source": "node_85",
+    "target": "node_91",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_85_node_92",
+    "source": "node_85",
+    "target": "node_92",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_85_node_95",
+    "source": "node_85",
+    "target": "node_95",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_85_node_94",
+    "source": "node_85",
+    "target": "node_94",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_85_node_97",
+    "source": "node_85",
+    "target": "node_97",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_85_node_96",
+    "source": "node_85",
+    "target": "node_96",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_85_node_98",
+    "source": "node_85",
+    "target": "node_98",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_85_node_88",
+    "source": "node_85",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_88_node_19",
+    "source": "node_88",
+    "target": "node_19",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_88_node_20",
+    "source": "node_88",
+    "target": "node_20",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_88_node_78",
+    "source": "node_88",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_88_api_107",
+    "source": "node_88",
+    "target": "api_107",
+    "label": "FIND",
+    "animated": true,
+    "style": {
+      "stroke": "#d29922"
+    }
+  },
+  {
+    "id": "edge_node_88_api_108",
+    "source": "node_88",
+    "target": "api_108",
+    "label": "FIND",
+    "animated": true,
+    "style": {
+      "stroke": "#d29922"
+    }
+  },
+  {
+    "id": "edge_node_88_api_106",
+    "source": "node_88",
+    "target": "api_106",
+    "label": "FIND",
+    "animated": true,
+    "style": {
+      "stroke": "#d29922"
+    }
+  },
+  {
+    "id": "edge_node_88_api_109",
+    "source": "node_88",
+    "target": "api_109",
+    "label": "FIND",
+    "animated": true,
+    "style": {
+      "stroke": "#d29922"
+    }
+  },
+  {
+    "id": "edge_node_88_api_110",
+    "source": "node_88",
+    "target": "api_110",
+    "label": "CREATE",
+    "animated": true,
+    "style": {
+      "stroke": "#d29922"
+    }
+  },
+  {
+    "id": "edge_node_88_api_111",
+    "source": "node_88",
+    "target": "api_111",
+    "label": "UPDATE",
+    "animated": true,
+    "style": {
+      "stroke": "#d29922"
+    }
+  },
+  {
+    "id": "edge_node_88_api_112",
+    "source": "node_88",
+    "target": "api_112",
+    "label": "DELETE",
+    "animated": true,
+    "style": {
+      "stroke": "#d29922"
+    }
+  },
+  {
+    "id": "edge_node_89_node_19",
+    "source": "node_89",
+    "target": "node_19",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_89_node_20",
+    "source": "node_89",
+    "target": "node_20",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_89_node_51",
+    "source": "node_89",
+    "target": "node_51",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_89_node_23",
+    "source": "node_89",
+    "target": "node_23",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_89_node_88",
+    "source": "node_89",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_89_node_63",
+    "source": "node_89",
+    "target": "node_63",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_90_node_42",
+    "source": "node_90",
+    "target": "node_42",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_90_node_78",
+    "source": "node_90",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_90_node_51",
+    "source": "node_90",
+    "target": "node_51",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_90_node_52",
+    "source": "node_90",
+    "target": "node_52",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_90_node_30",
+    "source": "node_90",
+    "target": "node_30",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_90_node_88",
+    "source": "node_90",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_90_node_19",
+    "source": "node_90",
+    "target": "node_19",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_91_node_42",
+    "source": "node_91",
+    "target": "node_42",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_91_node_78",
+    "source": "node_91",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_91_node_88",
+    "source": "node_91",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_91_node_51",
+    "source": "node_91",
+    "target": "node_51",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_91_node_30",
+    "source": "node_91",
+    "target": "node_30",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_91_node_23",
+    "source": "node_91",
+    "target": "node_23",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_91_api_113",
+    "source": "node_91",
+    "target": "api_113",
+    "label": "FINDONE",
+    "animated": true,
+    "style": {
+      "stroke": "#d29922"
+    }
+  },
+  {
+    "id": "edge_node_92_node_78",
+    "source": "node_92",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_92_node_88",
+    "source": "node_92",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_92_node_23",
+    "source": "node_92",
+    "target": "node_23",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_92_node_39",
+    "source": "node_92",
+    "target": "node_39",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_93_node_78",
+    "source": "node_93",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_93_node_72",
+    "source": "node_93",
+    "target": "node_72",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_93_node_49",
+    "source": "node_93",
+    "target": "node_49",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_93_node_33",
+    "source": "node_93",
+    "target": "node_33",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_93_node_43",
+    "source": "node_93",
+    "target": "node_43",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_93_node_41",
+    "source": "node_93",
+    "target": "node_41",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_93_node_21",
+    "source": "node_93",
+    "target": "node_21",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_93_node_31",
+    "source": "node_93",
+    "target": "node_31",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_93_node_35",
+    "source": "node_93",
+    "target": "node_35",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_93_node_28",
+    "source": "node_93",
+    "target": "node_28",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_93_node_78",
+    "source": "node_93",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_94_node_78",
+    "source": "node_94",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_94_node_28",
+    "source": "node_94",
+    "target": "node_28",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_94_node_23",
+    "source": "node_94",
+    "target": "node_23",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_94_node_39",
+    "source": "node_94",
+    "target": "node_39",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_94_node_88",
+    "source": "node_94",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_95_node_51",
+    "source": "node_95",
+    "target": "node_51",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_95_node_78",
+    "source": "node_95",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_95_node_88",
+    "source": "node_95",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_95_node_20",
+    "source": "node_95",
+    "target": "node_20",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_95_node_52",
+    "source": "node_95",
+    "target": "node_52",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_95_node_59",
+    "source": "node_95",
+    "target": "node_59",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_95_node_19",
+    "source": "node_95",
+    "target": "node_19",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_95_api_114",
+    "source": "node_95",
+    "target": "api_114",
+    "label": "FETCH",
+    "animated": true,
+    "style": {
+      "stroke": "#d29922"
+    }
+  },
+  {
+    "id": "edge_node_95_api_115",
+    "source": "node_95",
+    "target": "api_115",
+    "label": "FETCH",
+    "animated": true,
+    "style": {
+      "stroke": "#d29922"
+    }
+  },
+  {
+    "id": "edge_node_96_node_42",
+    "source": "node_96",
+    "target": "node_42",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_96_node_44",
+    "source": "node_96",
+    "target": "node_44",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_96_node_88",
+    "source": "node_96",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_97_node_42",
+    "source": "node_97",
+    "target": "node_42",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_97_node_60",
+    "source": "node_97",
+    "target": "node_60",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_97_node_59",
+    "source": "node_97",
+    "target": "node_59",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_97_node_61",
+    "source": "node_97",
+    "target": "node_61",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_97_node_88",
+    "source": "node_97",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_97_node_19",
+    "source": "node_97",
+    "target": "node_19",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_97_api_116",
+    "source": "node_97",
+    "target": "api_116",
+    "label": "FIND",
+    "animated": true,
+    "style": {
+      "stroke": "#d29922"
+    }
+  },
+  {
+    "id": "edge_node_98_node_42",
+    "source": "node_98",
+    "target": "node_42",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_98_node_78",
+    "source": "node_98",
+    "target": "node_78",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_98_node_59",
+    "source": "node_98",
+    "target": "node_59",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_98_node_46",
+    "source": "node_98",
+    "target": "node_46",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_98_node_88",
+    "source": "node_98",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_98_node_19",
+    "source": "node_98",
+    "target": "node_19",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_98_node_56",
+    "source": "node_98",
+    "target": "node_56",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_98_node_54",
+    "source": "node_98",
+    "target": "node_54",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_98_node_58",
+    "source": "node_98",
+    "target": "node_58",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_98_node_57",
+    "source": "node_98",
+    "target": "node_57",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_98_node_63",
+    "source": "node_98",
+    "target": "node_63",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_98_api_116",
+    "source": "node_98",
+    "target": "api_116",
+    "label": "FIND",
+    "animated": true,
+    "style": {
+      "stroke": "#d29922"
+    }
+  },
+  {
+    "id": "edge_node_99_node_42",
+    "source": "node_99",
+    "target": "node_42",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_99_node_59",
+    "source": "node_99",
+    "target": "node_59",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_99_node_88",
+    "source": "node_99",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_99_node_19",
+    "source": "node_99",
+    "target": "node_19",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_99_api_117",
+    "source": "node_99",
+    "target": "api_117",
+    "label": "FINDONE",
+    "animated": true,
+    "style": {
+      "stroke": "#d29922"
+    }
+  },
+  {
+    "id": "edge_node_100_node_88",
+    "source": "node_100",
+    "target": "node_88",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_100_node_19",
+    "source": "node_100",
+    "target": "node_19",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_100_node_59",
+    "source": "node_100",
+    "target": "node_59",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_100_node_51",
+    "source": "node_100",
+    "target": "node_51",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  },
+  {
+    "id": "edge_node_100_node_23",
+    "source": "node_100",
+    "target": "node_23",
+    "animated": true,
+    "style": {
+      "stroke": "#6e7681"
+    }
+  }
+]

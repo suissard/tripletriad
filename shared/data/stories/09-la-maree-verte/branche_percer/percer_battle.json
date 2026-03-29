@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "branche_percer/percer_battle",
+  "enemyDeckName": "L'Éveil Chthonien",
+  "onWinSituationId": "branche_percer/percer_success",
+  "onLoseSituationId": "branche_tenir/tenir_lose"
+}

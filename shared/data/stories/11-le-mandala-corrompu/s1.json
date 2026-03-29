@@ -1,0 +1,1 @@
+{"__component":"story.situation-choice","situationId":"s1","text":"Que faites-vous ?","options":[{"text":"Hacker la relique","nextSituationId":"s2a"},{"text":"Respecter la relique","nextSituationId":"s2b"},{"text":"Tenter de fusionner les deux","nextSituationId":"s2c"}]}

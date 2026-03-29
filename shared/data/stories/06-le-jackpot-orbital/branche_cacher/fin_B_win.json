@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-success",
+  "situationId": "fin_B_win",
+  "message": "Vous affaiblissez le Béhémoth avec des charges explosifs bien placés. Alors qu'il recule dans l'obscurité, vous saisissez l'occasion pour fouiller le Valkyrie et récupérer son butin. Victoire !",
+  "isNarration": true,
+  "position": "left"
+}

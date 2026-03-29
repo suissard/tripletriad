@@ -1,0 +1,16 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "nouvelle_etape_2",
+  "color": "rgba(50, 0, 0, 0.9)",
+  "text": "Le dilemme moral ultime vous fait face.",
+  "options": [
+    {
+      "text": "Sacrifier mes convictions pour mon salut",
+      "nextSituationId": "s6_a_lose"
+    },
+    {
+      "text": "Mourir pour mes idéaux",
+      "nextSituationId": "s6_a_lose"
+    }
+  ]
+}

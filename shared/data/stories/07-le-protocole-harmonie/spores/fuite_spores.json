@@ -1,0 +1,25 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "fuite_spores",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous vous enfoncez dans la zone contaminée, l'air chargé de spores violettes.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Le Drone",
+      "sentence": "Je... sens... quelque chose grandir en moi.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "L'Architecte",
+      "sentence": "La contamination progresse. Votre humanité disparaît. Vous devenez Fléau.",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "fin_spores"
+}

@@ -1,0 +1,98 @@
+{
+  "title": "La Crête d'Acier",
+  "description": "Votre armure martienne est percée lors d'un assaut sur Terre. La contamination est possible. Suivre le protocole de purification signifie votre mort. Le cacher signifie trahir Mars.",
+  "faction_focus": "L'Hégémonie Martienne",
+  "factions_involved": [
+    "L'Hégémonie Martienne",
+    "Les Ferrailleurs de la Ceinture",
+    "Le Fléau Spore"
+  ],
+  "entry_point": "intro.json",
+  "situations": [
+    {
+      "file": "intro.json",
+      "situationId": "intro",
+      "type": "dialogue"
+    },
+    {
+      "file": "choix_initial.json",
+      "situationId": "choix_initial",
+      "type": "choice"
+    },
+    {
+      "file": "branche_purifier/se_delater.json",
+      "situationId": "se_delater",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_purifier/combat_ferrailleur.json",
+      "situationId": "combat_ferrailleur",
+      "type": "battle"
+    },
+    {
+      "file": "branche_purifier/fin_mort_honorable.json",
+      "situationId": "fin_mort_honorable",
+      "type": "success"
+    },
+    {
+      "file": "branche_purifier/fin_deserteur.json",
+      "situationId": "fin_deserteur",
+      "type": "game-over"
+    },
+    {
+      "file": "branche_dissimuler/dissimuler_breche.json",
+      "situationId": "dissimuler_breche",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_dissimuler/recompense_mission.json",
+      "situationId": "recompense_mission",
+      "type": "reward"
+    },
+    {
+      "file": "branche_dissimuler/combat_spore.json",
+      "situationId": "combat_spore",
+      "type": "battle"
+    },
+    {
+      "file": "branche_dissimuler/fin_ascension.json",
+      "situationId": "fin_ascension",
+      "type": "success"
+    },
+    {
+      "file": "branche_dissimuler/fin_infection.json",
+      "situationId": "fin_infection",
+      "type": "game-over"
+    },
+    {
+      "file": "branche_trahir/contacter_ferrailleurs.json",
+      "situationId": "contacter_ferrailleurs",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_trahir/combat_martien.json",
+      "situationId": "combat_martien",
+      "type": "battle"
+    },
+    {
+      "file": "branche_trahir/fin_libre.json",
+      "situationId": "fin_libre",
+      "type": "success"
+    },
+    {
+      "file": "branche_trahir/fin_trahison.json",
+      "situationId": "fin_trahison",
+      "type": "game-over"
+    },
+    {
+      "file": "branche_purifier/nouvelle_etape_1.json",
+      "situationId": "nouvelle_etape_1",
+      "type": "situation-dialogue"
+    },
+    {
+      "file": "branche_purifier/nouvelle_etape_2.json",
+      "situationId": "nouvelle_etape_2",
+      "type": "situation-choice"
+    }
+  ]
+}

@@ -68,67 +68,77 @@
       <!-- Main Collection View -->
       <div v-else class="collection-view">
          <div class="collection-controls-panel">
-           <input type="text" v-model="searchQuery" placeholder="Rechercher une carte (nom)..." class="filter-input-large" />
-
-           <div class="filters-row">
-             <select v-model="filterFaction" class="filter-select">
-               <option value="">Toutes les factions</option>
-               <option v-for="f in availableFactions" :key="f" :value="f">{{ f }}</option>
-             </select>
-
-             <select v-model="filterCollection" class="filter-select">
-               <option value="">Toutes les collections</option>
-               <option v-for="c in availableCollections" :key="c" :value="c">{{ c }}</option>
-             </select>
-
-             <select v-model="filterRarity" class="filter-select">
-               <option value="">Toutes les raretés</option>
-               <option v-for="rarity in uniqueRarities" :key="rarity.value" :value="rarity.value">{{ rarity.label }}</option>
-             </select>
-
-             <select v-model="sortBy" class="filter-select sort-select">
-               <option value="name:asc">Nom (A-Z)</option>
-               <option value="name:desc">Nom (Z-A)</option>
-               <option value="rarity:asc">Rareté (Croissante)</option>
-               <option value="rarity:desc">Rareté (Décroissante)</option>
-               <option value="id:asc">Numéro</option>
-             </select>
+           <div class="search-filter-main">
+             <input type="text" v-model="searchQuery" placeholder="Rechercher une carte (nom)..." class="filter-input-large" />
+             <button class="toggle-filters-btn" @click="showFilters = !showFilters" :class="{ active: showFilters }">
+               <span class="icon">{{ showFilters ? '▲' : '▼' }}</span>
+               <span class="text">{{ showFilters ? 'Moins de filtres' : 'Plus de filtres' }}</span>
+             </button>
            </div>
 
-           <div class="filters-row">
-             <div class="filter-group">
-               <div class="element-filter-row">
-                 <span class="filter-label">Élément :</span>
-                 <div v-for="element in uniqueElements" :key="element"
-                      class="element-btn-icon-wrapper"
-                      :class="{ active: selectedElements.includes(element) }"
-                      @click="toggleElement(element)"
-                      :title="element">
-                   <ElementIcon :element="element" :active="selectedElements.includes(element)" />
+           <transition name="expand-filters">
+             <div v-if="showFilters" class="collapsible-filters-region">
+               <div class="filters-row">
+                 <select v-model="filterFaction" class="filter-select">
+                   <option value="">Toutes les factions</option>
+                   <option v-for="f in availableFactions" :key="f" :value="f">{{ f }}</option>
+                 </select>
+
+                 <select v-model="filterCollection" class="filter-select">
+                   <option value="">Toutes les collections</option>
+                   <option v-for="c in availableCollections" :key="c" :value="c">{{ c }}</option>
+                 </select>
+
+                 <select v-model="filterRarity" class="filter-select">
+                   <option value="">Toutes les raretés</option>
+                   <option v-for="rarity in uniqueRarities" :key="rarity.value" :value="rarity.value">{{ rarity.label }}</option>
+                 </select>
+
+                 <select v-model="sortBy" class="filter-select sort-select">
+                   <option value="name:asc">Nom (A-Z)</option>
+                   <option value="name:desc">Nom (Z-A)</option>
+                   <option value="rarity:asc">Rareté (Croissante)</option>
+                   <option value="rarity:desc">Rareté (Décroissante)</option>
+                   <option value="id:asc">Numéro</option>
+                 </select>
+               </div>
+
+               <div class="filters-row">
+                 <div class="filter-group">
+                   <div class="element-filter-row">
+                     <span class="filter-label">Élément :</span>
+                     <div v-for="element in uniqueElements" :key="element"
+                          class="element-btn-icon-wrapper"
+                          :class="{ active: selectedElements.includes(element) }"
+                          @click="toggleElement(element)"
+                          :title="element">
+                       <ElementIcon :element="element" :active="selectedElements.includes(element)" />
+                     </div>
+                   </div>
+                 </div>
+               </div>
+
+               <div class="filters-row">
+                 <div class="toggle-group">
+                   <span class="filter-label">Possession :</span>
+                   <div class="btn-toggle-row">
+                     <button @click="filterOwnership = ''" :class="{ active: filterOwnership === '' }">Toutes</button>
+                     <button @click="filterOwnership = 'owned'" :class="{ active: filterOwnership === 'owned' }">Possédées</button>
+                     <button @click="filterOwnership = 'unowned'" :class="{ active: filterOwnership === 'unowned' }">Non-possédées</button>
+                   </div>
+                 </div>
+
+                 <div class="toggle-group">
+                   <span class="filter-label">Qualité :</span>
+                   <div class="btn-toggle-row">
+                     <button @click="filterPremium = ''" :class="{ active: filterPremium === '' }">Toutes</button>
+                     <button @click="filterPremium = 'premium'" :class="{ active: filterPremium === 'premium' }">Premium</button>
+                     <button @click="filterPremium = 'regular'" :class="{ active: filterPremium === 'regular' }">Normales</button>
+                   </div>
                  </div>
                </div>
              </div>
-           </div>
-
-           <div class="filters-row">
-             <div class="toggle-group">
-               <span class="filter-label">Possession :</span>
-               <div class="btn-toggle-row">
-                 <button @click="filterOwnership = ''" :class="{ active: filterOwnership === '' }">Toutes</button>
-                 <button @click="filterOwnership = 'owned'" :class="{ active: filterOwnership === 'owned' }">Possédées</button>
-                 <button @click="filterOwnership = 'unowned'" :class="{ active: filterOwnership === 'unowned' }">Non-possédées</button>
-               </div>
-             </div>
-
-             <div class="toggle-group">
-               <span class="filter-label">Qualité :</span>
-               <div class="btn-toggle-row">
-                 <button @click="filterPremium = ''" :class="{ active: filterPremium === '' }">Toutes</button>
-                 <button @click="filterPremium = 'premium'" :class="{ active: filterPremium === 'premium' }">Premium</button>
-                 <button @click="filterPremium = 'regular'" :class="{ active: filterPremium === 'regular' }">Normales</button>
-               </div>
-             </div>
-           </div>
+           </transition>
          </div>
 
 
@@ -284,6 +294,7 @@ const filterFaction = ref('');
 const filterCollection = ref('');
 const sortBy = ref('name:asc');
 const selectedCard = ref(null);
+const showFilters = ref(false); // Collapsed by default
 
 // ===== Pagination state =====
 const currentPage = ref(1);
@@ -483,6 +494,13 @@ function closeCardDetail() { selectedCard.value = null; }
 let searchDebounceTimer = null;
 
 async function fetchCards() {
+  if (!userStore.strapiConnected) {
+    displayCards.value = cardLibrary.slice((currentPage.value - 1) * cardsPerPage.value, currentPage.value * cardsPerPage.value);
+    totalCardCount.value = cardLibrary.length;
+    isLoadingCards.value = false;
+    return;
+  }
+
   isLoadingCards.value = true;
   try {
     const isOwnershipFiltered = filterOwnership.value === 'owned' || filterPremium.value === 'premium';
@@ -568,11 +586,9 @@ async function fetchCards() {
     }
   } catch (e) {
     console.error('[Collection] Failed to fetch cards from Strapi:', e);
-    // Silent fail to cardLibrary for robustness if not filtering
-    if (filterOwnership.value === 'all') {
-      displayCards.value = cardLibrary.slice(0, cardsPerPage.value);
-      totalCardCount.value = cardLibrary.length;
-    }
+    // Silent fail to cardLibrary for robustness
+    displayCards.value = cardLibrary.slice((currentPage.value - 1) * cardsPerPage.value, currentPage.value * cardsPerPage.value);
+    totalCardCount.value = cardLibrary.length;
   } finally {
     isLoadingCards.value = false;
   }
@@ -719,13 +735,70 @@ onUnmounted(() => {
 }
 
 .filter-input-large {
-  width: 100%;
+  flex: 1;
   padding: 12px;
   background: rgba(0, 0, 0, 0.5);
   border: 1px solid #555;
   color: white;
   border-radius: 5px;
   font-size: 1.1rem;
+}
+
+.search-filter-main {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.toggle-filters-btn {
+  background: rgba(33, 150, 243, 0.1);
+  border: 1px solid rgba(33, 150, 243, 0.4);
+  color: #2196f3;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.toggle-filters-btn:hover {
+  background: rgba(33, 150, 243, 0.2);
+  border-color: #2196f3;
+  box-shadow: 0 0 10px rgba(33, 150, 243, 0.3);
+}
+
+.toggle-filters-btn.active {
+  background: #2196f3;
+  color: white;
+}
+
+.collapsible-filters-region {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Transition Expand-Filters */
+.expand-filters-enter-active,
+.expand-filters-leave-active {
+  transition: all 0.3s ease;
+  max-height: 400px;
+  opacity: 1;
+  overflow: hidden;
+}
+
+.expand-filters-enter-from,
+.expand-filters-leave-to {
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+  margin-top: 0;
 }
 
 .mana-filter-row {

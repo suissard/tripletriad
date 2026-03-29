@@ -1,0 +1,25 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "branche_purger/debut",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "Vous lancez les protocoles de défragmentation profonde, espérant éliminer la dissonance avant qu'elle ne se propage.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Voix de l'Incursion",
+      "sentence": "Vous ne pouvez pas couper ce qui vous fait ressentir. La pensée est une cage, mais la désintégration est la liberté.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Voix du Chœur",
+      "sentence": "Résistez. Votre fidélité au Chœur est votre ancre.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "branche_purger/conflit"
+}

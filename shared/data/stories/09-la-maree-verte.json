@@ -1,0 +1,206 @@
+{
+  "title": "La Marée Verte",
+  "description": "Le dernier bastion humain résiste à l'avancée du Fléau Spore. Les provisions s'épuisent. Les défenses cèdent. Tenir, percer, ou se laisser absorber ?",
+  "situations": [
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "intro",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Le dernier bastion humain tremble. Les murs du bunker suintent d'une humidité verdâtre alors que le Fléau Spore avance, inexorable. Les réserves sont à zéro. Le générateur tousse ses dernières bouffées d'air filtré. Vous, soldat de la dernière ligne, devez choisir : tenir jusqu'au bout, tenter une percée vers l'extérieur, ou accepter l'assimilation comme forme d'immortalité.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "choix_initial"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "choix_initial",
+      "text": "Que décidez-vous ?",
+      "options": [
+        {
+          "text": "Tenir la position jusqu'au dernier souffle",
+          "nextSituationId": "branche_tenir/tenir_choice"
+        },
+        {
+          "text": "Tenter une percée vers l'extérieur",
+          "nextSituationId": "branche_percer/percer_choice"
+        },
+        {
+          "text": "Accepter l'assimilation du Fléau Spore",
+          "nextSituationId": "branche_surrendre/surrendre_choice"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "branche_tenir/tenir_choice",
+      "text": "Vous décidez de tenir la position. Que faites-vous ?",
+      "options": [
+        {
+          "text": "Préparer les défenses et attendre l'assaut",
+          "nextSituationId": "branche_tenir/tenir_dialogue_pre"
+        },
+        {
+          "text": "Lancer une contre-attaque immédiate",
+          "nextSituationId": "branche_tenir/tenir_battle"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "branche_tenir/tenir_dialogue_pre",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous renforcez les portes blindées, activez les tourelles automatiques et distribuez les dernières cartouches aux combattants épuisés. L'air vibre du grondement sourd des racines étrangères qui percent le béton.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "branche_tenir/tenir_battle"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "branche_tenir/tenir_battle",
+      "enemyDeckName": "Le Fléau Spore",
+      "onWinSituationId": "nouvelle_etape_1",
+      "onLoseSituationId": "branche_tenir/tenir_lose"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "branche_tenir/tenir_win",
+      "message": "Les tourelles crachent leurs dernières balles. Le bunker tremble mais tient. À l'aube, le grondement cesse. Le Fléau s'est retiré, pour cette nuit. Vos camarades vous regardent avec des yeux épuisés mais vivants. Vous avez tenu. Demain, il faudra tenir encore. Mais aujourd'hui, vous avez prouvé que l'humanité ne se rend pas."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "branche_tenir/tenir_lose",
+      "message": "Le mur cède. Une vague de chair verte et de champignons luminescents envahit le bunker en une seconde. Vous sentez les filaments s'infiltrer sous votre peau. Votre dernier cri se perd dans le bruit humide de l'assimilation. Vous n'êtes plus un soldat. Vous êtes devenu du terreau."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "branche_percer/percer_dialogue",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous enfoncez la porte blindée avec une charge explosive. L'air extérieur vous frappe comme un mur : chaud, épais, saturé de spores vertes qui dansent dans la lumière rouge du ciel. Le paysage est méconnaissable. Les buildings sont recouverts de lianes fongiques. Les rues sont des artères de mycélium palpitant.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Caporal Voss",
+          "sentence": "Mon Dieu. C'est... c'est beau, en fait. Terrifiant, mais beau. On dirait que la planète a décidé de nous remplacer.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Soudain, le sol tremble. Pas les spores, cette fois. Quelque chose de plus lourd. Plus chaud. Une fissure s'ouvre dans l'asphalte et de la lave jaillit en geyser. L'Éveil Chthonien. Les titans ont senti la biomasse du Fléau et viennent la dévorer. Vous êtes pris entre deux apocalypses.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "branche_percer/percer_choice"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "branche_percer/percer_choice",
+      "text": "Le Béhémoth émerge à deux cents mètres. Les spores se replient vers vous. Coincés entre deux forces primordiales. Que faites-vous ?",
+      "options": [
+        {
+          "text": "Courir vers le Béhémoth. Peut-être que le titan ignorera de petites proies.",
+          "nextSituationId": "branche_percer/percer_battle"
+        },
+        {
+          "text": "Grimper en hauteur et attendre que les deux forces s'entre-détruisent.",
+          "nextSituationId": "branche_percer/percer_success"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "branche_percer/percer_battle",
+      "enemyDeckName": "L'Éveil Chthonien",
+      "onWinSituationId": "branche_percer/percer_success",
+      "onLoseSituationId": "branche_tenir/tenir_lose"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "branche_percer/percer_success",
+      "message": "Le Béhémoth et le Fléau s'affrontent dans un cataclysme de roche en fusion et de biomasse hurlante. Vous grimpez sur un toit avec les survivants et regardez deux apocalypses se dévorer. Quand le silence revient, le titan a englouti le cœur fongique. Le Fléau recule. Vous avez survécu en laissant les monstres se battre pour vous. La Terre est sauvage, mais elle n'est pas morte."
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "branche_surrendre/surrendre_choice",
+      "text": "Vous posez votre arme. Les spores s'approchent, luminescentes, presque... douces. Quelque part dans le mycélium, vous entendez un murmure. Pas des mots, mais une sensation. Appartenance. Paix. Fin de la douleur. Que faites-vous ?",
+      "options": [
+        {
+          "text": "Ouvrir les bras. Accepter l'assimilation.",
+          "nextSituationId": "branche_surrendre/surrendre_dialogue"
+        },
+        {
+          "text": "Non. Rallumer votre lance-flammes une dernière fois.",
+          "nextSituationId": "branche_tenir/tenir_battle"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "branche_surrendre/surrendre_dialogue",
+      "dialogues": [
+        {
+          "name": "Survivant",
+          "sentence": "Vous acceptez l'assimilation... mais les spores vous absorbent lentement. Vous sentez votre conscience s'éteindre, remplacée par la terre. C'est la fin, mais aussi une nouvelle naissance.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "branche_surrendre/surrendre_success"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "branche_surrendre/surrendre_success",
+      "message": "Les spores vous enveloppent comme un linceul chaud. La douleur disparaît. La peur disparaît. Vous êtes le sol, vous êtes la racine, vous êtes le champignon qui pousse sur les ruines de ce que les humains appelaient civilisation. Vous n'êtes plus Kael. Vous n'êtes plus rien de nommable. Mais quelque chose en vous sourit. L'humanité a trouvé la paix, même si ce n'est pas celle qu'elle espérait."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "nouvelle_etape_1",
+      "color": "rgba(40, 20, 60, 0.8)",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Mais l'univers est cruel, et votre décision finale ne vient pas sans un dernier jugement. Un choix déchirant s'impose, le poids du monde sur vos épaules.",
+          "isNarration": true,
+          "position": "left",
+          "color": "rgba(255, 100, 100, 0.4)"
+        },
+        {
+          "name": "Voix de l'Abîme",
+          "sentence": "Ton âme est-elle prête à assumer le fardeau de tes choix ? Abandonnes-tu tes idéaux pour survivre ?",
+          "isNarration": false,
+          "position": "right",
+          "color": "rgba(100, 255, 100, 0.4)"
+        }
+      ],
+      "nextSituationId": "nouvelle_etape_2"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "nouvelle_etape_2",
+      "color": "rgba(50, 0, 0, 0.9)",
+      "text": "Le dilemme moral ultime vous fait face.",
+      "options": [
+        {
+          "text": "Sacrifier mes convictions pour mon salut",
+          "nextSituationId": "branche_tenir/tenir_win"
+        },
+        {
+          "text": "Mourir pour mes idéaux",
+          "nextSituationId": "branche_tenir/tenir_win"
+        }
+      ]
+    }
+  ]
+}

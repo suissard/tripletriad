@@ -1,0 +1,37 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "intro",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Le sifflement des obus orbitaux résonne encore dans vos oreilles. La frappe a vitrifié un kilomètre carré de ruines terrestres, mais les Ferrailleurs étaient plus rapides que prévu. Une balle de récupération a traversé votre armure écarlate au niveau de l'épaule gauche.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Commandant Veyra",
+      "sentence": "Rapport de dégâts. Les Puristes ne tombent pas comme des mouches, Soldat Kael. Où êtes-vous touché ?",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Vous serrez les dents. La douleur est vive, mais ce n'est pas la douleur qui vous terrifie. En examinant l'impact, vous voyez quelque chose de pire qu'un éclat de métal. Des filaments verdâtres, presque invisibles, s'enroulent autour du bord de la brèche. Des spores. Le Fléau Spore a trouvé une porte d'entrée dans votre armure immaculée.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Soldat Lyra",
+      "sentence": "Kael ? Kael, tu trembles. Montre-moi ton impact. Par Mars, si c'est ce que je crois... le protocole est clair. Auto-élimination immédiate. Pas de négociation.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Le protocole de pureté martien ne laisse aucune place au doute. Armure percée plus contamination biologique égale sacrifice immédiat. Votre main tremble en se posant sur le bouton d'auto-destruction de votre casque. Mais quelque chose en vous refuse. Pour la première fois de votre vie de Puriste, vous hésitez.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "choix_initial"
+}

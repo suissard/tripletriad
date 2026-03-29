@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "s23",
+  "enemyDeckName": "Défenses Automatiques du Valkyrie",
+  "onWinSituationId": "fin_C_win",
+  "onLoseSituationId": "fin_C_lose"
+}

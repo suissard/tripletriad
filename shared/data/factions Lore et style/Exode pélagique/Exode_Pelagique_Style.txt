@@ -1,0 +1,23 @@
+﻿🐙 Exode Pélagique : style
+🎨 Couleurs et Répartition
+* Teintes Principales (Blindages) : Orange rouille profond (oxydation martienne/terrestre), Vert-de-gris (cuivre oxydé), Gris canon terni.
+* Teintes Secondaires (Énergie & Fluides) : Cyan bioluminescent (eau pressurisée/boucliers), Orange thermique aveuglant (plasma/lasers de minage).
+* Biologie (Céphalopodes) : Peau diaphane, presque translucide, allant du violet pâle au gris perle.
+* Répartition : 80% de teintes sombres, usées et crasseuses (extérieur industriel) contrastant violemment avec 20% d'éclats lumineux saturés (réservoirs vitrés, bobines thermiques, yeux aliens).
+🤿 Armures et Vêtements
+* Concept Global : Les céphalopodes alien portent des Scaphandres de minage minéralogique lourd reconvertis en armures de guerre. Aspect "survie désespérée".
+* Structure : Massive, asymétrique et utilitariste. Absence totale de tissu traditionnel. Utilisation de combinaisons de pression en polymère noir ou gris foncé sous le blindage.
+* Éléments Clefs :
+   * Le Bocal : Casques sphériques ou torses entiers constitués d'un verre blindé extrêmement épais, remplis d'une eau cyan luminescente où baigne le pilote.
+   * Connectique : Tuyaux annelés massifs, valves de décompression cracheuses de vapeur, câbles exposés.
+   * Mobilité : Articulations lourdement mécanisées (vérins hydrauliques) pour compenser la gravité terrestre.
+⛏️ Armes et Équipements
+* Concept Global : Outils industriels brutaux poussés au-delà de leurs limites sécuritaires.
+* Design : Armes surdimensionnées, souvent intégrées directement aux bras des scaphandres.
+* Détails : Bobines de refroidissement en cuivre apparentes, lentilles de focalisation fissurées mais fonctionnelles, fuites de plasma constant.
+* Types d'armes : Scies thermiques circulaires, découpeurs plasma rotatifs, canons à geyser (lances à incendie inversées crachant du plasma).
+🚀 Véhicules et Vaisseaux
+* Formes Générales : Bathyscaphes des abysses croisés avec des plateformes pétrolières volantes. Des forme type crabe pour les plus petit
+* Lignes et Courbes : Les coques principales (habitacles/réservoirs) sont toujours courbes, bulbeuses et sphériques (pour résister à la pression interne).
+* Angles : Ces courbes sont brutalement interrompues par des ajouts angulaires : bras mécaniques à angles droits, radiateurs thermiques carrés, trains d'atterrissage massifs et pointus.
+* Détails : Propulseurs asymétriques crachant de la vapeur d'eau bouillante, projecteurs halogènes surpuissants perçant les ténèbres, blindage couvert de balanes spatiales et de cicatrices de micro-météorites.

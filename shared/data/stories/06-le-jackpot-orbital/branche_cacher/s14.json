@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "s14",
+  "enemyDeckName": "Béhémoths Chthoniens",
+  "onWinSituationId": "fin_B_win",
+  "onLoseSituationId": "fin_B_lose"
+}

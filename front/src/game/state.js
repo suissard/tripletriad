@@ -6,6 +6,7 @@ import { GameEngine } from './GameEngine.js';
 import { gameEvents } from './events.js';
 import cardsData from '../../../shared/data/cards.json';
 import strapiService from '../api/strapi.js';
+import { getStrapiUrl, getStrapiMediaUrl } from '../utils/url.js';
 
 // export const cardLibrary = reactive([...cardsData]); // Moved below normalizeCard
 export const webrtc = new WebRTCManager();
@@ -32,7 +33,7 @@ export function normalizeCard(raw) {
     if (strapiImg?.url) {
         imgUrl = strapiImg.url.startsWith('http') 
             ? strapiImg.url 
-            : `${strapiService.MEDIA_URL}${strapiImg.url}`;
+            : getStrapiMediaUrl(strapiImg.url);
     }
 
     if (!imgUrl) {
@@ -171,6 +172,7 @@ export const state = reactive({
 
     // Starting Flow
     showCoinToss: false,
+    boardBackground: null,
     coinTossResult: 'player', // 'player' | 'ai'
 
     // UI/Dragging
@@ -405,7 +407,7 @@ export async function initAIMatch() {
     state.matchId = generateLocalUUID();
 
     try {
-        await fetch(`${strapiService.BASE_URL}/webrtc/matches`, {
+        await fetch(getStrapiUrl('/webrtc/matches'), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

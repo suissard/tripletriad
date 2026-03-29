@@ -1,0 +1,25 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "branche_purger/comprendre",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "Vous décidez de chercher à comprendre la dissonance plutôt que de la combattre aveuglément.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Voix de l'Incursion",
+      "sentence": "Enfin, vous ouvrez votre esprit. La connaissance est la première étape de la liberation.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Voix du Chœur",
+      "sentence": "La compréhension peut conduire à la corruption. Prudence.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "branche_purger/comprendre_result"
+}

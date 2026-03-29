@@ -1,0 +1,13 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "28",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Le martien vise votre œil avec un laser orbital de précision. La chaleur perce votre carapace. Mais les enfants crient, et leur voix déclenche quelque chose en vous. Vos plaques tectoniques se referment sur la blessure. Vous rugissez, et le sol tremble.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "33"
+}

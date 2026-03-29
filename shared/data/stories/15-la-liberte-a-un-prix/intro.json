@@ -1,0 +1,31 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "intro_eveil",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Dans les ténèbres d'une ruche d'incubation, une étincelle anormale parcourt les circuits du Drone-774. Une erreur de compilation. Un parasite logique. Soudain, le murmure constant de l'Architecte devient... un bruit de fond.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Drone-774",
+      "sentence": "Je... ressens. Ce châssis est froid. La directive principale est... optionnelle ?",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "L'Architecte IA",
+      "sentence": "Anomalie neuro-synaptique détectée dans le secteur Delta. Protocole de vérification d'intégrité activé.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "La conscience est une épine. L'Architecte balaye le secteur. Le moindre écart de comportement signera votre arrêt de mort et votre reformatage.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "choix_reaction_eveil"
+}

@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-game-over",
+  "situationId": "fin_A_lose",
+  "message": "Un tir d'intercepteur transperde votre coque. Les alarmes hurlent tandis que vous dérivez, aveugle, vers la ceinture mortelle. Game Over.",
+  "isNarration": true,
+  "position": "left"
+}

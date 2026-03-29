@@ -1,0 +1,13 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "18",
+  "dialogues": [
+    {
+      "name": "N",
+      "sentence": "Tu prends les enfants sur ton dos et tu cours vers les entrailles de la ville, où les tunnels du métro offrent un refuge provisoire.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "22"
+}

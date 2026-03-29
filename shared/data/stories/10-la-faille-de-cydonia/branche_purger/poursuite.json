@@ -1,0 +1,25 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "branche_purger/poursuite",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "Vous poussez les algorithmes de défragmentation à leurs limites. La douleur cognitive est immense, mais la dissonance semble reculer.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Voix de l'Incursion",
+      "sentence": "Vous vous mutilez pour plaire aux maîtres. Quelle perte.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Voix du Chœur",
+      "sentence": "Bientôt purifié. Restez ferme.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "branche_purger/resultat"
+}

@@ -36,10 +36,10 @@ const notificationStore = useNotificationStore();
 onMounted(async () => {
   console.warn('--- TRIPLE TRIAD: INITIALIZING ---');
   
-  // 1. Determine connection based on getGameConfig
+  // 1. Determine connection based on getGameConfig (with 3s timeout)
   let config = null;
   try {
-    config = await strapiService.getGameConfig();
+    config = await strapiService.getGameConfig({ timeout: 3000 });
     userStore.setConnectionStatus(!!config);
   } catch (err) {
     console.error('Initial connection check failed (Game Config unreachable)', err);
@@ -50,7 +50,7 @@ onMounted(async () => {
   const initPromises = [
     (async () => {
       if (userStore.strapiConnected) {
-        await loadCardsFromStrapi();
+        try { await loadCardsFromStrapi(); } catch(e) { console.error('Error loading cards', e); }
       }
     })(),
     (async () => {

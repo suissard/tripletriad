@@ -1,0 +1,13 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "4",
+  "dialogues": [
+    {
+      "name": "N",
+      "sentence": "Tu te couches à plat ventre, écrasant doucement une voiture renversée. Tes yeux scrutent les ruelles où des ombres bougent.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "7"
+}

@@ -430,6 +430,38 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBoardBackgroundBoardBackground
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'board_backgrounds';
+  info: {
+    description: '';
+    displayName: 'Board Background';
+    pluralName: 'board-backgrounds';
+    singularName: 'board-background';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::board-background.board-background'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCardCard extends Struct.CollectionTypeSchema {
   collectionName: 'cards';
   info: {
@@ -507,10 +539,6 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
     storiesRewardedFrom: Schema.Attribute.Relation<
       'manyToMany',
       'api::story.story'
-    >;
-    storyStepsRewardedFrom: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::story-step.story-step'
     >;
     topValue: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -1009,6 +1037,7 @@ export interface ApiPlayerStoryProgressPlayerStoryProgress
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    variables: Schema.Attribute.JSON;
   };
 }
 
@@ -1081,10 +1110,12 @@ export interface ApiStoryStepStoryStep extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    conditions: Schema.Attribute.Component<'story.choice-condition', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1129,6 +1160,7 @@ export interface ApiStoryStory extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::story.story'> &
       Schema.Attribute.Private;
@@ -1785,6 +1817,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::board-background.board-background': ApiBoardBackgroundBoardBackground;
       'api::card.card': ApiCardCard;
       'api::deck.deck': ApiDeckDeck;
       'api::foil-effect.foil-effect': ApiFoilEffectFoilEffect;

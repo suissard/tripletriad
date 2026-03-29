@@ -1,0 +1,23 @@
+﻿Hégémonie Martienne (Les Puristes)
+1. Couleurs & Répartition
+* Couleur Primaire (60%) : Rouge Carmin
+* Couleur Secondaire (30%) : Gris sombre
+* Neon accents (10%) : lueurs énergétiques (optiques, plasma, réacteurs) en Rouge vif.
+2. Armures & Vêtements
+* Infanterie : Armures de plates lisses, imbriquées et sans aspérités (concept de pureté).
+* Casques : Toujours intégraux. Visières opaques, en fente fine, pour déshumaniser et uniformiser les troupes.
+* Vêtements : Tissus balistiques cintrés, coupes martiales strictes. Les officiers portent des manteaux longs ou des demi-capes asymétriques aux épaules anguleuses.
+3. Armes
+* Design : Massif, géométrique et épuré. Aucun mécanisme ou câblage apparent.
+* Formes : Canons rectangulaires, hexagonaux ou octogonaux.
+* Types : Fusils électromagnétiques (Railguns) aux lignes fuyantes, baïonnettes et épées à énergie thermique (lame rougeoyante).
+4. Véhicules & Vaisseaux
+* Lignes & Courbes : Zéro courbe douce. Tout est basé sur la géométrie agressive. Lignes droites, fuyantes, parallèles.
+* Angles : Arêtes tranchantes, nez en pointe. Formes en "V" ou en diamant (Wedge design) rappelant les pointes de flèches.
+* Look global : Brutalisme high-tech. Monolithes d'acier rouge et blanc. Les propulseurs sont fondus dans la masse du fuselage.
+* Détails : Grilles hexagonales discrètes.
+
+
+🖌️ Prompt Maître (Master Prompt)
+Ce prompt définit l'ADN visuel de la faction. Il te suffit de coller la description de ton unité à la fin de celui-ci dans ton générateur d'images.
+Prompt : Sci-fi dark conceptual art, Martian Purist faction, aggressive high-tech brutalism. Sleek matte crimson red and obsidian black armor and plating. Sharp angular designs, imposing wedge shapes, completely devoid of soft curves. Faceless dehumanizing visors, glowing neon red energy accents, clean pristine surfaces with zero exposed wiring.

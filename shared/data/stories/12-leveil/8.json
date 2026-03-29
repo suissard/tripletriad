@@ -1,0 +1,13 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "8",
+  "dialogues": [
+    {
+      "name": "N",
+      "sentence": "Un frisson étrange parcourt ton corps. Jamais un être si petit ne t'avait touché sans crainte. Une question muette monte en toi : pourquoi ?",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "9"
+}

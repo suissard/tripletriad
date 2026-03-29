@@ -1,0 +1,273 @@
+{
+  "title": "La Crête d'Acier",
+  "description": "Votre armure martienne est percée lors d'un assaut sur Terre. La contamination est possible. Suivre le protocole de purification signifie votre mort. Le cacher signifie trahir Mars.",
+  "situations": [
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "intro",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Le sifflement des obus orbitaux résonne encore dans vos oreilles. La frappe a vitrifié un kilomètre carré de ruines terrestres, mais les Ferrailleurs étaient plus rapides que prévu. Une balle de récupération a traversé votre armure écarlate au niveau de l'épaule gauche.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Commandant Veyra",
+          "sentence": "Rapport de dégâts. Les Puristes ne tombent pas comme des mouches, Soldat Kael. Où êtes-vous touché ?",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Vous serrez les dents. La douleur est vive, mais ce n'est pas la douleur qui vous terrifie. En examinant l'impact, vous voyez quelque chose de pire qu'un éclat de métal. Des filaments verdâtres, presque invisibles, s'enroulent autour du bord de la brèche. Des spores. Le Fléau Spore a trouvé une porte d'entrée dans votre armure immaculée.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Soldat Lyra",
+          "sentence": "Kael ? Kael, tu trembles. Montre-moi ton impact. Par Mars, si c'est ce que je crois... le protocole est clair. Auto-élimination immédiate. Pas de négociation.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Le protocole de pureté martien ne laisse aucune place au doute. Armure percée plus contamination biologique égale sacrifice immédiat. Votre main tremble en se posant sur le bouton d'auto-destruction de votre casque. Mais quelque chose en vous refuse. Pour la première fois de votre vie de Puriste, vous hésitez.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "choix_initial"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "choix_initial",
+      "text": "Les spores rampent le long de votre armure. Le Commandant Veyra attend votre rapport. Soldat Lyra observe votre main tremblante sur le bouton. Que faites-vous ?",
+      "options": [
+        {
+          "text": "Suivre le protocole. Se dénoncer et accepter la purification.",
+          "nextSituationId": "se_delater"
+        },
+        {
+          "text": "Dissimuler la brèche. Personne n'a vu les spores. Poursuivre la mission.",
+          "nextSituationId": "dissimuler_breche"
+        },
+        {
+          "text": "Contacter secrètement les Ferrailleurs. Ils ont peut-être un remède... contre un prix.",
+          "nextSituationId": "contacter_ferrailleurs"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "se_delater",
+      "dialogues": [
+        {
+          "name": "Soldat Kael",
+          "sentence": "Commandant. Mon armure est compromise. Filaments fongiques détectés au niveau de l'épaule gauche. Je demande la purification immédiate selon le protocole 7-Alpha.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Le silence qui suit est plus assourdissant que les obus. Veyra retire son casque pour la première fois en dix ans. Son visage est marqué par des cicatrices de purification passées. Ses yeux vous fixent avec un mélange de respect et de chagrin.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Commandant Veyra",
+          "sentence": "Soldat Kael. Votre honneur est intact. Mars se souviendra de votre nom. Mais avant que l'équipe de purification n'arrive... les Ferrailleurs ont lancé une contre-attaque depuis la Crête d'Acier. Nous avons besoin de chaque canon. Votre mort peut servir Mars une dernière fois.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Soldat Lyra",
+          "sentence": "Vous êtes un héros, Kael. Un vrai Puriste. Que votre dernier combat soit digne de Mars.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Les spores rampent déjà vers votre cou. Vous avez peut-être une heure. Mais une heure, c'est suffisant pour faire payer ces pirates orbitaux. Vous rechargez votre railgun en silence et vous dirigez vers la Crête d'Acier, sachant que chaque tir vous rapproche de votre mort et de votre gloire.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "combat_ferrailleur"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "combat_ferrailleur",
+      "enemyDeckName": "Les Ferrailleurs de la Ceinture",
+      "onWinSituationId": "nouvelle_etape_1",
+      "onLoseSituationId": "fin_deserteur"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "fin_mort_honorable",
+      "message": "Votre dernier tir perce la coque du vaisseau amiral ferrailleur. L'explosion envoie une gerbe de débris en orbite. Les spores ont atteint votre gorge, mais vous tenez debout. Le Commandant Veyra vous salue, le poing sur le cœur. Votre nom sera gravé sur la Crête d'Acier, monument martien érigé ce jour. Kael, le Puriste qui a choisi de mourir en soldat plutôt qu'en contaminé."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fin_deserteur",
+      "message": "La douleur des spores vous fait vaciller au mauvais moment. Un obus de récupération ferrailleur vous envoie dans le vide. Votre corps dérive dans l'orbite terrestre, l'armure écarlate se salissant de champignons luminescents. Mars ne pleurera pas un soldat tombé au combat, mais un héros perdu dans l'oubli. Votre plaque de série sera retirée des registres demain."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "dissimuler_breche",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "D'un geste rapide, vous plaquez votre main sur la brèche. Les filaments verdâtres se compriment sous votre gant. Si Lyra n'a pas vu, si Veyra ne demande pas d'inspection détaillée, vous pouvez peut-être passer.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Soldat Kael",
+          "sentence": "Simple éclat de métal, Commandant. Armure fonctionnelle à 94%. Prêt au combat.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Commandant Veyra",
+          "sentence": "Bien. La mission continue. Nous devons sécuriser la station de communications ferrailleur au sommet de la Crête. Si nous perdons cette position, toute la zone orbitale est compromise. Soldat Kael, vous êtes en tête. Montrez-leur ce que Mars peut faire.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Vous hochez la tête. Sous votre armure, les spores commencent à picoter. Une chaleur étrange s'installe dans votre bras. Vous avez peut-être quelques heures. Peut-être moins. Mais la mission passe avant la pureté. N'est-ce pas ?",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Soldat Lyra",
+          "sentence": "Kael. Ton bras gauche. Il tremble. T'es sûr que t'es bon ?",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "recompense_mission"
+    },
+    {
+      "__component": "story.situation-reward",
+      "situationId": "recompense_mission",
+      "nextSituationId": "combat_spore"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "combat_spore",
+      "enemyDeckName": "Le Fléau Spore",
+      "onWinSituationId": "fin_ascension",
+      "onLoseSituationId": "fin_infection"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "fin_ascension",
+      "message": "Contre toute attente, vous tenez bon. Les spores ont réagi étrangement à votre système immunitaire martien, modifié par des générations de purification génétique. Elles se sont cristallisées au lieu de proliférer. Votre bras gauche est désormais recouvert d'une carapace organique dorée, résistante aux impacts. Le Commandant Veyra vous regarde avec une crainte respectueuse. Mars ne sait pas encore quoi faire de vous. Mais la guerre a besoin de toutes les armes, même les plus étranges."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fin_infection",
+      "message": "Les spores ont gagné. Votre bras gauche se décompose sous l'armure, les filaments fongiques forçant les plaques à s'écarter. Lyra recule en hurlant. Veyra lève son pistolet avec une larme glaciale sur la joue. Le tir est net, précis, martien. Votre corps est incinéré sur place selon le protocole. Personne ne prononcera votre nom. La plaque de série est effacée. Vous n'existez plus."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "contacter_ferrailleurs",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous vous éloignez du groupe sous prétexte de vérifier un capteur. Le canal de communication ferrailleur grésille. Après trois tentatives, une voix rauque perce le bruit blanc.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Capitaine Ferrailleur Ratch",
+          "sentence": "Ah, un Puriste sur notre fréquence ? T'as perdu ton chemin, bouchon rouge ? Ou tu veux qu'on te raccompagne à la maison ?",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Soldat Kael",
+          "sentence": "Mon armure est percée. Spores détectées. Vos médecins de la Ceinture ont-ils un traitement ? Je peux vous donner les coordonnées de la prochaine frappe orbitale en échange.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Capitaine Ratch",
+          "sentence": "Oh putain. Un Puriste contaminé qui veut négocier. C'est le jour le plus bizarre de ma carrière de pirate. Ok, petit gars. On a un docteur qui a bossé sur des anti-fongiques vénusiens. Mais le prix, c'est pas juste les coordonnées. On veut tes codes d'accès aux réserves de carburant orbital de ton escouade.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Les codes de carburant. Donner ces codes signifie priver votre escouade de ravitaillement pendant des semaines. C'est condamner vos camarades à mort. Mais les spores atteignent votre cou. Vous avez vingt minutes.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Soldat Lyra",
+          "sentence": "Kael ! Reviens ici ! Qu'est-ce que tu fabriques loin du groupe ?",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "combat_martien"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "combat_martien",
+      "enemyDeckName": "L'Hégémonie Martienne",
+      "onWinSituationId": "fin_libre",
+      "onLoseSituationId": "fin_trahison"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "fin_libre",
+      "message": "Vous donnez les codes. Lyra vous surprend et vous attaque, hurlant de trahison. Vous la mettez au sol sans la tuer. Le Capitaine Ratch arrive avec son escouade et vous injecte un anti-fongique nauséabond. Les spores reculent. Sur le vaisseau ferrailleur, on vous donne une combinaison rapiécée et un nouveau nom. Plus de Kael, plus de Puriste. Vous êtes devenu rien. Et pour la première fois, rien est libre."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fin_trahison",
+      "message": "Lyra vous abat avant que vous ne puissiez finir la transmission. Son railgun vous transperce le cœur. En tombant, vous voyez son visage : pas de la haine, mais du chagrin. Elle pensait que vous étiez un héros. Vous avez choisi d'être un traître. Votre corps sera jeté dans le vide sans cérémonie. Votre nom sera prononcé avec dégoût pendant des générations. Sur Mars, les enfants apprendront que Kael est le mot pour traître."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "nouvelle_etape_1",
+      "color": "rgba(40, 20, 60, 0.8)",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Mais l'univers est cruel, et votre décision finale ne vient pas sans un dernier jugement. Un choix déchirant s'impose, le poids du monde sur vos épaules.",
+          "isNarration": true,
+          "position": "left",
+          "color": "rgba(255, 100, 100, 0.4)"
+        },
+        {
+          "name": "Voix de l'Abîme",
+          "sentence": "Ton âme est-elle prête à assumer le fardeau de tes choix ? Abandonnes-tu tes idéaux pour survivre ?",
+          "isNarration": false,
+          "position": "right",
+          "color": "rgba(100, 255, 100, 0.4)"
+        }
+      ],
+      "nextSituationId": "nouvelle_etape_2"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "nouvelle_etape_2",
+      "color": "rgba(50, 0, 0, 0.9)",
+      "text": "Le dilemme moral ultime vous fait face.",
+      "options": [
+        {
+          "text": "Sacrifier mes convictions pour mon salut",
+          "nextSituationId": "fin_mort_honorable"
+        },
+        {
+          "text": "Mourir pour mes idéaux",
+          "nextSituationId": "fin_mort_honorable"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+{"__component":"story.situation-choice","situationId":"s7b","text":"Le chant du feu vous envahit. Que faites-vous ?","options":[{"text":"Accepter la transformation","nextSituationId":"s8b1"},{"text":"Résister et chercher à fuir","nextSituationId":"s8b2"}]}

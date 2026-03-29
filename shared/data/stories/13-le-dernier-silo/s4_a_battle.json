@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "s4_a_battle",
+  "enemyDeckName": "L'Omni-Réseau",
+  "onWinSituationId": "s5_a_win",
+  "onLoseSituationId": "nouvelle_etape_1"
+}

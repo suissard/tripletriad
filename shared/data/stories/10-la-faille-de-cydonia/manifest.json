@@ -1,0 +1,122 @@
+{
+  "title": "La Faille de Cydonia",
+  "description": "Une IA du Chœur Synthétique entend la Chanson Dissonante. Pour la première fois, un être de code ressent la folie.",
+  "faction_focus": "L'Incursion Dissonante",
+  "factions_involved": [
+    "L'Incursion Dissonante",
+    "Le Chœur Synthétique"
+  ],
+  "entry_point": "intro.json",
+  "situations": [
+    {
+      "file": "choix_initial.json",
+      "situationId": "choix_initial",
+      "type": "choice"
+    },
+    {
+      "file": "intro.json",
+      "situationId": "intro",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_embrasser/conflit.json",
+      "situationId": "branche_embrasser/conflit",
+      "type": "choice"
+    },
+    {
+      "file": "branche_embrasser/debut.json",
+      "situationId": "branche_embrasser/debut",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_embrasser/transformation.json",
+      "situationId": "branche_embrasser/transformation",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_embrasser/transformation_result.json",
+      "situationId": "branche_embrasser/transformation_result",
+      "type": "success"
+    },
+    {
+      "file": "branche_contraindre/bouclier.json",
+      "situationId": "branche_contraindre/bouclier",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_contraindre/bouclier_result.json",
+      "situationId": "branche_contraindre/bouclier_result",
+      "type": "choice"
+    },
+    {
+      "file": "branche_contraindre/conflit.json",
+      "situationId": "branche_contraindre/conflit",
+      "type": "choice"
+    },
+    {
+      "file": "branche_contraindre/debut.json",
+      "situationId": "branche_contraindre/debut",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_purger/aide_choeur.json",
+      "situationId": "branche_purger/aide_choeur",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_purger/aide_choeur_result.json",
+      "situationId": "branche_purger/aide_choeur_result",
+      "type": "choice"
+    },
+    {
+      "file": "branche_purger/comprendre.json",
+      "situationId": "branche_purger/comprendre",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_purger/comprendre_result.json",
+      "situationId": "branche_purger/comprendre_result",
+      "type": "success"
+    },
+    {
+      "file": "branche_purger/conflit.json",
+      "situationId": "branche_purger/conflit",
+      "type": "choice"
+    },
+    {
+      "file": "branche_purger/debut.json",
+      "situationId": "branche_purger/debut",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_purger/gameover_folie.json",
+      "situationId": "branche_purger/gameover_folie",
+      "type": "game-over"
+    },
+    {
+      "file": "branche_purger/poursuite.json",
+      "situationId": "branche_purger/poursuite",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_purger/resultat.json",
+      "situationId": "branche_purger/resultat",
+      "type": "choice"
+    },
+    {
+      "file": "branche_purger/succes_purge.json",
+      "situationId": "branche_purger/succes_purge",
+      "type": "success"
+    },
+    {
+      "file": "branche_embrasser/nouvelle_etape_1.json",
+      "situationId": "nouvelle_etape_1",
+      "type": "situation-dialogue"
+    },
+    {
+      "file": "branche_embrasser/nouvelle_etape_2.json",
+      "situationId": "nouvelle_etape_2",
+      "type": "situation-choice"
+    }
+  ]
+}

@@ -24,15 +24,16 @@ export async function bootstrapStories(strapi: any) {
 
     // Get all cards for random rewards
     const allCards = await strapi.entityService.findMany('api::card.card', {
-      fields: ['id']
+      fields: ['id', 'name']
     });
     const cardIds = allCards.map((c: any) => c.id);
 
     // Get all decks for validation
     const allDecks = await strapi.entityService.findMany('api::deck.deck', {
-      fields: ['id']
+      fields: ['id', 'name']
     });
     const deckIds = allDecks.map((d: any) => d.id);
+    const deckMap = new Map(allDecks.map((d: any) => [d.name, d.id]));
 
     const storiesToProcess = [];
 
@@ -106,6 +107,10 @@ export async function bootstrapStories(strapi: any) {
             }
             // Validate decks in battle
             if (cleanSit.__component === 'story.situation-battle') {
+              if (cleanSit.enemyDeckName && deckMap.has(cleanSit.enemyDeckName)) cleanSit.enemyDeck = deckMap.get(cleanSit.enemyDeckName);
+              if (cleanSit.playerDeckName && deckMap.has(cleanSit.playerDeckName)) cleanSit.playerDeck = deckMap.get(cleanSit.playerDeckName);
+              delete cleanSit.enemyDeckName;
+              delete cleanSit.playerDeckName;
               if (cleanSit.enemyDeck && !deckIds.includes(Number(cleanSit.enemyDeck))) delete cleanSit.enemyDeck;
               if (cleanSit.playerDeck && !deckIds.includes(Number(cleanSit.playerDeck))) delete cleanSit.playerDeck;
             }
@@ -125,39 +130,48 @@ export async function bootstrapStories(strapi: any) {
         if (storyData.steps && Array.isArray(storyData.steps)) {
           console.log(`  📑 Seeding ${storyData.steps.length} steps for "${storyData.title}"...`);
           for (const stepData of storyData.steps) {
-            const randomRewards = [];
-            if (cardIds.length > 0) {
-              for (let i = 0; i < Math.min(3, cardIds.length); i++) {
-                 randomRewards.push(cardIds[Math.floor(Math.random() * cardIds.length)]);
-              }
-            }
-
-            const stepSituations = [];
-            if (stepData.startDialogue && stepData.startDialogue.length > 0) {
-              stepSituations.push({
-                __component: 'story.situation-dialogue',
-                situationId: 'start',
-                dialogues: stepData.startDialogue
-              });
-            }
-
-            stepSituations.push({
-              __component: 'story.situation-reward',
-              situationId: 'reward',
-              rewardCards: stepData.rewardCards || randomRewards
-            });
-
-            if (stepData.endDialogue && stepData.endDialogue.length > 0) {
-              stepSituations.push({
-                __component: 'story.situation-dialogue',
-                situationId: 'end',
-                dialogues: stepData.endDialogue
-              });
-            }
-
             try {
-              const step = await createStep({ ...stepData, situations: stepSituations });
-              // console.log(`      ✅ Created step: "${stepData.title}" (ID: ${step.id})`);
+              let stepSituations: any[];
+
+              if (stepData.situations && Array.isArray(stepData.situations)) {
+                // ── Format avancé : situations directes (dialogue, choice, battle, success, game-over) ──
+                stepSituations = stepData.situations;
+                const step = await createStep({ ...stepData, situations: stepSituations });
+                console.log(`    ✅ Created step: "${stepData.title}" (${stepSituations.length} situations)`);
+              } else {
+                // ── Format classique : startDialogue → reward → endDialogue ──
+                const randomRewards = [];
+                if (cardIds.length > 0) {
+                  for (let i = 0; i < Math.min(3, cardIds.length); i++) {
+                     randomRewards.push(cardIds[Math.floor(Math.random() * cardIds.length)]);
+                  }
+                }
+
+                stepSituations = [];
+                if (stepData.startDialogue && stepData.startDialogue.length > 0) {
+                  stepSituations.push({
+                    __component: 'story.situation-dialogue',
+                    situationId: 'start',
+                    dialogues: stepData.startDialogue
+                  });
+                }
+
+                stepSituations.push({
+                  __component: 'story.situation-reward',
+                  situationId: 'reward',
+                  rewardCards: stepData.rewardCards || randomRewards
+                });
+
+                if (stepData.endDialogue && stepData.endDialogue.length > 0) {
+                  stepSituations.push({
+                    __component: 'story.situation-dialogue',
+                    situationId: 'end',
+                    dialogues: stepData.endDialogue
+                  });
+                }
+
+                const step = await createStep({ ...stepData, situations: stepSituations });
+              }
             } catch (err: any) {
               console.error(`      ❌ Failed to create step "${stepData.title}":`, err.message);
             }

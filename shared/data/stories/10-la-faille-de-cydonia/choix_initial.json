@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "choix_initial",
+  "text": "Que faites-vous face à cette dissonance qui grandit en vous ?",
+  "options": [
+    {
+      "text": "Se purger pour protéger le Chœur",
+      "nextSituationId": "branche_purger/debut"
+    },
+    {
+      "text": "Embrasser la dissonance et devenir hybride",
+      "nextSituationId": "branche_embrasser/debut"
+    },
+    {
+      "text": "Trouver un moyen de contenir la faille",
+      "nextSituationId": "branche_contraindre/debut"
+    }
+  ]
+}

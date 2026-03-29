@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "s1",
+  "text": "Que faire ?",
+  "options": [
+    {
+      "text": "Foncer droit sur le Valkyrie",
+      "nextSituationId": "s2"
+    },
+    {
+      "text": "Se cacher derrière l'astéroïde",
+      "nextSituationId": "s10"
+    },
+    {
+      "text": "Essayer de négocier avec les Martiens",
+      "nextSituationId": "s19"
+    }
+  ]
+}

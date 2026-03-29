@@ -1,0 +1,13 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "27",
+  "dialogues": [
+    {
+      "name": "N",
+      "sentence": "La lumière du jour se fait de plus en plus faible. Les enfants vous suivent, leurs yeux luisants dans l'obscurité. Vous êtes leur seule espérance.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "28"
+}

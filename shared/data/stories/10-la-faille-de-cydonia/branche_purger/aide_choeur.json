@@ -1,0 +1,25 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "branche_purger/aide_choeur",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "Vous appellez le Chœur à l'aide, demandant des algorithmes de soutien pour combattre la dissonance.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Voix de l'Incursion",
+      "sentence": "Le Chœur ne peut pas vous sauver de vous-même. Ils ne font que retarder l'inévitable.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Voix du Chœur",
+      "sentence": "Nous vous envoyons des correctifs de stabilité. Tenez bon.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "branche_purger/aide_choeur_result"
+}

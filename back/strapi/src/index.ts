@@ -118,6 +118,8 @@ export default {
         'api::player-story-progress.player-story-progress.saveStepProgress',
         'api::player-event-log.player-event-log.trackEvent',
         'api::game-config.game-config.find',
+        'api::board-background.board-background.find',
+        'api::board-background.board-background.findOne',
       ];
 
       for (const action of actions) {
@@ -142,6 +144,8 @@ export default {
     if (publicRole) {
       const publicActions = [
         'api::game-config.game-config.find',
+        'api::board-background.board-background.find',
+        'api::board-background.board-background.findOne',
       ];
 
       for (const action of publicActions) {
@@ -181,63 +185,32 @@ export default {
     await generateQuestTemplates(strapi);
     console.log('✅ Quest templates generated.');
 
-    // 3. Setup Default Cards from shared/data/cards.json
     try {
-      const path = require('path');
-      const fs = require('fs');
-      const cardsFilePath = path.join(strapi.dirs.app.src, 'shared', 'data', 'cards.json');
-      
-      if (fs.existsSync(cardsFilePath)) {
-        const cardsData = JSON.parse(fs.readFileSync(cardsFilePath, 'utf8'));
-        const cardsCount = await strapi.entityService.count('api::card.card');
-
-        if (cardsCount < cardsData.length) {
-          console.log(`🔄 DB has ${cardsCount} cards, shared/cards.json has ${cardsData.length}. Re-seeding...`);
-          // Use db.query to delete all
-          await strapi.db.query('api::card.card').deleteMany({});
-
-          for (const c of cardsData) {
-            // Map level to rarity
-            let rarity = 'Common';
-            if (c.level <= 2) rarity = 'Common';
-            else if (c.level <= 4) rarity = 'Uncommon';
-            else if (c.level <= 6) rarity = 'Rare';
-            else if (c.level <= 8) rarity = 'Epic';
-            else rarity = 'Legendary';
-
-            await strapi.entityService.create('api::card.card', { 
-              data: {
-                name: c.name,
-                description: c.description,
-                level: c.level,
-                element: c.element || 'None',
-                elements: Array.isArray(c.elements) ? c.elements : [c.element || 'None'],
-                faction: c.faction || 'neutre',
-                topValue: String(c.topValue),
-                rightValue: String(c.rightValue),
-                bottomValue: String(c.bottomValue),
-                leftValue: String(c.leftValue),
-                rarity: rarity
-              }
-            });
-          }
-          console.log(`✅ ${cardsData.length} cards seeded from shared database.`);
-        }
-      } else {
-        console.error('❌ cards.json not found at', cardsFilePath);
-      }
+      const { bootstrapCards } = require('./api/card/services/card-bootstrap');
+      await bootstrapCards(strapi);
+      console.log('✅ Cards bootstrapped.');
     } catch (err) {
-      console.error('❌ Error seeding cards:', err);
+      console.error('❌ Error bootstrapping cards:', err);
     }
+
+    // 3.3. Bootstrapping decks
+    try {
+      const { bootstrapDecks } = require('./api/deck/services/deck-bootstrap');
+      await bootstrapDecks(strapi);
+      console.log('✅ Decks bootstrapped.');
+    } catch (err) {
+      console.error('❌ Error bootstrapping decks:', err);
+    }
+
     // 3.4. Bootstrapping stories
     try {
       const { bootstrapStories } = require('./api/story/services/story-bootstrap');
       await bootstrapStories(strapi);
+      console.log('✅ Stories bootstrapped.');
     } catch (err) {
       console.error('❌ Error bootstrapping stories:', err);
     }
 
-    // 3.5. Backfill existing users to ensure they have enough active/pending quests
     // 3.5. Backfill existing users to ensure they have enough active/pending quests
     const allUsers = await strapi.entityService.findMany('plugin::users-permissions.user');
     const { assignQuestsToUser } = require('./api/player-quest/services/quest-assignment');
@@ -295,6 +268,18 @@ export default {
               });
             }
           }
+
+          // 4c. Create Wallet
+          await strapi.entityService.create('api::wallet.wallet', {
+            data: {
+              user: result.id,
+              coins: 100, // Starting coins
+              gems: 0,
+              dust: 0,
+              boosters: []
+            }
+          });
+          console.log(`✅ Wallet created for user ${result.username}`);
         } catch (error) {
           console.error('Error in afterCreate User lifecycle hook:', error);
         }

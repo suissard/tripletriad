@@ -1,0 +1,13 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "11",
+  "dialogues": [
+    {
+      "name": "N",
+      "sentence": "Tu fermes délicatement les mâchoires autour de la fleur, préservant ses pétales fragiles contre ta poitrine écailleuse. Un chaleur étrange se répand en toi.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "14"
+}

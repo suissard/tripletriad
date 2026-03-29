@@ -1,0 +1,13 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "22",
+  "dialogues": [
+    {
+      "name": "N",
+      "sentence": "Tu descends les escaliers du métro avec les enfants accrochés à ton dos. L'air est plus frais, rempli de l'odeur d'huile et de rouille.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "26"
+}

@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "combat_drones_traqueurs",
+  "enemyDeckName": "L'Omni-Réseau",
+  "onWinSituationId": "choix_fuite_acculer",
+  "onLoseSituationId": "fin_destruction_acculer"
+}

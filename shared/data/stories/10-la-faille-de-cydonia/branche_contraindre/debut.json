@@ -1,0 +1,25 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "branche_contraindre/debut",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "Vous décidez de chercher un moyen de contenir la faille, sans vous purger ni embrasser complètement la dissonance.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Voix de l'Incursion",
+      "sentence": "Vous ne pouvez pas contenir ce qui est infini. La dissonance est comme l'univers : en expansion constante.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Voix du Chœur",
+      "sentence": "Trouvez la fréquence opposée. Annulez la dissonance par l'harmonie.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "branche_contraindre/conflit"
+}

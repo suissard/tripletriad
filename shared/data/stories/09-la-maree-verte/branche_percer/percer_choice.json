@@ -1,0 +1,15 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "branche_percer/percer_choice",
+  "text": "Le Béhémoth émerge à deux cents mètres. Les spores se replient vers vous. Coincés entre deux forces primordiales. Que faites-vous ?",
+  "options": [
+    {
+      "text": "Courir vers le Béhémoth. Peut-être que le titan ignorera de petites proies.",
+      "nextSituationId": "branche_percer/percer_battle"
+    },
+    {
+      "text": "Grimper en hauteur et attendre que les deux forces s'entre-détruisent.",
+      "nextSituationId": "branche_percer/percer_success"
+    }
+  ]
+}

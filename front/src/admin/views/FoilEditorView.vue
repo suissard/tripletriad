@@ -192,6 +192,7 @@ import AppButton from '../../components/ui/AppButton.vue';
 import { ref, reactive, computed, onMounted, onBeforeUnmount, shallowRef } from 'vue';
 import * as THREE from 'three';
 import strapiService from '@/api/strapi';
+import { getStrapiMediaUrl } from '@/utils/url';
 import PremiumSelect from '../components/PremiumSelect.vue';
 
 const MAX_LAYERS = 5;
@@ -439,7 +440,7 @@ async function onCardSelected() {
   const cardIdentifier = card.documentId || card.id;
 
   const imgUrl = card.image?.url
-    ? `http://localhost:1337${card.image.url}`
+    ? getStrapiMediaUrl(card.image.url)
     : 'https://images.unsplash.com/photo-1614728263952-84ea256f9679?q=80&w=1000&auto=format&fit=crop';
 
   loadTexture(imgUrl);

@@ -63,10 +63,14 @@
 
             <!-- Crafting/Disenchanting Buttons -->
             <div class="zoom-actions">
-              <button class="zoom-action-btn craft" @click.stop="handleCraft" :disabled="!canCraft">
-                <span>Créer</span>
-                <span class="cost">-{{ craftCost }} ✨</span>
-              </button>
+              <PurchaseButton 
+                :amount="craftCost" 
+                type="dust" 
+                label="Créer"
+                variant="primary"
+                :action="handleCraft"
+                class="zoom-action-btn craft"
+              />
               <button class="zoom-action-btn disenchant" v-if="!unowned && quantity > 0" @click.stop="handleDisenchant">
                 <span>Désenchanter</span>
                 <span class="gain">+{{ disenchantGain }} ✨</span>
@@ -86,6 +90,7 @@ import ElementIcon from "./ElementIcon.vue";
 import { state } from '../game/state.js';
 import { useUserStore } from '../stores/userStore.js';
 import { GameEngine } from '../../../shared/GameEngine.ts';
+import PurchaseButton from './ui/PurchaseButton.vue';
 
 const userStore = useUserStore();
 

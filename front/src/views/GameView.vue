@@ -2,7 +2,7 @@
   <div class="game-view" v-if="['playing', 'gameover', 'coin-toss'].includes(state.gameState)">
     
     <!-- Background overlay -->
-    <div class="game-bg"></div>
+    <div class="game-bg" :style="state.boardBackground ? { backgroundImage: 'url(' + state.boardBackground + ')', backgroundSize: 'cover', backgroundPosition: 'center' } : {}"></div>
 
     <!-- Main Game Layout -->
     <div class="game-layout">
@@ -114,6 +114,7 @@ import GameOver from '../components/GameOver.vue';
 import CoinToss from '../components/CoinToss.vue';
 import { useRouter, useRoute } from 'vue-router';
 import { cardLibrary, getCardById, normalizeCard, initAIMatch } from '../game/state.js';
+import { getStrapiMediaUrl } from '../utils/url.js';
 
 const router = useRouter();
 const route = useRoute();
@@ -191,6 +192,33 @@ onMounted(async () => {
     }
 
     const { default: strapiService } = await import('../api/strapi.js');
+
+    // --- Fetch Board Background ---
+    try {
+        const bgId = route.query.bgId;
+        if (bgId) {
+            const bgRes = await strapiService.request('GET', `/board-backgrounds/${bgId}?populate=image`);
+            const bgData = bgRes.data || bgRes;
+            const bg = bgData.attributes || bgData;
+            const img = bg.image?.data?.attributes || bg.image;
+            if (img && img.url) {
+                state.boardBackground = img.url.startsWith('http') ? img.url : getStrapiMediaUrl(img.url);
+            }
+        } else {
+            const bgRes = await strapiService.request('GET', `/board-backgrounds?populate=image`);
+            const bgData = bgRes.data || [];
+            if (bgData.length > 0) {
+                const randomBg = bgData[Math.floor(Math.random() * bgData.length)];
+                const bg = randomBg.attributes || randomBg;
+                const img = bg.image?.data?.attributes || bg.image;
+                if (img && img.url) {
+                    state.boardBackground = img.url.startsWith('http') ? img.url : getStrapiMediaUrl(img.url);
+                }
+            }
+        }
+    } catch (err) {
+        console.warn("Failed to fetch board background:", err);
+    }
 
     // --- Mode: IA ---
     if (mode === 'ia') {

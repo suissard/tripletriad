@@ -1,0 +1,34 @@
+﻿{
+ "_meta": "Modèle de structure pour générer la direction artistique d'une faction de TCG via IA.",
+ "nom_faction": "Les Héritiers des Cendres",
+ "direction_artistique": {
+   "mots_cles_globaux": "Horreur post-apocalyptique, mutants asymétriques, radiations, sacré-toxique, contraste high-tech/chair.",
+   "couleurs": {
+     "repartition": "60% Chair malade et haillons / 30% Métal rouillé / 10% Accents radioactifs et immaculés.",
+     "principales": "Brun terre irradiée, Gris cendre, Chair nécrosée jaunâtre.",
+     "secondaires": "Rouille vibrante, Noir de suie, Tissus délavés.",
+     "accents_et_energie": "Jaune fluo radioactif (tumeurs, yeux), Blanc pur et Chrome (armes antiques immaculées)."
+   },
+   "anatomie_et_biologie": {
+     "description": "Mutants humains dégénérés. Corps lourdement asymétriques, membres surnuméraires atrophiés ou surdéveloppés, tumeurs luminescentes jaune. Les 'Aberrations' sont d'immenses amalgames de plusieurs corps fusionnés (Communion Charnelle)."
+   },
+   "armures_et_vetements": {
+     "concept_global": "Tribalisme apocalyptique et culte du nucléaire. Des haillons crasseux contrastant avec des artefacts mortels.",
+     "structure": "Vêtements en lambeaux, toges rituelles faites de bâches anti-radiations usées, plaques d'armure de récupération rudimentaires.",
+     "casques_et_visages": "Visages fondus ou déformés par les tumeurs, mâchoires tordues, yeux multiples ou manquants. Parfois masqués par des crânes ou de vieux masques à gaz fondus.",
+     "details_cles": "Bougies en cire posées directement sur la peau ou le métal, colliers de douilles lourdes, implants ratés où le métal rouillé perce la chair."
+   },
+   "armes_et_equipements": {
+     "concept": "Armes de destruction massive de l'Ancien Monde vénérées comme des idoles divines. Contraste absolu : le porteur est immonde, l'arme est une relique parfaite.",
+     "formes": "Canons à plasma lourds, fusils à antimatière aux lignes épurées et géométriques, petites ogives nucléaires portées comme reliques de mêlée.",
+     "details_visuels": "Les armes reliques sont intactes, lisses, luminescentes et technologiquement parfaites. Elles sont souvent enchaînées au poignet ou brutalement greffées dans la chair mutante du porteur."
+   },
+   "vehicules_et_vaisseaux": {
+     "concept": "Pas de véhicules classiques. La logistique lourde est assurée par les titans de chair (Aberrations) ou des autels mobiles tirés à la force des bras.",
+     "geometrie": "Amas chaotiques de chair, d'os et de métal rouillé servant de plateformes de tir pour des réacteurs à fusion ou des silos missiles déterrés."
+   }
+ },
+ "prompt_engineering": {
+   "master_prompt_adn": "Sci-fi grimdark horror, Les Heritiers des Cendres faction. Horrific asymmetric mutated human cultist with multiple limbs and glowing yellow radioactive tumors. Wearing ragged wasteland clothes and bone trinkets. Wielding a pristine, smooth, high-tech glowing ancient super-weapon painfully embedded in their flesh. Toxic wasteland background, post-apocalyptic cult, cinematic lighting, highly detailed."
+ }
+}

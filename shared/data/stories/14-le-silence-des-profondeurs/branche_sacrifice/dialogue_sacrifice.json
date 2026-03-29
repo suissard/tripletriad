@@ -1,0 +1,31 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "dialogue_sacrifice",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous activez le protocole. Douze volontaires se présentent. Parmi eux, la Tisseuse de Marée, vos yeux psioniques brillant d'une lumière violette calme. Elle incline ses tentacules vers vous.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Tisseuse de Marée",
+      "sentence": "[Traducteur, voix sereine] Sous-officier. Je ne reviendrai pas. Mais mes enfants boiront de l'eau demain. C'est suffisant. Le Synode nous a enseigné que la marée monte et descend. Aujourd'hui, c'est notre heure de descendre.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Les douze volontaires surchargent leurs scaphandres. La lumière est aveuglante. Leurs corps se compriment, se tordent, deviennent des points de gravité pure. La comète tremble. Puis, lentement, elle se redresse. L'eau des bocaux se stabilise. Les volontaires sont devenu des étoiles silencieuses.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Ambassadeur Céphalopode",
+      "sentence": "[Traducteur, voix brisée] Douze noms seront gravés dans le corail du temple. Leurs enfants auront de l'eau. C'est... la seule consolation.",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "fin_sacrifice"
+}

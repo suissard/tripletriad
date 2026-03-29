@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "combat_purificateurs",
+  "enemyDeckName": "L'Omni-Réseau",
+  "onWinSituationId": "fin_sacrifice",
+  "onLoseSituationId": "fin_purge_combat"
+}

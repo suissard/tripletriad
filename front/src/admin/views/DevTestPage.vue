@@ -108,6 +108,7 @@ import { ref, reactive, computed, onMounted } from 'vue';
 import { useUserStore } from '../../stores/userStore.js';
 const userStore = useUserStore();
 import strapiService from '../../api/strapi.js';
+import { getStrapiUrl } from '../../utils/url.js';
 
 const selectedRoute = ref(null);
 const form = reactive({});
@@ -274,7 +275,7 @@ function buildUrl(route) {
   if (route.dynamicPath && route.dynamicKey) {
     url += form[route.dynamicKey] || `:${route.dynamicKey}`;
   }
-  return '/api' + (url.startsWith('/') ? url : '/' + url);
+  return getStrapiUrl(url);
 }
 
 function getActiveToken() {
@@ -360,7 +361,7 @@ async function runTest() {
 
   const startTime = performance.now();
   try {
-    const fullUrl = `http://localhost:1337/api${url.startsWith('/') ? url : '/' + url}`;
+    const fullUrl = getStrapiUrl(url);
     const response = await fetch(fullUrl, options);
     
     const endTime = performance.now();

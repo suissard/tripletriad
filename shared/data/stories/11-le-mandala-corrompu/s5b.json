@@ -1,0 +1,1 @@
+{"__component":"story.situation-choice","situationId":"s5b","text":"Les Héritiers refusent le dialogue. Que faites-vous ?","options":[{"text":"Se soumettre et écouter leurs chants","nextSituationId":"s6b"},{"text":"Lancer une attaque défensive","nextSituationId":"s7b"}]}

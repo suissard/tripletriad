@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "branche_purger/aide_choeur_result",
+  "text": "Le Chœur vous envoie des correctifs, mais la dissonance s'adapte. Que faites-vous ?",
+  "options": [
+    {
+      "text": "Combiner les correctifs avec une défragmentation plus profonde",
+      "nextSituationId": "branche_purger/poursuite"
+    },
+    {
+      "text": "Accepter l'aide mais chercher à comprendre la dissonance",
+      "nextSituationId": "branche_purger/comprendre"
+    },
+    {
+      "text": "Rejeter l'aide du Chœur et faire face seul",
+      "nextSituationId": "branche_purger/isolement"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "26",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "La lumière du jour se fait de plus en plus faible. Les enfants vous tiennent par vos écailles de basalte, leurs petites mains chaudes contre votre peau froide. Le titan en vous gronde, mais quelque chose de nouveau murmure : protège-les.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "29"
+}

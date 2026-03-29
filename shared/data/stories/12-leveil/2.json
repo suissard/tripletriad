@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "2",
+  "text": "Quel sera ton premier acte ?",
+  "options": [
+    {
+      "text": "Ecraser les bâtiments devant toi, suivant l'instinct de ton essaim",
+      "nextSituationId": "3"
+    },
+    {
+      "text": "Observer les humains qui se terrent dans les ruines",
+      "nextSituationId": "4"
+    },
+    {
+      "text": "S'approcher du groupe d'enfants qui te regardent sans fuir",
+      "nextSituationId": "5"
+    }
+  ]
+}

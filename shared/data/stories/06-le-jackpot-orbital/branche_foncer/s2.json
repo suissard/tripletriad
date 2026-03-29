@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "s2",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "Vous poussez les moteurs à fond, fendant le nuage de débris vers le cuirassé blessé.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Rook",
+      "sentence": "Accrochez-vous, ça va secouer !",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "s3"
+}

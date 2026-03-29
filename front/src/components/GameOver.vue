@@ -55,6 +55,7 @@ function handleStoryWin() {
     const story = state.storyMatchData?.story;
     const step = state.storyMatchData?.step;
     const storyId = story?.id || story?.documentId || route.query.storyId;
+    const fromSituation = route.query.fromSituation;
     
     // Calculate step index before resetting
     let stepIndex = 1;
@@ -71,6 +72,7 @@ function handleStoryWin() {
         path: `/story/${storyId}/step/${stepIndex}`, 
         query: { 
             result: 'win',
+            fromSituation: fromSituation,
             dialogue: 'end',
             line: 0
         } 
@@ -80,17 +82,19 @@ function handleStoryWin() {
 function handleStoryRetry() {
     const storyId = route.query.storyId || state.storyMatchData?.story?.id || state.storyMatchData?.story?.documentId;
     const stepId = route.query.stepId || state.storyMatchData?.step?.id || state.storyMatchData?.step?.documentId;
+    const fromSituation = route.query.fromSituation;
     
     resetGame();
     
     // Hard reload to guarantee a completely clean starting state unpolluted by Vue reactivity
-    window.location.href = `/game?mode=story&storyId=${storyId}&stepId=${stepId}`;
+    window.location.href = `/game?mode=story&storyId=${storyId}&stepId=${stepId}&fromSituation=${fromSituation}`;
 }
 
 function handleStoryQuit() {
     const story = state.storyMatchData?.story;
     const step = state.storyMatchData?.step;
     const storyId = story?.id || story?.documentId || route.query.storyId;
+    const fromSituation = route.query.fromSituation;
     
     // Calculate step index before resetting
     let stepIndex = 1;
@@ -107,6 +111,7 @@ function handleStoryQuit() {
         path: `/story/${storyId}/step/${stepIndex}`, 
         query: { 
             result: 'loss',
+            fromSituation: fromSituation,
             dialogue: 'start',
             line: 0
         } 

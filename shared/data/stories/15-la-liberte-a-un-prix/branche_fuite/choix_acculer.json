@@ -1,0 +1,15 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "choix_fuite_acculer",
+  "text": "Vous avez détruit les traqueurs, mais vos batteries sont presque vides. Vous êtes à la lisière du Hub de communication central.",
+  "options": [
+    {
+      "text": "Poursuivre la fuite désespérée vers le relais externe abandonné.",
+      "nextSituationId": "dialogue_limite_reseau"
+    },
+    {
+      "text": "Tenter un hack d'urgence sur un terminal voisin pour masquer vos traces.",
+      "nextSituationId": "dialogue_tentative_eveil"
+    }
+  ]
+}

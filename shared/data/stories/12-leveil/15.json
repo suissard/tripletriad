@@ -1,0 +1,13 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "15",
+  "dialogues": [
+    {
+      "name": "N",
+      "sentence": "La chaleur dans ton ventre grandit, devenant une flamme qui tourbillonne sous tes écailles. Tu sens une puissance nouvelle, mais aussi une faim dévorante.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "19"
+}
