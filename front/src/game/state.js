@@ -87,8 +87,22 @@ export const createCardData = (i) => {
  * or raw GameEngine card format.
  */
 function normalizeBoard(board) {
-    if (!board) return Array(9).fill(null);
-    const flat = Array.isArray(board[0]) ? board.flat() : board;
+    if (!board || board.length === 0) {
+        state.boardWidth = 3;
+        state.boardHeight = 3;
+        return Array(9).fill(null);
+    }
+    
+    let flat;
+    if (Array.isArray(board[0])) {
+        // Multi-dimensional array from GameEngine logic
+        state.boardHeight = board.length;
+        state.boardWidth = board[0].length;
+        flat = board.flat();
+    } else {
+        flat = board;
+    }
+    
     return flat.map(entry => {
         if (!entry) return null;
         
@@ -121,6 +135,9 @@ export const state = reactive({
   holoFineness: 0.05, // default texture scale for SVG filter
   pDeck: [],
   aiDeck: [],
+    // Dynamic Board dimensions
+    boardWidth: 3,
+    boardHeight: 3,
     // Board: Array of { data: cardDataObj, owner: 'player'|'ai' } | null
     board: Array(9).fill(null),
     // Hands: Arrays of plain card data objects
@@ -183,6 +200,10 @@ export const state = reactive({
     storyEnemyDeckConfig: [],
     onStoryMatchEnd: null,
     storyMatchData: null,
+
+    // Combo visual effect
+    comboCount: 0,
+    comboActiveIndex: null,
 });
 
 export function getCardById(id) {
@@ -363,6 +384,8 @@ function generateLocalUUID() {
 // Reset the entire game state
 export function resetGame(deckSize = 30, goToMenu = true, forcedTurn = null) {
     initDeck(deckSize);
+    state.boardWidth = 3;
+    state.boardHeight = 3;
     state.board = Array(9).fill(null);
     state.matchId = null;
     state.pHand = [];
@@ -397,6 +420,10 @@ export function resetGame(deckSize = 30, goToMenu = true, forcedTurn = null) {
     state.aiMana = 1;
     state.actionLog = [];
     state.showCoinToss = false;
+
+    // Reset combo state
+    state.comboCount = 0;
+    state.comboActiveIndex = null;
 }
 
 /**

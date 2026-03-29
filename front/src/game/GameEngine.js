@@ -61,8 +61,13 @@ export class GameEngine {
     // 4. Passer au joueur suivant
     nextState.currentPlayer = action.player === 'PLAYER_1' ? 'PLAYER_2' : 'PLAYER_1';
 
-    // 5. Vérifier les conditions de fin de partie
+    // Expand board if a row or column is full
+    GameEngine.expandBoard2D(nextState.board);
+
+    // 5. Vérifier les conditions de fin de partie (remplacé par désactivé ici car géré par le deck localement)
     if (GameEngine.isBoardFull(nextState.board)) {
+      // In dynamic size, the board is technically never full
+      // Keeping backward compatibility logic just in case
       nextState.isFinished = true;
       nextState.winner = GameEngine.computeWinner(nextState.board);
     }
@@ -113,6 +118,27 @@ export class GameEngine {
     }
     
     return captures;
+  }
+
+  /**
+   * Expansion PURE d'un board 2D
+   */
+  static expandBoard2D(board) {
+    const anyRowFull = board.some(row => row.every(cell => cell !== null));
+    const anyColFull = board[0].map((_, colIdx) => board.every(row => row[colIdx] !== null)).some(full => full);
+
+    if (anyRowFull) {
+      board.forEach(row => {
+        row.unshift(null);
+        row.push(null);
+      });
+    }
+
+    if (anyColFull) {
+      const width = board[0].length;
+      board.unshift(Array(width).fill(null));
+      board.push(Array(width).fill(null));
+    }
   }
 
   /**

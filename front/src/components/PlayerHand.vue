@@ -7,7 +7,6 @@
         class="hand-card-slot"
         :class="{
           'is-selected': state.selectedCardIndex === index,
-          'is-unaffordable': state.pMana < 1,
           'is-dragging-id': draggingCardId === card.id,
           'is-placing': card.isPlacing
         }"
@@ -27,9 +26,16 @@
     </TransitionGroup>
 
     <!-- Turn indicator -->
-    <div class="turn-indicator" v-if="state.gameState === 'playing'">
-      <span v-if="state.turn === 'player'" class="turn-text turn-yours">🎯 À vous de jouer</span>
-      <span v-else class="turn-text turn-opponent">⏳ Tour de l'adversaire...</span>
+    <!-- Turn indicator & Deck count -->
+    <div class="hand-footer" v-if="state.gameState === 'playing'">
+      <div class="turn-indicator">
+        <span v-if="state.turn === 'player'" class="turn-text turn-yours">🎯 À vous de jouer</span>
+        <span v-else class="turn-text turn-opponent">⏳ Tour de l'adversaire...</span>
+      </div>
+      <div class="deck-info">
+        <span class="deck-icon">🃏</span>
+        <span class="deck-count">{{ state.pDeck.length }} restantes</span>
+      </div>
     </div>
 
     <!-- Ghost element for dragging -->
@@ -39,8 +45,9 @@
         class="drag-ghost"
         :style="{
           transform: `translate(${dragPos.x}px, ${dragPos.y}px) scale(1.1) rotate(2deg)`,
-          transition: isSnappingBack ? 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)' : 'none'
+          transition: isSnappingBack ? 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)' : 'opacity 0.2s ease, transform 0.1s linear'
         }"
+        :class="{ 'is-over-valid': state.hoveredSlotIndex !== null && state.board[state.hoveredSlotIndex] === null }"
         @transitionend="onSnapBackEnd"
       >
         <TripleTriadCard
@@ -80,7 +87,6 @@ function getDraggingCard() {
 
 function onPointerDown(event, index, cardId) {
   if (state.turn !== 'player' || state.busy) return;
-  if (state.pMana < 1) return;
 
   // Prevent default to avoid selection issues and native drag behavior
   event.preventDefault();
@@ -306,7 +312,7 @@ onUnmounted(() => {
   }
 }
 
-.hand-card-slot:hover:not(.is-unaffordable) {
+.hand-card-slot:hover {
   transform: translateY(-8px) scale(1.05);
   z-index: 5;
 }
@@ -337,37 +343,40 @@ onUnmounted(() => {
   z-index: -1;
 }
 
-.hand-card-slot.is-unaffordable {
-  opacity: 0.4;
-  cursor: not-allowed;
-  filter: grayscale(60%);
-}
 
-.mana-cost {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  background: rgba(52, 152, 219, 0.9);
-  border: 2px solid #3498db;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
+.hand-footer {
+  width: 100%;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  font-weight: bold;
-  color: white;
-  z-index: 10;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-}
-
-.mana-icon {
-  display: none;
+  margin-top: 4px;
+  padding: 0 4px;
 }
 
 .turn-indicator {
-  margin-top: 4px;
+  display: flex;
+}
+
+.deck-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 210, 255, 0.2);
+}
+
+.deck-icon {
+  font-size: 0.9rem;
+}
+
+.deck-count {
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #00d2ff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .turn-text {
@@ -427,8 +436,12 @@ onUnmounted(() => {
   will-change: transform;
   /* Same size as regular card */
   /* Remove scaling from ghost itself if it's applied in transform, or let transform handle it */
-  transition: filter 0.2s ease;
-  opacity: 0.85;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+  opacity: 0.8;
+}
+
+.drag-ghost.is-over-valid {
+  opacity: 1;
 }
 
 /* Important: Make sure the ghost renders exactly like a hand card.

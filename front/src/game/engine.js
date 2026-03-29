@@ -45,6 +45,9 @@ export async function resolveRules(startIndex, owner) {
     const neighbors = getNeighbors(startIndex);
     const centerEntry = state.board[startIndex]; // { data, owner }
 
+    state.comboActiveIndex = startIndex;
+    state.comboCount = 0;
+
     const actionRecord = {
         playedCard: centerEntry.data,
         owner: owner,
@@ -89,6 +92,8 @@ export async function resolveRules(startIndex, owner) {
         }
     });
 
+    state.comboCount = actionRecord.capturedCards.length;
+
     if (comboStack.length > 0) await sleep(600);
 
     // Clear combo stack if rule is disabled
@@ -113,6 +118,7 @@ export async function resolveRules(startIndex, owner) {
 
         if (newCaptures) {
             showAlert("COMBO!");
+            state.comboCount = actionRecord.capturedCards.length;
             await sleep(600);
         }
     }
@@ -134,6 +140,12 @@ export async function resolveRules(startIndex, owner) {
     }
 
     updateScores();
+
+    // Reset combo active index after a brief delay
+    setTimeout(() => {
+        state.comboActiveIndex = null;
+        state.comboCount = 0;
+    }, 1500);
 }
 
 export function checkGameOver() {
@@ -202,9 +214,63 @@ export function updateScores() {
     state.pScore = pBoard;
     state.aiScore = aBoard;
 
-    if (state.board.every(b => b !== null)) {
+    const pNoCards = state.pHand.length === 0 && state.pDeck.length === 0;
+    const aiNoCards = state.aiHand.length === 0 && state.aiDeck.length === 0;
+    const boardFull = state.board.every(slot => slot !== null);
+
+    if (pNoCards || aiNoCards || boardFull) {
         setTimeout(() => {
             checkGameOver();
         }, 1000);
     }
+}
+
+export function expandBoard() {
+    let w = state.boardWidth;
+    let h = state.boardHeight;
+    let currentBoard = state.board;
+
+    let anyRowFull = false;
+    for (let y = 0; y < h; y++) {
+        let rowFull = true;
+        for (let x = 0; x < w; x++) {
+            if (currentBoard[y * w + x] === null) { rowFull = false; break; }
+        }
+        if (rowFull) { anyRowFull = true; break; }
+    }
+
+    let anyColFull = false;
+    for (let x = 0; x < w; x++) {
+        let colFull = true;
+        for (let y = 0; y < h; y++) {
+            if (currentBoard[y * w + x] === null) { colFull = false; break; }
+        }
+        if (colFull) { anyColFull = true; break; }
+    }
+
+    if (!anyRowFull && !anyColFull) return;
+
+    let colAddedLeft = (anyRowFull && w < 4) ? 1 : 0;
+    let colAddedRight = (anyRowFull && (w + colAddedLeft) < 4) ? 1 : 0;
+    let rowAddedTop = (anyColFull && h < 4) ? 1 : 0;
+    let rowAddedBot = (anyColFull && (h + rowAddedTop) < 4) ? 1 : 0;
+
+    if (colAddedLeft === 0 && colAddedRight === 0 && rowAddedTop === 0 && rowAddedBot === 0) return;
+
+    let nextW = w + colAddedLeft + colAddedRight;
+    let nextH = h + rowAddedTop + rowAddedBot;
+    let nextBoard = Array(nextW * nextH).fill(null);
+
+    for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+            let oldVal = currentBoard[y * w + x];
+            let newX = x + colAddedLeft;
+            let newY = y + rowAddedTop;
+            nextBoard[newY * nextW + newX] = oldVal;
+        }
+    }
+
+    state.board = nextBoard;
+    state.boardWidth = nextW;
+    state.boardHeight = nextH;
 }

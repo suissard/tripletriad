@@ -17,7 +17,13 @@
     </TransitionGroup>
     <div class="opp-label">
       <span class="opp-name">🤖 Adversaire</span>
-      <span class="opp-count">{{ state.aiHand.length }} carte{{ state.aiHand.length > 1 ? 's' : '' }}</span>
+      <div class="opp-stats">
+        <span class="opp-count">{{ state.aiHand.length }} main</span>
+        <span class="opp-deck">
+           <span class="deck-icon">🃏</span>
+           <span class="deck-val">{{ state.aiDeck.length }} restantes</span>
+        </span>
+      </div>
     </div>
   </div>
 </template>
@@ -85,6 +91,33 @@ import TripleTriadCard from './TripleTriadCard.vue';
 .opp-count {
   color: #888;
   font-size: 0.75rem;
+}
+
+.opp-stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.opp-deck {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 0, 85, 0.1);
+  padding: 2px 8px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 0, 85, 0.2);
+}
+
+.deck-icon {
+  font-size: 0.8rem;
+}
+
+.deck-val {
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: #ff0055;
+  text-transform: uppercase;
 }
 
 /* Card transitions */

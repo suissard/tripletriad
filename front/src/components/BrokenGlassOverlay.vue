@@ -94,9 +94,8 @@ const triggerImpact = () => {
         mCtx.fillRect(0, 0, w, h);
     }
 
-    // Determine impact points based on direction
-    const padding = 20; // Distance from edge
-    const spread = 25;  // Distance between multiple hits along the edge
+    const padding = 20; 
+    const spread = 25;  
 
     let points = [];
     let cx = w / 2, cy = h / 2;
@@ -110,20 +109,43 @@ const triggerImpact = () => {
     } else if (props.direction === 'right') {
         points = [ {x: w - padding, y: cy - spread}, {x: w - padding, y: cy}, {x: w - padding, y: cy + spread} ];
     } else {
-        points = [ {x: cx, y: cy} ]; // Fallback center
+        points = [ {x: cx, y: cy} ]; 
     }
 
-    const holeRadius = 20; // 40px diameter
+    renderImpactPoints(points);
+};
 
+const triggerImpactAt = (x, y) => {
+    if (!initialized) init();
+    if (w === 0 || h === 0) {
+        setTimeout(() => triggerImpactAt(x, y), 50);
+        return;
+    }
+
+    hasImpact.value = true;
+
+    if(cCtx && mCtx) {
+        cCtx.clearRect(0, 0, w, h);
+        mCtx.globalCompositeOperation = 'source-over';
+        mCtx.fillStyle = 'black';
+        mCtx.fillRect(0, 0, w, h);
+    }
+
+    const points = [ {x, y} ];
+    renderImpactPoints(points);
+    animateOut();
+};
+
+const renderImpactPoints = (points) => {
+    const holeRadius = 20; 
     points.forEach(p => {
-        // Add random slight jitter
-        const x = p.x + (Math.random() - 0.5) * 10;
-        const y = p.y + (Math.random() - 0.5) * 10;
+        const px = p.x + (Math.random() - 0.5) * 10;
+        const py = p.y + (Math.random() - 0.5) * 10;
 
         if(cCtx) {
             cCtx.globalCompositeOperation = 'source-over';
             cCtx.lineCap = 'round';
-            for(let i=0; i<6; i++) addCrack(x, y, (Math.PI*2/6)*i + Math.random(), 10, 1 + Math.random() * 2);
+            for(let i=0; i<6; i++) addCrack(px, py, (Math.PI*2/6)*i + Math.random(), 10, 1 + Math.random() * 2);
         }
 
         if (mCtx) {
@@ -133,7 +155,7 @@ const triggerImpact = () => {
             for(let i=0; i<12; i++){
                 const a = (Math.PI*2/12)*i;
                 const d = radius * (0.4 + Math.random()*0.6);
-                mCtx.lineTo(x + Math.cos(a)*d, y + Math.sin(a)*d);
+                mCtx.lineTo(px + Math.cos(a)*d, py + Math.sin(a)*d);
             }
             mCtx.fill();
         }
@@ -142,38 +164,44 @@ const triggerImpact = () => {
     updateMask();
 };
 
+const animateOut = () => {
+    setTimeout(() => {
+        const start = Date.now();
+        const duration = 1000;
+        
+        const animate = () => {
+            const elapsed = Date.now() - start;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            if (wrapperRef.value) {
+                wrapperRef.value.style.opacity = 1 - progress;
+            }
+            
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                hasImpact.value = false;
+                if (wrapperRef.value) wrapperRef.value.style.opacity = 1;
+            }
+        };
+        requestAnimationFrame(animate);
+    }, 1500);
+};
+
 watch(() => props.direction, (newVal) => {
     if (newVal) {
         nextTick(() => {
             setTimeout(triggerImpact, 50);
-            
-            // Reconstitution effect after 1.5s
-            setTimeout(() => {
-                const start = Date.now();
-                const duration = 1000;
-                
-                const animate = () => {
-                    const elapsed = Date.now() - start;
-                    const progress = Math.min(elapsed / duration, 1);
-                    
-                    if (wrapperRef.value) {
-                        wrapperRef.value.style.opacity = 1 - progress;
-                    }
-                    
-                    if (progress < 1) {
-                        requestAnimationFrame(animate);
-                    } else {
-                        hasImpact.value = false;
-                        if (wrapperRef.value) wrapperRef.value.style.opacity = 1;
-                    }
-                };
-                requestAnimationFrame(animate);
-            }, 1500);
+            animateOut();
         });
     } else {
         hasImpact.value = false;
     }
 }, { immediate: true });
+
+defineExpose({
+    triggerImpactAt
+});
 
 onMounted(() => {
     setTimeout(init, 50);
@@ -192,7 +220,7 @@ onBeforeUnmount(() => {
     mask-size: 100% 100%;
     -webkit-mask-size: 100% 100%;
     pointer-events: none;
-    z-index: 20;
+    z-index: 1;
     border-radius: inherit;
 }
 

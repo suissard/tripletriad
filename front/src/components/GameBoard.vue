@@ -1,5 +1,5 @@
 <template>
-  <div class="game-board">
+  <div class="game-board" ref="boardRef" :style="{ gridTemplateColumns: `repeat(${state.boardWidth}, 1fr)`, gridTemplateRows: `repeat(${state.boardHeight}, auto)` }">
     <div
       v-for="(cell, index) in state.board"
       :key="index"
@@ -27,7 +27,7 @@
           <TripleTriadCard
             :card="cell.data"
             :flat="true"
-            size="sm"
+            size="100%"
             :borderColor="cell.owner === state.pId ? '#00d2ff' : '#ff0055'"
             :disableZoom="true"
             :isPremium="cell.data.isPremium"
@@ -35,16 +35,61 @@
         </div>
       </Transition>
     </div>
+    
+    <BrokenGlassOverlay ref="glassOverlay" />
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch, nextTick } from 'vue';
 import { state } from '../game/state.js';
 import { placeCard } from '../game/game-actions.js';
 import TripleTriadCard from './TripleTriadCard.vue';
+import BrokenGlassOverlay from './BrokenGlassOverlay.vue';
 
 const lastPlacedIndex = ref(null);
+const boardRef = ref(null);
+const glassOverlay = ref(null);
+let glassTriggered = false;
+
+watch(() => state.comboCount, async (newVal, oldVal) => {
+  if (newVal > (oldVal || 0) && boardRef.value) {
+     const intensity = Math.min(newVal * 2, 10); // Effet proportionnel au nombre de cartes
+     boardRef.value.animate([
+       { transform: `translate3d(-${intensity}px, 0, 0)` },
+       { transform: `translate3d(${intensity}px, 0, 0)` },
+       { transform: `translate3d(-${intensity/2}px, 0, 0)` },
+       { transform: `translate3d(${intensity/2}px, 0, 0)` },
+       { transform: 'translate3d(0, 0, 0)' }
+     ], { duration: 400, easing: 'ease-in-out' });
+  }
+
+  if (newVal >= 4 && !glassTriggered && state.comboActiveIndex !== null) {
+    glassTriggered = true;
+    await nextTick();
+    triggerGlassEffect(state.comboActiveIndex);
+  }
+  
+  if (newVal === 0) {
+    glassTriggered = false;
+  }
+});
+
+function triggerGlassEffect(slotIndex) {
+  if (!glassOverlay.value || !boardRef.value) return;
+  
+  const slotEls = boardRef.value.querySelectorAll('.board-slot');
+  const slotEl = slotEls[slotIndex];
+  if (!slotEl) return;
+  
+  const boardRect = boardRef.value.getBoundingClientRect();
+  const slotRect = slotEl.getBoundingClientRect();
+
+  const x = slotRect.left - boardRect.left + slotRect.width / 2;
+  const y = slotRect.top - boardRect.top + slotRect.height / 2;
+
+  glassOverlay.value.triggerImpactAt(x, y);
+}
 
 function handleSlotClick(index) {
   if (state.board[index] !== null) return;
@@ -73,8 +118,6 @@ defineExpose({
 <style scoped>
 .game-board {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
   gap: 20px;
   padding: 20px;
   background: rgba(0, 0, 0, 0.5);
@@ -82,8 +125,9 @@ defineExpose({
   border: 2px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(12px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 60px rgba(0, 0, 0, 0.2);
-  max-width: 420px;
   width: 100%;
+  max-width: min(500px, 95vw);
+  max-height: 70vh;
   flex-shrink: 0;
   margin: 0 auto;
 }
@@ -92,7 +136,7 @@ defineExpose({
   .game-board {
     gap: 8px;
     padding: 10px;
-    max-width: 320px;
+    max-width: 100%;
     border-radius: 10px;
   }
 }
@@ -107,7 +151,8 @@ defineExpose({
   justify-content: center;
   cursor: pointer;
   transition: all 0.25s ease;
-  aspect-ratio: 2.5 / 3.5;
+  aspect-ratio: 1 / 1;
+  z-index: 2;
 }
 
 .board-slot.slot-empty:hover {
@@ -133,13 +178,13 @@ defineExpose({
 }
 
 .board-slot.is-drag-over {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: #ffffff;
+  background: rgba(0, 210, 255, 0.2);
+  border-color: #00d2ff;
   box-shadow: 
-    0 0 20px rgba(255, 255, 255, 0.4),
-    inset 0 0 15px rgba(255, 255, 255, 0.2);
-  transform: scale(1.02);
-  z-index: 5;
+    0 0 30px rgba(0, 210, 255, 0.6),
+    inset 0 0 20px rgba(0, 210, 255, 0.3);
+  transform: scale(1.05);
+  z-index: 15;
 }
 
 .slot-marker {

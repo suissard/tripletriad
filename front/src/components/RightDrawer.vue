@@ -1567,7 +1567,7 @@ input:checked + .slider:before {
 
 .card-slot {
   position: relative;
-  aspect-ratio: 2.5/3.5;
+  aspect-ratio: 1 / 1;
   background: rgba(255, 255, 255, 0.05);
   border: 2px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
@@ -1770,7 +1770,7 @@ input:checked + .slider:before {
 
 .card-slot.mini {
   padding: 5px;
-  aspect-ratio: 2.5/3;
+  aspect-ratio: 1 / 1;
 }
 
 .card-slot.mini .card-name {

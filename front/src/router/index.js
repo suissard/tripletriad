@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import GameView from '../views/GameView.vue'
 import CollectionView from '../views/CollectionView.vue'
 import DeckEditorPage from '../views/DeckEditorPage.vue'
@@ -110,7 +110,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
 })
 
