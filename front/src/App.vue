@@ -50,7 +50,7 @@ onMounted(async () => {
   const initPromises = [
     (async () => {
       if (userStore.strapiConnected) {
-        await loadCardsFromStrapi();
+        try { await loadCardsFromStrapi(); } catch(e) { console.error('Error loading cards', e); }
       }
     })(),
     (async () => {
