@@ -102,6 +102,12 @@ const routes = [
     meta: { requiresAdminAuth: true }
   },
   {
+    path: '/admin/simulateur',
+    name: 'admin-simulator',
+    component: () => import('../admin/views/AISimulatorPage.vue'),
+    meta: { requiresAdminAuth: true }
+  },
+  {
     path: '/admin/:collection',
     name: 'admin-dynamic-editor',
     component: () => import('../admin/components/DynamicEditor.vue'),
