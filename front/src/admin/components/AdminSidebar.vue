@@ -51,6 +51,16 @@
       <span class="icon">✨</span> HoloEditor Pro
     </AppButton>
 
+    <AppButton
+      variant="ghost"
+      fullWidth
+      @click="navigate('/admin/simulateur')"
+      class="premium-nav-item"
+      :class="{ 'premium-nav-item-active': route.path === '/admin/simulateur' }"
+    >
+      <span class="icon">🤖</span> Simulateur IA
+    </AppButton>
+
     <div class="pt-12 pb-5">
       <p class="px-6 text-[9px] font-black uppercase tracking-premium opacity-50">Developer Tools</p>
     </div>
