@@ -98,9 +98,9 @@ export const createCardData = (i) => {
  */
 function normalizeBoard(board) {
     if (!board || board.length === 0) {
-        state.boardWidth = 3;
-        state.boardHeight = 3;
-        return Array(9).fill(null);
+        state.boardWidth = 4;
+        state.boardHeight = 4;
+        return Array(16).fill(null);
     }
     
     let flat;
@@ -146,10 +146,10 @@ export const state = reactive({
   pDeck: [],
   aiDeck: [],
     // Dynamic Board dimensions
-    boardWidth: 3,
-    boardHeight: 3,
+    boardWidth: 4,
+    boardHeight: 4,
     // Board: Array of { data: cardDataObj, owner: 'player'|'ai' } | null
-    board: Array(9).fill(null),
+    board: Array(16).fill(null),
     // Hands: Arrays of plain card data objects
     pHand: [],
     aiHand: [],
@@ -404,9 +404,9 @@ function generateLocalUUID() {
 export function resetGame(deckSize = 30, goToMenu = true, forcedTurn = null) {
     gameEvents.emit('MATCH_START', {});
     initDeck(deckSize);
-    state.boardWidth = 3;
-    state.boardHeight = 3;
-    state.board = Array(9).fill(null);
+    state.boardWidth = 4;
+    state.boardHeight = 4;
+    state.board = Array(16).fill(null);
     state.matchId = null;
     state.pHand = [];
     state.aiHand = [];
