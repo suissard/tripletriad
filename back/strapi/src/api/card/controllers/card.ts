@@ -3,23 +3,18 @@ import { factories } from '@strapi/strapi';
 export default factories.createCoreController('api::card.card', ({ strapi }) => ({
   async getFilters(ctx) {
     try {
-      // Query all cards for distinct faction and collectionName values
-      // Using Query Engine (strapi.db) is better for 'get all unique' scenarios
-      const cards = await strapi.db.query('api::card.card').findMany({
-        select: ['faction', 'collectionName'],
-      });
+      // Optimized query: Use Knex (strapi.db.connection) for distinct values directly from the database.
+      // This reduces memory usage and processing time by offloading uniqueness to the DB.
+      const knex = strapi.db.connection;
 
-      const factionSet = new Set<string>();
-      const collectionSet = new Set<string>();
-
-      for (const card of (cards as any[])) {
-        if (card.faction) factionSet.add(card.faction);
-        if (card.collectionName) collectionSet.add(card.collectionName);
-      }
+      const [factionsResult, collectionsResult] = await Promise.all([
+        knex('cards').distinct('faction').whereNotNull('faction').orderBy('faction', 'asc'),
+        knex('cards').distinct('collection_name').whereNotNull('collection_name').orderBy('collection_name', 'asc'),
+      ]);
 
       ctx.body = {
-        factions: [...factionSet].sort(),
-        collections: [...collectionSet].sort(),
+        factions: factionsResult.map((r: any) => r.faction),
+        collections: collectionsResult.map((r: any) => r.collection_name),
       };
     } catch (err) {
       console.error('[Strapi] getFilters error:', err);
