@@ -124,6 +124,7 @@
 import { ref, watch, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import strapiService from '@/api/strapi';
+import { ELEMENT_OPTIONS } from '@/data/factions.js';
 import TripleTriadCard from '../../components/TripleTriadCard.vue';
 import PremiumSelect from './PremiumSelect.vue';
 import AdminTable from './AdminTable.vue';
@@ -209,18 +210,7 @@ const getOptionsForField = (key) => {
     ];
   }
   if (lKey === 'element' || lKey === 'élément') {
-    return [
-      { label: 'Aucun', value: 'None' },
-      { label: 'Eau', value: 'eau' },
-      { label: 'Faille Dimensionnelle', value: 'faille_dimensionnelle' },
-      { label: 'Furtif', value: 'furtif' },
-      { label: 'Hacking', value: 'hacking' },
-      { label: 'Longue Portée', value: 'longue_portee' },
-      { label: 'Obsidienne', value: 'obsidienne' },
-      { label: 'Radiation', value: 'radiation' },
-      { label: 'Réseau', value: 'reseau' },
-      { label: 'Spore', value: 'spore' }
-    ];
+    return [{ label: 'Aucun', value: 'None' }, ...ELEMENT_OPTIONS];
   }
   return [];
 };
