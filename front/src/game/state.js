@@ -593,3 +593,11 @@ gameEvents.on('CARD_CAPTURED', (payload) => {
 gameEvents.on('GAME_OVER', (payload) => {
     console.log(`[Event] GAME_OVER - La partie est terminée. Vainqueur: ${payload.winner}`);
 });
+
+gameEvents.on('SHOW_ALERT', (payload) => {
+    // Re-use engine's showAlert logic adapted for state
+    state.alerts = payload.text;
+    setTimeout(() => {
+        if (state.alerts === payload.text) state.alerts = '';
+    }, 2000);
+});

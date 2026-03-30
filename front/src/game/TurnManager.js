@@ -41,7 +41,17 @@ export class TurnManager {
     this.onStateUpdate(this.state);
     
     // Emettre l'événement pour l'UI, déduction mana, animations
+
+    // Emettre l'événement pour l'UI, déduction mana, animations
     gameEvents.emit('CARD_PLACED', { action, captures: this.state.lastCaptures || [] });
+
+    // Show alerts if any
+    if (this.state.lastCaptures && this.state.lastCaptures.alerts) {
+      this.state.lastCaptures.alerts.forEach(alertText => {
+        gameEvents.emit('SHOW_ALERT', { text: alertText });
+      });
+    }
+
 
     // Emettre l'événement de capture si applicable
     if (this.state.lastCaptures && this.state.lastCaptures.length > 0) {
@@ -101,7 +111,17 @@ export class TurnManager {
     if (this.onRemoteAction) {
         this.onRemoteAction(action);
     }
+
+    // Emettre l'événement pour l'UI, déduction mana, animations
     gameEvents.emit('CARD_PLACED', { action, captures: this.state.lastCaptures || [] });
+
+    // Show alerts if any
+    if (this.state.lastCaptures && this.state.lastCaptures.alerts) {
+      this.state.lastCaptures.alerts.forEach(alertText => {
+        gameEvents.emit('SHOW_ALERT', { text: alertText });
+      });
+    }
+
 
     // Emettre l'événement de capture si applicable
     if (this.state.lastCaptures && this.state.lastCaptures.length > 0) {
