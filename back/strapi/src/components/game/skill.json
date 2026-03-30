@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_game_skills",
+  "info": {
+    "displayName": "skill",
+    "description": "Compétence d'une carte (Growing, Decrease, Heal, Death, etc.)"
+  },
+  "options": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "growing",
+        "decrease",
+        "heal",
+        "death"
+      ],
+      "required": true
+    },
+    "value": {
+      "type": "integer",
+      "required": true
+    },
+    "target": {
+      "type": "string",
+      "required": false,
+      "description": "Cible de la compétence (ex: all, top, adjacent, etc.)"
+    }
+  }
+}

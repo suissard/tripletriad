@@ -30,6 +30,7 @@
             size="100%"
             :borderColor="cell.owner === state.pId ? '#00d2ff' : '#ff0055'"
             :disableZoom="true"
+            :owner="cell.owner"
             :isPremium="cell.data.isPremium"
           />
         </div>

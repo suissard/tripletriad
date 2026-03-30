@@ -52,11 +52,24 @@ export class GameEngine {
 
     // 2. Placer la carte
     const cellOwner = action.player;
-    const placedCell = { data: card, owner: cellOwner };
+    const placedCell = {
+      data: {
+        ...card,
+        hp: card.hp !== undefined ? card.hp : (card.defaultHp || 3),
+        skills: card.skills || []
+      },
+      owner: cellOwner
+    };
     nextState.board[y][x] = placedCell;
+
+    // Appliquer Heal et Death au placement
+    GameEngine.applyPlacementSkills(nextState.board, x, y, placedCell);
 
     // 3. Calculer les captures (Règles "Classiques" d'adjacence)
     nextState.lastCaptures = GameEngine.processCaptures(nextState.board, x, y, placedCell);
+
+    // 4. Appliquer les effets de fin de tour (Growing, Decrease)
+    GameEngine.applyEndOfTurnSkills(nextState.board);
 
     // 4. Passer au joueur suivant
     nextState.currentPlayer = action.player === 'PLAYER_1' ? 'PLAYER_2' : 'PLAYER_1';
@@ -106,18 +119,122 @@ export class GameEngine {
 
           // Capture Classique : Ma valeur sur ce côté est-elle strictement supérieure à la valeur opposée adversaire ?
           if (myValue > oppValue) {
-            // Capture réussie ! On remplace la carte adjacente par un clone au propriétaire mis à jour.
-            board[ny][nx] = {
-              data: adjacentCell.data,
-              owner: player
-            };
-            captures.push(adjacentCell.data);
+            // Au lieu d'un simple changement de propriétaire, on réduit les HP
+            let newHp = (adjacentCell.data.hp !== undefined ? adjacentCell.data.hp : (adjacentCell.data.defaultHp || 3)) - 1;
+
+            if (newHp <= 0) {
+              // La carte meurt et disparaît du plateau
+              board[ny][nx] = null;
+              captures.push({ ...adjacentCell.data, dead: true });
+            } else {
+              // La carte survit, perd 1 HP et change de propriétaire
+              board[ny][nx] = {
+                data: {
+                  ...adjacentCell.data,
+                  hp: newHp
+                },
+                owner: player
+              };
+              captures.push(board[ny][nx].data);
+            }
           }
         }
       }
     }
     
     return captures;
+  }
+
+
+
+
+
+  /**
+   * Applique les compétences au moment du placement (Heal, Death)
+   */
+  static applyPlacementSkills(board, x, y, placedCell) {
+    if (!placedCell.data.skills) return;
+
+    const directions = [
+      { dx: 0, dy: -1 }, // Haut
+      { dx: 0, dy: 1 },  // Bas
+      { dx: -1, dy: 0 }, // Gauche
+      { dx: 1, dy: 0 }   // Droite
+    ];
+
+    placedCell.data.skills.forEach(skill => {
+      if (skill.type === 'heal' || skill.type === 'death') {
+        for (const dir of directions) {
+          const nx = x + dir.dx;
+          const ny = y + dir.dy;
+
+          if (nx >= 0 && nx < board[0].length && ny >= 0 && ny < board.length) {
+            const adjacentCell = board[ny][nx];
+            if (adjacentCell) {
+              let hp = adjacentCell.data.hp !== undefined ? adjacentCell.data.hp : (adjacentCell.data.defaultHp || 3);
+
+              if (skill.type === 'heal') {
+                hp += skill.value;
+              } else if (skill.type === 'death') {
+                hp -= skill.value;
+              }
+
+              if (hp <= 0) {
+                board[ny][nx] = null;
+              } else {
+                adjacentCell.data = { ...adjacentCell.data, hp: hp };
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  /**
+   * Applique les compétences de fin de tour (Growing, Decrease)
+   */
+  static applyEndOfTurnSkills(board) {
+    for (let y = 0; y < board.length; y++) {
+      for (let x = 0; x < board[y].length; x++) {
+        const cell = board[y][x];
+        if (cell && cell.data && cell.data.skills) {
+          cell.data.skills.forEach(skill => {
+            if (skill.type === 'growing' || skill.type === 'decrease') {
+              let targets = ['all'];
+              if (skill.target) {
+                targets = [skill.target.toLowerCase()];
+              }
+              const sides = ['top', 'right', 'bottom', 'left'];
+
+              sides.forEach(side => {
+                if (targets.includes('all') || targets.includes(side)) {
+                  let valStr = cell.data.values && cell.data.values[side] !== undefined ? cell.data.values[side] : cell.data[side + 'Value'];
+                  let val = valStr === 'A' || valStr === 'a' ? 10 : parseInt(valStr) || 0;
+
+                  if (skill.type === 'growing') {
+                    val += skill.value;
+                  } else if (skill.type === 'decrease') {
+                    val -= skill.value;
+                  }
+
+                  // Limites : 0 min, 10 max
+                  val = Math.max(0, Math.min(10, val));
+
+                  // Conversion inverse
+                  valStr = val === 10 ? 'A' : val.toString();
+
+                  if (cell.data.values) {
+                    cell.data.values[side] = valStr;
+                  }
+                  cell.data[side + 'Value'] = valStr;
+                }
+              });
+            }
+          });
+        }
+      }
+    }
   }
 
   /**
@@ -162,8 +279,6 @@ export class GameEngine {
       }
     }
 
-    // Remarque: Dans un vrai module Triple Triad, on ajoute souvent la carte qui reste en main.
-    // L'implémentation ici ne compte strictement que la domination des 9 cases finales posées.
     if (p1Count > p2Count) return 'PLAYER_1';
     if (p2Count > p1Count) return 'PLAYER_2';
     return 'DRAW';
