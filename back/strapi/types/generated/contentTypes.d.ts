@@ -483,6 +483,9 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    defaultHp: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<3>;
     description: Schema.Attribute.Text;
     element: Schema.Attribute.Enumeration<
       [
@@ -535,7 +538,7 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 1;
       }>;
-    skills: Schema.Attribute.JSON;
+    skills: Schema.Attribute.Component<'game.skill', true>;
     storiesRewardedFrom: Schema.Attribute.Relation<
       'manyToMany',
       'api::story.story'

@@ -22,6 +22,22 @@ export interface FoilLayer extends Struct.ComponentSchema {
   };
 }
 
+export interface GameSkill extends Struct.ComponentSchema {
+  collectionName: 'components_game_skills';
+  info: {
+    description: "Comp\u00E9tence d'une carte (Growing, Decrease, Heal, Death, etc.)";
+    displayName: 'skill';
+  };
+  attributes: {
+    target: Schema.Attribute.String;
+    type: Schema.Attribute.Enumeration<
+      ['growing', 'decrease', 'heal', 'death']
+    > &
+      Schema.Attribute.Required;
+    value: Schema.Attribute.Integer & Schema.Attribute.Required;
+  };
+}
+
 export interface StoryChoiceCondition extends Struct.ComponentSchema {
   collectionName: 'components_story_choice_conditions';
   info: {
@@ -167,6 +183,7 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'foil.layer': FoilLayer;
+      'game.skill': GameSkill;
       'story.choice-condition': StoryChoiceCondition;
       'story.choice-option': StoryChoiceOption;
       'story.dialogue': StoryDialogue;
