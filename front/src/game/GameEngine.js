@@ -7,9 +7,10 @@ export class GameEngine {
   static createInitialState(startingPlayer = 'PLAYER_1') {
     return {
       board: [
-        [null, null, null],
-        [null, null, null],
-        [null, null, null]
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null]
       ],
       currentPlayer: startingPlayer,
       isFinished: false,
@@ -35,8 +36,8 @@ export class GameEngine {
     const { x, y, card } = action;
 
     // Vérification des bords de la grille
-    if (x < 0 || x > 2 || y < 0 || y > 2) {
-      throw new Error("Placement en dehors de la grille (doit être entre 0 et 2).");
+    if (x < 0 || x > 3 || y < 0 || y > 3) {
+      throw new Error("Placement en dehors de la grille (doit être entre 0 et 3).");
     }
 
     // Vérification de placement sur une case libre
@@ -75,7 +76,7 @@ export class GameEngine {
     nextState.currentPlayer = action.player === 'PLAYER_1' ? 'PLAYER_2' : 'PLAYER_1';
 
     // Expand board if a row or column is full
-    GameEngine.expandBoard2D(nextState.board);
+    // GameEngine.expandBoard2D(nextState.board);
 
     // 5. Vérifier les conditions de fin de partie (remplacé par désactivé ici car géré par le deck localement)
     if (GameEngine.isBoardFull(nextState.board)) {

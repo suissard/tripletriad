@@ -119,7 +119,7 @@ export async function placeCard(slotIndex) {
     await resolveRules(slotIndex, 'player');
 
     refillHand('player');
-    expandBoard();
+    // expandBoard();
     updateScores();
 
     state.busy = false;
@@ -157,7 +157,7 @@ export async function processOpponentMove(move) {
     await resolveRules(move.slot, 'ai');
 
     refillHand('ai');
-    expandBoard();
+    // expandBoard();
     updateScores();
 }
 
