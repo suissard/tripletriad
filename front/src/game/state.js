@@ -214,6 +214,9 @@ export const state = reactive({
     // Combo visual effect
     comboCount: 0,
     comboActiveIndex: null,
+
+    // Capture preview (Map<slotIndex, {directCaptures, comboCaptures, totalCaptures}> | null)
+    capturePreview: null,
 });
 
 export function getCardById(id) {
@@ -441,6 +444,7 @@ export function resetGame(deckSize = 30, goToMenu = true, forcedTurn = null) {
     // Reset combo state
     state.comboCount = 0;
     state.comboActiveIndex = null;
+    state.capturePreview = null;
 }
 
 /**

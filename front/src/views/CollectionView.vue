@@ -97,8 +97,8 @@
                  <select v-model="sortBy" class="filter-select sort-select">
                    <option value="name:asc">Nom (A-Z)</option>
                    <option value="name:desc">Nom (Z-A)</option>
-                   <option value="rarity:asc">Rareté (Croissante)</option>
-                   <option value="rarity:desc">Rareté (Décroissante)</option>
+                   <option value="rarity:asc">Rareté (Plus rare d'abord)</option>
+                   <option value="rarity:desc">Rareté (Moins rare d'abord)</option>
                    <option value="id:asc">Numéro</option>
                  </select>
                </div>
@@ -143,32 +143,11 @@
 
 
           <div class="collection-stats-bar">
-            <div class="stats-info">
-              Résultats : <strong>{{ totalCardCount }}</strong> cartes | Page <strong>{{ currentPage }}</strong> / {{ totalPages || 1 }}
-            </div>
-
-            <div class="page-size-selector">
-              <span class="selector-label">Cartes par page :</span>
-              <button v-for="mult in pageMultipliers" :key="mult.label"
-                      @click="setPageMultiplier(mult.value)"
-                      :class="{ active: currentMultiplier === mult.value }">
-                {{ mult.label }}
-              </button>
+            <div class="results-info">
+              Résultats : <strong>{{ totalCardCount }}</strong> cartes
             </div>
             
-            <div class="pagination-controls">
-               <button @click="currentPage--" :disabled="currentPage <= 1">Précédent</button>
-
-               <div class="page-numbers">
-                 <button v-for="page in visiblePages" :key="page"
-                         @click="typeof page === 'number' ? currentPage = page : null"
-                         :class="{ active: currentPage === page, dot: typeof page !== 'number' }"
-                         :disabled="typeof page !== 'number'">
-                   {{ page }}
-                 </button>
-               </div>
-
-               <button @click="currentPage++" :disabled="currentPage >= totalPages">Suivant</button>
+            <div class="bar-actions">
               <button class="mass-disenchant-btn" @click="handleMassDisenchant">✨ Désenchantement de Masse</button>
             </div>
           </div>
@@ -297,72 +276,12 @@ const sortBy = ref('name:asc');
 const selectedCard = ref(null);
 const showFilters = ref(false); // Collapsed by default
 
-// ===== Pagination state =====
-const currentPage = ref(1);
-const baseCardsPerPage = ref(18);
-const currentMultiplier = ref(1);
+const allCards = ref([]);
+const isLibraryLoaded = ref(false);
 
-const cardsPerPage = computed(() => {
-  if (currentMultiplier.value === 0) return 9999; // "Collection complète"
-  return baseCardsPerPage.value * currentMultiplier.value;
-});
-
-const totalPages = computed(() => Math.ceil(totalCardCount.value / cardsPerPage.value));
-
-const pageMultipliers = computed(() => [
-  { label: `${baseCardsPerPage.value}`, value: 1 },
-  { label: `${baseCardsPerPage.value * 2}`, value: 2 },
-  { label: `${baseCardsPerPage.value * 3}`, value: 3 },
-  { label: `${baseCardsPerPage.value * 4}`, value: 4 },
-  { label: 'Tout', value: 0 },
-]);
-
-const visiblePages = computed(() => {
-  const total = totalPages.value;
-  const current = currentPage.value;
-  const pages = [];
-  
-  if (total <= 7) {
-    for (let i = 1; i <= total; i++) pages.push(i);
-  } else {
-    pages.push(1);
-    
-    if (current > 4) {
-      pages.push('...');
-    }
-    
-    const start = Math.max(2, current - 2);
-    const end = Math.min(total - 1, current + 2);
-    
-    for (let i = start; i <= end; i++) {
-      pages.push(i);
-    }
-    
-    if (current < total - 3) {
-      pages.push('...');
-    }
-    
-    pages.push(total);
-  }
-  
-  return pages;
-});
-
-function setPageMultiplier(val) {
-  currentMultiplier.value = val;
-  currentPage.value = 1;
-}
-
-// ===== Auto-calculate base cards per page =====
-function calculateBaseCardsPerPage() {
-  const cardWidth = 180 + 20;
-  const cardHeight = 260 + 20;
-  const viewportWidth = window.innerWidth - 120;
-  const viewportHeight = window.innerHeight - 380;
-  const cols = Math.max(1, Math.floor(viewportWidth / cardWidth));
-  const rows = Math.max(1, Math.floor(viewportHeight / cardHeight));
-  baseCardsPerPage.value = Math.max(6, cols * rows);
-}
+// ===== Auto-load all logic =====
+// Pagination is removed, we always fetch all cards
+const cardsPerPage = ref(9999);
 
 // ===== Mass disenchant =====
 const showMassDisenchantModal = ref(false);
@@ -456,11 +375,11 @@ const disenchantPreview = computed(() => {
 const uniqueElements = ELEMENTS;
 
 const uniqueRarities = [
-  { value: 'Common', label: 'Commune' },
-  { value: 'Uncommon', label: 'Peu Commune' },
-  { value: 'Rare', label: 'Rare' },
+  { value: 'Legendary', label: 'Légendaire' },
   { value: 'Epic', label: 'Épique' },
-  { value: 'Legendary', label: 'Légendaire' }
+  { value: 'Rare', label: 'Rare' },
+  { value: 'Uncommon', label: 'Peu Commune' },
+  { value: 'Common', label: 'Commune' }
 ];
 
 const toggleElement = (el) => {
@@ -489,11 +408,9 @@ function openCardDetail(card) { selectedCard.value = card; }
 function closeCardDetail() { selectedCard.value = null; }
 
 // ===== Server-side fetching =====
-let searchDebounceTimer = null;
-
 async function fetchCards() {
   if (!userStore.strapiConnected) {
-    displayCards.value = cardLibrary.slice((currentPage.value - 1) * cardsPerPage.value, currentPage.value * cardsPerPage.value);
+    displayCards.value = [...cardLibrary];
     totalCardCount.value = cardLibrary.length;
     isLoadingCards.value = false;
     return;
@@ -501,81 +418,106 @@ async function fetchCards() {
 
   isLoadingCards.value = true;
   try {
-    const isOwnershipFiltered = filterOwnership.value === 'owned' || filterPremium.value === 'premium';
-    const endpoint = isOwnershipFiltered ? 'user-cards' : 'cards';
-    
-    // Base params
-    const queryParams = {
-      populate: isOwnershipFiltered ? ['card', 'card.image'] : ['image'],
-      pagination: { page: currentPage.value, pageSize: cardsPerPage.value },
-      sort: isOwnershipFiltered ? [`card.${sortBy.value}`] : [sortBy.value],
-    };
+    // 1. Initial Load: Fetch everything once if not already loaded
+    if (!isLibraryLoaded.value) {
+      console.log('[Collection] Loading full library from Strapi...');
+      let allRawCards = [];
+      let page = 1;
+      let strapiPageCount = 1;
+      const STRAPI_MAX_PAGE_SIZE = 100;
 
-    // Build filters
-    const filters = {};
-    const cardPrefix = isOwnershipFiltered ? 'card.' : '';
+      do {
+        const queryParams = {
+          populate: ['image'],
+          pagination: { page, pageSize: STRAPI_MAX_PAGE_SIZE },
+        };
+        const result = await strapiService.find('cards', queryParams);
+        const rawCards = Array.isArray(result) ? result : (result?.data || []);
+        allRawCards = [...allRawCards, ...rawCards];
 
+        const meta = result?.meta?.pagination;
+        strapiPageCount = meta?.pageCount || 1;
+        page++;
+      } while (page <= strapiPageCount);
+
+      allCards.value = allRawCards.map(c => normalizeCard(c));
+      isLibraryLoaded.value = true;
+      console.log(`[Collection] Library loaded: ${allCards.value.length} cards.`);
+    }
+
+    // 2. Local Filtering
+    let filtered = [...allCards.value];
+
+    // Search Query
     if (searchQuery.value.trim()) {
-      filters[`${cardPrefix}name`] = { $containsi: searchQuery.value.trim() };
+      const q = searchQuery.value.trim().toLowerCase();
+      filtered = filtered.filter(c => c.name.toLowerCase().includes(q));
     }
+
+    // Faction
     if (filterFaction.value) {
-      filters[`${cardPrefix}faction`] = { $eq: filterFaction.value };
+      filtered = filtered.filter(c => c.faction === filterFaction.value);
     }
+
+    // Collection
     if (filterCollection.value) {
-      filters[`${cardPrefix}collectionName`] = { $eq: filterCollection.value };
+      filtered = filtered.filter(c => c.collectionName === filterCollection.value);
     }
+
+    // Rarity
     if (filterRarity.value) {
-      filters[`${cardPrefix}rarity`] = { $eq: filterRarity.value };
+      filtered = filtered.filter(c => c.rarity === filterRarity.value);
     }
+
+    // Elements
     if (selectedElements.value.length > 0) {
-      filters[`${cardPrefix}element`] = { $in: selectedElements.value };
+      filtered = filtered.filter(c => selectedElements.value.includes(c.element));
     }
-    
-    // Ownership specific filters when using /cards endpoint
-    if (!isOwnershipFiltered && filterOwnership.value === 'unowned') {
-      const ownedCardIds = userStore.collection.map(c => c.cardId).filter(id => id !== null);
-      if (ownedCardIds.length > 0) {
-        filters.id = { $notIn: ownedCardIds };
+
+    // Ownership & Premium
+    filtered = filtered.filter(c => {
+      const quantity = getOwnedQuantity(c.id);
+      const premium = isOwnedPremium(c.id);
+
+      // Ownership Filter
+      if (filterOwnership.value === 'owned' && quantity === 0) return false;
+      if (filterOwnership.value === 'unowned' && quantity > 0) return false;
+
+      // Premium Filter
+      if (filterPremium.value === 'premium' && !premium) return false;
+      if (filterPremium.value === 'regular' && premium) return false;
+
+      return true;
+    });
+
+    // 3. Local Sorting
+    filtered.sort((a, b) => {
+      const [field, order] = sortBy.value.split(':');
+      const isAsc = order === 'asc';
+
+      if (field === 'name') {
+        return isAsc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
       }
-    }
+      if (field === 'rarity') {
+        const rarityOrder = ['Legendary', 'Epic', 'Rare', 'Uncommon', 'Common'];
+        const valA = rarityOrder.indexOf(a.rarity || 'Common');
+        const valB = rarityOrder.indexOf(b.rarity || 'Common');
+        return isAsc ? valA - valB : valB - valA;
+      }
+      if (field === 'id') {
+        return isAsc ? a.id - b.id : b.id - a.id;
+      }
+      return 0;
+    });
 
-    // Premium specific filters when using /user-cards endpoint
-    if (isOwnershipFiltered && filterPremium.value === 'premium') {
-      filters.isPremium = { $eq: true };
-    }
-
-    if (Object.keys(filters).length > 0) {
-      queryParams.filters = filters;
-    }
-
-    const result = await strapiService.find(endpoint, queryParams);
-    
-    let rawCards = Array.isArray(result) ? result : (result?.data || []);
-    
-    // If we queried user-cards, we need to extract the card attribute
-    if (isOwnershipFiltered) {
-      displayCards.value = rawCards.map(item => {
-        // Handle Strapi 5 simplified structure or Strapi 4 data wrapper
-        const cardRef = item.card?.data || item.card;
-        if (!cardRef) return null;
-        const normalized = normalizeCard(cardRef);
-        // Copy ownership info from the user-card entry
-        normalized.isPremium = !!item.is_premium || !!item.isPremium;
-        normalized.ownedQuantity = item.quantity || 1;
-        return normalized;
-      }).filter(c => c !== null);
-    } else {
-      displayCards.value = rawCards.map(c => normalizeCard(c));
-    }
-
-    const meta = result?.meta?.pagination;
-    totalCardCount.value = meta?.total || displayCards.value.length;
+    displayCards.value = filtered;
+    totalCardCount.value = filtered.length;
 
     // Fallback: Populate filters from loaded cards if they are empty
     if (availableFactions.value.length <= 10 && availableCollections.value.length === 0) {
       const factions = new Set(availableFactions.value);
       const collections = new Set(availableCollections.value);
-      displayCards.value.forEach(card => {
+      allCards.value.forEach(card => {
         if (card.faction) factions.add(card.faction);
         if (card.collectionName) collections.add(card.collectionName);
       });
@@ -583,9 +525,8 @@ async function fetchCards() {
       if (collections.size > 0) availableCollections.value = [...collections].sort();
     }
   } catch (e) {
-    console.error('[Collection] Failed to fetch cards from Strapi:', e);
-    // Silent fail to cardLibrary for robustness
-    displayCards.value = cardLibrary.slice((currentPage.value - 1) * cardsPerPage.value, currentPage.value * cardsPerPage.value);
+    console.error('[Collection] Local filter/sort failed:', e);
+    displayCards.value = [...cardLibrary];
     totalCardCount.value = cardLibrary.length;
   } finally {
     isLoadingCards.value = false;
@@ -628,34 +569,23 @@ async function fetchFilters() {
 
 // ===== Watchers =====
 watch([filterFaction, filterCollection, filterRarity, selectedElements, filterOwnership, filterPremium, sortBy], () => {
-  currentPage.value = 1;
   fetchCards();
 });
 
 watch(searchQuery, () => {
   clearTimeout(searchDebounceTimer);
   searchDebounceTimer = setTimeout(() => {
-    currentPage.value = 1;
     fetchCards();
   }, 350);
 });
 
-watch([currentPage, cardsPerPage], () => {
-  fetchCards();
-});
-
 // ===== Init =====
 onMounted(async () => {
-  calculateBaseCardsPerPage();
-  window.addEventListener('resize', calculateBaseCardsPerPage);
-  
   await fetchFilters();
   await fetchCards();
 });
 
-onUnmounted(() => {
-  window.removeEventListener('resize', calculateBaseCardsPerPage);
-});
+// No cleanup needed for resize
 </script>
 
 
@@ -947,105 +877,6 @@ onUnmounted(() => {
 }
 
 
-.pagination-controls button {
-  background: #333;
-  color: white;
-  border: none;
-  padding: 5px 15px;
-  margin-left: 10px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.pagination-controls .mass-disenchant-btn {
-  background: #f44336;
-  font-weight: bold;
-}
-.pagination-controls .mass-disenchant-btn:hover {
-  background: #d32f2f;
-}
-
-.pagination-controls button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.page-size-selector {
-  display: inline-flex;
-  align-items: center;
-  background: rgba(0,0,0,0.3);
-  padding: 3px 8px;
-  border-radius: 6px;
-  border: 1px solid #444;
-  margin: 0 15px;
-}
-
-.selector-label {
-  font-size: 0.8rem;
-  color: #888;
-  margin-right: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.page-size-selector button {
-  background: transparent !important;
-  color: #999;
-  padding: 4px 12px !important;
-  margin: 0 !important;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  transition: all 0.2s;
-}
-
-.page-size-selector button.active {
-  background: #2196f3 !important;
-  color: white;
-  box-shadow: 0 2px 6px rgba(33, 150, 243, 0.3);
-}
-
-.page-numbers {
-  display: inline-flex;
-  gap: 5px;
-  margin: 0 10px;
-}
-
-.page-numbers button {
-  min-width: 32px;
-  height: 32px;
-  padding: 0 5px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
-  color: #aaa;
-  border-radius: 4px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-  font-size: 0.9rem;
-  margin: 0 !important;
-}
-
-.page-numbers button:hover:not(:disabled) {
-  background: rgba(255,255,255,0.1);
-  color: white;
-  border-color: rgba(255,255,255,0.2);
-}
-
-.page-numbers button.active {
-  background: #2196f3 !important;
-  color: white;
-  border-color: #2196f3;
-  box-shadow: 0 0 10px rgba(33, 150, 243, 0.4);
-}
-
-.page-numbers button.dot {
-  background: transparent;
-  border-color: transparent;
-  cursor: default;
-  opacity: 0.5;
-}
 
 .loading-indicator {
   text-align: center;

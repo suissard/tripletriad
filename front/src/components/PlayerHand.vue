@@ -113,6 +113,9 @@ function onPointerDown(event, index, cardId) {
   draggingIndex.value = index;
   draggingCardId.value = cardId;
 
+  // Set selectedCardIndex immediately so capture preview activates during drag
+  state.selectedCardIndex = index;
+
   // Add global listeners
   document.addEventListener('pointermove', onPointerMove, { passive: false });
   document.addEventListener('pointerup', onPointerUp);
@@ -157,7 +160,7 @@ function onPointerMove(event) {
 }
 
 async function onPointerUp(event) {
-  state.hoveredSlotIndex = null; // Clear highlight on release
+  state.hoveredSlotIndex = null;
   document.removeEventListener('pointermove', onPointerMove);
   document.removeEventListener('pointerup', onPointerUp);
   document.removeEventListener('pointercancel', onPointerCancel);
@@ -218,7 +221,7 @@ async function onPointerUp(event) {
 }
 
 function onPointerCancel(event) {
-  state.hoveredSlotIndex = null; // Clear highlight on cancel
+  state.hoveredSlotIndex = null;
   document.removeEventListener('pointermove', onPointerMove);
   document.removeEventListener('pointerup', onPointerUp);
   document.removeEventListener('pointercancel', onPointerCancel);
@@ -226,6 +229,10 @@ function onPointerCancel(event) {
   if (draggingCardId.value !== null && hasMoved.value) {
       snapBack();
   } else {
+      // Clear preview if cancelled without selecting
+      if (state.selectedCardIndex === draggingIndex.value) {
+          state.selectedCardIndex = null;
+      }
       draggingIndex.value = null;
       draggingCardId.value = null;
   }
