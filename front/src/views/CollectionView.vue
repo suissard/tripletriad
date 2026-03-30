@@ -35,6 +35,7 @@
 
               <p v-if="selectedCard.description" class="zoom-desc">{{ selectedCard.description }}</p>
 
+
               <div class="zoom-stats">
                 <div class="zoom-stat-grid">
                   <span>⬆ {{ selectedCard.topValue }}</span>
@@ -43,6 +44,17 @@
                   <span>⬇ {{ selectedCard.bottomValue }}</span>
                 </div>
               </div>
+
+              <div class="zoom-skills" v-if="selectedCard.data && selectedCard.data.skills && selectedCard.data.skills.length">
+                <h4 class="zoom-skills-title">Compétences:</h4>
+                <div class="zoom-skill-list">
+                  <div class="zoom-skill-item" v-for="(skill, idx) in selectedCard.data.skills" :key="idx">
+                    <span class="skill-name">{{ skill.type }}</span>
+                    <span class="skill-val" v-if="skill.value">{{ skill.value }}</span>
+                  </div>
+                </div>
+              </div>
+
 
               <div class="zoom-ownership">
                 <div v-if="!isOwned(selectedCard.id)" class="ownership-status unowned">🔒 Non possédée</div>
@@ -158,7 +170,7 @@
        :cards="displayCards.map(c => ({...c, quantity: getOwnedQuantity(c.id), isPremium: isOwnedPremium(c.id)}))"
        cardSize="md"
        :showOwnNum="true"
-       @card-left-click="c => openCardDetail(c)"
+       @long-left-click="c => openCardDetail(c)"
      />
       </div>
 
@@ -1200,4 +1212,44 @@ onMounted(async () => {
   cursor: not-allowed;
 }
 
+
+
+/* Zoom skills styles */
+.zoom-skills {
+  margin-top: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 12px;
+  border-left: 3px solid #00bcd4;
+}
+
+.zoom-skills-title {
+  margin: 0 0 10px 0;
+  color: #00bcd4;
+  font-size: 1.1rem;
+}
+
+.zoom-skill-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.zoom-skill-item {
+  display: flex;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.skill-name {
+  color: #e0e0e0;
+  text-transform: capitalize;
+}
+
+.skill-val {
+  color: #ff9800;
+}
 </style>
