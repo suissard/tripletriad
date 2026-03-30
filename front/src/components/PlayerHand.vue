@@ -163,6 +163,12 @@ async function onPointerUp(event) {
     selectCard(draggingIndex.value);
     draggingIndex.value = null;
     draggingCardId.value = null; // Fix: Hide ghost on click
+
+    // Explicitly hide the ghost to avoid visual glitch during click
+    const ghostEl = document.querySelector('.drag-ghost');
+    if (ghostEl) {
+        ghostEl.style.display = 'none';
+    }
     return;
   }
 
