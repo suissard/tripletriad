@@ -86,7 +86,10 @@
           <div class="unowned-overlay" v-if="unowned">🔒</div>
         </template>
 
-        <!-- Broken Glass Impact Effect for Captures -->
+        <!-- HP Bar -->
+          <HpBar v-if="card.hp !== undefined" :hp="card.hp" :default-hp="card.defaultHp || 3" :owner="owner" />
+
+          <!-- Broken Glass Impact Effect for Captures -->
           <BrokenGlassOverlay v-if="card.impactDirection" :direction="card.impactDirection" />
 
         <!-- BASE CARD FACE (Fallback revealed false) -->
@@ -146,6 +149,10 @@ const props = defineProps({
   ratio: { type: Number, default: 1 / 1 },
   ratioContent: { type: Number, default: 0.08 },
   flat: { type: Boolean, default: false },
+  owner: {
+    type: String,
+    default: null
+  },
   unowned: { type: Boolean, default: false },
   cardBack: { type: String, default: "default" },
   isPremium: { type: Boolean, default: false },
@@ -486,6 +493,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
     }, 300);
   }
 });
+import HpBar from './game/HpBar.vue';
 </script>
 
 <style scoped>

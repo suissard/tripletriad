@@ -75,7 +75,9 @@
       "required": true
     },
     "skills": {
-      "type": "json"
+      "type": "component",
+      "repeatable": true,
+      "component": "game.skill"
     },
     "image": {
       "type": "media",
@@ -104,6 +106,11 @@
       "relation": "manyToMany",
       "target": "api::story.story",
       "mappedBy": "rewardCards"
+    },
+    "defaultHp": {
+      "type": "integer",
+      "default": 3,
+      "required": true
     }
   }
 }
