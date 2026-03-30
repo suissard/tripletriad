@@ -91,67 +91,207 @@ export class GameEngine {
   /**
    * Logique privée de capture. Altière seulement le "board" cloné du nouvel état.
    */
-  static processCaptures(board, x, y, placedCell) {
-    const player = placedCell.owner;
-    const captures = [];
 
-    // Définitions des 4 directions cardinales et des bords d'attaque/défense
-    // dx/dy: déplacements, mySide: mon bord de carte attaquant, oppSide: bord adverse visé
+
+
+  /**
+   * Helper function to get effective card value considering Auras
+   */
+  static getEffectiveValue(board, x, y, side) {
+    const cell = board[y][x];
+    if (!cell || !cell.data) return 0;
+
+    let valStr = cell.data.values && cell.data.values[side] !== undefined ? cell.data.values[side] : cell.data[side + 'Value'];
+    let baseVal = valStr === 'A' || valStr === 'a' ? 10 : parseInt(valStr) || 0;
+
+    let auraBonus = 0;
     const directions = [
-      { dx: 0, dy: -1, mySide: 'top', oppSide: 'bottom' },     // Adjacent Haut
-      { dx: 0, dy: 1, mySide: 'bottom', oppSide: 'top' },      // Adjacent Bas
-      { dx: -1, dy: 0, mySide: 'left', oppSide: 'right' },     // Adjacent Gauche
-      { dx: 1, dy: 0, mySide: 'right', oppSide: 'left' }       // Adjacent Droite
+      { dx: 0, dy: -1 },
+      { dx: 0, dy: 1 },
+      { dx: -1, dy: 0 },
+      { dx: 1, dy: 0 }
     ];
 
     for (const dir of directions) {
       const nx = x + dir.dx;
       const ny = y + dir.dy;
-
-      // On vérifie que la case ciblée soit bien comprise dans la grille 3x3
-      if (nx >= 0 && nx < 3 && ny >= 0 && ny < 3) {
-        const adjacentCell = board[ny][nx];
-
-        // On vérifie s'il y a une carte et qu'elle n'est pas déjà à nous
-        if (adjacentCell && adjacentCell.owner !== player) {
-          const myValue = placedCell.data.values[dir.mySide];
-          const oppValue = adjacentCell.data.values[dir.oppSide];
-
-          // Capture Classique : Ma valeur sur ce côté est-elle strictement supérieure à la valeur opposée adversaire ?
-          if (myValue > oppValue) {
-            // Au lieu d'un simple changement de propriétaire, on réduit les HP
-            let newHp = (adjacentCell.data.hp !== undefined ? adjacentCell.data.hp : (adjacentCell.data.defaultHp || 3)) - 1;
-
-            if (newHp <= 0) {
-              // La carte meurt et disparaît du plateau
-              board[ny][nx] = null;
-              captures.push({ ...adjacentCell.data, dead: true });
-            } else {
-              // La carte survit, perd 1 HP et change de propriétaire
-              board[ny][nx] = {
-                data: {
-                  ...adjacentCell.data,
-                  hp: newHp
-                },
-                owner: player
-              };
-              captures.push(board[ny][nx].data);
-            }
+      if (nx >= 0 && nx < board[0].length && ny >= 0 && ny < board.length) {
+        const adj = board[ny][nx];
+        // Aura applies to allies
+        if (adj && adj.owner === cell.owner && adj.data && adj.data.skills) {
+          const auraSkill = adj.data.skills.find(s => s.type === 'aura');
+          if (auraSkill) {
+            auraBonus += auraSkill.value;
           }
         }
       }
     }
-    
+
+    return Math.min(10, baseVal + auraBonus); // Cap at 10
+  }
+
+  static processCaptures(board, x, y, placedCell) {
+    const player = placedCell.owner;
+    const captures = [];
+    const attackQueue = [{ x, y, cell: placedCell, isCombo: false }];
+    const alerts = [];
+    const dyingCards = [];
+
+    const directions = [
+      { dx: 0, dy: -1, mySide: 'top', oppSide: 'bottom' },
+      { dx: 0, dy: 1, mySide: 'bottom', oppSide: 'top' },
+      { dx: -1, dy: 0, mySide: 'left', oppSide: 'right' },
+      { dx: 1, dy: 0, mySide: 'right', oppSide: 'left' }
+    ];
+
+    while (attackQueue.length > 0) {
+      const currentAttack = attackQueue.shift();
+      const cx = currentAttack.x;
+      const cy = currentAttack.y;
+      const attackerCell = currentAttack.cell;
+
+      // Ensure attacker is still on board
+      if (board[cy][cx] !== attackerCell) continue;
+
+      let isFrozen = false;
+      for (const dir of directions) {
+        const fx = cx + dir.dx;
+        const fy = cy + dir.dy;
+        if (fx >= 0 && fx < board[0].length && fy >= 0 && fy < board.length) {
+          const fAdj = board[fy][fx];
+          if (fAdj && fAdj.data.skills && fAdj.data.skills.some(s => s.type === 'freeze')) {
+            alerts.push("FREEZE!"); isFrozen = true;
+            break;
+          }
+        }
+      }
+
+      if (currentAttack.isCombo && isFrozen) continue;
+
+      let triggeredCapture = false;
+      const hasCombo = attackerCell.data.skills && attackerCell.data.skills.some(s => s.type === 'combo');
+      const hasSniper = attackerCell.data.skills && attackerCell.data.skills.some(s => s.type === 'sniper');
+
+      for (const dir of directions) {
+        let nx = cx + dir.dx;
+        let ny = cy + dir.dy;
+        let targetCell = null;
+        let actualNx = nx;
+        let actualNy = ny;
+
+        while (nx >= 0 && nx < board[0].length && ny >= 0 && ny < board.length) {
+          const cell = board[ny][nx];
+          if (cell !== null) {
+            targetCell = cell;
+            actualNx = nx;
+            actualNy = ny;
+            break;
+          }
+          if (hasSniper) {
+             if (nx !== cx + dir.dx || ny !== cy + dir.dy) alerts.push("SNIPER!");
+             nx += dir.dx;
+             ny += dir.dy;
+          } else {
+             break;
+          }
+        }
+
+        if (targetCell && targetCell.owner !== attackerCell.owner) {
+          const myValue = GameEngine.getEffectiveValue(board, cx, cy, dir.mySide);
+          const oppValue = GameEngine.getEffectiveValue(board, actualNx, actualNy, dir.oppSide);
+
+          if (myValue > oppValue) {
+            triggeredCapture = true;
+            let hasWard = targetCell.data.skills && targetCell.data.skills.some(s => s.type === 'ward');
+
+            if (hasWard) {
+              alerts.push("WARD!"); targetCell.data.skills = targetCell.data.skills.filter(s => s.type !== 'ward');
+              captures.push({ ...targetCell.data, event: 'ward_triggered', wardedTarget: targetCell.data.id });
+            } else {
+              let hpLoss = 1;
+              let targetHp = (targetCell.data.hp !== undefined ? targetCell.data.hp : (targetCell.data.defaultHp || 3)) - hpLoss;
+
+              if (targetHp <= 0) {
+                dyingCards.push({ x: actualNx, y: actualNy, cell: targetCell });
+                board[actualNy][actualNx] = null;
+                captures.push({ ...targetCell.data, dead: true, event: 'captured_dead' });
+              } else {
+                board[actualNy][actualNx] = {
+                  data: { ...targetCell.data, hp: targetHp },
+                  owner: attackerCell.owner
+                };
+                captures.push({ ...board[actualNy][actualNx].data, event: 'captured_survived' });
+              }
+            }
+
+            // Target Poison check
+            const poisonSkill = targetCell.data.skills ? targetCell.data.skills.find(s => s.type === 'poison') : null;
+            if (poisonSkill) {
+               alerts.push("POISON!");
+               let attackerHasWard = attackerCell.data.skills && attackerCell.data.skills.some(s => s.type === 'ward');
+               if (attackerHasWard) {
+                 alerts.push("WARD!"); attackerCell.data.skills = attackerCell.data.skills.filter(s => s.type !== 'ward');
+                 captures.push({ ...attackerCell.data, event: 'ward_triggered_poison' });
+               } else {
+                 let attackerHp = (attackerCell.data.hp !== undefined ? attackerCell.data.hp : (attackerCell.data.defaultHp || 3)) - poisonSkill.value;
+                 attackerCell.data.hp = attackerHp;
+                 if (attackerHp <= 0) {
+                    dyingCards.push({ x: cx, y: cy, cell: attackerCell });
+                    board[cy][cx] = null;
+                    captures.push({ ...attackerCell.data, dead: true, event: 'poison_death' });
+                 } else {
+                    captures.push({ ...attackerCell.data, event: 'poison_damage' });
+                 }
+               }
+            }
+          }
+        }
+      }
+
+      if (triggeredCapture && hasCombo && board[cy][cx] !== null) {
+         alerts.push("COMBO!"); attackQueue.push({ x: cx, y: cy, cell: board[cy][cx], isCombo: true });
+      }
+    }
+
+    while (dyingCards.length > 0) {
+        const dying = dyingCards.shift();
+        const bombSkill = dying.cell.data.skills ? dying.cell.data.skills.find(s => s.type === 'bomb') : null;
+
+        if (bombSkill) {
+           alerts.push("BOMB!");
+           for (const dir of directions) {
+              const nx = dying.x + dir.dx;
+              const ny = dying.y + dir.dy;
+              if (nx >= 0 && nx < board[0].length && ny >= 0 && ny < board.length) {
+                 const adj = board[ny][nx];
+                 if (adj) {
+                    let adjHasWard = adj.data.skills && adj.data.skills.some(s => s.type === 'ward');
+                    if (adjHasWard) {
+                        alerts.push("WARD!"); adj.data.skills = adj.data.skills.filter(s => s.type !== 'ward');
+                        captures.push({ ...adj.data, event: 'ward_triggered_bomb' });
+                    } else {
+                        let adjHp = (adj.data.hp !== undefined ? adj.data.hp : (adj.data.defaultHp || 3)) - bombSkill.value;
+                        if (adjHp <= 0) {
+                           dyingCards.push({ x: nx, y: ny, cell: adj });
+                           board[ny][nx] = null;
+                           captures.push({ ...adj.data, dead: true, event: 'bomb_death' });
+                        } else {
+                           adj.data.hp = adjHp;
+                           board[ny][nx] = { data: adj.data, owner: adj.owner };
+                           captures.push({ ...adj.data, event: 'bomb_damage' });
+                        }
+                    }
+                 }
+              }
+           }
+        }
+    }
+
+    if (alerts.length > 0) captures.alerts = alerts;
     return captures;
   }
 
 
-
-
-
-  /**
-   * Applique les compétences au moment du placement (Heal, Death)
-   */
   static applyPlacementSkills(board, x, y, placedCell) {
     if (!placedCell.data.skills) return;
 
