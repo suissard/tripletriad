@@ -151,6 +151,7 @@ import { ref, computed, onMounted } from 'vue';
 import PageLayout from '../components/PageLayout.vue';
 
 import { state, cardLibrary, getCardById } from '../game/state.js';
+import { ELEMENTS } from '../data/factions.js';
 import { useUserStore } from '../stores/userStore.js';
 const userStore = useUserStore();
 import TripleTriadCard from '../components/TripleTriadCard.vue';
@@ -221,10 +222,7 @@ const selectedOwnerId = ref(null);
 
 const isAdminMode = computed(() => route.path.startsWith('/admin'));
 
-const uniqueElements = [
-  'eau', 'radiation', 'reseau', 'spore', 'furtif', 
-  'longue_portee', 'faille_dimensionnelle', 'hacking', 'obsidienne'
-];
+const uniqueElements = ELEMENTS;
 
 const uniqueRarities = [
   { value: 'common', label: 'Commune' },

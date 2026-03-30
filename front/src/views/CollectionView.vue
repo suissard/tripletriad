@@ -259,6 +259,7 @@ import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
 
 import PageLayout from '../components/PageLayout.vue';
 import { state, cardLibrary, getCardById, normalizeCard } from '../game/state.js';
+import { ELEMENTS } from '../data/factions.js';
 import TripleTriadCard from '../components/TripleTriadCard.vue';
 import TripleTriadCardGrid from '../components/TripleTriadCardGrid.vue';
 import ElementIcon from '../components/ElementIcon.vue';
@@ -452,10 +453,7 @@ const disenchantPreview = computed(() => {
 });
 
 // ===== Elements & Rarities =====
-const uniqueElements = [
-  'eau', 'radiation', 'reseau', 'spore', 'furtif', 
-  'longue_portee', 'faille_dimensionnelle', 'hacking', 'obsidienne'
-];
+const uniqueElements = ELEMENTS;
 
 const uniqueRarities = [
   { value: 'Common', label: 'Commune' },

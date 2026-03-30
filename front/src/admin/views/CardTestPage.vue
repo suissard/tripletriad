@@ -109,8 +109,8 @@
         <div class="control-group">
           <label>Éléments :</label>
           <div style="display: flex; flex-wrap: wrap; gap: 5px; flex: 1; margin-left: 10px; padding: 5px 0;">
-            <label v-for="el in ['eau', 'radiation', 'reseau', 'spore', 'furtif', 'longue_portee', 'faille_dimensionnelle', 'hacking', 'obsidienne']" :key="el" style="display:flex; align-items:center; gap:4px; font-size: 0.85em; background: rgba(0,0,0,0.3); padding: 4px 6px; border-radius: 4px; border: 1px solid #444; cursor: pointer;">
-              <input type="checkbox" :value="el" v-model="cardData.elements" style="margin: 0;"> {{ el.replace('_', ' ') }}
+            <label v-for="el in ELEMENTS" :key="el" style="display:flex; align-items:center; gap:4px; font-size: 0.85em; background: rgba(0,0,0,0.3); padding: 4px 6px; border-radius: 4px; border: 1px solid #444; cursor: pointer;">
+              <input type="checkbox" :value="el" v-model="cardData.elements" style="margin: 0;"> {{ ELEMENT_LABELS[el] || el }}
             </label>
           </div>
         </div>
@@ -174,6 +174,7 @@
 import { ref, reactive } from 'vue';
 import PageLayout from '../../components/PageLayout.vue';
 import TripleTriadCard from '../../components/TripleTriadCard.vue';
+import { ELEMENTS, ELEMENT_LABELS } from '../../data/factions.js';
 
 const cardProps = reactive({
   size: 'xl',

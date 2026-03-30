@@ -9,3 +9,22 @@ export const factions = [
     { id: 'dissonance', name: "L'Incursion Dissonante", color: '#8A2BE2', element: 'faille_dimensionnelle' },
     { id: 'behemoth', name: "L'Éveil Chthonien", color: '#FF4500', element: 'obsidienne' }
 ];
+
+export const ELEMENTS = [...new Set(factions.map(f => f.element))];
+
+export const ELEMENT_LABELS = {
+    'eau': 'Eau',
+    'radiation': 'Radiation',
+    'reseau': 'Réseau',
+    'spore': 'Spore',
+    'furtif': 'Furtif',
+    'longue_portee': 'Longue Portée',
+    'faille_dimensionnelle': 'Faille Dimensionnelle',
+    'hacking': 'Hacking',
+    'obsidienne': 'Obsidienne'
+};
+
+export const ELEMENT_OPTIONS = ELEMENTS.map(el => ({
+    label: ELEMENT_LABELS[el] || el,
+    value: el
+}));
