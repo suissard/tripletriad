@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "s1",
+  "text": "Comment aborder ce signal mystérieux ?",
+  "options": [
+    {
+      "text": "Foncer vers la source sans hésiter (Rook)",
+      "nextSituationId": "s2"
+    },
+    {
+      "text": "S'approcher discrètement, rester prudent (Kip)",
+      "nextSituationId": "s4"
+    },
+    {
+      "text": "Tenter d'analyser le signal avant de se déplacer (Vex)",
+      "nextSituationId": "s5"
+    }
+  ]
+}

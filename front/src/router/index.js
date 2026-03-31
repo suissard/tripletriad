@@ -108,6 +108,19 @@ const routes = [
     meta: { requiresAdminAuth: true }
   },
   {
+    path: '/admin/stories',
+    name: 'admin-stories',
+    component: () => import('../admin/views/StoryArchivesPage.vue'),
+    meta: { requiresAdminAuth: true }
+  },
+  {
+    path: '/admin/story-diagram/:storyFolder',
+    name: 'admin-story-diagram',
+    component: () => import('../components/StoryDiagram.vue'),
+    meta: { requiresAdminAuth: true },
+    props: true
+  },
+  {
     path: '/admin/:collection',
     name: 'admin-dynamic-editor',
     component: () => import('../admin/components/DynamicEditor.vue'),

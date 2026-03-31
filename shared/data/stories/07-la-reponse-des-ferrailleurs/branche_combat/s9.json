@@ -1,0 +1,37 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "s9",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "Les sentinelles tombent une par une. Le chemin vers l'intérieur de la station est dégagé, mais le vacarme a attiré l'attention de quelque chose de plus gros.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Rook",
+      "sentence": "Un de plus pour le score ! Et maintenant on avance.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Vex",
+      "sentence": "Attention. Les vibrations ont réveillé ce qui dormait plus profond.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narration",
+      "sentence": "Ils pénètrent dans le vestibule principal. Au centre, un noyau central pulse d'une lumière bleuâtre, comme un cœur organique enfermé dans du métal.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Kip",
+      "sentence": "Ce nœud d'énergie… il maintient la station en vie. Mais il y a quelque chose dedans. Quelque chose qui nous observe.",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "s12"
+}

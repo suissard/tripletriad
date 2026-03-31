@@ -1,0 +1,49 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "s2",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "Rook pousse les moteurs à fond. Le Valkyrie fend le nuage de débris, laissant derrière lui un sillage de poussière stellaire.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Rook",
+      "sentence": "Accrochez vos ceintures ! On va pas laisser passer une occasion comme celle-là !",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Kip",
+      "sentence": "L'angle d'approche est hasardeux… Rook, ralentis au moins quand on franchira l'ombre de l'astéroïde.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Vex",
+      "sentence": "Il a raison sur le principe. Mais regarde… le signal s'amplifie. On n'a plus le choix : c'est maintenant.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Narration",
+      "sentence": "Un bruit mécanique résonne dans la coque. Ce n'est pas un moteur ni une alarme. Quelque chose les suit.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Rook",
+      "sentence": "…Les gars, c'était vous ce bruit ?",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Kip",
+      "sentence": "Négatif. Les scanners sont aveugles. Quoi que ce soit, ça émet dans une fréquence qu'on ne capte pas.",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "s6"
+}

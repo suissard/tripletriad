@@ -1,0 +1,46 @@
+{
+  "faction": "Ferrailleurs de la Ceinture",
+  "personnages": [
+    {
+      "id": "rook",
+      "nom": "Rook",
+      "prenom": "Jax",
+      "alias": "Le Marteau",
+      "age": 28,
+      "role": "Leader / Pilote",
+      "personnalite": "Foncé, impulsif, charismatique",
+      "description": "Rook fonce avant de réfléchir. Un impulsif au grand cœur qui protège sa famille contre vents et marées.",
+      "style": "Agressif, direct, émotionnel",
+      "faiblesse": "Se laisse emporter par ses passions",
+      "force": "Capacité à fédérer par son charisme brut"
+    },
+    {
+      "id": "kip",
+      "nom": "Kip",
+      "prenom": "Lyra",
+      "alias": "L'Œil de Fer",
+      "age": 24,
+      "role": "Technicienne / Scanner",
+      "personnalite": "Prudente, analytique, parano",
+      "description": "Kip analyse chaque situation avec méthode. Trop prudente pour certains, mais sa prudence a sauvé l'équipe.",
+      "style": "Méthodique, sceptique, toujours prête",
+      "faiblesse": "Paralyse d'analyse",
+      "force": "Ne se fait jamais avoir deux fois"
+    },
+    {
+      "id": "vex",
+      "nom": "Vex",
+      "prenom": "Orion",
+      "alias": "Le Diplomate",
+      "age": 32,
+      "role": "Négociateur / Stratège",
+      "personnalite": "Calme, cynique, manipulateur",
+      "description": "Vex préfère les mots aux balles. Un vrai diplomate qui sait lire dans les âmes des gens. Parfois trop.",
+      "style": "Posé, calculateur, pragmatique",
+      "faiblesse": "Trop sûr de ses manipulations",
+      "force": "Sait toujours quoi dire pour arriver à ses fins"
+    }
+  ],
+  "histoire": "La Résonance du Vide",
+  "theme": "Un signal mystérieux venu des profondeurs de la Ceinture entraîne les ferrailleurs sur la trace d'un trésor ou d'un piège"
+}

@@ -1,0 +1,49 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "s4",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "Kip ordonne le silence radio. Les panneaux s'éteignent un par un et le Valkyrie dérive dans le noir, invisible parmi les débris.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Kip",
+      "sentence": "Moteurs au minimum. Scanners passifs uniquement. S'il y a quelqu'un là-bas, on ne lui donnera pas le plaisir de nous voir.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Rook",
+      "sentence": "Tu veux qu'on reste plantés là ? La source du signal pourrait être n'importe où…",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Kip",
+      "sentence": "Non. Le signal rebondit sur le cratère. J'ai une coordonnée. Regarde ton écran, Rook.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Vex",
+      "sentence": "Intéressant… les signatures correspondent à du matériel Omni-Réseau. Dormant. Très ancien.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Narration",
+      "sentence": "Sur l'écran de Kip, une image se dessine : une structure massive, enfouie dans un cratère d'astéroïde. Le signal jaillit de son centre comme un cri étouffé.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Kip",
+      "sentence": "Ça… ça ne ressemble à rien de ce que j'ai jamais vu. Et ça nous observe en retour.",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "s6"
+}

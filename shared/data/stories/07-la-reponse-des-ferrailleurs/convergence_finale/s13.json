@@ -1,0 +1,34 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "s13",
+  "enemyName": "Gardien du Noyau",
+  "enemyDeckName": "Gardien_Noyau_OMNI",
+  "preDialogue": [
+    {
+      "name": "Narration",
+      "sentence": "Le Gardien déploie ses défenses. Un deck de cartes Omni-Réseau se matérialise autour de vous.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Gardien du Noyau",
+      "sentence": "Les Ferrailleurs… j'ai attendu des décennies un adversaire digne de ce nom. Montrez-moi votre valeur.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Rook",
+      "sentence": "On va pas te décevoir !",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Kip",
+      "sentence": "Préparez-vous. Ses défenses seront solides.",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "onWinSituationId": "fin_win",
+  "onLoseSituationId": "fin_lose"
+}

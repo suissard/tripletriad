@@ -1,0 +1,49 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "s10",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "Kip repère un conduit d'aération endommagé sur le flanc de la station. Assez large pour ramper.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Kip",
+      "sentence": "Par ici. Le conduit mène à la section centrale. Moins risqué que de casser la porte.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Rook",
+      "sentence": "Ramper. Génial. Mon dos va adorer.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Narration",
+      "sentence": "Ils rampent dans le conduit étroit, chacun retenant son souffle. Trois drones-sentinelles patrouillent en contrebas.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Kip",
+      "sentence": "Ne bougez pas. Je peux les désactiver un par un. Rook, Vex — attendez mon signal.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narration",
+      "sentence": "Un clic. Un drone s'éteint puis un autre. Le dernier tourne sur lui-même et se fige. Le passage est libre.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Vex",
+      "sentence": "Bien joué, Kip. Je commençais à croire que j'allais m'asphyxier dans ce tuyau.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "s11"
+}
