@@ -25,54 +25,74 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Casse Artisanal — Ferrailleurs de la Ceinture",
+      "archetype": "Casse Artisanal — Ferrailleurs de la Ceinture Epic radiation",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Ferrailleurs de la Ceinture culture and Epic rank",
-        "arsenal": "Equipment befitting a Epic class cardholder with Ferrailleurs de la Ceinture-specific modifications"
+        "armor_outfit": "Vêtements de peaux de vaisseau recyclées avec soudures visibles. Combinaisons tachées d'huile. Masques de soudage. Postures voûtées de travailleurs., refined faction craftsmanship",
+        "arsenal": "Equipment designed to channel and amplify the character's death ability (self_on_flip) — visible energy conduits integrated into the gear"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Ferrailleurs de la Ceinture tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Epic combat manifestation character unleashing their signature ability at maximum power with full body commitment — Death transformation — body shifting on being captured, power released in final burst",
+        "emotion": "Commanding authority and strategic mastery"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Dieselpunk",
-          "Scrap-yard Survival"
+          "Dieselpunk industrial",
+          "Scrapyard survival",
+          "Working class heroism"
         ],
-        "rendering_style": "bolted_metal_oil_stained"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Rusted Orange",
-          "role": "primary_accent"
+          "name": "Rusted Orange-Brown",
+          "role": "primary_accent — salvaged metal and oxidized surfaces"
         },
         {
           "name": "Welding Arc Blue",
-          "role": "secondary_accent"
+          "role": "secondary_accent — sparks and work light"
+        },
+        {
+          "name": "Oil-Slick Black",
+          "role": "tertiary accent — grease stains and shadowed recesses"
         }
       ],
-      "lighting_setup": "cinematic_ferrailleurs_de_la_ceinture",
+      "lighting_setup": "Multi-source dramatic lighting: primary glow from the ability effect itself, secondary rim light, environmental reflections from below",
       "mood": "scrappy_determination"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "low extreme angle with wide lens emphasizing the character's dominance over the environment"
     },
     "scenography": {
-      "setting": "Cramped salvage yard inside hollowed asteroid",
-      "atmosphere_vfx": "Welding sparks, oil drips, and floating debris"
+      "setting": "Salvage workshop inside a hollowed asteroid, walls lined with repurposed ship parts, welding stations illuminating stacks of sorted scrap metal, improvised machinery",
+      "atmosphere_vfx": "Welding sparks in bright orange arcs, oil drips pooling on the floor, floating debris in low gravity, steam rising from freshly cut metal, plus final sacrifice — dramatic release of accumulated energy at the moment of defeat visible in the environment"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Epic",
-      "frame": "purple",
-      "border": "amethyst_alloy_epic",
       "cardName": "Casse Artisanal",
-      "description": "Fondateur des Ferrailleurs bâtissant des colonies entières à partir de déchets créant des avant-postes viables dans les environnements les plus hostiles."
+      "faction": "Ferrailleurs de la Ceinture",
+      "rarity": "Epic",
+      "element": "radiation",
+      "elements": [
+        "neutre"
+      ],
+      "description": "Fondateur des Ferrailleurs bâtissant des colonies entières à partir de déchets créant des avant-postes viables dans les environnements les plus hostiles.",
+      "skills": [
+        {
+          "type": "death",
+          "value": 1,
+          "target": "self_on_flip"
+        }
+      ],
+      "faction_lore": "Les Ferrailleurs vivent dans les champs d'astéroïdes entre les mondes. Ils récupèrent ce que les guerres laissent et construisent à partir de débris.",
+      "frame_detail": "Amethyst alloy frame with crystalline energy channels pulsing with light along the border edges",
+      "composition_directive": "Wide dramatic shot showing character AND the full environmental scope of their ability's power and reach",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

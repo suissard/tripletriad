@@ -26,54 +26,75 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Abyssal 1 — Exode pélagique",
+      "archetype": "Abyssal 1 — Exode pélagique Common eau",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Exode pélagique culture and Common rank",
-        "arsenal": "Equipment befitting a Common class cardholder with Exode pélagique-specific modifications"
+        "armor_outfit": "Peaux bleutées avec motifs bioluminescents. Armures de corail vivant. Cheveux flottant comme des algues. Yeux larges adaptés à la basse lumière.",
+        "arsenal": "Equipment designed to channel and amplify the character's death ability (self_on_flip) — visible energy conduits integrated into the gear"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Exode pélagique tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Everyday working pose, natural stance — character shown in their normal operational state — Death transformation — body shifting on being captured, power released in final burst",
+        "emotion": "Everyday resilience and grounded determination"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Bioluminescence Art",
-          "Deep Sea Exploration"
+          "Deep sea exploration",
+          "Bioluminescent organisms",
+          "Flowing organic architecture"
         ],
-        "rendering_style": "fluid_translucent_organic"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Abyssal Blue",
-          "role": "primary_accent"
+          "name": "Abyssal Deep Blue",
+          "role": "primary_accent — skin tones and armor base"
         },
         {
           "name": "Bioluminescent Cyan",
-          "role": "secondary_accent"
+          "role": "secondary_accent — natural light patterns and eyes"
+        },
+        {
+          "name": "Pearlescent White",
+          "role": "tertiary accent — coral structures and scale reflections"
         }
       ],
-      "lighting_setup": "cinematic_exode_p_lagique",
+      "lighting_setup": "Flat ambient light with subtle shadows, documentary-style natural lighting",
       "mood": "deep_ocean_mystery"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "eye-level direct portrait creating a sense of honest documentation"
     },
     "scenography": {
-      "setting": "Underwater colony with flowing organic architecture",
-      "atmosphere_vfx": "Bioluminescent particles, water currents, and glowing algae"
+      "setting": "Underwater organic colony in a nebulous aquatic environment, flowing crystalline growths interwoven with living coral, bioluminescent pathways connecting pod-like habitats",
+      "atmosphere_vfx": "Swirling bioluminescent particles, gentle water currents visible through light refraction, translucent membrane structures pulsing with inner glow, plus final sacrifice — dramatic release of accumulated energy at the moment of defeat visible in the environment"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Common",
-      "frame": "silver",
-      "border": "brushed_metal_common",
       "cardName": "Abyssal 1",
-      "description": "Plongeur des abysses récupérant les artefacts engloutis des stations submergées lors des grandes inondations."
+      "faction": "Exode pélagique",
+      "rarity": "Common",
+      "element": "eau",
+      "elements": [
+        "eau",
+        "glace"
+      ],
+      "description": "Plongeur des abysses récupérant les artefacts engloutis des stations submergées lors des grandes inondations.",
+      "skills": [
+        {
+          "type": "death",
+          "value": 1,
+          "target": "self_on_flip"
+        }
+      ],
+      "faction_lore": "L'Exode Pélagique est une migration massive de peuples aquatiques fuyant la destruction de leurs océans. Ils construisent des cités flottantes dans les nébuleuses aqueuses.",
+      "frame_detail": "Brushed steel frame with simple geometric pattern, no ornamentation, utilitarian finish",
+      "composition_directive": "Medium close-up portrait (chest-up) showing character face and upper torso in their working environment",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

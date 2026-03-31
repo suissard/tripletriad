@@ -19,54 +19,68 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Architecte Martien — Hégémonie martienne",
+      "archetype": "Architecte Martien — Hégémonie martienne Uncommon obsidienne",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Hégémonie martienne culture and Uncommon rank",
-        "arsenal": "Equipment befitting a Uncommon class cardholder with Hégémonie martienne-specific modifications"
+        "armor_outfit": "Armures lourdes rouge cramoisi avec accents dorés. Insignes impériaux gravés. Casques anguleux avec visières sombres. Silhouette massive et intimidante.",
+        "arsenal": "Functional faction-standard equipment showing signs of practical field use and tactical customization"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Hégémonie martienne tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Ready stance suggesting trained competence — character poised and alert with professional confidence",
+        "emotion": "Focused competence and operational confidence"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Military Sci-Fi",
-          "Grimdark"
+          "Roman Imperial military",
+          "Modern mechanized warfare",
+          "Brutalist military architecture"
         ],
-        "rendering_style": "armored_metallic_realistic"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Crimson Red",
-          "role": "primary_accent"
+          "role": "primary_accent — armor plating and imperial banners"
         },
         {
           "name": "Gunmetal Black",
-          "role": "secondary_accent"
+          "role": "secondary_accent — undersuit and structural elements"
+        },
+        {
+          "name": "Burnished Gold",
+          "role": "tertiary accent — rank insignia and decorative trim"
         }
       ],
-      "lighting_setup": "cinematic_h_g_monie_martienne",
+      "lighting_setup": "Directional light from above-right creating defined highlights on key equipment details",
       "mood": "military_dominance"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "slightly low angle conveying growing authority and competence"
     },
     "scenography": {
-      "setting": "Red Martian military outpost with imposing fortifications",
-      "atmosphere_vfx": "Smoke columns, muzzle flashes, and harsh floodlight beams"
+      "setting": "Fortified Martian military outpost on conquered territory, imposing angular architecture in red stone, rows of identical barracks under floodlights, war banners snapping in the dry wind",
+      "atmosphere_vfx": "Smoke columns from distant artillery, harsh white floodlight beams cutting through red dust haze, muzzle flashes illuminating the sky"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Uncommon",
-      "frame": "green",
-      "border": "oxidized_copper_uncommon",
       "cardName": "Architecte Martien",
-      "description": "Commandant de peloton coordonnant les assauts frontaux avec des formations de combat martiennes classiques."
+      "faction": "Hégémonie martienne",
+      "rarity": "Uncommon",
+      "element": "obsidienne",
+      "elements": [
+        "neutre"
+      ],
+      "description": "Commandant de peloton coordonnant les assauts frontaux avec des formations de combat martiennes classiques.",
+      "skills": "none — this unit relies on natural abilities",
+      "faction_lore": "L'Hégémonie Martienne a transformé la Planète Rouge de colonie mourante en empire galactique. Leur credo : unifier par la force, dominer par l'ordre.",
+      "frame_detail": "Oxidized copper frame with basic faction markings on each corner, slightly weathered patina",
+      "composition_directive": "Three-quarter portrait showing upper body and primary equipment/weapon clearly visible",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

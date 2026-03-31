@@ -19,54 +19,68 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Chtonien 1 — Éveil Chthonien",
+      "archetype": "Chtonien 1 — Éveil Chthonien Common faille_dimensionnelle",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Éveil Chthonien culture and Common rank",
-        "arsenal": "Equipment befitting a Common class cardholder with Éveil Chthonien-specific modifications"
+        "armor_outfit": "Formes altérées par l'exposition aux énergies chthoniennes. Peaux pâles translucides avec runes sombres. Yeux entièrement noirs. Ombres détachées.",
+        "arsenal": "Functional faction-standard equipment showing signs of practical field use and tactical customization"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Éveil Chthonien tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Everyday working pose, natural stance — character shown in their normal operational state",
+        "emotion": "Everyday resilience and grounded determination"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Lovecraftian Horror",
-          "Cosmic Dread"
+          "Lovecraftian cosmic horror",
+          "Gothic dark architecture",
+          "Ancient forbidden knowledge"
         ],
-        "rendering_style": "shadow_tendril_eerie_glow"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Deep Purple",
-          "role": "primary_accent"
+          "name": "Deep Void Purple",
+          "role": "primary_accent — energy emanations and shadow auras"
         },
         {
           "name": "Bone White",
-          "role": "secondary_accent"
+          "role": "secondary_accent — pale skin and carved runes"
+        },
+        {
+          "name": "Pitch Black",
+          "role": "tertiary accent — void effects and deepest shadows"
         }
       ],
-      "lighting_setup": "cinematic__veil_chthonien",
-      "mood": "ancient_cosmic_horror"
+      "lighting_setup": "Flat ambient light with subtle shadows, documentary-style natural lighting",
+      "mood": "ancient_cosmic_dread"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "eye-level direct portrait creating a sense of honest documentation"
     },
     "scenography": {
-      "setting": "Ancient underground temple with forbidden geometry",
-      "atmosphere_vfx": "Eerie fog, shadow tendrils, and pulsating ancient runes"
+      "setting": "Ancient underground temple with impossible non-Euclidean geometry, walls covered in carved forbidden symbols, massive sealed portal doors radiating dark energy",
+      "atmosphere_vfx": "Eerie pulsating purple fog along the ground, shadow tendrils detaching and reattaching, pulsating ancient runes glowing intermittently, warped light bending unnaturally"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Common",
-      "frame": "silver",
-      "border": "brushed_metal_common",
       "cardName": "Chtonien 1",
-      "description": "Mystique ancien lisant les runes prédisant les événements futurs et permettant des anticipations tactiques surprenantes."
+      "faction": "Éveil Chthonien",
+      "rarity": "Common",
+      "element": "faille_dimensionnelle",
+      "elements": [
+        "neutre"
+      ],
+      "description": "Mystique ancien lisant les runes prédisant les événements futurs et permettant des anticipations tactiques surprenantes.",
+      "skills": "none — this unit relies on natural abilities",
+      "faction_lore": "L'Éveil Chthonien est la résurgence d'entités anciennes dormant depuis avant la naissance des étoiles. Leurs cultes rouvrent les portes des plans inférieurs.",
+      "frame_detail": "Brushed steel frame with simple geometric pattern, no ornamentation, utilitarian finish",
+      "composition_directive": "Medium close-up portrait (chest-up) showing character face and upper torso in their working environment",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

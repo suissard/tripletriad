@@ -25,54 +25,74 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Inquisiteur de Mars — Hégémonie martienne",
+      "archetype": "Inquisiteur de Mars — Hégémonie martienne Legendary obsidienne",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Hégémonie martienne culture and Legendary rank",
-        "arsenal": "Equipment befitting a Legendary class cardholder with Hégémonie martienne-specific modifications"
+        "armor_outfit": "Armures lourdes rouge cramoisi avec accents dorés. Insignes impériaux gravés. Casques anguleux avec visières sombres. Silhouette massive et intimidante., one-of-a-kind materials",
+        "arsenal": "Equipment designed to channel and amplify the character's heal ability (adjacent_friendly) — visible energy conduits integrated into the gear"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Hégémonie martienne tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Transcendent manifestation — character as the ultimate embodiment of their entire faction's philosophy and power — Warm healing light flowing to adjacent allies, visible energy transfer mending wounds",
+        "emotion": "Transcendent purpose — cosmic significance visible in every feature"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Military Sci-Fi",
-          "Grimdark"
+          "Roman Imperial military",
+          "Modern mechanized warfare",
+          "Brutalist military architecture"
         ],
-        "rendering_style": "armored_metallic_realistic"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Crimson Red",
-          "role": "primary_accent"
+          "role": "primary_accent — armor plating and imperial banners"
         },
         {
           "name": "Gunmetal Black",
-          "role": "secondary_accent"
+          "role": "secondary_accent — undersuit and structural elements"
+        },
+        {
+          "name": "Burnished Gold",
+          "role": "tertiary accent — rank insignia and decorative trim"
         }
       ],
-      "lighting_setup": "cinematic_h_g_monie_martienne",
+      "lighting_setup": "Celestial multi-layered lighting: divine light from above, energy emanation from below, inner glow from character's own power, environmental reflections on a cosmic scale",
       "mood": "military_dominance"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "dutch angle with multi-plane depth of field emphasizing cosmic significance and otherworldly presence"
     },
     "scenography": {
-      "setting": "Red Martian military outpost with imposing fortifications",
-      "atmosphere_vfx": "Smoke columns, muzzle flashes, and harsh floodlight beams"
+      "setting": "Fortified Martian military outpost on conquered territory, imposing angular architecture in red stone, rows of identical barracks under floodlights, war banners snapping in the dry wind",
+      "atmosphere_vfx": "Smoke columns from distant artillery, harsh white floodlight beams cutting through red dust haze, muzzle flashes illuminating the sky, plus targeted healing — focused beams of light reaching wounded allies specifically visible in the environment"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Legendary",
-      "frame": "gold",
-      "border": "aurum_plated_legendary",
       "cardName": "Inquisiteur de Mars",
-      "description": "Supreme Commander unifiant les flottes martiennes sous un commandement unique avec une autorité absolue et indiscutable."
+      "faction": "Hégémonie martienne",
+      "rarity": "Legendary",
+      "element": "obsidienne",
+      "elements": [
+        "radiation"
+      ],
+      "description": "Supreme Commander unifiant les flottes martiennes sous un commandement unique avec une autorité absolue et indiscutable.",
+      "skills": [
+        {
+          "type": "heal",
+          "value": 3,
+          "target": "adjacent_friendly"
+        }
+      ],
+      "faction_lore": "L'Hégémonie Martienne a transformé la Planète Rouge de colonie mourante en empire galactique. Leur credo : unifier par la force, dominer par l'ordre.",
+      "frame_detail": "Aurum-plated frame with living energy flowing through ornate faction-specific decorative patterns, border radiates faint golden glow",
+      "composition_directive": "Epic cinematic wide-angle showing the character reshaping reality around them, with scale suggesting world-changing impact",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

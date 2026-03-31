@@ -19,54 +19,68 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Mousse Venimeux — Fléau Spore",
+      "archetype": "Mousse Venimeux — Fléau Spore Common spore",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Fléau Spore culture and Common rank",
-        "arsenal": "Equipment befitting a Common class cardholder with Fléau Spore-specific modifications"
+        "armor_outfit": "Formes végétales avec mycéliums s'étendant comme des membres. Champignons et moisissures colorés. Spores flottantes en halo. Présence organique dérangeante.",
+        "arsenal": "Functional faction-standard equipment showing signs of practical field use and tactical customization"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Fléau Spore tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Everyday working pose, natural stance — character shown in their normal operational state",
+        "emotion": "Everyday resilience and grounded determination"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Bio Horror",
-          "Mycelial Networks"
+          "Biological horror photography",
+          "Mycelial network visualization",
+          "Coral reef decay"
         ],
-        "rendering_style": "organic_fungal_spread"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Toxic Green",
-          "role": "primary_accent"
+          "role": "primary_accent — fungal growths and spore clouds"
         },
         {
           "name": "Decay Brown",
-          "role": "secondary_accent"
+          "role": "secondary_accent — decomposing surfaces and organic matter"
+        },
+        {
+          "name": "Flesh Pink",
+          "role": "tertiary accent — exposed tissue and infected areas"
         }
       ],
-      "lighting_setup": "cinematic_fl_au_spore",
-      "mood": "biological_corruption"
+      "lighting_setup": "Flat ambient light with subtle shadows, documentary-style natural lighting",
+      "mood": "biological_corruption_inevitability"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "eye-level direct portrait creating a sense of honest documentation"
     },
     "scenography": {
-      "setting": "Infested corridor with thick fungal overgrowth",
-      "atmosphere_vfx": "Floating spore clouds, pulsating organic growth, and dripping fluids"
+      "setting": "Infested corridor overtaken by fungal growth, thick mycelial networks covering every surface, pulsating fungal towers, spore clouds reducing visibility",
+      "atmosphere_vfx": "Floating spore particles in dense clouds, pulsating organic growths slowly expanding, dripping fungal fluids, organic tendrils reaching and grasping"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Common",
-      "frame": "silver",
-      "border": "brushed_metal_common",
       "cardName": "Mousse Venimeux",
-      "description": "Spore rampante colonisant progressivement les surfaces proches étendant l'influence fongique du Fléau sur le terrain."
+      "faction": "Fléau Spore",
+      "rarity": "Common",
+      "element": "spore",
+      "elements": [
+        "neutre"
+      ],
+      "description": "Spore rampante colonisant progressivement les surfaces proches étendant l'influence fongique du Fléau sur le terrain.",
+      "skills": "none — this unit relies on natural abilities",
+      "faction_lore": "Le Fléau Spore est une entité fongique cosmique se propageant imparable. Chaque spore contient la conscience collective. Il étend, consomme, transforme.",
+      "frame_detail": "Brushed steel frame with simple geometric pattern, no ornamentation, utilitarian finish",
+      "composition_directive": "Medium close-up portrait (chest-up) showing character face and upper torso in their working environment",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

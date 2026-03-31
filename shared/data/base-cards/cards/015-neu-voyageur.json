@@ -30,54 +30,79 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Voyageur — neutre",
+      "archetype": "Voyageur — neutre Legendary None",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting neutre culture and Legendary rank",
-        "arsenal": "Equipment befitting a Legendary class cardholder with neutre-specific modifications"
+        "armor_outfit": "Vêtements usés par le voyage, tons gris-brun, équipement de fortune. Visages marqués par les vents stellaires. Regard perçant., one-of-a-kind materials",
+        "arsenal": "Equipment designed to channel and amplify the character's growing ability (all_own) — visible energy conduits integrated into the gear"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting neutre tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Transcendent manifestation — character as the ultimate embodiment of their entire faction's philosophy and power — Radiating web of light connecting to all allied positions across the board",
+        "emotion": "Transcendent purpose — cosmic significance visible in every feature"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Grimdark",
-          "Post-apocalyptic"
+          "Post-apocalyptic survival",
+          "Western lone wanderer",
+          "Gritty space opera realism"
         ],
-        "rendering_style": "weathered_matte_fabric"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Steel Gray",
-          "role": "primary_accent"
+          "name": "Dusty Steel Gray",
+          "role": "primary_accent — weathered clothing and armor base"
         },
         {
           "name": "Warm Amber",
-          "role": "secondary_accent"
+          "role": "secondary_accent — lantern light, eye highlights, tool glints"
+        },
+        {
+          "name": "Deep Charcoal",
+          "role": "shadow depth and background atmosphere"
         }
       ],
-      "lighting_setup": "cinematic_neutre",
-      "mood": "solitary_wanderer"
+      "lighting_setup": "Celestial multi-layered lighting: divine light from above, energy emanation from below, inner glow from character's own power, environmental reflections on a cosmic scale",
+      "mood": "solitary_determination"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "dutch angle with multi-plane depth of field emphasizing cosmic significance and otherworldly presence"
     },
     "scenography": {
-      "setting": "Dusty asteroid waystation with flickering lanterns",
-      "atmosphere_vfx": "Wind-blown dust and sparse starlight through cracked windows"
+      "setting": "Asteroid waystation at the edge of known space, corrugated metal walls scarred by micrometeorite impacts, flickering plasma lanterns casting long shadows on rusted bulkheads",
+      "atmosphere_vfx": "Fine stellar dust floating in dim light, distant nebula glow through cracked observation windows, scattered debris suggesting transience, plus network effect — luminous web spanning the battlefield connecting all teammates visible in the environment"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Legendary",
-      "frame": "gold",
-      "border": "aurum_plated_legendary",
       "cardName": "Voyageur",
-      "description": "Architecte de la Neutralité orchestrant l'équilibre des rapports de force entre factions pour empêcher l'hégémonie totale."
+      "faction": "neutre",
+      "rarity": "Legendary",
+      "element": "None",
+      "elements": [
+        "neutre"
+      ],
+      "description": "Architecte de la Neutralité orchestrant l'équilibre des rapports de force entre factions pour empêcher l'hégémonie totale.",
+      "skills": [
+        {
+          "type": "growing",
+          "value": 3,
+          "target": "all_own"
+        },
+        {
+          "type": "death",
+          "value": 3,
+          "target": "adjacent_on_flip"
+        }
+      ],
+      "faction_lore": "Les Neutres sont les observateurs éternels du conflit interstellaire. Ils survivent dans les zones grises du cosmos où aucune faction ne règne.",
+      "frame_detail": "Aurum-plated frame with living energy flowing through ornate faction-specific decorative patterns, border radiates faint golden glow",
+      "composition_directive": "Epic cinematic wide-angle showing the character reshaping reality around them, with scale suggesting world-changing impact",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

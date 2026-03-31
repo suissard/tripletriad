@@ -19,54 +19,68 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Amp Musical — Chœur Synthétique",
+      "archetype": "Amp Musical — Chœur Synthétique Common faille_dimensionnelle",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Chœur Synthétique culture and Common rank",
-        "arsenal": "Equipment befitting a Common class cardholder with Chœur Synthétique-specific modifications"
+        "armor_outfit": "Cristaux vivants poussant depuis la peau. Silhouettes élancées. Ailes cristallines générant des ondes sonores. Peaux irisées comme des prismes.",
+        "arsenal": "Functional faction-standard equipment showing signs of practical field use and tactical customization"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Chœur Synthétique tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Everyday working pose, natural stance — character shown in their normal operational state",
+        "emotion": "Everyday resilience and grounded determination"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Abstract Crystalline Art",
-          "Sound Visualization"
+          "Sacred geometry",
+          "Sound wave visualization",
+          "Crystalline mineral formations"
         ],
-        "rendering_style": "prismatic_refraction_crystalline"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Violet Crystal",
-          "role": "primary_accent"
+          "role": "primary_accent — crystalline growths and primary resonance"
         },
         {
           "name": "Silver Prismatic",
-          "role": "secondary_accent"
+          "role": "secondary_accent — light reflections and harmonics"
+        },
+        {
+          "name": "Deep Indigo",
+          "role": "tertiary accent — shadow tones and low frequency"
         }
       ],
-      "lighting_setup": "cinematic_ch_ur_synth_tique",
-      "mood": "ethereal_harmony"
+      "lighting_setup": "Flat ambient light with subtle shadows, documentary-style natural lighting",
+      "mood": "ethereal_harmonic_power"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "eye-level direct portrait creating a sense of honest documentation"
     },
     "scenography": {
-      "setting": "Crystalline amphitheater orbiting a gas giant",
-      "atmosphere_vfx": "Visible sound waves, prismatic light refractions, and floating harmonics"
+      "setting": "Crystalline amphitheater orbiting a gas giant, massive crystal formations forming natural acoustics, floating platforms resonating with ambient cosmic vibrations",
+      "atmosphere_vfx": "Visible sound waves as concentric rings in the air, prismatic light refractions creating rainbows, vibrating harmonic crystals, atmospheric resonance shimmer"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Common",
-      "frame": "silver",
-      "border": "brushed_metal_common",
       "cardName": "Amp Musical",
-      "description": "Résonateur amplifiant les signaux tactiques alliés pour une meilleure coordination sur le champ de bataille chaotique."
+      "faction": "Chœur Synthétique",
+      "rarity": "Common",
+      "element": "faille_dimensionnelle",
+      "elements": [
+        "hacking"
+      ],
+      "description": "Résonateur amplifiant les signaux tactiques alliés pour une meilleure coordination sur le champ de bataille chaotique.",
+      "skills": "none — this unit relies on natural abilities",
+      "faction_lore": "Le Chœur Synthétique fusionne musique et conscience. Chaque membre est un instrument vivant capable d'harmoniser ou de dissonner selon la volonté collective.",
+      "frame_detail": "Brushed steel frame with simple geometric pattern, no ornamentation, utilitarian finish",
+      "composition_directive": "Medium close-up portrait (chest-up) showing character face and upper torso in their working environment",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

@@ -25,54 +25,74 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Mystique 1 — Éveil Chthonien",
+      "archetype": "Mystique 1 — Éveil Chthonien Uncommon faille_dimensionnelle",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Éveil Chthonien culture and Uncommon rank",
-        "arsenal": "Equipment befitting a Uncommon class cardholder with Éveil Chthonien-specific modifications"
+        "armor_outfit": "Formes altérées par l'exposition aux énergies chthoniennes. Peaux pâles translucides avec runes sombres. Yeux entièrement noirs. Ombres détachées.",
+        "arsenal": "Equipment designed to channel and amplify the character's growing ability (adjacent_friendly) — visible energy conduits integrated into the gear"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Éveil Chthonien tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Ready stance suggesting trained competence — character poised and alert with professional confidence — Green light bridging to adjacent allies, strength flowing outward like spreading roots",
+        "emotion": "Focused competence and operational confidence"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Lovecraftian Horror",
-          "Cosmic Dread"
+          "Lovecraftian cosmic horror",
+          "Gothic dark architecture",
+          "Ancient forbidden knowledge"
         ],
-        "rendering_style": "shadow_tendril_eerie_glow"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Deep Purple",
-          "role": "primary_accent"
+          "name": "Deep Void Purple",
+          "role": "primary_accent — energy emanations and shadow auras"
         },
         {
           "name": "Bone White",
-          "role": "secondary_accent"
+          "role": "secondary_accent — pale skin and carved runes"
+        },
+        {
+          "name": "Pitch Black",
+          "role": "tertiary accent — void effects and deepest shadows"
         }
       ],
-      "lighting_setup": "cinematic__veil_chthonien",
-      "mood": "ancient_cosmic_horror"
+      "lighting_setup": "Directional light from above-right creating defined highlights on key equipment details",
+      "mood": "ancient_cosmic_dread"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "slightly low angle conveying growing authority and competence"
     },
     "scenography": {
-      "setting": "Ancient underground temple with forbidden geometry",
-      "atmosphere_vfx": "Eerie fog, shadow tendrils, and pulsating ancient runes"
+      "setting": "Ancient underground temple with impossible non-Euclidean geometry, walls covered in carved forbidden symbols, massive sealed portal doors radiating dark energy",
+      "atmosphere_vfx": "Eerie pulsating purple fog along the ground, shadow tendrils detaching and reattaching, pulsating ancient runes glowing intermittently, warped light bending unnaturally, plus empowerment effect — visible strengthening wave reaching friendly targets visible in the environment"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Uncommon",
-      "frame": "green",
-      "border": "oxidized_copper_uncommon",
       "cardName": "Mystique 1",
-      "description": "Invocateur ouvrant des portails vers les dimensions chthoniennes permettant le passage d'entités alliées depuis d'autres mondes."
+      "faction": "Éveil Chthonien",
+      "rarity": "Uncommon",
+      "element": "faille_dimensionnelle",
+      "elements": [
+        "neutre"
+      ],
+      "description": "Invocateur ouvrant des portails vers les dimensions chthoniennes permettant le passage d'entités alliées depuis d'autres mondes.",
+      "skills": [
+        {
+          "type": "growing",
+          "value": 1,
+          "target": "adjacent_friendly"
+        }
+      ],
+      "faction_lore": "L'Éveil Chthonien est la résurgence d'entités anciennes dormant depuis avant la naissance des étoiles. Leurs cultes rouvrent les portes des plans inférieurs.",
+      "frame_detail": "Oxidized copper frame with basic faction markings on each corner, slightly weathered patina",
+      "composition_directive": "Three-quarter portrait showing upper body and primary equipment/weapon clearly visible",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

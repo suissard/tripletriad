@@ -30,54 +30,79 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Resonance Dissonant — Chœur Synthétique",
+      "archetype": "Resonance Dissonant — Chœur Synthétique Legendary faille_dimensionnelle",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Chœur Synthétique culture and Legendary rank",
-        "arsenal": "Equipment befitting a Legendary class cardholder with Chœur Synthétique-specific modifications"
+        "armor_outfit": "Cristaux vivants poussant depuis la peau. Silhouettes élancées. Ailes cristallines générant des ondes sonores. Peaux irisées comme des prismes., one-of-a-kind materials",
+        "arsenal": "Equipment designed to channel and amplify the character's heal ability (damaged_friendly) — visible energy conduits integrated into the gear"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Chœur Synthétique tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Transcendent manifestation — character as the ultimate embodiment of their entire faction's philosophy and power — Healing energy seeking out damaged allies while bypassing healthy targets",
+        "emotion": "Transcendent purpose — cosmic significance visible in every feature"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Abstract Crystalline Art",
-          "Sound Visualization"
+          "Sacred geometry",
+          "Sound wave visualization",
+          "Crystalline mineral formations"
         ],
-        "rendering_style": "prismatic_refraction_crystalline"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Violet Crystal",
-          "role": "primary_accent"
+          "role": "primary_accent — crystalline growths and primary resonance"
         },
         {
           "name": "Silver Prismatic",
-          "role": "secondary_accent"
+          "role": "secondary_accent — light reflections and harmonics"
+        },
+        {
+          "name": "Deep Indigo",
+          "role": "tertiary accent — shadow tones and low frequency"
         }
       ],
-      "lighting_setup": "cinematic_ch_ur_synth_tique",
-      "mood": "ethereal_harmony"
+      "lighting_setup": "Celestial multi-layered lighting: divine light from above, energy emanation from below, inner glow from character's own power, environmental reflections on a cosmic scale",
+      "mood": "ethereal_harmonic_power"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "dutch angle with multi-plane depth of field emphasizing cosmic significance and otherworldly presence"
     },
     "scenography": {
-      "setting": "Crystalline amphitheater orbiting a gas giant",
-      "atmosphere_vfx": "Visible sound waves, prismatic light refractions, and floating harmonics"
+      "setting": "Crystalline amphitheater orbiting a gas giant, massive crystal formations forming natural acoustics, floating platforms resonating with ambient cosmic vibrations",
+      "atmosphere_vfx": "Visible sound waves as concentric rings in the air, prismatic light refractions creating rainbows, vibrating harmonic crystals, atmospheric resonance shimmer, plus triage effect — tendrils of light finding the wounded among the healthy visible in the environment"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Legendary",
-      "frame": "gold",
-      "border": "aurum_plated_legendary",
       "cardName": "Resonance Dissonant",
-      "description": "Symphonie Ultime fusionnant toutes les harmoniques disponibles en une seule note dévastatrice capable de réduire des structures entières en poussière."
+      "faction": "Chœur Synthétique",
+      "rarity": "Legendary",
+      "element": "faille_dimensionnelle",
+      "elements": [
+        "neutre"
+      ],
+      "description": "Symphonie Ultime fusionnant toutes les harmoniques disponibles en une seule note dévastatrice capable de réduire des structures entières en poussière.",
+      "skills": [
+        {
+          "type": "heal",
+          "value": 2,
+          "target": "damaged_friendly"
+        },
+        {
+          "type": "growing",
+          "value": 3,
+          "target": "adjacent_enemy"
+        }
+      ],
+      "faction_lore": "Le Chœur Synthétique fusionne musique et conscience. Chaque membre est un instrument vivant capable d'harmoniser ou de dissonner selon la volonté collective.",
+      "frame_detail": "Aurum-plated frame with living energy flowing through ornate faction-specific decorative patterns, border radiates faint golden glow",
+      "composition_directive": "Epic cinematic wide-angle showing the character reshaping reality around them, with scale suggesting world-changing impact",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

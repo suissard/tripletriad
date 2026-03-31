@@ -25,54 +25,74 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Conquerant — Hégémonie martienne",
+      "archetype": "Conquerant — Hégémonie martienne Common obsidienne",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Hégémonie martienne culture and Common rank",
-        "arsenal": "Equipment befitting a Common class cardholder with Hégémonie martienne-specific modifications"
+        "armor_outfit": "Armures lourdes rouge cramoisi avec accents dorés. Insignes impériaux gravés. Casques anguleux avec visières sombres. Silhouette massive et intimidante.",
+        "arsenal": "Equipment designed to channel and amplify the character's death ability (self_on_flip) — visible energy conduits integrated into the gear"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Hégémonie martienne tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Everyday working pose, natural stance — character shown in their normal operational state — Death transformation — body shifting on being captured, power released in final burst",
+        "emotion": "Everyday resilience and grounded determination"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Military Sci-Fi",
-          "Grimdark"
+          "Roman Imperial military",
+          "Modern mechanized warfare",
+          "Brutalist military architecture"
         ],
-        "rendering_style": "armored_metallic_realistic"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Crimson Red",
-          "role": "primary_accent"
+          "role": "primary_accent — armor plating and imperial banners"
         },
         {
           "name": "Gunmetal Black",
-          "role": "secondary_accent"
+          "role": "secondary_accent — undersuit and structural elements"
+        },
+        {
+          "name": "Burnished Gold",
+          "role": "tertiary accent — rank insignia and decorative trim"
         }
       ],
-      "lighting_setup": "cinematic_h_g_monie_martienne",
+      "lighting_setup": "Flat ambient light with subtle shadows, documentary-style natural lighting",
       "mood": "military_dominance"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "eye-level direct portrait creating a sense of honest documentation"
     },
     "scenography": {
-      "setting": "Red Martian military outpost with imposing fortifications",
-      "atmosphere_vfx": "Smoke columns, muzzle flashes, and harsh floodlight beams"
+      "setting": "Fortified Martian military outpost on conquered territory, imposing angular architecture in red stone, rows of identical barracks under floodlights, war banners snapping in the dry wind",
+      "atmosphere_vfx": "Smoke columns from distant artillery, harsh white floodlight beams cutting through red dust haze, muzzle flashes illuminating the sky, plus final sacrifice — dramatic release of accumulated energy at the moment of defeat visible in the environment"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Common",
-      "frame": "silver",
-      "border": "brushed_metal_common",
       "cardName": "Conquerant",
-      "description": "Officier subalterne maintenant la discipline des troupes sous le feu ennemi grâce à un commandement rigide."
+      "faction": "Hégémonie martienne",
+      "rarity": "Common",
+      "element": "obsidienne",
+      "elements": [
+        "neutre"
+      ],
+      "description": "Officier subalterne maintenant la discipline des troupes sous le feu ennemi grâce à un commandement rigide.",
+      "skills": [
+        {
+          "type": "death",
+          "value": 1,
+          "target": "self_on_flip"
+        }
+      ],
+      "faction_lore": "L'Hégémonie Martienne a transformé la Planète Rouge de colonie mourante en empire galactique. Leur credo : unifier par la force, dominer par l'ordre.",
+      "frame_detail": "Brushed steel frame with simple geometric pattern, no ornamentation, utilitarian finish",
+      "composition_directive": "Medium close-up portrait (chest-up) showing character face and upper torso in their working environment",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

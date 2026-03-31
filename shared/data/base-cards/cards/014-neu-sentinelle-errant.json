@@ -26,54 +26,75 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Sentinelle Errant — neutre",
+      "archetype": "Sentinelle Errant — neutre Epic eau",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting neutre culture and Epic rank",
-        "arsenal": "Equipment befitting a Epic class cardholder with neutre-specific modifications"
+        "armor_outfit": "Vêtements usés par le voyage, tons gris-brun, équipement de fortune. Visages marqués par les vents stellaires. Regard perçant., refined faction craftsmanship",
+        "arsenal": "Equipment designed to channel and amplify the character's heal ability (damaged_friendly) — visible energy conduits integrated into the gear"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting neutre tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Epic combat manifestation character unleashing their signature ability at maximum power with full body commitment — Healing energy seeking out damaged allies while bypassing healthy targets",
+        "emotion": "Commanding authority and strategic mastery"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Grimdark",
-          "Post-apocalyptic"
+          "Post-apocalyptic survival",
+          "Western lone wanderer",
+          "Gritty space opera realism"
         ],
-        "rendering_style": "weathered_matte_fabric"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Steel Gray",
-          "role": "primary_accent"
+          "name": "Dusty Steel Gray",
+          "role": "primary_accent — weathered clothing and armor base"
         },
         {
           "name": "Warm Amber",
-          "role": "secondary_accent"
+          "role": "secondary_accent — lantern light, eye highlights, tool glints"
+        },
+        {
+          "name": "Deep Charcoal",
+          "role": "shadow depth and background atmosphere"
         }
       ],
-      "lighting_setup": "cinematic_neutre",
-      "mood": "solitary_wanderer"
+      "lighting_setup": "Multi-source dramatic lighting: primary glow from the ability effect itself, secondary rim light, environmental reflections from below",
+      "mood": "solitary_determination"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "low extreme angle with wide lens emphasizing the character's dominance over the environment"
     },
     "scenography": {
-      "setting": "Dusty asteroid waystation with flickering lanterns",
-      "atmosphere_vfx": "Wind-blown dust and sparse starlight through cracked windows"
+      "setting": "Asteroid waystation at the edge of known space, corrugated metal walls scarred by micrometeorite impacts, flickering plasma lanterns casting long shadows on rusted bulkheads",
+      "atmosphere_vfx": "Fine stellar dust floating in dim light, distant nebula glow through cracked observation windows, scattered debris suggesting transience, plus triage effect — tendrils of light finding the wounded among the healthy visible in the environment"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Epic",
-      "frame": "purple",
-      "border": "amethyst_alloy_epic",
       "cardName": "Sentinelle Errant",
-      "description": "Sentinelle du dernier relais veillant sur les points de convergence stratégiques entre les zones de conflit."
+      "faction": "neutre",
+      "rarity": "Epic",
+      "element": "eau",
+      "elements": [
+        "eau",
+        "glace"
+      ],
+      "description": "Sentinelle du dernier relais veillant sur les points de convergence stratégiques entre les zones de conflit.",
+      "skills": [
+        {
+          "type": "heal",
+          "value": 2,
+          "target": "damaged_friendly"
+        }
+      ],
+      "faction_lore": "Les Neutres sont les observateurs éternels du conflit interstellaire. Ils survivent dans les zones grises du cosmos où aucune faction ne règne.",
+      "frame_detail": "Amethyst alloy frame with crystalline energy channels pulsing with light along the border edges",
+      "composition_directive": "Wide dramatic shot showing character AND the full environmental scope of their ability's power and reach",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

@@ -25,54 +25,74 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Deviant du Chaos — Incursion Dissonante",
+      "archetype": "Deviant du Chaos — Incursion Dissonante Rare furtif",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Incursion Dissonante culture and Rare rank",
-        "arsenal": "Equipment befitting a Rare class cardholder with Incursion Dissonante-specific modifications"
+        "armor_outfit": "Formes instables entre plusieurs réalités. Membres se dupliquant en images fantômes. Couleurs impossibles. Texture glitch comme un fichier corrompu.",
+        "arsenal": "Equipment designed to channel and amplify the character's death ability (enemy_on_capture) — visible energy conduits integrated into the gear"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Incursion Dissonante tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Dynamic action pose mid-ability execution — character actively demonstrating their specialty skill — Vengeful curse energy binding to the enemy who captured this card",
+        "emotion": "Battle-tested intensity and tactical sharpness"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Glitch Art",
-          "Surrealist Nightmare"
+          "Glitch art movement",
+          "Quantum mechanics visualization",
+          "Surrealist reality distortion"
         ],
-        "rendering_style": "distorted_dimensional_fracture"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Magenta Glitch",
-          "role": "primary_accent"
+          "role": "primary_accent — reality fractures and distortions"
         },
         {
           "name": "Fractured Green",
-          "role": "secondary_accent"
+          "role": "secondary_accent — dimensional tears and anomalies"
+        },
+        {
+          "name": "Void Black",
+          "role": "tertiary accent — gaps where reality is missing"
         }
       ],
-      "lighting_setup": "cinematic_incursion_dissonante",
-      "mood": "reality_breakdown"
+      "lighting_setup": "Dramatic rim lighting separating character from background with a focal glow on the primary ability effect",
+      "mood": "reality_breakdown_chaos"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "low dramatic angle emphasizing power and heroic stature"
     },
     "scenography": {
-      "setting": "Space where reality fractures showing parallel dimensions",
-      "atmosphere_vfx": "Visual distortions, chromatic aberration, and spatial tears"
+      "setting": "Space where multiple realities overlap, buildings from different dimensions coexisting, sky showing conflicting celestial bodies and impossible colors",
+      "atmosphere_vfx": "Chromatic aberration splitting colors, spatial tears showing parallel dimensions, partial phasing between states, glitch artifacts and digital corruption, plus posthumous revenge — dark energy crawling up the captor's position after capture visible in the environment"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Rare",
-      "frame": "blue",
-      "border": "cobalt_steel_rare",
       "cardName": "Deviant du Chaos",
-      "description": "Chaos pur désorganisant l'ordre établi des formations adverses rendant la coordination tactique impossible pendant plusieurs cycles."
+      "faction": "Incursion Dissonante",
+      "rarity": "Rare",
+      "element": "furtif",
+      "elements": [
+        "neutre"
+      ],
+      "description": "Chaos pur désorganisant l'ordre établi des formations adverses rendant la coordination tactique impossible pendant plusieurs cycles.",
+      "skills": [
+        {
+          "type": "death",
+          "value": 1,
+          "target": "enemy_on_capture"
+        }
+      ],
+      "faction_lore": "L'Incursion Dissonante est l'ouverture de fissures entre les réalités, laissant passer des entités impossibles. Leur présence corrompt la structure même du réel.",
+      "frame_detail": "Cobalt steel frame with etched faction symbols deeply engraved on each corner of the border",
+      "composition_directive": "Low angle heroic full-body shot emphasizing power, with ability visualization clearly shown in action",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

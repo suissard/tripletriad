@@ -19,54 +19,68 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Strophe Sonore — Chœur Synthétique",
+      "archetype": "Strophe Sonore — Chœur Synthétique Uncommon furtif",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Chœur Synthétique culture and Uncommon rank",
-        "arsenal": "Equipment befitting a Uncommon class cardholder with Chœur Synthétique-specific modifications"
+        "armor_outfit": "Cristaux vivants poussant depuis la peau. Silhouettes élancées. Ailes cristallines générant des ondes sonores. Peaux irisées comme des prismes.",
+        "arsenal": "Functional faction-standard equipment showing signs of practical field use and tactical customization"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Chœur Synthétique tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Ready stance suggesting trained competence — character poised and alert with professional confidence",
+        "emotion": "Focused competence and operational confidence"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Abstract Crystalline Art",
-          "Sound Visualization"
+          "Sacred geometry",
+          "Sound wave visualization",
+          "Crystalline mineral formations"
         ],
-        "rendering_style": "prismatic_refraction_crystalline"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Violet Crystal",
-          "role": "primary_accent"
+          "role": "primary_accent — crystalline growths and primary resonance"
         },
         {
           "name": "Silver Prismatic",
-          "role": "secondary_accent"
+          "role": "secondary_accent — light reflections and harmonics"
+        },
+        {
+          "name": "Deep Indigo",
+          "role": "tertiary accent — shadow tones and low frequency"
         }
       ],
-      "lighting_setup": "cinematic_ch_ur_synth_tique",
-      "mood": "ethereal_harmony"
+      "lighting_setup": "Directional light from above-right creating defined highlights on key equipment details",
+      "mood": "ethereal_harmonic_power"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "slightly low angle conveying growing authority and competence"
     },
     "scenography": {
-      "setting": "Crystalline amphitheater orbiting a gas giant",
-      "atmosphere_vfx": "Visible sound waves, prismatic light refractions, and floating harmonics"
+      "setting": "Crystalline amphitheater orbiting a gas giant, massive crystal formations forming natural acoustics, floating platforms resonating with ambient cosmic vibrations",
+      "atmosphere_vfx": "Visible sound waves as concentric rings in the air, prismatic light refractions creating rainbows, vibrating harmonic crystals, atmospheric resonance shimmer"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Uncommon",
-      "frame": "green",
-      "border": "oxidized_copper_uncommon",
       "cardName": "Strophe Sonore",
-      "description": "Amplificateur projetant les ondes curatives sur une zone élargie soignant plusieurs alliés simultanément en zone de combat."
+      "faction": "Chœur Synthétique",
+      "rarity": "Uncommon",
+      "element": "furtif",
+      "elements": [
+        "neutre"
+      ],
+      "description": "Amplificateur projetant les ondes curatives sur une zone élargie soignant plusieurs alliés simultanément en zone de combat.",
+      "skills": "none — this unit relies on natural abilities",
+      "faction_lore": "Le Chœur Synthétique fusionne musique et conscience. Chaque membre est un instrument vivant capable d'harmoniser ou de dissonner selon la volonté collective.",
+      "frame_detail": "Oxidized copper frame with basic faction markings on each corner, slightly weathered patina",
+      "composition_directive": "Three-quarter portrait showing upper body and primary equipment/weapon clearly visible",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

@@ -25,54 +25,74 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Destructeur 2 — Hégémonie martienne",
+      "archetype": "Destructeur 2 — Hégémonie martienne Epic radiation",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Hégémonie martienne culture and Epic rank",
-        "arsenal": "Equipment befitting a Epic class cardholder with Hégémonie martienne-specific modifications"
+        "armor_outfit": "Armures lourdes rouge cramoisi avec accents dorés. Insignes impériaux gravés. Casques anguleux avec visières sombres. Silhouette massive et intimidante., refined faction craftsmanship",
+        "arsenal": "Equipment designed to channel and amplify the character's death ability (self_on_flip) — visible energy conduits integrated into the gear"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Hégémonie martienne tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Epic combat manifestation character unleashing their signature ability at maximum power with full body commitment — Death transformation — body shifting on being captured, power released in final burst",
+        "emotion": "Commanding authority and strategic mastery"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Military Sci-Fi",
-          "Grimdark"
+          "Roman Imperial military",
+          "Modern mechanized warfare",
+          "Brutalist military architecture"
         ],
-        "rendering_style": "armored_metallic_realistic"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Crimson Red",
-          "role": "primary_accent"
+          "role": "primary_accent — armor plating and imperial banners"
         },
         {
           "name": "Gunmetal Black",
-          "role": "secondary_accent"
+          "role": "secondary_accent — undersuit and structural elements"
+        },
+        {
+          "name": "Burnished Gold",
+          "role": "tertiary accent — rank insignia and decorative trim"
         }
       ],
-      "lighting_setup": "cinematic_h_g_monie_martienne",
+      "lighting_setup": "Multi-source dramatic lighting: primary glow from the ability effect itself, secondary rim light, environmental reflections from below",
       "mood": "military_dominance"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "low extreme angle with wide lens emphasizing the character's dominance over the environment"
     },
     "scenography": {
-      "setting": "Red Martian military outpost with imposing fortifications",
-      "atmosphere_vfx": "Smoke columns, muzzle flashes, and harsh floodlight beams"
+      "setting": "Fortified Martian military outpost on conquered territory, imposing angular architecture in red stone, rows of identical barracks under floodlights, war banners snapping in the dry wind",
+      "atmosphere_vfx": "Smoke columns from distant artillery, harsh white floodlight beams cutting through red dust haze, muzzle flashes illuminating the sky, plus final sacrifice — dramatic release of accumulated energy at the moment of defeat visible in the environment"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Epic",
-      "frame": "purple",
-      "border": "amethyst_alloy_epic",
       "cardName": "Destructeur 2",
-      "description": "Architecte de guerre martienne concevant les stratégies de siège planétaire et les protocoles d'annexion."
+      "faction": "Hégémonie martienne",
+      "rarity": "Epic",
+      "element": "radiation",
+      "elements": [
+        "neutre"
+      ],
+      "description": "Architecte de guerre martienne concevant les stratégies de siège planétaire et les protocoles d'annexion.",
+      "skills": [
+        {
+          "type": "death",
+          "value": 2,
+          "target": "self_on_flip"
+        }
+      ],
+      "faction_lore": "L'Hégémonie Martienne a transformé la Planète Rouge de colonie mourante en empire galactique. Leur credo : unifier par la force, dominer par l'ordre.",
+      "frame_detail": "Amethyst alloy frame with crystalline energy channels pulsing with light along the border edges",
+      "composition_directive": "Wide dramatic shot showing character AND the full environmental scope of their ability's power and reach",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

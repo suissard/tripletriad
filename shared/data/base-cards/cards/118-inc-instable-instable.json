@@ -25,54 +25,74 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Instable Instable — Incursion Dissonante",
+      "archetype": "Instable Instable — Incursion Dissonante Epic furtif",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Incursion Dissonante culture and Epic rank",
-        "arsenal": "Equipment befitting a Epic class cardholder with Incursion Dissonante-specific modifications"
+        "armor_outfit": "Formes instables entre plusieurs réalités. Membres se dupliquant en images fantômes. Couleurs impossibles. Texture glitch comme un fichier corrompu., refined faction craftsmanship",
+        "arsenal": "Equipment designed to channel and amplify the character's growing ability (adjacent_friendly) — visible energy conduits integrated into the gear"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Incursion Dissonante tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Epic combat manifestation character unleashing their signature ability at maximum power with full body commitment — Green light bridging to adjacent allies, strength flowing outward like spreading roots",
+        "emotion": "Commanding authority and strategic mastery"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Glitch Art",
-          "Surrealist Nightmare"
+          "Glitch art movement",
+          "Quantum mechanics visualization",
+          "Surrealist reality distortion"
         ],
-        "rendering_style": "distorted_dimensional_fracture"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Magenta Glitch",
-          "role": "primary_accent"
+          "role": "primary_accent — reality fractures and distortions"
         },
         {
           "name": "Fractured Green",
-          "role": "secondary_accent"
+          "role": "secondary_accent — dimensional tears and anomalies"
+        },
+        {
+          "name": "Void Black",
+          "role": "tertiary accent — gaps where reality is missing"
         }
       ],
-      "lighting_setup": "cinematic_incursion_dissonante",
-      "mood": "reality_breakdown"
+      "lighting_setup": "Multi-source dramatic lighting: primary glow from the ability effect itself, secondary rim light, environmental reflections from below",
+      "mood": "reality_breakdown_chaos"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "low extreme angle with wide lens emphasizing the character's dominance over the environment"
     },
     "scenography": {
-      "setting": "Space where reality fractures showing parallel dimensions",
-      "atmosphere_vfx": "Visual distortions, chromatic aberration, and spatial tears"
+      "setting": "Space where multiple realities overlap, buildings from different dimensions coexisting, sky showing conflicting celestial bodies and impossible colors",
+      "atmosphere_vfx": "Chromatic aberration splitting colors, spatial tears showing parallel dimensions, partial phasing between states, glitch artifacts and digital corruption, plus empowerment effect — visible strengthening wave reaching friendly targets visible in the environment"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Epic",
-      "frame": "purple",
-      "border": "amethyst_alloy_epic",
       "cardName": "Instable Instable",
-      "description": "Entropiste accélérant la désintégration des structures ennemies faisant vieillir les constructions et les armures à vitesse exponentielle."
+      "faction": "Incursion Dissonante",
+      "rarity": "Epic",
+      "element": "furtif",
+      "elements": [
+        "radiation"
+      ],
+      "description": "Entropiste accélérant la désintégration des structures ennemies faisant vieillir les constructions et les armures à vitesse exponentielle.",
+      "skills": [
+        {
+          "type": "growing",
+          "value": 1,
+          "target": "adjacent_friendly"
+        }
+      ],
+      "faction_lore": "L'Incursion Dissonante est l'ouverture de fissures entre les réalités, laissant passer des entités impossibles. Leur présence corrompt la structure même du réel.",
+      "frame_detail": "Amethyst alloy frame with crystalline energy channels pulsing with light along the border edges",
+      "composition_directive": "Wide dramatic shot showing character AND the full environmental scope of their ability's power and reach",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

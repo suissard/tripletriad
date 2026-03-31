@@ -30,54 +30,79 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Fragment Dissonant — Incursion Dissonante",
+      "archetype": "Fragment Dissonant — Incursion Dissonante Legendary furtif",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Incursion Dissonante culture and Legendary rank",
-        "arsenal": "Equipment befitting a Legendary class cardholder with Incursion Dissonante-specific modifications"
+        "armor_outfit": "Formes instables entre plusieurs réalités. Membres se dupliquant en images fantômes. Couleurs impossibles. Texture glitch comme un fichier corrompu., one-of-a-kind materials",
+        "arsenal": "Equipment designed to channel and amplify the character's death ability (enemy_on_capture) — visible energy conduits integrated into the gear"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Incursion Dissonante tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Transcendent manifestation — character as the ultimate embodiment of their entire faction's philosophy and power — Vengeful curse energy binding to the enemy who captured this card",
+        "emotion": "Transcendent purpose — cosmic significance visible in every feature"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Glitch Art",
-          "Surrealist Nightmare"
+          "Glitch art movement",
+          "Quantum mechanics visualization",
+          "Surrealist reality distortion"
         ],
-        "rendering_style": "distorted_dimensional_fracture"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Magenta Glitch",
-          "role": "primary_accent"
+          "role": "primary_accent — reality fractures and distortions"
         },
         {
           "name": "Fractured Green",
-          "role": "secondary_accent"
+          "role": "secondary_accent — dimensional tears and anomalies"
+        },
+        {
+          "name": "Void Black",
+          "role": "tertiary accent — gaps where reality is missing"
         }
       ],
-      "lighting_setup": "cinematic_incursion_dissonante",
-      "mood": "reality_breakdown"
+      "lighting_setup": "Celestial multi-layered lighting: divine light from above, energy emanation from below, inner glow from character's own power, environmental reflections on a cosmic scale",
+      "mood": "reality_breakdown_chaos"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "dutch angle with multi-plane depth of field emphasizing cosmic significance and otherworldly presence"
     },
     "scenography": {
-      "setting": "Space where reality fractures showing parallel dimensions",
-      "atmosphere_vfx": "Visual distortions, chromatic aberration, and spatial tears"
+      "setting": "Space where multiple realities overlap, buildings from different dimensions coexisting, sky showing conflicting celestial bodies and impossible colors",
+      "atmosphere_vfx": "Chromatic aberration splitting colors, spatial tears showing parallel dimensions, partial phasing between states, glitch artifacts and digital corruption, plus posthumous revenge — dark energy crawling up the captor's position after capture visible in the environment"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Legendary",
-      "frame": "gold",
-      "border": "aurum_plated_legendary",
       "cardName": "Fragment Dissonant",
-      "description": "Paradoxe Final brisant les lois fondamentales de la réalité sur un secteur entier rendant chaque action imprévisible et chaque défense obsolète."
+      "faction": "Incursion Dissonante",
+      "rarity": "Legendary",
+      "element": "furtif",
+      "elements": [
+        "neutre"
+      ],
+      "description": "Paradoxe Final brisant les lois fondamentales de la réalité sur un secteur entier rendant chaque action imprévisible et chaque défense obsolète.",
+      "skills": [
+        {
+          "type": "death",
+          "value": 3,
+          "target": "enemy_on_capture"
+        },
+        {
+          "type": "decrease",
+          "value": -3,
+          "target": "enemy_with_highest"
+        }
+      ],
+      "faction_lore": "L'Incursion Dissonante est l'ouverture de fissures entre les réalités, laissant passer des entités impossibles. Leur présence corrompt la structure même du réel.",
+      "frame_detail": "Aurum-plated frame with living energy flowing through ornate faction-specific decorative patterns, border radiates faint golden glow",
+      "composition_directive": "Epic cinematic wide-angle showing the character reshaping reality around them, with scale suggesting world-changing impact",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

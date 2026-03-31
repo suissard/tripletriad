@@ -19,54 +19,68 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Chtonien Profond — Éveil Chthonien",
+      "archetype": "Chtonien Profond — Éveil Chthonien Uncommon furtif",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Éveil Chthonien culture and Uncommon rank",
-        "arsenal": "Equipment befitting a Uncommon class cardholder with Éveil Chthonien-specific modifications"
+        "armor_outfit": "Formes altérées par l'exposition aux énergies chthoniennes. Peaux pâles translucides avec runes sombres. Yeux entièrement noirs. Ombres détachées.",
+        "arsenal": "Functional faction-standard equipment showing signs of practical field use and tactical customization"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Éveil Chthonien tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Ready stance suggesting trained competence — character poised and alert with professional confidence",
+        "emotion": "Focused competence and operational confidence"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Lovecraftian Horror",
-          "Cosmic Dread"
+          "Lovecraftian cosmic horror",
+          "Gothic dark architecture",
+          "Ancient forbidden knowledge"
         ],
-        "rendering_style": "shadow_tendril_eerie_glow"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Deep Purple",
-          "role": "primary_accent"
+          "name": "Deep Void Purple",
+          "role": "primary_accent — energy emanations and shadow auras"
         },
         {
           "name": "Bone White",
-          "role": "secondary_accent"
+          "role": "secondary_accent — pale skin and carved runes"
+        },
+        {
+          "name": "Pitch Black",
+          "role": "tertiary accent — void effects and deepest shadows"
         }
       ],
-      "lighting_setup": "cinematic__veil_chthonien",
-      "mood": "ancient_cosmic_horror"
+      "lighting_setup": "Directional light from above-right creating defined highlights on key equipment details",
+      "mood": "ancient_cosmic_dread"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "slightly low angle conveying growing authority and competence"
     },
     "scenography": {
-      "setting": "Ancient underground temple with forbidden geometry",
-      "atmosphere_vfx": "Eerie fog, shadow tendrils, and pulsating ancient runes"
+      "setting": "Ancient underground temple with impossible non-Euclidean geometry, walls covered in carved forbidden symbols, massive sealed portal doors radiating dark energy",
+      "atmosphere_vfx": "Eerie pulsating purple fog along the ground, shadow tendrils detaching and reattaching, pulsating ancient runes glowing intermittently, warped light bending unnaturally"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Uncommon",
-      "frame": "green",
-      "border": "oxidized_copper_uncommon",
       "cardName": "Chtonien Profond",
-      "description": "Gouffre absorbant l'énergie vitale des cibles proches drainant leur force pour la redistribuer aux alliés de l'Éveil."
+      "faction": "Éveil Chthonien",
+      "rarity": "Uncommon",
+      "element": "furtif",
+      "elements": [
+        "neutre"
+      ],
+      "description": "Gouffre absorbant l'énergie vitale des cibles proches drainant leur force pour la redistribuer aux alliés de l'Éveil.",
+      "skills": "none — this unit relies on natural abilities",
+      "faction_lore": "L'Éveil Chthonien est la résurgence d'entités anciennes dormant depuis avant la naissance des étoiles. Leurs cultes rouvrent les portes des plans inférieurs.",
+      "frame_detail": "Oxidized copper frame with basic faction markings on each corner, slightly weathered patina",
+      "composition_directive": "Three-quarter portrait showing upper body and primary equipment/weapon clearly visible",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

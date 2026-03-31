@@ -19,54 +19,68 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Metal de la Ceinture — Ferrailleurs de la Ceinture",
+      "archetype": "Metal de la Ceinture — Ferrailleurs de la Ceinture Uncommon radiation",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Ferrailleurs de la Ceinture culture and Uncommon rank",
-        "arsenal": "Equipment befitting a Uncommon class cardholder with Ferrailleurs de la Ceinture-specific modifications"
+        "armor_outfit": "Vêtements de peaux de vaisseau recyclées avec soudures visibles. Combinaisons tachées d'huile. Masques de soudage. Postures voûtées de travailleurs.",
+        "arsenal": "Functional faction-standard equipment showing signs of practical field use and tactical customization"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Ferrailleurs de la Ceinture tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Ready stance suggesting trained competence — character poised and alert with professional confidence",
+        "emotion": "Focused competence and operational confidence"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Dieselpunk",
-          "Scrap-yard Survival"
+          "Dieselpunk industrial",
+          "Scrapyard survival",
+          "Working class heroism"
         ],
-        "rendering_style": "bolted_metal_oil_stained"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Rusted Orange",
-          "role": "primary_accent"
+          "name": "Rusted Orange-Brown",
+          "role": "primary_accent — salvaged metal and oxidized surfaces"
         },
         {
           "name": "Welding Arc Blue",
-          "role": "secondary_accent"
+          "role": "secondary_accent — sparks and work light"
+        },
+        {
+          "name": "Oil-Slick Black",
+          "role": "tertiary accent — grease stains and shadowed recesses"
         }
       ],
-      "lighting_setup": "cinematic_ferrailleurs_de_la_ceinture",
+      "lighting_setup": "Directional light from above-right creating defined highlights on key equipment details",
       "mood": "scrappy_determination"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "slightly low angle conveying growing authority and competence"
     },
     "scenography": {
-      "setting": "Cramped salvage yard inside hollowed asteroid",
-      "atmosphere_vfx": "Welding sparks, oil drips, and floating debris"
+      "setting": "Salvage workshop inside a hollowed asteroid, walls lined with repurposed ship parts, welding stations illuminating stacks of sorted scrap metal, improvised machinery",
+      "atmosphere_vfx": "Welding sparks in bright orange arcs, oil drips pooling on the floor, floating debris in low gravity, steam rising from freshly cut metal"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Uncommon",
-      "frame": "green",
-      "border": "oxidized_copper_uncommon",
       "cardName": "Metal de la Ceinture",
-      "description": "Architecte de fortune construisant des défenses temporaires avec des matériaux récupérés sur les épaves les plus récentes."
+      "faction": "Ferrailleurs de la Ceinture",
+      "rarity": "Uncommon",
+      "element": "radiation",
+      "elements": [
+        "neutre"
+      ],
+      "description": "Architecte de fortune construisant des défenses temporaires avec des matériaux récupérés sur les épaves les plus récentes.",
+      "skills": "none — this unit relies on natural abilities",
+      "faction_lore": "Les Ferrailleurs vivent dans les champs d'astéroïdes entre les mondes. Ils récupèrent ce que les guerres laissent et construisent à partir de débris.",
+      "frame_detail": "Oxidized copper frame with basic faction markings on each corner, slightly weathered patina",
+      "composition_directive": "Three-quarter portrait showing upper body and primary equipment/weapon clearly visible",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

@@ -25,54 +25,74 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Amp Chantant — Chœur Synthétique",
+      "archetype": "Amp Chantant — Chœur Synthétique Epic reseau",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Chœur Synthétique culture and Epic rank",
-        "arsenal": "Equipment befitting a Epic class cardholder with Chœur Synthétique-specific modifications"
+        "armor_outfit": "Cristaux vivants poussant depuis la peau. Silhouettes élancées. Ailes cristallines générant des ondes sonores. Peaux irisées comme des prismes., refined faction craftsmanship",
+        "arsenal": "Equipment designed to channel and amplify the character's growing ability (adjacent_enemy) — visible energy conduits integrated into the gear"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Chœur Synthétique tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Epic combat manifestation character unleashing their signature ability at maximum power with full body commitment — Red energy tendrils reaching toward adjacent enemy positions, siphoning numerical advantage",
+        "emotion": "Commanding authority and strategic mastery"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Abstract Crystalline Art",
-          "Sound Visualization"
+          "Sacred geometry",
+          "Sound wave visualization",
+          "Crystalline mineral formations"
         ],
-        "rendering_style": "prismatic_refraction_crystalline"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Violet Crystal",
-          "role": "primary_accent"
+          "role": "primary_accent — crystalline growths and primary resonance"
         },
         {
           "name": "Silver Prismatic",
-          "role": "secondary_accent"
+          "role": "secondary_accent — light reflections and harmonics"
+        },
+        {
+          "name": "Deep Indigo",
+          "role": "tertiary accent — shadow tones and low frequency"
         }
       ],
-      "lighting_setup": "cinematic_ch_ur_synth_tique",
-      "mood": "ethereal_harmony"
+      "lighting_setup": "Multi-source dramatic lighting: primary glow from the ability effect itself, secondary rim light, environmental reflections from below",
+      "mood": "ethereal_harmonic_power"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "low extreme angle with wide lens emphasizing the character's dominance over the environment"
     },
     "scenography": {
-      "setting": "Crystalline amphitheater orbiting a gas giant",
-      "atmosphere_vfx": "Visible sound waves, prismatic light refractions, and floating harmonics"
+      "setting": "Crystalline amphitheater orbiting a gas giant, massive crystal formations forming natural acoustics, floating platforms resonating with ambient cosmic vibrations",
+      "atmosphere_vfx": "Visible sound waves as concentric rings in the air, prismatic light refractions creating rainbows, vibrating harmonic crystals, atmospheric resonance shimmer, plus drain effect — visible power transfer from enemies to self or allies visible in the environment"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Epic",
-      "frame": "purple",
-      "border": "amethyst_alloy_epic",
       "cardName": "Amp Chantant",
-      "description": "Virtuose de la Résonance créant des boucles de feedback destructrices visant les armures et les équipements sensibles aux vibrations."
+      "faction": "Chœur Synthétique",
+      "rarity": "Epic",
+      "element": "reseau",
+      "elements": [
+        "obsidienne"
+      ],
+      "description": "Virtuose de la Résonance créant des boucles de feedback destructrices visant les armures et les équipements sensibles aux vibrations.",
+      "skills": [
+        {
+          "type": "growing",
+          "value": 1,
+          "target": "adjacent_enemy"
+        }
+      ],
+      "faction_lore": "Le Chœur Synthétique fusionne musique et conscience. Chaque membre est un instrument vivant capable d'harmoniser ou de dissonner selon la volonté collective.",
+      "frame_detail": "Amethyst alloy frame with crystalline energy channels pulsing with light along the border edges",
+      "composition_directive": "Wide dramatic shot showing character AND the full environmental scope of their ability's power and reach",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

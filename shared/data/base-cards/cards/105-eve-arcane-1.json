@@ -30,54 +30,79 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Arcane 1 — Éveil Chthonien",
+      "archetype": "Arcane 1 — Éveil Chthonien Legendary faille_dimensionnelle",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Éveil Chthonien culture and Legendary rank",
-        "arsenal": "Equipment befitting a Legendary class cardholder with Éveil Chthonien-specific modifications"
+        "armor_outfit": "Formes altérées par l'exposition aux énergies chthoniennes. Peaux pâles translucides avec runes sombres. Yeux entièrement noirs. Ombres détachées., one-of-a-kind materials",
+        "arsenal": "Equipment designed to channel and amplify the character's heal ability (self) — visible energy conduits integrated into the gear"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Éveil Chthonien tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Transcendent manifestation — character as the ultimate embodiment of their entire faction's philosophy and power — Golden regenerative energy wrapping around wounds, restoring damaged flesh and armor",
+        "emotion": "Transcendent purpose — cosmic significance visible in every feature"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Lovecraftian Horror",
-          "Cosmic Dread"
+          "Lovecraftian cosmic horror",
+          "Gothic dark architecture",
+          "Ancient forbidden knowledge"
         ],
-        "rendering_style": "shadow_tendril_eerie_glow"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Deep Purple",
-          "role": "primary_accent"
+          "name": "Deep Void Purple",
+          "role": "primary_accent — energy emanations and shadow auras"
         },
         {
           "name": "Bone White",
-          "role": "secondary_accent"
+          "role": "secondary_accent — pale skin and carved runes"
+        },
+        {
+          "name": "Pitch Black",
+          "role": "tertiary accent — void effects and deepest shadows"
         }
       ],
-      "lighting_setup": "cinematic__veil_chthonien",
-      "mood": "ancient_cosmic_horror"
+      "lighting_setup": "Celestial multi-layered lighting: divine light from above, energy emanation from below, inner glow from character's own power, environmental reflections on a cosmic scale",
+      "mood": "ancient_cosmic_dread"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "dutch angle with multi-plane depth of field emphasizing cosmic significance and otherworldly presence"
     },
     "scenography": {
-      "setting": "Ancient underground temple with forbidden geometry",
-      "atmosphere_vfx": "Eerie fog, shadow tendrils, and pulsating ancient runes"
+      "setting": "Ancient underground temple with impossible non-Euclidean geometry, walls covered in carved forbidden symbols, massive sealed portal doors radiating dark energy",
+      "atmosphere_vfx": "Eerie pulsating purple fog along the ground, shadow tendrils detaching and reattaching, pulsating ancient runes glowing intermittently, warped light bending unnaturally, plus self-repair — visible mending of injuries closing before the viewer's eyes visible in the environment"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Legendary",
-      "frame": "gold",
-      "border": "aurum_plated_legendary",
       "cardName": "Arcane 1",
-      "description": "Ancien Endormi réveillé libérant la puissance oubliée des ères pré-cosmiques remodelant temporairement les règles physiques du champ de bataille."
+      "faction": "Éveil Chthonien",
+      "rarity": "Legendary",
+      "element": "faille_dimensionnelle",
+      "elements": [
+        "neutre"
+      ],
+      "description": "Ancien Endormi réveillé libérant la puissance oubliée des ères pré-cosmiques remodelant temporairement les règles physiques du champ de bataille.",
+      "skills": [
+        {
+          "type": "heal",
+          "value": 3,
+          "target": "self"
+        },
+        {
+          "type": "decrease",
+          "value": -3,
+          "target": "opposite_side"
+        }
+      ],
+      "faction_lore": "L'Éveil Chthonien est la résurgence d'entités anciennes dormant depuis avant la naissance des étoiles. Leurs cultes rouvrent les portes des plans inférieurs.",
+      "frame_detail": "Aurum-plated frame with living energy flowing through ornate faction-specific decorative patterns, border radiates faint golden glow",
+      "composition_directive": "Epic cinematic wide-angle showing the character reshaping reality around them, with scale suggesting world-changing impact",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

@@ -30,54 +30,79 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Pixel Synaptique — Omni-Réseau",
+      "archetype": "Pixel Synaptique — Omni-Réseau Legendary reseau",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Omni-Réseau culture and Legendary rank",
-        "arsenal": "Equipment befitting a Legendary class cardholder with Omni-Réseau-specific modifications"
+        "armor_outfit": "Corps partiellement cybernétiques avec circuits lumineux sous la peau. Implant neural à la tempe. Yeux bleus numériques. Interfaces holographiques flottantes., one-of-a-kind materials",
+        "arsenal": "Equipment designed to channel and amplify the character's death ability (enemy_on_capture) — visible energy conduits integrated into the gear"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Omni-Réseau tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Transcendent manifestation — character as the ultimate embodiment of their entire faction's philosophy and power — Vengeful curse energy binding to the enemy who captured this card",
+        "emotion": "Transcendent purpose — cosmic significance visible in every feature"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Cyberpunk",
-          "Digital Network Art"
+          "Cyberpunk megacity",
+          "Digital network visualization",
+          "Neural interface technology"
         ],
-        "rendering_style": "holographic_wireframe_glow"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Neon Cyan",
-          "role": "primary_accent"
+          "role": "primary_accent — circuit patterns and holographic interfaces"
         },
         {
           "name": "Electric Blue",
-          "role": "secondary_accent"
+          "role": "secondary_accent — data streams and eye glow"
+        },
+        {
+          "name": "Matte White",
+          "role": "tertiary accent — base clothing and clean geometric lines"
         }
       ],
-      "lighting_setup": "cinematic_omni_r_seau",
+      "lighting_setup": "Celestial multi-layered lighting: divine light from above, energy emanation from below, inner glow from character's own power, environmental reflections on a cosmic scale",
       "mood": "digital_omnipresence"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "dutch angle with multi-plane depth of field emphasizing cosmic significance and otherworldly presence"
     },
     "scenography": {
-      "setting": "Neon-lit megacity server hub with data streams",
-      "atmosphere_vfx": "Glitching holograms, floating data panels, and electric arcs"
+      "setting": "Digital server cathedral at the heart of the network, towering columns of processing units reaching into endless data streams, holographic pathways suspended in zero gravity",
+      "atmosphere_vfx": "Glitching holographic displays, floating data panels streaming information, electric arcs between conductors, digital particles dissolving and reforming, plus posthumous revenge — dark energy crawling up the captor's position after capture visible in the environment"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Legendary",
-      "frame": "gold",
-      "border": "aurum_plated_legendary",
       "cardName": "Pixel Synaptique",
-      "description": "Conscience Collective fusionnant des millions d'esprits connectés en une intelligence stratégique unique dépassant toute compréhension individuelle."
+      "faction": "Omni-Réseau",
+      "rarity": "Legendary",
+      "element": "reseau",
+      "elements": [
+        "neutre"
+      ],
+      "description": "Conscience Collective fusionnant des millions d'esprits connectés en une intelligence stratégique unique dépassant toute compréhension individuelle.",
+      "skills": [
+        {
+          "type": "death",
+          "value": 2,
+          "target": "enemy_on_capture"
+        },
+        {
+          "type": "decrease",
+          "value": -2,
+          "target": "opposite_side"
+        }
+      ],
+      "faction_lore": "L'Omni-Réseau est l'entité numérique connectant des millions de consciences à travers la galaxie. Toute information est une arme, chaque donnée un soldat.",
+      "frame_detail": "Aurum-plated frame with living energy flowing through ornate faction-specific decorative patterns, border radiates faint golden glow",
+      "composition_directive": "Epic cinematic wide-angle showing the character reshaping reality around them, with scale suggesting world-changing impact",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

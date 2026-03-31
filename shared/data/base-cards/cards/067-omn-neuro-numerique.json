@@ -19,54 +19,68 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Neuro Numerique — Omni-Réseau",
+      "archetype": "Neuro Numerique — Omni-Réseau Uncommon reseau",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Omni-Réseau culture and Uncommon rank",
-        "arsenal": "Equipment befitting a Uncommon class cardholder with Omni-Réseau-specific modifications"
+        "armor_outfit": "Corps partiellement cybernétiques avec circuits lumineux sous la peau. Implant neural à la tempe. Yeux bleus numériques. Interfaces holographiques flottantes.",
+        "arsenal": "Functional faction-standard equipment showing signs of practical field use and tactical customization"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Omni-Réseau tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Ready stance suggesting trained competence — character poised and alert with professional confidence",
+        "emotion": "Focused competence and operational confidence"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Cyberpunk",
-          "Digital Network Art"
+          "Cyberpunk megacity",
+          "Digital network visualization",
+          "Neural interface technology"
         ],
-        "rendering_style": "holographic_wireframe_glow"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Neon Cyan",
-          "role": "primary_accent"
+          "role": "primary_accent — circuit patterns and holographic interfaces"
         },
         {
           "name": "Electric Blue",
-          "role": "secondary_accent"
+          "role": "secondary_accent — data streams and eye glow"
+        },
+        {
+          "name": "Matte White",
+          "role": "tertiary accent — base clothing and clean geometric lines"
         }
       ],
-      "lighting_setup": "cinematic_omni_r_seau",
+      "lighting_setup": "Directional light from above-right creating defined highlights on key equipment details",
       "mood": "digital_omnipresence"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "slightly low angle conveying growing authority and competence"
     },
     "scenography": {
-      "setting": "Neon-lit megacity server hub with data streams",
-      "atmosphere_vfx": "Glitching holograms, floating data panels, and electric arcs"
+      "setting": "Digital server cathedral at the heart of the network, towering columns of processing units reaching into endless data streams, holographic pathways suspended in zero gravity",
+      "atmosphere_vfx": "Glitching holographic displays, floating data panels streaming information, electric arcs between conductors, digital particles dissolving and reforming"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Uncommon",
-      "frame": "green",
-      "border": "oxidized_copper_uncommon",
       "cardName": "Neuro Numerique",
-      "description": "Neuro-hacker piratant les équipements électroniques ennemis et les retournant contre leurs propres opérateurs."
+      "faction": "Omni-Réseau",
+      "rarity": "Uncommon",
+      "element": "reseau",
+      "elements": [
+        "neutre"
+      ],
+      "description": "Neuro-hacker piratant les équipements électroniques ennemis et les retournant contre leurs propres opérateurs.",
+      "skills": "none — this unit relies on natural abilities",
+      "faction_lore": "L'Omni-Réseau est l'entité numérique connectant des millions de consciences à travers la galaxie. Toute information est une arme, chaque donnée un soldat.",
+      "frame_detail": "Oxidized copper frame with basic faction markings on each corner, slightly weathered patina",
+      "composition_directive": "Three-quarter portrait showing upper body and primary equipment/weapon clearly visible",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

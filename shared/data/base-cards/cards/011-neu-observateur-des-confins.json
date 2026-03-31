@@ -19,54 +19,68 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Observateur des Confins — neutre",
+      "archetype": "Observateur des Confins — neutre Rare None",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting neutre culture and Rare rank",
-        "arsenal": "Equipment befitting a Rare class cardholder with neutre-specific modifications"
+        "armor_outfit": "Vêtements usés par le voyage, tons gris-brun, équipement de fortune. Visages marqués par les vents stellaires. Regard perçant.",
+        "arsenal": "Functional faction-standard equipment showing signs of practical field use and tactical customization"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting neutre tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Dynamic action pose mid-ability execution — character actively demonstrating their specialty skill",
+        "emotion": "Battle-tested intensity and tactical sharpness"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Grimdark",
-          "Post-apocalyptic"
+          "Post-apocalyptic survival",
+          "Western lone wanderer",
+          "Gritty space opera realism"
         ],
-        "rendering_style": "weathered_matte_fabric"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Steel Gray",
-          "role": "primary_accent"
+          "name": "Dusty Steel Gray",
+          "role": "primary_accent — weathered clothing and armor base"
         },
         {
           "name": "Warm Amber",
-          "role": "secondary_accent"
+          "role": "secondary_accent — lantern light, eye highlights, tool glints"
+        },
+        {
+          "name": "Deep Charcoal",
+          "role": "shadow depth and background atmosphere"
         }
       ],
-      "lighting_setup": "cinematic_neutre",
-      "mood": "solitary_wanderer"
+      "lighting_setup": "Dramatic rim lighting separating character from background with a focal glow on the primary ability effect",
+      "mood": "solitary_determination"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "low dramatic angle emphasizing power and heroic stature"
     },
     "scenography": {
-      "setting": "Dusty asteroid waystation with flickering lanterns",
-      "atmosphere_vfx": "Wind-blown dust and sparse starlight through cracked windows"
+      "setting": "Asteroid waystation at the edge of known space, corrugated metal walls scarred by micrometeorite impacts, flickering plasma lanterns casting long shadows on rusted bulkheads",
+      "atmosphere_vfx": "Fine stellar dust floating in dim light, distant nebula glow through cracked observation windows, scattered debris suggesting transience"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Rare",
-      "frame": "blue",
-      "border": "cobalt_steel_rare",
       "cardName": "Observateur des Confins",
-      "description": "Stratège neutre coordonnant les mouvements de plusieurs factions alliées lors des opérations multi-équipes."
+      "faction": "neutre",
+      "rarity": "Rare",
+      "element": "None",
+      "elements": [
+        "neutre"
+      ],
+      "description": "Stratège neutre coordonnant les mouvements de plusieurs factions alliées lors des opérations multi-équipes.",
+      "skills": "none — this unit relies on natural abilities",
+      "faction_lore": "Les Neutres sont les observateurs éternels du conflit interstellaire. Ils survivent dans les zones grises du cosmos où aucune faction ne règne.",
+      "frame_detail": "Cobalt steel frame with etched faction symbols deeply engraved on each corner of the border",
+      "composition_directive": "Low angle heroic full-body shot emphasizing power, with ability visualization clearly shown in action",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

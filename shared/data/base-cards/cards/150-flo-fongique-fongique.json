@@ -25,54 +25,74 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Fongique Fongique — Fléau Spore",
+      "archetype": "Fongique Fongique — Fléau Spore Legendary spore",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Fléau Spore culture and Legendary rank",
-        "arsenal": "Equipment befitting a Legendary class cardholder with Fléau Spore-specific modifications"
+        "armor_outfit": "Formes végétales avec mycéliums s'étendant comme des membres. Champignons et moisissures colorés. Spores flottantes en halo. Présence organique dérangeante., one-of-a-kind materials",
+        "arsenal": "Equipment designed to channel and amplify the character's decrease ability (all_enemy) — visible energy conduits integrated into the gear"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Fléau Spore tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Transcendent manifestation — character as the ultimate embodiment of their entire faction's philosophy and power — Wave of negation sweeping across all enemy positions simultaneously",
+        "emotion": "Transcendent purpose — cosmic significance visible in every feature"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Bio Horror",
-          "Mycelial Networks"
+          "Biological horror photography",
+          "Mycelial network visualization",
+          "Coral reef decay"
         ],
-        "rendering_style": "organic_fungal_spread"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Toxic Green",
-          "role": "primary_accent"
+          "role": "primary_accent — fungal growths and spore clouds"
         },
         {
           "name": "Decay Brown",
-          "role": "secondary_accent"
+          "role": "secondary_accent — decomposing surfaces and organic matter"
+        },
+        {
+          "name": "Flesh Pink",
+          "role": "tertiary accent — exposed tissue and infected areas"
         }
       ],
-      "lighting_setup": "cinematic_fl_au_spore",
-      "mood": "biological_corruption"
+      "lighting_setup": "Celestial multi-layered lighting: divine light from above, energy emanation from below, inner glow from character's own power, environmental reflections on a cosmic scale",
+      "mood": "biological_corruption_inevitability"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "dutch angle with multi-plane depth of field emphasizing cosmic significance and otherworldly presence"
     },
     "scenography": {
-      "setting": "Infested corridor with thick fungal overgrowth",
-      "atmosphere_vfx": "Floating spore clouds, pulsating organic growth, and dripping fluids"
+      "setting": "Infested corridor overtaken by fungal growth, thick mycelial networks covering every surface, pulsating fungal towers, spore clouds reducing visibility",
+      "atmosphere_vfx": "Floating spore particles in dense clouds, pulsating organic growths slowly expanding, dripping fungal fluids, organic tendrils reaching and grasping, plus mass debuff — dark ripple passing through every enemy position weakening all visible in the environment"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Legendary",
-      "frame": "gold",
-      "border": "aurum_plated_legendary",
       "cardName": "Fongique Fongique",
-      "description": "Fléau Ultime englobant des écosystèmes entiers dans une conscience fongique collective coordonnant l'assaut final sur les dernières positions libres."
+      "faction": "Fléau Spore",
+      "rarity": "Legendary",
+      "element": "spore",
+      "elements": [
+        "neutre"
+      ],
+      "description": "Fléau Ultime englobant des écosystèmes entiers dans une conscience fongique collective coordonnant l'assaut final sur les dernières positions libres.",
+      "skills": [
+        {
+          "type": "decrease",
+          "value": -3,
+          "target": "all_enemy"
+        }
+      ],
+      "faction_lore": "Le Fléau Spore est une entité fongique cosmique se propageant imparable. Chaque spore contient la conscience collective. Il étend, consomme, transforme.",
+      "frame_detail": "Aurum-plated frame with living energy flowing through ornate faction-specific decorative patterns, border radiates faint golden glow",
+      "composition_directive": "Epic cinematic wide-angle showing the character reshaping reality around them, with scale suggesting world-changing impact",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

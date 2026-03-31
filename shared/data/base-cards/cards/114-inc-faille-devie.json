@@ -19,54 +19,68 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Faille Devie — Incursion Dissonante",
+      "archetype": "Faille Devie — Incursion Dissonante Uncommon hacking",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Incursion Dissonante culture and Uncommon rank",
-        "arsenal": "Equipment befitting a Uncommon class cardholder with Incursion Dissonante-specific modifications"
+        "armor_outfit": "Formes instables entre plusieurs réalités. Membres se dupliquant en images fantômes. Couleurs impossibles. Texture glitch comme un fichier corrompu.",
+        "arsenal": "Functional faction-standard equipment showing signs of practical field use and tactical customization"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Incursion Dissonante tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Ready stance suggesting trained competence — character poised and alert with professional confidence",
+        "emotion": "Focused competence and operational confidence"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Glitch Art",
-          "Surrealist Nightmare"
+          "Glitch art movement",
+          "Quantum mechanics visualization",
+          "Surrealist reality distortion"
         ],
-        "rendering_style": "distorted_dimensional_fracture"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Magenta Glitch",
-          "role": "primary_accent"
+          "role": "primary_accent — reality fractures and distortions"
         },
         {
           "name": "Fractured Green",
-          "role": "secondary_accent"
+          "role": "secondary_accent — dimensional tears and anomalies"
+        },
+        {
+          "name": "Void Black",
+          "role": "tertiary accent — gaps where reality is missing"
         }
       ],
-      "lighting_setup": "cinematic_incursion_dissonante",
-      "mood": "reality_breakdown"
+      "lighting_setup": "Directional light from above-right creating defined highlights on key equipment details",
+      "mood": "reality_breakdown_chaos"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "slightly low angle conveying growing authority and competence"
     },
     "scenography": {
-      "setting": "Space where reality fractures showing parallel dimensions",
-      "atmosphere_vfx": "Visual distortions, chromatic aberration, and spatial tears"
+      "setting": "Space where multiple realities overlap, buildings from different dimensions coexisting, sky showing conflicting celestial bodies and impossible colors",
+      "atmosphere_vfx": "Chromatic aberration splitting colors, spatial tears showing parallel dimensions, partial phasing between states, glitch artifacts and digital corruption"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Uncommon",
-      "frame": "green",
-      "border": "oxidized_copper_uncommon",
       "cardName": "Faille Devie",
-      "description": "Paradoxe créant des boucles temporelles piégeant les unités ennemies dans des cycles de combat répétitifs."
+      "faction": "Incursion Dissonante",
+      "rarity": "Uncommon",
+      "element": "hacking",
+      "elements": [
+        "neutre"
+      ],
+      "description": "Paradoxe créant des boucles temporelles piégeant les unités ennemies dans des cycles de combat répétitifs.",
+      "skills": "none — this unit relies on natural abilities",
+      "faction_lore": "L'Incursion Dissonante est l'ouverture de fissures entre les réalités, laissant passer des entités impossibles. Leur présence corrompt la structure même du réel.",
+      "frame_detail": "Oxidized copper frame with basic faction markings on each corner, slightly weathered patina",
+      "composition_directive": "Three-quarter portrait showing upper body and primary equipment/weapon clearly visible",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

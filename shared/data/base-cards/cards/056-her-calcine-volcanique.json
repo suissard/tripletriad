@@ -19,54 +19,68 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Calcine Volcanique — Héritiers des cendres",
+      "archetype": "Calcine Volcanique — Héritiers des cendres Rare radiation",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Héritiers des cendres culture and Rare rank",
-        "arsenal": "Equipment befitting a Rare class cardholder with Héritiers des cendres-specific modifications"
+        "armor_outfit": "Peaux noircies avec veines lumineuses orange. Armures de métal fondu et cendres compactées. Cheveux comme de la fumée. Cicatrices tribales.",
+        "arsenal": "Functional faction-standard equipment showing signs of practical field use and tactical customization"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Héritiers des cendres tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Dynamic action pose mid-ability execution — character actively demonstrating their specialty skill",
+        "emotion": "Battle-tested intensity and tactical sharpness"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Volcanic Landscape",
-          "Post-apocalyptic"
+          "Volcanic landscape photography",
+          "Post-apocalyptic fire devastation",
+          "Phoenix mythology"
         ],
-        "rendering_style": "incandescent_glow_heat_distortion"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Ember Orange",
-          "role": "primary_accent"
+          "role": "primary_accent — glowing veins and fire effects"
         },
         {
           "name": "Charcoal Black",
-          "role": "secondary_accent"
+          "role": "secondary_accent — scorched skin and armor base"
+        },
+        {
+          "name": "Deep Ash Gray",
+          "role": "tertiary accent — weathering and atmosphere"
         }
       ],
-      "lighting_setup": "cinematic_h_ritiers_des_cendres",
-      "mood": "unquenchable_fire"
+      "lighting_setup": "Dramatic rim lighting separating character from background with a focal glow on the primary ability effect",
+      "mood": "unquenchable_fire_and_vengeance"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "low dramatic angle emphasizing power and heroic stature"
     },
     "scenography": {
-      "setting": "Smoldering ruins of a destroyed settlement",
-      "atmosphere_vfx": "Rising embers, heat shimmer, and smoke plumes"
+      "setting": "Smoldering ruins of a destroyed settlement, half-melted structures glowing from residual heat, rivers of slow-moving lava carving through the devastated landscape",
+      "atmosphere_vfx": "Rising embers carried by thermal updrafts, heat distortion shimmer in the air, thick smoke plumes blocking the sky, volcanic ash falling like snow"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Rare",
-      "frame": "blue",
-      "border": "cobalt_steel_rare",
       "cardName": "Calcine Volcanique",
-      "description": "Gardien du Brasier Sacré protégeant la flamme éternelle des ancêtres qui confère une résistance au feu aux alliés."
+      "faction": "Héritiers des cendres",
+      "rarity": "Rare",
+      "element": "radiation",
+      "elements": [
+        "neutre"
+      ],
+      "description": "Gardien du Brasier Sacré protégeant la flamme éternelle des ancêtres qui confère une résistance au feu aux alliés.",
+      "skills": "none — this unit relies on natural abilities",
+      "faction_lore": "Les Héritiers des Cendres sont les survivants de la Grande Purification — un cataclysme qui consuma leurs mondes entiers. Leur existence est une vengeance perpétuelle.",
+      "frame_detail": "Cobalt steel frame with etched faction symbols deeply engraved on each corner of the border",
+      "composition_directive": "Low angle heroic full-body shot emphasizing power, with ability visualization clearly shown in action",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }

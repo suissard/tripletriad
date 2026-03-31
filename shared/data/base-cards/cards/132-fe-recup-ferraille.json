@@ -25,54 +25,74 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Recup Ferraille — Ferrailleurs de la Ceinture",
+      "archetype": "Recup Ferraille — Ferrailleurs de la Ceinture Rare reseau",
       "loadout": {
-        "armor_outfit": "Faction-appropriate gear reflecting Ferrailleurs de la Ceinture culture and Rare rank",
-        "arsenal": "Equipment befitting a Rare class cardholder with Ferrailleurs de la Ceinture-specific modifications"
+        "armor_outfit": "Vêtements de peaux de vaisseau recyclées avec soudures visibles. Combinaisons tachées d'huile. Masques de soudage. Postures voûtées de travailleurs.",
+        "arsenal": "Equipment designed to channel and amplify the character's decrease ability (enemy_with_highest) — visible energy conduits integrated into the gear"
       },
       "attitude": {
-        "behavior": "Combat stance reflecting Ferrailleurs de la Ceinture tactical doctrine",
-        "emotion": "Determined expression conveying the character's role and faction identity"
+        "behavior": "Dynamic action pose mid-ability execution — character actively demonstrating their specialty skill — Focused beam of nullification targeting the strongest enemy card",
+        "emotion": "Battle-tested intensity and tactical sharpness"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Dieselpunk",
-          "Scrap-yard Survival"
+          "Dieselpunk industrial",
+          "Scrapyard survival",
+          "Working class heroism"
         ],
-        "rendering_style": "bolted_metal_oil_stained"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Rusted Orange",
-          "role": "primary_accent"
+          "name": "Rusted Orange-Brown",
+          "role": "primary_accent — salvaged metal and oxidized surfaces"
         },
         {
           "name": "Welding Arc Blue",
-          "role": "secondary_accent"
+          "role": "secondary_accent — sparks and work light"
+        },
+        {
+          "name": "Oil-Slick Black",
+          "role": "tertiary accent — grease stains and shadowed recesses"
         }
       ],
-      "lighting_setup": "cinematic_ferrailleurs_de_la_ceinture",
+      "lighting_setup": "Dramatic rim lighting separating character from background with a focal glow on the primary ability effect",
       "mood": "scrappy_determination"
     },
     "camera": {
-      "angle": "low_dramatic_portrait"
+      "angle": "low dramatic angle emphasizing power and heroic stature"
     },
     "scenography": {
-      "setting": "Cramped salvage yard inside hollowed asteroid",
-      "atmosphere_vfx": "Welding sparks, oil drips, and floating debris"
+      "setting": "Salvage workshop inside a hollowed asteroid, walls lined with repurposed ship parts, welding stations illuminating stacks of sorted scrap metal, improvised machinery",
+      "atmosphere_vfx": "Welding sparks in bright orange arcs, oil drips pooling on the floor, floating debris in low gravity, steam rising from freshly cut metal, plus targeted suppression — beam locking onto highest-value enemy and reducing their power visible in the environment"
     },
     "card_metadata": {
       "collectionName": "base",
-      "rarity": "Rare",
-      "frame": "blue",
-      "border": "cobalt_steel_rare",
       "cardName": "Recup Ferraille",
-      "description": "Stratège de survie planifiant les itinéraires de collecte les plus rentables en évitant les zones contrôlées par les factions hostiles."
+      "faction": "Ferrailleurs de la Ceinture",
+      "rarity": "Rare",
+      "element": "reseau",
+      "elements": [
+        "neutre"
+      ],
+      "description": "Stratège de survie planifiant les itinéraires de collecte les plus rentables en évitant les zones contrôlées par les factions hostiles.",
+      "skills": [
+        {
+          "type": "decrease",
+          "value": -1,
+          "target": "enemy_with_highest"
+        }
+      ],
+      "faction_lore": "Les Ferrailleurs vivent dans les champs d'astéroïdes entre les mondes. Ils récupèrent ce que les guerres laissent et construisent à partir de débris.",
+      "frame_detail": "Cobalt steel frame with etched faction symbols deeply engraved on each corner of the border",
+      "composition_directive": "Low angle heroic full-body shot emphasizing power, with ability visualization clearly shown in action",
+      "prompt_version": "3.0_full_20260331",
+      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
     }
   }
 }
