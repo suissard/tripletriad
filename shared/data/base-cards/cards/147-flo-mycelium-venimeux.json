@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Mycelium Venimeux",
-  "description": "Mucus enveloppant les spores en protection.",
+  "description": "Maître Mycélien connectant plusieurs colonies fongiques dispersées pour une action coordonnée simultanée sur plusieurs fronts.",
   "element": "eau",
   "faction": "Fléau Spore",
   "topValue": "6",
@@ -12,5 +12,62 @@
   "rarity": "Rare",
   "defaultHp": 3,
   "image": "base/147.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "eau",
+    "glace"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Mycelium Venimeux — Fléau Spore",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Fléau Spore culture and Rare rank",
+        "arsenal": "Equipment befitting a Rare class cardholder with Fléau Spore-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Fléau Spore tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Bio Horror",
+          "Mycelial Networks"
+        ],
+        "rendering_style": "organic_fungal_spread"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Toxic Green",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Decay Brown",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_fl_au_spore",
+      "mood": "biological_corruption"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Infested corridor with thick fungal overgrowth",
+      "atmosphere_vfx": "Floating spore clouds, pulsating organic growth, and dripping fluids"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Rare",
+      "frame": "blue",
+      "border": "cobalt_steel_rare",
+      "cardName": "Mycelium Venimeux",
+      "description": "Maître Mycélien connectant plusieurs colonies fongiques dispersées pour une action coordonnée simultanée sur plusieurs fronts."
+    }
+  }
 }

@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Mystique de l Abysse",
-  "description": "Invocation reussie selon les uns ratee selon les autres.",
+  "description": "Spectre des Abysses terrifiant les unités ennemies par sa simple présence réduisant leur capacité combative de moitié.",
   "element": "spore",
   "faction": "Éveil Chthonien",
   "topValue": "3",
@@ -12,5 +12,61 @@
   "rarity": "Common",
   "defaultHp": 3,
   "image": "base/094.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Mystique de l Abysse — Éveil Chthonien",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Éveil Chthonien culture and Common rank",
+        "arsenal": "Equipment befitting a Common class cardholder with Éveil Chthonien-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Éveil Chthonien tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Lovecraftian Horror",
+          "Cosmic Dread"
+        ],
+        "rendering_style": "shadow_tendril_eerie_glow"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Deep Purple",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Bone White",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic__veil_chthonien",
+      "mood": "ancient_cosmic_horror"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Ancient underground temple with forbidden geometry",
+      "atmosphere_vfx": "Eerie fog, shadow tendrils, and pulsating ancient runes"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Common",
+      "frame": "silver",
+      "border": "brushed_metal_common",
+      "cardName": "Mystique de l Abysse",
+      "description": "Spectre des Abysses terrifiant les unités ennemies par sa simple présence réduisant leur capacité combative de moitié."
+    }
+  }
 }

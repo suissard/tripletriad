@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Solitaire des Confins",
-  "description": "Gardien d un relais eteint veillant sur un reseau mort.",
+  "description": "Passeur de mémoire préservant les savoirs tactiques des civilisations disparues pour les générations futures.",
   "element": "None",
   "elements": [
     "radiation"
@@ -21,5 +21,58 @@
   "rarity": "Epic",
   "defaultHp": 3,
   "image": "base/013.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Solitaire des Confins — neutre",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting neutre culture and Epic rank",
+        "arsenal": "Equipment befitting a Epic class cardholder with neutre-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting neutre tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "weathered_matte_fabric"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Steel Gray",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Warm Amber",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_neutre",
+      "mood": "solitary_wanderer"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Dusty asteroid waystation with flickering lanterns",
+      "atmosphere_vfx": "Wind-blown dust and sparse starlight through cracked windows"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Epic",
+      "frame": "purple",
+      "border": "amethyst_alloy_epic",
+      "cardName": "Solitaire des Confins",
+      "description": "Passeur de mémoire préservant les savoirs tactiques des civilisations disparues pour les générations futures."
+    }
+  }
 }

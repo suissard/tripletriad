@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Anomalie Anormal",
-  "description": "Faille vivante montrant des dimensions inexistantes.",
+  "description": "Rupture dimensionnelle ouvrant des portes entre les réalités parallèles permettant des manoeuvres tactiques impossibles autrement.",
   "element": "furtif",
   "faction": "Incursion Dissonante",
   "topValue": "4",
@@ -18,5 +18,61 @@
   "rarity": "Uncommon",
   "defaultHp": 3,
   "image": "base/112.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Anomalie Anormal — Incursion Dissonante",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Incursion Dissonante culture and Uncommon rank",
+        "arsenal": "Equipment befitting a Uncommon class cardholder with Incursion Dissonante-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Incursion Dissonante tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Glitch Art",
+          "Surrealist Nightmare"
+        ],
+        "rendering_style": "distorted_dimensional_fracture"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Magenta Glitch",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Fractured Green",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_incursion_dissonante",
+      "mood": "reality_breakdown"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Space where reality fractures showing parallel dimensions",
+      "atmosphere_vfx": "Visual distortions, chromatic aberration, and spatial tears"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Uncommon",
+      "frame": "green",
+      "border": "oxidized_copper_uncommon",
+      "cardName": "Anomalie Anormal",
+      "description": "Rupture dimensionnelle ouvrant des portes entre les réalités parallèles permettant des manoeuvres tactiques impossibles autrement."
+    }
+  }
 }

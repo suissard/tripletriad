@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Calcine Ardent",
-  "description": "Embrase volontaire devenu torche vivante.",
+  "description": "Salamandre de choc résistant aux températures extrêmes du champ de bataille et menant les assauts les plus périlleux.",
   "element": "radiation",
   "faction": "Héritiers des cendres",
   "topValue": "3",
@@ -12,5 +12,61 @@
   "rarity": "Uncommon",
   "defaultHp": 3,
   "image": "base/052.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Calcine Ardent — Héritiers des cendres",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Héritiers des cendres culture and Uncommon rank",
+        "arsenal": "Equipment befitting a Uncommon class cardholder with Héritiers des cendres-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Héritiers des cendres tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Volcanic Landscape",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "incandescent_glow_heat_distortion"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Ember Orange",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Charcoal Black",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_h_ritiers_des_cendres",
+      "mood": "unquenchable_fire"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Smoldering ruins of a destroyed settlement",
+      "atmosphere_vfx": "Rising embers, heat shimmer, and smoke plumes"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Uncommon",
+      "frame": "green",
+      "border": "oxidized_copper_uncommon",
+      "cardName": "Calcine Ardent",
+      "description": "Salamandre de choc résistant aux températures extrêmes du champ de bataille et menant les assauts les plus périlleux."
+    }
+  }
 }

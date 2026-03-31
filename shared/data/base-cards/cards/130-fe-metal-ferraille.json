@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Metal Ferraille",
-  "description": "Mecanicien reparant l abandonne des diplomés.",
+  "description": "Chef d'équipe coordonnant les efforts de sauvetage et de collecte dans les zones de combat les plus dangereuses.",
   "element": "eau",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "3",
@@ -12,5 +12,62 @@
   "rarity": "Uncommon",
   "defaultHp": 3,
   "image": "base/130.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "eau",
+    "glace"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Metal Ferraille — Ferrailleurs de la Ceinture",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Ferrailleurs de la Ceinture culture and Uncommon rank",
+        "arsenal": "Equipment befitting a Uncommon class cardholder with Ferrailleurs de la Ceinture-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Ferrailleurs de la Ceinture tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Dieselpunk",
+          "Scrap-yard Survival"
+        ],
+        "rendering_style": "bolted_metal_oil_stained"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Rusted Orange",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Welding Arc Blue",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_ferrailleurs_de_la_ceinture",
+      "mood": "scrappy_determination"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Cramped salvage yard inside hollowed asteroid",
+      "atmosphere_vfx": "Welding sparks, oil drips, and floating debris"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Uncommon",
+      "frame": "green",
+      "border": "oxidized_copper_uncommon",
+      "cardName": "Metal Ferraille",
+      "description": "Chef d'équipe coordonnant les efforts de sauvetage et de collecte dans les zones de combat les plus dangereuses."
+    }
+  }
 }

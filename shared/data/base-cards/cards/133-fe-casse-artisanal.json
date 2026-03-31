@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Casse Artisanal",
-  "description": "Depanneur reparant tout y compris les relations.",
+  "description": "Fondateur des Ferrailleurs bâtissant des colonies entières à partir de déchets créant des avant-postes viables dans les environnements les plus hostiles.",
   "element": "radiation",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "5",
@@ -18,5 +18,61 @@
   "rarity": "Epic",
   "defaultHp": 3,
   "image": "base/133.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Casse Artisanal — Ferrailleurs de la Ceinture",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Ferrailleurs de la Ceinture culture and Epic rank",
+        "arsenal": "Equipment befitting a Epic class cardholder with Ferrailleurs de la Ceinture-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Ferrailleurs de la Ceinture tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Dieselpunk",
+          "Scrap-yard Survival"
+        ],
+        "rendering_style": "bolted_metal_oil_stained"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Rusted Orange",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Welding Arc Blue",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_ferrailleurs_de_la_ceinture",
+      "mood": "scrappy_determination"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Cramped salvage yard inside hollowed asteroid",
+      "atmosphere_vfx": "Welding sparks, oil drips, and floating debris"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Epic",
+      "frame": "purple",
+      "border": "amethyst_alloy_epic",
+      "cardName": "Casse Artisanal",
+      "description": "Fondateur des Ferrailleurs bâtissant des colonies entières à partir de déchets créant des avant-postes viables dans les environnements les plus hostiles."
+    }
+  }
 }

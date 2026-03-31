@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Chtonien Profond",
-  "description": "Ancien du Premier Cercle avant les etoiles.",
+  "description": "Gouffre absorbant l'énergie vitale des cibles proches drainant leur force pour la redistribuer aux alliés de l'Éveil.",
   "element": "furtif",
   "faction": "Éveil Chthonien",
   "topValue": "5",
@@ -12,5 +12,61 @@
   "rarity": "Uncommon",
   "defaultHp": 3,
   "image": "base/099.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Chtonien Profond — Éveil Chthonien",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Éveil Chthonien culture and Uncommon rank",
+        "arsenal": "Equipment befitting a Uncommon class cardholder with Éveil Chthonien-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Éveil Chthonien tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Lovecraftian Horror",
+          "Cosmic Dread"
+        ],
+        "rendering_style": "shadow_tendril_eerie_glow"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Deep Purple",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Bone White",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic__veil_chthonien",
+      "mood": "ancient_cosmic_horror"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Ancient underground temple with forbidden geometry",
+      "atmosphere_vfx": "Eerie fog, shadow tendrils, and pulsating ancient runes"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Uncommon",
+      "frame": "green",
+      "border": "oxidized_copper_uncommon",
+      "cardName": "Chtonien Profond",
+      "description": "Gouffre absorbant l'énergie vitale des cibles proches drainant leur force pour la redistribuer aux alliés de l'Éveil."
+    }
+  }
 }

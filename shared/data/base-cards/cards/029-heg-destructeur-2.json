@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Destructeur 2",
-  "description": "Tyrant signant des condamnations entre deux reunions.",
+  "description": "Architecte de guerre martienne concevant les stratégies de siège planétaire et les protocoles d'annexion.",
   "element": "radiation",
   "faction": "Hégémonie martienne",
   "topValue": "5",
@@ -18,5 +18,61 @@
   "rarity": "Epic",
   "defaultHp": 4,
   "image": "base/029.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Destructeur 2 — Hégémonie martienne",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Hégémonie martienne culture and Epic rank",
+        "arsenal": "Equipment befitting a Epic class cardholder with Hégémonie martienne-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Hégémonie martienne tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Military Sci-Fi",
+          "Grimdark"
+        ],
+        "rendering_style": "armored_metallic_realistic"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Crimson Red",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Gunmetal Black",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_h_g_monie_martienne",
+      "mood": "military_dominance"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Red Martian military outpost with imposing fortifications",
+      "atmosphere_vfx": "Smoke columns, muzzle flashes, and harsh floodlight beams"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Epic",
+      "frame": "purple",
+      "border": "amethyst_alloy_epic",
+      "cardName": "Destructeur 2",
+      "description": "Architecte de guerre martienne concevant les stratégies de siège planétaire et les protocoles d'annexion."
+    }
+  }
 }

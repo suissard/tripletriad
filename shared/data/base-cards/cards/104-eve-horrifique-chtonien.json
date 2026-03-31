@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Horrifique Chtonien",
-  "description": "Maudit affectant tout ce qu il touche.",
+  "description": "Prophète du Néant annonçant la fin imminente du cycle cosmique actuel démoralisant durablement les forces ennemies.",
   "element": "obsidienne",
   "elements": [
     "eau"
@@ -21,5 +21,58 @@
   "rarity": "Epic",
   "defaultHp": 4,
   "image": "base/104.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Horrifique Chtonien — Éveil Chthonien",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Éveil Chthonien culture and Epic rank",
+        "arsenal": "Equipment befitting a Epic class cardholder with Éveil Chthonien-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Éveil Chthonien tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Lovecraftian Horror",
+          "Cosmic Dread"
+        ],
+        "rendering_style": "shadow_tendril_eerie_glow"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Deep Purple",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Bone White",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic__veil_chthonien",
+      "mood": "ancient_cosmic_horror"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Ancient underground temple with forbidden geometry",
+      "atmosphere_vfx": "Eerie fog, shadow tendrils, and pulsating ancient runes"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Epic",
+      "frame": "purple",
+      "border": "amethyst_alloy_epic",
+      "cardName": "Horrifique Chtonien",
+      "description": "Prophète du Néant annonçant la fin imminente du cycle cosmique actuel démoralisant durablement les forces ennemies."
+    }
+  }
 }

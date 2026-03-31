@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Flamme en Feu",
-  "description": "Etincelle rebelle changeant le cours de la guerre.",
+  "description": "Phoenix Primordial renaissant éternellement de ses cendres pour guider la vengeance des Héritiers et inspirer leur rage combattante.",
   "element": "radiation",
   "elements": [
     "faille_dimensionnelle"
@@ -26,5 +26,58 @@
   "rarity": "Legendary",
   "defaultHp": 4,
   "image": "base/060.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Flamme en Feu — Héritiers des cendres",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Héritiers des cendres culture and Legendary rank",
+        "arsenal": "Equipment befitting a Legendary class cardholder with Héritiers des cendres-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Héritiers des cendres tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Volcanic Landscape",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "incandescent_glow_heat_distortion"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Ember Orange",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Charcoal Black",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_h_ritiers_des_cendres",
+      "mood": "unquenchable_fire"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Smoldering ruins of a destroyed settlement",
+      "atmosphere_vfx": "Rising embers, heat shimmer, and smoke plumes"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Legendary",
+      "frame": "gold",
+      "border": "aurum_plated_legendary",
+      "cardName": "Flamme en Feu",
+      "description": "Phoenix Primordial renaissant éternellement de ses cendres pour guider la vengeance des Héritiers et inspirer leur rage combattante."
+    }
+  }
 }

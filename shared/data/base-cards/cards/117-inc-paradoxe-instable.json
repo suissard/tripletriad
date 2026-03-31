@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Paradoxe Instable",
-  "description": "Instable vibrant entre etats inconnus.",
+  "description": "Faille vivante traversant les dimensions pour contourner les barricades et les barrières les plus impénétrables.",
   "element": "faille_dimensionnelle",
   "faction": "Incursion Dissonante",
   "topValue": "4",
@@ -18,5 +18,61 @@
   "rarity": "Rare",
   "defaultHp": 3,
   "image": "base/117.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Paradoxe Instable — Incursion Dissonante",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Incursion Dissonante culture and Rare rank",
+        "arsenal": "Equipment befitting a Rare class cardholder with Incursion Dissonante-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Incursion Dissonante tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Glitch Art",
+          "Surrealist Nightmare"
+        ],
+        "rendering_style": "distorted_dimensional_fracture"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Magenta Glitch",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Fractured Green",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_incursion_dissonante",
+      "mood": "reality_breakdown"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Space where reality fractures showing parallel dimensions",
+      "atmosphere_vfx": "Visual distortions, chromatic aberration, and spatial tears"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Rare",
+      "frame": "blue",
+      "border": "cobalt_steel_rare",
+      "cardName": "Paradoxe Instable",
+      "description": "Faille vivante traversant les dimensions pour contourner les barricades et les barrières les plus impénétrables."
+    }
+  }
 }

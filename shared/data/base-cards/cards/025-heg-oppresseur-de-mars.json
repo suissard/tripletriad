@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Oppresseur de Mars",
-  "description": "Architecte dessinant des strategies post-defaite.",
+  "description": "Artilleur orbital bombardant les fortifications ennemies depuis les stations en orbite martienne.",
   "element": "reseau",
   "faction": "Hégémonie martienne",
   "topValue": "4",
@@ -18,5 +18,61 @@
   "rarity": "Uncommon",
   "defaultHp": 3,
   "image": "base/025.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Oppresseur de Mars — Hégémonie martienne",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Hégémonie martienne culture and Uncommon rank",
+        "arsenal": "Equipment befitting a Uncommon class cardholder with Hégémonie martienne-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Hégémonie martienne tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Military Sci-Fi",
+          "Grimdark"
+        ],
+        "rendering_style": "armored_metallic_realistic"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Crimson Red",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Gunmetal Black",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_h_g_monie_martienne",
+      "mood": "military_dominance"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Red Martian military outpost with imposing fortifications",
+      "atmosphere_vfx": "Smoke columns, muzzle flashes, and harsh floodlight beams"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Uncommon",
+      "frame": "green",
+      "border": "oxidized_copper_uncommon",
+      "cardName": "Oppresseur de Mars",
+      "description": "Artilleur orbital bombardant les fortifications ennemies depuis les stations en orbite martienne."
+    }
+  }
 }

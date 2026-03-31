@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Fongique Fongique",
-  "description": "Chancre transformant les vaisseaux en jardins.",
+  "description": "Fléau Ultime englobant des écosystèmes entiers dans une conscience fongique collective coordonnant l'assaut final sur les dernières positions libres.",
   "element": "spore",
   "faction": "Fléau Spore",
   "topValue": "9",
@@ -18,5 +18,61 @@
   "rarity": "Legendary",
   "defaultHp": 4,
   "image": "base/150.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Fongique Fongique — Fléau Spore",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Fléau Spore culture and Legendary rank",
+        "arsenal": "Equipment befitting a Legendary class cardholder with Fléau Spore-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Fléau Spore tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Bio Horror",
+          "Mycelial Networks"
+        ],
+        "rendering_style": "organic_fungal_spread"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Toxic Green",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Decay Brown",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_fl_au_spore",
+      "mood": "biological_corruption"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Infested corridor with thick fungal overgrowth",
+      "atmosphere_vfx": "Floating spore clouds, pulsating organic growth, and dripping fluids"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Legendary",
+      "frame": "gold",
+      "border": "aurum_plated_legendary",
+      "cardName": "Fongique Fongique",
+      "description": "Fléau Ultime englobant des écosystèmes entiers dans une conscience fongique collective coordonnant l'assaut final sur les dernières positions libres."
+    }
+  }
 }

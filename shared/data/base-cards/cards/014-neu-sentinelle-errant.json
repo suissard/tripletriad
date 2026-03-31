@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Sentinelle Errant",
-  "description": "Rodeur des zones neutres survivant en glanant.",
+  "description": "Sentinelle du dernier relais veillant sur les points de convergence stratégiques entre les zones de conflit.",
   "element": "eau",
   "faction": "neutre",
   "topValue": "9",
@@ -18,5 +18,62 @@
   "rarity": "Epic",
   "defaultHp": 4,
   "image": "base/014.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "eau",
+    "glace"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Sentinelle Errant — neutre",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting neutre culture and Epic rank",
+        "arsenal": "Equipment befitting a Epic class cardholder with neutre-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting neutre tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "weathered_matte_fabric"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Steel Gray",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Warm Amber",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_neutre",
+      "mood": "solitary_wanderer"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Dusty asteroid waystation with flickering lanterns",
+      "atmosphere_vfx": "Wind-blown dust and sparse starlight through cracked windows"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Epic",
+      "frame": "purple",
+      "border": "amethyst_alloy_epic",
+      "cardName": "Sentinelle Errant",
+      "description": "Sentinelle du dernier relais veillant sur les points de convergence stratégiques entre les zones de conflit."
+    }
+  }
 }

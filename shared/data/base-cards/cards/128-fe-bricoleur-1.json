@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Bricoleur 1",
-  "description": "Bricoleur creant des merveilles du jete.",
+  "description": "Ingénieur de récupération optimisant les ressources limitées du groupe pour maximiser leur durée de vie en zone hostile.",
   "element": "reseau",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "4",
@@ -12,5 +12,61 @@
   "rarity": "Uncommon",
   "defaultHp": 3,
   "image": "base/128.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Bricoleur 1 — Ferrailleurs de la Ceinture",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Ferrailleurs de la Ceinture culture and Uncommon rank",
+        "arsenal": "Equipment befitting a Uncommon class cardholder with Ferrailleurs de la Ceinture-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Ferrailleurs de la Ceinture tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Dieselpunk",
+          "Scrap-yard Survival"
+        ],
+        "rendering_style": "bolted_metal_oil_stained"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Rusted Orange",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Welding Arc Blue",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_ferrailleurs_de_la_ceinture",
+      "mood": "scrappy_determination"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Cramped salvage yard inside hollowed asteroid",
+      "atmosphere_vfx": "Welding sparks, oil drips, and floating debris"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Uncommon",
+      "frame": "green",
+      "border": "oxidized_copper_uncommon",
+      "cardName": "Bricoleur 1",
+      "description": "Ingénieur de récupération optimisant les ressources limitées du groupe pour maximiser leur durée de vie en zone hostile."
+    }
+  }
 }

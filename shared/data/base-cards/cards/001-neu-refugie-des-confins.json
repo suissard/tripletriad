@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Refugie des Confins",
-  "description": "Un voyageur solitaire arpente les routes stellaires sans jamais s arreter.",
+  "description": "Observateur discret fournissant des informations tactiques sur les mouvements ennemis aux deux camps sans prendre parti.",
   "element": "None",
   "faction": "neutre",
   "topValue": "4",
@@ -12,5 +12,61 @@
   "rarity": "Common",
   "defaultHp": 3,
   "image": "base/001.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Refugie des Confins — neutre",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting neutre culture and Common rank",
+        "arsenal": "Equipment befitting a Common class cardholder with neutre-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting neutre tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "weathered_matte_fabric"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Steel Gray",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Warm Amber",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_neutre",
+      "mood": "solitary_wanderer"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Dusty asteroid waystation with flickering lanterns",
+      "atmosphere_vfx": "Wind-blown dust and sparse starlight through cracked windows"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Common",
+      "frame": "silver",
+      "border": "brushed_metal_common",
+      "cardName": "Refugie des Confins",
+      "description": "Observateur discret fournissant des informations tactiques sur les mouvements ennemis aux deux camps sans prendre parti."
+    }
+  }
 }

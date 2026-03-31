@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Coral des Abimes",
-  "description": "Gardien des Sources protegeant les nurseries.",
+  "description": "Architecte des Abysses créant des écosystèmes aquatiques autonomes capables de survivre dans le vide spatial le plus hostile.",
   "element": "eau",
   "elements": [
     "furtif"
@@ -26,5 +26,58 @@
   "rarity": "Legendary",
   "defaultHp": 4,
   "image": "base/045.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Coral des Abimes — Exode pélagique",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Exode pélagique culture and Legendary rank",
+        "arsenal": "Equipment befitting a Legendary class cardholder with Exode pélagique-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Exode pélagique tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Bioluminescence Art",
+          "Deep Sea Exploration"
+        ],
+        "rendering_style": "fluid_translucent_organic"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Abyssal Blue",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Bioluminescent Cyan",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_exode_p_lagique",
+      "mood": "deep_ocean_mystery"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Underwater colony with flowing organic architecture",
+      "atmosphere_vfx": "Bioluminescent particles, water currents, and glowing algae"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Legendary",
+      "frame": "gold",
+      "border": "aurum_plated_legendary",
+      "cardName": "Coral des Abimes",
+      "description": "Architecte des Abysses créant des écosystèmes aquatiques autonomes capables de survivre dans le vide spatial le plus hostile."
+    }
+  }
 }

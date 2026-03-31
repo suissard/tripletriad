@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Pelerin Libre",
-  "description": "Observateur compilant des donnees que personne ne demande.",
+  "description": "Arbitre de guerre imposant des trêves locales permettant l'évolution stratégique du conflit régional.",
   "element": "eau",
   "faction": "neutre",
   "topValue": "4",
@@ -12,5 +12,62 @@
   "rarity": "Rare",
   "defaultHp": 3,
   "image": "base/012.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "eau",
+    "glace"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Pelerin Libre — neutre",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting neutre culture and Rare rank",
+        "arsenal": "Equipment befitting a Rare class cardholder with neutre-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting neutre tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "weathered_matte_fabric"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Steel Gray",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Warm Amber",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_neutre",
+      "mood": "solitary_wanderer"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Dusty asteroid waystation with flickering lanterns",
+      "atmosphere_vfx": "Wind-blown dust and sparse starlight through cracked windows"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Rare",
+      "frame": "blue",
+      "border": "cobalt_steel_rare",
+      "cardName": "Pelerin Libre",
+      "description": "Arbitre de guerre imposant des trêves locales permettant l'évolution stratégique du conflit régional."
+    }
+  }
 }

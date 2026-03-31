@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Fracture Instable",
-  "description": "Anomalie contournant les lois physiques.",
+  "description": "Fracture instable créant des perturbations localisées dans les systèmes ennemis provoquant des malfunctions temporaires.",
   "element": "furtif",
   "faction": "Incursion Dissonante",
   "topValue": "2",
@@ -12,5 +12,61 @@
   "rarity": "Common",
   "defaultHp": 3,
   "image": "base/106.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Fracture Instable — Incursion Dissonante",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Incursion Dissonante culture and Common rank",
+        "arsenal": "Equipment befitting a Common class cardholder with Incursion Dissonante-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Incursion Dissonante tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Glitch Art",
+          "Surrealist Nightmare"
+        ],
+        "rendering_style": "distorted_dimensional_fracture"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Magenta Glitch",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Fractured Green",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_incursion_dissonante",
+      "mood": "reality_breakdown"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Space where reality fractures showing parallel dimensions",
+      "atmosphere_vfx": "Visual distortions, chromatic aberration, and spatial tears"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Common",
+      "frame": "silver",
+      "border": "brushed_metal_common",
+      "cardName": "Fracture Instable",
+      "description": "Fracture instable créant des perturbations localisées dans les systèmes ennemis provoquant des malfunctions temporaires."
+    }
+  }
 }

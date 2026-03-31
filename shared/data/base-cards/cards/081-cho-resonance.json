@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Resonance",
-  "description": "Timbre unique valant fortune au marche noir.",
+  "description": "Chronométreur marquant le tempo des assauts coordonnés pour maximiser l'impact des attaques synchronisées.",
   "element": "reseau",
   "faction": "Chœur Synthétique",
   "topValue": "3",
@@ -12,5 +12,61 @@
   "rarity": "Common",
   "defaultHp": 3,
   "image": "base/081.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Resonance — Chœur Synthétique",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Chœur Synthétique culture and Common rank",
+        "arsenal": "Equipment befitting a Common class cardholder with Chœur Synthétique-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Chœur Synthétique tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Abstract Crystalline Art",
+          "Sound Visualization"
+        ],
+        "rendering_style": "prismatic_refraction_crystalline"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Violet Crystal",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Silver Prismatic",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_ch_ur_synth_tique",
+      "mood": "ethereal_harmony"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Crystalline amphitheater orbiting a gas giant",
+      "atmosphere_vfx": "Visible sound waves, prismatic light refractions, and floating harmonics"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Common",
+      "frame": "silver",
+      "border": "brushed_metal_common",
+      "cardName": "Resonance",
+      "description": "Chronométreur marquant le tempo des assauts coordonnés pour maximiser l'impact des attaques synchronisées."
+    }
+  }
 }

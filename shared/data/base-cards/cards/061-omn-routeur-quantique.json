@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Routeur Quantique",
-  "description": "Noeud connectant des millions de consciences.",
+  "description": "Nœud de données relayant les informations tactiques entre les unités alliées connectées au réseau omnidirectionnel.",
   "element": "reseau",
   "faction": "Omni-Réseau",
   "topValue": "3",
@@ -18,5 +18,61 @@
   "rarity": "Common",
   "defaultHp": 3,
   "image": "base/061.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Routeur Quantique — Omni-Réseau",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Omni-Réseau culture and Common rank",
+        "arsenal": "Equipment befitting a Common class cardholder with Omni-Réseau-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Omni-Réseau tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Cyberpunk",
+          "Digital Network Art"
+        ],
+        "rendering_style": "holographic_wireframe_glow"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Neon Cyan",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Electric Blue",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_omni_r_seau",
+      "mood": "digital_omnipresence"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Neon-lit megacity server hub with data streams",
+      "atmosphere_vfx": "Glitching holograms, floating data panels, and electric arcs"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Common",
+      "frame": "silver",
+      "border": "brushed_metal_common",
+      "cardName": "Routeur Quantique",
+      "description": "Nœud de données relayant les informations tactiques entre les unités alliées connectées au réseau omnidirectionnel."
+    }
+  }
 }

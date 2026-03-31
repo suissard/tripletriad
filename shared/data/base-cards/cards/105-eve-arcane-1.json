@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Arcane 1",
-  "description": "Reveur dormant trois siecles rendant les reves reels.",
+  "description": "Ancien Endormi réveillé libérant la puissance oubliée des ères pré-cosmiques remodelant temporairement les règles physiques du champ de bataille.",
   "element": "faille_dimensionnelle",
   "faction": "Éveil Chthonien",
   "topValue": "9",
@@ -23,5 +23,61 @@
   "rarity": "Legendary",
   "defaultHp": 4,
   "image": "base/105.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Arcane 1 — Éveil Chthonien",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Éveil Chthonien culture and Legendary rank",
+        "arsenal": "Equipment befitting a Legendary class cardholder with Éveil Chthonien-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Éveil Chthonien tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Lovecraftian Horror",
+          "Cosmic Dread"
+        ],
+        "rendering_style": "shadow_tendril_eerie_glow"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Deep Purple",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Bone White",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic__veil_chthonien",
+      "mood": "ancient_cosmic_horror"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Ancient underground temple with forbidden geometry",
+      "atmosphere_vfx": "Eerie fog, shadow tendrils, and pulsating ancient runes"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Legendary",
+      "frame": "gold",
+      "border": "aurum_plated_legendary",
+      "cardName": "Arcane 1",
+      "description": "Ancien Endormi réveillé libérant la puissance oubliée des ères pré-cosmiques remodelant temporairement les règles physiques du champ de bataille."
+    }
+  }
 }

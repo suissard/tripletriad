@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Algo Connecte",
-  "description": "Circuit ouvert gardant des portes fantomes.",
+  "description": "Code-mancer réécrivant les protocoles de sécurité en temps réel pour bloquer les contre-mesures numériques adverses.",
   "element": "hacking",
   "faction": "Omni-Réseau",
   "topValue": "4",
@@ -12,5 +12,61 @@
   "rarity": "Rare",
   "defaultHp": 3,
   "image": "base/072.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Algo Connecte — Omni-Réseau",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Omni-Réseau culture and Rare rank",
+        "arsenal": "Equipment befitting a Rare class cardholder with Omni-Réseau-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Omni-Réseau tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Cyberpunk",
+          "Digital Network Art"
+        ],
+        "rendering_style": "holographic_wireframe_glow"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Neon Cyan",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Electric Blue",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_omni_r_seau",
+      "mood": "digital_omnipresence"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Neon-lit megacity server hub with data streams",
+      "atmosphere_vfx": "Glitching holograms, floating data panels, and electric arcs"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Rare",
+      "frame": "blue",
+      "border": "cobalt_steel_rare",
+      "cardName": "Algo Connecte",
+      "description": "Code-mancer réécrivant les protocoles de sécurité en temps réel pour bloquer les contre-mesures numériques adverses."
+    }
+  }
 }

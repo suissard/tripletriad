@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Tidal Pelagique",
-  "description": "Pelagique errant entre eau et vide.",
+  "description": "Abyssaliste exploitant la pression des profondeurs comme arme défensive contre les agresseurs de surface.",
   "element": "furtif",
   "faction": "Exode pélagique",
   "topValue": "5",
@@ -18,5 +18,61 @@
   "rarity": "Rare",
   "defaultHp": 3,
   "image": "base/042.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Tidal Pelagique — Exode pélagique",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Exode pélagique culture and Rare rank",
+        "arsenal": "Equipment befitting a Rare class cardholder with Exode pélagique-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Exode pélagique tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Bioluminescence Art",
+          "Deep Sea Exploration"
+        ],
+        "rendering_style": "fluid_translucent_organic"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Abyssal Blue",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Bioluminescent Cyan",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_exode_p_lagique",
+      "mood": "deep_ocean_mystery"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Underwater colony with flowing organic architecture",
+      "atmosphere_vfx": "Bioluminescent particles, water currents, and glowing algae"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Rare",
+      "frame": "blue",
+      "border": "cobalt_steel_rare",
+      "cardName": "Tidal Pelagique",
+      "description": "Abyssaliste exploitant la pression des profondeurs comme arme défensive contre les agresseurs de surface."
+    }
+  }
 }

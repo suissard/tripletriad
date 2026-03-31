@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Volcan en Feu",
-  "description": "Gardien du Brasier Sacre veillant sur la flamme.",
+  "description": "Maître Pyromancien orchestrant les offensives thermiques multi-cibles coordonnant plusieurs sources de chaleur simultanées.",
   "element": "spore",
   "elements": [
     "radiation"
@@ -15,5 +15,58 @@
   "rarity": "Epic",
   "defaultHp": 4,
   "image": "base/059.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Volcan en Feu — Héritiers des cendres",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Héritiers des cendres culture and Epic rank",
+        "arsenal": "Equipment befitting a Epic class cardholder with Héritiers des cendres-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Héritiers des cendres tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Volcanic Landscape",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "incandescent_glow_heat_distortion"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Ember Orange",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Charcoal Black",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_h_ritiers_des_cendres",
+      "mood": "unquenchable_fire"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Smoldering ruins of a destroyed settlement",
+      "atmosphere_vfx": "Rising embers, heat shimmer, and smoke plumes"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Epic",
+      "frame": "purple",
+      "border": "amethyst_alloy_epic",
+      "cardName": "Volcan en Feu",
+      "description": "Maître Pyromancien orchestrant les offensives thermiques multi-cibles coordonnant plusieurs sources de chaleur simultanées."
+    }
+  }
 }

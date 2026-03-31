@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Rouille Recycle",
-  "description": "Collector arpentant les champs d asteroides.",
+  "description": "Maître Ferrailleur concevant des machines de guerre improvisées à partir d'épaves transformant les déchets en avantages tactiques.",
   "element": "radiation",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "4",
@@ -12,5 +12,61 @@
   "rarity": "Rare",
   "defaultHp": 3,
   "image": "base/131.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Rouille Recycle — Ferrailleurs de la Ceinture",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Ferrailleurs de la Ceinture culture and Rare rank",
+        "arsenal": "Equipment befitting a Rare class cardholder with Ferrailleurs de la Ceinture-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Ferrailleurs de la Ceinture tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Dieselpunk",
+          "Scrap-yard Survival"
+        ],
+        "rendering_style": "bolted_metal_oil_stained"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Rusted Orange",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Welding Arc Blue",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_ferrailleurs_de_la_ceinture",
+      "mood": "scrappy_determination"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Cramped salvage yard inside hollowed asteroid",
+      "atmosphere_vfx": "Welding sparks, oil drips, and floating debris"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Rare",
+      "frame": "blue",
+      "border": "cobalt_steel_rare",
+      "cardName": "Rouille Recycle",
+      "description": "Maître Ferrailleur concevant des machines de guerre improvisées à partir d'épaves transformant les déchets en avantages tactiques."
+    }
+  }
 }

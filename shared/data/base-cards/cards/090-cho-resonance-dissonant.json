@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Resonance Dissonant",
-  "description": "Dissonance revelant les failles.",
+  "description": "Symphonie Ultime fusionnant toutes les harmoniques disponibles en une seule note dévastatrice capable de réduire des structures entières en poussière.",
   "element": "faille_dimensionnelle",
   "faction": "Chœur Synthétique",
   "topValue": "6",
@@ -23,5 +23,61 @@
   "rarity": "Legendary",
   "defaultHp": 4,
   "image": "base/090.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Resonance Dissonant — Chœur Synthétique",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Chœur Synthétique culture and Legendary rank",
+        "arsenal": "Equipment befitting a Legendary class cardholder with Chœur Synthétique-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Chœur Synthétique tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Abstract Crystalline Art",
+          "Sound Visualization"
+        ],
+        "rendering_style": "prismatic_refraction_crystalline"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Violet Crystal",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Silver Prismatic",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_ch_ur_synth_tique",
+      "mood": "ethereal_harmony"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Crystalline amphitheater orbiting a gas giant",
+      "atmosphere_vfx": "Visible sound waves, prismatic light refractions, and floating harmonics"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Legendary",
+      "frame": "gold",
+      "border": "aurum_plated_legendary",
+      "cardName": "Resonance Dissonant",
+      "description": "Symphonie Ultime fusionnant toutes les harmoniques disponibles en une seule note dévastatrice capable de réduire des structures entières en poussière."
+    }
+  }
 }

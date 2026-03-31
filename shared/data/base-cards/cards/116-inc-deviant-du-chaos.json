@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Deviant du Chaos",
-  "description": "Erratique suivant logique non decryptee.",
+  "description": "Chaos pur désorganisant l'ordre établi des formations adverses rendant la coordination tactique impossible pendant plusieurs cycles.",
   "element": "furtif",
   "faction": "Incursion Dissonante",
   "topValue": "5",
@@ -18,5 +18,61 @@
   "rarity": "Rare",
   "defaultHp": 3,
   "image": "base/116.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Deviant du Chaos — Incursion Dissonante",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Incursion Dissonante culture and Rare rank",
+        "arsenal": "Equipment befitting a Rare class cardholder with Incursion Dissonante-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Incursion Dissonante tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Glitch Art",
+          "Surrealist Nightmare"
+        ],
+        "rendering_style": "distorted_dimensional_fracture"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Magenta Glitch",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Fractured Green",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_incursion_dissonante",
+      "mood": "reality_breakdown"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Space where reality fractures showing parallel dimensions",
+      "atmosphere_vfx": "Visual distortions, chromatic aberration, and spatial tears"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Rare",
+      "frame": "blue",
+      "border": "cobalt_steel_rare",
+      "cardName": "Deviant du Chaos",
+      "description": "Chaos pur désorganisant l'ordre établi des formations adverses rendant la coordination tactique impossible pendant plusieurs cycles."
+    }
+  }
 }

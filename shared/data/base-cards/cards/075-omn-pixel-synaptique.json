@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Pixel Synaptique",
-  "description": "Proxy dont personne ne connait l identite.",
+  "description": "Conscience Collective fusionnant des millions d'esprits connectés en une intelligence stratégique unique dépassant toute compréhension individuelle.",
   "element": "reseau",
   "faction": "Omni-Réseau",
   "topValue": "4",
@@ -23,5 +23,61 @@
   "rarity": "Legendary",
   "defaultHp": 4,
   "image": "base/075.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Pixel Synaptique — Omni-Réseau",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Omni-Réseau culture and Legendary rank",
+        "arsenal": "Equipment befitting a Legendary class cardholder with Omni-Réseau-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Omni-Réseau tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Cyberpunk",
+          "Digital Network Art"
+        ],
+        "rendering_style": "holographic_wireframe_glow"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Neon Cyan",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Electric Blue",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_omni_r_seau",
+      "mood": "digital_omnipresence"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Neon-lit megacity server hub with data streams",
+      "atmosphere_vfx": "Glitching holograms, floating data panels, and electric arcs"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Legendary",
+      "frame": "gold",
+      "border": "aurum_plated_legendary",
+      "cardName": "Pixel Synaptique",
+      "description": "Conscience Collective fusionnant des millions d'esprits connectés en une intelligence stratégique unique dépassant toute compréhension individuelle."
+    }
+  }
 }

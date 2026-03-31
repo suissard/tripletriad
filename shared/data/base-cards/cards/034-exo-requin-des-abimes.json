@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Requin des Abimes",
-  "description": "Pecheur capturant les particules lumineuses du vide.",
+  "description": "Hydrologue cartographiant les zones habitables aquatiques pour les futures colonies de l'Exode pélagique.",
   "element": "longue_portee",
   "faction": "Exode pélagique",
   "topValue": "2",
@@ -12,5 +12,61 @@
   "rarity": "Common",
   "defaultHp": 3,
   "image": "base/034.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Requin des Abimes — Exode pélagique",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Exode pélagique culture and Common rank",
+        "arsenal": "Equipment befitting a Common class cardholder with Exode pélagique-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Exode pélagique tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Bioluminescence Art",
+          "Deep Sea Exploration"
+        ],
+        "rendering_style": "fluid_translucent_organic"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Abyssal Blue",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Bioluminescent Cyan",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_exode_p_lagique",
+      "mood": "deep_ocean_mystery"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Underwater colony with flowing organic architecture",
+      "atmosphere_vfx": "Bioluminescent particles, water currents, and glowing algae"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Common",
+      "frame": "silver",
+      "border": "brushed_metal_common",
+      "cardName": "Requin des Abimes",
+      "description": "Hydrologue cartographiant les zones habitables aquatiques pour les futures colonies de l'Exode pélagique."
+    }
+  }
 }

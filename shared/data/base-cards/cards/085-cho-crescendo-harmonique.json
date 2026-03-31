@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Crescendo Harmonique",
-  "description": "Onde portant des codes secrets.",
+  "description": "Compositeur de guerre improvisant des stratégies musicales adaptatives changeant de tactique au rythme des événements.",
   "element": "obsidienne",
   "faction": "Chœur Synthétique",
   "topValue": "3",
@@ -18,5 +18,61 @@
   "rarity": "Uncommon",
   "defaultHp": 3,
   "image": "base/085.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Crescendo Harmonique — Chœur Synthétique",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Chœur Synthétique culture and Uncommon rank",
+        "arsenal": "Equipment befitting a Uncommon class cardholder with Chœur Synthétique-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Chœur Synthétique tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Abstract Crystalline Art",
+          "Sound Visualization"
+        ],
+        "rendering_style": "prismatic_refraction_crystalline"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Violet Crystal",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Silver Prismatic",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_ch_ur_synth_tique",
+      "mood": "ethereal_harmony"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Crystalline amphitheater orbiting a gas giant",
+      "atmosphere_vfx": "Visible sound waves, prismatic light refractions, and floating harmonics"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Uncommon",
+      "frame": "green",
+      "border": "oxidized_copper_uncommon",
+      "cardName": "Crescendo Harmonique",
+      "description": "Compositeur de guerre improvisant des stratégies musicales adaptatives changeant de tactique au rythme des événements."
+    }
+  }
 }

@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Amp Harmonique",
-  "description": "Echo enregistrant les sons de planetes disparues.",
+  "description": "Maître du Chant ancien canalisant les harmoniques ancestraux pour booster considérablement les capacités de combat des alliés.",
   "element": "faille_dimensionnelle",
   "faction": "Chœur Synthétique",
   "topValue": "5",
@@ -12,5 +12,61 @@
   "rarity": "Rare",
   "defaultHp": 3,
   "image": "base/086.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Amp Harmonique — Chœur Synthétique",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Chœur Synthétique culture and Rare rank",
+        "arsenal": "Equipment befitting a Rare class cardholder with Chœur Synthétique-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Chœur Synthétique tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Abstract Crystalline Art",
+          "Sound Visualization"
+        ],
+        "rendering_style": "prismatic_refraction_crystalline"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Violet Crystal",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Silver Prismatic",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_ch_ur_synth_tique",
+      "mood": "ethereal_harmony"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Crystalline amphitheater orbiting a gas giant",
+      "atmosphere_vfx": "Visible sound waves, prismatic light refractions, and floating harmonics"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Rare",
+      "frame": "blue",
+      "border": "cobalt_steel_rare",
+      "cardName": "Amp Harmonique",
+      "description": "Maître du Chant ancien canalisant les harmoniques ancestraux pour booster considérablement les capacités de combat des alliés."
+    }
+  }
 }

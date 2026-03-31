@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Instable Instable",
-  "description": "Bizarre modifiant les constantes locales.",
+  "description": "Entropiste accélérant la désintégration des structures ennemies faisant vieillir les constructions et les armures à vitesse exponentielle.",
   "element": "furtif",
   "elements": [
     "radiation"
@@ -21,5 +21,58 @@
   "rarity": "Epic",
   "defaultHp": 4,
   "image": "base/118.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Instable Instable — Incursion Dissonante",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Incursion Dissonante culture and Epic rank",
+        "arsenal": "Equipment befitting a Epic class cardholder with Incursion Dissonante-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Incursion Dissonante tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Glitch Art",
+          "Surrealist Nightmare"
+        ],
+        "rendering_style": "distorted_dimensional_fracture"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Magenta Glitch",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Fractured Green",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_incursion_dissonante",
+      "mood": "reality_breakdown"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Space where reality fractures showing parallel dimensions",
+      "atmosphere_vfx": "Visual distortions, chromatic aberration, and spatial tears"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Epic",
+      "frame": "purple",
+      "border": "amethyst_alloy_epic",
+      "cardName": "Instable Instable",
+      "description": "Entropiste accélérant la désintégration des structures ennemies faisant vieillir les constructions et les armures à vitesse exponentielle."
+    }
+  }
 }

@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Pecheur des Courants",
-  "description": "Sous-marin detectant avant les scanners.",
+  "description": "Courantiste manipulant les flux liquides pour piéger et ralentir les unités ennemies dans les environnements aquatiques.",
   "element": "longue_portee",
   "faction": "Exode pélagique",
   "topValue": "4",
@@ -18,5 +18,61 @@
   "rarity": "Uncommon",
   "defaultHp": 3,
   "image": "base/040.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Pecheur des Courants — Exode pélagique",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Exode pélagique culture and Uncommon rank",
+        "arsenal": "Equipment befitting a Uncommon class cardholder with Exode pélagique-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Exode pélagique tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Bioluminescence Art",
+          "Deep Sea Exploration"
+        ],
+        "rendering_style": "fluid_translucent_organic"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Abyssal Blue",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Bioluminescent Cyan",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_exode_p_lagique",
+      "mood": "deep_ocean_mystery"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Underwater colony with flowing organic architecture",
+      "atmosphere_vfx": "Bioluminescent particles, water currents, and glowing algae"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Uncommon",
+      "frame": "green",
+      "border": "oxidized_copper_uncommon",
+      "cardName": "Pecheur des Courants",
+      "description": "Courantiste manipulant les flux liquides pour piéger et ralentir les unités ennemies dans les environnements aquatiques."
+    }
+  }
 }

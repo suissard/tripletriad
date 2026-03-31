@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Vibra Chantant",
-  "description": "Strophe contenant un fragment de melodie perdue.",
+  "description": "Conducteur du Silence absolu annulant tous les sons ennemis dans un rayon étendu rendant la coordination adverse impossible.",
   "element": "faille_dimensionnelle",
   "elements": [
     "furtif"
@@ -21,5 +21,58 @@
   "rarity": "Epic",
   "defaultHp": 4,
   "image": "base/088.png",
-  "storiesRewardedFrom": null
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Vibra Chantant — Chœur Synthétique",
+      "loadout": {
+        "armor_outfit": "Faction-appropriate gear reflecting Chœur Synthétique culture and Epic rank",
+        "arsenal": "Equipment befitting a Epic class cardholder with Chœur Synthétique-specific modifications"
+      },
+      "attitude": {
+        "behavior": "Combat stance reflecting Chœur Synthétique tactical doctrine",
+        "emotion": "Determined expression conveying the character's role and faction identity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Abstract Crystalline Art",
+          "Sound Visualization"
+        ],
+        "rendering_style": "prismatic_refraction_crystalline"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Violet Crystal",
+          "role": "primary_accent"
+        },
+        {
+          "name": "Silver Prismatic",
+          "role": "secondary_accent"
+        }
+      ],
+      "lighting_setup": "cinematic_ch_ur_synth_tique",
+      "mood": "ethereal_harmony"
+    },
+    "camera": {
+      "angle": "low_dramatic_portrait"
+    },
+    "scenography": {
+      "setting": "Crystalline amphitheater orbiting a gas giant",
+      "atmosphere_vfx": "Visible sound waves, prismatic light refractions, and floating harmonics"
+    },
+    "card_metadata": {
+      "collectionName": "base",
+      "rarity": "Epic",
+      "frame": "purple",
+      "border": "amethyst_alloy_epic",
+      "cardName": "Vibra Chantant",
+      "description": "Conducteur du Silence absolu annulant tous les sons ennemis dans un rayon étendu rendant la coordination adverse impossible."
+    }
+  }
 }
