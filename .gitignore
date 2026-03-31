@@ -23,7 +23,5 @@ dist-ssr
 *.sln
 *.sw?
 
-# Environments
-.env
-.env.local
-.env.*.local
+# Environments (kept in repo for dev convenience)
+# .env / .env.local
