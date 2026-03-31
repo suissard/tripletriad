@@ -118,6 +118,9 @@
     },
     "imageUrl": {
       "type": "string"
+    },
+    "prompt": {
+      "type": "json"
     }
   }
 }

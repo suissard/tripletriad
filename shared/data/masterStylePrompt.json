@@ -1,0 +1,47 @@
+{
+    "format": "1:1",
+    "subject": {
+        "archetype": "<Species + Role combination defining the silhouette and basic traits (e.g., Cyborg Hacker, Augmented Soldier)>",
+        "loadout": {
+            "armor_outfit": "<Materials, cut, and style of clothing or protection (e.g., Tactical exoskeleton, armored space suit)>",
+            "arsenal": "<Primary/secondary weapons or equipped gadgets (e.g., Plasma rifle, high-frequency blade, companion drone)>"
+        },
+        "attitude": {
+            "behavior": "<Description of physical action and posture (e.g., Hovering with a jetpack, crouching while hacking a terminal)>",
+            "emotion": "<Description of the actual feeling of the subject (e.g., Cold cybernetic stare, extreme focus under a HUD visor)>"
+        }
+    },
+    "graphics": {
+        "style": {
+            "technique": "highly_detailed_digital_painting",
+            "influences": [
+                "Grimdark",
+                "Dark Sci-Fi",
+                "Post-apocalyptic"
+            ],
+            "rendering_style": "gritty_realistic_with_cinematic_OSL"
+        }
+    },
+    "color_and_light": {
+        "palette_names": [
+            {
+                "name": "<Color 1 name (e.g., Neon Cyan)>",
+                "role": "<Role in the image (e.g., light accent, background)>"
+            },
+            {
+                "name": "<Color 2 name>",
+                "role": "<Role in the image>"
+            }
+        ],
+        "lighting_setup": "<Lighting type (e.g., magical_glow, cinematic, studio_light)>",
+        "mood": "<General mood (e.g., menacing, peaceful, epic)>"
+    },
+    "camera": {
+        "angle": "<Camera angle (e.g., low, high, dutch_angle, eye-level)>"
+    },
+    "scenography": {
+        "setting": "<The physical location or background environment (e.g., Neon-lit megacity, abandoned ship corridor)>",
+        "atmosphere_vfx": "<Weather conditions, lighting, and special effects linked to the action (e.g., Acid rain, glitching holograms, blue energy shield)>"
+    }
+}
+}

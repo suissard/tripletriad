@@ -530,6 +530,7 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::card.card'> &
       Schema.Attribute.Private;
     name: Schema.Attribute.String & Schema.Attribute.Required;
+    prompt: Schema.Attribute.JSON;
     publishedAt: Schema.Attribute.DateTime;
     rarity: Schema.Attribute.Enumeration<
       ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary']

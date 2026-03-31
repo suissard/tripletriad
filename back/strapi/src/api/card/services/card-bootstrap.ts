@@ -47,7 +47,8 @@ export async function bootstrapCards(strapi: any) {
               rarity: rarity,
               collectionName: c.collectionName || null,
               imageUrl: c.img || null,
-              defaultHp: c.hp || 3
+              defaultHp: c.hp || 3,
+              prompt: c.prompt || null
             }
           });
         }

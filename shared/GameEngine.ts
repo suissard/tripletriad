@@ -17,6 +17,7 @@ export interface Card {
   id: string; // Identifiant unique
   values: CardValues;
   owner?: Player; // Détermine à qui appartient la carte sur le plateau
+  prompt?: any; // Prompt JSON pour la génération d'image
 }
 
 // Une case de la grille contient une carte ou est vide
