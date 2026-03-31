@@ -25,74 +25,51 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Pyro Volcanique — Héritiers des cendres Rare spore",
+      "archetype": "Pyro Volcanique — Héritiers des cendres Rare class spore",
       "loadout": {
-        "armor_outfit": "Peaux noircies avec veines lumineuses orange. Armures de métal fondu et cendres compactées. Cheveux comme de la fumée. Cicatrices tribales.",
-        "arsenal": "Equipment designed to channel and amplify the character's heal ability (self) — visible energy conduits integrated into the gear"
+        "armor_outfit": "Armor forged from melted debris and volcanic slag, dark metal plates held by thermal bonds glowing orange at every seam, heat distortion rising from every surface, scorch marks and soot coating every inch with distinctive faction engravings and glowing energy channel conduits running along seams",
+        "arsenal": "Dual flame projector gauntlets superheated to molten temperatures dripping liquid fire, volcanic glass blade still glowing cherry red at core, ash grenades on belt radiating heat The weapon and gauntlets actively channel the character's heal ability targeting self, visible energy conduits linking weapon to body with flowing power"
       },
       "attitude": {
-        "behavior": "Dynamic action pose mid-ability execution — character actively demonstrating their specialty skill — Golden regenerative energy wrapping around wounds, restoring damaged flesh and armor",
-        "emotion": "Battle-tested intensity and tactical sharpness"
+        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Hands pressed urgently against wounds as focused targeted golden regenerative energy wraps around injuries in cocoon of restorative light, visible flesh and armor mending in real time",
+        "emotion": "Lethal intensity — predator recognizing the perfect strike moment"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Volcanic landscape photography",
-          "Post-apocalyptic fire devastation",
+          "Volcanic eruption photography",
+          "Action fire photography",
           "Phoenix mythology"
         ],
-        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Ember Orange",
-          "role": "primary_accent — glowing veins and fire effects"
+          "role": "primary_accent — flames, energy blasts and burning particles"
         },
         {
           "name": "Charcoal Black",
-          "role": "secondary_accent — scorched skin and armor base"
+          "role": "secondary_accent — scorched armor and terrain"
         },
         {
-          "name": "Deep Ash Gray",
-          "role": "tertiary accent — weathering and atmosphere"
+          "name": "Magma Yellow",
+          "role": "tertiary accent — lava flows and inner core glow"
         }
       ],
-      "lighting_setup": "Dramatic rim lighting separating character from background with a focal glow on the primary ability effect",
-      "mood": "unquenchable_fire_and_vengeance"
+      "lighting_setup": "cobalt steel frame with etched faction symbols running along each border edge, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "apocalyptic_inferno"
     },
     "camera": {
-      "angle": "low dramatic angle emphasizing power and heroic stature"
+      "angle": "Low dramatic angle emphasizing dominance, wide enough to show full environmental impact of the ability"
     },
     "scenography": {
-      "setting": "Smoldering ruins of a destroyed settlement, half-melted structures glowing from residual heat, rivers of slow-moving lava carving through the devastated landscape",
-      "atmosphere_vfx": "Rising embers carried by thermal updrafts, heat distortion shimmer in the air, thick smoke plumes blocking the sky, volcanic ash falling like snow, plus self-repair — visible mending of injuries closing before the viewer's eyes visible in the environment"
-    },
-    "card_metadata": {
-      "collectionName": "base",
-      "cardName": "Pyro Volcanique",
-      "faction": "Héritiers des cendres",
-      "rarity": "Rare",
-      "element": "spore",
-      "elements": [
-        "neutre"
-      ],
-      "description": "Phénix tacticien utilisant ses cendres pour bloquer les lignes ennemies et créer des murs de fumée infranchissables.",
-      "skills": [
-        {
-          "type": "heal",
-          "value": 1,
-          "target": "self"
-        }
-      ],
-      "faction_lore": "Les Héritiers des Cendres sont les survivants de la Grande Purification — un cataclysme qui consuma leurs mondes entiers. Leur existence est une vengeance perpétuelle.",
-      "frame_detail": "Cobalt steel frame with etched faction symbols deeply engraved on each corner of the border",
-      "composition_directive": "Low angle heroic full-body shot emphasizing power, with ability visualization clearly shown in action",
-      "prompt_version": "3.0_full_20260331",
-      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
+      "setting": "Volcanic battlefield mid-eruption with lava rivers bursting through cracked ground flowing around combat zone, character standing in center of massive firestorm, burning debris raining from ash-choked sky, enemy positions engulfed in flames with structures collapsing into molten ground",
+      "atmosphere_vfx": "Golden light flowing from within outward through every wound and crack, flesh healing before eyes, armor plates reforming, blood reversing flow as body rapidly repairs itself, Light radiating from character illuminating nearby area in warm golden tones, ground beneath blooming with new growth from overflow of restorative energy, Massive fireball erupting from character engulfing foreground with intense orange light, lava cracking through ground with molten splashes flying up in slow motion, embers and ash swirling in thermal vortex, visible heat distortion waves rippling the air, secondary explosions in background sending shockwaves through smoke"
     }
   }
 }

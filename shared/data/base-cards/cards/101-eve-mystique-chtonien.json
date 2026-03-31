@@ -25,74 +25,51 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Mystique Chtonien — Éveil Chthonien Rare faille_dimensionnelle",
+      "archetype": "Mystique Chtonien — Éveil Chthonien Rare class faille_dimensionnelle",
       "loadout": {
-        "armor_outfit": "Formes altérées par l'exposition aux énergies chthoniennes. Peaux pâles translucides avec runes sombres. Yeux entièrement noirs. Ombres détachées.",
-        "arsenal": "Equipment designed to channel and amplify the character's growing ability (all_own) — visible energy conduits integrated into the gear"
+        "armor_outfit": "Ancient ceremonial armor fused to wearer's body through dark ritual, shadowy fabric etched with independently shifting runic patterns casting purple light, living shadow tendrils writhing from shoulder guards with own consciousness, armor plates absorbing light instead of reflecting creating void patches with distinctive faction engravings and glowing energy channel conduits running along seams",
+        "arsenal": "Massive ritual staff taller than wielder inscribed with independently rotating forbidden symbols, shadow-manipulation artifact orbiting hand like dark satellite with void energy tendrils connecting to body, cursed amulets chained to armor pulsating with green phosphor light emitting foul energy wisps The weapon and gauntlets actively channel the character's growing ability targeting all_own, visible energy conduits linking weapon to body with flowing power"
       },
       "attitude": {
-        "behavior": "Dynamic action pose mid-ability execution — character actively demonstrating their specialty skill — Radiating web of light connecting to all allied positions across the board",
-        "emotion": "Battle-tested intensity and tactical sharpness"
+        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Arms raised high in commanding gesture with focused targeted energy web radiating outward from chest in all directions, each thread connecting to different allied position across battlefield",
+        "emotion": "Lethal intensity — predator recognizing the perfect strike moment"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Lovecraftian cosmic horror",
-          "Gothic dark architecture",
-          "Ancient forbidden knowledge"
+          "Cosmic horror art",
+          "Eerie supernatural photography",
+          "Abyssal deep-sea horror"
         ],
-        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Deep Void Purple",
-          "role": "primary_accent — energy emanations and shadow auras"
+          "role": "primary_accent — shadow energy emanation and tentacle glow"
         },
         {
           "name": "Bone White",
-          "role": "secondary_accent — pale skin and carved runes"
+          "role": "secondary_accent — skeletal remains and carved runes"
         },
         {
-          "name": "Pitch Black",
-          "role": "tertiary accent — void effects and deepest shadows"
+          "name": "Eerie Green Phosphor",
+          "role": "tertiary accent — forbidden energy arcs and corruption"
         }
       ],
-      "lighting_setup": "Dramatic rim lighting separating character from background with a focal glow on the primary ability effect",
-      "mood": "ancient_cosmic_dread"
+      "lighting_setup": "cobalt steel frame with etched faction symbols running along each border edge, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "eldritch_awakening"
     },
     "camera": {
-      "angle": "low dramatic angle emphasizing power and heroic stature"
+      "angle": "Low dramatic angle emphasizing dominance, wide enough to show full environmental impact of the ability"
     },
     "scenography": {
-      "setting": "Ancient underground temple with impossible non-Euclidean geometry, walls covered in carved forbidden symbols, massive sealed portal doors radiating dark energy",
-      "atmosphere_vfx": "Eerie pulsating purple fog along the ground, shadow tendrils detaching and reattaching, pulsating ancient runes glowing intermittently, warped light bending unnaturally, plus network effect — luminous web spanning the battlefield connecting all teammates visible in the environment"
-    },
-    "card_metadata": {
-      "collectionName": "base",
-      "cardName": "Mystique Chtonien",
-      "faction": "Éveil Chthonien",
-      "rarity": "Rare",
-      "element": "faille_dimensionnelle",
-      "elements": [
-        "hacking"
-      ],
-      "description": "Gardien des Portes Anciennes ouvrant les passages vers les plans inférieurs permettant des déplacements tactiques imprévus.",
-      "skills": [
-        {
-          "type": "growing",
-          "value": 1,
-          "target": "all_own"
-        }
-      ],
-      "faction_lore": "L'Éveil Chthonien est la résurgence d'entités anciennes dormant depuis avant la naissance des étoiles. Leurs cultes rouvrent les portes des plans inférieurs.",
-      "frame_detail": "Cobalt steel frame with etched faction symbols deeply engraved on each corner of the border",
-      "composition_directive": "Low angle heroic full-body shot emphasizing power, with ability visualization clearly shown in action",
-      "prompt_version": "3.0_full_20260331",
-      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
+      "setting": "Torn dimensional battlefield with ground splitting open in massive fissures as enormous shadow tentacles erupt from below, sky showing impossible geometry and wrongness human mind cannot process, ancient runes blazing on every surface as dimensions collapse, reality thinning and tearing at edges, thick oppressive atmosphere of supernatural dread",
+      "atmosphere_vfx": "Complete energy network visible with caster at glowing epicenter, energy flowing outward along dozens of channels simultaneously with each destination growing brighter as power arrives, Battlefield-wide glow connecting all friendly positions in visible network, ground cracking along energy pathways, sky briefly illuminated by massive network flash, Massive shadow tentacles erupting from cracked ground grasping at sky, dimensional rifts tearing open revealing impossible non-Euclidean geometry with wrong colors, floating forbidden runes spinning violently in dark purple energy maelstrom, skeletal remains rattling and rising from earth, void essence fog rolling across ground like creeping tsunami"
     }
   }
 }

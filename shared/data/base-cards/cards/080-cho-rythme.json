@@ -19,68 +19,51 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Rythme — Chœur Synthétique Common faille_dimensionnelle",
+      "archetype": "Rythme — Chœur Synthétique Common class faille_dimensionnelle",
       "loadout": {
-        "armor_outfit": "Cristaux vivants poussant depuis la peau. Silhouettes élancées. Ailes cristallines générant des ondes sonores. Peaux irisées comme des prismes.",
-        "arsenal": "Functional faction-standard equipment showing signs of practical field use and tactical customization"
+        "armor_outfit": "Crystalline armor plates growing naturally from body vibrating at resonant frequencies with visible sound waves emanating from every surface, each facet catching and fracturing light into rainbows, organic-metal hybrid construction",
+        "arsenal": "Resonance tuning fork weapon humming at visible destructive frequency with air distortion around it, harmonic shield gauntlet generating visible ring-shaped sound wave barriers, crystalline conductor baton emitting visible vibration patterns Functional combat equipment showing signs of heavy practical use and field customization"
       },
       "attitude": {
-        "behavior": "Everyday working pose, natural stance — character shown in their normal operational state",
-        "emotion": "Everyday resilience and grounded determination"
+        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
+        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Sacred geometry",
-          "Sound wave visualization",
-          "Crystalline mineral formations"
+          "Sound wave photography",
+          "Crystallography",
+          "Kinetic energy art"
         ],
-        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Violet Crystal",
-          "role": "primary_accent — crystalline growths and primary resonance"
+          "role": "primary_accent — resonance energy beams and crystal shards"
         },
         {
           "name": "Silver Prismatic",
-          "role": "secondary_accent — light reflections and harmonics"
+          "role": "secondary_accent — sound wave visualization and reflections"
         },
         {
           "name": "Deep Indigo",
-          "role": "tertiary accent — shadow tones and low frequency"
+          "role": "tertiary accent — shockwave shadows and deep resonance tones"
         }
       ],
-      "lighting_setup": "Flat ambient light with subtle shadows, documentary-style natural lighting",
-      "mood": "ethereal_harmonic_power"
+      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "devastating_harmonic_blast"
     },
     "camera": {
-      "angle": "eye-level direct portrait creating a sense of honest documentation"
+      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
     },
     "scenography": {
-      "setting": "Crystalline amphitheater orbiting a gas giant, massive crystal formations forming natural acoustics, floating platforms resonating with ambient cosmic vibrations",
-      "atmosphere_vfx": "Visible sound waves as concentric rings in the air, prismatic light refractions creating rainbows, vibrating harmonic crystals, atmospheric resonance shimmer"
-    },
-    "card_metadata": {
-      "collectionName": "base",
-      "cardName": "Rythme",
-      "faction": "Chœur Synthétique",
-      "rarity": "Common",
-      "element": "faille_dimensionnelle",
-      "elements": [
-        "neutre"
-      ],
-      "description": "Accordéon de guerre produisant des ondes choc perturbant les formations ennemies et désorganisant leurs lignes.",
-      "skills": "none — this unit relies on natural abilities",
-      "faction_lore": "Le Chœur Synthétique fusionne musique et conscience. Chaque membre est un instrument vivant capable d'harmoniser ou de dissonner selon la volonté collective.",
-      "frame_detail": "Brushed steel frame with simple geometric pattern, no ornamentation, utilitarian finish",
-      "composition_directive": "Medium close-up portrait (chest-up) showing character face and upper torso in their working environment",
-      "prompt_version": "3.0_full_20260331",
-      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
+      "setting": "Shattered crystalline amphitheater turned battlefield with crystal formations exploding from harmonic overload sending shards every direction, visible shockwave rings tearing through enemy positions, fragments raining from resonating cracked ceiling structures, entire environment vibrating at a frequency that makes air appear to ripple and distort",
+      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Visible concentric sound waves expanding outward shattering nearby crystal structures into cascading shards, crystal fragments flying through air catching prismatic light, air visibly rippling and bending from sonic force, ground fracturing in geometric patterns from bass, floating debris suspended in harmonic stasis field"
     }
   }
 }

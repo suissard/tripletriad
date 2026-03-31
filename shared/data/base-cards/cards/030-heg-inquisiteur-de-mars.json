@@ -25,74 +25,51 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Inquisiteur de Mars — Hégémonie martienne Legendary obsidienne",
+      "archetype": "Inquisiteur de Mars — Hégémonie martienne Legendary class obsidienne",
       "loadout": {
-        "armor_outfit": "Armures lourdes rouge cramoisi avec accents dorés. Insignes impériaux gravés. Casques anguleux avec visières sombres. Silhouette massive et intimidante., one-of-a-kind materials",
-        "arsenal": "Equipment designed to channel and amplify the character's heal ability (adjacent_friendly) — visible energy conduits integrated into the gear"
+        "armor_outfit": "Heavy combat armor with thick crimson red plating showing battle scars and scorch marks, reinforced shoulder guards with dented imperial insignia, tactical undersuit at joints, magnetic combat boots locked to metal deck with legendary cosmic materials and ancient craftsmanship that has become one with the wearer's being",
+        "arsenal": "Standard-issue heavy plasma rifle with imperial engravings, combat chainsword with serrated edge, tactical grenade bandolier across chest, targeting visor HUD displaying red lock-on data The weapon and gauntlets actively channel the character's heal ability targeting adjacent_friendly, visible energy conduits linking weapon to body with flowing power"
       },
       "attitude": {
-        "behavior": "Transcendent manifestation — character as the ultimate embodiment of their entire faction's philosophy and power — Warm healing light flowing to adjacent allies, visible energy transfer mending wounds",
-        "emotion": "Transcendent purpose — cosmic significance visible in every feature"
+        "behavior": "Battlefield commander directing troop movements with precise gestures, tactical displays projecting from gauntlets. One hand extended toward wounded ally with massive devastating warm golden energy flowing from palm directly into ally's body creating visible bridge of healing light",
+        "emotion": "Transcendent purpose — no longer merely fighting but reshaping the battlefield itself with every movement and breath"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Roman Imperial military",
-          "Modern mechanized warfare",
-          "Brutalist military architecture"
+          "War photography",
+          "Mechanized warfare",
+          "Roman Imperial military"
         ],
-        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Crimson Red",
-          "role": "primary_accent — armor plating and imperial banners"
+          "role": "primary_accent — armor plating and blood mist in the air"
         },
         {
           "name": "Gunmetal Black",
-          "role": "secondary_accent — undersuit and structural elements"
+          "role": "secondary_accent — structural elements and deepest shadows"
         },
         {
-          "name": "Burnished Gold",
-          "role": "tertiary accent — rank insignia and decorative trim"
+          "name": "Blinding White",
+          "role": "tertiary accent — muzzle flash and explosive ignition"
         }
       ],
-      "lighting_setup": "Celestial multi-layered lighting: divine light from above, energy emanation from below, inner glow from character's own power, environmental reflections on a cosmic scale",
-      "mood": "military_dominance"
+      "lighting_setup": "aurum-plated frame with living energy flowing through ornate faction-specific patterns, border radiates golden glow, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "relentless_military_assault"
     },
     "camera": {
-      "angle": "dutch angle with multi-plane depth of field emphasizing cosmic significance and otherworldly presence"
+      "angle": "Cinematic ultra-wide angle with dramatic depth layers — foreground devastation, character as glowing focal point, background cataclysm, sky and environment permanently altered"
     },
     "scenography": {
-      "setting": "Fortified Martian military outpost on conquered territory, imposing angular architecture in red stone, rows of identical barracks under floodlights, war banners snapping in the dry wind",
-      "atmosphere_vfx": "Smoke columns from distant artillery, harsh white floodlight beams cutting through red dust haze, muzzle flashes illuminating the sky, plus targeted healing — focused beams of light reaching wounded allies specifically visible in the environment"
-    },
-    "card_metadata": {
-      "collectionName": "base",
-      "cardName": "Inquisiteur de Mars",
-      "faction": "Hégémonie martienne",
-      "rarity": "Legendary",
-      "element": "obsidienne",
-      "elements": [
-        "radiation"
-      ],
-      "description": "Supreme Commander unifiant les flottes martiennes sous un commandement unique avec une autorité absolue et indiscutable.",
-      "skills": [
-        {
-          "type": "heal",
-          "value": 3,
-          "target": "adjacent_friendly"
-        }
-      ],
-      "faction_lore": "L'Hégémonie Martienne a transformé la Planète Rouge de colonie mourante en empire galactique. Leur credo : unifier par la force, dominer par l'ordre.",
-      "frame_detail": "Aurum-plated frame with living energy flowing through ornate faction-specific decorative patterns, border radiates faint golden glow",
-      "composition_directive": "Epic cinematic wide-angle showing the character reshaping reality around them, with scale suggesting world-changing impact",
-      "prompt_version": "3.0_full_20260331",
-      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
+      "setting": "Planetary assault battlefield with artillery detonating sending massive dust columns skyward, advancing infantry silhouettes through smoke, orbital dropships descending under anti-aircraft fire, trenches littered with spent casings",
+      "atmosphere_vfx": "Visible energy bridge connecting healer to wounded with golden light flowing through channel and visibly mending wounds, ally's expression relaxing as pain fades and color returns, Ground between characters blooming with new growth from healing energy overflow — flowers sprouting instantly, grass recovering, path of life connecting healer to patient, Artillery shells exploding in background sending up massive geysers of red dust, tracer rounds streaking across sky, crimson smoke grenades billowing, shrapnel flying past camera, ground cracking from impact tremors"
     }
   }
 }

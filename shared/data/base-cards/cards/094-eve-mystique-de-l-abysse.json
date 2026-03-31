@@ -19,68 +19,51 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Mystique de l Abysse — Éveil Chthonien Common spore",
+      "archetype": "Mystique de l Abysse — Éveil Chthonien Common class spore",
       "loadout": {
-        "armor_outfit": "Formes altérées par l'exposition aux énergies chthoniennes. Peaux pâles translucides avec runes sombres. Yeux entièrement noirs. Ombres détachées.",
-        "arsenal": "Functional faction-standard equipment showing signs of practical field use and tactical customization"
+        "armor_outfit": "Ancient ceremonial armor fused to wearer's body through dark ritual, shadowy fabric etched with independently shifting runic patterns casting purple light, living shadow tendrils writhing from shoulder guards with own consciousness, armor plates absorbing light instead of reflecting creating void patches",
+        "arsenal": "Massive ritual staff taller than wielder inscribed with independently rotating forbidden symbols, shadow-manipulation artifact orbiting hand like dark satellite with void energy tendrils connecting to body, cursed amulets chained to armor pulsating with green phosphor light emitting foul energy wisps Functional combat equipment showing signs of heavy practical use and field customization"
       },
       "attitude": {
-        "behavior": "Everyday working pose, natural stance — character shown in their normal operational state",
-        "emotion": "Everyday resilience and grounded determination"
+        "behavior": "Frontline combatant engaged directly with enemy forces with weapon fully committed to the attack. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
+        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Lovecraftian cosmic horror",
-          "Gothic dark architecture",
-          "Ancient forbidden knowledge"
+          "Cosmic horror art",
+          "Eerie supernatural photography",
+          "Abyssal deep-sea horror"
         ],
-        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Deep Void Purple",
-          "role": "primary_accent — energy emanations and shadow auras"
+          "role": "primary_accent — shadow energy emanation and tentacle glow"
         },
         {
           "name": "Bone White",
-          "role": "secondary_accent — pale skin and carved runes"
+          "role": "secondary_accent — skeletal remains and carved runes"
         },
         {
-          "name": "Pitch Black",
-          "role": "tertiary accent — void effects and deepest shadows"
+          "name": "Eerie Green Phosphor",
+          "role": "tertiary accent — forbidden energy arcs and corruption"
         }
       ],
-      "lighting_setup": "Flat ambient light with subtle shadows, documentary-style natural lighting",
-      "mood": "ancient_cosmic_dread"
+      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "eldritch_awakening"
     },
     "camera": {
-      "angle": "eye-level direct portrait creating a sense of honest documentation"
+      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
     },
     "scenography": {
-      "setting": "Ancient underground temple with impossible non-Euclidean geometry, walls covered in carved forbidden symbols, massive sealed portal doors radiating dark energy",
-      "atmosphere_vfx": "Eerie pulsating purple fog along the ground, shadow tendrils detaching and reattaching, pulsating ancient runes glowing intermittently, warped light bending unnaturally"
-    },
-    "card_metadata": {
-      "collectionName": "base",
-      "cardName": "Mystique de l Abysse",
-      "faction": "Éveil Chthonien",
-      "rarity": "Common",
-      "element": "spore",
-      "elements": [
-        "neutre"
-      ],
-      "description": "Spectre des Abysses terrifiant les unités ennemies par sa simple présence réduisant leur capacité combative de moitié.",
-      "skills": "none — this unit relies on natural abilities",
-      "faction_lore": "L'Éveil Chthonien est la résurgence d'entités anciennes dormant depuis avant la naissance des étoiles. Leurs cultes rouvrent les portes des plans inférieurs.",
-      "frame_detail": "Brushed steel frame with simple geometric pattern, no ornamentation, utilitarian finish",
-      "composition_directive": "Medium close-up portrait (chest-up) showing character face and upper torso in their working environment",
-      "prompt_version": "3.0_full_20260331",
-      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
+      "setting": "Torn dimensional battlefield with ground splitting open in massive fissures as enormous shadow tentacles erupt from below, sky showing impossible geometry and wrongness human mind cannot process, ancient runes blazing on every surface as dimensions collapse, reality thinning and tearing at edges, thick oppressive atmosphere of supernatural dread",
+      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Massive shadow tentacles erupting from cracked ground grasping at sky, dimensional rifts tearing open revealing impossible non-Euclidean geometry with wrong colors, floating forbidden runes spinning violently in dark purple energy maelstrom, skeletal remains rattling and rising from earth, void essence fog rolling across ground like creeping tsunami"
     }
   }
 }

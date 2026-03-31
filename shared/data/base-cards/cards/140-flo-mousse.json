@@ -19,68 +19,51 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Mousse — Fléau Spore Common spore",
+      "archetype": "Mousse — Fléau Spore Common class spore",
       "loadout": {
-        "armor_outfit": "Formes végétales avec mycéliums s'étendant comme des membres. Champignons et moisissures colorés. Spores flottantes en halo. Présence organique dérangeante.",
-        "arsenal": "Functional faction-standard equipment showing signs of practical field use and tactical customization"
+        "armor_outfit": "Living fungal armor growing and pulsating in rhythm with host's heartbeat, toxic spore clouds emanating perpetually from pores across entire surface creating visible green haze, thick mycelial reinforcement visible beneath surface like living root systems, organic matter and fungal growths dripping from every edge with new growth visibly sprouting during combat",
+        "arsenal": "Living spore projection organ on forearm launching concentrated toxic bursts at high velocity like organic projectile weapons, toxic secretion glands in fingertips pulsating and releasing corrosive droplets that sizzle on contact, thick mycelial whip extending from back acting as ranged organic weapon that lashes out to grapple targets Functional combat equipment showing signs of heavy practical use and field customization"
       },
       "attitude": {
-        "behavior": "Everyday working pose, natural stance — character shown in their normal operational state",
-        "emotion": "Everyday resilience and grounded determination"
+        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
+        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Biological horror photography",
-          "Mycelial network visualization",
-          "Coral reef decay"
+          "Biological hazard photography",
+          "Fungal growth macro",
+          "Body horror action art"
         ],
-        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Toxic Green",
-          "role": "primary_accent — fungal growths and spore clouds"
+          "role": "primary_accent — spore clouds and acid splash effects"
         },
         {
           "name": "Decay Brown",
-          "role": "secondary_accent — decomposing surfaces and organic matter"
+          "role": "secondary_accent — rotting surfaces and decomposing matter"
         },
         {
-          "name": "Flesh Pink",
-          "role": "tertiary accent — exposed tissue and infected areas"
+          "name": "Corrosive Yellow",
+          "role": "tertiary accent — acid burns and infection glow"
         }
       ],
-      "lighting_setup": "Flat ambient light with subtle shadows, documentary-style natural lighting",
-      "mood": "biological_corruption_inevitability"
+      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "relentless_biological_assault"
     },
     "camera": {
-      "angle": "eye-level direct portrait creating a sense of honest documentation"
+      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
     },
     "scenography": {
-      "setting": "Infested corridor overtaken by fungal growth, thick mycelial networks covering every surface, pulsating fungal towers, spore clouds reducing visibility",
-      "atmosphere_vfx": "Floating spore particles in dense clouds, pulsating organic growths slowly expanding, dripping fungal fluids, organic tendrils reaching and grasping"
-    },
-    "card_metadata": {
-      "collectionName": "base",
-      "cardName": "Mousse",
-      "faction": "Fléau Spore",
-      "rarity": "Common",
-      "element": "spore",
-      "elements": [
-        "neutre"
-      ],
-      "description": "Pulsion toxique libérant des nuages de spores empoisonnées autour de lui créant une zone de contamination persistante.",
-      "skills": "none — this unit relies on natural abilities",
-      "faction_lore": "Le Fléau Spore est une entité fongique cosmique se propageant imparable. Chaque spore contient la conscience collective. Il étend, consomme, transforme.",
-      "frame_detail": "Brushed steel frame with simple geometric pattern, no ornamentation, utilitarian finish",
-      "composition_directive": "Medium close-up portrait (chest-up) showing character face and upper torso in their working environment",
-      "prompt_version": "3.0_full_20260331",
-      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
+      "setting": "Biologically devastated battlefield completely consumed by fungal infestation, thick toxic spore clouds reducing visibility creating oppressive green haze, massive mycelial networks pulsating and growing visibly across all surfaces converting terrain into living organism, both ally and enemy positions attacked by spreading infection, massive pulsating sacs bursting and releasing contamination, ground itself alive and hostile with fungal tendrils bursting through without warning",
+      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Massive spore explosion blasting toxic green clouds outward at high speed, thick mycelial tendrils bursting through walls and floors like organic spears, acidic fluid dripping from fungal growths creating sizzling smoke plumes, infection spreading visibly across surfaces like fast-forward timelapse consuming everything, pulsating organic sacs bursting on impact releasing concentrated contamination clouds"
     }
   }
 }

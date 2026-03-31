@@ -25,74 +25,51 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Crescendo Sonore — Chœur Synthétique Common obsidienne",
+      "archetype": "Crescendo Sonore — Chœur Synthétique Common class obsidienne",
       "loadout": {
-        "armor_outfit": "Cristaux vivants poussant depuis la peau. Silhouettes élancées. Ailes cristallines générant des ondes sonores. Peaux irisées comme des prismes.",
-        "arsenal": "Equipment designed to channel and amplify the character's decrease ability (opposite_side) — visible energy conduits integrated into the gear"
+        "armor_outfit": "Crystalline armor plates growing naturally from body vibrating at resonant frequencies with visible sound waves emanating from every surface, each facet catching and fracturing light into rainbows, organic-metal hybrid construction",
+        "arsenal": "Resonance tuning fork weapon humming at visible destructive frequency with air distortion around it, harmonic shield gauntlet generating visible ring-shaped sound wave barriers, crystalline conductor baton emitting visible vibration patterns The weapon and gauntlets actively channel the character's decrease ability targeting opposite_side, visible energy conduits linking weapon to body with flowing power"
       },
       "attitude": {
-        "behavior": "Everyday working pose, natural stance — character shown in their normal operational state — Dimensional pressure pushing against cards on the opposite side of the board",
-        "emotion": "Everyday resilience and grounded determination"
+        "behavior": "Combat medic rushing into the line of fire with healing equipment deployed, dodging projectiles while reaching wounded. Both hands thrust forward in powerful push with focused targeted dimensional pressure field expanding from palms creating visible wall of force pushing against entire opposing side",
+        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Sacred geometry",
-          "Sound wave visualization",
-          "Crystalline mineral formations"
+          "Sound wave photography",
+          "Crystallography",
+          "Kinetic energy art"
         ],
-        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Violet Crystal",
-          "role": "primary_accent — crystalline growths and primary resonance"
+          "role": "primary_accent — resonance energy beams and crystal shards"
         },
         {
           "name": "Silver Prismatic",
-          "role": "secondary_accent — light reflections and harmonics"
+          "role": "secondary_accent — sound wave visualization and reflections"
         },
         {
           "name": "Deep Indigo",
-          "role": "tertiary accent — shadow tones and low frequency"
+          "role": "tertiary accent — shockwave shadows and deep resonance tones"
         }
       ],
-      "lighting_setup": "Flat ambient light with subtle shadows, documentary-style natural lighting",
-      "mood": "ethereal_harmonic_power"
+      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "devastating_harmonic_blast"
     },
     "camera": {
-      "angle": "eye-level direct portrait creating a sense of honest documentation"
+      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
     },
     "scenography": {
-      "setting": "Crystalline amphitheater orbiting a gas giant, massive crystal formations forming natural acoustics, floating platforms resonating with ambient cosmic vibrations",
-      "atmosphere_vfx": "Visible sound waves as concentric rings in the air, prismatic light refractions creating rainbows, vibrating harmonic crystals, atmospheric resonance shimmer, plus force field — visible compression field squeezing opposition values down visible in the environment"
-    },
-    "card_metadata": {
-      "collectionName": "base",
-      "cardName": "Crescendo Sonore",
-      "faction": "Chœur Synthétique",
-      "rarity": "Common",
-      "element": "obsidienne",
-      "elements": [
-        "neutre"
-      ],
-      "description": "Vibrato soignant les blessures des alliés proches par des fréquences sonores apaisantes accélérant la guérison naturelle.",
-      "skills": [
-        {
-          "type": "decrease",
-          "value": -1,
-          "target": "opposite_side"
-        }
-      ],
-      "faction_lore": "Le Chœur Synthétique fusionne musique et conscience. Chaque membre est un instrument vivant capable d'harmoniser ou de dissonner selon la volonté collective.",
-      "frame_detail": "Brushed steel frame with simple geometric pattern, no ornamentation, utilitarian finish",
-      "composition_directive": "Medium close-up portrait (chest-up) showing character face and upper torso in their working environment",
-      "prompt_version": "3.0_full_20260331",
-      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
+      "setting": "Shattered crystalline amphitheater turned battlefield with crystal formations exploding from harmonic overload sending shards every direction, visible shockwave rings tearing through enemy positions, fragments raining from resonating cracked ceiling structures, entire environment vibrating at a frequency that makes air appear to ripple and distort",
+      "atmosphere_vfx": "Massive force visible through environmental disruption — air rippling like heat haze, ground buckling and cracking, everything on opposite side being physically pushed backward and compressed, Opposing terrain visibly compressed and pushed backward, barriers and structures cracking from extreme pressure, objects sliding away creating clear zone of force, Visible concentric sound waves expanding outward shattering nearby crystal structures into cascading shards, crystal fragments flying through air catching prismatic light, air visibly rippling and bending from sonic force, ground fracturing in geometric patterns from bass, floating debris suspended in harmonic stasis field"
     }
   }
 }

@@ -25,74 +25,51 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Forge 1 — Héritiers des cendres Epic radiation",
+      "archetype": "Forge 1 — Héritiers des cendres Epic class radiation",
       "loadout": {
-        "armor_outfit": "Peaux noircies avec veines lumineuses orange. Armures de métal fondu et cendres compactées. Cheveux comme de la fumée. Cicatrices tribales., refined faction craftsmanship",
-        "arsenal": "Equipment designed to channel and amplify the character's death ability (enemy_on_capture) — visible energy conduits integrated into the gear"
+        "armor_outfit": "Armor forged from melted debris and volcanic slag, dark metal plates held by thermal bonds glowing orange at every seam, heat distortion rising from every surface, scorch marks and soot coating every inch forged from rare materials with faction crest embedded and energy pulsing through the entire surface with every movement",
+        "arsenal": "Dual flame projector gauntlets superheated to molten temperatures dripping liquid fire, volcanic glass blade still glowing cherry red at core, ash grenades on belt radiating heat The weapon and gauntlets actively channel the character's death ability targeting enemy_on_capture, visible energy conduits linking weapon to body with flowing power"
       },
       "attitude": {
-        "behavior": "Epic combat manifestation character unleashing their signature ability at maximum power with full body commitment — Vengeful curse energy binding to the enemy who captured this card",
-        "emotion": "Commanding authority and strategic mastery"
+        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Being captured but reaching back with final curse, focused targeted dark energy flowing from captured body into captor's position as vengeful last act before being taken",
+        "emotion": "Apocalyptic fury — full weight of faction's power channeling through body uncontrollably"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Volcanic landscape photography",
-          "Post-apocalyptic fire devastation",
+          "Volcanic eruption photography",
+          "Action fire photography",
           "Phoenix mythology"
         ],
-        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Ember Orange",
-          "role": "primary_accent — glowing veins and fire effects"
+          "role": "primary_accent — flames, energy blasts and burning particles"
         },
         {
           "name": "Charcoal Black",
-          "role": "secondary_accent — scorched skin and armor base"
+          "role": "secondary_accent — scorched armor and terrain"
         },
         {
-          "name": "Deep Ash Gray",
-          "role": "tertiary accent — weathering and atmosphere"
+          "name": "Magma Yellow",
+          "role": "tertiary accent — lava flows and inner core glow"
         }
       ],
-      "lighting_setup": "Multi-source dramatic lighting: primary glow from the ability effect itself, secondary rim light, environmental reflections from below",
-      "mood": "unquenchable_fire_and_vengeance"
+      "lighting_setup": "amethyst alloy frame with crystalline energy channels pulsing light along border edges, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "apocalyptic_inferno"
     },
     "camera": {
-      "angle": "low extreme angle with wide lens emphasizing the character's dominance over the environment"
+      "angle": "Wide dramatic low angle showing full blast radius, character backlit by their own power source, foreground devastated by ability effects"
     },
     "scenography": {
-      "setting": "Smoldering ruins of a destroyed settlement, half-melted structures glowing from residual heat, rivers of slow-moving lava carving through the devastated landscape",
-      "atmosphere_vfx": "Rising embers carried by thermal updrafts, heat distortion shimmer in the air, thick smoke plumes blocking the sky, volcanic ash falling like snow, plus posthumous revenge — dark energy crawling up the captor's position after capture visible in the environment"
-    },
-    "card_metadata": {
-      "collectionName": "base",
-      "cardName": "Forge 1",
-      "faction": "Héritiers des cendres",
-      "rarity": "Epic",
-      "element": "radiation",
-      "elements": [
-        "neutre"
-      ],
-      "description": "Incendiaire du Jugement déclenchant des conflagrations incontrôlables dans les rangs adverses ravageant les positions fortifiées.",
-      "skills": [
-        {
-          "type": "death",
-          "value": 1,
-          "target": "enemy_on_capture"
-        }
-      ],
-      "faction_lore": "Les Héritiers des Cendres sont les survivants de la Grande Purification — un cataclysme qui consuma leurs mondes entiers. Leur existence est une vengeance perpétuelle.",
-      "frame_detail": "Amethyst alloy frame with crystalline energy channels pulsing with light along the border edges",
-      "composition_directive": "Wide dramatic shot showing character AND the full environmental scope of their ability's power and reach",
-      "prompt_version": "3.0_full_20260331",
-      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
+      "setting": "Volcanic battlefield mid-eruption with lava rivers bursting through cracked ground flowing around combat zone, character standing in center of massive firestorm, burning debris raining from ash-choked sky, enemy positions engulfed in flames with structures collapsing into molten ground",
+      "atmosphere_vfx": "Malevolent curse energy crawling up captor from point of contact, visible dark tendrils of corruption spreading across their body and position with malignant effect, Ground around captor darkening and dying as curse takes hold, corruption spreading from contact point showing the price of victory, Massive fireball erupting from character engulfing foreground with intense orange light, lava cracking through ground with molten splashes flying up in slow motion, embers and ash swirling in thermal vortex, visible heat distortion waves rippling the air, secondary explosions in background sending shockwaves through smoke"
     }
   }
 }

@@ -25,74 +25,51 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Rouille Rustique — Ferrailleurs de la Ceinture Epic reseau",
+      "archetype": "Rouille Rustique — Ferrailleurs de la Ceinture Epic class reseau",
       "loadout": {
-        "armor_outfit": "Vêtements de peaux de vaisseau recyclées avec soudures visibles. Combinaisons tachées d'huile. Masques de soudage. Postures voûtées de travailleurs., refined faction craftsmanship",
-        "arsenal": "Equipment designed to channel and amplify the character's decrease ability (all_enemy) — visible energy conduits integrated into the gear"
+        "armor_outfit": "Heavy patchwork armor from salvaged hull plates with visible bolt patterns and rough weld seams, exposed hydraulic assist mechanisms leaking fluid from combat damage, thick reinforced gloves stained with oil grease and burn marks, protective welding mask pushed up on forehead revealing determined face forged from rare materials with faction crest embedded and energy pulsing through the entire surface with every movement",
+        "arsenal": "Modified industrial welding torch converted into combat flamethrower with extended flame range, multi-function cutting tool integrated into gauntlet for both welding armor and severing limbs, improvised explosive charges rigged from salvaged missile parts creating unpredictable devastating blasts The weapon and gauntlets actively channel the character's decrease ability targeting all_enemy, visible energy conduits linking weapon to body with flowing power"
       },
       "attitude": {
-        "behavior": "Epic combat manifestation character unleashing their signature ability at maximum power with full body commitment — Wave of negation sweeping across all enemy positions simultaneously",
-        "emotion": "Commanding authority and strategic mastery"
+        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Both arms sweeping outward in devastating horizontal arc with powerful significant wave of negation energy expanding in all directions like dark tsunami rushing across battlefield toward all enemies",
+        "emotion": "Apocalyptic fury — full weight of faction's power channeling through body uncontrollably"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Dieselpunk industrial",
-          "Scrapyard survival",
+          "Industrial action photography",
+          "Scrapyard warfare",
           "Working class heroism"
         ],
-        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Rusted Orange-Brown",
-          "role": "primary_accent — salvaged metal and oxidized surfaces"
+          "role": "primary_accent — salvaged metal surfaces and explosion fireballs"
         },
         {
           "name": "Welding Arc Blue",
-          "role": "secondary_accent — sparks and work light"
+          "role": "secondary_accent — cutting sparks and work light"
         },
         {
-          "name": "Oil-Slick Black",
-          "role": "tertiary accent — grease stains and shadowed recesses"
+          "name": "Oil Black",
+          "role": "tertiary accent — deep shadowed recesses and grease stains"
         }
       ],
-      "lighting_setup": "Multi-source dramatic lighting: primary glow from the ability effect itself, secondary rim light, environmental reflections from below",
-      "mood": "scrappy_determination"
+      "lighting_setup": "amethyst alloy frame with crystalline energy channels pulsing light along border edges, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "desperate_scrapyard_brawl"
     },
     "camera": {
-      "angle": "low extreme angle with wide lens emphasizing the character's dominance over the environment"
+      "angle": "Wide dramatic low angle showing full blast radius, character backlit by their own power source, foreground devastated by ability effects"
     },
     "scenography": {
-      "setting": "Salvage workshop inside a hollowed asteroid, walls lined with repurposed ship parts, welding stations illuminating stacks of sorted scrap metal, improvised machinery",
-      "atmosphere_vfx": "Welding sparks in bright orange arcs, oil drips pooling on the floor, floating debris in low gravity, steam rising from freshly cut metal, plus mass debuff — dark ripple passing through every enemy position weakening all visible in the environment"
-    },
-    "card_metadata": {
-      "collectionName": "base",
-      "cardName": "Rouille Rustique",
-      "faction": "Ferrailleurs de la Ceinture",
-      "rarity": "Epic",
-      "element": "reseau",
-      "elements": [
-        "obsidienne"
-      ],
-      "description": "Ingénieur Génie transformant les catastrophes environnementales en opportunités économiques exploitant chaque débris avec créativité.",
-      "skills": [
-        {
-          "type": "decrease",
-          "value": -2,
-          "target": "all_enemy"
-        }
-      ],
-      "faction_lore": "Les Ferrailleurs vivent dans les champs d'astéroïdes entre les mondes. Ils récupèrent ce que les guerres laissent et construisent à partir de débris.",
-      "frame_detail": "Amethyst alloy frame with crystalline energy channels pulsing with light along the border edges",
-      "composition_directive": "Wide dramatic shot showing character AND the full environmental scope of their ability's power and reach",
-      "prompt_version": "3.0_full_20260331",
-      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
+      "setting": "Active scrapyard warfare zone inside hollowed asteroid with massive spacecraft structures collapsing under fire sending debris raining down, molten metal cascading from ruptured tanks creating burning rivers, grinding sparks filling air from improvised weapons clashing against enemy armor, hastily built barricades buckling under assault, low-gravity making every debris float after breaking free",
+      "atmosphere_vfx": "Massive dark ripple of suppression moving across battlefield at high speed, each enemy hit visibly weakening and dimming as power is drained simultaneously, Everything the wave touches deteriorates — surfaces cracking and crumbling, colors draining to gray, structural integrity failing, zone of death spreading across battlefield leaving devastation, Welding torch flame erupting as flamethrower showering bright orange sparks everywhere, heavy metal plates buckling and flying from explosions creating shrapnel, grinding sparks fountaining from metal-on-metal impact, massive machinery parts falling in dramatic slow motion, hydraulic fluid spraying from ruptured lines creating oil slicks, molten metal dripping creating burning rain"
     }
   }
 }

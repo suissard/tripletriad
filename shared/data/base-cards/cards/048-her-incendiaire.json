@@ -19,68 +19,51 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Incendiaire — Héritiers des cendres Common obsidienne",
+      "archetype": "Incendiaire — Héritiers des cendres Common class obsidienne",
       "loadout": {
-        "armor_outfit": "Peaux noircies avec veines lumineuses orange. Armures de métal fondu et cendres compactées. Cheveux comme de la fumée. Cicatrices tribales.",
-        "arsenal": "Functional faction-standard equipment showing signs of practical field use and tactical customization"
+        "armor_outfit": "Armor forged from melted debris and volcanic slag, dark metal plates held by thermal bonds glowing orange at every seam, heat distortion rising from every surface, scorch marks and soot coating every inch",
+        "arsenal": "Dual flame projector gauntlets superheated to molten temperatures dripping liquid fire, volcanic glass blade still glowing cherry red at core, ash grenades on belt radiating heat Functional combat equipment showing signs of heavy practical use and field customization"
       },
       "attitude": {
-        "behavior": "Everyday working pose, natural stance — character shown in their normal operational state",
-        "emotion": "Everyday resilience and grounded determination"
+        "behavior": "Frontline combatant engaged directly with enemy forces with weapon fully committed to the attack. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
+        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Volcanic landscape photography",
-          "Post-apocalyptic fire devastation",
+          "Volcanic eruption photography",
+          "Action fire photography",
           "Phoenix mythology"
         ],
-        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Ember Orange",
-          "role": "primary_accent — glowing veins and fire effects"
+          "role": "primary_accent — flames, energy blasts and burning particles"
         },
         {
           "name": "Charcoal Black",
-          "role": "secondary_accent — scorched skin and armor base"
+          "role": "secondary_accent — scorched armor and terrain"
         },
         {
-          "name": "Deep Ash Gray",
-          "role": "tertiary accent — weathering and atmosphere"
+          "name": "Magma Yellow",
+          "role": "tertiary accent — lava flows and inner core glow"
         }
       ],
-      "lighting_setup": "Flat ambient light with subtle shadows, documentary-style natural lighting",
-      "mood": "unquenchable_fire_and_vengeance"
+      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "apocalyptic_inferno"
     },
     "camera": {
-      "angle": "eye-level direct portrait creating a sense of honest documentation"
+      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
     },
     "scenography": {
-      "setting": "Smoldering ruins of a destroyed settlement, half-melted structures glowing from residual heat, rivers of slow-moving lava carving through the devastated landscape",
-      "atmosphere_vfx": "Rising embers carried by thermal updrafts, heat distortion shimmer in the air, thick smoke plumes blocking the sky, volcanic ash falling like snow"
-    },
-    "card_metadata": {
-      "collectionName": "base",
-      "cardName": "Incendiaire",
-      "faction": "Héritiers des cendres",
-      "rarity": "Common",
-      "element": "obsidienne",
-      "elements": [
-        "neutre"
-      ],
-      "description": "Porte-flamme transmettant la colère du brasier ancestral aux alliés proches qui gagnent en courage au combat.",
-      "skills": "none — this unit relies on natural abilities",
-      "faction_lore": "Les Héritiers des Cendres sont les survivants de la Grande Purification — un cataclysme qui consuma leurs mondes entiers. Leur existence est une vengeance perpétuelle.",
-      "frame_detail": "Brushed steel frame with simple geometric pattern, no ornamentation, utilitarian finish",
-      "composition_directive": "Medium close-up portrait (chest-up) showing character face and upper torso in their working environment",
-      "prompt_version": "3.0_full_20260331",
-      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
+      "setting": "Volcanic battlefield mid-eruption with lava rivers bursting through cracked ground flowing around combat zone, character standing in center of massive firestorm, burning debris raining from ash-choked sky, enemy positions engulfed in flames with structures collapsing into molten ground",
+      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Massive fireball erupting from character engulfing foreground with intense orange light, lava cracking through ground with molten splashes flying up in slow motion, embers and ash swirling in thermal vortex, visible heat distortion waves rippling the air, secondary explosions in background sending shockwaves through smoke"
     }
   }
 }

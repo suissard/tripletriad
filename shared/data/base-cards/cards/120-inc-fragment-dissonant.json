@@ -30,79 +30,51 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Fragment Dissonant — Incursion Dissonante Legendary furtif",
+      "archetype": "Fragment Dissonant — Incursion Dissonante Legendary class furtif",
       "loadout": {
-        "armor_outfit": "Formes instables entre plusieurs réalités. Membres se dupliquant en images fantômes. Couleurs impossibles. Texture glitch comme un fichier corrompu., one-of-a-kind materials",
-        "arsenal": "Equipment designed to channel and amplify the character's death ability (enemy_on_capture) — visible energy conduits integrated into the gear"
+        "armor_outfit": "Fragmented armor with each plate phasing at different dimensions and times out of sync with reality, impossible geometries connecting segments creating shapes mind cannot process, unnatural spectrum colors shifting and glitching randomly, portions flickering between solid and translucent ghostly state in rapid succession with legendary cosmic materials and ancient craftsmanship that has become one with the wearer's being",
+        "arsenal": "Reality-fracturing blade cutting through dimensional barriers leaving visible spatial tears trailing where physics breaks down, paradox generator causing multiple versions of weapon to phase in and out simultaneously from different angles, glitch emitter integrated into off-hand disrupting enemy targeting at quantum level creating visual distortion fields The weapon and gauntlets actively channel the character's death ability targeting enemy_on_capture, visible energy conduits linking weapon to body with flowing power"
       },
       "attitude": {
-        "behavior": "Transcendent manifestation — character as the ultimate embodiment of their entire faction's philosophy and power — Vengeful curse energy binding to the enemy who captured this card",
-        "emotion": "Transcendent purpose — cosmic significance visible in every feature"
+        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Being captured but reaching back with final curse, massive devastating dark energy flowing from captured body into captor's position as vengeful last act before being taken",
+        "emotion": "Transcendent purpose — no longer merely fighting but reshaping the battlefield itself with every movement and breath"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Glitch art movement",
-          "Quantum mechanics visualization",
-          "Surrealist reality distortion"
+          "Glitch action photography",
+          "Digital corruption art",
+          "Quantum breakdown visualization"
         ],
-        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Magenta Glitch",
-          "role": "primary_accent — reality fractures and distortions"
+          "role": "primary_accent — reality fracture edges and distortion boundaries"
         },
         {
           "name": "Fractured Green",
-          "role": "secondary_accent — dimensional tears and anomalies"
+          "role": "secondary_accent — dimensional tear cores and anomaly centers"
         },
         {
-          "name": "Void Black",
-          "role": "tertiary accent — gaps where reality is missing"
+          "name": "Chromatic Aberration Rainbow",
+          "role": "tertiary accent — visual artifacts where colors separate and bleed"
         }
       ],
-      "lighting_setup": "Celestial multi-layered lighting: divine light from above, energy emanation from below, inner glow from character's own power, environmental reflections on a cosmic scale",
-      "mood": "reality_breakdown_chaos"
+      "lighting_setup": "aurum-plated frame with living energy flowing through ornate faction-specific patterns, border radiates golden glow, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "catastrophic_reality_collapse"
     },
     "camera": {
-      "angle": "dutch angle with multi-plane depth of field emphasizing cosmic significance and otherworldly presence"
+      "angle": "Cinematic ultra-wide angle with dramatic depth layers — foreground devastation, character as glowing focal point, background cataclysm, sky and environment permanently altered"
     },
     "scenography": {
-      "setting": "Space where multiple realities overlap, buildings from different dimensions coexisting, sky showing conflicting celestial bodies and impossible colors",
-      "atmosphere_vfx": "Chromatic aberration splitting colors, spatial tears showing parallel dimensions, partial phasing between states, glitch artifacts and digital corruption, plus posthumous revenge — dark energy crawling up the captor's position after capture visible in the environment"
-    },
-    "card_metadata": {
-      "collectionName": "base",
-      "cardName": "Fragment Dissonant",
-      "faction": "Incursion Dissonante",
-      "rarity": "Legendary",
-      "element": "furtif",
-      "elements": [
-        "neutre"
-      ],
-      "description": "Paradoxe Final brisant les lois fondamentales de la réalité sur un secteur entier rendant chaque action imprévisible et chaque défense obsolète.",
-      "skills": [
-        {
-          "type": "death",
-          "value": 3,
-          "target": "enemy_on_capture"
-        },
-        {
-          "type": "decrease",
-          "value": -3,
-          "target": "enemy_with_highest"
-        }
-      ],
-      "faction_lore": "L'Incursion Dissonante est l'ouverture de fissures entre les réalités, laissant passer des entités impossibles. Leur présence corrompt la structure même du réel.",
-      "frame_detail": "Aurum-plated frame with living energy flowing through ornate faction-specific decorative patterns, border radiates faint golden glow",
-      "composition_directive": "Epic cinematic wide-angle showing the character reshaping reality around them, with scale suggesting world-changing impact",
-      "prompt_version": "3.0_full_20260331",
-      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
+      "setting": "Reality collapse zone with environment fragmenting into multiple parallel versions simultaneously, buildings existing in two dimensions at once showing both intact and destroyed overlapping states, sky displaying conflicting celestial bodies that should not coexist, gravity malfunctioning causing debris to fall upward and sideways in different zones, ground cracking open revealing parallel battlefields layered on each other like corrupt image",
+      "atmosphere_vfx": "Malevolent curse energy crawling up captor from point of contact, visible dark tendrils of corruption spreading across their body and position with malignant effect, Ground around captor darkening and dying as curse takes hold, corruption spreading from contact point showing the price of victory, Reality shattering like cracked glass across scene with fragments revealing parallel dimensions, chromatic aberration tearing colors apart at high speed creating RGB separation, objects phasing in and out mid-explosion with parts appearing and disappearing, gravity distorting sending debris every direction simultaneously, temporal stutter showing same motion frozen in multiple positions at once creating ghost trails"
     }
   }
 }

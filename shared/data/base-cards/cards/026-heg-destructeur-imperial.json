@@ -25,74 +25,51 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Destructeur Imperial — Hégémonie martienne Rare obsidienne",
+      "archetype": "Destructeur Imperial — Hégémonie martienne Rare class obsidienne",
       "loadout": {
-        "armor_outfit": "Armures lourdes rouge cramoisi avec accents dorés. Insignes impériaux gravés. Casques anguleux avec visières sombres. Silhouette massive et intimidante.",
-        "arsenal": "Equipment designed to channel and amplify the character's decrease ability (enemy_with_highest) — visible energy conduits integrated into the gear"
+        "armor_outfit": "Heavy combat armor with thick crimson red plating showing battle scars and scorch marks, reinforced shoulder guards with dented imperial insignia, tactical undersuit at joints, magnetic combat boots locked to metal deck with distinctive faction engravings and glowing energy channel conduits running along seams",
+        "arsenal": "Standard-issue heavy plasma rifle with imperial engravings, combat chainsword with serrated edge, tactical grenade bandolier across chest, targeting visor HUD displaying red lock-on data The weapon and gauntlets actively channel the character's decrease ability targeting enemy_with_highest, visible energy conduits linking weapon to body with flowing power"
       },
       "attitude": {
-        "behavior": "Dynamic action pose mid-ability execution — character actively demonstrating their specialty skill — Focused beam of nullification targeting the strongest enemy card",
-        "emotion": "Battle-tested intensity and tactical sharpness"
+        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Both hands pushed forward with intense focus, focused targeted concentrated nullification beam forming between palms and locking onto highest-value enemy with deadly precision",
+        "emotion": "Lethal intensity — predator recognizing the perfect strike moment"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Roman Imperial military",
-          "Modern mechanized warfare",
-          "Brutalist military architecture"
+          "War photography",
+          "Mechanized warfare",
+          "Roman Imperial military"
         ],
-        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Crimson Red",
-          "role": "primary_accent — armor plating and imperial banners"
+          "role": "primary_accent — armor plating and blood mist in the air"
         },
         {
           "name": "Gunmetal Black",
-          "role": "secondary_accent — undersuit and structural elements"
+          "role": "secondary_accent — structural elements and deepest shadows"
         },
         {
-          "name": "Burnished Gold",
-          "role": "tertiary accent — rank insignia and decorative trim"
+          "name": "Blinding White",
+          "role": "tertiary accent — muzzle flash and explosive ignition"
         }
       ],
-      "lighting_setup": "Dramatic rim lighting separating character from background with a focal glow on the primary ability effect",
-      "mood": "military_dominance"
+      "lighting_setup": "cobalt steel frame with etched faction symbols running along each border edge, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "relentless_military_assault"
     },
     "camera": {
-      "angle": "low dramatic angle emphasizing power and heroic stature"
+      "angle": "Low dramatic angle emphasizing dominance, wide enough to show full environmental impact of the ability"
     },
     "scenography": {
-      "setting": "Fortified Martian military outpost on conquered territory, imposing angular architecture in red stone, rows of identical barracks under floodlights, war banners snapping in the dry wind",
-      "atmosphere_vfx": "Smoke columns from distant artillery, harsh white floodlight beams cutting through red dust haze, muzzle flashes illuminating the sky, plus targeted suppression — beam locking onto highest-value enemy and reducing their power visible in the environment"
-    },
-    "card_metadata": {
-      "collectionName": "base",
-      "cardName": "Destructeur Imperial",
-      "faction": "Hégémonie martienne",
-      "rarity": "Rare",
-      "element": "obsidienne",
-      "elements": [
-        "neutre"
-      ],
-      "description": "Général légionnaire planifiant les campagnes de conquête multi-systèmes avec une précision martienne implacable.",
-      "skills": [
-        {
-          "type": "decrease",
-          "value": -1,
-          "target": "enemy_with_highest"
-        }
-      ],
-      "faction_lore": "L'Hégémonie Martienne a transformé la Planète Rouge de colonie mourante en empire galactique. Leur credo : unifier par la force, dominer par l'ordre.",
-      "frame_detail": "Cobalt steel frame with etched faction symbols deeply engraved on each corner of the border",
-      "composition_directive": "Low angle heroic full-body shot emphasizing power, with ability visualization clearly shown in action",
-      "prompt_version": "3.0_full_20260331",
-      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
+      "setting": "Planetary assault battlefield with artillery detonating sending massive dust columns skyward, advancing infantry silhouettes through smoke, orbital dropships descending under anti-aircraft fire, trenches littered with spent casings",
+      "atmosphere_vfx": "Intensely focused beam drilling into target with suppression field building around them as power is systematically dismantled layer by layer, beam unwavering and growing stronger, Ground scorched and vitrified creating glass-like tunnel through battlefield to target, all other targets completely unaffected showing terrifying precision, Artillery shells exploding in background sending up massive geysers of red dust, tracer rounds streaking across sky, crimson smoke grenades billowing, shrapnel flying past camera, ground cracking from impact tremors"
     }
   }
 }

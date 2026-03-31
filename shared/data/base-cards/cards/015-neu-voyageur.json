@@ -30,14 +30,14 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Voyageur — neutre Legendary None",
+      "archetype": "Voyageur — neutre Legendary class None",
       "loadout": {
-        "armor_outfit": "Vêtements usés par le voyage, tons gris-brun, équipement de fortune. Visages marqués par les vents stellaires. Regard perçant., one-of-a-kind materials",
-        "arsenal": "Equipment designed to channel and amplify the character's growing ability (all_own) — visible energy conduits integrated into the gear"
+        "armor_outfit": "Layered patched armor made from mismatched faction materials welded and stitched together, bullet-pocked shoulder plates, faded utility harness loaded with ammunition and tools with legendary cosmic materials and ancient craftsmanship that has become one with the wearer's being",
+        "arsenal": "Worn plasma rifle with taped grip sections and custom sight modifications, combat knife with notched blade, compact EMP grenades on belt The weapon and gauntlets actively channel the character's growing ability targeting all_own, visible energy conduits linking weapon to body with flowing power"
       },
       "attitude": {
-        "behavior": "Transcendent manifestation — character as the ultimate embodiment of their entire faction's philosophy and power — Radiating web of light connecting to all allied positions across the board",
-        "emotion": "Transcendent purpose — cosmic significance visible in every feature"
+        "behavior": "Strategic orchestrator coordinating multi-unit movements with sweeping gestures at center of chaos. Arms raised high in commanding gesture with massive devastating energy web radiating outward from chest in all directions, each thread connecting to different allied position across battlefield",
+        "emotion": "Transcendent purpose — no longer merely fighting but reshaping the battlefield itself with every movement and breath"
       }
     },
     "graphics": {
@@ -45,64 +45,36 @@
         "technique": "highly_detailed_digital_painting",
         "influences": [
           "Post-apocalyptic survival",
-          "Western lone wanderer",
-          "Gritty space opera realism"
+          "Gritty space western",
+          "Tactical realism"
         ],
-        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Dusty Steel Gray",
-          "role": "primary_accent — weathered clothing and armor base"
+          "role": "primary_accent — weathered armor and tactical gear"
         },
         {
           "name": "Warm Amber",
-          "role": "secondary_accent — lantern light, eye highlights, tool glints"
+          "role": "secondary_accent — muzzle flash and eye reflection"
         },
         {
           "name": "Deep Charcoal",
-          "role": "shadow depth and background atmosphere"
+          "role": "shadow depth and smoke"
         }
       ],
-      "lighting_setup": "Celestial multi-layered lighting: divine light from above, energy emanation from below, inner glow from character's own power, environmental reflections on a cosmic scale",
-      "mood": "solitary_determination"
+      "lighting_setup": "aurum-plated frame with living energy flowing through ornate faction-specific patterns, border radiates golden glow, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "tense_standoff"
     },
     "camera": {
-      "angle": "dutch angle with multi-plane depth of field emphasizing cosmic significance and otherworldly presence"
+      "angle": "Cinematic ultra-wide angle with dramatic depth layers — foreground devastation, character as glowing focal point, background cataclysm, sky and environment permanently altered"
     },
     "scenography": {
-      "setting": "Asteroid waystation at the edge of known space, corrugated metal walls scarred by micrometeorite impacts, flickering plasma lanterns casting long shadows on rusted bulkheads",
-      "atmosphere_vfx": "Fine stellar dust floating in dim light, distant nebula glow through cracked observation windows, scattered debris suggesting transience, plus network effect — luminous web spanning the battlefield connecting all teammates visible in the environment"
-    },
-    "card_metadata": {
-      "collectionName": "base",
-      "cardName": "Voyageur",
-      "faction": "neutre",
-      "rarity": "Legendary",
-      "element": "None",
-      "elements": [
-        "neutre"
-      ],
-      "description": "Architecte de la Neutralité orchestrant l'équilibre des rapports de force entre factions pour empêcher l'hégémonie totale.",
-      "skills": [
-        {
-          "type": "growing",
-          "value": 3,
-          "target": "all_own"
-        },
-        {
-          "type": "death",
-          "value": 3,
-          "target": "adjacent_on_flip"
-        }
-      ],
-      "faction_lore": "Les Neutres sont les observateurs éternels du conflit interstellaire. Ils survivent dans les zones grises du cosmos où aucune faction ne règne.",
-      "frame_detail": "Aurum-plated frame with living energy flowing through ornate faction-specific decorative patterns, border radiates faint golden glow",
-      "composition_directive": "Epic cinematic wide-angle showing the character reshaping reality around them, with scale suggesting world-changing impact",
-      "prompt_version": "3.0_full_20260331",
-      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
+      "setting": "Active warzone at an asteroid waystation crossroads under attack, plasma rounds impacting nearby corrugated walls sending debris and sparks raining down, allied forces taking cover behind makeshift barricades while enemy silhouettes advance through thick smoke",
+      "atmosphere_vfx": "Complete energy network visible with caster at glowing epicenter, energy flowing outward along dozens of channels simultaneously with each destination growing brighter as power arrives, Battlefield-wide glow connecting all friendly positions in visible network, ground cracking along energy pathways, sky briefly illuminated by massive network flash, Fine stellar dust swirling in air, muzzle flashes cutting through haze, shell casings ejecting in slow motion, debris kicked up by heavy boots, sparks ricocheting off metal surfaces"
     }
   }
 }

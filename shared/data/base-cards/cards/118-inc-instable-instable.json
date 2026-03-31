@@ -25,74 +25,51 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Instable Instable — Incursion Dissonante Epic furtif",
+      "archetype": "Instable Instable — Incursion Dissonante Epic class furtif",
       "loadout": {
-        "armor_outfit": "Formes instables entre plusieurs réalités. Membres se dupliquant en images fantômes. Couleurs impossibles. Texture glitch comme un fichier corrompu., refined faction craftsmanship",
-        "arsenal": "Equipment designed to channel and amplify the character's growing ability (adjacent_friendly) — visible energy conduits integrated into the gear"
+        "armor_outfit": "Fragmented armor with each plate phasing at different dimensions and times out of sync with reality, impossible geometries connecting segments creating shapes mind cannot process, unnatural spectrum colors shifting and glitching randomly, portions flickering between solid and translucent ghostly state in rapid succession forged from rare materials with faction crest embedded and energy pulsing through the entire surface with every movement",
+        "arsenal": "Reality-fracturing blade cutting through dimensional barriers leaving visible spatial tears trailing where physics breaks down, paradox generator causing multiple versions of weapon to phase in and out simultaneously from different angles, glitch emitter integrated into off-hand disrupting enemy targeting at quantum level creating visual distortion fields The weapon and gauntlets actively channel the character's growing ability targeting adjacent_friendly, visible energy conduits linking weapon to body with flowing power"
       },
       "attitude": {
-        "behavior": "Epic combat manifestation character unleashing their signature ability at maximum power with full body commitment — Green light bridging to adjacent allies, strength flowing outward like spreading roots",
-        "emotion": "Commanding authority and strategic mastery"
+        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. One arm extended powerfully toward ally with focused targeted green energy streaming from palm in thick flowing ribbon connecting to ally's body with visible strengthening effect",
+        "emotion": "Apocalyptic fury — full weight of faction's power channeling through body uncontrollably"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Glitch art movement",
-          "Quantum mechanics visualization",
-          "Surrealist reality distortion"
+          "Glitch action photography",
+          "Digital corruption art",
+          "Quantum breakdown visualization"
         ],
-        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Magenta Glitch",
-          "role": "primary_accent — reality fractures and distortions"
+          "role": "primary_accent — reality fracture edges and distortion boundaries"
         },
         {
           "name": "Fractured Green",
-          "role": "secondary_accent — dimensional tears and anomalies"
+          "role": "secondary_accent — dimensional tear cores and anomaly centers"
         },
         {
-          "name": "Void Black",
-          "role": "tertiary accent — gaps where reality is missing"
+          "name": "Chromatic Aberration Rainbow",
+          "role": "tertiary accent — visual artifacts where colors separate and bleed"
         }
       ],
-      "lighting_setup": "Multi-source dramatic lighting: primary glow from the ability effect itself, secondary rim light, environmental reflections from below",
-      "mood": "reality_breakdown_chaos"
+      "lighting_setup": "amethyst alloy frame with crystalline energy channels pulsing light along border edges, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "catastrophic_reality_collapse"
     },
     "camera": {
-      "angle": "low extreme angle with wide lens emphasizing the character's dominance over the environment"
+      "angle": "Wide dramatic low angle showing full blast radius, character backlit by their own power source, foreground devastated by ability effects"
     },
     "scenography": {
-      "setting": "Space where multiple realities overlap, buildings from different dimensions coexisting, sky showing conflicting celestial bodies and impossible colors",
-      "atmosphere_vfx": "Chromatic aberration splitting colors, spatial tears showing parallel dimensions, partial phasing between states, glitch artifacts and digital corruption, plus empowerment effect — visible strengthening wave reaching friendly targets visible in the environment"
-    },
-    "card_metadata": {
-      "collectionName": "base",
-      "cardName": "Instable Instable",
-      "faction": "Incursion Dissonante",
-      "rarity": "Epic",
-      "element": "furtif",
-      "elements": [
-        "radiation"
-      ],
-      "description": "Entropiste accélérant la désintégration des structures ennemies faisant vieillir les constructions et les armures à vitesse exponentielle.",
-      "skills": [
-        {
-          "type": "growing",
-          "value": 1,
-          "target": "adjacent_friendly"
-        }
-      ],
-      "faction_lore": "L'Incursion Dissonante est l'ouverture de fissures entre les réalités, laissant passer des entités impossibles. Leur présence corrompt la structure même du réel.",
-      "frame_detail": "Amethyst alloy frame with crystalline energy channels pulsing with light along the border edges",
-      "composition_directive": "Wide dramatic shot showing character AND the full environmental scope of their ability's power and reach",
-      "prompt_version": "3.0_full_20260331",
-      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
+      "setting": "Reality collapse zone with environment fragmenting into multiple parallel versions simultaneously, buildings existing in two dimensions at once showing both intact and destroyed overlapping states, sky displaying conflicting celestial bodies that should not coexist, gravity malfunctioning causing debris to fall upward and sideways in different zones, ground cracking open revealing parallel battlefields layered on each other like corrupt image",
+      "atmosphere_vfx": "Powerful energy bridge arcing between caster's hand and target with secondary sparks jumping off main channel to nearby allies creating chain reaction of empowerment, Ground beneath allies glowing green where energy arrives, visible strengthening wave passing through each connected unit, terrain responding to positive energy with new growth, Reality shattering like cracked glass across scene with fragments revealing parallel dimensions, chromatic aberration tearing colors apart at high speed creating RGB separation, objects phasing in and out mid-explosion with parts appearing and disappearing, gravity distorting sending debris every direction simultaneously, temporal stutter showing same motion frozen in multiple positions at once creating ghost trails"
     }
   }
 }

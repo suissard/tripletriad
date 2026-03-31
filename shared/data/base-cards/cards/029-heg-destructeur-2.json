@@ -25,74 +25,51 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Destructeur 2 — Hégémonie martienne Epic radiation",
+      "archetype": "Destructeur 2 — Hégémonie martienne Epic class radiation",
       "loadout": {
-        "armor_outfit": "Armures lourdes rouge cramoisi avec accents dorés. Insignes impériaux gravés. Casques anguleux avec visières sombres. Silhouette massive et intimidante., refined faction craftsmanship",
-        "arsenal": "Equipment designed to channel and amplify the character's death ability (self_on_flip) — visible energy conduits integrated into the gear"
+        "armor_outfit": "Heavy combat armor with thick crimson red plating showing battle scars and scorch marks, reinforced shoulder guards with dented imperial insignia, tactical undersuit at joints, magnetic combat boots locked to metal deck forged from rare materials with faction crest embedded and energy pulsing through the entire surface with every movement",
+        "arsenal": "Standard-issue heavy plasma rifle with imperial engravings, combat chainsword with serrated edge, tactical grenade bandolier across chest, targeting visor HUD displaying red lock-on data The weapon and gauntlets actively channel the character's death ability targeting self_on_flip, visible energy conduits linking weapon to body with flowing power"
       },
       "attitude": {
-        "behavior": "Epic combat manifestation character unleashing their signature ability at maximum power with full body commitment — Death transformation — body shifting on being captured, power released in final burst",
-        "emotion": "Commanding authority and strategic mastery"
+        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Body flipping violently between states as captured with both hands slamming into ground sending powerful significant shockwave through all adjacent positions, final devastating act of dying warrior",
+        "emotion": "Apocalyptic fury — full weight of faction's power channeling through body uncontrollably"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Roman Imperial military",
-          "Modern mechanized warfare",
-          "Brutalist military architecture"
+          "War photography",
+          "Mechanized warfare",
+          "Roman Imperial military"
         ],
-        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Crimson Red",
-          "role": "primary_accent — armor plating and imperial banners"
+          "role": "primary_accent — armor plating and blood mist in the air"
         },
         {
           "name": "Gunmetal Black",
-          "role": "secondary_accent — undersuit and structural elements"
+          "role": "secondary_accent — structural elements and deepest shadows"
         },
         {
-          "name": "Burnished Gold",
-          "role": "tertiary accent — rank insignia and decorative trim"
+          "name": "Blinding White",
+          "role": "tertiary accent — muzzle flash and explosive ignition"
         }
       ],
-      "lighting_setup": "Multi-source dramatic lighting: primary glow from the ability effect itself, secondary rim light, environmental reflections from below",
-      "mood": "military_dominance"
+      "lighting_setup": "amethyst alloy frame with crystalline energy channels pulsing light along border edges, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "relentless_military_assault"
     },
     "camera": {
-      "angle": "low extreme angle with wide lens emphasizing the character's dominance over the environment"
+      "angle": "Wide dramatic low angle showing full blast radius, character backlit by their own power source, foreground devastated by ability effects"
     },
     "scenography": {
-      "setting": "Fortified Martian military outpost on conquered territory, imposing angular architecture in red stone, rows of identical barracks under floodlights, war banners snapping in the dry wind",
-      "atmosphere_vfx": "Smoke columns from distant artillery, harsh white floodlight beams cutting through red dust haze, muzzle flashes illuminating the sky, plus final sacrifice — dramatic release of accumulated energy at the moment of defeat visible in the environment"
-    },
-    "card_metadata": {
-      "collectionName": "base",
-      "cardName": "Destructeur 2",
-      "faction": "Hégémonie martienne",
-      "rarity": "Epic",
-      "element": "radiation",
-      "elements": [
-        "neutre"
-      ],
-      "description": "Architecte de guerre martienne concevant les stratégies de siège planétaire et les protocoles d'annexion.",
-      "skills": [
-        {
-          "type": "death",
-          "value": 2,
-          "target": "self_on_flip"
-        }
-      ],
-      "faction_lore": "L'Hégémonie Martienne a transformé la Planète Rouge de colonie mourante en empire galactique. Leur credo : unifier par la force, dominer par l'ordre.",
-      "frame_detail": "Amethyst alloy frame with crystalline energy channels pulsing with light along the border edges",
-      "composition_directive": "Wide dramatic shot showing character AND the full environmental scope of their ability's power and reach",
-      "prompt_version": "3.0_full_20260331",
-      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
+      "setting": "Planetary assault battlefield with artillery detonating sending massive dust columns skyward, advancing infantry silhouettes through smoke, orbital dropships descending under anti-aircraft fire, trenches littered with spent casings",
+      "atmosphere_vfx": "Explosive shockwave radiating outward in perfect circle with incredible force, visible ring of energy passing through all adjacent positions simultaneously with cascading chain reaction, Ground erupting with visible shockwave, debris lifted and thrown outward by force, visible damage spreading to all adjacent tiles as energy wave passes through, Artillery shells exploding in background sending up massive geysers of red dust, tracer rounds streaking across sky, crimson smoke grenades billowing, shrapnel flying past camera, ground cracking from impact tremors"
     }
   }
 }

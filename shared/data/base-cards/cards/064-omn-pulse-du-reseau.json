@@ -25,74 +25,51 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Pulse du Reseau — Omni-Réseau Common faille_dimensionnelle",
+      "archetype": "Pulse du Reseau — Omni-Réseau Common class faille_dimensionnelle",
       "loadout": {
-        "armor_outfit": "Corps partiellement cybernétiques avec circuits lumineux sous la peau. Implant neural à la tempe. Yeux bleus numériques. Interfaces holographiques flottantes.",
-        "arsenal": "Equipment designed to channel and amplify the character's decrease ability (enemy_with_highest) — visible energy conduits integrated into the gear"
+        "armor_outfit": "Sleek cybernetic combat suit with circuit pathways throughout fabric glowing bright cyan under stress, neural temple implant sparking from combat overload, holographic shield generators deployed on forearms, clean geometric lines contrasting with digital chaos",
+        "arsenal": "Neural hacking deck with holographic wrist interface mid-operation showing active code streams, EMP emitter gauntlet crackling with charge creating visible blue arcs, data-spike dagger with glowing edge The weapon and gauntlets actively channel the character's decrease ability targeting enemy_with_highest, visible energy conduits linking weapon to body with flowing power"
       },
       "attitude": {
-        "behavior": "Everyday working pose, natural stance — character shown in their normal operational state — Focused beam of nullification targeting the strongest enemy card",
-        "emotion": "Everyday resilience and grounded determination"
+        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Both hands pushed forward with intense focus, focused targeted concentrated nullification beam forming between palms and locking onto highest-value enemy with deadly precision",
+        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Cyberpunk megacity",
-          "Digital network visualization",
-          "Neural interface technology"
+          "Cyberpunk action",
+          "Digital warfare art",
+          "Electromagnetic storm photography"
         ],
-        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Neon Cyan",
-          "role": "primary_accent — circuit patterns and holographic interfaces"
+          "role": "primary_accent — data streams and arcing energy bolts"
         },
         {
           "name": "Electric Blue",
-          "role": "secondary_accent — data streams and eye glow"
+          "role": "secondary_accent — arc lightning and holographic displays"
         },
         {
-          "name": "Matte White",
-          "role": "tertiary accent — base clothing and clean geometric lines"
+          "name": "Stark White",
+          "role": "tertiary accent — interface glare and explosive sparks"
         }
       ],
-      "lighting_setup": "Flat ambient light with subtle shadows, documentary-style natural lighting",
-      "mood": "digital_omnipresence"
+      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "cyber_warfare_assault"
     },
     "camera": {
-      "angle": "eye-level direct portrait creating a sense of honest documentation"
+      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
     },
     "scenography": {
-      "setting": "Digital server cathedral at the heart of the network, towering columns of processing units reaching into endless data streams, holographic pathways suspended in zero gravity",
-      "atmosphere_vfx": "Glitching holographic displays, floating data panels streaming information, electric arcs between conductors, digital particles dissolving and reforming, plus targeted suppression — beam locking onto highest-value enemy and reducing their power visible in the environment"
-    },
-    "card_metadata": {
-      "collectionName": "base",
-      "cardName": "Pulse du Reseau",
-      "faction": "Omni-Réseau",
-      "rarity": "Common",
-      "element": "faille_dimensionnelle",
-      "elements": [
-        "neutre"
-      ],
-      "description": "Relais quantique étendant la portée du réseau dans les zones reculées où les communications conventionnelles échouent.",
-      "skills": [
-        {
-          "type": "decrease",
-          "value": -1,
-          "target": "enemy_with_highest"
-        }
-      ],
-      "faction_lore": "L'Omni-Réseau est l'entité numérique connectant des millions de consciences à travers la galaxie. Toute information est une arme, chaque donnée un soldat.",
-      "frame_detail": "Brushed steel frame with simple geometric pattern, no ornamentation, utilitarian finish",
-      "composition_directive": "Medium close-up portrait (chest-up) showing character face and upper torso in their working environment",
-      "prompt_version": "3.0_full_20260331",
-      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
+      "setting": "Cyber warfare zone with holographic displays shattering and glitching during battle, digital fortifications crumbling under enemy ICE attacks with visible code deterioration, server towers toppling and sparking, electric storms rippling through infrastructure",
+      "atmosphere_vfx": "Intensely focused beam drilling into target with suppression field building around them as power is systematically dismantled layer by layer, beam unwavering and growing stronger, Ground scorched and vitrified creating glass-like tunnel through battlefield to target, all other targets completely unaffected showing terrifying precision, Data streams arcing between floating terminals like electric whip lashes, holographic shields shattering into cascading pixel fragments dissolving mid-air, EMP waves visible as expanding blue rings distorting everything, server racks exploding in showers of sparks and circuit boards, electric arcs grounding through coolant puddles creating branching lightning"
     }
   }
 }

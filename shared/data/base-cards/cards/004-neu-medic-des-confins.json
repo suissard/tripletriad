@@ -19,14 +19,14 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Medic des Confins — neutre Common radiation",
+      "archetype": "Medic des Confins — neutre Common class radiation",
       "loadout": {
-        "armor_outfit": "Vêtements usés par le voyage, tons gris-brun, équipement de fortune. Visages marqués par les vents stellaires. Regard perçant.",
-        "arsenal": "Functional faction-standard equipment showing signs of practical field use and tactical customization"
+        "armor_outfit": "Layered patched armor made from mismatched faction materials welded and stitched together, bullet-pocked shoulder plates, faded utility harness loaded with ammunition and tools",
+        "arsenal": "Worn plasma rifle with taped grip sections and custom sight modifications, combat knife with notched blade, compact EMP grenades on belt Functional combat equipment showing signs of heavy practical use and field customization"
       },
       "attitude": {
-        "behavior": "Everyday working pose, natural stance — character shown in their normal operational state",
-        "emotion": "Everyday resilience and grounded determination"
+        "behavior": "Reconnaissance specialist scanning environment with active sensor arrays, body positioned for rapid movement. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
+        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
       }
     },
     "graphics": {
@@ -34,53 +34,36 @@
         "technique": "highly_detailed_digital_painting",
         "influences": [
           "Post-apocalyptic survival",
-          "Western lone wanderer",
-          "Gritty space opera realism"
+          "Gritty space western",
+          "Tactical realism"
         ],
-        "rendering_style": "gritty_realistic_with_cinematic_OSL, high detail on character features, faction-specific material accuracy"
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
           "name": "Dusty Steel Gray",
-          "role": "primary_accent — weathered clothing and armor base"
+          "role": "primary_accent — weathered armor and tactical gear"
         },
         {
           "name": "Warm Amber",
-          "role": "secondary_accent — lantern light, eye highlights, tool glints"
+          "role": "secondary_accent — muzzle flash and eye reflection"
         },
         {
           "name": "Deep Charcoal",
-          "role": "shadow depth and background atmosphere"
+          "role": "shadow depth and smoke"
         }
       ],
-      "lighting_setup": "Flat ambient light with subtle shadows, documentary-style natural lighting",
-      "mood": "solitary_determination"
+      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "tense_standoff"
     },
     "camera": {
-      "angle": "eye-level direct portrait creating a sense of honest documentation"
+      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
     },
     "scenography": {
-      "setting": "Asteroid waystation at the edge of known space, corrugated metal walls scarred by micrometeorite impacts, flickering plasma lanterns casting long shadows on rusted bulkheads",
-      "atmosphere_vfx": "Fine stellar dust floating in dim light, distant nebula glow through cracked observation windows, scattered debris suggesting transience"
-    },
-    "card_metadata": {
-      "collectionName": "base",
-      "cardName": "Medic des Confins",
-      "faction": "neutre",
-      "rarity": "Common",
-      "element": "radiation",
-      "elements": [
-        "neutre"
-      ],
-      "description": "Éclaireur indépendant détectant les embuscades potentielles avant que les patrouilles militaires ne s'en approchent.",
-      "skills": "none — this unit relies on natural abilities",
-      "faction_lore": "Les Neutres sont les observateurs éternels du conflit interstellaire. Ils survivent dans les zones grises du cosmos où aucune faction ne règne.",
-      "frame_detail": "Brushed steel frame with simple geometric pattern, no ornamentation, utilitarian finish",
-      "composition_directive": "Medium close-up portrait (chest-up) showing character face and upper torso in their working environment",
-      "prompt_version": "3.0_full_20260331",
-      "seed_note": "For reproducibility: maintain exact faction color palette, frame style by rarity, and ability visualization as described"
+      "setting": "Active warzone at an asteroid waystation crossroads under attack, plasma rounds impacting nearby corrugated walls sending debris and sparks raining down, allied forces taking cover behind makeshift barricades while enemy silhouettes advance through thick smoke",
+      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Fine stellar dust swirling in air, muzzle flashes cutting through haze, shell casings ejecting in slow motion, debris kicked up by heavy boots, sparks ricocheting off metal surfaces"
     }
   }
 }
