@@ -31,7 +31,7 @@ export interface GameSkill extends Struct.ComponentSchema {
   attributes: {
     target: Schema.Attribute.String;
     type: Schema.Attribute.Enumeration<
-      ['growing', 'decrease', 'heal', 'death']
+      ['growing', 'decrease', 'heal', 'death', 'turn']
     > &
       Schema.Attribute.Required;
     value: Schema.Attribute.Integer & Schema.Attribute.Required;

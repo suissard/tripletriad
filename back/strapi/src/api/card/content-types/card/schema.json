@@ -111,6 +111,13 @@
       "type": "integer",
       "default": 3,
       "required": true
+    },
+    "level": {
+      "type": "integer",
+      "default": 1
+    },
+    "imageUrl": {
+      "type": "string"
     }
   }
 }

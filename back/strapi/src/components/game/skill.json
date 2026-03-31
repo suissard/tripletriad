@@ -12,7 +12,8 @@
         "growing",
         "decrease",
         "heal",
-        "death"
+        "death",
+        "turn"
       ],
       "required": true
     },

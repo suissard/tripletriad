@@ -304,6 +304,13 @@ export class GameEngine {
     ];
 
     placedCell.data.skills.forEach(skill => {
+      if (skill.type === 'turn') {
+        const direction = skill.value || 1; // 1 for Right, -1 for Left
+        GameEngine.rotateCardValues(placedCell, direction);
+      }
+    });
+
+    placedCell.data.skills.forEach(skill => {
       if (skill.type === 'heal' || skill.type === 'death') {
         for (const dir of directions) {
           const nx = x + dir.dx;
@@ -451,5 +458,46 @@ export class GameEngine {
     if (sum >= 12) return 3;
     if (sum >= 8) return 2;
     return 1;
+  }
+
+  /**
+   * Rotates card values clockwise (direction > 0) or counter-clockwise (direction < 0)
+   */
+  static rotateCardValues(cell, direction) {
+    if (!cell || !cell.data) return;
+
+    const rotate = (dir) => {
+      const oldValues = {
+        top: cell.data.topValue || (cell.data.values ? cell.data.values.top : '0'),
+        right: cell.data.rightValue || (cell.data.values ? cell.data.values.right : '0'),
+        bottom: cell.data.bottomValue || (cell.data.values ? cell.data.values.bottom : '0'),
+        left: cell.data.leftValue || (cell.data.values ? cell.data.values.left : '0')
+      };
+
+      if (dir > 0) { // Clockwise (Right)
+        cell.data.topValue = oldValues.left;
+        cell.data.rightValue = oldValues.top;
+        cell.data.bottomValue = oldValues.right;
+        cell.data.leftValue = oldValues.bottom;
+      } else { // Counter-Clockwise (Left)
+        cell.data.topValue = oldValues.right;
+        cell.data.rightValue = oldValues.bottom;
+        cell.data.bottomValue = oldValues.left;
+        cell.data.leftValue = oldValues.top;
+      }
+
+      // Sync complex values object if exists
+      if (cell.data.values) {
+        cell.data.values.top = cell.data.topValue;
+        cell.data.values.right = cell.data.rightValue;
+        cell.data.values.bottom = cell.data.bottomValue;
+        cell.data.values.left = cell.data.leftValue;
+      }
+    };
+
+    const steps = Math.abs(direction);
+    for (let i = 0; i < steps; i++) {
+       rotate(direction);
+    }
   }
 }

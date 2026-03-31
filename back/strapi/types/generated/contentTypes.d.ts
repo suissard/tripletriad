@@ -519,11 +519,13 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.DefaultTo<'neutre'>;
     image: Schema.Attribute.Media<'images'>;
+    imageUrl: Schema.Attribute.String;
     leftValue: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 1;
       }>;
+    level: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::card.card'> &
       Schema.Attribute.Private;

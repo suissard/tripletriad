@@ -15,19 +15,28 @@ export async function bootstrapCards(strapi: any) {
         await strapi.db.query('api::card.card').deleteMany({});
 
         for (const c of cardsData) {
+          // Extract level from description
+          let extractedLevel = 1;
+          const levelMatch = c.description.match(/niveau (\d+)/i);
+          if (levelMatch) {
+            extractedLevel = parseInt(levelMatch[1], 10);
+          } else if (c.level) {
+            extractedLevel = c.level;
+          }
+
           // Map level to rarity
           let rarity = 'Common';
-          if (c.level <= 2) rarity = 'Common';
-          else if (c.level <= 4) rarity = 'Uncommon';
-          else if (c.level <= 6) rarity = 'Rare';
-          else if (c.level <= 8) rarity = 'Epic';
+          if (extractedLevel <= 2) rarity = 'Common';
+          else if (extractedLevel <= 4) rarity = 'Uncommon';
+          else if (extractedLevel <= 6) rarity = 'Rare';
+          else if (extractedLevel <= 8) rarity = 'Epic';
           else rarity = 'Legendary';
 
           await strapi.entityService.create('api::card.card', {
             data: {
               name: c.name,
               description: c.description,
-              level: c.level,
+              level: extractedLevel,
               element: c.element || 'None',
               elements: Array.isArray(c.elements) ? c.elements : [c.element || 'None'],
               faction: c.faction || 'neutre',
@@ -35,7 +44,10 @@ export async function bootstrapCards(strapi: any) {
               rightValue: String(c.rightValue),
               bottomValue: String(c.bottomValue),
               leftValue: String(c.leftValue),
-              rarity: rarity
+              rarity: rarity,
+              collectionName: c.collectionName || null,
+              imageUrl: c.img || null,
+              defaultHp: c.hp || 3
             }
           });
         }
