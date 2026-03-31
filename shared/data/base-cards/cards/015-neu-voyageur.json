@@ -1,0 +1,27 @@
+{
+  "collectionName": "base",
+  "name": "Voyageur",
+  "description": "Pelerin des etoiles errant en quete d un savoir oublie.",
+  "element": "None",
+  "faction": "neutre",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "9",
+  "leftValue": "7",
+  "skills": [
+    {
+      "type": "growing",
+      "value": 3,
+      "target": "all_own"
+    },
+    {
+      "type": "death",
+      "value": 3,
+      "target": "adjacent_on_flip"
+    }
+  ],
+  "rarity": "Legendary",
+  "defaultHp": 4,
+  "image": "base/015.png",
+  "storiesRewardedFrom": null
+}

@@ -1,0 +1,19 @@
+{
+  "collectionName": "base",
+  "name": "Soudure",
+  "description": "Outil connaissant chaque instrument.",
+  "element": "reseau",
+  "elements": [
+    "spore"
+  ],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "4",
+  "rightValue": "3",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/126.png",
+  "storiesRewardedFrom": null
+}

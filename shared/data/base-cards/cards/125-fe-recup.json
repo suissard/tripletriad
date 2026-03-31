@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Recup",
+  "description": "Casse tirant chaque composant reutilisable.",
+  "element": "radiation",
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "3",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/125.png",
+  "storiesRewardedFrom": null
+}

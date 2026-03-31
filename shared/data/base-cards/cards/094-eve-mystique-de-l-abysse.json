@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Mystique de l Abysse",
+  "description": "Invocation reussie selon les uns ratee selon les autres.",
+  "element": "spore",
+  "faction": "Éveil Chthonien",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/094.png",
+  "storiesRewardedFrom": null
+}

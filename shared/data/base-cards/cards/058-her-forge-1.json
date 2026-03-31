@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Forge 1",
+  "description": "Forge transformant les debris en armes mains nues.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "8",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "death",
+      "value": 1,
+      "target": "enemy_on_capture"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 4,
+  "image": "base/058.png",
+  "storiesRewardedFrom": null
+}

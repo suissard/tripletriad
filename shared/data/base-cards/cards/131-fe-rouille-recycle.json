@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Rouille Recycle",
+  "description": "Collector arpentant les champs d asteroides.",
+  "element": "radiation",
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "7",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/131.png",
+  "storiesRewardedFrom": null
+}

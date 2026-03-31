@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Paradoxe Instable",
+  "description": "Instable vibrant entre etats inconnus.",
+  "element": "faille_dimensionnelle",
+  "faction": "Incursion Dissonante",
+  "topValue": "4",
+  "rightValue": "7",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -1,
+      "target": "enemy_with_highest"
+    }
+  ],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/117.png",
+  "storiesRewardedFrom": null
+}

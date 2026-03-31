@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Sentinelle Errant",
+  "description": "Rodeur des zones neutres survivant en glanant.",
+  "element": "eau",
+  "faction": "neutre",
+  "topValue": "9",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "heal",
+      "value": 2,
+      "target": "damaged_friendly"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 4,
+  "image": "base/014.png",
+  "storiesRewardedFrom": null
+}

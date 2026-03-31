@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Recup Ferraille",
+  "description": "Recuperateur monopolisant trois stations.",
+  "element": "reseau",
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "6",
+  "leftValue": "5",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -1,
+      "target": "enemy_with_highest"
+    }
+  ],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/132.png",
+  "storiesRewardedFrom": null
+}

@@ -1,0 +1,25 @@
+{
+  "collectionName": "base",
+  "name": "Depanneur Artisanal",
+  "description": "Fondeur coulant l obsidienne en secret.",
+  "element": "radiation",
+  "elements": [
+    "None"
+  ],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "6",
+  "rightValue": "7",
+  "bottomValue": "5",
+  "leftValue": "6",
+  "skills": [
+    {
+      "type": "growing",
+      "value": 2,
+      "target": "adjacent_enemy"
+    }
+  ],
+  "rarity": "Legendary",
+  "defaultHp": 4,
+  "image": "base/135.png",
+  "storiesRewardedFrom": null
+}

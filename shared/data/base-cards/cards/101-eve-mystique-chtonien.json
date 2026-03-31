@@ -1,0 +1,25 @@
+{
+  "collectionName": "base",
+  "name": "Mystique Chtonien",
+  "description": "Gardien des Portes entre connu et Inconnu.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "hacking"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "5",
+  "rightValue": "6",
+  "bottomValue": "3",
+  "leftValue": "6",
+  "skills": [
+    {
+      "type": "growing",
+      "value": 1,
+      "target": "all_own"
+    }
+  ],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/101.png",
+  "storiesRewardedFrom": null
+}

@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Strophe Sonore",
+  "description": "Amplificateur rendant le vide expressif.",
+  "element": "furtif",
+  "faction": "Chœur Synthétique",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/084.png",
+  "storiesRewardedFrom": null
+}

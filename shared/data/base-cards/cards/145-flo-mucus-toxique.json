@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Mucus Toxique",
+  "description": "Vegetal conscient poussant respirant pensant.",
+  "element": "radiation",
+  "faction": "Fléau Spore",
+  "topValue": "5",
+  "rightValue": "3",
+  "bottomValue": "4",
+  "leftValue": "6",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/145.png",
+  "storiesRewardedFrom": null
+}

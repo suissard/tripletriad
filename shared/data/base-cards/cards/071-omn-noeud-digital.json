@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Noeud Digital",
+  "description": "Pulse synchronisant des milliards de connexions.",
+  "element": "reseau",
+  "faction": "Omni-Réseau",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "6",
+  "leftValue": "5",
+  "skills": [
+    {
+      "type": "growing",
+      "value": 1,
+      "target": "all_own"
+    }
+  ],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/071.png",
+  "storiesRewardedFrom": null
+}

@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Pelerin",
+  "description": "Ni ami ni ennemi il observe la guerre des factions avec detachement.",
+  "element": "reseau",
+  "faction": "neutre",
+  "topValue": "5",
+  "rightValue": "3",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/003.png",
+  "storiesRewardedFrom": null
+}

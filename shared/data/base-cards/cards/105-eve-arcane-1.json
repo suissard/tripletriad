@@ -1,0 +1,27 @@
+{
+  "collectionName": "base",
+  "name": "Arcane 1",
+  "description": "Reveur dormant trois siecles rendant les reves reels.",
+  "element": "faille_dimensionnelle",
+  "faction": "Éveil Chthonien",
+  "topValue": "9",
+  "rightValue": "7",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "heal",
+      "value": 3,
+      "target": "self"
+    },
+    {
+      "type": "decrease",
+      "value": -3,
+      "target": "opposite_side"
+    }
+  ],
+  "rarity": "Legendary",
+  "defaultHp": 4,
+  "image": "base/105.png",
+  "storiesRewardedFrom": null
+}

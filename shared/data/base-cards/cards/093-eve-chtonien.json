@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Chtonien",
+  "description": "Gouffre ou les regards se perdent.",
+  "element": "furtif",
+  "faction": "Éveil Chthonien",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/093.png",
+  "storiesRewardedFrom": null
+}

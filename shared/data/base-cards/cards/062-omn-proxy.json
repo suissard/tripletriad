@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Proxy",
+  "description": "Signal fantome traversant les firewalls sans trace.",
+  "element": "hacking",
+  "faction": "Omni-Réseau",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "death",
+      "value": 1,
+      "target": "self_on_flip"
+    }
+  ],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/062.png",
+  "storiesRewardedFrom": null
+}

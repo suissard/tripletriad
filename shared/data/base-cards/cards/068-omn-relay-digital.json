@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Relay Digital",
+  "description": "Algo Omega calculant l avenir a 99 7%.",
+  "element": "hacking",
+  "faction": "Omni-Réseau",
+  "topValue": "5",
+  "rightValue": "3",
+  "bottomValue": "6",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/068.png",
+  "storiesRewardedFrom": null
+}

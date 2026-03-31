@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Pecheur des Courants",
+  "description": "Sous-marin detectant avant les scanners.",
+  "element": "longue_portee",
+  "faction": "Exode pélagique",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -1,
+      "target": "all_enemy"
+    }
+  ],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/040.png",
+  "storiesRewardedFrom": null
+}

@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Bricoleur Ferraille",
+  "description": "Scavenger vivant dans les carcasses.",
+  "element": "eau",
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "4",
+  "rightValue": "2",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/124.png",
+  "storiesRewardedFrom": null
+}

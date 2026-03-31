@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Profond des Tenebres",
+  "description": "Chtonien reveille apres millenaires de sommeil.",
+  "element": "faille_dimensionnelle",
+  "faction": "Éveil Chthonien",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/091.png",
+  "storiesRewardedFrom": null
+}

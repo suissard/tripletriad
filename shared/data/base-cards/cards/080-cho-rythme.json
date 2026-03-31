@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Rythme",
+  "description": "Basse faisant trembler les coques a distance.",
+  "element": "faille_dimensionnelle",
+  "faction": "Chœur Synthétique",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/080.png",
+  "storiesRewardedFrom": null
+}

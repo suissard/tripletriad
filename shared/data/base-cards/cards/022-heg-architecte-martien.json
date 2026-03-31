@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Architecte Martien",
+  "description": "Vanguard toujours premier a franchir la breche.",
+  "element": "obsidienne",
+  "faction": "Hégémonie martienne",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/022.png",
+  "storiesRewardedFrom": null
+}

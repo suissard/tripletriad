@@ -1,0 +1,19 @@
+{
+  "collectionName": "base",
+  "name": "Resonance Musical",
+  "description": "Resonance traduisant les ondes en musique.",
+  "element": "reseau",
+  "elements": [
+    "eau"
+  ],
+  "faction": "Chœur Synthétique",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/083.png",
+  "storiesRewardedFrom": null
+}

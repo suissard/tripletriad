@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Noeud",
+  "description": "Cortex surpassant toute IA deuxieme generation.",
+  "element": "reseau",
+  "faction": "Omni-Réseau",
+  "topValue": "3",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/065.png",
+  "storiesRewardedFrom": null
+}

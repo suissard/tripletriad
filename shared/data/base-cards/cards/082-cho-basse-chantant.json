@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Basse Chantant",
+  "description": "Vibra guerissant les lesions neuronales.",
+  "element": "faille_dimensionnelle",
+  "faction": "Chœur Synthétique",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "6",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/082.png",
+  "storiesRewardedFrom": null
+}

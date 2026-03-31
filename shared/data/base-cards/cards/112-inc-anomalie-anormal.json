@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Anomalie Anormal",
+  "description": "Faille vivante montrant des dimensions inexistantes.",
+  "element": "furtif",
+  "faction": "Incursion Dissonante",
+  "topValue": "4",
+  "rightValue": "6",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "heal",
+      "value": 1,
+      "target": "all_own"
+    }
+  ],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/112.png",
+  "storiesRewardedFrom": null
+}

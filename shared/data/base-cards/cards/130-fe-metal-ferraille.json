@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Metal Ferraille",
+  "description": "Mecanicien reparant l abandonne des diplomés.",
+  "element": "eau",
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "3",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/130.png",
+  "storiesRewardedFrom": null
+}

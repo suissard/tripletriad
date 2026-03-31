@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Crescendo Sonore",
+  "description": "Rythme synchronisant des flottes entieres.",
+  "element": "obsidienne",
+  "faction": "Chœur Synthétique",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -1,
+      "target": "opposite_side"
+    }
+  ],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/079.png",
+  "storiesRewardedFrom": null
+}

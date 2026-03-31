@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Requin des Courants",
+  "description": "Requin des Abysses traquant patiemment.",
+  "element": "eau",
+  "faction": "Exode pélagique",
+  "topValue": "8",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Epic",
+  "defaultHp": 3,
+  "image": "base/043.png",
+  "storiesRewardedFrom": null
+}

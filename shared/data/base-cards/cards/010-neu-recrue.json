@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Recrue",
+  "description": "Medic de campagne soignant sans juger les cicatrices d autrui.",
+  "element": "radiation",
+  "faction": "neutre",
+  "topValue": "5",
+  "rightValue": "3",
+  "bottomValue": "4",
+  "leftValue": "6",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/010.png",
+  "storiesRewardedFrom": null
+}

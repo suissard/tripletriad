@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Destructeur Imperial",
+  "description": "Destructeur des Cites Rebelles rasant des colonies.",
+  "element": "obsidienne",
+  "faction": "Hégémonie martienne",
+  "topValue": "4",
+  "rightValue": "7",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -1,
+      "target": "enemy_with_highest"
+    }
+  ],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/026.png",
+  "storiesRewardedFrom": null
+}

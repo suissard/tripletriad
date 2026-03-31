@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Pyro Volcanique",
+  "description": "Flamme eternelle brulant depuis vingt ans.",
+  "element": "spore",
+  "faction": "Héritiers des cendres",
+  "topValue": "6",
+  "rightValue": "6",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "heal",
+      "value": 1,
+      "target": "self"
+    }
+  ],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/057.png",
+  "storiesRewardedFrom": null
+}

@@ -1,0 +1,25 @@
+{
+  "collectionName": "base",
+  "name": "Rouille Rustique",
+  "description": "Soudeur aveugle voyant dans le metal par les mains.",
+  "element": "reseau",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "6",
+  "rightValue": "6",
+  "bottomValue": "6",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -2,
+      "target": "all_enemy"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 3,
+  "image": "base/134.png",
+  "storiesRewardedFrom": null
+}

@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Vanguard Martien",
+  "description": "Fusilier discipliné tirant selon le protocole.",
+  "element": "radiation",
+  "faction": "Hégémonie martienne",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "6",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/023.png",
+  "storiesRewardedFrom": null
+}

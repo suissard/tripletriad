@@ -1,0 +1,19 @@
+{
+  "collectionName": "base",
+  "name": "Recup Artisanal",
+  "description": "Scrap transformant les debris en tresors.",
+  "element": "radiation",
+  "elements": [
+    "faille_dimensionnelle"
+  ],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/121.png",
+  "storiesRewardedFrom": null
+}

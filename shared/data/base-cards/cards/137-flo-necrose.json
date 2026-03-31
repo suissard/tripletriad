@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Necrose",
+  "description": "Mycelium connectant les colonies sous roche.",
+  "element": "eau",
+  "faction": "Fléau Spore",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/137.png",
+  "storiesRewardedFrom": null
+}

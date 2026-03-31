@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Fongique Venimeux",
+  "description": "Contamine ne pouvant s empecher de contaminer.",
+  "element": "eau",
+  "faction": "Fléau Spore",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/143.png",
+  "storiesRewardedFrom": null
+}

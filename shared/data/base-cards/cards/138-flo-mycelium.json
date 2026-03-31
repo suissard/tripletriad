@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Mycelium",
+  "description": "Virus s adaptant a chaque hote plus fort.",
+  "element": "furtif",
+  "faction": "Fléau Spore",
+  "topValue": "3",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": [
+    {
+      "type": "death",
+      "value": 1,
+      "target": "adjacent_on_flip"
+    }
+  ],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/138.png",
+  "storiesRewardedFrom": null
+}

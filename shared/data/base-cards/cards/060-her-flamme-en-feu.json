@@ -1,0 +1,30 @@
+{
+  "collectionName": "base",
+  "name": "Flamme en Feu",
+  "description": "Etincelle rebelle changeant le cours de la guerre.",
+  "element": "radiation",
+  "elements": [
+    "faille_dimensionnelle"
+  ],
+  "faction": "Héritiers des cendres",
+  "topValue": "8",
+  "rightValue": "6",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": [
+    {
+      "type": "growing",
+      "value": 2,
+      "target": "adjacent_enemy"
+    },
+    {
+      "type": "heal",
+      "value": 3,
+      "target": "all_own"
+    }
+  ],
+  "rarity": "Legendary",
+  "defaultHp": 4,
+  "image": "base/060.png",
+  "storiesRewardedFrom": null
+}

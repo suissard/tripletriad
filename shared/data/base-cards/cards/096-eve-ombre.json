@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Ombre",
+  "description": "Ombre detachee developpant sa conscience.",
+  "element": "obsidienne",
+  "faction": "Éveil Chthonien",
+  "topValue": "4",
+  "rightValue": "2",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/096.png",
+  "storiesRewardedFrom": null
+}

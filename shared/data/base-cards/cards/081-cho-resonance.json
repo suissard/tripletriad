@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Resonance",
+  "description": "Timbre unique valant fortune au marche noir.",
+  "element": "reseau",
+  "faction": "Chœur Synthétique",
+  "topValue": "3",
+  "rightValue": "4",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/081.png",
+  "storiesRewardedFrom": null
+}

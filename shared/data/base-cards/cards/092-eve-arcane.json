@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Arcane",
+  "description": "Tenebreux dont l ombre fait fuir la lumiere.",
+  "element": "obsidienne",
+  "faction": "Éveil Chthonien",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/092.png",
+  "storiesRewardedFrom": null
+}

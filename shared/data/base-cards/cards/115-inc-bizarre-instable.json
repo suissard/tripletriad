@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Bizarre Instable",
+  "description": "Paradoxe resolu solution d equation impossible.",
+  "element": "radiation",
+  "faction": "Incursion Dissonante",
+  "topValue": "5",
+  "rightValue": "6",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/115.png",
+  "storiesRewardedFrom": null
+}

@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Chtonien 1",
+  "description": "Abysse plus profond que l univers visible.",
+  "element": "faille_dimensionnelle",
+  "faction": "Éveil Chthonien",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/095.png",
+  "storiesRewardedFrom": null
+}

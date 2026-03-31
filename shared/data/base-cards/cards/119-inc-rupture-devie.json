@@ -1,0 +1,25 @@
+{
+  "collectionName": "base",
+  "name": "Rupture Devie",
+  "description": "Irregulier refusant les lois naturelles.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "spore"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "9",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -1,
+      "target": "enemy_with_highest"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 3,
+  "image": "base/119.png",
+  "storiesRewardedFrom": null
+}

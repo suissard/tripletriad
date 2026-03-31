@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Bricoleur 1",
+  "description": "Bricoleur creant des merveilles du jete.",
+  "element": "reseau",
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/128.png",
+  "storiesRewardedFrom": null
+}

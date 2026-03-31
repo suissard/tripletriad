@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Chtonien Profond",
+  "description": "Ancien du Premier Cercle avant les etoiles.",
+  "element": "furtif",
+  "faction": "Éveil Chthonien",
+  "topValue": "5",
+  "rightValue": "3",
+  "bottomValue": "4",
+  "leftValue": "6",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/099.png",
+  "storiesRewardedFrom": null
+}

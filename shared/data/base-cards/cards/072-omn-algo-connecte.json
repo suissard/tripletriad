@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Algo Connecte",
+  "description": "Circuit ouvert gardant des portes fantomes.",
+  "element": "hacking",
+  "faction": "Omni-Réseau",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "7",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/072.png",
+  "storiesRewardedFrom": null
+}

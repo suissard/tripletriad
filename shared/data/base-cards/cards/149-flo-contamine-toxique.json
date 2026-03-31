@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Contamine Toxique",
+  "description": "Necrose consumant les tissus laissant sterile.",
+  "element": "eau",
+  "faction": "Fléau Spore",
+  "topValue": "5",
+  "rightValue": "7",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Epic",
+  "defaultHp": 3,
+  "image": "base/149.png",
+  "storiesRewardedFrom": null
+}

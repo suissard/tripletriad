@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Pestilent Corrompu",
+  "description": "Pourriture decomposant le mort pour le vivant.",
+  "element": "spore",
+  "faction": "Fléau Spore",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "6",
+  "leftValue": "5",
+  "skills": [
+    {
+      "type": "death",
+      "value": 1,
+      "target": "self_on_flip"
+    }
+  ],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/146.png",
+  "storiesRewardedFrom": null
+}

@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Faille Devie",
+  "description": "Deviant vivant en chronologie alternative.",
+  "element": "hacking",
+  "faction": "Incursion Dissonante",
+  "topValue": "6",
+  "rightValue": "3",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/114.png",
+  "storiesRewardedFrom": null
+}

@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Calcine Ardent",
+  "description": "Embrase volontaire devenu torche vivante.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/052.png",
+  "storiesRewardedFrom": null
+}

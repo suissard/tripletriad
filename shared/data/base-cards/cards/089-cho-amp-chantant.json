@@ -1,0 +1,25 @@
+{
+  "collectionName": "base",
+  "name": "Amp Chantant",
+  "description": "Crescendo detruisant par vibration.",
+  "element": "reseau",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Chœur Synthétique",
+  "topValue": "5",
+  "rightValue": "7",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": [
+    {
+      "type": "growing",
+      "value": 1,
+      "target": "adjacent_enemy"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 4,
+  "image": "base/089.png",
+  "storiesRewardedFrom": null
+}

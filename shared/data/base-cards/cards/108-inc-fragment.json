@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Fragment",
+  "description": "Chaos rendant l impossible plausible.",
+  "element": "hacking",
+  "faction": "Incursion Dissonante",
+  "topValue": "4",
+  "rightValue": "3",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/108.png",
+  "storiesRewardedFrom": null
+}

@@ -1,0 +1,19 @@
+{
+  "collectionName": "base",
+  "name": "Volcan en Feu",
+  "description": "Gardien du Brasier Sacre veillant sur la flamme.",
+  "element": "spore",
+  "elements": [
+    "radiation"
+  ],
+  "faction": "Héritiers des cendres",
+  "topValue": "7",
+  "rightValue": "7",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Epic",
+  "defaultHp": 4,
+  "image": "base/059.png",
+  "storiesRewardedFrom": null
+}

@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Vortex",
+  "description": "Fracture consciente echappee d une faille.",
+  "element": "faille_dimensionnelle",
+  "faction": "Incursion Dissonante",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -1,
+      "target": "enemy_with_highest"
+    }
+  ],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/107.png",
+  "storiesRewardedFrom": null
+}

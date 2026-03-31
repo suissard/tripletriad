@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Abyssal du Grand Large",
+  "description": "Lame des Courants fendant l espace-temps.",
+  "element": "spore",
+  "faction": "Exode pélagique",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "6",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/039.png",
+  "storiesRewardedFrom": null
+}

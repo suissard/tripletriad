@@ -1,0 +1,19 @@
+{
+  "collectionName": "base",
+  "name": "Maudit du Vide",
+  "description": "Arcane vivante aux symboles puissants.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "5",
+  "rightValue": "7",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Epic",
+  "defaultHp": 4,
+  "image": "base/103.png",
+  "storiesRewardedFrom": null
+}

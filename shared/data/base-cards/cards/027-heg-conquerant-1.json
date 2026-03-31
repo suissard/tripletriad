@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Conquerant 1",
+  "description": "Conquéran t sans pitie annexant planete par planete.",
+  "element": "radiation",
+  "faction": "Hégémonie martienne",
+  "topValue": "7",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "growing",
+      "value": 1,
+      "target": "all_own"
+    }
+  ],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/027.png",
+  "storiesRewardedFrom": null
+}

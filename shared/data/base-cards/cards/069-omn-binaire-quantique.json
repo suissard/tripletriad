@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Binaire Quantique",
+  "description": "Pixel faisant de chaque donnee une arme.",
+  "element": "longue_portee",
+  "faction": "Omni-Réseau",
+  "topValue": "3",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/069.png",
+  "storiesRewardedFrom": null
+}

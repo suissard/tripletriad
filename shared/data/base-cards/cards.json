@@ -2,7 +2,7 @@
   {
     "collectionName": "base",
     "name": "Refugie des Confins",
-    "description": "Un voyageur solitaire parmi les etoiles.",
+    "description": "Un voyageur solitaire arpente les routes stellaires sans jamais s arreter.",
     "element": "None",
     "faction": "neutre",
     "topValue": "4",
@@ -12,13 +12,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/002.png",
+    "image": "base/001.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Refugie",
-    "description": "Indifferent aux factions, il suit son propre chemin.",
+    "description": "Marchand itinérant echangeant des souvenirs contre de l eau aux avant-postes.",
     "element": "eau",
     "faction": "neutre",
     "topValue": "3",
@@ -34,13 +34,13 @@
     ],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/003.png",
+    "image": "base/002.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Pelerin",
-    "description": "Ni ami ni ennemi, juste present parmi les debris.",
+    "description": "Ni ami ni ennemi il observe la guerre des factions avec detachement.",
     "element": "reseau",
     "faction": "neutre",
     "topValue": "5",
@@ -50,13 +50,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/004.png",
+    "image": "base/003.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Medic des Confins",
-    "description": "La neutralite est un luxe que peu peuvent se permettre.",
+    "description": "Ancien pilote devenu eclaireur connaissant chaque raccourci du secteur.",
     "element": "radiation",
     "faction": "neutre",
     "topValue": "4",
@@ -66,13 +66,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/005.png",
+    "image": "base/004.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Nomade",
-    "description": "Certains preferent observer que choisir un camp.",
+    "description": "Sentinelle silencieuse protegeant ceux qui n ont personne.",
     "element": "furtif",
     "faction": "neutre",
     "topValue": "3",
@@ -88,13 +88,13 @@
     ],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/006.png",
+    "image": "base/005.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Gardien",
-    "description": "Un voyageur solitaire parmi les etoiles.",
+    "description": "Nomade du vide suivant les courants gravitationnels au hasard.",
     "element": "None",
     "faction": "neutre",
     "topValue": "5",
@@ -104,13 +104,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/007.png",
+    "image": "base/006.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Explorateur Errant",
-    "description": "Un voyageur solitaire parmi les etoiles.",
+    "description": "Explorateur cartographiant les nebulueuses inconnues sans permission.",
     "element": "None",
     "faction": "neutre",
     "topValue": "4",
@@ -120,13 +120,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/008.png",
+    "image": "base/007.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Passeur Libre",
-    "description": "Indifferent aux factions, il suit son propre chemin.",
+    "description": "Refugie d une guerre ayant troque son passe contre l anonymat.",
     "element": "eau",
     "elements": [
       "reseau"
@@ -139,13 +139,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/009.png",
+    "image": "base/008.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Rodeur Errant",
-    "description": "Ni ami ni ennemi, juste present parmi les debris.",
+    "description": "Jeune recrue decouvrant la realite rude des confins.",
     "element": "reseau",
     "faction": "neutre",
     "topValue": "5",
@@ -155,13 +155,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/010.png",
+    "image": "base/009.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Recrue",
-    "description": "La neutralite est un luxe que peu peuvent se permettre.",
+    "description": "Medic de campagne soignant sans juger les cicatrices d autrui.",
     "element": "radiation",
     "faction": "neutre",
     "topValue": "5",
@@ -171,13 +171,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/011.png",
+    "image": "base/010.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Observateur des Confins",
-    "description": "Un voyageur solitaire parmi les etoiles.",
+    "description": "Passeur des confins connaissant les routes non officielles.",
     "element": "None",
     "faction": "neutre",
     "topValue": "4",
@@ -187,13 +187,13 @@
     "skills": [],
     "rarity": "Rare",
     "defaultHp": 3,
-    "image": "base/012.png",
+    "image": "base/011.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Pelerin Libre",
-    "description": "Indifferent aux factions, il suit son propre chemin.",
+    "description": "Observateur compilant des donnees que personne ne demande.",
     "element": "eau",
     "faction": "neutre",
     "topValue": "4",
@@ -203,13 +203,13 @@
     "skills": [],
     "rarity": "Rare",
     "defaultHp": 3,
-    "image": "base/013.png",
+    "image": "base/012.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Solitaire des Confins",
-    "description": "Un voyageur solitaire parmi les etoiles.",
+    "description": "Gardien d un relais eteint veillant sur un reseau mort.",
     "element": "None",
     "elements": [
       "radiation"
@@ -228,13 +228,13 @@
     ],
     "rarity": "Epic",
     "defaultHp": 3,
-    "image": "base/014.png",
+    "image": "base/013.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Sentinelle Errant",
-    "description": "Indifferent aux factions, il suit son propre chemin.",
+    "description": "Rodeur des zones neutres survivant en glanant.",
     "element": "eau",
     "faction": "neutre",
     "topValue": "9",
@@ -250,13 +250,13 @@
     ],
     "rarity": "Epic",
     "defaultHp": 4,
-    "image": "base/015.png",
+    "image": "base/014.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Voyageur",
-    "description": "Un voyageur solitaire parmi les etoiles.",
+    "description": "Pelerin des etoiles errant en quete d un savoir oublie.",
     "element": "None",
     "faction": "neutre",
     "topValue": "3",
@@ -277,13 +277,13 @@
     ],
     "rarity": "Legendary",
     "defaultHp": 4,
-    "image": "base/016.png",
+    "image": "base/015.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Inquisiteur Imperial",
-    "description": "La discipline martienne ne connait pas la pitie.",
+    "description": "Soldat d elite forge dans les camps ne doutant jamais.",
     "element": "obsidienne",
     "faction": "Hégémonie martienne",
     "topValue": "4",
@@ -293,13 +293,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/017.png",
+    "image": "base/016.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Tyrant",
-    "description": "Un instrument de conquete forge dans le feu de Mars.",
+    "description": "Commandant ayant conquis trois systemes en un cycle.",
     "element": "radiation",
     "faction": "Hégémonie martienne",
     "topValue": "3",
@@ -309,13 +309,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/018.png",
+    "image": "base/017.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Destructeur",
-    "description": "Pour la gloire de l Hegemonie, toujours plus haut.",
+    "description": "Praetor appliquant la loi martienne avec precision terrifiante.",
     "element": "longue_portee",
     "faction": "Hégémonie martienne",
     "topValue": "5",
@@ -325,13 +325,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/019.png",
+    "image": "base/018.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Conquerant du Regiment",
-    "description": "L ordre martien s impose par la force et la foi.",
+    "description": "Centurion vétéran de Titan au bras prothese avance.",
     "element": "reseau",
     "faction": "Hégémonie martienne",
     "topValue": "4",
@@ -347,13 +347,13 @@
     ],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/020.png",
+    "image": "base/019.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Conquerant",
-    "description": "Chaque soldat est un rouage de la machine imperiale.",
+    "description": "Lanceur orbital ne ratant jamais sa cible.",
     "element": "obsidienne",
     "faction": "Hégémonie martienne",
     "topValue": "4",
@@ -369,13 +369,13 @@
     ],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/021.png",
+    "image": "base/020.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Destructeur 1",
-    "description": "La discipline martienne ne connait pas la pitie.",
+    "description": "Dominateur brisant le moral avant le premier tir.",
     "element": "radiation",
     "faction": "Hégémonie martienne",
     "topValue": "4",
@@ -385,13 +385,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/022.png",
+    "image": "base/021.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Architecte Martien",
-    "description": "La discipline martienne ne connait pas la pitie.",
+    "description": "Vanguard toujours premier a franchir la breche.",
     "element": "obsidienne",
     "faction": "Hégémonie martienne",
     "topValue": "5",
@@ -401,13 +401,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/023.png",
+    "image": "base/022.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Vanguard Martien",
-    "description": "Un instrument de conquete forge dans le feu de Mars.",
+    "description": "Fusilier discipliné tirant selon le protocole.",
     "element": "radiation",
     "faction": "Hégémonie martienne",
     "topValue": "4",
@@ -417,13 +417,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/024.png",
+    "image": "base/023.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Fusilier Martien",
-    "description": "Pour la gloire de l Hegemonie, toujours plus haut.",
+    "description": "Inquisiteur traquant la dissidence sans faille.",
     "element": "longue_portee",
     "faction": "Hégémonie martienne",
     "topValue": "6",
@@ -433,13 +433,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/025.png",
+    "image": "base/024.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Oppresseur de Mars",
-    "description": "L ordre martien s impose par la force et la foi.",
+    "description": "Architecte dessinant des strategies post-defaite.",
     "element": "reseau",
     "faction": "Hégémonie martienne",
     "topValue": "4",
@@ -455,13 +455,13 @@
     ],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/026.png",
+    "image": "base/025.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Destructeur Imperial",
-    "description": "La discipline martienne ne connait pas la pitie.",
+    "description": "Destructeur des Cites Rebelles rasant des colonies.",
     "element": "obsidienne",
     "faction": "Hégémonie martienne",
     "topValue": "4",
@@ -477,13 +477,13 @@
     ],
     "rarity": "Rare",
     "defaultHp": 3,
-    "image": "base/027.png",
+    "image": "base/026.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Conquerant 1",
-    "description": "Un instrument de conquete forge dans le feu de Mars.",
+    "description": "Conquéran t sans pitie annexant planete par planete.",
     "element": "radiation",
     "faction": "Hégémonie martienne",
     "topValue": "7",
@@ -499,13 +499,13 @@
     ],
     "rarity": "Rare",
     "defaultHp": 3,
-    "image": "base/028.png",
+    "image": "base/027.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Praetor Imperial",
-    "description": "La discipline martienne ne connait pas la pitie.",
+    "description": "Oppresseur controlant les ressources de cinq systemes.",
     "element": "obsidienne",
     "faction": "Hégémonie martienne",
     "topValue": "4",
@@ -515,13 +515,13 @@
     "skills": [],
     "rarity": "Epic",
     "defaultHp": 4,
-    "image": "base/029.png",
+    "image": "base/028.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Destructeur 2",
-    "description": "Un instrument de conquete forge dans le feu de Mars.",
+    "description": "Tyrant signant des condamnations entre deux reunions.",
     "element": "radiation",
     "faction": "Hégémonie martienne",
     "topValue": "5",
@@ -537,13 +537,13 @@
     ],
     "rarity": "Epic",
     "defaultHp": 4,
-    "image": "base/030.png",
+    "image": "base/029.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Inquisiteur de Mars",
-    "description": "La discipline martienne ne connait pas la pitie.",
+    "description": "Decurion loyal sacrifiant tout pour le Haut Commandement.",
     "element": "obsidienne",
     "elements": [
       "radiation"
@@ -562,13 +562,13 @@
     ],
     "rarity": "Legendary",
     "defaultHp": 4,
-    "image": "base/031.png",
+    "image": "base/030.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Nageur des Courants",
-    "description": "Les profondeurs recelent des secrets millenaires.",
+    "description": "Ne dans les abysses ne connaissant pas la surface.",
     "element": "eau",
     "faction": "Exode pélagique",
     "topValue": "4",
@@ -578,13 +578,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/032.png",
+    "image": "base/031.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Tidal",
-    "description": "Ne des courants, porte par la maree.",
+    "description": "Nautile guidant son pod vers un ocean promis.",
     "element": "furtif",
     "faction": "Exode pélagique",
     "topValue": "2",
@@ -594,13 +594,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/033.png",
+    "image": "base/032.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Abyssal",
-    "description": "L ocean est leur maison, la surface n est qu un souvenir.",
+    "description": "Profondeurs aux secrets incomprehensibles en surface.",
     "element": "spore",
     "elements": [
       "eau"
@@ -613,13 +613,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/034.png",
+    "image": "base/033.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Requin des Abimes",
-    "description": "Les abysses murmurent, le peuple pelagique ecoute.",
+    "description": "Pecheur capturant les particules lumineuses du vide.",
     "element": "longue_portee",
     "faction": "Exode pélagique",
     "topValue": "2",
@@ -629,13 +629,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/035.png",
+    "image": "base/034.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Abyssal 1",
-    "description": "Sous l eau, le temps s ecoule differemment.",
+    "description": "Plongeur sans combinaison resistant au vide abyssal.",
     "element": "eau",
     "faction": "Exode pélagique",
     "topValue": "4",
@@ -651,13 +651,13 @@
     ],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/036.png",
+    "image": "base/035.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Pelagique",
-    "description": "Les profondeurs recelent des secrets millenaires.",
+    "description": "Coral constructeur aux structures regeneratrices.",
     "element": "furtif",
     "faction": "Exode pélagique",
     "topValue": "3",
@@ -667,13 +667,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/037.png",
+    "image": "base/036.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Abyssin du Grand Large",
-    "description": "Les profondeurs recelent des secrets millenaires.",
+    "description": "Nageur ayant traverse le Grand Vide nu.",
     "element": "eau",
     "faction": "Exode pélagique",
     "topValue": "4",
@@ -683,13 +683,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/038.png",
+    "image": "base/037.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Plongeur Aquatique",
-    "description": "Ne des courants, porte par la maree.",
+    "description": "Ecumeur recyclant les debris en constructions.",
     "element": "furtif",
     "faction": "Exode pélagique",
     "topValue": "5",
@@ -699,13 +699,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/039.png",
+    "image": "base/038.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Abyssal du Grand Large",
-    "description": "L ocean est leur maison, la surface n est qu un souvenir.",
+    "description": "Lame des Courants fendant l espace-temps.",
     "element": "spore",
     "faction": "Exode pélagique",
     "topValue": "4",
@@ -715,13 +715,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/040.png",
+    "image": "base/039.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Pecheur des Courants",
-    "description": "Les abysses murmurent, le peuple pelagique ecoute.",
+    "description": "Sous-marin detectant avant les scanners.",
     "element": "longue_portee",
     "faction": "Exode pélagique",
     "topValue": "4",
@@ -737,13 +737,13 @@
     ],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/041.png",
+    "image": "base/040.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Ecumeur des Courants",
-    "description": "Les profondeurs recelent des secrets millenaires.",
+    "description": "Abyssin ancien portant la memoire aquatique.",
     "element": "eau",
     "faction": "Exode pélagique",
     "topValue": "6",
@@ -759,13 +759,13 @@
     ],
     "rarity": "Rare",
     "defaultHp": 3,
-    "image": "base/042.png",
+    "image": "base/041.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Tidal Pelagique",
-    "description": "Ne des courants, porte par la maree.",
+    "description": "Pelagique errant entre eau et vide.",
     "element": "furtif",
     "faction": "Exode pélagique",
     "topValue": "5",
@@ -781,13 +781,13 @@
     ],
     "rarity": "Rare",
     "defaultHp": 3,
-    "image": "base/043.png",
+    "image": "base/042.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Requin des Courants",
-    "description": "Les profondeurs recelent des secrets millenaires.",
+    "description": "Requin des Abysses traquant patiemment.",
     "element": "eau",
     "faction": "Exode pélagique",
     "topValue": "8",
@@ -797,13 +797,13 @@
     "skills": [],
     "rarity": "Epic",
     "defaultHp": 3,
-    "image": "base/044.png",
+    "image": "base/043.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Cetace du Grand Large",
-    "description": "Ne des courants, porte par la maree.",
+    "description": "Maree montante gagnant du territoire.",
     "element": "furtif",
     "faction": "Exode pélagique",
     "topValue": "7",
@@ -819,13 +819,13 @@
     ],
     "rarity": "Epic",
     "defaultHp": 3,
-    "image": "base/045.png",
+    "image": "base/044.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Coral des Abimes",
-    "description": "Les profondeurs recelent des secrets millenaires.",
+    "description": "Gardien des Sources protegeant les nurseries.",
     "element": "eau",
     "elements": [
       "furtif"
@@ -849,13 +849,13 @@
     ],
     "rarity": "Legendary",
     "defaultHp": 4,
-    "image": "base/046.png",
+    "image": "base/045.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Volcan du Brasier",
-    "description": "De la poussiere nait la flamme, de la flamme la vengeance.",
+    "description": "Ne dans les ruines respirant les cendres.",
     "element": "radiation",
     "faction": "Héritiers des cendres",
     "topValue": "4",
@@ -865,13 +865,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/047.png",
+    "image": "base/046.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Embrase",
-    "description": "Ceux qui ont tout perdu ne craignent plus rien.",
+    "description": "Incendiaire rallumant les brasiers eteints.",
     "element": "spore",
     "faction": "Héritiers des cendres",
     "topValue": "3",
@@ -881,13 +881,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/048.png",
+    "image": "base/047.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Incendiaire",
-    "description": "Les cendres couvent encore, pretes a raviver le brasier.",
+    "description": "Brasier Vengeur portant la memoire des mondes detruits.",
     "element": "obsidienne",
     "faction": "Héritiers des cendres",
     "topValue": "4",
@@ -897,13 +897,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/049.png",
+    "image": "base/048.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Flamme Volcanique",
-    "description": "Le feu ne detruit pas, il purifie.",
+    "description": "Pyromancien ayant appris en brulant ses peurs.",
     "element": "faille_dimensionnelle",
     "faction": "Héritiers des cendres",
     "topValue": "3",
@@ -913,13 +913,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/050.png",
+    "image": "base/049.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Salamandre",
-    "description": "La colere des Heritiers brule depuis des millenaires.",
+    "description": "Salamandre marchant dans les flammes comme l eau.",
     "element": "radiation",
     "faction": "Héritiers des cendres",
     "topValue": "4",
@@ -929,13 +929,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/051.png",
+    "image": "base/050.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Salamandre 1",
-    "description": "De la poussiere nait la flamme, de la flamme la vengeance.",
+    "description": "Phoenix mort trois fois plus ardent chaque fois.",
     "element": "spore",
     "faction": "Héritiers des cendres",
     "topValue": "2",
@@ -951,13 +951,13 @@
     ],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/052.png",
+    "image": "base/051.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Calcine Ardent",
-    "description": "De la poussiere nait la flamme, de la flamme la vengeance.",
+    "description": "Embrase volontaire devenu torche vivante.",
     "element": "radiation",
     "faction": "Héritiers des cendres",
     "topValue": "3",
@@ -967,13 +967,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/053.png",
+    "image": "base/052.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Forge Ardent",
-    "description": "Ceux qui ont tout perdu ne craignent plus rien.",
+    "description": "Volcan en eruption permanente faisant trembler le sol.",
     "element": "spore",
     "faction": "Héritiers des cendres",
     "topValue": "5",
@@ -989,13 +989,13 @@
     ],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/054.png",
+    "image": "base/053.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Carbon des Cendres",
-    "description": "Les cendres couvent encore, pretes a raviver le brasier.",
+    "description": "Arson calculant chaque vent thermique incendiaire.",
     "element": "obsidienne",
     "elements": [
       "longue_portee"
@@ -1008,13 +1008,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/055.png",
+    "image": "base/054.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Combustion en Feu",
-    "description": "Le feu ne detruit pas, il purifie.",
+    "description": "Calcine survivant dont le corps est une carte combats.",
     "element": "faille_dimensionnelle",
     "faction": "Héritiers des cendres",
     "topValue": "6",
@@ -1024,13 +1024,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/056.png",
+    "image": "base/055.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Calcine Volcanique",
-    "description": "De la poussiere nait la flamme, de la flamme la vengeance.",
+    "description": "Carbonise refusant de tomber sous la chaleur.",
     "element": "radiation",
     "faction": "Héritiers des cendres",
     "topValue": "4",
@@ -1040,13 +1040,13 @@
     "skills": [],
     "rarity": "Rare",
     "defaultHp": 3,
-    "image": "base/057.png",
+    "image": "base/056.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Pyro Volcanique",
-    "description": "Ceux qui ont tout perdu ne craignent plus rien.",
+    "description": "Flamme eternelle brulant depuis vingt ans.",
     "element": "spore",
     "faction": "Héritiers des cendres",
     "topValue": "6",
@@ -1062,13 +1062,13 @@
     ],
     "rarity": "Rare",
     "defaultHp": 3,
-    "image": "base/058.png",
+    "image": "base/057.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Forge 1",
-    "description": "De la poussiere nait la flamme, de la flamme la vengeance.",
+    "description": "Forge transformant les debris en armes mains nues.",
     "element": "radiation",
     "faction": "Héritiers des cendres",
     "topValue": "8",
@@ -1084,13 +1084,13 @@
     ],
     "rarity": "Epic",
     "defaultHp": 4,
-    "image": "base/059.png",
+    "image": "base/058.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Volcan en Feu",
-    "description": "Ceux qui ont tout perdu ne craignent plus rien.",
+    "description": "Gardien du Brasier Sacre veillant sur la flamme.",
     "element": "spore",
     "elements": [
       "radiation"
@@ -1103,13 +1103,13 @@
     "skills": [],
     "rarity": "Epic",
     "defaultHp": 4,
-    "image": "base/060.png",
+    "image": "base/059.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Flamme en Feu",
-    "description": "De la poussiere nait la flamme, de la flamme la vengeance.",
+    "description": "Etincelle rebelle changeant le cours de la guerre.",
     "element": "radiation",
     "elements": [
       "faille_dimensionnelle"
@@ -1133,13 +1133,13 @@
     ],
     "rarity": "Legendary",
     "defaultHp": 4,
-    "image": "base/061.png",
+    "image": "base/060.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Routeur Quantique",
-    "description": "Chaque connexion est un fil dans la toile du savoir.",
+    "description": "Noeud connectant des millions de consciences.",
     "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "3",
@@ -1155,13 +1155,13 @@
     ],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/062.png",
+    "image": "base/061.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Proxy",
-    "description": "Le reseau observe, le reseau sait, le reseau controle.",
+    "description": "Signal fantome traversant les firewalls sans trace.",
     "element": "hacking",
     "faction": "Omni-Réseau",
     "topValue": "5",
@@ -1177,13 +1177,13 @@
     ],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/063.png",
+    "image": "base/062.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Binaire",
-    "description": "Donnees, algorithmes, puissance. Le futur est connecte.",
+    "description": "Synapse vivante pensant a la vitesse de la lumiere.",
     "element": "longue_portee",
     "faction": "Omni-Réseau",
     "topValue": "5",
@@ -1193,13 +1193,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/064.png",
+    "image": "base/063.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Pulse du Reseau",
-    "description": "L intelligence collective n a pas besoin de consciences individuelles.",
+    "description": "Relay transportant des donnees entre stations.",
     "element": "faille_dimensionnelle",
     "faction": "Omni-Réseau",
     "topValue": "2",
@@ -1215,13 +1215,13 @@
     ],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/065.png",
+    "image": "base/064.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Noeud",
-    "description": "Chaque bit est une piece du puzzle cosmique.",
+    "description": "Cortex surpassant toute IA deuxieme generation.",
     "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "3",
@@ -1231,13 +1231,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/066.png",
+    "image": "base/065.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Synapse",
-    "description": "Chaque connexion est un fil dans la toile du savoir.",
+    "description": "Neuro-hacker parlant code comme langue maternelle.",
     "element": "hacking",
     "faction": "Omni-Réseau",
     "topValue": "2",
@@ -1247,13 +1247,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/067.png",
+    "image": "base/066.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Neuro Numerique",
-    "description": "Chaque connexion est un fil dans la toile du savoir.",
+    "description": "Data-miner exhumant des secrets cryptes.",
     "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "5",
@@ -1263,13 +1263,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/068.png",
+    "image": "base/067.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Relay Digital",
-    "description": "Le reseau observe, le reseau sait, le reseau controle.",
+    "description": "Algo Omega calculant l avenir a 99 7%.",
     "element": "hacking",
     "faction": "Omni-Réseau",
     "topValue": "5",
@@ -1279,13 +1279,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/069.png",
+    "image": "base/068.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Binaire Quantique",
-    "description": "Donnees, algorithmes, puissance. Le futur est connecte.",
+    "description": "Pixel faisant de chaque donnee une arme.",
     "element": "longue_portee",
     "faction": "Omni-Réseau",
     "topValue": "3",
@@ -1295,13 +1295,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/070.png",
+    "image": "base/069.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Synapse Connecte",
-    "description": "L intelligence collective n a pas besoin de consciences individuelles.",
+    "description": "Binaire questionnant le Reseau puni d heresie.",
     "element": "faille_dimensionnelle",
     "faction": "Omni-Réseau",
     "topValue": "4",
@@ -1317,13 +1317,13 @@
     ],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/071.png",
+    "image": "base/070.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Noeud Digital",
-    "description": "Chaque connexion est un fil dans la toile du savoir.",
+    "description": "Pulse synchronisant des milliards de connexions.",
     "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "5",
@@ -1339,13 +1339,13 @@
     ],
     "rarity": "Rare",
     "defaultHp": 3,
-    "image": "base/072.png",
+    "image": "base/071.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Algo Connecte",
-    "description": "Le reseau observe, le reseau sait, le reseau controle.",
+    "description": "Circuit ouvert gardant des portes fantomes.",
     "element": "hacking",
     "faction": "Omni-Réseau",
     "topValue": "4",
@@ -1355,13 +1355,13 @@
     "skills": [],
     "rarity": "Rare",
     "defaultHp": 3,
-    "image": "base/073.png",
+    "image": "base/072.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Terminal Synaptique",
-    "description": "Chaque connexion est un fil dans la toile du savoir.",
+    "description": "Routeur redirigeant vers des noeuds intracables.",
     "element": "reseau",
     "elements": [
       "furtif"
@@ -1380,13 +1380,13 @@
     ],
     "rarity": "Epic",
     "defaultHp": 4,
-    "image": "base/074.png",
+    "image": "base/073.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Algo du Reseau",
-    "description": "Le reseau observe, le reseau sait, le reseau controle.",
+    "description": "Terminal mobile pont entre officiel et souterrain.",
     "element": "hacking",
     "elements": [
       "spore"
@@ -1405,13 +1405,13 @@
     ],
     "rarity": "Epic",
     "defaultHp": 3,
-    "image": "base/075.png",
+    "image": "base/074.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Pixel Synaptique",
-    "description": "Chaque connexion est un fil dans la toile du savoir.",
+    "description": "Proxy dont personne ne connait l identite.",
     "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "4",
@@ -1432,13 +1432,13 @@
     ],
     "rarity": "Legendary",
     "defaultHp": 4,
-    "image": "base/076.png",
+    "image": "base/075.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Amp Musical",
-    "description": "L harmonie parfaite resonne dans le vide cosmique.",
+    "description": "Harmonie entre esprit humain et synthetiseur orbital.",
     "element": "faille_dimensionnelle",
     "elements": [
       "hacking"
@@ -1451,13 +1451,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/077.png",
+    "image": "base/076.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Basse",
-    "description": "Une melodie nee de l union entre chair et machine.",
+    "description": "Chord Trouvant la melodie dans la cacophonie.",
     "element": "reseau",
     "faction": "Chœur Synthétique",
     "topValue": "4",
@@ -1467,13 +1467,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/078.png",
+    "image": "base/077.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Harmon",
-    "description": "Le chant du Choeur ne cesse jamais.",
+    "description": "Melodie vibrant a travers les asteroides.",
     "element": "furtif",
     "faction": "Chœur Synthétique",
     "topValue": "3",
@@ -1483,13 +1483,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/079.png",
+    "image": "base/078.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Crescendo Sonore",
-    "description": "La dissonance creee, l harmonie detruit.",
+    "description": "Rythme synchronisant des flottes entieres.",
     "element": "obsidienne",
     "faction": "Chœur Synthétique",
     "topValue": "5",
@@ -1505,13 +1505,13 @@
     ],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/080.png",
+    "image": "base/079.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Rythme",
-    "description": "Chaque note est un calcul, chaque silence une arme.",
+    "description": "Basse faisant trembler les coques a distance.",
     "element": "faille_dimensionnelle",
     "faction": "Chœur Synthétique",
     "topValue": "4",
@@ -1521,13 +1521,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/081.png",
+    "image": "base/080.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Resonance",
-    "description": "L harmonie parfaite resonne dans le vide cosmique.",
+    "description": "Timbre unique valant fortune au marche noir.",
     "element": "reseau",
     "faction": "Chœur Synthétique",
     "topValue": "3",
@@ -1537,13 +1537,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/082.png",
+    "image": "base/081.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Basse Chantant",
-    "description": "L harmonie parfaite resonne dans le vide cosmique.",
+    "description": "Vibra guerissant les lesions neuronales.",
     "element": "faille_dimensionnelle",
     "faction": "Chœur Synthétique",
     "topValue": "3",
@@ -1553,13 +1553,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/083.png",
+    "image": "base/082.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Resonance Musical",
-    "description": "Une melodie nee de l union entre chair et machine.",
+    "description": "Resonance traduisant les ondes en musique.",
     "element": "reseau",
     "elements": [
       "eau"
@@ -1572,13 +1572,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/084.png",
+    "image": "base/083.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Strophe Sonore",
-    "description": "Le chant du Choeur ne cesse jamais.",
+    "description": "Amplificateur rendant le vide expressif.",
     "element": "furtif",
     "faction": "Chœur Synthétique",
     "topValue": "5",
@@ -1588,13 +1588,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/085.png",
+    "image": "base/084.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Crescendo Harmonique",
-    "description": "La dissonance creee, l harmonie detruit.",
+    "description": "Onde portant des codes secrets.",
     "element": "obsidienne",
     "faction": "Chœur Synthétique",
     "topValue": "3",
@@ -1610,13 +1610,13 @@
     ],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/086.png",
+    "image": "base/085.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Amp Harmonique",
-    "description": "L harmonie parfaite resonne dans le vide cosmique.",
+    "description": "Echo enregistrant les sons de planetes disparues.",
     "element": "faille_dimensionnelle",
     "faction": "Chœur Synthétique",
     "topValue": "5",
@@ -1626,13 +1626,13 @@
     "skills": [],
     "rarity": "Rare",
     "defaultHp": 3,
-    "image": "base/087.png",
+    "image": "base/086.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Chord Chantant",
-    "description": "Une melodie nee de l union entre chair et machine.",
+    "description": "Concerto fusionnant trois consciences.",
     "element": "reseau",
     "elements": [
       "obsidienne"
@@ -1651,13 +1651,13 @@
     ],
     "rarity": "Rare",
     "defaultHp": 3,
-    "image": "base/088.png",
+    "image": "base/087.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Vibra Chantant",
-    "description": "L harmonie parfaite resonne dans le vide cosmique.",
+    "description": "Strophe contenant un fragment de melodie perdue.",
     "element": "faille_dimensionnelle",
     "elements": [
       "furtif"
@@ -1676,13 +1676,13 @@
     ],
     "rarity": "Epic",
     "defaultHp": 4,
-    "image": "base/089.png",
+    "image": "base/088.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Amp Chantant",
-    "description": "Une melodie nee de l union entre chair et machine.",
+    "description": "Crescendo detruisant par vibration.",
     "element": "reseau",
     "elements": [
       "obsidienne"
@@ -1701,13 +1701,13 @@
     ],
     "rarity": "Epic",
     "defaultHp": 4,
-    "image": "base/090.png",
+    "image": "base/089.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Resonance Dissonant",
-    "description": "L harmonie parfaite resonne dans le vide cosmique.",
+    "description": "Dissonance revelant les failles.",
     "element": "faille_dimensionnelle",
     "faction": "Chœur Synthétique",
     "topValue": "6",
@@ -1728,17 +1728,33 @@
     ],
     "rarity": "Legendary",
     "defaultHp": 4,
-    "image": "base/091.png",
+    "image": "base/090.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Profond des Tenebres",
-    "description": "Dans les profondeurs, quelque chose s eveille.",
+    "description": "Chtonien reveille apres millenaires de sommeil.",
     "element": "faille_dimensionnelle",
     "faction": "Éveil Chthonien",
     "topValue": "5",
     "rightValue": "4",
+    "bottomValue": "3",
+    "leftValue": "4",
+    "skills": [],
+    "rarity": "Common",
+    "defaultHp": 3,
+    "image": "base/091.png",
+    "storiesRewardedFrom": null
+  },
+  {
+    "collectionName": "base",
+    "name": "Arcane",
+    "description": "Tenebreux dont l ombre fait fuir la lumiere.",
+    "element": "obsidienne",
+    "faction": "Éveil Chthonien",
+    "topValue": "4",
+    "rightValue": "5",
     "bottomValue": "3",
     "leftValue": "4",
     "skills": [],
@@ -1749,24 +1765,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Arcane",
-    "description": "Les anciens reves se transforment en cauchemars.",
-    "element": "obsidienne",
-    "faction": "Éveil Chthonien",
-    "topValue": "4",
-    "rightValue": "5",
-    "bottomValue": "3",
-    "leftValue": "4",
-    "skills": [],
-    "rarity": "Common",
-    "defaultHp": 3,
-    "image": "base/093.png",
-    "storiesRewardedFrom": null
-  },
-  {
-    "collectionName": "base",
     "name": "Chtonien",
-    "description": "L ombre grandit, et avec elle la peur de l inconnu.",
+    "description": "Gouffre ou les regards se perdent.",
     "element": "furtif",
     "faction": "Éveil Chthonien",
     "topValue": "4",
@@ -1776,13 +1776,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/094.png",
+    "image": "base/093.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Mystique de l Abysse",
-    "description": "Les dieux endormis n attendent qu un signal pour se lever.",
+    "description": "Invocation reussie selon les uns ratee selon les autres.",
     "element": "spore",
     "faction": "Éveil Chthonien",
     "topValue": "3",
@@ -1792,13 +1792,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/095.png",
+    "image": "base/094.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Chtonien 1",
-    "description": "Le vide appelle, et le vide repond.",
+    "description": "Abysse plus profond que l univers visible.",
     "element": "faille_dimensionnelle",
     "faction": "Éveil Chthonien",
     "topValue": "4",
@@ -1808,13 +1808,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/096.png",
+    "image": "base/095.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Ombre",
-    "description": "Dans les profondeurs, quelque chose s eveille.",
+    "description": "Ombre detachee developpant sa conscience.",
     "element": "obsidienne",
     "faction": "Éveil Chthonien",
     "topValue": "4",
@@ -1824,13 +1824,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/097.png",
+    "image": "base/096.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Mystique 1",
-    "description": "Dans les profondeurs, quelque chose s eveille.",
+    "description": "Cauchemar apparaissant dans les reves avant de frapper.",
     "element": "faille_dimensionnelle",
     "faction": "Éveil Chthonien",
     "topValue": "5",
@@ -1846,13 +1846,13 @@
     ],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/098.png",
+    "image": "base/097.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Maudit de l Abysse",
-    "description": "Les anciens reves se transforment en cauchemars.",
+    "description": "Eclipse absorbant toute lumiere alentour.",
     "element": "obsidienne",
     "faction": "Éveil Chthonien",
     "topValue": "4",
@@ -1862,13 +1862,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/099.png",
+    "image": "base/098.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Chtonien Profond",
-    "description": "L ombre grandit, et avec elle la peur de l inconnu.",
+    "description": "Ancien du Premier Cercle avant les etoiles.",
     "element": "furtif",
     "faction": "Éveil Chthonien",
     "topValue": "5",
@@ -1878,13 +1878,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/100.png",
+    "image": "base/099.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Gouffre Chtonien",
-    "description": "Les dieux endormis n attendent qu un signal pour se lever.",
+    "description": "Prophete annoncant ce qu on ne veut entendre.",
     "element": "spore",
     "faction": "Éveil Chthonien",
     "topValue": "4",
@@ -1894,13 +1894,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/101.png",
+    "image": "base/100.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Mystique Chtonien",
-    "description": "Dans les profondeurs, quelque chose s eveille.",
+    "description": "Gardien des Portes entre connu et Inconnu.",
     "element": "faille_dimensionnelle",
     "elements": [
       "hacking"
@@ -1919,13 +1919,13 @@
     ],
     "rarity": "Rare",
     "defaultHp": 3,
-    "image": "base/102.png",
+    "image": "base/101.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Arcane Chtonien",
-    "description": "Les anciens reves se transforment en cauchemars.",
+    "description": "Mystique ayant vu derriere le voile.",
     "element": "obsidienne",
     "faction": "Éveil Chthonien",
     "topValue": "5",
@@ -1941,13 +1941,13 @@
     ],
     "rarity": "Rare",
     "defaultHp": 3,
-    "image": "base/103.png",
+    "image": "base/102.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Maudit du Vide",
-    "description": "Dans les profondeurs, quelque chose s eveille.",
+    "description": "Arcane vivante aux symboles puissants.",
     "element": "faille_dimensionnelle",
     "elements": [
       "obsidienne"
@@ -1960,13 +1960,13 @@
     "skills": [],
     "rarity": "Epic",
     "defaultHp": 4,
-    "image": "base/104.png",
+    "image": "base/103.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Horrifique Chtonien",
-    "description": "Les anciens reves se transforment en cauchemars.",
+    "description": "Maudit affectant tout ce qu il touche.",
     "element": "obsidienne",
     "elements": [
       "eau"
@@ -1985,13 +1985,13 @@
     ],
     "rarity": "Epic",
     "defaultHp": 4,
-    "image": "base/105.png",
+    "image": "base/104.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Arcane 1",
-    "description": "Dans les profondeurs, quelque chose s eveille.",
+    "description": "Reveur dormant trois siecles rendant les reves reels.",
     "element": "faille_dimensionnelle",
     "faction": "Éveil Chthonien",
     "topValue": "9",
@@ -2012,13 +2012,13 @@
     ],
     "rarity": "Legendary",
     "defaultHp": 4,
-    "image": "base/106.png",
+    "image": "base/105.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Fracture Instable",
-    "description": "La realite se fissure sous leur passage.",
+    "description": "Anomalie contournant les lois physiques.",
     "element": "furtif",
     "faction": "Incursion Dissonante",
     "topValue": "2",
@@ -2028,13 +2028,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/107.png",
+    "image": "base/106.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Vortex",
-    "description": "Ce qui semblait stable n est qu une illusion fragile.",
+    "description": "Fracture consciente echappee d une faille.",
     "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "3",
@@ -2050,13 +2050,13 @@
     ],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/108.png",
+    "image": "base/107.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Fragment",
-    "description": "Le chaos n est pas une fin, c est un commencement.",
+    "description": "Chaos rendant l impossible plausible.",
     "element": "hacking",
     "faction": "Incursion Dissonante",
     "topValue": "4",
@@ -2066,13 +2066,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/109.png",
+    "image": "base/108.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Chaos Devie",
-    "description": "Les regles ne s appliquent pas a ceux qui les brisent.",
+    "description": "Rupture cassant le tissu spatio-temporel.",
     "element": "radiation",
     "faction": "Incursion Dissonante",
     "topValue": "3",
@@ -2082,13 +2082,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/110.png",
+    "image": "base/109.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Irregulier",
-    "description": "L imprevisible est leur plus grande force.",
+    "description": "Disrupteur trouvant les failles des verites.",
     "element": "furtif",
     "faction": "Incursion Dissonante",
     "topValue": "4",
@@ -2098,13 +2098,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/111.png",
+    "image": "base/110.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Erratique",
-    "description": "La realite se fissure sous leur passage.",
+    "description": "Vortex attirant dans des probabilites contraires.",
     "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "4",
@@ -2114,13 +2114,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/112.png",
+    "image": "base/111.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Anomalie Anormal",
-    "description": "La realite se fissure sous leur passage.",
+    "description": "Faille vivante montrant des dimensions inexistantes.",
     "element": "furtif",
     "faction": "Incursion Dissonante",
     "topValue": "4",
@@ -2136,13 +2136,13 @@
     ],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/113.png",
+    "image": "base/112.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Mutant Dissonant",
-    "description": "Ce qui semblait stable n est qu une illusion fragile.",
+    "description": "Mutant existant dans trois realites.",
     "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "4",
@@ -2152,13 +2152,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/114.png",
+    "image": "base/113.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Faille Devie",
-    "description": "Le chaos n est pas une fin, c est un commencement.",
+    "description": "Deviant vivant en chronologie alternative.",
     "element": "hacking",
     "faction": "Incursion Dissonante",
     "topValue": "6",
@@ -2168,13 +2168,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/115.png",
+    "image": "base/114.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Bizarre Instable",
-    "description": "Les regles ne s appliquent pas a ceux qui les brisent.",
+    "description": "Paradoxe resolu solution d equation impossible.",
     "element": "radiation",
     "faction": "Incursion Dissonante",
     "topValue": "5",
@@ -2184,13 +2184,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/116.png",
+    "image": "base/115.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Deviant du Chaos",
-    "description": "La realite se fissure sous leur passage.",
+    "description": "Erratique suivant logique non decryptee.",
     "element": "furtif",
     "faction": "Incursion Dissonante",
     "topValue": "5",
@@ -2206,13 +2206,13 @@
     ],
     "rarity": "Rare",
     "defaultHp": 3,
-    "image": "base/117.png",
+    "image": "base/116.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Paradoxe Instable",
-    "description": "Ce qui semblait stable n est qu une illusion fragile.",
+    "description": "Instable vibrant entre etats inconnus.",
     "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "4",
@@ -2228,13 +2228,13 @@
     ],
     "rarity": "Rare",
     "defaultHp": 3,
-    "image": "base/118.png",
+    "image": "base/117.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Instable Instable",
-    "description": "La realite se fissure sous leur passage.",
+    "description": "Bizarre modifiant les constantes locales.",
     "element": "furtif",
     "elements": [
       "radiation"
@@ -2253,13 +2253,13 @@
     ],
     "rarity": "Epic",
     "defaultHp": 4,
-    "image": "base/119.png",
+    "image": "base/118.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Rupture Devie",
-    "description": "Ce qui semblait stable n est qu une illusion fragile.",
+    "description": "Irregulier refusant les lois naturelles.",
     "element": "faille_dimensionnelle",
     "elements": [
       "spore"
@@ -2278,13 +2278,13 @@
     ],
     "rarity": "Epic",
     "defaultHp": 3,
-    "image": "base/120.png",
+    "image": "base/119.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Fragment Dissonant",
-    "description": "La realite se fissure sous leur passage.",
+    "description": "Fragment cherchant les morceaux brises.",
     "element": "furtif",
     "faction": "Incursion Dissonante",
     "topValue": "8",
@@ -2305,13 +2305,13 @@
     ],
     "rarity": "Legendary",
     "defaultHp": 4,
-    "image": "base/121.png",
+    "image": "base/120.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Recup Artisanal",
-    "description": "Un debris aujourd hui, un tresor demain.",
+    "description": "Scrap transformant les debris en tresors.",
     "element": "radiation",
     "elements": [
       "faille_dimensionnelle"
@@ -2324,17 +2324,33 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/122.png",
+    "image": "base/121.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Castreur",
-    "description": "La Ceinture recompense ceux qui savent regarder.",
+    "description": "Rouille dont chaque tache est une survie.",
     "element": "reseau",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "2",
     "rightValue": "5",
+    "bottomValue": "5",
+    "leftValue": "4",
+    "skills": [],
+    "rarity": "Common",
+    "defaultHp": 3,
+    "image": "base/122.png",
+    "storiesRewardedFrom": null
+  },
+  {
+    "collectionName": "base",
+    "name": "Soudeur",
+    "description": "Soudure precisant mieux que les machines.",
+    "element": "obsidienne",
+    "faction": "Ferrailleurs de la Ceinture",
+    "topValue": "3",
+    "rightValue": "4",
     "bottomValue": "5",
     "leftValue": "4",
     "skills": [],
@@ -2345,24 +2361,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Soudeur",
-    "description": "Rien ne se perd, tout se recycle.",
-    "element": "obsidienne",
-    "faction": "Ferrailleurs de la Ceinture",
-    "topValue": "3",
-    "rightValue": "4",
-    "bottomValue": "5",
-    "leftValue": "4",
-    "skills": [],
-    "rarity": "Common",
-    "defaultHp": 3,
-    "image": "base/124.png",
-    "storiesRewardedFrom": null
-  },
-  {
-    "collectionName": "base",
     "name": "Bricoleur Ferraille",
-    "description": "Une vie de ferraille, mais un coeur d acier.",
+    "description": "Scavenger vivant dans les carcasses.",
     "element": "eau",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "4",
@@ -2372,13 +2372,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/125.png",
+    "image": "base/124.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Recup",
-    "description": "La survie se merite, chaque boulon compte.",
+    "description": "Casse tirant chaque composant reutilisable.",
     "element": "radiation",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "3",
@@ -2388,13 +2388,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/126.png",
+    "image": "base/125.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Soudure",
-    "description": "Un debris aujourd hui, un tresor demain.",
+    "description": "Outil connaissant chaque instrument.",
     "element": "reseau",
     "elements": [
       "spore"
@@ -2407,13 +2407,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/127.png",
+    "image": "base/126.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Metal de la Ceinture",
-    "description": "Un debris aujourd hui, un tresor demain.",
+    "description": "Forgeron forgant dans les fours de recuperation.",
     "element": "radiation",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "5",
@@ -2423,13 +2423,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/128.png",
+    "image": "base/127.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Bricoleur 1",
-    "description": "La Ceinture recompense ceux qui savent regarder.",
+    "description": "Bricoleur creant des merveilles du jete.",
     "element": "reseau",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "4",
@@ -2439,13 +2439,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/129.png",
+    "image": "base/128.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Artisan Artisanal",
-    "description": "Rien ne se perd, tout se recycle.",
+    "description": "Artisan sculptant la memoire dans le metal.",
     "element": "obsidienne",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "4",
@@ -2455,13 +2455,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/130.png",
+    "image": "base/129.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Metal Ferraille",
-    "description": "Une vie de ferraille, mais un coeur d acier.",
+    "description": "Mecanicien reparant l abandonne des diplomés.",
     "element": "eau",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "3",
@@ -2471,13 +2471,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/131.png",
+    "image": "base/130.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Rouille Recycle",
-    "description": "Un debris aujourd hui, un tresor demain.",
+    "description": "Collector arpentant les champs d asteroides.",
     "element": "radiation",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "4",
@@ -2487,13 +2487,13 @@
     "skills": [],
     "rarity": "Rare",
     "defaultHp": 3,
-    "image": "base/132.png",
+    "image": "base/131.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Recup Ferraille",
-    "description": "La Ceinture recompense ceux qui savent regarder.",
+    "description": "Recuperateur monopolisant trois stations.",
     "element": "reseau",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "4",
@@ -2509,13 +2509,13 @@
     ],
     "rarity": "Rare",
     "defaultHp": 3,
-    "image": "base/133.png",
+    "image": "base/132.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Casse Artisanal",
-    "description": "Un debris aujourd hui, un tresor demain.",
+    "description": "Depanneur reparant tout y compris les relations.",
     "element": "radiation",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "5",
@@ -2531,13 +2531,13 @@
     ],
     "rarity": "Epic",
     "defaultHp": 3,
-    "image": "base/134.png",
+    "image": "base/133.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Rouille Rustique",
-    "description": "La Ceinture recompense ceux qui savent regarder.",
+    "description": "Soudeur aveugle voyant dans le metal par les mains.",
     "element": "reseau",
     "elements": [
       "obsidienne"
@@ -2556,13 +2556,13 @@
     ],
     "rarity": "Epic",
     "defaultHp": 3,
-    "image": "base/135.png",
+    "image": "base/134.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Depanneur Artisanal",
-    "description": "Un debris aujourd hui, un tresor demain.",
+    "description": "Fondeur coulant l obsidienne en secret.",
     "element": "radiation",
     "elements": [
       "None"
@@ -2581,13 +2581,13 @@
     ],
     "rarity": "Legendary",
     "defaultHp": 4,
-    "image": "base/136.png",
+    "image": "base/135.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Mousse Venimeux",
-    "description": "La spore ronge tout sur son passage.",
+    "description": "Spore consciente apres millions d annees.",
     "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "2",
@@ -2597,13 +2597,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/137.png",
+    "image": "base/136.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Necrose",
-    "description": "Une colonie vivante qui ne connait ni pitie ni repos.",
+    "description": "Mycelium connectant les colonies sous roche.",
     "element": "eau",
     "faction": "Fléau Spore",
     "topValue": "3",
@@ -2613,13 +2613,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/138.png",
+    "image": "base/137.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Mycelium",
-    "description": "Le Fleau ne s arrete jamais, il s etend.",
+    "description": "Virus s adaptant a chaque hote plus fort.",
     "element": "furtif",
     "faction": "Fléau Spore",
     "topValue": "3",
@@ -2635,13 +2635,13 @@
     ],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/139.png",
+    "image": "base/138.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Vegetal de la Spore",
-    "description": "La corruption biologique ne fait aucune distinction.",
+    "description": "Mousse dissolvant le metal en nutriment.",
     "element": "radiation",
     "faction": "Fléau Spore",
     "topValue": "4",
@@ -2651,13 +2651,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/140.png",
+    "image": "base/139.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Mousse",
-    "description": "Chaque surface devient un lit de culture.",
+    "description": "Toxique liberant des spores attendantes.",
     "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "5",
@@ -2667,13 +2667,13 @@
     "skills": [],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/141.png",
+    "image": "base/140.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Pestilent",
-    "description": "La spore ronge tout sur son passage.",
+    "description": "Fongique ancestral ayant vu naitre les etoiles.",
     "element": "eau",
     "faction": "Fléau Spore",
     "topValue": "4",
@@ -2689,13 +2689,13 @@
     ],
     "rarity": "Common",
     "defaultHp": 3,
-    "image": "base/142.png",
+    "image": "base/141.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Fongique Toxique",
-    "description": "La spore ronge tout sur son passage.",
+    "description": "Pestilent chargeant l air de particules.",
     "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "6",
@@ -2705,13 +2705,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/143.png",
+    "image": "base/142.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Fongique Venimeux",
-    "description": "Une colonie vivante qui ne connait ni pitie ni repos.",
+    "description": "Contamine ne pouvant s empecher de contaminer.",
     "element": "eau",
     "faction": "Fléau Spore",
     "topValue": "4",
@@ -2721,13 +2721,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/144.png",
+    "image": "base/143.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Mousse Corrompu",
-    "description": "Le Fleau ne s arrete jamais, il s etend.",
+    "description": "Liane s enfoncant comme griffes dans la roche.",
     "element": "furtif",
     "faction": "Fléau Spore",
     "topValue": "3",
@@ -2737,13 +2737,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/145.png",
+    "image": "base/144.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Mucus Toxique",
-    "description": "La corruption biologique ne fait aucune distinction.",
+    "description": "Vegetal conscient poussant respirant pensant.",
     "element": "radiation",
     "faction": "Fléau Spore",
     "topValue": "5",
@@ -2753,13 +2753,13 @@
     "skills": [],
     "rarity": "Uncommon",
     "defaultHp": 3,
-    "image": "base/146.png",
+    "image": "base/145.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Pestilent Corrompu",
-    "description": "La spore ronge tout sur son passage.",
+    "description": "Pourriture decomposant le mort pour le vivant.",
     "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "4",
@@ -2775,13 +2775,13 @@
     ],
     "rarity": "Rare",
     "defaultHp": 3,
-    "image": "base/147.png",
+    "image": "base/146.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Mycelium Venimeux",
-    "description": "Une colonie vivante qui ne connait ni pitie ni repos.",
+    "description": "Mucus enveloppant les spores en protection.",
     "element": "eau",
     "faction": "Fléau Spore",
     "topValue": "6",
@@ -2791,13 +2791,13 @@
     "skills": [],
     "rarity": "Rare",
     "defaultHp": 3,
-    "image": "base/148.png",
+    "image": "base/147.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Contamine Fongique",
-    "description": "La spore ronge tout sur son passage.",
+    "description": "Venin transformant un ecosysteme en heures.",
     "element": "spore",
     "elements": [
       "radiation"
@@ -2810,13 +2810,13 @@
     "skills": [],
     "rarity": "Epic",
     "defaultHp": 4,
-    "image": "base/149.png",
+    "image": "base/148.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Contamine Toxique",
-    "description": "Une colonie vivante qui ne connait ni pitie ni repos.",
+    "description": "Necrose consumant les tissus laissant sterile.",
     "element": "eau",
     "faction": "Fléau Spore",
     "topValue": "5",
@@ -2826,13 +2826,13 @@
     "skills": [],
     "rarity": "Epic",
     "defaultHp": 3,
-    "image": "base/150.png",
+    "image": "base/149.png",
     "storiesRewardedFrom": null
   },
   {
     "collectionName": "base",
     "name": "Fongique Fongique",
-    "description": "La spore ronge tout sur son passage.",
+    "description": "Chancre transformant les vaisseaux en jardins.",
     "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "9",
@@ -2848,7 +2848,7 @@
     ],
     "rarity": "Legendary",
     "defaultHp": 4,
-    "image": "base/151.png",
+    "image": "base/150.png",
     "storiesRewardedFrom": null
   }
 ]

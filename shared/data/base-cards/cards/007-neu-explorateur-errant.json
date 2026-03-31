@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Explorateur Errant",
+  "description": "Explorateur cartographiant les nebulueuses inconnues sans permission.",
+  "element": "None",
+  "faction": "neutre",
+  "topValue": "4",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/007.png",
+  "storiesRewardedFrom": null
+}

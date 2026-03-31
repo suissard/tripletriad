@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Destructeur 1",
+  "description": "Dominateur brisant le moral avant le premier tir.",
+  "element": "radiation",
+  "faction": "Hégémonie martienne",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/021.png",
+  "storiesRewardedFrom": null
+}

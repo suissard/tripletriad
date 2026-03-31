@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Basse",
+  "description": "Chord Trouvant la melodie dans la cacophonie.",
+  "element": "reseau",
+  "faction": "Chœur Synthétique",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/077.png",
+  "storiesRewardedFrom": null
+}

@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Artisan Artisanal",
+  "description": "Artisan sculptant la memoire dans le metal.",
+  "element": "obsidienne",
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "4",
+  "rightValue": "6",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/129.png",
+  "storiesRewardedFrom": null
+}

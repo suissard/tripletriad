@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Deviant du Chaos",
+  "description": "Erratique suivant logique non decryptee.",
+  "element": "furtif",
+  "faction": "Incursion Dissonante",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "6",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "death",
+      "value": 1,
+      "target": "enemy_on_capture"
+    }
+  ],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/116.png",
+  "storiesRewardedFrom": null
+}

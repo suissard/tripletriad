@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Forge Ardent",
+  "description": "Volcan en eruption permanente faisant trembler le sol.",
+  "element": "spore",
+  "faction": "Héritiers des cendres",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "growing",
+      "value": 1,
+      "target": "all_own"
+    }
+  ],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/053.png",
+  "storiesRewardedFrom": null
+}

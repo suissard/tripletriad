@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Rodeur Errant",
+  "description": "Jeune recrue decouvrant la realite rude des confins.",
+  "element": "reseau",
+  "faction": "neutre",
+  "topValue": "5",
+  "rightValue": "3",
+  "bottomValue": "6",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/009.png",
+  "storiesRewardedFrom": null
+}

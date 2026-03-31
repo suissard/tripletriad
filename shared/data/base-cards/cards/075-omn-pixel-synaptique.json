@@ -1,0 +1,27 @@
+{
+  "collectionName": "base",
+  "name": "Pixel Synaptique",
+  "description": "Proxy dont personne ne connait l identite.",
+  "element": "reseau",
+  "faction": "Omni-Réseau",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "9",
+  "leftValue": "6",
+  "skills": [
+    {
+      "type": "death",
+      "value": 2,
+      "target": "enemy_on_capture"
+    },
+    {
+      "type": "decrease",
+      "value": -2,
+      "target": "opposite_side"
+    }
+  ],
+  "rarity": "Legendary",
+  "defaultHp": 4,
+  "image": "base/075.png",
+  "storiesRewardedFrom": null
+}

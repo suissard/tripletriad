@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Fracture Instable",
+  "description": "Anomalie contournant les lois physiques.",
+  "element": "furtif",
+  "faction": "Incursion Dissonante",
+  "topValue": "2",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/106.png",
+  "storiesRewardedFrom": null
+}

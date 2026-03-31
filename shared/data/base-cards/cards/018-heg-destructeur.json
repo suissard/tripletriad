@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Destructeur",
+  "description": "Praetor appliquant la loi martienne avec precision terrifiante.",
+  "element": "longue_portee",
+  "faction": "Hégémonie martienne",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "3",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/018.png",
+  "storiesRewardedFrom": null
+}

@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Tidal Pelagique",
+  "description": "Pelagique errant entre eau et vide.",
+  "element": "furtif",
+  "faction": "Exode pélagique",
+  "topValue": "5",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": [
+    {
+      "type": "growing",
+      "value": 1,
+      "target": "all_own"
+    }
+  ],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/042.png",
+  "storiesRewardedFrom": null
+}

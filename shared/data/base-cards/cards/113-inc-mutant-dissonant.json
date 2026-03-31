@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Mutant Dissonant",
+  "description": "Mutant existant dans trois realites.",
+  "element": "faille_dimensionnelle",
+  "faction": "Incursion Dissonante",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "6",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/113.png",
+  "storiesRewardedFrom": null
+}

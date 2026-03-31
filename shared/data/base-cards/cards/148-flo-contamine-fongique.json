@@ -1,0 +1,19 @@
+{
+  "collectionName": "base",
+  "name": "Contamine Fongique",
+  "description": "Venin transformant un ecosysteme en heures.",
+  "element": "spore",
+  "elements": [
+    "radiation"
+  ],
+  "faction": "Fléau Spore",
+  "topValue": "9",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Epic",
+  "defaultHp": 4,
+  "image": "base/148.png",
+  "storiesRewardedFrom": null
+}

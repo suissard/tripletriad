@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Metal de la Ceinture",
+  "description": "Forgeron forgant dans les fours de recuperation.",
+  "element": "radiation",
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/127.png",
+  "storiesRewardedFrom": null
+}

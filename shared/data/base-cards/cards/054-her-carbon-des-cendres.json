@@ -1,0 +1,19 @@
+{
+  "collectionName": "base",
+  "name": "Carbon des Cendres",
+  "description": "Arson calculant chaque vent thermique incendiaire.",
+  "element": "obsidienne",
+  "elements": [
+    "longue_portee"
+  ],
+  "faction": "Héritiers des cendres",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/054.png",
+  "storiesRewardedFrom": null
+}

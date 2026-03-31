@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Fusilier Martien",
+  "description": "Inquisiteur traquant la dissidence sans faille.",
+  "element": "longue_portee",
+  "faction": "Hégémonie martienne",
+  "topValue": "6",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/024.png",
+  "storiesRewardedFrom": null
+}

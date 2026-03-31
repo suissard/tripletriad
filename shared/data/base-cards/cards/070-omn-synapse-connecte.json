@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Synapse Connecte",
+  "description": "Binaire questionnant le Reseau puni d heresie.",
+  "element": "faille_dimensionnelle",
+  "faction": "Omni-Réseau",
+  "topValue": "4",
+  "rightValue": "6",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "death",
+      "value": 1,
+      "target": "enemy_on_capture"
+    }
+  ],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/070.png",
+  "storiesRewardedFrom": null
+}

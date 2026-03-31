@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Salamandre",
+  "description": "Salamandre marchant dans les flammes comme l eau.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "4",
+  "rightValue": "2",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/050.png",
+  "storiesRewardedFrom": null
+}

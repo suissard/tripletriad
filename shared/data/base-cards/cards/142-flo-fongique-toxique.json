@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Fongique Toxique",
+  "description": "Pestilent chargeant l air de particules.",
+  "element": "spore",
+  "faction": "Fléau Spore",
+  "topValue": "6",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/142.png",
+  "storiesRewardedFrom": null
+}

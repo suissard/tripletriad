@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Castreur",
+  "description": "Rouille dont chaque tache est une survie.",
+  "element": "reseau",
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "2",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/122.png",
+  "storiesRewardedFrom": null
+}

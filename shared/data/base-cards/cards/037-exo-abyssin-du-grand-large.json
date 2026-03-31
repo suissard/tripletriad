@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Abyssin du Grand Large",
+  "description": "Nageur ayant traverse le Grand Vide nu.",
+  "element": "eau",
+  "faction": "Exode pélagique",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/037.png",
+  "storiesRewardedFrom": null
+}

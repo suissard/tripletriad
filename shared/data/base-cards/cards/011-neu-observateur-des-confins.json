@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Observateur des Confins",
+  "description": "Passeur des confins connaissant les routes non officielles.",
+  "element": "None",
+  "faction": "neutre",
+  "topValue": "4",
+  "rightValue": "6",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/011.png",
+  "storiesRewardedFrom": null
+}

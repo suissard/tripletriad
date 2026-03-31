@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Inquisiteur Imperial",
+  "description": "Soldat d elite forge dans les camps ne doutant jamais.",
+  "element": "obsidienne",
+  "faction": "Hégémonie martienne",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/016.png",
+  "storiesRewardedFrom": null
+}

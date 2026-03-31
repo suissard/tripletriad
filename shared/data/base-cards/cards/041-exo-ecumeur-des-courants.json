@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Ecumeur des Courants",
+  "description": "Abyssin ancien portant la memoire aquatique.",
+  "element": "eau",
+  "faction": "Exode pélagique",
+  "topValue": "6",
+  "rightValue": "4",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -1,
+      "target": "opposite_side"
+    }
+  ],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/041.png",
+  "storiesRewardedFrom": null
+}

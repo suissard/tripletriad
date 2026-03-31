@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Arcane Chtonien",
+  "description": "Mystique ayant vu derriere le voile.",
+  "element": "obsidienne",
+  "faction": "Éveil Chthonien",
+  "topValue": "5",
+  "rightValue": "3",
+  "bottomValue": "6",
+  "leftValue": "6",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -1,
+      "target": "enemy_with_highest"
+    }
+  ],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/102.png",
+  "storiesRewardedFrom": null
+}

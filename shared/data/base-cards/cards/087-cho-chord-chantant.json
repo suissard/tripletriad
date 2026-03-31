@@ -1,0 +1,25 @@
+{
+  "collectionName": "base",
+  "name": "Chord Chantant",
+  "description": "Concerto fusionnant trois consciences.",
+  "element": "reseau",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Chœur Synthétique",
+  "topValue": "7",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "death",
+      "value": 1,
+      "target": "self_on_flip"
+    }
+  ],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/087.png",
+  "storiesRewardedFrom": null
+}

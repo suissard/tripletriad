@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Mystique 1",
+  "description": "Cauchemar apparaissant dans les reves avant de frapper.",
+  "element": "faille_dimensionnelle",
+  "faction": "Éveil Chthonien",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "growing",
+      "value": 1,
+      "target": "adjacent_friendly"
+    }
+  ],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/097.png",
+  "storiesRewardedFrom": null
+}

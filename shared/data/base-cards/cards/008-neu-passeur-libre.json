@@ -1,0 +1,19 @@
+{
+  "collectionName": "base",
+  "name": "Passeur Libre",
+  "description": "Refugie d une guerre ayant troque son passe contre l anonymat.",
+  "element": "eau",
+  "elements": [
+    "reseau"
+  ],
+  "faction": "neutre",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/008.png",
+  "storiesRewardedFrom": null
+}

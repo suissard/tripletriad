@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Mousse Corrompu",
+  "description": "Liane s enfoncant comme griffes dans la roche.",
+  "element": "furtif",
+  "faction": "Fléau Spore",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/144.png",
+  "storiesRewardedFrom": null
+}

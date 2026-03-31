@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Requin des Abimes",
+  "description": "Pecheur capturant les particules lumineuses du vide.",
+  "element": "longue_portee",
+  "faction": "Exode pélagique",
+  "topValue": "2",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/034.png",
+  "storiesRewardedFrom": null
+}

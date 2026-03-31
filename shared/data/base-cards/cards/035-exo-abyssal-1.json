@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Abyssal 1",
+  "description": "Plongeur sans combinaison resistant au vide abyssal.",
+  "element": "eau",
+  "faction": "Exode pélagique",
+  "topValue": "4",
+  "rightValue": "3",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "death",
+      "value": 1,
+      "target": "self_on_flip"
+    }
+  ],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/035.png",
+  "storiesRewardedFrom": null
+}

@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Amp Harmonique",
+  "description": "Echo enregistrant les sons de planetes disparues.",
+  "element": "faille_dimensionnelle",
+  "faction": "Chœur Synthétique",
+  "topValue": "5",
+  "rightValue": "6",
+  "bottomValue": "3",
+  "leftValue": "6",
+  "skills": [],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/086.png",
+  "storiesRewardedFrom": null
+}

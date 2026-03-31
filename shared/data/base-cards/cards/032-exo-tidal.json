@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Tidal",
+  "description": "Nautile guidant son pod vers un ocean promis.",
+  "element": "furtif",
+  "faction": "Exode pélagique",
+  "topValue": "2",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/032.png",
+  "storiesRewardedFrom": null
+}

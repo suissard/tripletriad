@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Refugie",
+  "description": "Marchand itinérant echangeant des souvenirs contre de l eau aux avant-postes.",
+  "element": "eau",
+  "faction": "neutre",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -1,
+      "target": "adjacent_enemy"
+    }
+  ],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/002.png",
+  "storiesRewardedFrom": null
+}

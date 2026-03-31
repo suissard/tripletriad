@@ -1,0 +1,27 @@
+{
+  "collectionName": "base",
+  "name": "Fragment Dissonant",
+  "description": "Fragment cherchant les morceaux brises.",
+  "element": "furtif",
+  "faction": "Incursion Dissonante",
+  "topValue": "8",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "6",
+  "skills": [
+    {
+      "type": "death",
+      "value": 3,
+      "target": "enemy_on_capture"
+    },
+    {
+      "type": "decrease",
+      "value": -3,
+      "target": "enemy_with_highest"
+    }
+  ],
+  "rarity": "Legendary",
+  "defaultHp": 4,
+  "image": "base/120.png",
+  "storiesRewardedFrom": null
+}

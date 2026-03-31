@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Flamme Volcanique",
+  "description": "Pyromancien ayant appris en brulant ses peurs.",
+  "element": "faille_dimensionnelle",
+  "faction": "Héritiers des cendres",
+  "topValue": "3",
+  "rightValue": "3",
+  "bottomValue": "4",
+  "leftValue": "6",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/049.png",
+  "storiesRewardedFrom": null
+}

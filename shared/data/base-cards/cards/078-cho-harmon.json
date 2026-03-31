@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Harmon",
+  "description": "Melodie vibrant a travers les asteroides.",
+  "element": "furtif",
+  "faction": "Chœur Synthétique",
+  "topValue": "3",
+  "rightValue": "3",
+  "bottomValue": "4",
+  "leftValue": "6",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/078.png",
+  "storiesRewardedFrom": null
+}

@@ -1,0 +1,25 @@
+{
+  "collectionName": "base",
+  "name": "Terminal Synaptique",
+  "description": "Routeur redirigeant vers des noeuds intracables.",
+  "element": "reseau",
+  "elements": [
+    "furtif"
+  ],
+  "faction": "Omni-Réseau",
+  "topValue": "9",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -2,
+      "target": "adjacent_enemy"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 4,
+  "image": "base/073.png",
+  "storiesRewardedFrom": null
+}

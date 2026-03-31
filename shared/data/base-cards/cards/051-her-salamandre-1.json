@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Salamandre 1",
+  "description": "Phoenix mort trois fois plus ardent chaque fois.",
+  "element": "spore",
+  "faction": "Héritiers des cendres",
+  "topValue": "2",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -1,
+      "target": "opposite_side"
+    }
+  ],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/051.png",
+  "storiesRewardedFrom": null
+}

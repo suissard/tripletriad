@@ -1,0 +1,27 @@
+{
+  "collectionName": "base",
+  "name": "Resonance Dissonant",
+  "description": "Dissonance revelant les failles.",
+  "element": "faille_dimensionnelle",
+  "faction": "Chœur Synthétique",
+  "topValue": "6",
+  "rightValue": "6",
+  "bottomValue": "6",
+  "leftValue": "6",
+  "skills": [
+    {
+      "type": "heal",
+      "value": 2,
+      "target": "damaged_friendly"
+    },
+    {
+      "type": "growing",
+      "value": 3,
+      "target": "adjacent_enemy"
+    }
+  ],
+  "rarity": "Legendary",
+  "defaultHp": 4,
+  "image": "base/090.png",
+  "storiesRewardedFrom": null
+}

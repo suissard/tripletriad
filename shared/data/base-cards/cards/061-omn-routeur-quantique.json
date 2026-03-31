@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Routeur Quantique",
+  "description": "Noeud connectant des millions de consciences.",
+  "element": "reseau",
+  "faction": "Omni-Réseau",
+  "topValue": "3",
+  "rightValue": "4",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "death",
+      "value": 1,
+      "target": "self_on_flip"
+    }
+  ],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/061.png",
+  "storiesRewardedFrom": null
+}

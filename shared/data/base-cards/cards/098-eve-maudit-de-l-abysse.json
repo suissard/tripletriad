@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Maudit de l Abysse",
+  "description": "Eclipse absorbant toute lumiere alentour.",
+  "element": "obsidienne",
+  "faction": "Éveil Chthonien",
+  "topValue": "4",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/098.png",
+  "storiesRewardedFrom": null
+}

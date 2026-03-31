@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Pelerin Libre",
+  "description": "Observateur compilant des donnees que personne ne demande.",
+  "element": "eau",
+  "faction": "neutre",
+  "topValue": "4",
+  "rightValue": "7",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/012.png",
+  "storiesRewardedFrom": null
+}

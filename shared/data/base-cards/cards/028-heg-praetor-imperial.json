@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Praetor Imperial",
+  "description": "Oppresseur controlant les ressources de cinq systemes.",
+  "element": "obsidienne",
+  "faction": "Hégémonie martienne",
+  "topValue": "4",
+  "rightValue": "6",
+  "bottomValue": "7",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Epic",
+  "defaultHp": 4,
+  "image": "base/028.png",
+  "storiesRewardedFrom": null
+}

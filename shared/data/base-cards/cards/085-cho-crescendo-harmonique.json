@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Crescendo Harmonique",
+  "description": "Onde portant des codes secrets.",
+  "element": "obsidienne",
+  "faction": "Chœur Synthétique",
+  "topValue": "3",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": [
+    {
+      "type": "heal",
+      "value": 1,
+      "target": "all_own"
+    }
+  ],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/085.png",
+  "storiesRewardedFrom": null
+}

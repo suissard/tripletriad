@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Medic des Confins",
+  "description": "Ancien pilote devenu eclaireur connaissant chaque raccourci du secteur.",
+  "element": "radiation",
+  "faction": "neutre",
+  "topValue": "4",
+  "rightValue": "3",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/004.png",
+  "storiesRewardedFrom": null
+}

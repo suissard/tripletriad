@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Volcan du Brasier",
+  "description": "Ne dans les ruines respirant les cendres.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/046.png",
+  "storiesRewardedFrom": null
+}

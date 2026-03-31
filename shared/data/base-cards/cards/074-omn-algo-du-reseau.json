@@ -1,0 +1,25 @@
+{
+  "collectionName": "base",
+  "name": "Algo du Reseau",
+  "description": "Terminal mobile pont entre officiel et souterrain.",
+  "element": "hacking",
+  "elements": [
+    "spore"
+  ],
+  "faction": "Omni-Réseau",
+  "topValue": "7",
+  "rightValue": "6",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "heal",
+      "value": 1,
+      "target": "self"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 3,
+  "image": "base/074.png",
+  "storiesRewardedFrom": null
+}

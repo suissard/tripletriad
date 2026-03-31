@@ -1,0 +1,25 @@
+{
+  "collectionName": "base",
+  "name": "Horrifique Chtonien",
+  "description": "Maudit affectant tout ce qu il touche.",
+  "element": "obsidienne",
+  "elements": [
+    "eau"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "7",
+  "rightValue": "7",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -2,
+      "target": "opposite_side"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 4,
+  "image": "base/104.png",
+  "storiesRewardedFrom": null
+}

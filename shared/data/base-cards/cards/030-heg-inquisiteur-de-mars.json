@@ -1,0 +1,25 @@
+{
+  "collectionName": "base",
+  "name": "Inquisiteur de Mars",
+  "description": "Decurion loyal sacrifiant tout pour le Haut Commandement.",
+  "element": "obsidienne",
+  "elements": [
+    "radiation"
+  ],
+  "faction": "Hégémonie martienne",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "7",
+  "leftValue": "7",
+  "skills": [
+    {
+      "type": "heal",
+      "value": 3,
+      "target": "adjacent_friendly"
+    }
+  ],
+  "rarity": "Legendary",
+  "defaultHp": 4,
+  "image": "base/030.png",
+  "storiesRewardedFrom": null
+}

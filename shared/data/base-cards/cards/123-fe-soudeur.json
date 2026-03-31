@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Soudeur",
+  "description": "Soudure precisant mieux que les machines.",
+  "element": "obsidienne",
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "3",
+  "rightValue": "4",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/123.png",
+  "storiesRewardedFrom": null
+}

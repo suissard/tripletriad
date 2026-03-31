@@ -1,0 +1,25 @@
+{
+  "collectionName": "base",
+  "name": "Vibra Chantant",
+  "description": "Strophe contenant un fragment de melodie perdue.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "furtif"
+  ],
+  "faction": "Chœur Synthétique",
+  "topValue": "9",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "heal",
+      "value": 2,
+      "target": "all_own"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 4,
+  "image": "base/088.png",
+  "storiesRewardedFrom": null
+}

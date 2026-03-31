@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Neuro Numerique",
+  "description": "Data-miner exhumant des secrets cryptes.",
+  "element": "reseau",
+  "faction": "Omni-Réseau",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/067.png",
+  "storiesRewardedFrom": null
+}

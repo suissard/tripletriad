@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Oppresseur de Mars",
+  "description": "Architecte dessinant des strategies post-defaite.",
+  "element": "reseau",
+  "faction": "Hégémonie martienne",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "growing",
+      "value": 1,
+      "target": "adjacent_enemy"
+    }
+  ],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/025.png",
+  "storiesRewardedFrom": null
+}

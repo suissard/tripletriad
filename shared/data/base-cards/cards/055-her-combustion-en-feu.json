@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Combustion en Feu",
+  "description": "Calcine survivant dont le corps est une carte combats.",
+  "element": "faille_dimensionnelle",
+  "faction": "Héritiers des cendres",
+  "topValue": "6",
+  "rightValue": "3",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/055.png",
+  "storiesRewardedFrom": null
+}

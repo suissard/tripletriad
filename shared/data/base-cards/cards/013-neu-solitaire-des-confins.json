@@ -1,0 +1,25 @@
+{
+  "collectionName": "base",
+  "name": "Solitaire des Confins",
+  "description": "Gardien d un relais eteint veillant sur un reseau mort.",
+  "element": "None",
+  "elements": [
+    "radiation"
+  ],
+  "faction": "neutre",
+  "topValue": "6",
+  "rightValue": "4",
+  "bottomValue": "6",
+  "leftValue": "6",
+  "skills": [
+    {
+      "type": "heal",
+      "value": 2,
+      "target": "self"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 3,
+  "image": "base/013.png",
+  "storiesRewardedFrom": null
+}

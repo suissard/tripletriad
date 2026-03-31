@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Mycelium Venimeux",
+  "description": "Mucus enveloppant les spores en protection.",
+  "element": "eau",
+  "faction": "Fléau Spore",
+  "topValue": "6",
+  "rightValue": "6",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/147.png",
+  "storiesRewardedFrom": null
+}

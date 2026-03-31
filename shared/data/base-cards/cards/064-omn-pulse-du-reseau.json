@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Pulse du Reseau",
+  "description": "Relay transportant des donnees entre stations.",
+  "element": "faille_dimensionnelle",
+  "faction": "Omni-Réseau",
+  "topValue": "2",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -1,
+      "target": "enemy_with_highest"
+    }
+  ],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/064.png",
+  "storiesRewardedFrom": null
+}

@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Erratique",
+  "description": "Vortex attirant dans des probabilites contraires.",
+  "element": "faille_dimensionnelle",
+  "faction": "Incursion Dissonante",
+  "topValue": "4",
+  "rightValue": "3",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/111.png",
+  "storiesRewardedFrom": null
+}

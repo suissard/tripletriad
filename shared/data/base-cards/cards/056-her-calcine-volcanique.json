@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Calcine Volcanique",
+  "description": "Carbonise refusant de tomber sous la chaleur.",
+  "element": "radiation",
+  "faction": "Héritiers des cendres",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "6",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/056.png",
+  "storiesRewardedFrom": null
+}

@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Nomade",
+  "description": "Sentinelle silencieuse protegeant ceux qui n ont personne.",
+  "element": "furtif",
+  "faction": "neutre",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "death",
+      "value": 1,
+      "target": "enemy_on_capture"
+    }
+  ],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/005.png",
+  "storiesRewardedFrom": null
+}

@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Gouffre Chtonien",
+  "description": "Prophete annoncant ce qu on ne veut entendre.",
+  "element": "spore",
+  "faction": "Éveil Chthonien",
+  "topValue": "4",
+  "rightValue": "3",
+  "bottomValue": "6",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/100.png",
+  "storiesRewardedFrom": null
+}

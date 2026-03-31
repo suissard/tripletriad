@@ -1,0 +1,16 @@
+{
+  "collectionName": "base",
+  "name": "Plongeur Aquatique",
+  "description": "Ecumeur recyclant les debris en constructions.",
+  "element": "furtif",
+  "faction": "Exode pélagique",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/038.png",
+  "storiesRewardedFrom": null
+}
