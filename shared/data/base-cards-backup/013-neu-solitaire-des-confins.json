@@ -1,0 +1,75 @@
+{
+  "collectionName": "base",
+  "name": "Solitaire des Confins",
+  "description": "Passeur de mémoire préservant les savoirs tactiques des civilisations disparues pour les générations futures.",
+  "element": "None",
+  "elements": [
+    "radiation"
+  ],
+  "faction": "neutre",
+  "topValue": "6",
+  "rightValue": "4",
+  "bottomValue": "6",
+  "leftValue": "6",
+  "skills": [
+    {
+      "type": "heal",
+      "value": 2,
+      "target": "self"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 3,
+  "image": "base/013.png",
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Solitaire des Confins — neutre Epic class None",
+      "loadout": {
+        "armor_outfit": "Layered patched armor made from mismatched faction materials welded and stitched together, bullet-pocked shoulder plates, faded utility harness loaded with ammunition and tools forged from rare materials with faction crest embedded and energy pulsing through the entire surface with every movement",
+        "arsenal": "Worn plasma rifle with taped grip sections and custom sight modifications, combat knife with notched blade, compact EMP grenades on belt The weapon and gauntlets actively channel the character's heal ability targeting self, visible energy conduits linking weapon to body with flowing power"
+      },
+      "attitude": {
+        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Hands pressed urgently against wounds as powerful significant golden regenerative energy wraps around injuries in cocoon of restorative light, visible flesh and armor mending in real time",
+        "emotion": "Apocalyptic fury — full weight of faction's power channeling through body uncontrollably"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Post-apocalyptic survival",
+          "Gritty space western",
+          "Tactical realism"
+        ],
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Dusty Steel Gray",
+          "role": "primary_accent — weathered armor and tactical gear"
+        },
+        {
+          "name": "Warm Amber",
+          "role": "secondary_accent — muzzle flash and eye reflection"
+        },
+        {
+          "name": "Deep Charcoal",
+          "role": "shadow depth and smoke"
+        }
+      ],
+      "lighting_setup": "amethyst alloy frame with crystalline energy channels pulsing light along border edges, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "tense_standoff"
+    },
+    "camera": {
+      "angle": "Wide dramatic low angle showing full blast radius, character backlit by their own power source, foreground devastated by ability effects"
+    },
+    "scenography": {
+      "setting": "Active warzone at an asteroid waystation crossroads under attack, plasma rounds impacting nearby corrugated walls sending debris and sparks raining down, allied forces taking cover behind makeshift barricades while enemy silhouettes advance through thick smoke",
+      "atmosphere_vfx": "Golden light flowing from within outward through every wound and crack, flesh healing before eyes, armor plates reforming, blood reversing flow as body rapidly repairs itself, Light radiating from character illuminating nearby area in warm golden tones, ground beneath blooming with new growth from overflow of restorative energy, Fine stellar dust swirling in air, muzzle flashes cutting through haze, shell casings ejecting in slow motion, debris kicked up by heavy boots, sparks ricocheting off metal surfaces"
+    }
+  }
+}

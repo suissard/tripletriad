@@ -19,51 +19,74 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Ombre — Éveil Chthonien Common class obsidienne",
+      "archetype": "Ombre - Chthonian Shadow Titan Rampant, être titanesque primordial de nature tellurique-honteuse, créature des ténèbres chthoniennes exploitant l'obscurité comme bouclier naturel, silhouette massive et trapue composed de plaques tectoniques volcaniques et d'ombre solidifiée,multiple yeux sans pupilles brillant faiblement dans l'obscurité, forme humanoïde imposante se fondant parfaitement dans les zones d'ombre dense",
       "loadout": {
-        "armor_outfit": "Ancient ceremonial armor fused to wearer's body through dark ritual, shadowy fabric etched with independently shifting runic patterns casting purple light, living shadow tendrils writhing from shoulder guards with own consciousness, armor plates absorbing light instead of reflecting creating void patches",
-        "arsenal": "Massive ritual staff taller than wielder inscribed with independently rotating forbidden symbols, shadow-manipulation artifact orbiting hand like dark satellite with void energy tendrils connecting to body, cursed amulets chained to armor pulsating with green phosphor light emitting foul energy wisps Functional combat equipment showing signs of heavy practical use and field customization"
+        "armor_outfit": "Carapace tectonique impénétrable formée de plaques d'obsidienne noire asymétriques et tranchantes, croûte terrestre solidifiée avec failles rougeoyantes de magma incandescents pulsant en permanence, épiderme rugueux de roche volcanique calcinée, cornes massives de pierre brute et minérale, gueule béante d'où s'échappe une fumée volcanique noirâtre perpétuelle, armure naturelle vivante intégrée à la chair titanesque",
+        "arsenal": "Griffes foreuses géantes d'obsidienne noire capables de broyer et perforer la roche pure, appendices d'ombre colossaux eruptant des fissures dimensionnelles en dessous, Tentacules d'ombre massive emergant du sol fracturé, jets de magma en fusion crachés des entrailles géothermiques, masse brute du corps titanesque utilisée comme arme contondante, griffes foreuses géantes et appendices d'ombre eruptifs"
       },
       "attitude": {
-        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
-        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
+        "behavior": "Posture de combat specialist acharné engagé dans le cœur de la bataille dimensionnelle, corps entier commit à l'affrontement, stance de combat avec arme et corps entier prêts à exploser en action, corps groupé comme un ressort tendu prêt à bondir, griffes levées et prêtes à frapper, regard fixé intensement sur la menace approchante, poids du titan ancré au sol fracturé",
+        "emotion": "Férocité primale et rage tellurique, concentration absolue du prédateur chthonien sur sa proie, calme mortel de l'être des ténèbres parfaitement adapté à son élément, instinct de chasse immémoriale du rampant des profondeurs, tension contenue dans chaque muscle de roche et d'ombre"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Cosmic horror art",
-          "Eerie supernatural photography",
-          "Abyssal deep-sea horror"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Cosmic Horror",
+          "Primordial Mythos",
+          "Volcanic Decay"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Deep Void Purple",
-          "role": "primary_accent — shadow energy emanation and tentacle glow"
+          "name": "Noir Obsidienne Profonde",
+          "role": "Couleur dominante - armure naturelle et corps principal du titan, absorption totale de la lumière"
         },
         {
-          "name": "Bone White",
-          "role": "secondary_accent — skeletal remains and carved runes"
+          "name": "Gris Basalte Mat",
+          "role": "Secondary - plaques tectoniques et détails rocheux, texture rugueuse de la surface"
         },
         {
-          "name": "Eerie Green Phosphor",
-          "role": "tertiary accent — forbidden energy arcs and corruption"
+          "name": "Brun Terre Calcinée",
+          "role": "Tertiary - zones de roche chauffée et沉积 minérale sur la carapace"
+        },
+        {
+          "name": "Rouge Magma Incandescent",
+          "role": "Accent - failles rougeoyantes pulsantes, lueur interne du cœur géothermique, chaleur radiate"
+        },
+        {
+          "name": "Orange Lave en Fusion",
+          "role": "Accent énergétique - jets de magma et éruptions des entrailles, illumination ponctuelle intense"
+        },
+        {
+          "name": "Gris Cendre Volcanique",
+          "role": "Atmosphère - fumée, poussière et particules en suspension, voile tellurique"
+        },
+        {
+          "name": "Ténèbres Absolues",
+          "role": "Effet spécial - zones d'ombre dense où le titan devient quasi-invisible"
+        },
+        {
+          "name": "Violet Dimensionnel",
+          "role": "Accent surnaturel - runes antiques et déchirements de la réalité,wrongness cosmique"
         }
       ],
-      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "eldritch_awakening"
+      "lighting_setup": "Éclairage dramatique混合de lumière magma interne (Rouge/Orange incandescents) et ténèbres absolues surroundings, rim lighting volcanique sur les contours du titan, volumetric fog de cendre et de poussière, rayons de lumière impossible provenant des déchirements dimensionnels, clair-obscur intense强调les volumes",
+      "mood": "Oppressant, menaçant, dread surnaturel, horreur cosmique, annihilation imminente, fin de la réalité"
     },
     "camera": {
-      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
+      "angle": "low_angle avec légère Dutch angle pour emphasize la masse imposante et la menace du titan, légèrement en contre-plongée pour amplifier la sensation de puissance titanesque et de vulnérabilité de l'observateur face à la créature primordiale"
     },
     "scenography": {
-      "setting": "Torn dimensional battlefield with ground splitting open in massive fissures as enormous shadow tentacles erupt from below, sky showing impossible geometry and wrongness human mind cannot process, ancient runes blazing on every surface as dimensions collapse, reality thinning and tearing at edges, thick oppressive atmosphere of supernatural dread",
-      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Massive shadow tentacles erupting from cracked ground grasping at sky, dimensional rifts tearing open revealing impossible non-Euclidean geometry with wrong colors, floating forbidden runes spinning violently in dark purple energy maelstrom, skeletal remains rattling and rising from earth, void essence fog rolling across ground like creeping tsunami"
+      "setting": "Champ de bataille dimensionnel déchiré - sol s'ouvrant en fissures massives et béantes, failles volcaniques crachant de la lave et des ténèbres, ciel 显示ant une géométrie impossible et une distorsion que l'esprit humain ne peut traiter, réalité s'effritant et se déchirant aux bords, surfaces couvertes de runes antiques incandescent de lumière violette et bleue, dimensions multiples s'effondrant et se superposant",
+      "atmosphere_vfx": "Pluie de cendres volcaniques épaisses, épais brouillard surnaturel oppressant, éclairs de magie dimensionnelle violette déchirant le ciel, réalité s'effilochant en fragments de wrongness, épais atmosphère de dread surnaturel et de terreur cosmique, poussière étouffante, fumée volcanique s'échappant des fissures, tentacules d'ombre massifs eruptant des entrailles fracturées de la terre, éruptions de magma illuminant périodiquement la scène d'une lueur rougeoyante infernale"
     }
   }
 }

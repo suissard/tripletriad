@@ -24,53 +24,6 @@
     "glace"
   ],
   "prompt": {
-    "format": "1:1",
-    "subject": {
-      "archetype": "Ecumeur des Courants — Exode pélagique Rare class eau",
-      "loadout": {
-        "armor_outfit": "Organic coral armor grown from living reef material with bioluminescent combat indicators pulsing in rapid rhythm, hydrodynamic fins extending from arms and calves streaming in current, translucent membranes trailing from shoulders with distinctive faction engravings and glowing energy channel conduits running along seams",
-        "arsenal": "Bioluminescent harpoon cannon with living coral barrel pulsing with each discharge, hydro-kinetic gauntlets channeling water into pressurized cutting jets visible as focused force streams The weapon and gauntlets actively channel the character's decrease ability targeting opposite_side, visible energy conduits linking weapon to body with flowing power"
-      },
-      "attitude": {
-        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Both hands thrust forward in powerful push with focused targeted dimensional pressure field expanding from palms creating visible wall of force pushing against entire opposing side",
-        "emotion": "Lethal intensity — predator recognizing the perfect strike moment"
-      }
-    },
-    "graphics": {
-      "style": {
-        "technique": "highly_detailed_digital_painting",
-        "influences": [
-          "Deep sea storm photography",
-          "Bioluminescent ocean",
-          "Aquatic action art"
-        ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
-      }
-    },
-    "color_and_light": {
-      "palette_names": [
-        {
-          "name": "Abyssal Deep Blue",
-          "role": "primary_accent — skin tones and surrounding water mass"
-        },
-        {
-          "name": "Bioluminescent Cyan",
-          "role": "secondary_accent — ability effects and natural body glow"
-        },
-        {
-          "name": "Foam White",
-          "role": "tertiary accent — spray splashes and bubble highlights"
-        }
-      ],
-      "lighting_setup": "cobalt steel frame with etched faction symbols running along each border edge, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "storm_tide_power"
-    },
-    "camera": {
-      "angle": "Low dramatic angle emphasizing dominance, wide enough to show full environmental impact of the ability"
-    },
-    "scenography": {
-      "setting": "Storm-ravaged aquatic colonial battlefield with massive waves crashing over organic structures sending debris flying, lightning illuminating in stark flashes, allied forces pushed back while bioluminescent defensive flares light the water column with cyan bursts",
-      "atmosphere_vfx": "Massive force visible through environmental disruption — air rippling like heat haze, ground buckling and cracking, everything on opposite side being physically pushed backward and compressed, Opposing terrain visibly compressed and pushed backward, barriers and structures cracking from extreme pressure, objects sliding away creating clear zone of force, Massive waves crashing and spraying bioluminescent droplets everywhere, water vortex spiraling around character pulling debris, glowing fish scattering in panic, bubbles erupting from seabed, electrical arcs flashing through charged seawater"
-    }
+    "raw": ""
   }
 }

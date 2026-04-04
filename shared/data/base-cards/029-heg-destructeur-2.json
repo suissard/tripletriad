@@ -23,53 +23,6 @@
     "neutre"
   ],
   "prompt": {
-    "format": "1:1",
-    "subject": {
-      "archetype": "Destructeur 2 — Hégémonie martienne Epic class radiation",
-      "loadout": {
-        "armor_outfit": "Heavy combat armor with thick crimson red plating showing battle scars and scorch marks, reinforced shoulder guards with dented imperial insignia, tactical undersuit at joints, magnetic combat boots locked to metal deck forged from rare materials with faction crest embedded and energy pulsing through the entire surface with every movement",
-        "arsenal": "Standard-issue heavy plasma rifle with imperial engravings, combat chainsword with serrated edge, tactical grenade bandolier across chest, targeting visor HUD displaying red lock-on data The weapon and gauntlets actively channel the character's death ability targeting self_on_flip, visible energy conduits linking weapon to body with flowing power"
-      },
-      "attitude": {
-        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Body flipping violently between states as captured with both hands slamming into ground sending powerful significant shockwave through all adjacent positions, final devastating act of dying warrior",
-        "emotion": "Apocalyptic fury — full weight of faction's power channeling through body uncontrollably"
-      }
-    },
-    "graphics": {
-      "style": {
-        "technique": "highly_detailed_digital_painting",
-        "influences": [
-          "War photography",
-          "Mechanized warfare",
-          "Roman Imperial military"
-        ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
-      }
-    },
-    "color_and_light": {
-      "palette_names": [
-        {
-          "name": "Crimson Red",
-          "role": "primary_accent — armor plating and blood mist in the air"
-        },
-        {
-          "name": "Gunmetal Black",
-          "role": "secondary_accent — structural elements and deepest shadows"
-        },
-        {
-          "name": "Blinding White",
-          "role": "tertiary accent — muzzle flash and explosive ignition"
-        }
-      ],
-      "lighting_setup": "amethyst alloy frame with crystalline energy channels pulsing light along border edges, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "relentless_military_assault"
-    },
-    "camera": {
-      "angle": "Wide dramatic low angle showing full blast radius, character backlit by their own power source, foreground devastated by ability effects"
-    },
-    "scenography": {
-      "setting": "Planetary assault battlefield with artillery detonating sending massive dust columns skyward, advancing infantry silhouettes through smoke, orbital dropships descending under anti-aircraft fire, trenches littered with spent casings",
-      "atmosphere_vfx": "Explosive shockwave radiating outward in perfect circle with incredible force, visible ring of energy passing through all adjacent positions simultaneously with cascading chain reaction, Ground erupting with visible shockwave, debris lifted and thrown outward by force, visible damage spreading to all adjacent tiles as energy wave passes through, Artillery shells exploding in background sending up massive geysers of red dust, tracer rounds streaking across sky, crimson smoke grenades billowing, shrapnel flying past camera, ground cracking from impact tremors"
-    }
+    "raw": ""
   }
 }

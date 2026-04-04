@@ -19,51 +19,65 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Arcane — Éveil Chthonien Common class obsidienne",
+      "archetype": "Chthonian Shadow Stalker - Primordial subterrene spy creature evolved for infiltrating dimensional rifts and harvesting intelligence from collapsed realities",
       "loadout": {
-        "armor_outfit": "Ancient ceremonial armor fused to wearer's body through dark ritual, shadowy fabric etched with independently shifting runic patterns casting purple light, living shadow tendrils writhing from shoulder guards with own consciousness, armor plates absorbing light instead of reflecting creating void patches",
-        "arsenal": "Massive ritual staff taller than wielder inscribed with independently rotating forbidden symbols, shadow-manipulation artifact orbiting hand like dark satellite with void energy tendrils connecting to body, cursed amulets chained to armor pulsating with green phosphor light emitting foul energy wisps Functional combat equipment showing signs of heavy practical use and field customization"
+        "armor_outfit": "Organic tectonic plating composed of obsidian shards and cooled basalt carapace, interlocked with glowing magma veins running beneath the surface, asymmetrical volcanic rock scales creating natural camouflage against stone surfaces, multiple eyeless heads for 360° sensory perception",
+        "arsenal": "Subterranean drilling appendages for tunnelling through dimensional barriers, corrosive shadow tentacles capable of draining life essence and extracting memories, bio-luminescent rune-marked organs for reading and recording dimensional frequencies, prehensile tail with blade-like volcanic glass protrusions"
       },
       "attitude": {
-        "behavior": "Covert agent observing from hidden position with surveillance equipment tracking all enemy movements. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
-        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
+        "behavior": "Crouched in absolute stillness within a dimensional fissure, multiple shadow tentacles anchored into the torn reality around it while surveillance tendrils extended through micro-rifts tracking all enemy movements, body coiled with predatory tension like a volcanic eruption about to occur, one massive crushing jaw slightly open revealing inner magma chamber",
+        "emotion": "Cold primordial patience emanating predatory intent, ancient intelligence radiating through multiple eyeless heads sensing dimensional frequencies, territorial aggression masked by supernatural stillness, volcanic heart pulsing with dormant rage"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Cosmic horror art",
-          "Eerie supernatural photography",
-          "Abyssal deep-sea horror"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Cosmic Horror",
+          "Primordial Mythos"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Deep Void Purple",
-          "role": "primary_accent — shadow energy emanation and tentacle glow"
+          "name": "Obsidian Black",
+          "role": "Primary body structure, dominant coverage"
         },
         {
-          "name": "Bone White",
-          "role": "secondary_accent — skeletal remains and carved runes"
+          "name": "Matte Basalt Gray",
+          "role": "Tectonic plating texture, secondary body mass"
         },
         {
-          "name": "Eerie Green Phosphor",
-          "role": "tertiary accent — forbidden energy arcs and corruption"
+          "name": "Burnt Earth Brown",
+          "role": "Volcanic scarring, organic rock formations"
+        },
+        {
+          "name": "Ash Gray",
+          "role": "Cinder particles, dimensional distortion effects"
+        },
+        {
+          "name": "Magma Red-Orange",
+          "role": "Internal energy veins, glowing cracks, heart core"
+        },
+        {
+          "name": "Dimensional Purple-Black",
+          "role": "Shadow tentacles, reality tear effects"
         }
       ],
-      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "eldritch_awakening"
+      "lighting_setup": "Volcanic_subterranean_lighting_with_dimensional_rift_illumination",
+      "mood": "Menacing, primordial dread, supernatural horror, oppressive underground tension"
     },
     "camera": {
-      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
+      "angle": "low_angle_with_dutch_tilt_suggesting_instability"
     },
     "scenography": {
-      "setting": "Torn dimensional battlefield with ground splitting open in massive fissures as enormous shadow tentacles erupt from below, sky showing impossible geometry and wrongness human mind cannot process, ancient runes blazing on every surface as dimensions collapse, reality thinning and tearing at edges, thick oppressive atmosphere of supernatural dread",
-      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Massive shadow tentacles erupting from cracked ground grasping at sky, dimensional rifts tearing open revealing impossible non-Euclidean geometry with wrong colors, floating forbidden runes spinning violently in dark purple energy maelstrom, skeletal remains rattling and rising from earth, void essence fog rolling across ground like creeping tsunami"
+      "setting": "Torn dimensional battlefield with ground splitting open in massive fissures as enormous shadow tentacles erupt from below, sky showing impossible geometry and wrongness human mind cannot process, ancient runes blazing on every surface as dimensions collapse, reality thinning and tearing at edges",
+      "atmosphere_vfx": "Volcanic smoke billowing from every fissure, magma rivers glowing beneath cracked ground, supernatural dread fog, dimensional energy sparks, ancient chthonian runes pulsing with dying reality energy, reality fragments floating in impossible patterns, thick oppressive atmosphere of otherworldly terror"
     }
   }
 }

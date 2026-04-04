@@ -26,51 +26,59 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Refugie — neutre Common class eau",
+      "archetype": "Scrap-punk Logistics Combatant, heavily augmented and armored for frontline supply line defense",
       "loadout": {
-        "armor_outfit": "Layered patched armor made from mismatched faction materials welded and stitched together, bullet-pocked shoulder plates, faded utility harness loaded with ammunition and tools",
-        "arsenal": "Worn plasma rifle with taped grip sections and custom sight modifications, combat knife with notched blade, compact EMP grenades on belt The weapon and gauntlets actively channel the character's decrease ability targeting adjacent_enemy, visible energy conduits linking weapon to body with flowing power"
+        "armor_outfit": "Improvised heavy-duty mining space suit, asymmetrically patched with rusty steel plates from old signage, welded car body panels, and thick duct tape layers. Overloaded with cables, exposed copper wires, industrial belts, and scruffy work clothes soaked in grease and grime. Helmet is a cracked welder's visor with opaque scratched visor and dangling wires.",
+        "arsenal": "Militarized mining kinetic hammer (salvaged thruster welded to a heavy industrial drill), modified to fire plasma bursts. Secondary weapon: a hand-mounted plasma cutter gauntlet that channels dark corruption energy through fingertips."
       },
       "attitude": {
-        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Low sweeping strike with arm extended toward adjacent enemy with focused targeted dark corruption spreading from fingertips in thick tendrils burrowing into enemy with visible weakening",
-        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
+        "behavior": "Low sweeping strike, arm fully extended toward an adjacent enemy, body leaning into the blow. The dark corruption tendrils burst from the fingertips, burrowing into the enemy's armor with visible weakening effects. Combat stance is aggressive, low, and dynamic.",
+        "emotion": "Intense, adrenaline-fueled focus, desperate determination, and savage aggression in the heat of battle."
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Post-apocalyptic survival",
-          "Gritty space western",
-          "Tactical realism"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Dusty Steel Gray",
-          "role": "primary_accent — weathered armor and tactical gear"
+          "name": "Oxidized Steel Gray",
+          "role": "Primary armor and environmental metal, dominant background tone"
         },
         {
-          "name": "Warm Amber",
-          "role": "secondary_accent — muzzle flash and eye reflection"
+          "name": "Rusty Orange",
+          "role": "Accent on corroded plates, rust streaks, and warm highlights"
         },
         {
-          "name": "Deep Charcoal",
-          "role": "shadow depth and smoke"
+          "name": "Blue Plasma Glow",
+          "role": "Energy accents from weapons and plasma impacts, cool contrast"
+        },
+        {
+          "name": "Yellow-Orange Sparks",
+          "role": "Sparks and debris from impacts, dynamic light sources"
+        },
+        {
+          "name": "Dirty Work Clothes Brown",
+          "role": "Secondary clothing tones, grime and stains"
         }
       ],
-      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "tense_standoff"
+      "lighting_setup": "Cinematic mixed lighting: harsh blue plasma glow from weapons and impacts, warm orange sparks from debris, ambient dusty smoke with volumetric lighting, low-key shadows to emphasize grit.",
+      "mood": "Chaotic, intense, menacing, desperate survival atmosphere"
     },
     "camera": {
-      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
+      "angle": "Low angle with slight dutch tilt, dynamic perspective to match the sweeping strike and convey motion"
     },
     "scenography": {
-      "setting": "Active warzone at an asteroid waystation crossroads under attack, plasma rounds impacting nearby corrugated walls sending debris and sparks raining down, allied forces taking cover behind makeshift barricades while enemy silhouettes advance through thick smoke",
-      "atmosphere_vfx": "Thick corruption tendrils spreading across ground connecting to enemy with visible strength drain as debuff takes hold, enemy visibly dimming and wilting, Ground between positions withering as corruption spreads, visible weakening wave passing through adjacent enemy as armor dulls and weapons dim, Fine stellar dust swirling in air, muzzle flashes cutting through haze, shell casings ejecting in slow motion, debris kicked up by heavy boots, sparks ricocheting off metal surfaces"
+      "setting": "Active warzone at an asteroid waystation crossroads: corrugated metal walls pockmarked with plasma impacts, makeshift barricades built from shipping containers and scrap, exposed pipelines, flickering emergency lights, thick smoke drifting through the corridor, debris littering the ground.",
+      "atmosphere_vfx": "Plasma rounds impacting nearby walls, sending showers of sparks and debris raining down. Blue energy bursts and orange sparks illuminate the smoky environment. Enemy silhouettes advancing through smoke, allied forces taking cover behind barricades. Dust particles and smoke lit by plasma glow, slight lens flare from energy weapons."
     }
   }
 }

@@ -1,0 +1,69 @@
+{
+  "collectionName": "base",
+  "name": "Bricoleur 1",
+  "description": "Ingénieur de récupération optimisant les ressources limitées du groupe pour maximiser leur durée de vie en zone hostile.",
+  "element": "reseau",
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/128.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Bricoleur 1 — Ferrailleurs de la Ceinture Uncommon class reseau",
+      "loadout": {
+        "armor_outfit": "Heavy patchwork armor from salvaged hull plates with visible bolt patterns and rough weld seams, exposed hydraulic assist mechanisms leaking fluid from combat damage, thick reinforced gloves stained with oil grease and burn marks, protective welding mask pushed up on forehead revealing determined face",
+        "arsenal": "Modified industrial welding torch converted into combat flamethrower with extended flame range, multi-function cutting tool integrated into gauntlet for both welding armor and severing limbs, improvised explosive charges rigged from salvaged missile parts creating unpredictable devastating blasts Functional combat equipment showing signs of heavy practical use and field customization"
+      },
+      "attitude": {
+        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
+        "emotion": "Battle-tested confidence — knowing skills will carry through the engagement"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Industrial action photography",
+          "Scrapyard warfare",
+          "Working class heroism"
+        ],
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Rusted Orange-Brown",
+          "role": "primary_accent — salvaged metal surfaces and explosion fireballs"
+        },
+        {
+          "name": "Welding Arc Blue",
+          "role": "secondary_accent — cutting sparks and work light"
+        },
+        {
+          "name": "Oil Black",
+          "role": "tertiary accent — deep shadowed recesses and grease stains"
+        }
+      ],
+      "lighting_setup": "oxidized copper frame with faction insignia embossed on each corner, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "desperate_scrapyard_brawl"
+    },
+    "camera": {
+      "angle": "Slightly low angle waist-up shot with environmental action visible in background, motion blur on debris and effects"
+    },
+    "scenography": {
+      "setting": "Active scrapyard warfare zone inside hollowed asteroid with massive spacecraft structures collapsing under fire sending debris raining down, molten metal cascading from ruptured tanks creating burning rivers, grinding sparks filling air from improvised weapons clashing against enemy armor, hastily built barricades buckling under assault, low-gravity making every debris float after breaking free",
+      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Welding torch flame erupting as flamethrower showering bright orange sparks everywhere, heavy metal plates buckling and flying from explosions creating shrapnel, grinding sparks fountaining from metal-on-metal impact, massive machinery parts falling in dramatic slow motion, hydraulic fluid spraying from ruptured lines creating oil slicks, molten metal dripping creating burning rain"
+    }
+  }
+}

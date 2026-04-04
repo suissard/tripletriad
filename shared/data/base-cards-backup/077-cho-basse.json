@@ -1,0 +1,69 @@
+{
+  "collectionName": "base",
+  "name": "Basse",
+  "description": "Harmoniste synchronisant les rythmes de combat des unités proches augmentant leur efficacité au combat rapproché.",
+  "element": "reseau",
+  "faction": "Chœur Synthétique",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/077.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Basse — Chœur Synthétique Common class reseau",
+      "loadout": {
+        "armor_outfit": "Crystalline armor plates growing naturally from body vibrating at resonant frequencies with visible sound waves emanating from every surface, each facet catching and fracturing light into rainbows, organic-metal hybrid construction",
+        "arsenal": "Resonance tuning fork weapon humming at visible destructive frequency with air distortion around it, harmonic shield gauntlet generating visible ring-shaped sound wave barriers, crystalline conductor baton emitting visible vibration patterns Functional combat equipment showing signs of heavy practical use and field customization"
+      },
+      "attitude": {
+        "behavior": "Frontline combatant engaged directly with enemy forces with weapon fully committed to the attack. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
+        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Sound wave photography",
+          "Crystallography",
+          "Kinetic energy art"
+        ],
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Violet Crystal",
+          "role": "primary_accent — resonance energy beams and crystal shards"
+        },
+        {
+          "name": "Silver Prismatic",
+          "role": "secondary_accent — sound wave visualization and reflections"
+        },
+        {
+          "name": "Deep Indigo",
+          "role": "tertiary accent — shockwave shadows and deep resonance tones"
+        }
+      ],
+      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "devastating_harmonic_blast"
+    },
+    "camera": {
+      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
+    },
+    "scenography": {
+      "setting": "Shattered crystalline amphitheater turned battlefield with crystal formations exploding from harmonic overload sending shards every direction, visible shockwave rings tearing through enemy positions, fragments raining from resonating cracked ceiling structures, entire environment vibrating at a frequency that makes air appear to ripple and distort",
+      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Visible concentric sound waves expanding outward shattering nearby crystal structures into cascading shards, crystal fragments flying through air catching prismatic light, air visibly rippling and bending from sonic force, ground fracturing in geometric patterns from bass, floating debris suspended in harmonic stasis field"
+    }
+  }
+}

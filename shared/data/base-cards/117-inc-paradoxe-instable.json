@@ -25,51 +25,60 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Paradoxe Instable — Incursion Dissonante Rare class faille_dimensionnelle",
+      "archetype": "Glitched Dimensional Rift Combatant",
       "loadout": {
-        "armor_outfit": "Fragmented armor with each plate phasing at different dimensions and times out of sync with reality, impossible geometries connecting segments creating shapes mind cannot process, unnatural spectrum colors shifting and glitching randomly, portions flickering between solid and translucent ghostly state in rapid succession with distinctive faction engravings and glowing energy channel conduits running along seams",
-        "arsenal": "Reality-fracturing blade cutting through dimensional barriers leaving visible spatial tears trailing where physics breaks down, paradox generator causing multiple versions of weapon to phase in and out simultaneously from different angles, glitch emitter integrated into off-hand disrupting enemy targeting at quantum level creating visual distortion fields The weapon and gauntlets actively channel the character's decrease ability targeting enemy_with_highest, visible energy conduits linking weapon to body with flowing power"
+        "armor_outfit": "Shattered reality plates held together by glitched void energy, floating debris fragments, tattered cloth that hovers in zero‑gravity pockets, corrupted armor pieces pulsing with deep violet light",
+        "arsenal": "Twin‑palm nullification beam – a concentrated violet‑magenta energy lance that locks onto high‑value targets; reality‑warping gauntlets that bend space around the wielder"
       },
       "attitude": {
-        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Both hands pushed forward with intense focus, focused targeted concentrated nullification beam forming between palms and locking onto highest-value enemy with deadly precision",
-        "emotion": "Lethal intensity — predator recognizing the perfect strike moment"
+        "behavior": "Leaping forward, both hands thrust out, channeling a searing violet nullification beam, body mid‑air with glitch distortion rippling around limbs, swirling debris orbiting the figure",
+        "emotion": "Intense, psychotic focus; eyes revulsed in a mix of terror and ecstatic rapture, a grimace of unhinged determination"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Glitch action photography",
-          "Digital corruption art",
-          "Quantum breakdown visualization"
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Cosmic Horror",
+          "Glitch Art"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Magenta Glitch",
-          "role": "primary_accent — reality fracture edges and distortion boundaries"
+          "name": "Abyssal Black",
+          "role": "Dominant darkness – 60% of the image"
         },
         {
-          "name": "Fractured Green",
-          "role": "secondary_accent — dimensional tear cores and anomaly centers"
+          "name": "Pale Scarred Flesh",
+          "role": "Flesh tones – 30% of the image"
         },
         {
-          "name": "Chromatic Aberration Rainbow",
-          "role": "tertiary accent — visual artifacts where colors separate and bleed"
+          "name": "Deep Violet",
+          "role": "Primary energy accent – 10% of the image"
+        },
+        {
+          "name": "Magenta Neon",
+          "role": "Glitch highlight – pulsing corrupted energy"
+        },
+        {
+          "name": "Dried Blood Red",
+          "role": "Secondary accent – splatter and scars"
         }
       ],
-      "lighting_setup": "cobalt steel frame with etched faction symbols running along each border edge, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "catastrophic_reality_collapse"
+      "lighting_setup": "Glitching neon violet and magenta light sources, harsh black shadows, pulsating energy beams, chromatic aberration, cinematic rim lighting",
+      "mood": "Menacing, chaotic, surreal"
     },
     "camera": {
-      "angle": "Low dramatic angle emphasizing dominance, wide enough to show full environmental impact of the ability"
+      "angle": "Low angle with a slight Dutch tilt to enhance disorientation"
     },
     "scenography": {
-      "setting": "Reality collapse zone with environment fragmenting into multiple parallel versions simultaneously, buildings existing in two dimensions at once showing both intact and destroyed overlapping states, sky displaying conflicting celestial bodies that should not coexist, gravity malfunctioning causing debris to fall upward and sideways in different zones, ground cracking open revealing parallel battlefields layered on each other like corrupt image",
-      "atmosphere_vfx": "Intensely focused beam drilling into target with suppression field building around them as power is systematically dismantled layer by layer, beam unwavering and growing stronger, Ground scorched and vitrified creating glass-like tunnel through battlefield to target, all other targets completely unaffected showing terrifying precision, Reality shattering like cracked glass across scene with fragments revealing parallel dimensions, chromatic aberration tearing colors apart at high speed creating RGB separation, objects phasing in and out mid-explosion with parts appearing and disappearing, gravity distorting sending debris every direction simultaneously, temporal stutter showing same motion frozen in multiple positions at once creating ghost trails"
+      "setting": "Reality collapse zone – overlapping parallel versions of a ruined cityscape: buildings simultaneously intact and destroyed, fractured ground revealing layered battlefields, impossible sky displaying contradictory celestial bodies, gravity inversions causing debris to fall upward and sideways",
+      "atmosphere_vfx": "Reality‑glitch effect, chromatic aberration, swirling violet‑magenta vortexes, floating debris, cracks in space that shimmer like broken glass, subtle gravitational distortions, pulsing neon auras around the combatant"
     }
   }
 }

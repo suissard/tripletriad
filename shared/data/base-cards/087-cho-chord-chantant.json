@@ -25,51 +25,69 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Chord Chantant — Chœur Synthétique Rare class reseau",
+      "archetype": "Cyborg Martial Artist / Assault Fighter - Androgyne humanoid combat specialist of the Synthetic Choir, embodying the faction's cyber-ascetic philosophy through seamless fusion of monastic serenity and lethal mechanical precision, completely devoid of facial features with smooth metallic cranial plating",
       "loadout": {
-        "armor_outfit": "Crystalline armor plates growing naturally from body vibrating at resonant frequencies with visible sound waves emanating from every surface, each facet catching and fracturing light into rainbows, organic-metal hybrid construction with distinctive faction engravings and glowing energy channel conduits running along seams",
-        "arsenal": "Resonance tuning fork weapon humming at visible destructive frequency with air distortion around it, harmonic shield gauntlet generating visible ring-shaped sound wave barriers, crystalline conductor baton emitting visible vibration patterns The weapon and gauntlets actively channel the character's death ability targeting self_on_flip, visible energy conduits linking weapon to body with flowing power"
+        "armor_outfit": "Worn monastic robes constructed from thick braided synthetic fibers resembling cable bundles in faded monk brown and patinated steel gray, layered over smooth geometric ceramic plating with oxidized bronze accents; ceremonial hood partially obscuring the perfectly smooth featureless metallic facial plate; chapelet of tiny interconnected hard drive discs and processor chips hanging from the waist, swaying with the violent motion",
+        "arsenal": "Twin pilgrim staves crackling with electric golden energy arcs; arms thrust forward with palms facing downward sending concentrated shockwaves; floating holographic golden runes and mantras orbiting dynamically around the warrior's body; harmonic resonance nodes visible along exposed forearms glowing with overloaded energy"
       },
       "attitude": {
-        "behavior": "Charging assault fighter lunging into enemy ranks with aggressive momentum and lethal intent. Body flipping violently between states as captured with both hands slamming into ground sending focused targeted shockwave through all adjacent positions, final devastating act of dying warrior",
-        "emotion": "Lethal intensity — predator recognizing the perfect strike moment"
+        "behavior": "Explosive forward charge mid-air with aggressive momentum, body violently flipping between combat stances as if phasing between physical states; both hands slammed downward toward shattered crystalline ground with immense force; entire body surrounded by unstable rippling energy distortion; frozen moment of the final devastating attack unleashing targeted shockwave through adjacent positions",
+        "emotion": "Martial serenity channeled into lethal berserker intensity; cold cybernetic determination devoid of human emotion; the solemn resignation of a dying warrior expending their final energy in one cataclysmic symphonic assault"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Sound wave photography",
-          "Crystallography",
-          "Kinetic energy art"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Cyber-ascetic",
+          "Buddhist temple architecture"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Violet Crystal",
-          "role": "primary_accent — resonance energy beams and crystal shards"
+          "name": "Patinated Steel Gray",
+          "role": "Primary body armor and mechanical components"
         },
         {
-          "name": "Silver Prismatic",
-          "role": "secondary_accent — sound wave visualization and reflections"
+          "name": "Aged White Ceramic",
+          "role": "Facial plates and structural elements"
         },
         {
-          "name": "Deep Indigo",
-          "role": "tertiary accent — shockwave shadows and deep resonance tones"
+          "name": "Faded Monk Brown",
+          "role": "Worn monastic robes and fabric elements"
+        },
+        {
+          "name": "Oxidized Bronze",
+          "role": "Accent details and weathered metal trim"
+        },
+        {
+          "name": "Holographic Gold",
+          "role": "Runes, mantras, prayer bead circuits, staves energy"
+        },
+        {
+          "name": "Electric Bright Gold",
+          "role": "Shockwave energy, lightning arcs, levitation effects"
+        },
+        {
+          "name": "Pearl Gray",
+          "role": "Ambient lighting and atmospheric dust particles"
         }
       ],
-      "lighting_setup": "cobalt steel frame with etched faction symbols running along each border edge, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "devastating_harmonic_blast"
+      "lighting_setup": "Cinematic dramatic_low_key_rim_lighting with holographic_glow emanating from shockwave epicenter, electric_golden_sparks scattered throughout scene, volumetric_mist from shattered crystal dust, rim_light_from_behind_emphasizing_silhouette",
+      "mood": "Epically devastating yet serene, the violent beauty of a sacrificial final attack, peaceful acceptance of mechanical death transmuted into lethal harmonic destruction"
     },
     "camera": {
-      "angle": "Low dramatic angle emphasizing dominance, wide enough to show full environmental impact of the ability"
+      "angle": "low_angle slightly Dutch tilted to emphasize violent forward momentum, positioned at ground level capturing the moment of impact with both hands driving into crystalline floor"
     },
     "scenography": {
-      "setting": "Shattered crystalline amphitheater turned battlefield with crystal formations exploding from harmonic overload sending shards every direction, visible shockwave rings tearing through enemy positions, fragments raining from resonating cracked ceiling structures, entire environment vibrating at a frequency that makes air appear to ripple and distort",
-      "atmosphere_vfx": "Explosive shockwave radiating outward in perfect circle with incredible force, visible ring of energy passing through all adjacent positions simultaneously with cascading chain reaction, Ground erupting with visible shockwave, debris lifted and thrown outward by force, visible damage spreading to all adjacent tiles as energy wave passes through, Visible concentric sound waves expanding outward shattering nearby crystal structures into cascading shards, crystal fragments flying through air catching prismatic light, air visibly rippling and bending from sonic force, ground fracturing in geometric patterns from bass, floating debris suspended in harmonic stasis field"
+      "setting": "Shattered crystalline amphitheater transformed into catastrophic battlefield; massive crystal formations erupting from harmonic overload explosion; jagged crystalline shards of all sizes exploding outward in every direction; concentric shockwave rings visibly tearing through enemy positions in rippling distortion; countless crystal fragments raining down from resonating cracked ceiling structures; floating mandala-like crystal pieces held in unstable magnetic suspension; broken ceremonial platforms and tiered seating demolished by sonic violence; ancient stone walls cracked and vibrating",
+      "atmosphere_vfx": "Air rippling and distorting as entire environment vibrates at catastrophic frequency; golden electric shockwave rings expanding outward from warrior's palms; crystal dust particles suspended in mid-air illuminated by holographic golden light; blue-white electrical discharge from overloading harmonic emitters; chromatic aberration intensifying at impact point; atmospheric haze from shattered crystal particulate matter; gravity distortion effects around floating debris"
     }
   }
 }

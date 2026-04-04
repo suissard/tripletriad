@@ -1,0 +1,80 @@
+{
+  "collectionName": "base",
+  "name": "Voyageur",
+  "description": "Architecte de la Neutralité orchestrant l'équilibre des rapports de force entre factions pour empêcher l'hégémonie totale.",
+  "element": "None",
+  "faction": "neutre",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "9",
+  "leftValue": "7",
+  "skills": [
+    {
+      "type": "growing",
+      "value": 3,
+      "target": "all_own"
+    },
+    {
+      "type": "death",
+      "value": 3,
+      "target": "adjacent_on_flip"
+    }
+  ],
+  "rarity": "Legendary",
+  "defaultHp": 4,
+  "image": "base/015.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Voyageur — neutre Legendary class None",
+      "loadout": {
+        "armor_outfit": "Layered patched armor made from mismatched faction materials welded and stitched together, bullet-pocked shoulder plates, faded utility harness loaded with ammunition and tools with legendary cosmic materials and ancient craftsmanship that has become one with the wearer's being",
+        "arsenal": "Worn plasma rifle with taped grip sections and custom sight modifications, combat knife with notched blade, compact EMP grenades on belt The weapon and gauntlets actively channel the character's growing ability targeting all_own, visible energy conduits linking weapon to body with flowing power"
+      },
+      "attitude": {
+        "behavior": "Strategic orchestrator coordinating multi-unit movements with sweeping gestures at center of chaos. Arms raised high in commanding gesture with massive devastating energy web radiating outward from chest in all directions, each thread connecting to different allied position across battlefield",
+        "emotion": "Transcendent purpose — no longer merely fighting but reshaping the battlefield itself with every movement and breath"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Post-apocalyptic survival",
+          "Gritty space western",
+          "Tactical realism"
+        ],
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Dusty Steel Gray",
+          "role": "primary_accent — weathered armor and tactical gear"
+        },
+        {
+          "name": "Warm Amber",
+          "role": "secondary_accent — muzzle flash and eye reflection"
+        },
+        {
+          "name": "Deep Charcoal",
+          "role": "shadow depth and smoke"
+        }
+      ],
+      "lighting_setup": "aurum-plated frame with living energy flowing through ornate faction-specific patterns, border radiates golden glow, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "tense_standoff"
+    },
+    "camera": {
+      "angle": "Cinematic ultra-wide angle with dramatic depth layers — foreground devastation, character as glowing focal point, background cataclysm, sky and environment permanently altered"
+    },
+    "scenography": {
+      "setting": "Active warzone at an asteroid waystation crossroads under attack, plasma rounds impacting nearby corrugated walls sending debris and sparks raining down, allied forces taking cover behind makeshift barricades while enemy silhouettes advance through thick smoke",
+      "atmosphere_vfx": "Complete energy network visible with caster at glowing epicenter, energy flowing outward along dozens of channels simultaneously with each destination growing brighter as power arrives, Battlefield-wide glow connecting all friendly positions in visible network, ground cracking along energy pathways, sky briefly illuminated by massive network flash, Fine stellar dust swirling in air, muzzle flashes cutting through haze, shell casings ejecting in slow motion, debris kicked up by heavy boots, sparks ricocheting off metal surfaces"
+    }
+  }
+}

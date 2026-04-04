@@ -25,51 +25,63 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Pulse du Reseau — Omni-Réseau Common class faille_dimensionnelle",
+      "archetype": "Quantum Relay Combat Specialist - Cyborg Infantry with Neural Network Interface",
       "loadout": {
-        "armor_outfit": "Sleek cybernetic combat suit with circuit pathways throughout fabric glowing bright cyan under stress, neural temple implant sparking from combat overload, holographic shield generators deployed on forearms, clean geometric lines contrasting with digital chaos",
-        "arsenal": "Neural hacking deck with holographic wrist interface mid-operation showing active code streams, EMP emitter gauntlet crackling with charge creating visible blue arcs, data-spike dagger with glowing edge The weapon and gauntlets actively channel the character's decrease ability targeting enemy_with_highest, visible energy conduits linking weapon to body with flowing power"
+        "armor_outfit": "Mass-produced composite tactical exoskeleton in anthracite gray with brushed steel plating over faded military utility suit. Prominent quantum relay module protruding from upper back with cooling fins. Neural cables running from cervical implant down spine to weapon system. Serial identification codes etched into forearm plating. Exposed pale cadaveric skin at neck junction showing brutal cable insertions.",
+        "arsenal": "Integrated nullification beam emitter powered by direct neural connection. Both palms equipped with focusing crystal arrays. Weapon system connected via thick black cables to wrist implants and spinal relay module. Shoulder-mounted signal booster array."
       },
       "attitude": {
-        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Both hands pushed forward with intense focus, focused targeted concentrated nullification beam forming between palms and locking onto highest-value enemy with deadly precision",
-        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
+        "behavior": "Fully committed combat stance with both hands thrust forward in pushing motion. Body aligned with weapon trajectory. Legs braced in wide stance for recoil absorption. Entire body connected to weapon system through visible neural cables pulsing with icy blue energy. Movement frozen at moment of maximum energy discharge.",
+        "emotion": "Inexpressive face with dead eyes reflecting holographic glitches. Complete emotional nullification typical of Omni-Réseau operatives. Intense cybernetic focus visible through flickering optic implants. Mind fully synchronized with quantum relay targeting system."
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Cyberpunk action",
-          "Digital warfare art",
-          "Electromagnetic storm photography"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Neon Cyan",
-          "role": "primary_accent — data streams and arcing energy bolts"
+          "name": "Anthracite Gray",
+          "role": "Primary armor base and environmental shadows"
         },
         {
-          "name": "Electric Blue",
-          "role": "secondary_accent — arc lightning and holographic displays"
+          "name": "Matte Black",
+          "role": "Neural cables, deep shadows, weapon core"
         },
         {
-          "name": "Stark White",
-          "role": "tertiary accent — interface glare and explosive sparks"
+          "name": "Cold Brushed Steel",
+          "role": "Armor highlights, server tower structures"
+        },
+        {
+          "name": "Cadaveric Pale",
+          "role": "Exposed skin, flesh tones in background figures"
+        },
+        {
+          "name": "Icy Blue Neon",
+          "role": "Neural implants, weapon energy, optics glow, holographic elements"
+        },
+        {
+          "name": "Corrupted Data Cyan",
+          "role": "Glitching holographic displays, deteriorating code"
         }
       ],
-      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "cyber_warfare_assault"
+      "lighting_setup": "Cinematic rim lighting with cold blue accent lights on neural implants and weapon charge. Harsh industrial overhead lighting creating deep shadows on armor edges. Volumetric light cutting through particle effects from electric storms. Weapon discharge creating intense forward light bloom.",
+      "mood": "Menacing, industrial, technologically oppressive with undertones of cold calculated violence"
     },
     "camera": {
-      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
+      "angle": "Dutch angle dynamic low perspective looking up at combatant to emphasize power and threat. Slight tilt to enhance combat tension. Close-up framing focused on upper body and weapon discharge with crumbling server environment in background."
     },
     "scenography": {
-      "setting": "Cyber warfare zone with holographic displays shattering and glitching during battle, digital fortifications crumbling under enemy ICE attacks with visible code deterioration, server towers toppling and sparking, electric storms rippling through infrastructure",
-      "atmosphere_vfx": "Intensely focused beam drilling into target with suppression field building around them as power is systematically dismantled layer by layer, beam unwavering and growing stronger, Ground scorched and vitrified creating glass-like tunnel through battlefield to target, all other targets completely unaffected showing terrifying precision, Data streams arcing between floating terminals like electric whip lashes, holographic shields shattering into cascading pixel fragments dissolving mid-air, EMP waves visible as expanding blue rings distorting everything, server racks exploding in showers of sparks and circuit boards, electric arcs grounding through coolant puddles creating branching lightning"
+      "setting": "Collapsed cyber warfare zone with massive toppling server towers in background sparking and short-circuiting. Holographic command displays shattering into fragments mid-air. Digital fortification barriers crumbling into pixelated debris. Quantum relay infrastructure torn apart with visible deteriorating code streaming like digital blood. Debris field of destroyed drones and severed neural cables. Cracked technological floor plating with exposed power conduits arcing.",
+      "atmosphere_vfx": "Electric storms rippling through collapsing infrastructure creating lightning-like energy discharges. Blue-white holographic glitch effects distorting reality around the combatant. Particle systems of sparks, shattered data fragments, and burning circuit debris. Volumetric fog of ionized air from weapon discharge. Ice blue energy shield fragments dissolving in air. Acid rain residue creating reflections on armor surfaces."
     }
   }
 }

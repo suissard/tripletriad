@@ -25,51 +25,64 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Rouille Rustique — Ferrailleurs de la Ceinture Epic class reseau",
+      "archetype": "Human Combat Engineer - Junkyard Brawler specialized in environmental exploitation and improvised warfare",
       "loadout": {
-        "armor_outfit": "Heavy patchwork armor from salvaged hull plates with visible bolt patterns and rough weld seams, exposed hydraulic assist mechanisms leaking fluid from combat damage, thick reinforced gloves stained with oil grease and burn marks, protective welding mask pushed up on forehead revealing determined face forged from rare materials with faction crest embedded and energy pulsing through the entire surface with every movement",
-        "arsenal": "Modified industrial welding torch converted into combat flamethrower with extended flame range, multi-function cutting tool integrated into gauntlet for both welding armor and severing limbs, improvised explosive charges rigged from salvaged missile parts creating unpredictable devastating blasts The weapon and gauntlets actively channel the character's decrease ability targeting all_enemy, visible energy conduits linking weapon to body with flowing power"
+        "armor_outfit": "Massively reinforced mining suit constructed entirely from salvaged spacecraft hull plates, welded scrap metal panels, and ruptured fuel tank segments. Asymmetrical construction featuring a chest plate made from a sectioned cargo container door, shoulder pauldrons fashioned from rocket nozzle shrouds, and forearm guards crafted from engine turbine housings. Exposed pneumatic tubes and cables weave across the torso, held together with layers of corroded duct tape and improvised wire bindings. Deep rust-orange and oxidized steel dominate the palette, with blackened grease stains covering joints and contact points. Heavy gauntlets with integrated plasma cutter tips on knuckles, magnetized boot soles, and a fractured welding helmet visor displaying a cracked HUD with flickering readings.",
+        "arsenal": "Dual-wielded industrial cutting tools converted into close-combat weapons: massive plasma-arc lathes modified into brutal cleaving instruments, their power cables trailing behind like mechanical serpents. Secondary improvised energy cannon assembled from stripped mining laser capacitors, a dented fuel canister providing the power source, and copper coil windings visible through cracked housing, discharging concentrated negation waves capable of destabilizing enemy armor on molecular level."
       },
       "attitude": {
-        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Both arms sweeping outward in devastating horizontal arc with powerful significant wave of negation energy expanding in all directions like dark tsunami rushing across battlefield toward all enemies",
-        "emotion": "Apocalyptic fury — full weight of faction's power channeling through body uncontrollably"
+        "behavior": "Intense combat stance with legs planted wide for low-gravity stability, torso twisted in powerful rotational momentum. Both arms fully extended, sweeping outward in synchronized horizontal arc from center mass outward, muscles straining against the massive improvised weapons. Whole body committed to the devastating attack as boots magnetically grip the buckled deck plating beneath floating debris. Combat goggles cracked and sparking, revealing determined grimace beneath.",
+        "emotion": "Savage battle fury mixed with calculated engineering precision. Eyes narrowed in lethal focus behind damaged visor, teeth clenched in grim determination. The cold fury of someone who has survived countless engagements by transforming battlefield chaos into tactical advantage, channeling raw industrial power through improvised weaponry."
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Industrial action photography",
-          "Scrapyard warfare",
-          "Working class heroism"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Scrap-punk Industrial"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Rusted Orange-Brown",
-          "role": "primary_accent — salvaged metal surfaces and explosion fireballs"
+          "name": "Oxidized Steel Gray",
+          "role": "Primary structural color, armor base"
         },
         {
-          "name": "Welding Arc Blue",
-          "role": "secondary_accent — cutting sparks and work light"
+          "name": "Rust Orange",
+          "role": "Secondary dominant tone, corrosion patterns"
         },
         {
-          "name": "Oil Black",
-          "role": "tertiary accent — deep shadowed recesses and grease stains"
+          "name": "Molten Orange-Yellow",
+          "role": "Molten metal rivers, fire sources"
+        },
+        {
+          "name": "Industrial Black Grease",
+          "role": "Stains, shadow areas, worn surfaces"
+        },
+        {
+          "name": "Hot Plasma Blue",
+          "role": "Weapon energy, welding sparks, electric arcs"
+        },
+        {
+          "name": "Negation Wave Dark Violet-Black",
+          "role": "Energy wave emanating from character"
         }
       ],
-      "lighting_setup": "amethyst alloy frame with crystalline energy channels pulsing light along border edges, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "desperate_scrapyard_brawl"
+      "lighting_setup": "Dramatic cinematic mixed-source illumination: warm orange-red glow from molten metal cascading through scene, cool blue-white plasma arcs from weapons, and stark rim lighting from distant explosions creating intense contrast between illuminated debris and deep shadow",
+      "mood": "Apocalyptic intensity, desperate survival energy, industrial chaos beauty"
     },
     "camera": {
-      "angle": "Wide dramatic low angle showing full blast radius, character backlit by their own power source, foreground devastated by ability effects"
+      "angle": "Low angle shot emphasizing character dominance, Dutch angle tilted slightly to enhance dynamic combat momentum, camera positioned at waist height looking upward to make character appear monumental against the chaotic backdrop"
     },
     "scenography": {
-      "setting": "Active scrapyard warfare zone inside hollowed asteroid with massive spacecraft structures collapsing under fire sending debris raining down, molten metal cascading from ruptured tanks creating burning rivers, grinding sparks filling air from improvised weapons clashing against enemy armor, hastily built barricades buckling under assault, low-gravity making every debris float after breaking free",
-      "atmosphere_vfx": "Massive dark ripple of suppression moving across battlefield at high speed, each enemy hit visibly weakening and dimming as power is drained simultaneously, Everything the wave touches deteriorates — surfaces cracking and crumbling, colors draining to gray, structural integrity failing, zone of death spreading across battlefield leaving devastation, Welding torch flame erupting as flamethrower showering bright orange sparks everywhere, heavy metal plates buckling and flying from explosions creating shrapnel, grinding sparks fountaining from metal-on-metal impact, massive machinery parts falling in dramatic slow motion, hydraulic fluid spraying from ruptured lines creating oil slicks, molten metal dripping creating burning rain"
+      "setting": "Vast interior of hollowed asteroid repurposed as massive scrapyard battlefield. Collapsing spacecraft structures tower in background, their hulls breached and torn open revealing internal framework and burning compartments. Massive conteneurs de fret stacked haphazardly form makeshift barricades, many already buckling and overturned. Molten metal rivers flow along channeled deck plating, glowing orange-white and casting flickering light across all surfaces. Dense field of floating debris in low-gravity suspension: twisted metal fragments, sparking cables, shattered panels, and scattered equipment frozen mid-fall. Improvised barricades constructed from cargo pallets, broken vehicle chassis, and welded scrap heaps. Enemy armor silhouettes visible in background, their forms silhouetted against explosion flashes. Grinding sparks cascade through air from multiple clash points.",
+      "atmosphere_vfx": "Heavy particle effects: iron oxide dust clouds stirred by combat, swirling sparks trajectories, floating molten droplets cooling in transit, energy discharge crackling from weapons, shockwave distortion rippling from negation wave. Atmospheric haze from burning fuel and superheated metal creating depth fog with orange undertones. Distant secondary explosions illuminating background structures with strobing fire light. Debris slowly tumbling in near-zero gravity creating sense of suspended chaos. Steam and smoke rising from ruptured coolant lines mixing with plasma discharge smoke."
     }
   }
 }

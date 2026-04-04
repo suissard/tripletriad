@@ -1,0 +1,75 @@
+{
+  "collectionName": "base",
+  "name": "Conquerant du Regiment",
+  "description": "Infiltrateur s'introduisant dans les positions défensives adverses avant le déclenchement des assauts frontaux.",
+  "element": "reseau",
+  "faction": "Hégémonie martienne",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "death",
+      "value": 1,
+      "target": "enemy_on_capture"
+    }
+  ],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/019.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Conquerant du Regiment — Hégémonie martienne Common class reseau",
+      "loadout": {
+        "armor_outfit": "Heavy combat armor with thick crimson red plating showing battle scars and scorch marks, reinforced shoulder guards with dented imperial insignia, tactical undersuit at joints, magnetic combat boots locked to metal deck",
+        "arsenal": "Standard-issue heavy plasma rifle with imperial engravings, combat chainsword with serrated edge, tactical grenade bandolier across chest, targeting visor HUD displaying red lock-on data The weapon and gauntlets actively channel the character's death ability targeting enemy_on_capture, visible energy conduits linking weapon to body with flowing power"
+      },
+      "attitude": {
+        "behavior": "Shadow operative slipping through enemy lines at high speed with drawn weapons, leaving trail of darkness. Being captured but reaching back with final curse, focused targeted dark energy flowing from captured body into captor's position as vengeful last act before being taken",
+        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "War photography",
+          "Mechanized warfare",
+          "Roman Imperial military"
+        ],
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Crimson Red",
+          "role": "primary_accent — armor plating and blood mist in the air"
+        },
+        {
+          "name": "Gunmetal Black",
+          "role": "secondary_accent — structural elements and deepest shadows"
+        },
+        {
+          "name": "Blinding White",
+          "role": "tertiary accent — muzzle flash and explosive ignition"
+        }
+      ],
+      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "relentless_military_assault"
+    },
+    "camera": {
+      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
+    },
+    "scenography": {
+      "setting": "Planetary assault battlefield with artillery detonating sending massive dust columns skyward, advancing infantry silhouettes through smoke, orbital dropships descending under anti-aircraft fire, trenches littered with spent casings",
+      "atmosphere_vfx": "Malevolent curse energy crawling up captor from point of contact, visible dark tendrils of corruption spreading across their body and position with malignant effect, Ground around captor darkening and dying as curse takes hold, corruption spreading from contact point showing the price of victory, Artillery shells exploding in background sending up massive geysers of red dust, tracer rounds streaking across sky, crimson smoke grenades billowing, shrapnel flying past camera, ground cracking from impact tremors"
+    }
+  }
+}

@@ -25,51 +25,65 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Vortex — Incursion Dissonante Common class faille_dimensionnelle",
+      "archetype": "Vortex - Extra-dimensional Combat Anomaly, reality-warping warrior of L'Incursion Dissonante",
       "loadout": {
-        "armor_outfit": "Fragmented armor with each plate phasing at different dimensions and times out of sync with reality, impossible geometries connecting segments creating shapes mind cannot process, unnatural spectrum colors shifting and glitching randomly, portions flickering between solid and translucent ghostly state in rapid succession",
-        "arsenal": "Reality-fracturing blade cutting through dimensional barriers leaving visible spatial tears trailing where physics breaks down, paradox generator causing multiple versions of weapon to phase in and out simultaneously from different angles, glitch emitter integrated into off-hand disrupting enemy targeting at quantum level creating visual distortion fields The weapon and gauntlets actively channel the character's decrease ability targeting enemy_with_highest, visible energy conduits linking weapon to body with flowing power"
+        "armor_outfit": "Fractured military armor fused with living shadow, plates bent by spatial distortion, flesh partially exposed through cracks in dimensional fabric, limbs positioned at impossible angles, surrounded by glitching shadow tendrils detaching from the body, fragments of reality flickering around the silhouette",
+        "arsenal": "Corrupted nullification beam forming between outstretched palms, weaponized reality collapse energy in deep magenta/violet neon, hands glowing with crackling psychic auras that distort light and fracture the air, pure concentrated destruction manifesting as screaming void energy"
       },
       "attitude": {
-        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Both hands pushed forward with intense focus, focused targeted concentrated nullification beam forming between palms and locking onto highest-value enemy with deadly precision",
-        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
+        "behavior": "Combat specialist fully committed to the fight, both hands pushed forward in offensive stance, body leaning into the attack with intense focus and deadly precision, moving erratically to avoid targeting systems while channeling reality-destroying energy",
+        "emotion": "Transcendent combat focus, absolute concentration on the target, psionic intensity radiating from every pore, terror and ecstasy fused in the expression of a being that has transcended physical limitations"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Glitch action photography",
-          "Digital corruption art",
-          "Quantum breakdown visualization"
+          "Cosmic Horror",
+          "Dark Sci-Fi",
+          "Reality Glitch Art",
+          "Grimdark",
+          "Extra-dimensional Madness"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Magenta Glitch",
-          "role": "primary_accent — reality fracture edges and distortion boundaries"
+          "name": "Abyssal Black",
+          "role": "dominant background and shadow mass, void consuming reality"
         },
         {
-          "name": "Fractured Green",
-          "role": "secondary_accent — dimensional tear cores and anomaly centers"
+          "name": "Deep Violet",
+          "role": "primary energy manifestation and corruption aura"
         },
         {
-          "name": "Chromatic Aberration Rainbow",
-          "role": "tertiary accent — visual artifacts where colors separate and bleed"
+          "name": "Neon Magenta",
+          "role": "glitch effects and high-intensity energy accents"
+        },
+        {
+          "name": "Asylum Gray",
+          "role": "fractured ground and collapsing structures"
+        },
+        {
+          "name": "Scarred Pale Flesh",
+          "role": "exposed body parts and organic elements"
+        },
+        {
+          "name": "Dried Blood Red",
+          "role": "secondary accents and corruption traces"
         }
       ],
-      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "catastrophic_reality_collapse"
+      "lighting_setup": "Multiple conflicting light sources from layered dimensions, violet/magenta rim lighting from psychic auras, black corruption darkness consuming edges, reality fracture points emitting discordant illumination",
+      "mood": "Cosmic dread, reality-shattering violence, transcendent madness, menacing otherworldly power"
     },
     "camera": {
-      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
+      "angle": "low_angle slightly dutch tilted to emphasize power and distortion, focusing on the subject's forward thrust"
     },
     "scenography": {
-      "setting": "Reality collapse zone with environment fragmenting into multiple parallel versions simultaneously, buildings existing in two dimensions at once showing both intact and destroyed overlapping states, sky displaying conflicting celestial bodies that should not coexist, gravity malfunctioning causing debris to fall upward and sideways in different zones, ground cracking open revealing parallel battlefields layered on each other like corrupt image",
-      "atmosphere_vfx": "Intensely focused beam drilling into target with suppression field building around them as power is systematically dismantled layer by layer, beam unwavering and growing stronger, Ground scorched and vitrified creating glass-like tunnel through battlefield to target, all other targets completely unaffected showing terrifying precision, Reality shattering like cracked glass across scene with fragments revealing parallel dimensions, chromatic aberration tearing colors apart at high speed creating RGB separation, objects phasing in and out mid-explosion with parts appearing and disappearing, gravity distorting sending debris every direction simultaneously, temporal stutter showing same motion frozen in multiple positions at once creating ghost trails"
+      "setting": "Reality collapse zone where multiple parallel dimensions overlap simultaneously, buildings existing in both intact and destroyed states as transparent overlays, ground cracking open revealing layered battlefields beneath, fragments of architecture floating chaotically in defiance of physics, sky showing impossible celestial bodies coexisting in the same space",
+      "atmosphere_vfx": "Gravity malfunctioning causing debris to fall upward and sideways simultaneously, air fracturing like broken glass around the combatant, chromatic aberration intensifying at dimensional breach points, violet/black psychic static crackling through the atmosphere, reality glitches manifesting as stuttering geometry and color banding, void energy bleeding through dimensional tears"
     }
   }
 }

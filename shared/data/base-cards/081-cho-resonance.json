@@ -19,51 +19,67 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Resonance — Chœur Synthétique Common class reseau",
+      "archetype": "Synthetic Chronometer assault fighter - Cyber-ascetic android monk with no facial features, smooth metallic plate visage, humanoid silhouette cloaked in worn monastic attire",
       "loadout": {
-        "armor_outfit": "Crystalline armor plates growing naturally from body vibrating at resonant frequencies with visible sound waves emanating from every surface, each facet catching and fracturing light into rainbows, organic-metal hybrid construction",
-        "arsenal": "Resonance tuning fork weapon humming at visible destructive frequency with air distortion around it, harmonic shield gauntlet generating visible ring-shaped sound wave barriers, crystalline conductor baton emitting visible vibration patterns Functional combat equipment showing signs of heavy practical use and field customization"
+        "armor_outfit": "Thick synthetic fiber monk robes with braided cable strands, aged patina ceramic plating integrated into fabric, metallic shoulder pauldrons etched with dormant runic patterns, holographic golden mantra circles orbiting torso",
+        "arsenal": "Electrified pilgrim's staff with crackling arc discharges along shaft, binary equation projections manifesting during attacks, ceremonial prayer wheel combat tool mounted on forearm"
       },
       "attitude": {
-        "behavior": "Charging assault fighter lunging into enemy ranks with aggressive momentum and lethal intent. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
-        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
+        "behavior": "Charging assault fighter lunging into enemy ranks with explosive momentum, combat stance lowered with staff raised and crackling with energy, body coiled like compressed spring, mid-stride attack position",
+        "emotion": "Cold lethal focus emanating from smooth featureless visor, calculating temporal awareness, aggressive synchronized assault intent"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Sound wave photography",
-          "Crystallography",
-          "Kinetic energy art"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Violet Crystal",
-          "role": "primary_accent — resonance energy beams and crystal shards"
+          "name": "Steel patina",
+          "role": "primary body armor and staff metal"
         },
         {
-          "name": "Silver Prismatic",
-          "role": "secondary_accent — sound wave visualization and reflections"
+          "name": "Pearl white ceramic",
+          "role": "facial plate and armor accents"
         },
         {
-          "name": "Deep Indigo",
-          "role": "tertiary accent — shockwave shadows and deep resonance tones"
+          "name": "Moine brown",
+          "role": "worn monastic fabric and robes"
+        },
+        {
+          "name": "Holographic gold",
+          "role": "floating runic symbols and mantra projections"
+        },
+        {
+          "name": "Electric pale gold",
+          "role": "staff energy arcs and harmonic shockwaves"
+        },
+        {
+          "name": "Crystal white",
+          "role": "shattered amphitheater formations and fragments"
+        },
+        {
+          "name": "Matte black",
+          "role": "cable braids and secondary mechanical elements"
         }
       ],
-      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "devastating_harmonic_blast"
+      "lighting_setup": "dramatic_backlighting_with_electric_golden_rim_light, harmonic_shockwave_glow_emanating_from_center, crystal_refraction_sparks_scattered",
+      "mood": "Aggressive meditative fury, synchronized destruction, serene lethal precision"
     },
     "camera": {
-      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
+      "angle": "low_dutch_angle_emphasizing_forward_momentum, slight upward tilt to highlight floating holographic runes"
     },
     "scenography": {
-      "setting": "Shattered crystalline amphitheater turned battlefield with crystal formations exploding from harmonic overload sending shards every direction, visible shockwave rings tearing through enemy positions, fragments raining from resonating cracked ceiling structures, entire environment vibrating at a frequency that makes air appear to ripple and distort",
-      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Visible concentric sound waves expanding outward shattering nearby crystal structures into cascading shards, crystal fragments flying through air catching prismatic light, air visibly rippling and bending from sonic force, ground fracturing in geometric patterns from bass, floating debris suspended in harmonic stasis field"
+      "setting": "Shattered crystalline amphitheater battlefield, massive cracked crystal formations erupting outward from harmonic overload, concentric shockwave rings tearing through enemy positions, fragments raining from resonating fractured ceiling mandalas, every surface vibrating creating visible air distortion ripples",
+      "atmosphere_vfx": "Harmonic frequency vibration distortion making air appear to ripple and waver, golden binary equation projections cascading through air, crystal shard debris suspended mid-explosion, resonance shockwave rings expanding outward from character's position, particle dust floating in oscillating air currents"
     }
   }
 }

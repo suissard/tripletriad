@@ -19,51 +19,65 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Mousse Venimeux — Fléau Spore Common class spore",
+      "archetype": "Fungal Bio-Mutant Harassment Operative, humanoid corpse form bloated by toxic gases and fused with aggressive spore colonies, asymmetrical fungal protrusions covering entire body, pulsating mycelial networks visible beneath rotting flesh, elongated limbs with root-like appendages for terrain manipulation",
       "loadout": {
-        "armor_outfit": "Living fungal armor growing and pulsating in rhythm with host's heartbeat, toxic spore clouds emanating perpetually from pores across entire surface creating visible green haze, thick mycelial reinforcement visible beneath surface like living root systems, organic matter and fungal growths dripping from every edge with new growth visibly sprouting during combat",
-        "arsenal": "Living spore projection organ on forearm launching concentrated toxic bursts at high velocity like organic projectile weapons, toxic secretion glands in fingertips pulsating and releasing corrosive droplets that sizzle on contact, thick mycelial whip extending from back acting as ranged organic weapon that lashes out to grapple targets Functional combat equipment showing signs of heavy practical use and field customization"
+        "armor_outfit": "Destroyed tactical military vest and pauldrons, plates cracked and separated by violently sprouting polypore mushrooms, mycelium threads weaving through rusted kevlar remnants, fungal branchiae emerging from shoulder gaps releasing toxic spores, asymmetric fungal armor growths creating organic plates over vital areas, root tendrils wrapping around torso like connective tissue, no symmetry whatsoever between left and right side",
+        "arsenal": "Altered military rifle with barrel completely encased in bulging fungal biomass, organic projectile launcher integrated into forearm where flesh has been replaced by pulsating spore sacs, tool-appendage on back for planting contamination markers, fingers elongated into root-like injectors for fungal implantation, secondary weapon: handheld sporesLauncher resembling mutated grenade launcher with multiple bulbous chambers"
       },
       "attitude": {
-        "behavior": "Forward operative establishing hostile territory position with tools planting markers and building temporary structures. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
-        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
+        "behavior": "Crouched forward stance with one knee touching alive fungal ground, right arm raised holding weapon steady toward horizon, left arm extended downward with root-fingers inserting contamination markers into terrain, body tension visible in bulging fungal muscles, mycelial tendrils spreading from feet into surrounding ground establishing territorial network, action of planting biological beacons while maintaining combat readiness",
+        "emotion": "Malevolent focus with hollow eye sockets replaced by bioluminescent mushroom clusters emitting toxic green glow, jaw unhinged and releasing constant stream of airborne spores, primal territorial aggression emanating from entire being, predatory patience mixed with explosive violence potential"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Biological hazard photography",
-          "Fungal growth macro",
-          "Body horror action art"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Body Horror",
+          "Fungal Horror"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Toxic Green",
-          "role": "primary_accent — spore clouds and acid splash effects"
+          "name": "Sickly Khaki Green",
+          "role": "primary dominant color, armor remnants and base flesh tones"
         },
         {
-          "name": "Decay Brown",
-          "role": "secondary_accent — rotting surfaces and decomposing matter"
+          "name": "Wet Earthy Brown",
+          "role": "secondary color, ground contamination and exposed mycelium"
         },
         {
-          "name": "Corrosive Yellow",
-          "role": "tertiary accent — acid burns and infection glow"
+          "name": "Rotting Flesh Beige",
+          "role": "organic surfaces and decomposing tissue areas"
+        },
+        {
+          "name": "Toxic Bioluminescent Green",
+          "role": "bioluminescent accents on eye clusters, spore glows, and energy veins"
+        },
+        {
+          "name": "Dark Asphalt Grey",
+          "role": "background elements and metallic remnants"
+        },
+        {
+          "name": "Mold White",
+          "role": "fungal growth highlights and spore cloud edges"
         }
       ],
-      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "relentless_biological_assault"
+      "lighting_setup": "oppressive_directional_green_bioluminescent_glow_emanating_from_spore_clouds_with_dark_shadowed_foreground_rim_lighting_highlighting_fungal_contours",
+      "mood": "deeply_menacing_hostile_oppressive_dread_filled_with_organic_corruption_anticipation_of_violence"
     },
     "camera": {
-      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
+      "angle": "low_angle_dutch_tilt_slightly_looking_up_at_subject_emphasizing_threatening_presence_and_territorial_dominance"
     },
     "scenography": {
-      "setting": "Biologically devastated battlefield completely consumed by fungal infestation, thick toxic spore clouds reducing visibility creating oppressive green haze, massive mycelial networks pulsating and growing visibly across all surfaces converting terrain into living organism, both ally and enemy positions attacked by spreading infection, massive pulsating sacs bursting and releasing contamination, ground itself alive and hostile with fungal tendrils bursting through without warning",
-      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Massive spore explosion blasting toxic green clouds outward at high speed, thick mycelial tendrils bursting through walls and floors like organic spears, acidic fluid dripping from fungal growths creating sizzling smoke plumes, infection spreading visibly across surfaces like fast-forward timelapse consuming everything, pulsating organic sacs bursting on impact releasing concentrated contamination clouds"
+      "setting": "Biologically devastated battlefield completely consumed by aggressive fungal infestation, destroyed military vehicles half-digested by massive mycelial networks, ground surface transformed into pulsating living organism with visible nutrient veins, shattered terrain features engulfed by towering fungal structures and bioluminescent mushroom colonies, distant positions of former combatants now colonized by spreading infection, scattered debris and corpses being reclaimed by rapidly growing fungal biomass",
+      "atmosphere_vfx": "Thick toxic spore clouds reducing visibility to intimate range creating oppressive green haze throughout entire scene, massive mycelial networks pulsating visibly growing across all surfaces in real-time, enormous pulsating spore sacs hanging from fungal structures and ground bursting periodically releasing contamination clouds, hostile fungal tendrils bursting unpredictably from ground and surfaces, airborne particle density creating volumetric fog effect, ground itself animated and hostile with rhythmic pulsation like breathing organism, bioluminescent glow emanating from all fungal elements creating eerie internal illumination"
     }
   }
 }

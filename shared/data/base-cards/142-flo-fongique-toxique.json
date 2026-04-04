@@ -19,51 +19,61 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Fongique Toxique — Fléau Spore Uncommon class spore",
+      "archetype": "Fongique Toxique - Corrompeur infiltrant biologique à base de mycélium toxique, silhouette humanoïde asimétrique entièrement colonisée par une croissance parasitaire fongique",
       "loadout": {
-        "armor_outfit": "Living fungal armor growing and pulsating in rhythm with host's heartbeat, toxic spore clouds emanating perpetually from pores across entire surface creating visible green haze, thick mycelial reinforcement visible beneath surface like living root systems, organic matter and fungal growths dripping from every edge with new growth visibly sprouting during combat",
-        "arsenal": "Living spore projection organ on forearm launching concentrated toxic bursts at high velocity like organic projectile weapons, toxic secretion glands in fingertips pulsating and releasing corrosive droplets that sizzle on contact, thick mycelial whip extending from back acting as ranged organic weapon that lashes out to grapple targets Functional combat equipment showing signs of heavy practical use and field customization"
+        "armor_outfit": "Combinaison de plaques d'armure militaire fracturées et disloquées de l'intérieur, maintenues ensemble par des enchevêtrements de racines fongiques et lianes mycéliennes pulpeuses. Aucune symétrie, métal rouillé et corrodé par les sécrétions acids, polypores en plateau poussant sur les épaules et le dos, branchies fongiques relâchant des vapeurs toxiques, chairs nécrosées fusionnées avec la biomasse fongique",
+        "arsenal": "Fusil d'assaut boursoufflé et tordu englobé dans la biomasse palpillante, veines d'énergie verte pulsante le long du canon, bouche de l'arme crachant des nuages de spores toxiques au lieu de fumée, chargeurs remplacés par des sacs à spores bulbeux et membraneux"
       },
       "attitude": {
-        "behavior": "Shadow operative slipping through enemy lines at high speed with drawn weapons, leaving trail of darkness. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
-        "emotion": "Battle-tested confidence — knowing skills will carry through the engagement"
+        "behavior": "Shadow operative se déplaçant à haute vitesse en infiltration derrière les lignes ennemies, corps courbé et fluide comme une ombre vivante, silhouette floue due au mouvement rapide, traînée de ténèbres et de spores contaminées laissée dans son sillage, posture de combat prête à exploser avec arme levée et pointée vers la menace approchante, corps tendu comme un ressort prêt à bondir",
+        "emotion": "Froid cybernétique replaced by malice parasitaire malveillante, focus extrême sous un voile de moisissures bioluminescentes, yeux remplacés par des champignons luisants vert toxique, mâchoire décrochée crachant un épais brouillard de spores"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Biological hazard photography",
-          "Fungal growth macro",
-          "Body horror action art"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Bio-horror",
+          "Body horror"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Toxic Green",
-          "role": "primary_accent — spore clouds and acid splash effects"
+          "name": "Vert kaki crasseux",
+          "role": "Couleur dominante, base organique principale du sujet et du camouflage"
         },
         {
-          "name": "Decay Brown",
-          "role": "secondary_accent — rotting surfaces and decomposing matter"
+          "name": "Brun terreux humide",
+          "role": "Sous-couche putride, chairs nécrosées et terre contaminée"
         },
         {
-          "name": "Corrosive Yellow",
-          "role": "tertiary accent — acid burns and infection glow"
+          "name": "Gris asphalte sombre",
+          "role": "Éléments d'armure métallique résiduels et environnement dévasté"
+        },
+        {
+          "name": "Vert fluo toxique",
+          "role": "Accent bioluminescent critique, spores actives, champignons luisants, veines pulsantes, énergie mycélienne"
+        },
+        {
+          "name": "Blanc cassé",
+          "role": "Moisissures et champignons matures en surface"
         }
       ],
-      "lighting_setup": "oxidized copper frame with faction insignia embossed on each corner, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "relentless_biological_assault"
+      "lighting_setup": "Éclairage dramatique cinématographique avec forte contribution de bioluminescence endogène verte toxique, la lumière provient principalement des réseaux mycéliens pulsants et des spores actives, créant des zones d'ombres dures et des reflets malsains sur les surfaces organiques humides",
+      "mood": "Menaçant, oppressant, horrifique, post-apocalyptique биологический апокалипсис, sensation d'infiltration parasitaire imminente"
     },
     "camera": {
-      "angle": "Slightly low angle waist-up shot with environmental action visible in background, motion blur on debris and effects"
+      "angle": "Low angle dutch légèrement incliné pour accentuer le mouvement rapide et la menace imminente du corrupteur fongique"
     },
     "scenography": {
-      "setting": "Biologically devastated battlefield completely consumed by fungal infestation, thick toxic spore clouds reducing visibility creating oppressive green haze, massive mycelial networks pulsating and growing visibly across all surfaces converting terrain into living organism, both ally and enemy positions attacked by spreading infection, massive pulsating sacs bursting and releasing contamination, ground itself alive and hostile with fungal tendrils bursting through without warning",
-      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Massive spore explosion blasting toxic green clouds outward at high speed, thick mycelial tendrils bursting through walls and floors like organic spears, acidic fluid dripping from fungal growths creating sizzling smoke plumes, infection spreading visibly across surfaces like fast-forward timelapse consuming everything, pulsating organic sacs bursting on impact releasing concentrated contamination clouds"
+      "setting": "Champ de bataille biologiquement dévasté entièrement consumé par l'infestation fongique, terrain converti en organisme vivant et hostile, masses sphériques et molles de champignons géants覆盖 les carcasses de véhicules militaires digérés par le réseau mycélien, nids mobiles béants formés de châssis métalliques angulaires étouffés et déformés",
+      "atmosphere_vfx": "Épais nuages de spores toxiques réduisant la visibilité et créant une brume verte oppressante, réseaux mycéliens massifs pulsant et grandissant visiblement à travers toutes les surfaces, sacs pulsants massifs éclotant et libérant de la contamination, sol lui-même vivant et hostile avec des tentacules fongiques surgissant sans avertissement, both ally and enemy positions attacked by spreading infection créant chaos organique total"
     }
   }
 }

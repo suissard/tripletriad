@@ -20,51 +20,59 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Fongique Venimeux — Fléau Spore Uncommon class eau",
+      "archetype": "Fungal Bio-Commander",
       "loadout": {
-        "armor_outfit": "Living fungal armor growing and pulsating in rhythm with host's heartbeat, toxic spore clouds emanating perpetually from pores across entire surface creating visible green haze, thick mycelial reinforcement visible beneath surface like living root systems, organic matter and fungal growths dripping from every edge with new growth visibly sprouting during combat",
-        "arsenal": "Living spore projection organ on forearm launching concentrated toxic bursts at high velocity like organic projectile weapons, toxic secretion glands in fingertips pulsating and releasing corrosive droplets that sizzle on contact, thick mycelial whip extending from back acting as ranged organic weapon that lashes out to grapple targets Functional combat equipment showing signs of heavy practical use and field customization"
+        "armor_outfit": "Melted tactical armor fused with pulsating fungal nodules and mycelial conduits, asymmetrical plating held together by living roots, spore dispersion tubes integrated into shoulders and gauntlets, biohazard filters overgrown with mycelium.",
+        "arsenal": "Mycotoxin spore launcher grafted to forearm, necrotic acid sprayer built into chest cavity, tentacle-like gauntlets for close combat, chemical signal emitter for unit coordination."
       },
       "attitude": {
-        "behavior": "Tactical coordinator positioned between allied units with hands raised directing coordinated movements. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
-        "emotion": "Battle-tested confidence — knowing skills will carry through the engagement"
+        "behavior": "Standing in the midst of a living battlefield, hands raised in commanding gestures directing allied fungal units, weapon raised and ready, eyes locked onto approaching threat, body coiled like a spring ready to unleash a coordinated fungal assault.",
+        "emotion": "Cold, relentless focus with a malevolent aura; eyes glowing with toxic bioluminescent light, jaw slack exposing a maw of spore‑laden mucus."
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Biological hazard photography",
-          "Fungal growth macro",
-          "Body horror action art"
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Post‑apocalyptic"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Toxic Green",
-          "role": "primary_accent — spore clouds and acid splash effects"
+          "name": "Sickly Olive Green",
+          "role": "Dominant environmental hue, spore clouds, mycelial glow"
         },
         {
-          "name": "Decay Brown",
-          "role": "secondary_accent — rotting surfaces and decomposing matter"
+          "name": "Muddy Brown",
+          "role": "Terrain, decayed organic matter, armor stains"
         },
         {
-          "name": "Corrosive Yellow",
-          "role": "tertiary accent — acid burns and infection glow"
+          "name": "Charcoal Gray",
+          "role": "Metal wreckage, sky background, shadows"
+        },
+        {
+          "name": "Necrotic Flesh Pink",
+          "role": "Human remains, exposed tissue, pulsating sacs"
+        },
+        {
+          "name": "Toxic Neon Green",
+          "role": "Bioluminescent accents, glowing spores, energy veins"
         }
       ],
-      "lighting_setup": "oxidized copper frame with faction insignia embossed on each corner, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "relentless_biological_assault"
+      "lighting_setup": "Dim, oppressive ambient light with localized bioluminescent glows from mycelial networks and spore bursts; occasional bright flashes of neon green from toxic energy veins.",
+      "mood": "Menacing, oppressive, dread‑inducing"
     },
     "camera": {
-      "angle": "Slightly low angle waist-up shot with environmental action visible in background, motion blur on debris and effects"
+      "angle": "low_angle_with_slight_dutch"
     },
     "scenography": {
-      "setting": "Biologically devastated battlefield completely consumed by fungal infestation, thick toxic spore clouds reducing visibility creating oppressive green haze, massive mycelial networks pulsating and growing visibly across all surfaces converting terrain into living organism, both ally and enemy positions attacked by spreading infection, massive pulsating sacs bursting and releasing contamination, ground itself alive and hostile with fungal tendrils bursting through without warning",
-      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Massive spore explosion blasting toxic green clouds outward at high speed, thick mycelial tendrils bursting through walls and floors like organic spears, acidic fluid dripping from fungal growths creating sizzling smoke plumes, infection spreading visibly across surfaces like fast-forward timelapse consuming everything, pulsating organic sacs bursting on impact releasing concentrated contamination clouds"
+      "setting": "Biologically devastated battlefield, ground cracked and alive with fungal tendrils, skeletal remains of vehicles and soldiers overgrown by pulsating mycelium, thick toxic green haze reducing visibility, massive spore sacs intermittently bursting.",
+      "atmosphere_vfx": "Thick toxic spore clouds swirling, green bioluminescent particles drifting, occasional bursts of spores from rupturing sacs, glowing mycelial veins pulsing across surfaces, faint acid drizzle on metal debris."
     }
   }
 }

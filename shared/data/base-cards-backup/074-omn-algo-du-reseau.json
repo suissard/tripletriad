@@ -1,0 +1,75 @@
+{
+  "collectionName": "base",
+  "name": "Algo du Reseau",
+  "description": "Architecte du Réseau tissant la toile de surveillance galactique connectant chaque point d'information en une seule conscience.",
+  "element": "hacking",
+  "elements": [
+    "spore"
+  ],
+  "faction": "Omni-Réseau",
+  "topValue": "7",
+  "rightValue": "6",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "heal",
+      "value": 1,
+      "target": "self"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 3,
+  "image": "base/074.png",
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Algo du Reseau — Omni-Réseau Epic class hacking",
+      "loadout": {
+        "armor_outfit": "Sleek cybernetic combat suit with circuit pathways throughout fabric glowing bright cyan under stress, neural temple implant sparking from combat overload, holographic shield generators deployed on forearms, clean geometric lines contrasting with digital chaos forged from rare materials with faction crest embedded and energy pulsing through the entire surface with every movement",
+        "arsenal": "Neural hacking deck with holographic wrist interface mid-operation showing active code streams, EMP emitter gauntlet crackling with charge creating visible blue arcs, data-spike dagger with glowing edge The weapon and gauntlets actively channel the character's heal ability targeting self, visible energy conduits linking weapon to body with flowing power"
+      },
+      "attitude": {
+        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Hands pressed urgently against wounds as focused targeted golden regenerative energy wraps around injuries in cocoon of restorative light, visible flesh and armor mending in real time",
+        "emotion": "Apocalyptic fury — full weight of faction's power channeling through body uncontrollably"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Cyberpunk action",
+          "Digital warfare art",
+          "Electromagnetic storm photography"
+        ],
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Neon Cyan",
+          "role": "primary_accent — data streams and arcing energy bolts"
+        },
+        {
+          "name": "Electric Blue",
+          "role": "secondary_accent — arc lightning and holographic displays"
+        },
+        {
+          "name": "Stark White",
+          "role": "tertiary accent — interface glare and explosive sparks"
+        }
+      ],
+      "lighting_setup": "amethyst alloy frame with crystalline energy channels pulsing light along border edges, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "cyber_warfare_assault"
+    },
+    "camera": {
+      "angle": "Wide dramatic low angle showing full blast radius, character backlit by their own power source, foreground devastated by ability effects"
+    },
+    "scenography": {
+      "setting": "Cyber warfare zone with holographic displays shattering and glitching during battle, digital fortifications crumbling under enemy ICE attacks with visible code deterioration, server towers toppling and sparking, electric storms rippling through infrastructure",
+      "atmosphere_vfx": "Golden light flowing from within outward through every wound and crack, flesh healing before eyes, armor plates reforming, blood reversing flow as body rapidly repairs itself, Light radiating from character illuminating nearby area in warm golden tones, ground beneath blooming with new growth from overflow of restorative energy, Data streams arcing between floating terminals like electric whip lashes, holographic shields shattering into cascading pixel fragments dissolving mid-air, EMP waves visible as expanding blue rings distorting everything, server racks exploding in showers of sparks and circuit boards, electric arcs grounding through coolant puddles creating branching lightning"
+    }
+  }
+}

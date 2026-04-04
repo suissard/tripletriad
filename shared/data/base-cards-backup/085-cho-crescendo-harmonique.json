@@ -1,0 +1,75 @@
+{
+  "collectionName": "base",
+  "name": "Crescendo Harmonique",
+  "description": "Compositeur de guerre improvisant des stratégies musicales adaptatives changeant de tactique au rythme des événements.",
+  "element": "obsidienne",
+  "faction": "Chœur Synthétique",
+  "topValue": "3",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": [
+    {
+      "type": "heal",
+      "value": 1,
+      "target": "all_own"
+    }
+  ],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/085.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Crescendo Harmonique — Chœur Synthétique Uncommon class obsidienne",
+      "loadout": {
+        "armor_outfit": "Crystalline armor plates growing naturally from body vibrating at resonant frequencies with visible sound waves emanating from every surface, each facet catching and fracturing light into rainbows, organic-metal hybrid construction",
+        "arsenal": "Resonance tuning fork weapon humming at visible destructive frequency with air distortion around it, harmonic shield gauntlet generating visible ring-shaped sound wave barriers, crystalline conductor baton emitting visible vibration patterns The weapon and gauntlets actively channel the character's heal ability targeting all_own, visible energy conduits linking weapon to body with flowing power"
+      },
+      "attitude": {
+        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Arms spread wide in open blessing with focused targeted golden healing wave expanding outward in all directions reaching every ally on battlefield simultaneously",
+        "emotion": "Battle-tested confidence — knowing skills will carry through the engagement"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Sound wave photography",
+          "Crystallography",
+          "Kinetic energy art"
+        ],
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Violet Crystal",
+          "role": "primary_accent — resonance energy beams and crystal shards"
+        },
+        {
+          "name": "Silver Prismatic",
+          "role": "secondary_accent — sound wave visualization and reflections"
+        },
+        {
+          "name": "Deep Indigo",
+          "role": "tertiary accent — shockwave shadows and deep resonance tones"
+        }
+      ],
+      "lighting_setup": "oxidized copper frame with faction insignia embossed on each corner, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "devastating_harmonic_blast"
+    },
+    "camera": {
+      "angle": "Slightly low angle waist-up shot with environmental action visible in background, motion blur on debris and effects"
+    },
+    "scenography": {
+      "setting": "Shattered crystalline amphitheater turned battlefield with crystal formations exploding from harmonic overload sending shards every direction, visible shockwave rings tearing through enemy positions, fragments raining from resonating cracked ceiling structures, entire environment vibrating at a frequency that makes air appear to ripple and distort",
+      "atmosphere_vfx": "Expanding ring of pure restoration light passing through all friendlies simultaneously, each ally enveloped in golden light with wounds closing across entire field at same moment, Everywhere the wave passes environment blooms — grass sprouting, flowers opening, scorched ground recovering, massive wave of vitality transforming death into life across battlefield, Visible concentric sound waves expanding outward shattering nearby crystal structures into cascading shards, crystal fragments flying through air catching prismatic light, air visibly rippling and bending from sonic force, ground fracturing in geometric patterns from bass, floating debris suspended in harmonic stasis field"
+    }
+  }
+}

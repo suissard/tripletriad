@@ -1,0 +1,76 @@
+{
+  "collectionName": "base",
+  "name": "Refugie",
+  "description": "Contrebassiste logistique assurant le maintien des lignes de ravitaillement entre les zones contestées.",
+  "element": "eau",
+  "faction": "neutre",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -1,
+      "target": "adjacent_enemy"
+    }
+  ],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/002.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "eau",
+    "glace"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Refugie — neutre Common class eau",
+      "loadout": {
+        "armor_outfit": "Layered patched armor made from mismatched faction materials welded and stitched together, bullet-pocked shoulder plates, faded utility harness loaded with ammunition and tools",
+        "arsenal": "Worn plasma rifle with taped grip sections and custom sight modifications, combat knife with notched blade, compact EMP grenades on belt The weapon and gauntlets actively channel the character's decrease ability targeting adjacent_enemy, visible energy conduits linking weapon to body with flowing power"
+      },
+      "attitude": {
+        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Low sweeping strike with arm extended toward adjacent enemy with focused targeted dark corruption spreading from fingertips in thick tendrils burrowing into enemy with visible weakening",
+        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Post-apocalyptic survival",
+          "Gritty space western",
+          "Tactical realism"
+        ],
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Dusty Steel Gray",
+          "role": "primary_accent — weathered armor and tactical gear"
+        },
+        {
+          "name": "Warm Amber",
+          "role": "secondary_accent — muzzle flash and eye reflection"
+        },
+        {
+          "name": "Deep Charcoal",
+          "role": "shadow depth and smoke"
+        }
+      ],
+      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "tense_standoff"
+    },
+    "camera": {
+      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
+    },
+    "scenography": {
+      "setting": "Active warzone at an asteroid waystation crossroads under attack, plasma rounds impacting nearby corrugated walls sending debris and sparks raining down, allied forces taking cover behind makeshift barricades while enemy silhouettes advance through thick smoke",
+      "atmosphere_vfx": "Thick corruption tendrils spreading across ground connecting to enemy with visible strength drain as debuff takes hold, enemy visibly dimming and wilting, Ground between positions withering as corruption spreads, visible weakening wave passing through adjacent enemy as armor dulls and weapons dim, Fine stellar dust swirling in air, muzzle flashes cutting through haze, shell casings ejecting in slow motion, debris kicked up by heavy boots, sparks ricocheting off metal surfaces"
+    }
+  }
+}

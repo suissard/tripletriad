@@ -17,53 +17,6 @@
   "image": "base/054.png",
   "storiesRewardedFrom": null,
   "prompt": {
-    "format": "1:1",
-    "subject": {
-      "archetype": "Carbon des Cendres — Héritiers des cendres Uncommon class obsidienne",
-      "loadout": {
-        "armor_outfit": "Armor forged from melted debris and volcanic slag, dark metal plates held by thermal bonds glowing orange at every seam, heat distortion rising from every surface, scorch marks and soot coating every inch",
-        "arsenal": "Dual flame projector gauntlets superheated to molten temperatures dripping liquid fire, volcanic glass blade still glowing cherry red at core, ash grenades on belt radiating heat Functional combat equipment showing signs of heavy practical use and field customization"
-      },
-      "attitude": {
-        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
-        "emotion": "Battle-tested confidence — knowing skills will carry through the engagement"
-      }
-    },
-    "graphics": {
-      "style": {
-        "technique": "highly_detailed_digital_painting",
-        "influences": [
-          "Volcanic eruption photography",
-          "Action fire photography",
-          "Phoenix mythology"
-        ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
-      }
-    },
-    "color_and_light": {
-      "palette_names": [
-        {
-          "name": "Ember Orange",
-          "role": "primary_accent — flames, energy blasts and burning particles"
-        },
-        {
-          "name": "Charcoal Black",
-          "role": "secondary_accent — scorched armor and terrain"
-        },
-        {
-          "name": "Magma Yellow",
-          "role": "tertiary accent — lava flows and inner core glow"
-        }
-      ],
-      "lighting_setup": "oxidized copper frame with faction insignia embossed on each corner, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "apocalyptic_inferno"
-    },
-    "camera": {
-      "angle": "Slightly low angle waist-up shot with environmental action visible in background, motion blur on debris and effects"
-    },
-    "scenography": {
-      "setting": "Volcanic battlefield mid-eruption with lava rivers bursting through cracked ground flowing around combat zone, character standing in center of massive firestorm, burning debris raining from ash-choked sky, enemy positions engulfed in flames with structures collapsing into molten ground",
-      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Massive fireball erupting from character engulfing foreground with intense orange light, lava cracking through ground with molten splashes flying up in slow motion, embers and ash swirling in thermal vortex, visible heat distortion waves rippling the air, secondary explosions in background sending shockwaves through smoke"
-    }
+    "raw": ""
   }
 }

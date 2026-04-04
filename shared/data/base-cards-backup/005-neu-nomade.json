@@ -1,0 +1,75 @@
+{
+  "collectionName": "base",
+  "name": "Nomade",
+  "description": "Garde-frontière protégeant les convois civils dans les zones neutres où aucune faction n'exerce de contrôle.",
+  "element": "furtif",
+  "faction": "neutre",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "death",
+      "value": 1,
+      "target": "enemy_on_capture"
+    }
+  ],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/005.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Nomade — neutre Common class furtif",
+      "loadout": {
+        "armor_outfit": "Layered patched armor made from mismatched faction materials welded and stitched together, bullet-pocked shoulder plates, faded utility harness loaded with ammunition and tools",
+        "arsenal": "Worn plasma rifle with taped grip sections and custom sight modifications, combat knife with notched blade, compact EMP grenades on belt The weapon and gauntlets actively channel the character's death ability targeting enemy_on_capture, visible energy conduits linking weapon to body with flowing power"
+      },
+      "attitude": {
+        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Being captured but reaching back with final curse, focused targeted dark energy flowing from captured body into captor's position as vengeful last act before being taken",
+        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Post-apocalyptic survival",
+          "Gritty space western",
+          "Tactical realism"
+        ],
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Dusty Steel Gray",
+          "role": "primary_accent — weathered armor and tactical gear"
+        },
+        {
+          "name": "Warm Amber",
+          "role": "secondary_accent — muzzle flash and eye reflection"
+        },
+        {
+          "name": "Deep Charcoal",
+          "role": "shadow depth and smoke"
+        }
+      ],
+      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "tense_standoff"
+    },
+    "camera": {
+      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
+    },
+    "scenography": {
+      "setting": "Active warzone at an asteroid waystation crossroads under attack, plasma rounds impacting nearby corrugated walls sending debris and sparks raining down, allied forces taking cover behind makeshift barricades while enemy silhouettes advance through thick smoke",
+      "atmosphere_vfx": "Malevolent curse energy crawling up captor from point of contact, visible dark tendrils of corruption spreading across their body and position with malignant effect, Ground around captor darkening and dying as curse takes hold, corruption spreading from contact point showing the price of victory, Fine stellar dust swirling in air, muzzle flashes cutting through haze, shell casings ejecting in slow motion, debris kicked up by heavy boots, sparks ricocheting off metal surfaces"
+    }
+  }
+}

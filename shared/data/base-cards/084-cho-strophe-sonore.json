@@ -19,51 +19,67 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Strophe Sonore — Chœur Synthétique Uncommon class furtif",
+      "archetype": "Cyber-ascetic Combat Medic Android - Smooth featureless chrome humanoid torso transitioning into worn monastic robes, golden holographic mandala patterns radiating from raised healing staff, binary equation streams spiraling around extended arms",
       "loadout": {
-        "armor_outfit": "Crystalline armor plates growing naturally from body vibrating at resonant frequencies with visible sound waves emanating from every surface, each facet catching and fracturing light into rainbows, organic-metal hybrid construction",
-        "arsenal": "Resonance tuning fork weapon humming at visible destructive frequency with air distortion around it, harmonic shield gauntlet generating visible ring-shaped sound wave barriers, crystalline conductor baton emitting visible vibration patterns Functional combat equipment showing signs of heavy practical use and field customization"
+        "armor_outfit": "Layered synthetic fiber monastic robes with visible tressed cable weaves in aged brown and black, ceramic plated pauldrons with steel patina, featureless smooth chrome faceplate with subtle golden runic engravings, open visor emitting soft holographic light",
+        "arsenal": "Electrified pilgrim's staff with crackling golden energy spiral, deployed healing wave emitter array visible as resonating crystal discs orbiting body, portable defragmentation grenades on woven cable belt"
       },
       "attitude": {
-        "behavior": "Combat medic rushing into the line of fire with healing equipment deployed, dodging projectiles while reaching wounded. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
-        "emotion": "Battle-tested confidence — knowing skills will carry through the engagement"
+        "behavior": "Leaping forward mid-stride with robes billowing from harmonic shockwave, one arm thrusting staff forward projecting visible healing frequency waves in concentric golden rings, other arm deploying portable shield projector, body twisted in dynamic combat medic sprinting pose, fragments of crystal debris frozen in air around figure",
+        "emotion": "Cold calculated serenity masking urgency, subtle golden holographic tears or sweat particles emanating from facial seams, eyes locked on distant wounded allies through transparent facial HUD overlay"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Sound wave photography",
-          "Crystallography",
-          "Kinetic energy art"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Violet Crystal",
-          "role": "primary_accent — resonance energy beams and crystal shards"
+          "name": "Holographic Gold",
+          "role": "Primary energy accent - healing waves, runic symbols, staff electricity"
         },
         {
-          "name": "Silver Prismatic",
-          "role": "secondary_accent — sound wave visualization and reflections"
+          "name": "Aged Steel Grey",
+          "role": "Primary structure - android components, armor plating, weapon frames"
         },
         {
-          "name": "Deep Indigo",
-          "role": "tertiary accent — shockwave shadows and deep resonance tones"
+          "name": "Ceramic White Patina",
+          "role": "Secondary surface - faceplate base, ceremonial elements"
+        },
+        {
+          "name": "Delaved Monastic Brown",
+          "role": "Tertiary fabric - worn robes, cable tresses, cloth elements"
+        },
+        {
+          "name": "Electric Cyan",
+          "role": "Secondary energy - shield projections, healing frequency indicators"
+        },
+        {
+          "name": "Oxidized Bronze",
+          "role": "Accent metal - decorative rings, ancient circuitry traces"
+        },
+        {
+          "name": "Crystal Shard Purple",
+          "role": "Environment contrast - exploding amphitheater crystals"
         }
       ],
-      "lighting_setup": "oxidized copper frame with faction insignia embossed on each corner, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "devastating_harmonic_blast"
+      "lighting_setup": "Cinematic three-point setup with dominant warm golden backlight creating rim lighting on dust particles, cool steel fill light from reflected crystal fragments, volumetric fog illuminated by crackling energy shocks",
+      "mood": "Surgical serenity amid chaotic destruction - peaceful warrior monk aesthetics contrasting violent battlefield, heroic tension with meditative calm"
     },
     "camera": {
-      "angle": "Slightly low angle waist-up shot with environmental action visible in background, motion blur on debris and effects"
+      "angle": "Low angle dutch tilt - 15 degrees, slightly below eye-level capturing dynamic leap pose with amphitheater chaos above, dramatic upward perspective emphasizing heroic silhouette against shattered ceiling"
     },
     "scenography": {
-      "setting": "Shattered crystalline amphitheater turned battlefield with crystal formations exploding from harmonic overload sending shards every direction, visible shockwave rings tearing through enemy positions, fragments raining from resonating cracked ceiling structures, entire environment vibrating at a frequency that makes air appear to ripple and distort",
-      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Visible concentric sound waves expanding outward shattering nearby crystal structures into cascading shards, crystal fragments flying through air catching prismatic light, air visibly rippling and bending from sonic force, ground fracturing in geometric patterns from bass, floating debris suspended in harmonic stasis field"
+      "setting": "Shattered crystalline amphitheater - concentric ring seating structures cracked and fractured, massive crystal formations erupting from stage center, carved stone walls with embedded circuit patterns matching faction aesthetic, floating debris maintained in mid-air suspension by harmonic resonance, visible stress fractures in ceiling structures glowing with overload frequencies",
+      "atmosphere_vfx": "Concentric shockwave rings expanding outward in golden-white energy rippling through air making atmosphere appear to distort and wobble, crystal shard rain caught frozen in time, glitching holographic debris from damaged temple ship visible in sky above, constant particle dust illuminated by electrical discharge, subtle chromatic aberration on edges, lens flare from healing beam projection"
     }
   }
 }

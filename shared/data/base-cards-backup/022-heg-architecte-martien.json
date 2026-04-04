@@ -1,0 +1,69 @@
+{
+  "collectionName": "base",
+  "name": "Architecte Martien",
+  "description": "Commandant de peloton coordonnant les assauts frontaux avec des formations de combat martiennes classiques.",
+  "element": "obsidienne",
+  "faction": "Hégémonie martienne",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/022.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Architecte Martien — Hégémonie martienne Uncommon class obsidienne",
+      "loadout": {
+        "armor_outfit": "Heavy combat armor with thick crimson red plating showing battle scars and scorch marks, reinforced shoulder guards with dented imperial insignia, tactical undersuit at joints, magnetic combat boots locked to metal deck",
+        "arsenal": "Standard-issue heavy plasma rifle with imperial engravings, combat chainsword with serrated edge, tactical grenade bandolier across chest, targeting visor HUD displaying red lock-on data Functional combat equipment showing signs of heavy practical use and field customization"
+      },
+      "attitude": {
+        "behavior": "Frontline combatant engaged directly with enemy forces with weapon fully committed to the attack. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
+        "emotion": "Battle-tested confidence — knowing skills will carry through the engagement"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "War photography",
+          "Mechanized warfare",
+          "Roman Imperial military"
+        ],
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Crimson Red",
+          "role": "primary_accent — armor plating and blood mist in the air"
+        },
+        {
+          "name": "Gunmetal Black",
+          "role": "secondary_accent — structural elements and deepest shadows"
+        },
+        {
+          "name": "Blinding White",
+          "role": "tertiary accent — muzzle flash and explosive ignition"
+        }
+      ],
+      "lighting_setup": "oxidized copper frame with faction insignia embossed on each corner, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "relentless_military_assault"
+    },
+    "camera": {
+      "angle": "Slightly low angle waist-up shot with environmental action visible in background, motion blur on debris and effects"
+    },
+    "scenography": {
+      "setting": "Planetary assault battlefield with artillery detonating sending massive dust columns skyward, advancing infantry silhouettes through smoke, orbital dropships descending under anti-aircraft fire, trenches littered with spent casings",
+      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Artillery shells exploding in background sending up massive geysers of red dust, tracer rounds streaking across sky, crimson smoke grenades billowing, shrapnel flying past camera, ground cracking from impact tremors"
+    }
+  }
+}

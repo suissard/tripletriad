@@ -1,0 +1,75 @@
+{
+  "collectionName": "base",
+  "name": "Routeur Quantique",
+  "description": "Nœud de données relayant les informations tactiques entre les unités alliées connectées au réseau omnidirectionnel.",
+  "element": "reseau",
+  "faction": "Omni-Réseau",
+  "topValue": "3",
+  "rightValue": "4",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "death",
+      "value": 1,
+      "target": "self_on_flip"
+    }
+  ],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/061.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Routeur Quantique — Omni-Réseau Common class reseau",
+      "loadout": {
+        "armor_outfit": "Sleek cybernetic combat suit with circuit pathways throughout fabric glowing bright cyan under stress, neural temple implant sparking from combat overload, holographic shield generators deployed on forearms, clean geometric lines contrasting with digital chaos",
+        "arsenal": "Neural hacking deck with holographic wrist interface mid-operation showing active code streams, EMP emitter gauntlet crackling with charge creating visible blue arcs, data-spike dagger with glowing edge The weapon and gauntlets actively channel the character's death ability targeting self_on_flip, visible energy conduits linking weapon to body with flowing power"
+      },
+      "attitude": {
+        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Body flipping violently between states as captured with both hands slamming into ground sending focused targeted shockwave through all adjacent positions, final devastating act of dying warrior",
+        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Cyberpunk action",
+          "Digital warfare art",
+          "Electromagnetic storm photography"
+        ],
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Neon Cyan",
+          "role": "primary_accent — data streams and arcing energy bolts"
+        },
+        {
+          "name": "Electric Blue",
+          "role": "secondary_accent — arc lightning and holographic displays"
+        },
+        {
+          "name": "Stark White",
+          "role": "tertiary accent — interface glare and explosive sparks"
+        }
+      ],
+      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "cyber_warfare_assault"
+    },
+    "camera": {
+      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
+    },
+    "scenography": {
+      "setting": "Cyber warfare zone with holographic displays shattering and glitching during battle, digital fortifications crumbling under enemy ICE attacks with visible code deterioration, server towers toppling and sparking, electric storms rippling through infrastructure",
+      "atmosphere_vfx": "Explosive shockwave radiating outward in perfect circle with incredible force, visible ring of energy passing through all adjacent positions simultaneously with cascading chain reaction, Ground erupting with visible shockwave, debris lifted and thrown outward by force, visible damage spreading to all adjacent tiles as energy wave passes through, Data streams arcing between floating terminals like electric whip lashes, holographic shields shattering into cascading pixel fragments dissolving mid-air, EMP waves visible as expanding blue rings distorting everything, server racks exploding in showers of sparks and circuit boards, electric arcs grounding through coolant puddles creating branching lightning"
+    }
+  }
+}

@@ -19,51 +19,64 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Pelerin — neutre Common class reseau",
+      "archetype": "Improvised Space Combatant - Scavenger Sapper",
       "loadout": {
-        "armor_outfit": "Layered patched armor made from mismatched faction materials welded and stitched together, bullet-pocked shoulder plates, faded utility harness loaded with ammunition and tools",
-        "arsenal": "Worn plasma rifle with taped grip sections and custom sight modifications, combat knife with notched blade, compact EMP grenades on belt Functional combat equipment showing signs of heavy practical use and field customization"
+        "armor_outfit": "Heavily patched obsolete mining space suit with asymmetrical armor plates welded from salvaged cargo container metal and old warning signs, thick layers of corroded duct tape reinforcing fractured helmet seal and joint connections, exposed pressurized tubes and sparking cables running across chest cavity, industrial fall arrest harness covered in tool pouches, carabiners and coiled rope, rusted knee and elbow pads scavenged from scrapped EVA suits, patched rubber gloves with exposed fingertips stained with grease and burn marks",
+        "arsenal": "Militarized mining harpoon rifle with exposed copper induction coils for improvised electromagnetic discharge, jury-rigged battery pack directly taped to weapon stock with frayed wires, circular saw blade attachment integrated into forearm gauntlet, plasma cutting torch holstered at hip with visible fuel lines, heavy industrial bolt pistol strapped to thigh"
       },
       "attitude": {
-        "behavior": "Frontline combatant engaged directly with enemy forces with weapon fully committed to the attack. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
-        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
+        "behavior": "Frontline combatant fully committed to engagement with weapon raised and sighted on approaching threat, weighted combat stance with legs braced wide, body coiled and tensed like compressed spring primed for explosive forward momentum, free hand gripping additional equipment at harness ready for rapid tool swap",
+        "emotion": "Intense predatory focus visible through scratched opaque welding visor, jaw clenched tight beneath face mask with grease paint war marks, cold determination mixed with adrenaline-fueled readiness, scarred hands gripping weapon with practiced certainty"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Post-apocalyptic survival",
-          "Gritty space western",
-          "Tactical realism"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Scrap-punk Industrial"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Dusty Steel Gray",
-          "role": "primary_accent — weathered armor and tactical gear"
+          "name": "Oxidized Steel Gray",
+          "role": "Primary armor and environmental base tones"
         },
         {
-          "name": "Warm Amber",
-          "role": "secondary_accent — muzzle flash and eye reflection"
+          "name": "Rust Orange",
+          "role": "Weathered metal, corroded surfaces, and warmth accent"
         },
         {
-          "name": "Deep Charcoal",
-          "role": "shadow depth and smoke"
+          "name": "Industrial Dark Gray",
+          "role": "Shadow areas and secondary equipment"
+        },
+        {
+          "name": "Hot Blue Plasma",
+          "role": "Energy weapon glow, impact flashes, and light source accent"
+        },
+        {
+          "name": "Engine Grease Black",
+          "role": "Face paint, staining, and deep shadow"
+        },
+        {
+          "name": "Sparks Yellow-White",
+          "role": "Impact debris and energetic highlights"
         }
       ],
-      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "tense_standoff"
+      "lighting_setup": "Cinematic mixed source with dominant blue plasma reflections from weapon impacts, secondary warm orange sparks from debris, volumetric smoke illumination from distant explosions, harsh directional rim lighting cutting through thick particulate atmosphere",
+      "mood": "Chaotic desperation, violent tension, gritty survival intensity"
     },
     "camera": {
-      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
+      "angle": "Low angle dutch tilt to emphasize aggressive forward momentum and threat hierarchy"
     },
     "scenography": {
-      "setting": "Active warzone at an asteroid waystation crossroads under attack, plasma rounds impacting nearby corrugated walls sending debris and sparks raining down, allied forces taking cover behind makeshift barricades while enemy silhouettes advance through thick smoke",
-      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Fine stellar dust swirling in air, muzzle flashes cutting through haze, shell casings ejecting in slow motion, debris kicked up by heavy boots, sparks ricocheting off metal surfaces"
+      "setting": "Asteroid waystation crossroads junction chamber with corrugated metal walls scarred by plasma impacts, hastily welded barricades constructed from cargo pallets and debris, exposed structural beams and tangled cable conduits overhead, emergency lighting flickering with damaged power grid, thick acrid smoke rolling across floor level obscuring distant figures",
+      "atmosphere_vfx": "Active plasma round impacts causing violent metal debris explosions and brilliant spark showers, dense layered smoke from burning equipment and hull breaches, floating micro-debris in zero gravity creating suspended dust particles, distant muzzle flashes illuminating enemy silhouettes, screen-space distortion from heat shimmer near plasma weapons"
     }
   }
 }

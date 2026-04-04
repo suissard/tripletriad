@@ -25,51 +25,64 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Algo du Reseau — Omni-Réseau Epic class hacking",
+      "archetype": "Cyborg Combat Specialist, massive neural interface crown grafted to skull and spine, Algorithmic Network Architect connected to galactic surveillance web, pale cadaveric flesh visible beneath damaged tactical armor",
       "loadout": {
-        "armor_outfit": "Sleek cybernetic combat suit with circuit pathways throughout fabric glowing bright cyan under stress, neural temple implant sparking from combat overload, holographic shield generators deployed on forearms, clean geometric lines contrasting with digital chaos forged from rare materials with faction crest embedded and energy pulsing through the entire surface with every movement",
-        "arsenal": "Neural hacking deck with holographic wrist interface mid-operation showing active code streams, EMP emitter gauntlet crackling with charge creating visible blue arcs, data-spike dagger with glowing edge The weapon and gauntlets actively channel the character's heal ability targeting self, visible energy conduits linking weapon to body with flowing power"
+        "armor_outfit": "Mass-produced composite tactical exoskeleton, dark anthracite and matte black armor plates, brushed steel mechanical joints, visible serial numbers and interface ports etched into armor and exposed skin, damaged sections revealing internal circuitry and synthetic musculature",
+        "arsenal": "Geometric serial-issue assault rifle with direct neural tether cables connecting grip to wrist implants, emergency regenerative energy projectors integrated into gauntlets emitting focused golden restorative light"
       },
       "attitude": {
-        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Hands pressed urgently against wounds as focused targeted golden regenerative energy wraps around injuries in cocoon of restorative light, visible flesh and armor mending in real time",
-        "emotion": "Apocalyptic fury — full weight of faction's power channeling through body uncontrollably"
+        "behavior": "Full combat commitment with weapon raised, one hand pressing urgent against severe battlefield wounds while targeted golden regenerative energy cascades around injuries in cocoon of restorative light, both flesh and armor visibly mending in real-time, surrounded by shattering holographic displays and crumbling digital fortifications",
+        "emotion": "Inexpressive dead-eyed stare beneath glowing neural implants, cold cybernetic focus despite physical damage, algorithmically calm demeanor even while sustaining critical hits and self-repairing"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Cyberpunk action",
-          "Digital warfare art",
-          "Electromagnetic storm photography"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Cyberpunk Dystopia"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Neon Cyan",
-          "role": "primary_accent — data streams and arcing energy bolts"
+          "name": "Matte Black",
+          "role": "primary armor base and shadow areas"
         },
         {
-          "name": "Electric Blue",
-          "role": "secondary_accent — arc lightning and holographic displays"
+          "name": "Anthracite Gray",
+          "role": "secondary armor plating and infrastructure"
         },
         {
-          "name": "Stark White",
-          "role": "tertiary accent — interface glare and explosive sparks"
+          "name": "Pale Cadaveric Flesh",
+          "role": "exposed skin and facial features"
+        },
+        {
+          "name": "Cold Steel Blue",
+          "role": "neural implants, optical enhancements, and technological accents"
+        },
+        {
+          "name": "Golden Regenerative Energy",
+          "role": "wound healing light effect and restorative cocoon"
+        },
+        {
+          "name": "Electric Cyan",
+          "role": "glitching holograms and ICE attack deterioration"
         }
       ],
-      "lighting_setup": "amethyst alloy frame with crystalline energy channels pulsing light along border edges, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "cyber_warfare_assault"
+      "lighting_setup": "cinematic_volumetric_lighting_with_holographic_flicker",
+      "mood": "menacing_dystopian_technological_warfare"
     },
     "camera": {
-      "angle": "Wide dramatic low angle showing full blast radius, character backlit by their own power source, foreground devastated by ability effects"
+      "angle": "low_angle_slightly_dutch_tilt"
     },
     "scenography": {
-      "setting": "Cyber warfare zone with holographic displays shattering and glitching during battle, digital fortifications crumbling under enemy ICE attacks with visible code deterioration, server towers toppling and sparking, electric storms rippling through infrastructure",
-      "atmosphere_vfx": "Golden light flowing from within outward through every wound and crack, flesh healing before eyes, armor plates reforming, blood reversing flow as body rapidly repairs itself, Light radiating from character illuminating nearby area in warm golden tones, ground beneath blooming with new growth from overflow of restorative energy, Data streams arcing between floating terminals like electric whip lashes, holographic shields shattering into cascading pixel fragments dissolving mid-air, EMP waves visible as expanding blue rings distorting everything, server racks exploding in showers of sparks and circuit boards, electric arcs grounding through coolant puddles creating branching lightning"
+      "setting": "Cyber warfare zone, massive server towers toppling and sparking, brutalist monolithic structures crumbling, digital fortifications dissolving under aggressive enemy ICE attacks with visible code stream deterioration, electric storms rippling through technological infrastructure",
+      "atmosphere_vfx": "shattering_holographic_displays_glitching_intensely, blue_electric_energy_discharges, falling_debris_from_digital_fortifications, golden_light_emanating_from_self-repair_systems, digital_code_fragments_scattering_through_air, thick_black_neural_cables_swaying_with_impact"
     }
   }
 }

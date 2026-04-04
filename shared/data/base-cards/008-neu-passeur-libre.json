@@ -19,51 +19,69 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Passeur Libre — neutre Uncommon class eau",
+      "archetype": "Scrap-Punk Combat Medic – Humain变异，手持工具的战场救援者，身着破旧的采矿服，象征着人类在极端环境中的适应力与生存意志",
       "loadout": {
-        "armor_outfit": "Layered patched armor made from mismatched faction materials welded and stitched together, bullet-pocked shoulder plates, faded utility harness loaded with ammunition and tools",
-        "arsenal": "Worn plasma rifle with taped grip sections and custom sight modifications, combat knife with notched blade, compact EMP grenades on belt Functional combat equipment showing signs of heavy practical use and field customization"
+        "armor_outfit": "Combinaison spatiale de minage obsolète lourdement modifiée et rapiécée à l'extrême. Plaques d'armures improvisées soudées à partir de panneaux de signalisation arrachés et de tôles ondulées. Asymétrique et surchargée avec des couches de réparation visibles. Coussinets d'épaules forgés à partir de vieux réservoirs d'oxygène. Gants de travail renforcés couverts de graisse de moteur noircie. Bottes magnétiques industrielles avec semelles usées. Ceinture de survie artisanale avec harnais de sécurité couvert de mousquetons rouillés et de cordes. Visière de casque de souteur spatiaux fendillé, maintenue par plusieurs couches de ruban adhésif gris (duct tape) et de câbles de fortune. Fils électriques dénudés et tubes de cuivre exposés visibles le long des bras.",
+        "arsenal": "Équipement médical militarisé de récupération complet. Sac de secours antichoc avec batteries de fortune scotchées et câbles IEM (Interférence Électromagnétique) exposés. Pistolet seringue pneumatique artisanale à double canon, batterie externe attachée avec du gros scotch orange. Défibrillateur cannibalisé d'un véhicule de fret, condensateurs visibles et étincelants. Gants médicaux blindés avec articulate de métal sur les phalanges pouvant servir de gantelet de combat. Outil multi-fonctions de mineur soldé à la cuisse, lames de scie circulaire improvisées. Lance-flammes de poche récupéré sur un chalumeau de maintenance, buses soudées artisanalement."
       },
       "attitude": {
-        "behavior": "Combat medic rushing into the line of fire with healing equipment deployed, dodging projectiles while reaching wounded. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
-        "emotion": "Battle-tested confidence — knowing skills will carry through the engagement"
+        "behavior": "Mouvement dynamique et fluide en plein milieu de la ligne de feu. Corps penché vers l'avant en course désespérée, esquivant un tir de plasma imminent en se jetant sur le côté. Équipement médical déployé et prêt à l'emploi, une main tenant le défibrillateur alors que l'autre guide le mouvement. Genou fléchit absorbant l'impact de l'esquive, bras protecteur couvrant la poitrine et le sac médical. Posture de combat prête avec l'outil multi-fonctions矿 minière brandi en position défensive, lame de scie circulaire orientée vers la menace.",
+        "emotion": "Détermination absolue mêlée de fatigue profonde. Regard intense et focalisé derrière la visière opaques rayée, yeux plissés à cause de la lumière des impacts de plasma. Peinture de guerre traditionnelle de la faction appliquée avec de la graisse de moteur noircie, striures tribales sur les joues et le front. Expression stoïque de quelqu'un qui a vu trop de souffrances mais refuse d'abandonner. Sueur et cambouis mêlés sur le front, souffle court mais contrôlé. Compassion inébranlable malgré le chaos ambiant, visant spécifiquement à atteindre un blessé au sol en arrière-plan."
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Post-apocalyptic survival",
-          "Gritty space western",
-          "Tactical realism"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Scrap-punk",
+          "Industrial survivalism"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Dusty Steel Gray",
-          "role": "primary_accent — weathered armor and tactical gear"
+          "name": "Acier oxydé",
+          "role": "Dominant, armures et structures métalliques"
         },
         {
-          "name": "Warm Amber",
-          "role": "secondary_accent — muzzle flash and eye reflection"
+          "name": "Orange rouille",
+          "role": "Secondaire, éclairage d'accentuation chaude"
         },
         {
-          "name": "Deep Charcoal",
-          "role": "shadow depth and smoke"
+          "name": "Gris industriel",
+          "role": "Fond, structures et atmosphérique"
+        },
+        {
+          "name": "Bleu plasma chaud",
+          "role": "Accent énergétique, impacts et lumières"
+        },
+        {
+          "name": "Noir graisse de moteur",
+          "role": "Détails etxtures, peinturs de guerre"
+        },
+        {
+          "name": "Jaune chantier écaillé",
+          "role": "Signalisation improvisée et équipements"
+        },
+        {
+          "name": "Étincelles vives orange-blanc",
+          "role": "Particules dynamiques, impacts"
         }
       ],
-      "lighting_setup": "oxidized copper frame with faction insignia embossed on each corner, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "tense_standoff"
+      "lighting_setup": "cinematic_volumetric_with_dual-source_plasma_glow_and_sparks",
+      "mood": "chaotic_intense_yet_humanitarian"
     },
     "camera": {
-      "angle": "Slightly low angle waist-up shot with environmental action visible in background, motion blur on debris and effects"
+      "angle": "low_angle_with_slight_dutch_tilt_for_dramatic_tension"
     },
     "scenography": {
-      "setting": "Active warzone at an asteroid waystation crossroads under attack, plasma rounds impacting nearby corrugated walls sending debris and sparks raining down, allied forces taking cover behind makeshift barricades while enemy silhouettes advance through thick smoke",
-      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Fine stellar dust swirling in air, muzzle flashes cutting through haze, shell casings ejecting in slow motion, debris kicked up by heavy boots, sparks ricocheting off metal surfaces"
+      "setting": "Station de croisement astéroïde en guerre active. Structure métallique corrugated (tôles ondulées) partiellement démantelée, poutres de soutien exposées, câbles et tuyaux industriels pendants. Barricades de fortune construites avec des conteneurs de fret empilés et des débris de vaisseaux. Sol jonché de douelles de plasma usées, d'outils cassés et de équipements médicaux abandonnés. Atmosphère poussiéreuse avec particules de métal en suspension.",
+      "atmosphere_vfx": "Plasma rounds impactant les murs corrugated à quelques mètres du sujet, créant des éclats de métal incandescents et une pluie de débris et étincelles. Fumée épaisse gris-blanche envahissant l'espace, partiellement illuminée par les lueurs bleuâtres des armes à plasma. Fumigènes de combat multicolores (orange, vert) en arrière-plan. Reflets dynamiques des explosions sur les surfaces métalliques humides de fluide de refroidissement. Micro-particules de poussière et de métal brillant dans l'air, captées par la lumière. Ondulations de chaleur simulated près des propulseurs de vaisseaux en surcharge."
     }
   }
 }

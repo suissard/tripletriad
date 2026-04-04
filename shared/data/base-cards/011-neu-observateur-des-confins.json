@@ -19,51 +19,65 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Observateur des Confins — neutre Rare class None",
+      "archetype": "Augmented Combat Coordinator - Scavenger Warrior Elite",
       "loadout": {
-        "armor_outfit": "Layered patched armor made from mismatched faction materials welded and stitched together, bullet-pocked shoulder plates, faded utility harness loaded with ammunition and tools with distinctive faction engravings and glowing energy channel conduits running along seams",
-        "arsenal": "Worn plasma rifle with taped grip sections and custom sight modifications, combat knife with notched blade, compact EMP grenades on belt Functional combat equipment showing signs of heavy practical use and field customization"
+        "armor_outfit": "Heavily modified mining space suit constructed from welded oxidized steel plates, corrugated metal patches, and salvaged carapace fragments. Duct tape reinforcing every joint seam, exposed hydraulic cables running along limbs, thick layered chest plate made from a crushed signal panel displaying faded hazard stripes. Scuffed elbow and knee guards from industrial pipe fittings, magnetic tool harness across torso with dangling carabiners and improvised gadgets, worn fabric underlayers stained with grease and burnt synthetic fibers. Thick belt of welded metal links supporting multiple pouches, grappling hook, and coiled rope. Patched helmet with a cracked visor scratched by years of debris impacts, mounted welding goggles pushed up on forehead, exposed breathing apparatus tubes, radio antenna fashioned from copper wiring.",
+        "arsenal": "One massive militarized mining harpoon rifle with exposed copper coil IEM systems wrapped in electrical tape, battery pack strapped to stock with jumper cables. Compact circular saw attachment mounted on left forearm gauntlet, sparking from residual plasma damage. Holstered sidearm resembling a shortened kinetic pistol with a welded muzzle brake, duct-taped grip wrapped in rubberized fabric. Thrown proximity grenades on chest harness resembling salvaged fuel cells."
       },
       "attitude": {
-        "behavior": "Tactical coordinator positioned between allied units with hands raised directing coordinated movements. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
-        "emotion": "Lethal intensity — predator recognizing the perfect strike moment"
+        "behavior": "Tactical coordinator positioned at the junction between allied unit clusters, arms raised and spread wide signaling tactical commands, body twisted mid-stride in a dynamic three-quarter turn. Left leg planted forward on rubble-strewn deck plating, right leg pushing off debris pile. Both hands open and gesturing sharp directional commands while the right foot braces against a bent metal grating. Weapon held low in ready position, finger hovering near trigger guard. Head sharply angled toward advancing enemy silhouettes visible through smoke, jaw clenched beneath cracked visor. Muscles visibly tensing through suit fabric, posture coiled and explosive.",
+        "emotion": "Intensely focused battle calculation, eyes narrowed behind scratched visor scanning multiple threat vectors simultaneously. Controlled aggression mixed with tactical urgency, grim determination etched across grease-smeared features partially visible through helmet cracks. Peripheral awareness of allied unit positions creating a mental battlefield map, calculating risk vectors with cold precision."
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Post-apocalyptic survival",
-          "Gritty space western",
-          "Tactical realism"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Scrap-punk Industrial",
+          "Mad Max Zero-G Aesthetic"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Dusty Steel Gray",
-          "role": "primary_accent — weathered armor and tactical gear"
+          "name": "Oxidized Steel Gray",
+          "role": "Primary structural elements - armor plates, environment metal surfaces"
         },
         {
-          "name": "Warm Amber",
-          "role": "secondary_accent — muzzle flash and eye reflection"
+          "name": "Rust Orange",
+          "role": "Secondary warm tones - weathered metal, heated components, hazard markings"
         },
         {
-          "name": "Deep Charcoal",
-          "role": "shadow depth and smoke"
+          "name": "Industrial Charcoal Black",
+          "role": "Deep shadows, grease stains, worn fabric, smoke density"
+        },
+        {
+          "name": "Chipped Construction Yellow",
+          "role": "Accent details - warning stripes, tool handles, patched signage fragments"
+        },
+        {
+          "name": "Hot Blue Plasma",
+          "role": "Energy accents - plasma impact points, sparks, weapon discharge, welding glow"
+        },
+        {
+          "name": "Electric Orange Spark",
+          "role": "Dynamic highlights - debris trails, molten metal droplets, muzzle flash"
         }
       ],
-      "lighting_setup": "cobalt steel frame with etched faction symbols running along each border edge, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "tense_standoff"
+      "lighting_setup": "Dramatic mixed_source_combat_lighting: dominant cold blue plasma glow from weapon impacts and explosions creating rim lighting on subject, warm orange fire from burning debris and wrecked machinery providing fill light, harsh white sparks creating localized highlight points, ambient smoke-scattered bounced light from multiple plasma discharges, volumetric fog density from drifting smoke clouds.",
+      "mood": "Tense combat urgency, desperate strategic coordination, gritty survival determination, imminent violent action, chaotic battlefield awareness"
     },
     "camera": {
-      "angle": "Low dramatic angle emphasizing dominance, wide enough to show full environmental impact of the ability"
+      "angle": "low_angle_dutch_tilt - Camera positioned below waist level tilted slightly right, looking up at the coordinator dramatically silhouetted against plasma fire and smoke, emphasizing their commanding presence in the chaos"
     },
     "scenography": {
-      "setting": "Active warzone at an asteroid waystation crossroads under attack, plasma rounds impacting nearby corrugated walls sending debris and sparks raining down, allied forces taking cover behind makeshift barricades while enemy silhouettes advance through thick smoke",
-      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Fine stellar dust swirling in air, muzzle flashes cutting through haze, shell casings ejecting in slow motion, debris kicked up by heavy boots, sparks ricocheting off metal surfaces"
+      "setting": "Asteroid waystation crossroads junction - massive industrial hub intersection where multiple corridors converge around a central zero-G cargo hub. Corrugated metal walls pockmarked with plasma burns and impact craters, bent support beams exposed through torn panels, fallen scaffolding and twisted rebar creating geometric chaos. Makeshift barricades constructed from stacked cargo crates, broken machinery, and welded scrap metal forming defensive positions for allied units. Enemy silhouettes visible through thick smoke in distant corridor mouths, advancing cautiously through the haze. Debris field of shattered equipment, sparking cables, and burning wreckage scattered across the deck plating. Emergency lighting strips flickering in oxidized red along floor edges, dim yellow maintenance lamps casting sporadic pools of light.",
+      "atmosphere_vfx": "Intense plasma round impacts creating expanding orange-white energy blooms against corrugated walls in background, debris clouds and sparks raining down in parabolic arcs due to minimal gravity, thick rolling smoke banks drifting through the corridor from multiple fire sources, small fires flickering on scattered wreckage, electrical sparks arcing from damaged machinery, dust particles catching plasma glow creating volumetric light rays, distant muzzle flashes illuminating smoke silhouettes, heat distortion rising from burning materials, motion blur on fast-moving debris fragments, screen-space ambient occlusion on metal crevices and behind the coordinator's boots."
     }
   }
 }

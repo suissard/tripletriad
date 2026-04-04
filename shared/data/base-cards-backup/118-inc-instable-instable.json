@@ -1,0 +1,75 @@
+{
+  "collectionName": "base",
+  "name": "Instable Instable",
+  "description": "Entropiste accélérant la désintégration des structures ennemies faisant vieillir les constructions et les armures à vitesse exponentielle.",
+  "element": "furtif",
+  "elements": [
+    "radiation"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "9",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "growing",
+      "value": 1,
+      "target": "adjacent_friendly"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 4,
+  "image": "base/118.png",
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Instable Instable — Incursion Dissonante Epic class furtif",
+      "loadout": {
+        "armor_outfit": "Fragmented armor with each plate phasing at different dimensions and times out of sync with reality, impossible geometries connecting segments creating shapes mind cannot process, unnatural spectrum colors shifting and glitching randomly, portions flickering between solid and translucent ghostly state in rapid succession forged from rare materials with faction crest embedded and energy pulsing through the entire surface with every movement",
+        "arsenal": "Reality-fracturing blade cutting through dimensional barriers leaving visible spatial tears trailing where physics breaks down, paradox generator causing multiple versions of weapon to phase in and out simultaneously from different angles, glitch emitter integrated into off-hand disrupting enemy targeting at quantum level creating visual distortion fields The weapon and gauntlets actively channel the character's growing ability targeting adjacent_friendly, visible energy conduits linking weapon to body with flowing power"
+      },
+      "attitude": {
+        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. One arm extended powerfully toward ally with focused targeted green energy streaming from palm in thick flowing ribbon connecting to ally's body with visible strengthening effect",
+        "emotion": "Apocalyptic fury — full weight of faction's power channeling through body uncontrollably"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Glitch action photography",
+          "Digital corruption art",
+          "Quantum breakdown visualization"
+        ],
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Magenta Glitch",
+          "role": "primary_accent — reality fracture edges and distortion boundaries"
+        },
+        {
+          "name": "Fractured Green",
+          "role": "secondary_accent — dimensional tear cores and anomaly centers"
+        },
+        {
+          "name": "Chromatic Aberration Rainbow",
+          "role": "tertiary accent — visual artifacts where colors separate and bleed"
+        }
+      ],
+      "lighting_setup": "amethyst alloy frame with crystalline energy channels pulsing light along border edges, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "catastrophic_reality_collapse"
+    },
+    "camera": {
+      "angle": "Wide dramatic low angle showing full blast radius, character backlit by their own power source, foreground devastated by ability effects"
+    },
+    "scenography": {
+      "setting": "Reality collapse zone with environment fragmenting into multiple parallel versions simultaneously, buildings existing in two dimensions at once showing both intact and destroyed overlapping states, sky displaying conflicting celestial bodies that should not coexist, gravity malfunctioning causing debris to fall upward and sideways in different zones, ground cracking open revealing parallel battlefields layered on each other like corrupt image",
+      "atmosphere_vfx": "Powerful energy bridge arcing between caster's hand and target with secondary sparks jumping off main channel to nearby allies creating chain reaction of empowerment, Ground beneath allies glowing green where energy arrives, visible strengthening wave passing through each connected unit, terrain responding to positive energy with new growth, Reality shattering like cracked glass across scene with fragments revealing parallel dimensions, chromatic aberration tearing colors apart at high speed creating RGB separation, objects phasing in and out mid-explosion with parts appearing and disappearing, gravity distorting sending debris every direction simultaneously, temporal stutter showing same motion frozen in multiple positions at once creating ghost trails"
+    }
+  }
+}

@@ -25,51 +25,65 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Rupture Devie — Incursion Dissonante Epic class faille_dimensionnelle",
+      "archetype": "Extra-dimensional Chaos Architect - Entity of pure dimensional dissonance, humanoid silhouette fractured between multiple overlapping realities, skin simultaneously intact and decomposed, one half of face pristine while other half is exposed skull with glitching neural tissue",
       "loadout": {
-        "armor_outfit": "Fragmented armor with each plate phasing at different dimensions and times out of sync with reality, impossible geometries connecting segments creating shapes mind cannot process, unnatural spectrum colors shifting and glitching randomly, portions flickering between solid and translucent ghostly state in rapid succession forged from rare materials with faction crest embedded and energy pulsing through the entire surface with every movement",
-        "arsenal": "Reality-fracturing blade cutting through dimensional barriers leaving visible spatial tears trailing where physics breaks down, paradox generator causing multiple versions of weapon to phase in and out simultaneously from different angles, glitch emitter integrated into off-hand disrupting enemy targeting at quantum level creating visual distortion fields The weapon and gauntlets actively channel the character's decrease ability targeting enemy_with_highest, visible energy conduits linking weapon to body with flowing power"
+        "armor_outfit": "Armored military exoskeleton violently deformed by gravitational torsion - plates of dark metal warped like melted wax, sections phasing in and out of existence revealing void beneath, tattered crimson and violet robes underneath that float in defiance of physics, limbs positioned at anatomically impossible angles held together by crackling magenta energy threads, crown of floating geometric shards orbiting head",
+        "arsenal": "Both palms joined generating concentrated nullification beam of pure dimensional collapse - beam comprised of intersecting violet and black energy spiraling in opposing rotations, surrounded by smaller orbiting fragments of shattered reality, secondary manifestation of glitching holographic tactical displays showing cascade failure propagating through enemy systems"
       },
       "attitude": {
-        "behavior": "Strategic orchestrator coordinating multi-unit movements with sweeping gestures at center of chaos. Both hands pushed forward with intense focus, focused targeted concentrated nullification beam forming between palms and locking onto highest-value enemy with deadly precision",
-        "emotion": "Apocalyptic fury — full weight of faction's power channeling through body uncontrollably"
+        "behavior": "Levitating at epicenter of reality collapse, body tilted forward in commanding stance, both arms extended forward with palms facing each other, fingers splayed directing impossible energies, whole form surrounded by halo of fragmented space-time, commanding gesture sweeping across visible spectrum of parallel battlefields",
+        "emotion": "Absolute transcendent focus with hints of manic pleasure - eyes (if visible) burning with violet intellect beyond human comprehension, expression of cold cosmic certainty orchestrating destruction on multiversal scale, presence radiating oppressive dread and gravitational distortion"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Glitch action photography",
-          "Digital corruption art",
-          "Quantum breakdown visualization"
+          "Grimdark cosmic horror",
+          "Dark sci-fi dimensional horror",
+          "Post-apocalyptic reality corruption",
+          "Non-euclidean geometry art",
+          "Glitch aesthetic corruption"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL_and_dimensional_distortion"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Magenta Glitch",
-          "role": "primary_accent — reality fracture edges and distortion boundaries"
+          "name": "Abyssal Black",
+          "role": "Primary shadow base, voids between realities"
         },
         {
-          "name": "Fractured Green",
-          "role": "secondary_accent — dimensional tear cores and anomaly centers"
+          "name": "Deep Violet",
+          "role": "Corrupted energy, psychic auras, main accent lighting"
         },
         {
-          "name": "Chromatic Aberration Rainbow",
-          "role": "tertiary accent — visual artifacts where colors separate and bleed"
+          "name": "Asylum Grey",
+          "role": "Fractured environments, institutional horror undertones"
+        },
+        {
+          "name": "Dried Blood Red",
+          "role": "Secondary accent, torn fabrics, damage indicators"
+        },
+        {
+          "name": "Neon Magenta",
+          "role": "Glitch effects, energy crackling, reality distortion highlights"
+        },
+        {
+          "name": "Scarred Pale Flesh",
+          "role": "Exposed flesh areas, biological horror elements"
         }
       ],
-      "lighting_setup": "amethyst alloy frame with crystalline energy channels pulsing light along border edges, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "catastrophic_reality_collapse"
+      "lighting_setup": "Multi-source contradictory lighting - violet psychic glow emanating from subject contrasting with cold grey ambient from fractured sky, localized gravity lensing bending all light sources into impossible angles, self-illuminating energy from nullification beam creating volumetric magenta fog",
+      "mood": "Oppressive cosmic dread mixed with chaotic destructive power, sense of reality unraveling, visually overwhelming dimensional collapse, strategic menace emanating from orchestrating presence"
     },
     "camera": {
-      "angle": "Wide dramatic low angle showing full blast radius, character backlit by their own power source, foreground devastated by ability effects"
+      "angle": "low_angled_heroic_perspective_with_dutch_tilt_emphasizing_destabilized_geometry"
     },
     "scenography": {
-      "setting": "Reality collapse zone with environment fragmenting into multiple parallel versions simultaneously, buildings existing in two dimensions at once showing both intact and destroyed overlapping states, sky displaying conflicting celestial bodies that should not coexist, gravity malfunctioning causing debris to fall upward and sideways in different zones, ground cracking open revealing parallel battlefields layered on each other like corrupt image",
-      "atmosphere_vfx": "Intensely focused beam drilling into target with suppression field building around them as power is systematically dismantled layer by layer, beam unwavering and growing stronger, Ground scorched and vitrified creating glass-like tunnel through battlefield to target, all other targets completely unaffected showing terrifying precision, Reality shattering like cracked glass across scene with fragments revealing parallel dimensions, chromatic aberration tearing colors apart at high speed creating RGB separation, objects phasing in and out mid-explosion with parts appearing and disappearing, gravity distorting sending debris every direction simultaneously, temporal stutter showing same motion frozen in multiple positions at once creating ghost trails"
+      "setting": "Reality collapse epicenter - ground fractured into multiple geological layers simultaneously showing intact pristine battlefield and destroyed corrupted version underneath, buildings in background existing in two overlapping dimensional states (whole and rubble occupying same space), sky torn between conflicting celestial configurations (starfield conflicting with void and unnatural nebulae), floating debris masses in chaotic orbital patterns defying unified gravity, smaller chunks of reality drifting in impossible trajectories",
+      "atmosphere_vfx": "Reality glitching effect throughout entire scene - chromatic aberration at edges, scanline distortions, occasional frame-stutter visual artifacts, air visually fracturing like stressed glass, gravitational lensing distorting distant elements, particle effects of disintegrating matter caught between dimensions, cascading error visual patterns propagating across scene like corrupted digital imagery bleeding into physical reality, violet energy wisps threading through spatial fractures, distant screams of reality itself tearing"
     }
   }
 }

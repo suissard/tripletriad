@@ -1,0 +1,80 @@
+{
+  "collectionName": "base",
+  "name": "Flamme en Feu",
+  "description": "Phoenix Primordial renaissant éternellement de ses cendres pour guider la vengeance des Héritiers et inspirer leur rage combattante.",
+  "element": "radiation",
+  "elements": [
+    "faille_dimensionnelle"
+  ],
+  "faction": "Héritiers des cendres",
+  "topValue": "8",
+  "rightValue": "6",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": [
+    {
+      "type": "growing",
+      "value": 2,
+      "target": "adjacent_enemy"
+    },
+    {
+      "type": "heal",
+      "value": 3,
+      "target": "all_own"
+    }
+  ],
+  "rarity": "Legendary",
+  "defaultHp": 4,
+  "image": "base/060.png",
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Flamme en Feu — Héritiers des cendres Legendary class radiation",
+      "loadout": {
+        "armor_outfit": "Armor forged from melted debris and volcanic slag, dark metal plates held by thermal bonds glowing orange at every seam, heat distortion rising from every surface, scorch marks and soot coating every inch with legendary cosmic materials and ancient craftsmanship that has become one with the wearer's being",
+        "arsenal": "Dual flame projector gauntlets superheated to molten temperatures dripping liquid fire, volcanic glass blade still glowing cherry red at core, ash grenades on belt radiating heat The weapon and gauntlets actively channel the character's growing ability targeting adjacent_enemy, visible energy conduits linking weapon to body with flowing power"
+      },
+      "attitude": {
+        "behavior": "Frontline combatant engaged directly with enemy forces with weapon fully committed to the attack. Predatory lunge forward with hand extended like claw toward enemy with powerful significant red energy tendrils erupting from fingertips burrowing into enemy to siphon their strength",
+        "emotion": "Transcendent purpose — no longer merely fighting but reshaping the battlefield itself with every movement and breath"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Volcanic eruption photography",
+          "Action fire photography",
+          "Phoenix mythology"
+        ],
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Ember Orange",
+          "role": "primary_accent — flames, energy blasts and burning particles"
+        },
+        {
+          "name": "Charcoal Black",
+          "role": "secondary_accent — scorched armor and terrain"
+        },
+        {
+          "name": "Magma Yellow",
+          "role": "tertiary accent — lava flows and inner core glow"
+        }
+      ],
+      "lighting_setup": "aurum-plated frame with living energy flowing through ornate faction-specific patterns, border radiates golden glow, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "apocalyptic_inferno"
+    },
+    "camera": {
+      "angle": "Cinematic ultra-wide angle with dramatic depth layers — foreground devastation, character as glowing focal point, background cataclysm, sky and environment permanently altered"
+    },
+    "scenography": {
+      "setting": "Volcanic battlefield mid-eruption with lava rivers bursting through cracked ground flowing around combat zone, character standing in center of massive firestorm, burning debris raining from ash-choked sky, enemy positions engulfed in flames with structures collapsing into molten ground",
+      "atmosphere_vfx": "Visible power drain with red tendrils burrowing into enemy and flowing stolen energy back to caster, enemy position visibly weakening and dimming as power is stolen and converted, Ground between caster and enemy withering as parasitic energy transfer corrupts everything in path, siphoned energy creating visible trail of corruption on return to caster, Massive fireball erupting from character engulfing foreground with intense orange light, lava cracking through ground with molten splashes flying up in slow motion, embers and ash swirling in thermal vortex, visible heat distortion waves rippling the air, secondary explosions in background sending shockwaves through smoke"
+    }
+  }
+}

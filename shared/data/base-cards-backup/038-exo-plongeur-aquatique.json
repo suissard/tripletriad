@@ -1,0 +1,69 @@
+{
+  "collectionName": "base",
+  "name": "Plongeur Aquatique",
+  "description": "Gardien des nurseries protégeant les jeunes générations de l'Exode contre les prédateurs et les menaces extérieures.",
+  "element": "furtif",
+  "faction": "Exode pélagique",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/038.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Plongeur Aquatique — Exode pélagique Uncommon class furtif",
+      "loadout": {
+        "armor_outfit": "Organic coral armor grown from living reef material with bioluminescent combat indicators pulsing in rapid rhythm, hydrodynamic fins extending from arms and calves streaming in current, translucent membranes trailing from shoulders",
+        "arsenal": "Bioluminescent harpoon cannon with living coral barrel pulsing with each discharge, hydro-kinetic gauntlets channeling water into pressurized cutting jets visible as focused force streams Functional combat equipment showing signs of heavy practical use and field customization"
+      },
+      "attitude": {
+        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
+        "emotion": "Battle-tested confidence — knowing skills will carry through the engagement"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Deep sea storm photography",
+          "Bioluminescent ocean",
+          "Aquatic action art"
+        ],
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Abyssal Deep Blue",
+          "role": "primary_accent — skin tones and surrounding water mass"
+        },
+        {
+          "name": "Bioluminescent Cyan",
+          "role": "secondary_accent — ability effects and natural body glow"
+        },
+        {
+          "name": "Foam White",
+          "role": "tertiary accent — spray splashes and bubble highlights"
+        }
+      ],
+      "lighting_setup": "oxidized copper frame with faction insignia embossed on each corner, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "storm_tide_power"
+    },
+    "camera": {
+      "angle": "Slightly low angle waist-up shot with environmental action visible in background, motion blur on debris and effects"
+    },
+    "scenography": {
+      "setting": "Storm-ravaged aquatic colonial battlefield with massive waves crashing over organic structures sending debris flying, lightning illuminating in stark flashes, allied forces pushed back while bioluminescent defensive flares light the water column with cyan bursts",
+      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Massive waves crashing and spraying bioluminescent droplets everywhere, water vortex spiraling around character pulling debris, glowing fish scattering in panic, bubbles erupting from seabed, electrical arcs flashing through charged seawater"
+    }
+  }
+}

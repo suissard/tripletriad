@@ -1,0 +1,22 @@
+{
+  "collectionName": "base",
+  "name": "Refugie des Confins",
+  "description": "Observateur discret fournissant des informations tactiques sur les mouvements ennemis aux deux camps sans prendre parti.",
+  "element": "None",
+  "faction": "neutre",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/001.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "raw": ""
+  }
+}

@@ -19,51 +19,52 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Algo Connecte — Omni-Réseau Rare class hacking",
+      "archetype": "Omni-Network Assault Cyborg (Code-Mancer Variant)",
       "loadout": {
-        "armor_outfit": "Sleek cybernetic combat suit with circuit pathways throughout fabric glowing bright cyan under stress, neural temple implant sparking from combat overload, holographic shield generators deployed on forearms, clean geometric lines contrasting with digital chaos with distinctive faction engravings and glowing energy channel conduits running along seams",
-        "arsenal": "Neural hacking deck with holographic wrist interface mid-operation showing active code streams, EMP emitter gauntlet crackling with charge creating visible blue arcs, data-spike dagger with glowing edge Functional combat equipment showing signs of heavy practical use and field customization"
+        "armor_outfit": "Standardized Omni-Reseau composite tactical exoskeleton, dark matte grey, smooth ergonomic plates covering the torso and limbs. Exposed cervical and spinal neural ports with ice-blue glowing connection points. Serial codes etched into the forearm plating.",
+        "arsenal": "Brutalist, rectilinear assault rifle with a heavy barrel. A thick black cable tethers the weapon's grip directly to the wrist-mounted neural interface, glowing faintly with data streams."
       },
       "attitude": {
-        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
-        "emotion": "Lethal intensity — predator recognizing the perfect strike moment"
+        "behavior": "Aggressive, forward-leaning combat stance. Weapon raised to the cheek, barrel oriented at a low threat. One hand is free, fingers splayed outward as if manipulating a holographic interface mid-battle. Feet planted wide, knees slightly bent, posture rigidly military.",
+        "emotion": "Inexpressive, dead-eyed stare or gaze hidden behind a smooth tactical visor with a single blue ocular light. The only sign of life is the intense, algorithmic focus of a system calculating trajectories and rewriting code in real-time."
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Cyberpunk action",
-          "Digital warfare art",
-          "Electromagnetic storm photography"
+          "Grimdark Cyberpunk",
+          "Dark Sci-Fi",
+          "Post-apocalyptic Brutalism",
+          "Tactical Military Simulation"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Neon Cyan",
-          "role": "primary_accent — data streams and arcing energy bolts"
+          "name": "Anthracite Grey & Matte Black",
+          "role": "Dominant armor tones and background shadows"
         },
         {
-          "name": "Electric Blue",
-          "role": "secondary_accent — arc lightning and holographic displays"
+          "name": "Ice Blue Neon",
+          "role": "Neural implants, tactical HUDs, and critical energy accents"
         },
         {
-          "name": "Stark White",
-          "role": "tertiary accent — interface glare and explosive sparks"
+          "name": "Cadaveric Pale",
+          "role": "Exposed neck and facial skin, emphasizing the dehumanized nature of the soldier"
         }
       ],
-      "lighting_setup": "cobalt steel frame with etched faction symbols running along each border edge, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "cyber_warfare_assault"
+      "lighting_setup": "Cinematic, high-contrast chiaroscuro. Dominated by cold, dark shadows with sharp rim lighting in icy blue to separate the subject from the chaotic background. Bright white/orange sparks cutting through the darkness.",
+      "mood": "Menacing, oppressive, and relentlessly technological."
     },
     "camera": {
-      "angle": "Low dramatic angle emphasizing dominance, wide enough to show full environmental impact of the ability"
+      "angle": "Low angle to portray the subject as an imposing, unstoppable war machine."
     },
     "scenography": {
-      "setting": "Cyber warfare zone with holographic displays shattering and glitching during battle, digital fortifications crumbling under enemy ICE attacks with visible code deterioration, server towers toppling and sparking, electric storms rippling through infrastructure",
-      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Data streams arcing between floating terminals like electric whip lashes, holographic shields shattering into cascading pixel fragments dissolving mid-air, EMP waves visible as expanding blue rings distorting everything, server racks exploding in showers of sparks and circuit boards, electric arcs grounding through coolant puddles creating branching lightning"
+      "setting": "The interior of a crumbling digital fortress. Massive server towers are toppling in the mid-ground, emitting showers of electric sparks. Holographic defensive walls are shattering into glitching shards of light.",
+      "atmosphere_vfx": "Aggressive digital noise/grain, falling sparks, electric arcs jumping between metal debris, visible hexadecimal code fragments floating and deteriorating in the air, simulating an ICE attack breaking down the environment."
     }
   }
 }

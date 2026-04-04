@@ -25,51 +25,65 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Mystique 1 — Éveil Chthonien Uncommon class faille_dimensionnelle",
+      "archetype": "Chthonian Titan Invoker - Massive primordial humanoid form with tectonic plate skin, multiple eyeless eyes, and a towering exoskeleton of cooling magma and obsidian",
       "loadout": {
-        "armor_outfit": "Ancient ceremonial armor fused to wearer's body through dark ritual, shadowy fabric etched with independently shifting runic patterns casting purple light, living shadow tendrils writhing from shoulder guards with own consciousness, armor plates absorbing light instead of reflecting creating void patches",
-        "arsenal": "Massive ritual staff taller than wielder inscribed with independently rotating forbidden symbols, shadow-manipulation artifact orbiting hand like dark satellite with void energy tendrils connecting to body, cursed amulets chained to armor pulsating with green phosphor light emitting foul energy wisps The weapon and gauntlets actively channel the character's growing ability targeting adjacent_friendly, visible energy conduits linking weapon to body with flowing power"
+        "armor_outfit": "Natural carapace of solidified volcanic crust, asymmetrical obsidian plates fused to massive bone structure, basalt grey plates with cracks revealing molten orange-red magma beneath, ancient chthonian runes carved into every surface of the rocky hide",
+        "arsenal": "No manufactured weapons - colossal stone fists, drill-like claws capable of boring through bedrock, channelling chthonian portal energy through entire body"
       },
       "attitude": {
-        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. One arm extended powerfully toward ally with focused targeted green energy streaming from palm in thick flowing ribbon connecting to ally's body with visible strengthening effect",
-        "emotion": "Battle-tested confidence — knowing skills will carry through the engagement"
+        "behavior": "Deep combat stance with one titanic arm thrust forward powerfully, palm open wide as a thick ribbon of supernatural green energy streams from palm, other massive fist cocked back ready to strike, lower body rooted like ancient mountain as dimensional rifts manifest around massive form",
+        "emotion": "Fierce determination radiating from multiple glowing eyeless eyes, presence of absolute authority over chthonian forces, focused power channeling ally-blessing energy while simultaneously ready for devastating physical combat"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Cosmic horror art",
-          "Eerie supernatural photography",
-          "Abyssal deep-sea horror"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Cosmic Horror",
+          "Primordial Mythos"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Deep Void Purple",
-          "role": "primary_accent — shadow energy emanation and tentacle glow"
+          "name": "Obsidian Black",
+          "role": "Dominant body and armor base"
         },
         {
-          "name": "Bone White",
-          "role": "secondary_accent — skeletal remains and carved runes"
+          "name": "Matte Basalt Grey",
+          "role": "Tectonic plate texture and rocky surfaces"
         },
         {
-          "name": "Eerie Green Phosphor",
-          "role": "tertiary accent — forbidden energy arcs and corruption"
+          "name": "Molten Orange-Red",
+          "role": "Magma glow from cracks and internal energy"
+        },
+        {
+          "name": "Ethereal Portal Green",
+          "role": "Ally-strengthening energy ribbon and dimensional effects"
+        },
+        {
+          "name": "Volcanic Ash Grey",
+          "role": "Atmospheric smoke and dust particles"
+        },
+        {
+          "name": "Scorched Earth Brown",
+          "role": "Ground and environmental elements"
         }
       ],
-      "lighting_setup": "oxidized copper frame with faction insignia embossed on each corner, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "eldritch_awakening"
+      "lighting_setup": "Dramatic_chthonian_energy_lighting - internal magma glow emanating through cracks illuminating body, supernatural green energy contrasting against dark form, thick smoke lit by volcanic orange, dimensional rifts casting impossible multi-source light",
+      "mood": "Apocalyptic dread mixed with fierce battle determination, oppressive supernatural terror, overwhelming primordial power"
     },
     "camera": {
-      "angle": "Slightly low angle waist-up shot with environmental action visible in background, motion blur on debris and effects"
+      "angle": "low_angle_slightly_dutch - positioned at ground level looking up at the towering titan, emphasizing massive scale and imposing dominance"
     },
     "scenography": {
-      "setting": "Torn dimensional battlefield with ground splitting open in massive fissures as enormous shadow tentacles erupt from below, sky showing impossible geometry and wrongness human mind cannot process, ancient runes blazing on every surface as dimensions collapse, reality thinning and tearing at edges, thick oppressive atmosphere of supernatural dread",
-      "atmosphere_vfx": "Powerful energy bridge arcing between caster's hand and target with secondary sparks jumping off main channel to nearby allies creating chain reaction of empowerment, Ground beneath allies glowing green where energy arrives, visible strengthening wave passing through each connected unit, terrain responding to positive energy with new growth, Massive shadow tentacles erupting from cracked ground grasping at sky, dimensional rifts tearing open revealing impossible non-Euclidean geometry with wrong colors, floating forbidden runes spinning violently in dark purple energy maelstrom, skeletal remains rattling and rising from earth, void essence fog rolling across ground like creeping tsunami"
+      "setting": "Torn dimensional battlefield - ground split open in massive fissures exhaling black volcanic smoke, enormous shadow tentacles erupting from below alongside other chthonian entities, sky displaying impossible geometry with reality tears showing void-like wrongness, ancient glowing runes blazing on every exposed surface, chthonian portals manifesting as swirling vortexes of green-black energy",
+      "atmosphere_vfx": "Thick oppressive volcanic smoke billowing everywhere, reality thinning at edges with visual distortion, ground constantly trembling with seismic waves, ash and debris floating in air, multiple dimensional rifts opening and closing, ancient runes pulsing with chthonian power, massive chthonian tentacles writhing in background, heat distortion rising from magma cracks, supernatural dread fog reducing visibility"
     }
   }
 }

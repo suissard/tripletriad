@@ -25,51 +25,79 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Amp Chantant — Chœur Synthétique Epic class reseau",
+      "archetype": "Resonance Combat Android – Ascetic Synth-Priest Warrior",
       "loadout": {
-        "armor_outfit": "Crystalline armor plates growing naturally from body vibrating at resonant frequencies with visible sound waves emanating from every surface, each facet catching and fracturing light into rainbows, organic-metal hybrid construction forged from rare materials with faction crest embedded and energy pulsing through the entire surface with every movement",
-        "arsenal": "Resonance tuning fork weapon humming at visible destructive frequency with air distortion around it, harmonic shield gauntlet generating visible ring-shaped sound wave barriers, crystalline conductor baton emitting visible vibration patterns The weapon and gauntlets actively channel the character's growing ability targeting adjacent_enemy, visible energy conduits linking weapon to body with flowing power"
+        "armor_outfit": "Monastic synthetic robe of braided cable fibers over patinated steel plates, ceramic white faceless mask, integrated holographic gold rune tattoos, ceremonial braided cable chapelet.",
+        "arsenal": "Electrified pilgrim's resonance staff with crackling arcs, harmonic gauntlets projecting red energy tendrils, siphoning enemy vitality."
       },
       "attitude": {
-        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Predatory lunge forward with hand extended like claw toward enemy with focused targeted red energy tendrils erupting from fingertips burrowing into enemy to siphon their strength",
-        "emotion": "Apocalyptic fury — full weight of faction's power channeling through body uncontrollably"
+        "behavior": "Predatory lunge forward, hand extended like a claw, red energy tendrils erupting from fingertips, whole body vibrating at resonant frequency causing air ripples; crystal shards exploding around.",
+        "emotion": "Cold, serene cybernetic focus; relentless combat drive."
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Sound wave photography",
-          "Crystallography",
-          "Kinetic energy art"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Violet Crystal",
-          "role": "primary_accent — resonance energy beams and crystal shards"
+          "name": "Patinated Steel",
+          "role": "primary armor tone"
         },
         {
-          "name": "Silver Prismatic",
-          "role": "secondary_accent — sound wave visualization and reflections"
+          "name": "Aged Ceramic White",
+          "role": "primary plating"
         },
         {
-          "name": "Deep Indigo",
-          "role": "tertiary accent — shockwave shadows and deep resonance tones"
+          "name": "Pearl Gray",
+          "role": "primary secondary"
+        },
+        {
+          "name": "Diluted Monastic Brown",
+          "role": "secondary fabric"
+        },
+        {
+          "name": "Matte Black",
+          "role": "cable tresses"
+        },
+        {
+          "name": "Oxidized Bronze",
+          "role": "accent metal"
+        },
+        {
+          "name": "Holographic Gold",
+          "role": "rune accents"
+        },
+        {
+          "name": "Electric Gold",
+          "role": "staff glow"
+        },
+        {
+          "name": "Resonance Red",
+          "role": "energy tendrils"
+        },
+        {
+          "name": "Crystalline Blue",
+          "role": "environment shards"
         }
       ],
-      "lighting_setup": "amethyst alloy frame with crystalline energy channels pulsing light along border edges, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "devastating_harmonic_blast"
+      "lighting_setup": "Cinematic directional light with rim lighting on the figure, holographic gold glow from runes, red tendril emission, ambient blue crystal reflections, high contrast.",
+      "mood": "Intense, epic, chaotic yet serene."
     },
     "camera": {
-      "angle": "Wide dramatic low angle showing full blast radius, character backlit by their own power source, foreground devastated by ability effects"
+      "angle": "low angle with slight Dutch tilt for dynamic impact"
     },
     "scenography": {
-      "setting": "Shattered crystalline amphitheater turned battlefield with crystal formations exploding from harmonic overload sending shards every direction, visible shockwave rings tearing through enemy positions, fragments raining from resonating cracked ceiling structures, entire environment vibrating at a frequency that makes air appear to ripple and distort",
-      "atmosphere_vfx": "Visible power drain with red tendrils burrowing into enemy and flowing stolen energy back to caster, enemy position visibly weakening and dimming as power is stolen and converted, Ground between caster and enemy withering as parasitic energy transfer corrupts everything in path, siphoned energy creating visible trail of corruption on return to caster, Visible concentric sound waves expanding outward shattering nearby crystal structures into cascading shards, crystal fragments flying through air catching prismatic light, air visibly rippling and bending from sonic force, ground fracturing in geometric patterns from bass, floating debris suspended in harmonic stasis field"
+      "setting": "Shattered crystalline amphitheater turned battlefield; broken crystal pillars, jagged formations, cracked ceiling resonating, fragments raining.",
+      "atmosphere_vfx": "Visible shockwave rings expanding from resonant overload, crystal shards exploding outward, air distortion ripples, red energy tendrils siphoning enemy strength, holographic gold runes orbiting the warrior."
     }
   }
 }

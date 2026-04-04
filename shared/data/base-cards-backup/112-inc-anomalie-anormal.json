@@ -1,0 +1,75 @@
+{
+  "collectionName": "base",
+  "name": "Anomalie Anormal",
+  "description": "Rupture dimensionnelle ouvrant des portes entre les réalités parallèles permettant des manoeuvres tactiques impossibles autrement.",
+  "element": "furtif",
+  "faction": "Incursion Dissonante",
+  "topValue": "4",
+  "rightValue": "6",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "heal",
+      "value": 1,
+      "target": "all_own"
+    }
+  ],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/112.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Anomalie Anormal — Incursion Dissonante Uncommon class furtif",
+      "loadout": {
+        "armor_outfit": "Fragmented armor with each plate phasing at different dimensions and times out of sync with reality, impossible geometries connecting segments creating shapes mind cannot process, unnatural spectrum colors shifting and glitching randomly, portions flickering between solid and translucent ghostly state in rapid succession",
+        "arsenal": "Reality-fracturing blade cutting through dimensional barriers leaving visible spatial tears trailing where physics breaks down, paradox generator causing multiple versions of weapon to phase in and out simultaneously from different angles, glitch emitter integrated into off-hand disrupting enemy targeting at quantum level creating visual distortion fields The weapon and gauntlets actively channel the character's heal ability targeting all_own, visible energy conduits linking weapon to body with flowing power"
+      },
+      "attitude": {
+        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Arms spread wide in open blessing with focused targeted golden healing wave expanding outward in all directions reaching every ally on battlefield simultaneously",
+        "emotion": "Battle-tested confidence — knowing skills will carry through the engagement"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Glitch action photography",
+          "Digital corruption art",
+          "Quantum breakdown visualization"
+        ],
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Magenta Glitch",
+          "role": "primary_accent — reality fracture edges and distortion boundaries"
+        },
+        {
+          "name": "Fractured Green",
+          "role": "secondary_accent — dimensional tear cores and anomaly centers"
+        },
+        {
+          "name": "Chromatic Aberration Rainbow",
+          "role": "tertiary accent — visual artifacts where colors separate and bleed"
+        }
+      ],
+      "lighting_setup": "oxidized copper frame with faction insignia embossed on each corner, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "catastrophic_reality_collapse"
+    },
+    "camera": {
+      "angle": "Slightly low angle waist-up shot with environmental action visible in background, motion blur on debris and effects"
+    },
+    "scenography": {
+      "setting": "Reality collapse zone with environment fragmenting into multiple parallel versions simultaneously, buildings existing in two dimensions at once showing both intact and destroyed overlapping states, sky displaying conflicting celestial bodies that should not coexist, gravity malfunctioning causing debris to fall upward and sideways in different zones, ground cracking open revealing parallel battlefields layered on each other like corrupt image",
+      "atmosphere_vfx": "Expanding ring of pure restoration light passing through all friendlies simultaneously, each ally enveloped in golden light with wounds closing across entire field at same moment, Everywhere the wave passes environment blooms — grass sprouting, flowers opening, scorched ground recovering, massive wave of vitality transforming death into life across battlefield, Reality shattering like cracked glass across scene with fragments revealing parallel dimensions, chromatic aberration tearing colors apart at high speed creating RGB separation, objects phasing in and out mid-explosion with parts appearing and disappearing, gravity distorting sending debris every direction simultaneously, temporal stutter showing same motion frozen in multiple positions at once creating ghost trails"
+    }
+  }
+}

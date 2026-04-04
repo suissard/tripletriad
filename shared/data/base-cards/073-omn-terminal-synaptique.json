@@ -25,51 +25,59 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Terminal Synaptique — Omni-Réseau Epic class reseau",
+      "archetype": "Synaptic War Node – Cyber-Enhanced Combat Specialist",
       "loadout": {
-        "armor_outfit": "Sleek cybernetic combat suit with circuit pathways throughout fabric glowing bright cyan under stress, neural temple implant sparking from combat overload, holographic shield generators deployed on forearms, clean geometric lines contrasting with digital chaos forged from rare materials with faction crest embedded and energy pulsing through the entire surface with every movement",
-        "arsenal": "Neural hacking deck with holographic wrist interface mid-operation showing active code streams, EMP emitter gauntlet crackling with charge creating visible blue arcs, data-spike dagger with glowing edge The weapon and gauntlets actively channel the character's decrease ability targeting adjacent_enemy, visible energy conduits linking weapon to body with flowing power"
+        "armor_outfit": "Mass-produced composite exoskeleton with matte black armor plates over a utilitarian bodysuit, integrated neural-link ports and sleek angular plating; heavy cables run from the spine to the weapon grip",
+        "arsenal": "Standardized geometric assault rifle with wrist-mounted neural coupling, close-combat high-frequency blade, and a compact EMP grenade launcher"
       },
       "attitude": {
-        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Low sweeping strike with arm extended toward adjacent enemy with powerful significant dark corruption spreading from fingertips in thick tendrils burrowing into enemy with visible weakening",
-        "emotion": "Apocalyptic fury — full weight of faction's power channeling through body uncontrollably"
+        "behavior": "Low sweeping strike, arm fully extended toward a nearby enemy, dark corruption tendrils erupting from fingertips and burrowing into the target, while the backdrop features collapsing server towers and shattered holographic displays",
+        "emotion": "Cold, emotionless focus; eyes glowing faintly with neon-blue neural light; void of fear or compassion"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Cyberpunk action",
-          "Digital warfare art",
-          "Electromagnetic storm photography"
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Post‑apocalyptic"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Neon Cyan",
-          "role": "primary_accent — data streams and arcing energy bolts"
+          "name": "Matte Black",
+          "role": "Primary armor and uniform color"
         },
         {
-          "name": "Electric Blue",
-          "role": "secondary_accent — arc lightning and holographic displays"
+          "name": "Charcoal Grey",
+          "role": "Secondary structural elements and shadows"
         },
         {
-          "name": "Stark White",
-          "role": "tertiary accent — interface glare and explosive sparks"
+          "name": "Cadaveric Pale Flesh",
+          "role": "Exposed skin, showing sickly tone"
+        },
+        {
+          "name": "Cold Neon Blue",
+          "role": "Neural implants, optic glows, and energy accents"
+        },
+        {
+          "name": "Electric Cyan",
+          "role": "Sparks, electric storms, and holographic glitches"
         }
       ],
-      "lighting_setup": "amethyst alloy frame with crystalline energy channels pulsing light along border edges, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "cyber_warfare_assault"
+      "lighting_setup": "Cinematic low‑key lighting with blue‑neon rim lights, harsh point lights from sparking server towers, and occasional flash of electric arcs; high contrast shadows emphasize gritty realism",
+      "mood": "Menacing, chaotic, and intense – a battlefield dominated by digital decay and relentless aggression"
     },
     "camera": {
-      "angle": "Wide dramatic low angle showing full blast radius, character backlit by their own power source, foreground devastated by ability effects"
+      "angle": "Low angle with a subtle Dutch tilt, emphasizing the combatant’s powerful forward motion"
     },
     "scenography": {
-      "setting": "Cyber warfare zone with holographic displays shattering and glitching during battle, digital fortifications crumbling under enemy ICE attacks with visible code deterioration, server towers toppling and sparking, electric storms rippling through infrastructure",
-      "atmosphere_vfx": "Thick corruption tendrils spreading across ground connecting to enemy with visible strength drain as debuff takes hold, enemy visibly dimming and wilting, Ground between positions withering as corruption spreads, visible weakening wave passing through adjacent enemy as armor dulls and weapons dim, Data streams arcing between floating terminals like electric whip lashes, holographic shields shattering into cascading pixel fragments dissolving mid-air, EMP waves visible as expanding blue rings distorting everything, server racks exploding in showers of sparks and circuit boards, electric arcs grounding through coolant puddles creating branching lightning"
+      "setting": "Cyber warfare zone – shattered holographic displays, crumbling digital fortifications under enemy ICE attacks, toppling server towers emitting sparks, and an electric storm rippling through the infrastructure",
+      "atmosphere_vfx": "Glitching holograms, blue electric arcs, dark corruption tendrils expanding from the combatant’s fingertips, rain of digital debris, low‑lying fog, and flickering code fragments"
     }
   }
 }

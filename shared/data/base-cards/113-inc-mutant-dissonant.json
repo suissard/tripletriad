@@ -19,51 +19,60 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Mutant Dissonant — Incursion Dissonante Uncommon class faille_dimensionnelle",
+      "archetype": "Dissonant Hybrid Warrior - Flesh-bound entity merged with raw extra-dimensional energy, humanoid silhouette fractured by reality distortion, emitting waves of magical and technological disruption",
       "loadout": {
-        "armor_outfit": "Fragmented armor with each plate phasing at different dimensions and times out of sync with reality, impossible geometries connecting segments creating shapes mind cannot process, unnatural spectrum colors shifting and glitching randomly, portions flickering between solid and translucent ghostly state in rapid succession",
-        "arsenal": "Reality-fracturing blade cutting through dimensional barriers leaving visible spatial tears trailing where physics breaks down, paradox generator causing multiple versions of weapon to phase in and out simultaneously from different angles, glitch emitter integrated into off-hand disrupting enemy targeting at quantum level creating visual distortion fields Functional combat equipment showing signs of heavy practical use and field customization"
+        "armor_outfit": "Scarred and rotting flesh fused with floating metallic plates that bend and twist in impossible geometries, fabrics tearing and levitating in zero-gravity pockets surrounding the body, exposed ribcage with organs visible through translucent skin patches, limbs positioned at anatomically incorrect angles due to gravitational stress fractures",
+        "arsenal": "Obsidian-long blade with violet energy veins running through the crystalline structure, edge impossibly thin and flickering between solid and ethereal states, auras of nullification energy crackling around the weapon creating visual static effects, secondary floating shrapnel pieces orbiting the combatant"
       },
       "attitude": {
-        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
-        "emotion": "Battle-tested confidence — knowing skills will carry through the engagement"
+        "behavior": "Aggressive forward lunge with weapon raised at throat-level of invisible enemy, legs planted in unstable yet explosive stance amid floating debris, entire body radiating disruption waves visible as air-fracture patterns spreading outward from the figure like shattered glass expanding in reverse",
+        "emotion": "Burning psychotic focus mixed with transcendent rage, eyes completely rolled back showing only bloodshot whites while veins pulse visibly under skin, mouth open in silent scream of dimensional strain, psychic pressure emanating so intensely it distorts nearby light"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Glitch action photography",
-          "Digital corruption art",
-          "Quantum breakdown visualization"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Cosmic Horror",
+          "Extra-dimensional aberration"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Magenta Glitch",
-          "role": "primary_accent — reality fracture edges and distortion boundaries"
+          "name": "Abyssal Black",
+          "role": "Primary shadow composition and void spaces"
         },
         {
-          "name": "Fractured Green",
-          "role": "secondary_accent — dimensional tear cores and anomaly centers"
+          "name": "Deep Violet",
+          "role": "Energy emanations and corruption effects"
         },
         {
-          "name": "Chromatic Aberration Rainbow",
-          "role": "tertiary accent — visual artifacts where colors separate and bleed"
+          "name": "Asylum Gray",
+          "role": "Flesh tones and atmospheric haze"
+        },
+        {
+          "name": "Neon Magenta",
+          "role": "Glitch artifacts and disruption auras"
+        },
+        {
+          "name": "Dried Blood Red",
+          "role": "Wounds, scars, and organic details"
         }
       ],
-      "lighting_setup": "oxidized copper frame with faction insignia embossed on each corner, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "catastrophic_reality_collapse"
+      "lighting_setup": "Cinematic_volumetric_rays_split_by_glitch_effects, purple_energy_emission_sources_scattered_throughout_scene, shadows_cast_by_invisible_fractured_light_sources",
+      "mood": "Apocalyptic terror, sanity-breaking awe, reality-fragmenting menace"
     },
     "camera": {
-      "angle": "Slightly low angle waist-up shot with environmental action visible in background, motion blur on debris and effects"
+      "angle": "Low_angle_dutch_tilt_slightly_off_kilter_to_match_unstable_reality, camera_shake_effect_from_imagined_dimensional_turbulence"
     },
     "scenography": {
-      "setting": "Reality collapse zone with environment fragmenting into multiple parallel versions simultaneously, buildings existing in two dimensions at once showing both intact and destroyed overlapping states, sky displaying conflicting celestial bodies that should not coexist, gravity malfunctioning causing debris to fall upward and sideways in different zones, ground cracking open revealing parallel battlefields layered on each other like corrupt image",
-      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Reality shattering like cracked glass across scene with fragments revealing parallel dimensions, chromatic aberration tearing colors apart at high speed creating RGB separation, objects phasing in and out mid-explosion with parts appearing and disappearing, gravity distorting sending debris every direction simultaneously, temporal stutter showing same motion frozen in multiple positions at once creating ghost trails"
+      "setting": "Reality collapse zone - urban environment duplicated and layered across parallel dimensional states, buildings simultaneously intact and destroyed occupying same physical space with hard edges bleeding into each other, ground fractured into chessboard-like sections showing different temporal versions of battlefields underneath, sky split showing impossible celestial combinations",
+      "atmosphere_vfx": "Gravitational chaos with debris falling upward sideways and diagonally simultaneously, air itself visible as cracking_glass_patterns, reality_disruption_waves_spreading_radially_from_subject, chromatic_aberration_effects_on_edges, floating_geometric_impossibilities_rotating_slowly, energy_leaks_from_dimensional_rifts_in_background"
     }
   }
 }

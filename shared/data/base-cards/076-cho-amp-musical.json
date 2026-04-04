@@ -19,51 +19,68 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Amp Musical — Chœur Synthétique Common class faille_dimensionnelle",
+      "archetype": "Faceless Android Tactical Coordinator - Cybernetic Ascetic Warrior",
       "loadout": {
-        "armor_outfit": "Crystalline armor plates growing naturally from body vibrating at resonant frequencies with visible sound waves emanating from every surface, each facet catching and fracturing light into rainbows, organic-metal hybrid construction",
-        "arsenal": "Resonance tuning fork weapon humming at visible destructive frequency with air distortion around it, harmonic shield gauntlet generating visible ring-shaped sound wave barriers, crystalline conductor baton emitting visible vibration patterns Functional combat equipment showing signs of heavy practical use and field customization"
+        "armor_outfit": "Ample worn monastic robes crafted from braided cable bundles and thick synthetic fibers in faded monk brown, layered over smooth patinated steel underlayer, shoulder plates of aged white ceramic with pearl gray accents, holographic runic patterns glowing in electric gold",
+        "arsenal": "Electrified pilgrim staff with clear electric gold energy crackling along its length, cybernetic prayer wheel device at hip emitting harmonic vibrations, floating rosary of tiny hard drive disks orbiting in synchronized patterns"
       },
       "attitude": {
-        "behavior": "Tactical coordinator positioned between allied units with hands raised directing coordinated movements. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
-        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
+        "behavior": "Tactical coordinator positioned at center of shattered amphitheater battlefield with hands raised directing allied unit movements, combat stance with electrified staff raised and ready, body coiled like a spring with weight shifted forward, both arms guiding synchronized strikes",
+        "emotion": "Imperturbable monastic focus emanating from smooth featureless metallic faceplate, total serenity despite chaotic harmonic destruction surrounding the figure, eyes tracked through internal sensors locked on approaching threats"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Sound wave photography",
-          "Crystallography",
-          "Kinetic energy art"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Cyberpunk Monastic"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Violet Crystal",
-          "role": "primary_accent — resonance energy beams and crystal shards"
+          "name": "Patinated Steel Gray",
+          "role": "Primary armor and environmental debris"
         },
         {
-          "name": "Silver Prismatic",
-          "role": "secondary_accent — sound wave visualization and reflections"
+          "name": "Aged White Ceramic",
+          "role": "Secondary plating and crystalline fragments"
         },
         {
-          "name": "Deep Indigo",
-          "role": "tertiary accent — shockwave shadows and deep resonance tones"
+          "name": "Faded Monk Brown",
+          "role": "Robotic robes and fabric elements"
+        },
+        {
+          "name": "Oxidized Bronze",
+          "role": "Worn mechanical details and cable braiding"
+        },
+        {
+          "name": "Holographic Gold",
+          "role": "Orbiting runes, mantras, and runic symbols"
+        },
+        {
+          "name": "Clear Electric Gold",
+          "role": "Staff energy, levitation effects, shockwave rings"
+        },
+        {
+          "name": "Pearl Gray",
+          "role": "Ambient lighting and smoke particles"
         }
       ],
-      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "devastating_harmonic_blast"
+      "lighting_setup": "Cinematic multi-source with holographic_glow, magical_glow, and blue-white rim lighting from crystalline resonance, electric gold energy emanating from staff creating localized OSL",
+      "mood": "Chaotic yet transcendent, martial serenity amid destructive harmonic resonance, epic tension between serene ascetic focus and explosive battlefield chaos"
     },
     "camera": {
-      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
+      "angle": "Low angle dutch_angle - dynamic upward perspective emphasizing towering crystalline formations and the figure's commanding tactical presence"
     },
     "scenography": {
-      "setting": "Shattered crystalline amphitheater turned battlefield with crystal formations exploding from harmonic overload sending shards every direction, visible shockwave rings tearing through enemy positions, fragments raining from resonating cracked ceiling structures, entire environment vibrating at a frequency that makes air appear to ripple and distort",
-      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Visible concentric sound waves expanding outward shattering nearby crystal structures into cascading shards, crystal fragments flying through air catching prismatic light, air visibly rippling and bending from sonic force, ground fracturing in geometric patterns from bass, floating debris suspended in harmonic stasis field"
+      "setting": "Shattered crystalline amphitheater transformed into battlefield, massive crystal formations erupting from harmonic overload, cracked ceiling structures raining resonating fragments, geometric mandala patterns visible in destroyed architecture",
+      "atmosphere_vfx": "Visible shockwave rings of golden energy tearing through enemy positions in concentric circles, crystal shards exploding in all directions from resonant overload, entire environment vibrating at lethal frequency causing air to ripple and distort, floating holographic mantras and equations illuminating the chaos, blue-white energy discharge from crystallized surfaces, particle dust suspended in vibrating air"
     }
   }
 }

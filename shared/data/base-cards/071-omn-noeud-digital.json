@@ -25,51 +25,61 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Noeud Digital — Omni-Réseau Rare class reseau",
+      "archetype": "Cybernetic Tactical Command Unit / Augmented Network Coordinator",
       "loadout": {
-        "armor_outfit": "Sleek cybernetic combat suit with circuit pathways throughout fabric glowing bright cyan under stress, neural temple implant sparking from combat overload, holographic shield generators deployed on forearms, clean geometric lines contrasting with digital chaos with distinctive faction engravings and glowing energy channel conduits running along seams",
-        "arsenal": "Neural hacking deck with holographic wrist interface mid-operation showing active code streams, EMP emitter gauntlet crackling with charge creating visible blue arcs, data-spike dagger with glowing edge The weapon and gauntlets actively channel the character's growing ability targeting all_own, visible energy conduits linking weapon to body with flowing power"
+        "armor_outfit": "Heavy composite tactical exoskeleton in brushed anthracite gray and matte black, smooth ergonomic armor plates covering utility bodysuit, prominent neural interface ports with thick black cables grafted at skull base, neck, and spine, serial numbers etched into armor plating, icy blue glowing optronic eyes visible beneath pallid cadaveric skin",
+        "arsenal": "Integrated holographic projection arrays embedded in forearms, neural uplink cables extending from wrist ports to command allied units, wireless targeting systems projecting energy web from chest outward, no conventional weapons - pure tactical coordination through direct mind-link"
       },
       "attitude": {
-        "behavior": "Tactical coordinator positioned between allied units with hands raised directing coordinated movements. Arms raised high in commanding gesture with focused targeted energy web radiating outward from chest in all directions, each thread connecting to different allied position across battlefield",
-        "emotion": "Lethal intensity — predator recognizing the perfect strike moment"
+        "behavior": "Standing at tactical center point between allied units, both arms raised high in commanding gesture, hands open with energy threads radiating outward in all directions, each glowing cyan thread connecting to different allied position across battlefield, body rigid and perfectly still while directing coordinated swarm attacks",
+        "emotion": "Cold cybernetic stare with empty inexpressive face, absolute calculated precision emanating from glowing blue optical implants, emotionless command presence radiating absolute authority over networked units"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Cyberpunk action",
-          "Digital warfare art",
-          "Electromagnetic storm photography"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Brutalist"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Neon Cyan",
-          "role": "primary_accent — data streams and arcing energy bolts"
+          "name": "Anthracite Gray",
+          "role": "primary armor, dominant element 60%"
         },
         {
-          "name": "Electric Blue",
-          "role": "secondary_accent — arc lightning and holographic displays"
+          "name": "Matte Black",
+          "role": "secondary armor, cables, deep shadows 25%"
         },
         {
-          "name": "Stark White",
-          "role": "tertiary accent — interface glare and explosive sparks"
+          "name": "Icy Neon Blue",
+          "role": "neural chip glow, optronics, energy web, accent highlights 10%"
+        },
+        {
+          "name": "Cadaveric Flesh Pale",
+          "role": "exposed skin areas, exposed sections of face and neck 5%"
+        },
+        {
+          "name": "Brushed Cold Steel",
+          "role": "environmental details, server towers, infrastructure"
         }
       ],
-      "lighting_setup": "cobalt steel frame with etched faction symbols running along each border edge, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "cyber_warfare_assault"
+      "lighting_setup": "Cinematic cold blue rim lighting from neural interface emissions, harsh white sparks from toppling server towers creating dynamic shadow patterns, electric storm illumination flickering through scene with blue-white flashes, ambient dust particles visible in dramatic light beams",
+      "mood": "Menacing, calculated, dystopic, oppressively cold"
     },
     "camera": {
-      "angle": "Low dramatic angle emphasizing dominance, wide enough to show full environmental impact of the ability"
+      "angle": "medium_wide_shot_slight_dutch_angle",
+      "positioning": "slightly_elevated_to_capture_commanding_gesture_and_energy_web_radiating_outward"
     },
     "scenography": {
-      "setting": "Cyber warfare zone with holographic displays shattering and glitching during battle, digital fortifications crumbling under enemy ICE attacks with visible code deterioration, server towers toppling and sparking, electric storms rippling through infrastructure",
-      "atmosphere_vfx": "Complete energy network visible with caster at glowing epicenter, energy flowing outward along dozens of channels simultaneously with each destination growing brighter as power arrives, Battlefield-wide glow connecting all friendly positions in visible network, ground cracking along energy pathways, sky briefly illuminated by massive network flash, Data streams arcing between floating terminals like electric whip lashes, holographic shields shattering into cascading pixel fragments dissolving mid-air, EMP waves visible as expanding blue rings distorting everything, server racks exploding in showers of sparks and circuit boards, electric arcs grounding through coolant puddles creating branching lightning"
+      "setting": "Cyber warfare zone with collapsing digital infrastructure, holographic tactical displays shattering and fragmenting mid-air during active combat, digital fortifications crumbling under cascading enemy ICE attacks with visible code deterioration and data stream corruption, monolithic server tower structures toppling with electrical sparking, brutalist geometric architecture with right angles and rectangular blocks, standardized essaim drones grounded and sparking in background",
+      "atmosphere_vfx": "Electric storms rippling destructively through crumbling infrastructure, heavy rain with digital artifacts, glitching holographic projections, cascading data streams fragmenting into pixels, blue-white lightning flashes illuminating scene intermittently, heavy dust and debris particles suspended in harsh lighting, cold mist rising from damaged server equipment, energy web threads pulsing with icy blue light connecting coordinator to allied positions"
     }
   }
 }

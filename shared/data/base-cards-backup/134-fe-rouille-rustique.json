@@ -1,0 +1,75 @@
+{
+  "collectionName": "base",
+  "name": "Rouille Rustique",
+  "description": "Ingénieur Génie transformant les catastrophes environnementales en opportunités économiques exploitant chaque débris avec créativité.",
+  "element": "reseau",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "6",
+  "rightValue": "6",
+  "bottomValue": "6",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -2,
+      "target": "all_enemy"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 3,
+  "image": "base/134.png",
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Rouille Rustique — Ferrailleurs de la Ceinture Epic class reseau",
+      "loadout": {
+        "armor_outfit": "Heavy patchwork armor from salvaged hull plates with visible bolt patterns and rough weld seams, exposed hydraulic assist mechanisms leaking fluid from combat damage, thick reinforced gloves stained with oil grease and burn marks, protective welding mask pushed up on forehead revealing determined face forged from rare materials with faction crest embedded and energy pulsing through the entire surface with every movement",
+        "arsenal": "Modified industrial welding torch converted into combat flamethrower with extended flame range, multi-function cutting tool integrated into gauntlet for both welding armor and severing limbs, improvised explosive charges rigged from salvaged missile parts creating unpredictable devastating blasts The weapon and gauntlets actively channel the character's decrease ability targeting all_enemy, visible energy conduits linking weapon to body with flowing power"
+      },
+      "attitude": {
+        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Both arms sweeping outward in devastating horizontal arc with powerful significant wave of negation energy expanding in all directions like dark tsunami rushing across battlefield toward all enemies",
+        "emotion": "Apocalyptic fury — full weight of faction's power channeling through body uncontrollably"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Industrial action photography",
+          "Scrapyard warfare",
+          "Working class heroism"
+        ],
+        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Rusted Orange-Brown",
+          "role": "primary_accent — salvaged metal surfaces and explosion fireballs"
+        },
+        {
+          "name": "Welding Arc Blue",
+          "role": "secondary_accent — cutting sparks and work light"
+        },
+        {
+          "name": "Oil Black",
+          "role": "tertiary accent — deep shadowed recesses and grease stains"
+        }
+      ],
+      "lighting_setup": "amethyst alloy frame with crystalline energy channels pulsing light along border edges, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
+      "mood": "desperate_scrapyard_brawl"
+    },
+    "camera": {
+      "angle": "Wide dramatic low angle showing full blast radius, character backlit by their own power source, foreground devastated by ability effects"
+    },
+    "scenography": {
+      "setting": "Active scrapyard warfare zone inside hollowed asteroid with massive spacecraft structures collapsing under fire sending debris raining down, molten metal cascading from ruptured tanks creating burning rivers, grinding sparks filling air from improvised weapons clashing against enemy armor, hastily built barricades buckling under assault, low-gravity making every debris float after breaking free",
+      "atmosphere_vfx": "Massive dark ripple of suppression moving across battlefield at high speed, each enemy hit visibly weakening and dimming as power is drained simultaneously, Everything the wave touches deteriorates — surfaces cracking and crumbling, colors draining to gray, structural integrity failing, zone of death spreading across battlefield leaving devastation, Welding torch flame erupting as flamethrower showering bright orange sparks everywhere, heavy metal plates buckling and flying from explosions creating shrapnel, grinding sparks fountaining from metal-on-metal impact, massive machinery parts falling in dramatic slow motion, hydraulic fluid spraying from ruptured lines creating oil slicks, molten metal dripping creating burning rain"
+    }
+  }
+}

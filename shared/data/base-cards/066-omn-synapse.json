@@ -19,51 +19,59 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Synapse — Omni-Réseau Common class hacking",
+      "archetype": "Cyborg Infiltrator - Sleek augmented shadow operative built for digital warfare and undetectable system intrusion",
       "loadout": {
-        "armor_outfit": "Sleek cybernetic combat suit with circuit pathways throughout fabric glowing bright cyan under stress, neural temple implant sparking from combat overload, holographic shield generators deployed on forearms, clean geometric lines contrasting with digital chaos",
-        "arsenal": "Neural hacking deck with holographic wrist interface mid-operation showing active code streams, EMP emitter gauntlet crackling with charge creating visible blue arcs, data-spike dagger with glowing edge Functional combat equipment showing signs of heavy practical use and field customization"
+        "armor_outfit": "Streamlined composite tactical exoskeleton in matte anthracite gray with brushed steel articulation joints, integrated neural link ports emitting glacial blue bioluminescence at spine and nape, standardized military-grade body armor plating with deliberately worn edges, utility harness with signal jamming modules and data-spike holsters",
+        "arsenal": "Twin compact electromagnetic sidearms with integrated data-probes for direct system injection, high-frequency vibro-blade sheathed at lower back, deployable pixel-swarm nano-drones stored in thoracic compartment, all weapons connected via thick black neural cables to wrist implant interfaces"
       },
       "attitude": {
-        "behavior": "Shadow operative slipping through enemy lines at high speed with drawn weapons, leaving trail of darkness. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
-        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
+        "behavior": "Shadow operative in aggressive forward motion, body low and coiled in combat ready stance, one weapon raised and sweeping toward perceived threat, motion blur suggesting impossibly fast movement, dark chromatic aberration trail following rapid displacement through digital battlefield",
+        "emotion": "Cold cybernetic determination radiating from hollow pale face, deadened eyes flickering with intense blue neural processing light, jaw clenched in predatory focus, zero emotional response to surrounding destruction - pure algorithmic combat instinct"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Cyberpunk action",
-          "Digital warfare art",
-          "Electromagnetic storm photography"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Neon Cyan",
-          "role": "primary_accent — data streams and arcing energy bolts"
+          "name": "Matte Black",
+          "role": "primary armor and shadow trail"
         },
         {
-          "name": "Electric Blue",
-          "role": "secondary_accent — arc lightning and holographic displays"
+          "name": "Anthracite Gray",
+          "role": "secondary armor plating and environmental mass"
         },
         {
-          "name": "Stark White",
-          "role": "tertiary accent — interface glare and explosive sparks"
+          "name": "Glacial Neon Blue",
+          "role": "neural implants, weapon accents, holographic corruption"
+        },
+        {
+          "name": "Cadaveric Pale Flesh",
+          "role": "exposed skin, face, hands"
+        },
+        {
+          "name": "Electric White",
+          "role": "sparks, crumbling holographic displays, ICE attack energy"
         }
       ],
-      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "cyber_warfare_assault"
+      "lighting_setup": "Cinematic cold industrial lighting with dramatic rim lighting on subject, volumetric blue glow emanating from neural implants and data-ports, chaotic multi-source lighting from crumbling holographic displays and electrical discharges in background",
+      "mood": "Menacing industrial nightmare - calculated lethality amid technological apocalypse"
     },
     "camera": {
-      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
+      "angle": "low dutch_angle, slightly tracking left to right following operative movement"
     },
     "scenography": {
-      "setting": "Cyber warfare zone with holographic displays shattering and glitching during battle, digital fortifications crumbling under enemy ICE attacks with visible code deterioration, server towers toppling and sparking, electric storms rippling through infrastructure",
-      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Data streams arcing between floating terminals like electric whip lashes, holographic shields shattering into cascading pixel fragments dissolving mid-air, EMP waves visible as expanding blue rings distorting everything, server racks exploding in showers of sparks and circuit boards, electric arcs grounding through coolant puddles creating branching lightning"
+      "setting": "Corrupted cyber warfare zone - massive server towers toppling with showers of electric blue sparks, shattered holographic displays fragmenting into glitching polygons mid-air, digital fortifications disintegrating into cascading code streams and binary rain, brutalist monolithic structures cracking under electromagnetic assault",
+      "atmosphere_vfx": "Electric storms rippling through collapsing digital infrastructure, visible ICE attack tendrils in corrupted neon blue tearing through crumbling firewalls, chromatic aberration distortion, motion blur trails, dust and debris suspended in harsh backlighting, rain of corrupted data fragments and fragmented holographic shards, atmospheric haze from overheating server combustion"
     }
   }
 }

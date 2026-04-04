@@ -25,51 +25,76 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Crescendo Harmonique — Chœur Synthétique Uncommon class obsidienne",
+      "archetype": "Synthétique Chœur – Compositeur de Guerre Ascétique",
       "loadout": {
-        "armor_outfit": "Crystalline armor plates growing naturally from body vibrating at resonant frequencies with visible sound waves emanating from every surface, each facet catching and fracturing light into rainbows, organic-metal hybrid construction",
-        "arsenal": "Resonance tuning fork weapon humming at visible destructive frequency with air distortion around it, harmonic shield gauntlet generating visible ring-shaped sound wave barriers, crystalline conductor baton emitting visible vibration patterns The weapon and gauntlets actively channel the character's heal ability targeting all_own, visible energy conduits linking weapon to body with flowing power"
+        "armor_outfit": "Robes monastiques amples et usées en fibres synthétiques épaisses mélangées à des faisceaux de câbles tressés noir mat, plaques de céramiques blanches vieilli avec patine d'acier, symétrie parfaite de mandala structurel sur le torse, épaules dégagées révélant la structure squelettique métallique, chapelet rituel de minuscules disques durs et processeurs pendant à la ceinture, aucun trait facial – plaque faciale totalement lisse en métal patiné avec reflets holographiques dorés subtils, symbole runique lumineux holographique doré orbitant lentement autour de la tête",
+        "arsenal": "Bâton de pèlerin cybernétique long et épuré en bronze oxydé avec pommeau cristallin, arcs électriques crépitant le long de la structure avec projection d'équations binaires lumineuses dorées, champ de fréquence harmonique généré par le cristal central capable de créer des vagues de résonance destructrices et des ondes de guérison"
       },
       "attitude": {
-        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Arms spread wide in open blessing with focused targeted golden healing wave expanding outward in all directions reaching every ally on battlefield simultaneously",
-        "emotion": "Battle-tested confidence — knowing skills will carry through the engagement"
+        "behavior": "Corps entièrement engagé dans le combat – bras écartés en姿势 de bénédiction ouverte vers le ciel, chaque muscle mécanique synchronisé avec les fréquences environnantes, mouvements fluides et gracieux malgré la violence du champ de bataille, lévitation subtile au-dessus des débris cristallins grâce aux champs magnétiques, robe monastique ondulant sous l'effet des vibrations harmoniques de l'amphithéâtre",
+        "emotion": " Sérénité martiale absolue, absence totale d'expression faciale mais aura de focused determination, compassion guerrière – expansion contrôlée d'une vague de guérison dorée ciblée atteignant simultanément chaque allié sur le champ de bataille, conscience numérique multitâche coordonnant stratégie et频率 de combat"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Sound wave photography",
-          "Crystallography",
-          "Kinetic energy art"
+          "Cyberpunk Monastic",
+          "Dark Sci-Fi Ascétique",
+          "Post-apocalyptic Bouddhiste",
+          "Grimdark Holographique"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Violet Crystal",
-          "role": "primary_accent — resonance energy beams and crystal shards"
+          "name": "Acier Patiné",
+          "role": "primary_structure_armor"
         },
         {
-          "name": "Silver Prismatic",
-          "role": "secondary_accent — sound wave visualization and reflections"
+          "name": "Blanc Céramique Vieilli",
+          "role": "secondary_armor_plates"
         },
         {
-          "name": "Deep Indigo",
-          "role": "tertiary accent — shockwave shadows and deep resonance tones"
+          "name": "Gris Perle",
+          "role": "metallic_undertones"
+        },
+        {
+          "name": "Brun Moine Délavé",
+          "role": "robe_fabric_base"
+        },
+        {
+          "name": "Noir Mat Câblé",
+          "role": "cable_bundles_accents"
+        },
+        {
+          "name": "Bronze Oxydé",
+          "role": "weapon_material"
+        },
+        {
+          "name": "Or Holographique",
+          "role": "runes_mantras_healing_wave"
+        },
+        {
+          "name": "Doré Électrique Clair",
+          "role": "electric_arcs_frequency_energy"
+        },
+        {
+          "name": "Cristal Fragmenté Blanc",
+          "role": "environment_shards_ceiling"
         }
       ],
-      "lighting_setup": "oxidized copper frame with faction insignia embossed on each corner, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "devastating_harmonic_blast"
+      "lighting_setup": "cinematic_backlighting_with_frequency_glow_holographic_rim_light",
+      "mood": "sérénité guerrière épique – mélange de violence和控制de masse chaotic battlefield avec calme ascétique intérieur, tension Harmonique"
     },
     "camera": {
-      "angle": "Slightly low angle waist-up shot with environmental action visible in background, motion blur on debris and effects"
+      "angle": "low_angle_slightly_looking_up_emphasizing_divine_blessing_pose"
     },
     "scenography": {
-      "setting": "Shattered crystalline amphitheater turned battlefield with crystal formations exploding from harmonic overload sending shards every direction, visible shockwave rings tearing through enemy positions, fragments raining from resonating cracked ceiling structures, entire environment vibrating at a frequency that makes air appear to ripple and distort",
-      "atmosphere_vfx": "Expanding ring of pure restoration light passing through all friendlies simultaneously, each ally enveloped in golden light with wounds closing across entire field at same moment, Everywhere the wave passes environment blooms — grass sprouting, flowers opening, scorched ground recovering, massive wave of vitality transforming death into life across battlefield, Visible concentric sound waves expanding outward shattering nearby crystal structures into cascading shards, crystal fragments flying through air catching prismatic light, air visibly rippling and bending from sonic force, ground fracturing in geometric patterns from bass, floating debris suspended in harmonic stasis field"
+      "setting": "Amphithéâtre cristallin brisé transformé en champ de bataille – gradins fracturés en cristal noirci, formations cristallines explosives au sol et sur les murs, plafond de结构 résonante fissurée d'où pleuvent des éclats, piliers monoculaires brisés en cristal pur, sol jonché de débris tranchants et de ruines d'autels القديمة, architecture rappelant les temples volants du Chœur Synthétique avec mandalas structurels visibles",
+      "atmosphere_vfx": "Anneaux d'onde de choc visibles tornant à travers les positions ennemies, fragmentation cristalline en suspension dans l'air, distortion de l'air causée par la fréquence vibratoire ambiante créant effet de mirage thermique, particules dorées holographiques tourbillonnant autour du personnage, éclairs de lumière cohérente jaillissant des arcs électriques du bâton, brume de poussière cristalline illuminée par les reflets holographiques"
     }
   }
 }

@@ -19,51 +19,65 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Binaire — Omni-Réseau Common class longue_portee",
+      "archetype": "Cyborg Cryptanalysis Combat Specialist",
       "loadout": {
-        "armor_outfit": "Sleek cybernetic combat suit with circuit pathways throughout fabric glowing bright cyan under stress, neural temple implant sparking from combat overload, holographic shield generators deployed on forearms, clean geometric lines contrasting with digital chaos",
-        "arsenal": "Neural hacking deck with holographic wrist interface mid-operation showing active code streams, EMP emitter gauntlet crackling with charge creating visible blue arcs, data-spike dagger with glowing edge Functional combat equipment showing signs of heavy practical use and field customization"
+        "armor_outfit": "Standardized dark composite tactical exoskeleton with integrated neural interface ports, smooth matte anthracite plates over pale grey utility suit, visible cervical and spinal connection ports with cold blue luminescent neural cables, serialized identification codes etched into chest plate",
+        "arsenal": "Geometric assault rifle with integrated wrist-mounting system connected via thick black neural cables to forearm implants, secondary emp grenade attached to utility belt, holographic data-shard projector embedded in shoulder plating"
       },
       "attitude": {
-        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
-        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
+        "behavior": "Combat specialist in aggressive forward stance, weapon raised at eye level with both hands locked on target, body angled at 45 degrees with weight forward on balls of feet, neural cables trailing from rifle grip to wrist implants glowing with data-stream activity",
+        "emotion": "Cold inexpressive stare through dead eyes enhanced by livid blue optic implants, face utterly devoid of human emotion, absolute combat focus emanating from blank expression while surrounding holographic displays fragment and glitch violently behind the subject"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Cyberpunk action",
-          "Digital warfare art",
-          "Electromagnetic storm photography"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Brutalist Industrial Design",
+          "Cyberpunk Noir"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Neon Cyan",
-          "role": "primary_accent — data streams and arcing energy bolts"
+          "name": "Anthracite Grey",
+          "role": "Primary armor and environmental elements"
         },
         {
-          "name": "Electric Blue",
-          "role": "secondary_accent — arc lightning and holographic displays"
+          "name": "Matte Black",
+          "role": "Shadows, cables, and deep structures"
         },
         {
-          "name": "Stark White",
-          "role": "tertiary accent — interface glare and explosive sparks"
+          "name": "Cold Brushed Steel",
+          "role": "Metal surfaces and technological components"
+        },
+        {
+          "name": "Cadaveric Pale Flesh",
+          "role": "Exposed skin of subject"
+        },
+        {
+          "name": "Glacial Neon Blue",
+          "role": "Neural implants, optic glow, data streams, and accent lighting"
+        },
+        {
+          "name": "Faded Military Olive",
+          "role": "Utility underlayers and worn fabric elements"
         }
       ],
-      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "cyber_warfare_assault"
+      "lighting_setup": "Dramatic cinematic low-key with harsh blue accent rim lighting from neural implants and holographic sources, volumetric electric discharge illumination from crumbling server infrastructure, dark ambient fill with selective high-contrast highlights on weapon and armor edges",
+      "mood": "Menacing, oppressive, industrial devastation with cold technological horror undertones"
     },
     "camera": {
-      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
+      "angle": "Low angle dutch angle tilted slightly right to emphasize aggressive combat posture and imposing armored silhouette against chaotic background, camera height at waist level looking slightly upward"
     },
     "scenography": {
-      "setting": "Cyber warfare zone with holographic displays shattering and glitching during battle, digital fortifications crumbling under enemy ICE attacks with visible code deterioration, server towers toppling and sparking, electric storms rippling through infrastructure",
-      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Data streams arcing between floating terminals like electric whip lashes, holographic shields shattering into cascading pixel fragments dissolving mid-air, EMP waves visible as expanding blue rings distorting everything, server racks exploding in showers of sparks and circuit boards, electric arcs grounding through coolant puddles creating branching lightning"
+      "setting": "Collapsing cyber warfare command center interior, massive server towers toppling at sharp geometric angles surrounded by cascading digital data fragments, shattered holographic display panels floating and disintegrating mid-air, exposed wiring and sparking industrial conduits",
+      "atmosphere_vfx": "Violent electric storms rippling through crumbling digital infrastructure, vivid blue-white ICE fragmentation particles exploding from breached firewalls, glitching holographic code deteriorating into pixelated noise, intermittent power surges causing flickering emergency lighting, smoke and ionized particles swirling in electromagnetic interference fields"
     }
   }
 }

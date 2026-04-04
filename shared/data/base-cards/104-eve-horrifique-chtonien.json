@@ -25,51 +25,60 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Horrifique Chtonien — Éveil Chthonien Epic class obsidienne",
+      "archetype": "Horrifique Chtonien - Titanesque Prophet of Void",
       "loadout": {
-        "armor_outfit": "Ancient ceremonial armor fused to wearer's body through dark ritual, shadowy fabric etched with independently shifting runic patterns casting purple light, living shadow tendrils writhing from shoulder guards with own consciousness, armor plates absorbing light instead of reflecting creating void patches forged from rare materials with faction crest embedded and energy pulsing through the entire surface with every movement",
-        "arsenal": "Massive ritual staff taller than wielder inscribed with independently rotating forbidden symbols, shadow-manipulation artifact orbiting hand like dark satellite with void energy tendrils connecting to body, cursed amulets chained to armor pulsating with green phosphor light emitting foul energy wisps The weapon and gauntlets actively channel the character's decrease ability targeting opposite_side, visible energy conduits linking weapon to body with flowing power"
+        "armor_outfit": "Natural carapace of cooled obsidian plates and volcanic rock fused to flesh, tectonic armor sections with glowing magma seams, asymmetrical protective plates resembling fractured earth crust, jagged mineral protrusions along spine and shoulders, cracked volcanic skin revealing pulsing molten core beneath",
+        "arsenal": "Dimensional pressure field emanating from palms, shadow tentacles summoned from void rifts, ancient runes of cosmic dissolution carved into flesh, reality-warping gravitational forces controlled through gesture"
       },
       "attitude": {
-        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Both hands thrust forward in powerful push with powerful significant dimensional pressure field expanding from palms creating visible wall of force pushing against entire opposing side",
-        "emotion": "Apocalyptic fury — full weight of faction's power channeling through body uncontrollably"
+        "behavior": "Standing firm with both massive clawed hands thrust forward in devastating push motion, immense body coiled with primordial power, legs planted wide in stance of cosmic inevitability, dimensional force wall expanding outward from palms creating visible distortion barrier",
+        "emotion": "Cold cosmic malevolence radiating despair, hollow prophetic certainty of universal ending, ancient maleficence devoid of mercy, presence inducing existential terror and hopelessness in all who witness"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Cosmic horror art",
-          "Eerie supernatural photography",
-          "Abyssal deep-sea horror"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Cosmic Horror",
+          "Primordial Titans"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Deep Void Purple",
-          "role": "primary_accent — shadow energy emanation and tentacle glow"
+          "name": "Obsidian Black",
+          "role": "primary body and armor base"
         },
         {
-          "name": "Bone White",
-          "role": "secondary_accent — skeletal remains and carved runes"
+          "name": "Basalt Gray",
+          "role": "rocky texture and secondary plating"
         },
         {
-          "name": "Eerie Green Phosphor",
-          "role": "tertiary accent — forbidden energy arcs and corruption"
+          "name": "Magma Orange-Red",
+          "role": "glowing seams, energy manifestations, internal heat"
+        },
+        {
+          "name": "Ash Gray",
+          "role": "smoke, dust, atmospheric particles"
+        },
+        {
+          "name": "Void Purple-Black",
+          "role": "dimensional rifts and shadow tentacles"
         }
       ],
-      "lighting_setup": "amethyst alloy frame with crystalline energy channels pulsing light along border edges, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "eldritch_awakening"
+      "lighting_setup": "dramatic_volcanic_glow_with_void_energy_accents",
+      "mood": "oppressive_dread_apocalyptic_menacing"
     },
     "camera": {
-      "angle": "Wide dramatic low angle showing full blast radius, character backlit by their own power source, foreground devastated by ability effects"
+      "angle": "low_angle_with_dutch_tilt"
     },
     "scenography": {
-      "setting": "Torn dimensional battlefield with ground splitting open in massive fissures as enormous shadow tentacles erupt from below, sky showing impossible geometry and wrongness human mind cannot process, ancient runes blazing on every surface as dimensions collapse, reality thinning and tearing at edges, thick oppressive atmosphere of supernatural dread",
-      "atmosphere_vfx": "Massive force visible through environmental disruption — air rippling like heat haze, ground buckling and cracking, everything on opposite side being physically pushed backward and compressed, Opposing terrain visibly compressed and pushed backward, barriers and structures cracking from extreme pressure, objects sliding away creating clear zone of force, Massive shadow tentacles erupting from cracked ground grasping at sky, dimensional rifts tearing open revealing impossible non-Euclidean geometry with wrong colors, floating forbidden runes spinning violently in dark purple energy maelstrom, skeletal remains rattling and rising from earth, void essence fog rolling across ground like creeping tsunami"
+      "setting": "Torn dimensional battlefield with ground splitting in massive fissures, exposed magma rivers from planetary core, enormous shadow tentacles erupting from void rifts below, sky warped with impossible geometry and eldritch patterns, ancient dissolution runes blazing on every fractured surface, reality thinning and fragmenting at edges",
+      "atmosphere_vfx": "thick_dark_volcanic_smoke, dimensional_energy_discharge, reality_distortion_waves, crumbling_ground_particles, ancient_prophetic_runes_flickering, abyssal_light_from_fissures, oppressive_void_presence_pervading"
     }
   }
 }

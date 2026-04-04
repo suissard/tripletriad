@@ -25,51 +25,73 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Anomalie Anormal — Incursion Dissonante Uncommon class furtif",
+      "archetype": "Dimensional Rift Combat Specialist - Human cultist vessel merged with extra-dimensional entity, existing simultaneously in multiple states of reality",
       "loadout": {
-        "armor_outfit": "Fragmented armor with each plate phasing at different dimensions and times out of sync with reality, impossible geometries connecting segments creating shapes mind cannot process, unnatural spectrum colors shifting and glitching randomly, portions flickering between solid and translucent ghostly state in rapid succession",
-        "arsenal": "Reality-fracturing blade cutting through dimensional barriers leaving visible spatial tears trailing where physics breaks down, paradox generator causing multiple versions of weapon to phase in and out simultaneously from different angles, glitch emitter integrated into off-hand disrupting enemy targeting at quantum level creating visual distortion fields The weapon and gauntlets actively channel the character's heal ability targeting all_own, visible energy conduits linking weapon to body with flowing power"
+        "armor_outfit": "Tattered military armor recovered from possessed enemies, severely deformed by gravitational anomalies with plates of twisted metal floating in mid-air around the body like molten wax frozen mid-flow, sections of the armor phasing in and out of existence showing both pristine and corroded states simultaneously, sickly pale scarred flesh visible through fractures in the metal, fragments of reality glitching around the wearer's silhouette",
+        "arsenal": "Obsidian-like melee weapon manifesting as a impossibly thin blade of crystallized void matter with violet luminous edges, the weapon exists partially in parallel dimensions creating multiple overlapping strike traces, surrounded by crackling magenta and violet energy representing the dimensional rupture ability"
       },
       "attitude": {
-        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Arms spread wide in open blessing with focused targeted golden healing wave expanding outward in all directions reaching every ally on battlefield simultaneously",
-        "emotion": "Battle-tested confidence — knowing skills will carry through the engagement"
+        "behavior": "Combat specialist in the heat of furious battle, body fully committed with arms spread wide in an open blessing gesture, golden healing wave of pure dimensional energy expanding outward in all directions simultaneously, golden light fractally splitting into violet and magenta glitch particles at the edges, motion blur suggesting impossible speed as the character bridges multiple realities at once, debris and fragments of reality levitating chaotically around the figure",
+        "emotion": "Transcendent madness of a vessel possessed by cosmic horror, eyes fully revulsed showing only whites, face frozen in an expression of ecstatic agony, focused targeted healing energy radiating with surgical precision despite the chaos, presence distorting the air and light around the body making the figure difficult to look at directly"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Glitch action photography",
-          "Digital corruption art",
-          "Quantum breakdown visualization"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Cosmic Horror",
+          "Post-apocalyptic",
+          "Extra-dimensional surrealism"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL_and_glitch_effects"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Magenta Glitch",
-          "role": "primary_accent — reality fracture edges and distortion boundaries"
+          "name": "Absolute Black",
+          "role": "Primary shadow and void spaces representing abyssal darkness and the void between realities"
         },
         {
-          "name": "Fractured Green",
-          "role": "secondary_accent — dimensional tear cores and anomaly centers"
+          "name": "Deep Violet",
+          "role": "Corrupted energy and psychic auras emanating from the dimensional rift abilities"
         },
         {
-          "name": "Chromatic Aberration Rainbow",
-          "role": "tertiary accent — visual artifacts where colors separate and bleed"
+          "name": "Asylum Grey",
+          "role": "Background atmosphere and the sterile horror aesthetic"
+        },
+        {
+          "name": "Dried Blood Red",
+          "role": "Scarified flesh details and combat damage on the character"
+        },
+        {
+          "name": "Golden Healing Energy",
+          "role": "The character's healing ability contrasting against the dark faction palette as the only warm color"
+        },
+        {
+          "name": "Magenta/Violet Neon",
+          "role": "Glitch accents and crackling energy representing reality distortion"
+        },
+        {
+          "name": "Pale Scarified Flesh",
+          "role": "Human elements breaking through the armor showing the cultist vessel beneath"
+        },
+        {
+          "name": "Crackling Black Energy",
+          "role": "Psychic auras distorting light around the character creating impossible shadows"
         }
       ],
-      "lighting_setup": "oxidized copper frame with faction insignia embossed on each corner, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "catastrophic_reality_collapse"
+      "lighting_setup": "Dramatic mixed_reality_lighting with conflicting_light_sources representing parallel dimensions overlapping, golden healing light expanding from the center contrasting against deep violet void lighting, reality distortion creating impossible shadows and light fractures",
+      "mood": "Cosmic horror meets transcendent battlefield salvation, deeply unsettling yet strangely beautiful, the golden healing wave creating an almost divine counterpoint to the surrounding dimensional collapse"
     },
     "camera": {
-      "angle": "Slightly low angle waist-up shot with environmental action visible in background, motion blur on debris and effects"
+      "angle": "Low angle looking up at the figure with arms spread wide, slight dutch_angle to emphasize the reality distortion and multiple dimensions overlapping, the camera itself seeming to glitch slightly"
     },
     "scenography": {
-      "setting": "Reality collapse zone with environment fragmenting into multiple parallel versions simultaneously, buildings existing in two dimensions at once showing both intact and destroyed overlapping states, sky displaying conflicting celestial bodies that should not coexist, gravity malfunctioning causing debris to fall upward and sideways in different zones, ground cracking open revealing parallel battlefields layered on each other like corrupt image",
-      "atmosphere_vfx": "Expanding ring of pure restoration light passing through all friendlies simultaneously, each ally enveloped in golden light with wounds closing across entire field at same moment, Everywhere the wave passes environment blooms — grass sprouting, flowers opening, scorched ground recovering, massive wave of vitality transforming death into life across battlefield, Reality shattering like cracked glass across scene with fragments revealing parallel dimensions, chromatic aberration tearing colors apart at high speed creating RGB separation, objects phasing in and out mid-explosion with parts appearing and disappearing, gravity distorting sending debris every direction simultaneously, temporal stutter showing same motion frozen in multiple positions at once creating ghost trails"
+      "setting": "Reality collapse zone in full fragmentation, buildings existing in two dimensions simultaneously showing both intact pristine state and destroyed rubble overlapping perfectly, ground cracking open to reveal parallel battlefields layered like corrupted image files with multiple versions of the same scene stacking infinitely, floating debris both falling upward and sideways in different zones defying singular gravity, sky displaying conflicting celestial bodies (sun and void stars coexisting impossibly) creating impossible day-night distortion",
+      "atmosphere_vfx": "Massive reality_glitch_effects with chromatic aberration at the edges of dimensional tears, air itself fracturating like broken glass around the character, parallel battlefields bleeding through dimensional rifts showing ghostly echoes of other wars, floating fragments of buildings torn from their reality anchored in mid-air, gravitational anomalies creating impossible physics where debris falls in multiple directions simultaneously, purple and magenta energy crackling through the atmosphere like corrupted data visualization, the golden healing wave spreading outward distorting the reality collapse around it creating momentary stability pockets"
     }
   }
 }

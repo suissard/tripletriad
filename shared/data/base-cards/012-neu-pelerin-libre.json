@@ -20,51 +20,65 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Pelerin Libre — neutre Rare class eau",
+      "archetype": "Imposant arbitre de guerre en armure de puissance sauvée, Veteran grisonnant aux origines mysterieuses, silhouette massive et musclée marquée par des décennies de combats dans l'espace",
       "loadout": {
-        "armor_outfit": "Layered patched armor made from mismatched faction materials welded and stitched together, bullet-pocked shoulder plates, faded utility harness loaded with ammunition and tools with distinctive faction engravings and glowing energy channel conduits running along seams",
-        "arsenal": "Worn plasma rifle with taped grip sections and custom sight modifications, combat knife with notched blade, compact EMP grenades on belt Functional combat equipment showing signs of heavy practical use and field customization"
+        "armor_outfit": "Combinaison de minage spatiale épaisse et asymétrique, plaques d'armures improvisées soudées à partir de panneaux de signalisation arrachés et de carrosseries de véhicules abandonnés, câbles d'alimentation exposés, articulations renforcées de ruban adhésif industriel, taches de graisse de moteur séché, peintures de guerre tribales, casque de soudeur spatial fendu réparé avec plusieurs couches de duct tape, visière opaques rayée de scratches, harnais de combat couvert de mousquetons et de poches à outils",
+        "arsenal": "Canon cinétique massif et encombrant de fabrication artisanale, structure de soutien en tuyaux de cuivre exposés, batteries de fortune attachées au canon avec du gros ruban adhésif, bobines électromagnétiques visible, systèmes de refroidissement improvisés, hache de melee à une main fixée sur le côté, conçue à partir d'une lame de scie circulaire industrielle"
       },
       "attitude": {
-        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
-        "emotion": "Lethal intensity — predator recognizing the perfect strike moment"
+        "behavior": "Posture de combat intensive engagée dans le coeur de la bataille, poids du corps légèrement avancer, jambes plantées dans une position de tir stable, arme cinétique massive levée et pointer vers la menace approchante, muscles tendus comme un ressort prêt à exploser, prêt à faire feu à tout moment",
+        "emotion": "Regard froid et determiné à travers la visière rayée, concentration extreme masquee par la discipline du combattant veteran, une autorite naturelle se degage malgre le chaos ambiant, il est l'arbitre qui maintient l'ordre meme en enfer"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Post-apocalyptic survival",
-          "Gritty space western",
-          "Tactical realism"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Scrap-punk",
+          "Industrial"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Dusty Steel Gray",
-          "role": "primary_accent — weathered armor and tactical gear"
+          "name": "Acier oxyde",
+          "role": "Dominant, armure principale et structures metalliques"
         },
         {
-          "name": "Warm Amber",
-          "role": "secondary_accent — muzzle flash and eye reflection"
+          "name": "Orange rouille",
+          "role": "Secondaire, details corrodes et usures"
         },
         {
-          "name": "Deep Charcoal",
-          "role": "shadow depth and smoke"
+          "name": "Bleu plasma chaud",
+          "role": "Accent energetique, impacts et armes"
+        },
+        {
+          "name": "Gris industriel",
+          "role": "Atmosphere generale et fumee"
+        },
+        {
+          "name": "Etincelles vives",
+          "role": "Effets lumineux ponctuant la scene"
+        },
+        {
+          "name": "Noir graisse de moteur",
+          "role": "Taches, vetements sales et Details"
         }
       ],
-      "lighting_setup": "cobalt steel frame with etched faction symbols running along each border edge, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "tense_standoff"
+      "lighting_setup": "Cinematic_volumetric_lighting_avec_rim_light_bleu_plasma, sources multiples de lueurs chaudes et froides, eclats d'etincelles creates des impacts de plasma, illumination par les explosions et le feu des armes",
+      "mood": "Chaotique, mecont, intense, heroique malgré l'anarchie ambiante"
     },
     "camera": {
-      "angle": "Low dramatic angle emphasizing dominance, wide enough to show full environmental impact of the ability"
+      "angle": "low_angle avec dutch_légère pour amplifer la puissance du personnage, cadrage serré sur le torse et le visage, profondeur de champ courte"
     },
     "scenography": {
-      "setting": "Active warzone at an asteroid waystation crossroads under attack, plasma rounds impacting nearby corrugated walls sending debris and sparks raining down, allied forces taking cover behind makeshift barricades while enemy silhouettes advance through thick smoke",
-      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Fine stellar dust swirling in air, muzzle flashes cutting through haze, shell casings ejecting in slow motion, debris kicked up by heavy boots, sparks ricocheting off metal surfaces"
+      "setting": "Station-service asteroidale, carrefour tactique en metal ondulé, barricades improvisées construites à partir de conteneurs de fret et de debris de coque, murs épais de cereales et tuyaux exposes, environnements de ferraille spatial",
+      "atmosphere_vfx": "Impacts de plasma grondant sur les murs ondulés, debris et eclats de metal pleuvant, etincelles vivaces创造 une pluie de feu, fumee epaisse s'elevant des structures detruites, silhouettes ennemies avancent dans le smog, guerilla spatiale totale, effets de particules lourds"
     }
   }
 }

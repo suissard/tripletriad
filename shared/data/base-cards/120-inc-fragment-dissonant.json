@@ -30,51 +30,69 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Fragment Dissonant — Incursion Dissonante Legendary class furtif",
+      "archetype": "Chaos-Touched Berserker - Fragment Dissonant entity merging human fury with extra-dimensional corruption, warped by reality-breaking forces",
       "loadout": {
-        "armor_outfit": "Fragmented armor with each plate phasing at different dimensions and times out of sync with reality, impossible geometries connecting segments creating shapes mind cannot process, unnatural spectrum colors shifting and glitching randomly, portions flickering between solid and translucent ghostly state in rapid succession with legendary cosmic materials and ancient craftsmanship that has become one with the wearer's being",
-        "arsenal": "Reality-fracturing blade cutting through dimensional barriers leaving visible spatial tears trailing where physics breaks down, paradox generator causing multiple versions of weapon to phase in and out simultaneously from different angles, glitch emitter integrated into off-hand disrupting enemy targeting at quantum level creating visual distortion fields The weapon and gauntlets actively channel the character's death ability targeting enemy_on_capture, visible energy conduits linking weapon to body with flowing power"
+        "armor_outfit": "Ruptured military armor fused with living shadow matter, plates bent by gravitational anomalies, floating debris embedded in skin, limbs twisted at impossible angles, surrounded by physically-detaching shadow tendrils, clothes reduced to floating tatters defying gravity",
+        "arsenal": "Obsidian-violet energy blade dislocating into floating geometric fragments, surrounded by lévitating debris and distorting space, crackling magenta-black psychic aura warping nearby objects"
       },
       "attitude": {
-        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Being captured but reaching back with final curse, massive devastating dark energy flowing from captured body into captor's position as vengeful last act before being taken",
-        "emotion": "Transcendent purpose — no longer merely fighting but reshaping the battlefield itself with every movement and breath"
+        "behavior": "Combat specialist in final desperate assault, body being captured but reaching backward in defiance, channeling catastrophic dark energy curse into captor position, completely committed to annihilating attack, arms outstretched as reality shatters around them",
+        "emotion": "Transcendent rage mixed with cosmic horror - face frozen in scream of agony and ecstasy as reality fractures around the being, eyes rolled back showing only whites, blood streaming from self-inflicted wounds"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Glitch action photography",
-          "Digital corruption art",
-          "Quantum breakdown visualization"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Cosmic Horror",
+          "Glitch Art",
+          "Non-Euclidean Geometry"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Magenta Glitch",
-          "role": "primary_accent — reality fracture edges and distortion boundaries"
+          "name": "Abyssal Black",
+          "role": "dominant shadows and void areas creating oppressive darkness"
         },
         {
-          "name": "Fractured Green",
-          "role": "secondary_accent — dimensional tear cores and anomaly centers"
+          "name": "Deep Violet",
+          "role": "primary energy manifestations and glitch effects"
         },
         {
-          "name": "Chromatic Aberration Rainbow",
-          "role": "tertiary accent — visual artifacts where colors separate and bleed"
+          "name": "Asylum Gray",
+          "role": "fragmenting architecture and environmental decay"
+        },
+        {
+          "name": "Sickly Flesh Pale",
+          "role": "cultist skin tones and exposed tissue"
+        },
+        {
+          "name": "Dried Blood Red",
+          "role": "wounds, scars, and gore details"
+        },
+        {
+          "name": "Magenta Neon",
+          "role": "energy accents and reality distortion highlights"
+        },
+        {
+          "name": "Cracked Flesh Tissue",
+          "role": "biological corruption and mutation details"
         }
       ],
-      "lighting_setup": "aurum-plated frame with living energy flowing through ornate faction-specific patterns, border radiates golden glow, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "catastrophic_reality_collapse"
+      "lighting_setup": "dramatic_rim_lighting_with_volumetric_glitch_effects",
+      "mood": "apocalyptic_terror_and_transcendent_madness"
     },
     "camera": {
-      "angle": "Cinematic ultra-wide angle with dramatic depth layers — foreground devastation, character as glowing focal point, background cataclysm, sky and environment permanently altered"
+      "angle": "low_angle_with_dutch_tilt_suggesting_unstable_reality"
     },
     "scenography": {
-      "setting": "Reality collapse zone with environment fragmenting into multiple parallel versions simultaneously, buildings existing in two dimensions at once showing both intact and destroyed overlapping states, sky displaying conflicting celestial bodies that should not coexist, gravity malfunctioning causing debris to fall upward and sideways in different zones, ground cracking open revealing parallel battlefields layered on each other like corrupt image",
-      "atmosphere_vfx": "Malevolent curse energy crawling up captor from point of contact, visible dark tendrils of corruption spreading across their body and position with malignant effect, Ground around captor darkening and dying as curse takes hold, corruption spreading from contact point showing the price of victory, Reality shattering like cracked glass across scene with fragments revealing parallel dimensions, chromatic aberration tearing colors apart at high speed creating RGB separation, objects phasing in and out mid-explosion with parts appearing and disappearing, gravity distorting sending debris every direction simultaneously, temporal stutter showing same motion frozen in multiple positions at once creating ghost trails"
+      "setting": "Reality collapse zone - city district fragmenting into multiple overlapping parallel dimensions simultaneously, buildings existing as both intact and destroyed states layered over each other like corrupt Photoshop files, ground cracked open revealing parallel battlefields stacked vertically beneath, sky torn between conflicting celestial bodies (blazing sun contradicting frozen moon contradicting impossible void stars)",
+      "atmosphere_vfx": "gravity malfunction creating debris falling in opposing directions simultaneously, air itself fracturing into visible glass-like cracks, chromatic aberration intensifying at dimensional boundaries, purple-black psychic energy vortex consuming the scene, reality distortion waves rippling outward from combatant position, floating geometric anomalies defying physics, shadows detaching physically from surfaces and becoming semi-autonomous"
     }
   }
 }

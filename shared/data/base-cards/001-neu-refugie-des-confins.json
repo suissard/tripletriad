@@ -19,51 +19,63 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Refugie des Confins — neutre Common class None",
+      "archetype": "Scrap-Punk Observer Survivor",
       "loadout": {
-        "armor_outfit": "Layered patched armor made from mismatched faction materials welded and stitched together, bullet-pocked shoulder plates, faded utility harness loaded with ammunition and tools",
-        "arsenal": "Worn plasma rifle with taped grip sections and custom sight modifications, combat knife with notched blade, compact EMP grenades on belt Functional combat equipment showing signs of heavy practical use and field customization"
+        "armor_outfit": "Multicouche de survie extraterrestre improvisée composed de plaques de blindage hétéroclites (morceaux de signalisation industrielle rouillée, tôles de coque de cargo spatial), renforcée par des couches de fibre de verre usée, avec关节 et articulations protégées par des pièces de rechanges de mécanos et des rouleaux de ruban adhésif argenté et gris. Sous la couche protectrice, une combinaison spatiale de minage Class-Mark-IV profondément modifiée avec des panneaux de radiation remplacés par du textile synthétique noir et orange. Le casque de soudeur orbital modifié intègre une visière opaques rayée deчества, des systèmes de communication artisanale avec des fils de cuivre exposés et des témoins lumineux rouges clignotants. Le harness est saturé de sacoches porte-outils, de rouleaux de câbles, de pinces multiconductrices et de trois points d'ancrage mousquetons pour faciliter les déplacements en apesanteur.",
+        "arsenal": "Arbalète de ciblage longue portée de conception artisanale montée sur rail, intégrant un canon de harpon modifié pour tir de precision avec viseur laser désactivé (plasma bleu froid). Système d'emission de signals de renseignement portatif de couleur noir grease, avec antenne directive telescopique. Poignard de survie forgé à la main avec garde en cuivre exposé pour les interférences EM. Sac à dos contenant drone de reconnaissance miniature(batteries de fortune scotchées avec ruban adhésif orange)."
       },
       "attitude": {
-        "behavior": "Tactical observer scanning for enemy movements from elevated position with detection equipment active. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
-        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
+        "behavior": "Posture accroupie sur une poutrelle métallique d'un sas de station orbitale désaffectée, légèrement incliné vers lavant pour optimiser l'équilibre en micropesanteur. Les mains manipulent avec précision le système d'observation artisanale (longue-vue improvisée avec optiques de récupération) tout en maintenant une position permettant une mobilité instantanée. Le corps est légèrement tournée pour masquer la silhouette while still maintaining optimal sightlines. Les jambes sont légèrement fléchies, prêtes à bondir. Le regard scanne l'horizon à travers la visière opaque rayée. Une main libre reste prête à dégainer l'arbalète de précision.",
+        "emotion": "Vigilance froide et calculatrice, regard determiné sous la visière opaques. Concentration extreme et discipline de faction: ne jamais prendre parti, seulement observer et rapporter. Tension latente perceptible dans les épaules, muscles prêts à réagir. Expression inscrutablemasquée par les traces de graisse de moteur incrustée dans les rides du visage weathered."
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Post-apocalyptic survival",
-          "Gritty space western",
-          "Tactical realism"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "grimy_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Dusty Steel Gray",
-          "role": "primary_accent — weathered armor and tactical gear"
+          "name": "Acier oxydé",
+          "role": "dominant_background_elements_and_armor_base"
         },
         {
-          "name": "Warm Amber",
-          "role": "secondary_accent — muzzle flash and eye reflection"
+          "name": "Orange rouille",
+          "role": "accent_details_and_worn_paint_marks"
         },
         {
-          "name": "Deep Charcoal",
-          "role": "shadow depth and smoke"
+          "name": "Bleu plasma",
+          "role": "technological_energy_accents_and_targeting_systems"
+        },
+        {
+          "name": "Gris industriel",
+          "role": "secondary_metallic_surfaces_and_structural_elements"
+        },
+        {
+          "name": "Noir graisse de moteur",
+          "role": "facial_features_and_textile_fabrics"
+        },
+        {
+          "name": "Etincelles vives",
+          "role": "atmospheric_particles_and_reflections"
         }
       ],
-      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "tense_standoff"
+      "lighting_setup": "low_key_industrial_with_rim_light_plasma_glow_and_spark_particles",
+      "mood": "tense_stealthy_menacing_with_underlying_tension"
     },
     "camera": {
-      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
+      "angle": "low_angle_slightly_tilted_to_emphasize_silhouette_and_environment"
     },
     "scenography": {
-      "setting": "Active warzone at an asteroid waystation crossroads under attack, plasma rounds impacting nearby corrugated walls sending debris and sparks raining down, allied forces taking cover behind makeshift barricades while enemy silhouettes advance through thick smoke",
-      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Fine stellar dust swirling in air, muzzle flashes cutting through haze, shell casings ejecting in slow motion, debris kicked up by heavy boots, sparks ricocheting off metal surfaces"
+      "setting": "Zone industrielle dejunction entre deux sectors spatiaux, structure de station orbitale abandonnée avec poutres métalliques exposées, câbles suspendus, modules de fret démembrés, environnement saturé de débris et de structures improvisées. Intérieur de sas avec hublots fissurés laissant entrevoir les étoiles et la Ceinture d'astéroides au loin.",
+      "atmosphere_vfx": "Ambiance de micropesanteur avec poussière metallique flottante, étincelles occasionnelles de soudure artisanale, reflets de plasma sur les surfaces métalliques usées, halo bleuté du système de visée, vapeurs de gaz de propulsion residuelles, et lumière stroboscopique rouge des alarmes désactivées"
     }
   }
 }

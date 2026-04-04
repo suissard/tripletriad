@@ -30,51 +30,59 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Pixel Synaptique — Omni-Réseau Legendary class reseau",
+      "archetype": "Cyborg Combat Specialist",
       "loadout": {
-        "armor_outfit": "Sleek cybernetic combat suit with circuit pathways throughout fabric glowing bright cyan under stress, neural temple implant sparking from combat overload, holographic shield generators deployed on forearms, clean geometric lines contrasting with digital chaos with legendary cosmic materials and ancient craftsmanship that has become one with the wearer's being",
-        "arsenal": "Neural hacking deck with holographic wrist interface mid-operation showing active code streams, EMP emitter gauntlet crackling with charge creating visible blue arcs, data-spike dagger with glowing edge The weapon and gauntlets actively channel the character's death ability targeting enemy_on_capture, visible energy conduits linking weapon to body with flowing power"
+        "armor_outfit": "Mass-produced composite tactical exoskeleton with sleek dark plating, integrated neural interface ports, smooth ergonomic lines, and standardized attachment points; worn over a utilitarian bodysuit; heavy black cabling draping from spine; serial numbers etched onto plating",
+        "arsenal": "Standard-issue geometric assault rifle with rectangular barrel and integrated neural tether connecting to wrist implants; additional sidearm: compact energy pistol with minimalist design"
       },
       "attitude": {
-        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Being captured but reaching back with final curse, powerful significant dark energy flowing from captured body into captor's position as vengeful last act before being taken",
-        "emotion": "Transcendent purpose — no longer merely fighting but reshaping the battlefield itself with every movement and breath"
+        "behavior": "Leaping forward in a full-body combat sprint, weapon raised, while one arm reaches back, fingers splayed, channeling a torrent of dark energy that spirals toward the captor's position; the figure's body is fully committed to the fight, muscles tensing, the moment of capture imminent",
+        "emotion": "Dead, hollow stare behind pale skin and glowing blue neural implants; an inexpressive face masked by circuitry, yet radiating a vengeful resolve as dark energy pulses from his being"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Cyberpunk action",
-          "Digital warfare art",
-          "Electromagnetic storm photography"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Neon Cyan",
-          "role": "primary_accent — data streams and arcing energy bolts"
+          "name": "Dark Steel Gray",
+          "role": "Primary armor and background structures"
         },
         {
-          "name": "Electric Blue",
-          "role": "secondary_accent — arc lightning and holographic displays"
+          "name": "Cold Blue Neon",
+          "role": "Neural implants, holographic glitches, accent lighting"
         },
         {
-          "name": "Stark White",
-          "role": "tertiary accent — interface glare and explosive sparks"
+          "name": "Pale Cadaveric Skin",
+          "role": "Exposed skin and facial features"
+        },
+        {
+          "name": "Deep Charcoal",
+          "role": "Shadows and heavy darkness"
+        },
+        {
+          "name": "Crimson Dark Energy",
+          "role": "Vengeful energy flow from captured body"
         }
       ],
-      "lighting_setup": "aurum-plated frame with living energy flowing through ornate faction-specific patterns, border radiates golden glow, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "cyber_warfare_assault"
+      "lighting_setup": "Cinematic rim lighting with cold blue neon highlights; volumetric electric storms creating harsh backlight; localized flashes from shattered holograms; dark energy casting an ominous glow",
+      "mood": "Menacing, intense, oppressive"
     },
     "camera": {
-      "angle": "Cinematic ultra-wide angle with dramatic depth layers — foreground devastation, character as glowing focal point, background cataclysm, sky and environment permanently altered"
+      "angle": "Low angle looking up with slight dutch tilt to emphasize imposing figure and dynamic tension"
     },
     "scenography": {
-      "setting": "Cyber warfare zone with holographic displays shattering and glitching during battle, digital fortifications crumbling under enemy ICE attacks with visible code deterioration, server towers toppling and sparking, electric storms rippling through infrastructure",
-      "atmosphere_vfx": "Malevolent curse energy crawling up captor from point of contact, visible dark tendrils of corruption spreading across their body and position with malignant effect, Ground around captor darkening and dying as curse takes hold, corruption spreading from contact point showing the price of victory, Data streams arcing between floating terminals like electric whip lashes, holographic shields shattering into cascading pixel fragments dissolving mid-air, EMP waves visible as expanding blue rings distorting everything, server racks exploding in showers of sparks and circuit boards, electric arcs grounding through coolant puddles creating branching lightning"
+      "setting": "Cyber warfare zone: shattered holographic displays flickering, crumbling digital fortifications, toppling server towers sparking, electric storms rippling through infrastructure",
+      "atmosphere_vfx": "Glitching holographic shards, cascading code, sparks, rain of electric particles, dark energy vortex connecting subject and captor, electric arcs and micro-explosions"
     }
   }
 }

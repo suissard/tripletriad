@@ -19,51 +19,65 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Medic des Confins — neutre Common class radiation",
+      "archetype": "Scrap-Punk Medic Scout - Battle-worn independent reconnaissance specialist serving the Ferrailleurs de la Ceinture, clad in improvised survival suit markings them as both healer and survivor",
       "loadout": {
-        "armor_outfit": "Layered patched armor made from mismatched faction materials welded and stitched together, bullet-pocked shoulder plates, faded utility harness loaded with ammunition and tools",
-        "arsenal": "Worn plasma rifle with taped grip sections and custom sight modifications, combat knife with notched blade, compact EMP grenades on belt Functional combat equipment showing signs of heavy practical use and field customization"
+        "armor_outfit": "Heavily patched mining space suit in oxidized steel gray and rust orange, asymmetrical plating salvaged from old cargo container panels, thick tactical underlayer stained with engine grease and burn marks. Chest rig festooned with medical pouches made from welded metal containers, duct-tape wrapped around joints and seams. Scavenged welding helmet modified with cracked tinted visor, scratched sensor array attachment on left side. Heavy canvas and kevlar blend with exposed rivets, cracked rubber seals, cable harnesses crisscrossing torso with carabiners and tool clips. Rust-stained kneepads and elbow guards from scrapped industrial equipment. Gas mask with improvised filter canister welded to side.",
+        "arsenal": "Hybrid plasma cutter/medical stabilizer tool raised in right hand (industrial weapon with exposed copper coils, jury-rigged battery pack strapped with electrical tape), worn impact pistol holstered at right thigh. Left arm mounted with repurposed mining scanner array showing faint blue holographic readouts through damaged casing. Multiple scalpels, trauma shears, and welding rods shoved into magnetized chest pockets. Improvised concussion grenade hanging from left shoulder harness."
       },
       "attitude": {
-        "behavior": "Reconnaissance specialist scanning environment with active sensor arrays, body positioned for rapid movement. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
-        "emotion": "Focused determination — seasoned professional locked in the moment of combat"
+        "behavior": "Crouched behind corroded corrugated metal barricade, weight balanced on balls of feet ready to spring, left arm extended forward with active scanner array sweeping horizon. Right arm holding plasma tool at low-ready position, finger off trigger but ready. Head tilted slightly, cracked visor angled toward advancing enemy silhouettes through thick smoke. Knees bent, core engaged, slight lean forward, coiled energy despite exhaustion. One boot planted on debris for rapid cover-to-cover movement.",
+        "emotion": "Tense focus beneath cracked visor, eyes scanning threat vectors through scratched plasma-blue sensor display. Jaw set tight, grime-covered face showing grim determination mixed with controlled adrenaline. Scarred hands steady on improvised weapon, breath regulated behind gas mask filter. Underlying urgency - medic's instinct to stabilize wounded fighting against scout's instinct to report and withdraw."
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Post-apocalyptic survival",
-          "Gritty space western",
-          "Tactical realism"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Scrap-punk Industrial",
+          "Mad Max Zero-G"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Dusty Steel Gray",
-          "role": "primary_accent — weathered armor and tactical gear"
+          "name": "Oxidized Steel Gray",
+          "role": "Primary armor and environment base"
         },
         {
-          "name": "Warm Amber",
-          "role": "secondary_accent — muzzle flash and eye reflection"
+          "name": "Rust Orange",
+          "role": "Accent wear, corrosion details, faction identity markers"
         },
         {
-          "name": "Deep Charcoal",
-          "role": "shadow depth and smoke"
+          "name": "Industrial Charcoal Black",
+          "role": "Shadow areas, grease stains, deep crevices"
+        },
+        {
+          "name": "Hot Plasma Blue",
+          "role": "Scanner array, weapon energy, impact flashes, sparks"
+        },
+        {
+          "name": "Ash Gray",
+          "role": "Smoke, debris dust, atmospheric haze"
+        },
+        {
+          "name": "Warning Yellow",
+          "role": "Faded hazard stripes, chipped caution markings on equipment"
         }
       ],
-      "lighting_setup": "brushed steel utility frame, simple geometric corner markers, no ornamentation, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "tense_standoff"
+      "lighting_setup": "Cinematic rim lighting with harsh blue-white plasma impact highlights, volumetric smoke fog with orange fire glow from distant explosions, flickering emergency lights casting intermittent shadows across corrugated walls",
+      "mood": "Chaotic desperation, tense survival, gritty determination amid industrial destruction"
     },
     "camera": {
-      "angle": "Eye-level medium shot capturing face and primary action clearly, shallow depth of field, motion freeze at peak of action"
+      "angle": "Low angle dutch tilt slightly, positioned at ground level behind barricade looking up at subject, emphasizing power dynamic and imminent threat approaching through smoke"
     },
     "scenography": {
-      "setting": "Active warzone at an asteroid waystation crossroads under attack, plasma rounds impacting nearby corrugated walls sending debris and sparks raining down, allied forces taking cover behind makeshift barricades while enemy silhouettes advance through thick smoke",
-      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Fine stellar dust swirling in air, muzzle flashes cutting through haze, shell casings ejecting in slow motion, debris kicked up by heavy boots, sparks ricocheting off metal surfaces"
+      "setting": "Asteroid waystation crossroads junction - corroded interconnected shipping container modules, bent corrugated metal walls with exposed insulation, welded grating floors, salvaged docking clamps as barricades. Debris field visible through shattered viewport behind subject. Smoke-filled corridors with distant muzzle flashes and plasma discharge glow illuminating approaching enemy silhouettes.",
+      "atmosphere_vfx": "Thick gray-white smoke rolling through scene, bright plasma blue impact bursts creating small fireballs against metal walls, sparks and molten debris raining down, sparks showering from damaged overhead pipes, emergency red-amber warning lights pulsing intermittently, dust particles catching plasma glow, heat distortion from nearby weapon impacts, screen-space bloom on all light sources"
     }
   }
 }

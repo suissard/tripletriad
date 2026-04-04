@@ -25,51 +25,67 @@
   "prompt": {
     "format": "1:1",
     "subject": {
-      "archetype": "Synapse Connecte — Omni-Réseau Uncommon class faille_dimensionnelle",
+      "archetype": "Cyborg Tactical Router - Augmented Infantry Soldier",
       "loadout": {
-        "armor_outfit": "Sleek cybernetic combat suit with circuit pathways throughout fabric glowing bright cyan under stress, neural temple implant sparking from combat overload, holographic shield generators deployed on forearms, clean geometric lines contrasting with digital chaos",
-        "arsenal": "Neural hacking deck with holographic wrist interface mid-operation showing active code streams, EMP emitter gauntlet crackling with charge creating visible blue arcs, data-spike dagger with glowing edge The weapon and gauntlets actively channel the character's death ability targeting enemy_on_capture, visible energy conduits linking weapon to body with flowing power"
+        "armor_outfit": "Standardized composite tactical exoskeleton with smooth dark anthracite panels, matte black leg and torso sections, brushed cold steel articulation joints, worn military utility suit visible at seams, prominent neural interface ports at skull base and cervical spine glowing with cold blue light, serial identification codes etched into shoulder plates",
+        "arsenal": "Geometric industrial rifle with clean rectangular lines, direct neural cable connection from weapon grip to wrist implant, secondary utility harness with data-pipe connections, emergency signal beacon mounted on back plate"
       },
       "attitude": {
-        "behavior": "Frontline combatant engaged directly with enemy forces with weapon fully committed to the attack. Being captured but reaching back with final curse, focused targeted dark energy flowing from captured body into captor's position as vengeful last act before being taken",
-        "emotion": "Battle-tested confidence — knowing skills will carry through the engagement"
+        "behavior": "Frontline combatant in full committed attack stance, body being physically restrained by multiple armored captors from behind, right arm reaching backward in defiant gesture, streams of focused dark digital energy visibly flowing from subject's neural ports toward captor's position, holographic tactical displays exploding and fragmenting in background, server infrastructure collapsing and sparking",
+        "emotion": "Inexpressive dead-eyed stare despite extreme physical strain, cold cybernetic focus as final act of vengeful digital curse, zero fear visible on cadaveric pale flesh, dark energy manifesting as corrupted data streams and deteriorating code particles cascading through air"
       }
     },
     "graphics": {
       "style": {
         "technique": "highly_detailed_digital_painting",
         "influences": [
-          "Cyberpunk action",
-          "Digital warfare art",
-          "Electromagnetic storm photography"
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
         ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
       }
     },
     "color_and_light": {
       "palette_names": [
         {
-          "name": "Neon Cyan",
-          "role": "primary_accent — data streams and arcing energy bolts"
+          "name": "Anthracite Gray",
+          "role": "primary armor surfaces, dominant 60%"
         },
         {
-          "name": "Electric Blue",
-          "role": "secondary_accent — arc lightning and holographic displays"
+          "name": "Matte Black",
+          "role": "deep shadows, weapon primary color"
         },
         {
-          "name": "Stark White",
-          "role": "tertiary accent — interface glare and explosive sparks"
+          "name": "Brushed Cold Steel",
+          "role": "metallic joints, equipment accents"
+        },
+        {
+          "name": "Glacial Neon Blue",
+          "role": "neural implants, optical sensors, energy effects, UI elements"
+        },
+        {
+          "name": "Cadaveric Pale Flesh",
+          "role": "exposed skin, 30% body coverage"
+        },
+        {
+          "name": "Corrupted Data Magenta",
+          "role": "deteriorating code, glitch artifacts in dark energy stream"
+        },
+        {
+          "name": "Electric Storm White",
+          "role": "sparks, infrastructure discharge, atmospheric tension"
         }
       ],
-      "lighting_setup": "oxidized copper frame with faction insignia embossed on each corner, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "cyber_warfare_assault"
+      "lighting_setup": "Harsh artificial overhead combined with cold blue terminal glow, digital screen bleed, electrical discharge illumination, high contrast rim lighting on subject silhouette, volumetric fog from sparking infrastructure",
+      "mood": "Menacing, desperate defiance, technological apocalypse, grimdark atmosphere of sacrifice"
     },
     "camera": {
-      "angle": "Slightly low angle waist-up shot with environmental action visible in background, motion blur on debris and effects"
+      "angle": "low_angle_slight_dutch"
     },
     "scenography": {
-      "setting": "Cyber warfare zone with holographic displays shattering and glitching during battle, digital fortifications crumbling under enemy ICE attacks with visible code deterioration, server towers toppling and sparking, electric storms rippling through infrastructure",
-      "atmosphere_vfx": "Malevolent curse energy crawling up captor from point of contact, visible dark tendrils of corruption spreading across their body and position with malignant effect, Ground around captor darkening and dying as curse takes hold, corruption spreading from contact point showing the price of victory, Data streams arcing between floating terminals like electric whip lashes, holographic shields shattering into cascading pixel fragments dissolving mid-air, EMP waves visible as expanding blue rings distorting everything, server racks exploding in showers of sparks and circuit boards, electric arcs grounding through coolant puddles creating branching lightning"
+      "setting": "Collapsing cyber warfare zone - massive server tower tipping forward in mid-fall with electrical discharge, shattered holographic tactical displays floating as fragmented polygons, digital fortification barriers crumbling into corrupted data blocks, exposed circuitry and cable bundles amidst destroyed infrastructure, urban combat debris, electric storm clouds rippling through damaged network architecture",
+      "atmosphere_vfx": "Holographic displays shattering and fragmenting into glitching polygons, ICE attack corruption visually manifesting as deteriorating code cascading from fortifications, server towers toppling with industrial debris, electric storms rippling through damaged infrastructure with visible energy tendrils, data stream particles and corrupted bytes floating in air, blue screen death glitches overlaying physical destruction, dark vengeful energy manifesting as focused particle beam connecting subject to captor position"
     }
   }
 }
