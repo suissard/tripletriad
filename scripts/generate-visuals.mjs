@@ -28,6 +28,14 @@ const BASE_CARDS_DIR = path.join(__dirname, '..', 'shared', 'data', 'base-cards'
 const ENV_PATH = path.join(__dirname, '..', '.env');
 const TMP_DIR = path.join(__dirname, '..', 'tmp', 'visuals');
 
+// Dossiers où chercher les visuels existants mentionnés dans le JSON
+const POSSIBLE_VISUAL_DIRS = [
+  path.join(__dirname, '..'), // Root (si le chemin est relatif au root, ex: base/001.png)
+  path.join(__dirname, '..', 'front', 'public'),
+  path.join(__dirname, '..', 'back', 'strapi', 'public'),
+  path.join(__dirname, '..', 'shared', 'assets'),
+];
+
 // ─── Configuration & Env ───────────────────────────────────────────────────────
 
 function loadEnv() {
@@ -60,16 +68,26 @@ if (!fs.existsSync(TMP_DIR)) {
  */
 function buildVisualPrompt(cardData) {
   const p = cardData.prompt;
-  if (!p) return cardData.description;
-
-  const parts = [];
-  if (p.subject?.archetype) parts.push(p.subject.archetype);
-  if (p.subject?.loadout?.armor_outfit) parts.push(`Wearing ${p.subject.loadout.armor_outfit}`);
-  if (p.subject?.loadout?.arsenal) parts.push(`Equipped with ${p.subject.loadout.arsenal}`);
-  if (p.scenography?.setting) parts.push(`In a ${p.scenography.setting}`);
-  if (p.graphics?.style?.technique) parts.push(`Style: ${p.graphics.style.technique}`);
   
-  return parts.join('. ');
+  // Si un prompt brut est fourni, on l'utilise directement
+  if (p?.raw && p.raw.trim().length > 0) {
+    return p.raw;
+  }
+
+  // Si le prompt est structuré, on construit la chaîne
+  if (p && typeof p === 'object' && Object.keys(p).length > 1) {
+    const parts = [];
+    if (p.subject?.archetype) parts.push(p.subject.archetype);
+    if (p.subject?.loadout?.armor_outfit) parts.push(`Wearing ${p.subject.loadout.armor_outfit}`);
+    if (p.subject?.loadout?.arsenal) parts.push(`Equipped with ${p.subject.loadout.arsenal}`);
+    if (p.scenography?.setting) parts.push(`In a ${p.scenography.setting}`);
+    if (p.graphics?.style?.technique) parts.push(`Style: ${p.graphics.style.technique}`);
+    
+    if (parts.length > 0) return parts.join('. ');
+  }
+  
+  // Fallback sur la description si rien d'autre n'est disponible
+  return cardData.description || "";
 }
 
 /**
@@ -129,140 +147,147 @@ async function uploadToStrapi(token, filePath, fileName) {
 }
 
 /**
- * Trouve une carte par son nom dans Strapi
+ * Récupère tous les noms de cartes existantes dans Strapi
  */
-async function findCardId(token, cardName) {
-  const url = `${STRAPI_URL}/content-manager/collection-types/api::card.card?_q=${encodeURIComponent(cardName)}`;
-  const res = await fetch(url, {
-    headers: { 'Authorization': `Bearer ${token}` }
-  });
-
-  if (!res.ok) return null;
-  const data = await res.json();
+async function getAllCards(token) {
+  let existingNames = new Set();
+  let page = 1;
+  let hasMore = true;
   
-  // Chercher une correspondance exacte sur le nom
-  const card = data.results.find(c => c.name === cardName);
-  return card ? card.id : null;
-}
-
-/**
- * Associe l'image à la carte
- */
-async function associateImage(token, cardId, imageId) {
-  const url = `${STRAPI_URL}/content-manager/collection-types/api::card.card/${cardId}`;
-  const res = await fetch(url, {
-    method: 'PUT',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      image: imageId // ID du média uploadé
-    })
-  });
-
-  if (!res.ok) {
-    const err = await res.text();
-    throw new Error(`Échec association image: ${err}`);
-  }
-}
-
-// ─── Traitement ───────────────────────────────────────────────────────────────
-
-async function processCard(token, filePath) {
-  const fileName = path.basename(filePath);
-  const cardData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+  process.stdout.write('📡 Vérification des cartes existantes dans Strapi... ');
   
-  console.log(`\n🖼️  Traitement de la carte: ${cardData.name} (${fileName})`);
-
-  // 1. Préparer le prompt
-  const visualPrompt = buildVisualPrompt(cardData);
-  console.log(`   📝 Prompt généré: ${visualPrompt ? String(visualPrompt).substring(0, 100) : "NO PROMPT"}...`);
-
-  // 2. Appeler le webhook
-  console.log(`   📡 Appel webhook n8n...`);
-  const webhookRes = await fetch(WEBHOOK_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      prompt: visualPrompt,
-      model: "sourceful/riverflow-v2-fast"
-    })
-  });
-
-  const responseText = await webhookRes.text();
-  console.log(`   📡 Réponse brute: ${responseText}`);
-
-  if (!webhookRes.ok) {
-    throw new Error(`Échec webhook n8n (${webhookRes.status}): ${responseText}`);
-  }
-
-  let webhookData;
-  try {
-    webhookData = JSON.parse(responseText);
-    // Si n8n renvoie un tableau (fréquent), prendre le premier élément
-    if (Array.isArray(webhookData)) {
-      webhookData = webhookData[0];
-    }
-  } catch (e) {
-    throw new Error(`Échec parsing JSON: ${e.message} - Réponse: ${responseText}`);
-  }
-
-  const imageUrl = webhookData.webContentLink || webhookData.imageurl || webhookData.url || webhookData.output || webhookData.image; 
-  
-  if (!imageUrl) {
-    console.log('   ⚠️  Données reçues du webhook:', webhookData);
-    throw new Error('Pas d\'URL d\'image dans la réponse du webhook');
-  }
-
-  console.log(`   🔗 Image générée: ${imageUrl}`);
-
-  // 3. Télécharger l'image temporairement
-  const tmpPath = path.join(TMP_DIR, `${path.basename(fileName, '.json')}.png`);
-  await downloadImage(imageUrl, tmpPath);
-  console.log(`   💾 Image téléchargée localement`);
-
-  // 4. Uploader dans Strapi
-  console.log(`   📤 Upload vers Strapi...`);
-  const media = await uploadToStrapi(token, tmpPath, `${path.basename(fileName, '.json')}.png`);
-  console.log(`   ✅ Upload réussi (ID: ${media.id})`);
-
-  // 5. Associer à la carte
-  console.log(`   🔗 Association à la carte dans Strapi...`);
-  let cardId = await findCardId(token, cardData.name);
-  if (!cardId) {
-    console.log(`   📝 Nouvelle carte, création dans Strapi...`);
-    const payload = {
-        name: cardData.name,
-        description: cardData.description,
-        level: cardData.level || 1,
-        element: cardData.element,
-        topValue: cardData.topValue?.toString() || "0",
-        rightValue: cardData.rightValue?.toString() || "0",
-        bottomValue: cardData.bottomValue?.toString() || "0",
-        leftValue: cardData.leftValue?.toString() || "0",
-        image: media.id
-    };
-    
-    const res = await fetch(`${STRAPI_URL}/content-manager/collection-types/api::card.card`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(payload)
+  while (hasMore) {
+    const res = await fetch(`${STRAPI_URL}/content-manager/collection-types/api::card.card?page=${page}&pageSize=100`, {
+      headers: { 'Authorization': `Bearer ${token}` }
     });
     
     if (!res.ok) {
-        const err = await res.text();
-        throw new Error(`Échec de création de la carte: ${err}`);
+      console.warn('\n⚠️ Impossible de récupérer la liste des cartes');
+      break;
     }
-    const newCard = await res.json();
-    cardId = newCard.id;
-  } else {
-    await associateImage(token, cardId, media.id);
+    
+    const data = await res.json();
+    if (data.results) {
+      data.results.forEach(c => existingNames.add(c.name));
+    }
+    
+    if (data.pagination && page < data.pagination.pageCount) {
+      page++;
+    } else {
+      hasMore = false;
+    }
   }
-  console.log(`   ✨ Terminé pour ${cardData.name} !`);
+  
+  console.log(`(Trouvées : ${existingNames.size})`);
+  return existingNames;
+}
+
+/**
+ * Cherche si le visuel existe déjà localement
+ */
+function findLocalVisual(imagePath) {
+  if (!imagePath) return null;
+  
+  for (const dir of POSSIBLE_VISUAL_DIRS) {
+    const fullPath = path.join(dir, imagePath);
+    if (fs.existsSync(fullPath) && fs.statSync(fullPath).isFile()) {
+      return fullPath;
+    }
+  }
+  return null;
+}
+
+// (La fonction d'association individuelle est supprimée car nous créons les cartes directement)
+
+// ─── Traitement ───────────────────────────────────────────────────────────────
+
+async function processCard(token, filePath, current, total) {
+  const fileName = path.basename(filePath);
+  const cardData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+  
+  process.stdout.write(`⏳ [${current}/${total}] ${cardData.name.padEnd(25)} | `);
+
+  let mediaId;
+  let method = "";
+
+  // 1. Vérifier si un visuel existe déjà localement
+  const localVisualPath = findLocalVisual(cardData.image);
+
+  if (localVisualPath) {
+    process.stdout.write(`local... `);
+    const media = await uploadToStrapi(token, localVisualPath, path.basename(localVisualPath));
+    mediaId = media.id;
+    method = "LOCAL";
+  } else {
+    // 2. Sinon, génération via n8n
+    const visualPrompt = buildVisualPrompt(cardData);
+    process.stdout.write(`n8n... `);
+    const webhookRes = await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: visualPrompt, model: "sourceful/riverflow-v2-fast" })
+    });
+
+    if (!webhookRes.ok) {
+      const errText = await webhookRes.text();
+      throw new Error(`Erreur n8n (${webhookRes.status}): ${errText}`);
+    }
+    const responseText = await webhookRes.text();
+
+    let webhookData;
+    try {
+      webhookData = JSON.parse(responseText);
+      if (Array.isArray(webhookData)) webhookData = webhookData[0];
+    } catch (e) {
+      console.log(`\n   📡 Réponse brute n8n: "${responseText}"`);
+      throw new Error(`Erreur parsing JSON n8n: ${e.message}`);
+    }
+
+    const imageUrl = webhookData.webContentLink || webhookData.imageurl || webhookData.url || webhookData.output || webhookData.image; 
+    if (!imageUrl) throw new Error('Pas d\'URL d\'image');
+
+    // 3. Télécharger l'image temporairement
+    process.stdout.write(`dl... `);
+    const tmpPath = path.join(TMP_DIR, `${path.basename(fileName, '.json')}.png`);
+    await downloadImage(imageUrl, tmpPath);
+
+    // 4. Uploader dans Strapi
+    process.stdout.write(`up... `);
+    const media = await uploadToStrapi(token, tmpPath, `${path.basename(fileName, '.json')}.png`);
+    mediaId = media.id;
+    method = "N8N";
+  }
+
+  // 5. Création de la carte dans Strapi
+  process.stdout.write(`strapi... `);
+  const payload = {
+      name: cardData.name,
+      description: cardData.description,
+      level: cardData.level || 1,
+      element: cardData.element,
+      topValue: cardData.topValue?.toString() || "0",
+      rightValue: cardData.rightValue?.toString() || "0",
+      bottomValue: cardData.bottomValue?.toString() || "0",
+      leftValue: cardData.leftValue?.toString() || "0",
+      image: mediaId
+  };
+  
+  const res = await fetch(`${STRAPI_URL}/content-manager/collection-types/api::card.card`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(payload)
+  });
+  
+  if (!res.ok) {
+      const err = await res.text();
+      throw new Error(`Création échouée: ${err}`);
+  }
+
+  console.log(`✅ OK (${method})`);
+  return method;
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
@@ -274,30 +299,62 @@ async function main() {
 
   try {
     const token = await getAdminToken();
+    const existingCards = await getAllCards(token);
 
     const allFiles = fs.readdirSync(BASE_CARDS_DIR)
       .filter(f => f.endsWith('.json'))
       .sort();
 
-    let files = [];
-    if (isTest) {
-      files = [allFiles[0]];
-    } else if (cardArg) {
-      files = allFiles.filter(f => f.startsWith(cardArg));
-    } else {
-      files = allFiles;
-    }
-
-    console.log(`🚀 Démarrage pour ${files.length} carte(s)`);
-
-    for (const file of files) {
-      const filePath = path.join(BASE_CARDS_DIR, file);
-      try {
-        await processCard(token, filePath);
-      } catch (err) {
-        console.error(`❌ Erreur sur ${file}:`, err.message);
+    let missingFiles = [];
+    for (const file of allFiles) {
+      const cardData = JSON.parse(fs.readFileSync(path.join(BASE_CARDS_DIR, file), 'utf-8'));
+      if (!existingCards.has(cardData.name)) {
+        missingFiles.push(file);
       }
     }
+
+    let files = [];
+    if (isTest) {
+      files = missingFiles.length > 0 ? [missingFiles[0]] : [];
+    } else if (cardArg) {
+      files = missingFiles.filter(f => f.startsWith(cardArg));
+    } else {
+      files = missingFiles;
+    }
+
+    if (files.length === 0) {
+      console.log(`✨ Toutes les cartes sont déjà présentes dans Strapi !`);
+      process.exit(0);
+    }
+
+    console.log(`🚀 Démarrage de la génération pour ${files.length} nouvelle(s) carte(s)\n`);
+
+    let successCount = 0;
+    let n8nCount = 0;
+    let localCount = 0;
+    let errorCount = 0;
+
+    for (let i = 0; i < files.length; i++) {
+      const filePath = path.join(BASE_CARDS_DIR, files[i]);
+      try {
+        const method = await processCard(token, filePath, i + 1, files.length);
+        successCount++;
+        if (method === "N8N") n8nCount++;
+        if (method === "LOCAL") localCount++;
+      } catch (err) {
+        console.log(`❌ Erreur: ${err.message}`);
+        errorCount++;
+      }
+    }
+
+    console.log(`\n===================================`);
+    console.log(`🎉 BILAN DE LA GÉNÉRATION`);
+    console.log(`===================================`);
+    console.log(`Cartes existantes déjà en base : ${allFiles.length - missingFiles.length}`);
+    console.log(`Nouvelles images via n8n      : ${n8nCount}`);
+    console.log(`Visuels locaux réutilisés      : ${localCount}`);
+    console.log(`Échecs de traitement          : ${errorCount}`);
+    console.log(`===================================\n`);
 
   } catch (err) {
     console.error('💥 Erreur fatale:', err.message);
