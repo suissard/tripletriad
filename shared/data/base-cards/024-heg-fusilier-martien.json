@@ -3,7 +3,7 @@
   "name": "Fusilier Martien",
   "description": "Stratège de campagne calculant les vecteurs d'invasion optimaux pour maximiser l'efficacité des offensives.",
   "element": "longue_portee",
-  "faction": "Hégémonie martienne",
+  "faction": "Hégémonie Martienne",
   "topValue": "6",
   "rightValue": "4",
   "bottomValue": "4",
@@ -17,6 +17,62 @@
     "neutre"
   ],
   "prompt": {
-    "raw": ""
+    "format": "1:1",
+    "subject": {
+      "archetype": "Martian Fusilier - Campaign Strategist",
+      "loadout": {
+        "armor_outfit": "Sleek plate armor composed of smooth, interlocking carmin red metal panels with beveled edges, emphasizing purity and uniformity. The armor features integrated ballistic fabric underneath, contoured to the body with martial, strict cuts. An integral helmet with opaque dark gray visor and a single thin horizontal luminous red slit across the eyes, completely obscuring the face for total dehumanization. Shoulder pauldrons with angular, asymmetrical design. A long, flowing asymmetric mantle draped over one shoulder, made of heavy ballistic material with sharp angular edges. Tactical harness with hexagonal grid patterns subtly embossed.",
+        "arsenal": "Primary weapon: Compact electromagnetic railgun rifle with rectangular, octagonal barrel geometry, matte dark gray finish with subtle red glowing accent lines along the barrel. The weapon features a clean, monolithic design with no visible mechanisms or cabling. Secondary weapon: Tactical thermal energy sword with a smoldering red blade, emitting intense heat glow and wisps of smoke. The hilt is geometric and angular. Equipped gadget: Holographic tactical display gauntlet projecting invasion vector calculations in red wireframe."
+      },
+      "attitude": {
+        "behavior": "Standing at attention in a combat stance, one leg slightly forward, weight distributed for stability. The fusilier holds the railgun rifle in a low-ready position with the barrel pointing downward at a precise angle. The tactical gauntlet projects a hovering holographic battlefield map showing calculated invasion vectors, trajectories, and strategic waypoints rendered in luminous red lines. The other hand rests near the thermal blade hilt. The posture conveys calculated aggression, discipline, and tactical superiority.",
+        "emotion": "Cold, methodical intensity radiating from behind the opaque visor. An expression of ruthless efficiency and strategic precision. The narrow red slit of the visor conveys an aura of menace and unyielding authority. The overall demeanor suggests a mind constantly processing optimal attack vectors, displaying no emotion beyond pure martial purpose."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Military brutalist aesthetic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Carmin Red",
+          "role": "Primary armor color, dominant surface coverage (60%), establishing faction identity"
+        },
+        {
+          "name": "Dark Gunmetal Gray",
+          "role": "Secondary structural elements, helmet visor, weapon receivers, mechanical components (30%)"
+        },
+        {
+          "name": "Neon Crimson Red",
+          "role": "Energy accents - visor slit, railgun glow lines, thermal blade core, holographic projections, reactor vents (10%)"
+        },
+        {
+          "name": "Charcoal Black",
+          "role": "Deep shadows, undercuts, and atmospheric depth"
+        },
+        {
+          "name": "Steel White",
+          "role": "Subtle highlights on armor edges, representing polished metal purity"
+        }
+      ],
+      "lighting_setup": "Cinematic rim lighting with strong red rim light from behind emphasizing silhouette, soft key light from front-left in cool gray, deep shadows in armor recesses creating dramatic contrast. Volumetric red energy glow emanating from weapon accents and holographic display.",
+      "mood": "Menacing, strategic, intimidating, authoritarian. A presence that commands respect through fear and precision."
+    },
+    "camera": {
+      "angle": "Low angle dutch tilt, slightly below eye-level looking up at the fusilier, creating an imposing and dominant perspective that emphasizes the brutalist architecture of the armor and the threat posed by the figure."
+    },
+    "scenography": {
+      "setting": "Strategic command platform on a Martian military installation. The platform features hexagonal floor grating, angular bulkheads in carmin red and dark gray metal, massive structural columns with beveled edges. In the background, massive transparent armor-glass viewport revealing the rust-red Martian surface and orbital defense platforms. Holographic tactical displays float in the air showing planetary invasion maps.",
+      "atmosphere_vfx": "Subtle red atmospheric haze suggesting Martian dust storms in the distance. Faint condensation particles in the air catching the red rim lighting. The holographic projections emit a soft red glow that illuminates the fusilier's helmet from below. Low-lying volumetric fog near the ground, mixing with harsh industrial lighting. Occasional sparks from nearby machinery. A faint heat distortion effect around the thermal blade."
+    }
   }
 }

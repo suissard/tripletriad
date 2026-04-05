@@ -29,6 +29,25 @@ const TIMEOUT_MS = 120_000; // 2 minutes timeout par requête
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 /**
+ * Vérifie si une carte n'a pas encore de prompt valide
+ */
+function isPromptMissing(cardData) {
+  // Pas de champ prompt du tout
+  if (!cardData.prompt) return true;
+  
+  // Prompt brut vide (cas par défaut)
+  if (cardData.prompt.raw === '') return true;
+  
+  // Si on a déjà un sujet (généré par n8n), la carte n'est plus "manquante"
+  if (cardData.prompt.subject && cardData.prompt.subject.archetype) return false;
+  
+  // Par défaut, si 'raw' contient quelque chose mais pas de structure, on considère 
+  // qu'il y a peut-être déjà un travail en cours, mais on peut être plus restrictif.
+  // Pour ce script, on cherche surtout celles qui sont totalement vides.
+  return !cardData.prompt.subject && !cardData.prompt.raw;
+}
+
+/**
  * Construit le body du webhook à partir des données d'une carte
  */
 function buildWebhookBody(cardData) {
@@ -145,7 +164,15 @@ async function processCard(filePath, { dryRun = false, backup = true } = {}) {
 
 function parseArgs() {
   const args = process.argv.slice(2);
-  const opts = { dryRun: false, test: false, card: null, range: null, noBackup: false };
+  const opts = { 
+    dryRun: false, 
+    test: false, 
+    card: null, 
+    range: null, 
+    noBackup: false,
+    missingOnly: false,
+    limit: Infinity
+  };
 
   for (let i = 0; i < args.length; i++) {
     switch (args[i]) {
@@ -154,6 +181,8 @@ function parseArgs() {
       case '--card': opts.card = args[++i]; break;
       case '--range': opts.range = args[++i]; break;
       case '--no-backup': opts.noBackup = true; break;
+      case '--missing-only': opts.missingOnly = true; break;
+      case '--limit': opts.limit = parseInt(args[++i], 10); break;
       case '--help':
         console.log(`
   Usage: node scripts/generate-prompts.mjs [options]
@@ -162,6 +191,8 @@ function parseArgs() {
     --test           Test sur la première carte uniquement
     --card <num>     Traiter une carte spécifique (ex: 016)
     --range <s-e>    Traiter une plage (ex: 001-010)  
+    --missing-only   Traiter uniquement les cartes qui n'ont pas de prompt
+    --limit <n>      Limiter le nombre de cartes à traiter
     --dry-run        Afficher le body sans appeler le webhook
     --no-backup      Ne pas créer de backup
     --help           Aide
@@ -213,6 +244,22 @@ async function main() {
     });
   } else {
     files = allFiles;
+  }
+
+  // Filtrer par prompt manquant si demandé
+  if (opts.missingOnly) {
+    const initialCount = files.length;
+    files = files.filter(f => {
+      const cardData = JSON.parse(fs.readFileSync(f, 'utf-8'));
+      return isPromptMissing(cardData);
+    });
+    console.log(`  🔍 ${files.length} cartes sans prompt identifiées (sur ${initialCount})`);
+  }
+
+  // Appliquer la limite
+  if (opts.limit < files.length) {
+    console.log(`  📏 Limitation à ${opts.limit} cartes`);
+    files = files.slice(0, opts.limit);
   }
 
   console.log(`  🎯 ${files.length} carte(s) sélectionnée(s)`);

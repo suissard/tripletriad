@@ -506,9 +506,9 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
     faction: Schema.Attribute.Enumeration<
       [
         'neutre',
-        'H\u00E9g\u00E9monie martienne',
-        'Exode p\u00E9lagique',
-        'H\u00E9ritiers des cendres',
+        'H\u00E9g\u00E9monie Martienne',
+        'Exode P\u00E9lagique',
+        'H\u00E9ritiers des Cendres',
         'Omni-R\u00E9seau',
         'Ch\u0153ur Synth\u00E9tique',
         '\u00C9veil Chthonien',

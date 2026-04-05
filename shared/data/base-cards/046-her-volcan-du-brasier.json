@@ -3,7 +3,7 @@
   "name": "Volcan du Brasier",
   "description": "Artilleur pyrotechnique saturant les positions ennemies de flammes et de projections incendiaires dévastatrices.",
   "element": "radiation",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "4",
   "rightValue": "5",
   "bottomValue": "3",
@@ -17,6 +17,76 @@
     "neutre"
   ],
   "prompt": {
-    "raw": ""
+    "format": "1:1",
+    "subject": {
+      "archetype": "Mutant Pyrotechnic Artillery - Massive asymmetric humanoid figure with three arms (two atrophied vestigial limbs clinging to torso, one dominant arm impossibly long and corded with inflamed muscle), torso bloated and distorted by luminescent yellow tumors pulsing beneath cracked skin, legs bowed inward like charred tree roots, head tilted at grotesque angle with jaw unhinged revealing rows of blackened teeth, skin tone: sickly jaundiced yellow-green with patches of exposed raw muscle in deep arterial red, burn scars forming ritualistic patterns across entire body",
+      "loadout": {
+        "armor_outfit": "Tattered ceremonial robes made from melted radiation suits stitched together with wire and sinew, draped in scorched asbestos strips that flutter like flames, collar of melted dosimeter capsules fused to exposed clavicle bone, crude leather harness of burnt seatbelt material holding salvaged fuel canisters to lower back, scraps of radiation warning signage still visible on faded yellow fabric, feet wrapped in melted boot soles fused directly to calcified sole tissue",
+        "arsenal": "Primary weapon: 'Cratère Sacré' - Massive relic flamethrower forged from decommissioned aircraft engine exhaust, intact polished chromium casing with pristinely preserved geometric fuel lines, the weapon's smooth technological perfection contrasts violently with the bearer's corrupted flesh where it is grafted directly into the forearm bone, fuel tank backpack filled with glowing amber incendiary liquid, secondary: Small tactical nuclear device worn on chest like a medallion, still displaying intact digital countdown display in blue violet glow"
+      },
+      "attitude": {
+        "behavior": "Standing in wide combat stance with dominant arm raised high, the flamethrower barrel pointed downward at 45 degrees, streams of orange and yellow fire erupting from the weapon in violent arcs, body rotating to sweep destruction across battlefield, vestigial arms twitching in ecstatic fervor, clouds of black smoke billowing around the figure, small burning debris falling like hellish rain, legs planted wide for stability as recoil visibly torques the mutated musculature",
+        "emotion": "Transcendent religious ecstasy mixed with berserker rage, face contorted in inhuman grimace of divine purpose, single intact eye (other socket empty and tumor-filled) rolled back showing only white, mouth permanently open in guttural war cry that seems to harmonize with the roar of flames, muscles in constant spasm from weapon's energy feedback"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Horror Expressionism",
+          "Nuclear Gothic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      },
+      "surface_details": "Textured skin with visible pores, pustules, and radiation burns, fabric threads individually rendered on tattered clothing, metal corrosion patterns on weapon mounting, fluid dynamics on fire and smoke, subsurface scattering on luminescent tumors"
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Sickly Jaundiced Yellow",
+          "role": "Primary skin tone, luminescent tumors, and weapon energy accents"
+        },
+        {
+          "name": "Arterial Crimson",
+          "role": "Exposed muscle tissue, burn wounds, blood highlights"
+        },
+        {
+          "name": "Radioactive Amber",
+          "role": "Incendiary flames, fuel liquid, radioactive contamination glow"
+        },
+        {
+          "name": "Rusted Iron Brown",
+          "role": "Secondary armor elements, corroded metal, earth tones"
+        },
+        {
+          "name": "Pristine Chrome Silver",
+          "role": "Relic weapon casing, technological perfection contrast"
+        },
+        {
+          "name": "Ash Black",
+          "role": "Smoke, soot, burned debris, deep shadows"
+        },
+        {
+          "name": "Bioluminescent Yellow-Green",
+          "role": "Tumor glow, radioactive accents, mutation highlights"
+        },
+        {
+          "name": "Cold Blue Violet",
+          "role": "Nuclear medallion display, high-tech relic energy signatures"
+        }
+      ],
+      "lighting_setup": "Dramatic_volumetric_backlighting with fire as primary light source, orange-red rim lighting around figure, blue-violet accent from relic weapon energy and medallion display, heavy atmosphere particles catching flame light, ground bounce illumination in amber from burning battlefield",
+      "mood": "Apocalyptic devastation, transcendent religious fervor, horrifying beauty in destruction, sacred violence, hellish grandeur"
+    },
+    "camera": {
+      "angle": "Low angle dutch_tilt slightly_right, positioned at knee height looking up at towering mutant figure, slight telephoto compression to emphasize massive scale difference between bearer and weapon"
+    },
+    "scenography": {
+      "setting": "Scorched wasteland battlefield at dusk, cracked earth terrain with scattered debris of pre-war civilization (twisted rebar, shattered concrete slabs, burned vehicle hulks), distant ruined cityscape silhouette on horizon shrouded in perpetual smoke, improvised fortified positions visible in background with other mutant silhouettes, crude wooden scaffolds holding fuel reservoirs, sacrifice altars made of welded scrap metal",
+      "atmosphere_vfx": "Intense volumetric smoke columns rising from multiple fire sources, drifting ash particles, heat distortion shimmer above flames, sparks and burning embers floating upward, radioactive haze creating greenish tint to distant atmosphere, occasional small explosions in background generating fireballs, wind direction visible through tattered fabric movement and smoke trails"
+    }
   }
 }

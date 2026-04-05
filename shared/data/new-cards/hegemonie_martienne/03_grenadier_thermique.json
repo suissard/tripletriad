@@ -2,8 +2,10 @@
   "name": "Grenadier Thermique",
   "description": "Bombardier de ligne martien armé de grenades incendiaires à plasma. Coulée de feu rougeoyant dans les nids de mutants.",
   "element": "radiation",
-  "elements": ["radiation"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "radiation"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "3",
   "rightValue": "1",
   "bottomValue": "2",

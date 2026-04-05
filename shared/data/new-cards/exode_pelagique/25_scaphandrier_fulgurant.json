@@ -2,8 +2,12 @@
   "name": "Scaphandrier Fulgurant",
   "description": "Éclaireur lourd en scaphandre léger renforcé, équipé de bobines Tesla aquatiques. Il projette des arcs électriques à travers des jets d'eau ionisée intégrés à ses bras.",
   "element": "longue_portee",
-  "elements": ["eau", "longue_portee", "reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "longue_portee",
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "4",
   "rightValue": "4",
   "bottomValue": "3",

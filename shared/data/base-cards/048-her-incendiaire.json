@@ -3,7 +3,7 @@
   "name": "Incendiaire",
   "description": "Porte-flamme transmettant la colère du brasier ancestral aux alliés proches qui gagnent en courage au combat.",
   "element": "obsidienne",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "4",
   "rightValue": "3",
   "bottomValue": "4",
@@ -17,6 +17,65 @@
     "neutre"
   ],
   "prompt": {
-    "raw": ""
+    "format": "1:1",
+    "subject": {
+      "archetype": "Mutant Flame Bearer - Aberrant humanoid warrior with asymmetrical torso, three arms (two atrophied, one dominant), luminescent yellow tumors across neck and shoulders, fused jaw with exposed teeth, multiple small eyes (two normal, one cybernetic), standing in aggressive combat stance",
+      "loadout": {
+        "armor_outfit": "Tattered ritual robes made of melted radiation blankets in dirty ochre and ash brown, crude salvaged metal plates bolted directly into mutated flesh on shoulders and chest, makeshift harness of rusted chains holding fuel canisters, collar of hollowed bone and irradiated capsule pendants around elongated neck",
+        "arsenal": "Ancestral flamethrower relic - pristine geometric plasma cannon with smooth chrome plating and internal blue-violet energy core, the weapon contrasts impossibly with the wielder's decay, grafted permanently to dominant arm with metallic sutures piercing diseased flesh"
+      },
+      "attitude": {
+        "behavior": "Rearing back with flame projector raised high, secondary arms gripping ceremonial chains, third atrophied arm dangling uselessly, legs planted wide in intimidating stance, mouth open in guttural war cry, flames erupting from relic weapon illuminating surrounding allies with warm heroic glow",
+        "emotion": "Transcendent rage channeling ancestral fury, eyes blazing with radioactive determination, expression of holy possession as they broadcast courage to nearby fighters"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Sickly Flesh Yellow",
+          "role": "Primary subject skin and tumor luminescence"
+        },
+        {
+          "name": "Ash Brown",
+          "role": "Clothing and environmental decay"
+        },
+        {
+          "name": "Radioactive Yellow-Green",
+          "role": "Tumor glow and flame highlights"
+        },
+        {
+          "name": "Rusted Orange-Brown",
+          "role": "Salvaged armor and chains"
+        },
+        {
+          "name": "Prismatic Blue-Violet",
+          "role": "Relic weapon energy core and weapon glow"
+        },
+        {
+          "name": "Cinical Amber",
+          "role": "Flames and warm combat lighting on allies"
+        }
+      ],
+      "lighting_setup": "Dramatic low-key cinematic with volumetric flame illumination, weapon energy casting cool blue rim light on subject's left side, warm amber fire glow from front, subtle radioactive yellow ambient from tumors",
+      "mood": "Menacing yet inspiring, sacred toxicity, brutal devotion"
+    },
+    "camera": {
+      "angle": "low_angle_slight_dutch_tilt"
+    },
+    "scenography": {
+      "setting": "Ravaged battlefield ruins of pre-war city, crumbling concrete structures, scattered debris of ancient war machines, makeshift altar-platform of fused bones and rusted metal as combat platform, irradiated mist in background",
+      "atmosphere_vfx": "Dense particulate ash falling through flame light, smoke wisps illuminated by plasma discharge, distant radioactive mist, occasional sparks from failing tech, allies silhouettes partially visible in warm flame reflection behind subject"
+    }
   }
 }

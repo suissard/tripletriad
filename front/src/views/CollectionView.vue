@@ -571,7 +571,7 @@ async function fetchFilters() {
     // Additional hardcoded fallback for factions (from schema)
     if (availableFactions.value.length === 0) {
       availableFactions.value = [
-        "neutre", "Hégémonie martienne", "Exode pélagique", "Héritiers des cendres",
+        "neutre", "Hégémonie Martienne", "Exode Pélagique", "Héritiers des Cendres",
         "Omni-Réseau", "Chœur Synthétique", "Éveil Chthonien", "Incursion Dissonante",
         "Ferrailleurs de la Ceinture", "Fléau Spore"
       ].sort();

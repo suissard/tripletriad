@@ -3,7 +3,7 @@
   "name": "Tidal",
   "description": "Pêcheur des courants stellaires récoltant les ressources alimentaires essentielles à la survie de l'exode.",
   "element": "furtif",
-  "faction": "Exode pélagique",
+  "faction": "Exode Pélagique",
   "topValue": "2",
   "rightValue": "5",
   "bottomValue": "5",
@@ -17,6 +17,71 @@
     "neutre"
   ],
   "prompt": {
-    "raw": ""
+    "format": "1:1",
+    "subject": {
+      "archetype": "Céphalopode Alien Pêcheur Stellaire - Créature aquatique translucide violet pâle à gris perle, flottant dans un scaphandre de minage minéralogique lourd reconverti, avec tentacules cybernétiques et le système de vie 'Le Bocal' intégré au torse et au casque",
+      "loadout": {
+        "armor_outfit": "Scaphandre de minage massif et asymétrique en Polymère noir et Gris canon terni, bardé de plaques de blindage en Orange rouille profond et Vert-de-gris oxydé. Cuivre exposé sur les articulations, valves de décompression cracheuses de vapeur, tuyaux annelés massifs. Le Bocal - torse et casque en verre blindé extrêmelement épais rempli d'eau cyan luminescente où baigne l'extrêmité céphalique du pilote. Articulations à vérins hydrauliques surdimensionnés pour compenser la gravité terrestre.",
+        "arsenal": "Harpon plasma automatisé intégré au bras droit - canon à geyser inversé crachant du plasma thermique orange aveuglant pour récoler les courants stellaires et la faune spatiale. Bras gauche équipé d'un filet collecteur à bobine de refroidissement en cuivre apparent et d'un découpeur plasma rotatif miniature. Lentilles de focalisation fissurées mais fonctionnelles, fuites de plasma constantes."
+      },
+      "attitude": {
+        "behavior": "Flottant en apesanteur contrôlée, tentacules cybernétiques déployés en éventail pour naviguer les courants stellaires, posture de prédateur patient. L'hydroponie aliene oscille doucement dans le bocal cyan luminescent tandis que les propulseurs de manoeuvre crachent de la vapeur d'eau bouillante. Un filet de plasma orange thermal следит les mouvements du sujet.",
+        "emotion": "Concentration predatory absolue, instinct de chasse primitif guidé par une intelligence calculatrice. Le regard alien (yeux de céphalopode globuleux et réfléchissants) transperce les ténèbres environnantes avec une lueur bioluminescente cyan."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Underwater Bioluminescence",
+          "Industrial Decay"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Orange rouille profond (oxydation martienne)",
+          "role": "Blindage principal, plaques usées et crasseuses sur les épaules et le torse"
+        },
+        {
+          "name": "Vert-de-gris (cuivre oxydé)",
+          "role": "Connectique, tuyaux exposés, details de corrosion sur les articulations"
+        },
+        {
+          "name": "Gris canon terni",
+          "role": "Polymère du scaphandre, structures mechanisées, ombres dominantes"
+        },
+        {
+          "name": "Cyan bioluminescent",
+          "role": "Eau pressurisée du Bocal, yeux aliens, réservoirs vitrés, accents lumineux critiques"
+        },
+        {
+          "name": "Orange thermique aveuglant",
+          "role": "Plasma des armes, lasers de minage, explosions et fumées"
+        },
+        {
+          "name": "Violet pâle translucide",
+          "role": "Peau diaphane du céphalopode visible à travers le bocal"
+        },
+        {
+          "name": "Gris perle",
+          "role": "Tentacules exposés, membranes natatoires"
+        }
+      ],
+      "lighting_setup": "Cinematic_volumetric_rim_lighting avec rim light cyan sur les contours du bocal et de la bioluminescence, key light orange thermique aveuglant sur les armes, fill light tamisé gris canon, ambiente sous-exposée pour maximiser le contraste 80/20",
+      "mood": "Menacing, désespéré, industrial post-apocalyptic sous-marin spatial. Tension survivre face aux abysses stellaires."
+    },
+    "camera": {
+      "angle": "low_angle avec légère Dutch angle vers la droite pour accentuer l'imposante silhouette et le côté threatening"
+    },
+    "scenography": {
+      "setting": "Abysses stellaires - Courant de particules et de ressources alimentaires flottant dans l'obscurité totale d'un secteur de l'espace. Débris d'astéroïdes et de plateformes minières abandonnées en arrière-plan. structures type bathyscaphe et plateformes pétrolières volantes au loin.",
+      "atmosphere_vfx": "Particules stellaires scintillantes dérivant paresseusement, brume cyan bioluminescente s'échappant des valves de décompression, vapeur d'eau bouillante des propulseurs, plasma orange fuyant des armes créant des traînées lumineuses. Micro-météorites et 'balanes spatiales' adhèrant au blindage. Ténèbres dominantes percées par les éclats lumineux saturés des yeux aliens et du plasma."
+    }
   }
 }

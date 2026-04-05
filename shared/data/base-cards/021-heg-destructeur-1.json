@@ -3,7 +3,7 @@
   "name": "Destructeur 1",
   "description": "Ingénieur militaire déployant les infrastructures d'occupation sur les planètes récemment conquises.",
   "element": "radiation",
-  "faction": "Hégémonie martienne",
+  "faction": "Hégémonie Martienne",
   "topValue": "4",
   "rightValue": "4",
   "bottomValue": "3",
@@ -17,6 +17,53 @@
     "neutre"
   ],
   "prompt": {
-    "raw": ""
+    "format": "1:1",
+    "subject": {
+      "archetype": "Martian Purist Military Engineer (Destructeur 1)",
+      "loadout": {
+        "armor_outfit": "Sleek carmine‑red plate armor, seamless and smooth, with an integrated full‑face helmet bearing an opaque visor and a thin horizontal red slit; angular shoulders adorned with an asymmetrical dark‑gray half‑cape; tight ballistic fabric underlayer for martial silhouette",
+        "arsenal": "Massive rectangular electromagnetic railgun with hexagonal cooling vents and sleek fuyante lines; thermal energy sword with a glowing red blade emitting a faint smoky haze; compact plasma cutter for rapid infrastructure deployment"
+      },
+      "attitude": {
+        "behavior": "Standing on a ridge of a barren conquered planet, one hand gripping the railgun, the other guiding a hovering construction drone that assembles metallic scaffolding; boots planted on scorched ground, posture rigid and commanding",
+        "emotion": "Cold, methodical determination hidden behind the red‑lit visor; a focused, almost robotic intensity that conveys absolute authority and technological supremacy"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Post‑apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Carmine Red",
+          "role": "Primary armor and dominant surface color (60%)"
+        },
+        {
+          "name": "Dark Gray",
+          "role": "Secondary armor plates, half‑cape, and ground elements (30%)"
+        },
+        {
+          "name": "Neon Red Glow",
+          "role": "Visor slit, plasma effects, railgun muzzle glow, thermal sword emission (10%)"
+        }
+      ],
+      "lighting_setup": "Cinematic rim lighting with harsh red backlight, subtle ambient fill from the planetary horizon, localized neon accents illuminating weapons and visor",
+      "mood": "Menacing, industrial, authoritative"
+    },
+    "camera": {
+      "angle": "Low angle with slight dutch tilt to accentuate dominance, eye‑level focus on the subject"
+    },
+    "scenography": {
+      "setting": "Barren alien landscape of a newly conquered planet, jagged rock formations, distant red sky shrouded in dust, massive metallic occupation modules being erected, stark geometric structures in carmine and gray",
+      "atmosphere_vfx": "Red dust storms, faint neon sparks from railgun discharge, plasma cutter beams cutting through metal, distant thunderous rumble of heavy machinery, subtle holographic schematics flickering over the scaffolding"
+    }
   }
 }

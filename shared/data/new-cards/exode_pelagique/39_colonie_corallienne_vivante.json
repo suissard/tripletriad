@@ -2,8 +2,11 @@
   "name": "Colonie Corallienne Vivante",
   "description": "Récif mobile rampant sur des pattes-échasses. Sa structure corallienne vivante régénère les dégâts et forme un réseau de relais tactiques. Avant-poste ambulant et rempart organique du Synode.",
   "element": "reseau",
-  "elements": ["reseau", "eau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "reseau",
+    "eau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "3",
   "rightValue": "3",
   "bottomValue": "5",

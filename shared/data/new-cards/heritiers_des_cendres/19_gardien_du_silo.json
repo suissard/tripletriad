@@ -2,7 +2,7 @@
   "name": "Gardien du Silo",
   "description": "Défenseur immobile d'un silo de lancement sacré.",
   "element": "obsidienne",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "6",
   "rightValue": "3",
   "bottomValue": "7",

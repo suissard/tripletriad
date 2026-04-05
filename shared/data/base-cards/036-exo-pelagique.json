@@ -3,7 +3,7 @@
   "name": "Pelagique",
   "description": "Coralin cultivant les structures de croissance organique servant de base aux habitats flottants.",
   "element": "furtif",
-  "faction": "Exode pélagique",
+  "faction": "Exode Pélagique",
   "topValue": "3",
   "rightValue": "3",
   "bottomValue": "5",
@@ -17,6 +17,70 @@
     "neutre"
   ],
   "prompt": {
-    "raw": ""
+    "format": "1:1",
+    "subject": {
+      "archetype": "Céphalopode alien cultivateur, silhouette humanoïde massive avec appendices tentaculaires, combinaison de scaphandre minier lourd intégrée, structures organiques bioluminescentes poussant depuis le dos",
+      "loadout": {
+        "armor_outfit": "Scaphandre de minage minéralogique reconverti en armure de survie, polymère noir mat avec plaques de blindage en tôle d'acier oxydée orange rouille et cuivre verdatre, casque bocal sphérique en verre blindé épais rempli d'eau cyan luminescente où baigne la créature alien, valves de décompression cracheuses de vapeur, tuyaux annelés massifs connectés au dos, articulations mécanisées avec vérins hydrauliques apparents, absence totale de tissu",
+        "arsenal": "Outils de culture biologique intégrés aux avant-bras : injecteurs de nutriments organiques, pinces de greffage mécanique, flacon de culture cristalline bioluminescente porté à la ceinture, lampe halogène surpuissante montée sur l'épaule"
+      },
+      "attitude": {
+        "behavior": "Debout dans l'eau peu profonde d'un bassin artificiel, tentacules inférieurs ancrés dans le substrat organique, deux bras manipulateurs работающие sur une structure de croissance corallienne, un tentacule supérieur tendu vers le plafond en train de guider une croissance organique flottante, posture de культиватор concentré",
+        "emotion": "Concentration silencieuse, yeux aliens complexes multi-oculaires luisant faiblement en cyan à travers le bocal, expression alien indéchiffrable mais présence calme de cultivateurpatient"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic industrial",
+          "Abyssal bioluminescence"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Orange rouille profond martien",
+          "role": "Couleurs principales du blindage, structures métalliques"
+        },
+        {
+          "name": "Vert-de-gris cuivre oxydé",
+          "role": "Accents métalliques, connectique, valves"
+        },
+        {
+          "name": "Cyan bioluminescent",
+          "role": "Eau du casque, yeux aliens, structures organiques cultivées"
+        },
+        {
+          "name": "Violet pâle translucide",
+          "role": "Peau alien diaphane du céphalopode"
+        },
+        {
+          "name": "Gris canon terni",
+          "role": "Éléments industriels, propulseurs, radiateurs"
+        },
+        {
+          "name": "Gris perle",
+          "role": "Reflets sur la peau alien, membrane tentaculaires"
+        },
+        {
+          "name": "Orange thermique",
+          "role": "Lumière des outils de découpe, reflets de chaleur"
+        }
+      ],
+      "lighting_setup": "Éclairage cinématique mixte : source principale froide cyan par dessous (reflets eau bioluminescente), source secondaire chaude orange depuis les outils actifs, rim light tamisé sur les bords du personnage, atmosphere volumétrique avec brume humide",
+      "mood": "Ambiance industriel industriel sinistre mais étrangement paisible, survie désespérée transformée en horticulture alien, contraste entre laideur brutale du scaphandre et beauté organique des structures en croissance"
+    },
+    "camera": {
+      "angle": "Low angle légèrement plongée pour imposer la masse du scaphandre, cadrage trois quarts montrant le visage à travers le bocal et la structure organique en arrière-plan, profondeur de champ modérée"
+    },
+    "scenography": {
+      "setting": "Hangar de культиваtion organique flottant, structure massive type plateforme petrolière immergée partiellement, poutres industrielles rouillées, réservoirs d'eau pressurisée visibles au fond, échafaudages métalliques angulaires contre des coques bulbeuses sphériques de bathyscaphe, sol immergé couvert de substrat organique en croissance",
+      "atmosphere_vfx": "Brume humide constante, vapeur s'échappant des valves de décompression, particules organiques flottantes bioluminescentes dans l'eau, reflets lumineux cyan et orange sur les surfaces métalliques mouillées, micro-gouttelettes en suspension dans l'air"
+    }
   }
 }

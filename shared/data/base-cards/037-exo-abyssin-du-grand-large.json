@@ -3,7 +3,7 @@
   "name": "Abyssin du Grand Large",
   "description": "Nautile cartographe traçant les routes migratoires sûres à travers les courants stellaires les plus dangereux.",
   "element": "eau",
-  "faction": "Exode pélagique",
+  "faction": "Exode Pélagique",
   "topValue": "4",
   "rightValue": "4",
   "bottomValue": "5",
@@ -18,6 +18,65 @@
     "glace"
   ],
   "prompt": {
-    "raw": ""
+    "format": "1:1",
+    "subject": {
+      "archetype": "Abyssal Nautilus Cartographer – Cephalopod Navigator of the Great Deep",
+      "loadout": {
+        "armor_outfit": "Heavy mineral‑mining exosuit with thick polymer underlayer; massive curved glass dome helmet (the Bocal) filled with cyan luminescent fluid; orange‑rust, verdigris, and gun‑metal armor plates; exposed copper tubing, hydraulic joints, pressure valves, and steam vents",
+        "arsenal": "Integrated thermal plasma cutter arm, high‑frequency plasma saw, stellar‑current sensor array, holographic star‑map projector"
+      },
+      "attitude": {
+        "behavior": "Hovering in mid‑air, tentacles trailing, one arm raised with a blazing orange plasma cutter; projecting a luminous stellar‑current map from the helmet’s visor; scanning the surrounding currents with a cyan‑glowing sensor lens",
+        "emotion": "Calm, focused, with a fierce determination reflected in the cold alien gaze"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Post‑apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Rust Orange (oxidized Martian/terrestrial)",
+          "role": "Primary armor tone, main body plating"
+        },
+        {
+          "name": "Verdigris (copper oxide green)",
+          "role": "Secondary patina on copper components, decorative details"
+        },
+        {
+          "name": "Gunmetal Gray (tarnished cannon)",
+          "role": "Hard mechanical parts, joints, weapon housings"
+        },
+        {
+          "name": "Cyan Bioluminescent",
+          "role": "Helmet fluid glow, bioluminescent skin patches, energy accents"
+        },
+        {
+          "name": "Orange Thermal (blinding plasma)",
+          "role": "Weapon glow, plasma jets, heat vents"
+        },
+        {
+          "name": "Pale Violet / Gray Pearl (alien skin)",
+          "role": "Translucent cephalopod epidermis, subtle skin highlights"
+        }
+      ],
+      "lighting_setup": "Multi‑source cinematic lighting: a cold cyan rim light from the helmet fluid, a harsh orange directional light from the plasma cutter, ambient fog and faint halos; OSL (object‑based global illumination) applied to all glowing elements",
+      "mood": "Menacing, mysterious, epic; tension between industrial decay and high‑tech power"
+    },
+    "camera": {
+      "angle": "low_angle_with_slight_dutch_tilt"
+    },
+    "scenography": {
+      "setting": "Abyssal deep‑sea dock on a dark oceanic planet, with massive industrial platforms, floating cargo pods, and a star‑filled cavernous ceiling; swirling stellar currents visualized as luminous ribbons in the background",
+      "atmosphere_vfx": "Steamy vapor rising from pressure vents, drifting cyan bioluminescent particles, orange plasma sparks and occasional geysers of boiling water, subtle rain of micro‑particles, foggy haze, faint holographic star‑map overlay"
+    }
   }
 }

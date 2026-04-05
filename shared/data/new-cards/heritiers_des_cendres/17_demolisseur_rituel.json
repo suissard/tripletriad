@@ -2,7 +2,7 @@
   "name": "Démolisseur Rituel",
   "description": "Pose des charges explosives sacrées pour détruire les fortifications.",
   "element": "radiation",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "5",
   "rightValue": "5",
   "bottomValue": "1",

@@ -2,8 +2,10 @@
   "name": "Véhicule Cyber-Ravageur",
   "description": "Chasseur de cyborgs équipé d'EMP ciblés et de lames énergétiques articulées. Traque spécifiquement les ennemis cybernétiques et les interfaces réseau. Le cauchemar des Synarchistes.",
   "element": "hacking",
-  "elements": ["hacking"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "hacking"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "4",
   "rightValue": "5",
   "bottomValue": "4",

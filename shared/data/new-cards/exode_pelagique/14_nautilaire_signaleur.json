@@ -2,8 +2,10 @@
   "name": "Nautilaire Signaleur",
   "description": "Communicant pélagique dont la carapace dorsale est greffée d'un relais réseau organique. Il amplifie les transmissions psioniques du Synode sur le champ de bataille.",
   "element": "reseau",
-  "elements": ["reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "1",
   "rightValue": "2",
   "bottomValue": "1",

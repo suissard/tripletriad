@@ -2,7 +2,7 @@
   "name": "Tank Récupéré",
   "description": "Char d'assaut ancien réparé avec des pièces de fortune.",
   "element": "obsidienne",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "6",
   "rightValue": "5",
   "bottomValue": "6",

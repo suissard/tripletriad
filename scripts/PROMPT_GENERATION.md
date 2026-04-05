@@ -4,7 +4,7 @@ Ce document décrit le processus de génération automatique des prompts visuels
 
 ## Vue d'ensemble
 
-Le script `scripts/generate-prompts.cjs` permet d'envoyer les métadonnées d'une carte à un générateur de prompt (IA via n8n) et de mettre à jour le fichier JSON de la carte avec le nouveau prompt généré.
+Le script `scripts/generate-prompts.mjs` (ou `.cjs`) permet d'envoyer les métadonnées d'une carte à un générateur de prompt (IA via n8n) et de mettre à jour le fichier JSON de la carte avec le nouveau prompt généré.
 
 ### Webhook
 - **URL :** `https://n8n.clavier.dev/webhook/createprompt`
@@ -23,15 +23,27 @@ Le script `scripts/generate-prompts.cjs` permet d'envoyer les métadonnées d'un
 
 ## Utilisation du Script
 
-Le script se trouve dans `scripts/generate-prompts.cjs`.
+Le script privilégié est `scripts/generate-prompts.mjs`.
 
-### 1. Test sur une seule carte
+### 1. Traiter uniquement les cartes sans prompt
+Recommandé pour compléter la collection sans régénérer les prompts existants.
+```bash
+node scripts/generate-prompts.mjs --missing-only
+```
+
+### 2. Limiter le nombre de cartes (Batch)
+Utile pour ne pas saturer le webhook ou faire des tests par petits lots.
+```bash
+node scripts/generate-prompts.mjs --missing-only --limit 10
+```
+
+### 3. Test sur une seule carte
 Idéal pour valider que le webhook répond bien sans modifier toutes les cartes.
 ```bash
 node scripts/generate-prompts.cjs --test
 ```
 
-### 2. Traiter une plage de cartes
+### 4. Traiter une plage de cartes
 Utile pour faire des fournées (batchs).
 ```bash
 node scripts/generate-prompts.cjs --range 001-010

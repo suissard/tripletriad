@@ -2,8 +2,12 @@
   "name": "Léviathan Bathyscaphe",
   "description": "Monstre de commandement et de siège. Coque bathyscaphe géante portée par des bras-céphalopodes mécaniques, armée de canons à geyser et d'un réseau psionique avancé. Le prédateur ultime des abysses déployé sur terre.",
   "element": "longue_portee",
-  "elements": ["longue_portee", "eau", "reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "longue_portee",
+    "eau",
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "4",
   "rightValue": "5",
   "bottomValue": "5",

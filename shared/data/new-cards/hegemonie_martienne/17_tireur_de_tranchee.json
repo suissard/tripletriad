@@ -2,8 +2,10 @@
   "name": "Tireur de Tranchée",
   "description": "Fantassin de position posté dans les cratères de bombardement orbital. Patient et méthodique, il attend que l'ennemi se montre.",
   "element": "longue_portee",
-  "elements": ["longue_portee"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "longue_portee"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "1",
   "rightValue": "2",
   "bottomValue": "2",

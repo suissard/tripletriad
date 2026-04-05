@@ -2,7 +2,7 @@
   "name": "Canon de Siège Ambulant",
   "description": "Artillerie lourde montée sur chenilles.",
   "element": "longue_portee",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "8",
   "rightValue": "3",
   "bottomValue": "3",

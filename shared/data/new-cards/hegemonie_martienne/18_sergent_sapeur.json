@@ -2,8 +2,10 @@
   "name": "Sergent Sapeur",
   "description": "Chef d'équipe de démolition qui coordonne les charges explosives avec précision chirurgicale. Chaque souffle est calculé depuis l'orbite.",
   "element": "reseau",
-  "elements": ["reseau"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "reseau"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "2",
   "rightValue": "2",
   "bottomValue": "1",

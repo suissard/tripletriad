@@ -2,8 +2,10 @@
   "name": "Cnidocyte d'Assaut",
   "description": "Assaillant rapproché dont les tentacules nues crachent des décharges électriques paralysantes. Sa combinaison de pression est lacérée de brûlures de plasma, trophées de victoires passées.",
   "element": "eau",
-  "elements": ["eau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "3",
   "rightValue": "3",
   "bottomValue": "2",

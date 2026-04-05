@@ -3,7 +3,7 @@
   "name": "Salamandre 1",
   "description": "Sapeur incendiaire creusant des tunnels enflammés sous les fortifications ennemies pour les faire s'effondrer.",
   "element": "spore",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "2",
   "rightValue": "6",
   "bottomValue": "4",
@@ -23,6 +23,62 @@
     "neutre"
   ],
   "prompt": {
-    "raw": ""
+    "format": "1:1",
+    "subject": {
+      "archetype": "Mutant Sapper Incendiaire - Aberration humanoïde asymétrique aux membres surdéveloppés, un bras transformé en foreuse mécanique rouillée crachant des flammes radioactives, l'autre main greffée à une arme relic high-tech aux lignes épurées",
+      "loadout": {
+        "armor_outfit": "Toge rituelle en bâche anti-radiation lacérée, plaques d'armure de récupération soudées à la chair tumorale, colliers de capsules、核폐기물 marqués de symboles apocalyptiques, bandages imbibés de sang séché",
+        "arsenal": "Lance-flammes relic à plasma bleu-violet intégré au bras droit (arme parfaitement intacte, luisante, contraste absolu avec le corps dégénéré),pioche mécanique barbarisée avec dents en os humains, grenades incendiaires suspendues à des chaînes de métal rouillé"
+      },
+      "attitude": {
+        "behavior": "Corps voûté creusant furieusement, sueur radioactive coulant sur les tumeurs luminescentes, mâchoire tordue hurlant des ordres gutturaux, posture prédatrice Ready to collapse enemy fortifications",
+        "emotion": "Furie sacrée, dévotion fanatique au culte du nucléaire, regard brûlant de conviction apocalyptique"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Body Horror"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Chair jaunâtre malade",
+          "role": "dominant_primary_body"
+        },
+        {
+          "name": "Bleu-violet plasma relic",
+          "role": "weapon_energy_luminescence"
+        },
+        {
+          "name": "Rouille vive",
+          "role": "mechanical_armor_elements"
+        },
+        {
+          "name": "Jaune fluo radioactif",
+          "role": "tumor_accent_lighting"
+        },
+        {
+          "name": "Noir cendre et suie",
+          "role": "atmosphere_background"
+        }
+      ],
+      "lighting_setup": "cinematic_volumetric_with_weapon_glow_lighting",
+      "mood": "Menacing_apocalyptic_infernal"
+    },
+    "camera": {
+      "angle": "low_angle_looking_up_to_emphasize_presence"
+    },
+    "scenography": {
+      "setting": "Tunnel de terre effondré sous fortifications ennemies, racines atomic irradiated, débris de béton armé fondus,oglyphes du culte gravés sur les parois",
+      "atmosphere_vfx": "Flammes bleu-violet dévorant la roche, vapeurs radioactives toxiques, poussière incandescente en suspension, éclairs de plasma refletés sur la chair"
+    }
   }
 }

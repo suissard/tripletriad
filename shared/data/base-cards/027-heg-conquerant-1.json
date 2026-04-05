@@ -3,7 +3,7 @@
   "name": "Conquerant 1",
   "description": "Inquisiteur de l'Hégémonie traquant les dissidents, les espions infiltrés et les traîtres au sein du régime.",
   "element": "radiation",
-  "faction": "Hégémonie martienne",
+  "faction": "Hégémonie Martienne",
   "topValue": "7",
   "rightValue": "5",
   "bottomValue": "4",
@@ -23,6 +23,63 @@
     "neutre"
   ],
   "prompt": {
-    "raw": ""
+    "format": "1:1",
+    "subject": {
+      "archetype": "Cyborg Inquisitor en armure de combat heavy-duty, silhouette martiale imposante, casqué et déshumanisé, figure de terreur au service de l'Hégémonie Martienne",
+      "loadout": {
+        "armor_outfit": "Armure de plates lisses en titane carbure carmin, sections articulées intégrées sans jointures apparentes, plating thoracique surélevé avec reliefs angulaires, spalières hexagonales aux épaules, protections tibiales et brachiales monolithiques, cape asymétrique en tissu balistique sombre attachée à l'épaule gauche avec bords déchiquetés, gants techniques à doigts allongés, boots lourds à semelles épaisses, système de maintien de vie discret sous le plastron",
+        "arsenal": "Fusil électromagnétique railgun monolithique à canon octogonal long, crosse squelette intégrée, rail picatinny sur le dessus, batterie d'énergie rougeoyante visible à travers les fentes latérales, lame thermique à une main au pommeau angulaire, lame rougeoyante incandescente avec fumée thermique s'échappant de la friction, fourreau ventral pour l'épée"
+      },
+      "attitude": {
+        "behavior": "Posture debout impériale, bras droit le long du corps tenant le railgun vertical, main gauche reposant sur le pommeau de l'épée thermique, pied gauche légèrement en avant, tête inclinée légèrement vers la droite, contemplant sa proie ou sa cible avec une assurance glaciale, cape claquant légèrement dans un vent artificiel",
+        "emotion": "Regard fixe et calculateur derrière la visière opaques à fente rouge, cruauté contenue et patience prédatrice, présence écrasante de juge et bourreau, aucune émotion humaine perceptible, froideur mécanique d'un chasseur infatigable"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Brutalist_mecha",
+          "Imperial_SciFi"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Carmine Red",
+          "role": "Couleur primaire dominante, armure principale, cape, équipement"
+        },
+        {
+          "name": "Dark Gunmetal Gray",
+          "role": "Couleur secondaire, articulations d'armure, sangles, éléments structurels"
+        },
+        {
+          "name": "Bright Red Energy",
+          "role": "Accents neon, fente du casque, réacteur dorsal, plasma du railgun, lame thermique"
+        },
+        {
+          "name": "Deep Black",
+          "role": "Ombres profondes, intérieur du masque, creux de l'armure"
+        },
+        {
+          "name": "Steel White",
+          "role": "Reflets métalliques, bords tranchants, marquages impériaux"
+        }
+      ],
+      "lighting_setup": "Key light directionnel rouge sang depuis le haut à droite, rim light néon rouge sur les contours de l'armure et la cape, fill light subtil gris bleuté depuis le bas, AO ambient occlusion fort pour le côté sinistre, energy glow volumétrique sur les éléments lumineux",
+      "mood": "Oppressant, menaçant, autoritaire, impitoyable, solennel et glacial"
+    },
+    "camera": {
+      "angle": "Low angle légèrement incliné vers le haut pour emphasize la dominance et la stature impériale du personnage, angle de trois quarts"
+    },
+    "scenography": {
+      "setting": "Couloir de vaisseau-monde marchand capturé, structures métalliques hexagonales en arrière-plan, murs rivetés de plaques de blindage oxydées, conduits de câbles et tuyaux de propulsion exposés, sol métallique rainuré par des décennies de passage, poutres de soutien en V inversé",
+      "atmosphere_vfx": "Brume poussiéreuse rougeoyante causée par les systèmes de propulsion à plasma, particules flottantes illuminées par les néons rouges, hologrammes de surveillance glitchant en arrière-plan, reflets de contamination sur les surfaces métalliques, contraste fort ombres/lumières, effet de depth of field avec le sujet net et l'arrière-plan légèrement flou"
+    }
   }
 }

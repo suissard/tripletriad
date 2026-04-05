@@ -3,7 +3,7 @@
   "name": "Requin des Courants",
   "description": "Léviathan protecteur générant des barrières aquatiques impénétrables autour des colonies les plus vulnérables.",
   "element": "eau",
-  "faction": "Exode pélagique",
+  "faction": "Exode Pélagique",
   "topValue": "8",
   "rightValue": "5",
   "bottomValue": "5",
@@ -18,53 +18,6 @@
     "glace"
   ],
   "prompt": {
-    "format": "1:1",
-    "subject": {
-      "archetype": "Requin des Courants — Exode pélagique Epic class eau",
-      "loadout": {
-        "armor_outfit": "Organic coral armor grown from living reef material with bioluminescent combat indicators pulsing in rapid rhythm, hydrodynamic fins extending from arms and calves streaming in current, translucent membranes trailing from shoulders forged from rare materials with faction crest embedded and energy pulsing through the entire surface with every movement",
-        "arsenal": "Bioluminescent harpoon cannon with living coral barrel pulsing with each discharge, hydro-kinetic gauntlets channeling water into pressurized cutting jets visible as focused force streams Functional combat equipment showing signs of heavy practical use and field customization"
-      },
-      "attitude": {
-        "behavior": "Combat specialist engaged in the heat of battle with weapon and body fully committed to the fight. Combat stance with weapon or tool raised and ready, eyes locked on approaching threat, body coiled like a spring ready to explode into action",
-        "emotion": "Apocalyptic fury — full weight of faction's power channeling through body uncontrollably"
-      }
-    },
-    "graphics": {
-      "style": {
-        "technique": "highly_detailed_digital_painting",
-        "influences": [
-          "Deep sea storm photography",
-          "Bioluminescent ocean",
-          "Aquatic action art"
-        ],
-        "rendering_style": "cinematic action photography with gritty realism, motion blur on projectiles and debris, sharp focus on character face and primary weapon, high contrast lighting with dramatic deep shadows"
-      }
-    },
-    "color_and_light": {
-      "palette_names": [
-        {
-          "name": "Abyssal Deep Blue",
-          "role": "primary_accent — skin tones and surrounding water mass"
-        },
-        {
-          "name": "Bioluminescent Cyan",
-          "role": "secondary_accent — ability effects and natural body glow"
-        },
-        {
-          "name": "Foam White",
-          "role": "tertiary accent — spray splashes and bubble highlights"
-        }
-      ],
-      "lighting_setup": "amethyst alloy frame with crystalline energy channels pulsing light along border edges, explosive backlight from ability discharge, dramatic rim lighting separating character from environmental chaos, volumetric light rays cutting through smoke and particles",
-      "mood": "storm_tide_power"
-    },
-    "camera": {
-      "angle": "Wide dramatic low angle showing full blast radius, character backlit by their own power source, foreground devastated by ability effects"
-    },
-    "scenography": {
-      "setting": "Storm-ravaged aquatic colonial battlefield with massive waves crashing over organic structures sending debris flying, lightning illuminating in stark flashes, allied forces pushed back while bioluminescent defensive flares light the water column with cyan bursts",
-      "atmosphere_vfx": "Tension and lethal potential visible in every tensed muscle — combat readiness radiating from posture and grip on weapon, Active combat zone with explosions and engagements around the character, allies and enemies locked in fierce battle, chaos of war as backdrop, Massive waves crashing and spraying bioluminescent droplets everywhere, water vortex spiraling around character pulling debris, glowing fish scattering in panic, bubbles erupting from seabed, electrical arcs flashing through charged seawater"
-    }
+    "raw": ""
   }
 }

@@ -2,8 +2,11 @@
   "name": "Aegis Absolutus",
   "description": "Marcheur de défense absolue. Boucliers énergétiques concentriques et systèmes de défense ponctuelle créant une zone d'invulnérabilité mobile. Ce qu'Aegis protège, rien ne le détruit — du moins c'est ce qu'ils prétendent.",
   "element": "obsidienne",
-  "elements": ["obsidienne", "reseau"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "obsidienne",
+    "reseau"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "9",
   "rightValue": "5",
   "bottomValue": "9",

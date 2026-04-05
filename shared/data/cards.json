@@ -4,8 +4,11 @@
         "name": "Goblin",
         "description": "Une carte de niveau 1 redoutable.",
         "element": "None",
-        "elements": ["radiation", "eau"],
-        "faction": "Héritiers des cendres",
+        "elements": [
+            "radiation",
+            "eau"
+        ],
+        "faction": "Héritiers des Cendres",
         "collectionName": "starter",
         "topValue": "2",
         "rightValue": "1",

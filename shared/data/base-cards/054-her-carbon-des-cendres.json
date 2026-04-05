@@ -6,7 +6,7 @@
   "elements": [
     "longue_portee"
   ],
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "5",
   "rightValue": "4",
   "bottomValue": "4",
@@ -17,6 +17,66 @@
   "image": "base/054.png",
   "storiesRewardedFrom": null,
   "prompt": {
-    "raw": ""
+    "format": "1:1",
+    "subject": {
+      "archetype": "Mutant Aberration Volcaniste - Immense hybride de chair et de métal rouillé, torse massif fusionné avec un réacteur à fusion improvisé crachant des flammes persistantes, trois bras asymétriques dont un terminé par une lance de métal fondu, jambes torses couvertes de tumeurs luminescentes jaunes",
+      "loadout": {
+        "armor_outfit": "Toges rituelles en lambeaux de bâches anti-radiation noircies par la suie, plaques d'armure de récupération soudées directement à la chair mutante, colliers de capsules de cobalt radioactif autour du cou hypertrophié, métal rouillé perçant la peau tumorale",
+        "arsenal": "Canon à plasma artisanal greffé dans l'épaule gauche maintenu par des chaînes de chair, lance de métal en fusion brandie par le bras central, petite ogive nucléaire désactivée portée en pendentif sacré sur la poitrine exposée"
+      },
+      "attitude": {
+        "behavior": "Debout immobile sous une pluie de cendres, crachant un jet de flammes persistantes orange-vert depuis sa gorge mutée, un bras tendu vers le ciel libéréant une colonne de feu tandis que l'autre maintient le canon à plasma fumant",
+        "emotion": "Horreur extatique, mâchoire tordue figée dans un rictus de dévotion nucléaire, multiples yeux injectés de jaune radioactif fixant l'horizon avec une concentration fanatique"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Body Horror"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Chair jaunâtre malade",
+          "role": "dominant_skin_tones_and_flesh"
+        },
+        {
+          "name": "Rouille vibrante",
+          "role": "metal_armor_and_weapons"
+        },
+        {
+          "name": "Jaune fluo radioactif",
+          "role": "tumor_luminescence_and_eye_glow"
+        },
+        {
+          "name": "Orange feu persistante",
+          "role": "combustion_zones_and_plasma_effects"
+        },
+        {
+          "name": "Bleu cosmos High-Tech",
+          "role": "energy_reactor_and_ogive_sacrée"
+        },
+        {
+          "name": "Gris cendre",
+          "role": "background_and_ash_atmosphere"
+        }
+      ],
+      "lighting_setup": "cinematic_volcanic_glow_with_rim_light_from_plasma",
+      "mood": "apocalyptic_terror_and_devotion"
+    },
+    "camera": {
+      "angle": "low_angled_view_slightly_dutch_to_emphasize_imposing_mass"
+    },
+    "scenography": {
+      "setting": "Champ de bataille dévasté couvert de cendres et de cratères fumants, sol noirci par les zones de combustion persistante, carcasses de véhicules de l'Ancien Monde rouillant en arrière-plan",
+      "atmosphere_vfx": "Pluie de cendres grises, fumées toxiques s'élevant des zones de feu persistent, reflets lumineux bleutés du réacteur à fusion, chaleur distordant l'air autour des flammes"
+    }
   }
 }

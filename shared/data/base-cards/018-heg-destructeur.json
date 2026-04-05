@@ -3,7 +3,7 @@
   "name": "Destructeur",
   "description": "Tireur d'élite neutralisant les cibles prioritaires ennemies depuis les positions de surplomb orbital.",
   "element": "longue_portee",
-  "faction": "Hégémonie martienne",
+  "faction": "Hégémonie Martienne",
   "topValue": "5",
   "rightValue": "4",
   "bottomValue": "4",
@@ -16,7 +16,56 @@
   "elements": [
     "neutre"
   ],
-  "prompt": {
-    "raw": ""
-  }
+
+    "prompt": {
+      "format": "1:1",
+      "subject": {
+        "archetype": "Hégémonie Martienne - Tireur d'Élite « Destructeur »",
+        "loadout": {
+          "armor_outfit": "Armure de plates lisses et imbriquées en acier au titane, concept de pureté totale, zéro aspérité, surface polie semi-mate rouge carmin avec plaques dorsales anguleuses engris sombre. Casque intégral profil bas en forme de proue, visière opaque noire avec unique fente horizontale rouge vif lumineuse (neon accent), déshumanisant. Manteau long asymétrique à épaules anguleuses en tissu balistique rouge sang, bordures gris anthracite, attache magnétique sternale.",
+          "arsenal": "Fusil railgun électromagnétique modulaire à canon octogonal, crosse squelette tubulaire, crosses et garde-main en plaques d'acier poli rouge, aucun câblage apparent, rail Picatinny discret, canon long fuyante. Lame thermique d'appoint portée dans un fourreau dorsal, garde épée trapézoïdale angulaire."
+        },
+        "attitude": {
+          "behavior": "Position de tir couchée sur surplomb orbital, coudes ancrés, joue contre la crosse, bras gauche soutenant le canon, regard fixe à travers la fente rouge, respiration contrôlée, posture de prédation immobile",
+          "emotion": "Froid calculateur, concentration absolue sous le HUD discret du casque, absence totale d'émotion humaine, machine de guerre en attente"
+        }
+      },
+      "graphics": {
+        "style": {
+          "technique": "highly_detailed_digital_painting",
+          "influences": [
+            "Grimdark",
+            "Dark Sci-Fi",
+            "Post-apocalyptic"
+          ],
+          "rendering_style": "gritty_realistic_with_cinematic_OSL"
+        }
+      },
+      "color_and_light": {
+        "palette_names": [
+          {
+            "name": "Rouge Carmin",
+            "role": "Couleur primaire dominante armure et véhicule (60%)"
+          },
+          {
+            "name": "Gris Sombre Charcoal",
+            "role": "Couleur secondaire structure et ombres (30%)"
+          },
+          {
+            "name": "Rouge Vif Neon",
+            "role": "Accents énergétiques optiques, fente visière, plasma railgun (10%)"
+          }
+        ],
+        "lighting_setup": "Cinematic rim lighting rouge sur les arêtes de l'armure, lumière ambiante froide orbital avec reflet mat, points lumineux neon sur visor et réacteurs dorsaux, ombres dures géométriques",
+        "mood": "Menaçant, implacable, brutal et discipliné"
+      },
+      "camera": {
+        "angle": "Low angle légèrement incliné pour accentuer la silhouette imposante, profondeur de champ étroite, arrière-plan flou"
+      },
+      "scenography": {
+        "setting": "Plateforme de surplomb orbital industriel, structure métallique grise et rouge, structure en V et arêtes tranchantes, sol grillagé hexagonal, ciel planétaire rougeatre avec stations orbitales en arrière-plan",
+        "atmosphere_vfx": "Brume atmosphérique martienne rougeatre légère, micro-poussière en suspension, reflets de plasma sur le railgun, chaleur résiduelle de la lame thermique fumante à l'arrière-plan"
+      }
+    }
+
 }

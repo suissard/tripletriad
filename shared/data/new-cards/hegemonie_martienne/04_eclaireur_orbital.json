@@ -2,8 +2,10 @@
   "name": "Éclaireur Orbital",
   "description": "Unité de reconnaissance déployée par capsule depuis l'orbite basse. Rapide, discret, il cartographie les zones d'atterrissage pour les vagues suivantes.",
   "element": "furtif",
-  "elements": ["furtif"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "furtif"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "1",
   "rightValue": "1",
   "bottomValue": "3",

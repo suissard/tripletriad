@@ -3,7 +3,7 @@
   "name": "Embrase",
   "description": "Incendiaire de ligne détruisant les barrières naturelles et artificielles pour ouvrir des voies d'accès aux assauts.",
   "element": "spore",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "3",
   "rightValue": "5",
   "bottomValue": "5",
@@ -17,6 +17,75 @@
     "neutre"
   ],
   "prompt": {
-    "raw": ""
+    "format": "1:1",
+    "subject": {
+      "archetype": "Mutant Incendiary Aberrant Soldier - asymmetrical humanoid torso with three arms (two functional, one atrophied), hunched posture, covered in luminescent yellow tumors, one side of face melted with exposed bone, the other side with multiple smaller eyes, jaw distended with rust-stained teeth",
+      "loadout": {
+        "armor_outfit": "Tattered ritual robes made from faded anti-radiation tarps layered over a crude harness of rusted metal plates and bone straps, shoulder pads fashioned from melted gas mask fragments, collar of radioactive bone talismans and empty ballistic capsules strung together",
+        "arsenal": "Left hand gripping a pristine fusion lance - impossibly smooth white and chrome surface with internal blue-violet plasma veins, geometrically perfect blade tip, floating nuclear core visible through crystalline chamber, connected to atrophied third arm via crude metal shackles that pierce through tumorous flesh. Right hand holds a salvaged thermite projector with cracked casing but immaculate barrel emitting residual orange glow"
+      },
+      "attitude": {
+        "behavior": "Crouched forward with aggressive stance, fusion lance thrust forward preparing to vaporize a barrier, thermite projector trailing glowing embers, muscular legs planted asymmetrically (one leg larger with extra joint), trailing cloak of scorched fabric, mouth open in guttural war cry with drooling irradiated saliva",
+        "emotion": "Fanatical religious fervor mixed with destructive ecstasy, hollow eye sockets radiating intense yellow bioluminescence, visible radiation burns steaming on exposed flesh, expression of zealot devotion as the sacred weapon consumes the profane barrier"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Body Horror",
+          "Nuclear Gothic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Sickly Flesh Yellow",
+          "role": "Primary subject skin tones, luminescent tumors, exposed tissue"
+        },
+        {
+          "name": "Irradiated Sickly Green",
+          "role": "Secondary skin undertones, radiation decay areas, drool"
+        },
+        {
+          "name": "Rust Orange",
+          "role": "Metal corrosion, thermite trails, scorched fabric edges"
+        },
+        {
+          "name": "Radioactive Yellow",
+          "role": "Tumor glow, eye luminescence, radiation auras, warning accents"
+        },
+        {
+          "name": "Ash Grey",
+          "role": "Background ash, destroyed barrier debris, atmospheric particles"
+        },
+        {
+          "name": "Pristine White",
+          "role": "Sacred fusion lance primary color, relic weapon clean surfaces"
+        },
+        {
+          "name": "Plasma Blue-Violet",
+          "role": "Fusion weapon energy core, weapon energy veins, arcane power"
+        },
+        {
+          "name": "Charred Black",
+          "role": "Destroyed barrier shadows, burnt clothing, deep crevices"
+        }
+      ],
+      "lighting_setup": "dramaic_rim_lighting_from_plasma_energy_with_ambient_radiation_glow",
+      "mood": "Menacing, zealous, destructive, sacred terror"
+    },
+    "camera": {
+      "angle": "low_angle_with_slight_dutch_tilt_for_aggressive_perspective"
+    },
+    "scenography": {
+      "setting": "Collapsed urban corridor with destroyed blast barriers and melted reinforced concrete, scattered rubble of ancient pre-war architecture, background showing crude shrine altars with embedded nuclear warheads, distant figures of Aberrations dragging altar-platforms",
+      "atmosphere_vfx": "Rising thermite smoke with radioactive particulate matter, floating ash constantly falling, lens flares from plasma energy, distant flickering fires from previous assaults, subtle ground-level nuclear mist, visible radiation shimmer distorting air above tumors"
+    }
   }
 }

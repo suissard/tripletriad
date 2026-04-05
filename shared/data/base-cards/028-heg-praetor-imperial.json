@@ -3,7 +3,7 @@
   "name": "Praetor Imperial",
   "description": "Praetor impérial orchestrant les opérations de domination galactique sur plusieurs fronts avec une coordination parfaite.",
   "element": "obsidienne",
-  "faction": "Hégémonie martienne",
+  "faction": "Hégémonie Martienne",
   "topValue": "4",
   "rightValue": "6",
   "bottomValue": "7",
@@ -17,6 +17,53 @@
     "neutre"
   ],
   "prompt": {
-    "raw": ""
+    "format": "1:1",
+    "subject": {
+      "archetype": "Martian Hegemony Imperial Praetor, armored commander with integral helmet, angular cape, imposing silhouette of human‑machine fusion",
+      "loadout": {
+        "armor_outfit": "Sleek interlocking plate armor in carmine red and dark gray, angular plates with no protrusions, integrated shoulder guards, long asymmetric half‑cape with sharply angular shoulders, integral helmet with opaque visor and a thin horizontal red slit for eyes",
+        "arsenal": "Heavy electromagnetic railgun with rectangular, hexagonal‑barrel profile; thermal energy sword with glowing red blade and smoky heat haze; holographic command interface gauntlet projecting fleet markers"
+      },
+      "attitude": {
+        "behavior": "Stands at the center of a holographic war table, one hand gripping the hilt of the energy sword, the other extended outward commanding holographic fleet icons, projecting an aura of absolute authority",
+        "emotion": "Cold, calculating resolve, unwavering determination, eyes hidden behind a red‑lit visor slit, expressionless yet menacing"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Carmine Red",
+          "role": "Primary color for armor, environment, dominance"
+        },
+        {
+          "name": "Dark Gray",
+          "role": "Secondary color for mechanical parts, shadows, interior panels"
+        },
+        {
+          "name": "Neon Bright Red",
+          "role": "Neon accents for energy glows, visor slit, reactor exhausts"
+        }
+      ],
+      "lighting_setup": "Cinematic side lighting with a strong red rim light, cool ambient fill, subtle volumetric dust, and high‑contrast shadows",
+      "mood": "Menacing, imperial, oppressive"
+    },
+    "camera": {
+      "angle": "low angle, slight dutch tilt to emphasize power and looming presence"
+    },
+    "scenography": {
+      "setting": "Command bridge of a Martian Hegemony flagship, hexagonal grid floor, massive red‑lit screens, panoramic viewport revealing a shattered galaxy",
+      "atmosphere_vfx": "Red neon energy pulses, faint steam from heat vents, floating holographic fleet icons, subtle lens flare, dust particles lit by red light"
+    }
   }
 }

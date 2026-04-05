@@ -2,8 +2,10 @@
   "name": "Centurion Pulveris",
   "description": "Fantassin lourd de première ligne portant une armure énergétique intégrale cramoisie. Son railgun antichar perfore les fortifications ennemies avec une précision chirurgicale. Marteau de la doctrine d'assaut orbital.",
   "element": "longue_portee",
-  "elements": ["longue_portee"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "longue_portee"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "5",
   "rightValue": "4",
   "bottomValue": "3",

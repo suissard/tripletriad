@@ -2,8 +2,12 @@
   "name": "La Plateforme du Synode",
   "description": "Station-relais mobile du Synode Biologique, arrachée aux fonds océaniques et propulsée dans l'espace. Cœur névralgique du réseau pélagique, elle amplifie les signaux psioniques des Tisseuses de Courants à travers tout le système solaire.",
   "element": "reseau",
-  "elements": ["eau", "longue_portee", "reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "longue_portee",
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "6",
   "rightValue": "8",
   "bottomValue": "6",

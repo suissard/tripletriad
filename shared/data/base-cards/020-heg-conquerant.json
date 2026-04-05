@@ -3,7 +3,7 @@
   "name": "Conquerant",
   "description": "Officier subalterne maintenant la discipline des troupes sous le feu ennemi grâce à un commandement rigide.",
   "element": "obsidienne",
-  "faction": "Hégémonie martienne",
+  "faction": "Hégémonie Martienne",
   "topValue": "4",
   "rightValue": "2",
   "bottomValue": "5",
@@ -23,6 +23,61 @@
     "neutre"
   ],
   "prompt": {
-    "raw": ""
+    "format": "1:1",
+    "subject": {
+      "archetype": "Human Purist Conquerant Officer – Martian Hegemony",
+      "loadout": {
+        "armor_outfit": "Polished carmine‑red segmented plate armor with dark‑grey angular plates, seamless smooth surfaces (no rivets), integrated full‑face helmet with opaque visor and a thin horizontal red slit, asymmetric half‑cape with sharply angled shoulders, ballistic fabric underlayer cut in strict martial lines.",
+        "arsenal": "Primary: Electromagnetic railgun with octagonal barrel and concealed power conduit, red‑glow energy core visible through grated vents. Secondary: Thermal energy sword emitting a red‑hot blade with visible heat shimmer and faint smoke, stored in a geometric scabbard. Additional: Rigid command baton with a small holographic display, comms relay on the left pauldron."
+      },
+      "attitude": {
+        "behavior": "Stands rigid, upright, weight evenly distributed, one hand gripping the railgun’s angular foregrip, the other raised in a precise commanding gesture. Eyes hidden behind visor, scanning the battlefield with a cold, calculated stare. Dust swirls around boots, subtle micro‑adjustments to maintain perfect posture.",
+        "emotion": "Stoic, unflinching discipline; a cold cybernetic focus that conveys absolute authority and no visible emotion."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Post‑apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Carmine Red",
+          "role": "Primary color dominating armor, background structures, and overall atmosphere (≈60%)"
+        },
+        {
+          "name": "Dark Grey",
+          "role": "Secondary armor panels, weapon housings, and metallic ground elements (≈30%)"
+        },
+        {
+          "name": "Neon Red",
+          "role": "Energy accents – visor slit, railgun core glow, thermal blade emission, plasma trails (≈10%)"
+        },
+        {
+          "name": "Dusty Brown‑Orange",
+          "role": "Atmospheric haze, Martian dust particles, low‑intensity ambient light"
+        },
+        {
+          "name": "Charcoal Black",
+          "role": "Deep shadows, recessed vents, and background silhouettes for contrast"
+        }
+      ],
+      "lighting_setup": "Cinematic directional sunlight from a low Martian horizon, casting long harsh shadows; subtle red atmospheric scatter adds a warm haze; small, sharp rim‑lights on armor edges for definition.",
+      "mood": "Menacing, authoritative, and desolate – a battlefield where discipline prevails under relentless fire."
+    },
+    "camera": {
+      "angle": "Low angle with a slight Dutch tilt to emphasize the officer’s imposing stature and the angular geometry of the environment."
+    },
+    "scenography": {
+      "setting": "Red‑dish Martian desert battlefield, dominated by geometric fortifications built from carmine‑red and dark‑grey modular panels. Angular bunkers, hexagonal grille patterns, and wedge‑shaped defensive walls form a stark, oppressive grid. Distant, silhouetted war machines loom on the horizon. The ground is cracked basaltic rock with thin layers of rust‑colored dust.",
+      "atmosphere_vfx": "Swirling fine dust particles catch the low sunlight, creating a faint red haze. Occasional plasma bursts from distant weapons produce short‑lived red flares. The officer’s visor and weapon cores emit pulsing neon red glows, subtly illuminating nearby dust motes. Subtle heat distortion rises from the thermal blade."
+    }
   }
 }

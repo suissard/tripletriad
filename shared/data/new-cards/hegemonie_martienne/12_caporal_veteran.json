@@ -2,8 +2,10 @@
   "name": "Caporal Vétéran",
   "description": "Sous-officier aguerri de l'Hégémonie, promu après dix descentes orbitales. Il mène par l'exemple et le mépris de la mort.",
   "element": "None",
-  "elements": ["None"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "None"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "3",
   "rightValue": "2",
   "bottomValue": "2",

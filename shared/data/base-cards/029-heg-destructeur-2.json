@@ -3,7 +3,7 @@
   "name": "Destructeur 2",
   "description": "Architecte de guerre martienne concevant les stratégies de siège planétaire et les protocoles d'annexion.",
   "element": "radiation",
-  "faction": "Hégémonie martienne",
+  "faction": "Hégémonie Martienne",
   "topValue": "5",
   "rightValue": "7",
   "bottomValue": "5",
@@ -23,6 +23,53 @@
     "neutre"
   ],
   "prompt": {
-    "raw": ""
+    "format": "1:1",
+    "subject": {
+      "archetype": "Martian War Architect (Purist Heavy Commander)",
+      "loadout": {
+        "armor_outfit": "Sleek interlocking carmine red plate armor with integrated dark grey ballistic underlayers, angular shoulder pauldrons, an integral helmet featuring an opaque visor and a thin horizontal red slit, and an asymmetrical half-cape with sharply angular edges made of the same carmine red material.",
+        "arsenal": "Electromagnetic railgun with a hexagonal barrel, a thermal sword with a glowing red, heat‑hazed blade, and a wrist‑mounted holographic tactical projector capable of displaying planetary siege schematics."
+      },
+      "attitude": {
+        "behavior": "Standing in a resolute, forward‑leaning stance, one hand gripping the railgun, the other extended toward a hovering, full‑color holographic map of a besieged planet, surrounded by floating tactical data overlays.",
+        "emotion": "Cold, calculating intensity, a relentless Martian zealotry emanating from the thin red visor slit, exuding an aura of unbreakable authority."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Post‑apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Carmine Red",
+          "role": "Primary dominant surface color (60% of image)"
+        },
+        {
+          "name": "Dark Grey",
+          "role": "Secondary structural color (30% of image)"
+        },
+        {
+          "name": "Neon Red Glow",
+          "role": "Energy accents – visor slit, plasma vents, railgun muzzle flash (10% of image)"
+        }
+      ],
+      "lighting_setup": "Cinematic rim lighting with a harsh red‑tinted key light, subtle blue‑gray fill to enhance shadows, and localized glow from neon red sources.",
+      "mood": "Menacing, authoritative, militaristic"
+    },
+    "camera": {
+      "angle": "Low angle, slight Dutch tilt to emphasize dominance and aggression"
+    },
+    "scenography": {
+      "setting": "A fortified Martian command platform overlooking a devastated planetary siege, with jagged basalt cliffs and the distant silhouette of an orbital bombardment.",
+      "atmosphere_vfx": "Red‑orange dust clouds, glowing plasma exhaust trails, flickering holographic battle plans, occasional sparks from railgun discharge, thin wisps of heat haze around the thermal sword blade."
+    }
   }
 }

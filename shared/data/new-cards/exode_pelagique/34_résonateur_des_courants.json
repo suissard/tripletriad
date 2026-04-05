@@ -2,8 +2,11 @@
   "name": "Résonateur des Courants",
   "description": "Plateforme bio-résonante pilotée par une Tisseuse de Courants psionique. Amplifie les signaux du réseau pélagique et projette des ondes de pression capables de pulvériser les structures. Cerveau stratégique mobile.",
   "element": "reseau",
-  "elements": ["reseau", "eau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "reseau",
+    "eau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "2",
   "rightValue": "4",
   "bottomValue": "7",

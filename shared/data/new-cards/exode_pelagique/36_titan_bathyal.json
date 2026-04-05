@@ -2,8 +2,11 @@
   "name": "Titan Bathyal",
   "description": "Crabe de siège massif blindé dans une carapace de plateforme pétrolière recyclée. Ses bras de grue géants broient les murs tandis que ses tourelles plasma pilonnent à distance. Déploiement lent, dévastation totale.",
   "element": "longue_portee",
-  "elements": ["longue_portee", "eau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "longue_portee",
+    "eau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "5",
   "rightValue": "5",
   "bottomValue": "4",

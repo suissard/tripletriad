@@ -2,8 +2,10 @@
   "name": "Fantassin du Vide",
   "description": "Vétéran de la guerre spatiale habitué au combat en micro-gravité. Déployé par capsule de choc, il adapte ses réflexes zéro-G au sol terrestre.",
   "element": "None",
-  "elements": ["None"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "None"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "2",
   "rightValue": "3",
   "bottomValue": "1",

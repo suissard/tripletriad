@@ -2,8 +2,11 @@
   "name": "Forge Lourde Helios",
   "description": "Véhicule artilleur automoteur montant un canon solaire concentré. Rétracte un miroir orbital géant pour focaliser l'énergie du soleil en un laser destructeur. Vitriole des zones entières d'un seul tir.",
   "element": "radiation",
-  "elements": ["radiation", "longue_portee"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "radiation",
+    "longue_portee"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "6",
   "rightValue": "3",
   "bottomValue": "4",

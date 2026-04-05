@@ -2,8 +2,11 @@
   "name": "Béhémoth Exterminus",
   "description": "Plate-forme de siège mobile de niveau continental. Sa lentille de focalisation orbital concentre un rayon capable de vitrifier des vallées entières. L'arme de dissuasion ultime de l'Hégémonie — et sa preuve de folie.",
   "element": "longue_portee",
-  "elements": ["longue_portee", "obsidienne"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "longue_portee",
+    "obsidienne"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "9",
   "rightValue": "9",
   "bottomValue": "8",

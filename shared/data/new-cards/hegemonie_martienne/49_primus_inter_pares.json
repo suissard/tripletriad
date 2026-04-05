@@ -2,8 +2,11 @@
   "name": "Primus Inter Pares",
   "description": "Titre-commandement suprême du Haut Commandement mobile. Cette plate-forme porte le Premier Stratège et l'arsenal orbital entier de la flotte terrestre. Quand il avance, même les généraux se taisent.",
   "element": "reseau",
-  "elements": ["reseau", "longue_portee"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "reseau",
+    "longue_portee"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "8",
   "rightValue": "8",
   "bottomValue": "7",

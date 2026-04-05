@@ -2,8 +2,11 @@
   "name": "Nautilus Polymorphe",
   "description": "Transport blindé à morphologie variable. Sa coque spiralée se déforme pour s'adapter au terrain — escargot sur terre, torpille dans l'eau. Les cavités internes abritent une escouade complète de céphalopodes.",
   "element": "eau",
-  "elements": ["eau", "reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "3",
   "rightValue": "5",
   "bottomValue": "6",

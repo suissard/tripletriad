@@ -2,8 +2,10 @@
   "name": "Muraille Noxium",
   "description": "Fantassin renforcé anti-chimique avec filtration intégrale et lance-gaz incendiaire. Protège et nettoie les zones contaminées. Sa présence signifie la stérilisation totale du secteur.",
   "element": "radiation",
-  "elements": ["radiation"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "radiation"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "3",
   "rightValue": "3",
   "bottomValue": "6",

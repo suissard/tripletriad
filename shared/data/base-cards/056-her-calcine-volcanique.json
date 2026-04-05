@@ -3,7 +3,7 @@
   "name": "Calcine Volcanique",
   "description": "Gardien du Brasier Sacré protégeant la flamme éternelle des ancêtres qui confère une résistance au feu aux alliés.",
   "element": "radiation",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "4",
   "rightValue": "5",
   "bottomValue": "6",
@@ -17,6 +17,70 @@
     "neutre"
   ],
   "prompt": {
-    "raw": ""
+    "format": "1:1",
+    "subject": {
+      "archetype": "Mutant Aberration – Fire‑Guardian of the Sacred Ember (Calcine Volcanique)",
+      "loadout": {
+        "armor_outfit": "Tribal ash‑wrapped garments, rusted anti‑radiation tarp cape, bone‑studded collars, charred leather gauntlets, asymmetric metal plates fused to the torso with exposed, rotting flesh, and a grotesque extra limb holding a sacred brazier.",
+        "arsenal": "Relic plasma cannon grafted into the forearm, a handheld sacred flame‑brazier wreathed in molten metal, a small nuclear warhead carried as a venerated relic pendant, and chains of irradiated bone fused to the wrist."
+      },
+      "attitude": {
+        "behavior": "Standing upright, the extra arm raised high, gripping the blazing brazier aloft; flames lick the asymmetrical torso, ash swirl around the legs, the posture radiates protective dominance.",
+        "emotion": "Fierce, fanatical devotion to the ancestral flame; an intense, pain‑filled resolve to shield allies from fire, underscored by a cold, grotesque stare of radioactive yellow eyes."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Post‑apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Sickly Flesh (mottled beige‑brown)",
+          "role": "Primary body tones, base skin and ash‑covered fabric"
+        },
+        {
+          "name": "Ash Brown (charred earth)",
+          "role": "Background ash, ground debris, tattered clothing"
+        },
+        {
+          "name": "Rusted Metal Gray",
+          "role": "Armor plates, relics, metal grafted to flesh"
+        },
+        {
+          "name": "Radioactive Yellow",
+          "role": "Tumors, glowing eyes, subtle toxic accents"
+        },
+        {
+          "name": "Sacred Orange‑Red",
+          "role": "Flames, ember glow, heat‑shimmer aura"
+        },
+        {
+          "name": "Electric Violet",
+          "role": "High‑tech relic weapon energy, plasma core glow"
+        },
+        {
+          "name": "Pure White",
+          "role": "Sharp highlights on the flawless relic weapon surfaces"
+        }
+      ],
+      "lighting_setup": "Central flame as primary light source with volumetric ash fog, strong rim light from the relic plasma cannon, reflective metallic surfaces catching orange and violet hues; cinematic backlighting emphasizing silhouette.",
+      "mood": "Menacing yet reverent, a blend of horror and sacred awe; protective ferocity dominates the atmosphere."
+    },
+    "camera": {
+      "angle": "low_angle",
+      "tilt": "slight_dutch_tilt"
+    },
+    "scenography": {
+      "setting": "Scorched ancient temple built from rusted steel beams, fused bone walls, a pit of glowing embers at the center, ash‑laden stone floor with cracks, remnants of high‑tech consoles half‑buried in debris.",
+      "atmosphere_vfx": "Swirling ash storm, flickering flame particles, heat‑haze distortion, faint radioactive mist, occasional spark bursts from the relic weapon, ambient dust illuminated by the sacred flame."
+    }
   }
 }

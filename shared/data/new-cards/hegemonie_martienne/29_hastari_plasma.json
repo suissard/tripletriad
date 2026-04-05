@@ -2,8 +2,10 @@
   "name": "Hastari Plasma",
   "description": "Porte-lance énergétique lourd dont le projectile de plasma concentré traverse les blindages les plus épais. Formation serrée en ligne de pique énergétique. Avancée inexorable sur le champ de bataille.",
   "element": "longue_portee",
-  "elements": ["longue_portee"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "longue_portee"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "5",
   "rightValue": "4",
   "bottomValue": "4",

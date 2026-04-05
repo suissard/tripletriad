@@ -2,8 +2,12 @@
   "name": "Cathédrale des Abysses",
   "description": "Structure bio-coral vivante de quatre étages, véritable temple mobile du Synode Biologique. Elle pulse de psionique collective et projette des boucliers de réfraction capables de dévier les attaques à longue portée, tout en canalisant le réseau neural des Tisseuses de Courants.",
   "element": "reseau",
-  "elements": ["eau", "reseau", "longue_portee"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "reseau",
+    "longue_portee"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "7",
   "rightValue": "7",
   "bottomValue": "7",

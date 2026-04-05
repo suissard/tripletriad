@@ -3,7 +3,7 @@
   "name": "Forge Ardent",
   "description": "Forgeron de guerre armant les combattants avec des armes chauffées à blanc infligeant des brûlures persistantes.",
   "element": "spore",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "5",
   "rightValue": "5",
   "bottomValue": "4",
@@ -23,6 +23,66 @@
     "neutre"
   ],
   "prompt": {
-    "raw": ""
+    "format": "1:1",
+    "subject": {
+      "archetype": "Mutant Forgeron de guerre, aberration humanoïde asimétrique avec bras surdéveloppés pour le travail du métal incandescent",
+      "loadout": {
+        "armor_outfit": "Toges rituelles en bâches anti-radiations usées et lacérées, plaques d'armure de récupération rouillées, colliers de capsules de、核弹头废物 et d'os humains, implants métalliques perforant la chair tumorale",
+        "arsenal": "Arme relique chauffée à blanc (canon à plasma ou lame d'antimatière aux lignes épurées et géométriques), enchaînée au poignet greffé, rayonnant une chaleur persistante et brûlante"
+      },
+      "attitude": {
+        "behavior": "Debout, penché vers l'avant, bras asymétrique droit saisissant l'arme relique incandescente à deux mains, postulant de forge, chaleur irradiant de la lame avec des volutes de plasma, l'autre bras atrophié pendant avec des tumeurs luminescentes",
+        "emotion": "Extase fervente du culte nucléaire, regard possédé vers l'arme divinisée, détermination féroce de celui qui arme les combattants pour la guerre sacrée"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Body horror"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Blanc pur incandescant",
+          "role": "Arme relique et chaleur brûlante"
+        },
+        {
+          "name": "Chair jaunâtre malade",
+          "role": "Tonalité dominante du mutant"
+        },
+        {
+          "name": "Rouille vibrante",
+          "role": "Armure de récupération et implants"
+        },
+        {
+          "name": "Jaune fluo radioactif",
+          "role": "Tumeurs luminescentes et yeux"
+        },
+        {
+          "name": "Gris cendre",
+          "role": "Ambiance et vêtements délavés"
+        },
+        {
+          "name": "Bleu cosmique/violet énergétique",
+          "role": "Énergie high-tech des reliques"
+        }
+      ],
+      "lighting_setup": "Rim lighting intense orange/rouge simulant la chaleur extreme, light source from weapon, reflets métalliques sur la rouille, volumetric heat haze",
+      "mood": "Menacant, sacre-toxique, intensité ardente"
+    },
+    "camera": {
+      "angle": "Low angle légèrement incliné pour emphasize la stature mutante et la domination de l'arme"
+    },
+    "scenography": {
+      "setting": "Atelier de forge improvisé post-apocalyptique, autel mobile avec métal fondu et os, fond de décombres irradiés, métal rouillé et chairs hybridées",
+      "atmosphere_vfx": "Vapeur de chaleur, particules de poussière en suspension, lueur radioactive ambiante, brûlures persistantes sur l'arme, plasma crépitant"
+    }
   }
 }

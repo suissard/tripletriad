@@ -2,8 +2,12 @@
   "name": "Creuseur Tectonique",
   "description": "Sapeur lourd équipé de foreuses thermiques rotatives. Il creuse des tunnels en pleine bataille pour surgir derrière les lignes ennemies, crachant plasma et débris.",
   "element": "eau",
-  "elements": ["eau", "longue_portee", "reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "longue_portee",
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "4",
   "rightValue": "4",
   "bottomValue": "4",

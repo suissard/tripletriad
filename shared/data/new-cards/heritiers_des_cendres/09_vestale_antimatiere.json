@@ -2,7 +2,7 @@
   "name": "Vestale Antimatière",
   "description": "Manipule une petite ogive nucléaire comme arme de mêlée.",
   "element": "radiation",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "7",
   "rightValue": "2",
   "bottomValue": "1",

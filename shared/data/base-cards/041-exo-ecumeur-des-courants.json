@@ -3,7 +3,7 @@
   "name": "Ecumeur des Courants",
   "description": "Chef de migration guidant les flots de réfugiés aquatiques vers les océans promis avec une détermination inébranlable.",
   "element": "eau",
-  "faction": "Exode pélagique",
+  "faction": "Exode Pélagique",
   "topValue": "6",
   "rightValue": "4",
   "bottomValue": "5",
@@ -24,6 +24,61 @@
     "glace"
   ],
   "prompt": {
-    "raw": ""
+    "format": "1:1",
+    "subject": {
+      "archetype": "Cephalopodic Alien Migration Commander",
+      "loadout": {
+        "armor_outfit": "Massive mineral‑mining exosuit: rusted deep‑orange plating, verdigris‑covered copper panels, gun‑metal grey structural frame; thick spherical helmet filled with cyan bioluminescent water; pressurized polymer underlayer; heavy hydraulic actuators at joints; exposed braided hoses, valve ports venting steam, cracked plasma focal lenses.",
+        "arsenal": "Forearm‑integrated thermal circular saws, right‑arm plasma rotary cutter, back‑mounted high‑pressure geyser cannon, twin shoulder‑mounted plasma lance projectors, built‑in copper cooling coils with constant plasma leakage."
+      },
+      "attitude": {
+        "behavior": "Standing at the edge of a floating industrial platform, one arm raised pointing toward the horizon, steam hissing from valve ports, leading a convoy of aquatic refugee vessels through a turbulent, stormy sea.",
+        "emotion": "Unyielding resolve, fierce determination, stoic compassion amid harsh, decaying surroundings."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Post‑apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Rust Orange",
+          "role": "Primary armor tone – oxidized metal, 60% of surface"
+        },
+        {
+          "name": "Verdigris Green",
+          "role": "Secondary patina on copper components – 10% of surface"
+        },
+        {
+          "name": "Gunmetal Grey",
+          "role": "Base structural plating – 10% of surface"
+        },
+        {
+          "name": "Cyan Bioluminescent",
+          "role": "Helmet water, shield energy, bioluminescent eye glow – bright accent 15%"
+        },
+        {
+          "name": "Thermal Orange",
+          "role": "Plasma weapons, laser leaks, steam glow – bright accent 5%"
+        }
+      ],
+      "lighting_setup": "Cinematic low‑key with a powerful overhead halogen floodlight casting deep shadows; cyan rim lights on the helmet and armor highlights; flickering orange plasma glow from weapons; volumetric steam and fog; occasional distant lightning flashes.",
+      "mood": "Menacing yet hopeful – the stark contrast between grim industrial decay and the luminous promise of safe oceans."
+    },
+    "camera": {
+      "angle": "low_angle"
+    },
+    "scenography": {
+      "setting": "Abandoned oil platform converted into a mobile migration hub; rusted derricks and broken pipelines frame the scene; the platform is surrounded by dark, churning seas and storm‑laden clouds; a convoy of makeshift aquatic refugee vessels clusters around it, illuminated by harsh floodlights and the glow of plasma.",
+      "atmosphere_vfx": "Heavy rain and sea spray, boiling steam venting from valves, cyan bioluminescent reflections on wet metal, occasional lightning strikes, plasma sparks and orange glow leaking from weapons, fog rolling over the deck."
+    }
   }
 }

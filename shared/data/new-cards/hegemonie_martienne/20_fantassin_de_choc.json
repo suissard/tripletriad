@@ -2,8 +2,10 @@
   "name": "Fantassin de Choc",
   "description": "Élément de la première vague de débarquement. Largué en capsule blindée, il ouvre la brèche que l'Hégémonie exploite ensuite.",
   "element": "None",
-  "elements": ["None"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "None"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "3",
   "rightValue": "2",
   "bottomValue": "1",

@@ -3,7 +3,7 @@
   "name": "Pyro Volcanique",
   "description": "Phénix tacticien utilisant ses cendres pour bloquer les lignes ennemies et créer des murs de fumée infranchissables.",
   "element": "spore",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "6",
   "rightValue": "6",
   "bottomValue": "5",
@@ -23,6 +23,71 @@
     "neutre"
   ],
   "prompt": {
-    "raw": ""
+    "format": "1:1",
+    "subject": {
+      "archetype": "Mutant Pyromancien Héritier - Phénix Ashes Tacticien, être hybride humain-phanère aux ailes calcinées composées de braises et de cendres vivantes, corps asymétrique couvert de tumeurs luminescentes jaunes irradiées, silhouette massive et voûtée symbolisant la puissance destructive contenue",
+      "loadout": {
+        "armor_outfit": "Toge rituelle en lambeaux de bâches anti-radiations noircies par les flammes, plaques d'armure de récupération rouillées fusionnées à la chair mutante, côtes apparentes gainées de métal corrodé, collar d'os humains et capsules de réactifs radioactifs, haillons imbibés de suie et de cendre perpétuelle",
+        "arsenal": "Deux canons à plasma massifs aux lignes épurées high-tech维持 intactes, fusionnés aux avant-bras comme extensions cybernétiques, ogive nucléaire miniature greffée dans la poitrine pulsant d'énergie cosmos bleu-violet, grenades de cendres volcaniques portées en chapelet autour de la taille"
+      },
+      "attitude": {
+        "behavior": "Debout les bras déployés vers l'avant, paumes ouvertes crachant des torrents de cendres incandescentes et de fumée épaisse formant des murs impénétrables, posture martiale et cérémonielle, jambes ancrées dans un sol jonché de débris métalliques et de carcasses calcinées, regards focalisés sur l'objectif tactique",
+        "emotion": "Colère contenue et rage sacrificielle, yeux multiples injectés de jaune radioactif brûlant d'une intensité fanatique, expression de mépris absolu face à l'adversaire, sourire tordu révélant des dents métalliques rouillées"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Horreur organique mutante",
+          "Contraste high-tech/chair corrompue"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Jaune Fluo Radioactif",
+          "role": "Énergie des tumeurs, lueurs oculaires, plasma des armes high-tech, accents de radiation"
+        },
+        {
+          "name": "Brun Terre Irradiée",
+          "role": "Teint de chair mutante, cendres, sols poussiéreux, vêtements en lambeaux"
+        },
+        {
+          "name": "Gris Cendre",
+          "role": "Fumée dense, ailes de phénix éteintes, атмосфера окружающей среды"
+        },
+        {
+          "name": "Rouille Vive",
+          "role": "Armure de récupération, métal corrodé, implants"
+        },
+        {
+          "name": "Noir Suie",
+          "role": "Ombres profondes, vêtements noircis, dévastation"
+        },
+        {
+          "name": "Cosmos Bleu-Violet",
+          "role": "Énergie des reliques high-tech, plasma des canons, ogive centrale"
+        },
+        {
+          "name": "Orange Incandescent",
+          "role": "Braises vivantes, flammes résiduelles, chaleur des cendres"
+        }
+      ],
+      "lighting_setup": "Éclairage dramatique low-key avec rim_light orange sur les contours des cendres, lumière chaude intérieure des tumeurs jaune irradié, reflets bleu-violet sur les armes high-tech, rayons de lumière perçant à travers le mur de fumée",
+      "mood": "Apocalyptique, menaçant, solennel et sacrificiel"
+    },
+    "camera": {
+      "angle": "Low angle légèrement incliné pour emphasize la silhouette imposante du Pyro Volcanique, avec profondeur de champ shallow focusing sur le personnage et flou cinématique sur l'arrière-plan fumant"
+    },
+    "scenography": {
+      "setting": "Champ de bataille post-apocalyptique jonché de carcasses métalliques et de ruines calcinées, sol fissuré crachant des vapeurs radioactives, piliers de fumée noire s'élevant vers un ciel gris cendre,残骸 de véhicules ancienne monde dispersés autour du personnage",
+      "atmosphere_vfx": "Tempête de cendres tourbillonnant autour du mutant, fumée infranchissable formant des structures organiques vivantes, particules lumineuses jaunes irradiées flottant dans l'air, pluie légère de débris incandescents, effet de chaleur distortion autour des bras, glow cosmique pulsant depuis l'ogive thoracique"
+    }
   }
 }

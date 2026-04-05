@@ -2,8 +2,12 @@
   "name": "Vague Écranteur",
   "description": "Guerrier céphalopode en scaphandre minier lourd reconverti. Ses vérins hydrauliques projettent des ondes de pression dévastatrices à travers son bocal blindé rempli d'eau cyan.",
   "element": "eau",
-  "elements": ["eau", "longue_portee", "reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "longue_portee",
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "4",
   "rightValue": "5",
   "bottomValue": "3",

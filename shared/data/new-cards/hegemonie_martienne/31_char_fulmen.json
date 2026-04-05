@@ -2,8 +2,10 @@
   "name": "Char Fulmen",
   "description": "Tank principal de l'Hégémonie au profil en diamant agressif. Canon railgun coaxial et tourelle octogonale. Blindage réactif cramoisie. La pointe de flèche mécanique qui perce les lignes ennemies.",
   "element": "longue_portee",
-  "elements": ["longue_portee"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "longue_portee"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "5",
   "rightValue": "4",
   "bottomValue": "5",

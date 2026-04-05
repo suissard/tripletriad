@@ -2,8 +2,12 @@
   "name": "Arche Béhémoth",
   "description": "L'une des arches coloniales originelles, convertie en engin de guerre absolu. Ce bathyscaphe titanesque, entre plateforme pétrolière et forteresse mobile, crache des torrents de vapeur brûlante et de plasma depuis ses propulseurs asymétriques. Là où elle passe, les océans deviennent sanctuaire.",
   "element": "eau",
-  "elements": ["eau", "longue_portee", "reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "longue_portee",
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "9",
   "rightValue": "8",
   "bottomValue": "9",

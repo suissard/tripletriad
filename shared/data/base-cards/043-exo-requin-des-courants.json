@@ -3,7 +3,7 @@
   "name": "Requin des Courants",
   "description": "Léviathan protecteur générant des barrières aquatiques impénétrables autour des colonies les plus vulnérables.",
   "element": "eau",
-  "faction": "Exode pélagique",
+  "faction": "Exode Pélagique",
   "topValue": "8",
   "rightValue": "5",
   "bottomValue": "5",
@@ -18,6 +18,71 @@
     "glace"
   ],
   "prompt": {
-    "raw": ""
+    "format": "1:1",
+    "subject": {
+      "archetype": "Céphalopode alien géant modifié par scaphandre de minage lourd, Léviathan protecteur des colonies",
+      "loadout": {
+        "armor_outfit": "Scaphandre de minage mineralogique massif et asymétrique en tôles d'acier rouillé (orange oxydé, vert-de-gris, gris canon terni), combinaison de pression polymère noire translucide sous le blindage, articulations hydrauliques surdimensionnées avec vérins apparents, 'Bocal' central - sphère de verre blindé cyan contenant l'extraterrestre bioluminescent violet translucide, tuyaux annelés massifs de连接, valves de décompression cracheuses de vapeur, câbles exposés et balanes spatiales sur la coque",
+        "arsenal": "Système de génération de barrières aquatiques intégré aux bras - canons à geyser inversés projetant du plasma thermique orange aveuglant combiné à de l'eau pressurisée cyan luminescente, découpeurs plasma rotatifs montés sur les épaules, scies thermiques circulaires sur les avant-bras, projecteurs halogènes perçant les ténèbres, bobines de refroidissement en cuivre oxydé apparentes"
+      },
+      "attitude": {
+        "behavior": "Flottant/stationnaire en position défensive, bras écartés générant des colonnes de plasma aquatique formant des barrières protectrices semi-transparentes autour d'une colonie en arrière-plan,数码HUD clignotant sur le bocal, fuites de plasma constantes s'échappant des articulations",
+        "emotion": "Vigilance prédatrice et détermination féroce, regard alien bioluminescent perçant à travers l'eau cyan du bocal, présence imposante et rassurante malgré l'apparence industrielle crasseuse et usée"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "H.R. Giger biomechanical",
+          "James Cameron deep sea aesthetics"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Rouille orange profond",
+          "role": "Blindage principal usé et oxydé"
+        },
+        {
+          "name": "Vert-de-gris cuivre oxydé",
+          "role": "Détails industriels et connectique"
+        },
+        {
+          "name": "Gris canon terni",
+          "role": "Éléments mécaniques et hydrauliques"
+        },
+        {
+          "name": "Cyan bioluminescent",
+          "role": "Eau pressurisée, boucliers, bocal central - accents lumineux saturés"
+        },
+        {
+          "name": "Orange thermique aveuglant",
+          "role": "Plasma, lasers de minage, barrière aquatique active"
+        },
+        {
+          "name": "Violet pâle translucide",
+          "role": "Peau alien bioluminescente visible dans le bocal"
+        },
+        {
+          "name": "Gris perle",
+          "role": "Zones de lumière sur la peau alien"
+        }
+      ],
+      "lighting_setup": "Cinematic_volumetric_illumination_mixing_industrial_dim_ambient_with_intense_cyan_orange_emissions_from_weapons_and_suit_elements",
+      "mood": "Imposant, protecteur, industriel-crade avec contraste dramatique entre obscurité usée et éclats lumineux saturés"
+    },
+    "camera": {
+      "angle": "low_angle_slightly_dutch_to_convey_imposing_presence_and_heroic_posture"
+    },
+    "scenography": {
+      "setting": "Zone industrielle de colonie spatiale vulnérable - structures métalliques abimées, échafaudages, plateformes de forage, brume de plasma et vapeur d'eau omniprésente, débris spatiaux et micro-météorites incrustés dans le blindage",
+      "atmosphere_vfx": "Barrière aquatique semi-transparente cyan/orange scintillante enveloppant la colonie, vapeur de décompression s'échappant des articulations, particules de plasma flottantes, reflets iridescents sur l'eau pressurisée, pluie de débris incandescents en arrière-plan"
+    }
   }
 }

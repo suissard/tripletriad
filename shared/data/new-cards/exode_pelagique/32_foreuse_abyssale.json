@@ -2,8 +2,11 @@
   "name": "Foreuse Abyssale",
   "description": "Ancien drone minier reconverti en arme de siège. Son trépan rotatif plasma perce les fortifications terrestres comme de la roche sédimentaire. Lent mais inarrêtable une fois lancé.",
   "element": "longue_portee",
-  "elements": ["longue_portee", "eau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "longue_portee",
+    "eau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "3",
   "rightValue": "5",
   "bottomValue": "6",

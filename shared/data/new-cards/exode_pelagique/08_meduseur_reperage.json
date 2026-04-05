@@ -2,8 +2,10 @@
   "name": "Méduseur de Repérage",
   "description": "Unité de reconnaissance dont le crâne translucide émet des pulsations bioluminescentes pour marquer les cibles. Léger, rapide, presque invisible dans la brume marine.",
   "element": "reseau",
-  "elements": ["reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "1",
   "rightValue": "2",
   "bottomValue": "2",

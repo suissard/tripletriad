@@ -2,8 +2,11 @@
   "name": "Canon Hydrothermal",
   "description": "Affût de bombardement monté sur un châssis de crabe. Son canon-geyser concentre la pression des fonds marins en un jet de plasma surchauffé capable de traverser un blockhaus. Long temps de recharge, impact cataclysmique.",
   "element": "longue_portee",
-  "elements": ["longue_portee", "eau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "longue_portee",
+    "eau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "1",
   "rightValue": "6",
   "bottomValue": "3",

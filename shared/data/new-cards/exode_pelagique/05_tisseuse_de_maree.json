@@ -2,8 +2,11 @@
   "name": "Tisseuse de Marée",
   "description": "Psionique de soutien reliée au Synode, elle amplifie le réseau tactique des unités proches. Son Bocal pulse de violet phosphorique quand elle émet un signal coordonnateur.",
   "element": "reseau",
-  "elements": ["reseau", "eau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "reseau",
+    "eau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "1",
   "rightValue": "2",
   "bottomValue": "2",

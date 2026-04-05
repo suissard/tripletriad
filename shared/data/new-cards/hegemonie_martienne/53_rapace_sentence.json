@@ -2,8 +2,11 @@
   "name": "Rapace de la Sentence",
   "description": "Frégate chasse-tueur. Rapide, agressive, sans pitié. Elle intercepte les vaisseaux ennemis, les découpe au railgun orbital et rentre au port avant que la cible n'ait compris ce qui s'est passé.",
   "element": "furtif",
-  "elements": ["furtif", "longue_portee"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "furtif",
+    "longue_portee"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "5",
   "rightValue": "9",
   "bottomValue": "5",

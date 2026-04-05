@@ -6,7 +6,7 @@
   "elements": [
     "eau"
   ],
-  "faction": "Exode pélagique",
+  "faction": "Exode Pélagique",
   "topValue": "3",
   "rightValue": "4",
   "bottomValue": "4",
@@ -17,6 +17,70 @@
   "image": "base/033.png",
   "storiesRewardedFrom": null,
   "prompt": {
-    "raw": ""
+    "format": "1:1",
+    "subject": {
+      "archetype": "Céphalopode alien recon reconversion - Spectre abyssal des fluides du vide, silhouette hybride entre créature marine et scaphandre minier lourd, membranes nocturnes ondulantes sous le blindage",
+      "loadout": {
+        "armor_outfit": "Scaphandre de minage minéralogique pressurisé conversion guerre, structure massive asymétrique en polymère noir carbonisé, blindage en plaques d'acier rouillé type 'oxydation martienne', 'Le Bocal' - casque sphérique en verre blindé ultra-épais baignant dans l'eau bioluminescente cyan, tuyaux annelés cuivre oxydé, valves de décompression cracheuses de vapeur blanche, articulations mécanisées vérins hydrauliques chrome terni",
+        "arsenal": "Lames thermiques circulaires intégrées aux avant-bras, découpeurs plasma rotatifs à bobines de refroidissement cuivre apparentes,渗透 faisceaux lumineux perçant les ténèbres depuis optiques fissurées, fuites de plasma orange constantes le long des canalisations"
+      },
+      "attitude": {
+        "behavior": "Nage silencieuse en apesanteur fluide, membranes céphalopodes translucides ondulant derrière le hublot cyan, silhouette complètement immobile détectant les mouvements adverses, posture hydrodynamique détendue prête à l'explosion de vitesse",
+        "emotion": "Concentration froide prédateur, yeux aliens bioluminescents cyan perçant l'obscurité depuis leur prison liquide, calme mortel du chasseur tapi dans l'ombre"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Science-fiction abyssale industrielle"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Orange rouille profond",
+          "role": "Blindage principal usé, corrosion martienne, structure externe"
+        },
+        {
+          "name": "Vert-de-gris cuivre oxydé",
+          "role": "Tuyaux annelés, connectique, valves exposés"
+        },
+        {
+          "name": "Gris canon terni",
+          "role": "Vérins hydrauliques, articulations mécanisées, métal nu"
+        },
+        {
+          "name": "Cyan bioluminescent",
+          "role": "Eau pressurisée du casque, yeux aliens, shields, reflets lumineux"
+        },
+        {
+          "name": "Orange thermique aveuglant",
+          "role": "Plasma fuyant, lasers de minage actifs, bobines chauffées"
+        },
+        {
+          "name": "Violet pâle translucide",
+          "role": "Peau céphalopode diaphane, membranes, tentacules visibles"
+        },
+        {
+          "name": "Gris perle",
+          "role": "Zones de blindage moins exposées, reflets mats"
+        }
+      ],
+      "lighting_setup": "Éclairage dramatique mixant sources industrielles halogènes puissantes et bioluminescence cyan ambiante, Rim lighting orange thermique depuis les armes actives, reflets spéculaires sur le verre blindé du casque, obscurité profonde contrastée par éclats lumineux saturés",
+      "mood": "Menaçant, oppressant, silence tendu prédateur, industrial horror aquatique, tension infiltration"
+    },
+    "camera": {
+      "angle": "Low angle légèrement dutch pour emphasizes silhouette imposante, regard remonte vers caméra depuis les profondeurs"
+    },
+    "scenography": {
+      "setting": "Fluide du vide spatial - environnement aquatique pressurisé industriel, structures bathyscaphe au loin, équipements miniers abandonnés flottant, plateformes pétrolières volantes en arrière-plan brumeux,Micro-débris et particules illuminées par les reflets cyan",
+      "atmosphere_vfx": "Brume cyan luminescente particules en suspension, vapeur d'eau bouillante émanant des valves de décompression, fuites de plasma orange crépitant, micro-bulles gazeuses s'échappant du scaphandre, égratignures et cicatrices de micro-météorites sur le blindage"
+    }
   }
 }

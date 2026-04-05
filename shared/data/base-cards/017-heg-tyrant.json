@@ -3,7 +3,7 @@
   "name": "Tyrant",
   "description": "Sentinelle impériale patrouillant les périmètres des installations conquises et repoussant les contre-attaques.",
   "element": "radiation",
-  "faction": "Hégémonie martienne",
+  "faction": "Hégémonie Martienne",
   "topValue": "3",
   "rightValue": "3",
   "bottomValue": "5",
@@ -17,6 +17,55 @@
     "neutre"
   ],
   "prompt": {
-    "raw": ""
+    "format": "1:1",
+    "subject": {
+      "archetype": "Tyrant Sentinelle Impériale de l'Hégémonie Martienne - Guerrier Puriste surarmé de classe lourde, silhouette massive et imposante rappelant un golem d'acier rougeoyant",
+      "loadout": {
+        "armor_outfit": "Armure de plates complète en plaques d'acier martien soudées et polies jusqu'à l'excellence, surfaces lisses et réfléchissantes sans aucune aspérité ni jointure visible. Structure squelettique interne en alliage titane-carbone. Plastron avec inscripciones géométriques gravées au laser en relief. Pauldrons angulaires asymétriques pointant vers l'avant. Cuissardes et gantelets hexagonaux aux arêtes vives. Casque intégral en forme de dôme trapézoïdal avec visière opaque noire et unique fente horizontale rouge lumineuse. Cape courte asymétrique en tissu balistique sombre attachée à l'épaule gauche",
+        "arsenal": "Fusil électromagnétique railgun massif de modèle Impérial Mk.VII, canon octogonal rectangulaire avec réservoir d'énergie rougeoyant, crosse squelettique géométrique. Épée thermique à double tranchant montée sur l'avant-bras droit, lame rougeoyante incandescente (rouge vif à incandescence blanche) dégageant de la fumée thermale et des vagues de chaleur, garde hexagonale"
+      },
+      "attitude": {
+        "behavior": "Position debout statique en garde martiale, poids du corps légèrement avancé sur la jambe avant, bras gauche tenant le railgun vertical contre le flanc, bras droit légèrement relevé avec la lame thermique activée produisant un halo thermique ondulant. Tête immobile, fente rouge du casque balayant la ligne d'horizon. Posture de dissuasion absolue, présence écrasante",
+        "emotion": "Absence totale d'émotion humaine - vide calculateur d'IA guerrière. Détection et destruction. Concentration létale filtrée par l'opacité du casque. La chaleur de la lame crée des micro-turbulences d'air autour de la sentinelle"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Brutalist High-Tech",
+          "Hyperdetailed Armor Design"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Rouge Carmin Profond",
+          "role": "Couleur primaire dominante 60% - armure principale, plaques de blindage, struktur"
+        },
+        {
+          "name": "Gris Charbon Obscur",
+          "role": "Couleur secondaire 30% - articulations, câbles énergétiques internes visibles, textiles"
+        },
+        {
+          "name": "Rouge Vif Incandescent",
+          "role": "Accents néon 10% - fente du casque, réacteur dorsal, plasma du railgun, lame thermique, circuits d'énergie"
+        }
+      ],
+      "lighting_setup": "Éclairage cinématique dramatique - source principale de haut à droite (soleil martien rougeoyant filtré par poussière), rim light rouge intense sur les arêtes du casque et des épaules, éclairage global bloom sur les éléments néon (lame, visière, réacteurs), ombres profondes et dures en mode chiaroscuro",
+      "mood": "Menaçant, oppressant, impérial, hiératique, autorité absolute, menace imminente"
+    },
+    "camera": {
+      "angle": "Low angle extrémè - camera positioned 1.2m below ground level looking up dramatically, dutch tilt léger vers la gauche pour accentuer l'instabilité hiérarchique"
+    },
+    "scenography": {
+      "setting": "Périmètre d'installation conquise sur Mars - sol industriel en béton craquelé avec taches de rouille et débris métalliques, structures métalliques hexagonales en arrière-plan (conduites, bunkers), mur de fortification en acier rouge avec inscription IMPERIUM gravée, ciel martien rouge-orange poussiéreux avec silhouette de dômes industriels",
+      "atmosphere_vfx": "Poussière martienne en suspension illuminée par les reflets rouges, micro-particules scintillantes autour de la lame thermique, chaleur ondulatoire (heat shimmer) distordant l'air, néons rouges pulsés subtils sur l'armure, atmosphère brumeuse sèche"
+    }
   }
 }

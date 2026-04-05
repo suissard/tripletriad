@@ -2,8 +2,11 @@
   "name": "Forge Assiégée de Vulkan",
   "description": "Forteresse mobile de fabrication et de bombardement. Son forge-plasma produit des munitions sur le champ de bataille tandis que ses canons pilonnent sans relâche. L'usine qui détruit tout en fabriquant les moyens de détruire encore.",
   "element": "obsidienne",
-  "elements": ["obsidienne", "reseau"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "obsidienne",
+    "reseau"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "6",
   "rightValue": "6",
   "bottomValue": "8",

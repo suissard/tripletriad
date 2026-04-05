@@ -2,8 +2,10 @@
   "name": "Bastion Mobile",
   "description": "Forteresse roulante transportant une garnison entière. Murs rétractables en acier cramoisie et batteries anti-aériennes intégrées. Se déploie en position de siège en quelques secondes.",
   "element": "obsidienne",
-  "elements": ["obsidienne"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "3",
   "rightValue": "4",
   "bottomValue": "6",

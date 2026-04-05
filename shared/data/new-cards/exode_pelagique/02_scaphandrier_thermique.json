@@ -2,8 +2,10 @@
   "name": "Scaphandrier Thermique",
   "description": "Mineur pélagique reconverti en soldat d'assaut, sa scie thermique circulaire crache des gerbes d'étincelles en fusion. Les vérins hydrauliques de son scaphandre grondent à chaque pas.",
   "element": "eau",
-  "elements": ["eau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "2",
   "rightValue": "1",
   "bottomValue": "3",

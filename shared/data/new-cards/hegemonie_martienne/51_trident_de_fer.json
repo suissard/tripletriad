@@ -2,8 +2,11 @@
   "name": "Trident de Fer",
   "description": "Croiseur de bombardement orbital. Trois canons laser principaux forment sa signature en trident. Il pilonne les positions depuis l'orbite avant que l'infanterie ne descende — doctrine Puriste par excellence.",
   "element": "longue_portee",
-  "elements": ["longue_portee", "reseau"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "longue_portee",
+    "reseau"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "6",
   "rightValue": "8",
   "bottomValue": "7",

@@ -2,8 +2,10 @@
   "name": "Patrouilleur Urbain",
   "description": "Fantassin de combat rapproché en milieu construit. Agile dans les ruines, impitoyable dans les rues, il traque la vermine maison par maison.",
   "element": "furtif",
-  "elements": ["furtif"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "furtif"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "2",
   "rightValue": "1",
   "bottomValue": "2",

@@ -2,7 +2,7 @@
   "name": "Prophète des Ruines",
   "description": "Oracle irradié qui voit l'avenir dans les retombées nucléaires.",
   "element": "radiation",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "3",
   "rightValue": "1",
   "bottomValue": "4",

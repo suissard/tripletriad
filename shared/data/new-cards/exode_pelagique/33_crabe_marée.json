@@ -2,8 +2,11 @@
   "name": "Crabe Marée",
   "description": "Véhicule d'assaut crustacé à six pattes hydrauliques. Ses pinces-cisailles sectionnent le blindage ennemi tandis que son corps bulbeux projette des jets d'eau surchauffée. Le fer de lance des frappes fluides.",
   "element": "eau",
-  "elements": ["eau", "reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "4",
   "rightValue": "5",
   "bottomValue": "5",

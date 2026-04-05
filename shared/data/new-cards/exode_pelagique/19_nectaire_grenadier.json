@@ -2,8 +2,10 @@
   "name": "Nectaire Grenadier",
   "description": "Unité de débarquement dont le réservoir dorsal contient du plasma surchauffé sous pression. À bout portant, il ouvre les vannes et inonde la zone d'une nappe de feu liquide.",
   "element": "eau",
-  "elements": ["eau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "3",
   "rightValue": "2",
   "bottomValue": "2",

@@ -13,7 +13,7 @@ Les vrais attributs sont définis dans le Content-Type Strapi :
 | **description** | `text` | ❌ | Description narrative | |
 | **element** | `enumeration` | ❌ | Élément principal | `None`, `eau`, `faille_dimensionnelle`, `furtif`, `hacking`, `longue_portee`, `obsidienne`, `radiation`, `reseau`, `spore` |
 | **elements** | `json` | ❌ | Éléments multiples (liste) | ex: `["radiation", "eau"]` |
-| **faction** | `enumeration` | ❌ | Faction de la carte | `neutre`, `Hégémonie martienne`, `Exode pélagique`, `Héritiers des cendres`, `Omni-Réseau`, `Chœur Synthétique`, `Éveil Chthonien`, `Incursion Dissonante`, `Ferrailleurs de la Ceinture`, `Fléau Spore` |
+| **faction** | `enumeration` | ❌ | Faction de la carte | `neutre`, `Hégémonie Martienne`, `Exode Pélagique`, `Héritiers des Cendres`, `Omni-Réseau`, `Chœur Synthétique`, `Éveil Chthonien`, `Incursion Dissonante`, `Ferrailleurs de la Ceinture`, `Fléau Spore` |
 | **topValue** | `string` | ✅ | Valeur puissance Haut | Max 1 caractère |
 | **rightValue** | `string` | ✅ | Valeur puissance Droite | Max 1 caractère |
 | **bottomValue** | `string` | ✅ | Valeur puissance Bas | Max 1 caractère |
@@ -89,7 +89,7 @@ shared/data/stories/
   "description": "Un petit combatant courageux.",
   "element": "None",
   "elements": ["radiation", "eau"],
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "2",
   "rightValue": "1",
   "bottomValue": "3",

@@ -2,8 +2,10 @@
   "name": "Spatha Ignis",
   "description": "Assaillant d'élite armé d'une épée à énergie thermique à double tranchant et de gantelets surchargés. Déploiement par chute orbitale directement dans les lignes ennemies. La lame rougeoyante sectionne l'acier comme du papier.",
   "element": "obsidienne",
-  "elements": ["obsidienne"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "6",
   "rightValue": "5",
   "bottomValue": "2",

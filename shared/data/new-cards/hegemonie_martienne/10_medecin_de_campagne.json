@@ -2,8 +2,10 @@
   "name": "Médecin de Campagne",
   "description": "Chirurgien militaire de l'Hégémonie, spécialisé en greffes rapides et stims d'urgence. Sauve les corps, pas les esprits.",
   "element": "None",
-  "elements": ["None"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "None"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "1",
   "rightValue": "2",
   "bottomValue": "3",

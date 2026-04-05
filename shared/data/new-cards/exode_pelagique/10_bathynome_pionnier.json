@@ -2,8 +2,11 @@
   "name": "Bathynome Pionnier",
   "description": "Éclaireur lourd qui cartographie les fonds en temps réel par sonar pulsé. Ses données alimentent le réseau tactique, révélant les positions ennemies même à travers les murs.",
   "element": "reseau",
-  "elements": ["reseau", "eau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "reseau",
+    "eau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "2",
   "rightValue": "2",
   "bottomValue": "1",

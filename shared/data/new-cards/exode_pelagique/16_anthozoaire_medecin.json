@@ -2,8 +2,11 @@
   "name": "Anthozoaire Médecin",
   "description": "Médecin de champ de bataille qui utilise des greffes de corail vivant pour refermer les blessures. Ses tentacules chirurgicales sont d'une précision terrifiante.",
   "element": "eau",
-  "elements": ["eau", "reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "1",
   "rightValue": "2",
   "bottomValue": "3",

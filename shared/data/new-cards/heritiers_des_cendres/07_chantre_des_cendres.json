@@ -2,7 +2,7 @@
   "name": "Chantre des Cendres",
   "description": "Psalmodie des Textes Sacrés qui affaiblissent l'ennemi mentalement.",
   "element": "radiation",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "2",
   "rightValue": "1",
   "bottomValue": "5",

@@ -2,8 +2,11 @@
   "name": "Architeuthide Mitrailleur",
   "description": "Fantassin lourd armé d'un découpeur plasma rotatif monté sur bras mécanique. Le canon tourne en permanence, crachant un filet continu de plasma orange thermique.",
   "element": "eau",
-  "elements": ["eau", "longue_portee"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "longue_portee"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "2",
   "rightValue": "1",
   "bottomValue": "2",

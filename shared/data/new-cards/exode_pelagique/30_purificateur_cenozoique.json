@@ -2,8 +2,12 @@
   "name": "Purificateur Cénozoïque",
   "description": "Dernière ligne de défense pélagique en scaphandre de décontamination lourde. Son lance-flux projette un mur d'eau surchauffée et de plasma qui désintègre toute matière organique.",
   "element": "eau",
-  "elements": ["eau", "longue_portee", "reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "longue_portee",
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "5",
   "rightValue": "5",
   "bottomValue": "4",

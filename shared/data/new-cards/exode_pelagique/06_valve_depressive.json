@@ -2,8 +2,11 @@
   "name": "Valve Dépressive",
   "description": "Tireur d'élite pélagique armé d'un lance-harpon à longue portée propulsé par une détente brusque de pression. Le projectile transperce les blindages légers avant que la cible n'entende le sifflement.",
   "element": "longue_portee",
-  "elements": ["longue_portee", "eau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "longue_portee",
+    "eau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "2",
   "rightValue": "1",
   "bottomValue": "1",

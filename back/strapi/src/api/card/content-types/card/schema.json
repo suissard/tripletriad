@@ -43,9 +43,9 @@
       "default": "neutre",
       "enum": [
         "neutre",
-        "Hégémonie martienne",
-        "Exode pélagique",
-        "Héritiers des cendres",
+        "Hégémonie Martienne",
+        "Exode Pélagique",
+        "Héritiers des Cendres",
         "Omni-Réseau",
         "Chœur Synthétique",
         "Éveil Chthonien",

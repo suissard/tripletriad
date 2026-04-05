@@ -2,8 +2,10 @@
   "name": "Lance-Missile Portatif",
   "description": "Fantassin anti-véhicule armé d'un lanceur cinétique guidé. Chaque projectile est une frappe chirurgicale orbitale miniature.",
   "element": "longue_portee",
-  "elements": ["longue_portee"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "longue_portee"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "1",
   "rightValue": "1",
   "bottomValue": "2",

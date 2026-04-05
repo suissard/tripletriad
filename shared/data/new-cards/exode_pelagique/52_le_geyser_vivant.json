@@ -2,8 +2,12 @@
   "name": "Le Geyser Vivant",
   "description": "Navire d'assaut lourd reconverti d'une plateforme de forage orbital. Ses canons à geyser crachent des torrents de plasma surchauffé, transformant chaque salve en éruption dévastatrice. L'équipage vit dans des sphères de verre remplies d'eau pressurisée.",
   "element": "eau",
-  "elements": ["eau", "longue_portee", "reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "longue_portee",
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "7",
   "rightValue": "6",
   "bottomValue": "5",

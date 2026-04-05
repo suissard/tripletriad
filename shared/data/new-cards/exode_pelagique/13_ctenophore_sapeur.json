@@ -2,8 +2,11 @@
   "name": "Cténophore Sapeur",
   "description": "Saboteur spécialisé dans les charges plasma sous-marines. Il place des mines de pression qui implosent les structures ennemies en créant un vide instantané.",
   "element": "eau",
-  "elements": ["eau", "longue_portee"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "longue_portee"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "2",
   "rightValue": "1",
   "bottomValue": "2",

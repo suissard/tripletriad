@@ -2,8 +2,12 @@
   "name": "Ancre Vivante",
   "description": "Artilleur d'ancrage en exosquelette surmonté d'un harpon plasma massif. Il plante son arme dans le sol pour créer un point de verrouillage réseau pour les frappes coordonnées.",
   "element": "reseau",
-  "elements": ["eau", "longue_portee", "reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "longue_portee",
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "5",
   "rightValue": "4",
   "bottomValue": "3",

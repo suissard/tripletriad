@@ -2,8 +2,11 @@
   "name": "Méduse Colossale",
   "description": "Un bathyscaphe bioluminescent inspiré des cnidaires abyssaux. Son dôme translucide abrite un réseau de tentacules-écrans qui diffractent les tirs ennemis. Plateforme de défense mobile de première ligne.",
   "element": "eau",
-  "elements": ["eau", "reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "2",
   "rightValue": "6",
   "bottomValue": "7",

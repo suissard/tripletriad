@@ -2,8 +2,12 @@
   "name": "L'Ancrage",
   "description": "Céphalopode géant bio-ingénieré, quatre étages de muscle et de cartilage renforcé par une armature métallique greffée. Véritable forteresse vivante du réseau pélagique, il ancre les lignes de front en déployant des tentacules-électrodes qui électrifient le sol et crachent du plasma ionisé à longue portée.",
   "element": "eau",
-  "elements": ["eau", "longue_portee", "reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "longue_portee",
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "8",
   "rightValue": "7",
   "bottomValue": "6",

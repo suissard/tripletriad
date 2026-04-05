@@ -2,8 +2,11 @@
   "name": "Optifex Sentinel",
   "description": "Éclaireur lourd en armure furtive renforcée, doté de capteurs multi-spectres et d'un fusil de précision électromagnétique longue portée. Repère les cibles pour les frappes orbitales. L'œil invisible de l'Hégémonie.",
   "element": "furtif",
-  "elements": ["furtif", "longue_portee"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "furtif",
+    "longue_portee"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "4",
   "rightValue": "6",
   "bottomValue": "3",
