@@ -1,6 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { setDefaultResultOrder } from 'node:dns';
+
+// Force l'IPv4 en priorité pour éviter les erreurs de résolution locale (Node 18+)
+setDefaultResultOrder('ipv4first');
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -13,7 +17,9 @@ function loadEnv() {
   if (fs.existsSync(ENV_PATH)) {
     const content = fs.readFileSync(ENV_PATH, 'utf-8');
     content.split('\n').forEach(line => {
-      const match = line.match(/^([^=]+)=(.*)$/);
+      const trimmedLine = line.trim();
+      if (!trimmedLine || trimmedLine.startsWith('#')) return;
+      const match = trimmedLine.match(/^([^=]+)=(.*)$/);
       if (match) {
         env[match[1].trim()] = match[2].trim();
       }
@@ -37,7 +43,7 @@ async function getAdminToken() {
 
   if (!res.ok) {
     const err = await res.text();
-    throw new Error(`Échec login Strapi: ${err}`);
+    throw new Error(`Échec login Strapi (${res.status}): ${err}`);
   }
 
   const data = await res.json();
