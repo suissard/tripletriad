@@ -185,13 +185,7 @@ export default {
     await generateQuestTemplates(strapi);
     console.log('✅ Quest templates generated.');
 
-    try {
-      const { bootstrapCards } = require('./api/card/services/card-bootstrap');
-      await bootstrapCards(strapi);
-      console.log('✅ Cards bootstrapped.');
-    } catch (err) {
-      console.error('❌ Error bootstrapping cards:', err);
-    }
+
 
     // 3.3. Bootstrapping decks
     try {

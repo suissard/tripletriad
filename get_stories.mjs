@@ -16,7 +16,7 @@ const query = qs.stringify({
 }, { encodeValuesOnly: true });
 
 console.log(query);
-fetch(`http://localhost:1337/api/stories?${query}`)
+fetch(`http://localhost:1340/api/stories?${query}`)
   .then(res => res.json())
   .then(data => console.log(JSON.stringify(data, null, 2)))
   .catch(console.error);
