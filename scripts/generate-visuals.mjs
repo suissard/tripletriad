@@ -19,6 +19,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import readline from 'readline';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -63,31 +64,15 @@ if (!fs.existsSync(TMP_DIR)) {
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-/**
- * Transforme le prompt structuré en chaîne simple pour l'IA
- */
-function buildVisualPrompt(cardData) {
-  const p = cardData.prompt;
-  
-  // Si un prompt brut est fourni, on l'utilise directement
-  if (p?.raw && p.raw.trim().length > 0) {
-    return p.raw;
-  }
-
-  // Si le prompt est structuré, on construit la chaîne
-  if (p && typeof p === 'object' && Object.keys(p).length > 1) {
-    const parts = [];
-    if (p.subject?.archetype) parts.push(p.subject.archetype);
-    if (p.subject?.loadout?.armor_outfit) parts.push(`Wearing ${p.subject.loadout.armor_outfit}`);
-    if (p.subject?.loadout?.arsenal) parts.push(`Equipped with ${p.subject.loadout.arsenal}`);
-    if (p.scenography?.setting) parts.push(`In a ${p.scenography.setting}`);
-    if (p.graphics?.style?.technique) parts.push(`Style: ${p.graphics.style.technique}`);
-    
-    if (parts.length > 0) return parts.join('. ');
-  }
-  
-  // Fallback sur la description si rien d'autre n'est disponible
-  return cardData.description || "";
+function askQuestion(query) {
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    });
+    return new Promise(resolve => rl.question(query, ans => {
+        rl.close();
+        resolve(ans);
+    }));
 }
 
 /**
@@ -197,69 +182,9 @@ function findLocalVisual(imagePath) {
   return null;
 }
 
-// (La fonction d'association individuelle est supprimée car nous créons les cartes directement)
-
 // ─── Traitement ───────────────────────────────────────────────────────────────
 
-async function processCard(token, filePath, current, total) {
-  const fileName = path.basename(filePath);
-  const cardData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-  
-  process.stdout.write(`⏳ [${current}/${total}] ${cardData.name.padEnd(25)} | `);
-
-  let mediaId;
-  let method = "";
-
-  // 1. Vérifier si un visuel existe déjà localement
-  const localVisualPath = findLocalVisual(cardData.image);
-
-  if (localVisualPath) {
-    process.stdout.write(`local... `);
-    const media = await uploadToStrapi(token, localVisualPath, path.basename(localVisualPath));
-    mediaId = media.id;
-    method = "LOCAL";
-  } else {
-    // 2. Sinon, génération via n8n
-    const visualPrompt = buildVisualPrompt(cardData);
-    process.stdout.write(`n8n... `);
-    const webhookRes = await fetch(WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt: visualPrompt, model: "sourceful/riverflow-v2-fast" })
-    });
-
-    if (!webhookRes.ok) {
-      const errText = await webhookRes.text();
-      throw new Error(`Erreur n8n (${webhookRes.status}): ${errText}`);
-    }
-    const responseText = await webhookRes.text();
-
-    let webhookData;
-    try {
-      webhookData = JSON.parse(responseText);
-      if (Array.isArray(webhookData)) webhookData = webhookData[0];
-    } catch (e) {
-      console.log(`\n   📡 Réponse brute n8n: "${responseText}"`);
-      throw new Error(`Erreur parsing JSON n8n: ${e.message}`);
-    }
-
-    const imageUrl = webhookData.webContentLink || webhookData.imageurl || webhookData.url || webhookData.output || webhookData.image; 
-    if (!imageUrl) throw new Error('Pas d\'URL d\'image');
-
-    // 3. Télécharger l'image temporairement
-    process.stdout.write(`dl... `);
-    const tmpPath = path.join(TMP_DIR, `${path.basename(fileName, '.json')}.png`);
-    await downloadImage(imageUrl, tmpPath);
-
-    // 4. Uploader dans Strapi
-    process.stdout.write(`up... `);
-    const media = await uploadToStrapi(token, tmpPath, `${path.basename(fileName, '.json')}.png`);
-    mediaId = media.id;
-    method = "N8N";
-  }
-
-  // 5. Création de la carte dans Strapi
-  process.stdout.write(`strapi... `);
+async function createCardInStrapi(token, cardData, mediaId) {
   const payload = {
       name: cardData.name,
       description: cardData.description,
@@ -285,9 +210,57 @@ async function processCard(token, filePath, current, total) {
       const err = await res.text();
       throw new Error(`Création échouée: ${err}`);
   }
+}
 
-  console.log(`✅ OK (${method})`);
-  return method;
+async function processLocalCard(token, cardData, localVisualPath, current, total) {
+  process.stdout.write(`⏳ [${current}/${total}] ${cardData.name.padEnd(25)} | local... `);
+  const media = await uploadToStrapi(token, localVisualPath, path.basename(localVisualPath));
+  process.stdout.write(`strapi... `);
+  await createCardInStrapi(token, cardData, media.id);
+  console.log(`✅ OK (LOCAL)`);
+}
+
+async function processN8nCard(token, cardData, fileName, current, total) {
+  process.stdout.write(`⏳ [${current}/${total}] ${cardData.name.padEnd(25)} | n8n... `);
+  const webhookRes = await fetch(WEBHOOK_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ 
+      prompt: JSON.stringify(cardData.prompt), 
+      model: "sourceful/riverflow-v2-fast",
+      name: path.basename(fileName, '.json')
+    })
+  });
+
+  if (!webhookRes.ok) {
+      const errText = await webhookRes.text();
+      throw new Error(`Erreur n8n (${webhookRes.status}): ${errText}`);
+  }
+  const responseText = await webhookRes.text();
+
+  let webhookData;
+  try {
+      webhookData = JSON.parse(responseText);
+      if (Array.isArray(webhookData)) webhookData = webhookData[0];
+  } catch (e) {
+      console.log(`\n   📡 Réponse brute n8n: "${responseText}"`);
+      throw new Error(`Erreur parsing JSON n8n: ${e.message}`);
+  }
+
+  const imageUrl = webhookData.webContentLink || webhookData.imageurl || webhookData.url || webhookData.output || webhookData.image; 
+  if (!imageUrl) throw new Error('Pas d\'URL d\'image');
+
+  process.stdout.write(`dl... `);
+  const tmpPath = path.join(TMP_DIR, `${path.basename(fileName, '.json')}.png`);
+  await downloadImage(imageUrl, tmpPath);
+
+  process.stdout.write(`up... `);
+  const media = await uploadToStrapi(token, tmpPath, `${path.basename(fileName, '.json')}.png`);
+
+  process.stdout.write(`strapi... `);
+  await createCardInStrapi(token, cardData, media.id);
+
+  console.log(`✅ OK (N8N)`);
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
@@ -296,6 +269,7 @@ async function main() {
   const args = process.argv.slice(2);
   const isTest = args.includes('--test');
   const cardArg = args.includes('--card') ? args[args.indexOf('--card') + 1] : null;
+  const rangeArg = args.includes('--range') ? args[args.indexOf('--range') + 1] : null;
 
   try {
     const token = await getAdminToken();
@@ -318,6 +292,12 @@ async function main() {
       files = missingFiles.length > 0 ? [missingFiles[0]] : [];
     } else if (cardArg) {
       files = missingFiles.filter(f => f.startsWith(cardArg));
+    } else if (rangeArg) {
+      const [start, end] = rangeArg.split('-').map(Number);
+      files = missingFiles.filter(f => {
+        const num = parseInt(f.split('-')[0]);
+        return num >= start && num <= end;
+      });
     } else {
       files = missingFiles;
     }
@@ -327,33 +307,69 @@ async function main() {
       process.exit(0);
     }
 
-    console.log(`🚀 Démarrage de la génération pour ${files.length} nouvelle(s) carte(s)\n`);
+    console.log(`🚀 Démarrage de l'analyse pour ${files.length} nouvelle(s) carte(s)\n`);
 
-    let successCount = 0;
-    let n8nCount = 0;
-    let localCount = 0;
-    let errorCount = 0;
+    let localCards = [];
+    let n8nCards = [];
 
     for (let i = 0; i < files.length; i++) {
-      const filePath = path.join(BASE_CARDS_DIR, files[i]);
-      try {
-        const method = await processCard(token, filePath, i + 1, files.length);
-        successCount++;
-        if (method === "N8N") n8nCount++;
-        if (method === "LOCAL") localCount++;
-      } catch (err) {
-        console.log(`❌ Erreur: ${err.message}`);
-        errorCount++;
-      }
+        const filePath = path.join(BASE_CARDS_DIR, files[i]);
+        const cardData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+        const localVisualPath = findLocalVisual(cardData.image);
+
+        if (localVisualPath) {
+            localCards.push({ filePath, localVisualPath, cardData, fileName: files[i] });
+        } else {
+            n8nCards.push({ filePath, cardData, fileName: files[i] });
+        }
+    }
+
+    console.log(`🔍 Analyse terminée:`);
+    console.log(`   - ${localCards.length} images locales trouvées.`);
+    console.log(`   - ${n8nCards.length} images à générer via IA.\n`);
+
+    let localCount = 0;
+    let n8nCount = 0;
+    let errorCount = 0;
+
+    if (localCards.length > 0) {
+        console.log(`💾 Importation des images locales...`);
+        for (let i = 0; i < localCards.length; i++) {
+            try {
+                await processLocalCard(token, localCards[i].cardData, localCards[i].localVisualPath, i + 1, localCards.length);
+                localCount++;
+            } catch (err) {
+                console.log(`❌ Erreur sur la carte locale : ${err.message}`);
+                errorCount++;
+            }
+        }
+    }
+
+    if (n8nCards.length > 0) {
+        const answer = await askQuestion(`\n⚠️ Voulez-vous générer les ${n8nCards.length} images manquantes via n8n ? (y/N) : `);
+        if (answer.toLowerCase() === 'y' || answer.toLowerCase() === 'yes' || answer.toLowerCase() === 'o' || answer.toLowerCase() === 'oui') {
+            console.log(`\n🤖 Génération des images via n8n...`);
+            for (let i = 0; i < n8nCards.length; i++) {
+                try {
+                    await processN8nCard(token, n8nCards[i].cardData, n8nCards[i].fileName, i + 1, n8nCards.length);
+                    n8nCount++;
+                } catch (err) {
+                    console.log(`❌ Erreur sur la carte n8n : ${err.message}`);
+                    errorCount++;
+                }
+            }
+        } else {
+            console.log(`⏭️ Génération n8n annulée par l'utilisateur.`);
+        }
     }
 
     console.log(`\n===================================`);
     console.log(`🎉 BILAN DE LA GÉNÉRATION`);
     console.log(`===================================`);
-    console.log(`Cartes existantes déjà en base : ${allFiles.length - missingFiles.length}`);
-    console.log(`Nouvelles images via n8n      : ${n8nCount}`);
-    console.log(`Visuels locaux réutilisés      : ${localCount}`);
-    console.log(`Échecs de traitement          : ${errorCount}`);
+    console.log(`Cartes existantes ignorées : ${allFiles.length - missingFiles.length}`);
+    console.log(`Nouvelles images via n8n   : ${n8nCount}`);
+    console.log(`Visuels locaux importés    : ${localCount}`);
+    console.log(`Échecs de traitement       : ${errorCount}`);
     console.log(`===================================\n`);
 
   } catch (err) {
