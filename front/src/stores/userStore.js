@@ -395,6 +395,48 @@ export const useUserStore = defineStore('user', {
       }
     },
 
+    /**
+     * Updates the local cache with booster opening results
+     * @param {Object} data - The data returned by /booster/open
+     */
+    async handleBoosterResults(data) {
+      if (!data || !data.wallet) return;
+
+      // 1. Update Wallet & Boosters
+      this.user.coins = data.wallet.coins;
+      this.user.gems = data.wallet.gems;
+      this.user.dust = data.wallet.dust;
+      this.user.boosters = data.wallet.boosters;
+      this.syncLocalUserWallets();
+
+      // 2. Update Collection Cache (Optimistic UI)
+      if (data.cards && Array.isArray(data.cards)) {
+        data.cards.forEach(newCard => {
+          const cardId = newCard.id;
+          const isPremium = !!newCard.isDrawnPremium;
+          
+          const existing = this.collection.find(c => c.cardId === cardId && c.isPremium === isPremium);
+          if (existing) {
+            existing.quantity += 1;
+          } else {
+            this.collection.push({
+              id: null, // Temporary, will be filled by fetchUserCollection
+              cardId: cardId,
+              cardDocumentId: newCard.documentId,
+              quantity: 1,
+              isPremium: isPremium
+            });
+          }
+        });
+      }
+
+      // 3. Background Sync to get real IDs and ensure consistency
+      if (this.strapiConnected) {
+        console.log('[UserStore] Booster opened, background collection sync starting...');
+        this.fetchUserCollection(true);
+      }
+    },
+
     async saveDeck(deck, overrideUser = null) {
       if (!this.strapiConnected) {
           const payload = {

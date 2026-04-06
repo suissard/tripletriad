@@ -73,12 +73,47 @@ async function uploadToStrapi(token, filePath, fileName) {
   return data[0];
 }
 
-async function createCardInStrapi(token, cardData, mediaId) {
+async function fetchAllCards(token) {
+  console.log('🔍 Récupération des cartes existantes...');
+  let allCards = [];
+  let page = 1;
+  const pageSize = 100;
+  
+  while (true) {
+    const res = await fetch(`${STRAPI_URL}/content-manager/collection-types/api::card.card?page=${page}&pageSize=${pageSize}`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    
+    if (!res.ok) {
+        const err = await res.text();
+        throw new Error(`Échec récupération cartes: ${err}`);
+    }
+    
+    const data = await res.json();
+    const results = data.results || [];
+    allCards = allCards.concat(results);
+    
+    if (page >= data.pagination?.pageCount || results.length === 0) break;
+    page++;
+  }
+  
+  const cardMap = {};
+  allCards.forEach(c => {
+    cardMap[c.name] = c;
+  });
+  return cardMap;
+}
+
+async function upsertCardInStrapi(token, cardData, mediaId, existingCard = null) {
   const payload = {
       name: cardData.name,
       description: cardData.description,
       level: cardData.level || 1,
       element: cardData.element,
+      elements: Array.isArray(cardData.elements) ? cardData.elements : [cardData.element || 'None'],
+      faction: cardData.faction || 'neutre',
+      rarity: cardData.rarity || 'Common',
+      defaultHp: cardData.defaultHp || 3,
       topValue: cardData.topValue?.toString() || "0",
       rightValue: cardData.rightValue?.toString() || "0",
       bottomValue: cardData.bottomValue?.toString() || "0",
@@ -87,8 +122,13 @@ async function createCardInStrapi(token, cardData, mediaId) {
       collectionName: cardData.collectionName
   };
   
-  const res = await fetch(`${STRAPI_URL}/content-manager/collection-types/api::card.card`, {
-      method: 'POST',
+  const method = existingCard ? 'PUT' : 'POST';
+  const url = existingCard 
+    ? `${STRAPI_URL}/content-manager/collection-types/api::card.card/${existingCard.documentId || existingCard.id}`
+    : `${STRAPI_URL}/content-manager/collection-types/api::card.card`;
+
+  const res = await fetch(url, {
+      method: method,
       headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
@@ -98,28 +138,31 @@ async function createCardInStrapi(token, cardData, mediaId) {
   
   if (!res.ok) {
       const err = await res.text();
-      throw new Error(`Création échouée: ${err}`);
+      throw new Error(`${existingCard ? 'Mise à jour' : 'Création'} échouée: ${err}`);
   }
 }
 
 async function main() {
     try {
         const token = await getAdminToken();
+        const cardMap = await fetchAllCards(token);
         const directories = fs.readdirSync(CARDS_DIR).filter(file => fs.statSync(path.join(CARDS_DIR, file)).isDirectory());
         
         let successCount = 0;
+        let updateCount = 0;
         let errorCount = 0;
 
         for (const dir of directories) {
             console.log(`\n📂 Traitement du dossier: ${dir}`);
             const dirPath = path.join(CARDS_DIR, dir);
-            const files = fs.readdirSync(dirPath);
+            const files = fs.readdirSync(dirPath).filter(f => f.endsWith('.json'));
 
-            const jsonFiles = files.filter(f => f.endsWith('.json'));
-
-            for (const file of jsonFiles) {
+            for (const file of files) {
                 const filePath = path.join(dirPath, file);
                 const cardData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+                
+                // Check if card already exists
+                const existingCard = cardMap[cardData.name];
                 
                 // Determine image path
                 let imagePath = null;
@@ -132,7 +175,6 @@ async function main() {
                 } else if (fs.existsSync(visualImagePath)) {
                     imagePath = visualImagePath;
                 } else if (cardData.image) {
-                     // check relative to root just in case
                      const relativeImagePath = path.join(__dirname, '..', cardData.image);
                      if (fs.existsSync(relativeImagePath)) {
                          imagePath = relativeImagePath;
@@ -146,11 +188,14 @@ async function main() {
                 }
 
                 try {
-                    process.stdout.write(`⏳ Intégration de ${cardData.name.padEnd(30)}... `);
+                    const actionLabel = existingCard ? 'Mise à jour' : 'Création';
+                    process.stdout.write(`⏳ ${actionLabel} de ${cardData.name.padEnd(30)}... `);
+                    
                     const media = await uploadToStrapi(token, imagePath, path.basename(imagePath));
-                    await createCardInStrapi(token, cardData, media.id);
+                    await upsertCardInStrapi(token, cardData, media.id, existingCard);
+                    
                     console.log(`✅ OK`);
-                    successCount++;
+                    if (existingCard) updateCount++; else successCount++;
                 } catch (err) {
                     console.log(`❌ Erreur: ${err.message}`);
                     errorCount++;
@@ -160,8 +205,10 @@ async function main() {
         console.log(`\n===================================`);
         console.log(`🎉 BILAN DU SEED `);
         console.log(`===================================`);
-        console.log(`Cartes intégrées avec succès : ${successCount}`);
-        console.log(`Erreurs / Ignorées           : ${errorCount}`);
+        console.log(`Nouvelles cartes créées     : ${successCount}`);
+        console.log(`Cartes mises à jour         : ${updateCount}`);
+        console.log(`Erreurs / Ignorées          : ${errorCount}`);
+        console.log(`Total traité                : ${successCount + updateCount}`);
         console.log(`===================================\n`);
 
     } catch (error) {

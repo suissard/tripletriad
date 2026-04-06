@@ -184,7 +184,7 @@ const router = useRouter();
 
 import { ref, computed, onMounted } from 'vue';
 import TripleTriadCard from '../components/TripleTriadCard.vue';
-import { state } from '../game/state.js';
+import { state, normalizeCard } from '../game/state.js';
 import { useUserStore } from '../stores/userStore.js';
 import strapiMock from '../api/strapiMock.js';
 import TripleTriadCardGrid from '../components/TripleTriadCardGrid.vue';
@@ -334,17 +334,17 @@ const openPack = async () => {
         data = await openRes.json();
     }
     
-    drawnCards.value = data.cards || [];
+    drawnCards.value = (data.cards || []).map(c => ({
+      ...normalizeCard(c),
+      drawnRarity: c.drawnRarity,
+      isDrawnPremium: c.isDrawnPremium
+    }));
     if (!drawnCards.value.length) {
        throw new Error("No cards found in pack");
     }
     
-    // Update global wallet and boosters
-    userStore.user.coins = data.wallet.coins;
-    userStore.user.gems = data.wallet.gems;
-    userStore.user.dust = data.wallet.dust;
-    userStore.user.boosters = data.wallet.boosters;
-    userStore.syncLocalUserWallets();
+    // Update global wallet, boosters and collection
+    userStore.handleBoosterResults(data);
 
     isFlipped.value = new Array(drawnCards.value.length).fill(false);
 
@@ -552,13 +552,19 @@ const getGlowClass = (rarity) => {
 
 :deep(.booster-grid-override .tt-card) {
   border-radius: 1rem;
-  transition: box-shadow 0.5s;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
   /* Use fixed clamp values for card size rather than 100% width,
      but let it grow up to 280px max */
   width: clamp(60px, 18vw, 220px) !important;
   aspect-ratio: 1 / 1 !important;
   height: auto !important;
   font-size: clamp(10px, 1.5vw, 24px) !important;
+  cursor: pointer;
+}
+
+:deep(.booster-grid-override .tt-card:hover) {
+  transform: scale(1.2) translateY(-15px);
+  z-index: 100;
 }
 
 /* Ensuring inner wrapper scales properly inside the overridden card */
@@ -566,12 +572,6 @@ const getGlowClass = (rarity) => {
   width: 100%;
   height: 100%;
 }
-
-:deep(.booster-grid-override .rarity-common) { box-shadow: 0 0 15px rgba(255,255,255,0.1); }
-:deep(.booster-grid-override .rarity-uncommon) { box-shadow: 0 0 20px 5px rgba(76, 175, 80, 0.2); }
-:deep(.booster-grid-override .rarity-rare) { box-shadow: 0 0 25px 6px rgba(59, 130, 246, 0.3), inset 0 0 10px rgba(59, 130, 246, 0.2); }
-:deep(.booster-grid-override .rarity-epic) { box-shadow: 0 0 35px 8px rgba(168, 85, 247, 0.4), inset 0 0 15px rgba(168, 85, 247, 0.2); }
-:deep(.booster-grid-override .rarity-legendary) { box-shadow: 0 0 40px 10px rgba(250, 204, 21, 0.5), inset 0 0 20px rgba(250, 204, 21, 0.3); }
 
 @media (max-width: 768px) {
   .text-7xl { font-size: 3.5rem; }
