@@ -7,10 +7,10 @@
     "hacking"
   ],
   "faction": "Éveil Chthonien",
-  "topValue": "5",
-  "rightValue": "6",
-  "bottomValue": "3",
-  "leftValue": "6",
+  "topValue": "9",
+  "rightValue": "A",
+  "bottomValue": "2",
+  "leftValue": "5",
   "skills": [
     {
       "type": "growing",

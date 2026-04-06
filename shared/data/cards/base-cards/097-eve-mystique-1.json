@@ -4,10 +4,10 @@
   "description": "Invocateur ouvrant des portails vers les dimensions chthoniennes permettant le passage d'entités alliées depuis d'autres mondes.",
   "element": "faille_dimensionnelle",
   "faction": "Éveil Chthonien",
-  "topValue": "5",
+  "topValue": "0",
   "rightValue": "5",
-  "bottomValue": "5",
-  "leftValue": "3",
+  "bottomValue": "8",
+  "leftValue": "4",
   "skills": [
     {
       "type": "growing",

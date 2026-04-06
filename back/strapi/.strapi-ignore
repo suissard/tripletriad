@@ -1,0 +1,4 @@
+src/shared/data/**
+src/shared/**/*.md
+shared/data/**
+shared/**/*.md

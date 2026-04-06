@@ -4,10 +4,10 @@
   "description": "Conscience Collective fusionnant des millions d'esprits connectés en une intelligence stratégique unique dépassant toute compréhension individuelle.",
   "element": "reseau",
   "faction": "Omni-Réseau",
-  "topValue": "4",
-  "rightValue": "5",
-  "bottomValue": "9",
-  "leftValue": "6",
+  "topValue": "9",
+  "rightValue": "8",
+  "bottomValue": "A",
+  "leftValue": "A",
   "skills": [
     {
       "type": "death",

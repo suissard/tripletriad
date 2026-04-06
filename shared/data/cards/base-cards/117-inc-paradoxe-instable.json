@@ -4,10 +4,10 @@
   "description": "Faille vivante traversant les dimensions pour contourner les barricades et les barrières les plus impénétrables.",
   "element": "faille_dimensionnelle",
   "faction": "Incursion Dissonante",
-  "topValue": "4",
-  "rightValue": "7",
-  "bottomValue": "5",
-  "leftValue": "4",
+  "topValue": "2",
+  "rightValue": "8",
+  "bottomValue": "7",
+  "leftValue": "A",
   "skills": [
     {
       "type": "decrease",

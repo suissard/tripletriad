@@ -4,10 +4,10 @@
   "description": "Courantiste manipulant les flux liquides pour piéger et ralentir les unités ennemies dans les environnements aquatiques.",
   "element": "longue_portee",
   "faction": "Exode Pélagique",
-  "topValue": "4",
+  "topValue": "0",
   "rightValue": "5",
-  "bottomValue": "5",
-  "leftValue": "4",
+  "bottomValue": "6",
+  "leftValue": "2",
   "skills": [
     {
       "type": "decrease",

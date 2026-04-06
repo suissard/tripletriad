@@ -7,10 +7,10 @@
     "furtif"
   ],
   "faction": "Chœur Synthétique",
-  "topValue": "9",
-  "rightValue": "5",
-  "bottomValue": "5",
-  "leftValue": "3",
+  "topValue": "3",
+  "rightValue": "A",
+  "bottomValue": "A",
+  "leftValue": "A",
   "skills": [
     {
       "type": "heal",

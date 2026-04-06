@@ -7,10 +7,10 @@
     "radiation"
   ],
   "faction": "Hégémonie Martienne",
-  "topValue": "5",
-  "rightValue": "5",
-  "bottomValue": "7",
-  "leftValue": "7",
+  "topValue": "9",
+  "rightValue": "A",
+  "bottomValue": "9",
+  "leftValue": "A",
   "skills": [
     {
       "type": "heal",

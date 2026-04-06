@@ -4,10 +4,10 @@
   "description": "Général légionnaire planifiant les campagnes de conquête multi-systèmes avec une précision martienne implacable.",
   "element": "obsidienne",
   "faction": "Hégémonie Martienne",
-  "topValue": "4",
-  "rightValue": "7",
-  "bottomValue": "5",
-  "leftValue": "4",
+  "topValue": "1",
+  "rightValue": "8",
+  "bottomValue": "9",
+  "leftValue": "A",
   "skills": [
     {
       "type": "decrease",

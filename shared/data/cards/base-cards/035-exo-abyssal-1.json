@@ -4,10 +4,10 @@
   "description": "Plongeur des abysses récupérant les artefacts engloutis des stations submergées lors des grandes inondations.",
   "element": "eau",
   "faction": "Exode Pélagique",
-  "topValue": "4",
-  "rightValue": "3",
-  "bottomValue": "5",
-  "leftValue": "4",
+  "topValue": "0",
+  "rightValue": "0",
+  "bottomValue": "1",
+  "leftValue": "0",
   "skills": [
     {
       "type": "death",

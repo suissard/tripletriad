@@ -7,10 +7,10 @@
     "furtif"
   ],
   "faction": "Exode Pélagique",
-  "topValue": "7",
-  "rightValue": "6",
-  "bottomValue": "6",
-  "leftValue": "5",
+  "topValue": "A",
+  "rightValue": "A",
+  "bottomValue": "A",
+  "leftValue": "A",
   "skills": [
     {
       "type": "decrease",

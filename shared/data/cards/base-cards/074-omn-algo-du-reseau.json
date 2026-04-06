@@ -7,10 +7,10 @@
     "spore"
   ],
   "faction": "Omni-Réseau",
-  "topValue": "7",
-  "rightValue": "6",
-  "bottomValue": "5",
-  "leftValue": "4",
+  "topValue": "9",
+  "rightValue": "1",
+  "bottomValue": "9",
+  "leftValue": "A",
   "skills": [
     {
       "type": "heal",

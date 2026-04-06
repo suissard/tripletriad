@@ -89,6 +89,14 @@
 
       <AppButton variant="primary" @click="cancelMulti" style="margin-top: 2rem;">CHANGER DE DECK</AppButton>
     </div>
+
+    <!-- Quest Reward Modal -->
+    <QuestRewardModal 
+      :show="showQuestModal" 
+      :quests="userStore.quests"
+      @close="showQuestModal = false"
+      @rewardClaimed="onRewardClaimed"
+    />
   </div>
 </template>
 
@@ -103,10 +111,17 @@ import { state, webrtc, resetGame, initOnlineTurnManager, getCardById, normalize
 import CoinToss from '../components/CoinToss.vue';
 import AnimatedCardBack from '../components/AnimatedCardBack.vue';
 import MiniDeck from '../components/MiniDeck.vue';
+import QuestRewardModal from '../components/QuestRewardModal.vue';
 import { useUserStore } from '../stores/userStore.js';
 import strapiService from '../api/strapi.js';
 
 const userStore = useUserStore();
+const showQuestModal = ref(false);
+
+const onRewardClaimed = ({ quest, reward }) => {
+  // Optionnel: On peut ajouter un petit effet visuel ici
+  console.log(`Récompense récupérée pour ${quest.title}: ${reward.coins} coins`);
+};
 
 async function resumeStory() {
   const p = userStore.latestStoryProgress;
@@ -253,11 +268,20 @@ onMounted(async () => {
   state.menuView = 'main';
   state.showCoinToss = false;
 
-  // Ensure decks are fresh
+  // Ensure decks and quests are fresh
   try {
-    await userStore.fetchUserDecks();
+    await Promise.all([
+      userStore.fetchUserDecks(),
+      userStore.fetchUserQuests()
+    ]);
+
+    // Check if any quest is completed and reward not claimed
+    const hasUnclaimed = userStore.quests.some(q => q.status === 'completed' && !q.rewardClaimed);
+    if (hasUnclaimed) {
+      showQuestModal.value = true;
+    }
   } catch(e) {
-    console.warn("Failed to fetch decks in MainMenu", e);
+    console.warn("Failed to fetch data in MainMenu", e);
   }
 
   webrtc.onConnected = () => {

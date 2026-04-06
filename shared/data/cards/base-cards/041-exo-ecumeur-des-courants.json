@@ -4,10 +4,10 @@
   "description": "Chef de migration guidant les flots de réfugiés aquatiques vers les océans promis avec une détermination inébranlable.",
   "element": "eau",
   "faction": "Exode Pélagique",
-  "topValue": "6",
-  "rightValue": "4",
-  "bottomValue": "5",
-  "leftValue": "5",
+  "topValue": "7",
+  "rightValue": "8",
+  "bottomValue": "2",
+  "leftValue": "8",
   "skills": [
     {
       "type": "decrease",

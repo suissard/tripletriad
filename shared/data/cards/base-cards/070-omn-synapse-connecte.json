@@ -4,10 +4,10 @@
   "description": "Routeur tactique optimisant les flux d'information en temps de combat pour une réactivité maximale des unités alliées.",
   "element": "faille_dimensionnelle",
   "faction": "Omni-Réseau",
-  "topValue": "4",
-  "rightValue": "6",
-  "bottomValue": "5",
-  "leftValue": "3",
+  "topValue": "6",
+  "rightValue": "5",
+  "bottomValue": "1",
+  "leftValue": "7",
   "skills": [
     {
       "type": "death",

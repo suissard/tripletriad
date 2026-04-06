@@ -4,10 +4,10 @@
   "description": "Abyssaliste exploitant la pression des profondeurs comme arme défensive contre les agresseurs de surface.",
   "element": "furtif",
   "faction": "Exode Pélagique",
-  "topValue": "5",
-  "rightValue": "6",
-  "bottomValue": "4",
-  "leftValue": "5",
+  "topValue": "A",
+  "rightValue": "8",
+  "bottomValue": "3",
+  "leftValue": "3",
   "skills": [
     {
       "type": "growing",

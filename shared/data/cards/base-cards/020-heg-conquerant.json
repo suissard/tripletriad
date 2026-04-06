@@ -4,10 +4,10 @@
   "description": "Officier subalterne maintenant la discipline des troupes sous le feu ennemi grâce à un commandement rigide.",
   "element": "obsidienne",
   "faction": "Hégémonie Martienne",
-  "topValue": "4",
-  "rightValue": "2",
-  "bottomValue": "5",
-  "leftValue": "5",
+  "topValue": "0",
+  "rightValue": "0",
+  "bottomValue": "1",
+  "leftValue": "0",
   "skills": [
     {
       "type": "death",

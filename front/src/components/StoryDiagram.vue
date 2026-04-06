@@ -65,7 +65,7 @@
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { NODE_TYPES } from '../../config/story-nodes.js'
+import { NODE_TYPES } from '../config/story-nodes.js'
 
 const STORY_MODULES = import.meta.glob('../../../shared/data/stories/*/manifest.json', { eager: true })
 

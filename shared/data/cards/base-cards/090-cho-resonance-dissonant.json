@@ -4,10 +4,10 @@
   "description": "Symphonie Ultime fusionnant toutes les harmoniques disponibles en une seule note dévastatrice capable de réduire des structures entières en poussière.",
   "element": "faille_dimensionnelle",
   "faction": "Chœur Synthétique",
-  "topValue": "6",
-  "rightValue": "6",
-  "bottomValue": "6",
-  "leftValue": "6",
+  "topValue": "7",
+  "rightValue": "A",
+  "bottomValue": "A",
+  "leftValue": "A",
   "skills": [
     {
       "type": "heal",

@@ -8,9 +8,9 @@
   ],
   "faction": "neutre",
   "topValue": "6",
-  "rightValue": "4",
-  "bottomValue": "6",
-  "leftValue": "6",
+  "rightValue": "5",
+  "bottomValue": "9",
+  "leftValue": "A",
   "skills": [
     {
       "type": "heal",

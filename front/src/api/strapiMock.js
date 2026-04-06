@@ -1,4 +1,4 @@
-import cardsData from '../../../shared/data/cards.json';
+import cardsData from '../../../shared/data/cards.json' with { type: 'json' };
 
 const OFFLINE_DECKS_KEY = 'tt_offline_decks';
 

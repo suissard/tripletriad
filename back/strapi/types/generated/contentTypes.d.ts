@@ -987,6 +987,7 @@ export interface ApiPlayerQuestPlayerQuest extends Struct.CollectionTypeSchema {
       'manyToOne',
       'api::quest-template.quest-template'
     >;
+    rewardClaimed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     startsAt: Schema.Attribute.DateTime;
     status: Schema.Attribute.Enumeration<['active', 'completed', 'failed']> &
       Schema.Attribute.Required &

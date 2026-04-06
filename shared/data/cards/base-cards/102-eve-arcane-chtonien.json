@@ -4,10 +4,10 @@
   "description": "Nécromancien ranimant les unités perdues lors des combats pour les faire combattre une dernière fois sous la bannière de l'Éveil.",
   "element": "obsidienne",
   "faction": "Éveil Chthonien",
-  "topValue": "5",
-  "rightValue": "3",
-  "bottomValue": "6",
-  "leftValue": "6",
+  "topValue": "7",
+  "rightValue": "8",
+  "bottomValue": "9",
+  "leftValue": "0",
   "skills": [
     {
       "type": "decrease",

@@ -4,10 +4,10 @@
   "description": "Phénix tacticien utilisant ses cendres pour bloquer les lignes ennemies et créer des murs de fumée infranchissables.",
   "element": "spore",
   "faction": "Héritiers des Cendres",
-  "topValue": "6",
-  "rightValue": "6",
-  "bottomValue": "5",
-  "leftValue": "3",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "8",
+  "leftValue": "4",
   "skills": [
     {
       "type": "heal",

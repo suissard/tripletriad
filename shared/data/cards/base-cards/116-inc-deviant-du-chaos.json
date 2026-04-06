@@ -4,10 +4,10 @@
   "description": "Chaos pur désorganisant l'ordre établi des formations adverses rendant la coordination tactique impossible pendant plusieurs cycles.",
   "element": "furtif",
   "faction": "Incursion Dissonante",
-  "topValue": "5",
-  "rightValue": "5",
-  "bottomValue": "6",
-  "leftValue": "4",
+  "topValue": "3",
+  "rightValue": "3",
+  "bottomValue": "A",
+  "leftValue": "7",
   "skills": [
     {
       "type": "death",

@@ -4,10 +4,10 @@
   "description": "Vibrato soignant les blessures des alliés proches par des fréquences sonores apaisantes accélérant la guérison naturelle.",
   "element": "obsidienne",
   "faction": "Chœur Synthétique",
-  "topValue": "5",
-  "rightValue": "4",
-  "bottomValue": "4",
-  "leftValue": "3",
+  "topValue": "1",
+  "rightValue": "1",
+  "bottomValue": "0",
+  "leftValue": "2",
   "skills": [
     {
       "type": "decrease",

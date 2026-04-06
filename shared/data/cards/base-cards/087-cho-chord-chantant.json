@@ -7,10 +7,10 @@
     "obsidienne"
   ],
   "faction": "Chœur Synthétique",
-  "topValue": "7",
-  "rightValue": "6",
+  "topValue": "8",
+  "rightValue": "2",
   "bottomValue": "4",
-  "leftValue": "3",
+  "leftValue": "8",
   "skills": [
     {
       "type": "death",

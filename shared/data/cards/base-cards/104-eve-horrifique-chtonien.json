@@ -7,10 +7,10 @@
     "eau"
   ],
   "faction": "Éveil Chthonien",
-  "topValue": "7",
-  "rightValue": "7",
-  "bottomValue": "4",
-  "leftValue": "4",
+  "topValue": "3",
+  "rightValue": "8",
+  "bottomValue": "A",
+  "leftValue": "8",
   "skills": [
     {
       "type": "decrease",

@@ -45,6 +45,10 @@
     "expiresAt": {
       "type": "datetime",
       "required": true
+    },
+    "rewardClaimed": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
