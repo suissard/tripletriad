@@ -279,7 +279,7 @@ const ownedUniqueCount = computed(() => {
 // ===== Filter state =====
 const searchQuery = ref('');
 const selectedElements = ref([]);
-const filterOwnership = ref('');
+const filterOwnership = ref('owned');
 const filterPremium = ref('');
 const filterRarity = ref('');
 const filterFaction = ref('');

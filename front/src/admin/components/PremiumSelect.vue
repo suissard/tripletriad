@@ -20,7 +20,7 @@
     <transition name="dropdown">
       <div 
         v-if="isOpen"
-        class="absolute z-[100] mt-3 w-full glass-panel rounded-3xl overflow-hidden shadow-2xl border border-white/10"
+        class="absolute z-[100] mt-3 w-full bg-black/95 backdrop-blur-2xl rounded-3xl overflow-hidden shadow-2xl border border-white/10"
       >
         <div v-if="searchable" class="p-4 border-b border-white/5">
           <input 

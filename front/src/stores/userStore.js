@@ -3,6 +3,7 @@ import strapiService from '../api/strapi.js';
 import strapiMock from '../api/strapiMock.js';
 import { getCardById } from '../game/state.js';
 import { getStrapiUrl, getStrapiMediaUrl } from '../utils/url.js';
+import { useEffectStore } from './effectStore.js';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -160,6 +161,9 @@ export const useUserStore = defineStore('user', {
       this.fetchUserDecks();
       this.fetchUserQuests();
       this.fetchUserStoryProgresses();
+      
+      const effectStore = useEffectStore();
+      effectStore.fetchEffects();
     },
 
     restoreAuth() {
@@ -249,6 +253,9 @@ export const useUserStore = defineStore('user', {
 
         this.strapiConnected = true;
         this.hasEverConnected = true;
+
+        const effectStore = useEffectStore();
+        effectStore.fetchEffects();
       } catch (e) {
         console.error('Collection sync failed, falling back to mock', e);
         this.collection = strapiMock.getOfflineCollection();

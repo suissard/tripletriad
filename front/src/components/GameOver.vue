@@ -1,5 +1,6 @@
 <template>
-  <div id="game-over" v-if="state.gameOver">
+  <!-- Modal Overlay -->
+  <div id="game-over" v-if="state.gameOver && showModal && !isHidden">
       <h1 :style="{ color: resultColor }" style="font-size: 4rem; text-shadow: 0 0 20px currentColor;">{{ resultText }}</h1>
       <div class="game-over-buttons" v-if="state.isStoryMatch">
           <AppButton v-if="state.winner === state.pId" variant="primary" fullWidth @click="handleStoryWin">CONTINUER L'HISTOIRE ⏭</AppButton>
@@ -12,16 +13,41 @@
           <AppButton variant="primary" fullWidth @click="handleReplay">REJOUER 🔄</AppButton>
           <AppButton variant="primary" fullWidth @click="handleQuit">QUITTER 🚪</AppButton>
       </div>
+
+      <div class="visibility-toggle">
+         <AppButton variant="secondary" @click="isHidden = true">👁️ Voir le plateau</AppButton>
+      </div>
+  </div>
+
+  <!-- Button to restore modal if it is hidden -->
+  <div class="restore-modal-btn" v-if="state.gameOver && showModal && isHidden">
+      <AppButton variant="primary" @click="isHidden = false">📋 Voir les résultats</AppButton>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { state, resetGame, webrtc } from '../game/state.js';
 import { useRouter, useRoute } from 'vue-router';
 
 const router = useRouter();
 const route = useRoute();
+
+const showModal = ref(false);
+const isHidden = ref(false);
+
+watch(() => state.gameOver, (newVal) => {
+    if (newVal) {
+        // Delay the modal appearance by 2.5 seconds
+        setTimeout(() => {
+            showModal.value = true;
+            isHidden.value = false;
+        }, 2500);
+    } else {
+        showModal.value = false;
+        isHidden.value = false;
+    }
+}, { immediate: true });
 
 const resultText = computed(() => {
     if (state.winner === state.pId) return "VICTOIRE ! 🏆";
@@ -139,5 +165,15 @@ function handleQuit() {
     display: flex;
     gap: 20px;
     margin-top: 30px;
+}
+.visibility-toggle {
+    margin-top: 40px;
+}
+.restore-modal-btn {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 101;
 }
 </style>
