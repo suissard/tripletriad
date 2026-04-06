@@ -25,7 +25,7 @@ export default factories.createCoreController('api::player-quest.player-quest', 
 
     const playerQuest = await strapi.entityService.findOne('api::player-quest.player-quest', id, {
       populate: ['quest_template', 'user'],
-    });
+    }) as any;
 
     if (!playerQuest) {
       return ctx.notFound('Quest not found.');

@@ -41,7 +41,7 @@
     "**/*.test.*",
     // Do not include plugins in the server compilation
     "src/plugins/**",
-    // Do not include story data in the compilation
-    "src/shared/data/stories/**/*"
+    // Do not include story data or lore in the compilation
+    "src/shared/data/**/*"
   ]
 }
