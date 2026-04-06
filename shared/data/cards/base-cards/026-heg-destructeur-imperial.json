@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Destructeur Imperial",
   "description": "Général légionnaire planifiant les campagnes de conquête multi-systèmes avec une précision martienne implacable.",
-  "element": "obsidienne",
+  "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "1",
   "rightValue": "8",
@@ -20,7 +20,7 @@
   "image": "base/026.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "longue_portee"
   ],
   "prompt": {
     "format": "1:1",

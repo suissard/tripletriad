@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Sentinelle Errant",
   "description": "Sentinelle du dernier relais veillant sur les points de convergence stratégiques entre les zones de conflit.",
-  "element": "eau",
+  "element": "None",
   "faction": "neutre",
   "topValue": "5",
   "rightValue": "A",
@@ -19,10 +19,7 @@
   "defaultHp": 4,
   "image": "base/014.png",
   "storiesRewardedFrom": null,
-  "elements": [
-    "eau",
-    "glace"
-  ],
+  "elements": [],
   "prompt": {
     "format": "1:1",
     "subject": {

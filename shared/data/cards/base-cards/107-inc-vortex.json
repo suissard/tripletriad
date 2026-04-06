@@ -20,7 +20,7 @@
   "image": "base/107.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "faille_dimensionnelle"
   ],
   "prompt": {
     "format": "1:1",

@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Tyrant",
   "description": "Sentinelle impériale patrouillant les périmètres des installations conquises et repoussant les contre-attaques.",
-  "element": "radiation",
+  "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "4",
   "rightValue": "0",
@@ -14,7 +14,7 @@
   "image": "base/017.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "longue_portee"
   ],
   "prompt": {
     "format": "1:1",

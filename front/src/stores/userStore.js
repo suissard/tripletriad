@@ -314,7 +314,9 @@ export const useUserStore = defineStore('user', {
           rewardCoins: item.quest_template?.rewardCoins || 0,
           rewardGems: item.quest_template?.rewardGems || 0,
           status: item.status || 'active',
-          rewardClaimed: !!item.rewardClaimed
+          rewardClaimed: !!item.rewardClaimed,
+          startsAt: item.startsAt ? new Date(item.startsAt) : null,
+          expiresAt: item.expiresAt ? new Date(item.expiresAt) : null
         }));
       } catch (e) {
         console.error('Quests sync failed', e);
@@ -610,9 +612,10 @@ export const useUserStore = defineStore('user', {
             this.user.dust = result.newDustTotal;
             this.syncLocalUserWallets();
           }
-          if (result.totalCardsDisenchanted > 0) {
+          if (result.cardsDestroyed > 0 || result.totalCardsDisenchanted > 0) {
             this.collection.forEach(item => {
-              if (item.quantity > 1) item.quantity = 1;
+              // The backend reduces quantity to playableLimit (default 2)
+              if (item.quantity > 2) item.quantity = 2;
             });
           }
           return true;

@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Crescendo Sonore",
   "description": "Vibrato soignant les blessures des alliés proches par des fréquences sonores apaisantes accélérant la guérison naturelle.",
-  "element": "obsidienne",
+  "element": "hacking",
   "faction": "Chœur Synthétique",
   "topValue": "1",
   "rightValue": "1",
@@ -20,7 +20,7 @@
   "image": "base/079.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "hacking"
   ],
   "prompt": {
     "format": "1:1",

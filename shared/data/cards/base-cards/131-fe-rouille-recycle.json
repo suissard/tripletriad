@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Rouille Recycle",
   "description": "Maître Ferrailleur concevant des machines de guerre improvisées à partir d'épaves transformant les déchets en avantages tactiques.",
-  "element": "radiation",
+  "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "5",
   "rightValue": "6",
@@ -14,7 +14,7 @@
   "image": "base/131.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "furtif"
   ],
   "prompt": {
     "format": "1:1",

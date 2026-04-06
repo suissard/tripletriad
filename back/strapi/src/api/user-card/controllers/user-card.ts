@@ -71,8 +71,24 @@ export default factories.createCoreController('api::user-card.user-card', ({ str
         });
       }
 
-      const currentUserData = await strapi.entityService.findOne('plugin::users-permissions.user', user.id);
-      const newDust = ((currentUserData as any).dust || 0) + dustGained;
+      // Find or create the wallet for this user
+      const wallets = await strapi.entityService.findMany('api::wallet.wallet', {
+        filters: { user: user.id }
+      });
+      
+      let wallet = wallets[0];
+      if (!wallet) {
+        wallet = await strapi.entityService.create('api::wallet.wallet', {
+          data: { user: user.id, coins: 0, gems: 0, dust: 0 }
+        });
+      }
+
+      const newDust = (wallet.dust || 0) + dustGained;
+      await strapi.entityService.update('api::wallet.wallet', wallet.id, {
+        data: { dust: newDust }
+      });
+
+      // Synchronize back to user for safety/compatibility
       await strapi.entityService.update('plugin::users-permissions.user', user.id, {
         data: { dust: newDust } as any
       });
@@ -122,12 +138,28 @@ export default factories.createCoreController('api::user-card.user-card', ({ str
 
       const dustCost = craftingRatios[rarity]?.craft || 40;
 
-      const currentUserData = await strapi.entityService.findOne('plugin::users-permissions.user', user.id);
-      const currentDust = (currentUserData as any).dust || 0;
+      // Find or create the wallet for this user
+      const wallets = await strapi.entityService.findMany('api::wallet.wallet', {
+        filters: { user: user.id }
+      });
+      
+      let wallet = wallets[0];
+      if (!wallet) {
+        wallet = await strapi.entityService.create('api::wallet.wallet', {
+          data: { user: user.id, coins: 0, gems: 0, dust: 0 }
+        });
+      }
+
+      const currentDust = wallet.dust || 0;
 
       if (currentDust < dustCost) return ctx.badRequest('Not enough dust.');
 
       const newDust = currentDust - dustCost;
+      await strapi.entityService.update('api::wallet.wallet', wallet.id, {
+        data: { dust: newDust }
+      });
+
+      // Synchronize back to user for safety
       await strapi.entityService.update('plugin::users-permissions.user', user.id, {
         data: { dust: newDust } as any
       });
@@ -190,6 +222,11 @@ export default factories.createCoreController('api::user-card.user-card', ({ str
         if (surplusQuantity <= 0) continue;
 
         const cardData = (userCard as any).card;
+        if (!cardData) {
+          console.warn(`UserCard ${userCard.id} has no related card data. Skipping.`);
+          continue;
+        }
+
         const cardLevel = GameEngine.calculateCardLevel({
           top: cardData.topValue,
           right: cardData.rightValue,
@@ -214,14 +251,30 @@ export default factories.createCoreController('api::user-card.user-card', ({ str
         });
       }
 
-      const currentUserData = await strapi.entityService.findOne('plugin::users-permissions.user', user.id);
-      const newDust = ((currentUserData as any).dust || 0) + totalDustGained;
+      // Find or create the wallet for this user
+      const wallets = await strapi.entityService.findMany('api::wallet.wallet', {
+        filters: { user: user.id }
+      });
+      
+      let wallet = wallets[0];
+      if (!wallet) {
+        wallet = await strapi.entityService.create('api::wallet.wallet', {
+          data: { user: user.id, coins: 0, gems: 0, dust: 0 }
+        });
+      }
 
+      const newDust = (wallet.dust || 0) + totalDustGained;
+
+      await strapi.entityService.update('api::wallet.wallet', wallet.id, {
+        data: { dust: newDust }
+      });
+
+      // Synchronize back to user for safety
       await strapi.entityService.update('plugin::users-permissions.user', user.id, {
         data: { dust: newDust } as any
       });
 
-      return ctx.send({ message: 'Mass disenchant successful', totalDustGained, newDustTotal: newDust, cardsDestroyed });
+      return ctx.send({ message: 'Mass disenchant successful', totalDustGained, newDustTotal: newDust, cardsDestroyed, totalCardsDisenchanted: cardsDestroyed });
 
     } catch (err) {
       console.error(err);

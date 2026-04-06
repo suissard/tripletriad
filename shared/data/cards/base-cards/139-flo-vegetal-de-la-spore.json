@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Vegetal de la Spore",
   "description": "Décomposeur détruisant les ressources organiques adverses privant l'ennemi de ravitaillement alimentaire naturel.",
-  "element": "radiation",
+  "element": "spore",
   "faction": "Fléau Spore",
   "topValue": "4",
   "rightValue": "0",
@@ -14,7 +14,7 @@
   "image": "base/139.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "spore"
   ],
   "prompt": {
     "format": "1:1",

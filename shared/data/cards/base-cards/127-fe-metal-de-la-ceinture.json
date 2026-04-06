@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Metal de la Ceinture",
   "description": "Architecte de fortune construisant des défenses temporaires avec des matériaux récupérés sur les épaves les plus récentes.",
-  "element": "radiation",
+  "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "3",
   "rightValue": "3",
@@ -14,7 +14,7 @@
   "image": "base/127.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "furtif"
   ],
   "prompt": {
     "format": "1:1",

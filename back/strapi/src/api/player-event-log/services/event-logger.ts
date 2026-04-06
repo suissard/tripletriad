@@ -17,17 +17,40 @@ export const logPlayerEvent = async (strapi, eventData) => {
     }
   });
 
-  // 2. Process active quests
+  console.log(`[QuestService] Event: ${eventType}, User: ${userId}`);
+
+  // 1. Proactive Quest Renewal (Cleanup + Gap filling)
+  try {
+    const { assignQuestsToUser } = require('../services/quest-assignment');
+    await assignQuestsToUser(strapi, userId, true);
+  } catch (err) {
+    console.error('[QuestService] Renewal error:', err);
+  }
+
+  // 2. Process current active quests
   const now = new Date();
+  const nowISO = now.toISOString();
   const activeQuests = await strapi.entityService.findMany('api::player-quest.player-quest', {
     filters: {
-      user: userId,
+      user: { id: userId },
       status: 'active',
-      startsAt: { $lte: now.toISOString() }, // Ensure quest has started
-      expiresAt: { $gte: now.toISOString() }  // Ensure quest has not expired
+      $and: [
+        {
+          $or: [
+            { startsAt: { $null: true } },
+            { startsAt: { $lte: nowISO } }
+          ]
+        },
+        { expiresAt: { $gte: nowISO } }
+      ]
     },
     populate: ['quest_template']
   });
+
+  if (activeQuests.length === 0) {
+    console.log(`[QuestService] No active/valid quests for User ${userId}.`);
+    return;
+  }
 
   for (const quest of activeQuests) {
     if (!quest.quest_template) continue;
@@ -35,6 +58,8 @@ export const logPlayerEvent = async (strapi, eventData) => {
     const template = quest.quest_template;
     let progressMade = false;
     let amount = value;
+    
+    console.log(`[QuestService] Progressing quest: ${template.code} (${quest.progress}/${template.target})`);
 
     if (template.type === 'play_games' && eventType === 'play_game') {
       progressMade = true;
@@ -49,10 +74,25 @@ export const logPlayerEvent = async (strapi, eventData) => {
     } else if (template.code.startsWith('PLAY_CARDS') && eventType === 'play_card') {
       progressMade = true;
     } else if (template.code.startsWith('PLAY_ELEMENT') && eventType === 'play_card_element') {
-      // Check if element matches
-      // Format is PLAY_ELEMENT_EAU_DAILY
-      const templateElement = template.code.split('_')[2];
-      if (templateElement === relatedElement.toUpperCase()) {
+      // Check if element matches (Support multi-word element names like LONGUE_PORTEE)
+      // Format is PLAY_ELEMENT_LONGUE_PORTEE_DAILY
+      const templateElement = template.code
+        .replace('PLAY_ELEMENT_', '')
+        .replace(/_(DAILY|48H|WEEKLY)$/, '');
+      
+      if (templateElement === (relatedElement || '').toUpperCase()) {
+        progressMade = true;
+      }
+    } else if (template.code.startsWith('PLAY_FACTION') && eventType === 'play_card_faction') {
+      // Check if faction matches
+      // Format is PLAY_FACTION_HEGEMONIE_MARTIENNE_DAILY
+      const normalize = (str: string) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-0]/g, '_').replace(/_+/g, '_').toUpperCase();
+      const eventFactionNormalized = normalize(relatedElement || '');
+      const templateFaction = template.code
+        .replace('PLAY_FACTION_', '')
+        .replace(/_(DAILY|48H|WEEKLY)$/, '');
+
+      if (templateFaction === eventFactionNormalized) {
         progressMade = true;
       }
     }

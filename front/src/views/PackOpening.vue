@@ -346,6 +346,10 @@ const openPack = async () => {
     // Update global wallet, boosters and collection
     userStore.handleBoosterResults(data);
 
+    if (userStore.strapiConnected) {
+       await strapiService.trackEvent('open_booster');
+    }
+
     isFlipped.value = new Array(drawnCards.value.length).fill(false);
 
   } catch (err) {

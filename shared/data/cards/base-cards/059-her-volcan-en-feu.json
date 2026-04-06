@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Volcan en Feu",
   "description": "Maître Pyromancien orchestrant les offensives thermiques multi-cibles coordonnant plusieurs sources de chaleur simultanées.",
-  "element": "spore",
+  "element": "radiation",
   "elements": [
     "radiation"
   ],

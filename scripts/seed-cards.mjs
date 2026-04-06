@@ -73,6 +73,23 @@ async function uploadToStrapi(token, filePath, fileName) {
   return data[0];
 }
 
+async function deleteMediaFromStrapi(token, mediaId) {
+  if (!mediaId) return;
+  const res = await fetch(`${STRAPI_URL}/upload/files/${mediaId}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    console.warn(`  ⚠️  Échec suppression ancienne image (${mediaId}): ${err}`);
+  } else {
+    console.log(`  🗑️  Ancienne image supprimée (${mediaId})`);
+  }
+}
+
 async function fetchAllCards(token) {
   console.log('🔍 Récupération des cartes existantes...');
   let allCards = [];
@@ -192,9 +209,22 @@ async function main() {
                     process.stdout.write(`⏳ ${actionLabel} de ${cardData.name.padEnd(30)}... `);
                     
                     const media = await uploadToStrapi(token, imagePath, path.basename(imagePath));
+                    
+                    // Récupérer l'ID de l'image actuelle avant l'update
+                    let oldImageId = null;
+                    if (existingCard && existingCard.image) {
+                        oldImageId = typeof existingCard.image === 'object' ? existingCard.image.id : existingCard.image;
+                    }
+
                     await upsertCardInStrapi(token, cardData, media.id, existingCard);
                     
                     console.log(`✅ OK`);
+                    
+                    // Nettoyage de l'ancienne image
+                    if (oldImageId && oldImageId !== media.id) {
+                        await deleteMediaFromStrapi(token, oldImageId);
+                    }
+
                     if (existingCard) updateCount++; else successCount++;
                 } catch (err) {
                     console.log(`❌ Erreur: ${err.message}`);

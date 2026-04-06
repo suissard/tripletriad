@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Pulse du Reseau",
   "description": "Relais quantique étendant la portée du réseau dans les zones reculées où les communications conventionnelles échouent.",
-  "element": "faille_dimensionnelle",
+  "element": "reseau",
   "faction": "Omni-Réseau",
   "topValue": "5",
   "rightValue": "0",
@@ -20,7 +20,7 @@
   "image": "base/064.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "reseau"
   ],
   "prompt": {
     "format": "1:1",

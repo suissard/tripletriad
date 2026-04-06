@@ -3,11 +3,30 @@
  */
 
 export const assignQuestsToUser = async (strapi, userId, immediate = false) => {
-  // 1. Get user and their active/pending quests
+  const now = new Date();
+  const nowISO = now.toISOString();
+
+  // 1. Cleanup: Delete expired quests for this user
+  try {
+    const deletedCount = await strapi.db.query('api::player-quest.player-quest').deleteMany({
+        where: {
+            user: userId,
+            expiresAt: { $lt: nowISO }
+        }
+    });
+    if (deletedCount.count > 0) {
+        console.log(`[QuestService] Deleted ${deletedCount.count} expired quests for user ${userId}`);
+    }
+  } catch (err) {
+    console.error('Error deleting expired quests:', err);
+  }
+
+  // 1. Get user and their active/pending/valid quests
   const userQuests = await strapi.entityService.findMany('api::player-quest.player-quest', {
     filters: {
       user: userId,
-      status: 'active' // pending are also marked as active but have startsAt > now
+      status: 'active',
+      expiresAt: { $gte: nowISO } // Only count quests that are not expired
     },
     populate: ['quest_template']
   });

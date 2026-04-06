@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Faille Devie",
   "description": "Paradoxe créant des boucles temporelles piégeant les unités ennemies dans des cycles de combat répétitifs.",
-  "element": "hacking",
+  "element": "faille_dimensionnelle",
   "faction": "Incursion Dissonante",
   "topValue": "4",
   "rightValue": "A",
@@ -14,7 +14,7 @@
   "image": "base/114.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "faille_dimensionnelle"
   ],
   "prompt": {
     "format": "1:1",

@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Pecheur des Courants",
   "description": "Courantiste manipulant les flux liquides pour piéger et ralentir les unités ennemies dans les environnements aquatiques.",
-  "element": "longue_portee",
+  "element": "eau",
   "faction": "Exode Pélagique",
   "topValue": "0",
   "rightValue": "5",
@@ -20,7 +20,7 @@
   "image": "base/040.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "eau"
   ],
   "prompt": {
     "format": "1:1",

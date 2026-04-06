@@ -14,9 +14,7 @@
     "defaultHp": 3,
     "image": "base/001.png",
     "storiesRewardedFrom": null,
-    "elements": [
-      "neutre"
-    ],
+    "elements": [],
     "prompt": {
       "format": "1:1",
       "subject": {
@@ -86,7 +84,7 @@
     "collectionName": "base",
     "name": "Refugie",
     "description": "Contrebassiste logistique assurant le maintien des lignes de ravitaillement entre les zones contestées.",
-    "element": "eau",
+    "element": "None",
     "faction": "neutre",
     "topValue": "2",
     "rightValue": "1",
@@ -103,10 +101,7 @@
     "defaultHp": 3,
     "image": "base/002.png",
     "storiesRewardedFrom": null,
-    "elements": [
-      "eau",
-      "glace"
-    ],
+    "elements": [],
     "prompt": {
       "format": "1:1",
       "subject": {
@@ -172,7 +167,7 @@
     "collectionName": "base",
     "name": "Pelerin",
     "description": "Passeur des confins connaissant les raccourcis permettant de contourner les zones de combat les plus dangereuses.",
-    "element": "reseau",
+    "element": "None",
     "faction": "neutre",
     "topValue": "1",
     "rightValue": "4",
@@ -183,9 +178,7 @@
     "defaultHp": 3,
     "image": "base/003.png",
     "storiesRewardedFrom": null,
-    "elements": [
-      "neutre"
-    ],
+    "elements": [],
     "prompt": {
       "format": "1:1",
       "subject": {
@@ -256,7 +249,7 @@
     "collectionName": "base",
     "name": "Medic des Confins",
     "description": "Éclaireur indépendant détectant les embuscades potentielles avant que les patrouilles militaires ne s'en approchent.",
-    "element": "radiation",
+    "element": "None",
     "faction": "neutre",
     "topValue": "5",
     "rightValue": "0",
@@ -267,9 +260,7 @@
     "defaultHp": 3,
     "image": "base/004.png",
     "storiesRewardedFrom": null,
-    "elements": [
-      "neutre"
-    ],
+    "elements": [],
     "prompt": {
       "format": "1:1",
       "subject": {
@@ -341,7 +332,7 @@
     "collectionName": "base",
     "name": "Nomade",
     "description": "Garde-frontière protégeant les convois civils dans les zones neutres où aucune faction n'exerce de contrôle.",
-    "element": "furtif",
+    "element": "None",
     "faction": "neutre",
     "topValue": "1",
     "rightValue": "0",
@@ -358,9 +349,7 @@
     "defaultHp": 3,
     "image": "base/005.png",
     "storiesRewardedFrom": null,
-    "elements": [
-      "neutre"
-    ],
+    "elements": [],
     "prompt": {
       "format": "1:1",
       "subject": {
@@ -443,9 +432,7 @@
     "defaultHp": 3,
     "image": "base/006.png",
     "storiesRewardedFrom": null,
-    "elements": [
-      "neutre"
-    ],
+    "elements": [],
     "prompt": {
       "format": "1:1",
       "subject": {
@@ -533,9 +520,7 @@
     "defaultHp": 3,
     "image": "base/007.png",
     "storiesRewardedFrom": null,
-    "elements": [
-      "neutre"
-    ],
+    "elements": [],
     "prompt": {
       "format": "1:1",
       "subject": {
@@ -601,10 +586,8 @@
     "collectionName": "base",
     "name": "Passeur Libre",
     "description": "Médic de terrain soignant les blessés des deux camps sans discrimination, garant de la neutralité humanitaire.",
-    "element": "eau",
-    "elements": [
-      "reseau"
-    ],
+    "element": "None",
+    "elements": [],
     "faction": "neutre",
     "topValue": "1",
     "rightValue": "3",
@@ -690,7 +673,7 @@
     "collectionName": "base",
     "name": "Rodeur Errant",
     "description": "Relais de communication transmettant les messages entre unités dispersées dans les zones de brouillage.",
-    "element": "reseau",
+    "element": "None",
     "faction": "neutre",
     "topValue": "3",
     "rightValue": "A",
@@ -701,9 +684,7 @@
     "defaultHp": 3,
     "image": "base/009.png",
     "storiesRewardedFrom": null,
-    "elements": [
-      "neutre"
-    ],
+    "elements": [],
     "prompt": {
       "format": "1:1",
       "subject": {
@@ -781,7 +762,7 @@
     "collectionName": "base",
     "name": "Recrue",
     "description": "Technicien réparant l'équipement endommagé des deux camps, expertise recherchée par toutes les factions.",
-    "element": "radiation",
+    "element": "None",
     "faction": "neutre",
     "topValue": "1",
     "rightValue": "6",
@@ -792,9 +773,7 @@
     "defaultHp": 3,
     "image": "base/010.png",
     "storiesRewardedFrom": null,
-    "elements": [
-      "neutre"
-    ],
+    "elements": [],
     "prompt": {
       "format": "1:1",
       "subject": {
@@ -877,9 +856,7 @@
     "defaultHp": 3,
     "image": "base/011.png",
     "storiesRewardedFrom": null,
-    "elements": [
-      "neutre"
-    ],
+    "elements": [],
     "prompt": {
       "format": "1:1",
       "subject": {
@@ -951,7 +928,7 @@
     "collectionName": "base",
     "name": "Pelerin Libre",
     "description": "Arbitre de guerre imposant des trêves locales permettant l'évolution stratégique du conflit régional.",
-    "element": "eau",
+    "element": "None",
     "faction": "neutre",
     "topValue": "8",
     "rightValue": "4",
@@ -962,10 +939,7 @@
     "defaultHp": 3,
     "image": "base/012.png",
     "storiesRewardedFrom": null,
-    "elements": [
-      "eau",
-      "glace"
-    ],
+    "elements": [],
     "prompt": {
       "format": "1:1",
       "subject": {
@@ -1038,9 +1012,7 @@
     "name": "Solitaire des Confins",
     "description": "Passeur de mémoire préservant les savoirs tactiques des civilisations disparues pour les générations futures.",
     "element": "None",
-    "elements": [
-      "radiation"
-    ],
+    "elements": [],
     "faction": "neutre",
     "topValue": "6",
     "rightValue": "5",
@@ -1132,7 +1104,7 @@
     "collectionName": "base",
     "name": "Sentinelle Errant",
     "description": "Sentinelle du dernier relais veillant sur les points de convergence stratégiques entre les zones de conflit.",
-    "element": "eau",
+    "element": "None",
     "faction": "neutre",
     "topValue": "5",
     "rightValue": "A",
@@ -1149,10 +1121,7 @@
     "defaultHp": 4,
     "image": "base/014.png",
     "storiesRewardedFrom": null,
-    "elements": [
-      "eau",
-      "glace"
-    ],
+    "elements": [],
     "prompt": {
       "format": "1:1",
       "subject": {
@@ -1240,9 +1209,7 @@
     "defaultHp": 4,
     "image": "base/015.png",
     "storiesRewardedFrom": null,
-    "elements": [
-      "neutre"
-    ],
+    "elements": [],
     "prompt": {
       "format": "1:1",
       "subject": {
@@ -1314,7 +1281,7 @@
     "collectionName": "base",
     "name": "Inquisiteur Imperial",
     "description": "Recrue de la IIIe Légion exécutant les ordres disciplinés de la hiérarchie martienne au combat rapproché.",
-    "element": "obsidienne",
+    "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "3",
     "rightValue": "0",
@@ -1326,7 +1293,7 @@
     "image": "base/016.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "longue_portee"
     ],
     "prompt": {
       "format": "1:1",
@@ -1386,7 +1353,7 @@
     "collectionName": "base",
     "name": "Tyrant",
     "description": "Sentinelle impériale patrouillant les périmètres des installations conquises et repoussant les contre-attaques.",
-    "element": "radiation",
+    "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "4",
     "rightValue": "0",
@@ -1398,7 +1365,7 @@
     "image": "base/017.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "longue_portee"
     ],
     "prompt": {
       "format": "1:1",
@@ -1471,7 +1438,7 @@
     "image": "base/018.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "longue_portee"
     ],
     "prompt": {
       "format": "1:1",
@@ -1530,7 +1497,7 @@
     "collectionName": "base",
     "name": "Conquerant du Regiment",
     "description": "Infiltrateur s'introduisant dans les positions défensives adverses avant le déclenchement des assauts frontaux.",
-    "element": "reseau",
+    "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "6",
     "rightValue": "1",
@@ -1548,7 +1515,7 @@
     "image": "base/019.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "longue_portee"
     ],
     "prompt": {
       "format": "1:1",
@@ -1607,7 +1574,7 @@
     "collectionName": "base",
     "name": "Conquerant",
     "description": "Officier subalterne maintenant la discipline des troupes sous le feu ennemi grâce à un commandement rigide.",
-    "element": "obsidienne",
+    "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "0",
     "rightValue": "0",
@@ -1625,7 +1592,7 @@
     "image": "base/020.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "longue_portee"
     ],
     "prompt": {
       "format": "1:1",
@@ -1692,7 +1659,7 @@
     "collectionName": "base",
     "name": "Destructeur 1",
     "description": "Ingénieur militaire déployant les infrastructures d'occupation sur les planètes récemment conquises.",
-    "element": "radiation",
+    "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "1",
     "rightValue": "4",
@@ -1704,7 +1671,7 @@
     "image": "base/021.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "longue_portee"
     ],
     "prompt": {
       "format": "1:1",
@@ -1763,7 +1730,7 @@
     "collectionName": "base",
     "name": "Architecte Martien",
     "description": "Commandant de peloton coordonnant les assauts frontaux avec des formations de combat martiennes classiques.",
-    "element": "obsidienne",
+    "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "9",
     "rightValue": "5",
@@ -1775,7 +1742,7 @@
     "image": "base/022.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "longue_portee"
     ],
     "prompt": {
       "format": "1:1",
@@ -1842,7 +1809,7 @@
     "collectionName": "base",
     "name": "Vanguard Martien",
     "description": "Propagandiste de guerre brisant le moral adverse par la désinformation et les transmissions radio piégées.",
-    "element": "radiation",
+    "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "4",
     "rightValue": "2",
@@ -1854,7 +1821,7 @@
     "image": "base/023.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "longue_portee"
     ],
     "prompt": {
       "format": "1:1",
@@ -1935,7 +1902,7 @@
     "image": "base/024.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "longue_portee"
     ],
     "prompt": {
       "format": "1:1",
@@ -2003,7 +1970,7 @@
     "collectionName": "base",
     "name": "Oppresseur de Mars",
     "description": "Artilleur orbital bombardant les fortifications ennemies depuis les stations en orbite martienne.",
-    "element": "reseau",
+    "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "6",
     "rightValue": "4",
@@ -2021,7 +1988,7 @@
     "image": "base/025.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "longue_portee"
     ],
     "prompt": {
       "format": "1:1",
@@ -2081,7 +2048,7 @@
     "collectionName": "base",
     "name": "Destructeur Imperial",
     "description": "Général légionnaire planifiant les campagnes de conquête multi-systèmes avec une précision martienne implacable.",
-    "element": "obsidienne",
+    "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "1",
     "rightValue": "8",
@@ -2099,7 +2066,7 @@
     "image": "base/026.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "longue_portee"
     ],
     "prompt": {
       "format": "1:1",
@@ -2159,7 +2126,7 @@
     "collectionName": "base",
     "name": "Conquerant 1",
     "description": "Inquisiteur de l'Hégémonie traquant les dissidents, les espions infiltrés et les traîtres au sein du régime.",
-    "element": "radiation",
+    "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "3",
     "rightValue": "4",
@@ -2177,7 +2144,7 @@
     "image": "base/027.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "longue_portee"
     ],
     "prompt": {
       "format": "1:1",
@@ -2246,7 +2213,7 @@
     "collectionName": "base",
     "name": "Praetor Imperial",
     "description": "Praetor impérial orchestrant les opérations de domination galactique sur plusieurs fronts avec une coordination parfaite.",
-    "element": "obsidienne",
+    "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "6",
     "rightValue": "8",
@@ -2258,7 +2225,7 @@
     "image": "base/028.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "longue_portee"
     ],
     "prompt": {
       "format": "1:1",
@@ -2317,7 +2284,7 @@
     "collectionName": "base",
     "name": "Destructeur 2",
     "description": "Architecte de guerre martienne concevant les stratégies de siège planétaire et les protocoles d'annexion.",
-    "element": "radiation",
+    "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "3",
     "rightValue": "A",
@@ -2335,7 +2302,7 @@
     "image": "base/029.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "longue_portee"
     ],
     "prompt": {
       "format": "1:1",
@@ -2394,9 +2361,9 @@
     "collectionName": "base",
     "name": "Inquisiteur de Mars",
     "description": "Supreme Commander unifiant les flottes martiennes sous un commandement unique avec une autorité absolue et indiscutable.",
-    "element": "obsidienne",
+    "element": "longue_portee",
     "elements": [
-      "radiation"
+      "longue_portee"
     ],
     "faction": "Hégémonie Martienne",
     "topValue": "9",
@@ -2484,8 +2451,7 @@
     "image": "base/031.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "eau",
-      "glace"
+      "eau"
     ],
     "prompt": {
       "format": "1:1",
@@ -2560,7 +2526,7 @@
     "collectionName": "base",
     "name": "Tidal",
     "description": "Pêcheur des courants stellaires récoltant les ressources alimentaires essentielles à la survie de l'exode.",
-    "element": "furtif",
+    "element": "eau",
     "faction": "Exode Pélagique",
     "topValue": "0",
     "rightValue": "0",
@@ -2572,7 +2538,7 @@
     "image": "base/032.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "eau"
     ],
     "prompt": {
       "format": "1:1",
@@ -2649,7 +2615,7 @@
     "collectionName": "base",
     "name": "Abyssal",
     "description": "Nageur de l'ombre se déplaçant silencieusement dans les fluides du vide pour des opérations de reconnaissance.",
-    "element": "spore",
+    "element": "eau",
     "elements": [
       "eau"
     ],
@@ -2737,7 +2703,7 @@
     "collectionName": "base",
     "name": "Requin des Abimes",
     "description": "Hydrologue cartographiant les zones habitables aquatiques pour les futures colonies de l'Exode Pélagique.",
-    "element": "longue_portee",
+    "element": "eau",
     "faction": "Exode Pélagique",
     "topValue": "4",
     "rightValue": "1",
@@ -2749,7 +2715,7 @@
     "image": "base/034.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "eau"
     ],
     "prompt": {
       "format": "1:1",
@@ -2838,8 +2804,7 @@
     "image": "base/035.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "eau",
-      "glace"
+      "eau"
     ],
     "prompt": {
       "format": "1:1",
@@ -2910,7 +2875,7 @@
     "collectionName": "base",
     "name": "Pelagique",
     "description": "Coralin cultivant les structures de croissance organique servant de base aux habitats flottants.",
-    "element": "furtif",
+    "element": "eau",
     "faction": "Exode Pélagique",
     "topValue": "4",
     "rightValue": "0",
@@ -2922,7 +2887,7 @@
     "image": "base/036.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "eau"
     ],
     "prompt": {
       "format": "1:1",
@@ -3010,8 +2975,7 @@
     "image": "base/037.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "eau",
-      "glace"
+      "eau"
     ],
     "prompt": {
       "format": "1:1",
@@ -3082,7 +3046,7 @@
     "collectionName": "base",
     "name": "Plongeur Aquatique",
     "description": "Gardien des nurseries protégeant les jeunes générations de l'Exode contre les prédateurs et les menaces extérieures.",
-    "element": "furtif",
+    "element": "eau",
     "faction": "Exode Pélagique",
     "topValue": "A",
     "rightValue": "3",
@@ -3094,7 +3058,7 @@
     "image": "base/038.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "eau"
     ],
     "prompt": {
       "format": "1:1",
@@ -3165,7 +3129,7 @@
     "collectionName": "base",
     "name": "Abyssal du Grand Large",
     "description": "Sondeur des abysses détectant les ressources souterraines aquatiques grâce à des capteurs bio-sensibles.",
-    "element": "spore",
+    "element": "eau",
     "faction": "Exode Pélagique",
     "topValue": "4",
     "rightValue": "3",
@@ -3177,7 +3141,7 @@
     "image": "base/039.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "eau"
     ],
     "prompt": {
       "format": "1:1",
@@ -3253,7 +3217,7 @@
     "collectionName": "base",
     "name": "Pecheur des Courants",
     "description": "Courantiste manipulant les flux liquides pour piéger et ralentir les unités ennemies dans les environnements aquatiques.",
-    "element": "longue_portee",
+    "element": "eau",
     "faction": "Exode Pélagique",
     "topValue": "0",
     "rightValue": "5",
@@ -3271,7 +3235,7 @@
     "image": "base/040.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "eau"
     ],
     "prompt": {
       "format": "1:1",
@@ -3366,8 +3330,7 @@
     "image": "base/041.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "eau",
-      "glace"
+      "eau"
     ],
     "prompt": {
       "format": "1:1",
@@ -3434,7 +3397,7 @@
     "collectionName": "base",
     "name": "Tidal Pelagique",
     "description": "Abyssaliste exploitant la pression des profondeurs comme arme défensive contre les agresseurs de surface.",
-    "element": "furtif",
+    "element": "eau",
     "faction": "Exode Pélagique",
     "topValue": "A",
     "rightValue": "8",
@@ -3452,7 +3415,7 @@
     "image": "base/042.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "eau"
     ],
     "prompt": {
       "format": "1:1",
@@ -3541,8 +3504,7 @@
     "image": "base/043.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "eau",
-      "glace"
+      "eau"
     ],
     "prompt": {
       "format": "1:1",
@@ -3619,7 +3581,7 @@
     "collectionName": "base",
     "name": "Cetace du Grand Large",
     "description": "Hydromancien invoquant les marées submergeantes pour protéger les siens et inonder les positions ennemies.",
-    "element": "furtif",
+    "element": "eau",
     "faction": "Exode Pélagique",
     "topValue": "1",
     "rightValue": "9",
@@ -3637,7 +3599,7 @@
     "image": "base/044.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "eau"
     ],
     "prompt": {
       "format": "1:1",
@@ -3720,7 +3682,7 @@
     "description": "Architecte des Abysses créant des écosystèmes aquatiques autonomes capables de survivre dans le vide spatial le plus hostile.",
     "element": "eau",
     "elements": [
-      "furtif"
+      "eau"
     ],
     "faction": "Exode Pélagique",
     "topValue": "A",
@@ -3828,7 +3790,7 @@
     "image": "base/046.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "radiation"
     ],
     "prompt": {
       "format": "1:1",
@@ -3910,7 +3872,7 @@
     "collectionName": "base",
     "name": "Embrase",
     "description": "Incendiaire de ligne détruisant les barrières naturelles et artificielles pour ouvrir des voies d'accès aux assauts.",
-    "element": "spore",
+    "element": "radiation",
     "faction": "Héritiers des Cendres",
     "topValue": "8",
     "rightValue": "0",
@@ -3922,7 +3884,7 @@
     "image": "base/047.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "radiation"
     ],
     "prompt": {
       "format": "1:1",
@@ -4003,7 +3965,7 @@
     "collectionName": "base",
     "name": "Incendiaire",
     "description": "Porte-flamme transmettant la colère du brasier ancestral aux alliés proches qui gagnent en courage au combat.",
-    "element": "obsidienne",
+    "element": "radiation",
     "faction": "Héritiers des Cendres",
     "topValue": "0",
     "rightValue": "0",
@@ -4015,7 +3977,7 @@
     "image": "base/048.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "radiation"
     ],
     "prompt": {
       "format": "1:1",
@@ -4086,7 +4048,7 @@
     "collectionName": "base",
     "name": "Flamme Volcanique",
     "description": "Pyroclaste projetant des roches volcaniques en fusion sur les cibles au sol avec une précision destructrice.",
-    "element": "faille_dimensionnelle",
+    "element": "radiation",
     "faction": "Héritiers des Cendres",
     "topValue": "0",
     "rightValue": "0",
@@ -4098,7 +4060,7 @@
     "image": "base/049.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "radiation"
     ],
     "prompt": {
       "format": "1:1",
@@ -4177,7 +4139,7 @@
     "image": "base/050.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "radiation"
     ],
     "prompt": {
       "format": "1:1",
@@ -4250,7 +4212,7 @@
     "collectionName": "base",
     "name": "Salamandre 1",
     "description": "Sapeur incendiaire creusant des tunnels enflammés sous les fortifications ennemies pour les faire s'effondrer.",
-    "element": "spore",
+    "element": "radiation",
     "faction": "Héritiers des Cendres",
     "topValue": "4",
     "rightValue": "0",
@@ -4268,7 +4230,7 @@
     "image": "base/051.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "radiation"
     ],
     "prompt": {
       "format": "1:1",
@@ -4348,7 +4310,7 @@
     "image": "base/052.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "radiation"
     ],
     "prompt": {
       "format": "1:1",
@@ -4423,7 +4385,7 @@
     "collectionName": "base",
     "name": "Forge Ardent",
     "description": "Forgeron de guerre armant les combattants avec des armes chauffées à blanc infligeant des brûlures persistantes.",
-    "element": "spore",
+    "element": "radiation",
     "faction": "Héritiers des Cendres",
     "topValue": "5",
     "rightValue": "7",
@@ -4441,7 +4403,7 @@
     "image": "base/053.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "radiation"
     ],
     "prompt": {
       "format": "1:1",
@@ -4513,9 +4475,9 @@
     "collectionName": "base",
     "name": "Carbon des Cendres",
     "description": "Volcaniste créant des zones de combustion persistante sur le champ de bataille pour limiter les mouvements adverses.",
-    "element": "obsidienne",
+    "element": "radiation",
     "elements": [
-      "longue_portee"
+      "radiation"
     ],
     "faction": "Héritiers des Cendres",
     "topValue": "8",
@@ -4597,7 +4559,7 @@
     "collectionName": "base",
     "name": "Combustion en Feu",
     "description": "Embrasé tactique coordonnant les attaques synchronisées au feu pour maximiser les dégâts thermiques en chaîne.",
-    "element": "faille_dimensionnelle",
+    "element": "radiation",
     "faction": "Héritiers des Cendres",
     "topValue": "6",
     "rightValue": "1",
@@ -4609,7 +4571,7 @@
     "image": "base/055.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "radiation"
     ],
     "prompt": {
       "format": "1:1",
@@ -4688,7 +4650,7 @@
     "image": "base/056.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "radiation"
     ],
     "prompt": {
       "format": "1:1",
@@ -4764,7 +4726,7 @@
     "collectionName": "base",
     "name": "Pyro Volcanique",
     "description": "Phénix tacticien utilisant ses cendres pour bloquer les lignes ennemies et créer des murs de fumée infranchissables.",
-    "element": "spore",
+    "element": "radiation",
     "faction": "Héritiers des Cendres",
     "topValue": "4",
     "rightValue": "5",
@@ -4782,7 +4744,7 @@
     "image": "base/057.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "radiation"
     ],
     "prompt": {
       "format": "1:1",
@@ -4877,7 +4839,7 @@
     "image": "base/058.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "radiation"
     ],
     "prompt": {
       "format": "1:1",
@@ -4948,7 +4910,7 @@
     "collectionName": "base",
     "name": "Volcan en Feu",
     "description": "Maître Pyromancien orchestrant les offensives thermiques multi-cibles coordonnant plusieurs sources de chaleur simultanées.",
-    "element": "spore",
+    "element": "radiation",
     "elements": [
       "radiation"
     ],
@@ -5033,7 +4995,7 @@
     "description": "Phoenix Primordial renaissant éternellement de ses cendres pour guider la vengeance des Héritiers et inspirer leur rage combattante.",
     "element": "radiation",
     "elements": [
-      "faille_dimensionnelle"
+      "radiation"
     ],
     "faction": "Héritiers des Cendres",
     "topValue": "A",
@@ -5144,7 +5106,7 @@
     "image": "base/061.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "reseau"
     ],
     "prompt": {
       "format": "1:1",
@@ -5221,7 +5183,7 @@
     "collectionName": "base",
     "name": "Proxy",
     "description": "Sentinelle algorithmique détectant les anomalies suspectes et les comportements inhabituels dans les systèmes amis.",
-    "element": "hacking",
+    "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "0",
     "rightValue": "0",
@@ -5239,7 +5201,7 @@
     "image": "base/062.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "reseau"
     ],
     "prompt": {
       "format": "1:1",
@@ -5306,7 +5268,7 @@
     "collectionName": "base",
     "name": "Binaire",
     "description": "Analyste de cryptographie processant les données ennemies interceptées pour identifier leurs vulnérabilités stratégiques.",
-    "element": "longue_portee",
+    "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "1",
     "rightValue": "1",
@@ -5318,7 +5280,7 @@
     "image": "base/063.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "reseau"
     ],
     "prompt": {
       "format": "1:1",
@@ -5391,7 +5353,7 @@
     "collectionName": "base",
     "name": "Pulse du Reseau",
     "description": "Relais quantique étendant la portée du réseau dans les zones reculées où les communications conventionnelles échouent.",
-    "element": "faille_dimensionnelle",
+    "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "5",
     "rightValue": "0",
@@ -5409,7 +5371,7 @@
     "image": "base/064.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "reseau"
     ],
     "prompt": {
       "format": "1:1",
@@ -5492,7 +5454,7 @@
     "image": "base/065.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "reseau"
     ],
     "prompt": {
       "format": "1:1",
@@ -5564,7 +5526,7 @@
     "collectionName": "base",
     "name": "Synapse",
     "description": "Pixel infiltrateur injectant subtilement des virus dans les systèmes de défense ennemis sans être détecté.",
-    "element": "hacking",
+    "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "1",
     "rightValue": "1",
@@ -5576,7 +5538,7 @@
     "image": "base/066.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "reseau"
     ],
     "prompt": {
       "format": "1:1",
@@ -5655,7 +5617,7 @@
     "image": "base/067.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "reseau"
     ],
     "prompt": {
       "format": "1:1",
@@ -5727,7 +5689,7 @@
     "collectionName": "base",
     "name": "Relay Digital",
     "description": "Architecte de grille renforçant les défenses numériques du réseau contre les tentatives d'intrusion adverses.",
-    "element": "hacking",
+    "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "8",
     "rightValue": "1",
@@ -5739,7 +5701,7 @@
     "image": "base/068.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "reseau"
     ],
     "prompt": {
       "format": "1:1",
@@ -5807,7 +5769,7 @@
     "collectionName": "base",
     "name": "Binaire Quantique",
     "description": "Data-miner extrayant les secrets stratégiques enfouis dans les bases de données ennemies sous le camouflage numérique.",
-    "element": "longue_portee",
+    "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "A",
     "rightValue": "7",
@@ -5819,7 +5781,7 @@
     "image": "base/069.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "reseau"
     ],
     "prompt": {
       "format": "1:1",
@@ -5891,7 +5853,7 @@
     "collectionName": "base",
     "name": "Synapse Connecte",
     "description": "Routeur tactique optimisant les flux d'information en temps de combat pour une réactivité maximale des unités alliées.",
-    "element": "faille_dimensionnelle",
+    "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "6",
     "rightValue": "5",
@@ -5909,7 +5871,7 @@
     "image": "base/070.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "reseau"
     ],
     "prompt": {
       "format": "1:1",
@@ -6002,7 +5964,7 @@
     "image": "base/071.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "reseau"
     ],
     "prompt": {
       "format": "1:1",
@@ -6071,7 +6033,7 @@
     "collectionName": "base",
     "name": "Algo Connecte",
     "description": "Code-mancer réécrivant les protocoles de sécurité en temps réel pour bloquer les contre-mesures numériques adverses.",
-    "element": "hacking",
+    "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "6",
     "rightValue": "9",
@@ -6083,7 +6045,7 @@
     "image": "base/072.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "reseau"
     ],
     "prompt": {
       "format": "1:1",
@@ -6145,7 +6107,7 @@
     "description": "Nœud Prime centralisant les opérations de guerre cybernétique de l'Omni-Réseau sur tous les fronts simultanément.",
     "element": "reseau",
     "elements": [
-      "furtif"
+      "reseau"
     ],
     "faction": "Omni-Réseau",
     "topValue": "7",
@@ -6228,9 +6190,9 @@
     "collectionName": "base",
     "name": "Algo du Reseau",
     "description": "Architecte du Réseau tissant la toile de surveillance galactique connectant chaque point d'information en une seule conscience.",
-    "element": "hacking",
+    "element": "reseau",
     "elements": [
-      "spore"
+      "reseau"
     ],
     "faction": "Omni-Réseau",
     "topValue": "9",
@@ -6341,7 +6303,7 @@
     "image": "base/075.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "reseau"
     ],
     "prompt": {
       "format": "1:1",
@@ -6408,7 +6370,7 @@
     "collectionName": "base",
     "name": "Amp Musical",
     "description": "Résonateur amplifiant les signaux tactiques alliés pour une meilleure coordination sur le champ de bataille chaotique.",
-    "element": "faille_dimensionnelle",
+    "element": "hacking",
     "elements": [
       "hacking"
     ],
@@ -6496,7 +6458,7 @@
     "collectionName": "base",
     "name": "Basse",
     "description": "Harmoniste synchronisant les rythmes de combat des unités proches augmentant leur efficacité au combat rapproché.",
-    "element": "reseau",
+    "element": "hacking",
     "faction": "Chœur Synthétique",
     "topValue": "3",
     "rightValue": "0",
@@ -6508,7 +6470,7 @@
     "image": "base/077.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "hacking"
     ],
     "prompt": {
       "format": "1:1",
@@ -6580,7 +6542,7 @@
     "collectionName": "base",
     "name": "Harmon",
     "description": "Sondeur sismique détectant les mouvements ennemis à travers les vibrations du sol permettant des contre-mesures précoces.",
-    "element": "furtif",
+    "element": "hacking",
     "faction": "Chœur Synthétique",
     "topValue": "1",
     "rightValue": "4",
@@ -6592,7 +6554,7 @@
     "image": "base/078.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "hacking"
     ],
     "prompt": {
       "format": "1:1",
@@ -6665,7 +6627,7 @@
     "collectionName": "base",
     "name": "Crescendo Sonore",
     "description": "Vibrato soignant les blessures des alliés proches par des fréquences sonores apaisantes accélérant la guérison naturelle.",
-    "element": "obsidienne",
+    "element": "hacking",
     "faction": "Chœur Synthétique",
     "topValue": "1",
     "rightValue": "1",
@@ -6683,7 +6645,7 @@
     "image": "base/079.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "hacking"
     ],
     "prompt": {
       "format": "1:1",
@@ -6750,7 +6712,7 @@
     "collectionName": "base",
     "name": "Rythme",
     "description": "Accordéon de guerre produisant des ondes choc perturbant les formations ennemies et désorganisant leurs lignes.",
-    "element": "faille_dimensionnelle",
+    "element": "hacking",
     "faction": "Chœur Synthétique",
     "topValue": "0",
     "rightValue": "1",
@@ -6762,7 +6724,7 @@
     "image": "base/080.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "hacking"
     ],
     "prompt": {
       "format": "1:1",
@@ -6837,7 +6799,7 @@
     "collectionName": "base",
     "name": "Resonance",
     "description": "Chronométreur marquant le tempo des assauts coordonnés pour maximiser l'impact des attaques synchronisées.",
-    "element": "reseau",
+    "element": "hacking",
     "faction": "Chœur Synthétique",
     "topValue": "0",
     "rightValue": "3",
@@ -6849,7 +6811,7 @@
     "image": "base/081.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "hacking"
     ],
     "prompt": {
       "format": "1:1",
@@ -6924,7 +6886,7 @@
     "collectionName": "base",
     "name": "Basse Chantant",
     "description": "Chef d'orchestre de combat dirigeant les mouvements synchronisés des troupes alliées avec une précision musicale remarquable.",
-    "element": "faille_dimensionnelle",
+    "element": "hacking",
     "faction": "Chœur Synthétique",
     "topValue": "1",
     "rightValue": "0",
@@ -6936,7 +6898,7 @@
     "image": "base/082.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "hacking"
     ],
     "prompt": {
       "format": "1:1",
@@ -7008,9 +6970,9 @@
     "collectionName": "base",
     "name": "Resonance Musical",
     "description": "Dissonateur créant des interférences sonores désorientantes empêchant l'ennemi de communiquer efficacement sur le champ de bataille.",
-    "element": "reseau",
+    "element": "hacking",
     "elements": [
-      "eau"
+      "hacking"
     ],
     "faction": "Chœur Synthétique",
     "topValue": "2",
@@ -7100,7 +7062,7 @@
     "collectionName": "base",
     "name": "Strophe Sonore",
     "description": "Amplificateur projetant les ondes curatives sur une zone élargie soignant plusieurs alliés simultanément en zone de combat.",
-    "element": "furtif",
+    "element": "hacking",
     "faction": "Chœur Synthétique",
     "topValue": "A",
     "rightValue": "0",
@@ -7112,7 +7074,7 @@
     "image": "base/084.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "hacking"
     ],
     "prompt": {
       "format": "1:1",
@@ -7187,7 +7149,7 @@
     "collectionName": "base",
     "name": "Crescendo Harmonique",
     "description": "Compositeur de guerre improvisant des stratégies musicales adaptatives changeant de tactique au rythme des événements.",
-    "element": "obsidienne",
+    "element": "hacking",
     "faction": "Chœur Synthétique",
     "topValue": "4",
     "rightValue": "8",
@@ -7205,7 +7167,7 @@
     "image": "base/085.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "hacking"
     ],
     "prompt": {
       "format": "1:1",
@@ -7289,7 +7251,7 @@
     "collectionName": "base",
     "name": "Amp Harmonique",
     "description": "Maître du Chant ancien canalisant les harmoniques ancestraux pour booster considérablement les capacités de combat des alliés.",
-    "element": "faille_dimensionnelle",
+    "element": "hacking",
     "faction": "Chœur Synthétique",
     "topValue": "6",
     "rightValue": "4",
@@ -7301,7 +7263,7 @@
     "image": "base/086.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "hacking"
     ],
     "prompt": {
       "format": "1:1",
@@ -7374,9 +7336,9 @@
     "collectionName": "base",
     "name": "Chord Chantant",
     "description": "Symphoniste orchestrant les attaques multi-niveaux du Chœur coordonnant les assauts terrestres et aériens en harmonie.",
-    "element": "reseau",
+    "element": "hacking",
     "elements": [
-      "obsidienne"
+      "hacking"
     ],
     "faction": "Chœur Synthétique",
     "topValue": "8",
@@ -7469,9 +7431,9 @@
     "collectionName": "base",
     "name": "Vibra Chantant",
     "description": "Conducteur du Silence absolu annulant tous les sons ennemis dans un rayon étendu rendant la coordination adverse impossible.",
-    "element": "faille_dimensionnelle",
+    "element": "hacking",
     "elements": [
-      "furtif"
+      "hacking"
     ],
     "faction": "Chœur Synthétique",
     "topValue": "3",
@@ -7560,9 +7522,9 @@
     "collectionName": "base",
     "name": "Amp Chantant",
     "description": "Virtuose de la Résonance créant des boucles de feedback destructrices visant les armures et les équipements sensibles aux vibrations.",
-    "element": "reseau",
+    "element": "hacking",
     "elements": [
-      "obsidienne"
+      "hacking"
     ],
     "faction": "Chœur Synthétique",
     "topValue": "8",
@@ -7665,7 +7627,7 @@
     "collectionName": "base",
     "name": "Resonance Dissonant",
     "description": "Symphonie Ultime fusionnant toutes les harmoniques disponibles en une seule note dévastatrice capable de réduire des structures entières en poussière.",
-    "element": "faille_dimensionnelle",
+    "element": "hacking",
     "faction": "Chœur Synthétique",
     "topValue": "7",
     "rightValue": "A",
@@ -7688,7 +7650,7 @@
     "image": "base/090.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "hacking"
     ],
     "prompt": {
       "format": "1:1",
@@ -7772,7 +7734,7 @@
     "collectionName": "base",
     "name": "Profond des Tenebres",
     "description": "Gardien des Sceaux veillant sur les portes dimensionnelles scellées empêchant les invasions inter-dimensionnelles accidentelles.",
-    "element": "faille_dimensionnelle",
+    "element": "obsidienne",
     "faction": "Éveil Chthonien",
     "topValue": "1",
     "rightValue": "0",
@@ -7784,7 +7746,7 @@
     "image": "base/091.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "obsidienne"
     ],
     "prompt": {
       "format": "1:1",
@@ -7873,7 +7835,7 @@
     "image": "base/092.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "obsidienne"
     ],
     "prompt": {
       "format": "1:1",
@@ -7946,7 +7908,7 @@
     "collectionName": "base",
     "name": "Chtonien",
     "description": "Prophète du Vide interprétant les signes avant-coureurs du réveil des Anciens pour préparer les défenses spirituelles.",
-    "element": "furtif",
+    "element": "obsidienne",
     "faction": "Éveil Chthonien",
     "topValue": "1",
     "rightValue": "2",
@@ -7958,7 +7920,7 @@
     "image": "base/093.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "obsidienne"
     ],
     "prompt": {
       "format": "1:1",
@@ -8027,7 +7989,7 @@
     "collectionName": "base",
     "name": "Mystique de l Abysse",
     "description": "Spectre des Abysses terrifiant les unités ennemies par sa simple présence réduisant leur capacité combative de moitié.",
-    "element": "spore",
+    "element": "obsidienne",
     "faction": "Éveil Chthonien",
     "topValue": "1",
     "rightValue": "1",
@@ -8039,7 +8001,7 @@
     "image": "base/094.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "obsidienne"
     ],
     "prompt": {
       "format": "1:1",
@@ -8112,7 +8074,7 @@
     "collectionName": "base",
     "name": "Chtonien 1",
     "description": "Mystique ancien lisant les runes prédisant les événements futurs et permettant des anticipations tactiques surprenantes.",
-    "element": "faille_dimensionnelle",
+    "element": "obsidienne",
     "faction": "Éveil Chthonien",
     "topValue": "0",
     "rightValue": "0",
@@ -8124,7 +8086,7 @@
     "image": "base/095.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "obsidienne"
     ],
     "prompt": {
       "format": "1:1",
@@ -8203,7 +8165,7 @@
     "image": "base/096.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "obsidienne"
     ],
     "prompt": {
       "format": "1:1",
@@ -8285,7 +8247,7 @@
     "collectionName": "base",
     "name": "Mystique 1",
     "description": "Invocateur ouvrant des portails vers les dimensions chthoniennes permettant le passage d'entités alliées depuis d'autres mondes.",
-    "element": "faille_dimensionnelle",
+    "element": "obsidienne",
     "faction": "Éveil Chthonien",
     "topValue": "0",
     "rightValue": "5",
@@ -8303,7 +8265,7 @@
     "image": "base/097.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "obsidienne"
     ],
     "prompt": {
       "format": "1:1",
@@ -8388,7 +8350,7 @@
     "image": "base/098.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "obsidienne"
     ],
     "prompt": {
       "format": "1:1",
@@ -8460,7 +8422,7 @@
     "collectionName": "base",
     "name": "Chtonien Profond",
     "description": "Gouffre absorbant l'énergie vitale des cibles proches drainant leur force pour la redistribuer aux alliés de l'Éveil.",
-    "element": "furtif",
+    "element": "obsidienne",
     "faction": "Éveil Chthonien",
     "topValue": "9",
     "rightValue": "0",
@@ -8472,7 +8434,7 @@
     "image": "base/099.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "obsidienne"
     ],
     "prompt": {
       "format": "1:1",
@@ -8543,7 +8505,7 @@
     "collectionName": "base",
     "name": "Gouffre Chtonien",
     "description": "Oracle ténébreux révélant les points faibles cachés des stratégies adverses permettant des contre-offensives ciblées.",
-    "element": "spore",
+    "element": "obsidienne",
     "faction": "Éveil Chthonien",
     "topValue": "A",
     "rightValue": "0",
@@ -8555,7 +8517,7 @@
     "image": "base/100.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "obsidienne"
     ],
     "prompt": {
       "format": "1:1",
@@ -8628,9 +8590,9 @@
     "collectionName": "base",
     "name": "Mystique Chtonien",
     "description": "Gardien des Portes Anciennes ouvrant les passages vers les plans inférieurs permettant des déplacements tactiques imprévus.",
-    "element": "faille_dimensionnelle",
+    "element": "obsidienne",
     "elements": [
-      "hacking"
+      "obsidienne"
     ],
     "faction": "Éveil Chthonien",
     "topValue": "9",
@@ -8737,7 +8699,7 @@
     "image": "base/102.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "obsidienne"
     ],
     "prompt": {
       "format": "1:1",
@@ -8809,7 +8771,7 @@
     "collectionName": "base",
     "name": "Maudit du Vide",
     "description": "Avatar de l'Abysse incarnant la terreur primordiale des profondeurs répandant la peur et la confusion dans les rangs adverses.",
-    "element": "faille_dimensionnelle",
+    "element": "obsidienne",
     "elements": [
       "obsidienne"
     ],
@@ -8892,7 +8854,7 @@
     "description": "Prophète du Néant annonçant la fin imminente du cycle cosmique actuel démoralisant durablement les forces ennemies.",
     "element": "obsidienne",
     "elements": [
-      "eau"
+      "obsidienne"
     ],
     "faction": "Éveil Chthonien",
     "topValue": "3",
@@ -8976,7 +8938,7 @@
     "collectionName": "base",
     "name": "Arcane 1",
     "description": "Ancien Endormi réveillé libérant la puissance oubliée des ères pré-cosmiques remodelant temporairement les règles physiques du champ de bataille.",
-    "element": "faille_dimensionnelle",
+    "element": "obsidienne",
     "faction": "Éveil Chthonien",
     "topValue": "8",
     "rightValue": "A",
@@ -8999,7 +8961,7 @@
     "image": "base/105.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "obsidienne"
     ],
     "prompt": {
       "format": "1:1",
@@ -9075,7 +9037,7 @@
     "collectionName": "base",
     "name": "Fracture Instable",
     "description": "Fracture instable créant des perturbations localisées dans les systèmes ennemis provoquant des malfunctions temporaires.",
-    "element": "furtif",
+    "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "1",
     "rightValue": "1",
@@ -9087,7 +9049,7 @@
     "image": "base/106.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "faille_dimensionnelle"
     ],
     "prompt": {
       "format": "1:1",
@@ -9186,7 +9148,7 @@
     "image": "base/107.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "faille_dimensionnelle"
     ],
     "prompt": {
       "format": "1:1",
@@ -9259,7 +9221,7 @@
     "collectionName": "base",
     "name": "Fragment",
     "description": "Mutant dimensionnel résistant aux attaques physiques conventionnelles grâce à un déphasage partiel avec la réalité.",
-    "element": "hacking",
+    "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "5",
     "rightValue": "2",
@@ -9271,7 +9233,7 @@
     "image": "base/108.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "faille_dimensionnelle"
     ],
     "prompt": {
       "format": "1:1",
@@ -9344,7 +9306,7 @@
     "collectionName": "base",
     "name": "Chaos Devie",
     "description": "Erratique brouillant les senseurs adverses par des mouvements aléatoires détournant les attaques loin des alliés de l'Incursion.",
-    "element": "radiation",
+    "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "6",
     "rightValue": "0",
@@ -9356,7 +9318,7 @@
     "image": "base/109.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "faille_dimensionnelle"
     ],
     "prompt": {
       "format": "1:1",
@@ -9429,7 +9391,7 @@
     "collectionName": "base",
     "name": "Irregulier",
     "description": "Fêlure du réel générant des fissures dans les défenses statiques ennemies rendant leurs positions vulnérables.",
-    "element": "furtif",
+    "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "6",
     "rightValue": "0",
@@ -9441,7 +9403,7 @@
     "image": "base/110.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "faille_dimensionnelle"
     ],
     "prompt": {
       "format": "1:1",
@@ -9530,7 +9492,7 @@
     "image": "base/111.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "faille_dimensionnelle"
     ],
     "prompt": {
       "format": "1:1",
@@ -9606,7 +9568,7 @@
     "collectionName": "base",
     "name": "Anomalie Anormal",
     "description": "Rupture dimensionnelle ouvrant des portes entre les réalités parallèles permettant des manoeuvres tactiques impossibles autrement.",
-    "element": "furtif",
+    "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "9",
     "rightValue": "0",
@@ -9624,7 +9586,7 @@
     "image": "base/112.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "faille_dimensionnelle"
     ],
     "prompt": {
       "format": "1:1",
@@ -9717,7 +9679,7 @@
     "image": "base/113.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "faille_dimensionnelle"
     ],
     "prompt": {
       "format": "1:1",
@@ -9785,7 +9747,7 @@
     "collectionName": "base",
     "name": "Faille Devie",
     "description": "Paradoxe créant des boucles temporelles piégeant les unités ennemies dans des cycles de combat répétitifs.",
-    "element": "hacking",
+    "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "4",
     "rightValue": "A",
@@ -9797,7 +9759,7 @@
     "image": "base/114.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "faille_dimensionnelle"
     ],
     "prompt": {
       "format": "1:1",
@@ -9870,7 +9832,7 @@
     "collectionName": "base",
     "name": "Bizarre Instable",
     "description": "Vortex instable aspirant les projectiles et les énergies hostiles protégeant les alliés dans un rayon large.",
-    "element": "radiation",
+    "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "5",
     "rightValue": "4",
@@ -9882,7 +9844,7 @@
     "image": "base/115.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "faille_dimensionnelle"
     ],
     "prompt": {
       "format": "1:1",
@@ -9980,7 +9942,7 @@
     "collectionName": "base",
     "name": "Deviant du Chaos",
     "description": "Chaos pur désorganisant l'ordre établi des formations adverses rendant la coordination tactique impossible pendant plusieurs cycles.",
-    "element": "furtif",
+    "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "3",
     "rightValue": "3",
@@ -9998,7 +9960,7 @@
     "image": "base/116.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "faille_dimensionnelle"
     ],
     "prompt": {
       "format": "1:1",
@@ -10088,7 +10050,7 @@
     "image": "base/117.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "faille_dimensionnelle"
     ],
     "prompt": {
       "format": "1:1",
@@ -10156,9 +10118,9 @@
     "collectionName": "base",
     "name": "Instable Instable",
     "description": "Entropiste accélérant la désintégration des structures ennemies faisant vieillir les constructions et les armures à vitesse exponentielle.",
-    "element": "furtif",
+    "element": "faille_dimensionnelle",
     "elements": [
-      "radiation"
+      "faille_dimensionnelle"
     ],
     "faction": "Incursion Dissonante",
     "topValue": "9",
@@ -10264,7 +10226,7 @@
     "description": "Architecte du Chaos orchestrant les perturbations causant des erreurs en cascade dans les systèmes de défense adverses.",
     "element": "faille_dimensionnelle",
     "elements": [
-      "spore"
+      "faille_dimensionnelle"
     ],
     "faction": "Incursion Dissonante",
     "topValue": "9",
@@ -10353,7 +10315,7 @@
     "collectionName": "base",
     "name": "Fragment Dissonant",
     "description": "Paradoxe Final brisant les lois fondamentales de la réalité sur un secteur entier rendant chaque action imprévisible et chaque défense obsolète.",
-    "element": "furtif",
+    "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "A",
     "rightValue": "A",
@@ -10376,7 +10338,7 @@
     "image": "base/120.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "faille_dimensionnelle"
     ],
     "prompt": {
       "format": "1:1",
@@ -10453,9 +10415,9 @@
     "collectionName": "base",
     "name": "Recup Artisanal",
     "description": "Artisan du scrap fabriquant des gadgets utiles à partir de débris collectés sur le champ de bataille après chaque engagement.",
-    "element": "radiation",
+    "element": "furtif",
     "elements": [
-      "faille_dimensionnelle"
+      "furtif"
     ],
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "1",
@@ -10536,7 +10498,7 @@
     "collectionName": "base",
     "name": "Castreur",
     "description": "Récupérateur collectant les ressources abandonnées après les batailles et les redistribuant aux unités qui en ont le plus besoin.",
-    "element": "reseau",
+    "element": "furtif",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "3",
     "rightValue": "0",
@@ -10548,7 +10510,7 @@
     "image": "base/122.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "furtif"
     ],
     "prompt": {
       "format": "1:1",
@@ -10629,7 +10591,7 @@
     "collectionName": "base",
     "name": "Soudeur",
     "description": "Soudeur réparant les armures et les équipements endommagés directement sur le terrain pendant les pauses entre deux combats.",
-    "element": "obsidienne",
+    "element": "furtif",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "3",
     "rightValue": "1",
@@ -10641,7 +10603,7 @@
     "image": "base/123.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "furtif"
     ],
     "prompt": {
       "format": "1:1",
@@ -10718,7 +10680,7 @@
     "collectionName": "base",
     "name": "Bricoleur Ferraille",
     "description": "Bricoleur improvisant des armes à partir de pièces détachées créant des solutions inattendues face aux menaces non anticipées.",
-    "element": "eau",
+    "element": "furtif",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "3",
     "rightValue": "0",
@@ -10730,8 +10692,7 @@
     "image": "base/124.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "eau",
-      "glace"
+      "furtif"
     ],
     "prompt": {
       "format": "1:1",
@@ -10805,7 +10766,7 @@
     "collectionName": "base",
     "name": "Recup",
     "description": "Électronicien recyclant les composants électroniques récupérés pour alimenter les systèmes vitaux de la base.",
-    "element": "radiation",
+    "element": "furtif",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "0",
     "rightValue": "4",
@@ -10817,7 +10778,7 @@
     "image": "base/125.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "furtif"
     ],
     "prompt": {
       "format": "1:1",
@@ -10884,9 +10845,9 @@
     "collectionName": "base",
     "name": "Soudure",
     "description": "Dépanneur restaurant les fonctions essentielles des installations endommagées maintenant la chaîne logistique opérationnelle.",
-    "element": "reseau",
+    "element": "furtif",
     "elements": [
-      "spore"
+      "furtif"
     ],
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "1",
@@ -10973,7 +10934,7 @@
     "collectionName": "base",
     "name": "Metal de la Ceinture",
     "description": "Architecte de fortune construisant des défenses temporaires avec des matériaux récupérés sur les épaves les plus récentes.",
-    "element": "radiation",
+    "element": "furtif",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "3",
     "rightValue": "3",
@@ -10985,7 +10946,7 @@
     "image": "base/127.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "furtif"
     ],
     "prompt": {
       "format": "1:1",
@@ -11062,7 +11023,7 @@
     "collectionName": "base",
     "name": "Bricoleur 1",
     "description": "Ingénieur de récupération optimisant les ressources limitées du groupe pour maximiser leur durée de vie en zone hostile.",
-    "element": "reseau",
+    "element": "furtif",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "1",
     "rightValue": "4",
@@ -11074,7 +11035,7 @@
     "image": "base/128.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "furtif"
     ],
     "prompt": {
       "format": "1:1",
@@ -11142,7 +11103,7 @@
     "collectionName": "base",
     "name": "Artisan Artisanal",
     "description": "Saboteur de chantier détruisant les installations ennemies en réutilisant habilement leurs propres matériaux de construction.",
-    "element": "obsidienne",
+    "element": "furtif",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "5",
     "rightValue": "8",
@@ -11154,7 +11115,7 @@
     "image": "base/129.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "furtif"
     ],
     "prompt": {
       "format": "1:1",
@@ -11232,7 +11193,7 @@
     "collectionName": "base",
     "name": "Metal Ferraille",
     "description": "Chef d'équipe coordonnant les efforts de sauvetage et de collecte dans les zones de combat les plus dangereuses.",
-    "element": "eau",
+    "element": "furtif",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "3",
     "rightValue": "5",
@@ -11244,8 +11205,7 @@
     "image": "base/130.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "eau",
-      "glace"
+      "furtif"
     ],
     "prompt": {
       "format": "1:1",
@@ -11317,7 +11277,7 @@
     "collectionName": "base",
     "name": "Rouille Recycle",
     "description": "Maître Ferrailleur concevant des machines de guerre improvisées à partir d'épaves transformant les déchets en avantages tactiques.",
-    "element": "radiation",
+    "element": "furtif",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "5",
     "rightValue": "6",
@@ -11329,7 +11289,7 @@
     "image": "base/131.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "furtif"
     ],
     "prompt": {
       "format": "1:1",
@@ -11402,7 +11362,7 @@
     "collectionName": "base",
     "name": "Recup Ferraille",
     "description": "Stratège de survie planifiant les itinéraires de collecte les plus rentables en évitant les zones contrôlées par les factions hostiles.",
-    "element": "reseau",
+    "element": "furtif",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "A",
     "rightValue": "6",
@@ -11420,7 +11380,7 @@
     "image": "base/132.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "furtif"
     ],
     "prompt": {
       "format": "1:1",
@@ -11493,7 +11453,7 @@
     "collectionName": "base",
     "name": "Casse Artisanal",
     "description": "Fondateur des Ferrailleurs bâtissant des colonies entières à partir de déchets créant des avant-postes viables dans les environnements les plus hostiles.",
-    "element": "radiation",
+    "element": "furtif",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "6",
     "rightValue": "9",
@@ -11511,7 +11471,7 @@
     "image": "base/133.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "furtif"
     ],
     "prompt": {
       "format": "1:1",
@@ -11588,9 +11548,9 @@
     "collectionName": "base",
     "name": "Rouille Rustique",
     "description": "Ingénieur Génie transformant les catastrophes environnementales en opportunités économiques exploitant chaque débris avec créativité.",
-    "element": "reseau",
+    "element": "furtif",
     "elements": [
-      "obsidienne"
+      "furtif"
     ],
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "6",
@@ -11678,9 +11638,9 @@
     "collectionName": "base",
     "name": "Depanneur Artisanal",
     "description": "Dernier Survivant de la Grande Panne ayant résisté aux pires conditions de la Ceinture incarnant la résilience absolue de son peuple.",
-    "element": "radiation",
+    "element": "furtif",
     "elements": [
-      "None"
+      "furtif"
     ],
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "A",
@@ -11785,7 +11745,7 @@
     "image": "base/136.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "spore"
     ],
     "prompt": {
       "format": "1:1",
@@ -11858,7 +11818,7 @@
     "collectionName": "base",
     "name": "Necrose",
     "description": "Mycélium connectant les colonies fongiques distantes en un réseau souterrain de communication et de coordination.",
-    "element": "eau",
+    "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "6",
     "rightValue": "3",
@@ -11870,8 +11830,7 @@
     "image": "base/137.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "eau",
-      "glace"
+      "spore"
     ],
     "prompt": {
       "format": "1:1",
@@ -11948,7 +11907,7 @@
     "collectionName": "base",
     "name": "Mycelium",
     "description": "Contaminateur infectant les équipements ennemis avec des spores corrosives affaiblissant leur efficacité opérationnelle.",
-    "element": "furtif",
+    "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "0",
     "rightValue": "0",
@@ -11966,7 +11925,7 @@
     "image": "base/138.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "spore"
     ],
     "prompt": {
       "format": "1:1",
@@ -12042,7 +12001,7 @@
     "collectionName": "base",
     "name": "Vegetal de la Spore",
     "description": "Décomposeur détruisant les ressources organiques adverses privant l'ennemi de ravitaillement alimentaire naturel.",
-    "element": "radiation",
+    "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "4",
     "rightValue": "0",
@@ -12054,7 +12013,7 @@
     "image": "base/139.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "spore"
     ],
     "prompt": {
       "format": "1:1",
@@ -12144,7 +12103,7 @@
     "image": "base/140.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "spore"
     ],
     "prompt": {
       "format": "1:1",
@@ -12220,7 +12179,7 @@
     "collectionName": "base",
     "name": "Pestilent",
     "description": "Végétal sentinelle détectant les intrusions ennemies par les modifications de l'environnement fongique environnant.",
-    "element": "eau",
+    "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "1",
     "rightValue": "0",
@@ -12238,8 +12197,7 @@
     "image": "base/141.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "eau",
-      "glace"
+      "spore"
     ],
     "prompt": {
       "format": "1:1",
@@ -12323,7 +12281,7 @@
     "image": "base/142.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "spore"
     ],
     "prompt": {
       "format": "1:1",
@@ -12392,7 +12350,7 @@
     "collectionName": "base",
     "name": "Fongique Venimeux",
     "description": "Spore tactique coordonnant les actions des unités fongiques dispersées à distance par des signaux chimiques imperceptibles.",
-    "element": "eau",
+    "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "2",
     "rightValue": "7",
@@ -12404,8 +12362,7 @@
     "image": "base/143.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "eau",
-      "glace"
+      "spore"
     ],
     "prompt": {
       "format": "1:1",
@@ -12472,7 +12429,7 @@
     "collectionName": "base",
     "name": "Mousse Corrompu",
     "description": "Mousse envahissante bloquant les voies de communication ennemies ralentissant leurs mouvements et leurs renforts.",
-    "element": "furtif",
+    "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "2",
     "rightValue": "1",
@@ -12484,7 +12441,7 @@
     "image": "base/144.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "spore"
     ],
     "prompt": {
       "format": "1:1",
@@ -12557,7 +12514,7 @@
     "collectionName": "base",
     "name": "Mucus Toxique",
     "description": "Fongique guérisseur régénérant les tissus endommagés des unités alliées grâce aux propriétés curatives de la spore.",
-    "element": "radiation",
+    "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "3",
     "rightValue": "7",
@@ -12569,7 +12526,7 @@
     "image": "base/145.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "spore"
     ],
     "prompt": {
       "format": "1:1",
@@ -12660,7 +12617,7 @@
     "image": "base/146.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "spore"
     ],
     "prompt": {
       "format": "1:1",
@@ -12735,7 +12692,7 @@
     "collectionName": "base",
     "name": "Mycelium Venimeux",
     "description": "Maître Mycélien connectant plusieurs colonies fongiques dispersées pour une action coordonnée simultanée sur plusieurs fronts.",
-    "element": "eau",
+    "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "2",
     "rightValue": "6",
@@ -12747,8 +12704,7 @@
     "image": "base/147.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "eau",
-      "glace"
+      "spore"
     ],
     "prompt": {
       "format": "1:1",
@@ -12828,7 +12784,7 @@
     "description": "Pandémie vivante se propageant exponentiellement sur le champ de bataille contaminant chaque zone touchée durablement.",
     "element": "spore",
     "elements": [
-      "radiation"
+      "spore"
     ],
     "faction": "Fléau Spore",
     "topValue": "3",
@@ -12906,7 +12862,7 @@
     "collectionName": "base",
     "name": "Contamine Toxique",
     "description": "Hôte Primordial portant la souche originelle du Fléau Spore immunisé contre toutes les formes connues de contamination inverse.",
-    "element": "eau",
+    "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "0",
     "rightValue": "9",
@@ -12918,8 +12874,7 @@
     "image": "base/149.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "eau",
-      "glace"
+      "spore"
     ],
     "prompt": {
       "format": "1:1",
@@ -13007,7 +12962,7 @@
     "image": "base/150.png",
     "storiesRewardedFrom": null,
     "elements": [
-      "neutre"
+      "spore"
     ],
     "prompt": {
       "format": "1:1",

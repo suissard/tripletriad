@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Mystique 1",
   "description": "Invocateur ouvrant des portails vers les dimensions chthoniennes permettant le passage d'entités alliées depuis d'autres mondes.",
-  "element": "faille_dimensionnelle",
+  "element": "obsidienne",
   "faction": "Éveil Chthonien",
   "topValue": "0",
   "rightValue": "5",
@@ -20,7 +20,7 @@
   "image": "base/097.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "obsidienne"
   ],
   "prompt": {
     "format": "1:1",

@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Mystique de l Abysse",
   "description": "Spectre des Abysses terrifiant les unités ennemies par sa simple présence réduisant leur capacité combative de moitié.",
-  "element": "spore",
+  "element": "obsidienne",
   "faction": "Éveil Chthonien",
   "topValue": "1",
   "rightValue": "1",
@@ -14,7 +14,7 @@
   "image": "base/094.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "obsidienne"
   ],
   "prompt": {
     "format": "1:1",

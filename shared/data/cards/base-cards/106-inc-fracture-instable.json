@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Fracture Instable",
   "description": "Fracture instable créant des perturbations localisées dans les systèmes ennemis provoquant des malfunctions temporaires.",
-  "element": "furtif",
+  "element": "faille_dimensionnelle",
   "faction": "Incursion Dissonante",
   "topValue": "1",
   "rightValue": "1",
@@ -14,7 +14,7 @@
   "image": "base/106.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "faille_dimensionnelle"
   ],
   "prompt": {
     "format": "1:1",

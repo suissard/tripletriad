@@ -13,9 +13,7 @@
   "defaultHp": 3,
   "image": "base/006.png",
   "storiesRewardedFrom": null,
-  "elements": [
-    "neutre"
-  ],
+  "elements": [],
   "prompt": {
     "format": "1:1",
     "subject": {

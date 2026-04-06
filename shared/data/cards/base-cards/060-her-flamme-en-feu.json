@@ -4,7 +4,7 @@
   "description": "Phoenix Primordial renaissant éternellement de ses cendres pour guider la vengeance des Héritiers et inspirer leur rage combattante.",
   "element": "radiation",
   "elements": [
-    "faille_dimensionnelle"
+    "radiation"
   ],
   "faction": "Héritiers des Cendres",
   "topValue": "A",

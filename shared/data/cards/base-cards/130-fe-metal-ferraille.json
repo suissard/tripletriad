@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Metal Ferraille",
   "description": "Chef d'équipe coordonnant les efforts de sauvetage et de collecte dans les zones de combat les plus dangereuses.",
-  "element": "eau",
+  "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "3",
   "rightValue": "5",
@@ -14,8 +14,7 @@
   "image": "base/130.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "eau",
-    "glace"
+    "furtif"
   ],
   "prompt": {
     "format": "1:1",

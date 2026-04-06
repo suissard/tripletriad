@@ -4,7 +4,7 @@
   "description": "Nœud Prime centralisant les opérations de guerre cybernétique de l'Omni-Réseau sur tous les fronts simultanément.",
   "element": "reseau",
   "elements": [
-    "furtif"
+    "reseau"
   ],
   "faction": "Omni-Réseau",
   "topValue": "7",

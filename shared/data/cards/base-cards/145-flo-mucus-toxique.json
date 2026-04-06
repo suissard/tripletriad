@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Mucus Toxique",
   "description": "Fongique guérisseur régénérant les tissus endommagés des unités alliées grâce aux propriétés curatives de la spore.",
-  "element": "radiation",
+  "element": "spore",
   "faction": "Fléau Spore",
   "topValue": "3",
   "rightValue": "7",
@@ -14,7 +14,7 @@
   "image": "base/145.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "spore"
   ],
   "prompt": {
     "format": "1:1",

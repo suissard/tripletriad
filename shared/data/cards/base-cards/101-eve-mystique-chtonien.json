@@ -2,9 +2,9 @@
   "collectionName": "base",
   "name": "Mystique Chtonien",
   "description": "Gardien des Portes Anciennes ouvrant les passages vers les plans inférieurs permettant des déplacements tactiques imprévus.",
-  "element": "faille_dimensionnelle",
+  "element": "obsidienne",
   "elements": [
-    "hacking"
+    "obsidienne"
   ],
   "faction": "Éveil Chthonien",
   "topValue": "9",

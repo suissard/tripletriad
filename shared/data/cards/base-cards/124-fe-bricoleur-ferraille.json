@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Bricoleur Ferraille",
   "description": "Bricoleur improvisant des armes à partir de pièces détachées créant des solutions inattendues face aux menaces non anticipées.",
-  "element": "eau",
+  "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "3",
   "rightValue": "0",
@@ -14,8 +14,7 @@
   "image": "base/124.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "eau",
-    "glace"
+    "furtif"
   ],
   "prompt": {
     "format": "1:1",

@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Mycelium",
   "description": "Contaminateur infectant les équipements ennemis avec des spores corrosives affaiblissant leur efficacité opérationnelle.",
-  "element": "furtif",
+  "element": "spore",
   "faction": "Fléau Spore",
   "topValue": "0",
   "rightValue": "0",
@@ -20,7 +20,7 @@
   "image": "base/138.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "spore"
   ],
   "prompt": {
     "format": "1:1",

@@ -3,9 +3,7 @@
   "name": "Solitaire des Confins",
   "description": "Passeur de mémoire préservant les savoirs tactiques des civilisations disparues pour les générations futures.",
   "element": "None",
-  "elements": [
-    "radiation"
-  ],
+  "elements": [],
   "faction": "neutre",
   "topValue": "6",
   "rightValue": "5",

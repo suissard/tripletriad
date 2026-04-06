@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Inquisiteur Imperial",
   "description": "Recrue de la IIIe Légion exécutant les ordres disciplinés de la hiérarchie martienne au combat rapproché.",
-  "element": "obsidienne",
+  "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "3",
   "rightValue": "0",
@@ -14,7 +14,7 @@
   "image": "base/016.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "longue_portee"
   ],
   "prompt": {
     "format": "1:1",

@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Refugie",
   "description": "Contrebassiste logistique assurant le maintien des lignes de ravitaillement entre les zones contestées.",
-  "element": "eau",
+  "element": "None",
   "faction": "neutre",
   "topValue": "2",
   "rightValue": "1",
@@ -19,10 +19,7 @@
   "defaultHp": 3,
   "image": "base/002.png",
   "storiesRewardedFrom": null,
-  "elements": [
-    "eau",
-    "glace"
-  ],
+  "elements": [],
   "prompt": {
     "format": "1:1",
     "subject": {

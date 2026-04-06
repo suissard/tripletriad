@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Combustion en Feu",
   "description": "Embrasé tactique coordonnant les attaques synchronisées au feu pour maximiser les dégâts thermiques en chaîne.",
-  "element": "faille_dimensionnelle",
+  "element": "radiation",
   "faction": "Héritiers des Cendres",
   "topValue": "6",
   "rightValue": "1",
@@ -14,7 +14,7 @@
   "image": "base/055.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "radiation"
   ],
   "prompt": {
     "format": "1:1",

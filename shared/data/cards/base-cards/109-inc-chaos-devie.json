@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Chaos Devie",
   "description": "Erratique brouillant les senseurs adverses par des mouvements aléatoires détournant les attaques loin des alliés de l'Incursion.",
-  "element": "radiation",
+  "element": "faille_dimensionnelle",
   "faction": "Incursion Dissonante",
   "topValue": "6",
   "rightValue": "0",
@@ -14,7 +14,7 @@
   "image": "base/109.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "faille_dimensionnelle"
   ],
   "prompt": {
     "format": "1:1",

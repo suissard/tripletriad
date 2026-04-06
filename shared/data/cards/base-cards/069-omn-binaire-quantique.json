@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Binaire Quantique",
   "description": "Data-miner extrayant les secrets stratégiques enfouis dans les bases de données ennemies sous le camouflage numérique.",
-  "element": "longue_portee",
+  "element": "reseau",
   "faction": "Omni-Réseau",
   "topValue": "A",
   "rightValue": "7",
@@ -14,7 +14,7 @@
   "image": "base/069.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "reseau"
   ],
   "prompt": {
     "format": "1:1",

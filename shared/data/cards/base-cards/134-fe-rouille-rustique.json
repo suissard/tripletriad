@@ -2,9 +2,9 @@
   "collectionName": "base",
   "name": "Rouille Rustique",
   "description": "Ingénieur Génie transformant les catastrophes environnementales en opportunités économiques exploitant chaque débris avec créativité.",
-  "element": "reseau",
+  "element": "furtif",
   "elements": [
-    "obsidienne"
+    "furtif"
   ],
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "6",

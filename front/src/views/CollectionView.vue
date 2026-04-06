@@ -2,7 +2,7 @@
   <PageLayout title="MA COLLECTION" back-route="/">
   <template #header-actions>
     <div class="header-stats">
-      Possédées : {{ ownedUniqueCount }} / {{ totalCardCount }}
+      Possédées : {{ ownedUniqueCount }} / {{ totalLibraryCount }}
       <span style="margin-left: 20px; color: #ffc107;">✨ Poussière: {{ userStore.user?.dust || 0 }}</span>
     </div>
   </template>
@@ -270,10 +270,18 @@ const availableFactions = ref([]);
 const availableCollections = ref([]);
 
 // ===== Owned count =====
+const totalLibraryCount = computed(() => {
+  if (!userStore.strapiConnected) return cardLibrary.length;
+  return allCards.value.length;
+});
+
 const ownedUniqueCount = computed(() => {
   if (!userStore.strapiConnected) return cardLibrary.length;
-  const uniqueIds = new Set(userStore.collection.map(c => c.cardId));
-  return uniqueIds.size;
+  const ownedIds = new Set(userStore.collection.map(c => c.cardId));
+  // Only count IDs that actually exist in our library to avoid 122/121 scenario
+  const libraryIds = new Set(allCards.value.map(c => c.id));
+  const validOwnedIds = [...ownedIds].filter(id => libraryIds.has(id));
+  return validOwnedIds.length;
 });
 
 // ===== Filter state =====

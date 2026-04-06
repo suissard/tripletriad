@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Basse Chantant",
   "description": "Chef d'orchestre de combat dirigeant les mouvements synchronisés des troupes alliées avec une précision musicale remarquable.",
-  "element": "faille_dimensionnelle",
+  "element": "hacking",
   "faction": "Chœur Synthétique",
   "topValue": "1",
   "rightValue": "0",
@@ -14,7 +14,7 @@
   "image": "base/082.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "hacking"
   ],
   "prompt": {
     "format": "1:1",

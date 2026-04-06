@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Recup Ferraille",
   "description": "Stratège de survie planifiant les itinéraires de collecte les plus rentables en évitant les zones contrôlées par les factions hostiles.",
-  "element": "reseau",
+  "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "A",
   "rightValue": "6",
@@ -20,7 +20,7 @@
   "image": "base/132.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "furtif"
   ],
   "prompt": {
     "format": "1:1",

@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Tidal Pelagique",
   "description": "Abyssaliste exploitant la pression des profondeurs comme arme défensive contre les agresseurs de surface.",
-  "element": "furtif",
+  "element": "eau",
   "faction": "Exode Pélagique",
   "topValue": "A",
   "rightValue": "8",
@@ -20,7 +20,7 @@
   "image": "base/042.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "eau"
   ],
   "prompt": {
     "format": "1:1",

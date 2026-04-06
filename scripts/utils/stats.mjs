@@ -61,3 +61,28 @@ export function generateTripleTriadStats(rarity) {
     left: formatStat(numericStats.left)
   };
 }
+
+/**
+ * Mappe les factions aux éléments Triple Triad.
+ */
+export const FACTION_ELEMENTS = {
+  "Hégémonie Martienne": "longue_portee",
+  "Fléau Spore": "spore",
+  "neutre": "None",
+  "Exode Pélagique": "eau",
+  "Omni-Réseau": "reseau",
+  "Incursion Dissonante": "faille_dimensionnelle",
+  "Héritiers des Cendres": "radiation",
+  "Éveil Chthonien": "obsidienne",
+  "Chœur Synthétique": "hacking",
+  "Ferrailleurs de la Ceinture": "furtif"
+};
+
+/**
+ * Retourne l'élément associé à une faction.
+ * @param {string} faction 
+ * @returns {string} Element name or "None"
+ */
+export function getElementForFaction(faction) {
+  return FACTION_ELEMENTS[faction] || "None";
+}

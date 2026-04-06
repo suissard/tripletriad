@@ -2,10 +2,8 @@
   "collectionName": "base",
   "name": "Passeur Libre",
   "description": "Médic de terrain soignant les blessés des deux camps sans discrimination, garant de la neutralité humanitaire.",
-  "element": "eau",
-  "elements": [
-    "reseau"
-  ],
+  "element": "None",
+  "elements": [],
   "faction": "neutre",
   "topValue": "1",
   "rightValue": "3",

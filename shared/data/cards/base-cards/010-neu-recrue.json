@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Recrue",
   "description": "Technicien réparant l'équipement endommagé des deux camps, expertise recherchée par toutes les factions.",
-  "element": "radiation",
+  "element": "None",
   "faction": "neutre",
   "topValue": "1",
   "rightValue": "6",
@@ -13,9 +13,7 @@
   "defaultHp": 3,
   "image": "base/010.png",
   "storiesRewardedFrom": null,
-  "elements": [
-    "neutre"
-  ],
+  "elements": [],
   "prompt": {
     "format": "1:1",
     "subject": {

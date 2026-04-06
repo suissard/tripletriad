@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Castreur",
   "description": "Récupérateur collectant les ressources abandonnées après les batailles et les redistribuant aux unités qui en ont le plus besoin.",
-  "element": "reseau",
+  "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "3",
   "rightValue": "0",
@@ -14,7 +14,7 @@
   "image": "base/122.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "furtif"
   ],
   "prompt": {
     "format": "1:1",

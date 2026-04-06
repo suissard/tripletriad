@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { setDefaultResultOrder } from 'node:dns';
-import { generateTripleTriadStats, RARITY_RANGES } from './utils/stats.mjs';
+import { generateTripleTriadStats, RARITY_RANGES, getElementForFaction } from './utils/stats.mjs';
 
 // Force l'IPv4 en priorité pour éviter les erreurs de résolution locale (Node 18+)
 setDefaultResultOrder('ipv4first');
@@ -278,6 +278,20 @@ async function updateCardFileLocally(filePath, isPush) {
           modified = true;
         }
       });
+    }
+
+    // --- Enforce Faction-Element Mapping ---
+    const correctElement = getElementForFaction(cardData.faction);
+    if (cardData.element !== correctElement) {
+      cardData.element = correctElement;
+      modified = true;
+    }
+
+    // Sync elements array as well
+    const correctElementsArray = correctElement === "None" ? [] : [correctElement];
+    if (JSON.stringify(cardData.elements) !== JSON.stringify(correctElementsArray)) {
+      cardData.elements = correctElementsArray;
+      modified = true;
     }
 
     if (modified) {

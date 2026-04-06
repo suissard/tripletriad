@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Synapse",
   "description": "Pixel infiltrateur injectant subtilement des virus dans les systèmes de défense ennemis sans être détecté.",
-  "element": "hacking",
+  "element": "reseau",
   "faction": "Omni-Réseau",
   "topValue": "1",
   "rightValue": "1",
@@ -14,7 +14,7 @@
   "image": "base/066.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "reseau"
   ],
   "prompt": {
     "format": "1:1",

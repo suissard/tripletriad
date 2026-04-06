@@ -1,27 +1,93 @@
 <template>
   <div class="architecture-map-page">
     <div class="header">
-      <h2>🗺️ Architecture Dynamique (Terra Nullius)</h2>
-      <AppButton variant="secondary" class="glass-panel" @click="closeMap">Fermer</AppButton>
-    </div>
+      <div class="title-group">
+        <h2>🗺️ Architecture (Arborescence)</h2>
+        <span class="subtitle">Vue hiérarchique du projet</span>
+      </div>
+      
+      <div class="filters-bar glass-panel">
+        <div class="filter-item">
+          <input v-model="filters.search" placeholder="Rechercher un fichier..." class="search-input" />
+        </div>
+        <div class="filter-item">
+          <label>Profondeur max:</label>
+          <input type="range" v-model.number="filters.maxDepth" min="0" max="6" />
+          <span class="depth-val">{{ filters.maxDepth }}</span>
+        </div>
+        <div class="filter-item categories">
+          <label v-for="cat in availableCategories" :key="cat" class="cat-checkbox">
+            <input type="checkbox" v-model="filters.categories" :value="cat" />
+            <span>{{ cat }}</span>
+          </label>
+        </div>
+        <div class="filter-item">
+          <label class="switch">
+            <input type="checkbox" v-model="filters.focusMode">
+            <span class="slider"></span>
+          </label>
+          <span class="label">Mode Focus</span>
+        </div>
+      </div>
 
-    <div class="controls-panel">
-      <AppButton variant="primary" size="small" @click="reloadMap">Recharger les données</AppButton>
+      <div class="actions">
+        <AppButton variant="primary" size="small" class="glass-panel" @click="reloadMap">Recharger</AppButton>
+        <AppButton variant="secondary" class="glass-panel" @click="closeMap">Fermer</AppButton>
+      </div>
     </div>
 
     <div class="map-container">
-      <VueFlow v-model="elements" :default-zoom="0.5" :min-zoom="0.1" :max-zoom="4" fit-view-on-init class="vue-flow-custom">
+      <VueFlow 
+        v-model="elements" 
+        :default-zoom="0.3" 
+        :min-zoom="0.01" 
+        :max-zoom="4" 
+        fit-view-on-init 
+        class="vue-flow-custom"
+        @node-click="onNodeClick"
+        @pane-click="onPaneClick"
+      >
         <Background pattern-color="#30363d" />
         <Controls />
       </VueFlow>
+
+      <!-- Panel d'informations sur le nœud sélectionné -->
+      <Transition name="slide-right">
+        <div v-if="selectedNode" class="node-info-panel glass-panel">
+          <div class="panel-header">
+            <h3>Fiche Technique</h3>
+            <button class="close-panel" @click="selectedNode = null">×</button>
+          </div>
+          <div class="panel-content">
+            <div class="info-item">
+              <label>Fichier</label>
+              <span>{{ selectedNode.label.split('\n')[0] }}</span>
+            </div>
+            <div class="info-item">
+              <label>Chemin</label>
+              <code class="path-code">{{ selectedNode.data?.filePath || 'N/A' }}</code>
+            </div>
+            <div class="info-item">
+              <label>Catégorie</label>
+              <span class="category-tag" :style="{ backgroundColor: selectedNode.style?.backgroundColor }">
+                {{ selectedNode.data?.category?.toUpperCase() || 'LOGIC' }}
+              </span>
+            </div>
+            <div class="info-item" v-if="selectedNode.label.includes('KB')">
+              <label>Taille</label>
+              <span>{{ selectedNode.label.split('\n')[1].replace(/[()]/g, '') }}</span>
+            </div>
+          </div>
+        </div>
+      </Transition>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed, reactive, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import { VueFlow } from '@vue-flow/core';
+import { VueFlow, useVueFlow } from '@vue-flow/core';
 import { Background } from '@vue-flow/background';
 import { Controls } from '@vue-flow/controls';
 import AppButton from '@/components/ui/AppButton.vue';
@@ -31,22 +97,81 @@ import '@vue-flow/core/dist/theme-default.css';
 import '@vue-flow/controls/dist/style.css';
 
 const router = useRouter();
-const elements = ref([]);
+const allElements = ref([]);
+const { fitView } = useVueFlow();
+
+const filters = reactive({
+  search: '',
+  maxDepth: 6,
+  categories: ['component', 'view', 'logic', 'store', 'admin', 'api', 'mechanic', 'config'],
+  focusMode: false
+});
+
+const availableCategories = ['component', 'view', 'logic', 'store', 'admin', 'api', 'mechanic', 'config'];
+const selectedNode = ref(null);
+
+const elements = computed(() => {
+  if (!allElements.value.length) return [];
+
+  const nodes = allElements.value.filter(el => !el.source);
+  const edges = allElements.value.filter(el => el.source);
+
+  // 1. Filtrage des nœuds
+  let filteredNodes = nodes.filter(node => {
+    // Recherche
+    if (filters.search && !node.label.toLowerCase().includes(filters.search.toLowerCase())) return false;
+    // Profondeur
+    if (node.data?.depth > filters.maxDepth) return false;
+    // Catégorie
+    if (!filters.categories.includes(node.data?.category)) return false;
+    
+    return true;
+  });
+
+  // 2. Mode Focus
+  if (filters.focusMode && selectedNode.value) {
+    const neighborIds = new Set();
+    neighborIds.add(selectedNode.value.id);
+    
+    edges.forEach(edge => {
+      if (edge.source === selectedNode.value.id) neighborIds.add(edge.target);
+      if (edge.target === selectedNode.value.id) neighborIds.add(edge.source);
+    });
+    
+    filteredNodes = filteredNodes.filter(node => neighborIds.has(node.id));
+  }
+
+  const nodeIds = new Set(filteredNodes.map(n => n.id));
+
+  // 3. Filtrage des connexions (garder seulement si source ET cible sont visibles)
+  const filteredEdges = edges.filter(edge => {
+    return nodeIds.has(edge.source) && nodeIds.has(edge.target);
+  });
+
+  return [...filteredNodes, ...filteredEdges];
+});
 
 function loadArchitectureData() {
-  // In a real scenario, this could fetch from a local endpoint that triggers the script
-  // For now we load the statically generated JSON by the dev script
   import('@/admin/data/architecture.json').then((data) => {
-    // Vite resolves JSON imports as default exports
-    elements.value = data.default || data;
+    allElements.value = data.default || data;
+    setTimeout(() => fitView(), 100);
   }).catch(err => {
-    console.error("Failed to load architecture data", err);
+    console.error("Échec du chargement des données", err);
   });
 }
 
+function onNodeClick({ node }) {
+  selectedNode.value = node;
+}
+
+function onPaneClick() {
+  if (!filters.focusMode) selectedNode.value = null;
+}
+
 function reloadMap() {
-  elements.value = [];
-  setTimeout(loadArchitectureData, 100);
+  allElements.value = [];
+  selectedNode.value = null;
+  loadArchitectureData();
 }
 
 function closeMap() {
@@ -55,6 +180,10 @@ function closeMap() {
 
 onMounted(() => {
   loadArchitectureData();
+});
+
+watch(() => filters.maxDepth, () => {
+  setTimeout(() => fitView(), 100);
 });
 </script>
 
@@ -65,36 +194,120 @@ onMounted(() => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #0d1117;
+  background: radial-gradient(circle at center, #0d1117 0%, #010409 100%);
   color: #e6edf3;
   z-index: 20000;
   display: flex;
   flex-direction: column;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 25px;
-  background-color: #161b22;
-  border-bottom: 1px solid #30363d;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-  z-index: 10;
+  padding: 15px 30px;
+  background: rgba(22, 27, 34, 0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(48, 54, 61, 0.8);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  z-index: 100;
+  gap: 20px;
 }
 
-.header h2 {
+.filters-bar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 8px 20px;
+  background: rgba(13, 17, 23, 0.4);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: #8b949e;
+}
+
+.search-input {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(48, 54, 61, 1);
+  border-radius: 6px;
+  padding: 6px 12px;
+  color: #e6edf3;
+  width: 200px;
+  transition: all 0.2s;
+}
+
+.search-input:focus {
+  border-color: #58a6ff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 300px;
+  gap: 4px 10px;
+}
+
+.cat-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.cat-checkbox input {
   margin: 0;
-  font-size: 1.4rem;
-  color: #a371f7;
-  text-shadow: 0 0 10px rgba(163, 113, 247, 0.3);
 }
 
-.controls-panel {
-  padding: 10px 25px;
-  background-color: #0d1117;
-  border-bottom: 1px solid #30363d;
+.depth-val {
+  color: #58a6ff;
+  font-weight: bold;
+  min-width: 15px;
+}
+
+/* Switch UI */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+}
+
+.switch input { opacity: 0; width: 0; height: 0; }
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #30363d;
+  transition: .4s;
+  border-radius: 20px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px; width: 14px;
+  left: 3px; bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider { background-color: #238636; }
+input:checked + .slider:before { transform: translateX(16px); }
+
+.actions {
   display: flex;
   gap: 10px;
 }
@@ -104,51 +317,117 @@ onMounted(() => {
   width: 100%;
   height: 100%;
   position: relative;
+  overflow: hidden;
 }
 
-:deep(.vue-flow__node) {
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-  transition: transform 0.1s;
-  cursor: grab;
-  text-align: center;
-  font-family: monospace;
+/* Panel Info Styles */
+.node-info-panel {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 320px;
+  background: rgba(22, 27, 34, 0.9);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  z-index: 100;
+  box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 10px;
+}
+
+.panel-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #58a6ff;
+}
+
+.close-panel {
+  background: transparent;
+  border: none;
+  color: #8b949e;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.info-item {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info-item label {
+  font-size: 0.75rem;
+  color: #8b949e;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.path-code {
+  background: rgba(0,0,0,0.3);
+  padding: 4px 8px;
+  border-radius: 4px;
   font-size: 0.8rem;
-  line-height: 1.4;
-  white-space: pre-wrap;
-  min-width: 150px;
-  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.category-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  width: fit-content;
+}
+
+/* Animations */
+.slide-right-enter-active, .slide-right-leave-active {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.slide-right-enter-from, .slide-right-leave-to {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* Vue Flow Custom */
+:deep(.vue-flow__node) {
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
 }
 
 :deep(.vue-flow__node:hover) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.5);
-}
-
-:deep(.vue-flow__node:active) {
-  cursor: grabbing;
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  z-index: 100 !important;
 }
 
 :deep(.vue-flow__edge-path) {
   stroke-width: 2;
-  opacity: 0.6;
+  opacity: 0.4;
 }
 
-:deep(.vue-flow__edge.animated .vue-flow__edge-path) {
-  stroke-dasharray: 5;
-  animation: dashdraw 1s linear infinite;
+:deep(.vue-flow__edge:hover .vue-flow__edge-path) {
+  stroke: #58a6ff;
+  opacity: 1;
+  stroke-width: 3;
 }
 
-@keyframes dashdraw {
-  from { stroke-dashoffset: 10; }
-  to { stroke-dashoffset: 0; }
+:deep(.vue-flow__controls) {
+  background: rgba(22, 27, 34, 0.8);
+  border: 1px solid rgba(48, 54, 61, 0.5);
 }
 
-:deep(.vue-flow__edge-textbg) {
-  fill: #161b22;
-}
-
-:deep(.vue-flow__edge-text) {
-  fill: #8b949e;
-  font-size: 0.7rem;
+:deep(.vue-flow__background) {
+  background-color: transparent !important;
 }
 </style>

@@ -2,9 +2,9 @@
   "collectionName": "base",
   "name": "Chord Chantant",
   "description": "Symphoniste orchestrant les attaques multi-niveaux du Chœur coordonnant les assauts terrestres et aériens en harmonie.",
-  "element": "reseau",
+  "element": "hacking",
   "elements": [
-    "obsidienne"
+    "hacking"
   ],
   "faction": "Chœur Synthétique",
   "topValue": "8",

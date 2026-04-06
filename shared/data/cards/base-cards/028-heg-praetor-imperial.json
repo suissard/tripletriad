@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Praetor Imperial",
   "description": "Praetor impérial orchestrant les opérations de domination galactique sur plusieurs fronts avec une coordination parfaite.",
-  "element": "obsidienne",
+  "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "6",
   "rightValue": "8",
@@ -14,7 +14,7 @@
   "image": "base/028.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "longue_portee"
   ],
   "prompt": {
     "format": "1:1",

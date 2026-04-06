@@ -11,22 +11,39 @@
         <p>Revenez plus tard pour de nouveaux défis !</p>
       </div>
 
-      <div v-else class="quests-list">
-        <div class="section-title">Quêtes en cours</div>
-        <QuestItem
-          v-for="quest in activeQuests"
-          :key="quest.id"
-          :quest="quest"
-          @claim="handleClaim"
-        />
+    <div v-else class="quests-list">
+        <div v-if="inProgressQuests.length > 0">
+          <div class="section-title">Quêtes en cours</div>
+          <div class="cards-grid">
+            <QuestItem
+              v-for="quest in inProgressQuests"
+              :key="quest.id"
+              :quest="quest"
+              @claim="handleClaim"
+            />
+          </div>
+        </div>
 
         <div v-if="completedQuests.length > 0" class="completed-section">
           <div class="section-title">Quêtes terminées</div>
-          <div class="completed-list">
-            <div v-for="quest in completedQuests" :key="quest.id" class="completed-quest">
-              <span class="check">✅</span>
-              <span class="title">{{ quest.title }}</span>
-            </div>
+          <div class="cards-grid">
+            <QuestItem
+              v-for="quest in completedQuests"
+              :key="quest.id"
+              :quest="quest"
+              @claim="handleClaim"
+            />
+          </div>
+        </div>
+
+        <div v-if="upcomingQuests.length > 0" class="upcoming-section">
+          <div class="section-title">Prochaines quêtes</div>
+          <div class="cards-grid">
+            <QuestItem
+              v-for="quest in upcomingQuests"
+              :key="quest.id"
+              :quest="quest"
+            />
           </div>
         </div>
       </div>
@@ -35,36 +52,59 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, ref, onMounted, onUnmounted } from 'vue';
 import PageLayout from '../components/PageLayout.vue';
 import QuestItem from '../components/QuestItem.vue';
 import { useUserStore } from '../stores/userStore.js';
 
 const userStore = useUserStore();
+const now = ref(new Date());
+let timerInterval = null;
 
-const activeQuests = computed(() => {
-  return userStore.quests.filter(q => q.status === 'active');
+const isPending = (quest) => {
+  if (!quest.startsAt) return false;
+  const startsAt = new Date(quest.startsAt);
+  return startsAt > now.value;
+};
+
+const isActuallyCompleted = (quest) => {
+  return quest.status === 'completed' || quest.progress >= quest.target;
+};
+
+const inProgressQuests = computed(() => {
+  return userStore.quests.filter(q => q.status === 'active' && !isActuallyCompleted(q) && !isPending(q));
 });
 
 const completedQuests = computed(() => {
-  return userStore.quests.filter(q => q.status === 'completed');
+  return userStore.quests.filter(q => isActuallyCompleted(q));
+});
+
+const upcomingQuests = computed(() => {
+  return userStore.quests.filter(q => isPending(q));
 });
 
 async function handleClaim(questId) {
   console.log('Claiming reward for quest:', questId);
-  // Placeholder for reward claiming logic
-  // This will likely be an API call to Strapi
+  await userStore.claimQuestReward(questId);
 }
 
-// Ensure quests are fresh when opening the page
-userStore.fetchUserQuests();
+onMounted(() => {
+  userStore.fetchUserQuests();
+  timerInterval = setInterval(() => {
+    now.value = new Date();
+  }, 60000);
+});
+
+onUnmounted(() => {
+  if (timerInterval) clearInterval(timerInterval);
+});
 </script>
 
 <style scoped>
 .story-container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2rem 1rem;
 }
 
 .auth-notice, .no-quests {
@@ -95,36 +135,16 @@ userStore.fetchUserQuests();
 .quests-list {
   display: flex;
   flex-direction: column;
+  gap: 3rem;
+}
+
+.cards-grid {
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
 }
 
-.completed-section {
-  margin-top: 3rem;
-  opacity: 0.7;
-}
-
-.completed-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.completed-quest {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(0, 255, 100, 0.05);
-  padding: 12px 20px;
-  border-radius: 8px;
-  border: 1px solid rgba(0, 255, 100, 0.1);
-}
-
-.completed-quest .check {
-  font-size: 1.2rem;
-}
-
-.completed-quest .title {
-  color: #88f9b7;
-  text-decoration: line-through;
+.completed-section, .upcoming-section {
+  opacity: 0.9;
 }
 </style>

@@ -2,9 +2,9 @@
   "collectionName": "base",
   "name": "Depanneur Artisanal",
   "description": "Dernier Survivant de la Grande Panne ayant résisté aux pires conditions de la Ceinture incarnant la résilience absolue de son peuple.",
-  "element": "radiation",
+  "element": "furtif",
   "elements": [
-    "None"
+    "furtif"
   ],
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "A",

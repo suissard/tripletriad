@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Resonance Dissonant",
   "description": "Symphonie Ultime fusionnant toutes les harmoniques disponibles en une seule note dévastatrice capable de réduire des structures entières en poussière.",
-  "element": "faille_dimensionnelle",
+  "element": "hacking",
   "faction": "Chœur Synthétique",
   "topValue": "7",
   "rightValue": "A",
@@ -25,7 +25,7 @@
   "image": "base/090.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "hacking"
   ],
   "prompt": {
     "format": "1:1",

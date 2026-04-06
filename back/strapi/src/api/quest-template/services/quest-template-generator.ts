@@ -1,5 +1,25 @@
 export const elements = ['eau', 'radiation', 'reseau', 'spore', 'furtif', 'longue_portee', 'faille_dimensionnelle', 'hacking', 'obsidienne'];
 
+export const factions = [
+  'Chœur Synthétique',
+  'Éveil Chthonien',
+  'Exode Pélagique',
+  'Ferrailleurs de la Ceinture',
+  'Fléau Spore',
+  'Hégémonie Martienne',
+  'Héritiers des Cendres',
+  'Incursion Dissonante',
+  'Omni-Réseau'
+];
+
+const normalizeCode = (str: string) => {
+  return str.normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-zA-Z0-0]/g, '_')
+    .replace(/_+/g, '_')
+    .toUpperCase();
+};
+
 export const generateQuestTemplates = async (strapi) => {
   const durations = [
     { name: 'daily', days: 1, multiplier: 1, typeEnum: 'daily' },
@@ -16,6 +36,7 @@ export const generateQuestTemplates = async (strapi) => {
   ];
 
   const elementBaseQuest = { codePrefix: 'PLAY_ELEMENT', title: 'Jouer {x} carte(s) {element}', desc: 'Placez des cartes de l\'élément {element} sur le plateau', baseTarget: 8, eventType: 'play_card_element' };
+  const factionBaseQuest = { codePrefix: 'PLAY_FACTION', title: 'Jouer {x} carte(s) de la faction {faction}', desc: 'Placez des cartes de la faction {faction} sur le plateau', baseTarget: 10, eventType: 'play_card_faction' };
 
   // Optimization: Fetch all existing template codes once to avoid N+1 queries
   const existingTemplates = await strapi.entityService.findMany('api::quest-template.quest-template', {
@@ -56,6 +77,27 @@ export const generateQuestTemplates = async (strapi) => {
             code,
             title: elementBaseQuest.title.replace('{x}', target.toString()).replace('{element}', element.replace('_', ' ')),
             description: elementBaseQuest.desc.replace('{element}', element.replace('_', ' ')),
+            target,
+            rewardCoins,
+            type: duration.typeEnum
+          }
+        });
+      }
+    }
+
+    // Generate faction quests
+    for (const faction of factions) {
+      const normalizedFaction = normalizeCode(faction);
+      const code = `${factionBaseQuest.codePrefix}_${normalizedFaction}_${duration.name.toUpperCase()}`;
+      const target = factionBaseQuest.baseTarget * duration.multiplier;
+      const rewardCoins = 120 * duration.multiplier;
+
+      if (!existingCodes.has(code)) {
+        await strapi.entityService.create('api::quest-template.quest-template', {
+          data: {
+            code,
+            title: factionBaseQuest.title.replace('{x}', target.toString()).replace('{faction}', faction),
+            description: factionBaseQuest.desc.replace('{faction}', faction),
             target,
             rewardCoins,
             type: duration.typeEnum

@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Pelagique",
   "description": "Coralin cultivant les structures de croissance organique servant de base aux habitats flottants.",
-  "element": "furtif",
+  "element": "eau",
   "faction": "Exode Pélagique",
   "topValue": "4",
   "rightValue": "0",
@@ -14,7 +14,7 @@
   "image": "base/036.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "eau"
   ],
   "prompt": {
     "format": "1:1",
