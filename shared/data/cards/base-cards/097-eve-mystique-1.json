@@ -1,0 +1,89 @@
+{
+  "collectionName": "base",
+  "name": "Mystique 1",
+  "description": "Invocateur ouvrant des portails vers les dimensions chthoniennes permettant le passage d'entités alliées depuis d'autres mondes.",
+  "element": "faille_dimensionnelle",
+  "faction": "Éveil Chthonien",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "growing",
+      "value": 1,
+      "target": "adjacent_friendly"
+    }
+  ],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/097.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Chthonian Titan Invoker - Massive primordial humanoid form with tectonic plate skin, multiple eyeless eyes, and a towering exoskeleton of cooling magma and obsidian",
+      "loadout": {
+        "armor_outfit": "Natural carapace of solidified volcanic crust, asymmetrical obsidian plates fused to massive bone structure, basalt grey plates with cracks revealing molten orange-red magma beneath, ancient chthonian runes carved into every surface of the rocky hide",
+        "arsenal": "No manufactured weapons - colossal stone fists, drill-like claws capable of boring through bedrock, channelling chthonian portal energy through entire body"
+      },
+      "attitude": {
+        "behavior": "Deep combat stance with one titanic arm thrust forward powerfully, palm open wide as a thick ribbon of supernatural green energy streams from palm, other massive fist cocked back ready to strike, lower body rooted like ancient mountain as dimensional rifts manifest around massive form",
+        "emotion": "Fierce determination radiating from multiple glowing eyeless eyes, presence of absolute authority over chthonian forces, focused power channeling ally-blessing energy while simultaneously ready for devastating physical combat"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Cosmic Horror",
+          "Primordial Mythos"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Obsidian Black",
+          "role": "Dominant body and armor base"
+        },
+        {
+          "name": "Matte Basalt Grey",
+          "role": "Tectonic plate texture and rocky surfaces"
+        },
+        {
+          "name": "Molten Orange-Red",
+          "role": "Magma glow from cracks and internal energy"
+        },
+        {
+          "name": "Ethereal Portal Green",
+          "role": "Ally-strengthening energy ribbon and dimensional effects"
+        },
+        {
+          "name": "Volcanic Ash Grey",
+          "role": "Atmospheric smoke and dust particles"
+        },
+        {
+          "name": "Scorched Earth Brown",
+          "role": "Ground and environmental elements"
+        }
+      ],
+      "lighting_setup": "Dramatic_chthonian_energy_lighting - internal magma glow emanating through cracks illuminating body, supernatural green energy contrasting against dark form, thick smoke lit by volcanic orange, dimensional rifts casting impossible multi-source light",
+      "mood": "Apocalyptic dread mixed with fierce battle determination, oppressive supernatural terror, overwhelming primordial power"
+    },
+    "camera": {
+      "angle": "low_angle_slightly_dutch - positioned at ground level looking up at the towering titan, emphasizing massive scale and imposing dominance"
+    },
+    "scenography": {
+      "setting": "Torn dimensional battlefield - ground split open in massive fissures exhaling black volcanic smoke, enormous shadow tentacles erupting from below alongside other chthonian entities, sky displaying impossible geometry with reality tears showing void-like wrongness, ancient glowing runes blazing on every exposed surface, chthonian portals manifesting as swirling vortexes of green-black energy",
+      "atmosphere_vfx": "Thick oppressive volcanic smoke billowing everywhere, reality thinning at edges with visual distortion, ground constantly trembling with seismic waves, ash and debris floating in air, multiple dimensional rifts opening and closing, ancient runes pulsing with chthonian power, massive chthonian tentacles writhing in background, heat distortion rising from magma cracks, supernatural dread fog reducing visibility"
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "collectionName": "base",
+  "name": "Soudure",
+  "description": "Dépanneur restaurant les fonctions essentielles des installations endommagées maintenant la chaîne logistique opérationnelle.",
+  "element": "reseau",
+  "elements": [
+    "spore"
+  ],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "4",
+  "rightValue": "3",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/126.png",
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Scrap-Punk Combat Engineer",
+      "loadout": {
+        "armor_outfit": "Heavily patched industrial mining suit made of oxidized steel plates, welded together with crude seams, reinforced with salvaged signage panels, covered in layers of duct tape, exposed cables and rubber hoses, thick insulated gloves with magnetic tool loops, a rusted helmet with a cracked visor that glows faint blue plasma, grease‑stained knee pads and shoulder pads with jagged edges.",
+        "arsenal": "Improvised hybrid weapon: a repurposed mining plasma torch welded to a kinetic impact hammer, with an exposed copper coil for electromagnetic spikes, a battered fusion cutter on the forearm, and a belt of magnetic debris grenades."
+      },
+      "attitude": {
+        "behavior": "Combat stance in low gravity: knees slightly bent, weight balanced on the balls of feet, weapon raised high, hands gripping the hybrid plasma hammer, eyes fixed on the approaching threat, sparks and molten droplets floating around, body coiled like a spring ready to launch.",
+        "emotion": "Fierce determination mixed with the cold focus of a veteran scrapyard fighter; a grim, gritty stare beneath the cracked visor, the faint flicker of plasma reflecting in his eyes."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post‑apocalyptic",
+          "Scrap‑Punk",
+          "Industrial"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Oxidized Steel",
+          "role": "primary armor tone, structural background"
+        },
+        {
+          "name": "Rust Orange",
+          "role": "secondary tones, worn paint and rust streaks"
+        },
+        {
+          "name": "Industrial Gray",
+          "role": "neutral base, metal debris"
+        },
+        {
+          "name": "Blue Plasma",
+          "role": "accent light, welding arcs, visor glow"
+        },
+        {
+          "name": "Sparks Yellow",
+          "role": "high‑energy highlights, flying sparks"
+        },
+        {
+          "name": "Construction Yellow",
+          "role": "caution markings, broken signage"
+        },
+        {
+          "name": "Black Grease",
+          "role": "shadowed crevices, oily stains"
+        }
+      ],
+      "lighting_setup": "Low ambient industrial light from distant emergency beacons, punctuated by intense blue plasma arcs and bright orange sparks; volumetric glow from molten metal rivers, subtle rim lighting from background debris.",
+      "mood": "Menacing, chaotic, urgent, low‑gravity tension"
+    },
+    "camera": {
+      "angle": "low_angle_slight_dutch_tilt"
+    },
+    "scenography": {
+      "setting": "Interior of a hollowed asteroid repurposed as a scrapyard warzone: massive, jagged spacecraft hulls and cargo containers, walls of welded steel plating, ruptured fuel tanks spilling molten metal rivers, floating debris drifting in microgravity, improvised barricades of twisted girders.",
+      "atmosphere_vfx": "Constant rain of debris, droplets of molten metal forming glowing streams, bursts of sparks from clashing weapons, blue plasma glow from torches, faint dust particles illuminated by emergency lights, occasional shockwave ripples from explosions."
+    }
+  }
+}

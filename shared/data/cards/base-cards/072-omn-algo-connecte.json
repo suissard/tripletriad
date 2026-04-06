@@ -1,0 +1,70 @@
+{
+  "collectionName": "base",
+  "name": "Algo Connecte",
+  "description": "Code-mancer réécrivant les protocoles de sécurité en temps réel pour bloquer les contre-mesures numériques adverses.",
+  "element": "hacking",
+  "faction": "Omni-Réseau",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "7",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/072.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Omni-Network Assault Cyborg (Code-Mancer Variant)",
+      "loadout": {
+        "armor_outfit": "Standardized Omni-Reseau composite tactical exoskeleton, dark matte grey, smooth ergonomic plates covering the torso and limbs. Exposed cervical and spinal neural ports with ice-blue glowing connection points. Serial codes etched into the forearm plating.",
+        "arsenal": "Brutalist, rectilinear assault rifle with a heavy barrel. A thick black cable tethers the weapon's grip directly to the wrist-mounted neural interface, glowing faintly with data streams."
+      },
+      "attitude": {
+        "behavior": "Aggressive, forward-leaning combat stance. Weapon raised to the cheek, barrel oriented at a low threat. One hand is free, fingers splayed outward as if manipulating a holographic interface mid-battle. Feet planted wide, knees slightly bent, posture rigidly military.",
+        "emotion": "Inexpressive, dead-eyed stare or gaze hidden behind a smooth tactical visor with a single blue ocular light. The only sign of life is the intense, algorithmic focus of a system calculating trajectories and rewriting code in real-time."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark Cyberpunk",
+          "Dark Sci-Fi",
+          "Post-apocalyptic Brutalism",
+          "Tactical Military Simulation"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Anthracite Grey & Matte Black",
+          "role": "Dominant armor tones and background shadows"
+        },
+        {
+          "name": "Ice Blue Neon",
+          "role": "Neural implants, tactical HUDs, and critical energy accents"
+        },
+        {
+          "name": "Cadaveric Pale",
+          "role": "Exposed neck and facial skin, emphasizing the dehumanized nature of the soldier"
+        }
+      ],
+      "lighting_setup": "Cinematic, high-contrast chiaroscuro. Dominated by cold, dark shadows with sharp rim lighting in icy blue to separate the subject from the chaotic background. Bright white/orange sparks cutting through the darkness.",
+      "mood": "Menacing, oppressive, and relentlessly technological."
+    },
+    "camera": {
+      "angle": "Low angle to portray the subject as an imposing, unstoppable war machine."
+    },
+    "scenography": {
+      "setting": "The interior of a crumbling digital fortress. Massive server towers are toppling in the mid-ground, emitting showers of electric sparks. Holographic defensive walls are shattering into glitching shards of light.",
+      "atmosphere_vfx": "Aggressive digital noise/grain, falling sparks, electric arcs jumping between metal debris, visible hexadecimal code fragments floating and deteriorating in the air, simulating an ICE attack breaking down the environment."
+    }
+  }
+}

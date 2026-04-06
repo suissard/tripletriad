@@ -1,0 +1,87 @@
+{
+  "collectionName": "base",
+  "name": "Profond des Tenebres",
+  "description": "Gardien des Sceaux veillant sur les portes dimensionnelles scellées empêchant les invasions inter-dimensionnelles accidentelles.",
+  "element": "faille_dimensionnelle",
+  "faction": "Éveil Chthonien",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/091.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Primordial Titan Guardian of Dimensional Seals - colossal chthonic entity formed from living tectonic plates and volcanic rock, multiple glowing eyes without pupils set in a massive osseous-mineral skull, a cavernous maw exhaling volcanic ash and sulfurous smoke, horns of raw unworked stone jutting from temples, cracks throughout the massive body revealing pulsing magma cores beneath obsidian-black plates",
+      "loadout": {
+        "armor_outfit": "Living tectonic carapace composed of asymmetric obsidian plates fused with cooled magma crust, basalt scale formations along limbs, obsidian shards jutting from joints, cracks and fissures glowing with internal magma flow, volcanic smoke constantly seeping from plate junctions, magma veins creating natural thermal patterns across the entire form",
+        "arsenal": "Titanic clawed appendages capable of drilling through solid bedrock, massive crushing fists of compressed volcanic rock, ability to generate seismic shockwaves by slamming into ground, jets of superheated magma expelled from multiple orifices, tail or posterior appendages adapted for devastating blunt-force impacts"
+      },
+      "attitude": {
+        "behavior": "Combat stance with massive coiled body positioned low to the destabilized ground, one massive clawed arm raised and ready to strike, multiple eyes fixed on the dimensional tear threat, weight shifted forward on thick pillar-like legs rooted into cracked earth, magma pulsing faster through visible veins indicating combat readiness, ground visibly trembling beneath the entity's immense weight",
+        "emotion": "Primordial fury channeled through burning magma-core, ancient territorial rage awakened by dimensional intrusion, cold calculating destruction as the guardian defends its sacred seals, overwhelming pressure of unstoppable geological force coiled and ready to explode into action"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Cosmic Horror",
+          "Primordial Mythos"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Obsidian Black",
+          "role": "Primary body armor plates and dominant mass"
+        },
+        {
+          "name": "Matte Basalt Gray",
+          "role": "Secondary rock formations and ground texture"
+        },
+        {
+          "name": "Burnt Earth Brown",
+          "role": "Calcinated soil and heat-damaged surfaces"
+        },
+        {
+          "name": "Ash Gray",
+          "role": "Smoke, debris, and atmospheric particles (10%)"
+        },
+        {
+          "name": "Magma Red",
+          "role": "Internal core glow visible through cracks and veins (incandescent accent)"
+        },
+        {
+          "name": "Magma Orange",
+          "role": "Secondary incandescence and heat emission (incandescent accent)"
+        },
+        {
+          "name": "Rune Gold",
+          "role": "Ancient seal inscriptions and magical containment barriers"
+        }
+      ],
+      "lighting_setup": "Dramatic rim lighting from internal magma glow piercing through tectonic fissures, ambient volcanic illumination casting harsh shadows, supernatural golden glow from ancient runes reflecting on obsidian surfaces, flickering incandescence creating dynamic shadow play across massive form",
+      "mood": "Oppressive supernatural dread, cataclysmic anticipation, overwhelming primordial menace, cosmic horror meeting geological inevitability"
+    },
+    "camera": {
+      "angle": "Low angle emphasizing the incomprehensible scale of the titan, dutch angle tilted to match the destabilized reality, slight upward tilt to make the entity appear even more towering and dominant over the dimensional battlefield"
+    },
+    "scenography": {
+      "setting": "Torn dimensional battlefield where reality itself is fragmenting - massive fissures splitting the ground open revealing glowing magma chambers below, the sky above showing impossible geometry with angles that defy physics, dimensions overlapping and creating visual paradoxes, ancient stone architecture of forgotten seal temples crumbling as dimensional barriers fail, ground littered with fragments of broken containment runes",
+      "atmosphere_vfx": "Thick oppressive volcanic ash filling the air, reality thinning at edges creating visual distortion and chromatic aberration, massive shadow tentacles erupting from dimensional fissures alongside the titan, ancient runes blazing with containment magic on every surface, sparks of unstable dimensional energy crackling across the battlefield, ground splitting and reforming as tectonic forces respond to the titan guardian's presence, dust clouds mixed with supernatural mist, occasional flashes of wrong-colored light from collapsing dimensions above"
+    }
+  }
+}

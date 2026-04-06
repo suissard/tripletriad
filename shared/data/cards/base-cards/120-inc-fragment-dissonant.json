@@ -1,0 +1,98 @@
+{
+  "collectionName": "base",
+  "name": "Fragment Dissonant",
+  "description": "Paradoxe Final brisant les lois fondamentales de la réalité sur un secteur entier rendant chaque action imprévisible et chaque défense obsolète.",
+  "element": "furtif",
+  "faction": "Incursion Dissonante",
+  "topValue": "8",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "6",
+  "skills": [
+    {
+      "type": "death",
+      "value": 3,
+      "target": "enemy_on_capture"
+    },
+    {
+      "type": "decrease",
+      "value": -3,
+      "target": "enemy_with_highest"
+    }
+  ],
+  "rarity": "Legendary",
+  "defaultHp": 4,
+  "image": "base/120.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Chaos-Touched Berserker - Fragment Dissonant entity merging human fury with extra-dimensional corruption, warped by reality-breaking forces",
+      "loadout": {
+        "armor_outfit": "Ruptured military armor fused with living shadow matter, plates bent by gravitational anomalies, floating debris embedded in skin, limbs twisted at impossible angles, surrounded by physically-detaching shadow tendrils, clothes reduced to floating tatters defying gravity",
+        "arsenal": "Obsidian-violet energy blade dislocating into floating geometric fragments, surrounded by lévitating debris and distorting space, crackling magenta-black psychic aura warping nearby objects"
+      },
+      "attitude": {
+        "behavior": "Combat specialist in final desperate assault, body being captured but reaching backward in defiance, channeling catastrophic dark energy curse into captor position, completely committed to annihilating attack, arms outstretched as reality shatters around them",
+        "emotion": "Transcendent rage mixed with cosmic horror - face frozen in scream of agony and ecstasy as reality fractures around the being, eyes rolled back showing only whites, blood streaming from self-inflicted wounds"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Cosmic Horror",
+          "Glitch Art",
+          "Non-Euclidean Geometry"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Abyssal Black",
+          "role": "dominant shadows and void areas creating oppressive darkness"
+        },
+        {
+          "name": "Deep Violet",
+          "role": "primary energy manifestations and glitch effects"
+        },
+        {
+          "name": "Asylum Gray",
+          "role": "fragmenting architecture and environmental decay"
+        },
+        {
+          "name": "Sickly Flesh Pale",
+          "role": "cultist skin tones and exposed tissue"
+        },
+        {
+          "name": "Dried Blood Red",
+          "role": "wounds, scars, and gore details"
+        },
+        {
+          "name": "Magenta Neon",
+          "role": "energy accents and reality distortion highlights"
+        },
+        {
+          "name": "Cracked Flesh Tissue",
+          "role": "biological corruption and mutation details"
+        }
+      ],
+      "lighting_setup": "dramatic_rim_lighting_with_volumetric_glitch_effects",
+      "mood": "apocalyptic_terror_and_transcendent_madness"
+    },
+    "camera": {
+      "angle": "low_angle_with_dutch_tilt_suggesting_unstable_reality"
+    },
+    "scenography": {
+      "setting": "Reality collapse zone - city district fragmenting into multiple overlapping parallel dimensions simultaneously, buildings existing as both intact and destroyed states layered over each other like corrupt Photoshop files, ground cracked open revealing parallel battlefields stacked vertically beneath, sky torn between conflicting celestial bodies (blazing sun contradicting frozen moon contradicting impossible void stars)",
+      "atmosphere_vfx": "gravity malfunction creating debris falling in opposing directions simultaneously, air itself fracturing into visible glass-like cracks, chromatic aberration intensifying at dimensional boundaries, purple-black psychic energy vortex consuming the scene, reality distortion waves rippling outward from combatant position, floating geometric anomalies defying physics, shadows detaching physically from surfaces and becoming semi-autonomous"
+    }
+  }
+}

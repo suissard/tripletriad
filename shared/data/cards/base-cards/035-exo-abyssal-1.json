@@ -1,0 +1,88 @@
+{
+  "collectionName": "base",
+  "name": "Abyssal 1",
+  "description": "Plongeur des abysses récupérant les artefacts engloutis des stations submergées lors des grandes inondations.",
+  "element": "eau",
+  "faction": "Exode Pélagique",
+  "topValue": "4",
+  "rightValue": "3",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "death",
+      "value": 1,
+      "target": "self_on_flip"
+    }
+  ],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/035.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "eau",
+    "glace"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Céphalopode alien en scaphandre de plongée abyssale, silhouette massive et asymétrique évoquant un bathyscaphe bipède avec membres mécaniques hydrauliques, forme bulbeuse centrale abritant le pilot/créature dans son bocal de verre blindé",
+      "loadout": {
+        "armor_outfit": "Scaphandre de minage minéralogique lourd reconverti en armure de guerre, structure asymétrique en polymère noirci et plaques de blindage en tôle d'acier rouillé, vérins hydrauliques exposés, tuyaux annelés massifs reliant le bocal aux systèmes de support vie, valves de décompression cracheuses de vapeur, combinaison de pression en polymère sombre visible aux articulations",
+        "arsenal": "Bras mécaniques intégrés avec scie thermique circulaire et découpeur plasma rotatif, canon à geyser (lance-plasma inversé) montée sur l'épaule droite, capteurs de récupération sous-marins, grappin hydraulique gauche avec filament de coupe au laser, outils de forage矿 dépassant du dos"
+      },
+      "attitude": {
+        "behavior": "Flottant dans les eaux sombres d'une station engloutie, tentacules partiellement visibles à travers le bocal cyan luminescent, bras mécanique droit tendu vers un artefact métallique enfoui dans les décombres, posture lourde mais agile malgré les courants, propulsion à vapeur d'eau bouillante créant des bulles dans l'obscurité",
+        "emotion": "Focus intense et calculateur sous le regard bioluminescent cyan de la créature, détermination froide du récupérateur de profession, patience predatoriale de l'abysses attendant sa proie"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Biopunk"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Deep Rust Orange (Oxydation Martienne)",
+          "role": "Teinte principale du blindage usé et des cicatrices de corrosion, représentant 40% de la palette"
+        },
+        {
+          "name": "Tarnished Gunmetal Gray",
+          "role": "Plaques de blindage secondaires, structures métalliques, éléments mécaniques"
+        },
+        {
+          "name": "Verdigris Copper Green",
+          "role": "Tuyaux corrodés, connectique en cuivre oxydé, dépôts organiques sur la coque"
+        },
+        {
+          "name": "Bioluminescent Cyan",
+          "role": "Eau du bocal, yeux aliens, project's underwater, fuites d'énergie contenues - éclats lumineux saturés"
+        },
+        {
+          "name": "Blinding Thermal Orange",
+          "role": "Plasma des armes actives, bobines de refroidissement, propulseurs à vapeur surchauffée"
+        },
+        {
+          "name": "Pale Violet Pearl",
+          "role": "Peau translucide du céphalopode visible dans le bocal, tentacules diaphanes"
+        }
+      ],
+      "lighting_setup": "Cinematic underwater lighting with volumetric god rays filtering through murky water, bioluminescent glow from the helmet and creature creating local cyan illumination, thermal orange glow from active plasma tools, distant halogènes搜索lights penetrating the darkness, flickering emergency lights, overall very low ambient light simulating deep ocean darkness",
+      "mood": "Oppressant et mystérieux, tension predatoriale, beauté sombre de la survie désespérée dans les abysses industrielles, élégie technologique"
+    },
+    "camera": {
+      "angle": "Low angle looking up at the diver from the sea floor, slightly dutch tilted for unease, close-up on the helmet bocal with shallow depth of field showing debris floating in the water"
+    },
+    "scenography": {
+      "setting": "Station de récupération submergée lors des grandes inondations, couloirs métalliques tordus envahis par la rouille et les balanes spatiales, échafaudages industriels effondrés, tas de débris technologiques engloutis, câbles exposés pendant comme des algues, murs couverts de graffitis extraterrestres et de痕 thérapeut"
+    }
+  }
+}

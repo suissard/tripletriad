@@ -2,8 +2,12 @@
   "name": "Matriarche des Abysses",
   "description": "La plus ancienne des Tisseuses de Courants, cette entité psionique titanesque se déplace dans un scaphandre-cathédrale rempli d'eau luminescente. Sa seule présence fait converger les courants océaniques et synchronise les essaims pélagiques sur des milliers de kilomètres.",
   "element": "eau",
-  "elements": ["eau", "longue_portee", "reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "longue_portee",
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "7",
   "rightValue": "A",
   "bottomValue": "8",

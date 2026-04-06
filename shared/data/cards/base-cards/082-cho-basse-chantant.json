@@ -1,0 +1,82 @@
+{
+  "collectionName": "base",
+  "name": "Basse Chantant",
+  "description": "Chef d'orchestre de combat dirigeant les mouvements synchronisés des troupes alliées avec une précision musicale remarquable.",
+  "element": "faille_dimensionnelle",
+  "faction": "Chœur Synthétique",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "6",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/082.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Cyber-ascetic Combat Conductor Android - Sleek humanoid android torso emerging from billowing monastic robes made of tressed cable bundles, smooth featureless obsidian facial plate, golden holographic runic mantras orbiting slowly around the head in synchronized patterns, no visible eyes or mouth to indicate humanoid emotion",
+      "loadout": {
+        "armor_outfit": "Heavy braided cable robes resembling Buddhist monk kasaya flowing dynamically with combat movement, beneath which metallic skeleton structure is barely visible, shoulder pauldrons shaped like ceremonial Buddhist temple bells inverted, waist sash woven from miniature circuit boards and processor cores as rosary beads, weathered steel and oxidized bronze accents on exposed joints",
+        "arsenal": "Conductor staff doubling as electrified pilgrimage baton - long tapered pole of aged ceramic white with internal golden circuitry visible through cracked enamel, crackling electrical arcs dancing along its length, golden holographic musical notation projected from staff tip forming ethereal score that manifests as visible sound waves in combat"
+      },
+      "attitude": {
+        "behavior": "Front-line combat stance with staff raised vertically overhead, both hands gripping ceremonial baton, body coiled in explosive forward momentum like drawn bowstring, one leg planted firmly forward on shattered crystal floor sending sparks from metal boots striking prismatic shards, other leg extended back in powerful lunge, floating golden mandala projections rotating beneath feet indicating levitation technology",
+        "emotion": "Impenetrable machine serenity - faceless plate revealing nothing yet somehow conveying absolute battlefield command, every movement radiating calculated lethal grace, the stillness before devastating harmonic assault, body language speaking of synchronized destruction orchestrated with conductor precision"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Buddhist Temple Architecture"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Pearl Gray",
+          "role": "dominant base color for android chassis and ceramic staff elements"
+        },
+        {
+          "name": "Holographic Gold",
+          "role": "primary accent for runic mantras, mandala projections, and energy manifestations"
+        },
+        {
+          "name": "Aged Steel Patina",
+          "role": "secondary metallic elements on joints and shoulder bells"
+        },
+        {
+          "name": "Oxidized Bronze",
+          "role": "decorative monastery hardware and cable braiding highlights"
+        },
+        {
+          "name": "Crystal White",
+          "role": "shattered amphitheater environment and fragment rain"
+        },
+        {
+          "name": "Matte Black",
+          "role": "cable tresses and shadow areas"
+        }
+      ],
+      "lighting_setup": "Cinematic backlighting from crystal shockwave sources creating dramatic rim light on android form, volumetric golden light rays from holographic projections illuminating dust particles, blue-white crystalline ambient light from exploding formations, subtle lens flare from staff electrical discharge",
+      "mood": "Symphonic apocalypse - serene machine authority commanding beautiful destruction, the paradox of peaceful ascetic philosophy channeled through violent harmonic warfare"
+    },
+    "camera": {
+      "angle": "Low angle dutch tilt to emphasize combat readiness and overwhelming presence, slight upward perspective making the conductor appear dominant over shattered battlefield, depth of field focused on android with explosive crystal background softly blurred"
+    },
+    "scenography": {
+      "setting": "Shattered crystalline amphitheater - massive dome structure cracked from harmonic resonance, tiered stone seating collapsed into jagged ruins, central performance floor fractured into floating prismatic shards held suspended by ambient vibration, broken stained crystal windows casting fractured rainbow light across scene, towering crystal formations erupting from floor in organic cathedral spires now fractured and resonating",
+      "atmosphere_vfx": "Expanding concentric shockwave rings in golden holographic notation tearing through enemy positions visible as distortion silhouettes, crystal fragments raining from fractured dome ceiling catching light as they fall like crystalline snow, visible air distortion ripples from intense harmonic frequency making distant elements wobble and shift, electrical discharge trails from staff creating temporary light tunnels, dust and debris suspended in resonating air column, subtle chromatic aberration at frame edges suggesting reality tearing from harmonic overload"
+    }
+  }
+}

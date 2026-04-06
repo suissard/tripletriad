@@ -1,0 +1,81 @@
+{
+  "collectionName": "base",
+  "name": "Refugie des Confins",
+  "description": "Observateur discret fournissant des informations tactiques sur les mouvements ennemis aux deux camps sans prendre parti.",
+  "element": "None",
+  "faction": "neutre",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/001.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Scrap-Punk Observer Survivor",
+      "loadout": {
+        "armor_outfit": "Multicouche de survie extraterrestre improvisée composed de plaques de blindage hétéroclites (morceaux de signalisation industrielle rouillée, tôles de coque de cargo spatial), renforcée par des couches de fibre de verre usée, avec关节 et articulations protégées par des pièces de rechanges de mécanos et des rouleaux de ruban adhésif argenté et gris. Sous la couche protectrice, une combinaison spatiale de minage Class-Mark-IV profondément modifiée avec des panneaux de radiation remplacés par du textile synthétique noir et orange. Le casque de soudeur orbital modifié intègre une visière opaques rayée deчества, des systèmes de communication artisanale avec des fils de cuivre exposés et des témoins lumineux rouges clignotants. Le harness est saturé de sacoches porte-outils, de rouleaux de câbles, de pinces multiconductrices et de trois points d'ancrage mousquetons pour faciliter les déplacements en apesanteur.",
+        "arsenal": "Arbalète de ciblage longue portée de conception artisanale montée sur rail, intégrant un canon de harpon modifié pour tir de precision avec viseur laser désactivé (plasma bleu froid). Système d'emission de signals de renseignement portatif de couleur noir grease, avec antenne directive telescopique. Poignard de survie forgé à la main avec garde en cuivre exposé pour les interférences EM. Sac à dos contenant drone de reconnaissance miniature(batteries de fortune scotchées avec ruban adhésif orange)."
+      },
+      "attitude": {
+        "behavior": "Posture accroupie sur une poutrelle métallique d'un sas de station orbitale désaffectée, légèrement incliné vers lavant pour optimiser l'équilibre en micropesanteur. Les mains manipulent avec précision le système d'observation artisanale (longue-vue improvisée avec optiques de récupération) tout en maintenant une position permettant une mobilité instantanée. Le corps est légèrement tournée pour masquer la silhouette while still maintaining optimal sightlines. Les jambes sont légèrement fléchies, prêtes à bondir. Le regard scanne l'horizon à travers la visière opaque rayée. Une main libre reste prête à dégainer l'arbalète de précision.",
+        "emotion": "Vigilance froide et calculatrice, regard determiné sous la visière opaques. Concentration extreme et discipline de faction: ne jamais prendre parti, seulement observer et rapporter. Tension latente perceptible dans les épaules, muscles prêts à réagir. Expression inscrutablemasquée par les traces de graisse de moteur incrustée dans les rides du visage weathered."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "grimy_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Acier oxydé",
+          "role": "dominant_background_elements_and_armor_base"
+        },
+        {
+          "name": "Orange rouille",
+          "role": "accent_details_and_worn_paint_marks"
+        },
+        {
+          "name": "Bleu plasma",
+          "role": "technological_energy_accents_and_targeting_systems"
+        },
+        {
+          "name": "Gris industriel",
+          "role": "secondary_metallic_surfaces_and_structural_elements"
+        },
+        {
+          "name": "Noir graisse de moteur",
+          "role": "facial_features_and_textile_fabrics"
+        },
+        {
+          "name": "Etincelles vives",
+          "role": "atmospheric_particles_and_reflections"
+        }
+      ],
+      "lighting_setup": "low_key_industrial_with_rim_light_plasma_glow_and_spark_particles",
+      "mood": "tense_stealthy_menacing_with_underlying_tension"
+    },
+    "camera": {
+      "angle": "low_angle_slightly_tilted_to_emphasize_silhouette_and_environment"
+    },
+    "scenography": {
+      "setting": "Zone industrielle dejunction entre deux sectors spatiaux, structure de station orbitale abandonnée avec poutres métalliques exposées, câbles suspendus, modules de fret démembrés, environnement saturé de débris et de structures improvisées. Intérieur de sas avec hublots fissurés laissant entrevoir les étoiles et la Ceinture d'astéroides au loin.",
+      "atmosphere_vfx": "Ambiance de micropesanteur avec poussière metallique flottante, étincelles occasionnelles de soudure artisanale, reflets de plasma sur les surfaces métalliques usées, halo bleuté du système de visée, vapeurs de gaz de propulsion residuelles, et lumière stroboscopique rouge des alarmes désactivées"
+    }
+  }
+}

@@ -2,8 +2,11 @@
   "name": "Colosse Centurion",
   "description": "Marcheur de commandement régimentaire. Centre nerveux mobile du Haut Commandement au sol, entouré de relais tactiques et de batteries défensives. Celui qui contrôle le Colosse contrôle la bataille.",
   "element": "reseau",
-  "elements": ["reseau", "longue_portee"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "reseau",
+    "longue_portee"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "8",
   "rightValue": "7",
   "bottomValue": "6",

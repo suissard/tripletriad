@@ -2,8 +2,11 @@
   "name": "Phalange Orbital",
   "description": "Transporteur militarisé de troupes lourdes. Il largue des colonnes de super-soldats blindés directement en zone de combat. Chaque Phalange est un débarquement — et chaque débarquement est une déclaration de guerre.",
   "element": "obsidienne",
-  "elements": ["obsidienne", "reseau"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "obsidienne",
+    "reseau"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "7",
   "rightValue": "5",
   "bottomValue": "7",

@@ -1,0 +1,90 @@
+{
+  "collectionName": "base",
+  "name": "Resonance Musical",
+  "description": "Dissonateur créant des interférences sonores désorientantes empêchant l'ennemi de communiquer efficacement sur le champ de bataille.",
+  "element": "reseau",
+  "elements": [
+    "eau"
+  ],
+  "faction": "Chœur Synthétique",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/083.png",
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Cybernetic Sound Combat Specialist - Smooth faceless humanoid android of the Synthetic Choir faction, specialized in dissonant warfare and acoustic interference, no facial features whatsoever, sleek metallic body with integrated ceremonial elements",
+      "loadout": {
+        "armor_outfit": "Layered synthetic fiber monk robes interwoven with braided data cables forming the lower garment, geometric polished steel and aged white ceramic plates covering torso and limbs in monastic style, holographic golden runic symbols orbiting the body in slow rotation, chest piece bearing mandala-inspired circuitry patterns, prayer bead chapelet made of interconnected micro-hard drives hanging from belt",
+        "arsenal": "Long pilgrim's staff crowned with resonating crystal formations that emit dissonant frequencies, the staff crackling with golden electrical arcs along its length, secondary wrist-mounted acoustic emitter devices projecting binary equation sequences during combat"
+      },
+      "attitude": {
+        "behavior": "Combat stance with weapon raised overhead ready to strike, body coiled in explosive potential, weight shifted to rear leg, arms positioned to channel maximum resonance force, every servo and joint locked in predatory readiness, surrounding air visibly rippling and distorting from emitted frequencies, enemy positions being torn apart by sonic shockwaves",
+        "emotion": "Imperturbable machine serenity masking devastating purpose, featureless smooth faceplate conveying absolute focus, internal processing dedicated entirely to calculating harmonic frequencies that will shatter enemy communications and crystalline structures"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Cyberpunk Monastic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Patinated Steel Gray",
+          "role": "Primary body armor and staff structure"
+        },
+        {
+          "name": "Aged White Ceramic",
+          "role": "Secondary armor plating and ceremonial elements"
+        },
+        {
+          "name": "Holographic Gold",
+          "role": "Runic symbols, energy emissions, and resonance effects"
+        },
+        {
+          "name": "Pearl Gray",
+          "role": "Ambient lighting and atmospheric haze"
+        },
+        {
+          "name": "Electric Clear Gold",
+          "role": "Staff energy arcs and acoustic shockwaves"
+        },
+        {
+          "name": "Oxidized Bronze",
+          "role": "Cable braiding and chapelet beads"
+        },
+        {
+          "name": "Crystal White",
+          "role": "Exploding amphitheater formations and shards"
+        },
+        {
+          "name": "Faded Brown",
+          "role": "Underlying robe fabric visible through cable weaving"
+        }
+      ],
+      "lighting_setup": "Cinematic dramatic rim lighting with golden holographic glow emanating from runic elements and staff, secondary cold ambient light from shattered crystal formations, volumetric fog from suspended crystal dust, visible sound waves rendered as rippling distortion rings",
+      "mood": "Solemn yet devastating, sacred violence, hypnotic destruction through harmonic resonance"
+    },
+    "camera": {
+      "angle": "Low angle slightly dutch, looking up at the android figure silhouetted against the chaos of the crumbling amphitheater, emphasizing the imposing presence and raised weapon"
+    },
+    "scenography": {
+      "setting": "Shattered crystalline amphitheater transformed into a battlefield, massive crystal formations erupting from floors and walls, ceiling structures cracked and resonating with visible harmonic stress, ancient stone seating destroyed by repeated sonic shockwaves, jagged crystal shards raining from above, debris suspended mid-air by persistent vibration frequencies, broken mandala patterns visible in the destroyed floor architecture",
+      "atmosphere_vfx": "Multiple concentric shockwave rings expanding outward from combatant position tearing through enemy positions, crystal formations exploding into razor-sharp fragments, entire environment visibly vibrating with distortion ripples in the air, crystal dust suspended in volumetric fog, enemies scattered and disoriented by dissonant frequencies, golden energy trails following staff movements, cracked ceiling sections threatening to collapse"
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "collectionName": "base",
+  "name": "Sentinelle Errant",
+  "description": "Sentinelle du dernier relais veillant sur les points de convergence stratégiques entre les zones de conflit.",
+  "element": "eau",
+  "faction": "neutre",
+  "topValue": "9",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "heal",
+      "value": 2,
+      "target": "damaged_friendly"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 4,
+  "image": "base/014.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "eau",
+    "glace"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Scrap-Punk Combat Medic Sentinel",
+      "loadout": {
+        "armor_outfit": "Heavily patched industrial space suit built from obsolete mining exoskeleton, reinforced with rusted scrap metal plates, duct tape, exposed cables, and a cracked welding helmet with a plasma‑glowing visor",
+        "arsenal": "Improvised kinetic harpoon rifle with exposed copper coils and a built‑in plasma welding torch for close combat, plus a back‑mounted biotech unit that emits glowing cyan healing tendrils"
+      },
+      "attitude": {
+        "behavior": "Leaning forward, weapon raised, advancing through debris while extending luminous tendrils toward wounded allies, triaging on the fly",
+        "emotion": "Fierce determination with a compassionate focus; cold mechanical stare behind visor while selectively healing only the injured"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Post‑apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Oxidized Steel Grey",
+          "role": "primary background and armor base"
+        },
+        {
+          "name": "Rust Orange",
+          "role": "weathered metal accents, rust patches, and fire"
+        },
+        {
+          "name": "Plasma Blue",
+          "role": "energy emitted by healing tendrils and weapon glow"
+        },
+        {
+          "name": "Sparks Yellow‑White",
+          "role": "impact sparks and welding flashes"
+        },
+        {
+          "name": "Smoke Grey",
+          "role": "volumetric smoke and atmospheric haze"
+        }
+      ],
+      "lighting_setup": "Cinematic low‑key illumination with strong rim light from plasma impacts, volumetric fog, and a central cyan glow from the healing tendrils; harsh shadows accentuating the gritty industrial environment",
+      "mood": "Chaotic, intense, desperate yet heroic"
+    },
+    "camera": {
+      "angle": "low_angle"
+    },
+    "scenography": {
+      "setting": "Asteroid waystation crossroads surrounded by corrugated metal walls, exposed piping, and improvised barricades made of shipping containers and scrap; under heavy plasma fire from advancing enemy silhouettes",
+      "atmosphere_vfx": "Thick smoke billowing, plasma rounds exploding on walls, sparks and debris raining down, glowing cyan healing tendrils weaving through smoke, occasional distant blasts"
+    }
+  }
+}

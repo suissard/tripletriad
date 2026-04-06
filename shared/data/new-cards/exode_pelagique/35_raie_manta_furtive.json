@@ -2,8 +2,11 @@
   "name": "Raie Manta Furtive",
   "description": "Éclaireur blindé profilé comme une raie manta géante. Sa peau chromatique absorbe les radars et ses ailes dorsales déploient des antennes-reseau à longue portée. Il frappe et disparaît dans les courants.",
   "element": "furtif",
-  "elements": ["longue_portee", "reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "longue_portee",
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "5",
   "rightValue": "4",
   "bottomValue": "3",

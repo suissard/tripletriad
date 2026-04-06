@@ -43,9 +43,9 @@
       "default": "neutre",
       "enum": [
         "neutre",
-        "Hégémonie martienne",
-        "Exode pélagique",
-        "Héritiers des cendres",
+        "Hégémonie Martienne",
+        "Exode Pélagique",
+        "Héritiers des Cendres",
         "Omni-Réseau",
         "Chœur Synthétique",
         "Éveil Chthonien",
@@ -75,7 +75,9 @@
       "required": true
     },
     "skills": {
-      "type": "json"
+      "type": "component",
+      "repeatable": true,
+      "component": "game.skill"
     },
     "image": {
       "type": "media",
@@ -104,6 +106,21 @@
       "relation": "manyToMany",
       "target": "api::story.story",
       "mappedBy": "rewardCards"
+    },
+    "defaultHp": {
+      "type": "integer",
+      "default": 3,
+      "required": true
+    },
+    "level": {
+      "type": "integer",
+      "default": 1
+    },
+    "imageUrl": {
+      "type": "string"
+    },
+    "prompt": {
+      "type": "json"
     }
   }
 }

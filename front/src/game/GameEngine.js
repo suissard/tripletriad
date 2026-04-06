@@ -7,9 +7,10 @@ export class GameEngine {
   static createInitialState(startingPlayer = 'PLAYER_1') {
     return {
       board: [
-        [null, null, null],
-        [null, null, null],
-        [null, null, null]
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null]
       ],
       currentPlayer: startingPlayer,
       isFinished: false,
@@ -35,8 +36,8 @@ export class GameEngine {
     const { x, y, card } = action;
 
     // Vérification des bords de la grille
-    if (x < 0 || x > 2 || y < 0 || y > 2) {
-      throw new Error("Placement en dehors de la grille (doit être entre 0 et 2).");
+    if (x < 0 || x > 3 || y < 0 || y > 3) {
+      throw new Error("Placement en dehors de la grille (doit être entre 0 et 3).");
     }
 
     // Vérification de placement sur une case libre
@@ -52,17 +53,35 @@ export class GameEngine {
 
     // 2. Placer la carte
     const cellOwner = action.player;
-    const placedCell = { data: card, owner: cellOwner };
+    const placedCell = {
+      data: {
+        ...card,
+        hp: card.hp !== undefined ? card.hp : (card.defaultHp || 3),
+        skills: card.skills || []
+      },
+      owner: cellOwner
+    };
     nextState.board[y][x] = placedCell;
+
+    // Appliquer Heal et Death au placement
+    GameEngine.applyPlacementSkills(nextState.board, x, y, placedCell);
 
     // 3. Calculer les captures (Règles "Classiques" d'adjacence)
     nextState.lastCaptures = GameEngine.processCaptures(nextState.board, x, y, placedCell);
 
+    // 4. Appliquer les effets de fin de tour (Growing, Decrease)
+    GameEngine.applyEndOfTurnSkills(nextState.board);
+
     // 4. Passer au joueur suivant
     nextState.currentPlayer = action.player === 'PLAYER_1' ? 'PLAYER_2' : 'PLAYER_1';
 
-    // 5. Vérifier les conditions de fin de partie
+    // Expand board if a row or column is full
+    // GameEngine.expandBoard2D(nextState.board);
+
+    // 5. Vérifier les conditions de fin de partie (remplacé par désactivé ici car géré par le deck localement)
     if (GameEngine.isBoardFull(nextState.board)) {
+      // In dynamic size, the board is technically never full
+      // Keeping backward compatibility logic just in case
       nextState.isFinished = true;
       nextState.winner = GameEngine.computeWinner(nextState.board);
     }
@@ -73,46 +92,318 @@ export class GameEngine {
   /**
    * Logique privée de capture. Altière seulement le "board" cloné du nouvel état.
    */
-  static processCaptures(board, x, y, placedCell) {
-    const player = placedCell.owner;
-    const captures = [];
 
-    // Définitions des 4 directions cardinales et des bords d'attaque/défense
-    // dx/dy: déplacements, mySide: mon bord de carte attaquant, oppSide: bord adverse visé
+
+
+  /**
+   * Helper function to get effective card value considering Auras
+   */
+  static getEffectiveValue(board, x, y, side) {
+    const cell = board[y][x];
+    if (!cell || !cell.data) return 0;
+
+    let valStr = cell.data.values && cell.data.values[side] !== undefined ? cell.data.values[side] : cell.data[side + 'Value'];
+    let baseVal = valStr === 'A' || valStr === 'a' ? 10 : parseInt(valStr) || 0;
+
+    let auraBonus = 0;
     const directions = [
-      { dx: 0, dy: -1, mySide: 'top', oppSide: 'bottom' },     // Adjacent Haut
-      { dx: 0, dy: 1, mySide: 'bottom', oppSide: 'top' },      // Adjacent Bas
-      { dx: -1, dy: 0, mySide: 'left', oppSide: 'right' },     // Adjacent Gauche
-      { dx: 1, dy: 0, mySide: 'right', oppSide: 'left' }       // Adjacent Droite
+      { dx: 0, dy: -1 },
+      { dx: 0, dy: 1 },
+      { dx: -1, dy: 0 },
+      { dx: 1, dy: 0 }
     ];
 
     for (const dir of directions) {
       const nx = x + dir.dx;
       const ny = y + dir.dy;
-
-      // On vérifie que la case ciblée soit bien comprise dans la grille 3x3
-      if (nx >= 0 && nx < 3 && ny >= 0 && ny < 3) {
-        const adjacentCell = board[ny][nx];
-
-        // On vérifie s'il y a une carte et qu'elle n'est pas déjà à nous
-        if (adjacentCell && adjacentCell.owner !== player) {
-          const myValue = placedCell.data.values[dir.mySide];
-          const oppValue = adjacentCell.data.values[dir.oppSide];
-
-          // Capture Classique : Ma valeur sur ce côté est-elle strictement supérieure à la valeur opposée adversaire ?
-          if (myValue > oppValue) {
-            // Capture réussie ! On remplace la carte adjacente par un clone au propriétaire mis à jour.
-            board[ny][nx] = {
-              data: adjacentCell.data,
-              owner: player
-            };
-            captures.push(adjacentCell.data);
+      if (nx >= 0 && nx < board[0].length && ny >= 0 && ny < board.length) {
+        const adj = board[ny][nx];
+        // Aura applies to allies
+        if (adj && adj.owner === cell.owner && adj.data && adj.data.skills) {
+          const auraSkill = adj.data.skills.find(s => s.type === 'aura');
+          if (auraSkill) {
+            auraBonus += auraSkill.value;
           }
         }
       }
     }
-    
+
+    return Math.min(10, baseVal + auraBonus); // Cap at 10
+  }
+
+  static processCaptures(board, x, y, placedCell) {
+    const player = placedCell.owner;
+    const captures = [];
+    const attackQueue = [{ x, y, cell: placedCell, isCombo: false }];
+    const alerts = [];
+    const dyingCards = [];
+
+    const directions = [
+      { dx: 0, dy: -1, mySide: 'top', oppSide: 'bottom' },
+      { dx: 0, dy: 1, mySide: 'bottom', oppSide: 'top' },
+      { dx: -1, dy: 0, mySide: 'left', oppSide: 'right' },
+      { dx: 1, dy: 0, mySide: 'right', oppSide: 'left' }
+    ];
+
+    while (attackQueue.length > 0) {
+      const currentAttack = attackQueue.shift();
+      const cx = currentAttack.x;
+      const cy = currentAttack.y;
+      const attackerCell = currentAttack.cell;
+
+      // Ensure attacker is still on board
+      if (board[cy][cx] !== attackerCell) continue;
+
+      let isFrozen = false;
+      for (const dir of directions) {
+        const fx = cx + dir.dx;
+        const fy = cy + dir.dy;
+        if (fx >= 0 && fx < board[0].length && fy >= 0 && fy < board.length) {
+          const fAdj = board[fy][fx];
+          if (fAdj && fAdj.data.skills && fAdj.data.skills.some(s => s.type === 'freeze')) {
+            alerts.push("FREEZE!"); isFrozen = true;
+            break;
+          }
+        }
+      }
+
+      if (currentAttack.isCombo && isFrozen) continue;
+
+      let triggeredCapture = false;
+      const hasCombo = attackerCell.data.skills && attackerCell.data.skills.some(s => s.type === 'combo');
+      const hasSniper = attackerCell.data.skills && attackerCell.data.skills.some(s => s.type === 'sniper');
+
+      for (const dir of directions) {
+        let nx = cx + dir.dx;
+        let ny = cy + dir.dy;
+        let targetCell = null;
+        let actualNx = nx;
+        let actualNy = ny;
+
+        while (nx >= 0 && nx < board[0].length && ny >= 0 && ny < board.length) {
+          const cell = board[ny][nx];
+          if (cell !== null) {
+            targetCell = cell;
+            actualNx = nx;
+            actualNy = ny;
+            break;
+          }
+          if (hasSniper) {
+             if (nx !== cx + dir.dx || ny !== cy + dir.dy) alerts.push("SNIPER!");
+             nx += dir.dx;
+             ny += dir.dy;
+          } else {
+             break;
+          }
+        }
+
+        if (targetCell && targetCell.owner !== attackerCell.owner) {
+          const myValue = GameEngine.getEffectiveValue(board, cx, cy, dir.mySide);
+          const oppValue = GameEngine.getEffectiveValue(board, actualNx, actualNy, dir.oppSide);
+
+          if (myValue > oppValue) {
+            triggeredCapture = true;
+            let hasWard = targetCell.data.skills && targetCell.data.skills.some(s => s.type === 'ward');
+
+            if (hasWard) {
+              alerts.push("WARD!"); targetCell.data.skills = targetCell.data.skills.filter(s => s.type !== 'ward');
+              captures.push({ ...targetCell.data, event: 'ward_triggered', wardedTarget: targetCell.data.id });
+            } else {
+              let hpLoss = 1;
+              let targetHp = (targetCell.data.hp !== undefined ? targetCell.data.hp : (targetCell.data.defaultHp || 3)) - hpLoss;
+
+              if (targetHp <= 0) {
+                dyingCards.push({ x: actualNx, y: actualNy, cell: targetCell });
+                board[actualNy][actualNx] = null;
+                captures.push({ ...targetCell.data, dead: true, event: 'captured_dead' });
+              } else {
+                board[actualNy][actualNx] = {
+                  data: { ...targetCell.data, hp: targetHp },
+                  owner: attackerCell.owner
+                };
+                captures.push({ ...board[actualNy][actualNx].data, event: 'captured_survived' });
+              }
+            }
+
+            // Target Poison check
+            const poisonSkill = targetCell.data.skills ? targetCell.data.skills.find(s => s.type === 'poison') : null;
+            if (poisonSkill) {
+               alerts.push("POISON!");
+               let attackerHasWard = attackerCell.data.skills && attackerCell.data.skills.some(s => s.type === 'ward');
+               if (attackerHasWard) {
+                 alerts.push("WARD!"); attackerCell.data.skills = attackerCell.data.skills.filter(s => s.type !== 'ward');
+                 captures.push({ ...attackerCell.data, event: 'ward_triggered_poison' });
+               } else {
+                 let attackerHp = (attackerCell.data.hp !== undefined ? attackerCell.data.hp : (attackerCell.data.defaultHp || 3)) - poisonSkill.value;
+                 attackerCell.data.hp = attackerHp;
+                 if (attackerHp <= 0) {
+                    dyingCards.push({ x: cx, y: cy, cell: attackerCell });
+                    board[cy][cx] = null;
+                    captures.push({ ...attackerCell.data, dead: true, event: 'poison_death' });
+                 } else {
+                    captures.push({ ...attackerCell.data, event: 'poison_damage' });
+                 }
+               }
+            }
+          }
+        }
+      }
+
+      if (triggeredCapture && hasCombo && board[cy][cx] !== null) {
+         alerts.push("COMBO!"); attackQueue.push({ x: cx, y: cy, cell: board[cy][cx], isCombo: true });
+      }
+    }
+
+    while (dyingCards.length > 0) {
+        const dying = dyingCards.shift();
+        const bombSkill = dying.cell.data.skills ? dying.cell.data.skills.find(s => s.type === 'bomb') : null;
+
+        if (bombSkill) {
+           alerts.push("BOMB!");
+           for (const dir of directions) {
+              const nx = dying.x + dir.dx;
+              const ny = dying.y + dir.dy;
+              if (nx >= 0 && nx < board[0].length && ny >= 0 && ny < board.length) {
+                 const adj = board[ny][nx];
+                 if (adj) {
+                    let adjHasWard = adj.data.skills && adj.data.skills.some(s => s.type === 'ward');
+                    if (adjHasWard) {
+                        alerts.push("WARD!"); adj.data.skills = adj.data.skills.filter(s => s.type !== 'ward');
+                        captures.push({ ...adj.data, event: 'ward_triggered_bomb' });
+                    } else {
+                        let adjHp = (adj.data.hp !== undefined ? adj.data.hp : (adj.data.defaultHp || 3)) - bombSkill.value;
+                        if (adjHp <= 0) {
+                           dyingCards.push({ x: nx, y: ny, cell: adj });
+                           board[ny][nx] = null;
+                           captures.push({ ...adj.data, dead: true, event: 'bomb_death' });
+                        } else {
+                           adj.data.hp = adjHp;
+                           board[ny][nx] = { data: adj.data, owner: adj.owner };
+                           captures.push({ ...adj.data, event: 'bomb_damage' });
+                        }
+                    }
+                 }
+              }
+           }
+        }
+    }
+
+    if (alerts.length > 0) captures.alerts = alerts;
     return captures;
+  }
+
+
+  static applyPlacementSkills(board, x, y, placedCell) {
+    if (!placedCell.data.skills) return;
+
+    const directions = [
+      { dx: 0, dy: -1 }, // Haut
+      { dx: 0, dy: 1 },  // Bas
+      { dx: -1, dy: 0 }, // Gauche
+      { dx: 1, dy: 0 }   // Droite
+    ];
+
+    placedCell.data.skills.forEach(skill => {
+      if (skill.type === 'turn') {
+        const direction = skill.value || 1; // 1 for Right, -1 for Left
+        GameEngine.rotateCardValues(placedCell, direction);
+      }
+    });
+
+    placedCell.data.skills.forEach(skill => {
+      if (skill.type === 'heal' || skill.type === 'death') {
+        for (const dir of directions) {
+          const nx = x + dir.dx;
+          const ny = y + dir.dy;
+
+          if (nx >= 0 && nx < board[0].length && ny >= 0 && ny < board.length) {
+            const adjacentCell = board[ny][nx];
+            if (adjacentCell) {
+              let hp = adjacentCell.data.hp !== undefined ? adjacentCell.data.hp : (adjacentCell.data.defaultHp || 3);
+
+              if (skill.type === 'heal') {
+                hp += skill.value;
+              } else if (skill.type === 'death') {
+                hp -= skill.value;
+              }
+
+              if (hp <= 0) {
+                board[ny][nx] = null;
+              } else {
+                adjacentCell.data = { ...adjacentCell.data, hp: hp };
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  /**
+   * Applique les compétences de fin de tour (Growing, Decrease)
+   */
+  static applyEndOfTurnSkills(board) {
+    for (let y = 0; y < board.length; y++) {
+      for (let x = 0; x < board[y].length; x++) {
+        const cell = board[y][x];
+        if (cell && cell.data && cell.data.skills) {
+          cell.data.skills.forEach(skill => {
+            if (skill.type === 'growing' || skill.type === 'decrease') {
+              let targets = ['all'];
+              if (skill.target) {
+                targets = [skill.target.toLowerCase()];
+              }
+              const sides = ['top', 'right', 'bottom', 'left'];
+
+              sides.forEach(side => {
+                if (targets.includes('all') || targets.includes(side)) {
+                  let valStr = cell.data.values && cell.data.values[side] !== undefined ? cell.data.values[side] : cell.data[side + 'Value'];
+                  let val = valStr === 'A' || valStr === 'a' ? 10 : parseInt(valStr) || 0;
+
+                  if (skill.type === 'growing') {
+                    val += skill.value;
+                  } else if (skill.type === 'decrease') {
+                    val -= skill.value;
+                  }
+
+                  // Limites : 0 min, 10 max
+                  val = Math.max(0, Math.min(10, val));
+
+                  // Conversion inverse
+                  valStr = val === 10 ? 'A' : val.toString();
+
+                  if (cell.data.values) {
+                    cell.data.values[side] = valStr;
+                  }
+                  cell.data[side + 'Value'] = valStr;
+                }
+              });
+            }
+          });
+        }
+      }
+    }
+  }
+
+  /**
+   * Expansion PURE d'un board 2D
+   */
+  static expandBoard2D(board) {
+    const anyRowFull = board.some(row => row.every(cell => cell !== null));
+    const anyColFull = board[0].map((_, colIdx) => board.every(row => row[colIdx] !== null)).some(full => full);
+
+    if (anyRowFull) {
+      board.forEach(row => {
+        row.unshift(null);
+        row.push(null);
+      });
+    }
+
+    if (anyColFull) {
+      const width = board[0].length;
+      board.unshift(Array(width).fill(null));
+      board.push(Array(width).fill(null));
+    }
   }
 
   /**
@@ -136,8 +427,6 @@ export class GameEngine {
       }
     }
 
-    // Remarque: Dans un vrai module Triple Triad, on ajoute souvent la carte qui reste en main.
-    // L'implémentation ici ne compte strictement que la domination des 9 cases finales posées.
     if (p1Count > p2Count) return 'PLAYER_1';
     if (p2Count > p1Count) return 'PLAYER_2';
     return 'DRAW';
@@ -169,5 +458,46 @@ export class GameEngine {
     if (sum >= 12) return 3;
     if (sum >= 8) return 2;
     return 1;
+  }
+
+  /**
+   * Rotates card values clockwise (direction > 0) or counter-clockwise (direction < 0)
+   */
+  static rotateCardValues(cell, direction) {
+    if (!cell || !cell.data) return;
+
+    const rotate = (dir) => {
+      const oldValues = {
+        top: cell.data.topValue || (cell.data.values ? cell.data.values.top : '0'),
+        right: cell.data.rightValue || (cell.data.values ? cell.data.values.right : '0'),
+        bottom: cell.data.bottomValue || (cell.data.values ? cell.data.values.bottom : '0'),
+        left: cell.data.leftValue || (cell.data.values ? cell.data.values.left : '0')
+      };
+
+      if (dir > 0) { // Clockwise (Right)
+        cell.data.topValue = oldValues.left;
+        cell.data.rightValue = oldValues.top;
+        cell.data.bottomValue = oldValues.right;
+        cell.data.leftValue = oldValues.bottom;
+      } else { // Counter-Clockwise (Left)
+        cell.data.topValue = oldValues.right;
+        cell.data.rightValue = oldValues.bottom;
+        cell.data.bottomValue = oldValues.left;
+        cell.data.leftValue = oldValues.top;
+      }
+
+      // Sync complex values object if exists
+      if (cell.data.values) {
+        cell.data.values.top = cell.data.topValue;
+        cell.data.values.right = cell.data.rightValue;
+        cell.data.values.bottom = cell.data.bottomValue;
+        cell.data.values.left = cell.data.leftValue;
+      }
+    };
+
+    const steps = Math.abs(direction);
+    for (let i = 0; i < steps; i++) {
+       rotate(direction);
+    }
   }
 }

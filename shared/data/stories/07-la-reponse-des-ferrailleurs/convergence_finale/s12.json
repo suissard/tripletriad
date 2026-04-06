@@ -1,0 +1,43 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "s12",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "Combat ou infiltration, tous convergent vers le même lieu : le noyau central de la station. La lumière bleue pulse comme un cœur et révèle une conscience ancienne.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Kip",
+      "sentence": "Le noyau est stable. On peut soit l'activer — ce qui libérera la station et son contenu — soit l'éteindre et la laisser dormir.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Vex",
+      "sentence": "Si on l'active, l'Hégémonie Martienne captera le signal et accourra. Si on l'éteint, on perd une technologie inestimable.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Rook",
+      "sentence": "On est pas venus jusqu'ici pour laisser tomber maintenant. On active.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Narration",
+      "sentence": "Le noyau pulse violemment. Une entité en émerge — le Gardien du Noyau, une intelligence Omni-Réseau qui veillait sur cette station depuis des décennies.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Gardien du Noyau",
+      "sentence": "Qui ose réveiller le dernier bastion de l'Omni-Réseau ? Prouvez votre valeur par les cartes… ou disparaissez.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "s13"
+}

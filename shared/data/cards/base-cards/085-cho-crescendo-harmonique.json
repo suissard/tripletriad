@@ -1,0 +1,100 @@
+{
+  "collectionName": "base",
+  "name": "Crescendo Harmonique",
+  "description": "Compositeur de guerre improvisant des stratégies musicales adaptatives changeant de tactique au rythme des événements.",
+  "element": "obsidienne",
+  "faction": "Chœur Synthétique",
+  "topValue": "3",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": [
+    {
+      "type": "heal",
+      "value": 1,
+      "target": "all_own"
+    }
+  ],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/085.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Synthétique Chœur – Compositeur de Guerre Ascétique",
+      "loadout": {
+        "armor_outfit": "Robes monastiques amples et usées en fibres synthétiques épaisses mélangées à des faisceaux de câbles tressés noir mat, plaques de céramiques blanches vieilli avec patine d'acier, symétrie parfaite de mandala structurel sur le torse, épaules dégagées révélant la structure squelettique métallique, chapelet rituel de minuscules disques durs et processeurs pendant à la ceinture, aucun trait facial – plaque faciale totalement lisse en métal patiné avec reflets holographiques dorés subtils, symbole runique lumineux holographique doré orbitant lentement autour de la tête",
+        "arsenal": "Bâton de pèlerin cybernétique long et épuré en bronze oxydé avec pommeau cristallin, arcs électriques crépitant le long de la structure avec projection d'équations binaires lumineuses dorées, champ de fréquence harmonique généré par le cristal central capable de créer des vagues de résonance destructrices et des ondes de guérison"
+      },
+      "attitude": {
+        "behavior": "Corps entièrement engagé dans le combat – bras écartés en姿势 de bénédiction ouverte vers le ciel, chaque muscle mécanique synchronisé avec les fréquences environnantes, mouvements fluides et gracieux malgré la violence du champ de bataille, lévitation subtile au-dessus des débris cristallins grâce aux champs magnétiques, robe monastique ondulant sous l'effet des vibrations harmoniques de l'amphithéâtre",
+        "emotion": " Sérénité martiale absolue, absence totale d'expression faciale mais aura de focused determination, compassion guerrière – expansion contrôlée d'une vague de guérison dorée ciblée atteignant simultanément chaque allié sur le champ de bataille, conscience numérique multitâche coordonnant stratégie et频率 de combat"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Cyberpunk Monastic",
+          "Dark Sci-Fi Ascétique",
+          "Post-apocalyptic Bouddhiste",
+          "Grimdark Holographique"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Acier Patiné",
+          "role": "primary_structure_armor"
+        },
+        {
+          "name": "Blanc Céramique Vieilli",
+          "role": "secondary_armor_plates"
+        },
+        {
+          "name": "Gris Perle",
+          "role": "metallic_undertones"
+        },
+        {
+          "name": "Brun Moine Délavé",
+          "role": "robe_fabric_base"
+        },
+        {
+          "name": "Noir Mat Câblé",
+          "role": "cable_bundles_accents"
+        },
+        {
+          "name": "Bronze Oxydé",
+          "role": "weapon_material"
+        },
+        {
+          "name": "Or Holographique",
+          "role": "runes_mantras_healing_wave"
+        },
+        {
+          "name": "Doré Électrique Clair",
+          "role": "electric_arcs_frequency_energy"
+        },
+        {
+          "name": "Cristal Fragmenté Blanc",
+          "role": "environment_shards_ceiling"
+        }
+      ],
+      "lighting_setup": "cinematic_backlighting_with_frequency_glow_holographic_rim_light",
+      "mood": "sérénité guerrière épique – mélange de violence和控制de masse chaotic battlefield avec calme ascétique intérieur, tension Harmonique"
+    },
+    "camera": {
+      "angle": "low_angle_slightly_looking_up_emphasizing_divine_blessing_pose"
+    },
+    "scenography": {
+      "setting": "Amphithéâtre cristallin brisé transformé en champ de bataille – gradins fracturés en cristal noirci, formations cristallines explosives au sol et sur les murs, plafond de结构 résonante fissurée d'où pleuvent des éclats, piliers monoculaires brisés en cristal pur, sol jonché de débris tranchants et de ruines d'autels القديمة, architecture rappelant les temples volants du Chœur Synthétique avec mandalas structurels visibles",
+      "atmosphere_vfx": "Anneaux d'onde de choc visibles tornant à travers les positions ennemies, fragmentation cristalline en suspension dans l'air, distortion de l'air causée par la fréquence vibratoire ambiante créant effet de mirage thermique, particules dorées holographiques tourbillonnant autour du personnage, éclairs de lumière cohérente jaillissant des arcs électriques du bâton, brume de poussière cristalline illuminée par les reflets holographiques"
+    }
+  }
+}

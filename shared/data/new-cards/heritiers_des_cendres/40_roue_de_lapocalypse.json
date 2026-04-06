@@ -2,7 +2,7 @@
   "name": "Roue de l'Apocalypse",
   "description": "Roue géante incendiaire qui fauche tout sur son passage.",
   "element": "radiation",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "5",
   "rightValue": "8",
   "bottomValue": "2",

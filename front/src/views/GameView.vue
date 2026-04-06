@@ -13,19 +13,11 @@
           label="Héros"
           :score="state.pScore"
           color="#00d2ff"
-          :health="state.pHealth"
-          :mana="state.pMana"
-          :maxMana="state.pMaxMana"
-          :deckCount="state.pDeck.length"
         />
         <ScorePanel
           label="Adversaire"
           :score="state.aiScore"
           color="#ff0055"
-          :health="state.aiHealth"
-          :mana="state.aiMana"
-          :maxMana="state.aiMaxMana"
-          :deckCount="state.aiDeck.length"
         />
       </div>
 
@@ -166,7 +158,8 @@ function onCoinTossFinished() {
     
     // Setup decks
     state.aiDeck = aiDeck;
-    state.pDeck = [...(state.playerDeckSelection || [])];
+    // Deep clone the deck cards to prevent carrying over mutations (like isPlacing=true) from previous matches
+    state.pDeck = (state.playerDeckSelection || []).map(card => ({ ...card, isPlacing: false, revealed: true, impactDirection: null }));
     
     console.log(`[GameView] Match Initialized. Player Deck: ${state.pDeck.length}, AI Deck: ${state.aiDeck.length}`);
     

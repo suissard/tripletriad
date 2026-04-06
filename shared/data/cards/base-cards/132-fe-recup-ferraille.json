@@ -1,0 +1,89 @@
+{
+  "collectionName": "base",
+  "name": "Recup Ferraille",
+  "description": "Stratège de survie planifiant les itinéraires de collecte les plus rentables en évitant les zones contrôlées par les factions hostiles.",
+  "element": "reseau",
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "6",
+  "leftValue": "5",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -1,
+      "target": "enemy_with_highest"
+    }
+  ],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/132.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Scrap-punk Combat Specialist - Grizzled scavenger warrior from the Belt, bulky asymmetrical silhouette defined by layered salvaged armor plates and exposed mechanical prosthetics",
+      "loadout": {
+        "armor_outfit": "Heavily modified obsolete mining spacesuit reinforced with welded ship hull fragments, rusted signage panels, and jury-rigged titanium patches. Massive exposed cables snake across chest plate. Thick asbestos underlayer visible through tears. Duct tape wrapped around joints, shoulders loaded with carabiners and tool pouches. Cracked welding helmet visor scratched opaque, held by bent helmet ring. Thick canvas work gloves with knotted fingers. Legs armored with battered car door panels and industrial piping strapped with rusty chains.",
+        "arsenal": "Primary weapon: Massive improvised kinetic nullification cannon cobbled together from mining equipment - exposed copper coil winding visible, batteries strapped with tape to weapon body, crude sighting scope welded on top, barrel made from repurposed hydraulic cylinder. Secondary: Heavy industrial cutting torch mounted on forearm gauntlet. Both palms glowing with concentrated nullification energy beam forming between them."
+      },
+      "attitude": {
+        "behavior": "Full combat commitment with body leaned forward aggressively, both arms thrust forward，双手平伸掌心相对，intense concentration. Legs planted wide on debris-covered ground, low-gravity stance with slight float. Surrounding by floating metal debris catching plasma light. Sparks cascade around figure from nearby weapon impacts.",
+        "emotion": "Absolute lethal focus, jaw clenched tight, eyes locked behind scratched visor onto highest-value enemy target. Calculation mixed with aggression - the cold precision of a survival strategist who knows every route, every escape, every lethal opportunity."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Scrap-punk",
+          "Industrial decay"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Rust Orange",
+          "role": "Primary color - armor oxidation, molten metal rivers, dominant worn metal surfaces"
+        },
+        {
+          "name": "Oxidized Steel Grey",
+          "role": "Secondary - bulk of armor, debris, spacecraft hull fragments"
+        },
+        {
+          "name": "Industrial Black",
+          "role": "Dirt, grease stains, shadow areas, dark recesses of armor"
+        },
+        {
+          "name": "Hot Plasma Blue",
+          "role": "Accent energy - nullification beam, torch flames, electrical sparks, weapon glow"
+        },
+        {
+          "name": "Yellow-Chalky Construction",
+          "role": "Accent details - hazard stripes, tool markings, warning paint on armor"
+        },
+        {
+          "name": "Molten Gold-Orange",
+          "role": "Atmospheric - cascading metal, burning rivers, hot debris glow"
+        }
+      ],
+      "lighting_setup": "Cinematic mixed-source with dominant blue plasma glow from weapon beam, warm orange molten metal illumination from environment, sharp rim lighting on debris edges, volumetric dust particles in air, sparks creating staccato bright flashes",
+      "mood": "Desperate chaotic intensity - overwhelming sensory assault of sparks, debris, destruction. Survival strategist at peak lethal capability amid total warzone chaos. Low-gravity adds dreamlike float to chaos."
+    },
+    "camera": {
+      "angle": "Low angle dutch tilt - dynamic combat framing slightly below subject looking up emphasizing power and chaos overhead, debris raining down in background, slight camera shake implied by motion blur on fast particles"
+    },
+    "scenography": {
+      "setting": "Hollowed asteroid interior scrapyard warfare zone - massive spacecraft structures actively collapsing under weapons fire, torn hull sections exposing internal corridors, industrial tanks ruptured spilling liquid metal cascading down asteroid walls in burning golden rivers, hastily welded barricades of stacked cargo containers buckling under assault fire, low-gravity making all broken debris float in frozen chaos moments after shattering free, grinding sparks fill air from improvised weapons impacting armor, exposed wiring and steam venting from damaged infrastructure, distant flickering emergency lights mixing with plasma weapon glow",
+      "atmosphere_vfx": "Heavy metallic dust particles suspended in low gravity, sparks showering constantly from all directions, blue plasma energy crackling between palms creating lens flare, floating debris catching warm and cool light creating depth layers, smoke trails from burning metal, distant explosions illuminating background structures, gravity dust motes slowly drifting"
+    }
+  }
+}

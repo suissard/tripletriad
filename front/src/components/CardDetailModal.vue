@@ -217,8 +217,8 @@ const premiumSeed = computed(() => {
 const holoStyle = computed(() => {
   if (!props.isPremium) return {};
   const rng = sfc32(premiumSeed.value);
-  if (state.premiumMode === 'image') return { '--c1': 'rgba(255, 255, 255, 0.7)', '--c2': 'rgba(200, 200, 200, 0.5)', '--c3': 'rgba(255, 255, 255, 0.8)' };
-  return { '--c1': `hsla(${rng() * 360}, 100%, 70%, 0.6)`, '--c2': `hsla(${rng() * 360}, 100%, 70%, 0.6)`, '--c3': `hsla(${rng() * 360}, 100%, 70%, 0.6)` };
+  if (state.premiumMode === 'image') return { '--c1': 'rgba(255, 255, 255, 1.0)', '--c2': 'rgba(255, 255, 255, 1.0)', '--c3': 'rgba(255, 255, 255, 1.0)' };
+  return { '--c1': `hsla(${rng() * 360}, 100%, 70%, 1.0)`, '--c2': `hsla(${rng() * 360}, 100%, 70%, 1.0)`, '--c3': `hsla(${rng() * 360}, 100%, 70%, 1.0)` };
 });
 const holoFilterId = computed(() => `holo-pattern-${premiumSeed.value}`);
 const holoFrequency = computed(() => {
@@ -327,7 +327,7 @@ const holoOctaves = computed(() => 2 + Math.floor(sfc32(premiumSeed.value + 99)(
 .tt-card-zoom-wrapper { 
   width: min(350px, 70vw); 
   font-size: 24px; 
-  aspect-ratio: 2.5 / 3.5; 
+  aspect-ratio: 1 / 1; 
   position: relative; 
 }
 
@@ -402,7 +402,7 @@ const holoOctaves = computed(() => 2 + Math.floor(sfc32(premiumSeed.value + 99)(
   );
   background-size: 300% 300%;
   background-position: 50% 50%;
-  opacity: 0.8;
+  opacity: 1.0;
 }
 
 .glare {
@@ -414,7 +414,7 @@ const holoOctaves = computed(() => 2 + Math.floor(sfc32(premiumSeed.value + 99)(
   pointer-events: none;
 }
 
-.card-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.7; z-index: 1; }
+.card-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1.0; z-index: 1; }
 
 .card-name-bar {
   position: absolute; bottom: 0; left: 0; right: 0;

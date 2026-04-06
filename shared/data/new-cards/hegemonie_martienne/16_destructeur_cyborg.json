@@ -2,8 +2,10 @@
   "name": "Destructeur de Cyborg",
   "description": "Spécialiste en neutralisation des implants cybernétiques. Ses rafales électromagnétiques grillent les circuits et font tomber les augmentations.",
   "element": "hacking",
-  "elements": ["hacking"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "hacking"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "2",
   "rightValue": "3",
   "bottomValue": "1",

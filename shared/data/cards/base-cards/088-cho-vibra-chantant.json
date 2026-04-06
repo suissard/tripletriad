@@ -1,0 +1,89 @@
+{
+  "collectionName": "base",
+  "name": "Vibra Chantant",
+  "description": "Conducteur du Silence absolu annulant tous les sons ennemis dans un rayon étendu rendant la coordination adverse impossible.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "furtif"
+  ],
+  "faction": "Chœur Synthétique",
+  "topValue": "9",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "heal",
+      "value": 2,
+      "target": "all_own"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 4,
+  "image": "base/088.png",
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Androïde Moine-Conducteur du Silence Absolu, silhouette humanoïde lisse et imposante",
+      "loadout": {
+        "armor_outfit": "Robe monastique de fibres synthétiques épaisses teinte gris perle et blanc céramique vieilli, cables tressés en bure sacrificielle, épaules dissimulées sous plaques de métal patiné avec motifs géométriques ascétiques, chapelet de minuscules disques durs dorés suspendu à la ceinture, cape ouverte révélant l'armature interne",
+        "arsenal": "Deux longs bâtons de pèlerin électrifiés de style tibétain, or holographique crépitant le long des shafts, épée rituelle à lame de cristal résonnant, moulin à prières cybernétique intégré au bras gauche projetant des mantras binaires lumineux"
+      },
+      "attitude": {
+        "behavior": "Position tactique centrale entre les unités alliées, mains levées paumes ouvertes bénissant, bras écartés en largeur déployant une vague de guérison dorée expansive, corps flottant légèrement au-dessus du sol par lévitation magnétique, vibrations acoustiques émanant de sa structure corporelle",
+        "emotion": " Sérénité martiale absolue, absence totale d'expression faciale sur plaque lisse, aura de silence sacré émanant comme une vague de pression, compassion cybernétique transie dans chaque rune holographique orbitante"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Cyber-bouddhisme",
+          "Mandala géométrique"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Or Holographique Électrique",
+          "role": "Énergie curative expansive, runes orbitantes, shockwaves du silence"
+        },
+        {
+          "name": "Acier Patiné et Gris Perle",
+          "role": "Structure corporelle principale, armure monastique"
+        },
+        {
+          "name": "Blanc Céramique Vieilli",
+          "role": "Plaques faciales, détails d'armure"
+        },
+        {
+          "name": "Cristal Bleu Fracturé",
+          "role": "Amphithéâtre détruit, éclats en suspension"
+        },
+        {
+          "name": "Brun Moine Délavé",
+          "role": "Tissus des robes, câbles tressés"
+        },
+        {
+          "name": "Noir Mat",
+          "role": "Câbles tressés profonds, ombres structurelles"
+        }
+      ],
+      "lighting_setup": "Cinematic rim lighting avec ключевой свет or holographique rayonnant depuis le sujet central, backlight bleuté des cristaux fracturés, volumetric fog showing rippling air distortion, god rays perçant à travers le plafond resonantique",
+      "mood": "Sérénité sacrée au cœur du chaos destructeur, transcendance technologique, harmonie martiale"
+    },
+    "camera": {
+      "angle": "Low angle légèrement Dutch pour emphasize la posture monumentale et la expansión de la vague dorée, profondeur de champ cinématique"
+    },
+    "scenography": {
+      "setting": "Amphithéâtre cristallin anéanti transformé en champ de bataille, gradins fracturés s'effondrant en cascade, structure centrale où le Conducteur plane au-dessus d'un autel brisé, cristal formations éclatées suspendues en lévitation magnétique tout autour, plafond résonnant craquelé projetant des shards mortels, arches tibétaines brisées en arrière-plan, sol jonché de fragments cristallins et de carcasses de machines",
+      "atmosphere_vfx": "Anneaux de shockwave silencieux émanant du Conducteur déchirant les positions ennemies invisibles, éclats de cristal pleuvant depuis le plafond en slow motion harmonique, distorsion visuelle de l'air vibrant à des fréquences ultrasonores, particules dorées holographic energy se déployant radialement, brume de poussière cristalline illuminée par les arcs électriques, runes mantras binaires flottant en orbite circumscriptuelle"
+    }
+  }
+}

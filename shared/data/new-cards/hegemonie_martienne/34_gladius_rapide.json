@@ -2,8 +2,11 @@
   "name": "Gladius Rapide",
   "description": "Véhicule d'éclairage blindé rapide au profil bas en V. Mitrailleuse jumelle et système de brouillage actif. Éclaire le terrain pour les frappes orbitales et harcèle les positions ennemies.",
   "element": "furtif",
-  "elements": ["furtif", "reseau"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "furtif",
+    "reseau"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "4",
   "rightValue": "6",
   "bottomValue": "3",

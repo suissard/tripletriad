@@ -2,8 +2,11 @@
   "name": "Éclat Orbital",
   "description": "Véhicule de désignation de cible intégrant un designateur laser pour frappes orbitales. Pointe rouge persistante sur la cible, puis le ciel s'ouvre. L'arme ultime de précision de l'Hégémonie.",
   "element": "reseau",
-  "elements": ["reseau", "longue_portee"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "reseau",
+    "longue_portee"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "5",
   "rightValue": "5",
   "bottomValue": "3",

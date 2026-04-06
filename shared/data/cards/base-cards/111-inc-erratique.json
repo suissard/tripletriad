@@ -1,0 +1,86 @@
+{
+  "collectionName": "base",
+  "name": "Erratique",
+  "description": "Glitch spatial apparaissant et disparaissant sans schéma détectable pour harceler les positions ennemies sans exposition.",
+  "element": "faille_dimensionnelle",
+  "faction": "Incursion Dissonante",
+  "topValue": "4",
+  "rightValue": "3",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/111.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Reconnaissance Specialist – Extra-Dimensional Glitch Operative (Erratique)",
+      "loadout": {
+        "armor_outfit": "Gravity‑warped tactical armor, partially transparent and non‑Euclidean, floating tattered fabric, twisted metal plates that seem to melt like wax, integrated shoulder‑mounted sensor array, visor displaying flickering data, exposed scarred flesh with pulsing violet veins.",
+        "arsenal": "Primary: high‑frequency obsidian‑like blade, faintly glowing violet, blade flickers between solid and fragmented; Secondary: spatial anomaly emitter, a handheld device that creates temporary rifts; Optional: glitch rifle that fires violet energy bolts splitting into parallel projectiles."
+      },
+      "attitude": {
+        "behavior": "Crouched scanning posture with active sensor arrays sweeping the chaotic environment, one hand gripping the blade, the other poised over the anomaly emitter, body coiled for rapid movement, after‑image trails of glitch frames around limbs.",
+        "emotion": "Cold, detached focus, eyes locked on the approaching threat, expression of manic alertness mixed with horror, mind flickering with reality collapse."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Cosmic Horror",
+          "Glitch Art"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Abyssal Black",
+          "role": "dominant darkness, shadows, background void"
+        },
+        {
+          "name": "Deep Violet",
+          "role": "energy glow, glitch accents, aura"
+        },
+        {
+          "name": "Asylum Gray",
+          "role": "structural elements, broken concrete, metallic hull"
+        },
+        {
+          "name": "Pale Scarred Flesh",
+          "role": "skin, exposed tissue, armor panels"
+        },
+        {
+          "name": "Dried Blood Red",
+          "role": "accents, blood spatters, warning lights"
+        },
+        {
+          "name": "Neon Magenta",
+          "role": "glitch lines, sensor readouts, energy arcs"
+        },
+        {
+          "name": "Crackling Black Aura",
+          "role": "psychic distortion, void ripples"
+        }
+      ],
+      "lighting_setup": "Cinematic low‑key lighting with stark rim light, flickering neon magenta and violet highlights, occasional black lightning arcs, volumetric fog of reality distortion, intense specular reflections on twisted metal.",
+      "mood": "Menacing, chaotic, oppressive, with an undercurrent of transcendent cosmic horror."
+    },
+    "camera": {
+      "angle": "low_angle_dutch_tilt"
+    },
+    "scenography": {
+      "setting": "Reality collapse zone: multiple overlapping parallel versions of shattered urban architecture, buildings existing simultaneously as intact and destroyed states, ground fractured open revealing layered battlefields from different timelines, sky filled with contradictory celestial bodies (sunset horizon juxtaposed with night stars), debris floating in erratic gravity directions.",
+      "atmosphere_vfx": "Glitching holograms and chromatic aberration, violet energy arcs crackling through the air, floating debris spiraling in opposing gravitational fields, fog of distortion shimmering like broken glass, faint whispers of other dimensions, pulsing violet veins in the ground, particle disintegration effects."
+    }
+  }
+}

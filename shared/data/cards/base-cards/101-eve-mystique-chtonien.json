@@ -1,0 +1,89 @@
+{
+  "collectionName": "base",
+  "name": "Mystique Chtonien",
+  "description": "Gardien des Portes Anciennes ouvrant les passages vers les plans inférieurs permettant des déplacements tactiques imprévus.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "hacking"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "5",
+  "rightValue": "6",
+  "bottomValue": "3",
+  "leftValue": "6",
+  "skills": [
+    {
+      "type": "growing",
+      "value": 1,
+      "target": "all_own"
+    }
+  ],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/101.png",
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Chthonian Titan Warden - Colossal primordial guardian entity embodying the essence of ancient earth forces, a living manifestation of seismic destruction and dimensional gateway manipulation. Massive humanoid form standing 40 meters tall, torso comprised of interlocking volcanic basalt plates with visible magma veins pulsing beneath fractured obsidian skin, multiple glowing eyeless eye clusters arranged in patterns across a massive stone-carved face, lower jaw extending into a cavernous maw perpetually exhaling volcanic ash and sulfurous smoke",
+      "loadout": {
+        "armor_outfit": "Natural tectonic carapace composed of cooled magma crust forming asymmetric obsidian plates with razor-sharp edges, fissures throughout the body glowing with molten core energy visible through cracks, ancient runic symbols etched deep into stone flesh by volcanic heat, forearms covered in drill-like keratinous protrusions capable of boring through solid bedrock, back spines of cooled lava formations rising in ridged patterns, shoulders armored with massive mineral deposits resembling volcanic plug formations",
+        "arsenal": "No manufactured weapons - body itself constitutes entire arsenal including: forearms transformed into geological boring appendages, molten substance projection from palm fissures capable of creating instantaneous magma flows, ability to generate seismic shockwaves by slamming massive fists into ground, dimension-rift manifestation from chest cavity emitting web-like energy threads connecting to multiple tactical positions, jagged stone protrusions erupting from joints and knuckles on command"
+      },
+      "attitude": {
+        "behavior": "Standing at epicenter of collapsing dimensional battlefield, both massive arms raised high in commanding overhead gesture, chest cavity torn open to reveal swirling dimensional vortex as glowing energy threads project outward in all directions forming intricate web pattern, each luminous thread connecting to different dimensional gateway or allied position across fractured battlefield, legs planted wide in dominant stance as ground beneath continues to split and reform, positioning amid erupting dimensional rifts with shadow tentacles emerging from surrounding fissures",
+        "emotion": "Ancient terrible presence exuding overwhelming territorial dominance and cosmic awareness, expression of absolute authority over dimensional boundaries as incomprehensible energies swirl within chest cavity, stone face contorted in grimace of controlled fury, multiple eye clusters burning with inner magma light as reality itself bends around this entity's will"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Cosmic Horror",
+          "Primordial Mythos"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Obsidian Black",
+          "role": "Primary body armor plates and deep shadow areas"
+        },
+        {
+          "name": "Matte Basalt Grey",
+          "role": "Secondary rock texture and structural elements"
+        },
+        {
+          "name": "Scorched Earth Brown",
+          "role": "Volcanic soil and heat-damaged surfaces"
+        },
+        {
+          "name": "Ash Grey",
+          "role": "Smoke, debris, and atmospheric particles"
+        },
+        {
+          "name": "Molten Red-Orange",
+          "role": "Internal magma glow, eye clusters, energy web threads, dimensional vortex core"
+        },
+        {
+          "name": "Dimensional Purple-Black",
+          "role": "Torn reality edges and shadow tentacles emerging from fissures"
+        }
+      ],
+      "lighting_setup": "Combination of internal_bioluminescent_magma_glow emanating from body fissures and chest cavity, complemented by harsh dimensional_energy_radiance from the energy web threads, with secondary fill from volcanic lava rivers creating dramatic rim lighting on rock formations, all punctuated by blinding ancient_rune_flares on surrounding surfaces",
+      "mood": "Apocalyptic dread, cosmic wrongness, overwhelming primordial terror, commanded authority amid reality collapse"
+    },
+    "camera": {
+      "angle": "low_angle_looking_up_to_emphasize_colossal_scale"
+    },
+    "scenography": {
+      "setting": "Torn dimensional battlefield featuring ground split open in massive branching fissures with edges glowing from magma below, huge shadow tentacles erupting from multiple chasms reaching toward the guardian, sky replaced by impossible geometry - intersecting planes, folded space, fragmented celestial bodies visible through tears, ancient runic circles blazing with orange-gold fire on every exposed rock surface, distant mountains floating mid-air through collapsed dimensional layers, scattered debris of reality fragments suspended in wrong-gravity zones",
+      "atmosphere_vfx": "Thick oppressive volcanic_ash_fog reducing visibility to immediate surroundings, reality_thinning_visual_distortion at edges of frame, dimensional_energy_discharge_sparks cascading from the guardian's chest-web, shadow_tentacles writhing with autonomous malevolent intelligence, ground_quaking_constant_microseisms, localized_time_distortion_effects causing motion_blur on faster elements, supernatural_dread_particles visible as dark_motes_clustering in negative_space, acidic dimensional_leakage pools spreading from rifts with wrong-colored luminescence"
+    }
+  }
+}

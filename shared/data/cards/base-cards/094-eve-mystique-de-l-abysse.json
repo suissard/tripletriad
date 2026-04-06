@@ -1,0 +1,83 @@
+{
+  "collectionName": "base",
+  "name": "Mystique de l Abysse",
+  "description": "Spectre des Abysses terrifiant les unités ennemies par sa simple présence réduisant leur capacité combative de moitié.",
+  "element": "spore",
+  "faction": "Éveil Chthonien",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/094.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Chthonian Abyssal Specter Titan - Dimensional Warden of the Void",
+      "loadout": {
+        "armor_outfit": "Massive organic-mineral exoskeleton composed of obsidian-black tectonic plates with irregular basalt formations, cracks revealing molten magma core glowing through fissures, volcanic ash deposits in joints, jagged obsidian protrusions serving as natural armor, thick solidified crust resembling scorched earth and cooled lava flows, multiple rigid mineral spikes and horns of raw volcanic rock, tendrils of ashen smoke escaping from seams between armor plates",
+        "arsenal": "Colossal drilling claws capable of boring through bedrock, massive crushing jaw apparatus with volcanic rock teeth, prehensile shadow tentacles erupting from back and arms capable of tearing through dimensional fabric, body itself serving as weapon with seismic impact force, internal magma channels enabling burst of molten energy projection, gravitational anomaly generation causing reality distortion"
+      },
+      "attitude": {
+        "behavior": "Frontline combatant lunging forward in aggressive forward momentum, massive clawed arms raised overhead ready to deliver devastating crushing blow, body coiled with coiled titanic muscular tension like volcanic pressure building before eruption, multiple glowing eyes fixed on approaching threat with predatory intensity, tentacles writhing behind身形 dynamically, smoke billowing from jaw opening revealing inner magma glow",
+        "emotion": "Primordial rage channeled through ancient consciousness, overwhelming dread radiating outward intimidating all nearby enemies, otherworldly malevolence emanating from dimensional instability, cold calculated destruction masked by visceral volcanic fury"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Cosmic Horror",
+          "Primordial Titan Aesthetic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Obsidian Black",
+          "role": "Primary body armor and shadow tentacle base"
+        },
+        {
+          "name": "Molten Magma Orange-Red",
+          "role": "Internal energy glow from cracks and fissures, eye luminescence, weapon impact highlights"
+        },
+        {
+          "name": "Basalt Gray",
+          "role": "Tectonic plate armor texture, mineral formations, ground debris"
+        },
+        {
+          "name": "Volcanic Ash Gray",
+          "role": "Smoke effects, atmospheric particles, secondary details"
+        },
+        {
+          "name": "Scorched Earth Brown",
+          "role": "Cooled lava surfaces, battleground scarring"
+        },
+        {
+          "name": "Dimensional Rift Purple-Black",
+          "role": "Torn reality edges, impossible geometry glow, otherworldly elements"
+        }
+      ],
+      "lighting_setup": "Cinematic_volcanic_emergence_lighting with dramatic_backlighting from internal magma creating rim glow effect, volumetric_mist_fog_atmospheric_scattering, dimensional_rift_light_bleeding from torn reality creating unnatural secondary illumination, subsurface_scattering_on_molten_crack_elements",
+      "mood": "Oppressively_menacing, eldritch_dread, catastrophic_primordial_power"
+    },
+    "camera": {
+      "angle": "low_angle_slightly_dutch to emphasize towering colossal scale and threatening dominance, slight upward tilt making the specter appear godlike and inescapable"
+    },
+    "scenography": {
+      "setting": "Collapsing dimensional battlefield with ground torn apart by massive fissures revealing infinite void beneath, chthonian titans erupting from underground tunnels, floating impossible geometry fragments defying physics suspended in twisted sky showing non-euclidean angles and reality folds, ancient runic circles carved into broken earth glowing with dying dimensional energy, shattered dimensional barriers creating windows into alien void spaces",
+      "atmosphere_vfx": "Thick_volcanic_smoke_fog_reducing_visibility, dimensional_instability_particles_shimmering_in_air, reality_tearing_effects_with_fractured_light, ancient_runes_blazing_magenta-orange_fire_on_all_surfaces, gravitational_distortion_waves_causing_light_bending, ash_and_debris_raining_down, tentacles_shadow_mass_erupting_from_fissures_with_viscous_dark_energy, ground_splitting_open_with_magma_glow_from_below, oppressive_supernatural_dread_aura_visible_as_distortion_halo"
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "collectionName": "base",
+  "name": "Instable Instable",
+  "description": "Entropiste accélérant la désintégration des structures ennemies faisant vieillir les constructions et les armures à vitesse exponentielle.",
+  "element": "furtif",
+  "elements": [
+    "radiation"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "9",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "growing",
+      "value": 1,
+      "target": "adjacent_friendly"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 4,
+  "image": "base/118.png",
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Dissonant Entropist Combat Specialist - Humanoid cultist entity, gaunt skeletal frame with exposed scarified flesh, limbs bent at impossible angles, skin displaying rapid aging decay patterns (cracking, peeling, rotting in accelerated succession), body partially phased through multiple dimensional layers simultaneously causing silhouette duplication and visual tearing at edges",
+      "loadout": {
+        "armor_outfit": "Tattered military armor remnants fused directly to corrupted flesh through dimensional bleeding, plates of twisted metal warped like melted wax floating in anti-gravitational suspension around torso, shredded uniform fabrics billowing in zero-gravity pockets with fragments existing in different temporal states (pristine, worn, disintegrating simultaneously), exposed ribs displaying pulsing violet-black organic circuitry beneath split skin",
+        "arsenal": "Right arm terminates in a concentrated energy projection manifesting as a thick flowing ribbon of intense radioactive green chronon particles streaming from open palm, the energy forming visible connection threads to ally target, left arm holds a warped obsidian-longword fused at molecular level with glitching purple crystal formations, weapon edges showing simultaneous states of sharp/fragmented/dissolving, ambient objects around the specialist floating and rotating chaotically while being rapidly aged and decayed"
+      },
+      "attitude": {
+        "behavior": "Full combat commitment with body momentum, torso twisted in aggressive forward thrust, one arm powerfully extended toward allied target with perfect alignment for energy transfer, opposite arm gripping weapon with desperate strength, posture representing absolute combat focus while channeling entropic powers, legs planted against malfunctioning gravity with debris falling in impossible directions around stance",
+        "emotion": "Eyes fully rolled back revealing bloodshot whites, mouth contorted in expression oscillating between agonized scream and ecstatic revelation, entire body emanating waves of reality distortion causing visible chromatic aberration and scan-line artifacts around silhouette, psychological state indicating complete immersion in dimensional collapse while maintaining tactical awareness of ally positioning"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark cosmic horror",
+          "Dark Sci-Fi corruption",
+          "Post-apocalyptic dimensional breach",
+          "Glitch art non-euclidean geometry"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL_and_reality_distortion_filters"
+      },
+      "special_effects": [
+        "Reality fragmentation overlay with multiple exposure blending",
+        "Chromatic aberration intensifying toward entity center",
+        "Temporal decay particle system aging all environmental elements",
+        "Dimensional phase bleeding showing parallel version overlays",
+        "Scan-line artifacts and digital corruption artifacts across entire composition"
+      ]
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Absolute Black",
+          "role": "Primary void shadows and entity base form absorption"
+        },
+        {
+          "name": "Deep Violet",
+          "role": "Dimensional rift energy and psychic aura manifestation"
+        },
+        {
+          "name": "Asylum Gray",
+          "role": "Environmental decay and corroded matter base"
+        },
+        {
+          "name": "Scarred Pale Flesh",
+          "role": "Exposed human tissue with decay visualization"
+        },
+        {
+          "name": "Dried Blood Red",
+          "role": "Injury accents and organic corruption detail"
+        },
+        {
+          "name": "Neon Magenta Glitch",
+          "role": "Reality tear artifacts and digital corruption highlights"
+        },
+        {
+          "name": "Radioactive Entropic Green",
+          "role": "Primary energy beam and chrono-particle stream (UNIQUE ACCENT)"
+        },
+        {
+          "name": "Crackling Black Energy",
+          "role": "Psychic distortion aura surrounding projection hand"
+        }
+      ],
+      "lighting_setup": "Dramatic_rim_lighting_with_interdimensional_bleed, violet_backglow_from_reality_cracks, green_energy_cast_on_foreground_elements, flickering_instability_affecting_all_light_sources",
+      "mood": "Horrifying_collapse_transcendence, desperate_combat_urgency, beautiful_terrifying_destruction, sanity_eroding_cosmic_scale"
+    },
+    "camera": {
+      "angle": "Low_angle_dutch_tilt_with_reality_alignment_distortion, slightly_zoomed_dynamic_composition_emphasizing_energy_connection",
+      "depth_of_field": "Shallow_focus_on_entity_and_energy_beam_with_background_multiplying_into_several_blurred_parallel_instances"
+    },
+    "scenography": {
+      "setting": "Reality_collapse_zone_exactly_as_specified: environment fragmenting into simultaneous parallel versions with buildings existing in two-dimensional superposition states showing both intact architectural structures and their destroyed rubble overlays occupying identical space, fractured ground revealing layered parallel battlefields beneath with opposing forces frozen in combat stacked like corrupted stereoscopic images, debris objects falling in contradictory directions (upward, sideways, inverted) within different gravity pockets, sky dome containing mutually exclusive celestial bodies (normal starfield overlapping with void blackness, multiple suns of different colors, planetary bodies intersecting incorrectly)",
+      "atmosphere_vfx": "Massive reality_crystalline_shattering_effects_where_air_itself_fractures_like_glass_revealing_depths_beneath, chromatic_glitch_waves_rolling_across_entire_scene, temporal_distortion_particles_causing_rapid_material_decay_on_all_environmental_surfaces, gravitational_anomaly_visualizations_showing_space_curvature_distortions, floating_fragmented_architecture_chunks_rotating_in_zero_gravity_zones, thick_atmospheric_haze_of_decayed_matter_and_psychic_residue, visible_dimensional_bleeding_between_layered_realities_causing_color_bleeding_and_form_overlaps"
+    }
+  }
+}

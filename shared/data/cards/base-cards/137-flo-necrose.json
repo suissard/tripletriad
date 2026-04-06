@@ -1,0 +1,88 @@
+{
+  "collectionName": "base",
+  "name": "Necrose",
+  "description": "Mycélium connectant les colonies fongiques distantes en un réseau souterrain de communication et de coordination.",
+  "element": "eau",
+  "faction": "Fléau Spore",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/137.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "eau",
+    "glace"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Fungal Hive Coordinator - Necrotic Corpse Commander with Mycelial Network Interface",
+      "loadout": {
+        "armor_outfit": "Shattered military tactical vest and chest plate, dislocated and fractured by explosive fungal growth from within, plates held together by pulsing white mycelium strands, asymmetric shoulder pauldrons with shelf fungi (polypores) erupting outward, tattered operational suit partially fused with rotting flesh, lianes wrapping around forearms like organic connective tissue, exposed ribcage with bioluminescent green spores colony visible underneath, no helmet - skull visible through membranous fungal veil with empty eye sockets replaced by glowing toxic green mushroom caps",
+        "arsenal": "Corrupted pulse rifle with organic fungal bloom encasing the barrel, ammunition canister replaced by bulging spore sacs pulsating with green luminescence, rifle stock merged with atrophied arm muscles, secondary weapon -腐烂的手雷 (rotting grenades) with bioluminescent caps ready to release toxic spore clouds, utility belt with dangling mycelium networks connecting to surrounding fungal biomass"
+      },
+      "attitude": {
+        "behavior": "Tactical coordinator positioned in devastated battlefield center with hands raised directing coordinated fungal colony movements, directing both allied infected units and coordinating attack patterns against enemy positions, combat stance with corrupted rifle raised and ready, body coiled with organic tension, legs planted on living fungal terrain that shifts under weight, one arm gestures commanding mycelial networks below surface while other arm aims weapon at approaching threat",
+        "emotion": "Hive-mind collective consciousness radiating through mycélium network, eyes locked on threat with predatory focus, face frozen in macabre expression of coordinated malevolence, jaw slightly ajar releasing thin streams of toxic spores, emanates commanding presence of unified fungal consciousness directing biological warfare"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic biological horror",
+          "Body horror",
+          "Biopunk nightmare"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Kaki Green Faded",
+          "role": "primary dominant armor and clothing base"
+        },
+        {
+          "name": "Humid Earthy Brown",
+          "role": "ground terrain and exposed organic matter"
+        },
+        {
+          "name": "Dark Asphalt Gray",
+          "role": "destroyed military equipment remnants"
+        },
+        {
+          "name": "Necrotic Flesh Pink",
+          "role": "exposed biological tissue and rotting areas"
+        },
+        {
+          "name": "Purulent Green",
+          "role": "secondary fungal growth and infected surfaces"
+        },
+        {
+          "name": "Mold Off-White",
+          "role": "mycelium networks and shelf fungus"
+        },
+        {
+          "name": "Toxic Neon Green Bioluminescence",
+          "role": "accent glow from spores, mushroom caps, and energy veins"
+        }
+      ],
+      "lighting_setup": "oppressive atmospheric fog diffusion with localized toxic_spore_glow emanating from fungal elements, volumetric green haze reducing visibility, subtle rim_light on subject edges cutting through spore clouds, damp ground reflections from pulsing bioluminescent networks",
+      "mood": "Menacing, parasitic, overwhelming biological horror, coordinated threat, oppressive toxic atmosphere"
+    },
+    "camera": {
+      "angle": "low_angle with dutch_tilt_slight, looking up at the coordinator from fungal battlefield level emphasizing dominating presence and hostile living terrain"
+    },
+    "scenography": {
+      "setting": "Biologically devastated battlefield completely consumed by fungal infestation - destroyed tank hulks overgrown with massive mushroom caps, scattered military debris buried under pulsing mycelial mats, ground surface covered with irregular fungal growths and toxic spore clouds rising, both ally and enemy corpses being consumed by spreading infection, massive pulsating sacs attached to vehicles and structures bursting periodically releasing contamination spores, terrain itself transformed into hostile living organism with fungal tendrils bursting through cracked earth",
+      "atmosphere_vfx": "Thick toxic_spore_clouds_reducing_visibility creating oppressive green haze blanket, massive mycelial networks pulsating visibly across all surfaces with bioluminescent green energy flowing through veins, ground alive and hostile with fungal tendrils breaking through without warning, floating spore particles catching minimal light, occasional burst effects from exploding pulsating sacs releasing contamination, moist condensation on all surfaces from biological processes"
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "name": "Pèlerin Toxique",
   "description": "Guérisseur mutant qui injecte des mutagènes pour soigner ses frères.",
   "element": "spore",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "1",
   "rightValue": "2",
   "bottomValue": "3",

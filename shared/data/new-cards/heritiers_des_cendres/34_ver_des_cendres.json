@@ -2,7 +2,7 @@
   "name": "Ver des Cendres",
   "description": "Ver géant qui émerge du sol pour dévorer l'ennemi.",
   "element": "radiation",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "6",
   "rightValue": "4",
   "bottomValue": "3",

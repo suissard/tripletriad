@@ -1,0 +1,78 @@
+{
+  "collectionName": "base",
+  "name": "Fongique Venimeux",
+  "description": "Spore tactique coordonnant les actions des unités fongiques dispersées à distance par des signaux chimiques imperceptibles.",
+  "element": "eau",
+  "faction": "Fléau Spore",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/143.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "eau",
+    "glace"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Fungal Bio-Commander",
+      "loadout": {
+        "armor_outfit": "Melted tactical armor fused with pulsating fungal nodules and mycelial conduits, asymmetrical plating held together by living roots, spore dispersion tubes integrated into shoulders and gauntlets, biohazard filters overgrown with mycelium.",
+        "arsenal": "Mycotoxin spore launcher grafted to forearm, necrotic acid sprayer built into chest cavity, tentacle-like gauntlets for close combat, chemical signal emitter for unit coordination."
+      },
+      "attitude": {
+        "behavior": "Standing in the midst of a living battlefield, hands raised in commanding gestures directing allied fungal units, weapon raised and ready, eyes locked onto approaching threat, body coiled like a spring ready to unleash a coordinated fungal assault.",
+        "emotion": "Cold, relentless focus with a malevolent aura; eyes glowing with toxic bioluminescent light, jaw slack exposing a maw of spore‑laden mucus."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Post‑apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Sickly Olive Green",
+          "role": "Dominant environmental hue, spore clouds, mycelial glow"
+        },
+        {
+          "name": "Muddy Brown",
+          "role": "Terrain, decayed organic matter, armor stains"
+        },
+        {
+          "name": "Charcoal Gray",
+          "role": "Metal wreckage, sky background, shadows"
+        },
+        {
+          "name": "Necrotic Flesh Pink",
+          "role": "Human remains, exposed tissue, pulsating sacs"
+        },
+        {
+          "name": "Toxic Neon Green",
+          "role": "Bioluminescent accents, glowing spores, energy veins"
+        }
+      ],
+      "lighting_setup": "Dim, oppressive ambient light with localized bioluminescent glows from mycelial networks and spore bursts; occasional bright flashes of neon green from toxic energy veins.",
+      "mood": "Menacing, oppressive, dread‑inducing"
+    },
+    "camera": {
+      "angle": "low_angle_with_slight_dutch"
+    },
+    "scenography": {
+      "setting": "Biologically devastated battlefield, ground cracked and alive with fungal tendrils, skeletal remains of vehicles and soldiers overgrown by pulsating mycelium, thick toxic green haze reducing visibility, massive spore sacs intermittently bursting.",
+      "atmosphere_vfx": "Thick toxic spore clouds swirling, green bioluminescent particles drifting, occasional bursts of spores from rupturing sacs, glowing mycelial veins pulsing across surfaces, faint acid drizzle on metal debris."
+    }
+  }
+}

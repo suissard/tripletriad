@@ -1,0 +1,49 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "s5",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "Vex lance le balayage spectral. Les ondes se déploient comme une toile invisible, cherchant la source du signal.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Vex",
+      "sentence": "Fréquence basse, codage cyclique… C'est un dialecte Omni-Réseau. Très ancien. Preste obsolète.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Rook",
+      "sentence": "Traduis. Qu'est-ce que ça dit ?",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Vex",
+      "sentence": "…Un appel de détresse. Émis il y a des décennies. Mais le signal bouge, comme s'il était réactivé.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Kip",
+      "sentence": "Réactivé ? Par quoi ? Par qui ?",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narration",
+      "sentence": "Le balayage de Vex capte enfin la source : une station enfouie dans un cratère. Des lumières faibles pulsent à sa surface, comme un cœur qui bat.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Vex",
+      "sentence": "On va devoir aller voir de plus près. Qu'on soit prêts ou pas.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "s6"
+}

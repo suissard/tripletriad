@@ -2,8 +2,10 @@
   "name": "Tireur d'Assaut",
   "description": "Fantassin polyvalent armé d'un railgun compact en configuration assaut. Sa doctrine : avancer toujours, jamais reculer.",
   "element": "None",
-  "elements": ["None"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "None"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "2",
   "rightValue": "2",
   "bottomValue": "1",

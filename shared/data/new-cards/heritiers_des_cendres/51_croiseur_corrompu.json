@@ -2,7 +2,7 @@
   "name": "Croiseur Corrompu",
   "description": "Vaisseau de combat principal à l'ancienne, corrompu par le culte.",
   "element": "radiation",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "7",
   "rightValue": "6",
   "bottomValue": "6",

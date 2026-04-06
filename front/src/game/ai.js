@@ -22,9 +22,16 @@ export function getBestAIMove() {
             if (state.aiMana >= cost) {
                 let score = evaluatePlacementScore(slotIdx, card, 'ai');
 
-                const corners = [0, 2, 6, 8];
+                // Dynamic corners logic
+                const w = state.boardWidth;
+                const h = state.boardHeight;
+                const corners = [0, w - 1, (h - 1) * w, h * w - 1];
                 if (corners.includes(slotIdx)) score += 2;
-                if (slotIdx === 4) score -= 1.5;
+                
+                const centerX = Math.floor(w / 2);
+                const centerY = Math.floor(h / 2);
+                const centerIdx = centerY * w + centerX;
+                if (slotIdx === centerIdx) score -= 1.5;
 
                 score += Math.random() * 0.5;
 

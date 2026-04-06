@@ -2,8 +2,10 @@
   "name": "Techno-Chamane Cendré",
   "description": "Vestige de l'Ancien Monde, ce chamane mutant canalise les reliques nucléaires sacrées. Son corps se désagrège à chaque invocation, mais le Feu Sacré purifie tout sur son passage.",
   "element": "radiation",
-  "elements": ["radiation"],
-  "faction": "Héritiers des cendres",
+  "elements": [
+    "radiation"
+  ],
+  "faction": "Héritiers des Cendres",
   "topValue": "6",
   "rightValue": "7",
   "bottomValue": "3",

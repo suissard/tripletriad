@@ -2,7 +2,7 @@
   "name": "Tireur des Cratères",
   "description": "Sniper posté dans les cratères sacrés avec un fusil à plasma récupéré.",
   "element": "longue_portee",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "5",
   "rightValue": "2",
   "bottomValue": "1",

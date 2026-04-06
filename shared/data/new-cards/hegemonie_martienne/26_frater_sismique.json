@@ -2,8 +2,10 @@
   "name": "Frater Sismique",
   "description": "Démolisseur lourd équipé d'un générateur d'ondes sismiques au poing. Chaque pas crée des micro-séismes. Conçu pour raser les bunkers et les murs de défense en frappes rapprochées.",
   "element": "obsidienne",
-  "elements": ["obsidienne"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "4",
   "rightValue": "5",
   "bottomValue": "4",

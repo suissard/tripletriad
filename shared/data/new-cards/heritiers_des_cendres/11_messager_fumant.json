@@ -2,7 +2,7 @@
   "name": "Messager Fumant",
   "description": "Son corps est en combustion constante, servant de balise vivante.",
   "element": "radiation",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "2",
   "rightValue": "3",
   "bottomValue": "2",

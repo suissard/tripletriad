@@ -1,0 +1,70 @@
+{
+  "collectionName": "base",
+  "name": "Inquisiteur Imperial",
+  "description": "Recrue de la IIIe Légion exécutant les ordres disciplinés de la hiérarchie martienne au combat rapproché.",
+  "element": "obsidienne",
+  "faction": "Hégémonie Martienne",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/016.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Martian Purist Legionary - Inquisiteur Imperial de la IIIe Légion",
+      "loadout": {
+        "armor_outfit": "Armure de plates lisses en acier rouge carmin, segments imbriqués sans aspérités ni jointures visibles, conception monolithique épurée. Plaques hexagonales et octogonales soudées. Structure balistique cintrée au torse, épaules anguleuses en forme dewedge. Cerclages métalliques gris sombre aux articulations. Demi-cape asymétrique en tissu balistique sombre fixées aux épaules anguleuses. Casque intégral en métal lisse, visière opaque noire avec unique fente horizontale fine lumineux rouge vif (néon accent). Aucun mécanisme apparent, surfaces parfaitement polies.",
+        "arsenal": "Fusil électromagnétique (Railgun) au canon rectangulaire octogonal, lignes fuyantes et géométriques,ayne de propulsion fondue dans le fuselage de l'arme. Épée à énergie thermique à lame rougeoyante avec panache de fumée générée par la chaleur intense. Les deux armes affichent un design massif, pur et géométrique sans câblages ni mécanismes externes visibles."
+      },
+      "attitude": {
+        "behavior": "Posture martiale stricte, silhouette droite et disciplinée. Mouvement de combat rapproché figé dans l'action, bras armé tendu avec le railgun.另一个 bras en position défensive rapprochant l'épée thermique. Position de marche offensive, jambe avant légèrement avancée sur structure angulaire. Regard fixe à travers la fente rouge du casque, totalement déshumanisé et uniformisé.",
+        "emotion": "Froid discipliné, obéissance absolue à la hiérarchie martienne. Absence totale d'émotion personnelle, pur vecteur des ordres de l'Hégémonie. Focus extrême sous le néon rouge de la visière, machine de guerre parfaitement conditionnée."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Brutalist High-Tech"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Rouge Carmin",
+          "role": "Couleur primaire dominante (60%) - armure principale, plaques de protection, structure générale"
+        },
+        {
+          "name": "Gris Sombre",
+          "role": "Couleur secondaire (30%) - articulations, cerclages, détails structurels, ombres portees"
+        },
+        {
+          "name": "Rouge Vif Néon",
+          "role": "Accents énergétiques (10%) - fente du casque, lueurs plasma des armes, réacteurs, reflets sur les arêtes"
+        }
+      ],
+      "lighting_setup": "Cinematic rim lighting avec néons rouges accentués, shadows_cast dramatic high-contrast, ambient_occlusion intense sur les arêtes angulaires, subsurface_scattering sur la fumée thermique de l'épée",
+      "mood": "Menacant, Discipliné, Brutal, Imperial"
+    },
+    "camera": {
+      "angle": "Low angle légèrement dutch pour accentuer la silhouette imposante et le caractère impérial du personnage"
+    },
+    "scenography": {
+      "setting": "Couloir de vaisseau disciplinaire martien, murs monolithiques en acier rouge et blanc avec grilles hexagonales discrètes, structures en wedge le long des parois, lumière néon rouge projetée depuis des fentes étroites",
+      "atmosphere_vfx": "Brume de combat, particules de poussière métallique, reflets spéculaires sur les plaques d'armure polies, chaleur visible émanant de la lame thermique, forte atmosphère oppressante"
+    }
+  }
+}

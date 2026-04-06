@@ -1,0 +1,88 @@
+{
+  "collectionName": "base",
+  "name": "Artisan Artisanal",
+  "description": "Saboteur de chantier détruisant les installations ennemies en réutilisant habilement leurs propres matériaux de construction.",
+  "element": "obsidienne",
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "4",
+  "rightValue": "6",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/129.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Improvised Assault Fighter - Scavenger Saboteur",
+      "loadout": {
+        "armor_outfit": "Heavily patched obsolete mining space-suit with improvised armor plates welded from scrapped spacecraft hull panels and torn road signs, asymmetrically layered over a grimy industrial jumpsuit, exposed pneumatic tubes and cables running across the torso, thick padded gloves reinforced with metal knuckles from scrapped machinery, knee and elbow pads cobbled together from engine cowlings, boots with magnetic sole plates for low-gravity traction, multiple layers of silver and black duct tape securing all joints and repairs, dark canvas harness crisscrossing chest covered in dangling tool pouches, snap hooks, coiled cables, and salvaged carabiners, war paint smeared across exposed face and arms using dried engine grease in angular tribal patterns, crackling exposed wiring delivering faint electric arcs across shoulders",
+        "arsenal": "Massive improvised kinetic impact hammer made from a repurposed mining jackhammer welded to a salvaged spacecraft bulkhead plate, exposed copper coil wraps around the grip connected to a jury-rigged battery pack taped directly to the weapon stock, secondary weapon being a jury-rigged cutting torch launcher assembled from industrial propane tanks and plasma ignition systems, sparking blue-hot plasma cutting beam tip flickering with unstable energy, additional tools holstered across the body: plasma cutter pistol, impact wrench launcher, magnetic debris net"
+      },
+      "attitude": {
+        "behavior": "Charging forward in zero-gravity combat stance with legs pushing off floating debris, body leaned into aggressive momentum, improvised hammer raised overhead with both hands gripping worn duct-taped handles, low-gravity environment causing combat debris to drift spherically around the figure, sparks showering from contact with enemy armor, sparks and molten metal droplets floating in spherical patterns from ruptured tanks nearby, one hand reaching forward to grab a floating metal fragment for additional improvised projectile, foot braced against a tumbling spacecraft panel as launching platform",
+        "emotion": "Fierce battle rage channeled through cold determination, eyes visible through scratched opaque welding visor glowing faintly from internal HUD lights, jaw clenched behind cracked faceplate, primal war cry frozen in expression of absolute destruction, the fury of a cornered scavenger who has nothing left to lose turned into weaponized fury"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Scrap-punk",
+          "Industrial decay",
+          "Mad Max zero-gravity adaptation"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Oxidized Steel Gray",
+          "role": "Primary dominant color - armor, debris, spacecraft hull structures"
+        },
+        {
+          "name": "Rust Orange",
+          "role": "Secondary dominant - corroded metal, dried blood, heated surfaces"
+        },
+        {
+          "name": "Hot Plasma Blue",
+          "role": "Accent energy color - cutting torches, weapon energy, sparks"
+        },
+        {
+          "name": "Engine Grease Black",
+          "role": "Shadow and detail - war paint, cables, crevices, deepest shadows"
+        },
+        {
+          "name": "Molten Metal Amber",
+          "role": "Environmental accent - cascading metal rivers, burning fuel"
+        },
+        {
+          "name": "Chipped Construction Yellow",
+          "role": "Detail accent - warning stripes, tool highlights, hazard markings"
+        },
+        {
+          "name": "Vivid Spark White-Yellow",
+          "role": "Dynamic accent - grinding sparks, welding flash, impact flashes"
+        }
+      ],
+      "lighting_setup": "Dramatic multi-source with dominant warm orange-red from molten metal rivers and burning fuel cascading across the asteroid interior, contrasting cold blue-white plasma energy from weapons and torches creating hard rim lighting, ambient orange fill from industrial fires, point light sources from sparking electrical shorts, volumetric dust and debris particles catching all light sources creating visible light beams in low-gravity dust cloud",
+      "mood": "Apocalyptic industrial warfare - violent destruction, desperate improvisation, chaotic beautiful destruction, survival through aggressive adaptation, chaotic energy of collapsing infrastructure, primal fury against overwhelming odds"
+    },
+    "camera": {
+      "angle": "Low angle Dutch tilt - emphasizing aggressive upward momentum, dynamic combat perspective, feeling of overwhelming power charging forward, slight canted framing to enhance chaos and instability of the zero-gravity combat zone"
+    },
+    "scenography": {
+      "setting": "Interior of hollowed asteroid converted to massive scrapyard warfare zone - towering walls of welded spacecraft hull fragments and freight container modules stacked chaotically, ruptured industrial tanks mounted on walls with glowing molten metal cascading in rivers across the floor, massive spacecraft structures in background undergoing catastrophic collapse with sections tearing away and tumbling into low-gravity drift, exposed infrastructure beams and pipes crisscrossing the space, hastily constructed barricades made from cargo pallets and scrap metal buckling under combat stress, debris field of twisted metal fragments floating spherically in all directions from recent impacts, distant emergency lights flickering through the destruction haze",
+      "atmosphere_vfx": "Heavy industrial smoke and particulate matter filling space with floating debris catching fire and glowing, constant grinding sparks showering from improvised weapons clashing against enemy armor plating creating cascading secondary sparks, plasma cutting beams cutting bright blue-white streaks through smoke, molten metal droplets floating and cooling in slow-motion zero-gravity arcs, dust clouds illuminated by emergency fires creating volumetric god rays through cracks in the structure, electromagnetic interference causing visible electrical arcs between floating debris, screen-space lens flares from plasma energy sources, chromatic aberration on bright spark sources, subtle film grain and chromatic noise to enhance gritty realism"
+    }
+  }
+}

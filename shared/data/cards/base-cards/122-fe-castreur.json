@@ -1,0 +1,91 @@
+{
+  "collectionName": "base",
+  "name": "Castreur",
+  "description": "Récupérateur collectant les ressources abandonnées après les batailles et les redistribuant aux unités qui en ont le plus besoin.",
+  "element": "reseau",
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "2",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/122.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Scrap-Punk Combat Retrieval Specialist - Rugged space scavenger warrior wearing heavily modified obsolete mining suit, muscular silhouette bloated by layered improvised armor plates riveted and welded from salvaged spacecraft hull fragments, car fenders, and warning signs, massive armored bulk with asymmetric shoulder pauldrons, duct-taped joints, exposed breathing tubes and cables snaking across chest, wide protective welder's helmet with scratched opaque visor cracked across one eye, engine grease war paint streaked across helmet and exposed face areas, scarred hands gripping massive militarized mining harpoon rifle with exposed copper coils and taped-on battery packs, heavy tool belt with carabiners, tool pouches overflowing with scrap metal and salvage, leg armor bolted from old cargo container panels, magnetic boots with sparking contacts, standing in aggressive combat stance with one leg planted and weapon raised toward approaching threat",
+      "loadout": {
+        "armor_outfit": "Layered obsolete mining space suit heavily modified with improvised plate armor: welded steel panels from spacecraft hulls, rusted car door sections, bent warning signs with faded symbols, thick rubber salvaged from fuel bladders, black duct tape wrapping all seams and joints, exposed breathing apparatus and oxygen tubes with rust stains, magnetic boot plates with exposed wiring, asymmetric chest plate with visible patch repairs using different metal types, shoulder pauldrons made from industrial pipe fittings, scratched and cracked opaque visor helmet with built-in flashlight mounted on top",
+        "arsenal": "Massive militarized mining harpoon rifle with exposed copper wire coils for electromagnetic propulsion, industrial circular saw attachment underneath barrel, jerry-rigged kinetic accelerator chamber with sparking battery packs taped directly to weapon body, magnetic grapple hook attached to hip harness, heavy cutting torch mounted on forearm gauntlet with fuel line visible, utility knife made from recycled spacecraft blade"
+      },
+      "attitude": {
+        "behavior": "Combat specialist in heat of battle with weapon and body fully committed to the fight. Combat stance with weapon raised and ready, massive harpoon rifle aimed at approaching threat, one knee bent in low-gravity combat ready position, magnetic boots sparking against metal deck plating, body coiled like a spring ready to explode into action, weight shifting forward with aggressive momentum, free hand reaching for secondary weapon",
+        "emotion": "Cold fierce determination through scratched visor, eyes locked on target with predatory focus, jaw clenched tight, nostrils flared from exertion, scars visible on exposed neck showing years of brutal combat experience, engine grease war paint adding menacing expression to helmet, aggressive snarl implied by posture"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Industrial scrap-punk",
+          "Mad Max zero-gravity aesthetic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Oxidized Steel Gray",
+          "role": "primary armor and structural elements"
+        },
+        {
+          "name": "Rust Orange",
+          "role": "weathered metal, rust streaks, worn surfaces"
+        },
+        {
+          "name": "Industrial Gray",
+          "role": "shadows, secondary armor, debris"
+        },
+        {
+          "name": "Engine Grease Black",
+          "role": "war paint, oil stains, darkest shadows"
+        },
+        {
+          "name": "Chipped Construction Yellow",
+          "role": "warning stripes, hazard markings, tool accents"
+        },
+        {
+          "name": "Hot Plasma Blue",
+          "role": "energy accents, sparks, cutting torch glow, weapon energy"
+        },
+        {
+          "name": "Molten Orange",
+          "role": "burning metal rivers, fire effects, heat sources"
+        },
+        {
+          "name": "White Hot Sparks",
+          "role": "grinding sparks, welding flashes, impact flashes"
+        }
+      ],
+      "lighting_setup": "dramatic_low_angle_rim_light_with_orange_fire_glow_and_blue_plasma_reflections",
+      "mood": "chaotic_menacing_intense_combat_frenzy"
+    },
+    "camera": {
+      "angle": "low_angle_slightly_dutch_tilt_to_enhance_aggressive_stance"
+    },
+    "scenography": {
+      "setting": "Active scrapyard warfare zone inside hollowed asteroid interior with massive spacecraft wreckage structures collapsing under fire, exposed station framework with bent girders, cargo container fragments scattered across metallic deck, ruptured fuel tanks spilling molten metal creating burning orange rivers flowing across deck, improvised barricades made from welded scrap metal buckling under assault, floating debris from low-gravity asteroid interior suspended in air creating dynamic compositional elements, sparking damaged machinery, exposed electrical conduits with arcing blue energy, distant explosions illuminating interior with orange flashes",
+      "atmosphere_vfx": "heavy_grinding_sparks_filling_air_from_improvised_weapons_clashing, orange_fire_particles_from_burning_metal_rivers, blue_plasma_sparks_from_weapon_energy_and_cutting_torch, floating_debris_in_low_gravity_with_slight_rotation, dust_particles_illuminated_by_fire_glow, smoke_from_distant_fires_creating_hazy_atmosphere, occasional_bright_flashes_from_energy_weapons, heat_distortion_from_molten_metal, metallic_debris_raining_down_from_collapsing_structures_above"
+    }
+  }
+}

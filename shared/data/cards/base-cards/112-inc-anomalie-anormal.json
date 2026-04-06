@@ -1,0 +1,97 @@
+{
+  "collectionName": "base",
+  "name": "Anomalie Anormal",
+  "description": "Rupture dimensionnelle ouvrant des portes entre les réalités parallèles permettant des manoeuvres tactiques impossibles autrement.",
+  "element": "furtif",
+  "faction": "Incursion Dissonante",
+  "topValue": "4",
+  "rightValue": "6",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "heal",
+      "value": 1,
+      "target": "all_own"
+    }
+  ],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/112.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Dimensional Rift Combat Specialist - Human cultist vessel merged with extra-dimensional entity, existing simultaneously in multiple states of reality",
+      "loadout": {
+        "armor_outfit": "Tattered military armor recovered from possessed enemies, severely deformed by gravitational anomalies with plates of twisted metal floating in mid-air around the body like molten wax frozen mid-flow, sections of the armor phasing in and out of existence showing both pristine and corroded states simultaneously, sickly pale scarred flesh visible through fractures in the metal, fragments of reality glitching around the wearer's silhouette",
+        "arsenal": "Obsidian-like melee weapon manifesting as a impossibly thin blade of crystallized void matter with violet luminous edges, the weapon exists partially in parallel dimensions creating multiple overlapping strike traces, surrounded by crackling magenta and violet energy representing the dimensional rupture ability"
+      },
+      "attitude": {
+        "behavior": "Combat specialist in the heat of furious battle, body fully committed with arms spread wide in an open blessing gesture, golden healing wave of pure dimensional energy expanding outward in all directions simultaneously, golden light fractally splitting into violet and magenta glitch particles at the edges, motion blur suggesting impossible speed as the character bridges multiple realities at once, debris and fragments of reality levitating chaotically around the figure",
+        "emotion": "Transcendent madness of a vessel possessed by cosmic horror, eyes fully revulsed showing only whites, face frozen in an expression of ecstatic agony, focused targeted healing energy radiating with surgical precision despite the chaos, presence distorting the air and light around the body making the figure difficult to look at directly"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Cosmic Horror",
+          "Post-apocalyptic",
+          "Extra-dimensional surrealism"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL_and_glitch_effects"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Absolute Black",
+          "role": "Primary shadow and void spaces representing abyssal darkness and the void between realities"
+        },
+        {
+          "name": "Deep Violet",
+          "role": "Corrupted energy and psychic auras emanating from the dimensional rift abilities"
+        },
+        {
+          "name": "Asylum Grey",
+          "role": "Background atmosphere and the sterile horror aesthetic"
+        },
+        {
+          "name": "Dried Blood Red",
+          "role": "Scarified flesh details and combat damage on the character"
+        },
+        {
+          "name": "Golden Healing Energy",
+          "role": "The character's healing ability contrasting against the dark faction palette as the only warm color"
+        },
+        {
+          "name": "Magenta/Violet Neon",
+          "role": "Glitch accents and crackling energy representing reality distortion"
+        },
+        {
+          "name": "Pale Scarified Flesh",
+          "role": "Human elements breaking through the armor showing the cultist vessel beneath"
+        },
+        {
+          "name": "Crackling Black Energy",
+          "role": "Psychic auras distorting light around the character creating impossible shadows"
+        }
+      ],
+      "lighting_setup": "Dramatic mixed_reality_lighting with conflicting_light_sources representing parallel dimensions overlapping, golden healing light expanding from the center contrasting against deep violet void lighting, reality distortion creating impossible shadows and light fractures",
+      "mood": "Cosmic horror meets transcendent battlefield salvation, deeply unsettling yet strangely beautiful, the golden healing wave creating an almost divine counterpoint to the surrounding dimensional collapse"
+    },
+    "camera": {
+      "angle": "Low angle looking up at the figure with arms spread wide, slight dutch_angle to emphasize the reality distortion and multiple dimensions overlapping, the camera itself seeming to glitch slightly"
+    },
+    "scenography": {
+      "setting": "Reality collapse zone in full fragmentation, buildings existing in two dimensions simultaneously showing both intact pristine state and destroyed rubble overlapping perfectly, ground cracking open to reveal parallel battlefields layered like corrupted image files with multiple versions of the same scene stacking infinitely, floating debris both falling upward and sideways in different zones defying singular gravity, sky displaying conflicting celestial bodies (sun and void stars coexisting impossibly) creating impossible day-night distortion",
+      "atmosphere_vfx": "Massive reality_glitch_effects with chromatic aberration at the edges of dimensional tears, air itself fracturating like broken glass around the character, parallel battlefields bleeding through dimensional rifts showing ghostly echoes of other wars, floating fragments of buildings torn from their reality anchored in mid-air, gravitational anomalies creating impossible physics where debris falls in multiple directions simultaneously, purple and magenta energy crackling through the atmosphere like corrupted data visualization, the golden healing wave spreading outward distorting the reality collapse around it creating momentary stability pockets"
+    }
+  }
+}

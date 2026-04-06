@@ -2,8 +2,11 @@
   "name": "Forge des Profondeurs",
   "description": "Usine de production ambulante des abysses, montée sur six pattes hydrauliques articulées. Elle recycle les débris de guerre en armement et bio-armures pressurisées, alimentant l'effort de guerre pélagique en temps réel. Ses fours à plasma fusionnent les métaux en secondes.",
   "element": "eau",
-  "elements": ["eau", "reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "7",
   "rightValue": "8",
   "bottomValue": "8",

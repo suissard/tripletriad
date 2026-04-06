@@ -17,11 +17,6 @@
     <div class="result-text" v-if="showResultText">
       <span v-if="targetSide === 'player'" class="player-win">VOUS COMMENCEZ !</span>
       <span v-else class="ai-win">L'ADVERSAIRE COMMENCE !</span>
-      <div class="faction-names" v-if="factionPlayer && factionAI">
-        <span :style="{ color: factionPlayer.color }">{{ factionPlayer.name }}</span>
-        <span class="vs"> VS </span>
-        <span :style="{ color: factionAI.color }">{{ factionAI.name }}</span>
-      </div>
     </div>
   </div>
 </template>
@@ -84,7 +79,7 @@ function startToss() {
   isAnimating.value = true;
   targetSide.value = props.result;
   
-  // Animation duration matches CSS (3s)
+  // Animation duration matches CSS (1.5s)
   setTimeout(() => {
     isAnimating.value = false;
     showResultText.value = true;
@@ -92,8 +87,8 @@ function startToss() {
     setTimeout(() => {
       emit('finished');
       visible.value = false;
-    }, 2000);
-  }, 3000);
+    }, 1000);
+  }, 1500);
 }
 </script>
 
@@ -188,11 +183,11 @@ function startToss() {
 
 /* Flipped states */
 .flip-player {
-  animation: toss-player 3s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+  animation: toss-player 1.5s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
 }
 
 .flip-ai {
-  animation: toss-ai 3s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+  animation: toss-ai 1.5s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
 }
 
 @keyframes toss-player {

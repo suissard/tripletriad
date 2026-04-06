@@ -483,6 +483,9 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    defaultHp: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<3>;
     description: Schema.Attribute.Text;
     element: Schema.Attribute.Enumeration<
       [
@@ -503,9 +506,9 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
     faction: Schema.Attribute.Enumeration<
       [
         'neutre',
-        'H\u00E9g\u00E9monie martienne',
-        'Exode p\u00E9lagique',
-        'H\u00E9ritiers des cendres',
+        'H\u00E9g\u00E9monie Martienne',
+        'Exode P\u00E9lagique',
+        'H\u00E9ritiers des Cendres',
         'Omni-R\u00E9seau',
         'Ch\u0153ur Synth\u00E9tique',
         '\u00C9veil Chthonien',
@@ -516,15 +519,18 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.DefaultTo<'neutre'>;
     image: Schema.Attribute.Media<'images'>;
+    imageUrl: Schema.Attribute.String;
     leftValue: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 1;
       }>;
+    level: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::card.card'> &
       Schema.Attribute.Private;
     name: Schema.Attribute.String & Schema.Attribute.Required;
+    prompt: Schema.Attribute.JSON;
     publishedAt: Schema.Attribute.DateTime;
     rarity: Schema.Attribute.Enumeration<
       ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary']
@@ -535,7 +541,7 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 1;
       }>;
-    skills: Schema.Attribute.JSON;
+    skills: Schema.Attribute.Component<'game.skill', true>;
     storiesRewardedFrom: Schema.Attribute.Relation<
       'manyToMany',
       'api::story.story'

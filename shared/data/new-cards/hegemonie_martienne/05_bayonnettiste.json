@@ -2,8 +2,10 @@
   "name": "Baïonnettiste",
   "description": "Fantassin d'assaut rapproché de l'Hégémonie. Sa baïonnette à énergie thermique projette une lame rougeoyante capable de trancher l'acier.",
   "element": "obsidienne",
-  "elements": ["obsidienne"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "3",
   "rightValue": "2",
   "bottomValue": "1",

@@ -2,8 +2,11 @@
   "name": "Éclabousseur de Courant",
   "description": "Grenadier aquatique qui lance des charges de plasma comprimé encapsulées dans des sphères d'eau surchauffée. L'impact vaporise tout sur un rayon de dix mètres.",
   "element": "eau",
-  "elements": ["eau", "longue_portee"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "longue_portee"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "2",
   "rightValue": "1",
   "bottomValue": "2",

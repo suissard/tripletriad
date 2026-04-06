@@ -1,0 +1,84 @@
+{
+  "collectionName": "base",
+  "name": "Refugie",
+  "description": "Contrebassiste logistique assurant le maintien des lignes de ravitaillement entre les zones contestées.",
+  "element": "eau",
+  "faction": "neutre",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -1,
+      "target": "adjacent_enemy"
+    }
+  ],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/002.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "eau",
+    "glace"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Scrap-punk Logistics Combatant, heavily augmented and armored for frontline supply line defense",
+      "loadout": {
+        "armor_outfit": "Improvised heavy-duty mining space suit, asymmetrically patched with rusty steel plates from old signage, welded car body panels, and thick duct tape layers. Overloaded with cables, exposed copper wires, industrial belts, and scruffy work clothes soaked in grease and grime. Helmet is a cracked welder's visor with opaque scratched visor and dangling wires.",
+        "arsenal": "Militarized mining kinetic hammer (salvaged thruster welded to a heavy industrial drill), modified to fire plasma bursts. Secondary weapon: a hand-mounted plasma cutter gauntlet that channels dark corruption energy through fingertips."
+      },
+      "attitude": {
+        "behavior": "Low sweeping strike, arm fully extended toward an adjacent enemy, body leaning into the blow. The dark corruption tendrils burst from the fingertips, burrowing into the enemy's armor with visible weakening effects. Combat stance is aggressive, low, and dynamic.",
+        "emotion": "Intense, adrenaline-fueled focus, desperate determination, and savage aggression in the heat of battle."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Oxidized Steel Gray",
+          "role": "Primary armor and environmental metal, dominant background tone"
+        },
+        {
+          "name": "Rusty Orange",
+          "role": "Accent on corroded plates, rust streaks, and warm highlights"
+        },
+        {
+          "name": "Blue Plasma Glow",
+          "role": "Energy accents from weapons and plasma impacts, cool contrast"
+        },
+        {
+          "name": "Yellow-Orange Sparks",
+          "role": "Sparks and debris from impacts, dynamic light sources"
+        },
+        {
+          "name": "Dirty Work Clothes Brown",
+          "role": "Secondary clothing tones, grime and stains"
+        }
+      ],
+      "lighting_setup": "Cinematic mixed lighting: harsh blue plasma glow from weapons and impacts, warm orange sparks from debris, ambient dusty smoke with volumetric lighting, low-key shadows to emphasize grit.",
+      "mood": "Chaotic, intense, menacing, desperate survival atmosphere"
+    },
+    "camera": {
+      "angle": "Low angle with slight dutch tilt, dynamic perspective to match the sweeping strike and convey motion"
+    },
+    "scenography": {
+      "setting": "Active warzone at an asteroid waystation crossroads: corrugated metal walls pockmarked with plasma impacts, makeshift barricades built from shipping containers and scrap, exposed pipelines, flickering emergency lights, thick smoke drifting through the corridor, debris littering the ground.",
+      "atmosphere_vfx": "Plasma rounds impacting nearby walls, sending showers of sparks and debris raining down. Blue energy bursts and orange sparks illuminate the smoky environment. Enemy silhouettes advancing through smoke, allied forces taking cover behind barricades. Dust particles and smoke lit by plasma glow, slight lens flare from energy weapons."
+    }
+  }
+}

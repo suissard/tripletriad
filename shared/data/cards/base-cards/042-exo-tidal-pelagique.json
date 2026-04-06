@@ -1,0 +1,93 @@
+{
+  "collectionName": "base",
+  "name": "Tidal Pelagique",
+  "description": "Abyssaliste exploitant la pression des profondeurs comme arme défensive contre les agresseurs de surface.",
+  "element": "furtif",
+  "faction": "Exode Pélagique",
+  "topValue": "5",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": [
+    {
+      "type": "growing",
+      "value": 1,
+      "target": "all_own"
+    }
+  ],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/042.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Céphalopode abyssaliste en scaphandre de minage lourd reconverti, silhouette massive et asymétrique avec tentacules mécanisés émergeant d'un bocal de verre blindé rempli d'eau cyan luminescente",
+      "loadout": {
+        "armor_outfit": "Scaphandre de minage minéralogique pressionisé en polymère noir mat avec blindage orange rouille oxydé et plaques de cuivre vert-de-gris, casque sphérique bourdonnant de tuyaux annelés et valves de décompression, articulations à vérins hydrauliques apparents, fuites constantes de vapeur",
+        "arsenal": "Canon à geyser plasma intégré au bras droit crachant de la vapeur orange thermique, scie thermique circulaire montée sur tentacule gauche avec bobines de refroidissement en cuivre oxydé et lentille de focalisation fissurée mais fonctionnelle, réservoirs vitrés de fluide cyan sous pression sur le torse"
+      },
+      "attitude": {
+        "behavior": "Posture de menace défensive, tentacules déployés en position de barrage, corps protégé derrière un bouclier improvisé de tôles tordues,PROJECTEURS halogènes allumés éclairant la scène d'une lumière crue et penetrate, jets de vapeur s'échappant des articulations",
+        "emotion": "Colère froide et calculatrice d'un prédateur des abysses acculé, yeux bioluminescents violet pâle transperçant l'obscurité avec une intensité mortelle, présence imposante de créature des profondeurs prête à déclencher sa défense pressure"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Deep Sea Horror",
+          "Industrial Brutalism"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Orange rouille profond martien",
+          "role": "Teinte principale du blindage, usure et oxydation"
+        },
+        {
+          "name": "Vert-de-gris cuivre oxydé",
+          "role": "Plaques de blindage secondaire, connectique"
+        },
+        {
+          "name": "Gris canon terni",
+          "role": "Polymère du scaphandre, structures mécaniques"
+        },
+        {
+          "name": "Cyan bioluminescent",
+          "role": "Eau du casque, réservoirs vitrés, yeux aliens, accents lumineux"
+        },
+        {
+          "name": "Orange thermique aveuglant",
+          "role": "Plasma des armes, fuites de chaleur, reflets de fusion"
+        },
+        {
+          "name": "Violet pâle translucide",
+          "role": "Peau diaphane du céphalopode, chairs exposées"
+        },
+        {
+          "name": "Gris perle",
+          "role": "Zones de peau alien entre les membranes"
+        }
+      ],
+      "lighting_setup": "Cinematic key light from above-left with harsh halogene projecteurs, cyan rim light from bioluminescent elements, orange plasma glow as fill light, volumetric steam and vapor in the air",
+      "mood": "Menaçant, désespéré, industriel-crude, tension de survie abyssal"
+    },
+    "camera": {
+      "angle": "Low angle légèrement incliné vers le haut pour emphasize la masse imposante du scaphandre, perspective heroique mais sombre"
+    },
+    "scenography": {
+      "setting": "Zone de minage abyssal profond, plateforme industrielle submergée avec structure type bathyscaphe et poutrelles de forage, environnement sombre avecreflets d'eau pressurisée, débris de mikro-météorites et balanes spatiales sur les surfaces",
+      "atmosphere_vfx": "Vapeur d'eau bouillante s'échappant des valves, plasma orange lumineux pulsant des armes, cyan bioluminescent pulsant au rythme de la créature, particules de rouille et de saleté en suspension, micro-fuites constantes de fluides sous pression"
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "collectionName": "base",
+  "name": "Flamme en Feu",
+  "description": "Phoenix Primordial renaissant éternellement de ses cendres pour guider la vengeance des Héritiers et inspirer leur rage combattante.",
+  "element": "radiation",
+  "elements": [
+    "faille_dimensionnelle"
+  ],
+  "faction": "Héritiers des Cendres",
+  "topValue": "8",
+  "rightValue": "6",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": [
+    {
+      "type": "growing",
+      "value": 2,
+      "target": "adjacent_enemy"
+    },
+    {
+      "type": "heal",
+      "value": 3,
+      "target": "all_own"
+    }
+  ],
+  "rarity": "Legendary",
+  "defaultHp": 4,
+  "image": "base/060.png",
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Flamme en Feu, the Phoenix Primordial Ascendant",
+      "loadout": {
+        "armor_outfit": "Tattered anti‑radiation robes made of fused ash‑cloth, tribal bone and rusted metal plating, asymmetric shoulder spikes, a tattered hood stitched with glowing radioactive glyphs, a collar of spent nuclear capsules, skin grafted with metallic implants",
+        "arsenal": "High‑technology plasma cannon fused to the forearm, wrist‑chained anti‑matter rifle, small nuclear warhead worn as a melee relic, crown of blazing plasma energy"
+      },
+      "attitude": {
+        "behavior": "Emerging from a swirling column of ash and fire, wings spread wide, one hand thrust upward holding a blazing plasma relic as a beacon of vengeance, the other gripping a chain‑bound anti‑matter rifle, eyes ablaze with radioactive fire, exuding an aura of relentless fury and guidance",
+        "emotion": "Fierce, vengeful, inspirational fury, a cold calculating resolve masked by primal heat"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Post‑apocalyptic",
+          "Gothic horror"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Irradiated Earth Brown",
+          "role": "dominant body and environment tones"
+        },
+        {
+          "name": "Ashen Gray",
+          "role": "background ash and smoke"
+        },
+        {
+          "name": "Sickly Flesh Yellow",
+          "role": "mutant skin highlights and lesions"
+        },
+        {
+          "name": "Vibrant Rust",
+          "role": "metal plates and armor accents"
+        },
+        {
+          "name": "Radioactive Neon Yellow",
+          "role": "glowing tumors, eyes, and energy cores"
+        },
+        {
+          "name": "Pure White (High‑Tech Glow)",
+          "role": "weapon relics and plasma energy"
+        }
+      ],
+      "lighting_setup": "Cinematic rim light with warm fire tones contrasted by cool radioactive blue‑violet highlights, volumetric ash fog, subtle lens flare from plasma weapons",
+      "mood": "Menacing, awe‑inspiring, relentless vengeance"
+    },
+    "camera": {
+      "angle": "low_angle_wide"
+    },
+    "scenography": {
+      "setting": "Ruined nuclear silo battlefield, twisted metal debris, shattered concrete pillars, a cracked dome of a collapsed reactor in the far background",
+      "atmosphere_vfx": "Radiation haze, drifting ash and ember particles, flickering firelight, occasional glitching holographic whispers of ancient war cries, subtle blue‑violet plasma discharge"
+    }
+  }
+}

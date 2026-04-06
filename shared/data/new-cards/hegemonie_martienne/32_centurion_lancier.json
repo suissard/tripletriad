@@ -2,8 +2,10 @@
   "name": "Centurion Lancier",
   "description": "Véhicule lance-missiles mobile sur chenilles hexagonales. Salves de projectiles guidés orbitant vers les cibles désignées. Plateforme de bombardement tactique dévastatrice à moyenne portée.",
   "element": "longue_portee",
-  "elements": ["longue_portee"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "longue_portee"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "6",
   "rightValue": "4",
   "bottomValue": "3",

@@ -1,0 +1,83 @@
+{
+  "collectionName": "base",
+  "name": "Mousse Corrompu",
+  "description": "Mousse envahissante bloquant les voies de communication ennemies ralentissant leurs mouvements et leurs renforts.",
+  "element": "furtif",
+  "faction": "Fléau Spore",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/144.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Corrupted Bio-Hazard Combat Specialist - Fungal Human Hybrid",
+      "loadout": {
+        "armor_outfit": "Shattered tactical military armor fractured and spread apart from within, held together by pulsating mycorrhizal networks, plates dislocated asymmetrically, exposed necrotic flesh with bioluminescent fungal growths erupting through every seam, mycelial tendrils weaving through destroyed kevlar, bulbous polypore growths sprouting from shoulders and spine, branchial fungal structures releasing toxic spores",
+        "arsenal": "Assimilated assault rifle - bloated and deformed with fungal biomass, metal barrel twisted and engulfed in pulsating flesh, spore sac replacing magazine, organic projectiles loaded with toxic fungi, veins of toxic green energy pulsing along corrupted weapon barrel, thick spore clouds emanating from weapon muzzle"
+      },
+      "attitude": {
+        "behavior": "Combat specialist engaged in the heat of battle with weapon fully committed, crouching combat stance with corrupted rifle raised high, body coiled like a venomous spring, massive fungal tendrils erupting from ground around combatant, both ally and enemy corpses being consumed by spreading mycelial networks in background",
+        "emotion": "Rage-filled inhuman expression with jaw completely dislocated, mouth gaping open releasing thick toxic spore clouds, eyes replaced entirely by pulsating bioluminescent fungi glowing toxic green, predatory focus locked on approaching threat with complete disregard for self-preservation"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Bio-horror",
+          "Body horror"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Sickly Khaki Green",
+          "role": "dominant color of fungal growths and corrupted armor"
+        },
+        {
+          "name": "Moist Earthy Brown",
+          "role": "terrain contamination and necrotic flesh tones"
+        },
+        {
+          "name": "Dark Asphalt Gray",
+          "role": "destroyed equipment and background wreckage"
+        },
+        {
+          "name": "Toxic Fluorescent Green",
+          "role": "bioluminescent accents, spore clouds, and energy veins"
+        },
+        {
+          "name": "Necrotic Flesh Pink",
+          "role": "exposed corrupted tissue and organic matter"
+        },
+        {
+          "name": "Off-White Mold",
+          "role": "fungal textures and spore accumulations"
+        }
+      ],
+      "lighting_setup": "oppressive_foggy_lighting_with_toxic_green_bioluminescent_glow_from_spores_and_fungal_networks",
+      "mood": "menacing_apocalyptic_horror_oppressive_contamination"
+    },
+    "camera": {
+      "angle": "low_angle_dutch_angle_emphasizing_corrupted_figure_and_erupting_ground"
+    },
+    "scenography": {
+      "setting": "Biologically devastated battlefield completely consumed by fungal infestation - destroyed military vehicles reduced to nids of pulsating fungal biomass, corpses of both ally and enemy being assimilated into living organism, massive mycelial networks visibly pulsating and growing across all surfaces, ground itself transformed into hostile living entity with tendrils bursting through",
+      "atmosphere_vfx": "Thick toxic spore clouds reducing visibility creating oppressive green haze, massive pulsating fungal sacs bursting and releasing contamination, visible growth of mycelium networks in real-time, toxic green bioluminescent glow emanating from all fungal structures, ground alive with erupting tendrils without warning, anaerobic fog of decomposition"
+    }
+  }
+}

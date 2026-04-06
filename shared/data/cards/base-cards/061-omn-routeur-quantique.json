@@ -1,0 +1,93 @@
+{
+  "collectionName": "base",
+  "name": "Routeur Quantique",
+  "description": "Nœud de données relayant les informations tactiques entre les unités alliées connectées au réseau omnidirectionnel.",
+  "element": "reseau",
+  "faction": "Omni-Réseau",
+  "topValue": "3",
+  "rightValue": "4",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "death",
+      "value": 1,
+      "target": "self_on_flip"
+    }
+  ],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/061.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Cybernetic Combat Specialist - Quantum Network Node / Routeur Quantique",
+      "loadout": {
+        "armor_outfit": "Standardized mass-produced composite tactical armor in anthracite gray and matte black, ergonomic smooth dark plates over utility combinaisons, cold brushed steel structural elements, imposing neural interface ports glowing with glacial neon blue light, heavy thick black cables emerging from neck and spine connecting to skull-mounted processing chips, serial numbers and barcodes etched into armor plating and exposed pale cadaveric skin, standardized tactical mask with connected optical sensors",
+        "arsenal": "Geometric industrial rectangular assault rifle with clean net rectangular lines and zero aesthetic ornamentation, thick black cables directly connecting weapon grip to wrist implants and spine-mounted processing unit, neural-linked targeting systems, secondary EMP discharge gauntlets"
+      },
+      "attitude": {
+        "behavior": "Combat specialist fully committed to final devastating act, body mid-violent flip between cybernetic operational states, both hands slamming with brutal force into fractured digital ground creating focused targeted shockwave rippling through all adjacent positions, massive energy discharge emanating from neural ports as dying warrior channels entire remaining power into attack, toppling server towers in background, electric storms cascading through infrastructure",
+        "emotion": "Cold cybernetic inexpressiveness despite extreme physical trauma, dead empty gaze with livid blue neural optics flickering from power overload, zero emotional response visible on pale cadaveric face as implants overheat and spark, grim determination expressed only through rigid jaw muscles, final act of programmed function override"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Cyberpunk dystopique",
+          "Brutalist architecture"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Anthracite Gray",
+          "role": "primary_armor_base"
+        },
+        {
+          "name": "Matte Black",
+          "role": "primary_armor_shadow"
+        },
+        {
+          "name": "Cold Brushed Steel",
+          "role": "secondary_mechanical_elements"
+        },
+        {
+          "name": "Glacial Neon Blue",
+          "role": "accent_neural_energy_neural_chips_optics"
+        },
+        {
+          "name": "Pale Cadaveric Flesh",
+          "role": "skin_exposed_body_parts"
+        },
+        {
+          "name": "Electric White",
+          "role": "lightning_storm_sparks"
+        },
+        {
+          "name": "Corrupted Magenta",
+          "role": "enemy_ICE_attack_glitches"
+        }
+      ],
+      "lighting_setup": "dramatic_cinematic_rim_lighting_from_multiple_sources, electric_storm_ambient_flashes, glacial_blue_neural_glow_from_implants_intensifying_during_power_surge, flickering_holographic_displays_creating_unstable_light_patterns, sparking_infrastructure_random_light_bursts",
+      "mood": "menacing_apocalyptic_technological_collapse"
+    },
+    "camera": {
+      "angle": "low_angle_ground_level_perspective_looking_up_at_dying_warrior_creating_majestic_tragic_heroic_composition_dutch_angle_slight_tilt_for_dynamism"
+    },
+    "scenography": {
+      "setting": "Cyber warfare zone battlefield - massive server towers toppling and crumbling with visible code deterioration cascading down their surfaces, digital fortifications breaching and fragmenting under relentless enemy ICE attacks, holographic tactical displays shattering into glitching fragments mid-air, corridors of destroyed network infrastructure with exposed wiring and sparking terminals, floor covered in fragmented digital debris and melting circuitry, brutalist architecture with perfect right angles and monolithic rectangular blocks in background, human processing nodes partially decomposed wired to failing server racks",
+      "atmosphere_vfx": "Electric storms rippling through entire infrastructure with visible lightning between structures, holographic displays fragmenting and glitching with corrupted data streams, ICE attack code visibly deteriorating and dissolving digital matter, intense sparks cascading from damaged equipment, electromagnetic pulses distorting air around power surges, rain of digital debris falling, concentrated shockwave emanating from impact point visible as rippling energy distortion"
+    }
+  }
+}

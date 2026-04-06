@@ -1,0 +1,82 @@
+{
+  "collectionName": "base",
+  "name": "Basse",
+  "description": "Harmoniste synchronisant les rythmes de combat des unités proches augmentant leur efficacité au combat rapproché.",
+  "element": "reseau",
+  "faction": "Chœur Synthétique",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/077.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Androïde Harmoniste du Chœur Synthétique, moine guerrier dépourvu de traits faciaux, silhouette humanoïde lisse et ascétique",
+      "loadout": {
+        "armor_outfit": "Robes de moine amples et usées en fibres synthétiques épaisses avec faisceaux de câbles tressés sombres, plaques faciales totalement lisses en métal patiné, chapelet de minuscules disques durs suspendus à la ceinture",
+        "arsenal": "Bâton de pèlerin électrifié long et épuré, crêtes runiques holographiques dorées le long de la hampe, crépitements d'arcs électriques lumineux"
+      },
+      "attitude": {
+        "behavior": "Combattant de première ligne engagé directement contre les forces ennemies, posture de combat explosive avec le bâton levé et prêt à frapper, corps enroulé comme un ressort sur le point d'exploser",
+        "emotion": "Détermination sereine et froide, regard Vide sans yeux fixé sur la menace approchante, présence martiale ascétique et hypnotique"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "BouddhismeCyberpunk"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Acier patiné",
+          "role": "Armure principale, plaques faciales"
+        },
+        {
+          "name": "Blanc céramique vieilli",
+          "role": "Highlights結構ls, reflets mats"
+        },
+        {
+          "name": "Or holographique",
+          "role": "Runes, mantras lumineux, énergie de combat"
+        },
+        {
+          "name": "Gris perle",
+          "role": "Ombres, dégradés de métal"
+        },
+        {
+          "name": "Brun moine délavé",
+          "role": "Tissus des robes"
+        },
+        {
+          "name": "Doré électrique clair",
+          "role": "Éclairs, shockwaves, lévitation"
+        }
+      ],
+      "lighting_setup": "Cinematic_volumetric_rim_light_avec_holographic_glow_des_runes",
+      "mood": "Surnaturel, cataclysmique, sereinement destructeur"
+    },
+    "camera": {
+      "angle": "low_angle_slightly_dutch_pour_accentuer_la_tension_explosive"
+    },
+    "scenography": {
+      "setting": "Amphithéâtre cristallin brisé transformé en champ de bataille, formations cristallines explosives, structures de plafond fissurées et résonantes, architecture symétrique mandalique partiellement détruite",
+      "atmosphere_vfx": "Anneaux de choc harmoniques déchirant les positions ennemies, fragments cristallins pleuvant dans toutes les directions, air scintillant et se déformant sous l'effet des vibrations de fréquence, éclairs dorés crépitant le long du bâton, particules de poussière suspendues dans des shockwaves circulaires, distorsions optiques liées à la résonance"
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "collectionName": "base",
+  "name": "Arcane",
+  "description": "Ombre rampante se faufilant dans les recoins les plus sombres des installations ennemies pour des opérations d'espionnage.",
+  "element": "obsidienne",
+  "faction": "Éveil Chthonien",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/092.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Chthonian Shadow Stalker - Primordial subterrene spy creature evolved for infiltrating dimensional rifts and harvesting intelligence from collapsed realities",
+      "loadout": {
+        "armor_outfit": "Organic tectonic plating composed of obsidian shards and cooled basalt carapace, interlocked with glowing magma veins running beneath the surface, asymmetrical volcanic rock scales creating natural camouflage against stone surfaces, multiple eyeless heads for 360° sensory perception",
+        "arsenal": "Subterranean drilling appendages for tunnelling through dimensional barriers, corrosive shadow tentacles capable of draining life essence and extracting memories, bio-luminescent rune-marked organs for reading and recording dimensional frequencies, prehensile tail with blade-like volcanic glass protrusions"
+      },
+      "attitude": {
+        "behavior": "Crouched in absolute stillness within a dimensional fissure, multiple shadow tentacles anchored into the torn reality around it while surveillance tendrils extended through micro-rifts tracking all enemy movements, body coiled with predatory tension like a volcanic eruption about to occur, one massive crushing jaw slightly open revealing inner magma chamber",
+        "emotion": "Cold primordial patience emanating predatory intent, ancient intelligence radiating through multiple eyeless heads sensing dimensional frequencies, territorial aggression masked by supernatural stillness, volcanic heart pulsing with dormant rage"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Cosmic Horror",
+          "Primordial Mythos"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Obsidian Black",
+          "role": "Primary body structure, dominant coverage"
+        },
+        {
+          "name": "Matte Basalt Gray",
+          "role": "Tectonic plating texture, secondary body mass"
+        },
+        {
+          "name": "Burnt Earth Brown",
+          "role": "Volcanic scarring, organic rock formations"
+        },
+        {
+          "name": "Ash Gray",
+          "role": "Cinder particles, dimensional distortion effects"
+        },
+        {
+          "name": "Magma Red-Orange",
+          "role": "Internal energy veins, glowing cracks, heart core"
+        },
+        {
+          "name": "Dimensional Purple-Black",
+          "role": "Shadow tentacles, reality tear effects"
+        }
+      ],
+      "lighting_setup": "Volcanic_subterranean_lighting_with_dimensional_rift_illumination",
+      "mood": "Menacing, primordial dread, supernatural horror, oppressive underground tension"
+    },
+    "camera": {
+      "angle": "low_angle_with_dutch_tilt_suggesting_instability"
+    },
+    "scenography": {
+      "setting": "Torn dimensional battlefield with ground splitting open in massive fissures as enormous shadow tentacles erupt from below, sky showing impossible geometry and wrongness human mind cannot process, ancient runes blazing on every surface as dimensions collapse, reality thinning and tearing at edges",
+      "atmosphere_vfx": "Volcanic smoke billowing from every fissure, magma rivers glowing beneath cracked ground, supernatural dread fog, dimensional energy sparks, ancient chthonian runes pulsing with dying reality energy, reality fragments floating in impossible patterns, thick oppressive atmosphere of otherworldly terror"
+    }
+  }
+}

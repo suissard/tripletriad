@@ -1,0 +1,79 @@
+{
+  "collectionName": "base",
+  "name": "Vanguard Martien",
+  "description": "Propagandiste de guerre brisant le moral adverse par la désinformation et les transmissions radio piégées.",
+  "element": "radiation",
+  "faction": "Hégémonie Martienne",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "6",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/023.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Humain Propagandiste Martien Puriste - Soldat d'élite cybernétique des transmissions",
+      "loadout": {
+        "armor_outfit": "Armure de plates martiennes en ceramite rouge carmin, segments lisses et imbriqués sans aucune aspérité, conception monolithique évoquant la pureté géométrique. Plastron sculpté avec des arêtes anguleuses en lame de diamant. Spalières massives aux épaules avec des rebords tranchants. Protections de bras et de jambes fusionnant parfaitement avec le corps. Sous-couche textile balistique noire visible aux jointures. Cape asymétrique courte en tissu balistique sombre attachée à l'épaule gauche avec des attaches hexagonales. L'armure intègre des plaques d'épaisseur variable créant un jeu d'ombres géométrique sur la surface rouge. Les articulations sont scellées par des joints hydrauliques invisibles. Uneunité de transmission dorsale compacte avec des antennes pliantes en alliage gris sombre. Gants tactiles avec articulations phosphorescentes rouges. Bottes lourds à semelles hexagonales amortissantes.",
+        "arsenal": "Fusil d'assaut électromagnétique (Railgun) de modèle Vanguard-MK7, carcasse rectangulaire-monobloc en acier rouge, canon octogonal court avec étranglement axial. Aucune pièce mobile visible, design puritain fermé. Chargeur box rectangular intégré. Crosse d'épaule pliante à verrouillage angulaire. Handle de transport скрытый. Épée thermique de corps-à-corps modèle Ignis-Purge, lame mono-moléculaire rougeoyante émettant une lueur orange-rougeoyante avec fumées de chaleur ondulantes. Le pommeau intègre un核 de réacteur miniature pulsant en rouge vif. Gaines de lame en carbure de tungstène angulaire. Dague de lancer cachée dans la botte droite, lame triangulaire à trois pans. Miniaturized brouilleurs de fréquence intégrés aux avant-bras pour les transmissions piégées. Oreillette de communication cryptée avec diode rouge clignotante."
+      },
+      "attitude": {
+        "behavior": "Le Vanguard Martien se tient en posture de transmission broadcasting, légèrement penché en avant, une main fermement grippée sur le railgun vertical, l'autre mano simulant un geste de propagandiste vers le ciel ou l'audience invisible. Il active simultanément ses systèmes de brouillage, les indicateurs rouges de son armure pulsant en rythme. Sa tête est légèrement inclinée, le regard fixe sous la visière opaque, projettant une aura de menace informatique imminente. Des faisceaux de données lumineuses rougeâtres émanent de son unité dorsale, simulant des transmissions interceptées. Il se trouve sur une plateforme de broadcast mobile déployée, avec des hologrammes fragmentés de désinformation en arrière-plan. Fumée thermale s'élève de sa lame d'épée热ée. Léger mouvement de MICRO-vibrations dans les mécanismes internes de l'armure pour montrer la puissance electromagnétique en cours de chargement.",
+        "emotion": "Froid calcul du propagandiste, regard vide sous la visière fente rouge, un sourire carnassier suggéré par la posture. Confidence absolue en sa supériorité technologique. Aura de terreur psychologique. concentration intense du hacker militaire combinée à la fierté martienne. Attitude méprisante envers l'ennemi."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Brutalist high-tech",
+          "Military propaganda art"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Rouge Carmin profond",
+          "role": "Couleur dominante de l'armure et du材, 60% de la surface visible, mat avec reflets metalliques subtils"
+        },
+        {
+          "name": "Gris Charcoal métallique",
+          "role": "Éléments structurels secondaires: articulations, plaques de reinforcement, equipment dorsal, armes, 30% de la palette"
+        },
+        {
+          "name": "Rouge Vif énergétique",
+          "role": "Accents lumineux: fente du casque, optiques, plasma des armes, réacteurs, indicateurs de statut, fumée thermale, 10% des touches colorées"
+        },
+        {
+          "name": "Noir Absolu",
+          "role": "Ombres profondes, intérieures du casque, zones d'ombre sous les plaques, textile sous l'armure"
+        },
+        {
+          "name": "Orange Incandescent",
+          "role": "Lueur de lame thermique, bord de plasma, reflets de chaleur sur les surfaces métalliques proches"
+        }
+      ],
+      "lighting_setup": "Cinematic rim lighting combinant rouge sombre en contre-jour et lueur ambiante bleue-grise froide pour créer un contraste drammatique. Light source principale: néon rouge intense depuis les instruments du Vanguard lui-même. Secondary fill light: néon rouge diffus des transmissions holographiques en arrière-plan. Ambient occlusion intense dans les interstices des plaques d'armure.",
+      "mood": "Menaçant, oppressant, high-tech brutalist. Atmosphere de guerre psychologique imminente. Tension permanente. Le personnage respire la technologie martienne superior et le danger silencieux."
+    },
+    "camera": {
+      "angle": "Low angle à 15 degrés, légèrement dutch tilt pour emphaser l'agressivité. Distance de prise: medium shot vertical capturant le Vanguard en entier depuis les genoux. L'objectif est légèrement tele (85mm equivalent) pour comprimer l'espace et isoler le sujet sur son piédestal de broadcast."
+    },
+    "scenography": {
+      "setting": "Plateforme de transmission mobile déployée sur une zone désertique martienne rouge-brun, entourée de debris métalliques et de carcasses de véhicules ennemis détruit. Structure de broadcast: monolithe de communication hexagonale en acier rouge, partiellement détruite mais fonctionnelle. Fond: ciel martien orange-rouge avec tempêtes de poussière lointaines, silhouettes de dômes de colonisation en ruines. Structures architecturales puristes brisées en arrière-plan: formes géométriques en V effondrées. Câbles de transmission tendus entre les structures.",
+      "atmosphere_vfx": "Tempête de sable rouge-orange soulevée par les réacteurs de la plateforme. Fumée thermale emanant des armes et des systems surchauffés. Hologrammes fragmentés de propagande: symboles puristes brisés, chiffres de désinformation en rouge, visages enemies déformés. Effet de chaleur shimmer autour des éléments energetiques. Particules de poussière incandescente dans l'air. Lens flares rouges subtils sur les sources lumineuses. Glitch effects mineures sur les hologrammes pour montrer le caractère hacké des transmissions. Atmospheric haze rouge-orangé augmentant la profondeur."
+    }
+  }
+}

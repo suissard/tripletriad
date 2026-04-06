@@ -1,0 +1,83 @@
+{
+  "collectionName": "base",
+  "name": "Gouffre Chtonien",
+  "description": "Oracle ténébreux révélant les points faibles cachés des stratégies adverses permettant des contre-offensives ciblées.",
+  "element": "spore",
+  "faction": "Éveil Chthonien",
+  "topValue": "4",
+  "rightValue": "3",
+  "bottomValue": "6",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/100.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Chtonian Titan Oracle - Colossal subterranean war diviner with volcanic rock physiology, multiple blind eyes sensing dimensional weaknesses, magma circulatory system visible through cracked obsidian skin, humanoid silhouette merged with primordial geological essence",
+      "loadout": {
+        "armor_outfit": "Natural tectonic carapace composed of cooling basalt plates fused with obsidian edges, asymmetrical jagged formations creating natural spikes and blades, volcanic rock shoulders with ember veins, magma-filled fissures running across entire body with internal glow, raw stone horns erupting from skull",
+        "arsenal": "Massive drilling claw arm forged from volcanic rock and cooled magma, capable of crushing stone and drilling through dimensions, secondary arm as massive blunt appendage, body itself weaponized with internal geothermal pressure, jets of magma expelled from body joints, suffocating volcanic dust emanating from carapace gaps"
+      },
+      "attitude": {
+        "behavior": "Combat specialist in explosive forward lunge, body coiled with seismic tension, one massive drilling claw raised high ready to strike, volcanic rock feet planted with tremendous pressure causing ground cracks beneath, massive form leaning into aggressive forward momentum, multiple eyes locked onto dimensional tear ahead",
+        "emotion": "Primordial predatory focus emanating supernatural dread, ancient intelligence calculating enemy weaknesses through dimensional sight, volcanic rage simmering beneath cooled exterior, oppressive presence bending reality around massive form"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Cosmic Horror",
+          "Primordial Titans"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Obsidian Black",
+          "role": "Primary body structure and shadows"
+        },
+        {
+          "name": "Matte Basalt Grey",
+          "role": "Rock texture and surface details"
+        },
+        {
+          "name": "Scorched Earth Brown",
+          "role": "Volcanic erosion and heated rock"
+        },
+        {
+          "name": "Magma Orange-Red",
+          "role": "Internal energy, cracks, and accent glow"
+        },
+        {
+          "name": "Ash Grey",
+          "role": "Smoke, dust, and atmospheric particles"
+        },
+        {
+          "name": "Dimensional Purple-Black",
+          "role": "Reality tear effects and otherworldly elements"
+        }
+      ],
+      "lighting_setup": "Cinematic volcanic_glow with internal_magma_lighting, dramatic_rim_light_from_dimensional_fissures, volumetric_ash_fog, OSL_magma_fissures",
+      "mood": "Menacing, oppressive, cosmically dread-filled, primordial terror"
+    },
+    "camera": {
+      "angle": "low_angle_with_dutch_tilt"
+    },
+    "scenography": {
+      "setting": "Torn dimensional battlefield with ground erupting in massive seismic fissures, enormous shadow tentacles erupting from below through cracked earth, sky showing impossible geometry and reality folds, ancient blazing runes carved into broken ground, reality thinning and tearing at dimensional edges, collapsed dimension fragments floating",
+      "atmosphere_vfx": "Thick oppressive volcanic_dust_fog, supernatural dread_mist, dimensional_tears_with_purple_energy, ancient_runes_glowing_with_fiery_orange, ground_splitting_with_magma_exposure, reality_fragmentation_effects, suffocating_ash_fall, seismic_tremors"
+    }
+  }
+}

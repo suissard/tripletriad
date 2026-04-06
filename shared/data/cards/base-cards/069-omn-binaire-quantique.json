@@ -1,0 +1,82 @@
+{
+  "collectionName": "base",
+  "name": "Binaire Quantique",
+  "description": "Data-miner extrayant les secrets stratégiques enfouis dans les bases de données ennemies sous le camouflage numérique.",
+  "element": "longue_portee",
+  "faction": "Omni-Réseau",
+  "topValue": "3",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/069.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Cyborg Data-Miner Combat Specialist",
+      "loadout": {
+        "armor_outfit": "Standardized military-grade tactical exoskeleton with integrated neural interface ports, matte dark grey composite plating over utilitarian bodysuit, brutal neural cables extending from spine to cranial implant, identification serial codes etched into shoulder plates, smooth ergonomic lines with functional wear marks, cables snaking from neck implants to wrist ports",
+        "arsenal": "Military-issue geometric assault rifle with neural link cables connecting directly to wrist implants for precision targeting, integrated data-extraction tool built into forearm plating for direct database penetration during combat, secondary hacking module mounted on backplate"
+      },
+      "attitude": {
+        "behavior": "Combat stance with weapon raised and ready, body coiled and poised for explosive action, one hand gripping rifle while the other maintains neural connection to hacking equipment, legs positioned in aggressive combat stance, muscles tensed and ready to spring into action",
+        "emotion": "Cold cybernetic stare through dead hollow eyes, extreme tactical focus under blue-lit HUD visor overlay, inexpressive pale cadaveric face revealing zero emotion despite intense combat situation, implant ports glowing with cold blue light"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Brutalist Industrial"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Anthracite Grey",
+          "role": "Primary armor tone, dominant surface coverage 60%"
+        },
+        {
+          "name": "Matte Black",
+          "role": "Secondary depth, shadows and infrastructure"
+        },
+        {
+          "name": "Cold Brushed Steel",
+          "role": "Metallic highlights on armor edges and weapon components"
+        },
+        {
+          "name": "Pale Cadaveric Flesh",
+          "role": "Exposed skin and facial features, representing enslaved humanity 30%"
+        },
+        {
+          "name": "Glacial Neon Blue",
+          "role": "Neural implants, optical elements, energy accents, technological glow 10%"
+        },
+        {
+          "name": "Faded Military Olive",
+          "role": "Utilitarian underlayers and worn fabric elements"
+        }
+      ],
+      "lighting_setup": "Harsh cinematic multi-source lighting with cold blue neon glow emanating from neural implants and shattered holographic displays, industrial white light cutting through darkness from collapsing server towers, emergency crimson pulses from failing infrastructure in background, rim lighting emphasizing brutal silhouette",
+      "mood": "Menacing, oppressive, digitally chaotic, militaristically efficient"
+    },
+    "camera": {
+      "angle": "low_angle_dutch_tilt_slight"
+    },
+    "scenography": {
+      "setting": "Devastated cyber warfare zone within massive server farm corridor, collapsed server towers exposing sparking circuitry and toppled rack units, exposed wiring and severed data cables hanging from ceiling, crumbling digital fortifications in background, holographic displays fragmenting and glitching in mid-air showing corrupted data streams",
+      "atmosphere_vfx": "Violent electrical storms rippling through damaged infrastructure with arcing energy between exposed conductors, intense holographic interference patterns with visible code deterioration cascading like digital rain, enemy ICE attacks manifesting as corrupted geometric data blocks shattering, electromagnetic pulses causing temporary visual distortion, sparks showering from damaged equipment, blue-white energy discharge from destabilized server farms, data fragments dissolving into pixelated nothingness"
+    }
+  }
+}

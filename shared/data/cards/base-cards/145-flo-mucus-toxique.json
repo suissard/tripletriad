@@ -1,0 +1,83 @@
+{
+  "collectionName": "base",
+  "name": "Mucus Toxique",
+  "description": "Fongique guérisseur régénérant les tissus endommagés des unités alliées grâce aux propriétés curatives de la spore.",
+  "element": "radiation",
+  "faction": "Fléau Spore",
+  "topValue": "5",
+  "rightValue": "3",
+  "bottomValue": "4",
+  "leftValue": "6",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/145.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Fungal Combat Medic - Corpse bloated with toxic gases, humanoid silhouette grotesquely transformed by parasitic mycorrhizal infestation, distended torso sprouting pulsating bulbous sacs filled with luminescent healing spores, limbs elongated and twisted by aggressive mycelial growth, skin marbled with necrotic flesh tones and glistening fungal membranes, original human features barely recognizable beneath layers of fungal tumors, eyes surgically removed and replaced by clusters of bioluminescent shelf fungi emitting sickly green phosphorescence",
+      "loadout": {
+        "armor_outfit": "Shattered military tactical vest burst open and held together by intertwining fungal root networks, plating disconnected and displaced by internal growth pressure, shoulder pauldrons transformed into organic shelf fungus clusters (polypores), gauntlets merged with pulsing mycelial tendrils that extend as healing conduits, chest cavity exposed through fractured armor plates with translucent membrane revealing internal spore-producing organs, protective leg armor split apart by root-like growths, entire suit asymmetrically colonized with zero structural symmetry",
+        "arsenal": "Modified trauma staff weaponized as spore distribution conduit - elongated barrel formed from fused bone and fungal stalk, reservoir bulb containing concentrated regenerative spores, twin side-mounted mycelial syringes for rapid tissue regeneration delivery, organic projectile launcher integrated into forearm firing encapsulated healing spores at high velocity, weapon surfaces crawling with living fungal tendrils"
+      },
+      "attitude": {
+        "behavior": "Mid-combat healing sequence with weapon raised defensively, left arm extended directing concentrated streams of luminous healing spores onto wounded ally unit, right arm gripping trauma staff ready to fire or defend, legs planted in aggressive stance with root tendrils anchoring into living battlefield ground, torso twisted to monitor approaching threat while maintaining healing channel, multiple smaller healing streams emanating from back-mounted spore sacs targeting additional allies",
+        "emotion": "Fanatical determination radiating from bioluminescent eye clusters, patient focused concentration on regenerative process despite surrounding chaos, predatory alertness scanning battlefield for threats, visceral alien intelligence operating behind mask of merged human-fungal features, mouth distended and leaking constant stream of toxic spore particles"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Bio-horror",
+          "Cosmic Horror"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Toxic Fluorescent Green",
+          "role": "Primary bioluminescent accent illuminating subject and creating atmospheric haze"
+        },
+        {
+          "name": "Dirty Khaki Green",
+          "role": "Dominant base tone covering majority of surfaces and fungal growth"
+        },
+        {
+          "name": "Moist Earthy Brown",
+          "role": "Secondary organic tissue color for necrotic flesh and soil contamination"
+        },
+        {
+          "name": "Dark Asphalt Gray",
+          "role": "Remaining mechanical/vehicle elements and shadows"
+        },
+        {
+          "name": "Necrotic Flesh Pink",
+          "role": "Exposed tissue areas and wound sites"
+        },
+        {
+          "name": "Off-White Mold",
+          "role": "Spore cloud formations and surface fungal blooms"
+        }
+      ],
+      "lighting_setup": "Volumetric_spore_fog_lighting_with_bioluminescent_glow_sources_and_dramatic_rim_lighting",
+      "mood": "Menacing and oppressive with undercurrent of grotesque hope, organic horror mixed with desperate battlefield regeneration"
+    },
+    "camera": {
+      "angle": "low_dutch_angle_with_slight_tilt_to_enhance_asymmetrical_composition"
+    },
+    "scenography": {
+      "setting": "Biologically devastated battlefield terrain completely consumed by aggressive fungal infestation, massive mycelial networks visible beneath and throughout cracked earth, vehicle wreckage partially digested by spreading organism, living ground surface pulsating with visible nutrient flow, shattered defensive positions overrun by fungal growth towers, distant horizon obscured by towering mushroom structures emerging from carnage",
+      "atmosphere_vfx": "Thick toxic_spore_cloud_haze_reducing_visibility_to_mid_distance, luminous green atmospheric particles floating in volumetric fog, massive pulsating spore sacs bursting overhead releasing contamination, fungal tendrils rapidly growing and spreading across all surfaces in real-time visualization, ground erupting with warning tendril bursts, acid_bio_slime_pools forming where infection concentrates, oppressive green-tinged darkness punctuated by bioluminescent organism glow"
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "name": "Grenadier Sacré",
   "description": "Lance des grenades irradiées bénies par les Techno-Chamanes.",
   "element": "radiation",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "4",
   "rightValue": "3",
   "bottomValue": "3",

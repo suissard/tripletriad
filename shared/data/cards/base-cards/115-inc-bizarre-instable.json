@@ -1,0 +1,108 @@
+{
+  "collectionName": "base",
+  "name": "Bizarre Instable",
+  "description": "Vortex instable aspirant les projectiles et les énergies hostiles protégeant les alliés dans un rayon large.",
+  "element": "radiation",
+  "faction": "Incursion Dissonante",
+  "topValue": "5",
+  "rightValue": "6",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/115.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Cosmic Horror Combat Specialist - Bizarre Instable Vortex Entity",
+      "loadout": {
+        "armor_outfit": "Fragmented armor panels suspended in chaotic orbit around a humanoid silhouette made of shattered void-black material, partially translucent fragments revealing glimpses of twisted flesh beneath, edges perpetually glitching and phasing between solid and ethereal states, remnants of Possessed Marine tactical plates fused with non-euclidean geometric protrusions that pierce through dimensional barriers, fragments of reality woven into the fabric like torn dimensional fabric, armor constantly destabilizing and reforming in real-time",
+        "arsenal": "Main weapon: A reality-anchor blade manifesting as a condensed vortex of pure dimensional instability, obsidian-violet crystalline edge that cuts through space itself leaving temporal echoes, energy spiraling around the weapon creating visible distortion fields. Secondary: Gravitational anomaly projector mounted on forearm capable of creating localized gravity wells that redirect incoming projectiles and energies, swirling portal of compressed spatial anomalies pulsing with magenta and violet corruption"
+      },
+      "attitude": {
+        "behavior": "Combat stance with legs planted in impossible geometry as one foot touches the ground of three different parallel realities simultaneously, body twisted at an angle that should be physically impossible yet feels natural to this entity, weapon raised and crackling with unstable dimensional energy, arms radiating gravitational pulses that visibly bend surrounding space creating fisheye distortion effects, stance suggesting both defensive protection radiating outward to shield allies and aggressive forward momentum ready to engage threats",
+        "emotion": "Eyes - if they exist - burning with violet-magenta psychic fire visible through cracks in a glitching helmet, face contorted in an expression oscillating between transcendent agony and ecstatic madness, psychic aura creating visible chromatic aberration effects around the entire body, presence so destabilizing that the air itself seems to stutter and repeat frames around the figure"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Cosmic Horror",
+          "Dimensional Rift",
+          "Glitch Art",
+          "Non-Euclidean Geometry",
+          "Temporal Distortion"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      },
+      "special_effects": [
+        "Chromatic aberration throughout entire image",
+        "Scan lines and digital corruption artifacts",
+        "Temporal stutter effect on edges of subject",
+        "Color bleeding between overlapping realities",
+        "Screen tear distortion effects",
+        "Gravitational lensing around the vortex entity",
+        "Particles fragmenting into multiple versions of themselves"
+      ]
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Abyssal Black",
+          "role": "Primary void background and shadows, deepest darkness where reality ends"
+        },
+        {
+          "name": "Deep Violet",
+          "role": "Main corruption energy emanating from the vortex, psychic auras, dimensional tears"
+        },
+        {
+          "name": "Asylum Gray",
+          "role": "Environmental elements, fractured buildings, ground layers, parallel realities"
+        },
+        {
+          "name": "Scarred Flesh Pale",
+          "role": "Exposed flesh of cultist elements, biological corruption visible through armor gaps"
+        },
+        {
+          "name": "Dried Blood Red",
+          "role": "Blood spatter, wound edges, damage indicators, battle damage"
+        },
+        {
+          "name": "Crusted Filth Brown",
+          "role": "Clothing remnants, debris, environmental grime, decay"
+        },
+        {
+          "name": "Neon Magenta",
+          "role": "Glitch effects, energy surges, corruption pulses, intense energy highlights"
+        },
+        {
+          "name": "Crackling Black",
+          "role": "Psychic auras creating negative light zones, areas where light bends wrong around distortion fields"
+        },
+        {
+          "name": "Reality Anchor Cyan",
+          "role": "Secondary energy highlights, protective vortex elements, stabilizing forces"
+        }
+      ],
+      "lighting_setup": "Chaotic multi-source illumination consisting of: main violet corruption glow emanating from the vortex entity itself, conflicting celestial light sources from parallel sky versions (red giant sun overlapping with blue neutron star), ambient magenta energy crackling from dimensional tears in the environment, stark white lightning from reality rifts, ground-level bounce light from parallel battlefields burning below cracked earth, volumetric fog containing glitch particles",
+      "mood": "Oppressive cosmic dread mixed with manic battle intensity, reality itself screaming in visual agony, protective determination against overwhelming dimensional collapse, terrifying beauty of entropy made manifest"
+    },
+    "camera": {
+      "angle": "Low angle dutch tilt with 15-degree counter-clockwise rotation creating immediate unease, camera positioned at ground level looking up at the vortex entity emphasizing its dominating presence and protective canopy of unstable energy, slight fish-eye lens distortion to enhance the dimensional instability feeling",
+      "framing": "Subject centered with approximately 60% of frame dedicated to the entity and its protective vortex field, background split into multiple overlapping layers of reality with visible parallax depth errors, foreground debris floating in chaotic gravity zones with varying upward and sideways trajectories"
+    },
+    "scenography": {
+      "setting": "Reality collapse zone - primary layer shows urban destruction with buildings reduced to skeletal frameworks of twisted rebar and crumbling concrete, immediately overlaid with ghost-image versions of these same buildings in pristine intact states creating impossible architectural overlaps, ground fractured into hexagonal chunks each showing different battlefield conditions (some showing molten earth, others frozen wastelands, others pristine urban floors) all simultaneously visible through the cracks, sky split into impossible configurations showing red dwarf sun bleeding into blue-white neutron star glow while void black space with alien constellations patches through where reality has completely dissolved",
+      "atmosphere_vfx": "Perpetual electromagnetic storm of magenta and violet energy crackling across the entire scene, environmental objects (debris, dust, fragments) simultaneously falling upward sideways and rotating horizontally in different spatial zones defying unified gravity, ground-level mist of reality fragments drifting like corrupted digital snow, visible reality seams and tears with edges displaying z-buffer errors and polygon wireframes bleeding through solid surfaces, chromatic aberration intensifying near dimensional rifts, occasional full-scene glitch where single frames seem to repeat or skip like damaged film, air itself visibly fracturing with glass-like crack patterns surrounding the vortex entity's protective field, distant screams of collapsing parallel realities audible in the distortion"
+    }
+  }
+}

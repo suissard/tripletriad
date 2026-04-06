@@ -1,0 +1,88 @@
+{
+  "collectionName": "base",
+  "name": "Gardien",
+  "description": "Survivant adaptatif se déplaçant librement dans les territoires que les factions refusent d'occuper durablement.",
+  "element": "None",
+  "faction": "neutre",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/006.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Scrap-Punk Survivor Guardian – Combat Specialist",
+      "loadout": {
+        "armor_outfit": "Heavily improvised armor assembled from welded scrap metal plates, repurposed mining‑suit components, and duct‑tape reinforcement; cracked welding‑helmet visor with opaque scratched glass; asymmetrical plates and exposed cable harness; utility belt loaded with magnetic clamps, plasma cutters, and scavenged grenades.",
+        "arsenal": "Primary: Jury‑rigged plasma harpoon rifle with exposed copper coils, duct‑taped battery pack and built‑in kinetic dart launcher. Secondary: Pneumatic rivet gun re‑painted as a close‑combat bludgeon; auxiliary tools include a handheld plasma cutter and a magnetic grappling hook."
+      },
+      "attitude": {
+        "behavior": "Combat stance with weapon raised and ready; body coiled like a spring, eyes locked on the approaching enemy silhouettes through thick smoke; every muscle prepared to explode into action.",
+        "emotion": "Intense, adrenaline‑fueled focus; cold determination mixed with feral aggression; a survivor's resolve burning behind the cracked visor."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Post‑apocalyptic",
+          "Scrap‑Punk",
+          "Industrial",
+          "Mad Max in zero‑gravity"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Oxidized Steel",
+          "role": "Primary armor and structural surfaces"
+        },
+        {
+          "name": "Rust Orange",
+          "role": "Accent rust patches and weathered paint"
+        },
+        {
+          "name": "Industrial Grey",
+          "role": "Base metal, walls, and barricades"
+        },
+        {
+          "name": "Grease Black",
+          "role": "Oil stains, deep shadows, and mechanical recesses"
+        },
+        {
+          "name": "Faded Synthetic Blue",
+          "role": "Worn fabric straps, patches, and decals"
+        },
+        {
+          "name": "Construction Yellow",
+          "role": "Hazard stripes, warning markings, and tool highlights"
+        },
+        {
+          "name": "Hot Plasma Blue",
+          "role": "Energy glow from weapon, impacts, and plasma arcs"
+        }
+      ],
+      "lighting_setup": "Cinematic high‑contrast illumination with flickering plasma glow, point‑source sparks, and dynamic rim light; harsh emergency LEDs mixed with ambient industrial haze; multiple light sources from nearby plasma impacts and smoldering debris.",
+      "mood": "Chaotic, tense, desperate, heroic – a desperate last stand in a war‑torn asteroid waystation."
+    },
+    "camera": {
+      "angle": "Low angle with a slight Dutch tilt to emphasize the towering, improvised armor and the looming threat, conveying urgency and instability."
+    },
+    "scenography": {
+      "setting": "Active warzone at an asteroid waystation crossroads; corrugated metal walls scarred by plasma burns; makeshift barricades built from cargo containers, broken hull plating, and twisted scaffolding; debris floating in micro‑gravity; allied forces crouched behind cover; enemy silhouettes advancing through thick smoke.",
+      "atmosphere_vfx": "Plasma rounds impacting corrugated walls, sending molten debris and sparks raining down; dense particulate smoke swirling around combatants; occasional blue plasma arcs crackling across the scene; flickering emergency lights and dust motes illuminated by the plasma glow."
+    }
+  }
+}

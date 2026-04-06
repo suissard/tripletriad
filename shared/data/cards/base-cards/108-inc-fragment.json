@@ -1,0 +1,83 @@
+{
+  "collectionName": "base",
+  "name": "Fragment",
+  "description": "Mutant dimensionnel résistant aux attaques physiques conventionnelles grâce à un déphasage partiel avec la réalité.",
+  "element": "hacking",
+  "faction": "Incursion Dissonante",
+  "topValue": "4",
+  "rightValue": "3",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/108.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Dimensional Mutant Combat Specialist - Fragment",
+      "loadout": {
+        "armor_outfit": "Phasing armor composed of living shadow matter that shifts between solid and translucent states, with fragments of reality crystallized into the surface creating a fractured, glass-like appearance. The armor flickers between visible and invisible, edges bleeding into parallel dimensions where alternate versions of the same armor exist in destroyed or pristine states simultaneously. Jagged geometric plates float slightly apart from the body, held by malfunctioning gravity fields. Scarred pale flesh visible through semi-transparent sections, marked with ritual scarification that glows faintly violet.",
+        "arsenal": "Obsidian-edged Phase Cleaver - a blade that appears to be made of solidified darkness with a violet neon edge that glitches and stutters. The weapon phases in and out of existence, sometimes appearing to have multiple overlapping copies of itself. Combat knife with geometric non-euclidean blade, surrounded by crackling psychic energy auras in deep violet and black."
+      },
+      "attitude": {
+        "behavior": "Combat specialist in the heat of battle with weapon fully committed to the fight. Combat stance with weapon raised and ready, body coiled like a spring ready to explode into action. Movement blurred as if existing slightly out of phase with reality - one leg appearing in multiple positions simultaneously, arms creating afterimage trails. Engaged in melee against invisible threats, swinging at enemies that phase in and out of visibility.",
+        "emotion": "Cold determination mixed with dimensional madness. Eyes showing signs of staring into too many realities at once - pupils fractured into geometric patterns, one eye occasionally appearing in a different position than the other. Expression of intense focus masking the cosmic horror of perceiving all timelines simultaneously."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Cosmic Horror",
+          "Glitch Art",
+          "Non-euclidean Geometry"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Abyssal Black",
+          "role": "Primary background and shadow masses"
+        },
+        {
+          "name": "Deep Violet",
+          "role": "Dimensional energy and psychic auras"
+        },
+        {
+          "name": "Asylum Grey",
+          "role": "Ground fragments and broken structures"
+        },
+        {
+          "name": "Neon Magenta",
+          "role": "Glitch effects and energy crackling"
+        },
+        {
+          "name": "Dried Blood Red",
+          "role": "Accent highlights on wounds and damage"
+        },
+        {
+          "name": "Scarred Pale Flesh",
+          "role": "Character skin showing through phase-shifted armor"
+        }
+      ],
+      "lighting_setup": "Cinematic mixed lighting with reality-bending properties - violet and magenta energy casting harsh shadows that don't align with objects, deep blacks punctuated by crackling energy discharges. Light sources appear duplicated and conflicting, as if from parallel dimensions.",
+      "mood": "Incomprehensible cosmic dread combined with violent combat intensity - reality itself appears to be screaming"
+    },
+    "camera": {
+      "angle": "Low angle dutch tilt emphasizing the unstable reality - camera seemingly tilted at a reality-defying angle"
+    },
+    "scenography": {
+      "setting": "Reality collapse zone with environment fragmenting into multiple parallel versions simultaneously. Buildings existing in two dimensions at once showing both intact and destroyed overlapping states. Sky displaying conflicting celestial bodies that should not coexist - nebulae overlapping with stars, suns in conflict. Ground cracking open revealing parallel battlefields layered on each other like corrupt images. Debris floating in all directions defying gravity.",
+      "atmosphere_vfx": "Heavy atmospheric distortion with visual glitching effects, chromatic aberration on reality boundaries, particles fragmenting into geometric patterns. Air itself appears to fracture like broken glass in certain zones. Gravity vectors visibly warped - debris falling upward, sideways, and in spiral patterns. Reality distortion waves emanating from the subject. Purple and magenta energy wisps bleeding from dimensional rifts."
+    }
+  }
+}

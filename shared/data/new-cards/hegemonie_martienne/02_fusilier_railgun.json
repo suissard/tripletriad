@@ -2,8 +2,10 @@
   "name": "Fusilier Railgun",
   "description": "Tireur lourd PNM spécialisé dans le tir longue portée. Son railgun octogonal perfore les armures les plus épaisses d'un seul projectile.",
   "element": "longue_portee",
-  "elements": ["longue_portee"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "longue_portee"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "1",
   "rightValue": "3",
   "bottomValue": "1",

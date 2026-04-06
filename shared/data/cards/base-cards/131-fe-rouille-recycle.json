@@ -1,0 +1,83 @@
+{
+  "collectionName": "base",
+  "name": "Rouille Recycle",
+  "description": "Maître Ferrailleur concevant des machines de guerre improvisées à partir d'épaves transformant les déchets en avantages tactiques.",
+  "element": "radiation",
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "7",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/131.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Scrap-punk Combat Engineer, grizzled veteran with a massive improvised kinetic cannon",
+      "loadout": {
+        "armor_outfit": "Layered salvaged mining suit with asymmetric plating from old signage and spacecraft hulls, cracked welding helmet with scratched opaque visor, covered in duct tape patches, exposed cables and scaffolding straps, tool harness with improvised grenades and plasma cutters",
+        "arsenal": "Gigantic jury-rigged kinetic cannon cobbled from mining equipment and harpoon launchers, exposed copper coils sparking for EMP bursts, batteries duct-taped to the weapon, rotating circular saw attachment for close combat"
+      },
+      "attitude": {
+        "behavior": "Low-gravity combat stance with one foot braced against a floating debris chunk, weapon raised and locked on target, body coiled and ready to explosive momentum, sparks cascading off armor as molten metal drips nearby",
+        "emotion": "Fierce battle intensity through scratched visor, grease-painted war marks on face, cold fury and survival instinct driving every muscle"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Scrap-punk",
+          "Mad Max in zero gravity"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Rusted Iron Orange",
+          "role": "Primary dominant color, armor oxidation and molten metal rivers"
+        },
+        {
+          "name": "Industrial Steel Gray",
+          "role": "Secondary structural color, spacecraft hulls and asteroid interior"
+        },
+        {
+          "name": "Engine Grease Black",
+          "role": "Work clothes, shadow tones, and deep crevices"
+        },
+        {
+          "name": "Chipped Construction Yellow",
+          "role": "Accent highlights on hazard markings and tool straps"
+        },
+        {
+          "name": "Hot Plasma Blue",
+          "role": "Energy accent from weapons and cutting tools"
+        },
+        {
+          "name": "Bright Spark White-Yellow",
+          "role": "Impact flashes and burning particles in air"
+        }
+      ],
+      "lighting_setup": "Cinematic dramatic multi-source with blue plasma glow from weapon, orange molten metal ambient light, white sparks creating high contrast rim lighting, low ambient fill from asteroid starlight",
+      "mood": "Chaotic, menacing, desperate intensity"
+    },
+    "camera": {
+      "angle": "Low angle dutch_angle to emphasize imposing stature and floating debris overhead"
+    },
+    "scenography": {
+      "setting": "Massive hollowed asteroid interior, crumbling spacecraft structures collapsing in background, burning rivers of molten metal flowing across industrial catwalks, improvised barricades buckling, low-gravity debris field floating chaotically, grinding sparks filling air from weapon clashes",
+      "atmosphere_vfx": "Sparks showering from all directions, molten metal droplets suspended in low gravity, smoke and dust particles lit by plasma blue and rust orange glows, debris raining down from damaged vessels, heat distortion from burning metal"
+    }
+  }
+}

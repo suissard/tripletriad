@@ -1,0 +1,78 @@
+{
+  "collectionName": "base",
+  "name": "Mutant Dissonant",
+  "description": "Disrupteur annulant les effets magiques et technologiques dans son périmètre neutralisant les capacités spéciales adverses.",
+  "element": "faille_dimensionnelle",
+  "faction": "Incursion Dissonante",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "6",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/113.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Dissonant Hybrid Warrior - Flesh-bound entity merged with raw extra-dimensional energy, humanoid silhouette fractured by reality distortion, emitting waves of magical and technological disruption",
+      "loadout": {
+        "armor_outfit": "Scarred and rotting flesh fused with floating metallic plates that bend and twist in impossible geometries, fabrics tearing and levitating in zero-gravity pockets surrounding the body, exposed ribcage with organs visible through translucent skin patches, limbs positioned at anatomically incorrect angles due to gravitational stress fractures",
+        "arsenal": "Obsidian-long blade with violet energy veins running through the crystalline structure, edge impossibly thin and flickering between solid and ethereal states, auras of nullification energy crackling around the weapon creating visual static effects, secondary floating shrapnel pieces orbiting the combatant"
+      },
+      "attitude": {
+        "behavior": "Aggressive forward lunge with weapon raised at throat-level of invisible enemy, legs planted in unstable yet explosive stance amid floating debris, entire body radiating disruption waves visible as air-fracture patterns spreading outward from the figure like shattered glass expanding in reverse",
+        "emotion": "Burning psychotic focus mixed with transcendent rage, eyes completely rolled back showing only bloodshot whites while veins pulse visibly under skin, mouth open in silent scream of dimensional strain, psychic pressure emanating so intensely it distorts nearby light"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Cosmic Horror",
+          "Extra-dimensional aberration"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Abyssal Black",
+          "role": "Primary shadow composition and void spaces"
+        },
+        {
+          "name": "Deep Violet",
+          "role": "Energy emanations and corruption effects"
+        },
+        {
+          "name": "Asylum Gray",
+          "role": "Flesh tones and atmospheric haze"
+        },
+        {
+          "name": "Neon Magenta",
+          "role": "Glitch artifacts and disruption auras"
+        },
+        {
+          "name": "Dried Blood Red",
+          "role": "Wounds, scars, and organic details"
+        }
+      ],
+      "lighting_setup": "Cinematic_volumetric_rays_split_by_glitch_effects, purple_energy_emission_sources_scattered_throughout_scene, shadows_cast_by_invisible_fractured_light_sources",
+      "mood": "Apocalyptic terror, sanity-breaking awe, reality-fragmenting menace"
+    },
+    "camera": {
+      "angle": "Low_angle_dutch_tilt_slightly_off_kilter_to_match_unstable_reality, camera_shake_effect_from_imagined_dimensional_turbulence"
+    },
+    "scenography": {
+      "setting": "Reality collapse zone - urban environment duplicated and layered across parallel dimensional states, buildings simultaneously intact and destroyed occupying same physical space with hard edges bleeding into each other, ground fractured into chessboard-like sections showing different temporal versions of battlefields underneath, sky split showing impossible celestial combinations",
+      "atmosphere_vfx": "Gravitational chaos with debris falling upward sideways and diagonally simultaneously, air itself visible as cracking_glass_patterns, reality_disruption_waves_spreading_radially_from_subject, chromatic_aberration_effects_on_edges, floating_geometric_impossibilities_rotating_slowly, energy_leaks_from_dimensional_rifts_in_background"
+    }
+  }
+}

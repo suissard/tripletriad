@@ -74,7 +74,7 @@ export function initScene(container) {
     ctxGlow.fillRect(0, 0, 64, 64);
     sharedGlowTex = new THREE.CanvasTexture(glowCanvas);
 
-    const slotGeo = new THREE.PlaneGeometry(2.6, 3.8);
+    const slotGeo = new THREE.PlaneGeometry(3.0, 3.0);
     const baseSlotMat = new THREE.MeshPhongMaterial({ color: 0x111122, transparent: true, opacity: 0.8, side: THREE.DoubleSide });
 
     // Clear slots in case of re-init
@@ -83,7 +83,7 @@ export function initScene(container) {
     for (let i = 0; i < 9; i++) {
         const slot = new THREE.Mesh(slotGeo, baseSlotMat.clone());
         slot.rotation.x = -Math.PI / 2;
-        slot.position.set((i % 3) * 2.8 - 2.8, 0.01, Math.floor(i / 3) * 4 - 4);
+        slot.position.set((i % 3) * 3.2 - 3.2, 0.01, Math.floor(i / 3) * 3.2 - 3.2);
         slot.userData = { isSlot: true, id: i };
         scene.add(slot);
         slots.push(slot);
@@ -151,8 +151,8 @@ export function syncSceneWithState() {
     state.board.forEach((cardData, i) => {
         if (cardData) {
             const mesh = makeCardMesh(cardData, cardData.owner || 'player');
-            const x = (i % 3) * 2.8 - 2.8;
-            const z = Math.floor(i / 3) * 4 - 4;
+            const x = (i % 3) * 3.2 - 3.2;
+            const z = Math.floor(i / 3) * 3.2 - 3.2;
             mesh.position.set(x, 0.08, z); // Slightly above slot
             mesh.rotation.x = -Math.PI / 2; // Flat on board
             scene.add(mesh);
@@ -167,7 +167,7 @@ export function syncSceneWithState() {
 
 export function makeCardMesh(data, initialOwner) {
     const canvas = document.createElement('canvas');
-    canvas.width = 256; canvas.height = 384;
+    canvas.width = 384; canvas.height = 384;
     const ctx = canvas.getContext('2d');
     const tex = new THREE.CanvasTexture(canvas);
     const rarity = getRarity(data);
@@ -176,50 +176,50 @@ export function makeCardMesh(data, initialOwner) {
         map: sharedGlowTex, color: rarity.hex,
         transparent: true, opacity: 0.7, depthWrite: false, blending: THREE.AdditiveBlending
     });
-    const glowMesh = new THREE.Mesh(new THREE.PlaneGeometry(4, 5.2), glowMat);
+    const glowMesh = new THREE.Mesh(new THREE.PlaneGeometry(4.2, 4.2), glowMat);
     glowMesh.rotation.x = -Math.PI / 2;
     glowMesh.position.y = -0.05;
 
     const draw = (img = null, currentOwner = initialOwner) => {
         const isP = currentOwner === 'player';
         ctx.fillStyle = isP ? '#00d2ff' : '#ff0055';
-        ctx.fillRect(0, 0, 256, 384);
+        ctx.fillRect(0, 0, 384, 384);
 
         if (isP || data.revealed) {
             ctx.fillStyle = rarity.color;
-            ctx.fillRect(8, 8, 240, 368);
+            ctx.fillRect(8, 8, 368, 368);
 
             if (img && img.complete && img.naturalWidth !== 0) {
-                ctx.drawImage(img, 8, 64, 240, 240);
+                ctx.drawImage(img, 8, 8, 368, 368);
             }
             ctx.fillStyle = 'rgba(0,0,0,0.3)';
-            ctx.fillRect(8, 8, 240, 368);
+            ctx.fillRect(8, 8, 368, 368);
 
             ctx.fillStyle = 'rgba(0,0,0,0.8)';
-            [[128, 45], [128, 339], [45, 192], [211, 192]].forEach(([x, y]) => {
+            [[192, 45], [192, 339], [45, 192], [339, 192]].forEach(([x, y]) => {
                 ctx.beginPath(); ctx.arc(x, y, 25, 0, Math.PI * 2); ctx.fill();
             });
 
             ctx.fillStyle = '#ffd700';
             ctx.font = 'bold 36px sans-serif';
             ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-            ctx.fillText(displayVal(data.top), 128, 48);
-            ctx.fillText(displayVal(data.bottom), 128, 342);
+            ctx.fillText(displayVal(data.top), 192, 48);
+            ctx.fillText(displayVal(data.bottom), 192, 342);
             ctx.fillText(displayVal(data.left), 45, 195);
-            ctx.fillText(displayVal(data.right), 211, 195);
+            ctx.fillText(displayVal(data.right), 339, 195);
 
             if (state.selectedFrame && loadedFrames[state.selectedFrame] && loadedFrames[state.selectedFrame].complete) {
-                ctx.drawImage(loadedFrames[state.selectedFrame], 0, 0, 256, 384);
+                ctx.drawImage(loadedFrames[state.selectedFrame], 0, 0, 384, 384);
             }
 
             glowMesh.visible = true;
         } else {
             ctx.fillStyle = '#1a1a1a';
-            ctx.fillRect(8, 8, 240, 368);
+            ctx.fillRect(8, 8, 368, 368);
             ctx.fillStyle = '#ff0055';
             ctx.font = 'bold 100px sans-serif';
             ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-            ctx.fillText('?', 128, 192);
+            ctx.fillText('?', 192, 192);
 
             glowMesh.visible = false;
         }
@@ -233,7 +233,7 @@ export function makeCardMesh(data, initialOwner) {
     img.src = data.img;
     draw();
 
-    const geometry = new THREE.BoxGeometry(2.5, 0.15, 3.7);
+    const geometry = new THREE.BoxGeometry(2.9, 0.15, 2.9);
     const edgeCol = initialOwner === 'player' ? 0x00d2ff : 0xff0055;
     const mat = new THREE.MeshPhongMaterial({ color: edgeCol });
     const materials = [mat, mat, new THREE.MeshPhongMaterial({ map: tex }), new THREE.MeshPhongMaterial({ color: 0x111 }), mat, mat];
@@ -259,6 +259,6 @@ export function refillHand(owner) {
     }
 
     hand.forEach((m, i) => {
-        gsap.to(m.position, { x: (i - 1) * 3.5, y: 0.5, z: zPos, duration: 0.5, ease: "back.out" });
+        gsap.to(m.position, { x: (i - 1) * 3.3, y: 0.5, z: zPos, duration: 0.5, ease: "back.out" });
     });
 }

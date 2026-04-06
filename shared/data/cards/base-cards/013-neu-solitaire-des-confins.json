@@ -1,0 +1,93 @@
+{
+  "collectionName": "base",
+  "name": "Solitaire des Confins",
+  "description": "Passeur de mémoire préservant les savoirs tactiques des civilisations disparues pour les générations futures.",
+  "element": "None",
+  "elements": [
+    "radiation"
+  ],
+  "faction": "neutre",
+  "topValue": "6",
+  "rightValue": "4",
+  "bottomValue": "6",
+  "leftValue": "6",
+  "skills": [
+    {
+      "type": "heal",
+      "value": 2,
+      "target": "self"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 3,
+  "image": "base/013.png",
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Ferrailleur Soldier - grizzled combat specialist with heavy scarred features, face streaked with motor grease war paint, wearing a patchwork mining exoskeleton fused with welded scrap metal plates, shoulders adorned with dented signal panels and corroded vehicle bodywork, heavy boots magnetically locked to the deck plating",
+      "loadout": {
+        "armor_outfit": "Thick asymmetrical obsolete mining space suit heavily modified with improvised armor plates from rusted cargo container segments and salvaged signage, welded directly to the base suit with crude bead welds visible, numerous layers of silver and black duct tape wrapping joints and seams, exposed hydraulic cables snaking across the torso, utility harness covered in tool pouches and carabiners, cracked welding helmet visor (opaque scratched glass) pushed back on forehead, fissured pressurized suit sealed with thick grey adhesive tape strips, electromagnetic boot clamps",
+        "arsenal": "Massive improvised kinetic harpoon rifle with visible copper coil windings for electromagnetic propulsion, batteries crudely strapped to the weapon with zip ties, circular saw attachment mounted under barrel, weapon covered in scratch marks, dents, dried coolant stains, exposed wiring and sparking connectors"
+      },
+      "attitude": {
+        "behavior": "Fully committed combat stance in the heat of battle, body angled forward in aggressive momentum, one hand gripping harpoon rifle braced against shoulder, other hand urgently pressed against bleeding torso wound, both arms and torso surrounded by wrapping cocoon of intense golden regenerative energy visibly pulsing and flowing, tendrils of luminous golden light weaving around exposed flesh and damaged armor plating, the energy penetrating deep into wounds creating visible knitting of torn muscle tissue and reforming torn suit sections and bent metal armor plates in real-time, debris and sparks raining down from plasma impacts on nearby corrugated walls, allied forces crouched behind makeshift barricades of stacked scrap and cargo containers",
+        "emotion": "Intense grim determination despite severe wounds, teeth gritted in controlled fury, eyes tracking enemy silhouettes advancing through thick smoke with cold focused rage, face muscles strained from pain suppressed by willpower, visceral reaction to the regenerative energy sensation (skin tightening, wounds closing with audible hissing of healing light)"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Scrap-punk industrial",
+          "Worn texture realism"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Oxidized Steel Grey",
+          "role": "dominant base tone for armor and environment, weathered metal surfaces"
+        },
+        {
+          "name": "Rust Orange",
+          "role": "secondary warm tone on corroded panels, rust stains, dried coolant traces"
+        },
+        {
+          "name": "Industrial Grey",
+          "role": "shadows, smoke density, muted background elements"
+        },
+        {
+          "name": "Hot Plasma Blue",
+          "role": "active energy accents from plasma impacts, weapon coils, cutting torch glows"
+        },
+        {
+          "name": "Golden Regenerative Light",
+          "role": "critical narrative light source emanating from wounds, wrapping cocoon effect, warm healing contrast"
+        },
+        {
+          "name": "Bright Spark White",
+          "role": "impact sparks, debris particles, welding flashes, high intensity light points"
+        },
+        {
+          "name": "Motor Grease Black",
+          "role": "war paint streaks, deep shadows in crevices, oil stains on suit"
+        }
+      ],
+      "lighting_setup": "dramatic_industrial_rim_lighting_with_bounce_from_plasma_impacts_and_golden_regenerative_glow, volumetric_smoke_fog_lighting, high_contrast_shadowed_foreground",
+      "mood": "desperate_heroism_in_the_throes_of_battle, visceral_regeneration_tension, grim_determination_against_odds"
+    },
+    "camera": {
+      "angle": "low_dutch_angle_slightly_looking_up_to_emphasize_combat_stance_power_and_spatial_scale_of_waystation_corridor"
+    },
+    "scenography": {
+      "setting": "Asteroid waystation crossroads junction corridor under heavy assault, corrugated metal walls scarred by plasma scoring and blast marks, exposed structural beams, stacked cargo containers forming makeshift barricades, discarded mining equipment, tangled cables hanging from damaged overhead conduits, emergency lighting flickering red, metal deck plating buckled from explosions",
+      "atmosphere_vfx": "thick_acrid_smoke_filling_midground_with_volumetric_lighting_penetration, plasma_rounds_impacting_walls_creating_expanding_fireballs_and_debris_showers, constant_rain_of_sparks_and_metal_fragments, enemy_silhouettes_advanced_blurred_through_smoke, screen-space_bloom_on_golden_regenerative_energy_and_plasma_fire, particle_system_debris_dust, atmospheric_haze_layer"
+    }
+  }
+}

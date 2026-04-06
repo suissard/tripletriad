@@ -1,0 +1,89 @@
+{
+  "collectionName": "base",
+  "name": "Pestilent",
+  "description": "Végétal sentinelle détectant les intrusions ennemies par les modifications de l'environnement fongique environnant.",
+  "element": "eau",
+  "faction": "Fléau Spore",
+  "topValue": "4",
+  "rightValue": "2",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": [
+    {
+      "type": "death",
+      "value": 1,
+      "target": "enemy_on_capture"
+    }
+  ],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/141.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "eau",
+    "glace"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Fungal Reanimated Corpse - Plant Sentinel / Bio-detection Unit",
+      "loadout": {
+        "armor_outfit": "Shattered military tactical vest fused with pulsating mycelial networks, plates torn apart and held by thick fungal root tendrils, asymmetric shoulder pauldrons with shelf fungi erupting through fractures, gas-mask style helmet cracked open revealing luminescent mushroom clusters replacing the face, necrotic flesh bulging between metal fragments",
+        "arsenal": "Corrupted pulse rifle with organic biomass replacing the stock and magazine well, bulbous spore-sacs instead of ammunition rounds, green energy veins pulsating along the barrel, fungal branchiae attachments on the weapon emitting toxic mist when fired"
+      },
+      "attitude": {
+        "behavior": "Body crouched in reconnaissance posture with one arm extended forward scanning the fungal environment for disturbances, the other arm being seized by captors while reaching backward in desperate counter-grab, torso twisted mid-stride, legs positioned for rapid directional change, sensor tendrils on the back fully extended and vibrating with detection activity",
+        "emotion": "Terminal vengeful determination despite capture - hollow ocular sockets glowing with toxic green bioluminescence showing absolute focus on channeling dark mycological energy, jaw slack and dripping with viscous spore-laden fluid, expression of corrupting malice as the curse transfers"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Bio-horror"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Toxic Fluorescent Green",
+          "role": "Primary accent - bioluminescent spores, energy veins, mycorrhizal networks, atmospheric haze"
+        },
+        {
+          "name": "Dirty Khaki Green",
+          "role": "Secondary dominant - decayed armor, necrotic flesh tones, military equipment oxidation"
+        },
+        {
+          "name": "Humid Earthy Brown",
+          "role": "Tertiary - soil contamination, fungal biomass base tones, decaying organic matter"
+        },
+        {
+          "name": "Dark Asphalt Grey",
+          "role": "Structural - shattered vehicle wreckage, helmet fragments, terrain debris"
+        },
+        {
+          "name": "Necrotic Flesh Pink-Grey",
+          "role": "Organic texture - exposed muscle tissue, bulging gas-filled skin, decomposing surfaces"
+        },
+        {
+          "name": "Moldy Broken White",
+          "role": "Detail accents - surface mold growths, spore clusters, fungal bloom edges"
+        }
+      ],
+      "lighting_setup": "Cinematic_volumetric_spore_fog_lighting - oppressive green atmospheric glow emanating from all fungal sources, deep shadow pools between mycelial masses, subtle rim lighting on subject edges from toxic bioluminescence, god-rays cutting through dense spore clouds above",
+      "mood": "Oppressively menacing, contaminating corruption spreading with inevitability, vengeful last-stand desperation, parasitic horror beauty"
+    },
+    "camera": {
+      "angle": "Low_angle_dutch_tilt - slightly below subject eye-level looking up with 15-degree Dutch angle to emphasize captured pose and upward curse trajectory, shallow depth of field focusing on the dark energy transfer between captured body and captor"
+    },
+    "scenography": {
+      "setting": "Biologically devastated battlefield completely consumed by fungal infestation - shattered tank husks half-digested by pulsing mycelial masses, craters transformed into bubbling fungal soup pools, collapsed bunker structures wrapped in visible mycelial networks growing in real-time, ground surface breaking with erupting tendril clusters, distant battlefield obscured by thick toxic spore cloud layers reducing visibility to mere meters",
+      "atmosphere_vfx": "Thick oppressive green spore haze reducing visibility throughout the entire scene, massive pulsating spore sacs hanging from destroyed vehicles and growing fungal structures rhythmically releasing contamination bursts, ground-level toxic mist creeping between terrain features, visible mycelial network tendrils spreading and growing across all surfaces in real-time documentary fashion, occasional bioluminescent pulse waves rippling through the fungal mat, airborne spore particles catching dim light creating living fog atmosphere, distant ally and enemy corpses being actively consumed by spreading infection"
+    }
+  }
+}

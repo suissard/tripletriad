@@ -1,0 +1,83 @@
+{
+  "collectionName": "base",
+  "name": "Terminal Synaptique",
+  "description": "Nœud Prime centralisant les opérations de guerre cybernétique de l'Omni-Réseau sur tous les fronts simultanément.",
+  "element": "reseau",
+  "elements": [
+    "furtif"
+  ],
+  "faction": "Omni-Réseau",
+  "topValue": "9",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -2,
+      "target": "adjacent_enemy"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 4,
+  "image": "base/073.png",
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Synaptic War Node – Cyber-Enhanced Combat Specialist",
+      "loadout": {
+        "armor_outfit": "Mass-produced composite exoskeleton with matte black armor plates over a utilitarian bodysuit, integrated neural-link ports and sleek angular plating; heavy cables run from the spine to the weapon grip",
+        "arsenal": "Standardized geometric assault rifle with wrist-mounted neural coupling, close-combat high-frequency blade, and a compact EMP grenade launcher"
+      },
+      "attitude": {
+        "behavior": "Low sweeping strike, arm fully extended toward a nearby enemy, dark corruption tendrils erupting from fingertips and burrowing into the target, while the backdrop features collapsing server towers and shattered holographic displays",
+        "emotion": "Cold, emotionless focus; eyes glowing faintly with neon-blue neural light; void of fear or compassion"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Post‑apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Matte Black",
+          "role": "Primary armor and uniform color"
+        },
+        {
+          "name": "Charcoal Grey",
+          "role": "Secondary structural elements and shadows"
+        },
+        {
+          "name": "Cadaveric Pale Flesh",
+          "role": "Exposed skin, showing sickly tone"
+        },
+        {
+          "name": "Cold Neon Blue",
+          "role": "Neural implants, optic glows, and energy accents"
+        },
+        {
+          "name": "Electric Cyan",
+          "role": "Sparks, electric storms, and holographic glitches"
+        }
+      ],
+      "lighting_setup": "Cinematic low‑key lighting with blue‑neon rim lights, harsh point lights from sparking server towers, and occasional flash of electric arcs; high contrast shadows emphasize gritty realism",
+      "mood": "Menacing, chaotic, and intense – a battlefield dominated by digital decay and relentless aggression"
+    },
+    "camera": {
+      "angle": "Low angle with a subtle Dutch tilt, emphasizing the combatant’s powerful forward motion"
+    },
+    "scenography": {
+      "setting": "Cyber warfare zone – shattered holographic displays, crumbling digital fortifications under enemy ICE attacks, toppling server towers emitting sparks, and an electric storm rippling through the infrastructure",
+      "atmosphere_vfx": "Glitching holograms, blue electric arcs, dark corruption tendrils expanding from the combatant’s fingertips, rain of digital debris, low‑lying fog, and flickering code fragments"
+    }
+  }
+}

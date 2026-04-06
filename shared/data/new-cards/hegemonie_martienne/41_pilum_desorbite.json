@@ -2,8 +2,11 @@
   "name": "Pilum Désorbité",
   "description": "Marcheur de débarquement orbital. Tombé du ciel comme un projectile cinétique, il se dresse au cœur de la zone d'impact et opère comme plateforme de siège mobile. Le sol tremble quand il se relève.",
   "element": "longue_portee",
-  "elements": ["longue_portee", "obsidienne"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "longue_portee",
+    "obsidienne"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "7",
   "rightValue": "6",
   "bottomValue": "6",

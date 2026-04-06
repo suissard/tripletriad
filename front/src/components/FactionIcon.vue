@@ -9,6 +9,7 @@
 import { ref, watch, onMounted, computed } from 'vue';
 import { factions } from '../data/factions';
 import ElementIcon from './ElementIcon.vue';
+import { fetchSvg } from '../utils/svgCache.js';
 
 const props = defineProps({
   id: {
@@ -26,13 +27,10 @@ const mappedElement = computed(() => {
 
 async function loadSvg() {
   if (!props.id || mappedElement.value) return;
-  try {
-    const response = await fetch(`/icons/factions/${props.id}.svg`);
-    if (response.ok) {
-      svgContent.value = await response.text();
-    }
-  } catch (error) {
-    console.error('Error loading faction icon:', error);
+  const url = `/icons/factions/${props.id}.svg`;
+  const result = await fetchSvg(url);
+  if (result) {
+    svgContent.value = result;
   }
 }
 

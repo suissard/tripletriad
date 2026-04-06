@@ -1,0 +1,75 @@
+{
+  "collectionName": "base",
+  "name": "Conquerant du Regiment",
+  "description": "Infiltrateur s'introduisant dans les positions défensives adverses avant le déclenchement des assauts frontaux.",
+  "element": "reseau",
+  "faction": "Hégémonie Martienne",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "death",
+      "value": 1,
+      "target": "enemy_on_capture"
+    }
+  ],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/019.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Martian Hegemony Infiltrator – 'Conquerant du Regiment'",
+      "loadout": {
+        "armor_outfit": "Polished carmine plate armor, smooth interlocking segments, integral helmet with opaque visor and a thin horizontal red slit, asymmetric angular half-cape draped over one shoulder",
+        "arsenal": "Electromagnetic railgun rifle (primary), thermal energy sword with a glowing red blade that emanates heat haze (secondary)"
+      },
+      "attitude": {
+        "behavior": "Crouching behind a jagged debris wall, one hand gripping the railgun, the other steadying the thermal blade; scanning the corridor with a holographic HUD overlay while keeping low to avoid detection",
+        "emotion": "Cold, predatory focus, a lethal calm before the assault"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Red Carmin",
+          "role": "Primary color – dominates armor, armor plates, and major structures"
+        },
+        {
+          "name": "Dark Gray",
+          "role": "Secondary color – metallic underlayers, structural elements, hex grilles"
+        },
+        {
+          "name": "Neon Red",
+          "role": "Accent color – energy emissions, visor slit, plasma glow, railgun muzzle flash"
+        }
+      ],
+      "lighting_setup": "Low‑key cinematic lighting with a strong red rim light, subtle blue‑gray ambient fill, and flickering neon accents from the visor and railgun",
+      "mood": "Menacing, tense, oppressive atmosphere that conveys imminent violence"
+    },
+    "camera": {
+      "angle": "Low angle, slight Dutch tilt, framing the infiltrator against the angular corridor"
+    },
+    "scenography": {
+      "setting": "An angular, brutalist corridor inside a fortified Martian outpost; walls lined with dark gray hexagonal grilles, red neon light strips, and broken debris",
+      "atmosphere_vfx": "Floating dust particles, faint heat haze around the thermal blade, occasional sparks from exposed conduit, subtle holographic scan overlay flickering across the scene"
+    }
+  }
+}

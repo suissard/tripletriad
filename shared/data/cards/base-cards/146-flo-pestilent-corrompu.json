@@ -1,0 +1,91 @@
+{
+  "collectionName": "base",
+  "name": "Pestilent Corrompu",
+  "description": "Colonisateur fondant de nouvelles bases fongiques parasitant les ressources locales pour nourrir la croissance du Fléau.",
+  "element": "spore",
+  "faction": "Fléau Spore",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "6",
+  "leftValue": "5",
+  "skills": [
+    {
+      "type": "death",
+      "value": 1,
+      "target": "self_on_flip"
+    }
+  ],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/146.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Fungal Parasite Colonizer - Pestilent Corrupted",
+      "loadout": {
+        "armor_outfit": "Destroyed tactical military armor fractured and spread apart by aggressive fungal growth, plates held together by pulsing mycelium tendrils, asymmetric bulging fungal sacs replacing damaged sections with zero symmetry, fungal polypores growing in clusters on shoulders and back, branch-like respiratory structures releasing toxic spores from chest cavity, helmet shattered and overflowing with bulbous fungal masses, human face deformed with sagging jaw permanently open spewing thick green spore fog, eyes completely replaced by pulsating bioluminescent mushroom clusters",
+        "arsenal": "Bloating mutated assault rifle fused with pulsating fungal biomass, warped barrel encased in living tissue and exposed veins, organic acid shooters as sidearms, fungal sac ammunition canisters replacing standard magazines bulging with spores, metal rusted and corroded with pulsing toxic green energy veins running along all weapons, weapon creating visible spore clouds at barrel"
+      },
+      "attitude": {
+        "behavior": "Violently establishing hostile territory position with both massive hands slamming into contaminated ground sending focused targeted shockwave through all adjacent positions, body convulsing and flipping violently between humanoid and fully infected fungal states, one hand planting biological markers deep into terrain while other grips ground for support during convulsion, final devastating act as dying warrior with body rapidly decaying into fungal matter, knees planted deep into pulsating living fungal terrain",
+        "emotion": "Agonized grimace of bio-mechanical horror revealing rotting teeth, bulging fungal eye clusters glowing with toxic bioluminescent light, expression cycling between extreme agony and parasitic ecstasy, mouth gaping open releasing continuous stream of toxic spores despite dying state"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Dirty Kaki Green",
+          "role": "primary dominant environmental tone"
+        },
+        {
+          "name": "Wet Earthy Brown",
+          "role": "secondary organic decay tone"
+        },
+        {
+          "name": "Dark Asphalt Gray",
+          "role": "destroyed equipment and vehicle base"
+        },
+        {
+          "name": "Necrotic Flesh Pink",
+          "role": "exposed rotting tissue highlights"
+        },
+        {
+          "name": "Pus Green",
+          "role": "proliferating fungal growth"
+        },
+        {
+          "name": "Broken White Mold",
+          "role": "mold formations on surfaces"
+        },
+        {
+          "name": "Toxic Neon Green",
+          "role": "bioluminescent accents energy and spore glow"
+        }
+      ],
+      "lighting_setup": "oppressive_low_key_lighting_with_bioluminescent_fungal_glow_as_primary_light_source, volumetric_toxic_spore_fog_causing_heavy_diffusion_and_reduced_visibility, secondary_rim_light_from_pulsating_mycelial_networks",
+      "mood": "deeply_menacing_horrifying_and_apocalyptic"
+    },
+    "camera": {
+      "angle": "low_angle_slightly_dutch_to_emphasize_hulking_corrupted_silhouette_and_ground_level_perspective"
+    },
+    "scenography": {
+      "setting": "biologically_devastated_battlefield_completely_consumed_by_fungal_infestation_representing_no_mans_land_between_factions, terrain_converted_into_living_organism_with_visible_pulsating_mycelial_network_underneath_surface, massive_fungal_tubes_and_sacs_bursting_from_ground_in_random_asymmetric_patterns",
+      "atmosphere_vfx": "thick_toxic_spore_clouds_reducing_visibility_and_creating_oppressive_green_haze_throughout_scene, massive_pulsating_sacs_continuously_bursting_and_releasing_contamination_into_air, ground_itself_alive_and_hostile_with_fungal_tendrils_bursting_through_without_warning_at_random_locations, visible_shockwave_radiating_from_subjects_hands_traveling_through_fungal_terrain"
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "collectionName": "base",
+  "name": "Volcan en Feu",
+  "description": "Maître Pyromancien orchestrant les offensives thermiques multi-cibles coordonnant plusieurs sources de chaleur simultanées.",
+  "element": "spore",
+  "elements": [
+    "radiation"
+  ],
+  "faction": "Héritiers des Cendres",
+  "topValue": "7",
+  "rightValue": "7",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Epic",
+  "defaultHp": 4,
+  "image": "base/059.png",
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Mutant Pyromancer Warlord – Asymmetric humanoid fused with relic flame technology, extra limbs and tumorous growths.",
+      "loadout": {
+        "armor_outfit": "Tattered anti‑radiation robes stitched with scorched tarps, reinforced with rusted metal plates and grotesque bone implants; glowing radioactive lesions on the shoulders.",
+        "arsenal": "Twin relic plasma cannons grafted to the forearms, a handheld antimatter flame projector wielded like a scepter, and a pulsating high‑tech core fused into the chest emitting blue‑violet energy."
+      },
+      "attitude": {
+        "behavior": "Stands on a platform of fused flesh and metal, arms outstretched, each hand commanding a stream of fire; multiple heat sources swirl in a coordinated inferno around him.",
+        "emotion": "Intense, burning fury tempered by cold tactical focus, eyes glowing with radioactive yellow while a faint smile reveals twisted teeth."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Post‑apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Sickly flesh jaundiced",
+          "role": "Primary skin tone, dominant surface"
+        },
+        {
+          "name": "Ash grey",
+          "role": "Background ash and smoke"
+        },
+        {
+          "name": "Rust orange",
+          "role": "Metal plating and flames"
+        },
+        {
+          "name": "Radioactive yellow‑green",
+          "role": "Tumors, eyes, energy accents"
+        },
+        {
+          "name": "Deep charcoal black",
+          "role": "Soot, shadows, deep recesses"
+        },
+        {
+          "name": "Pure white with blue‑violet energy",
+          "role": "High‑tech relic weapons, core glow"
+        }
+      ],
+      "lighting_setup": "Cinematic backlighting from multiple fire sources, rim light on metal plating, volumetric orange/red glow from flames, subtle blue‑violet OSL on relic tech.",
+      "mood": "Menacing, infernal, awe‑inspiring"
+    },
+    "camera": {
+      "angle": "Low angle, slight dutch tilt for instability"
+    },
+    "scenography": {
+      "setting": "Ruined megacity plaza littered with scorched debris, twisted rebar, and a makeshift altar of fused flesh and metal serving as the pyromancer's throne.",
+      "atmosphere_vfx": "Swirling ash, drifting embers, glowing radioactive spores, intense heat distortion, occasional bursts of plasma arcs, and a haze of smoke illuminated by vivid orange fire."
+    }
+  }
+}

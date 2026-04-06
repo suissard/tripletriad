@@ -26,7 +26,7 @@ services:
       - ./back/strapi_data/.tmp:/opt/app/.tmp
       - ./back/strapi_data/uploads:/opt/app/public/uploads
     ports:
-      - "1337:1337"
+      - "${STRAPI_PORT:-1340}:1337"
     env_file: .env
     environment:
       DATABASE_CLIENT: sqlite
@@ -34,6 +34,9 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
       APP_KEYS: ${APP_KEYS}
+      API_TOKEN_SALT: ${API_TOKEN_SALT}
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
       NODE_ENV: development
     command: >
       sh -c "npm install --no-audit --no-fund --loglevel=error && npm run develop"

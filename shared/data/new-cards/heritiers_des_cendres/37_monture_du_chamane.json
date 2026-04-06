@@ -2,7 +2,7 @@
   "name": "Monture du Chamane",
   "description": "Créature massive montée par un Techno-Chamane.",
   "element": "radiation",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "5",
   "rightValue": "5",
   "bottomValue": "6",

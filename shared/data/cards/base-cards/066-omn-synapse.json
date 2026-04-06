@@ -1,0 +1,77 @@
+{
+  "collectionName": "base",
+  "name": "Synapse",
+  "description": "Pixel infiltrateur injectant subtilement des virus dans les systèmes de défense ennemis sans être détecté.",
+  "element": "hacking",
+  "faction": "Omni-Réseau",
+  "topValue": "2",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/066.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Cyborg Infiltrator - Sleek augmented shadow operative built for digital warfare and undetectable system intrusion",
+      "loadout": {
+        "armor_outfit": "Streamlined composite tactical exoskeleton in matte anthracite gray with brushed steel articulation joints, integrated neural link ports emitting glacial blue bioluminescence at spine and nape, standardized military-grade body armor plating with deliberately worn edges, utility harness with signal jamming modules and data-spike holsters",
+        "arsenal": "Twin compact electromagnetic sidearms with integrated data-probes for direct system injection, high-frequency vibro-blade sheathed at lower back, deployable pixel-swarm nano-drones stored in thoracic compartment, all weapons connected via thick black neural cables to wrist implant interfaces"
+      },
+      "attitude": {
+        "behavior": "Shadow operative in aggressive forward motion, body low and coiled in combat ready stance, one weapon raised and sweeping toward perceived threat, motion blur suggesting impossibly fast movement, dark chromatic aberration trail following rapid displacement through digital battlefield",
+        "emotion": "Cold cybernetic determination radiating from hollow pale face, deadened eyes flickering with intense blue neural processing light, jaw clenched in predatory focus, zero emotional response to surrounding destruction - pure algorithmic combat instinct"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Matte Black",
+          "role": "primary armor and shadow trail"
+        },
+        {
+          "name": "Anthracite Gray",
+          "role": "secondary armor plating and environmental mass"
+        },
+        {
+          "name": "Glacial Neon Blue",
+          "role": "neural implants, weapon accents, holographic corruption"
+        },
+        {
+          "name": "Cadaveric Pale Flesh",
+          "role": "exposed skin, face, hands"
+        },
+        {
+          "name": "Electric White",
+          "role": "sparks, crumbling holographic displays, ICE attack energy"
+        }
+      ],
+      "lighting_setup": "Cinematic cold industrial lighting with dramatic rim lighting on subject, volumetric blue glow emanating from neural implants and data-ports, chaotic multi-source lighting from crumbling holographic displays and electrical discharges in background",
+      "mood": "Menacing industrial nightmare - calculated lethality amid technological apocalypse"
+    },
+    "camera": {
+      "angle": "low dutch_angle, slightly tracking left to right following operative movement"
+    },
+    "scenography": {
+      "setting": "Corrupted cyber warfare zone - massive server towers toppling with showers of electric blue sparks, shattered holographic displays fragmenting into glitching polygons mid-air, digital fortifications disintegrating into cascading code streams and binary rain, brutalist monolithic structures cracking under electromagnetic assault",
+      "atmosphere_vfx": "Electric storms rippling through collapsing digital infrastructure, visible ICE attack tendrils in corrupted neon blue tearing through crumbling firewalls, chromatic aberration distortion, motion blur trails, dust and debris suspended in harsh backlighting, rain of corrupted data fragments and fragmented holographic shards, atmospheric haze from overheating server combustion"
+    }
+  }
+}

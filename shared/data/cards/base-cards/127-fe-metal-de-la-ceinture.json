@@ -1,0 +1,87 @@
+{
+  "collectionName": "base",
+  "name": "Metal de la Ceinture",
+  "description": "Architecte de fortune construisant des défenses temporaires avec des matériaux récupérés sur les épaves les plus récentes.",
+  "element": "radiation",
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/127.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Armored Combat Engineer - Scarred space scrapyard warrior in jury-rigged mining exosuit, broad shoulders bearing the weight of improvised fortification tools, silhouette dominated by asymmetric armor plates salvaged from spacecraft hulls and warning signs",
+      "loadout": {
+        "armor_outfit": "Layered obsolete mining spacesuit extensively patched with welded steel plates, riveted car body panels, and sealed with layers of silver and black duct tape; exposed pneumatic cables running along limbs; oversized tool harness covered in snap pouches, magnetic carabiners, and coiled ropes; armored gloves with integrated plasma cutter tips; scorched knee and elbow pads from reclaimed spacecraft insulation; chest plate assembled from three different helmet visors bolted together",
+        "arsenal": "Hybrid mining-weapon: one-handed pneumatic jackhammer改良成 melee spike mace with exposed copper IEM coils wrapped around the handle, battery pack strapped to forearm with zip-ties; shoulder-mounted improvised flamethrower constructed from welding torch components and fuel canister; backup plasma torch held in magnetic holster at hip; welding torch used as weapon in off-hand"
+      },
+      "attitude": {
+        "behavior": "Hunched dynamic crouch in low-gravity combat stance, one foot braced against fallen debris, body angled against imaginary incoming fire, jackhammer-mace raised at shoulder height ready to strike, welding torch sputtering blue plasma arcs, fabric of hastily-erected energy shield generator crackling behind him, floating debris particles surrounding figure in suspended moment",
+        "emotion": "Intense battle-ready focus beneath scratched opaque visor, jaw clenched tight, engine grease war paint streaking across exposed cheekbones, eyes locked on approaching threat through cracked helmet visor, scar tissue visible on forehead, sweat and lubricant mixing on brow, grim determination mixed with feral aggression"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Scrap-punk",
+          "Industrial brutalism"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Oxidized Steel Grey",
+          "role": "Primary armor and structural elements, dominant base tone"
+        },
+        {
+          "name": "Rust Orange",
+          "role": "Weathered metal surfaces, corrosion patterns, secondary armor"
+        },
+        {
+          "name": "Industrial Charcoal",
+          "role": "Grease-stained clothing, shadows, depth in crevices"
+        },
+        {
+          "name": "Plasma Blue",
+          "role": "Hot energy accents from weapons, welding torches, sparking IEM coils"
+        },
+        {
+          "name": "Molten Orange",
+          "role": "Cascading burning metal rivers, heated surfaces, danger illumination"
+        },
+        {
+          "name": "Chipped Construction Yellow",
+          "role": "Salvaged warning stripes, hazard markings on armor plates"
+        },
+        {
+          "name": "Spark White",
+          "role": "Grinding sparks, impacts, debris highlights"
+        }
+      ],
+      "lighting_setup": "Cinematic mixed-source: harsh directional spotlight from distant explosion behind subject, warm orange glow from molten metal cascades in background, cool blue plasma glow emanating from welding equipment and weapons, ambient dust particles catching light creating volumetric atmosphere, rim lighting on subject edges from distant fire",
+      "mood": "Desperate industrial chaos, brutal survival intensity, feral determination against overwhelming odds"
+    },
+    "camera": {
+      "angle": "Low angle dutch tilt, camera tilted 15 degrees right to emphasize instability and combat tension, positioned at knee-height looking up at combat engineer, slightly compressed telephoto perspective to flatten depth of battlefield debris field"
+    },
+    "scenography": {
+      "setting": "Interior of hollowed asteroid combat zone: massive spacecraft superstructure in background crumbling from weapons fire, exposed asteroid rock walls with embedded machinery, industrial catwalks twisted and bent, jury-rigged barricades made from cargo containers and hull plating stretching across mid-ground, burning rivers of molten metal flowing through carved channels in asteroid floor, floating debris chunks suspended in low-gravity creating chaotic mid-air obstacles, improvised shield generator stations sparking with overload, smoke and particulate matter filling air with orange undertones",
+      "atmosphere_vfx": "Constant grinding sparks raining from weapon impacts, blue-white plasma arcs from improvised weapons, dust clouds disturbed by explosions, floating debris catching fire as it tumbles through molten metal spray, heat distortion rising from burning rivers, occasional muzzle flash from distant weapons, holographic warning signs flickering on salvaged barriers, low-gravity dust motes and metal fragments slowly drifting through frame"
+    }
+  }
+}

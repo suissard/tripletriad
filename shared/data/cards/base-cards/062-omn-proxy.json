@@ -1,0 +1,83 @@
+{
+  "collectionName": "base",
+  "name": "Proxy",
+  "description": "Sentinelle algorithmique détectant les anomalies suspectes et les comportements inhabituels dans les systèmes amis.",
+  "element": "hacking",
+  "faction": "Omni-Réseau",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "death",
+      "value": 1,
+      "target": "self_on_flip"
+    }
+  ],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/062.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Cyborg Sentinelle de Reconnaissance Omni-Réseau",
+      "loadout": {
+        "armor_outfit": "Exosquelette tactique Omni-Réseau en composite sombre anthracite et acier brossé, combinaison utilitaire militaire standardisée sans personnalisation, plaques articulées lisses avec câbles neurales intégrés reliant l'armure aux implants cervicaux et spinaux, numéros de série gravés au laser sur l'épaule gauche",
+        "arsenal": "Fusil d'assaut géométrique rectangulaire industriel ultra-fiable, câbles de ciblage neural connectés directement aux implants du poignet, drones de détection miniaturisés en Formation essaim autour du sujet, générateur de shockwave intégré aux paumes"
+      },
+      "attitude": {
+        "behavior": "Spécialiste en reconnaissance scannant l'environnement avec ses matrices sensorielles actives, corps positionné pour mouvement rapide, transition violente entre états avec les deux mains s'écrasant au sol envoyant une onde de choc ciblée et dévastatrice à travers toutes les positions adjacentes, acte final du guerrier mourant",
+        "emotion": "Regard mort-vide sous optiques connectées luisant de bleu glacial, expression inexpressive et dénuée d'émotion malgré la destruction corporelle, implants neuroniques surchargés crépitant d'énergie bleue instable"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark cyberpunk dystopique",
+          "Dark Sci-Fi militaire",
+          "Post-apocalyptic Omni-Réseau"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Anthracite métallique",
+          "role": "Armure principale et structure du sujet"
+        },
+        {
+          "name": "Noir mat profond",
+          "role": "Ombres dures et blindages composites"
+        },
+        {
+          "name": "Acier brossé froid",
+          "role": "Détails mécaniques et plaques articulées"
+        },
+        {
+          "name": "Chair pâle cadaverique",
+          "role": "Tissus humains exposés et peau blafarde"
+        },
+        {
+          "name": "Bleu glacial néon",
+          "role": "Impacts lumineux - optiques, puces neurales, câbles, shockwave, arcs électriques"
+        }
+      ],
+      "lighting_setup": "Eclairagecinématographique sombre avec sources multiples - lumière ambiante froide des néons冰, reflets métalliques sur armures humides, illumination bleue intense des implants neuraux, éclairs électriques stroboscopiques durant l'orage digital",
+      "mood": "Apocalyptique et mortel - tension algorithmique en collapse, désespoir technologique, beauté glaciale de la destruction systématique"
+    },
+    "camera": {
+      "angle": "Low_angle avec légère dutch_angle pour emphasize the shockwave emanant du corps, angle dynamique regardant vers le haut depuis le sol où les mains impactent"
+    },
+    "scenography": {
+      "setting": "Zone de cyber-guerre Omni-Réseau - couloirs de serveur monolithiques s'effondrant en arrière-plan, tours de données rectangulaires basculant dans des étincelles explosives, bunkers de défense digitale avec fortifications de code se deteriorant visuellement en glitch fractal, infrastructures electrifiées crépitant d'orages digitaux",
+      "atmosphere_vfx": "Orages electriques digitaux atravesant l'infrastructure, hologrammes de defense se brisant et glitchant en fragments pixelisés, pluie de sparks electriques tombant des conduites, fumée industrielle sombre, débris de code binaire flottant dans l'air chargé d'electricité statique, vagues de chaleur des explosions electroniques, atmosphere sature de parasites visuels et d'interferences"
+    }
+  }
+}

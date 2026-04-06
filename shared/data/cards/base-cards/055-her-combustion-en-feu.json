@@ -1,0 +1,77 @@
+{
+  "collectionName": "base",
+  "name": "Combustion en Feu",
+  "description": "Embrasé tactique coordonnant les attaques synchronisées au feu pour maximiser les dégâts thermiques en chaîne.",
+  "element": "faille_dimensionnelle",
+  "faction": "Héritiers des Cendres",
+  "topValue": "6",
+  "rightValue": "3",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/055.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Mutant Flaming Tactician",
+      "loadout": {
+        "armor_outfit": "Tattered anti‑radiation shroud stitched with rusted metal plates, asymmetrical shoulder guards exposing swollen tumorous flesh, gauntlets fused with glowing radioactive tubes.",
+        "arsenal": "High‑tech plasma flame‑thrower relic (smooth, luminescent violet‑blue energy core), wrist‑mounted antimatter incendiary launcher, chain‑linked fire‑bomb pendants."
+      },
+      "attitude": {
+        "behavior": "Raising both mutated arms in a synchronized gesture, directing streams of fire that cascade in perfect unison across the battlefield, moving with a heavy, uneven gait while ash swirls around the boots.",
+        "emotion": "Manic, blazing fervor; eyes glowing with radioactive yellow intensity, a grin of scorched teeth showing absolute confidence in destructive coordination."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Post‑apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Sickly Flesh",
+          "role": "Primary body tone, exposed tumorous skin"
+        },
+        {
+          "name": "Rust Metal",
+          "role": "Armor plates and scavenged relics"
+        },
+        {
+          "name": "Radioactive Yellow",
+          "role": "Accent glow on tumors, eyes, and energy"
+        },
+        {
+          "name": "Violet‑Blue Plasma",
+          "role": "High‑tech relic energy, sleek weapon cores"
+        },
+        {
+          "name": "Ash Grey",
+          "role": "Background, smoke, charred debris"
+        }
+      ],
+      "lighting_setup": "Cinematic rim light with intense orange fire glow, subtle blue‑violet under‑lighting from relic energy, volumetric ash haze",
+      "mood": "Menacing, infernal, awe‑inspiring"
+    },
+    "camera": {
+      "angle": "low"
+    },
+    "scenography": {
+      "setting": "Scorched post‑apocalyptic wasteland battlefield, cracked earth littered with burning wreckage, distant ruined megastructures silhouetted against a dark, ash‑filled sky",
+      "atmosphere_vfx": "Flames licking the ground, embers swirling, heat distortion, faint radioactive mist, occasional sparks from the relic weapons"
+    }
+  }
+}

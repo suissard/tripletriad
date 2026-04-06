@@ -2,7 +2,7 @@
   "name": "Flagellant Atomique",
   "description": "Berserker dont la douleur le rend plus fort à chaque coup reçu.",
   "element": "radiation",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "3",
   "rightValue": "3",
   "bottomValue": "2",

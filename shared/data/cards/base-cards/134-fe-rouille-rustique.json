@@ -1,0 +1,88 @@
+{
+  "collectionName": "base",
+  "name": "Rouille Rustique",
+  "description": "Ingénieur Génie transformant les catastrophes environnementales en opportunités économiques exploitant chaque débris avec créativité.",
+  "element": "reseau",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "6",
+  "rightValue": "6",
+  "bottomValue": "6",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -2,
+      "target": "all_enemy"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 3,
+  "image": "base/134.png",
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Human Combat Engineer - Junkyard Brawler specialized in environmental exploitation and improvised warfare",
+      "loadout": {
+        "armor_outfit": "Massively reinforced mining suit constructed entirely from salvaged spacecraft hull plates, welded scrap metal panels, and ruptured fuel tank segments. Asymmetrical construction featuring a chest plate made from a sectioned cargo container door, shoulder pauldrons fashioned from rocket nozzle shrouds, and forearm guards crafted from engine turbine housings. Exposed pneumatic tubes and cables weave across the torso, held together with layers of corroded duct tape and improvised wire bindings. Deep rust-orange and oxidized steel dominate the palette, with blackened grease stains covering joints and contact points. Heavy gauntlets with integrated plasma cutter tips on knuckles, magnetized boot soles, and a fractured welding helmet visor displaying a cracked HUD with flickering readings.",
+        "arsenal": "Dual-wielded industrial cutting tools converted into close-combat weapons: massive plasma-arc lathes modified into brutal cleaving instruments, their power cables trailing behind like mechanical serpents. Secondary improvised energy cannon assembled from stripped mining laser capacitors, a dented fuel canister providing the power source, and copper coil windings visible through cracked housing, discharging concentrated negation waves capable of destabilizing enemy armor on molecular level."
+      },
+      "attitude": {
+        "behavior": "Intense combat stance with legs planted wide for low-gravity stability, torso twisted in powerful rotational momentum. Both arms fully extended, sweeping outward in synchronized horizontal arc from center mass outward, muscles straining against the massive improvised weapons. Whole body committed to the devastating attack as boots magnetically grip the buckled deck plating beneath floating debris. Combat goggles cracked and sparking, revealing determined grimace beneath.",
+        "emotion": "Savage battle fury mixed with calculated engineering precision. Eyes narrowed in lethal focus behind damaged visor, teeth clenched in grim determination. The cold fury of someone who has survived countless engagements by transforming battlefield chaos into tactical advantage, channeling raw industrial power through improvised weaponry."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Scrap-punk Industrial"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Oxidized Steel Gray",
+          "role": "Primary structural color, armor base"
+        },
+        {
+          "name": "Rust Orange",
+          "role": "Secondary dominant tone, corrosion patterns"
+        },
+        {
+          "name": "Molten Orange-Yellow",
+          "role": "Molten metal rivers, fire sources"
+        },
+        {
+          "name": "Industrial Black Grease",
+          "role": "Stains, shadow areas, worn surfaces"
+        },
+        {
+          "name": "Hot Plasma Blue",
+          "role": "Weapon energy, welding sparks, electric arcs"
+        },
+        {
+          "name": "Negation Wave Dark Violet-Black",
+          "role": "Energy wave emanating from character"
+        }
+      ],
+      "lighting_setup": "Dramatic cinematic mixed-source illumination: warm orange-red glow from molten metal cascading through scene, cool blue-white plasma arcs from weapons, and stark rim lighting from distant explosions creating intense contrast between illuminated debris and deep shadow",
+      "mood": "Apocalyptic intensity, desperate survival energy, industrial chaos beauty"
+    },
+    "camera": {
+      "angle": "Low angle shot emphasizing character dominance, Dutch angle tilted slightly to enhance dynamic combat momentum, camera positioned at waist height looking upward to make character appear monumental against the chaotic backdrop"
+    },
+    "scenography": {
+      "setting": "Vast interior of hollowed asteroid repurposed as massive scrapyard battlefield. Collapsing spacecraft structures tower in background, their hulls breached and torn open revealing internal framework and burning compartments. Massive conteneurs de fret stacked haphazardly form makeshift barricades, many already buckling and overturned. Molten metal rivers flow along channeled deck plating, glowing orange-white and casting flickering light across all surfaces. Dense field of floating debris in low-gravity suspension: twisted metal fragments, sparking cables, shattered panels, and scattered equipment frozen mid-fall. Improvised barricades constructed from cargo pallets, broken vehicle chassis, and welded scrap heaps. Enemy armor silhouettes visible in background, their forms silhouetted against explosion flashes. Grinding sparks cascade through air from multiple clash points.",
+      "atmosphere_vfx": "Heavy particle effects: iron oxide dust clouds stirred by combat, swirling sparks trajectories, floating molten droplets cooling in transit, energy discharge crackling from weapons, shockwave distortion rippling from negation wave. Atmospheric haze from burning fuel and superheated metal creating depth fog with orange undertones. Distant secondary explosions illuminating background structures with strobing fire light. Debris slowly tumbling in near-zero gravity creating sense of suspended chaos. Steam and smoke rising from ruptured coolant lines mixing with plasma discharge smoke."
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "collectionName": "base",
+  "name": "Pelerin Libre",
+  "description": "Arbitre de guerre imposant des trêves locales permettant l'évolution stratégique du conflit régional.",
+  "element": "eau",
+  "faction": "neutre",
+  "topValue": "4",
+  "rightValue": "7",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/012.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "eau",
+    "glace"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Imposant arbitre de guerre en armure de puissance sauvée, Veteran grisonnant aux origines mysterieuses, silhouette massive et musclée marquée par des décennies de combats dans l'espace",
+      "loadout": {
+        "armor_outfit": "Combinaison de minage spatiale épaisse et asymétrique, plaques d'armures improvisées soudées à partir de panneaux de signalisation arrachés et de carrosseries de véhicules abandonnés, câbles d'alimentation exposés, articulations renforcées de ruban adhésif industriel, taches de graisse de moteur séché, peintures de guerre tribales, casque de soudeur spatial fendu réparé avec plusieurs couches de duct tape, visière opaques rayée de scratches, harnais de combat couvert de mousquetons et de poches à outils",
+        "arsenal": "Canon cinétique massif et encombrant de fabrication artisanale, structure de soutien en tuyaux de cuivre exposés, batteries de fortune attachées au canon avec du gros ruban adhésif, bobines électromagnétiques visible, systèmes de refroidissement improvisés, hache de melee à une main fixée sur le côté, conçue à partir d'une lame de scie circulaire industrielle"
+      },
+      "attitude": {
+        "behavior": "Posture de combat intensive engagée dans le coeur de la bataille, poids du corps légèrement avancer, jambes plantées dans une position de tir stable, arme cinétique massive levée et pointer vers la menace approchante, muscles tendus comme un ressort prêt à exploser, prêt à faire feu à tout moment",
+        "emotion": "Regard froid et determiné à travers la visière rayée, concentration extreme masquee par la discipline du combattant veteran, une autorite naturelle se degage malgre le chaos ambiant, il est l'arbitre qui maintient l'ordre meme en enfer"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Scrap-punk",
+          "Industrial"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Acier oxyde",
+          "role": "Dominant, armure principale et structures metalliques"
+        },
+        {
+          "name": "Orange rouille",
+          "role": "Secondaire, details corrodes et usures"
+        },
+        {
+          "name": "Bleu plasma chaud",
+          "role": "Accent energetique, impacts et armes"
+        },
+        {
+          "name": "Gris industriel",
+          "role": "Atmosphere generale et fumee"
+        },
+        {
+          "name": "Etincelles vives",
+          "role": "Effets lumineux ponctuant la scene"
+        },
+        {
+          "name": "Noir graisse de moteur",
+          "role": "Taches, vetements sales et Details"
+        }
+      ],
+      "lighting_setup": "Cinematic_volumetric_lighting_avec_rim_light_bleu_plasma, sources multiples de lueurs chaudes et froides, eclats d'etincelles creates des impacts de plasma, illumination par les explosions et le feu des armes",
+      "mood": "Chaotique, mecont, intense, heroique malgré l'anarchie ambiante"
+    },
+    "camera": {
+      "angle": "low_angle avec dutch_légère pour amplifer la puissance du personnage, cadrage serré sur le torse et le visage, profondeur de champ courte"
+    },
+    "scenography": {
+      "setting": "Station-service asteroidale, carrefour tactique en metal ondulé, barricades improvisées construites à partir de conteneurs de fret et de debris de coque, murs épais de cereales et tuyaux exposes, environnements de ferraille spatial",
+      "atmosphere_vfx": "Impacts de plasma grondant sur les murs ondulés, debris et eclats de metal pleuvant, etincelles vivaces创造 une pluie de feu, fumee epaisse s'elevant des structures detruites, silhouettes ennemies avancent dans le smog, guerilla spatiale totale, effets de particules lourds"
+    }
+  }
+}

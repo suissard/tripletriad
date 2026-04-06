@@ -1,0 +1,83 @@
+{
+  "collectionName": "base",
+  "name": "Salamandre",
+  "description": "Sentinelle du brasier veillant inlassablement sur les avant-postes calcinés et repoussant les assauts nocturnes.",
+  "element": "radiation",
+  "faction": "Héritiers des Cendres",
+  "topValue": "4",
+  "rightValue": "2",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/050.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Mutant Sentinelle Pyromane - Aberration humanoïde bipède, silhouette trapue etasimétrique avec trois bras dont un atrophié, corps couvert de tumeurs luminescentes jaune-orange, peau grisâtre craquelée ressemblant à de la cendre solidifiée, une longue queue cartilagineuse terminée par un éclat de métal rouillé incandescent",
+      "loadout": {
+        "armor_outfit": "Toge rituelle en lambeaux de bâche anti-radiation orange délavée, maintenue par des cordes de câbles électriques usés, plaques d'armure de récupération en titane corrodé fixées sur les épaules et le torse, collaraces de capsules de réacteurs nucleaires vides enfilées autour du cou, masques à gaz fondus protégeant partiellement le visage déformé",
+        "arsenal": "Fusil à antimatière relic high-tech aux lignes épurées géométriques, crosse en os fossilisé, canon principal luminescent bleu électrique avec energía cosmos, une petite ogive nucleaire greffée直接在 le bras droit comme arme de mêlée, chaîne d'acier reliant l'arme au poignet perforé"
+      },
+      "attitude": {
+        "behavior": "Debout en position de vigie sur un avant-poste calciné, corps penché vers l'avant scrutant l'horizon noir, le bras armé tenant le fusil relic braqué vers la nuit, les deux autres bras actifs gesticulant nerveusement, la queue enroulée autour d'un pilier métallique carbonisé",
+        "emotion": "Regard incandescent triple lunatique combinant terreur sacrée et férocité protectrice, mâchoire tordue révélant des crocs métalliques implantés, expression de dévotion fanatique envers le feu protecteur du brasier adjacent"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Body horror",
+          "Nuclear gothic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Irradiated Orange Ember",
+          "role": "Primary glow emanating from brazier and radioactive tumors, warm focal light"
+        },
+        {
+          "name": "Ash Gray",
+          "role": "Dominant flesh and atmospheric haze, establishing decay"
+        },
+        {
+          "name": "Rusted Iron Brown",
+          "role": "Secondary armor and environmental elements, structural decay"
+        },
+        {
+          "name": "Plasma Blue",
+          "role": "Weapon energy accents and high-tech relic luminescence"
+        },
+        {
+          "name": "Sickly Yellow",
+          "role": "Tumor glow and radioactive highlights on mutations"
+        },
+        {
+          "name": "Soot Black",
+          "role": "Background darkness and shadow depth"
+        }
+      ],
+      "lighting_setup": "Dramatic_low-key_rim_lighting_combined_with_volumetric_ember_glow_and_plasma_energy_scatter",
+      "mood": "Menacing_sacred_vigil_terror_divine_protection_ancient_tech_worship"
+    },
+    "camera": {
+      "angle": "low_angle_slightly_dutch_tilt_emphasizing_dominance_and_threatening_posture"
+    },
+    "scenography": {
+      "setting": "Calcinated watchtower outpost built from twisted_rebar_and_melted_concrete, scorched earth terrain littered with debris and skeletal remains, massive brazier at center emanating radioactive orange flames, destroyed high-tech infrastructure in background silhouetted against polluted night sky",
+      "atmosphere_vfx": "Thick_ash_fall_particles, radioactive_mist_rolling_on_ground, distant_flash_storms_on_horizon, heat_distortion_around_brazier, embers_floating_upward, occasional_glitch_effects_from_cosmic_energy_weapon"
+    }
+  }
+}

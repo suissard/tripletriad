@@ -1,0 +1,89 @@
+{
+  "collectionName": "base",
+  "name": "Rupture Devie",
+  "description": "Architecte du Chaos orchestrant les perturbations causant des erreurs en cascade dans les systèmes de défense adverses.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "spore"
+  ],
+  "faction": "Incursion Dissonante",
+  "topValue": "9",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -1,
+      "target": "enemy_with_highest"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 3,
+  "image": "base/119.png",
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Extra-dimensional Chaos Architect - Entity of pure dimensional dissonance, humanoid silhouette fractured between multiple overlapping realities, skin simultaneously intact and decomposed, one half of face pristine while other half is exposed skull with glitching neural tissue",
+      "loadout": {
+        "armor_outfit": "Armored military exoskeleton violently deformed by gravitational torsion - plates of dark metal warped like melted wax, sections phasing in and out of existence revealing void beneath, tattered crimson and violet robes underneath that float in defiance of physics, limbs positioned at anatomically impossible angles held together by crackling magenta energy threads, crown of floating geometric shards orbiting head",
+        "arsenal": "Both palms joined generating concentrated nullification beam of pure dimensional collapse - beam comprised of intersecting violet and black energy spiraling in opposing rotations, surrounded by smaller orbiting fragments of shattered reality, secondary manifestation of glitching holographic tactical displays showing cascade failure propagating through enemy systems"
+      },
+      "attitude": {
+        "behavior": "Levitating at epicenter of reality collapse, body tilted forward in commanding stance, both arms extended forward with palms facing each other, fingers splayed directing impossible energies, whole form surrounded by halo of fragmented space-time, commanding gesture sweeping across visible spectrum of parallel battlefields",
+        "emotion": "Absolute transcendent focus with hints of manic pleasure - eyes (if visible) burning with violet intellect beyond human comprehension, expression of cold cosmic certainty orchestrating destruction on multiversal scale, presence radiating oppressive dread and gravitational distortion"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark cosmic horror",
+          "Dark sci-fi dimensional horror",
+          "Post-apocalyptic reality corruption",
+          "Non-euclidean geometry art",
+          "Glitch aesthetic corruption"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL_and_dimensional_distortion"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Abyssal Black",
+          "role": "Primary shadow base, voids between realities"
+        },
+        {
+          "name": "Deep Violet",
+          "role": "Corrupted energy, psychic auras, main accent lighting"
+        },
+        {
+          "name": "Asylum Grey",
+          "role": "Fractured environments, institutional horror undertones"
+        },
+        {
+          "name": "Dried Blood Red",
+          "role": "Secondary accent, torn fabrics, damage indicators"
+        },
+        {
+          "name": "Neon Magenta",
+          "role": "Glitch effects, energy crackling, reality distortion highlights"
+        },
+        {
+          "name": "Scarred Pale Flesh",
+          "role": "Exposed flesh areas, biological horror elements"
+        }
+      ],
+      "lighting_setup": "Multi-source contradictory lighting - violet psychic glow emanating from subject contrasting with cold grey ambient from fractured sky, localized gravity lensing bending all light sources into impossible angles, self-illuminating energy from nullification beam creating volumetric magenta fog",
+      "mood": "Oppressive cosmic dread mixed with chaotic destructive power, sense of reality unraveling, visually overwhelming dimensional collapse, strategic menace emanating from orchestrating presence"
+    },
+    "camera": {
+      "angle": "low_angled_heroic_perspective_with_dutch_tilt_emphasizing_destabilized_geometry"
+    },
+    "scenography": {
+      "setting": "Reality collapse epicenter - ground fractured into multiple geological layers simultaneously showing intact pristine battlefield and destroyed corrupted version underneath, buildings in background existing in two overlapping dimensional states (whole and rubble occupying same space), sky torn between conflicting celestial configurations (starfield conflicting with void and unnatural nebulae), floating debris masses in chaotic orbital patterns defying unified gravity, smaller chunks of reality drifting in impossible trajectories",
+      "atmosphere_vfx": "Reality glitching effect throughout entire scene - chromatic aberration at edges, scanline distortions, occasional frame-stutter visual artifacts, air visually fracturing like stressed glass, gravitational lensing distorting distant elements, particle effects of disintegrating matter caught between dimensions, cascading error visual patterns propagating across scene like corrupted digital imagery bleeding into physical reality, violet energy wisps threading through spatial fractures, distant screams of reality itself tearing"
+    }
+  }
+}

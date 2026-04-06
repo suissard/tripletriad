@@ -1,0 +1,43 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "s0",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "La Ceinture d'Orion s'étend comme un océan de débris, un cimetière spatial où seuls les Ferrailleurs osent naviguer. Ici, chaque morceau de métal a une histoire.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Rook",
+      "sentence": "Encore un signal fantôme ? On a parcouru trois secteurs pour rien, les gars. Le prochain coup j'explose une station martienne et on arrête de tourner en rond.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Kip",
+      "sentence": "Non, celui-ci est différent. Fréquence Omni-Réseau, mais ancienne... un artefact abandonné peut-être. Ou un piège.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Vex",
+      "sentence": "Un artefact qui émet depuis les profondeurs de la Ceinture... Intéressant. Si c'est un piège martien, ils ont mis beaucoup de moyens pour peu de résultat.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Narration",
+      "sentence": "Le Valkyrie dérive doucement dans le vide, ses scanners braqués vers l'épave invisible qui les appelle. Le silence spatial cache toujours quelque chose.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Rook",
+      "sentence": "J'ai ma réponse. On y va ?",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "s1"
+}

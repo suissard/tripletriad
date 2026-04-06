@@ -9,6 +9,7 @@
 
 <script setup>
 import { ref, watch, onMounted, computed } from 'vue';
+import { fetchSvg } from '../utils/svgCache.js';
 
 const props = defineProps({
   element: {
@@ -27,17 +28,11 @@ const loadError = ref(false);
 const loadSvg = async (elementName) => {
   if (!elementName) return;
   loadError.value = false;
-  try {
-    const response = await fetch(`/elements/${elementName.toLowerCase()}.svg`);
-    if (response.ok) {
-      svgContent.value = await response.text();
-    } else {
-      console.warn(`Failed to load SVG for element: ${elementName}`);
-      svgContent.value = '';
-      loadError.value = true;
-    }
-  } catch (error) {
-    console.error(`Error loading SVG for element: ${elementName}`, error);
+  const url = `/elements/${elementName.toLowerCase()}.svg`;
+  const result = await fetchSvg(url);
+  if (result) {
+    svgContent.value = result;
+  } else {
     svgContent.value = '';
     loadError.value = true;
   }

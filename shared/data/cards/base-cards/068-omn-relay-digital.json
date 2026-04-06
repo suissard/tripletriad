@@ -1,0 +1,78 @@
+{
+  "collectionName": "base",
+  "name": "Relay Digital",
+  "description": "Architecte de grille renforçant les défenses numériques du réseau contre les tentatives d'intrusion adverses.",
+  "element": "hacking",
+  "faction": "Omni-Réseau",
+  "topValue": "5",
+  "rightValue": "3",
+  "bottomValue": "6",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/068.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Cybernetic Grid Architect - Augmented Combat Specialist",
+      "loadout": {
+        "armor_outfit": "Mass-produced composite tactical exoskeleton in anthracite gray and matte black, smooth ergonomic plates over utilitarian under-suit, prominent neural interface ports at skull base and cervical spine with thick black cables, exposed cadaveric pale flesh at joints, serial numbers etched into shoulder plates, cold brushed steel frame accents, Icy blue LED strips along armor seams",
+        "arsenal": "Geometric assault rifle with industrial rectangular lines and neural tether connecting grip to wrist implant for perfect targeting, Digital grid projection device on forearm for reinforcing network defenses, EMP pulse generator mounted on back plate"
+      },
+      "attitude": {
+        "behavior": "Combat specialist in heat of battle, combat stance with weapon raised and ready, body coiled like compressed spring, weight shifted forward on balls of feet, arms locked in firing position, one hand on weapon, other controlling secondary digital defense tool, dynamic forward lean",
+        "emotion": "Inexpressive dead eyes behind glowing icy blue optical implants, face blank and devoid of emotion, neural chips pulsing with cold blue light, completely focused predatory intensity"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Brutalist Industrial"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Anthracite Gray",
+          "role": "Primary armor and structural elements - 60%"
+        },
+        {
+          "name": "Matte Black",
+          "role": "Deep shadows, cables, and under-suit - dominant"
+        },
+        {
+          "name": "Cold Brushed Steel",
+          "role": "Secondary metal details and armor plates - 30%"
+        },
+        {
+          "name": "Cadaveric Pale Flesh",
+          "role": "Exposed skin at neck and joints - unsettling tone"
+        },
+        {
+          "name": "Icy Neon Blue",
+          "role": "Neural implants, optics, energy accents, holographic displays - 10%"
+        }
+      ],
+      "lighting_setup": "Cinematic volumetric lighting with cold blue accent rim lights, dramatic shadows, electric sparks creating localized white-blue bursts, holographic glitch effects casting fractured blue-teal light patterns",
+      "mood": "Menacing, dystopian, oppressive intensity"
+    },
+    "camera": {
+      "angle": "Low angle dutch tilt for dynamic aggressive composition, slightly pushed in to emphasize subject and environment"
+    },
+    "scenography": {
+      "setting": "Chaotic cyber warfare zone, massive server towers toppling and sparking with exposed circuitry, collapsed digital infrastructure with fragmented holographic displays shattering into pixels, crumbling data fortifications with visible deteriorating code cascading like digital waterfall, thick black cables strewn across industrial floor",
+      "atmosphere_vfx": "Electric storms rippling through crumbling infrastructure, blue-white energy surges arcing between damaged equipment, holographic interfaces glitching and fragmenting with color corruption, digital ICE attacks visualized as sharp geometric shards piercing through defenses, ambient particle debris from shattered technology, cold fog haze mixing with electric discharge glow"
+    }
+  }
+}

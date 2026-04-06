@@ -1,0 +1,49 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "s6",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "Quelle que soit l'approche, la même vérité se révèle : au fond d'un cratère d'astéroïde, une ancienne station Omni-Réseau dérive dans l'ombre.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Kip",
+      "sentence": "C'est bien une station Omni-Réseau. Mais… elle est vieille de plusieurs décennies au moins.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Vex",
+      "sentence": "L'appel de détresse n'est pas un enregistrement. Il est réactivé. Quelque chose la réveille.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Rook",
+      "sentence": "Donc soit il y a quelqu'un vivant là-bas, soit il y a quelque chose. Et j'aime aucun des deux.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Narration",
+      "sentence": "Un éclat de lumière bleue pulse à la surface de la station. Des points lumineux apparaissent et disparaissent sur sa coque, comme des yeux dans l'obscurité.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Kip",
+      "sentence": "Systèmes internes activés. La station s'est mise en veille prolongée et quelque chose vient de la réactiver.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Vex",
+      "sentence": "Bien. Deux options : on se fait accueillir ou on surprend. À nous de choisir.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "choix_2"
+}

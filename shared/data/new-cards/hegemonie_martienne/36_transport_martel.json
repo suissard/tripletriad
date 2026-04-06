@@ -2,8 +2,10 @@
   "name": "Transport Martel",
   "description": "Transport de troupes blindé au blindage en chevron. Protège et dépose les légionnaires sous le feu ennemi. Ram avant massif pour enfoncer les barricades. Le bélier de l'Hégémonie.",
   "element": "obsidienne",
-  "elements": ["obsidienne"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "4",
   "rightValue": "3",
   "bottomValue": "5",

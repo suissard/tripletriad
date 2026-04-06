@@ -2,8 +2,11 @@
   "name": "Colosse Obélisque",
   "description": "Méca bipède lourd de 15 mètres au profil monolithique. Double canon plasma dorsal et poings hydrauliques. Marche inexorablement vers l'ennemi, pilonnant tout sur son passage. La colère de l'Hégémonie incarnée.",
   "element": "obsidienne",
-  "elements": ["obsidienne", "longue_portee"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "obsidienne",
+    "longue_portee"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "5",
   "rightValue": "5",
   "bottomValue": "4",

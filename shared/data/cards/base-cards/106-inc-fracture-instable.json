@@ -1,0 +1,91 @@
+{
+  "collectionName": "base",
+  "name": "Fracture Instable",
+  "description": "Fracture instable créant des perturbations localisées dans les systèmes ennemis provoquant des malfunctions temporaires.",
+  "element": "furtif",
+  "faction": "Incursion Dissonante",
+  "topValue": "2",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/106.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Reality-bending Combat Specialist - Human cultist possessed by extra-dimensional entity, body in permanent state of spatial distortion",
+      "loadout": {
+        "armor_outfit": "Tattered military armor fused with living shadow, plates bent at impossible angles by gravitational anomalies, fabric remnants floating in micro-gravity around limbs, exposed skin showing scarified flesh with violet veins pulsing beneath, pieces of reality literally detaching from the form",
+        "arsenal": "Obsidian-like combat blade with crackling magenta/violet energy edges, weapon manifesting from crystallized reality fractures, aura of destabilizing energy causing nearby objects to glitch and phase between states"
+      },
+      "attitude": {
+        "behavior": "Combat stance with weapon raised high, body twisted in mid-stride as if caught between two spatial positions simultaneously, legs planted on ground that exists in multiple states - solid and crumbling, one arm extended forward gripping weapon while other arm bends backward at 180 degrees, muscles strained as reality around body ripples and fractures like broken mirror",
+        "emotion": "Eyes completely rolled back showing only bloodshot whites, mouth open in silent scream of either agony or transcendent ecstasy, face contorted by the psychic strain of maintaining form across dimensional boundaries, aura of pure cognitive horror emanating from every pore"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark cosmic horror",
+          "Dark Sci-Fi dimensional corruption",
+          "Post-apocalyptic reality fracture",
+          "Extra-dimensional madness",
+          "Glitch art horror"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL_and_reality_distortion_effects"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Abyssal Black",
+          "role": "Primary shadow and void spaces, deepest darkness in torn reality"
+        },
+        {
+          "name": "Deep Violet",
+          "role": "Corrupted energy, psychic auras, reality fracture edges"
+        },
+        {
+          "name": "Asylum Grey",
+          "role": "Background atmosphere, dust, debris, dead zones"
+        },
+        {
+          "name": "Scarred Pale Flesh",
+          "role": "Exposed skin, cultist physiology, wounded tissue"
+        },
+        {
+          "name": "Dried Blood Red",
+          "role": "Blood splatter, wounds, combat damage, sacrifice marks"
+        },
+        {
+          "name": "Magenta/Violet Neon",
+          "role": "Glitch energy, weapon glow, dimensional breach light"
+        },
+        {
+          "name": "Crackling Black",
+          "role": "Psychic distortions, shadow auras, void energy tendrils"
+        },
+        {
+          "name": "Filthy Tissue Brown",
+          "role": "Cloth remnants, grime, accumulated corruption"
+        }
+      ],
+      "lighting_setup": "Unstable multi-source with dimensional bleed - violet/magenta crackling energy illuminating from fractures, deep shadows with no consistent light direction, reality fragments casting conflicting shadows at impossible angles, ambient glow from parallel dimensions bleeding through",
+      "mood": "Overwhelming existential dread mixed with violent combat intensity, sanity-eroding cosmic terror, relentless hostile aggression, dimensional collapse imminent"
+    },
+    "camera": {
+      "angle": "Low angle dutch tilt - camera tilted to emphasize unstable reality, subject looming large and threatening, ground angled to show gravity malfunction, sky and structures at conflicting orientations"
+    },
+    "scenography": {
+      "setting": "Reality collapse zone - buildings existing in overlapping states simultaneously showing pristine intact architecture alongside smoking ruins, ground fractured into chasms revealing layered parallel battlefields beneath, sky containing sun, moon, stars and void simultaneously, debris falling in multiple directions at once, air itself visible cracked like shattered glass with dimensional light bleeding through",
+      "atmosphere_vfx": "Constant reality glitching with chromatic aberration, particles of matter phasing in and out of existence, violet energy tendrils crackling between dimensional rifts, gravitational anomalies causing visual distortion rings around objects, blood and dust suspended in impossible trajectories, ambient sound visualized as rippling waves in the air"
+    }
+  }
+}

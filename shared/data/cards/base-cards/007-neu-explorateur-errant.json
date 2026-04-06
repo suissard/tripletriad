@@ -1,0 +1,77 @@
+{
+  "collectionName": "base",
+  "name": "Explorateur Errant",
+  "description": "Négociateur ouvrant des alliances temporaires entre factions rivales pour des opérations communes ponctuelles.",
+  "element": "None",
+  "faction": "neutre",
+  "topValue": "4",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/007.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Human Diplomatic Combatant - Wandering Explorer of the Belt",
+      "loadout": {
+        "armor_outfit": "Ripped and patched mining spacesuit with welded scrap metal plates, asymmetric shoulder pauldrons made from bent traffic signs, duct-taped joints, exposed cables and wiring, fuel-stained work gloves with knuckle guards, magnetic boots showing heavy wear",
+        "arsenal": "Hybrid plasma cutter/harpoon rifle with exposed copper coils and taped-on battery pack, weighted谈判用的铁链手套 for intimidation, emergency flare gun strapped to thigh"
+      },
+      "attitude": {
+        "behavior": "Standing in the crossfire with palms open at shoulder height in peace gesture, one foot forward in balanced combat stance, body angled to face approaching threat while keeping allied forces in peripheral vision, coiled tension in shoulders",
+        "emotion": "Determined calm with eyes showing calculated risk, jaw set tight, sweat and grime on weathered face, expression balancing desperate hope with lethal readiness"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Oxidized Steel Grey",
+          "role": "primary armor and environment"
+        },
+        {
+          "name": "Rust Orange",
+          "role": "worn metal accents and battle damage"
+        },
+        {
+          "name": "Hot Plasma Blue",
+          "role": "energy effects and impact flashes"
+        },
+        {
+          "name": "Motor Grease Black",
+          "role": "shadows and deep recesses"
+        },
+        {
+          "name": "Sparks Yellow-White",
+          "role": "impact debris and welding effects"
+        }
+      ],
+      "lighting_setup": "Mixed_nuclear_strobe_and_welding_flashes",
+      "mood": "Tense desperate heroism"
+    },
+    "camera": {
+      "angle": "low_angle slightly_dutch_tilt"
+    },
+    "scenography": {
+      "setting": "Asteroid waystation crossroads junction with corrugated metal walls, makeshift barricades from shipping containers, exposed piping and ductwork, floating debris in zero-g pockets, bullet-scarred surfaces",
+      "atmosphere_vfx": "Plasma impacts causing sparks and molten debris rain, thick rolling smoke from burning hulls, occasional muzzle flashes illuminating silhouettes, dust particles catching blue plasma glow, alarm lights flickering red"
+    }
+  }
+}

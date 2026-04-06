@@ -1,0 +1,89 @@
+{
+  "collectionName": "base",
+  "name": "Rodeur Errant",
+  "description": "Relais de communication transmettant les messages entre unités dispersées dans les zones de brouillage.",
+  "element": "reseau",
+  "faction": "neutre",
+  "topValue": "5",
+  "rightValue": "3",
+  "bottomValue": "6",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/009.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Les Ferrailleurs de la Ceinture – Scrap-Punk Combat Communicator",
+      "loadout": {
+        "armor_outfit": "Heavily patched asymmetric mining space suit, welded sign plates, duct tape, exposed cables, reinforced knee pads, communication relay backpack with multiple jury‑rigged antennae and blinking status LEDs",
+        "arsenal": "Militarized mining harpoon rifle with exposed copper coils and a plasma torch sidearm, improvised IEM coil launcher strapped to forearm"
+      },
+      "attitude": {
+        "behavior": "Combat stance with weapon raised, eyes locked on approaching threat, body coiled like a spring, ready to explode into action",
+        "emotion": "Intense focus, fierce determination, adrenaline‑fueled aggression"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Oxidized Steel",
+          "role": "primary armor and background structure"
+        },
+        {
+          "name": "Rust Orange",
+          "role": "accent paint and rust streaks"
+        },
+        {
+          "name": "Industrial Gray",
+          "role": "secondary metal surfaces"
+        },
+        {
+          "name": "Worn Synthetic Fabric",
+          "role": "clothing and patches"
+        },
+        {
+          "name": "Grease Black",
+          "role": "oil stains and shadowed areas"
+        },
+        {
+          "name": "Construction Yellow",
+          "role": "hazard markings and tool highlights"
+        },
+        {
+          "name": "Hot Plasma Blue",
+          "role": "energy accents, plasma bolts, and glow"
+        },
+        {
+          "name": "Spark White‑Yellow",
+          "role": "sparks and impact flashes"
+        }
+      ],
+      "lighting_setup": "Dynamic side‑lit by plasma bursts, volumetric smoke, flickering industrial lights, harsh shadows, high‑contrast OSL reflections on metal surfaces",
+      "mood": "Chaotic, desperate, intense"
+    },
+    "camera": {
+      "angle": "low_angle_with_slight_dutch_tilt"
+    },
+    "scenography": {
+      "setting": "Asteroid waystation crossroads junction, corroded corrugated metal walls, improvised barricades built from cargo containers and scrap, dense smoke, distant stars",
+      "atmosphere_vfx": "Plasma rounds impacting walls, ricocheting sparks and debris raining down, thick smoke swirling, flickering plasma glow, occasional muzzle flash, dust particles illuminated by plasma light"
+    }
+  }
+}

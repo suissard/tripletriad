@@ -2,8 +2,12 @@
   "name": "Carapace Abyssale",
   "description": "Unité d'élite blindée dont l'armure est greffée de corail vivant et de polymères pressurisés. Ses deux canons à geyser crachent des jets de plasma bouillant à courte portée.",
   "element": "eau",
-  "elements": ["eau", "longue_portee", "reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "longue_portee",
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "5",
   "rightValue": "4",
   "bottomValue": "4",

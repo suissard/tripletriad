@@ -1,0 +1,88 @@
+{
+  "collectionName": "base",
+  "name": "Arcane Chtonien",
+  "description": "Nécromancien ranimant les unités perdues lors des combats pour les faire combattre une dernière fois sous la bannière de l'Éveil.",
+  "element": "obsidienne",
+  "faction": "Éveil Chthonien",
+  "topValue": "5",
+  "rightValue": "3",
+  "bottomValue": "6",
+  "leftValue": "6",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -1,
+      "target": "enemy_with_highest"
+    }
+  ],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/102.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Chthonic Necromancer Titan - Primordial Undead Commander",
+      "loadout": {
+        "armor_outfit": "Living tectonic plates fused with calcified volcanic rock, obsidian crystalline growths forming jagged shoulder plates, magma-filled fissures running through rocky exoskeleton, smoky vents exhaling黑色的骨灰 from neck and shoulder joints, crown of sharpened basalt spikes protruding from hunched mass, skin resembling cooled lava flows with deep crimson cracks revealing molten core",
+        "arsenal": "Two massive clawed hands capable of channeling dimensional energy, concentrated nullification beam manifesting between pressed palms, spectral chains of solidified shadow erupting from ground fissures, swirling vortex of reanimated spirits orbiting torso, floating ancient runic stones orbiting like gravitational bodies"
+      },
+      "attitude": {
+        "behavior": "Advancing forward with tremendous mass, both massive hands thrust outward with palms facing target, body leaning into attack stance, lower body anchored as upper body commits fully to nullification beam emission, massive fissures splitting ground beneath feet as dark energy pulses outward, surrounded by swirling fragments of torn reality",
+        "emotion": "Intense psychic concentration radiating from multiple glowing eye clusters without pupils, expression of absolute dominion over death and dimensions, emanation of primordial dread and irresistible command over fallen warriors, veins of inner fire blazing with unwavering determination"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Cosmic Horror",
+          "Primordial Abomination"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Obsidian Black",
+          "role": "Primary body structure and shadow dominance"
+        },
+        {
+          "name": "Basalt Grey",
+          "role": "Rocky texture and mineral deposits"
+        },
+        {
+          "name": "Molten Magma Orange",
+          "role": "Inner energy, beam core, glowing fissures"
+        },
+        {
+          "name": "Volcanic Crimson",
+          "role": "Accent lighting, rune glow, blood-magic"
+        },
+        {
+          "name": "Ash Grey",
+          "role": "Atmospheric particles, smoke, dust"
+        },
+        {
+          "name": "Spectral Void Purple",
+          "role": "Dimensional tears and shadow tentacles"
+        }
+      ],
+      "lighting_setup": "Volcanic_ground_glow_with_dimension_rift_backlighting",
+      "mood": "Apocalyptic dread with overwhelming cosmic terror"
+    },
+    "camera": {
+      "angle": "low_heroic_angle_with_slight_dutch_tilt"
+    },
+    "scenography": {
+      "setting": "Torn dimensional battlefield with ground splitting in massive fissures, impossible sky geometry folding upon itself, reality thinning at edges creating visual distortion, ancient glowing runes inscribed on floating debris and cracked ground, multiple shadow tentacles erupting from below alongside swirling spirits of reanimated units",
+      "atmosphere_vfx": "Thick supernatural dread fog, pulsing dimensional rifts in sky, constant ground tremors, volcanic ash falling like snow, crackling energy between reality fragments, spectral chains connecting fallen warriors rising from fissures, chromatic aberration at reality tear edges"
+    }
+  }
+}

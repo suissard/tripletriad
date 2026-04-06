@@ -1,0 +1,97 @@
+{
+  "collectionName": "base",
+  "name": "Arcane 1",
+  "description": "Ancien Endormi réveillé libérant la puissance oubliée des ères pré-cosmiques remodelant temporairement les règles physiques du champ de bataille.",
+  "element": "faille_dimensionnelle",
+  "faction": "Éveil Chthonien",
+  "topValue": "9",
+  "rightValue": "7",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "heal",
+      "value": 3,
+      "target": "self"
+    },
+    {
+      "type": "decrease",
+      "value": -3,
+      "target": "opposite_side"
+    }
+  ],
+  "rarity": "Legendary",
+  "defaultHp": 4,
+  "image": "base/105.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Chthonic Titan Combatant - Ancient Awakening Entity of Pre-Cosmic Power",
+      "loadout": {
+        "armor_outfit": "Natural tectonic plate armor - obsidian black asymmetrical rock plates fused with cooling magma seams, basalt grey mineral plating forming layered protective carapace across massive humanoid torso, volcanic rock formations erupting from shoulders and spine, cracked obsidian helmet with smoke billowing from jaw fissures, stone horns protruding from temples, magma-filled fissures glowing through rock plating with internal crimson energy, flesh visibly regenerating beneath fractured mineral skin",
+        "arsenal": "Colossal stone fists capable of seismic impact, clawed rock fingers adapted for crushing stone, massive crushing maw with jagged volcanic teeth, body generating destructive seismic waves and magma bursts as natural weaponry, golden restorative energy cocoon enveloping critical wounds"
+      },
+      "attitude": {
+        "behavior": "Standing amid torn dimensional battlefield with ground split by massive fissures, left hand pressed urgently against grievous wound in chest region while right arm raised with clenched fist, massive shadow tentacles erupting from ground fissures behind massive form, entire body wreathed in swirling golden regenerative energy forming protective cocoon of restorative light around injuries, reality warping aura causing nearby space to distort and fracture",
+        "emotion": "Primordial fury channeled through ancient consciousness, pain transmuted into catastrophic power, desperate determination as wounds visibly close through supernatural regeneration, cosmic dread emanating from multiple glowing eyeless eyes set deep within stone visage"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark Fantasy",
+          "Dark Cosmic Horror",
+          "Post-Apocalyptic Desolation",
+          "Titanic Monumental Scale"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Obsidian Black",
+          "role": "Primary body and armor composition"
+        },
+        {
+          "name": "Basalt Grey",
+          "role": "Secondary mineral texture and battlefield ground"
+        },
+        {
+          "name": "Magma Red",
+          "role": "Internal energy, glowing fissures, and power accents"
+        },
+        {
+          "name": "Molten Orange",
+          "role": "Secondary energy glow and volcanic heat"
+        },
+        {
+          "name": "Golden Light",
+          "role": "Regenerative energy and healing aura"
+        },
+        {
+          "name": "Volcanic Ash Grey",
+          "role": "Atmospheric particles and environmental smoke"
+        },
+        {
+          "name": "Eldritch Purple",
+          "role": "Dimensional wrongness and reality distortion effects"
+        }
+      ],
+      "lighting_setup": "Dramatic cinematic dual-source - internal magma glow from fissures and wounds combined with ethereal golden regenerative light, dimensional rifts casting fractured unnatural illumination across scene",
+      "mood": "Oppressive supernatural dread, catastrophic power, desperate survival, cosmic scale"
+    },
+    "camera": {
+      "angle": "Low angle looking up emphasizing massive scale of titan, dutch_angle tilted slightly to enhance dimensional instability, eye-level to subject"
+    },
+    "scenography": {
+      "setting": "Torn dimensional battlefield with ground split by massive fissures revealing magma rivers beneath, impossible geometry sky showing overlapping planes and non-euclidean angles, ancient runic symbols blazing with power on fractured ground and titan body, reality tearing at edges with visible dimensional stitching",
+      "atmosphere_vfx": "Thick volcanic smoke and ash filling air, shadow tentacles erupting from ground fissures, reality fragments floating as torn dimensional edges, supernatural dread fog, dimensional collapse effects with reality thinning, eldritch energy crackling between torn space, ancient runes pulsing with awakening power"
+    }
+  }
+}

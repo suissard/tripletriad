@@ -4,7 +4,7 @@ import { WebRTCManager } from './WebRTCManager.js';
 import { TurnManager } from './TurnManager.js';
 import { GameEngine } from './GameEngine.js';
 import { gameEvents } from './events.js';
-import cardsData from '../../../shared/data/cards.json';
+import cardsData from '../../../shared/data/cards.json' with { type: 'json' };
 import strapiService from '../api/strapi.js';
 import { getStrapiUrl, getStrapiMediaUrl } from '../utils/url.js';
 
@@ -62,7 +62,17 @@ export function normalizeCard(raw) {
         isPremium: false, // Will be set by ownership logic in components
         rarity: raw.rarity || null,
         collectionName: raw.collectionName || 'base'
-    };
+    ,
+        // --- System Events Hooks ---
+        onDrawn: (ctx) => {
+            console.log(`[Hook] ${raw.name || '(inconnu)'} a été piochée. Contexte:`, ctx);
+        },
+        onPlaced: (ctx) => {
+            console.log(`[Hook] ${raw.name || '(inconnu)'} a été posée sur le plateau. Contexte:`, ctx);
+        },
+        onCaptured: (ctx) => {
+            console.log(`[Hook] ${raw.name || '(inconnu)'} a été capturée. Contexte:`, ctx);
+        }};
 }
 
 export const cardLibrary = reactive(cardsData.map(normalizeCard));
@@ -87,8 +97,22 @@ export const createCardData = (i) => {
  * or raw GameEngine card format.
  */
 function normalizeBoard(board) {
-    if (!board) return Array(9).fill(null);
-    const flat = Array.isArray(board[0]) ? board.flat() : board;
+    if (!board || board.length === 0) {
+        state.boardWidth = 4;
+        state.boardHeight = 4;
+        return Array(16).fill(null);
+    }
+    
+    let flat;
+    if (Array.isArray(board[0])) {
+        // Multi-dimensional array from GameEngine logic
+        state.boardHeight = board.length;
+        state.boardWidth = board[0].length;
+        flat = board.flat();
+    } else {
+        flat = board;
+    }
+    
     return flat.map(entry => {
         if (!entry) return null;
         
@@ -121,8 +145,11 @@ export const state = reactive({
   holoFineness: 0.05, // default texture scale for SVG filter
   pDeck: [],
   aiDeck: [],
+    // Dynamic Board dimensions
+    boardWidth: 4,
+    boardHeight: 4,
     // Board: Array of { data: cardDataObj, owner: 'player'|'ai' } | null
-    board: Array(9).fill(null),
+    board: Array(16).fill(null),
     // Hands: Arrays of plain card data objects
     pHand: [],
     aiHand: [],
@@ -183,6 +210,13 @@ export const state = reactive({
     storyEnemyDeckConfig: [],
     onStoryMatchEnd: null,
     storyMatchData: null,
+
+    // Combo visual effect
+    comboCount: 0,
+    comboActiveIndex: null,
+
+    // Capture preview (Map<slotIndex, {directCaptures, comboCaptures, totalCaptures}> | null)
+    capturePreview: null,
 });
 
 export function getCardById(id) {
@@ -348,6 +382,12 @@ export function refillHand(owner) {
         if (owner === 'ai') {
             card.revealed = false; // AI cards are face-down by default
         }
+
+        // Ensure card hook exists and emit CARD_DRAWN
+        if (typeof card.onDrawn === 'function') {
+            card.onDrawn({ owner });
+        }
+        gameEvents.emit('CARD_DRAWN', { card, owner });
         hand.push(card);
     }
 }
@@ -362,8 +402,11 @@ function generateLocalUUID() {
 
 // Reset the entire game state
 export function resetGame(deckSize = 30, goToMenu = true, forcedTurn = null) {
+    gameEvents.emit('MATCH_START', {});
     initDeck(deckSize);
-    state.board = Array(9).fill(null);
+    state.boardWidth = 4;
+    state.boardHeight = 4;
+    state.board = Array(16).fill(null);
     state.matchId = null;
     state.pHand = [];
     state.aiHand = [];
@@ -397,6 +440,11 @@ export function resetGame(deckSize = 30, goToMenu = true, forcedTurn = null) {
     state.aiMana = 1;
     state.actionLog = [];
     state.showCoinToss = false;
+
+    // Reset combo state
+    state.comboCount = 0;
+    state.comboActiveIndex = null;
+    state.capturePreview = null;
 }
 
 /**
@@ -501,4 +549,55 @@ gameEvents.on('GAME_OVER', (payload) => {
         { type: 'system', id: 'system' },
         { winner: payload.winner }
     );
+});
+
+// --- EVENT LOGGING & CARD HOOKS ---
+
+gameEvents.on('MATCH_START', (payload) => {
+    console.log('[Event] MATCH_START - La partie commence.');
+});
+
+gameEvents.on('TURN_START', (payload) => {
+    console.log(`[Event] TURN_START - C'est au tour de: ${payload.player}`);
+});
+
+gameEvents.on('CARD_DRAWN', (payload) => {
+    console.log(`[Event] CARD_DRAWN - Carte piochée par ${payload.owner}:`, payload.card.name || payload.card.id);
+    // Note: onDrawn is already called locally inside refillHand, but we can keep it here if emitted from elsewhere
+});
+
+gameEvents.on('CARD_PLACED', (payload) => {
+    console.log(`[Event] CARD_PLACED - Carte posée en (${payload.action.x}, ${payload.action.y}) par ${payload.action.player}:`, payload.action.card.name || payload.action.card.id);
+    // On the board, the card might be raw data or wrapped in a cell.
+    // Ensure we trigger the hook on the actual card data object.
+    const cardData = payload.action.card;
+    if (typeof cardData.onPlaced === 'function') {
+        cardData.onPlaced(payload);
+    }
+});
+
+gameEvents.on('CARD_CAPTURED', (payload) => {
+    console.log(`[Event] CARD_CAPTURED - ${payload.count} carte(s) capturée(s) par ${payload.capturer}.`);
+    // NOTE: For individual card captures, we might want to emit a per-card capture event later,
+    // but the current gameEvents.emit('CARD_CAPTURED') usually sends a 'count' in TurnManager.js
+    // Let's hook into the captured cards if they are available in the payload.
+    if (payload.capturedCards && Array.isArray(payload.capturedCards)) {
+        payload.capturedCards.forEach(cardData => {
+            if (typeof cardData.onCaptured === 'function') {
+                cardData.onCaptured({ ...payload, capturedCard: cardData });
+            }
+        });
+    }
+});
+
+gameEvents.on('GAME_OVER', (payload) => {
+    console.log(`[Event] GAME_OVER - La partie est terminée. Vainqueur: ${payload.winner}`);
+});
+
+gameEvents.on('SHOW_ALERT', (payload) => {
+    // Re-use engine's showAlert logic adapted for state
+    state.alerts = payload.text;
+    setTimeout(() => {
+        if (state.alerts === payload.text) state.alerts = '';
+    }, 2000);
 });

@@ -1,0 +1,78 @@
+{
+  "collectionName": "base",
+  "name": "Contamine Fongique",
+  "description": "Pandémie vivante se propageant exponentiellement sur le champ de bataille contaminant chaque zone touchée durablement.",
+  "element": "spore",
+  "elements": [
+    "radiation"
+  ],
+  "faction": "Fléau Spore",
+  "topValue": "9",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Epic",
+  "defaultHp": 4,
+  "image": "base/148.png",
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Fungal Contaminator Combat Specialist - grotesque bio-horror hybrid merging corrupted soldier silhouette with pulsating mycological growths, asymmetrically bloated torso erupting with bulbous fungal sacs, limbs stretched and disfigured by sprawling mycelial tendrils",
+      "loadout": {
+        "armor_outfit": "Destroyed military exoskeleton fractured and spread apart by violent internal fungal eruption, rusted metal plates separated and held together by thick ropes of living mycelium, no symmetry remaining, polypore fruiting bodies erupting from shoulder plates, branch-like fungal gills protruding from neck area",
+        "arsenal": "Corrupted automatic rifle completely engulfed in pulsating biomass, weapon barrel replaced with organic nozzle secreting acidic mucus, magazine replaced by bulging spore sac, toxic green veins pulsing along the weapon, fungal tendrils wrapping around the grip"
+      },
+      "attitude": {
+        "behavior": "Aggressive combat stance with weapon raised high, torso leaning forward into attack, legs planted wide on living fungal ground, one arm extended holding corrupted rifle pointed at target, body covered in freshly burst spore clouds, posture coiled and explosive",
+        "emotion": " mindless hunger and organic malevolence radiating from hollow eye sockets now filled with bioluminescent fungal clusters, twisted jaw hanging open releasing constant stream of toxic spores"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic biological horror",
+          "Body horror aesthetics"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Toxic Fluorescent Green",
+          "role": "Primary bioluminescent accent illuminating subject and creating eerie glow on fungal elements"
+        },
+        {
+          "name": "Sickly Putrid Green",
+          "role": "Main atmospheric color dominating spore clouds and haze"
+        },
+        {
+          "name": "Moldy Brown Gray",
+          "role": "Base color of mycological growths and decomposing terrain"
+        },
+        {
+          "name": "Rusted Metal Gray",
+          "role": "Corroded weapon and armor remnants"
+        },
+        {
+          "name": "Necrotic Flesh Pink",
+          "role": "Exposed biological tissue being overtaken by infection"
+        }
+      ],
+      "lighting_setup": "Harsh backlighting from toxic bioluminescent sources with thick atmospheric haze creating volumetric god rays through spore clouds, low intensity ambient light with green OSL (Object Source Lighting) on all fungal elements",
+      "mood": "Oppressively menacing, horrifying, apocalyptic - sense of inevitable contamination and organic dread"
+    },
+    "camera": {
+      "angle": "low_angle looking up at the contaminator silhouette against the green haze, emphasizing monstrous scale and threatening presence"
+    },
+    "scenography": {
+      "setting": "Biologically devastated battlefield completely consumed by fungal infestation, ground transformed into pulsating living organism with visible mycelial networks spreading across destroyed terrain, massive fungal towers erupting from craters, skeletal remains half-dissolved being overtaken by rapid growth",
+      "atmosphere_vfx": "Thick toxic spore clouds reducing visibility to create oppressive green haze, massive pulsating sacs constantly bursting releasing contamination, ground alive and hostile with fungal tendrils bursting through dirt, mycelial networks visibly pulsing and growing in real-time, toxic green fog rolling across battlefield"
+    }
+  }
+}

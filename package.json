@@ -4,8 +4,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npm run stop && npm run docker:start && npm run dev:front",
-    "install": "node scripts/install-all.js",
+    "dev": "npm run sync:cards && npm run stop && npm run docker:start && npm run dev:front",
+    "sync:cards": "node scripts/sync-offline-cards.mjs",
+    "install": "node scripts/install-all.js && npm run sync:cards",
     "setup": "node scripts/setup-strapi.js",
     "start": "bash scripts/start-docker.sh",
     "stop": "sudo docker-compose down",

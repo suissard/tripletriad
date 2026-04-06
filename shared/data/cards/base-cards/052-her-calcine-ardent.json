@@ -1,0 +1,85 @@
+{
+  "collectionName": "base",
+  "name": "Calcine Ardent",
+  "description": "Salamandre de choc résistant aux températures extrêmes du champ de bataille et menant les assauts les plus périlleux.",
+  "element": "radiation",
+  "faction": "Héritiers des Cendres",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/052.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Mutant Flame‑Resistant Assault Warrior (Salamandre de Choc)",
+      "loadout": {
+        "armor_outfit": "Tribal apocalyptique en lambeaux de bâches anti‑radiation usées, plaques de récupération rouillées et tôles fondues, colliers de capsules de réacteurs et d’os, implants de métal perçant la chair, masques à gaz fondus avec tumeur luminescente jaune sur la tempe.",
+        "arsenal": "Relique d’arme de destruction massive de l’Ancien Monde – canon à plasma lourdesque aux lignes épurées et géométriques, légèrement greffée au bras droit avec des chaînes d’os. Une ogive nucléaire miniature portée en pendentif de mêlée."
+      },
+      "attitude": {
+        "behavior": "Posture dENTES – il se tient en avant‑plan, légèrement penché, poing gauche serrant l’arme greffée, l'autre bras suspendu à une chaîne d’os, souffle incandescent sifflant de ses narines, yeux multiples luisant d’un jaune radioactif, chaque pas croustillant la terre calcinée.",
+        "emotion": "Féroce détermination, indifférence totale à la douleur, une froideur calculée liée à son mutisme quasi‑religieux, regard fixe sur lobjectif."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Post‑apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Terre irradiée (brun)",
+          "role": "Dominant – chair malade, lambeaux de vêtements, sol"
+        },
+        {
+          "name": "Gris cendre",
+          "role": "Dominant – métal rouillé, structures d’armes"
+        },
+        {
+          "name": "Chair jaunâtre",
+          "role": "Secondary – peau du mutant, tumeurs"
+        },
+        {
+          "name": "Rouille vive",
+          "role": "Secondary – armure improvisée, implants"
+        },
+        {
+          "name": "Noir de suie",
+          "role": "Secondary – cendres, ombres"
+        },
+        {
+          "name": "Jaune fluo radioactif",
+          "role": "Accent – yeux multiples, tumeurs luminescentes, lueur du plasma"
+        },
+        {
+          "name": "Blanc pur",
+          "role": "Accent/energie – énergie du canon à plasma (bleu/violet), reflets de l’ogive"
+        }
+      ],
+      "lighting_setup": "Cinematic rim‑light with strong back‑glow from plasma energy and radioactive tumors, subtle dust motes illuminated by faint nuclear haze.",
+      "mood": "Menacing, holy‑terror, apocalyptique"
+    },
+    "camera": {
+      "angle": "Low angle, slightly dutch to enhance towering, grotesque silhouette"
+    },
+    "scenography": {
+      "setting": "Scorched battlefield – ash‑filled crater, twisted metal wreckage, glowing fissures of molten rock, ruins of pre‑war bunkers, remnants of anti‑radiation barriers.",
+      "atmosphere_vfx": "Acid rain of ash, intermittent bursts of plasma discharge, distant nuclear fallout clouds, subtle heat shimmer rising from the ground, occasional sparks from the relic weapon."
+    }
+  }
+}

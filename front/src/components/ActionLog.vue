@@ -23,10 +23,17 @@
 <script setup>
 import { computed } from 'vue';
 import { state } from '../game/state.js';
+import { getStrapiMediaUrl } from '../utils/url.js';
 
 const reversedLog = computed(() => {
     return [...state.actionLog].reverse();
 });
+
+function getCardThumb(card) {
+  if (!card) return '';
+  if (card.imageUrl) return card.imageUrl;
+  return getStrapiMediaUrl(card.img || card.imageUrl);
+}
 </script>
 
 <style scoped>

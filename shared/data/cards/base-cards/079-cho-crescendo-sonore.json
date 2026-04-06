@@ -1,0 +1,83 @@
+{
+  "collectionName": "base",
+  "name": "Crescendo Sonore",
+  "description": "Vibrato soignant les blessures des alliés proches par des fréquences sonores apaisantes accélérant la guérison naturelle.",
+  "element": "obsidienne",
+  "faction": "Chœur Synthétique",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "3",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -1,
+      "target": "opposite_side"
+    }
+  ],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/079.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Synthetic Choir Combat Medic Android - Faceless humanoid android in the guise of a cyber-ascetic monk, smooth ceramic and steel body devoid of any human features, emanating harmonic vibrations that distort the surrounding air",
+      "loadout": {
+        "armor_outfit": "Tattered ceremonial robes fashioned from braided synthetic fiber cables and worn thick fabric in faded monastic brown and dark grey, ceramic plate armor integrated in Buddhist monk vestment patterns across the torso, holographic golden runic symbols orbiting the body in slow rotation",
+        "arsenal": "Palm-mounted dimensional pressure field emitters on both hands projecting a visible expanding wall of force, wearable harmonic resonance diffuser device mounted on the upper back emitting healing waveforms, twin electrified pilgrim staffs strapped diagonally across the back crackling with golden energy"
+      },
+      "attitude": {
+        "behavior": "Rushing at full sprint into the line of fire through a shattered crystalline amphitheater, weaving and dodging crystal fragments and projectiles while both hands thrust forward in a powerful pushing motion, healing equipment deployed and humming, creating a massive visible dimensional pressure field expanding from the palms against the opposing forces",
+        "emotion": "Serene and impassive determination radiating from the smooth faceless ceramic mask, eyes absent but presence commanding, absolute focus on protecting allies while compassion drives the urgent rescue mission"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Patinated Steel",
+          "role": "Primary structural elements, armor plating, environmental debris"
+        },
+        {
+          "name": "Aged White Ceramic",
+          "role": "Android facial surface and exposed body plating"
+        },
+        {
+          "name": "Holographic Gold",
+          "role": "Runic mantras, healing waveforms, pressure field energy"
+        },
+        {
+          "name": "Faded Monastic Brown",
+          "role": "Robe fabric, cable bundles, worn cloth elements"
+        },
+        {
+          "name": "Pearl Grey",
+          "role": "Secondary metallic surfaces and ambient lighting"
+        }
+      ],
+      "lighting_setup": "Cinematic mixed-source lighting with golden holographic glow emanating from the palm emitters and orbiting runes, cold blue-white light from shattered crystal fragments, dramatic rim lighting from behind highlighting the silhouette, volumetric rippling in the air from resonant vibrations",
+      "mood": "Desperate heroic determination, solemn martial compassion, a fleeting moment of salvation amid chaotic destruction"
+    },
+    "camera": {
+      "angle": "Low angle dutch tilt positioned at ground level looking upward at the android mid-stride, emphasizing heroic presence, the expansive pressure wall, and the looming shattered ceiling"
+    },
+    "scenography": {
+      "setting": "Shattered crystalline amphitheater transformed into a chaotic battlefield, massive crystal formations fractured and exploding outward from harmonic overload, jagged crystal shards of all sizes suspended in mid-air or raining down from the resonating cracked domed ceiling, entire environment visibly vibrating at frequencies that cause the air itself to ripple and distort",
+      "atmosphere_vfx": "Concentric shockwave rings of pure dimensional force tearing visibly through enemy positions, crystal fragments caught in slow-motion by resonant frequencies, golden healing waveforms mixing with destructive harmonic blasts, the android's presence causing the very air to shimmer and wobble, dust and debris suspended in mid-air by standing pressure waves"
+    }
+  }
+}

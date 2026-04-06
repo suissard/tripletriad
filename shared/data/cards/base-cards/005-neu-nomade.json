@@ -1,0 +1,89 @@
+{
+  "collectionName": "base",
+  "name": "Nomade",
+  "description": "Garde-frontière protégeant les convois civils dans les zones neutres où aucune faction n'exerce de contrôle.",
+  "element": "furtif",
+  "faction": "neutre",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "death",
+      "value": 1,
+      "target": "enemy_on_capture"
+    }
+  ],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/005.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Battered Scavenger Combat Specialist - Worn Space Miner Turned Border Guard Warrior",
+      "loadout": {
+        "armor_outfit": "Improvised mining space suit heavily patched with welded steel plates salvaged from cargo containers, signal panels, and vehicle hulls. Asymmetric plating secured with thick silver duct tape and rusty cable ties. Exposed pressurized tubes and cables crisscrossing the torso. Thick layered fabric under suit stained with engine grease, oil burns, and plasma scorch marks. Scavenged exoskeleton frame with visible servo motors and hydraulic pistons. Heavy gauntlets with embedded magnetic tool mounts. Cracked welding helmet visor scratched and welded shut, replaced with improvised opaque face shield covered in crude scratches. Multiple ammo pouches, tool holsters, and carabiner clips hanging from tactical harness.",
+        "arsenal": "Rigged kinetic harpoon cannon - bulky, exposed copper coils for improvised electromagnetic propulsion, batteries duct-taped to the weapon's frame, corroded barrel with plasma scoring. Heavy industrial cutting tool strapped to thigh with exposed wiring and sparking connectors."
+      },
+      "attitude": {
+        "behavior": "Full combat commitment stance, body lunging forward aggressively despite being grappled from behind by captors. Arms reaching backward in powerful casting gesture, fingers splayed as dark vengeful energy streams from the character's body in focused beam toward enemy captors. Legs planted wide in defensive fighting stance, weight low and centered. The character is mid-stride, momentum captured in frozen moment of defiance as hostile forces close in from behind through smoke.",
+        "emotion": "Vengeful rage burning through exhaustion, fierce scowl visible beneath cracked visor, eyes filled with cold determination. The expression of someone who refuses to go quietly - a final curse being unleashed through concentrated dark energy even as capture becomes inevitable. Absolute commitment to dealing maximum damage before being subdued."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Scrap-punk",
+          "Industrial Brutalism"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Rust Orange",
+          "role": "Primary dominant color - oxidized metal, armor plates, energy weapon heat"
+        },
+        {
+          "name": "Oxidized Steel Gray",
+          "role": "Secondary dominant - worn suit material, structural elements, industrial debris"
+        },
+        {
+          "name": "Hot Blue Plasma",
+          "role": "Energy accent - weapon plasma rounds, impact flashes, dark curse energy"
+        },
+        {
+          "name": "Engine Grease Black",
+          "role": "Shadow and depth - stains, deep shadows, viscous fluids"
+        },
+        {
+          "name": "Construction Yellow Eroded",
+          "role": "Highlight accent - hazard stripes, warning markings, sparks"
+        },
+        {
+          "name": "Dark Void Purple",
+          "role": "Vengeful energy - curse effect emanating from captured body"
+        }
+      ],
+      "lighting_setup": "Harsh industrial multi-source lighting with plasma impact flashes, volumetric smoke, and rim lighting from weapon energy. High contrast cinematic setup with strong shadows cutting through smoke and debris.",
+      "mood": "Desperate defiance, chaotic violence, vengeful determination, gritty survival intensity"
+    },
+    "camera": {
+      "angle": "Low angle dutch tilt - dramatic upward perspective emphasizing the warrior's fierce stance while capturing the chaos of the warzone behind, slight dynamic tilt to enhance combat tension"
+    },
+    "scenography": {
+      "setting": "Asteroid waystation crossroads junction - cramped industrial corridor junction with corrugated metal walls riddled with plasma impact craters, hastily welded reinforcement beams, scattered mining equipment, overturned cargo crates serving as makeshift barricades. Thick dust and debris floating in zero-g pockets. Waystation emergency lighting flickering red in background.",
+      "atmosphere_vfx": "Active plasma impacts sending molten debris and bright sparks raining down. Volumetric thick smoke from burning equipment obscuring enemy silhouettes advancing. Dynamic dust particles caught in weapon energy light. Gravity anomalies causing debris to float chaotically. Screen-space glow from plasma weapon fire and dark curse energy creating competing light sources. Intense heat distortion around weapon barrels."
+    }
+  }
+}

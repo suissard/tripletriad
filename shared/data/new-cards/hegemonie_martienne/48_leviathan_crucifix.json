@@ -2,8 +2,11 @@
   "name": "Léviathan Crucifix",
   "description": "Forteresse de purification roulante. Son fourneau titanesque incinère la terre mutante sous ses pas tandis que ses champs de confinement guident les populations capturées. Pèlerinage de feu, terminus : le néant.",
   "element": "obsidienne",
-  "elements": ["obsidienne", "radiation"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "obsidienne",
+    "radiation"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "8",
   "rightValue": "7",
   "bottomValue": "8",

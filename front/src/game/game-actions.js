@@ -3,7 +3,7 @@
  * Replaces the old Three.js raycaster-based input.js.
  */
 import { state, webrtc, refillHand } from './state.js';
-import { resolveRules, sleep, updateScores, endTurn } from './engine.js';
+import { resolveRules, sleep, updateScores, endTurn, expandBoard } from './engine.js';
 import { getBestAIMove } from './ai.js';
 
 /**
@@ -119,6 +119,7 @@ export async function placeCard(slotIndex) {
     await resolveRules(slotIndex, 'player');
 
     refillHand('player');
+    // expandBoard();
     updateScores();
 
     state.busy = false;
@@ -156,6 +157,7 @@ export async function processOpponentMove(move) {
     await resolveRules(move.slot, 'ai');
 
     refillHand('ai');
+    // expandBoard();
     updateScores();
 }
 

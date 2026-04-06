@@ -1,0 +1,81 @@
+{
+  "collectionName": "base",
+  "name": "Recup Artisanal",
+  "description": "Artisan du scrap fabriquant des gadgets utiles à partir de débris collectés sur le champ de bataille après chaque engagement.",
+  "element": "radiation",
+  "elements": [
+    "faille_dimensionnelle"
+  ],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/121.png",
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Scrap-Punk Artisan Combatant",
+      "loadout": {
+        "armor_outfit": "Improvised, heavily patched mining exosuit made of welded rusted steel plates, duct‑taped joints, exposed cables, and scavenged signage; asymmetric, overloaded with tool pouches, carabiners, and cables; helmet: cracked welding mask with opaque scratched visor; reinforced gloves with magnetic grips; patched pressure suit with burnt patches and patched seams.",
+        "arsenal": "Improvised kinetic harpoon rifle with exposed copper coils, a jury‑rigged plasma torch welded onto a mining pick, a kinetic impact hammer with a battery pack taped to its side, and a set of magnetic debris nets for catching floating scrap."
+      },
+      "attitude": {
+        "behavior": "Combat stance: low‑gravity crouch, one leg braced on a floating slab, weapon raised, torso twisted toward the threat, eyes focused, muscles coiled, ready to launch.",
+        "emotion": "Intense, adrenaline‑fueled focus, a fierce grin of a battle‑hardened scavenger, eyes narrowed under the visor, a mixture of fury and calculation."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Post‑apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Rusted Steel",
+          "role": "Primary structural color, dominant metal surfaces"
+        },
+        {
+          "name": "Orange Rust",
+          "role": "Secondary accents, oxidized panels, heat tint"
+        },
+        {
+          "name": "Industrial Gray",
+          "role": "Background, hull plating, ambient shading"
+        },
+        {
+          "name": "Blue Plasma",
+          "role": "Energy accent, glowing torch, sparks, plasma vents"
+        },
+        {
+          "name": "Molten Orange",
+          "role": "Molten metal rivers, fire glow, hot metal"
+        },
+        {
+          "name": "Spark Yellow‑White",
+          "role": "Sparks and bright flashes from clashing weapons"
+        }
+      ],
+      "lighting_setup": "Cinematic low‑key key light from a distant plasma furnace, strong rim lighting from molten metal streams, volumetric blue plasma glow, high‑contrast fill from sparks and floating debris, subtle ambient bounce from asteroid walls.",
+      "mood": "Chaotic, menacing, desperate, high‑octane"
+    },
+    "camera": {
+      "angle": "Low‑angle dutch tilt, dynamic, slight upward tilt to emphasize looming structures and floating debris"
+    },
+    "scenography": {
+      "setting": "Interior of a hollowed asteroid turned into a massive scrapyard battlefield: massive, half‑collapsed spacecraft hulls, towering cargo containers, exposed structural beams, ruptured tanks spilling molten metal rivers, floating debris clouds, improvised barricades of welded scrap, low‑gravity environment.",
+      "atmosphere_vfx": "Falling debris, slow‑moving floating metal chunks, cascading molten metal streams, dense clouds of grinding sparks, flickering plasma torch flames, dust and smoke, occasional bursts of blue energy from improvised weapons, faint gravity distortion effects."
+    }
+  }
+}

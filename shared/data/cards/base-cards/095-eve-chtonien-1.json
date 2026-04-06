@@ -1,0 +1,77 @@
+{
+  "collectionName": "base",
+  "name": "Chtonien 1",
+  "description": "Mystique ancien lisant les runes prédisant les événements futurs et permettant des anticipations tactiques surprenantes.",
+  "element": "faille_dimensionnelle",
+  "faction": "Éveil Chthonien",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/095.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Ancient Chthonian Titan Seer",
+      "loadout": {
+        "armor_outfit": "Natural tectonic plate armor composed of interlocking obsidian and basalt slabs, volcanic rock carapace with glowing magma veins coursing through cracks, raw stone horns protruding from massive skull, asymmetrical razor-sharp obsidian protrusions",
+        "arsenal": "Massive magma-infused stone claws capable of boring through bedrock, glowing rune-etched obsidian gauntlets, prehensile tentacle-like appendages with volcanic tips"
+      },
+      "attitude": {
+        "behavior": "Combat stance with entire massive body coiled and tensed, one clawed arm raised high with weapon/tool ready, multiple glowing eyes locked onto approaching threat, smoke billowing from gaping maw, runes on body pulsing with predictive energy",
+        "emotion": "Ancient primordial fury and tactical foresight, cold calculated rage beneath volcanic heat, supernatural dread emanating from every pore"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Obsidian Black",
+          "role": "Primary shadow and armor base, deep crevices"
+        },
+        {
+          "name": "Basalt Grey",
+          "role": "Rocky texture and secondary armor plates"
+        },
+        {
+          "name": "Magma Red-Orange",
+          "role": "Glowing cracks, heated veins, and energy accents"
+        },
+        {
+          "name": "Ash Grey",
+          "role": "Smoke, atmosphere, and secondary details"
+        },
+        {
+          "name": "Scorched Earth Brown",
+          "role": "Ground texture and mineral undertones"
+        }
+      ],
+      "lighting_setup": "Dramatic mixed lighting with warm magma glow from cracks and cool dimensional rift illumination from tears in sky, volumetric ash and smoke, cinematic rim lighting on titan silhouette",
+      "mood": "Oppressively menacing, epic, supernatural dread"
+    },
+    "camera": {
+      "angle": "Low angle slightly tilted upward to emphasize colossal scale and imposing presence"
+    },
+    "scenography": {
+      "setting": "Torn dimensional battlefield with ground splitting open in massive fissures, enormous shadow tentacles erupting from below, sky showing impossible geometry and wrongness beyond human comprehension, ancient runes blazing on every surface as dimensions collapse, reality thinning and tearing at edges",
+      "atmosphere_vfx": "Thick oppressive ash and volcanic smoke, magma eruptions from fissures, glitching dimensional rifts, supernatural dread permeating every pixel, reality-warping effects"
+    }
+  }
+}

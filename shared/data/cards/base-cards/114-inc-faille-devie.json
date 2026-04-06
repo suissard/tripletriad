@@ -1,0 +1,83 @@
+{
+  "collectionName": "base",
+  "name": "Faille Devie",
+  "description": "Paradoxe créant des boucles temporelles piégeant les unités ennemies dans des cycles de combat répétitifs.",
+  "element": "hacking",
+  "faction": "Incursion Dissonante",
+  "topValue": "6",
+  "rightValue": "3",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/114.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Temporal Paradox Cultist - Reality Warper Frontline Combatant",
+      "loadout": {
+        "armor_outfit": "Deformed tactical military armor fused with living scarified flesh, plates of twisted metal resembling melted wax under gravitational distortion, fragments of reality phasing in and out of the armor creating visual stuttering effects, exposed joints showing pulsing violet energy conduits, a tattered hood partially obscuring a face frozen in an expression of transcendent agony with eyes rolled back revealing bloodshot whites, limbs positioned at anatomically impossible angles held together by crackling threads of magenta void energy",
+        "arsenal": "A obsidian-like melee weapon manifesting as a blade of absolute darkness edged with violet-neon glitch lines, the weapon appears to phase between solid and ethereal states, its edge cutting through visible dimensional rifts, accompanied by swirling vortexes of temporal energy creating looping afterimages of previous attack motions frozen in fractured time"
+      },
+      "attitude": {
+        "behavior": "Explosive forward combat stance with coiled spring tension throughout the entire body, weapon thrust forward in a committed killing blow trajectory, one leg planted forward while the other leg bends backward at a joint that should not exist, upper torso twisted to channel maximum power, multiple overlapping silhouettes of the same pose existing in parallel timelines visible as semi-transparent glitch duplicates, surrounded by floating debris and weapon fragments caught in contradictory gravitational fields simultaneously falling upward sideways and downward",
+        "emotion": "Absolute transcendent focus mixed with cosmic horror madness, eyes locked onto the approaching threat with blood vessels bursting from the strain, teeth bared in a snarl that borders on ecstatic worship, face muscles twitching with the strain of holding reality together around the combatant's form as temporal energy visibly corrupts the surrounding space"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Cosmic Horror",
+          "Glitch Art",
+          "Non-Euclidean Geometry"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Abyssal Black",
+          "role": "Primary shadows and void spaces, absence of light defining the horror"
+        },
+        {
+          "name": "Deep Violet",
+          "role": "Corrupted energy emanations and reality fracture highlights"
+        },
+        {
+          "name": "Neon Magenta",
+          "role": "Glitch energy accents and temporal distortion effects"
+        },
+        {
+          "name": "Asylum Gray",
+          "role": "Secondary atmosphere and environmental corruption"
+        },
+        {
+          "name": "Dried Blood Red",
+          "role": "Flesh wounds, scarified skin details, and aggressive accents"
+        },
+        {
+          "name": "Pale Sickly Flesh",
+          "role": "Exposed human elements showing biological corruption"
+        }
+      ],
+      "lighting_setup": "Dramatic_chiaroscuro_with_glitch_strobing_auras, multiple conflicting light sources from parallel dimensions creating impossible shadows that fall in contradictory directions, violet and magenta rim lighting emphasizing the temporal distortion surrounding the combatant",
+      "mood": "Oppressive cosmic dread mixed with violent aggressive intensity, reality itself screaming in visual static and dimensional overlap"
+    },
+    "camera": {
+      "angle": "low_angular_dutch_tilt_emphasizing_threatening_perspective"
+    },
+    "scenography": {
+      "setting": "Reality collapse zone where multiple parallel dimensions exist simultaneously in the same space, buildings rendered in two-dimensional overlap showing both pristine intact architecture and devastated rubble states occupying the same coordinates, the ground fractured open revealing layered parallel battlefields beneath like corrupted stacked photographs, the sky filled with conflicting celestial bodies - burning suns coexisting with cold void spaces and impossible geometric constellations that hurt to perceive, fragments of structures torn from their dimensional origins floating in chaotic gravitational chaos",
+      "atmosphere_vfx": "Intensive visual glitch distortion effects across the entire scene, reality cracking like shattered glass with violet light bleeding through the fractures, air visibly fracturing and reforming in real-time, temporal echo ripples causing motion blur and stuck-frame stuttering, gravitational anomalies creating impossible shadows and debris trajectories, chromatic aberration intensifying toward the edges of the frame, floating geometric impossibilities that shift between dimensions, reality static noise overlay, dimensional bleed-through showing faint ghost images of parallel events overlapping the primary scene"
+    }
+  }
+}

@@ -10,7 +10,7 @@ if [ -f "$ROOT_DIR/.env" ]; then
 fi
 
 # Valeurs par défaut si non définies dans .env
-PORT=${PORT:-1337}
+PORT=${PORT:-1340}
 FRONTEND_PORT=${FRONTEND_PORT:-80}
 
 echo "🚀 Démarrage des conteneurs Docker (sudo) depuis $ROOT_DIR..."

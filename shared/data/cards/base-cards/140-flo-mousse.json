@@ -1,0 +1,86 @@
+{
+  "collectionName": "base",
+  "name": "Mousse",
+  "description": "Pulsion toxique libérant des nuages de spores empoisonnées autour de lui créant une zone de contamination persistante.",
+  "element": "spore",
+  "faction": "Fléau Spore",
+  "topValue": "5",
+  "rightValue": "3",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/140.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Fungal Combatant - Spore Contagion Specialist",
+      "loadout": {
+        "armor_outfit": "Destroyed military tactical armor, asymmetrical and fractured, held together by pulsating mycelial networks and fungal root systems, plates torn apart from within by bulging fungal growths, exposed flesh merged with polypore mushrooms, branchial fungal structures on shoulders releasing toxic gases, zero symmetry in structure",
+        "arsenal": "Assimilated military rifle fused with bulging biomass, weapon barrel encompassed by throbbing fungal sacs containing spores, metallic surfaces corroded and rusted, green veins pulsing along the weapon's length, bulbous spore containers replacing standard magazines, organic cannon configuration overgrown with shelf fungi"
+      },
+      "attitude": {
+        "behavior": "Combat specialist in explosive fighting stance, weapon raised and locked on target, body coiled with aggressive momentum, one foot planted forward with weight shifted for explosive movement, arms extended controlling the bio-weapon, gas mask face emitting constant toxic spore mist",
+        "emotion": "Primordial rage channeled through hollow eyes replaced with bioluminescent fungal clusters, mouth gaping open releasing thick clouds of poisonous spores, expression of absolute contamination hunger, predatory focus on approaching threats"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Bio-horror"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Sickly Kaki Green",
+          "role": "primary dominant color, armor base and environmental tone"
+        },
+        {
+          "name": "Muddy Brown",
+          "role": "secondary color, decayed organic matter and soil"
+        },
+        {
+          "name": "Dark Asphalt Gray",
+          "role": "shadows and deepest recesses of fungal masses"
+        },
+        {
+          "name": "Necrotic Flesh Pink",
+          "role": "exposed tissue and pulsating organic sacs"
+        },
+        {
+          "name": "Pus Green",
+          "role": "proliferating fungal growths and contamination zones"
+        },
+        {
+          "name": "Toxic Neon Green",
+          "role": "bioluminescent accents, spore glow, energy veins, and atmospheric haze"
+        },
+        {
+          "name": "Cracked White",
+          "role": "mold buildup and surface contamination patina"
+        }
+      ],
+      "lighting_setup": "oppressive_low_ambient_with_toxic_glow_emission, volumetric_spore_fog_diffusion, internal_bioluminescence_radiating_from_fungal_structures",
+      "mood": "Menacing, contaminating, organically hostile, viscerally disturbing"
+    },
+    "camera": {
+      "angle": "low_angle_slightly_looking_up_to_emphasize_dominance_and_threatening_presence"
+    },
+    "scenography": {
+      "setting": "Biologically devastated battlefield completely consumed by fungal infestation, destroyed military vehicles converted into pulsating fungal nests, craters filled with viscous fungal biomass, mycelial networks spreading visibly across all surfaces converting terrain into hostile living organism, ground itself erupting with bursting tendrils and pulsating sacs",
+      "atmosphere_vfx": "Thick toxic spore clouds reducing visibility to oppressive green haze, massive mycelial networks pulsating and expanding in real-time, both ally and enemy positions attacked by spreading infection, pulsating fungal sacs bursting continuously releasing contamination particles into air, ground alive and hostile with fungal tendrils bursting through without warning, airborne spore density creating god rays of sickly green light, condensation from toxic gases creating dripping moisture on all surfaces"
+    }
+  }
+}

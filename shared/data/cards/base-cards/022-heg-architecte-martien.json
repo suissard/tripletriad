@@ -1,0 +1,77 @@
+{
+  "collectionName": "base",
+  "name": "Architecte Martien",
+  "description": "Commandant de peloton coordonnant les assauts frontaux avec des formations de combat martiennes classiques.",
+  "element": "obsidienne",
+  "faction": "Hégémonie Martienne",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/022.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+    "prompt": {
+      "format": "1:1",
+      "subject": {
+        "archetype": "Martian Hegemony Purist Commander – The Martian Architect",
+        "loadout": {
+          "armor_outfit": "Heavy, smooth carapace plates in carmine red, angular shoulders with asymmetrical half‑cape in dark grey, integral helmet with opaque visor and thin horizontal red slit, tight ballistic fabric underlayer with martial cut",
+          "arsenal": "Electromagnetic railgun with rectangular/octagonal barrel, thermal energy sword with red‑glowing, smoky blade, optional sidearm plasma pistol"
+        },
+        "attitude": {
+          "behavior": "Standing upright on a jagged platform, surveying the battlefield, issuing hand signals to a formation of Martian troops, blade held low, railgun ready",
+          "emotion": "Cold, disciplined focus, mask‑like stoicism behind the visor, commanding presence exuding relentless resolve"
+        }
+      },
+      "graphics": {
+        "style": {
+          "technique": "highly_detailed_digital_painting",
+          "influences": [
+            "Grimdark",
+            "Dark Sci‑Fi",
+            "Post‑apocalyptic"
+          ],
+          "rendering_style": "gritty_realistic_with_cinematic_OSL"
+        }
+      },
+      "color_and_light": {
+        "palette_names": [
+          {
+            "name": "Carmine Red",
+            "role": "Primary dominant color, armor and main surfaces"
+          },
+          {
+            "name": "Dark Grey",
+            "role": "Secondary tone, underlayers, half‑cape, structural elements"
+          },
+          {
+            "name": "Bright Red Neon",
+            "role": "Accent highlights, visor slit, plasma glow, reactor exhausts"
+          },
+          {
+            "name": "Charcoal Black",
+            "role": "Deep shadows and contrast areas"
+          },
+          {
+            "name": "Steel White",
+            "role": "Highlight edges, metallic glints"
+          }
+        ],
+        "lighting_setup": "Cinematic directional light from a harsh overhead sun with strong rim lighting on armor edges, subtle red neon reflections from nearby reactor cores",
+        "mood": "Menacing, austere, imposing"
+      },
+      "camera": {
+        "angle": "Low angle, slight Dutch tilt to emphasize power and aggression"
+      },
+      "scenography": {
+        "setting": "Barren Martian desert battlefield, jagged basalt formations, massive monolithic red‑grey command bunker in background, hexagonal grilles embedded in the ground",
+        "atmosphere_vfx": "Thin dust haze, faint red glow from thrusters, occasional spark particles from railgun discharge, distant sandstorms with red‑lit sky"
+      }
+    }
+}

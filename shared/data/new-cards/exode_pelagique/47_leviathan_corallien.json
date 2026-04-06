@@ -2,8 +2,12 @@
   "name": "Léviathan Corallien",
   "description": "Une forteresse vivante de corail bioluminescent et de tentacules massives, le Léviathan Corallien est une entité colossale qui avance lentement à travers les océans, déversant des torrents de plasma surchauffé depuis ses geysers dorsaux. Chaque pas fait trembler les fonds marins.",
   "element": "eau",
-  "elements": ["eau", "longue_portee", "reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "longue_portee",
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "9",
   "rightValue": "8",
   "bottomValue": "A",

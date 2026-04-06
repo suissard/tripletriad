@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environments (kept in repo for dev convenience)
+# .env / .env.local

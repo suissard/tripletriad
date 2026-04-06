@@ -1,0 +1,97 @@
+{
+  "collectionName": "base",
+  "name": "Cetace du Grand Large",
+  "description": "Hydromancien invoquant les marées submergeantes pour protéger les siens et inonder les positions ennemies.",
+  "element": "furtif",
+  "faction": "Exode Pélagique",
+  "topValue": "7",
+  "rightValue": "7",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -2,
+      "target": "enemy_with_highest"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 3,
+  "image": "base/044.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Céphalopode alien massivement augmentée, silhouette hybride entre pieuvre bioluminescente et scaphandre de minage lourd reconverti en armure de guerre, structure corporelle centrale bulbeuse et translucide laissant entrevoir des organes violet pâle, quatre bras principaux mécanisés protégés par du blindage en plaques de métal oxidées, deux longs tentacules manipulateurs arrières intégrant des tuyaux annelés et cables exposés, colonne vertébrale externe en métal canon terni",
+      "loadout": {
+        "armor_outfit": "Scaphandre de minage minéralogique lourd modifié pour guerre, exosquelette articulé en acier gris foncé avec plaques d'armure rivetées couleur orange rouille profond et vert-de-gris, épaules massives asymétriques avec réservoirs pressurisés visibles, buste dominé par le Bocal central : sphère de verre blindé extrêmement épais remplie d'eau cyan luminescente où baigne la masse corporelle centrale du pilote alien, connectivity entre le Bocal et les articulations assurée par des tuyaux annelés noirs épais et des cables de cuivre exposés, valves de décompression sur les épaules crachant régulièrement de la vapeur blanche, articulations de bras et jambes equipées de vérins hydrauliques massifs et de jointures mécaniques apparentes",
+        "arsenal": "Bras droit terminé par un canon à geyser à triple canon: trois tubes parallèles crachant en continu du plasma orange thermique aveuglant mêlé à de l'eau pressurisée bouillante, intégré directement au scaphandre sans poignée, alimenté par des bobines de refroidissement en cuivre apparent et des réservoirs dorsaux. Bras gauche equipé d'une scie thermique circulaire à la forearm, lame dentée incandescente orange avec fissures dans la lentille de focalisation laissant échapper des jets de plasma constants. Deux tentacules arrières manipulateurs portant des outils de desconnexion de fortune et des grenades hydrauliques."
+      },
+      "attitude": {
+        "behavior": "Debout sur une plateforme industrielle flottante, jambes hydrauliques ancrées dans le métal, le corps légèrement incliné vers l'avant en posture protectrice, les bras écartés avec le canon à geyser pointé vers l'horizon pour protéger des alliés invisibles à gauche, le bras scie prêt au combat corpo à corpo, tentacules ondulant dans l'air humide pour maintenir l'équilibre, eau cyan du Bocal tourbillonnant intensement alors que l'entité canalise une puissance hydrokinétique massive, vapeur et ecume jaillissant de multiples points du scaphandre, posture de mage d'eau invoquant une marée submergeante",
+        "emotion": "Concentration intense et determinée, le regard alien bioluminescent violet perçant à travers le Bocal cyan fixe et calculateur, presence ancestrale d'un être qui controle l'eau depuis des millénaires, fury froide contenue mâtinée de protection viscérale pour les siens, indiference totale au chaos ambiant"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Deep sea bioluminescence",
+          "Industrial horror"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Orange rouille profond",
+          "role": "Armure principale, blindage usé par l'oxydation martienne"
+        },
+        {
+          "name": "Vert-de-gris",
+          "role": "Zones de corrosion avancé, détails de patine copper"
+        },
+        {
+          "name": "Cyan bioluminescent",
+          "role": "Eau du Bocal, réservoirs vitrés, yeux aliens, énergie protectrice"
+        },
+        {
+          "name": "Orange thermique aveuglant",
+          "role": "Plasma des armes, lasers de minage, chaleur des propulseurs"
+        },
+        {
+          "name": "Gris canon terni",
+          "role": "Structure mécanique, articulations hydrauliques, métal nu"
+        },
+        {
+          "name": "Violet pâle translucide",
+          "role": "Biologie alien visible à travers les membranes translucides"
+        },
+        {
+          "name": "Gris perle",
+          "role": "Zones de peau alien diaphane entre les plaques d'armure"
+        },
+        {
+          "name": "Blanc vapeur",
+          "role": "Valves de décompression, vapeurs d'eau, écume"
+        }
+      ],
+      "lighting_setup": "Cinematic three-point lighting avec dominante froide cyan des sources d'énergie bioluminescente, contre-jour orange thermique des armes et propulseurs créant des silhouettes découpées, éclairage ambiental faible et diffus simulant un environnement submergé ou sous-marin, reflets humides sur toutes les surfaces metalliques, lens flares subtils sur les éléments lumineux",
+      "mood": "Menaçant et protecteur à la fois, atmosphere de survie désespérée dans un monde industriel floods, tension entre la beauté bioluminescente alien et la brutalité utilitaire du gear, grandeur inquiétante d'un être qui manipule les elements naturels comme arme de guerre"
+    },
+    "camera": {
+      "angle": "low_angle"
+    },
+    "scenography": {
+      "setting": "Plateforme industrielle flottante style plateforme petroliere aerial dans un ocean industriel urbain inonde, structures metalliques torturées emergeant d'une eau trouble et sombre, debris de batiments etant engulfed par les flots, echafaudages rouilles et grues effondrees en arrière-plan, ciel couvert orageux avec lueurs de feux distants, l'eau environnante est un melange de pollution industrielle et d'ecume bioluminescente cyan",
+      "atmosphere_vfx": "Pluie diluvienne légère tombant en rideaux, vapeurs deau bouillante s'elevant des valves de decompression du scaphandre, particules d'ecume luminescente tourbillonnant autour du sujet formant des motifs fluides et organisas, éclaboussures d'eau massive figees en suspension autour des bras invoquant la marée, micro-bulles montant depuis le Bocal, halos lumineux cyan et orange pulsant depuis les sources d'énergie, profondeur de champ selective isolant le sujet sur l'arrière-plan flou"
+    }
+  }
+}

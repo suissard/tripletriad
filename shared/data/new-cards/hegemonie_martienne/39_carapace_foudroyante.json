@@ -2,8 +2,11 @@
   "name": "Carapace Foudroyante",
   "description": "Véhicule d'appui tactique blindé avec canon de suppression à haute cadence et champ de mines électromagnétiques déployables. Verrouille les zones et interdit tout mouvement ennemi.",
   "element": "longue_portee",
-  "elements": ["longue_portee", "obsidienne"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "longue_portee",
+    "obsidienne"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "5",
   "rightValue": "4",
   "bottomValue": "5",

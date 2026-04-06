@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import GameView from '../views/GameView.vue'
 import CollectionView from '../views/CollectionView.vue'
 import DeckEditorPage from '../views/DeckEditorPage.vue'
@@ -102,6 +102,25 @@ const routes = [
     meta: { requiresAdminAuth: true }
   },
   {
+    path: '/admin/simulateur',
+    name: 'admin-simulator',
+    component: () => import('../admin/views/AISimulatorPage.vue'),
+    meta: { requiresAdminAuth: true }
+  },
+  {
+    path: '/admin/stories',
+    name: 'admin-stories',
+    component: () => import('../admin/views/StoryArchivesPage.vue'),
+    meta: { requiresAdminAuth: true }
+  },
+  {
+    path: '/admin/story-diagram/:storyFolder',
+    name: 'admin-story-diagram',
+    component: () => import('../components/StoryDiagram.vue'),
+    meta: { requiresAdminAuth: true },
+    props: true
+  },
+  {
     path: '/admin/:collection',
     name: 'admin-dynamic-editor',
     component: () => import('../admin/components/DynamicEditor.vue'),
@@ -110,7 +129,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
 })
 

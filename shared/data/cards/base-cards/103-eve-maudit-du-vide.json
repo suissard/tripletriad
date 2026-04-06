@@ -1,0 +1,79 @@
+{
+  "collectionName": "base",
+  "name": "Maudit du Vide",
+  "description": "Avatar de l'Abysse incarnant la terreur primordiale des profondeurs répandant la peur et la confusion dans les rangs adverses.",
+  "element": "faille_dimensionnelle",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Éveil Chthonien",
+  "topValue": "5",
+  "rightValue": "7",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Epic",
+  "defaultHp": 4,
+  "image": "base/103.png",
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Dimensional Titan Avatar - Primordial Terror of the Chthonian Void, colossal humanoid form merged with fractured reality and living darkness",
+      "loadout": {
+        "armor_outfit": "Tectonic obsidian plates fused with void essence, crystalline carapace with impossible angles, magma-filled fissures running through mineral exoskeleton, living shadow tendrils integrated into shoulder structure, reality shards embedded in forearms",
+        "arsenal": "Massive void-touched pickaxe forged from crystallized dimensional energy and volcanic rock, living shadow tendrils as natural secondary weapons, hands that phase between solid obsidian and ethereal darkness, eruptions of dimensional tears from body"
+      },
+      "attitude": {
+        "behavior": "Mid-combat charge with weapon raised overhead, one massive clawed foot planted in cracked earth as ground splits beneath, shadow tendrils erupting from back while body lunges forward with explosive force, void energy crackling around weapon edge",
+        "emotion": "Abyssal hunger and primordial rage burning behind multiple molten eyes, presence radiating supernatural dread that causes reality to shudder, expression of cosmic malevolence mixed with predatory focus on target"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Cosmic Horror",
+          "Dark Fantasy",
+          "Eldritch",
+          "Grimdark",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "hyper_detailed_organic_mineral_hybrid_with_volumetric_void_energy"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Void Black",
+          "role": "primary body mass, shadows, core darkness"
+        },
+        {
+          "name": "Obsidian Grey",
+          "role": "armor plates, tectonic skin texture, mineral surfaces"
+        },
+        {
+          "name": "Molten Magma Orange",
+          "role": "energy accents, eye glow, fissure light, dimensional tears"
+        },
+        {
+          "name": "Dimensional Violet",
+          "role": "void energy, reality distortion, magical corruption"
+        },
+        {
+          "name": "Ash Grey",
+          "role": "smoke, debris, atmospheric particles"
+        }
+      ],
+      "lighting_setup": "volumetric_subterranean_glow_from_magma_core_plus_dimensional_energy_bleeds_and_bioluminescent_void_rays",
+      "mood": "cosmically_menacing_apocalyptic_dread_cosmic_terror"
+    },
+    "camera": {
+      "angle": "low_angle_extreme_perspective_looking_up_at_titan_defying_gravity"
+    },
+    "scenography": {
+      "setting": "Torn dimensional battlefield with ground splitting in massive fissures, erupting shadow tentacles, impossible geometry sky with wrong angles, ancient blazing runes on shattered surfaces, reality collapsing at edges",
+      "atmosphere_vfx": "thick_oppressive_dread_fog, floating_debris_and_reality_fragments, dimensional_energy_spirals, volcanic_smoke, crackling_void_energy_fields, ground_subsidence_effects, light_distortion_from_dimension_tears"
+    }
+  }
+}

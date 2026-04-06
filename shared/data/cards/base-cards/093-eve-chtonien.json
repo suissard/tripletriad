@@ -1,0 +1,79 @@
+{
+  "collectionName": "base",
+  "name": "Chtonien",
+  "description": "Prophète du Vide interprétant les signes avant-coureurs du réveil des Anciens pour préparer les défenses spirituelles.",
+  "element": "furtif",
+  "faction": "Éveil Chthonien",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/093.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Chtonian Void Prophet - Colossal tectonic entity with obsidian-plated carapace fused to a semi-molten skeletal core, multiple pupilless eyes glowing with inner magma, born from deep earth fissures to interpret dimensional collapse signs",
+      "loadout": {
+        "armor_outfit": "Natural tectonic carapace composed of asymmetrical obsidian plates with basalt underlayers, cracks revealing molten magma veins pulsing with geothermal light, stone horns jutting from skull-like mineral protrusions, ash-grey volcanic smoke escaping from joints and fissures",
+        "arsenal": "Integrated geothermal systems as weapons - magma conduits running through forearms terminating in drill-like appendages, seismic resonance abilities manifesting as ground-shaking pulses, runic symbols etched in magma on body surfaces"
+      },
+      "attitude": {
+        "behavior": "Crouched technician stance with massive clawed limbs actively welding and reinforcing dimensional barriers, sparks of molten energy flying from contact points with reality-fractures, body coiled with primordial tension, coiled springs of magma-filled muscle tissue ready to unleash seismic devastation",
+        "emotion": "Cold primordial focus radiating supernatural dread, multiple eyes locked on approaching dimensional tears with fanatical interpretation of void patterns, ancient consciousness channeled through burning magma-filled veins"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Eldritch Horror",
+          "Primordial Mythos"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Obsidian Black",
+          "role": "Primary structural element - carapace plates and shadow foundations"
+        },
+        {
+          "name": "Matte Basalt Grey",
+          "role": "Secondary mineral texture - tectonic underlayers and mineral deposits"
+        },
+        {
+          "name": "Scorched Earth Brown",
+          "role": "Organic rocky flesh tones - heat-weathered surfaces"
+        },
+        {
+          "name": "Magma Incandescence",
+          "role": "Light source accent - glowing veins, eye glow, energy emissions"
+        },
+        {
+          "name": "Volcanic Ash Grey",
+          "role": "Atmospheric particles and smoke effects"
+        }
+      ],
+      "lighting_setup": "Mixed dramatic rim lighting from internal magma glow contrasting against dark dimensional void, volumetric ash fog, orange-red subsurface scattering from geothermal energy, supernatural eldritch light bleeding from reality tears",
+      "mood": "Oppressive supernatural dread, primordial terror, catastrophic magnificence, apocalyptic menace"
+    },
+    "camera": {
+      "angle": "Low angle looking up at towering Chtonian form, dutch angle tilted to emphasize dimensional instability, slight tilt toward collapsed reality fractures"
+    },
+    "scenography": {
+      "setting": "Torn dimensional battlefield - ground ripped open in massive fissures exposing magma chambers below, reality collapsing at edges forming impossible geometry, ancient runic patterns burning on every surface, shadow tentacles erupting from abyssal depths, sky fracturing into wrong cosmic angles beyond human comprehension",
+      "atmosphere_vfx": "Thick oppressive volcanic smoke, reality thinning at edges with visual distortion, dimensional sparks and sparks from active welding work, gravitational anomalies warping space, ancient runes blazing with eldritch fire on all surfaces, ash and debris falling, ground constantly shifting from seismic activity"
+    }
+  }
+}

@@ -206,13 +206,13 @@ const cardSize = computed(() => {
   }
 
   if (props.fitOnColumn && props.cardsPerColumn && containerHeight.value > 0) {
-    // Need to consider height. Card aspect ratio is roughly 2.5/3.5 (1:1.4)
-    // height = width * 1.4 => width = height / 1.4
+    // Need to consider height. Card aspect ratio is roughly 1:1
+    // height = width * 1 => width = height / 1
     const totalGapHeight = (props.cardsPerColumn - 1) * gap;
     const paginationHeight = totalPages.value > 1 ? 50 : 0; // rough estimate for pagination controls
     const availableHeight = containerHeight.value - totalGapHeight - paginationHeight;
     const targetHeight = availableHeight / props.cardsPerColumn;
-    targetWidthByCol = targetHeight / 1.4;
+    targetWidthByCol = targetHeight / 1.0;
   }
 
   // Take the most restrictive constraint

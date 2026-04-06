@@ -2,8 +2,12 @@
   "name": "Cyclotron des Courants",
   "description": "Générateur de vortex aquatiques monté sur chenilles massives. Il crée des cyclones d'eau ionisée de plusieurs centaines de mètres, aspirant et broyant tout ce qui se trouve dans son rayon d'action. Arme de siège ultime des Nomades des Abysses.",
   "element": "eau",
-  "elements": ["eau", "longue_portee", "reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "longue_portee",
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "9",
   "rightValue": "6",
   "bottomValue": "8",

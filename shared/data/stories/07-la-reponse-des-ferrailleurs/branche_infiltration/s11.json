@@ -1,0 +1,37 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "s11",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "Ils débouchent dans une salle circulaire aux parois lisses. Au centre, un noyau d'énergie pulse lentement, comme un vivant.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Vex",
+      "sentence": "Le signal vient d'ici. Ce n'est pas un appel de détresse… c'est une invitation.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Kip",
+      "sentence": "Le noyau est instable mais fonctionnel. Il attend quelque chose. Ou quelqu'un.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Rook",
+      "sentence": "Quoi qu'il attende, je sens pas que ça soit pour nous faire un câlin.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Narration",
+      "sentence": "Le noyau pulse plus vite. Une conscience émerge de la lumière bleue, les observant sans les juger.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "s12"
+}

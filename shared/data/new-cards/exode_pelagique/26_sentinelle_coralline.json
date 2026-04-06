@@ -2,8 +2,12 @@
   "name": "Sentinelle Coralline",
   "description": "Défenseur stationnaire dont l'armure est colonisée par du corail vivant blindé. Il se confond avec les récifs et crache des épines calcifiées imprégnées de neurotoxine.",
   "element": "eau",
-  "elements": ["eau", "longue_portee", "reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "longue_portee",
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "4",
   "rightValue": "3",
   "bottomValue": "5",

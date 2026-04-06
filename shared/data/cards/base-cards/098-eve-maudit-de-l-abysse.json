@@ -1,0 +1,82 @@
+{
+  "collectionName": "base",
+  "name": "Maudit de l Abysse",
+  "description": "Maudit contaminant les ennemis par des malédictions persistantes affaiblissant leurs capacités sur plusieurs tours de combat.",
+  "element": "obsidienne",
+  "faction": "Éveil Chthonien",
+  "topValue": "4",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/098.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Chthonic Titan Warrior, colossal humanoid abomination emerging from collapsing dimensional rift, body composed of fused tectonic plates and volcanic rock, multiple glowing eyes without pupils piercing through darkness, massive jaws of obsidian revealing magma-filled maw, upper body exposed while lower form remains partially submerged in dimensional fissure",
+      "loadout": {
+        "armor_outfit": "Natural tectonic carapace armor, irregular obsidian plates fused to flesh-like volcanic rock, basalt scales layered like geological strata, fissures across body glowing with internal magma rivers, jagged crystalline growths erupting from shoulders and forearms, no manufactured elements whatsoever",
+        "arsenal": "Two massive drill-like claws foreuse capable of piercing dimensional barriers, each arm ending in rotating volcanic drill-talons surrounded by swirling curse energy, residual shadow tentacles writhing from back as symbiote extensions, persistent curse auras emanating from body corrupting surrounding space"
+      },
+      "attitude": {
+        "behavior": "Frontline combatant lunging forward with both drill-claws raised overhead in devastating overhead strike position, massive body coiled and leaning into attack momentum, one leg planted in fractured dimensional ground while other pushes forward, upper torso twisting to generate maximum rotational force for strike",
+        "emotion": "Primordial rage emanating from glowing eye clusters, mouth opened wide revealing chamber of molten curse-tainted magma, physical expression of unstoppable geological force about to be unleashed, absolute predatory focus on target"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Eldritch cosmic horror"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Obsidian Black",
+          "role": "Primary body armor, ground, shadows"
+        },
+        {
+          "name": "Volcanic Basalt Gray",
+          "role": "Secondary rock textures, plate formations"
+        },
+        {
+          "name": "Burnt Earth Brown",
+          "role": "Weathered stone surfaces, ground fissures"
+        },
+        {
+          "name": "Ash Gray",
+          "role": "Dimensional debris, atmospheric particles"
+        },
+        {
+          "name": "Molten Red-Orange",
+          "role": "Magma cores, glowing fissures, eye glow"
+        },
+        {
+          "name": "Curse Purple-Black",
+          "role": "Shadow tentacles, curse auras, dimensional corruption"
+        }
+      ],
+      "lighting_setup": "Harsh_dimensional_rift_lighting_with_backlight_from_below_as_magma_glows_through_fissures, volumetric_ash_fog, dramatic_rim_lighting_on_titan_outline",
+      "mood": "Overwhelming_dread_and_apocalyptic_terror, sense of reality collapsing around observer, primordial menace beyond human comprehension"
+    },
+    "camera": {
+      "angle": "low_angle_to_extreme_low_angle, slight_dutch_tilt_to_enhance_destabilization_feeling, positioned_at_ground_level_looking_up_at_colossal_titan_form"
+    },
+    "scenography": {
+      "setting": "Torn dimensional battlefield with ground split_open_by_massive_fissures_exposing_magma_chambers_below, massive_shadow_tentacles_erupting_from_interdimensional_rifts_in_foreground_and_background, sky_showing_impossible_geometric_shapes_collapsing_on_itself, reality_thinning_with_visible_tears_in_fabric_of_existence, ancient_cosmic_runes_blazing_with_curse_energy_on_every_exposed_surface, floating_debris_of_dimensional_planes_suspended_in_air, ground_composed_of_fractured_tectonic_plates_shifting_and_grinding",
+      "atmosphere_vfx": "Thick_oppressive_volcanic_ash_falling_diagonally_from_rift_above, purple-black_curse_energy_spiraling_from_titan_and_corrupting_surrounding_ground, reality_glitches_manifesting_as_static_and_color_bleeding_at_edges, distant_roaring_sound_visualized_as_vibration_lines, heat_distortion_around_magma_fissures, dimensional_debris_floating_and_rotating_in_background"
+    }
+  }
+}

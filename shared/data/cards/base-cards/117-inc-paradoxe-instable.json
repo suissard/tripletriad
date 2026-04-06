@@ -1,0 +1,84 @@
+{
+  "collectionName": "base",
+  "name": "Paradoxe Instable",
+  "description": "Faille vivante traversant les dimensions pour contourner les barricades et les barrières les plus impénétrables.",
+  "element": "faille_dimensionnelle",
+  "faction": "Incursion Dissonante",
+  "topValue": "4",
+  "rightValue": "7",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -1,
+      "target": "enemy_with_highest"
+    }
+  ],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/117.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Glitched Dimensional Rift Combatant",
+      "loadout": {
+        "armor_outfit": "Shattered reality plates held together by glitched void energy, floating debris fragments, tattered cloth that hovers in zero‑gravity pockets, corrupted armor pieces pulsing with deep violet light",
+        "arsenal": "Twin‑palm nullification beam – a concentrated violet‑magenta energy lance that locks onto high‑value targets; reality‑warping gauntlets that bend space around the wielder"
+      },
+      "attitude": {
+        "behavior": "Leaping forward, both hands thrust out, channeling a searing violet nullification beam, body mid‑air with glitch distortion rippling around limbs, swirling debris orbiting the figure",
+        "emotion": "Intense, psychotic focus; eyes revulsed in a mix of terror and ecstatic rapture, a grimace of unhinged determination"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Cosmic Horror",
+          "Glitch Art"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Abyssal Black",
+          "role": "Dominant darkness – 60% of the image"
+        },
+        {
+          "name": "Pale Scarred Flesh",
+          "role": "Flesh tones – 30% of the image"
+        },
+        {
+          "name": "Deep Violet",
+          "role": "Primary energy accent – 10% of the image"
+        },
+        {
+          "name": "Magenta Neon",
+          "role": "Glitch highlight – pulsing corrupted energy"
+        },
+        {
+          "name": "Dried Blood Red",
+          "role": "Secondary accent – splatter and scars"
+        }
+      ],
+      "lighting_setup": "Glitching neon violet and magenta light sources, harsh black shadows, pulsating energy beams, chromatic aberration, cinematic rim lighting",
+      "mood": "Menacing, chaotic, surreal"
+    },
+    "camera": {
+      "angle": "Low angle with a slight Dutch tilt to enhance disorientation"
+    },
+    "scenography": {
+      "setting": "Reality collapse zone – overlapping parallel versions of a ruined cityscape: buildings simultaneously intact and destroyed, fractured ground revealing layered battlefields, impossible sky displaying contradictory celestial bodies, gravity inversions causing debris to fall upward and sideways",
+      "atmosphere_vfx": "Reality‑glitch effect, chromatic aberration, swirling violet‑magenta vortexes, floating debris, cracks in space that shimmer like broken glass, subtle gravitational distortions, pulsing neon auras around the combatant"
+    }
+  }
+}

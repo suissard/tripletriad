@@ -2,8 +2,10 @@
   "name": "Ingénieur de Siège",
   "description": "Technicien de combat chargé de poser les charges de démolition et d'installer les boucliers de poste. Le briseur de murs de l'Hégémonie.",
   "element": "obsidienne",
-  "elements": ["obsidienne"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "2",
   "rightValue": "1",
   "bottomValue": "3",

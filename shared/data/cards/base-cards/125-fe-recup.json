@@ -1,0 +1,77 @@
+{
+  "collectionName": "base",
+  "name": "Recup",
+  "description": "Électronicien recyclant les composants électroniques récupérés pour alimenter les systèmes vitaux de la base.",
+  "element": "radiation",
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "3",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/125.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Augmented Salvage Warrior - Electronic Recycler Combat Specialist",
+      "loadout": {
+        "armor_outfit": "Massively patched and welded mining space suit with asymmetrically mounted scrap metal plates from old cargo containers, duct-tape wrapped joints, exposed pressurized cables, improvised chest rig covered in salvaged circuit boards and copper coils, magnetic boots with sparking grounding cables, cracked welding helmet visor scratched and opaque with oil stains",
+        "arsenal": "Jury-rigged kinetic mine-forge cannon cobbled from salvaged mining equipment with exposed copper wire IEM coils, duct-taped battery packs, and industrial plasma torch attachment; makeshift emp-grenade harness with exposed wiring"
+      },
+      "attitude": {
+        "behavior": "Combat specialist in explosive low-gravity scrapyard warfare, standing in aggressive combat stance with weapon raised shoulder-high, one leg braced forward against floating debris, body coiled and ready to lunge, surrounded by rain of metallic fragments and sparks in zero-gravity chaos",
+        "emotion": "Intense predatory focus through cracked visor, jaw clenched with adrenaline-fueled determination, covered in grease stains and welding burn marks, cybernetic eye augment glowing blue behind scratched lens"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Rusted Iron Orange",
+          "role": "Primary dominant color - corroded metal surfaces and armor plates"
+        },
+        {
+          "name": "Oxidized Steel Gray",
+          "role": "Secondary color - hull plating and structural debris"
+        },
+        {
+          "name": "Industrial Black Grease",
+          "role": "Tertiary color - stains, shadows, and worn equipment"
+        },
+        {
+          "name": "Hot Plasma Blue",
+          "role": "Accent color - weapon energy, cybernetic glow, and sparks"
+        },
+        {
+          "name": "Molten Metal Amber",
+          "role": "Environmental accent - cascading liquid metal and burning rivers"
+        }
+      ],
+      "lighting_setup": "Dramatic cinematic mixed-source lighting with harsh blue plasma torch illumination, warm orange molten metal glow, sporadic muzzle flashes, and deep volumetric shadows from collapsing structures",
+      "mood": "Chaotic, desperate, violent, visceral"
+    },
+    "camera": {
+      "angle": "Low angle dutch_angle - slightly tilted upward creating tension and hero dominance"
+    },
+    "scenography": {
+      "setting": "Massive hollowed asteroid interior scrapyard under siege - towering improvised spacecraft hull fragments stacked chaotically, ruptured fuel tanks spewing cascading rivers of molten orange metal, exposed station framework with sparking cables, hastily welded barricades buckling under weapons fire, debris field suspended in low gravity floating chaotically, background filled with burning wreckage and collapsing industrial structures",
+      "atmosphere_vfx": "Intense volumetric sparks showering from clashing improvised weapons, molten metal flowing in glowing rivers, dust particles and debris floating weightlessly, blue plasma torch flares, smoke wisps in zero-gravity, distant explosions illuminating with orange fire bursts, grinding metal sounds visualized through particle effects"
+    }
+  }
+}

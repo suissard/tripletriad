@@ -86,7 +86,10 @@
           <div class="unowned-overlay" v-if="unowned">🔒</div>
         </template>
 
-        <!-- Broken Glass Impact Effect for Captures -->
+        <!-- HP Bar -->
+          <HpBar v-if="card.hp !== undefined" :hp="card.hp" :default-hp="card.defaultHp || 3" :owner="owner" />
+
+          <!-- Broken Glass Impact Effect for Captures -->
           <BrokenGlassOverlay v-if="card.impactDirection" :direction="card.impactDirection" />
 
         <!-- BASE CARD FACE (Fallback revealed false) -->
@@ -143,9 +146,13 @@ const userStore = useUserStore();
 const props = defineProps({
   card: { type: Object, required: true },
   size: { type: [String, Number], default: 'md' },
-  ratio: { type: Number, default: 2.5 / 3.5 },
+  ratio: { type: Number, default: 1 / 1 },
   ratioContent: { type: Number, default: 0.08 },
   flat: { type: Boolean, default: false },
+  owner: {
+    type: String,
+    default: null
+  },
   unowned: { type: Boolean, default: false },
   cardBack: { type: String, default: "default" },
   isPremium: { type: Boolean, default: false },
@@ -310,7 +317,7 @@ const cardStyle = computed(() => {
     style.height = typeof props.height === 'number' ? `${props.height}px` : props.height;
     style.aspectRatio = 'auto';
   } else {
-    style.aspectRatio = props.ratio || (2.5 / 3.5);
+    style.aspectRatio = props.ratio || (1 / 1);
   }
   
   if (!props.flat && !props.compact) Object.assign(style, mouseStyle.value);
@@ -372,7 +379,7 @@ const innerStyle = computed(() => {
 
 const glareStyle = computed(() => ({
   background: `radial-gradient(circle at ${mousePos.value.x}% ${mousePos.value.y}%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 60%)`,
-  opacity: tilt.value.x === 0 && tilt.value.y === 0 ? 0 : 0.6,
+  opacity: tilt.value.x === 0 && tilt.value.y === 0 ? 0 : 0.8,
   transition: tilt.value.x === 0 && tilt.value.y === 0 ? 'opacity 0.5s ease-out' : 'opacity 0.1s ease-out'
 }));
 
@@ -406,12 +413,12 @@ const holoStyle = computed(() => {
   const rng = sfc32(premiumSeed.value);
   const isImageMode = state.premiumMode === 'image';
   if (isImageMode) {
-    return { '--c1': 'rgba(255, 255, 255, 0.7)', '--c2': 'rgba(200, 200, 200, 0.5)', '--c3': 'rgba(255, 255, 255, 0.8)' };
+    return { '--c1': 'rgba(255, 255, 255, 1.0)', '--c2': 'rgba(255, 255, 255, 1.0)', '--c3': 'rgba(255, 255, 255, 1.0)' };
   }
   return {
-    '--c1': `hsla(${rng() * 360}, 100%, 70%, 0.6)`,
-    '--c2': `hsla(${rng() * 360}, 100%, 70%, 0.6)`,
-    '--c3': `hsla(${rng() * 360}, 100%, 70%, 0.6)`
+    '--c1': `hsla(${rng() * 360}, 100%, 70%, 1.0)`,
+    '--c2': `hsla(${rng() * 360}, 100%, 70%, 1.0)`,
+    '--c3': `hsla(${rng() * 360}, 100%, 70%, 1.0)`
   };
 });
 
@@ -486,6 +493,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
     }, 300);
   }
 });
+import HpBar from './game/HpBar.vue';
 </script>
 
 <style scoped>
@@ -494,12 +502,13 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 /* ============================================ */
 .tt-card {
   position: relative;
-  aspect-ratio: 2.5 / 3.5;
+  aspect-ratio: 1 / 1;
   border-radius: 8px;
   overflow: visible;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
   box-sizing: border-box;
+  container-type: inline-size;
 }
 
 .tt-card:hover:not(.is-flat) {
@@ -550,7 +559,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.9;
+  opacity: 1.0;
 }
 
 .tt-card.is-flipping:not(.is-compact) .tt-card-inner {
@@ -594,7 +603,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   width: 66% !important;
   height: 100% !important;
   flex-shrink: 0 !important;
-  opacity: 0.6 !important;
+  opacity: 1.0 !important;
   border-right: none !important;
   object-fit: cover !important;
   mask-image: linear-gradient(to right, black 40%, transparent 100%);
@@ -605,8 +614,8 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   position: relative !important;
   background: transparent !important;
   text-align: left !important;
-  padding: 0 15px !important;
-  font-size: 18px !important;
+  padding: 0 10cqw !important;
+  font-size: 12cqw !important;
   font-weight: 800 !important;
   flex: 1 !important;
   bottom: auto !important;
@@ -624,20 +633,20 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   position: relative !important;
   top: auto !important;
   left: auto !important;
-  width: 60px !important;
-  height: 60px !important;
+  width: 40cqw !important;
+  height: 40cqw !important;
   display: block !important;
-  margin-left: 10px !important;
+  margin-left: 5cqw !important;
   z-index: 10 !important;
 }
 
 .tt-card.is-compact .stat {
   position: absolute !important;
-  font-size: 16px !important;
+  font-size: 11cqw !important;
   transform: none !important;
   text-shadow: 1px 1px 2px black;
-  width: 18px;
-  height: 18px;
+  width: 12cqw;
+  height: 12cqw;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -710,7 +719,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.7;
+  opacity: 1.0;
   z-index: 1;
   border-radius: 6px;
 }
@@ -722,7 +731,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   right: 0;
   background: linear-gradient(transparent, rgba(0,0,0,0.85));
   color: white;
-  font-size: 1.1em;
+  font-size: 7cqw;
   font-weight: bold;
   padding: 2.5em 0.5em 0.4em;
   text-align: center;
@@ -738,8 +747,8 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   position: absolute;
   top: 0.3em;
   left: 0.3em;
-  width: 5em;
-  height: 5em;
+  width: 32cqw;
+  height: 32cqw;
   z-index: 4;
 }
 
@@ -747,7 +756,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   position: absolute;
   color: #ffd700;
   font-weight: bold;
-  font-size: 1.6em;
+  font-size: 12cqw;
   text-shadow: 0 1px 3px black, 0 0 8px rgba(0,0,0,0.9);
   line-height: 1;
 }
@@ -936,7 +945,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   );
   background-size: var(--holo-bg-size, 300% 300%);
   background-position: var(--posx, 50%) var(--posy, 50%);
-  opacity: 0.8;
+  opacity: 1.0;
 }
 
 .tt-card.is-premium:hover .holo-container { opacity: 1; }
@@ -1070,7 +1079,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 /* Unscoped styles for the Teleported zoom overlay */
 <style>
 /* Zoom card size */
-.card-size-zoom { width: min(350px, 70vw); font-size: 24px; aspect-ratio: 2.5 / 3.5; }
+.card-size-zoom { width: min(350px, 70vw); font-size: 24px; aspect-ratio: 1 / 1; }
 
 /* Card inner rendering for zoom (scoped styles don't apply in Teleport) */
 .zoom-overlay .tt-card { border-radius: 8px; overflow: visible; position: relative; }
@@ -1129,7 +1138,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   );
   background-size: 300% 300%;
   background-position: 50% 50%;
-  opacity: 0.8;
+  opacity: 1.0;
 }
 
 </style>

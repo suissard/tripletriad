@@ -2,8 +2,11 @@
   "name": "Arche de Pierre",
   "description": "Vaisseau-semaine des Puristes, relique flottante. Ses cales contiennent les dernières archives de l'ancienne Terre — vraies plantes en pot, tableaux, ADN humain intact. Sa perte serait la fin de leur identité.",
   "element": "reseau",
-  "elements": ["reseau", "obsidienne"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "reseau",
+    "obsidienne"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "9",
   "rightValue": "4",
   "bottomValue": "9",

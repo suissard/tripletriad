@@ -1,0 +1,88 @@
+{
+  "collectionName": "base",
+  "name": "Algo du Reseau",
+  "description": "Architecte du Réseau tissant la toile de surveillance galactique connectant chaque point d'information en une seule conscience.",
+  "element": "hacking",
+  "elements": [
+    "spore"
+  ],
+  "faction": "Omni-Réseau",
+  "topValue": "7",
+  "rightValue": "6",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "heal",
+      "value": 1,
+      "target": "self"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 3,
+  "image": "base/074.png",
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Cyborg Combat Specialist, massive neural interface crown grafted to skull and spine, Algorithmic Network Architect connected to galactic surveillance web, pale cadaveric flesh visible beneath damaged tactical armor",
+      "loadout": {
+        "armor_outfit": "Mass-produced composite tactical exoskeleton, dark anthracite and matte black armor plates, brushed steel mechanical joints, visible serial numbers and interface ports etched into armor and exposed skin, damaged sections revealing internal circuitry and synthetic musculature",
+        "arsenal": "Geometric serial-issue assault rifle with direct neural tether cables connecting grip to wrist implants, emergency regenerative energy projectors integrated into gauntlets emitting focused golden restorative light"
+      },
+      "attitude": {
+        "behavior": "Full combat commitment with weapon raised, one hand pressing urgent against severe battlefield wounds while targeted golden regenerative energy cascades around injuries in cocoon of restorative light, both flesh and armor visibly mending in real-time, surrounded by shattering holographic displays and crumbling digital fortifications",
+        "emotion": "Inexpressive dead-eyed stare beneath glowing neural implants, cold cybernetic focus despite physical damage, algorithmically calm demeanor even while sustaining critical hits and self-repairing"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Cyberpunk Dystopia"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Matte Black",
+          "role": "primary armor base and shadow areas"
+        },
+        {
+          "name": "Anthracite Gray",
+          "role": "secondary armor plating and infrastructure"
+        },
+        {
+          "name": "Pale Cadaveric Flesh",
+          "role": "exposed skin and facial features"
+        },
+        {
+          "name": "Cold Steel Blue",
+          "role": "neural implants, optical enhancements, and technological accents"
+        },
+        {
+          "name": "Golden Regenerative Energy",
+          "role": "wound healing light effect and restorative cocoon"
+        },
+        {
+          "name": "Electric Cyan",
+          "role": "glitching holograms and ICE attack deterioration"
+        }
+      ],
+      "lighting_setup": "cinematic_volumetric_lighting_with_holographic_flicker",
+      "mood": "menacing_dystopian_technological_warfare"
+    },
+    "camera": {
+      "angle": "low_angle_slightly_dutch_tilt"
+    },
+    "scenography": {
+      "setting": "Cyber warfare zone, massive server towers toppling and sparking, brutalist monolithic structures crumbling, digital fortifications dissolving under aggressive enemy ICE attacks with visible code stream deterioration, electric storms rippling through technological infrastructure",
+      "atmosphere_vfx": "shattering_holographic_displays_glitching_intensely, blue_electric_energy_discharges, falling_debris_from_digital_fortifications, golden_light_emanating_from_self-repair_systems, digital_code_fragments_scattering_through_air, thick_black_neural_cables_swaying_with_impact"
+    }
+  }
+}

@@ -2,8 +2,10 @@
   "name": "Prétorien Exo",
   "description": "Garde du corps du Haut Commandement en exosquelette lourd renforcé. Double mitrailleuse électromagnétiques montées sur les épaules. Protocole zéro-tolérance : aucune menace ne passe sa ligne.",
   "element": "reseau",
-  "elements": ["reseau"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "reseau"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "5",
   "rightValue": "3",
   "bottomValue": "5",

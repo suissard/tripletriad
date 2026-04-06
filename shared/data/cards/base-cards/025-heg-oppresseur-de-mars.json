@@ -1,0 +1,76 @@
+{
+  "collectionName": "base",
+  "name": "Oppresseur de Mars",
+  "description": "Artilleur orbital bombardant les fortifications ennemies depuis les stations en orbite martienne.",
+  "element": "reseau",
+  "faction": "Hégémonie Martienne",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "growing",
+      "value": 1,
+      "target": "adjacent_enemy"
+    }
+  ],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/025.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Human Heavy Artilleryman of the Martian Hegemony (Purist)",
+      "loadout": {
+        "armor_outfit": "Full-body seamless plate armor in deep carmine red with dark grey angular accents; smooth, impurity‑free surfaces embodying purist purity; integral helmet with opaque visor and a thin horizontal red slit; angular shoulder plates; asymmetric half‑cape with sharp, geometric edges for officer rank; ballistic fabric underlayer.",
+        "arsenal": "Integrated orbital railgun artillery system featuring a massive rectangular/octagonal barrel, no visible mechanisms; high‑power plasma‑charged projectile; a compact thermal energy sword at the hip with a red‑glowing, smoky blade."
+      },
+      "attitude": {
+        "behavior": "Stands on the edge of an orbital artillery platform, legs braced wide, the massive railgun raised and aimed at an enemy fortification far below; red plasma energy crackles at the muzzle; recoil absorbed by the heavy armor.",
+        "emotion": "Cold, relentless focus behind the opaque visor; an expressionless mask of domination, the faint red glow of the visor slit reflecting the weapon's charging energy."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Post‑apocalyptic",
+          "Brutalist high‑tech"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Red Carmine",
+          "role": "Primary dominant color (armor, major surfaces)"
+        },
+        {
+          "name": "Dark Grey",
+          "role": "Secondary structural color (shading, panels, grilles)"
+        },
+        {
+          "name": "Red Neon Glow",
+          "role": "Accent energy glow (visor slit, plasma discharge, reactor vents)"
+        }
+      ],
+      "lighting_setup": "Cinematic rim lighting with a strong backlight to accentuate the angular silhouette, supplemented by localized red neon glow from the weapon and reactor; subtle starlight from the void of space.",
+      "mood": "Menacing, oppressive, epic"
+    },
+    "camera": {
+      "angle": "Low angle"
+    },
+    "scenography": {
+      "setting": "Orbital artillery station hovering above the rust‑red surface of Mars; the planet’s curvature and faint atmospheric haze visible below; a star‑filled void surrounds the platform.",
+      "atmosphere_vfx": "Red plasma energy discharge at the cannon muzzle, faint particulate dust drifting in micro‑gravity, subtle lens flare from the starfield, occasional glowing hexagon grilles on the station’s hull."
+    }
+  }
+}

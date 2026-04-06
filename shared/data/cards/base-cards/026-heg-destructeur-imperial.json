@@ -1,0 +1,76 @@
+{
+  "collectionName": "base",
+  "name": "Destructeur Imperial",
+  "description": "Général légionnaire planifiant les campagnes de conquête multi-systèmes avec une précision martienne implacable.",
+  "element": "obsidienne",
+  "faction": "Hégémonie Martienne",
+  "topValue": "4",
+  "rightValue": "7",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -1,
+      "target": "enemy_with_highest"
+    }
+  ],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/026.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Martian Hegemony Imperial General - Cybernetic legionary commander with imposing geometric armor silhouette, cold angular posture conveying unstoppable conquest",
+      "loadout": {
+        "armor_outfit": "Interlocking smooth plate armor in carmin red and dark gray, full integral helmet with opaque visor and thin horizontal red slit, asymmetrical half-cape with angular shoulders in carmin red, reinforced gauntlets with geometric hexagonal patterns, heavy thoracic plate with embedded reactor core glow",
+        "arsenal": "Heavy electromagnetic railgun rifle with rectangular octagonal barrel and hexagonal cooling vents, thermal energy sword with glowing red smoky blade wreathed in heat haze, tactical holographic command interface gauntlet with floating tactical projections"
+      },
+      "attitude": {
+        "behavior": "Standing in commanding pose overlooking a holographic strategic display spanning multiple star systems, one gauntleted hand resting on sword hilt, the other gesturing precisely toward floating conquest projections, legs planted in wide authoritative stance",
+        "emotion": "Cold calculated determination, implacable Martian precision in the red visor gaze, supreme confidence of a multi-system campaign commander, menacing authority radiating from every geometric line of armor"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "High-tech brutalism"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Carmin Red",
+          "role": "Primary dominant color (60%) - armor main surfaces, cape accents, energy weapon glow, command bridge ambient lighting"
+        },
+        {
+          "name": "Dark Gray",
+          "role": "Secondary color (30%) - armor secondary plates, mechanical underlayers, hexagonal grille structures, shadows and depth"
+        },
+        {
+          "name": "Vivid Red",
+          "role": "Neon accent (10%) - visor slit, reactor core pulse, plasma energy effects, thermal sword blade intensity, optical sensors"
+        }
+      ],
+      "lighting_setup": "Cinematic dramatic lighting with strong directional light creating sharp geometric shadows, red energy rim lighting highlighting angular edges, volumetric lighting from holographic displays, secondary cool gray fill light from command consoles",
+      "mood": "Menacing imperial authority, cold calculated conquest, implacable Martian determination, oppressive high-tech brutalist atmosphere of unstoppable war machine"
+    },
+    "camera": {
+      "angle": "Low angle to emphasize imposing commanding presence and geometric imposing silhouette, dutch_angle slightly for dynamic tension"
+    },
+    "scenography": {
+      "setting": "Imperial Martian command bridge aboard a massive conquest dreadnought, massive panoramic viewport showing conquered planetary systems in the void, walls lined with hexagonal grilles and angular geometric panels in carmin red and steel gray",
+      "atmosphere_vfx": "Red ambient glow from plasma displays and reactor cores, floating holographic tactical projections of multi-system conquest plans, subtle smoke and heat haze emanating from thermal sword, occasional red energy pulses from propulsion systems visible through viewport, dramatic cinematic dust particles in volumetric light beams, faint fog from climate control systems"
+    }
+  }
+}

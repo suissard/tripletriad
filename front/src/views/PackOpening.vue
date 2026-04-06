@@ -556,7 +556,7 @@ const getGlowClass = (rarity) => {
   /* Use fixed clamp values for card size rather than 100% width,
      but let it grow up to 280px max */
   width: clamp(60px, 18vw, 220px) !important;
-  aspect-ratio: 2.5 / 3.5 !important;
+  aspect-ratio: 1 / 1 !important;
   height: auto !important;
   font-size: clamp(10px, 1.5vw, 24px) !important;
 }

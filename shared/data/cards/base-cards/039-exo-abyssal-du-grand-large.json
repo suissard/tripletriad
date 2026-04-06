@@ -1,0 +1,86 @@
+{
+  "collectionName": "base",
+  "name": "Abyssal du Grand Large",
+  "description": "Sondeur des abysses détectant les ressources souterraines aquatiques grâce à des capteurs bio-sensibles.",
+  "element": "spore",
+  "faction": "Exode Pélagique",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "6",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/039.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Alien Cephalopod Bio-Sensor Profiler - An elongated translucent cephalopod alien entity with eight prehensile tentacles, four of which are mechanized and fused with mining sensor equipment, its bulbous head encased in a massive spherical armored glass helmet filled with cyan bioluminescent pressurized water, revealing a pale violet alien face with multiple secondary eyes arranged in clusters like a deep-sea creature",
+      "loadout": {
+        "armor_outfit": "Heavy mineralogical mining exo-suit reconstructed as war armor - thick layered rust-orange and oxidized green-grey plates bolted over a black polymer pressure suit, asymmetric shoulder pauldrons with exposed rivets and weld marks, massive hydraulic ram joints at elbows and knees with visible pistons and fluid leak stains, armored gauntlets fused with sensor arrays and antenna clusters, thick armored glass spherical helmet with internal cyan luminescent water bath, exposed annealed copper piping running along the spine with active vapor condensation, decompression valves on chest emitting steam, heavy lead-weighted boots with magnetic grip plates",
+        "arsenal": "Integrated bio-resonance scanner arm ending in a massive multi-lens sensor pod with cracked but functional focusing crystals, secondary arm equipped with a retractable plasma core probe that constantly leaks orange thermal energy, two deployable drone tentacles each ending in ultrasonic emitter heads, emergency plasma cutter blade mounted on the back, exposed cooling coils in copper visible along both arms"
+      },
+      "attitude": {
+        "behavior": "Crouched low in a wide stance with three tentacles coiled beneath it for stability, two mechanized arms extended forward with sensor pods actively scanning the ground, bioluminescent cyan light pulsing rhythmically from the helmet and along tentacle tips, steam venting from shoulder valves, one tentacle touching a rocky surface while sensor readings display on a cracked HUD projection from the chest",
+        "emotion": "Deep alien focus and alien sentience emanating from multiple glowing secondary eyes behind the helmet glass, the alien pilot's expression serene yet intensely alert as it detects underground mineral deposits, entire body humming with barely contained thermal and hydraulic energy"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic Industrial",
+          "Deep Sea Bioluminescence"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Deep Rust Orange",
+          "role": "Primary armor plating, main body structure"
+        },
+        {
+          "name": "Oxidized Copper Green-Grey",
+          "role": "Secondary weathered surfaces, rust patches"
+        },
+        {
+          "name": "Tarnished Cannon Grey",
+          "role": "Heavy mechanical joints, exposed metalwork"
+        },
+        {
+          "name": "Cyan Bioluminescent",
+          "role": "Helmet water bath, tentacle tips, sensor glow, shield energy"
+        },
+        {
+          "name": "Blinding Thermal Orange",
+          "role": "Plasma leaks, active mining lasers, reactor cores"
+        },
+        {
+          "name": "Translucent Pale Violet",
+          "role": "Alien skin, exposed cephalopod flesh between armor gaps"
+        },
+        {
+          "name": "Pearl Grey",
+          "role": "Secondary alien tissue, scarring on armor"
+        }
+      ],
+      "lighting_setup": "drastic_contrast_lighting_with_heavy_industrial_rim_light_and_cyan_bioluminescent_fill_from_below",
+      "mood": "tense_industrial_desperation_with_alien_mysticism"
+    },
+    "camera": {
+      "angle": "low_angle_with_slight_dutch_tilt_to_emphasize_massive_presence"
+    },
+    "scenography": {
+      "setting": "Subterranean industrial mining complex flooded ankle-deep with dark mineral-rich water, corroded metal grating platforms surrounded by massive drilling equipment, rusted pipes overhead with leaking steam, scattered mineral crystals on the ground emitting faint glow, deep abyss darkness in the background with distant halogen spotlights cutting through",
+      "atmosphere_vfx": "constant_steam_vapor_released_from_decompression_valves, cyan_particulate_matter_floating_in_water, orange_plasma_sparks_emanating_from_sensor_arm, industrial_ambient_dust_with_condensation_droplets, subtle_glitching_HUD_elements_displaying_resource_readings"
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "collectionName": "base",
+  "name": "Plongeur Aquatique",
+  "description": "Gardien des nurseries protégeant les jeunes générations de l'Exode contre les prédateurs et les menaces extérieures.",
+  "element": "furtif",
+  "faction": "Exode Pélagique",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/038.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Exode Pélagique Cephalopod Nursery Guardian",
+      "loadout": {
+        "armor_outfit": "Heavy mineral‑mining pressure suit: thick rust‑orange and patina‑green plating, massive spherical helmet filled with cyan bioluminescent water, exposed copper cooling coils, corrugated steam hoses, heavy hydraulic pistons, integrated decompression valves.",
+        "arsenal": "Primary: integrated plasma geyser cannon (high‑pressure cyan plasma jet); Secondary: hydraulic thermal circular saw arm; Utility: high‑pressure water jet for crowd control."
+      },
+      "attitude": {
+        "behavior": "Hovering protectively above a cluster of translucent eggs, hydraulic pistons whirring, steam venting from joints, scanning surroundings with glowing cyan eyes while the alien's tentacles pulse with bioluminescence.",
+        "emotion": "Fierce, unwavering vigilance; a cold, ancient protectiveness mixed with readiness for violent confrontation."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Post‑apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Rust Orange",
+          "role": "Primary armor, oxidised metal surfaces"
+        },
+        {
+          "name": "Patina Green",
+          "role": "Secondary oxidized copper details"
+        },
+        {
+          "name": "Cannon Gray",
+          "role": "Base structural hull, background metal"
+        },
+        {
+          "name": "Cyan Bioluminescent",
+          "role": "Water in helmet, energy shields, bioluminescent skin accents"
+        },
+        {
+          "name": "Orange Thermal",
+          "role": "Plasma weapons, thermal vents, steam glow"
+        },
+        {
+          "name": "Violet‑Pale Gray",
+          "role": "Cephalopod skin, translucent membranes"
+        }
+      ],
+      "lighting_setup": "Cinematic directional lighting: cyan rim light from the helmet water, orange/white highlights from plasma and thermal elements, deep shadows with high contrast. Rim lighting emphasizes silhouette.",
+      "mood": "Menacing yet protective, tense, epic atmosphere of desperate survival."
+    },
+    "camera": {
+      "angle": "low_angle"
+    },
+    "scenography": {
+      "setting": "Abyssal industrial nursery: a massive spherical pressure tank filled with cyan‑glow water, translucent membrane walls enclosing clusters of alien eggs, metallic bulkheads scarred by micro‑meteorite impacts, exposed thermal pipes, steam vents, and flickering emergency lights.",
+      "atmosphere_vfx": "Rising bubbles, swirling steam clouds, bioluminescent glow pulsating from the eggs, orange plasma sparks from the weapon, occasional holographic warning signs, ambient underwater pressure distortion."
+    }
+  }
+}

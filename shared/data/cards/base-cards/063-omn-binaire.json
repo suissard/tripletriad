@@ -1,0 +1,83 @@
+{
+  "collectionName": "base",
+  "name": "Binaire",
+  "description": "Analyste de cryptographie processant les données ennemies interceptées pour identifier leurs vulnérabilités stratégiques.",
+  "element": "longue_portee",
+  "faction": "Omni-Réseau",
+  "topValue": "5",
+  "rightValue": "3",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/063.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Cyborg Cryptanalysis Combat Specialist",
+      "loadout": {
+        "armor_outfit": "Standardized dark composite tactical exoskeleton with integrated neural interface ports, smooth matte anthracite plates over pale grey utility suit, visible cervical and spinal connection ports with cold blue luminescent neural cables, serialized identification codes etched into chest plate",
+        "arsenal": "Geometric assault rifle with integrated wrist-mounting system connected via thick black neural cables to forearm implants, secondary emp grenade attached to utility belt, holographic data-shard projector embedded in shoulder plating"
+      },
+      "attitude": {
+        "behavior": "Combat specialist in aggressive forward stance, weapon raised at eye level with both hands locked on target, body angled at 45 degrees with weight forward on balls of feet, neural cables trailing from rifle grip to wrist implants glowing with data-stream activity",
+        "emotion": "Cold inexpressive stare through dead eyes enhanced by livid blue optic implants, face utterly devoid of human emotion, absolute combat focus emanating from blank expression while surrounding holographic displays fragment and glitch violently behind the subject"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Brutalist Industrial Design",
+          "Cyberpunk Noir"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Anthracite Grey",
+          "role": "Primary armor and environmental elements"
+        },
+        {
+          "name": "Matte Black",
+          "role": "Shadows, cables, and deep structures"
+        },
+        {
+          "name": "Cold Brushed Steel",
+          "role": "Metal surfaces and technological components"
+        },
+        {
+          "name": "Cadaveric Pale Flesh",
+          "role": "Exposed skin of subject"
+        },
+        {
+          "name": "Glacial Neon Blue",
+          "role": "Neural implants, optic glow, data streams, and accent lighting"
+        },
+        {
+          "name": "Faded Military Olive",
+          "role": "Utility underlayers and worn fabric elements"
+        }
+      ],
+      "lighting_setup": "Dramatic cinematic low-key with harsh blue accent rim lighting from neural implants and holographic sources, volumetric electric discharge illumination from crumbling server infrastructure, dark ambient fill with selective high-contrast highlights on weapon and armor edges",
+      "mood": "Menacing, oppressive, industrial devastation with cold technological horror undertones"
+    },
+    "camera": {
+      "angle": "Low angle dutch angle tilted slightly right to emphasize aggressive combat posture and imposing armored silhouette against chaotic background, camera height at waist level looking slightly upward"
+    },
+    "scenography": {
+      "setting": "Collapsing cyber warfare command center interior, massive server towers toppling at sharp geometric angles surrounded by cascading digital data fragments, shattered holographic display panels floating and disintegrating mid-air, exposed wiring and sparking industrial conduits",
+      "atmosphere_vfx": "Violent electric storms rippling through crumbling digital infrastructure, vivid blue-white ICE fragmentation particles exploding from breached firewalls, glitching holographic code deteriorating into pixelated noise, intermittent power surges causing flickering emergency lighting, smoke and ionized particles swirling in electromagnetic interference fields"
+    }
+  }
+}

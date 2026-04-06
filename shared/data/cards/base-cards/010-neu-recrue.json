@@ -1,0 +1,83 @@
+{
+  "collectionName": "base",
+  "name": "Recrue",
+  "description": "Technicien réparant l'équipement endommagé des deux camps, expertise recherchée par toutes les factions.",
+  "element": "radiation",
+  "faction": "neutre",
+  "topValue": "5",
+  "rightValue": "3",
+  "bottomValue": "4",
+  "leftValue": "6",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/010.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Scrap-Punk Field Technician Recruit - Weathered human wearing salvaged mining exoskeleton patchwork, covered in grease stains and welding soot, scarred face with oil-painted war markings, mid-action between tool deployment and combat readiness",
+      "loadout": {
+        "armor_outfit": "Improvised plate armor assembled from welded ship hull fragments, dented signaling panels, and salvaged vehicle chassis parts. Thick asymmetric utility jumpsuit with exposed pneumatic tubes, duct-taped joint seals, and integrated welding harness. Cracked astronaut helmet with scratched opaque visor and external welding lens filter. Friction-taped gauntlets with embedded magnetic tool holders. Heavy improvised chest rig made from repurposed cargo straps and ammunition pouches overflowing with spare parts",
+        "arsenal": "Hybrid plasma cutter and kinetic driver tool/weapon combination - industrial welding torch integrated into modified mining jackhammer frame, copper coil IEM disruptor addon wrapped in electrical tape, battery pack jury-rigged with exposed jumper cables. Backup pneumatic bolt pistol loaded with hardened steel darts. Companion debris-scanning drone mounted on shoulder harness"
+      },
+      "attitude": {
+        "behavior": "Crouched behind sparking improvised barricade constructed from shipping container doors and bent rebar, one hand gripping tool-weapon at ready position while the other holds melting welding rod inches from hot seam. Sparks cascade across shoulders and visor as active plasma cutter discharges. Legs planted wide in aggressive forward stance, weight balanced for explosive movement. Head turned sharp toward advancing enemy silhouettes through smoke, tracking movement with predator focus",
+        "emotion": "Intense survival determination beneath cracked visor. Teeth gritted behind grime-covered lips. Eyes narrowed against spark glare showing fierce combat adrenaline mixed with technical precision. Expression of stubborn defiance - refusing to stop work despite overwhelming threat"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Scrap-punk Industrial",
+          "Mad Max Zero Gravity"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Oxidized Steel Gray",
+          "role": "Primary structural elements, armor base, waystation walls"
+        },
+        {
+          "name": "Rust Orange",
+          "role": "Faction accent color, corrosion patterns, warning stripes"
+        },
+        {
+          "name": "Industrial Charcoal",
+          "role": "Shadow areas, deep recesses, smoke density"
+        },
+        {
+          "name": "Hot Plasma Blue",
+          "role": "Impact flashes, welding arc core, energy discharge highlights"
+        },
+        {
+          "name": "Molten Copper Sparks",
+          "role": "Debris particles, spark trails, tool friction points"
+        },
+        {
+          "name": "Faded Yellow Safety Paint",
+          "role": "Scattered details, hazard markings, worn faction insignia"
+        }
+      ],
+      "lighting_setup": "Dramatic multi-source including plasma impact flashes (random bursts), persistent welding arc (warm orange-white), distant explosions (blue-white pulse), ambient industrial corridor fill (cold gray-green)",
+      "mood": "Chaotic desperate survival, violent industrial warfare, desperate heroism under fire"
+    },
+    "camera": {
+      "angle": "Low angle dutch tilt - slightly tilted frame emphasizing unstable battlefield, camera positioned at debris level looking up at Recruit silhouette against plasma-lit smoke"
+    },
+    "scenography": {
+      "setting": "Asteroid waystation crossroads junction - industrial corridor intersection with corrugated metal walls pockmarked by plasma scarring, bent support beams, hanging damaged cables, scattered cargo crates and twisted rebar forming cover points, distant view through smoke showing advancing enemy shadow forms",
+      "atmosphere_vfx": "Heavy particulate smoke with orange spark trails, plasma round impacts creating blue-white flash bursts on walls, raining debris particles in mid-fall, heat distortion from welding torch, ambient dust illuminated by multiple conflicting light sources, scattered IEM energy crackle visualization in air"
+    }
+  }
+}

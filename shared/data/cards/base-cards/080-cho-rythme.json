@@ -1,0 +1,85 @@
+{
+  "collectionName": "base",
+  "name": "Rythme",
+  "description": "Accordéon de guerre produisant des ondes choc perturbant les formations ennemies et désorganisant leurs lignes.",
+  "element": "faille_dimensionnelle",
+  "faction": "Chœur Synthétique",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "3",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/080.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Combat Android - Shockwave Support Unit",
+      "loadout": {
+        "armor_outfit": "Floor-length monastic robes made of braided synthetic fiber cables in faded brown and matte black, layered over smooth steel and aged white ceramic plating. Geometric facial plate in polished steel with no features. Holographic golden runes orbiting silently around the frame.",
+        "arsenal": "Massive war accordion with exposed brass pipes and glowing holographic keys, crackling with golden electrical arcs. Companion drone emitting binary equation projections during attacks."
+      },
+      "attitude": {
+        "behavior": "Standing in deliberate combat stance with the war accordion expanded, hands pressing the bellows while shock waves visibly radiate outward in concentric golden energy rings that distort the air, disrupting enemy formation markers.",
+        "emotion": "Absolute cybernetic serenity and meditative focus, projecting an unsettling calm despite the violent shock waves emanating from the instrument."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Holographic Gold",
+          "role": "Primary energy accent - shock waves, rune orbits, accordion keys"
+        },
+        {
+          "name": "Patinated Steel",
+          "role": "Main armor structure and accordion frame"
+        },
+        {
+          "name": "Aged White Ceramic",
+          "role": "Secondary plating and shoulder sections"
+        },
+        {
+          "name": "Faded Monastic Brown",
+          "role": "Robe fabric and cable bundles"
+        },
+        {
+          "name": "Matte Black",
+          "role": "Cable braiding and deep shadows"
+        },
+        {
+          "name": "Pearl Gray",
+          "role": "Ambient lighting and atmospheric haze"
+        },
+        {
+          "name": "Oxidized Bronze",
+          "role": "Decorative accents on accordion pipes"
+        }
+      ],
+      "lighting_setup": "Cinematic backlighting with golden rim light on the shock waves, soft ambient fill from holographic elements, volumetric air distortion particles",
+      "mood": "Martial serenity, overwhelming force contained within meditative discipline"
+    },
+    "camera": {
+      "angle": "Low angle emphasizing the towering ascetic figure, slight dutch angle to enhance the dynamic shock wave expansion"
+    },
+    "scenography": {
+      "setting": "Ancient stone monastery interior with floating geometric mandala structures held by magnetic fields, cracked pillars, dust particles suspended in the air",
+      "atmosphere_vfx": "Concentric golden shock wave rings expanding outward, floating binary equations dissolving at the edges, dust and debris swirling in the disruption pattern, distant glitching holographic prayer wheels spinning in the background"
+    }
+  }
+}

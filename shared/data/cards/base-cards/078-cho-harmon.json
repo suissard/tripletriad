@@ -1,0 +1,83 @@
+{
+  "collectionName": "base",
+  "name": "Harmon",
+  "description": "Sondeur sismique détectant les mouvements ennemis à travers les vibrations du sol permettant des contre-mesures précoces.",
+  "element": "furtif",
+  "faction": "Chœur Synthétique",
+  "topValue": "3",
+  "rightValue": "3",
+  "bottomValue": "4",
+  "leftValue": "6",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/078.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Faceless Seismic Reconnaissance Android, Synthetic Choir monastic warrior monk unit designated 'Harmon', humanoid silhouette with smooth chrome-ceramic plating, utterly devoid of facial features (no eyes, nose, mouth), elongated serene cranial structure, slender hydraulic limbs, scan arrays embedded in forearms and torso, floating holographic prayer-bead rosary of tiny processor disks orbiting waist",
+      "loadout": {
+        "armor_outfit": "Worn monastic robe of thick braided synthetic fiber cables in deep charcoal and faded brown moine tones, layered over smooth ceram-steel andoilium alloy plating showing patina and battle scars, wide sleeves concealing servo-motors, hood framing the blank featureless face-plate, belt of tressed data-cables with glowing golden runic mantras, shoulder pads of aged white ceramic with etched circuit patterns",
+        "arsenal": "Main weapon: Twin electrified pilgrim staffs forged from patinated steel, crackling with golden arc electricity along their length, tips shaped like inverted Tibetan dorjes; Secondary: Integrated seismic pulse emitters in forearms projecting concentric shockwave rings of amber light; Tool: Portable harmonic resonator crystal held in left hand, currently vibrating with resonance frequency"
+      },
+      "attitude": {
+        "behavior": "Dynamic reconnaissance stance with weight shifted forward onto balls of feet, knees slightly bent for explosive movement, torso rotating toward approaching threat, both electrified staffs raised in crossing defensive position, scan arrays on forearms actively pulsing with golden light, floating processor-bead rosary spinning rapidly from energy discharge, entire body vibrating in sympathetic resonance with environment, fragments of crystal raining around figure while shockwave rings visibly distort the air",
+        "emotion": "Cold cybernetic focus emanating from the void where a face should be, absolute combat readiness with predatory stillness masking coiled explosive potential, the serene emptiness of a digital zen state processing thousands of seismic data points per second"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Cyberpunk Buddhist aesthetics"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      },
+      "lighting_setup": "Dramatic chiaroscuro with golden holographic rim-light outlining the figure, deep shadows from crumbling amphitheater architecture, amber shockwave glow illuminating the scene from within, secondary cool blue fill from crystal fragments refracting light, volumetric god-rays from cracks in ceiling structure, all surfaces catching orange-amber atmospheric haze"
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Aged Steel Patina",
+          "role": "Primary armor and weapon base color, dominant structural element"
+        },
+        {
+          "name": "White Ceramic Worn",
+          "role": "Secondary plating and shoulder elements, contrast accent"
+        },
+        {
+          "name": "Charcoal Cable Brown",
+          "role": "Monastic robe fabric and tressed cable elements"
+        },
+        {
+          "name": "Holographic Golden Runelight",
+          "role": "Active energy accents, runic symbols, staff electricity, scan arrays"
+        },
+        {
+          "name": "Amber Shockwave Orange",
+          "role": "Seismic pulse energy, harmonic resonance effects, environmental glow"
+        },
+        {
+          "name": "Crystalline Shard Blue",
+          "role": "Environment fragments, broken formations, atmospheric refraction"
+        }
+      ],
+      "lighting_setup": "Three-point cinematic with golden_holographic_key_light_from_above, deep_amber_fill_from_seismic_pulses, cool_blue_rim_light_from_crystal_fragments, volumetric_fog_and_particles, OSL_glow_on_electric_elements",
+      "mood": "Sereine mais menaçant, tension contenue prête à exploser, harmonie destructrice, beauté ascétique du chaos contrôlé"
+    },
+    "camera": {
+      "angle": "Low angle dutch tilt, slightly below eye-level looking up at the figure, wide 24mm equivalent lens for dramatic perspective distortion, camera positioned low to emphasize the looming threat of the android while capturing the crystal chaos above"
+    },
+    "scenography": {
+      "setting": "Shattered crystalline amphitheater transformed into apocalyptic battlefield, massive crystalline formations jutting from floor and ceiling at violent angles, walls cracked and permeated with resonant crystal veins glowing from harmonic overload, concentric ring patterns etched into stone floor from repeated seismic shockwaves, debris field of razor-sharp crystal shards suspended in mid-air from previous detonations, crumbling tiered seating visible in background with Buddhist mandala patterns shattered and scorched, distant ceiling structure groaning with thousands of hairline fractures, fractured stained-glass like crystalline ceiling panels raining glittering fragments, ground surface buckled and lifted in wave patterns",
+      "atmosphere_vfx": "Air visibly rippling and distorting from extreme harmonic vibration frequencies, concentric golden shockwave rings emanating outward from Harmon, crystal fragments exploding in slow-motion trajectories, dust particles suspended in resonating air columns, occasional larger crystal formations detonating in chain reactions creating new shockwave rings, orange-amber atmospheric haze from energy discharge, subtle chromatic aberration at frame edges, floating embers of destroyed technology mixed with crystal dust, holographic mantra symbols flickering unstable in the chaotic energy field"
+    }
+  }
+}

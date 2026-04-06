@@ -2,8 +2,10 @@
   "name": "Légionnaire Aegis",
   "description": "Fantassin renforcé spécialisé dans la défense rapprochée, portant un lourd bouclier énergétique rectangulaire et un pistolet à impulsions. Mur vivant de la phalange martienne. Avance lentement, ne recule jamais.",
   "element": "obsidienne",
-  "elements": ["obsidienne"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "obsidienne"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "3",
   "rightValue": "4",
   "bottomValue": "6",

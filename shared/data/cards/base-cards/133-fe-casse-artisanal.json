@@ -1,0 +1,93 @@
+{
+  "collectionName": "base",
+  "name": "Casse Artisanal",
+  "description": "Fondateur des Ferrailleurs bâtissant des colonies entières à partir de déchets créant des avant-postes viables dans les environnements les plus hostiles.",
+  "element": "radiation",
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "7",
+  "leftValue": "5",
+  "skills": [
+    {
+      "type": "death",
+      "value": 1,
+      "target": "self_on_flip"
+    }
+  ],
+  "rarity": "Epic",
+  "defaultHp": 3,
+  "image": "base/133.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Improvised Combat Specialist - Founder of the Ferrailleurs de la Ceinture",
+      "loadout": {
+        "armor_outfit": "Massively patched obsolete mining spacesuit with asymmetrical plates welded from salvaged cargo container metal, oxidized steel panels from spacecraft hulls, entire sections reinforced with layered duct tape and exposed welding seams, thick layered fabric underneath saturated with engine grease and burn marks, improvised chest plate assembled from bent traffic signs and car body panels with visible rivets and crude welds, shoulder guards made from repurposed industrial pipe fittings, forearm guards wrapped in copper wire coils for artisanal EMP shielding, heavy tool harness covered in dangling carabiners, utility pouches, and coiled cables, all held together with massive quantities of silver and gray duct tape, scratched opaque visor from a space welding helmet with visible cracks sealed with tape",
+        "arsenal": "Gigantic improvised kinetic hammer constructed from a repurposed mining jackhammer head welded to a vehicle suspension spring shaft, crude copper coil wrapped around the striking chamber for electromagnetic amplification, crude battery packs duct-taped directly to the weapon body with exposed wiring creating sparks, secondary weapon a harpoon gun cobbled together from engine parts and cargo crane mechanisms"
+      },
+      "attitude": {
+        "behavior": "Combat specialist fully committed to the fight in a dying warrior's last devastating act, violently slamming both hands downward into the asteroid floor with explosive force, sending a concentrated shockwave rippling through all adjacent positions in the zero-gravity environment, every muscle strained and body contorted in the moment of ultimate sacrifice, surrounded by floating debris and sparks, weapons clenched in desperate final strike",
+        "emotion": "Absolute determination mixed with the agony of a warrior's final moments, cold fury channeled into devastating last action, visceral intensity captured in frozen moment of explosive commitment"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Scrap-punk industrial",
+          "Mad Max zero-gravity"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Oxidized Steel Gray",
+          "role": "Primary dominant color for armor and debris"
+        },
+        {
+          "name": "Rust Orange",
+          "role": "Secondary dominant representing corrosion and heat"
+        },
+        {
+          "name": "Engine Grease Black",
+          "role": "Deep shadows and stained clothing areas"
+        },
+        {
+          "name": "Molten Metal Orange-Red",
+          "role": "Cascading liquid metal and burning rivers in background"
+        },
+        {
+          "name": "Hot Plasma Blue",
+          "role": "Energy accent from weapons and exposed copper coils"
+        },
+        {
+          "name": "Bright Spark Yellow-White",
+          "role": "Grinding sparks and impact effects filling the air"
+        },
+        {
+          "name": "Chipped Construction Yellow",
+          "role": "Accent details on improvised armor plates"
+        }
+      ],
+      "lighting_setup": "Dramatic cinematic multi-source lighting with orange-red glow from molten metal rivers illuminating from below, harsh blue-white sparks creating erratic highlights, plasma blue glow emanating from weapon coils, ambient cold blue fill light from distant stars through asteroid cracks, volumetric dust particles catching all light sources",
+      "mood": "Catastrophic desperation, violent beauty, desperate last stand atmosphere"
+    },
+    "camera": {
+      "angle": "Low angle Dutch tilt to emphasize the explosive downward slam and add visual instability matching the chaos, slightly tilted frame to enhance sense of motion and danger"
+    },
+    "scenography": {
+      "setting": "Hollowed asteroid interior converted into active scrapyard warfare zone, massive collapsed spacecraft structures creating skeletal metal frameworks, cargo container fragments embedded in asteroid walls, improvised barricades made from stacked debris and welded metal plates buckling under assault, ruptured fuel tanks spewing cascading molten metal forming burning rivers across the floor, floating debris suspended in low-gravity environment after breaking free from structures, grinding sparks showering the scene from clashing improvised weapons",
+      "atmosphere_vfx": "Heavy particulate dust floating in zero-gravity, orange-red molten metal flowing in rivers, thousands of bright white-yellow sparks raining from weapon impacts, blue plasma energy crackling from exposed weapon coils, smoke and vapor from burning structures, impact shockwave distortion ripples visible in air, debris slowly tumbling in background after explosions, emergency red warning lights flickering in destroyed machinery"
+    }
+  }
+}

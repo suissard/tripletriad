@@ -1,0 +1,79 @@
+{
+  "collectionName": "base",
+  "name": "Fongique Toxique",
+  "description": "Corrompeur infiltrant les systèmes biologiques ennemis les affaiblissant progressivement au fil des engagements successifs.",
+  "element": "spore",
+  "faction": "Fléau Spore",
+  "topValue": "6",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/142.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Fongique Toxique - Corrompeur infiltrant biologique à base de mycélium toxique, silhouette humanoïde asimétrique entièrement colonisée par une croissance parasitaire fongique",
+      "loadout": {
+        "armor_outfit": "Combinaison de plaques d'armure militaire fracturées et disloquées de l'intérieur, maintenues ensemble par des enchevêtrements de racines fongiques et lianes mycéliennes pulpeuses. Aucune symétrie, métal rouillé et corrodé par les sécrétions acids, polypores en plateau poussant sur les épaules et le dos, branchies fongiques relâchant des vapeurs toxiques, chairs nécrosées fusionnées avec la biomasse fongique",
+        "arsenal": "Fusil d'assaut boursoufflé et tordu englobé dans la biomasse palpillante, veines d'énergie verte pulsante le long du canon, bouche de l'arme crachant des nuages de spores toxiques au lieu de fumée, chargeurs remplacés par des sacs à spores bulbeux et membraneux"
+      },
+      "attitude": {
+        "behavior": "Shadow operative se déplaçant à haute vitesse en infiltration derrière les lignes ennemies, corps courbé et fluide comme une ombre vivante, silhouette floue due au mouvement rapide, traînée de ténèbres et de spores contaminées laissée dans son sillage, posture de combat prête à exploser avec arme levée et pointée vers la menace approchante, corps tendu comme un ressort prêt à bondir",
+        "emotion": "Froid cybernétique replaced by malice parasitaire malveillante, focus extrême sous un voile de moisissures bioluminescentes, yeux remplacés par des champignons luisants vert toxique, mâchoire décrochée crachant un épais brouillard de spores"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Bio-horror",
+          "Body horror"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Vert kaki crasseux",
+          "role": "Couleur dominante, base organique principale du sujet et du camouflage"
+        },
+        {
+          "name": "Brun terreux humide",
+          "role": "Sous-couche putride, chairs nécrosées et terre contaminée"
+        },
+        {
+          "name": "Gris asphalte sombre",
+          "role": "Éléments d'armure métallique résiduels et environnement dévasté"
+        },
+        {
+          "name": "Vert fluo toxique",
+          "role": "Accent bioluminescent critique, spores actives, champignons luisants, veines pulsantes, énergie mycélienne"
+        },
+        {
+          "name": "Blanc cassé",
+          "role": "Moisissures et champignons matures en surface"
+        }
+      ],
+      "lighting_setup": "Éclairage dramatique cinématographique avec forte contribution de bioluminescence endogène verte toxique, la lumière provient principalement des réseaux mycéliens pulsants et des spores actives, créant des zones d'ombres dures et des reflets malsains sur les surfaces organiques humides",
+      "mood": "Menaçant, oppressant, horrifique, post-apocalyptique биологический апокалипсис, sensation d'infiltration parasitaire imminente"
+    },
+    "camera": {
+      "angle": "Low angle dutch légèrement incliné pour accentuer le mouvement rapide et la menace imminente du corrupteur fongique"
+    },
+    "scenography": {
+      "setting": "Champ de bataille biologiquement dévasté entièrement consumé par l'infestation fongique, terrain converti en organisme vivant et hostile, masses sphériques et molles de champignons géants覆盖 les carcasses de véhicules militaires digérés par le réseau mycélien, nids mobiles béants formés de châssis métalliques angulaires étouffés et déformés",
+      "atmosphere_vfx": "Épais nuages de spores toxiques réduisant la visibilité et créant une brume verte oppressante, réseaux mycéliens massifs pulsant et grandissant visiblement à travers toutes les surfaces, sacs pulsants massifs éclotant et libérant de la contamination, sol lui-même vivant et hostile avec des tentacules fongiques surgissant sans avertissement, both ally and enemy positions attacked by spreading infection créant chaos organique total"
+    }
+  }
+}

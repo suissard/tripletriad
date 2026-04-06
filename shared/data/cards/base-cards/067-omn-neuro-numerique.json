@@ -1,0 +1,82 @@
+{
+  "collectionName": "base",
+  "name": "Neuro Numerique",
+  "description": "Neuro-hacker piratant les équipements électroniques ennemis et les retournant contre leurs propres opérateurs.",
+  "element": "reseau",
+  "faction": "Omni-Réseau",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "4",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/067.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Cyborg Neuro-Hacker Combat Specialist",
+      "loadout": {
+        "armor_outfit": "Mass-produced tactical exoskeleton with integrated neural interface ports, matte black composite plating over utility bodysuit, prominent cervical and spinal connection hubs emitting cold blue bioluminescence, serial numbers etched into every armor plate, brutal cable conduits running from back-mounted processing unit to skull implants",
+        "arsenal": "Modified electromagnetic pulse carbine with direct neural tether connection to wrist implant, secondary retractable mono-filament blade concealed in forearm sheath, portable ICE-breaker drone hovering at shoulder level"
+      },
+      "attitude": {
+        "behavior": "Combat stance with EMP carbine raised and locked, body coiled in aggressive forward momentum, neural cables trailing from wrist ports crackling with data streams, one hand manipulating holographic command interface mid-air while weapon remains aimed at threat, slight lean forward suggesting imminent explosive action",
+        "emotion": "Dead hollow eyes behind tactical visor reflecting cascading data streams, face utterly devoid of humanity, cold algorithmic focus as consciousness interfaces directly with battlefield infrastructure, expressionless except for the faint blue glow of active neural implants"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Brutalist Industrial"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Anthracite Gray",
+          "role": "Primary armor and environmental elements"
+        },
+        {
+          "name": "Matte Black",
+          "role": "Shadow areas and deep structural elements"
+        },
+        {
+          "name": "Cold Steel Blue",
+          "role": "Armor highlights and metallic reflections"
+        },
+        {
+          "name": "Cadaveric Flesh Pale",
+          "role": "Visible skin areas and biological elements"
+        },
+        {
+          "name": "Glacial Neon Cyan",
+          "role": "Neural implants, data streams, weapon energy, holographic elements"
+        },
+        {
+          "name": "Electric Blue White",
+          "role": "Sparking electricity, server arcs, ICE breach effects"
+        }
+      ],
+      "lighting_setup": "Mixed dramatic lighting: cold blue volumetric neon from neural implants and holographic displays, harsh white sparks from damaged server infrastructure, subtle orange emergency lighting in background, deep shadows creating high contrast between armor plates",
+      "mood": "Menacing, oppressive technological dread, cold efficiency of digital warfare, systematic destruction unfolding"
+    },
+    "camera": {
+      "angle": "Low angle dutch_tilt slightly rising toward subject, creating sense of imposing threat and forward momentum, slight right-side positioning to capture both character profile and destroyed cyber warfare environment"
+    },
+    "scenography": {
+      "setting": "Collapsed server farm corridor in cyber warfare zone, massive monolithic server towers toppling at sharp geometric angles, shattered holographic command displays floating in fragmented glitch artifacts, exposed wiring and sparking conduits, carbonized circuit boards visible through damaged flooring, destroyed enemy drones smoking in foreground",
+      "atmosphere_vfx": "Electric storm of cascading data fragments in cyan and magenta, visible code deterioration streams falling like digital rain, ICE breach shockwaves rippling through air as digital fortifications crumble, heavy volumetric dust particles illuminated by blue neon glow, occasional ground-level electric arcs between damaged equipment, glitching hologram remnants flickering in and out of existence"
+    }
+  }
+}

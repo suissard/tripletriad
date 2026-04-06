@@ -1,0 +1,77 @@
+{
+  "collectionName": "base",
+  "name": "Flamme Volcanique",
+  "description": "Pyroclaste projetant des roches volcaniques en fusion sur les cibles au sol avec une précision destructrice.",
+  "element": "faille_dimensionnelle",
+  "faction": "Héritiers des Cendres",
+  "topValue": "3",
+  "rightValue": "3",
+  "bottomValue": "4",
+  "leftValue": "6",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/049.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Flamme Volcanique - Mutant Pyroclast Warrior",
+      "loadout": {
+        "armor_outfit": "Tribal heat-resistant cloak of tattered anti-radiation tarps, layered with rusted metal plates, exposed tumorous flesh bearing luminescent yellow nodules, and a fused high-tech gauntlet housing the magma cannon",
+        "arsenal": "Integrated magma cannon relic: a sleek, intact high-tech plasma-ignited volcanic launcher grafted into the forearm, glowing with a cosmic blue energy core, capable of hurling molten rocks with pinpoint accuracy"
+      },
+      "attitude": {
+        "behavior": "Stands on a cracked basaltic ledge, arm thrust forward, a glowing boulder of molten rock already released, smoke and ash swirling around the figure, one foot braced for recoil",
+        "emotion": "Fierce, unwavering determination; eyes glowing with radioactive yellow, a grimace of savage focus"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Irradiated Brown",
+          "role": "dominant flesh and background dust"
+        },
+        {
+          "name": "Ash Gray",
+          "role": "ruins, ash rain, and metal debris"
+        },
+        {
+          "name": "Rust Orange",
+          "role": "molten rocks and lava glow"
+        },
+        {
+          "name": "Radioactive Yellow",
+          "role": "glowing tumor nodules and eyes"
+        },
+        {
+          "name": "Cosmic Blue",
+          "role": "high-tech weapon energy core"
+        }
+      ],
+      "lighting_setup": "dramatic_volcanic_glow_with_rim_lighting",
+      "mood": "menacing, destructive, apocalyptic"
+    },
+    "camera": {
+      "angle": "low_angle_dutch"
+    },
+    "scenography": {
+      "setting": "Barren volcanic wasteland dotted with jagged ruins, a fissure spewing ash, cracked earth bathed in molten glow",
+      "atmosphere_vfx": "falling ash, drifting smoke, embers swirling, occasional lava droplets, subtle blue energy sparks from the weapon"
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "collectionName": "base",
+  "name": "Depanneur Artisanal",
+  "description": "Dernier Survivant de la Grande Panne ayant résisté aux pires conditions de la Ceinture incarnant la résilience absolue de son peuple.",
+  "element": "radiation",
+  "elements": [
+    "None"
+  ],
+  "faction": "Ferrailleurs de la Ceinture",
+  "topValue": "6",
+  "rightValue": "7",
+  "bottomValue": "5",
+  "leftValue": "6",
+  "skills": [
+    {
+      "type": "growing",
+      "value": 2,
+      "target": "adjacent_enemy"
+    }
+  ],
+  "rarity": "Legendary",
+  "defaultHp": 4,
+  "image": "base/135.png",
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Last Survivor Cyborg Combat Specialist - grizzled humanoid scavenger from the Belt, embodiment of absolute resilience and artisanal engineering",
+      "loadout": {
+        "armor_outfit": "Heavily patched obsolete mining space suit made from salvaged spacecraft panels, asymmetric armor plates welded from rusted cargo container fragments and dented warning signs, thick layered industrial fabric suit underneath with exposed pressurized tubes, duct tape wrapped around joints and seams, shoulder pads fashioned from cracked vehicle hoods, improvised knee and elbow guards from machinery housings, welding helmet with opaque scratched visor hanging loose or replaced by scarred full-face mask with integrated filter respirators, multiple tool holsters and magnetic carabiner straps across chest, greasy canvas harness loaded with satchels of spare parts and emergency patches",
+        "arsenal": "Massive jury-rigged kinetic harpoon rifle with exposed copper coil electromagnet propulsion system on top, duct-taped battery pack strapped to weapon stock, circular saw attachment on forearm gauntlet with exposed grinding teeth and dripping coolant lines, improvised energy siphon gauntlet on opposite hand capable of projecting red plasma tendrils that drain enemy vitality, dangling cable electrodes and sparking wires connecting various tools to central power core on back"
+      },
+      "attitude": {
+        "behavior": "Predatory combat lunge in zero-gravity combat stance, body tilted forward with one leg pushing off floating debris, weapon raised and firing while simultaneously casting energy siphon tendrils from fingertips toward enemy, motion blur from high-speed engagement, sparks and molten metal droplets floating in low gravity around the figure, muscle tension visible through patched suit",
+        "emotion": "Savage determination and predatory focus, scarred face contorted in combat rage with teeth bared, eyes wild behind scratched visor reflecting burning plasma and fires, absolute commitment to kill or be killed, no fear only hungry aggression"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Scrap-punk Industrial",
+          "Mad Max in Zero Gravity"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Oxidized Steel Grey",
+          "role": "primary armor and structural elements"
+        },
+        {
+          "name": "Rust Orange",
+          "role": "weathered metal, fire reflections, heat sources"
+        },
+        {
+          "name": "Industrial Dark Grey",
+          "role": "shadows, machinery, background structures"
+        },
+        {
+          "name": "Motor Grease Black",
+          "role": "suit stains, war paint, deep shadows"
+        },
+        {
+          "name": "Electric Plasma Red",
+          "role": "energy tendrils, siphon effects, weapon discharge"
+        },
+        {
+          "name": "Hot Plasma Blue",
+          "role": "sparks, welding arcs, secondary energy accents"
+        },
+        {
+          "name": "Peeling Construction Yellow",
+          "role": "warning stripes, hazard markings, tool handles"
+        }
+      ],
+      "lighting_setup": "cinematic_volumetric_lighting_with_multiple_sources - intense orange fire glow from molten metal rivers below, harsh blue-white sparks from grinding weapons, red tendril glow illuminating face, cold ambient asteroid light from cracks above, dust particles catching all light sources",
+      "mood": "chaotic_apocalyptic_intensity - desperate last stand energy, visceral mechanical brutality, desperate survival against overwhelming odds"
+    },
+    "camera": {
+      "angle": "low_angle_dutch_tilt - camera positioned below combatant looking up emphasizing predatory dominance, slight dutch angle adding to chaotic unstable feeling"
+    },
+    "scenography": {
+      "setting": "Hollowed asteroid interior scrapyard battlefield - massive spacecraft structures tearing apart under weapons fire in background, towering improvised barricades made from stacked cargo containers and hull plates buckling under assault, burning rivers of molten metal cascading from ruptured fuel tanks creating flowing channels across debris-strewn floor, exposed station framework and tangled cable bundles, floating debris clouds in low-gravity, emergency lighting flickering from damaged conduits",
+      "atmosphere_vfx": "dense_spark_fog_with_buoyant_debris - grinding orange sparks raining down from clashing weapons, molten droplets floating in arcs, smoke and ash mixing with dust, red energy tendrils visibly draining enemy and creating swirling particle effects, distant explosions illuminating scene with strobing orange flashes, emergency klaxons in background, zero-gravity dust motes catching all light"
+    }
+  }
+}

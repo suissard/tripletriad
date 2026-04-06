@@ -1,0 +1,83 @@
+{
+  "collectionName": "base",
+  "name": "Chaos Devie",
+  "description": "Erratique brouillant les senseurs adverses par des mouvements aléatoires détournant les attaques loin des alliés de l'Incursion.",
+  "element": "radiation",
+  "faction": "Incursion Dissonante",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "3",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/109.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Chaos Devie - Erratic Combat Specialist of the Dissonant Incursion",
+      "loadout": {
+        "armor_outfit": "Tattered military armor fused with glitching shadow fragments, plates bent and warped by spatial distortion, floating fabric scraps defying gravity around limbs, exposed patches of scarred flesh, joints locked at impossible angles, shadow tendrils detaching physically from the body, chromatic aberration glitching effect constantly flickering across the silhouette",
+        "arsenal": "Obsidian-violet energy blade that phases between solid and dislocated states, floating shards of crystallized psychic energy orbiting erratically, weapon segments occasionally separating and rejoining in impossible configurations"
+      },
+      "attitude": {
+        "behavior": "Combat specialist in explosive action stance, body coiled with kinetic tension, weapon raised and crackling with corrupted energy, mid-motion blur suggesting chaotic unpredictable movement patterns, fragments of reality visibly distorting around the moving figure, multiple overlapping afterimages showing different combat poses simultaneously",
+        "emotion": "Manic battle fury mixed with eldritch detachment, eyes fully revulsed showing only whites, mouth frozen in silent scream of transcendent violence, aura of psychological terror radiating outward"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark cosmic horror",
+          "Dark Sci-Fi corruption",
+          "Post-apocalyptic reality fracture",
+          "Non-euclidean geometry",
+          "Glitch art distortion"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL_and_reality_distortion"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Abyssal Black",
+          "role": "Primary background and shadow, dominant 60%"
+        },
+        {
+          "name": "Deep Violet",
+          "role": "Corrupted energy accents and glitch effects"
+        },
+        {
+          "name": "Sickly Flesh Gray",
+          "role": "Exposed wounds and diseased tissue highlights"
+        },
+        {
+          "name": "Magenta Neon",
+          "role": "Energy crackling and reality fracture lines"
+        },
+        {
+          "name": "Dried Blood Red",
+          "role": "Scarified details and combat damage accents"
+        },
+        {
+          "name": "Asylum Gray",
+          "role": "Structural elements and metallic fragments"
+        }
+      ],
+      "lighting_setup": "Cinematic discordant multi-source lighting with violet-black energy auras, fractured ambient light showing conflicting sources, objects illuminated by celestial bodies that should not coexist",
+      "mood": "Oppressive cosmic dread, reality-defining madness, chaotic violent energy"
+    },
+    "camera": {
+      "angle": "Low angle dutch tilt emphasizing chaotic unstable composition, slight zoom to show both character and collapsing environment fragments"
+    },
+    "scenography": {
+      "setting": "Reality collapse zone - buildings existing simultaneously as intact ruins and rubble, ground fractured revealing layered parallel battlefields underneath like corrupt image files stacked, sky displaying conflicting celestial bodies (burning sun overlapping frozen stars), gravity vectors pointing in multiple directions creating debris falling upward sideways and downward in different spatial zones",
+      "atmosphere_vfx": "Air fracturing like broken glass, chromatic aberration glitches pulsing across the entire scene, floating debris orbiting chaotically, psychic energy tendrils cracking through dimensional barriers, reality distortion ripples emanating from the combatant, holographic static and corruption artifacts overlaid on the environment"
+    }
+  }
+}

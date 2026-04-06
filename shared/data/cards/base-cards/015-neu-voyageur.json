@@ -1,0 +1,94 @@
+{
+  "collectionName": "base",
+  "name": "Voyageur",
+  "description": "Architecte de la Neutralité orchestrant l'équilibre des rapports de force entre factions pour empêcher l'hégémonie totale.",
+  "element": "None",
+  "faction": "neutre",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "9",
+  "leftValue": "7",
+  "skills": [
+    {
+      "type": "growing",
+      "value": 3,
+      "target": "all_own"
+    },
+    {
+      "type": "death",
+      "value": 3,
+      "target": "adjacent_on_flip"
+    }
+  ],
+  "rarity": "Legendary",
+  "defaultHp": 4,
+  "image": "base/015.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Cyborg Salvage Commander orchestrating battlefield through energy manipulation, embodiment of faction's industrial desperation and tactical genius",
+      "loadout": {
+        "armor_outfit": "Obsolete mining spacesuit heavily modified with asymmetric welded plates from cargo containers, bent traffic signs and spacecraft hull fragments. Thick layered fabric darkened with engine grease, reinforced joints wrapped in coiled cables and copper wiring. Duct tape patches covering breaches, oversized shoulder pauldrons from废弃 rocket boosters. Exposed breathing apparatus with cracked visor showing scarred face beneath.",
+        "arsenal": "Massive repurposed mining harpoon launcher slung across back, jury-rigged kinetic cannon cobbled from salvage with visible copper coils sparking, energy web emanating from armored chest piece connecting to different battlefield positions via plasma threads"
+      },
+      "attitude": {
+        "behavior": "Standing at absolute center of chaotic warzone, boots planted wide on debris-strewn grating, both arms thrust upward in commanding sweep, fingers splayed wide as glowing energy web radiates outward from chest-mounted emitter in all directions. Allied forces crouching behind welded scrap barricades receiving tactical coordination through energy pulses. Enemy silhouettes advancing through thick smoke, plasma impacts creating orange bursts against corrugated metal walls. Debris and sparks raining down from damaged ceiling.",
+        "emotion": "Cold calculating focus beneath cracked welding helmet visor, jaw set in determination, scarred face illuminated by blue plasma glow of emanating energy web. Commanding presence amidst destruction, orchestrating chaos with geometric precision."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Scrap-punk",
+          "Industrial brutalism"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Rusted Steel",
+          "role": "primary armor and environment dominant"
+        },
+        {
+          "name": "Rust Orange",
+          "role": "accent worn metal and plasma impact"
+        },
+        {
+          "name": "Industrial Gray",
+          "role": "background structures and smoke"
+        },
+        {
+          "name": "Hot Plasma Blue",
+          "role": "energy web emanating from chest, light source"
+        },
+        {
+          "name": "Engine Grease Black",
+          "role": "shadows and deep recesses"
+        },
+        {
+          "name": "Vivid Spark Yellow",
+          "role": "sparks and debris highlights"
+        }
+      ],
+      "lighting_setup": "Cinematic mix of harsh overhead industrial flickers with dominant plasma blue energy emanating from subject's chest, orange fire bursts from plasma impacts, volumetric smoke scattering light creating dramatic chiaroscuro",
+      "mood": "Chaotic yet orchestrated, desperate yet triumphant, menacing industrial warfare with underlying strategic precision"
+    },
+    "camera": {
+      "angle": "low_angle slightly dutch_tilt, looking up at commanding figure with battlefield spread below, emphasizing power and control over chaos"
+    },
+    "scenography": {
+      "setting": "Asteroid waystation crossroads junction, corrugated metal walls scarred by countless plasma hits, welded scrap barricades forming defensive positions, exposed pipes and cables creating industrial labyrinth, destroyed cargo containers scattered as cover, zero-gravity debris floating amid atmosphere, massive breach in station wall showing asteroid field beyond",
+      "atmosphere_vfx": "Thick layered smoke from burning machinery, plasma discharge creating orange-white bursts, sparks cascading in arc patterns, energy web threads pulsing with blue plasma light, dust particles illuminated by multiple light sources, microgravity debris floating in background, impact craters smoking"
+    }
+  }
+}

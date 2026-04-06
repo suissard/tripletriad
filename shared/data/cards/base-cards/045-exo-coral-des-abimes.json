@@ -1,0 +1,96 @@
+{
+  "collectionName": "base",
+  "name": "Coral des Abimes",
+  "description": "Architecte des Abysses créant des écosystèmes aquatiques autonomes capables de survivre dans le vide spatial le plus hostile.",
+  "element": "eau",
+  "elements": [
+    "furtif"
+  ],
+  "faction": "Exode Pélagique",
+  "topValue": "7",
+  "rightValue": "6",
+  "bottomValue": "6",
+  "leftValue": "5",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -3,
+      "target": "opposite_side"
+    },
+    {
+      "type": "heal",
+      "value": 3,
+      "target": "self"
+    }
+  ],
+  "rarity": "Legendary",
+  "defaultHp": 4,
+  "image": "base/045.png",
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Alien Cephalopod Ecosystem Architect",
+      "loadout": {
+        "armor_outfit": "Heavy mineralogic mining exosuit: thick rust‑orange and gunmetal plating over a polymer pressure suit, spherical water‑filled helmet, massive hydraulic joints, exposed copper cooling coils, steam‑leaking valves",
+        "arsenal": "Integrated thermal circular saw, plasma rotary cutter, high‑pressure geyser cannon, hydraulic tentacle manipulators"
+      },
+      "attitude": {
+        "behavior": "Floating weightlessly in microgravity, extending bioluminescent tentacles to graft living coral structures, adjusting pressure valves, emitting cyan glow",
+        "emotion": "Serene focus, a calm yet intense dedication to building autonomous aquatic ecosystems in the void"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Post‑apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Deep Rust Orange",
+          "role": "primary armor tone, weathered and oxidized"
+        },
+        {
+          "name": "Verdigris Green",
+          "role": "copper patina on joints and piping"
+        },
+        {
+          "name": "Tarnished Gunmetal Grey",
+          "role": "structural plating, heavy industrial base"
+        },
+        {
+          "name": "Cyan Bioluminescent",
+          "role": "energy and water glow, shield effect, alien skin luminescence"
+        },
+        {
+          "name": "Thermal Orange Plasma",
+          "role": "weapon fire, steam vents, intense heat accent"
+        },
+        {
+          "name": "Violet Pale Skin",
+          "role": "alien cephalopod epidermis, translucent"
+        },
+        {
+          "name": "Pearl Grey",
+          "role": "skin highlights and reflective surfaces"
+        }
+      ],
+      "lighting_setup": "Cinematic rim lighting with cyan bioluminescent fill, harsh orange backlight on plasma, volumetric steam and water vapor, high‑contrast shadows",
+      "mood": "Ominous, awe‑inspiring, industrial desperation with a glimmer of alien life"
+    },
+    "camera": {
+      "angle": "low angle, slight dutch tilt, looking up at the towering cephalopod architect"
+    },
+    "scenography": {
+      "setting": "Orbital abyssal platform: massive spherical water tanks and metallic scaffolding floating in deep space, coral‑like bio‑structures sprouting, exposed piping, steam vents, microgravity droplets suspended",
+      "atmosphere_vfx": "Floating water droplets, cyan bioluminescent glow, plasma sparks, steam plumes, micro‑meteorite scarring, faint aurora‑like energy fields, occasional steam bursts from valves"
+    }
+  }
+}

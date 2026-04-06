@@ -1,0 +1,92 @@
+{
+  "collectionName": "base",
+  "name": "Ombre",
+  "description": "Rampant des ténèbres exploitant l'obscurité comme bouclier naturel devenant pratiquement invisible dans les zones peu éclairées.",
+  "element": "obsidienne",
+  "faction": "Éveil Chthonien",
+  "topValue": "4",
+  "rightValue": "2",
+  "bottomValue": "5",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/096.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Ombre - Chthonian Shadow Titan Rampant, être titanesque primordial de nature tellurique-honteuse, créature des ténèbres chthoniennes exploitant l'obscurité comme bouclier naturel, silhouette massive et trapue composed de plaques tectoniques volcaniques et d'ombre solidifiée,multiple yeux sans pupilles brillant faiblement dans l'obscurité, forme humanoïde imposante se fondant parfaitement dans les zones d'ombre dense",
+      "loadout": {
+        "armor_outfit": "Carapace tectonique impénétrable formée de plaques d'obsidienne noire asymétriques et tranchantes, croûte terrestre solidifiée avec failles rougeoyantes de magma incandescents pulsant en permanence, épiderme rugueux de roche volcanique calcinée, cornes massives de pierre brute et minérale, gueule béante d'où s'échappe une fumée volcanique noirâtre perpétuelle, armure naturelle vivante intégrée à la chair titanesque",
+        "arsenal": "Griffes foreuses géantes d'obsidienne noire capables de broyer et perforer la roche pure, appendices d'ombre colossaux eruptant des fissures dimensionnelles en dessous, Tentacules d'ombre massive emergant du sol fracturé, jets de magma en fusion crachés des entrailles géothermiques, masse brute du corps titanesque utilisée comme arme contondante, griffes foreuses géantes et appendices d'ombre eruptifs"
+      },
+      "attitude": {
+        "behavior": "Posture de combat specialist acharné engagé dans le cœur de la bataille dimensionnelle, corps entier commit à l'affrontement, stance de combat avec arme et corps entier prêts à exploser en action, corps groupé comme un ressort tendu prêt à bondir, griffes levées et prêtes à frapper, regard fixé intensement sur la menace approchante, poids du titan ancré au sol fracturé",
+        "emotion": "Férocité primale et rage tellurique, concentration absolue du prédateur chthonien sur sa proie, calme mortel de l'être des ténèbres parfaitement adapté à son élément, instinct de chasse immémoriale du rampant des profondeurs, tension contenue dans chaque muscle de roche et d'ombre"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Cosmic Horror",
+          "Primordial Mythos",
+          "Volcanic Decay"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Noir Obsidienne Profonde",
+          "role": "Couleur dominante - armure naturelle et corps principal du titan, absorption totale de la lumière"
+        },
+        {
+          "name": "Gris Basalte Mat",
+          "role": "Secondary - plaques tectoniques et détails rocheux, texture rugueuse de la surface"
+        },
+        {
+          "name": "Brun Terre Calcinée",
+          "role": "Tertiary - zones de roche chauffée et沉积 minérale sur la carapace"
+        },
+        {
+          "name": "Rouge Magma Incandescent",
+          "role": "Accent - failles rougeoyantes pulsantes, lueur interne du cœur géothermique, chaleur radiate"
+        },
+        {
+          "name": "Orange Lave en Fusion",
+          "role": "Accent énergétique - jets de magma et éruptions des entrailles, illumination ponctuelle intense"
+        },
+        {
+          "name": "Gris Cendre Volcanique",
+          "role": "Atmosphère - fumée, poussière et particules en suspension, voile tellurique"
+        },
+        {
+          "name": "Ténèbres Absolues",
+          "role": "Effet spécial - zones d'ombre dense où le titan devient quasi-invisible"
+        },
+        {
+          "name": "Violet Dimensionnel",
+          "role": "Accent surnaturel - runes antiques et déchirements de la réalité,wrongness cosmique"
+        }
+      ],
+      "lighting_setup": "Éclairage dramatique混合de lumière magma interne (Rouge/Orange incandescents) et ténèbres absolues surroundings, rim lighting volcanique sur les contours du titan, volumetric fog de cendre et de poussière, rayons de lumière impossible provenant des déchirements dimensionnels, clair-obscur intense强调les volumes",
+      "mood": "Oppressant, menaçant, dread surnaturel, horreur cosmique, annihilation imminente, fin de la réalité"
+    },
+    "camera": {
+      "angle": "low_angle avec légère Dutch angle pour emphasize la masse imposante et la menace du titan, légèrement en contre-plongée pour amplifier la sensation de puissance titanesque et de vulnérabilité de l'observateur face à la créature primordiale"
+    },
+    "scenography": {
+      "setting": "Champ de bataille dimensionnel déchiré - sol s'ouvrant en fissures massives et béantes, failles volcaniques crachant de la lave et des ténèbres, ciel 显示ant une géométrie impossible et une distorsion que l'esprit humain ne peut traiter, réalité s'effritant et se déchirant aux bords, surfaces couvertes de runes antiques incandescent de lumière violette et bleue, dimensions multiples s'effondrant et se superposant",
+      "atmosphere_vfx": "Pluie de cendres volcaniques épaisses, épais brouillard surnaturel oppressant, éclairs de magie dimensionnelle violette déchirant le ciel, réalité s'effilochant en fragments de wrongness, épais atmosphère de dread surnaturel et de terreur cosmique, poussière étouffante, fumée volcanique s'échappant des fissures, tentacules d'ombre massifs eruptant des entrailles fracturées de la terre, éruptions de magma illuminant périodiquement la scène d'une lueur rougeoyante infernale"
+    }
+  }
+}

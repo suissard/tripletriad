@@ -2,8 +2,10 @@
   "name": "Opérateur Réseau",
   "description": "Technicien de liaison orbitale assurant le réseau tactique entre les troupes au sol et le commandement orbital. Jamais déconnecté, jamais seul.",
   "element": "reseau",
-  "elements": ["reseau"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "reseau"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "2",
   "rightValue": "2",
   "bottomValue": "2",

@@ -185,13 +185,7 @@ export default {
     await generateQuestTemplates(strapi);
     console.log('✅ Quest templates generated.');
 
-    try {
-      const { bootstrapCards } = require('./api/card/services/card-bootstrap');
-      await bootstrapCards(strapi);
-      console.log('✅ Cards bootstrapped.');
-    } catch (err) {
-      console.error('❌ Error bootstrapping cards:', err);
-    }
+
 
     // 3.3. Bootstrapping decks
     try {
@@ -250,14 +244,14 @@ export default {
           const { assignQuestsToUser } = require('./api/player-quest/services/quest-assignment');
           await assignQuestsToUser(strapi, result.id, true);
 
-          // 4b. Give starting cards
-          const baseCards = await strapi.entityService.findMany('api::card.card', {
-            limit: 5,
-            sort: { level: 'asc' }
+          // 4b. Give starter collection cards
+          const starterCards = await strapi.entityService.findMany('api::card.card', {
+            filters: { collectionName: 'starter' },
+            limit: 200
           });
 
-          if (baseCards && baseCards.length > 0) {
-            for (const card of baseCards) {
+          if (starterCards && starterCards.length > 0) {
+            for (const card of starterCards) {
               await strapi.entityService.create('api::user-card.user-card', {
                 data: {
                   user: result.id,
@@ -267,19 +261,41 @@ export default {
                 }
               });
             }
+            console.log(`✅ ${starterCards.length} starter cards given to user ${result.username}`);
+          } else {
+            console.warn('⚠️ No starter cards found (collectionName=starter). Falling back to 5 weakest cards.');
+            const fallbackCards = await strapi.entityService.findMany('api::card.card', {
+              limit: 5,
+              sort: { level: 'asc' }
+            });
+            if (fallbackCards && fallbackCards.length > 0) {
+              for (const card of fallbackCards) {
+                await strapi.entityService.create('api::user-card.user-card', {
+                  data: {
+                    user: result.id,
+                    card: card.id,
+                    quantity: 1,
+                    isPremium: false
+                  }
+                });
+              }
+            }
           }
 
-          // 4c. Create Wallet
+          // 4c. Create Wallet with starter boosters (10 classic + 1 premium)
           await strapi.entityService.create('api::wallet.wallet', {
             data: {
               user: result.id,
               coins: 100, // Starting coins
               gems: 0,
               dust: 0,
-              boosters: []
+              boosters: [
+                { collection: 'base', isPremium: false, quantity: 10 },
+                { collection: 'base', isPremium: true, quantity: 1 }
+              ]
             }
           });
-          console.log(`✅ Wallet created for user ${result.username}`);
+          console.log(`✅ Wallet created with starter boosters for user ${result.username}`);
         } catch (error) {
           console.error('Error in afterCreate User lifecycle hook:', error);
         }

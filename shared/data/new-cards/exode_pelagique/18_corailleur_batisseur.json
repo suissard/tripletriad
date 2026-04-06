@@ -2,8 +2,11 @@
   "name": "Corailleur Bâtisseur",
   "description": "Ingénieur de terrain qui fait pousser des barricades de corail en quelques minutes. Son injecteur de spores transforme n'importe quel sol en rempart organique.",
   "element": "reseau",
-  "elements": ["reseau", "eau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "reseau",
+    "eau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "1",
   "rightValue": "2",
   "bottomValue": "3",

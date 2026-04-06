@@ -2,8 +2,11 @@
   "name": "Polypier Éclaireur",
   "description": "Éclaireur silencieux dont les tentacules captent les vibrations du sol comme un sonar organique. Il signale les positions ennemies via le réseau psionique des Tisseuses.",
   "element": "reseau",
-  "elements": ["reseau", "eau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "reseau",
+    "eau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "1",
   "rightValue": "3",
   "bottomValue": "1",

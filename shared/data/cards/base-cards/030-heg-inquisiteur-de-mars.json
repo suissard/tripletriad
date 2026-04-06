@@ -1,0 +1,76 @@
+{
+  "collectionName": "base",
+  "name": "Inquisiteur de Mars",
+  "description": "Supreme Commander unifiant les flottes martiennes sous un commandement unique avec une autorité absolue et indiscutable.",
+  "element": "obsidienne",
+  "elements": [
+    "radiation"
+  ],
+  "faction": "Hégémonie Martienne",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "7",
+  "leftValue": "7",
+  "skills": [
+    {
+      "type": "heal",
+      "value": 3,
+      "target": "adjacent_friendly"
+    }
+  ],
+  "rarity": "Legendary",
+  "defaultHp": 4,
+  "image": "base/030.png",
+  "storiesRewardedFrom": null,
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Cyborg Supreme Commander - Armored Martian Inquisitor with absolute military authority",
+      "loadout": {
+        "armor_outfit": "Full plate carapace armor in polished carmin red steel with dark gray segmented joints, smooth seamless surfaces devoid of imperfections, integrated hexagonal grilles along pauldrons, full-face helmet with opaque visor featuring single horizontal crimson light slit, angular asymmetric cape in deep crimson fabric draping over one shoulder with sharp geometric edges, armored collar extending into neck guard, heavy gauntlets with recessed energy conduits along forearms",
+        "arsenal": "Massive octagonal barrel railgun rifle held in combat-ready position with integrated red plasma capacitors glowing along barrel, thermal energy longsword sheathed at hip with heat-distortion aura emitting faint red smoke, command holo-projector on left pauldron displaying fleet tactical data, twin electromagnetic sidearms holstered at thighs"
+      },
+      "attitude": {
+        "behavior": "Standing atop command platform overlooking vast fleet deployment, one hand gripping railgun barrel-down, cape billowing from artificial gravity field, scanning horizon with absolute authority, posture projecting unquestioned dominance over assembled legions",
+        "emotion": "Cold calculating authority emanating from behind opaque visor, piercing crimson gaze through helmet slit, expression of supreme conviction in Martian conquest destiny, jaw set in permanent grim determination"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Brutalist High-Tech"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Carmin Red",
+          "role": "Primary dominant color (60%) covering armor, cape, and structural elements"
+        },
+        {
+          "name": "Dark Gray",
+          "role": "Secondary structural color (30%) for joints, grilles, and mechanical details"
+        },
+        {
+          "name": "Vivid Crimson Red",
+          "role": "Neon accent (10%) for energy glows, visor slit, plasma effects, reactor emissions, and thermal blade aura"
+        }
+      ],
+      "lighting_setup": "Dramatic cinematic side-lighting with harsh shadows, red rim-light highlighting angular edges, volumetric fog with subtle red energy particles in atmosphere, studio_light creating dramatic chiaroscuro effect",
+      "mood": "Menacing, authoritative, epic, imposing overwhelming military power"
+    },
+    "camera": {
+      "angle": "Low angle looking up emphasizing towering imposing stature, slight dutch_tilt for dynamic tension"
+    },
+    "scenography": {
+      "setting": "Command bridge of massive Martian flagship vessel with panoramic viewport revealing hundreds of red-lit warships in formation, hexagonal floor panels, sharp angular architecture with diamond-shaped support beams, walls lined with dormant weapon systems",
+      "atmosphere_vfx": "Thick red energy particles floating in zero-gravity environment, distant plasma engine exhausts illuminating scene through viewport, holographic fleet tactical displays flickering with Martian glyphs, subtle ambient smoke from thermal weapons, atmospheric dust catching dramatic lighting"
+    }
+  }
+}

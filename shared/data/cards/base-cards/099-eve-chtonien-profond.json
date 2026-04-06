@@ -1,0 +1,81 @@
+{
+  "collectionName": "base",
+  "name": "Chtonien Profond",
+  "description": "Gouffre absorbant l'énergie vitale des cibles proches drainant leur force pour la redistribuer aux alliés de l'Éveil.",
+  "element": "furtif",
+  "faction": "Éveil Chthonien",
+  "topValue": "5",
+  "rightValue": "3",
+  "bottomValue": "4",
+  "leftValue": "6",
+  "skills": [],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/099.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Primordial Titan - Void Energy Absorber",
+      "loadout": {
+        "armor_outfit": "Natural tectonic carapace composed of obsidian plates, basalt scales, and cooling magma crust. Multiple asymmetrical volcanic rock formations forming crystalline ridges along the spine and shoulders. Fissures across the body glowing with internal molten energy, each crack pulsing with absorbed life force.",
+        "arsenal": "Massive stone-crushing claws fused to tectonic forearms. Secondary appendages manifesting as shadow tentacles erupting from dimensional tears in reality. Energy-draining aura visible as swirling void vortexes around the torso, visibly siphoning essence from fallen foes."
+      },
+      "attitude": {
+        "behavior": "Combat stance with coiled massive frame, claws extended and raised. Lower body partially submerged in splitting ground, tentacles writhing from dimensional fissures beneath. Multiple unblinking mineral eyes locked on threat. Molten energy visibly flowing through internal cracks toward the core.",
+        "emotion": "Primordial hunger radiating from hollow maw. Eyes burning with absorbed life essence, revealing consumed energy swirling within. Expression of predatory anticipation, body trembling with barely contained geothermal power."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Obsidian Black",
+          "role": "Primary body structure, deep shadows"
+        },
+        {
+          "name": "Matte Basalt Gray",
+          "role": "Tectonic plate textures, mineral skin"
+        },
+        {
+          "name": "Scorched Earth Brown",
+          "role": "Ground integration, battle-damaged areas"
+        },
+        {
+          "name": "Molten Red-Orange",
+          "role": "Internal magma veins, energy absorption glow"
+        },
+        {
+          "name": "Ash Gray",
+          "role": "Smoke, dimensional tears, atmospheric dust"
+        },
+        {
+          "name": "Void Purple-Black",
+          "role": "Shadow tentacles, reality rifts, absorbed energy"
+        }
+      ],
+      "lighting_setup": "Dramatic rim lighting from internal magma with secondary volumetric light bleeding from dimensional fissures. Ground illuminated by molten cracks. Shadow tentacles self-illuminating with wrong purple-black luminescence. Runes casting ancient golden-orange light.",
+      "mood": "Oppressive supernatural dread, cataclysmic menace, primordial terror"
+    },
+    "camera": {
+      "angle": "Low angle looking up at the titan, emphasizing massive scale and looming threat. Dutch angle slightly to enhance instability of reality. Close enough to see tectonic texture details while showing full upper body and tentacles."
+    },
+    "scenography": {
+      "setting": "Torn dimensional battlefield - ground split open in massive fissures revealing churning void beneath reality. Impossible geometry in fractured sky, dimensions overlapping. Ancient runes blazing on exposed rock surfaces. Crumbling reality edges visible as pixelated nothingness at periphery.",
+      "atmosphere_vfx": "Thick oppressive smoke from volcanic vents, swirling ash, reality thinning at edges. Dimensional collapse visual effects with reality tearing. Energy streams visibly flowing from battlefield corpses toward the titan. Lightning-like discharges from dimensional tears. Supernatural dread fog reducing visibility."
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "name": "Réacteur Ambulant",
   "description": "Réacteur nucléaire vivant qui alimente toute une zone.",
   "element": "radiation",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "7",
   "rightValue": "7",
   "bottomValue": "7",

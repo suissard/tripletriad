@@ -2,7 +2,7 @@
   "name": "Scorpion Mécanique",
   "description": "Véhicule multi-pattes avec queue venimeuse.",
   "element": "spore",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "5",
   "rightValue": "6",
   "bottomValue": "5",

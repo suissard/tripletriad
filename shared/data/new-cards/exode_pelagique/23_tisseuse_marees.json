@@ -2,8 +2,12 @@
   "name": "Tisseuse de Marées",
   "description": "Psionique matriarcale en armure pressurisée, elle coordonne l'attaque via le réseau synaptique pélagique. Son bocal crache des bulles ionisantes qui court-circuitent l'ennemi.",
   "element": "reseau",
-  "elements": ["eau", "longue_portee", "reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "longue_portee",
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "3",
   "rightValue": "5",
   "bottomValue": "5",

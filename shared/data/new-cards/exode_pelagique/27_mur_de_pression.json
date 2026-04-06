@@ -2,8 +2,12 @@
   "name": "Mur de Pression",
   "description": "Bouclier vivant en scaphandre massif doté d'un générateur d'ondes de choc. Il avance lentement et repousse tout ce qui approche par murs de force hydraulique.",
   "element": "eau",
-  "elements": ["eau", "longue_portee", "reseau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau",
+    "longue_portee",
+    "reseau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "3",
   "rightValue": "5",
   "bottomValue": "5",

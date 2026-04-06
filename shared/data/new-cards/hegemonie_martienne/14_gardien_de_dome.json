@@ -2,8 +2,10 @@
   "name": "Gardien de Dôme",
   "description": "Sentinelle affectée à la défense des habitats pressurisés de l'Hégémonie. Immobile comme une statue, réactif comme un laser.",
   "element": "None",
-  "elements": ["None"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "None"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "2",
   "rightValue": "1",
   "bottomValue": "3",

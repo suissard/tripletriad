@@ -45,33 +45,50 @@ class StrapiApi {
     }
 
     async login(credentials) {
-        const response = await this.strapiClient.fetch('/auth/local', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(credentials),
-        });
-        const data = await response.json();
-        if (data.jwt) {
-            this.setToken(data.jwt);
+        try {
+            const response = await this.strapiClient.fetch('/auth/local', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(credentials),
+            });
+            const data = await response.json();
+            if (data.jwt) {
+                this.setToken(data.jwt);
+            }
+            return data;
+        } catch (error) {
+            // Strapi/ofetch throws on 400 errors. We try to extract the JSON payload.
+            const errData = error.data?.error || error.response?.data?.error || { message: error.message || 'Identifiant ou mot de passe incorrect' };
+            if (errData.message === 'Invalid identifier or password') {
+                 errData.message = 'Identifiant ou mot de passe incorrect';
+            }
+            return { error: errData };
         }
-        return data;
     }
 
     async register(userInfo) {
-        const response = await this.strapiClient.fetch('/auth/local/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(userInfo),
-        });
-        const data = await response.json();
-        if (data.jwt) {
-            this.setToken(data.jwt);
+        try {
+            const response = await this.strapiClient.fetch('/auth/local/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userInfo),
+            });
+            const data = await response.json();
+            if (data.jwt) {
+                this.setToken(data.jwt);
+            }
+            return data;
+        } catch (error) {
+            const errData = error.data?.error || error.response?.data?.error || { message: error.message || 'Erreur lors de la création du compte' };
+            if (errData.message === 'Email or Username are already taken') {
+                 errData.message = 'Cet email ou nom d\'utilisateur est déjà pris';
+            }
+            return { error: errData };
         }
-        return data;
     }
 
     async getMe() {

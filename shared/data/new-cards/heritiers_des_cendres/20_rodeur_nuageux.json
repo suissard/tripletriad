@@ -2,7 +2,7 @@
   "name": "Rôdeur Nuageux",
   "description": "Crée des nuages de gaz radioactif mortels.",
   "element": "radiation",
-  "faction": "Héritiers des cendres",
+  "faction": "Héritiers des Cendres",
   "topValue": "3",
   "rightValue": "3",
   "bottomValue": "3",

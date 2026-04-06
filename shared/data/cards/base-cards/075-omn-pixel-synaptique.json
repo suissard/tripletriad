@@ -1,0 +1,88 @@
+{
+  "collectionName": "base",
+  "name": "Pixel Synaptique",
+  "description": "Conscience Collective fusionnant des millions d'esprits connectés en une intelligence stratégique unique dépassant toute compréhension individuelle.",
+  "element": "reseau",
+  "faction": "Omni-Réseau",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "9",
+  "leftValue": "6",
+  "skills": [
+    {
+      "type": "death",
+      "value": 2,
+      "target": "enemy_on_capture"
+    },
+    {
+      "type": "decrease",
+      "value": -2,
+      "target": "opposite_side"
+    }
+  ],
+  "rarity": "Legendary",
+  "defaultHp": 4,
+  "image": "base/075.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Cyborg Combat Specialist",
+      "loadout": {
+        "armor_outfit": "Mass-produced composite tactical exoskeleton with sleek dark plating, integrated neural interface ports, smooth ergonomic lines, and standardized attachment points; worn over a utilitarian bodysuit; heavy black cabling draping from spine; serial numbers etched onto plating",
+        "arsenal": "Standard-issue geometric assault rifle with rectangular barrel and integrated neural tether connecting to wrist implants; additional sidearm: compact energy pistol with minimalist design"
+      },
+      "attitude": {
+        "behavior": "Leaping forward in a full-body combat sprint, weapon raised, while one arm reaches back, fingers splayed, channeling a torrent of dark energy that spirals toward the captor's position; the figure's body is fully committed to the fight, muscles tensing, the moment of capture imminent",
+        "emotion": "Dead, hollow stare behind pale skin and glowing blue neural implants; an inexpressive face masked by circuitry, yet radiating a vengeful resolve as dark energy pulses from his being"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Dark Steel Gray",
+          "role": "Primary armor and background structures"
+        },
+        {
+          "name": "Cold Blue Neon",
+          "role": "Neural implants, holographic glitches, accent lighting"
+        },
+        {
+          "name": "Pale Cadaveric Skin",
+          "role": "Exposed skin and facial features"
+        },
+        {
+          "name": "Deep Charcoal",
+          "role": "Shadows and heavy darkness"
+        },
+        {
+          "name": "Crimson Dark Energy",
+          "role": "Vengeful energy flow from captured body"
+        }
+      ],
+      "lighting_setup": "Cinematic rim lighting with cold blue neon highlights; volumetric electric storms creating harsh backlight; localized flashes from shattered holograms; dark energy casting an ominous glow",
+      "mood": "Menacing, intense, oppressive"
+    },
+    "camera": {
+      "angle": "Low angle looking up with slight dutch tilt to emphasize imposing figure and dynamic tension"
+    },
+    "scenography": {
+      "setting": "Cyber warfare zone: shattered holographic displays flickering, crumbling digital fortifications, toppling server towers sparking, electric storms rippling through infrastructure",
+      "atmosphere_vfx": "Glitching holographic shards, cascading code, sparks, rain of electric particles, dark energy vortex connecting subject and captor, electric arcs and micro-explosions"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "title": "La Réponse des Ferrailleurs",
+  "description": "Un signal mystérieux venu des profondeurs de la Ceinture entraîne les ferrailleurs dans une aventure inattendue.",
+  "faction_focus": "Les Ferrailleurs de la Ceinture",
+  "factions_involved": [
+    "Ferrailleurs de la Ceinture",
+    "Omni-Réseau",
+    "Hégémonie Martienne"
+  ],
+  "entry_point": "intro.json",
+  "situations": [
+    {"file": "intro.json", "situationId": "s0", "type": "situation-dialogue"},
+    {"file": "choix_initial.json", "situationId": "s1", "type": "situation-choice"},
+    {"file": "branche_foncer/s2.json", "situationId": "s2", "type": "situation-dialogue"},
+    {"file": "branche_foncer/s3.json", "situationId": "s3", "type": "situation-battle"},
+    {"file": "branche_cacher/s4.json", "situationId": "s4", "type": "situation-dialogue"},
+    {"file": "branche_negocier/s5.json", "situationId": "s5", "type": "situation-dialogue"},
+    {"file": "convergence_1/s6.json", "situationId": "s6", "type": "situation-dialogue"},
+    {"file": "convergence_1/choix_2.json", "situationId": "s7", "type": "situation-choice"},
+    {"file": "branche_combat/s8.json", "situationId": "s8", "type": "situation-battle"},
+    {"file": "branche_combat/s9.json", "situationId": "s9", "type": "situation-dialogue"},
+    {"file": "branche_infiltration/s10.json", "situationId": "s10", "type": "situation-dialogue"},
+    {"file": "branche_infiltration/s11.json", "situationId": "s11", "type": "situation-choice"},
+    {"file": "convergence_finale/s12.json", "situationId": "s12", "type": "situation-dialogue"},
+    {"file": "convergence_finale/s13.json", "situationId": "s13", "type": "situation-battle"},
+    {"file": "convergence_finale/fin_win.json", "situationId": "fin_win", "type": "situation-success"},
+    {"file": "convergence_finale/fin_lose.json", "situationId": "fin_lose", "type": "situation-game-over"}
+  ]
+}

@@ -2,8 +2,10 @@
   "name": "Praeco Anathème",
   "description": "Unité de guerre psychologique en armure renforcée amplifiant la voix par haut-parleurs directionnels. Diffuse des ultimatums et des fréquences destructrices. Brise le moral avant de briser les os.",
   "element": "reseau",
-  "elements": ["reseau"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "reseau"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "4",
   "rightValue": "4",
   "bottomValue": "4",

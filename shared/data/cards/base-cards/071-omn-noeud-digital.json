@@ -1,0 +1,85 @@
+{
+  "collectionName": "base",
+  "name": "Noeud Digital",
+  "description": "IA autonomisée coordonnant les attaques numériques multi-cibles avec une précision que l'intuition humaine ne pourrait égaler.",
+  "element": "reseau",
+  "faction": "Omni-Réseau",
+  "topValue": "5",
+  "rightValue": "4",
+  "bottomValue": "6",
+  "leftValue": "5",
+  "skills": [
+    {
+      "type": "growing",
+      "value": 1,
+      "target": "all_own"
+    }
+  ],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/071.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Cybernetic Tactical Command Unit / Augmented Network Coordinator",
+      "loadout": {
+        "armor_outfit": "Heavy composite tactical exoskeleton in brushed anthracite gray and matte black, smooth ergonomic armor plates covering utility bodysuit, prominent neural interface ports with thick black cables grafted at skull base, neck, and spine, serial numbers etched into armor plating, icy blue glowing optronic eyes visible beneath pallid cadaveric skin",
+        "arsenal": "Integrated holographic projection arrays embedded in forearms, neural uplink cables extending from wrist ports to command allied units, wireless targeting systems projecting energy web from chest outward, no conventional weapons - pure tactical coordination through direct mind-link"
+      },
+      "attitude": {
+        "behavior": "Standing at tactical center point between allied units, both arms raised high in commanding gesture, hands open with energy threads radiating outward in all directions, each glowing cyan thread connecting to different allied position across battlefield, body rigid and perfectly still while directing coordinated swarm attacks",
+        "emotion": "Cold cybernetic stare with empty inexpressive face, absolute calculated precision emanating from glowing blue optical implants, emotionless command presence radiating absolute authority over networked units"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "Brutalist"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Anthracite Gray",
+          "role": "primary armor, dominant element 60%"
+        },
+        {
+          "name": "Matte Black",
+          "role": "secondary armor, cables, deep shadows 25%"
+        },
+        {
+          "name": "Icy Neon Blue",
+          "role": "neural chip glow, optronics, energy web, accent highlights 10%"
+        },
+        {
+          "name": "Cadaveric Flesh Pale",
+          "role": "exposed skin areas, exposed sections of face and neck 5%"
+        },
+        {
+          "name": "Brushed Cold Steel",
+          "role": "environmental details, server towers, infrastructure"
+        }
+      ],
+      "lighting_setup": "Cinematic cold blue rim lighting from neural interface emissions, harsh white sparks from toppling server towers creating dynamic shadow patterns, electric storm illumination flickering through scene with blue-white flashes, ambient dust particles visible in dramatic light beams",
+      "mood": "Menacing, calculated, dystopic, oppressively cold"
+    },
+    "camera": {
+      "angle": "medium_wide_shot_slight_dutch_angle",
+      "positioning": "slightly_elevated_to_capture_commanding_gesture_and_energy_web_radiating_outward"
+    },
+    "scenography": {
+      "setting": "Cyber warfare zone with collapsing digital infrastructure, holographic tactical displays shattering and fragmenting mid-air during active combat, digital fortifications crumbling under cascading enemy ICE attacks with visible code deterioration and data stream corruption, monolithic server tower structures toppling with electrical sparking, brutalist geometric architecture with right angles and rectangular blocks, standardized essaim drones grounded and sparking in background",
+      "atmosphere_vfx": "Electric storms rippling destructively through crumbling infrastructure, heavy rain with digital artifacts, glitching holographic projections, cascading data streams fragmenting into pixels, blue-white lightning flashes illuminating scene intermittently, heavy dust and debris particles suspended in harsh lighting, cold mist rising from damaged server equipment, energy web threads pulsing with icy blue light connecting coordinator to allied positions"
+    }
+  }
+}

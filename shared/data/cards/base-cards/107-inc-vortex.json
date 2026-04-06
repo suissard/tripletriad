@@ -1,0 +1,89 @@
+{
+  "collectionName": "base",
+  "name": "Vortex",
+  "description": "Anomalie erratique se déplaçant de manière imprévisible pour éviter les systèmes de ciblage conventionnels adverses.",
+  "element": "faille_dimensionnelle",
+  "faction": "Incursion Dissonante",
+  "topValue": "3",
+  "rightValue": "5",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -1,
+      "target": "enemy_with_highest"
+    }
+  ],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/107.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Vortex - Extra-dimensional Combat Anomaly, reality-warping warrior of L'Incursion Dissonante",
+      "loadout": {
+        "armor_outfit": "Fractured military armor fused with living shadow, plates bent by spatial distortion, flesh partially exposed through cracks in dimensional fabric, limbs positioned at impossible angles, surrounded by glitching shadow tendrils detaching from the body, fragments of reality flickering around the silhouette",
+        "arsenal": "Corrupted nullification beam forming between outstretched palms, weaponized reality collapse energy in deep magenta/violet neon, hands glowing with crackling psychic auras that distort light and fracture the air, pure concentrated destruction manifesting as screaming void energy"
+      },
+      "attitude": {
+        "behavior": "Combat specialist fully committed to the fight, both hands pushed forward in offensive stance, body leaning into the attack with intense focus and deadly precision, moving erratically to avoid targeting systems while channeling reality-destroying energy",
+        "emotion": "Transcendent combat focus, absolute concentration on the target, psionic intensity radiating from every pore, terror and ecstasy fused in the expression of a being that has transcended physical limitations"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Cosmic Horror",
+          "Dark Sci-Fi",
+          "Reality Glitch Art",
+          "Grimdark",
+          "Extra-dimensional Madness"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Abyssal Black",
+          "role": "dominant background and shadow mass, void consuming reality"
+        },
+        {
+          "name": "Deep Violet",
+          "role": "primary energy manifestation and corruption aura"
+        },
+        {
+          "name": "Neon Magenta",
+          "role": "glitch effects and high-intensity energy accents"
+        },
+        {
+          "name": "Asylum Gray",
+          "role": "fractured ground and collapsing structures"
+        },
+        {
+          "name": "Scarred Pale Flesh",
+          "role": "exposed body parts and organic elements"
+        },
+        {
+          "name": "Dried Blood Red",
+          "role": "secondary accents and corruption traces"
+        }
+      ],
+      "lighting_setup": "Multiple conflicting light sources from layered dimensions, violet/magenta rim lighting from psychic auras, black corruption darkness consuming edges, reality fracture points emitting discordant illumination",
+      "mood": "Cosmic dread, reality-shattering violence, transcendent madness, menacing otherworldly power"
+    },
+    "camera": {
+      "angle": "low_angle slightly dutch tilted to emphasize power and distortion, focusing on the subject's forward thrust"
+    },
+    "scenography": {
+      "setting": "Reality collapse zone where multiple parallel dimensions overlap simultaneously, buildings existing in both intact and destroyed states as transparent overlays, ground cracking open revealing layered battlefields beneath, fragments of architecture floating chaotically in defiance of physics, sky showing impossible celestial bodies coexisting in the same space",
+      "atmosphere_vfx": "Gravity malfunctioning causing debris to fall upward and sideways simultaneously, air fracturing like broken glass around the combatant, chromatic aberration intensifying at dimensional breach points, violet/black psychic static crackling through the atmosphere, reality glitches manifesting as stuttering geometry and color banding, void energy bleeding through dimensional tears"
+    }
+  }
+}

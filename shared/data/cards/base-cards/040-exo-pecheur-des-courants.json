@@ -1,0 +1,93 @@
+{
+  "collectionName": "base",
+  "name": "Pecheur des Courants",
+  "description": "Courantiste manipulant les flux liquides pour piéger et ralentir les unités ennemies dans les environnements aquatiques.",
+  "element": "longue_portee",
+  "faction": "Exode Pélagique",
+  "topValue": "4",
+  "rightValue": "5",
+  "bottomValue": "5",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "decrease",
+      "value": -1,
+      "target": "all_enemy"
+    }
+  ],
+  "rarity": "Uncommon",
+  "defaultHp": 3,
+  "image": "base/040.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Céphalopode alien Courantiste portant un scaphandre de minage lourd reconverti, silhouette massive et asymétrique évoquant un bathyscaphe humanoïde avec membres mécanisés et tentacules cybernétiques",
+      "loadout": {
+        "armor_outfit": "Scaphandre de minage mineralogique lourd en polymère noir zébré de bandes d'oxydation orange rouille et vert-de-gris, sections de blindage en plaques de canon terni avec rivets apparents,орыeinte de tuyauterie annelée cyan luminescente, casque sphérique 'Bocal' en verre blindé ultra-épais rempli d'eau pressurisée cyan bioluminescente où baigne le pilote translucide violet pâle aux yeux globuleux",
+        "arsenal": "Canons à geyser intégrés aux avant-bras crachant du plasma thermique orange mêlé à de l'eau pressurisée, bobines de refroidissement en cuivre oxydé exposées sur les épaules, générateurs de courants hydrauliques manipulant les flux liquides de l'environnement, pinces de préhension tentaculaires cybernétiques"
+      },
+      "attitude": {
+        "behavior": "Debout dans l'eau jusqu'aux genoux, bras tendus vers l'avant avec les canaux à geyser actifs crachant des jets de vapeur et de plasma orange, tentacules cybernétiques ancrés au sol vaseux, valves de décompression cracheuses de vapeur cyan, fluide environnant tourbillonnant autour des jambes",
+        "emotion": "Concentration predatory alien, yeux injectés de cyan bioluminescent brillant dans l'obscurité du scaphandre, posture de prédateur attendant que les courants piègent les proies, présence imposante et menaçante"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci-Fi",
+          "Post-apocalyptic",
+          "H.R. Giger biomechanical",
+          "Alien franchise xenomorph"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Rouille profonde martienne",
+          "role": "Blindage principal, oxydation industrielle, usure"
+        },
+        {
+          "name": "Vert-de-gris cuivre oxydé",
+          "role": "Accents métalliques, détails de corrosion"
+        },
+        {
+          "name": "Gris canon terni",
+          "role": "Sections de blindage lourd, articulations mechanisées"
+        },
+        {
+          "name": "Cyan bioluminescent",
+          "role": "Eau du casque, flux d'énergie, éclairage accent"
+        },
+        {
+          "name": "Orange thermique plasma",
+          "role": "Armes, lasers de minage, rejets de chaleur"
+        },
+        {
+          "name": "Violet pâle translucide",
+          "role": "Peau alien, biologie céphalopode visible"
+        },
+        {
+          "name": "Bleu abyssal",
+          "role": "Environnement aquatique, ombres profondes"
+        }
+      ],
+      "lighting_setup": "Eclairage dramatique mixte combinant projecteurs halogènes surpuissants perçant les tenebres, lueur cyan bioluminescente du casque et des fluides internes, reflets orange des armes à plasma, rim light froid sur le blindage",
+      "mood": "Oppressant, menaçant, industriel-desespéré, ambiance bathyscaphe des abysses croisé avec plateforme petroliere"
+    },
+    "camera": {
+      "angle": "Low angle légèrement en contre-plongee pour accentuer la masse imposante du scaphandre, avec léger dutch angle pour reinforceer la tension"
+    },
+    "scenography": {
+      "setting": "Station d'extraction aquatique abandonnée, plateformes metalliques rouillees à moitie submergees, eau trouble bleu-vert salee, debris de materiaux industriels, cables et tuyaux exposes, epaves de machines de forage",
+      "atmosphere_vfx": "Brume marine epaisse, micro-bulles s'echappant des valves de decompression, vapeur d'eau bouillante s'elevant des propulseurs, particules en suspension dans l'eau, courants visibles tourbillonnant autour du personnage, eclaboussures de plasma orange reflechies sur le blindage"
+    }
+  }
+}

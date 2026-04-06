@@ -1,0 +1,88 @@
+{
+  "collectionName": "base",
+  "name": "Deviant du Chaos",
+  "description": "Chaos pur désorganisant l'ordre établi des formations adverses rendant la coordination tactique impossible pendant plusieurs cycles.",
+  "element": "furtif",
+  "faction": "Incursion Dissonante",
+  "topValue": "5",
+  "rightValue": "5",
+  "bottomValue": "6",
+  "leftValue": "4",
+  "skills": [
+    {
+      "type": "death",
+      "value": 1,
+      "target": "enemy_on_capture"
+    }
+  ],
+  "rarity": "Rare",
+  "defaultHp": 3,
+  "image": "base/116.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Corrupted Tactical Coordinator - Human cultist of L'Incursion Dissonante with extra-dimensional corruption, emaciated frame showing advanced possession markers",
+      "loadout": {
+        "armor_outfit": "Heavily damaged military tactical vest fused with scarified skin, torn discipline uniforms floating in anti-gravity fragments around the body, pieces of armor plating bending and twisting at impossible angles with reality distortion bleeding through the metal, exposed ribs wrapped in pulsing violet tendrils",
+        "arsenal": "No conventional weapons - the subject commands through gesture alone, manifesting targeted dark energy curses that flow from fingertips in concentrated streams of crackling magenta-black psychic lightning, reality itself weaponized"
+      },
+      "attitude": {
+        "behavior": "Standing defiantly with arms raised in final tactical command gestures directing allied units in coordinated retreat, torso twisted backward while captors drag the figure forward, one arm reaching back through the dimensional tear to channel curse energy directly into captor's position despite complete encirclement",
+        "emotion": "Expression of absolute transcendent fury mixed with manic ecstasy, eyes fully rolled back showing only whites, mouth contorted in咬牙切齿 scream of defiance, veins glowing purple-black as dark energy pours from every pore in focused concentrated beams"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark cosmic horror",
+          "Dark Sci-Fi corruption",
+          "Non-Euclidean geometry",
+          "Glitch art distortion"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL_and_extra-dimensional_fracture_effects"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Abyssal Void Black",
+          "role": "Primary shadows and dimensional rifts consuming reality"
+        },
+        {
+          "name": "Corruption Violet",
+          "role": "Psychic energy, glitch effects, and possession markers"
+        },
+        {
+          "name": "Neon Magenta",
+          "role": "Energy curses, crackling auras, and dimensional bleeding"
+        },
+        {
+          "name": "Asylum Grey",
+          "role": "Ground fragments, floating debris, atmosphere"
+        },
+        {
+          "name": "Dried Blood Red",
+          "role": "Wounds, torn flesh, combat damage"
+        },
+        {
+          "name": "Scarred Flesh Pale",
+          "role": "Exposed skin, corruption spreading through body"
+        }
+      ],
+      "lighting_setup": "Chaotic multi-source with heavy purple-black volumetric fog, reality collapse zones emitting conflicting light directions, neon violet rim lighting on the subject contrasted against absolute darkness in dimensional fracture areas",
+      "mood": "Apocalyptic transcendence, desperate defiance, cosmic horror triumph over tactical sacrifice"
+    },
+    "camera": {
+      "angle": "Low angle dutch_tilt_exaggerated capturing the reality collapse above while focusing on the coordinator's upward-reaching curse gesture, capturing both the allied units being directed and the captors dragging the figure"
+    },
+    "scenography": {
+      "setting": "Reality collapse epicenter - fragmenting battlefield where multiple parallel dimensions overlap simultaneously, buildings existing in two states at once (pristine intact facades bleeding into rubble and back), ground split open revealing layered parallel battlefields stacked vertically like corrupt stereoscopic images, sky torn open showing contradictory celestial bodies (burning sun adjacent to frozen moon, multiple moons in impossible configurations)",
+      "atmosphere_vfx": "Extreme gravity malfunction effects - debris falling upward in one zone while sideways in another, air itself fracturing into visible geometric shards, purple-black energy tendrils cracking through reality like lightning through glass, floating tears in space-time bleeding violet light, ground buckling and folding like wet paper, entire sections of environment dissolving into pixelated glitch artifacts, atmospheric particles lensed and distorted by dimensional interference"
+    }
+  }
+}

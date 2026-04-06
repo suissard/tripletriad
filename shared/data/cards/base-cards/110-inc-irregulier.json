@@ -1,0 +1,87 @@
+{
+  "collectionName": "base",
+  "name": "Irregulier",
+  "description": "Fêlure du réel générant des fissures dans les défenses statiques ennemies rendant leurs positions vulnérables.",
+  "element": "furtif",
+  "faction": "Incursion Dissonante",
+  "topValue": "4",
+  "rightValue": "4",
+  "bottomValue": "3",
+  "leftValue": "5",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/110.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Glitched Shadow Warrior - Irregulier Combat Specialist",
+      "loadout": {
+        "armor_outfit": "Tattered military armor fused with living shadow matter, plates twisted and warped by spatial distortion, metal flowing like melted wax under gravitational anomalies, exposed sections revealing corrupted flesh merging with dark energy tendrils, fragments of reality phasing in and out of the armor's surface, pieces floating in anti-gravitational bubbles around the body",
+        "arsenal": "Obsidian-violet crystalline blade - impossibly thin mono-molecular edge that glitches between solid and ethereal states, the weapon cracks the air around it revealing parallel dimensional slices, energy ripples emanate from the blade creating reality fractures, accompanied by floating geometric shards of corrupted metal orbiting the wielder"
+      },
+      "attitude": {
+        "behavior": "Dynamic combat stance with body angled against broken gravity - one foot planted on cracked ground while the other leg floats at impossible angle due to localized gravity malfunction, weapon thrust forward leaving purple energy trails that split into parallel reality echoes, shadow tendrils erupting from back and limbs actively tearing at the dimensional fabric, mid-stride lunge into enemies while reality fragments around each movement",
+        "emotion": "Mad ecstasy of dimensional fusion - eyes rolled back showing only whites, mouth contorted in silent scream of cosmic awareness, veins pulsing with violet-black energy visible through scarified skin, expression fluctuating between transcendent bliss and horrified realization of multiple overlapping realities"
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark cosmic horror",
+          "Dark Sci-Fi corruption",
+          "Post-apocalyptic dimensional collapse",
+          "Glitch art horror",
+          "Eldritch entity design"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Abyssal Black",
+          "role": "Dominant background void and shadow entities"
+        },
+        {
+          "name": "Deep Violet",
+          "role": "Primary energy manifestation and dimensional rifts"
+        },
+        {
+          "name": "Asylum Gray",
+          "role": "Corrupted architecture and environmental debris"
+        },
+        {
+          "name": "Scarred Pale Flesh",
+          "role": "Subject's exposed skin and biological elements"
+        },
+        {
+          "name": "Dried Blood Red",
+          "role": "Wounds and combat damage details"
+        },
+        {
+          "name": "Neon Magenta Glitch",
+          "role": "Reality distortion effects and energy auras"
+        },
+        {
+          "name": "Crackling Black Psychic",
+          "role": "Shadow detachment effects and dark energy"
+        }
+      ],
+      "lighting_setup": "Dissonant multi-source: violet/black energy auras creating localized illumination, conflicting celestial bodies providing fractured moonlight, floating debris lit from impossible angles, reality fractures emitting piercing dimensional light",
+      "mood": "Cosmic horror, maddening reality dissolution, transcendent battle frenzy, existential dread"
+    },
+    "camera": {
+      "angle": "Low angle dutch tilt - tilted to emphasize gravitational chaos, camera positioned low to make Irregulier appear towering against fractured reality, slight Dutch angle to add psychological unease"
+    },
+    "scenography": {
+      "setting": "Reality collapse epicenter - multi-layered dimensional battlefield: intact and destroyed building states overlapping in same space creating 2D architectural impossible geometry, ground fractured into parallel battlefield layers visible through cracks showing simultaneous combat scenarios, floating debris masses defying gravity in conflicting directions, fractured sky with impossible celestial combinations",
+      "atmosphere_vfx": "Active reality dissolution: glass-like dimensional barriers cracking with violet energy bleeding through, objects existing in quantum superposition states, gravity vectors shown through debris trajectories in multiple directions, chromatic aberration intensifying at reality fracture points, shadows detaching and moving independently from objects, air distortion waves resembling corrupted video signals, floating stone fragments and structural debris orbiting in zero-gravity pockets"
+    }
+  }
+}

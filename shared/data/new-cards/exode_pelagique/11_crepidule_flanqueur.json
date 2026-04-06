@@ -2,8 +2,10 @@
   "name": "Crépidule Flanqueur",
   "description": "Flanqueur mobile propulsé par des jets d'eau comprimée intégrés dans son scaphandre. Il glisse sur le champ de bataille pour frapper les flancs avant de disparaître dans la vapeur.",
   "element": "eau",
-  "elements": ["eau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "eau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "2",
   "rightValue": "2",
   "bottomValue": "3",

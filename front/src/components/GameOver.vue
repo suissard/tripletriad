@@ -46,9 +46,11 @@ function handleReplay() {
         return;
     }
 
-    // AI match: navigate back to /game?mode=ia with a hard reload for perfectly clean state
-    resetGame();
-    window.location.href = '/game?mode=ia';
+    // AI match: soft reset to trigger coin toss without reload
+    resetGame(30, false);
+    state.gameState = 'coin-toss';
+    state.coinTossResult = Math.random() < 0.5 ? 'player' : 'ai';
+    state.showCoinToss = true;
 }
 
 function handleStoryWin() {
@@ -80,14 +82,13 @@ function handleStoryWin() {
 }
 
 function handleStoryRetry() {
-    const storyId = route.query.storyId || state.storyMatchData?.story?.id || state.storyMatchData?.story?.documentId;
-    const stepId = route.query.stepId || state.storyMatchData?.step?.id || state.storyMatchData?.step?.documentId;
-    const fromSituation = route.query.fromSituation;
+    resetGame(30, false);
     
-    resetGame();
-    
-    // Hard reload to guarantee a completely clean starting state unpolluted by Vue reactivity
-    window.location.href = `/game?mode=story&storyId=${storyId}&stepId=${stepId}&fromSituation=${fromSituation}`;
+    // Story match: soft reset to trigger coin toss without reload
+    state.isStoryMatch = true;
+    state.gameState = 'coin-toss';
+    state.coinTossResult = Math.random() < 0.5 ? 'player' : 'ai';
+    state.showCoinToss = true;
 }
 
 function handleStoryQuit() {

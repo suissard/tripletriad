@@ -2,8 +2,10 @@
   "name": "Purificateur Flammes",
   "description": "Nettoyeur à la lance-plasma. Il brûle tout ce que le Haut Commandement juge impur — zones de spores, caches de mutants, villages entiers.",
   "element": "radiation",
-  "elements": ["radiation"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "radiation"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "3",
   "rightValue": "2",
   "bottomValue": "2",

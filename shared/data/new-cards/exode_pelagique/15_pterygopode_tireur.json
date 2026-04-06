@@ -2,8 +2,11 @@
   "name": "Ptérygopode Tireur",
   "description": "Tireur de précision à longue portée armé d'un canon à geyser modifié. Le projectile de plasma surchauffé traverse les lignes ennemies en laissant un sillage de vapeur aveuglante.",
   "element": "longue_portee",
-  "elements": ["longue_portee", "eau"],
-  "faction": "Exode pélagique",
+  "elements": [
+    "longue_portee",
+    "eau"
+  ],
+  "faction": "Exode Pélagique",
   "topValue": "1",
   "rightValue": "1",
   "bottomValue": "1",

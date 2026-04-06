@@ -1,0 +1,81 @@
+{
+  "collectionName": "base",
+  "name": "Requin des Abimes",
+  "description": "Hydrologue cartographiant les zones habitables aquatiques pour les futures colonies de l'Exode Pélagique.",
+  "element": "longue_portee",
+  "faction": "Exode Pélagique",
+  "topValue": "2",
+  "rightValue": "6",
+  "bottomValue": "4",
+  "leftValue": "4",
+  "skills": [],
+  "rarity": "Common",
+  "defaultHp": 3,
+  "image": "base/034.png",
+  "storiesRewardedFrom": null,
+  "elements": [
+    "neutre"
+  ],
+  "prompt": {
+    "format": "1:1",
+    "subject": {
+      "archetype": "Cephalopod Alien Hydrologist (Requin des Abimes)",
+      "loadout": {
+        "armor_outfit": "Heavy mineral‑mining pressure suit repurposed as war armor: thick black polymer underlayer, massive rust‑orange and gunmetal‑grey plates, a spherical 'Bocal' helmet filled with cyan bioluminescent water, exposed copper coil cooling pipes, hydraulic joint actuators, heavy valve vents, and rusted copper cabling.",
+        "arsenal": "Integrated thermal plasma cutter forearm mount, high‑pressure water‑jet sonar emitter, portable underwater cartography drone, dual‑purpose plasma torch, reinforced grip clamps, and a wrist‑mounted holographic mapping projector."
+      },
+      "attitude": {
+        "behavior": "Floating just above a jagged abyssal ridge, one tentacle arm steadying a holographic map display, the other adjusting a sensor array; bubbles rise from the helmet, posture alert, scanning the surrounding water for habitable zones.",
+        "emotion": "Cold, alien focus, scientific curiosity blended with existential resolve; glowing cyan eyes behind the visor reflect a deep‑sea hunter's calm."
+      }
+    },
+    "graphics": {
+      "style": {
+        "technique": "highly_detailed_digital_painting",
+        "influences": [
+          "Grimdark",
+          "Dark Sci‑Fi",
+          "Post‑apocalyptic"
+        ],
+        "rendering_style": "gritty_realistic_with_cinematic_OSL"
+      }
+    },
+    "color_and_light": {
+      "palette_names": [
+        {
+          "name": "Deep Rust Orange (Oxidized Martian/Terrestrial)",
+          "role": "Primary armor color, main body plates"
+        },
+        {
+          "name": "Patina Green (Copper Oxide)",
+          "role": "Secondary metal accents, weathering, verdigris"
+        },
+        {
+          "name": "Gunmetal Grey (Tarnished Cannon)",
+          "role": "Mechanical joints, hull plating, heavy structures"
+        },
+        {
+          "name": "Cyan Bioluminescent (Pressurized Water / Shields)",
+          "role": "Helmet fluid, energy glows, bioluminescent patches on suit"
+        },
+        {
+          "name": "Blinding Orange Thermal (Plasma / Mining Lasers)",
+          "role": "Heat sources, plasma vents, thermal highlights"
+        },
+        {
+          "name": "Violet‑Pale Translucent (Cephalopod Skin)",
+          "role": "Alien flesh visible through suit gaps, soft tissue glow"
+        }
+      ],
+      "lighting_setup": "Dark ambient environment illuminated by cyan bioluminescent rim lights, orange thermal spotlights, and high‑power halogen projectors; volumetric underwater fog; high contrast with object‑space lighting highlights.",
+      "mood": "Menacing yet hopeful, desolate yet promising."
+    },
+    "camera": {
+      "angle": "low_angle"
+    },
+    "scenography": {
+      "setting": "Abyssal oceanic trench illuminated by scattered bioluminescent flora, with the rusted remains of an Exode Pélagique mining platform and floating debris; underwater cavern walls covered in mineral deposits and barnacle‑like growths.",
+      "atmosphere_vfx": "Cyan bioluminescent particle swirls, orange plasma leakage flickering, rising micro‑bubbles, low‑visibility fog with caustic light patterns, occasional water‑pressure shimmer."
+    }
+  }
+}

@@ -2,8 +2,10 @@
   "name": "Paladin Écarlate",
   "description": "Officier d'élite en armure de parade renforcée, cape asymétrique rouge carmin flottant derrière lui. Mène les assauts débarqués avec une épée thermique et un bouclier énergétique hexagonal. Symbole de la pureté martienne.",
   "element": "spore",
-  "elements": ["spore"],
-  "faction": "Hégémonie martienne",
+  "elements": [
+    "spore"
+  ],
+  "faction": "Hégémonie Martienne",
   "topValue": "5",
   "rightValue": "5",
   "bottomValue": "3",
