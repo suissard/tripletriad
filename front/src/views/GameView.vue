@@ -159,7 +159,17 @@ function onCoinTossFinished() {
     // Setup decks
     state.aiDeck = aiDeck;
     // Deep clone the deck cards to prevent carrying over mutations (like isPlacing=true) from previous matches
-    state.pDeck = (state.playerDeckSelection || []).map(card => ({ ...card, isPlacing: false, revealed: true, impactDirection: null }));
+    state.pDeck = (state.playerDeckSelection || []).map(card => {
+        const normalized = normalizeCard(card);
+        return { 
+            ...normalized, 
+            ...card, 
+            imageUrl: normalized.imageUrl, 
+            isPlacing: false, 
+            revealed: true, 
+            impactDirection: null 
+        };
+    });
     
     console.log(`[GameView] Match Initialized. Player Deck: ${state.pDeck.length}, AI Deck: ${state.aiDeck.length}`);
     

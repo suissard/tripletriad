@@ -2074,7 +2074,8 @@
         "atmosphere_vfx": "Red plasma energy discharge at the cannon muzzle, faint particulate dust drifting in micro‑gravity, subtle lens flare from the starfield, occasional glowing hexagon grilles on the station’s hull."
       }
     },
-    "id": 25
+    "id": 25,
+    "imageUrl": "/cards/025-heg-oppresseur-de-mars.png"
   },
   {
     "collectionName": "base",
@@ -2238,7 +2239,8 @@
         "atmosphere_vfx": "Brume poussiéreuse rougeoyante causée par les systèmes de propulsion à plasma, particules flottantes illuminées par les néons rouges, hologrammes de surveillance glitchant en arrière-plan, reflets de contamination sur les surfaces métalliques, contraste fort ombres/lumières, effet de depth of field avec le sujet net et l'arrière-plan légèrement flou"
       }
     },
-    "id": 27
+    "id": 27,
+    "imageUrl": "/cards/027-heg-conquerant-1.png"
   },
   {
     "collectionName": "base",
@@ -2385,7 +2387,8 @@
         "atmosphere_vfx": "Red‑orange dust clouds, glowing plasma exhaust trails, flickering holographic battle plans, occasional sparks from railgun discharge, thin wisps of heat haze around the thermal sword blade."
       }
     },
-    "id": 29
+    "id": 29,
+    "imageUrl": "/cards/029-heg-destructeur-2.png"
   },
   {
     "collectionName": "base",
@@ -2462,7 +2465,8 @@
         "atmosphere_vfx": "Thick red energy particles floating in zero-gravity environment, distant plasma engine exhausts illuminating scene through viewport, holographic fleet tactical displays flickering with Martian glyphs, subtle ambient smoke from thermal weapons, atmospheric dust catching dramatic lighting"
       }
     },
-    "id": 30
+    "id": 30,
+    "imageUrl": "/cards/030-heg-inquisiteur-de-mars.png"
   },
   {
     "collectionName": "base",
@@ -2549,7 +2553,8 @@
         "atmosphere_vfx": "Heavy underwater fog, drifting particles, bubbles erupting from pressure valves, occasional electric arcs, steam vents, cyan bioluminescent particles swirling, faint orange plasma flares."
       }
     },
-    "id": 31
+    "id": 31,
+    "imageUrl": "/cards/031-exo-nageur-des-courants.png"
   },
   {
     "collectionName": "base",
@@ -2725,7 +2730,8 @@
         "atmosphere_vfx": "Brume cyan luminescente particules en suspension, vapeur d'eau bouillante émanant des valves de décompression, fuites de plasma orange crépitant, micro-bulles gazeuses s'échappant du scaphandre, égratignures et cicatrices de micro-météorites sur le blindage"
       }
     },
-    "id": 33
+    "id": 33,
+    "imageUrl": "/cards/033-exo-abyssal.png"
   },
   {
     "collectionName": "base",
@@ -2807,7 +2813,8 @@
         "atmosphere_vfx": "Cyan bioluminescent particle swirls, orange plasma leakage flickering, rising micro‑bubbles, low‑visibility fog with caustic light patterns, occasional water‑pressure shimmer."
       }
     },
-    "id": 34
+    "id": 34,
+    "imageUrl": "/cards/034-exo-requin-des-abimes.png"
   },
   {
     "collectionName": "base",
@@ -2896,7 +2903,8 @@
         "setting": "Station de récupération submergée lors des grandes inondations, couloirs métalliques tordus envahis par la rouille et les balanes spatiales, échafaudages industriels effondrés, tas de débris technologiques engloutis, câbles exposés pendant comme des algues, murs couverts de graffitis extraterrestres et de痕 thérapeut"
       }
     },
-    "id": 35
+    "id": 35,
+    "imageUrl": "/cards/035-exo-abyssal-1.png"
   },
   {
     "collectionName": "base",
@@ -2983,7 +2991,8 @@
         "atmosphere_vfx": "Brume humide constante, vapeur s'échappant des valves de décompression, particules organiques flottantes bioluminescentes dans l'eau, reflets lumineux cyan et orange sur les surfaces métalliques mouillées, micro-gouttelettes en suspension dans l'air"
       }
     },
-    "id": 36
+    "id": 36,
+    "imageUrl": "/cards/036-exo-pelagique.png"
   },
   {
     "collectionName": "base",
@@ -3066,7 +3075,8 @@
         "atmosphere_vfx": "Steamy vapor rising from pressure vents, drifting cyan bioluminescent particles, orange plasma sparks and occasional geysers of boiling water, subtle rain of micro‑particles, foggy haze, faint holographic star‑map overlay"
       }
     },
-    "id": 37
+    "id": 37,
+    "imageUrl": "/cards/037-exo-abyssin-du-grand-large.png"
   },
   {
     "collectionName": "base",
@@ -3236,7 +3246,8 @@
         "atmosphere_vfx": "constant_steam_vapor_released_from_decompression_valves, cyan_particulate_matter_floating_in_water, orange_plasma_sparks_emanating_from_sensor_arm, industrial_ambient_dust_with_condensation_droplets, subtle_glitching_HUD_elements_displaying_resource_readings"
       }
     },
-    "id": 39
+    "id": 39,
+    "imageUrl": "/cards/039-exo-abyssal-du-grand-large.png"
   },
   {
     "collectionName": "base",

@@ -35,13 +35,22 @@
     >
       <!-- FRONT SIDE -->
       <div class="tt-card-front">
-        <!-- 3D Glare Layout -->
         <template v-if="!flat && isPremiumCard">
           <div class="glare" :style="glareStyle"></div>
         </template>
 
-        <!-- Premium Holo Effect -->
-        <template v-if="isPremiumCard && !flat">
+        <!-- Custom Holo Effect from Database -->
+        <template v-if="customFoilEffect && !faceDown">
+          <HoloEffectCanvas 
+            :imageUrl="card.imageUrl || card.img" 
+            :effect="customFoilEffect" 
+            :tiltX="tilt.x"
+            :tiltY="tilt.y"
+          />
+        </template>
+
+        <!-- Premium Holo Effect (Standard) -->
+        <template v-if="isPremiumCard && !flat && !customFoilEffect">
           <!-- Per-card SVG filter for unique holo texture -->
           <svg width="0" height="0" style="position:absolute">
             <filter :id="holoFilterId" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
@@ -61,7 +70,7 @@
           <img :src="card.imageUrl || `https://api.dicebear.com/9.x/bottts/svg?seed=${(card.id || 0) * 42}&backgroundColor=transparent`" class="card-img" :alt="card.name" />
 
           <!-- Name bar -->
-          <div class="card-name-bar">{{ card.name }}</div>
+          <div class="card-name-bar" :style="{'--glow-color': actualRarityColor}">{{ card.name }}</div>
 
           <!-- Element badges -->
           <div class="card-elements" v-if="cardElementsList.length">
@@ -130,49 +139,50 @@
   />
 </template>
 
-
 <script setup>
 import { computed, ref, useAttrs, watch } from "vue";
 import AnimatedCardBack from "./AnimatedCardBack.vue";
 import BrokenGlassOverlay from "./BrokenGlassOverlay.vue";
 import ElementIcon from "./ElementIcon.vue";
 import CardDetailModal from "./CardDetailModal.vue";
+import HpBar from './game/HpBar.vue';
 import { state } from '../game/state.js';
 import { useUserStore } from '../stores/userStore.js';
+import { useEffectStore } from '../stores/effectStore.js';
 import { GameEngine } from '../../../shared/GameEngine.ts';
-
-const userStore = useUserStore();
+import HoloEffectCanvas from './game/HoloEffectCanvas.vue';
 
 const props = defineProps({
   card: { type: Object, required: true },
   size: { type: [String, Number], default: 'md' },
   ratio: { type: Number, default: 1 / 1 },
   ratioContent: { type: Number, default: 0.08 },
-  flat: { type: Boolean, default: false },
-  owner: {
-    type: String,
-    default: null
-  },
-  unowned: { type: Boolean, default: false },
-  cardBack: { type: String, default: "default" },
   isPremium: { type: Boolean, default: false },
-  selected: { type: Boolean, default: false },
   isCover: { type: Boolean, default: false },
+  selected: { type: Boolean, default: false },
+  flat: { type: Boolean, default: false },
   quantity: { type: Number, default: 0 },
+  unowned: { type: Boolean, default: false },
+  compact: { type: Boolean, default: false },
+  faceDown: { type: Boolean, default: false },
+  interactive: { type: Boolean, default: true },
+  cardBack: { type: String, default: "default" },
   borderColor: { type: String, default: '' },
   borderWidth: { type: Number, default: 2 },
   disableZoom: { type: Boolean, default: false },
-  faceDown: { type: Boolean, default: false },
   height: { type: [String, Number], default: null },
-  compact: { type: Boolean, default: false },
-  elementActive: {
-    type: Boolean,
-    default: true
-  },
-  showDetailOnHover: {
-    type: Boolean,
-    default: true
-  }
+  elementActive: { type: Boolean, default: true },
+  showDetailOnHover: { type: Boolean, default: true },
+  owner: { type: String, default: null }
+});
+
+const userStore = useUserStore();
+const effectStore = useEffectStore();
+const customFoilEffect = computed(() => {
+  if (!props.card) return null;
+  const id = props.card.documentId || props.card.id;
+  if (!id) return null;
+  return effectStore.getEffectForCard(id);
 });
 
 const SIZES = {
@@ -277,19 +287,20 @@ const rarityClass = computed(() => {
   return 'rarity-common';
 });
 
-const rarityColor = computed(() => {
-  if (props.borderColor) return props.borderColor;
+const actualRarityColor = computed(() => {
   if (props.card.revealed === false) return '#a0a0a0';
   
-  if (props.card.rarity) {
+  const rarityToCheck = props.card.drawnRarity || props.card.rarity;
+  
+  if (rarityToCheck) {
     const map = {
-      'Common': '#a0a0a0',
-      'Uncommon': '#4caf50',
-      'Rare': '#2196f3',
-      'Epic': '#9c27b0',
-      'Legendary': '#ffc107'
+      'common': '#a0a0a0',
+      'uncommon': '#4caf50',
+      'rare': '#2196f3',
+      'epic': '#9c27b0',
+      'legendary': '#ffc107'
     };
-    return map[props.card.rarity] || '#a0a0a0';
+    return map[rarityToCheck.toLowerCase()] || '#a0a0a0';
   }
 
   const level = cardLevel.value;
@@ -298,6 +309,11 @@ const rarityColor = computed(() => {
   if (level >= 5) return '#2196f3';
   if (level >= 3) return '#4caf50';
   return '#a0a0a0';
+});
+
+const rarityColor = computed(() => {
+  if (props.borderColor) return props.borderColor;
+  return actualRarityColor.value;
 });
 
 const cardStyle = computed(() => {
@@ -493,7 +509,6 @@ watch(() => props.borderColor, (newVal, oldVal) => {
     }, 300);
   }
 });
-import HpBar from './game/HpBar.vue';
 </script>
 
 <style scoped>
@@ -740,6 +755,17 @@ import HpBar from './game/HpBar.vue';
   text-overflow: ellipsis;
   z-index: 3;
   text-shadow: 0 1px 3px black;
+}
+
+.card-name-bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--glow-color) 0%, transparent 100%);
+  mix-blend-mode: screen;
+  opacity: 0.8;
+  z-index: -1;
+  pointer-events: none;
 }
 
 /* Stats cross overlay */

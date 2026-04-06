@@ -414,7 +414,7 @@ onBeforeUnmount(() => {
 async function loadCards() {
   loadingCards.value = true;
   try {
-    const res = await strapiService.find('cards', { populate: 'image' });
+    const res = await strapiService.find('cards', { populate: 'image', pagination: { limit: 1000 } });
     if (!res.error) {
       const data = Array.isArray(res) ? res : (res.data || []);
       cards.value = data.map(c => {

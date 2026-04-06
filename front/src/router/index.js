@@ -143,21 +143,6 @@ router.beforeEach(async (to, from, next) => {
   const { useNotificationStore } = await import('../stores/notificationStore');
   const notificationStore = useNotificationStore();
     
-  // Détermination automatique du layout
-  let targetLayout = 'PlayerLayout'; // Défaut
-  
-  if (to.meta.layout) {
-    targetLayout = to.meta.layout;
-  } else if (to.path.startsWith('/admin')) {
-    targetLayout = 'AdminLayout';
-  } else if (to.path.startsWith('/game')) {
-    targetLayout = 'BlankLayout';
-  }
-
-  if (layoutStore.currentLayout !== targetLayout) {
-    layoutStore.setLayout(targetLayout);
-  }
-
   if (to.meta.requiresAdminAuth) {
     if (!userStore.isLoggedIn) {
       // Pas connecté -> on ouvre le drawer d'auth et on reste sur la page actuelle ou on va à l'accueil
@@ -173,6 +158,24 @@ router.beforeEach(async (to, from, next) => {
     }
   } else {
     next();
+  }
+});
+
+router.afterEach(async (to) => {
+  const { useLayoutStore } = await import('../stores/layoutStore');
+  const layoutStore = useLayoutStore();
+  
+  let targetLayout = 'PlayerLayout';
+  if (to.meta.layout) {
+    targetLayout = to.meta.layout;
+  } else if (to.path.startsWith('/admin')) {
+    targetLayout = 'AdminLayout';
+  } else if (to.path.startsWith('/game')) {
+    targetLayout = 'BlankLayout';
+  }
+
+  if (layoutStore.currentLayout !== targetLayout) {
+    layoutStore.setLayout(targetLayout);
   }
 });
 

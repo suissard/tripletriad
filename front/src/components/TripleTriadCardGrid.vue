@@ -11,6 +11,7 @@
         :unowned="card.quantity === 0"
         :disableZoom="true"
         :faceDown="card.faceDown"
+        :isPremium="card.isPremium"
         @left-click="handleCardAction('left-click', card, index)"
         @right-click="handleCardAction('right-click', card, index)"
         @long-left-click="handleCardAction('long-left-click', card)"

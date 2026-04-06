@@ -3,6 +3,7 @@ import strapiService from '../api/strapi.js';
 import strapiMock from '../api/strapiMock.js';
 import { getCardById } from '../game/state.js';
 import { getStrapiUrl, getStrapiMediaUrl } from '../utils/url.js';
+import { useEffectStore } from './effectStore.js';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -160,6 +161,9 @@ export const useUserStore = defineStore('user', {
       this.fetchUserDecks();
       this.fetchUserQuests();
       this.fetchUserStoryProgresses();
+      
+      const effectStore = useEffectStore();
+      effectStore.fetchEffects();
     },
 
     restoreAuth() {
@@ -249,6 +253,9 @@ export const useUserStore = defineStore('user', {
 
         this.strapiConnected = true;
         this.hasEverConnected = true;
+
+        const effectStore = useEffectStore();
+        effectStore.fetchEffects();
       } catch (e) {
         console.error('Collection sync failed, falling back to mock', e);
         this.collection = strapiMock.getOfflineCollection();
@@ -392,6 +399,48 @@ export const useUserStore = defineStore('user', {
       } catch (e) {
         console.error('Story progress sync failed', e);
         this.storyProgresses = [];
+      }
+    },
+
+    /**
+     * Updates the local cache with booster opening results
+     * @param {Object} data - The data returned by /booster/open
+     */
+    async handleBoosterResults(data) {
+      if (!data || !data.wallet) return;
+
+      // 1. Update Wallet & Boosters
+      this.user.coins = data.wallet.coins;
+      this.user.gems = data.wallet.gems;
+      this.user.dust = data.wallet.dust;
+      this.user.boosters = data.wallet.boosters;
+      this.syncLocalUserWallets();
+
+      // 2. Update Collection Cache (Optimistic UI)
+      if (data.cards && Array.isArray(data.cards)) {
+        data.cards.forEach(newCard => {
+          const cardId = newCard.id;
+          const isPremium = !!newCard.isDrawnPremium;
+          
+          const existing = this.collection.find(c => c.cardId === cardId && c.isPremium === isPremium);
+          if (existing) {
+            existing.quantity += 1;
+          } else {
+            this.collection.push({
+              id: null, // Temporary, will be filled by fetchUserCollection
+              cardId: cardId,
+              cardDocumentId: newCard.documentId,
+              quantity: 1,
+              isPremium: isPremium
+            });
+          }
+        });
+      }
+
+      // 3. Background Sync to get real IDs and ensure consistency
+      if (this.strapiConnected) {
+        console.log('[UserStore] Booster opened, background collection sync starting...');
+        this.fetchUserCollection(true);
       }
     },
 
