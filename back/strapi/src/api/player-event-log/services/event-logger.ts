@@ -69,21 +69,6 @@ export const logPlayerEvent = async (strapi, eventData) => {
       });
 
       if (isCompleted) {
-        // Grant rewards
-        const userWallet = await strapi.entityService.findMany('api::wallet.wallet', {
-          filters: { user: userId }
-        });
-
-        if (userWallet && userWallet.length > 0) {
-          const wallet = userWallet[0];
-          await strapi.entityService.update('api::wallet.wallet', wallet.id, {
-            data: {
-              coins: wallet.coins + (template.rewardCoins || 0),
-              gems: wallet.gems + (template.rewardGems || 0)
-            }
-          });
-        }
-
         // Assign a new quest to replace this one (starts in 22h)
         await assignQuestsToUser(strapi, userId, false);
       }

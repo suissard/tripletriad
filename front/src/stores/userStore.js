@@ -306,16 +306,41 @@ export const useUserStore = defineStore('user', {
         const items = this.toArray(result);
         this.quests = items.map(item => ({
           id: item.id,
+          documentId: item.documentId,
           title: item.quest_template?.title || 'Quête sans titre',
           description: item.quest_template?.description || '',
           progress: item.progress || 0,
           target: item.quest_template?.target || 1,
-          reward: item.quest_template?.rewardCoins || item.quest_template?.reward || 0,
-          status: item.status || 'active'
+          rewardCoins: item.quest_template?.rewardCoins || 0,
+          rewardGems: item.quest_template?.rewardGems || 0,
+          status: item.status || 'active',
+          rewardClaimed: !!item.rewardClaimed
         }));
       } catch (e) {
         console.error('Quests sync failed', e);
         this.quests = [];
+      }
+    },
+
+    async claimQuestReward(questId) {
+      if (!this.isLoggedIn) return { error: 'Not logged in' };
+      try {
+        const res = await strapiService.claimQuestReward(questId);
+        if (res.success) {
+          // Update local wallet
+          if (res.reward) {
+            this.user.coins += (res.reward.coins || 0);
+            this.user.gems += (res.reward.gems || 0);
+            this.syncLocalUserWallets();
+          }
+          // Refresh quests to update claimed status
+          await this.fetchUserQuests();
+          return { success: true, reward: res.reward };
+        }
+        return { error: res.error?.message || 'Failed to claim reward' };
+      } catch (e) {
+        console.error('Claim reward failed', e);
+        return { error: 'Network error' };
       }
     },
 

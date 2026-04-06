@@ -92,7 +92,7 @@ class StrapiApi {
     }
 
     async getMe() {
-        const response = await this.strapiClient.fetch('/users/me?populate=role,wallet');
+        const response = await this.strapiClient.fetch('/users/me');
         return await response.json();
     }
 
@@ -153,6 +153,16 @@ class StrapiApi {
             return res;
         } catch (error) {
             console.error('[StrapiApi] Error tracking event:', error);
+            return { error };
+        }
+    }
+
+    async claimQuestReward(questId) {
+        try {
+            const res = await this.request('POST', `/player-quests/${questId}/claim`);
+            return res;
+        } catch (error) {
+            console.error('[StrapiApi] Error claiming quest reward:', error);
             return { error };
         }
     }
