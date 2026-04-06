@@ -4,10 +4,10 @@
   "description": "Sentinelle du dernier relais veillant sur les points de convergence stratégiques entre les zones de conflit.",
   "element": "eau",
   "faction": "neutre",
-  "topValue": "9",
-  "rightValue": "5",
-  "bottomValue": "5",
-  "leftValue": "3",
+  "topValue": "5",
+  "rightValue": "A",
+  "bottomValue": "A",
+  "leftValue": "9",
   "skills": [
     {
       "type": "heal",

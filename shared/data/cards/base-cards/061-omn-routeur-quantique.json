@@ -4,10 +4,10 @@
   "description": "Nœud de données relayant les informations tactiques entre les unités alliées connectées au réseau omnidirectionnel.",
   "element": "reseau",
   "faction": "Omni-Réseau",
-  "topValue": "3",
-  "rightValue": "4",
-  "bottomValue": "5",
-  "leftValue": "4",
+  "topValue": "0",
+  "rightValue": "0",
+  "bottomValue": "3",
+  "leftValue": "6",
   "skills": [
     {
       "type": "death",

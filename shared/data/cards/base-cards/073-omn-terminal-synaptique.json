@@ -7,10 +7,10 @@
     "furtif"
   ],
   "faction": "Omni-Réseau",
-  "topValue": "9",
-  "rightValue": "5",
-  "bottomValue": "5",
-  "leftValue": "3",
+  "topValue": "7",
+  "rightValue": "6",
+  "bottomValue": "A",
+  "leftValue": "A",
   "skills": [
     {
       "type": "decrease",

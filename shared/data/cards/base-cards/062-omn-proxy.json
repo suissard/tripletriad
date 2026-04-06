@@ -4,10 +4,10 @@
   "description": "Sentinelle algorithmique détectant les anomalies suspectes et les comportements inhabituels dans les systèmes amis.",
   "element": "hacking",
   "faction": "Omni-Réseau",
-  "topValue": "5",
-  "rightValue": "4",
-  "bottomValue": "4",
-  "leftValue": "3",
+  "topValue": "0",
+  "rightValue": "0",
+  "bottomValue": "1",
+  "leftValue": "0",
   "skills": [
     {
       "type": "death",

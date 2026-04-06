@@ -4,10 +4,10 @@
   "description": "Fondateur des Ferrailleurs bâtissant des colonies entières à partir de déchets créant des avant-postes viables dans les environnements les plus hostiles.",
   "element": "radiation",
   "faction": "Ferrailleurs de la Ceinture",
-  "topValue": "5",
-  "rightValue": "5",
-  "bottomValue": "7",
-  "leftValue": "5",
+  "topValue": "6",
+  "rightValue": "9",
+  "bottomValue": "9",
+  "leftValue": "9",
   "skills": [
     {
       "type": "death",

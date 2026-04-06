@@ -4,10 +4,10 @@
   "description": "Incendiaire du Jugement déclenchant des conflagrations incontrôlables dans les rangs adverses ravageant les positions fortifiées.",
   "element": "radiation",
   "faction": "Héritiers des Cendres",
-  "topValue": "8",
-  "rightValue": "5",
-  "bottomValue": "5",
-  "leftValue": "4",
+  "topValue": "6",
+  "rightValue": "8",
+  "bottomValue": "8",
+  "leftValue": "A",
   "skills": [
     {
       "type": "death",

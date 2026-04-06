@@ -4,10 +4,10 @@
   "description": "Paradoxe Final brisant les lois fondamentales de la réalité sur un secteur entier rendant chaque action imprévisible et chaque défense obsolète.",
   "element": "furtif",
   "faction": "Incursion Dissonante",
-  "topValue": "8",
-  "rightValue": "6",
-  "bottomValue": "4",
-  "leftValue": "6",
+  "topValue": "A",
+  "rightValue": "A",
+  "bottomValue": "8",
+  "leftValue": "A",
   "skills": [
     {
       "type": "death",

@@ -4,10 +4,10 @@
   "description": "Garde-frontière protégeant les convois civils dans les zones neutres où aucune faction n'exerce de contrôle.",
   "element": "furtif",
   "faction": "neutre",
-  "topValue": "3",
-  "rightValue": "5",
-  "bottomValue": "4",
-  "leftValue": "4",
+  "topValue": "1",
+  "rightValue": "0",
+  "bottomValue": "0",
+  "leftValue": "0",
   "skills": [
     {
       "type": "death",

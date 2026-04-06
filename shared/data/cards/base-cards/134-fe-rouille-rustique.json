@@ -8,9 +8,9 @@
   ],
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "6",
-  "rightValue": "6",
+  "rightValue": "A",
   "bottomValue": "6",
-  "leftValue": "4",
+  "leftValue": "A",
   "skills": [
     {
       "type": "decrease",

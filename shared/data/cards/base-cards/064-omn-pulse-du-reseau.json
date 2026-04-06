@@ -4,10 +4,10 @@
   "description": "Relais quantique étendant la portée du réseau dans les zones reculées où les communications conventionnelles échouent.",
   "element": "faille_dimensionnelle",
   "faction": "Omni-Réseau",
-  "topValue": "2",
-  "rightValue": "6",
-  "bottomValue": "4",
-  "leftValue": "4",
+  "topValue": "5",
+  "rightValue": "0",
+  "bottomValue": "0",
+  "leftValue": "0",
   "skills": [
     {
       "type": "decrease",

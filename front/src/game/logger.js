@@ -29,6 +29,34 @@ export async function sendGameLog(actionType, emitter, target) {
             body: JSON.stringify({ action: logPayload })
         });
         console.log(`[GameLogger] Log envoyé:`, logPayload);
+
+        // Quest Tracking Integration
+        if (actionType === 'game_over') {
+            const winner = target?.winner;
+            // Track that a game was played
+            await strapiService.trackEvent('play_game');
+            
+            // If local player won
+            if (winner === 'PLAYER_1' || winner === 'player' || (state.pId === winner)) {
+                await strapiService.trackEvent('win_game');
+            }
+        } else if (actionType === 'placement' && emitter.type === 'player') {
+             await strapiService.trackEvent('play_card', { 
+                 relatedCardId: target.card?.id,
+                 relatedElement: target.card?.element
+             });
+             if (target.card?.element && target.card?.element !== 'None') {
+                 await strapiService.trackEvent('play_card_element', { 
+                     relatedElement: target.card?.element 
+                 });
+             }
+        } else if (actionType === 'competence' && emitter.type === 'player') {
+            // This usually tracks captures
+            if (target.count > 0) {
+                await strapiService.trackEvent('capture_card', { value: target.count });
+            }
+        }
+
     } catch (e) {
         console.error(`[GameLogger] Échec de l'envoi du log:`, e);
     }

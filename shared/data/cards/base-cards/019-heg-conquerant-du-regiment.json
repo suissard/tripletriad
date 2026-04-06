@@ -4,10 +4,10 @@
   "description": "Infiltrateur s'introduisant dans les positions défensives adverses avant le déclenchement des assauts frontaux.",
   "element": "reseau",
   "faction": "Hégémonie Martienne",
-  "topValue": "4",
-  "rightValue": "4",
-  "bottomValue": "4",
-  "leftValue": "4",
+  "topValue": "6",
+  "rightValue": "1",
+  "bottomValue": "1",
+  "leftValue": "0",
   "skills": [
     {
       "type": "death",

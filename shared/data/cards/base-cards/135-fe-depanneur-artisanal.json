@@ -7,10 +7,10 @@
     "None"
   ],
   "faction": "Ferrailleurs de la Ceinture",
-  "topValue": "6",
-  "rightValue": "7",
-  "bottomValue": "5",
-  "leftValue": "6",
+  "topValue": "A",
+  "rightValue": "A",
+  "bottomValue": "9",
+  "leftValue": "A",
   "skills": [
     {
       "type": "growing",

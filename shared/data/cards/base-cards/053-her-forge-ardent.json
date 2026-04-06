@@ -5,9 +5,9 @@
   "element": "spore",
   "faction": "Héritiers des Cendres",
   "topValue": "5",
-  "rightValue": "5",
-  "bottomValue": "4",
-  "leftValue": "4",
+  "rightValue": "7",
+  "bottomValue": "1",
+  "leftValue": "3",
   "skills": [
     {
       "type": "growing",

@@ -4,10 +4,10 @@
   "description": "Fléau Ultime englobant des écosystèmes entiers dans une conscience fongique collective coordonnant l'assaut final sur les dernières positions libres.",
   "element": "spore",
   "faction": "Fléau Spore",
-  "topValue": "9",
-  "rightValue": "7",
-  "bottomValue": "5",
-  "leftValue": "3",
+  "topValue": "A",
+  "rightValue": "9",
+  "bottomValue": "A",
+  "leftValue": "A",
   "skills": [
     {
       "type": "decrease",

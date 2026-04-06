@@ -4,10 +4,10 @@
   "description": "Architecte de la Neutralité orchestrant l'équilibre des rapports de force entre factions pour empêcher l'hégémonie totale.",
   "element": "None",
   "faction": "neutre",
-  "topValue": "3",
-  "rightValue": "5",
-  "bottomValue": "9",
-  "leftValue": "7",
+  "topValue": "A",
+  "rightValue": "9",
+  "bottomValue": "8",
+  "leftValue": "9",
   "skills": [
     {
       "type": "growing",

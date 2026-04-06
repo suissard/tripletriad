@@ -139,6 +139,24 @@ class StrapiApi {
         }
     }
 
+    async trackEvent(eventType, details = {}) {
+        try {
+            const { relatedCardId, relatedElement, value } = details;
+            const res = await this.request('POST', '/player-event-log/track', {
+                body: {
+                    eventType,
+                    relatedCardId,
+                    relatedElement,
+                    value: value ?? 1
+                }
+            });
+            return res;
+        } catch (error) {
+            console.error('[StrapiApi] Error tracking event:', error);
+            return { error };
+        }
+    }
+
     async getGameConfig(options = {}) {
         try {
             const res = await this.request('GET', '/game-config', options);

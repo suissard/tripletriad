@@ -4,10 +4,10 @@
   "description": "Anomalie erratique se déplaçant de manière imprévisible pour éviter les systèmes de ciblage conventionnels adverses.",
   "element": "faille_dimensionnelle",
   "faction": "Incursion Dissonante",
-  "topValue": "3",
-  "rightValue": "5",
-  "bottomValue": "4",
-  "leftValue": "4",
+  "topValue": "1",
+  "rightValue": "0",
+  "bottomValue": "1",
+  "leftValue": "3",
   "skills": [
     {
       "type": "decrease",

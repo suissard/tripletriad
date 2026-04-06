@@ -7,10 +7,10 @@
     "faille_dimensionnelle"
   ],
   "faction": "Héritiers des Cendres",
-  "topValue": "8",
-  "rightValue": "6",
-  "bottomValue": "5",
-  "leftValue": "5",
+  "topValue": "A",
+  "rightValue": "9",
+  "bottomValue": "9",
+  "leftValue": "A",
   "skills": [
     {
       "type": "growing",

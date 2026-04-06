@@ -8,9 +8,9 @@
   ],
   "faction": "Incursion Dissonante",
   "topValue": "9",
-  "rightValue": "5",
-  "bottomValue": "5",
-  "leftValue": "3",
+  "rightValue": "9",
+  "bottomValue": "3",
+  "leftValue": "9",
   "skills": [
     {
       "type": "growing",

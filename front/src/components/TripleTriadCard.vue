@@ -172,7 +172,7 @@ const props = defineProps({
   disableZoom: { type: Boolean, default: false },
   height: { type: [String, Number], default: null },
   elementActive: { type: Boolean, default: true },
-  showDetailOnHover: { type: Boolean, default: true },
+  showDetailOnHover: { type: Boolean, default: false },
   owner: { type: String, default: null }
 });
 
@@ -471,7 +471,7 @@ function handleMove(e) {
   tilt.value = { x: ((y / rect.height) - 0.5) * -30, y: ((x / rect.width) - 0.5) * 30 };
   mouseStyle.value = { '--mx': `${xPct}%`, '--my': `${yPct}%`, '--posx': `${100 - xPct}%`, '--posy': `${100 - yPct}%` };
 
-  if (props.showDetailOnHover && !props.disableZoom && !isZoomed.value && !hoverTimer.value) {
+  if (props.showDetailOnHover && !props.disableZoom && !isZoomed.value && !hoverTimer.value && !longPressTimer.value) {
     hoverTimer.value = setTimeout(() => {
       isZoomed.value = true;
       hoverTimer.value = null;
@@ -489,7 +489,7 @@ function handleLeave() {
 
 // --- Capture Impact Animation ---
 const isShaking = ref(false);
-watch(() => props.card.impactDirection, (newVal) => {
+watch(() => props.card?.impactDirection, (newVal) => {
   if (newVal) {
     isShaking.value = true;
     setTimeout(() => { isShaking.value = false; }, 300);
@@ -498,7 +498,7 @@ watch(() => props.card.impactDirection, (newVal) => {
 
 // --- Capture Flip Animation ---
 watch(() => props.borderColor, (newVal, oldVal) => {
-  if (oldVal && newVal !== oldVal && !props.card.impactDirection) {
+  if (oldVal && newVal !== oldVal && !props.card?.impactDirection) {
     isFlipping.value = true;
     isShaking.value = true; // Add shake on capture
     setTimeout(() => {
@@ -936,7 +936,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   inset: 0;
   border-radius: inherit;
   mix-blend-mode: overlay;
-  z-index: 5;
+  z-index: 2;
   pointer-events: none;
 }
 
@@ -945,7 +945,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   inset: 0;
   border-radius: inherit;
   overflow: hidden;
-  z-index: 5;
+  z-index: 2;
   opacity: 0;
   transition: opacity 0.4s ease;
   pointer-events: none;
@@ -1040,6 +1040,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   position: relative;
   inset: 0;
   pointer-events: none;
+  z-index: 4;
 }
 
 .detail-stats-cross .stat {
@@ -1141,7 +1142,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   inset: 0;
   border-radius: inherit;
   overflow: hidden;
-  z-index: 5;
+  z-index: 2;
   pointer-events: none;
 }
 

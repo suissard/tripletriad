@@ -4,9 +4,9 @@
   "description": "Colonisateur fondant de nouvelles bases fongiques parasitant les ressources locales pour nourrir la croissance du Fléau.",
   "element": "spore",
   "faction": "Fléau Spore",
-  "topValue": "4",
-  "rightValue": "5",
-  "bottomValue": "6",
+  "topValue": "1",
+  "rightValue": "7",
+  "bottomValue": "8",
   "leftValue": "5",
   "skills": [
     {

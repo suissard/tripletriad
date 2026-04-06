@@ -4,10 +4,10 @@
   "description": "Rupture dimensionnelle ouvrant des portes entre les réalités parallèles permettant des manoeuvres tactiques impossibles autrement.",
   "element": "furtif",
   "faction": "Incursion Dissonante",
-  "topValue": "4",
-  "rightValue": "6",
-  "bottomValue": "5",
-  "leftValue": "3",
+  "topValue": "9",
+  "rightValue": "0",
+  "bottomValue": "1",
+  "leftValue": "1",
   "skills": [
     {
       "type": "heal",

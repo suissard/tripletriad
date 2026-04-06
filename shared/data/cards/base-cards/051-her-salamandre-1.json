@@ -4,10 +4,10 @@
   "description": "Sapeur incendiaire creusant des tunnels enflammés sous les fortifications ennemies pour les faire s'effondrer.",
   "element": "spore",
   "faction": "Héritiers des Cendres",
-  "topValue": "2",
-  "rightValue": "6",
-  "bottomValue": "4",
-  "leftValue": "4",
+  "topValue": "4",
+  "rightValue": "0",
+  "bottomValue": "1",
+  "leftValue": "0",
   "skills": [
     {
       "type": "decrease",
