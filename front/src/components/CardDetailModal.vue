@@ -6,17 +6,11 @@
           <div class="tt-card-zoom-wrapper" :class="[rarityClass, { 'is-premium': isPremium }]" :style="cardZoomStyle" @click="$emit('close')">
             <div class="zoom-card-inner">
               <template v-if="isPremium">
-                <svg width="0" height="0" style="position:absolute">
-                  <filter :id="holoFilterId + '-zoom'" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
-                    <feTurbulence type="fractalNoise" :baseFrequency="holoFrequency" :numOctaves="holoOctaves" :seed="premiumSeed" result="noise" />
-                    <feColorMatrix type="saturate" values="0" in="noise" result="mono" />
-                    <feBlend in="SourceGraphic" in2="mono" mode="color-burn" />
-                  </filter>
-                </svg>
                 <div class="glare" :style="{ background: 'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 60%)' }"></div>
-                <div class="holo-container" :style="[{ opacity: 1, mixBlendMode: 'color-dodge' }, holoStyle]">
-                  <div class="holo-gradient" :style="{ filter: `url(#${holoFilterId}-zoom)` }"></div>
-                </div>
+                <HoloOverlay
+                  :seed="premiumSeed"
+                  :always-visible="true"
+                />
                 <div class="premium-border-layer" :style="premiumBorderStyle"></div>
               </template>
 
@@ -87,7 +81,7 @@
 <script setup>
 import { computed } from 'vue';
 import ElementIcon from "./ElementIcon.vue";
-import { state } from '../game/state.js';
+import HoloOverlay from "./HoloOverlay.vue";
 import { useUserStore } from '../stores/userStore.js';
 import { GameEngine } from '../../../shared/GameEngine.ts';
 import PurchaseButton from './ui/PurchaseButton.vue';
@@ -195,40 +189,17 @@ const canCraft = computed(() => (userStore.user?.dust || 0) >= craftCost.value);
 async function handleCraft() { if (canCraft.value) await userStore.craftCard(props.card.id); }
 async function handleDisenchant() { if (props.quantity > 0) await userStore.disenchantCard(props.card.id); }
 
-// Holo effects
+// Holo seed
 function hashCode(str) {
   let hash = 0;
   for (let i = 0; i < str.length; i++) { hash = (hash << 5) - hash + str.charCodeAt(i); hash |= 0; }
   return Math.abs(hash);
-}
-function sfc32(a) {
-  return function() {
-    a |= 0; a = a + 0x6D2B79F5 | 0;
-    var t = Math.imul(a ^ a >>> 15, 1 | a);
-    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
-    return ((t ^ t >>> 14) >>> 0) / 4294967296;
-  }
 }
 const premiumSeed = computed(() => {
   const cardPart = props.card.id || props.card.name || '0';
   const userPart = userStore.user?.id || 'anon';
   return hashCode(`${cardPart}-${userPart}`);
 });
-const holoStyle = computed(() => {
-  if (!props.isPremium) return {};
-  const rng = sfc32(premiumSeed.value);
-  if (state.premiumMode === 'image') return { '--c1': 'rgba(255, 255, 255, 1.0)', '--c2': 'rgba(255, 255, 255, 1.0)', '--c3': 'rgba(255, 255, 255, 1.0)' };
-  return { '--c1': `hsla(${rng() * 360}, 100%, 70%, 1.0)`, '--c2': `hsla(${rng() * 360}, 100%, 70%, 1.0)`, '--c3': `hsla(${rng() * 360}, 100%, 70%, 1.0)` };
-});
-const holoFilterId = computed(() => `holo-pattern-${premiumSeed.value}`);
-const holoFrequency = computed(() => {
-  const rng = sfc32(premiumSeed.value + 42);
-  const fineness = state.holoFineness || 0.05;
-  const base = fineness * 0.4;
-  const range = fineness * 1.6;
-  return `${(base + rng() * range).toFixed(4)} ${(base + rng() * range).toFixed(4)}`;
-});
-const holoOctaves = computed(() => 2 + Math.floor(sfc32(premiumSeed.value + 99)() * 4));
 </script>
 
 <style scoped>

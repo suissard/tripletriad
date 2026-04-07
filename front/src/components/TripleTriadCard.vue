@@ -39,30 +39,14 @@
           <div class="glare" :style="glareStyle"></div>
         </template>
 
-        <!-- Custom Holo Effect from Database -->
-        <template v-if="customFoilEffect && !faceDown">
-          <HoloEffectCanvas 
-            :imageUrl="card.imageUrl || card.img" 
-            :effect="customFoilEffect" 
-            :tiltX="tilt.x"
-            :tiltY="tilt.y"
-          />
-        </template>
-
-        <!-- Premium Holo Effect (Standard) -->
-        <template v-if="isPremiumCard && !flat && !customFoilEffect">
-          <!-- Per-card SVG filter for unique holo texture -->
-          <svg width="0" height="0" style="position:absolute">
-            <filter :id="holoFilterId" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
-              <feTurbulence type="fractalNoise" :baseFrequency="holoFrequency" :numOctaves="holoOctaves" :seed="premiumSeed" result="noise" />
-              <feColorMatrix type="saturate" values="0" in="noise" result="mono" />
-              <feBlend in="SourceGraphic" in2="mono" mode="color-burn" />
-            </filter>
-          </svg>
-          <div class="holo-container" :style="holoStyle">
-            <div class="holo-gradient" :style="{ filter: holoFilterUrl }"></div>
-          </div>
-        </template>
+        <!-- Holographic Effects (Centralized Component) -->
+        <HoloOverlay
+          v-if="isPremiumCard && !faceDown && !flat"
+          :layers="customFoilEffect?.layers || null"
+          :seed="premiumSeed"
+          :tiltX="tiltX !== null ? tiltX : tilt.x"
+          :tiltY="tiltY !== null ? tiltY : tilt.y"
+        />
 
         <!-- CARD CONTENT (Unified layout) -->
         <template v-if="card.revealed !== false || $attrs.forceFace">
@@ -145,12 +129,11 @@ import AnimatedCardBack from "./AnimatedCardBack.vue";
 import BrokenGlassOverlay from "./BrokenGlassOverlay.vue";
 import ElementIcon from "./ElementIcon.vue";
 import CardDetailModal from "./CardDetailModal.vue";
+import HoloOverlay from "./HoloOverlay.vue";
 import HpBar from './game/HpBar.vue';
-import { state } from '../game/state.js';
 import { useUserStore } from '../stores/userStore.js';
 import { useEffectStore } from '../stores/effectStore.js';
 import { GameEngine } from '../../../shared/GameEngine.ts';
-import HoloEffectCanvas from './game/HoloEffectCanvas.vue';
 
 const props = defineProps({
   card: { type: Object, required: true },
@@ -173,12 +156,16 @@ const props = defineProps({
   height: { type: [String, Number], default: null },
   elementActive: { type: Boolean, default: true },
   showDetailOnHover: { type: Boolean, default: false },
-  owner: { type: String, default: null }
+  owner: { type: String, default: null },
+  overrideEffect: { type: Object, default: null },
+  tiltX: { type: Number, default: null },
+  tiltY: { type: Number, default: null }
 });
 
 const userStore = useUserStore();
 const effectStore = useEffectStore();
 const customFoilEffect = computed(() => {
+  if (props.overrideEffect) return props.overrideEffect;
   if (!props.card) return null;
   const id = props.card.documentId || props.card.id;
   if (!id) return null;
@@ -206,6 +193,7 @@ const emit = defineEmits(['click', 'set-cover', 'left-click', 'right-click', 'lo
 const longPressButton = ref(0);
 
 function startLongPress(e) {
+  if (!props.interactive) return;
   longPressTriggered.value = false;
   longPressButton.value = e ? (e.button || 0) : 0;
 
@@ -244,6 +232,7 @@ function onTouchEnd() {
 }
 
 function handleRightClick(e) {
+  if (!props.interactive) return;
   if (longPressTriggered.value) {
     longPressTriggered.value = false;
     return;
@@ -252,6 +241,7 @@ function handleRightClick(e) {
 }
 
 function handleClick() {
+  if (!props.interactive) return;
   if (longPressTriggered.value) {
     longPressTriggered.value = false;
     return;
@@ -380,81 +370,48 @@ const isActive = ref(false);
 const tilt = ref({ x: 0, y: 0 });
 const mousePos = ref({ x: 50, y: 50 });
 
-const tiltStyle = computed(() => ({
-  transform: `rotateX(${tilt.value.x}deg) rotateY(${tilt.value.y}deg)`,
-  transition: (tilt.value.x === 0 && tilt.value.y === 0) ? 'transform 0.5s ease-out' : 'transform 0.1s ease-out'
-}));
-
-const innerStyle = computed(() => {
-  const rotationY = tilt.value.y + (props.faceDown ? 180 : 0);
+const tiltStyle = computed(() => {
+  const tx = props.tiltX !== null ? props.tiltX : tilt.value.x;
+  const ty = props.tiltY !== null ? props.tiltY : tilt.value.y;
   return {
-    transform: `rotateX(${tilt.value.x}deg) rotateY(${rotationY}deg)`,
-    transition: (tilt.value.x === 0 && tilt.value.y === 0) ? 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)' : 'transform 0.1s ease-out'
+    transform: `rotateX(${tx}deg) rotateY(${ty}deg)`,
+    transition: (tx === 0 && ty === 0) ? 'transform 0.5s ease-out' : 'transform 0.1s ease-out'
   };
 });
 
-const glareStyle = computed(() => ({
-  background: `radial-gradient(circle at ${mousePos.value.x}% ${mousePos.value.y}%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 60%)`,
-  opacity: tilt.value.x === 0 && tilt.value.y === 0 ? 0 : 0.8,
-  transition: tilt.value.x === 0 && tilt.value.y === 0 ? 'opacity 0.5s ease-out' : 'opacity 0.1s ease-out'
-}));
+const innerStyle = computed(() => {
+  const tx = props.tiltX !== null ? props.tiltX : tilt.value.x;
+  const ty = props.tiltY !== null ? props.tiltY : tilt.value.y;
+  const rotationY = ty + (props.faceDown ? 180 : 0);
+  return {
+    transform: `rotateX(${tx}deg) rotateY(${rotationY}deg)`,
+    transition: (tx === 0 && ty === 0) ? 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)' : 'transform 0.1s ease-out'
+  };
+});
+
+const glareStyle = computed(() => {
+  const tx = props.tiltX !== null ? props.tiltX : tilt.value.x;
+  const ty = props.tiltY !== null ? props.tiltY : tilt.value.y;
+  return {
+    background: `radial-gradient(circle at ${mousePos.value.x}% ${mousePos.value.y}%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 60%)`,
+    opacity: tx === 0 && ty === 0 ? 0 : 0.8,
+    transition: tx === 0 && ty === 0 ? 'opacity 0.5s ease-out' : 'opacity 0.1s ease-out'
+  };
+});
 
 const mouseStyle = ref({ '--mx': '50%', '--my': '50%', '--posx': '50%', '--posy': '50%' });
 
-// --- HOLO ---
+// --- HOLO SEED ---
 function hashCode(str) {
   let hash = 0;
   for (let i = 0; i < str.length; i++) { hash = (hash << 5) - hash + str.charCodeAt(i); hash |= 0; }
   return Math.abs(hash);
 }
 
-function sfc32(a) {
-  return function() {
-    a |= 0; a = a + 0x6D2B79F5 | 0;
-    var t = Math.imul(a ^ a >>> 15, 1 | a);
-    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
-    return ((t ^ t >>> 14) >>> 0) / 4294967296;
-  }
-}
-
 const premiumSeed = computed(() => {
   const cardPart = props.card.id || props.card.name || '0';
   const userPart = userStore.user?.id || 'anon';
   return hashCode(`${cardPart}-${userPart}`);
-});
-
-const holoStyle = computed(() => {
-  if (!isPremiumCard.value) return {};
-
-  const rng = sfc32(premiumSeed.value);
-  const isImageMode = state.premiumMode === 'image';
-  if (isImageMode) {
-    return { '--c1': 'rgba(255, 255, 255, 1.0)', '--c2': 'rgba(255, 255, 255, 1.0)', '--c3': 'rgba(255, 255, 255, 1.0)' };
-  }
-  return {
-    '--c1': `hsla(${rng() * 360}, 100%, 70%, 1.0)`,
-    '--c2': `hsla(${rng() * 360}, 100%, 70%, 1.0)`,
-    '--c3': `hsla(${rng() * 360}, 100%, 70%, 1.0)`
-  };
-});
-
-// Unique SVG filter per card
-const holoFilterId = computed(() => `holo-pattern-${premiumSeed.value}`);
-const holoFilterUrl = computed(() => `url(#${holoFilterId.value})`);
-
-// Vary texture params from seed
-const holoFrequency = computed(() => {
-  const rng = sfc32(premiumSeed.value + 42);
-  const fineness = state.holoFineness || 0.05;
-  const base = fineness * 0.4;
-  const range = fineness * 1.6;
-  const f = (base + rng() * range).toFixed(4);
-  const f2 = (base + rng() * range).toFixed(4);
-  return `${f} ${f2}`;
-});
-const holoOctaves = computed(() => {
-  const rng = sfc32(premiumSeed.value + 99);
-  return 2 + Math.floor(rng() * 4); // 2-5 octaves
 });
 
 function handleMove(e) {

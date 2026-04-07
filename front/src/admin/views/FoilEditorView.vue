@@ -1,10 +1,6 @@
 <template>
   <div class="min-h-full w-full bg-[#0a0a1a] text-white relative font-sans flex flex-col lg:flex-row gap-6 p-6">
     
-    <!-- Ambient Background Glows -->
-    <!-- <div class=" top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full pointer-events-none z-0"></div>
-    <div class=" bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 blur-[120px] rounded-full pointer-events-none z-0"></div> -->
-
     <!-- Left / Central Side: 3D Preview Window & Toolbar -->
     <div class="flex-1 flex flex-col items-center justify-center relative z-10 min-h-[400px] lg:h-full">
 
@@ -15,161 +11,358 @@
           :class="['px-6 py-2 text-xs font-bold transition-all', currentTool === 'rotate' ? 'bg-primary/20 text-white' : 'text-gray-400']"
           @click="setTool('rotate')"
         >🔄 3D VIEW</AppButton>
+
+        <!-- Paint button -->
         <AppButton
           variant="ghost"
           :class="['px-6 py-2 text-xs font-bold transition-all', currentTool === 'draw' ? 'bg-primary/20 text-white' : 'text-gray-400']"
           @click="setTool('draw')"
         >🖌️ PAINT</AppButton>
+
+        <!-- Erase button -->
         <AppButton
           variant="ghost"
           :class="['px-6 py-2 text-xs font-bold transition-all', currentTool === 'erase' ? 'bg-primary/20 text-white' : 'text-gray-400']"
           @click="setTool('erase')"
         >🧽 ERASE</AppButton>
+
+        <!-- Brush params: only visible in paint/erase mode -->
+        <template v-if="currentTool === 'draw' || currentTool === 'erase'">
+          <div class="w-px h-6 bg-white/20 mx-1"></div>
+          <div class="flex items-center gap-3 px-2">
+            <div class="flex items-center gap-1.5">
+              <span class="text-[9px] font-bold text-gray-500 uppercase">Taille</span>
+              <input type="range" v-model="brushSize" min="5" max="150" class="w-20 accent-primary h-1 bg-white/20 rounded-full appearance-none">
+              <span class="text-[9px] text-gray-400 font-bold min-w-[2.5ch]">{{ brushSize }}</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-[9px] font-bold text-gray-500 uppercase">Douceur</span>
+              <input type="range" v-model="brushSoftness" min="0" max="1" step="0.01" class="w-20 accent-primary h-1 bg-white/20 rounded-full appearance-none">
+            </div>
+          </div>
+        </template>
       </AppPanel>
 
-      <!-- 3D Canvas Container (Visually Constrained Window) -->
-      <div class="relative w-full max-w-[500px] flex-1 min-h-[400px] max-h-[700px] rounded-2xl overflow-hidden glass-panel border border-white/10 shadow-2xl flex items-center justify-center bg-black/40">
-        <!-- 3D Canvas goes exactly here -->
-        <div ref="canvasContainer" class="absolute inset-0 cursor-grab active:cursor-grabbing w-full h-full"></div>
+      <div 
+        class="relative w-full max-w-[500px] flex-1 min-h-[400px] max-h-[700px] rounded-2xl overflow-hidden glass-panel border border-white/10 shadow-2xl flex items-center justify-center bg-black/40"
+        @mousemove="trackMouseUV"
+      >
+        <!-- SIMPLE IMAGE PAINTING AREA -->
+        <div 
+          v-if="selectedCardData"
+          class="relative rounded-lg overflow-hidden shadow-2xl transition-transform duration-100 ease-out"
+          :style="{ 
+            width: '400px', 
+            height: '400px', 
+            transform: `rotateX(${previewTilt.x}deg) rotateY(${previewTilt.y}deg)` 
+          }"
+          @mousedown="onMouseDown"
+          @mousemove="onMouseMove"
+          @mouseup="onMouseUp"
+          @mouseleave="onMouseUp"
+        >
+          <!-- Card Image -->
+          <img 
+            :src="selectedCardData.imageUrl || 'https://images.unsplash.com/photo-1614728263952-84ea256f9679?q=80&w=1000&auto=format&fit=crop'" 
+            class="w-full h-full object-cover pointer-events-none select-none transition-all duration-300" 
+            :class="{ 'brightness-50 grayscale-50': currentTool !== 'rotate', 'opacity-20': showFullMask }"
+          />
+
+          <!-- Real-time Painting Overlay (Direct Canvas DOM) -->
+          <canvas 
+            v-show="currentTool !== 'rotate'"
+            ref="activeCanvasRef" 
+            width="512" 
+            height="512"
+            class="absolute inset-0 w-full h-full pointer-events-none z-10"
+            :style="{ 
+              opacity: showFullMask ? 1.0 : maskVisibility,
+              mixBlendMode: showFullMask ? 'normal' : 'screen',
+              filter: showFullMask ? 'none' : 'drop-shadow(0 0 2px white)'
+            }"
+          ></canvas>
+
+          <!-- Holo overlays (Centralized Component) -->
+          <HoloOverlay
+            :layers="layers"
+            :seed="premiumSeed"
+            :tiltX="previewTilt.x"
+            :tiltY="previewTilt.y"
+            :always-visible="true"
+          />
+        </div>
+
+        <div v-else class="text-gray-500 font-bold uppercase tracking-widest animate-pulse">Sélectionnez une carte...</div>
+
+        <!-- Custom Brush Cursor -->
+        <div 
+          v-if="selectedCardData && (currentTool === 'draw' || currentTool === 'erase')"
+          class="absolute pointer-events-none rounded-full border-2 border-primary shadow-[0_0_10px_rgba(var(--color-primary-rgb),0.5)] z-[100]"
+          :style="{
+            left: `${mouseUV.x * 100}%`,
+            top: `${(1 - mouseUV.y) * 100}%`,
+            width: `${(brushSize / 512) * 400}px`,
+            height: `${(brushSize / 512) * 400}px`,
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: currentTool === 'draw' ? 'rgba(255,255,255,0.2)' : 'rgba(255,0,0,0.2)'
+          }"
+        ></div>
       </div>
     </div>
 
-    <!-- Right Side: Flat Control Panel -->
-    <AppPanel class="w-full lg:w-96 flex-shrink-0 flex flex-col z-10 lg:h-full lg:max-h-full overflow-y-auto custom-scrollbar shadow-2xl border border-white/10 bg-black/60 backdrop-blur-md">
-      <div class="my-6 text-center">
+    <!-- Right Side: Control Panel -->
+    <AppPanel class="w-full lg:flex-1 lg:min-w-[340px] flex-shrink-0 flex flex-col z-10 lg:h-full lg:max-h-full overflow-y-auto custom-scrollbar shadow-2xl border border-white/10 bg-black/60 backdrop-blur-md">
+      <div class="my-4 text-center">
         <h2 class="text-2xl font-black text-white tracking-tighter uppercase italic">HoloEditor <span class="text-primary italic">Pro</span></h2>
         <p class="text-[10px] font-bold text-gray-500 uppercase tracking-[0.3em] mt-1 pl-1">Visual FX Engine</p>
       </div>
 
-      <div class="space-y-8 pb-4">
+      <div class="foil-sections-grid pb-4">
 
-        <!-- 1. Card Selection -->
-        <section class="space-y-4">
-          <h3 class="text-xs font-bold uppercase tracking-widest text-primary border-b border-white/10 pb-2">1. Sélection Carte</h3>
-          <PremiumSelect
-            v-model="selectedCardId"
-            :options="cardOptions"
-            label="Sélectionner une carte"
-            placeholder="Choisir un modèle..."
-            searchable
-            @change="onCardSelected"
-          >
-            <template #icon>🎴</template>
-          </PremiumSelect>
-          <div v-if="loadingCards" class="text-[10px] text-primary/50 font-bold uppercase tracking-widest mt-2 animate-pulse">Synchronisation...</div>
-        </section>
-
-        <!-- 2. Layer Management -->
-        <section class="space-y-4">
-          <div class="flex justify-between items-end border-b border-white/10 pb-2">
-            <h3 class="text-xs font-bold uppercase tracking-widest text-primary">2. Calques ({{ layers.length }}/5)</h3>
-            <button v-if="layers.length < 5" @click="addLayer" class="text-[10px] font-bold text-gray-300 hover:text-white transition-colors cursor-pointer">AJOUTER +</button>
+        <!-- 1. Carte & Calques -->
+        <section class="foil-section space-y-4">
+          <div class="border-b border-white/10 pb-2">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-primary">1. Carte & Calques</h3>
           </div>
+          
+          <div class="flex flex-wrap gap-6 items-start">
+            <!-- Card selection box -->
+            <div class="flex-1 min-w-[240px]">
+              <PremiumSelect
+                v-model="selectedCardId"
+                :options="cardOptions"
+                label="Sélectionner une carte"
+                placeholder="Choisir un modèle..."
+                searchable
+                @change="onCardSelected"
+              >
+                <template #icon>🎴</template>
+              </PremiumSelect>
+            </div>
 
-          <div class="flex flex-col gap-2">
-            <div v-for="(layer, i) in layers" :key="i"
-                 :class="['flex items-center p-3 rounded-2xl transition-all border', i === activeLayerIndex ? 'bg-white/10 border-primary/30 shadow-lg' : 'bg-white/5 border-transparent opacity-70 hover:opacity-100']">
-              <button @click="selectLayer(i)" :class="['flex-1 text-left text-xs font-bold uppercase tracking-wider cursor-pointer outline-none', i === activeLayerIndex ? 'text-white' : 'text-gray-400']">
-                Layer {{ i + 1 }}
-              </button>
-              <div class="flex items-center gap-1">
-                <button @click="toggleLayer(i)" class="p-2 hover:bg-white/10 rounded-lg transition-all text-xs cursor-pointer outline-none" :title="layer.enabled ? 'Cacher' : 'Afficher'">
-                  {{ layer.enabled ? '👁️' : '❌' }}
-                </button>
-                <button v-if="layers.length > 1" @click="deleteLayer(i)" class="p-2 hover:bg-red-500/20 text-red-400 rounded-lg transition-all text-xs cursor-pointer outline-none" title="Supprimer">
-                  🗑️
-                </button>
+            <!-- Layers (horizontal) -->
+            <div class="flex-1 min-w-[240px] flex flex-col gap-2">
+              <div class="flex justify-between items-center">
+                <label class="setting-label">Calques ({{ layers.length }}/5)</label>
+                <button v-if="layers.length < 5" @click="addLayer" class="text-[9px] font-bold text-primary hover:text-primary/80 transition-colors cursor-pointer uppercase">Ajouter +</button>
+              </div>
+              <div class="flex flex-wrap gap-1.5 p-2 rounded-xl bg-white/5 border border-white/5">
+                <div v-for="(layer, i) in layers" :key="i"
+                     :class="['flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all border cursor-pointer select-none', i === activeLayerIndex ? 'bg-white/15 border-primary/40 shadow-lg' : 'bg-white/5 border-transparent opacity-60 hover:opacity-100']"
+                     @click="selectLayer(i)"
+                >
+                  <span :class="['text-[10px] font-bold uppercase tracking-wider', i === activeLayerIndex ? 'text-white' : 'text-gray-400']">L{{ i + 1 }}</span>
+                  <button @click.stop="toggleLayer(i)" class="text-[10px] hover:scale-110 transition-transform cursor-pointer outline-none" :title="layer.enabled ? 'Cacher' : 'Afficher'">
+                    {{ layer.enabled ? '👁️' : '❌' }}
+                  </button>
+                  <button v-if="layers.length > 1" @click.stop="deleteLayer(i)" class="text-[10px] hover:scale-110 text-red-400 transition-transform cursor-pointer outline-none" title="Supprimer">
+                    🗑️
+                  </button>
+                </div>
               </div>
             </div>
           </div>
+          <div v-if="loadingCards" class="text-[10px] text-primary/50 font-bold uppercase tracking-widest mt-1 animate-pulse">Synchronisation...</div>
         </section>
 
         <!-- Only show settings if there is at least 1 layer -->
         <template v-if="layers.length > 0">
 
-          <!-- 3. Color & Mask -->
-          <section class="space-y-4">
-            <h3 class="text-xs font-bold uppercase tracking-widest text-primary border-b border-white/10 pb-2">3. Couleur & Masque</h3>
-            <div class="setting-group">
-              <label>Couleur Cible (Chromakey)</label>
-              <div class="flex items-center gap-3">
-                <input type="color" v-model="activeLayer.targetColor" @input="syncUniforms" class="h-10 w-full bg-transparent border-0 cursor-pointer p-0 rounded-xl overflow-hidden shadow-inner">
-                <button @click="pickColor" class="bg-white/10 hover:bg-white/20 p-2.5 rounded-xl transition-all border border-white/5 cursor-pointer outline-none" title="Pipette">💧</button>
-              </div>
-            </div>
-            <div class="setting-group">
-              <div class="flex justify-between items-center">
-                <label>Sensibilité</label>
-                <span class="text-[10px] text-gray-400 font-bold">{{ Math.round(activeLayer.sensitivity * 100) }}%</span>
-              </div>
-              <input type="range" v-model.number="activeLayer.sensitivity" min="0.01" max="1.0" step="0.01" @input="syncUniforms" class="w-full h-1 bg-white/20 rounded-full appearance-none accent-primary">
-            </div>
-            <div class="setting-group">
-              <div class="flex justify-between items-center">
-                <label>Tolérance</label>
-                <span class="text-[10px] text-gray-400 font-bold">{{ Math.round(activeLayer.tolerance * 100) }}%</span>
-              </div>
-              <input type="range" v-model.number="activeLayer.tolerance" min="0.0" max="1.0" step="0.01" @input="syncUniforms" class="w-full h-1 bg-white/20 rounded-full appearance-none accent-primary">
-            </div>
-          </section>
-
-          <!-- 4. Brush Tools -->
-          <section class="space-y-4">
-            <h3 class="text-xs font-bold uppercase tracking-widest text-primary border-b border-white/10 pb-2">4. Paramètres Pinceau</h3>
-            <div class="setting-group mt-2">
-              <label>Taille (Radius)</label>
-              <input type="range" v-model="brushSize" min="5" max="150" class="w-full accent-primary h-1 bg-white/20 rounded-full appearance-none">
-            </div>
-            <div class="setting-group">
-              <label>Douceur (Softness)</label>
-              <input type="range" v-model="brushSoftness" min="0" max="1" step="0.01" class="w-full accent-primary h-1 bg-white/20 rounded-full appearance-none">
-            </div>
-            <div class="flex gap-2 mt-2">
-              <AppButton variant="ghost" @click="fillMask('white')" class="flex-1 py-2 text-[10px] font-bold border border-white/10">REMPLIR</AppButton>
-              <AppButton variant="ghost" @click="fillMask('black')" class="flex-1 py-2 text-[10px] font-bold border border-white/10">EFFACER</AppButton>
-            </div>
-          </section>
-
-          <!-- 5. Foil Settings -->
-          <section class="space-y-4">
-            <h3 class="text-xs font-bold uppercase tracking-widest text-primary border-b border-white/10 pb-2">5. Effet Holographique</h3>
-            <div class="setting-group">
-              <label>Type d'Effet</label>
-              <PremiumSelect
-                v-model="activeLayer.foilMode"
-                :options="foilModes"
-                @change="syncUniforms"
-              />
-            </div>
-            <div class="setting-group">
-              <label>Teinte de Base</label>
-              <input type="color" v-model="activeLayer.foilColor" @input="syncUniforms" class="h-10 w-full bg-transparent border-0 cursor-pointer p-0 rounded-xl overflow-hidden shadow-inner">
-            </div>
+          <!-- 2. Sélecteur & Masque -->
+          <section class="foil-section space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-primary border-b border-white/10 pb-2">2. Sélecteur & Masque</h3>
+            
             <div class="grid grid-cols-2 gap-4">
-              <div class="setting-group">
-                <label>Intensité</label>
-                <input type="range" v-model.number="activeLayer.holoIntensity" min="0" max="3" step="0.1" @input="syncUniforms" class="w-full h-1 bg-white/20 rounded-full appearance-none accent-primary">
+              <!-- Left: SVG Import -->
+              <div class="space-y-2">
+                <label class="setting-label">Import Vectoriel</label>
+                <div class="flex items-center gap-2">
+                  <input type="file" ref="svgInputRef" accept=".svg" class="hidden" @change="handleSvgImport">
+                  <AppButton variant="ghost" size="sm" fullWidth class="h-9 border border-white/10 bg-white/5 hover:bg-white/10 text-[10px] font-black uppercase tracking-widest !p-0" @click="triggerSvgImport">
+                    📥 Importer SVG
+                  </AppButton>
+                </div>
               </div>
-              <div class="setting-group">
-                <label>Vitesse</label>
-                <input type="range" v-model.number="activeLayer.foilSpeed" min="0" max="5" step="0.1" @input="syncUniforms" class="w-full h-1 bg-white/20 rounded-full appearance-none accent-primary">
+
+              <!-- Right: Sensitivity + Tolerance -->
+              <div class="space-y-2">
+                <div>
+                  <div class="flex justify-between items-center mb-1">
+                    <label class="setting-label">Sensibilité</label>
+                    <span class="text-[9px] text-gray-400 font-bold">{{ Math.round(activeLayer.sensitivity * 100) }}%</span>
+                  </div>
+                  <input type="range" v-model.number="activeLayer.sensitivity" min="0.01" max="1.0" step="0.01" class="w-full h-1 bg-white/20 rounded-full appearance-none accent-primary">
+                </div>
+                <div>
+                  <div class="flex justify-between items-center mb-1">
+                    <label class="setting-label">Tolérance</label>
+                    <span class="text-[9px] text-gray-400 font-bold">{{ Math.round(activeLayer.tolerance * 100) }}%</span>
+                  </div>
+                  <input type="range" v-model.number="activeLayer.tolerance" min="0.0" max="1.0" step="0.01" class="w-full h-1 bg-white/20 rounded-full appearance-none accent-primary">
+                </div>
               </div>
             </div>
-            <div class="setting-group">
-              <label>Échelle / Taille</label>
-              <input type="range" v-model.number="activeLayer.foilScale" min="0.1" max="10.0" step="0.1" @input="syncUniforms" class="w-full h-1 bg-white/20 rounded-full appearance-none accent-primary">
+
+            <!-- Target Color -->
+            <div class="mt-4 pt-4 border-t border-white/5">
+               <div class="flex justify-between items-center mb-2">
+                  <label class="setting-label">Couleur de référence (Optionnel)</label>
+                  <div class="flex items-center gap-2">
+                   <input type="color" v-model="activeLayer.targetColor" class="h-6 w-10 bg-transparent border-0 cursor-pointer p-0 rounded overflow-hidden">
+                   <button @click="pickColor" class="bg-white/10 hover:bg-white/20 p-1.5 rounded transition-all border border-white/5 cursor-pointer text-xs" title="Pipette">💧</button>
+                   <AppButton variant="ghost" size="xs" class="ml-2 bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 text-[9px] font-black uppercase" @click="generateMaskFromColor">🪄 Générer</AppButton>
+                 </div>
+              </div>
             </div>
-            <div class="setting-group">
-              <label>Orientation (α)</label>
-              <div class="flex items-center gap-4">
-                <input type="range" v-model.number="activeLayer.foilAngle" min="0" max="360" step="1" @input="syncUniforms" class="flex-1 h-1 bg-white/20 rounded-full appearance-none accent-primary">
-                <span class="text-[10px] font-bold text-gray-400 min-w-[3ch]">{{ activeLayer.foilAngle }}°</span>
+
+            <!-- Mask visibility slider -->
+            <div class="mt-4 pt-4 border-t border-white/5">
+              <div class="flex justify-between items-center mb-1">
+                <label class="setting-label">Aperçu de la sélection</label>
+                <div class="flex items-center gap-2">
+                   <button @click="showFullMask = !showFullMask" :class="['text-[9px] font-bold px-2 py-0.5 rounded transition-all', showFullMask ? 'bg-primary text-black' : 'bg-white/10 text-gray-400']">MODÈLE BLANC</button>
+                   <span class="text-[9px] text-gray-400 font-bold">{{ Math.round(maskVisibility * 100) }}%</span>
+                </div>
+              </div>
+              <input type="range" v-model.number="maskVisibility" min="0.0" max="1.0" step="0.01" class="w-full h-1 bg-white/20 rounded-full appearance-none accent-primary">
+              <p class="text-[8px] text-gray-500 mt-1 uppercase tracking-tighter italic">Contrôle la visibilité du masque blanc en surimpression</p>
+            </div>
+          </section>
+
+          <!-- 3. Holographic Effect -->
+          <section class="foil-section space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-primary border-b border-white/10 pb-2">3. Effet Holographique</h3>
+            
+            <div class="flex flex-wrap gap-4">
+              <div class="setting-group flex-1 min-w-[120px]">
+                <label>Type</label>
+                <PremiumSelect
+                  v-model="activeLayer.foilMode"
+                  :options="foilModes"
+                />
+              </div>
+              <div class="setting-group w-32">
+                <label>Teinte / Rainbow</label>
+                <div class="flex items-center gap-2">
+                  <input type="color" v-model="activeLayer.foilColor" :disabled="activeLayer.useRainbow" class="h-9 w-12 bg-transparent border-0 cursor-pointer p-0 rounded-lg overflow-hidden shadow-inner disabled:opacity-30">
+                  <button 
+                    @click="activeLayer.useRainbow = !activeLayer.useRainbow" 
+                    :class="['h-9 flex-1 rounded-lg border flex items-center justify-center transition-all', activeLayer.useRainbow ? 'bg-primary/20 border-primary text-primary' : 'bg-white/5 border-white/10 text-gray-500']"
+                    title="Mode Arc-en-ciel"
+                  >
+                    🌈 <span class="text-[9px] font-bold ml-1 uppercase">Rainbow</span>
+                  </button>
+                </div>
+              </div>
+              <div class="setting-group flex-1 min-w-[120px]">
+                <div class="flex justify-between items-center">
+                  <label>Intensité</label>
+                  <span class="text-[9px] text-gray-400 font-bold">{{ activeLayer.holoIntensity.toFixed(1) }}</span>
+                </div>
+                <input type="range" v-model.number="activeLayer.holoIntensity" min="0" max="3" step="0.1" class="w-full h-1 bg-white/20 rounded-full appearance-none accent-primary mt-2">
+              </div>
+              <div class="setting-group flex-1 min-w-[120px]">
+                <div class="flex justify-between items-center text-primary-light">
+                  <label>Grain (Noise)</label>
+                  <span class="text-[9px] font-bold">{{ Math.round(activeLayer.noiseIntensity * 100) }}%</span>
+                </div>
+                <input type="range" v-model.number="activeLayer.noiseIntensity" min="0" max="1" step="0.05" class="w-full h-1 bg-white/20 rounded-full appearance-none accent-primary mt-2">
+              </div>
+            </div>
+          </section>
+
+          <!-- 4. Paramètres Holographiques -->
+          <section class="foil-section space-y-4">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-primary border-b border-white/10 pb-2">4. Paramètres Holographiques</h3>
+            
+            <div class="flex flex-wrap gap-6">
+              <!-- Speed & Scale group -->
+              <div class="flex-1 min-w-[200px] space-y-4">
+                <div class="setting-group">
+                  <div class="flex justify-between items-center">
+                    <label>Vitesse</label>
+                    <span class="text-[9px] text-gray-400 font-bold">{{ activeLayer.foilSpeed.toFixed(1) }}</span>
+                  </div>
+                  <input type="range" v-model.number="activeLayer.foilSpeed" min="0" max="5" step="0.1" class="w-full h-1 bg-white/20 rounded-full appearance-none accent-primary">
+                </div>
+                <div class="setting-group">
+                  <div class="flex justify-between items-center">
+                    <label>Échelle</label>
+                    <span class="text-[9px] text-gray-400 font-bold">{{ activeLayer.foilScale.toFixed(1) }}</span>
+                  </div>
+                  <input type="range" v-model.number="activeLayer.foilScale" min="0.1" max="10.0" step="0.1" class="w-full h-1 bg-white/20 rounded-full appearance-none accent-primary">
+                </div>
+              </div>
+
+              <!-- Orientation group -->
+              <div class="flex-1 min-w-[300px] flex gap-4">
+                <!-- Motif Rotation -->
+                <div class="flex-1 setting-group">
+                  <label>Rotation Motif (α)</label>
+                  <div class="flex items-center gap-4">
+                    <div class="angle-picker-container" ref="anglePickerRef"
+                         @mousedown="startAngleDrag($event, 'foilAngle')"
+                         @touchstart.prevent="startAngleDrag($event, 'foilAngle')"
+                    >
+                      <svg viewBox="0 0 80 80" class="angle-picker-svg">
+                        <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="3" />
+                        <circle cx="40" cy="40" r="34" fill="none" stroke="var(--color-primary)" stroke-width="3"
+                          :stroke-dasharray="`${(activeLayer.foilAngle / 360) * 213.6} 213.6`"
+                          stroke-dashoffset="0"
+                          transform="rotate(-90 40 40)"
+                          stroke-linecap="round"
+                          class="transition-all duration-75"
+                        />
+                        <line x1="40" y1="40"
+                          :x2="40 + 28 * Math.cos((activeLayer.foilAngle - 90) * Math.PI / 180)"
+                          :y2="40 + 28 * Math.sin((activeLayer.foilAngle - 90) * Math.PI / 180)"
+                          stroke="white" stroke-width="2" stroke-linecap="round"
+                        />
+                      </svg>
+                    </div>
+                    <div class="flex flex-col">
+                      <span class="text-xs font-black italic">{{ activeLayer.foilAngle }}°</span>
+                      <span class="text-[8px] text-gray-600 uppercase font-bold">Orientation</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Direction -->
+                <div class="flex-1 setting-group">
+                  <label>Direction Flux (β)</label>
+                  <div class="flex items-center gap-4">
+                    <div class="angle-picker-container"
+                         @mousedown="startAngleDrag($event, 'foilDirection')"
+                         @touchstart.prevent="startAngleDrag($event, 'foilDirection')"
+                    >
+                      <svg viewBox="0 0 80 80" class="angle-picker-svg">
+                        <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="3" />
+                        <circle cx="40" cy="40" r="34" fill="none" stroke="#22c55e" stroke-width="3"
+                          :stroke-dasharray="`${(activeLayer.foilDirection / 360) * 213.6} 213.6`"
+                          stroke-dashoffset="0"
+                          transform="rotate(-90 40 40)"
+                          stroke-linecap="round"
+                          class="transition-all duration-75"
+                        />
+                        <line x1="40" y1="40"
+                          :x2="40 + 28 * Math.cos((activeLayer.foilDirection - 90) * Math.PI / 180)"
+                          :y2="40 + 28 * Math.sin((activeLayer.foilDirection - 90) * Math.PI / 180)"
+                          stroke="#22c55e" stroke-width="2" stroke-linecap="round"
+                        />
+                      </svg>
+                    </div>
+                    <div class="flex flex-col">
+                      <span class="text-xs font-black italic text-green-400">{{ activeLayer.foilDirection }}°</span>
+                      <span class="text-[8px] text-gray-600 uppercase font-bold">Flux 3D</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
         </template>
 
-        <!-- 6. Export Action -->
+        <!-- 5. Export Action -->
         <AppButton
           variant="primary"
           fullWidth
@@ -189,19 +382,19 @@
 <script setup>
 import AppPanel from '../../components/ui/AppPanel.vue';
 import AppButton from '../../components/ui/AppButton.vue';
-import { ref, reactive, computed, onMounted, onBeforeUnmount, shallowRef } from 'vue';
-import * as THREE from 'three';
+import { ref, reactive, computed, onMounted, onBeforeUnmount } from 'vue';
+import HoloOverlay from '../../components/HoloOverlay.vue';
+import { useUserStore } from '../../stores/userStore.js';
 import strapiService from '@/api/strapi';
 import { getStrapiMediaUrl } from '@/utils/url';
 import PremiumSelect from '../components/PremiumSelect.vue';
-import { vertexShaderStr, fragmentShaderStr } from '../../utils/shaders/holoShader.js';
 
 const MAX_LAYERS = 5;
 
 // Refs & State
-const canvasContainer = ref(null);
 const cards = ref([]);
 const selectedCardId = ref('');
+const selectedCardData = computed(() => cards.value.find(c => (c.documentId || c.id) === selectedCardId.value));
 const loadingCards = ref(false);
 const saving = ref(false);
 const currentExistingEffectId = ref(null);
@@ -212,17 +405,45 @@ const activeLayer = computed(() => layers.value[activeLayerIndex.value] || {});
 
 const currentTool = ref('rotate');
 const brushSize = ref(30);
+const brushSoftness = ref(0.2);
+
+const userStore = useUserStore();
+const previewTilt = ref({ x: 0, y: 0 });
+const mouseUV = ref({ x: 0.5, y: 0.5 });
+const svgInputRef = ref(null);
+const activeCanvasRef = ref(null);
+const maskVisibility = ref(0.4);
+const showFullMask = ref(false);
+
+// --- HOLO SEED ---
+function hashCode(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) { hash = (hash << 5) - hash + str.charCodeAt(i); hash |= 0; }
+  return Math.abs(hash);
+}
+
+const premiumSeed = computed(() => {
+  const cardPart = selectedCardData.value?.id || selectedCardData.value?.name || '0';
+  const userPart = userStore.user?.id || 'anon';
+  return hashCode(`${cardPart}-${userPart}`);
+});
 
 const foilModes = [
-  { label: 'Défaut (Holographique)', value: 0 },
-  { label: 'Pulsation', value: 1 },
-  { label: 'Électrique', value: 2 },
-  { label: 'Bords uniquement', value: 3 },
-  { label: 'Bulle d\'eau', value: 4 }
+  { label: '0: Arc-en-ciel (Défaut)', value: 0 },
+  { label: '1: Pulsation', value: 1 },
+  { label: '2: Électrique', value: 2 },
+  { label: '3: Scintillement', value: 3 },
+  { label: '4: Halo (Flare)', value: 4 },
+  { label: '5: Prisme / Verre', value: 5 },
+  { label: '6: Fluide / Eau', value: 6 },
+  { label: '7: Digital / Matrix', value: 7 },
+  { label: '8: Étoiles', value: 8 },
+  { label: '9: Nébuleuse', value: 9 },
+  { label: '10: Rare Holo (Classique)', value: 10 },
+  { label: '11: Radiant / V (Stries)', value: 11 },
+  { label: '12: Galaxy / Cosmos', value: 12 },
+  { label: '13: Gold / Secret Rare', value: 13 }
 ];
-
-const openAccordion = ref('card');
-const brushSoftness = ref(0.2);
 
 const cardOptions = computed(() => {
   return cards.value.map(c => ({
@@ -231,69 +452,44 @@ const cardOptions = computed(() => {
   }));
 });
 
-// Three.js instances
-const scene = shallowRef(null);
-const camera = shallowRef(null);
-const renderer = shallowRef(null);
-const mesh = shallowRef(null);
-const material = shallowRef(null);
-const textureLoader = shallowRef(null);
-const brushCursor = shallowRef(null);
-const dummyTexture = shallowRef(null);
-
-let animationFrameId = null;
-let isDragging = false;
-let previousMousePosition = { x: 0, y: 0 };
-let targetRotation = { x: 0, y: 0 };
-const raycaster = new THREE.Raycaster();
-const mouseNDC = new THREE.Vector2();
-
-let maskTimeout = null;
+// Angle picker logic
+const anglePickerRef = ref(null);
+let angleDragging = false;
+let draggingProp = 'foilAngle';
 
 onMounted(async () => {
   await loadCards();
-  initThreeJS();
   layers.value.push(createDefaultLayer());
-  syncUniforms();
 
   window.addEventListener('resize', onWindowResize);
-
-  if (canvasContainer.value) {
-    canvasContainer.value.addEventListener('mousedown', onMouseDown);
-    canvasContainer.value.addEventListener('mousemove', onMouseMove);
-    canvasContainer.value.addEventListener('mouseup', onMouseUp);
-    canvasContainer.value.addEventListener('mouseleave', onMouseUp);
-  }
+  window.addEventListener('mousemove', onGlobalAngleMove);
+  window.addEventListener('mouseup', stopAngleDrag);
+  window.addEventListener('touchmove', onGlobalAngleMove);
+  window.addEventListener('touchend', stopAngleDrag);
 });
 
 onBeforeUnmount(() => {
-  if (animationFrameId) cancelAnimationFrame(animationFrameId);
   window.removeEventListener('resize', onWindowResize);
-
-  if (canvasContainer.value) {
-    canvasContainer.value.removeEventListener('mousedown', onMouseDown);
-    canvasContainer.value.removeEventListener('mousemove', onMouseMove);
-    canvasContainer.value.removeEventListener('mouseup', onMouseUp);
-    canvasContainer.value.removeEventListener('mouseleave', onMouseUp);
-  }
-
-  if (renderer.value) {
-    renderer.value.dispose();
-  }
+  window.removeEventListener('mousemove', onGlobalAngleMove);
+  window.removeEventListener('mouseup', stopAngleDrag);
+  window.removeEventListener('touchmove', onGlobalAngleMove);
+  window.removeEventListener('touchend', stopAngleDrag);
 });
 
 async function loadCards() {
   loadingCards.value = true;
   try {
-    const res = await strapiService.find('cards', { populate: 'image', pagination: { limit: 1000 } });
+    const res = await strapiService.fetchAll('cards', { populate: 'image' });
     if (!res.error) {
       const data = Array.isArray(res) ? res : (res.data || []);
       cards.value = data.map(c => {
         const attrs = c.attributes || c;
+        const imageUrl = attrs.image?.url ? getStrapiMediaUrl(attrs.image.url) : null;
         return { 
           id: c.id, 
           documentId: c.documentId || c.id,
-          ...attrs 
+          ...attrs,
+          imageUrl
         };
       });
     }
@@ -305,16 +501,10 @@ async function loadCards() {
 }
 
 async function onCardSelected() {
-  const card = cards.value.find(c => (c.documentId || c.id) === selectedCardId.value);
+  const card = selectedCardData.value;
   if (!card) return;
 
   const cardIdentifier = card.documentId || card.id;
-
-  const imgUrl = card.image?.url
-    ? getStrapiMediaUrl(card.image.url)
-    : 'https://images.unsplash.com/photo-1614728263952-84ea256f9679?q=80&w=1000&auto=format&fit=crop';
-
-  loadTexture(imgUrl);
 
   try {
     const res = await strapiService.find('foil-effects', {
@@ -329,7 +519,6 @@ async function onCardSelected() {
       currentExistingEffectId.value = effect.documentId || effect.id;
 
       if (effect.layers && effect.layers.length > 0) {
-        layers.value.forEach(l => l.texture?.dispose());
         layers.value = [];
 
         effect.layers.forEach(lData => {
@@ -346,7 +535,7 @@ async function onCardSelected() {
             const img = new Image();
             img.onload = () => {
               newLayer.ctx.drawImage(img, 0, 0);
-              newLayer.texture.needsUpdate = true;
+              newLayer.drawData = lData.drawData;
             };
             img.src = lData.drawData;
           }
@@ -360,21 +549,86 @@ async function onCardSelected() {
       currentExistingEffectId.value = null;
       resetToDefaultLayer();
     }
-
     activeLayerIndex.value = 0;
-    syncUniforms();
+    syncCanvasToOverlay();
   } catch(err) {
     console.error("Failed to load foil effect", err);
-    currentExistingEffectId.value = null;
     resetToDefaultLayer();
   }
 }
 
+function syncCanvasToOverlay() {
+  if (!activeCanvasRef.value || !activeLayer.value?.canvas) return;
+  const overlayCtx = activeCanvasRef.value.getContext('2d');
+  overlayCtx.clearRect(0, 0, 512, 512);
+  overlayCtx.drawImage(activeLayer.value.canvas, 0, 0);
+}
+
+// Implement Magic Wand logic
+async function generateMaskFromColor() {
+  const layer = activeLayer.value;
+  const card = selectedCardData.value;
+  if (!layer || !card?.imageUrl) return;
+
+  const targetHex = layer.targetColor || '#ffffff';
+  const rT = parseInt(targetHex.slice(1, 3), 16);
+  const gT = parseInt(targetHex.slice(3, 5), 16);
+  const bT = parseInt(targetHex.slice(5, 7), 16);
+
+  const sensitivity = layer.sensitivity || 0.3;
+  const tolerance = (layer.tolerance || 0.2) * 255;
+
+  const img = new Image();
+  img.crossOrigin = "Anonymous"; // Crucial for multi-domain Strapi
+  img.onload = () => {
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = 512;
+    tempCanvas.height = 512;
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCtx.drawImage(img, 0, 0, 512, 512);
+
+    const imageData = tempCtx.getImageData(0, 0, 512, 512);
+    const pixels = imageData.data;
+    
+    // Target mask context
+    const maskCtx = layer.ctx;
+    maskCtx.clearRect(0, 0, 512, 512);
+    const maskImageData = maskCtx.createImageData(512, 512);
+    const maskPixels = maskImageData.data;
+
+    for (let i = 0; i < pixels.length; i += 4) {
+      const r = pixels[i];
+      const g = pixels[i+1];
+      const b = pixels[i+2];
+
+      const diff = Math.sqrt(
+        Math.pow(r - rT, 2) +
+        Math.pow(g - gT, 2) + 
+        Math.pow(b - bT, 2)
+      );
+
+      // Simple thresholding logic: higher sensitivity = easier match
+      const threshold = (1 - sensitivity) * 441; // 441 is max distance in RGB space
+      const isMatch = diff < threshold + tolerance;
+
+      const alpha = isMatch ? 255 : 0;
+      maskPixels[i] = 255;   // White
+      maskPixels[i+1] = 255;
+      maskPixels[i+2] = 255;
+      maskPixels[i+3] = alpha;
+    }
+
+    maskCtx.putImageData(maskImageData, 0, 0);
+    layer.drawData = layer.canvas.toDataURL('image/png');
+    syncCanvasToOverlay();
+    alert("Masque généré par couleur avec succès !");
+  };
+  img.src = card.imageUrl;
+}
+
 function resetToDefaultLayer() {
-  layers.value.forEach(l => l.texture?.dispose());
   layers.value = [createDefaultLayer()];
   activeLayerIndex.value = 0;
-  syncUniforms();
 }
 
 async function saveEffect() {
@@ -392,8 +646,11 @@ async function saveEffect() {
         holoIntensity: l.holoIntensity,
         foilScale: l.foilScale,
         foilAngle: l.foilAngle,
+        foilDirection: l.foilDirection,
+        useRainbow: l.useRainbow,
         foilMode: l.foilMode,
         foilSpeed: l.foilSpeed,
+        noiseIntensity: l.noiseIntensity,
         drawData: l.canvas.toDataURL('image/png')
       };
       if (l.id) layerPayload.id = l.id;
@@ -425,42 +682,51 @@ async function saveEffect() {
   }
 }
 
-// ------------------------ THREE.JS LOGIC ------------------------
+let draggingRect = null;
 
-function initThreeJS() {
-  const dcv = document.createElement('canvas');
-  dcv.width = 1; dcv.height = 1;
-  dummyTexture.value = new THREE.CanvasTexture(dcv);
+function startAngleDrag(e, prop) {
+  angleDragging = true;
+  draggingProp = prop;
+  // Capture the rect of the EXACT picker we started dragging on
+  draggingRect = e.currentTarget.getBoundingClientRect();
+  updateAngleFromEvent(e);
+}
 
-  const container = canvasContainer.value;
-  scene.value = new THREE.Scene();
+function onGlobalAngleMove(e) {
+  if (!angleDragging) return;
+  updateAngleFromEvent(e);
+}
 
-  // Force minimum dimensions to avoid 0x0 errors on fast mounts
-  const width = container.clientWidth || 300;
-  const height = container.clientHeight || 420;
+function stopAngleDrag() {
+  angleDragging = false;
+  draggingRect = null;
+}
 
-  const aspect = width / height;
-  camera.value = new THREE.PerspectiveCamera(45, aspect, 0.1, 1000);
-  camera.value.position.z = 5;
-  camera.value.position.x = 0; // Centered camera, unlike the previous left-offset
+function updateAngleFromEvent(e) {
+  const rect = draggingRect || anglePickerRef.value?.getBoundingClientRect();
+  if (!rect || !layers.value[activeLayerIndex.value]) return;
 
-  renderer.value = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-  renderer.value.setPixelRatio(window.devicePixelRatio);
-  renderer.value.setSize(width, height);
-  container.appendChild(renderer.value.domElement);
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
 
-  textureLoader.value = new THREE.TextureLoader();
+  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  const clientY = e.touches ? e.touches[0].clientY : e.clientY;
 
-  animate();
+  let angle = Math.atan2(clientY - cy, clientX - cx) * (180 / Math.PI) + 90;
+  if (angle < 0) angle += 360;
+  angle = Math.round(angle) % 360;
+
+  layers.value[activeLayerIndex.value][draggingProp] = angle;
 }
 
 function createDefaultLayer() {
   const canvas = document.createElement('canvas');
-  canvas.width = 1024;
-  canvas.height = 1024;
+  canvas.width = 512;
+  canvas.height = 512;
   const ctx = canvas.getContext('2d');
-  ctx.fillStyle = 'white';
-  ctx.fillRect(0, 0, 1024, 1024);
+  // New default: Empty mask (Black). Draw with White to reveal effect.
+  ctx.fillStyle = 'black';
+  ctx.fillRect(0, 0, 512, 512);
 
   return reactive({
     enabled: true,
@@ -471,160 +737,46 @@ function createDefaultLayer() {
     holoIntensity: 0.5,
     foilScale: 4.0,
     foilAngle: 0,
+    foilDirection: 0,
+    useRainbow: false,
     foilMode: 0,
     foilSpeed: 1.0,
+    noiseIntensity: 0,
     canvas: canvas,
     ctx: ctx,
-    texture: new THREE.CanvasTexture(canvas)
+    drawData: canvas.toDataURL('image/png')
   });
 }
 
-function loadTexture(url) {
-  textureLoader.value.load(url, (tex) => {
-    if (mesh.value) scene.value.remove(mesh.value);
-
-    const aspect = tex.image.width / tex.image.height;
-    // Scale geometry slightly so it fits beautifully in the central view
-    // without clipping against top/bottom or left/right.
-    // 2.5 / 3.5 aspect ratio is standard.
-    const planeHeight = 4.0;
-    const planeWidth = planeHeight * aspect;
-    const geometry = new THREE.PlaneGeometry(planeWidth, planeHeight, 64, 64);
-
-    material.value = new THREE.ShaderMaterial({
-      vertexShader: vertexShaderStr,
-      fragmentShader: fragmentShaderStr,
-      uniforms: {
-        tDiffuse: { value: tex },
-        uLayerCount: { value: 0 },
-        uActiveLayer: { value: 0 },
-        uShowMask: { value: false },
-        uTime: { value: 0 },
-        uTilt: { value: new THREE.Vector2(0, 0) },
-        uLayerEnabled: { value: new Array(MAX_LAYERS).fill(true) },
-        uTargetColors: { value: new Array(MAX_LAYERS).fill(0).map(()=>new THREE.Color()) },
-        uSensitivities: { value: new Array(MAX_LAYERS).fill(0) },
-        uTolerances: { value: new Array(MAX_LAYERS).fill(0) },
-        uHoloIntensities: { value: new Array(MAX_LAYERS).fill(0.5) },
-        uFoilScales: { value: new Array(MAX_LAYERS).fill(0) },
-        uFoilAngles: { value: new Array(MAX_LAYERS).fill(0) },
-        uFoilColors: { value: new Array(MAX_LAYERS).fill(0).map(()=>new THREE.Color()) },
-        uFoilSpeeds: { value: new Array(MAX_LAYERS).fill(0) },
-        uFoilModes: { value: new Array(MAX_LAYERS).fill(0) },
-        uDrawMask0: { value: dummyTexture.value },
-        uDrawMask1: { value: dummyTexture.value },
-        uDrawMask2: { value: dummyTexture.value },
-        uDrawMask3: { value: dummyTexture.value },
-        uDrawMask4: { value: dummyTexture.value }
-      }
-    });
-
-    mesh.value = new THREE.Mesh(geometry, material.value);
-    scene.value.add(mesh.value);
-
-    const ringGeo = new THREE.RingGeometry(0.92, 1.0, 64);
-    const ringMat = new THREE.MeshBasicMaterial({ color: layers.value[activeLayerIndex.value]?.targetColor || 0xffffff, transparent: true, opacity: 0.9, side: THREE.DoubleSide, depthTest: false });
-    brushCursor.value = new THREE.Mesh(ringGeo, ringMat);
-    brushCursor.value.visible = false;
-    mesh.value.add(brushCursor.value);
-
-    syncUniforms();
-  }, undefined, (e) => console.error("Error loading texture", e));
-}
-
-function syncUniforms() {
-  if (!material.value) return;
-  const uniforms = material.value.uniforms;
-
-  uniforms.uLayerCount.value = layers.value.length;
-  uniforms.uActiveLayer.value = activeLayerIndex.value;
-
-  for (let i = 0; i < MAX_LAYERS; i++) {
-    if (i < layers.value.length) {
-      const l = layers.value[i];
-      uniforms.uLayerEnabled.value[i] = l.enabled;
-      uniforms.uTargetColors.value[i].set(l.targetColor);
-      uniforms.uSensitivities.value[i] = l.sensitivity;
-      uniforms.uTolerances.value[i] = l.tolerance;
-      uniforms.uHoloIntensities.value[i] = l.holoIntensity;
-      uniforms.uFoilScales.value[i] = l.foilScale;
-      uniforms.uFoilAngles.value[i] = l.foilAngle * Math.PI / 180;
-      uniforms.uFoilColors.value[i].set(l.foilColor);
-      uniforms.uFoilSpeeds.value[i] = l.foilSpeed;
-      uniforms.uFoilModes.value[i] = l.foilMode;
-      uniforms['uDrawMask'+i].value = l.texture;
-    } else {
-      uniforms.uLayerEnabled.value[i] = false;
-      uniforms['uDrawMask'+i].value = dummyTexture.value;
-    }
-  }
-
-  if (brushCursor.value && layers.value[activeLayerIndex.value]) {
-    brushCursor.value.material.color.set(layers.value[activeLayerIndex.value].targetColor);
-  }
-
-  triggerTemporaryMask();
-}
-
-function triggerTemporaryMask() {
-  if (!material.value || currentTool.value !== 'rotate') return;
-  material.value.uniforms.uShowMask.value = true;
-  clearTimeout(maskTimeout);
-  maskTimeout = setTimeout(() => {
-    if (material.value && currentTool.value === 'rotate') {
-      material.value.uniforms.uShowMask.value = false;
-    }
-  }, 800);
-}
-
-// ------------------------ UI ACTIONS ------------------------
-
 function setTool(tool) {
   currentTool.value = tool;
-  if (material.value) {
-    material.value.uniforms.uShowMask.value = (tool !== 'rotate');
-  }
-  if (brushCursor.value) {
-    brushCursor.value.visible = (tool !== 'rotate');
-  }
 }
 
 function selectLayer(index) {
   activeLayerIndex.value = index;
-  syncUniforms();
+  syncCanvasToOverlay();
 }
 
 function toggleLayer(index) {
   layers.value[index].enabled = !layers.value[index].enabled;
-  syncUniforms();
 }
 
 function addLayer() {
   if (layers.value.length < MAX_LAYERS) {
     layers.value.push(createDefaultLayer());
     activeLayerIndex.value = layers.value.length - 1;
-    syncUniforms();
   }
 }
 
 function deleteLayer(index) {
   if (layers.value.length > 1) {
-    layers.value[index].texture.dispose();
     layers.value.splice(index, 1);
     if (activeLayerIndex.value >= layers.value.length) {
       activeLayerIndex.value = layers.value.length - 1;
     } else if (activeLayerIndex.value > index) {
       activeLayerIndex.value--;
     }
-    syncUniforms();
   }
-}
-
-function fillMask(colorStr) {
-  const layer = layers.value[activeLayerIndex.value];
-  layer.ctx.fillStyle = colorStr;
-  layer.ctx.fillRect(0, 0, 1024, 1024);
-  layer.texture.needsUpdate = true;
 }
 
 async function pickColor() {
@@ -632,18 +784,49 @@ async function pickColor() {
     try {
       const result = await new window.EyeDropper().open();
       layers.value[activeLayerIndex.value].targetColor = result.sRGBHex;
-      syncUniforms();
     } catch (e) {}
   }
 }
 
-// ------------------------ MOUSE / DRAWING ------------------------
+function triggerSvgImport() {
+  if (svgInputRef.value) svgInputRef.value.click();
+}
+
+function handleSvgImport(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    const img = new Image();
+    img.onload = () => {
+      const layer = layers.value[activeLayerIndex.value];
+      if (!layer) return;
+
+      layer.ctx.clearRect(0, 0, 512, 512);
+      const ctx = layer.ctx;
+      const canvasSize = 512;
+      const ratio = Math.min(canvasSize / img.width, canvasSize / img.height);
+      const nw = img.width * ratio, nh = img.height * ratio;
+      const nx = (canvasSize - nw) / 2, ny = (canvasSize - nh) / 2;
+
+      ctx.save();
+      ctx.drawImage(img, nx, ny, nw, nh);
+      ctx.restore();
+
+      layer.drawData = layer.canvas.toDataURL('image/png');
+      e.target.value = '';
+    };
+    img.src = event.target.result;
+  };
+  reader.readAsDataURL(file);
+}
 
 function paint(uv) {
   const layer = layers.value[activeLayerIndex.value];
-  const cx = uv.x * 1024;
-  const cy = (1 - uv.y) * 1024;
-  const r = brushSize.value;
+  const cx = uv.x * 512;
+  const cy = (1 - uv.y) * 512;
+  const r = (brushSize.value / 1024) * 512;
 
   layer.ctx.beginPath();
   layer.ctx.arc(cx, cy, r, 0, Math.PI * 2);
@@ -659,98 +842,94 @@ function paint(uv) {
   }
 
   layer.ctx.fill();
-  layer.texture.needsUpdate = true;
+  
+  // Real-time visual update on the preview overlay ONLY
+  syncCanvasToOverlay();
 }
+
+let isDragging = false;
+let previousMousePosition = { x: 0, y: 0 };
 
 function onMouseDown(e) {
   isDragging = true;
   previousMousePosition = { x: e.clientX, y: e.clientY };
 
-  if (currentTool.value !== 'rotate' && mesh.value) {
-    const rect = canvasContainer.value.getBoundingClientRect();
-    mouseNDC.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    mouseNDC.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-
-    raycaster.setFromCamera(mouseNDC, camera.value);
-    const intersects = raycaster.intersectObject(mesh.value);
-    if (intersects.length > 0) paint(intersects[0].uv);
+  if (currentTool.value !== 'rotate') {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = 1.0 - (e.clientY - rect.top) / rect.height;
+    mouseUV.value = { x, y };
+    paint({ x, y });
   }
 }
 
+function trackMouseUV(e) {
+  const rect = e.currentTarget.getBoundingClientRect();
+  mouseUV.value = {
+    x: (e.clientX - rect.left) / rect.width,
+    y: 1.0 - (e.clientY - rect.top) / rect.height
+  };
+}
+
 function onMouseMove(e) {
-  if (!canvasContainer.value) return;
-  const rect = canvasContainer.value.getBoundingClientRect();
-  mouseNDC.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-  mouseNDC.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+  if (!isDragging) return;
 
-  if (currentTool.value !== 'rotate' && mesh.value && brushCursor.value) {
-    raycaster.setFromCamera(mouseNDC, camera.value);
-    const intersects = raycaster.intersectObject(mesh.value);
+  const rect = e.currentTarget.getBoundingClientRect();
+  const x = (e.clientX - rect.left) / rect.width;
+  const y = 1.0 - (e.clientY - rect.top) / rect.height;
+  mouseUV.value = { x, y };
 
-    if (intersects.length > 0) {
-      brushCursor.value.visible = true;
-      const uv = intersects[0].uv;
-      const width = mesh.value.geometry.parameters.width;
-      const height = mesh.value.geometry.parameters.height;
-
-      brushCursor.value.position.set((uv.x - 0.5) * width, (uv.y - 0.5) * height, 0.01);
-      brushCursor.value.scale.set((brushSize.value / 1024) * width, (brushSize.value / 1024) * height, 1);
-
-      if (isDragging) paint(uv);
-    } else {
-      brushCursor.value.visible = false;
-    }
-  }
-
-  if (isDragging && currentTool.value === 'rotate') {
-    targetRotation.y += (e.clientX - previousMousePosition.x) * 0.01;
-    targetRotation.x += (e.clientY - previousMousePosition.y) * 0.01;
-    targetRotation.x = Math.max(-Math.PI/3, Math.min(Math.PI/3, targetRotation.x));
-    targetRotation.y = Math.max(-Math.PI/3, Math.min(Math.PI/3, targetRotation.y));
+  if (currentTool.value !== 'rotate') {
+    paint({ x, y });
+  } else {
+    previewTilt.value.y += (e.clientX - previousMousePosition.x) * 0.5;
+    previewTilt.value.x -= (e.clientY - previousMousePosition.y) * 0.5;
+    previewTilt.value.x = Math.max(-30, Math.min(30, previewTilt.value.x));
+    previewTilt.value.y = Math.max(-30, Math.min(30, previewTilt.value.y));
     previousMousePosition = { x: e.clientX, y: e.clientY };
   }
 }
 
 function onMouseUp() {
+  if (isDragging && currentTool.value !== 'rotate') {
+    // Only convert to heavy Base64 string at the end of the stroke
+    const layer = activeLayer.value;
+    if (layer && layer.canvas) {
+      layer.drawData = layer.canvas.toDataURL('image/png');
+    }
+  }
   isDragging = false;
 }
 
-function onWindowResize() {
-  if (!canvasContainer.value || !camera.value || !renderer.value) return;
-  const width = canvasContainer.value.clientWidth;
-  const height = canvasContainer.value.clientHeight;
-  camera.value.aspect = width / height;
-  camera.value.updateProjectionMatrix();
-  renderer.value.setSize(width, height);
-}
-
-function animate() {
-  animationFrameId = requestAnimationFrame(animate);
-  if (mesh.value) {
-    mesh.value.rotation.x += (targetRotation.x - mesh.value.rotation.x) * 0.1;
-    mesh.value.rotation.y += (targetRotation.y - mesh.value.rotation.y) * 0.1;
-    if (material.value) material.value.uniforms.uTime.value += 0.05;
-  }
-  if (renderer.value && scene.value && camera.value) {
-    renderer.value.render(scene.value, camera.value);
-  }
-}
+function onWindowResize() {}
 </script>
 
 <style scoped>
+.foil-sections-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.foil-section {
+  flex: 1 1 280px;
+  min-width: 0;
+}
+
 .setting-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.35rem;
 }
 
-.setting-group label {
-  font-size: 10px;
+.setting-group label,
+.setting-label {
+  font-size: 9px;
   font-weight: 900;
   color: #64748b;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  padding-left: 0.25rem;
+  padding-left: 0.15rem;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -759,5 +938,29 @@ function animate() {
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
+}
+
+.angle-picker-container {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.angle-picker-container:active {
+  cursor: grabbing;
+}
+
+.angle-picker-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 6px rgba(var(--color-primary-rgb, 99, 102, 241), 0.3));
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
 }
 </style>
