@@ -11,14 +11,17 @@ export interface FoilLayer extends Struct.ComponentSchema {
     enabled: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     foilAngle: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     foilColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#ffffff'>;
+    foilDirection: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     foilMode: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     foilScale: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<4>;
     foilSpeed: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<1>;
     holoIntensity: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<1.2>;
+    noiseIntensity: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<0>;
     sensitivity: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<0.3>;
     targetColor: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'#cc3333'>;
     tolerance: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<0.2>;
+    useRainbow: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
   };
 }
 

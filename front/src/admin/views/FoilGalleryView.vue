@@ -87,42 +87,17 @@
       </AppPanel>
     </div>
 
-    <!-- Effect Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
-      <div v-for="mode in modes" :key="mode.value" class="flex flex-col items-center group">
-        <div class="relative w-full aspect-square max-w-[240px] rounded-2xl overflow-visible mb-4 perspective-1000">
-          <!-- Card Container -->
-          <div 
-            class="w-full h-full relative rounded-2xl border-2 border-white/10 overflow-hidden shadow-2xl transition-transform duration-200 ease-out"
-            :style="{ transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)` }"
-          >
-            <!-- Card Image -->
-            <img 
-              :src="getCardImageUrl(selectedCard)" 
-              class="w-full h-full object-cover"
-              v-if="selectedCard"
-            />
-            <div v-else class="w-full h-full bg-white/5 flex items-center justify-center italic text-gray-600 text-xs">
-              Aucune carte
-            </div>
-            
-            <!-- Holo Overlay -->
-            <HoloOverlay 
-              :layers="[{ foilMode: mode.value, enabled: true, holoIntensity: mode.intensity || 1.0, foilColor: mode.color || '#ffffff', foilScale: 4, foilSpeed: 1 }]"
-              :tiltX="tilt.x"
-              :tiltY="tilt.y"
-              :alwaysVisible="true"
-              :seed="42 + mode.value"
-            />
-            
-            <!-- Label Overlay -->
-            <div class="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
-              <div class="text-[10px] font-black uppercase tracking-widest text-primary">{{ mode.label }}</div>
-            </div>
-          </div>
-        </div>
-        
-        <p class="text-[9px] font-bold text-gray-500 uppercase tracking-[0.2em] group-hover:text-white transition-colors">Mode {{ mode.value }}</p>
+    <!-- Effect Grid (Full Width) -->
+    <div class="w-full mt-4">
+      <TripleTriadCardGrid 
+        v-if="selectedCard"
+        :cards="galleryCards"
+        cardSize="lg"
+        :showOwnNum="false"
+        :cardsPerRow="5"
+      />
+      <div v-else class="flex flex-col items-center justify-center py-20 bg-white/5 rounded-3xl border border-white/10 dashed text-gray-500 italic">
+        Veuillez sélectionner une carte dans le panel ci-dessus pour prévisualiser les effets.
       </div>
     </div>
   </div>
@@ -132,7 +107,8 @@
 import { ref, onMounted, computed } from 'vue';
 import AppPanel from '../../components/ui/AppPanel.vue';
 import AppButton from '../../components/ui/AppButton.vue';
-import HoloOverlay from '../../components/HoloOverlay.vue';
+import TripleTriadCardGrid from '../../components/TripleTriadCardGrid.vue';
+import TripleTriadCard from '../../components/TripleTriadCard.vue';
 import strapiService from '@/api/strapi';
 import { getStrapiMediaUrl } from '@/utils/url';
 
@@ -172,28 +148,59 @@ const filteredCards = computed(() => {
 function getCardImageUrl(card) {
   if (!card) return 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop';
   
-  // Handle Strapi 5 data structure
   const imgData = card.attributes?.image?.data || card.image?.data || card.image;
   if (!imgData) return 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop';
   
-  // If it's the simplified image object from state/some other place
   const url = imgData.attributes?.url || imgData.url || imgData;
   if (typeof url !== 'string') return 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop';
   
   return getStrapiMediaUrl(url);
 }
 
+function selectedCardData(card) {
+  if (!card) return null;
+  return {
+    id: card.id,
+    documentId: card.documentId || card.id,
+    name: card.attributes?.name || card.name,
+    imageUrl: getCardImageUrl(card),
+    level: card.attributes?.level || card.level,
+    topValue: card.attributes?.topValue || card.topValue || 5,
+    rightValue: card.attributes?.rightValue || card.rightValue || 5,
+    bottomValue: card.attributes?.bottomValue || card.bottomValue || 5,
+    leftValue: card.attributes?.leftValue || card.leftValue || 5,
+    element: card.attributes?.element || card.element,
+    rarity: card.attributes?.rarity || card.rarity || 'Common'
+  };
+}
+
+const galleryCards = computed(() => {
+  if (!selectedCard.value) return [];
+  const baseData = selectedCardData(selectedCard.value);
+  
+  return modes.map(mode => ({
+    ...baseData,
+    id: `${baseData.id}-${mode.value}`, // Unique ID for keys
+    name: mode.label, // Use mode label as title for this virtual card
+    overrideEffect: {
+      layers: [{
+        foilMode: mode.value,
+        enabled: true,
+        holoIntensity: mode.intensity || 1.2,
+        foilColor: mode.color || '#ffffff',
+        foilScale: 4,
+        foilSpeed: 1
+      }]
+    }
+  }));
+});
+
 const modes = [
-  { value: 0, label: 'Arc-en-ciel (Standard)', color: '#ffffff' },
-  { value: 1, label: 'Pulsation Glow', color: '#ff00ff', intensity: 1.5 },
-  { value: 2, label: 'Énergie Électrique', color: '#00d2ff', intensity: 1.2 },
-  { value: 3, label: 'Scintillement', color: '#ffffff', intensity: 0.8 },
-  { value: 4, label: 'Halo (Flare)', color: '#ffffff', intensity: 1.0 },
-  { value: 5, label: 'Prisme de Verre', color: '#ffaa00', intensity: 0.9 },
-  { value: 6, label: 'Fluide Aqua', color: '#00ffaa', intensity: 1.0 },
-  { value: 7, label: 'Digital Matrix', color: '#00ff00', intensity: 0.7 },
-  { value: 8, label: 'Étoiles Célestes', color: '#ffffff', intensity: 0.9 },
-  { value: 9, label: 'Nébuleuse Profonde', color: '#ff0055', intensity: 1.2 }
+  { value: 9, label: 'Nébuleuse', color: '#ff00ff', intensity: 1.2 },
+  { value: 10, label: 'Rare Holo', color: '#ffffff', intensity: 1.0 },
+  { value: 11, label: 'Radiant (V)', color: '#00ffff', intensity: 1.3 },
+  { value: 12, label: 'Galaxy (Cosmos)', color: '#ffffff', intensity: 1.4 },
+  { value: 13, label: 'Gold (Secret Rare)', color: '#ffd700', intensity: 1.1 }
 ];
 </script>
 

@@ -46,6 +46,7 @@
           :seed="premiumSeed"
           :tiltX="tiltX !== null ? tiltX : tilt.x"
           :tiltY="tiltY !== null ? tiltY : tilt.y"
+          :always-visible="alwaysVisible"
         />
 
         <!-- CARD CONTENT (Unified layout) -->
@@ -159,17 +160,19 @@ const props = defineProps({
   owner: { type: String, default: null },
   overrideEffect: { type: Object, default: null },
   tiltX: { type: Number, default: null },
-  tiltY: { type: Number, default: null }
+  tiltY: { type: Number, default: null },
+  alwaysVisible: { type: Boolean, default: false }
 });
 
 const userStore = useUserStore();
 const effectStore = useEffectStore();
 const customFoilEffect = computed(() => {
   if (props.overrideEffect) return props.overrideEffect;
+  if (props.card?.overrideEffect) return props.card.overrideEffect;
   if (!props.card) return null;
   const id = props.card.documentId || props.card.id;
   if (!id) return null;
-  return effectStore.getEffectForCard(id);
+  return useEffectStore().getEffectForCard(id);
 });
 
 const SIZES = {
@@ -253,7 +256,7 @@ function handleClick() {
 // --- Computed ---
 const isPremiumCard = computed(() => {
   if (props.card.revealed === false) return false;
-  return props.isPremium || props.card.isDrawnPremium;
+  return props.isPremium || props.card.isDrawnPremium || !!customFoilEffect.value;
 });
 
 const cardLevel = computed(() => {
@@ -1063,7 +1066,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 /* Unscoped styles for the Teleported zoom overlay */
 <style>
 /* Zoom card size */
-.card-size-zoom { width: min(350px, 70vw); font-size: 24px; aspect-ratio: 1 / 1; }
+.card-size-zoom { width: min(350px, 70vw); font-size: 24px; aspect-ratio: auto; }
 
 /* Card inner rendering for zoom (scoped styles don't apply in Teleport) */
 .zoom-overlay .tt-card { border-radius: 8px; overflow: visible; position: relative; }

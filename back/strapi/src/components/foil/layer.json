@@ -38,6 +38,14 @@
       "type": "integer",
       "default": 0
     },
+    "foilDirection": {
+      "type": "integer",
+      "default": 0
+    },
+    "useRainbow": {
+      "type": "boolean",
+      "default": false
+    },
     "foilMode": {
       "type": "integer",
       "default": 0
@@ -45,6 +53,10 @@
     "foilSpeed": {
       "type": "decimal",
       "default": 1.0
+    },
+    "noiseIntensity": {
+      "type": "decimal",
+      "default": 0.0
     },
     "drawData": {
       "type": "text",

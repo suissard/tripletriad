@@ -37,7 +37,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { state } from '../game/state.js';
 
 const props = defineProps({
@@ -47,6 +47,46 @@ const props = defineProps({
   tiltY: { type: Number, default: 0 },
   alwaysVisible: { type: Boolean, default: false }
 });
+
+// --- Gestion des masques JPEG (Noir & Blanc -> Transparence) ---
+const processedMasks = ref({});
+
+function processMask(src, index) {
+  if (!src) return;
+  const img = new Image();
+  img.crossOrigin = "Anonymous"; // Sécurité pour les URLs externes
+  img.onload = () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imageData.data;
+    
+    // Transforme la luminosité (noir/blanc) en opacité (alpha)
+    for (let i = 0; i < data.length; i += 4) {
+        const luminance = (data[i] + data[i+1] + data[i+2]) / 3;
+        data[i+3] = luminance; // Modification de l'alpha
+    }
+    ctx.putImageData(imageData, 0, 0);
+    processedMasks.value[index] = canvas.toDataURL();
+  };
+  img.src = src;
+}
+
+const lastProcessedData = ref({});
+
+watch(() => props.layers, (newLayers) => {
+  if (!newLayers) return;
+  newLayers.forEach((layer, index) => {
+    if (layer.drawData && layer.drawData !== lastProcessedData.value[index]) {
+      lastProcessedData.value[index] = layer.drawData;
+      processMask(layer.drawData, index);
+    }
+  });
+}, { immediate: true, deep: true });
 
 // --- Hashing & PRNG utilities ---
 function hashCode(str) {
@@ -69,19 +109,16 @@ function sfc32(a) {
 
 const computedSeed = computed(() => props.seed);
 
-// Transfert l'inclinaison en variables CSS pour des perfs optimales (évite de re-parser le template)
+// Transfert l'inclinaison en variables CSS pour des perfs optimales
 const containerStyle = computed(() => ({
   zIndex: 2,
   pointerEvents: 'none',
   '--tx': props.tiltX,
   '--ty': props.tiltY,
-  // Convert tilt (-15..15) TO Percentage (0..100)
-  // Snippet formula adaptation:
   '--x': `${50 + props.tiltY * 3.33}%`,
   '--y': `${50 - props.tiltX * 3.33}%`,
   '--posx': `${50 - props.tiltY * 3.33}%`,
   '--posy': `${50 + props.tiltX * 3.33}%`,
-  // Noise intensity from the first active layer or 0
   '--noise-intensity': props.layers?.[0]?.noiseIntensity || 0
 }));
 
@@ -103,7 +140,7 @@ function getLayerOctaves(layer) {
   return 2 + Math.floor(rng() * 4);
 }
 
-// Helper to merge layer data with defaults and standard properties
+// Helper to merge layer data
 function resolveLayer(l, i) {
   const isStandard = !props.layers || props.layers.length === 0;
   
@@ -121,7 +158,7 @@ function resolveLayer(l, i) {
   };
 }
 
-// Rendering style function (must be very reactive)
+// Rendering style function
 function getLayerStyle(inputLayer, index) {
   const layer = resolveLayer(inputLayer, index);
   const rng = sfc32(computedSeed.value + index);
@@ -137,9 +174,11 @@ function getLayerStyle(inputLayer, index) {
     '--foil-direction': `${layer.foilDirection || 0}deg`,
   };
 
+  // Application du masque transparent généré ou de l'original
   if (!layer.isStandard && layer.drawData) {
-    baseStyle.maskImage = `url(${layer.drawData})`;
-    baseStyle.webkitMaskImage = `url(${layer.drawData})`;
+    const maskSrc = processedMasks.value[index] || layer.drawData;
+    baseStyle.maskImage = `url(${maskSrc})`;
+    baseStyle.webkitMaskImage = `url(${maskSrc})`;
     baseStyle.maskSize = '71.42% 71.42%';
     baseStyle.webkitMaskSize = '71.42% 71.42%';
     baseStyle.maskRepeat = 'no-repeat';
@@ -160,14 +199,9 @@ function getLayerStyle(inputLayer, index) {
     }
   }
 
-  // MATH FIX: To keep the motif angle static relative to the card while rotating the movement direction:
-  // Motif Rotation (α) = constant.
-  // Layer Rotation (β) = Direction.
-  // Motif relative to Layer = α - β.
   const angle = `${layer.foilAngle - layer.foilDirection}deg`;
   const scale = layer.foilScale * 50;
   
-  // Combinaison inclinaison statique + oscillation idle
   const ctx = `calc(var(--tx) + var(--itx))`;
   const cty = `calc(var(--ty) + var(--ity))`;
   
@@ -268,6 +302,8 @@ function getLayerStyle(inputLayer, index) {
         opacity: (layer.holoIntensity || 0.6)
       };
     case 10: // Rare Holo (Classique)
+    case 0:  // Default/Standard
+    default: // Rare Holo as new global default
       return {
         ...baseStyle,
         backgroundImage: `linear-gradient(115deg, transparent 20%, rgba(255, 0, 0, 0.5) 25%, rgba(255, 165, 0, 0.5) 35%, rgba(255, 255, 0, 0.5) 45%, rgba(0, 128, 0, 0.5) 55%, rgba(0, 0, 255, 0.5) 65%, rgba(75, 0, 130, 0.5) 75%, rgba(238, 130, 238, 0.5) 85%, transparent 90%)`,
@@ -306,18 +342,6 @@ function getLayerStyle(inputLayer, index) {
         mixBlendMode: 'color-dodge',
         filter: 'brightness(1.1) contrast(1.3) sepia(0.5)',
         animation: 'holo-idle-slide 12s infinite linear'
-      };
-    case 0:
-    default: // Classic Rainbow / Tinted Gradient
-      return {
-        ...baseStyle,
-        background: `linear-gradient(${angle}, transparent, ${isRainbow ? rainbowColors.join(', ') : foilColor}, transparent)`,
-        backgroundSize: `${scale}% ${scale}%`,
-        backgroundPosition: `calc(50% + ${cty} * 0.8%) calc(50% + ${ctx} * 0.8%)`,
-        filter: `${layer.filterUrl} brightness(1.2) contrast(1.1)`,
-        mixBlendMode: 'overlay',
-        opacity: layer.isStandard ? 0.85 : (layer.holoIntensity || 0.85),
-        animation: 'holo-direction-slide var(--foil-speed) infinite linear'
       };
   }
 }
