@@ -50,11 +50,12 @@ const props = defineProps({
 
 // --- Gestion des masques JPEG (Noir & Blanc -> Transparence) ---
 const processedMasks = ref({});
+const processedPatterns = ref({});
 
-function processMask(src, index) {
+function processImage(src, index, targetRef) {
   if (!src) return;
   const img = new Image();
-  img.crossOrigin = "Anonymous"; // Sécurité pour les URLs externes
+  img.crossOrigin = "Anonymous";
   img.onload = () => {
     const canvas = document.createElement('canvas');
     canvas.width = img.width;
@@ -71,7 +72,7 @@ function processMask(src, index) {
         data[i+3] = luminance; // Modification de l'alpha
     }
     ctx.putImageData(imageData, 0, 0);
-    processedMasks.value[index] = canvas.toDataURL();
+    targetRef.value[index] = canvas.toDataURL();
   };
   img.src = src;
 }
@@ -81,9 +82,15 @@ const lastProcessedData = ref({});
 watch(() => props.layers, (newLayers) => {
   if (!newLayers) return;
   newLayers.forEach((layer, index) => {
-    if (layer.drawData && layer.drawData !== lastProcessedData.value[index]) {
-      lastProcessedData.value[index] = layer.drawData;
-      processMask(layer.drawData, index);
+    // Mask
+    if (layer.drawData && layer.drawData !== lastProcessedData.value[`m${index}`]) {
+      lastProcessedData.value[`m${index}`] = layer.drawData;
+      processImage(layer.drawData, index, processedMasks);
+    }
+    // Pattern
+    if (layer.patternData && layer.patternData !== lastProcessedData.value[`p${index}`]) {
+      lastProcessedData.value[`p${index}`] = layer.patternData;
+      processImage(layer.patternData, index, processedPatterns);
     }
   });
 }, { immediate: true, deep: true });
@@ -154,6 +161,8 @@ function resolveLayer(l, i) {
     useRainbow: l.useRainbow || false,
     holoIntensity: l.holoIntensity || 0.6,
     foilScale: l.foilScale || 4.0,
+    parallaxDepth: l.parallaxDepth !== undefined ? l.parallaxDepth : 1.0,
+    patternData: l.patternData || null,
     filterUrl: `url(#holo-filter-${computedSeed.value}-${i})`
   };
 }
@@ -175,16 +184,38 @@ function getLayerStyle(inputLayer, index) {
   };
 
   // Application du masque transparent généré ou de l'original
-  if (!layer.isStandard && layer.drawData) {
-    const maskSrc = processedMasks.value[index] || layer.drawData;
-    baseStyle.maskImage = `url(${maskSrc})`;
-    baseStyle.webkitMaskImage = `url(${maskSrc})`;
-    baseStyle.maskSize = '71.42% 71.42%';
-    baseStyle.webkitMaskSize = '71.42% 71.42%';
-    baseStyle.maskRepeat = 'no-repeat';
-    baseStyle.webkitMaskRepeat = 'no-repeat';
-    baseStyle.maskPosition = 'center';
-    baseStyle.webkitMaskPosition = 'center';
+  let maskImages = [];
+  
+  if (!layer.isStandard && (layer.drawData || layer.patternData)) {
+    if (layer.drawData) {
+      const maskSrc = processedMasks.value[index] || layer.drawData;
+      maskImages.push(`url(${maskSrc})`);
+    }
+    if (layer.patternData) {
+      const patternSrc = processedPatterns.value[index] || layer.patternData;
+      maskImages.push(`url(${patternSrc})`);
+    }
+
+    if (maskImages.length > 0) {
+      baseStyle.maskImage = maskImages.join(', ');
+      baseStyle.webkitMaskImage = maskImages.join(', ');
+      baseStyle.maskSize = '71.42% 71.42%';
+      baseStyle.webkitMaskSize = '71.42% 71.42%';
+      baseStyle.maskRepeat = 'no-repeat';
+      baseStyle.webkitMaskRepeat = 'no-repeat';
+      baseStyle.maskPosition = 'center';
+      baseStyle.webkitMaskPosition = 'center';
+      
+      if (maskImages.length > 1) {
+        // pattern (last in array, bottom) subject to mask (first in array, top)
+        // using destination-in so BOTTOM (pattern) is clipped by TOP (mask)
+        // actually in -webkit standard: mask-image: mask, pattern;
+        // mask-composite: source-in; means "show top image only where it overlaps bottom image"
+        // both result in Intersection.
+        baseStyle.maskComposite = 'intersect';
+        baseStyle.webkitMaskComposite = 'source-in';
+      }
+    }
   }
 
   // Color logic
@@ -202,12 +233,20 @@ function getLayerStyle(inputLayer, index) {
   const angle = `${layer.foilAngle - layer.foilDirection}deg`;
   const scale = layer.foilScale * 50;
   
-  const depth = layer.parallaxDepth !== undefined ? layer.parallaxDepth : 1.0;
-  const ctx = `calc((var(--tx) + var(--itx)) * ${depth})`;
-  const cty = `calc((var(--ty) + var(--ity)) * ${depth})`;
+  const depth = layer.parallaxDepth;
+  const moveDepth = depth - 1.0;
+  const ctx = `calc((var(--tx) + var(--itx)) * ${moveDepth})`;
+  const cty = `calc((var(--ty) + var(--ity)) * ${moveDepth})`;
   
   const pY = `calc(50% + ${cty} * 1%)`;
   const pX = `calc(50% + ${ctx} * 1%)`;
+
+  // Local position overrides global --posx/--posy to respect individual layer depth
+  // When depth = 1, moveDepth = 0, effect is static (pinned to card)
+  const posX = `calc(50% - ${cty} * 3.33%)`;
+  const posY = `calc(50% + ${ctx} * 3.33%)`;
+  const tiltPosX = `calc(50% + ${cty} * 3.33%)`;
+  const tiltPosY = `calc(50% - ${ctx} * 3.33%)`;
 
   const mode = layer.foilMode || 0;
 
@@ -309,7 +348,7 @@ function getLayerStyle(inputLayer, index) {
         ...baseStyle,
         backgroundImage: `linear-gradient(115deg, transparent 20%, rgba(255, 0, 0, 0.5) 25%, rgba(255, 165, 0, 0.5) 35%, rgba(255, 255, 0, 0.5) 45%, rgba(0, 128, 0, 0.5) 55%, rgba(0, 0, 255, 0.5) 65%, rgba(75, 0, 130, 0.5) 75%, rgba(238, 130, 238, 0.5) 85%, transparent 90%)`,
         backgroundSize: '200% 200%',
-        backgroundPosition: `var(--posx) var(--posy)`,
+        backgroundPosition: `${posX} ${posY}`,
         mixBlendMode: 'color-dodge',
         filter: 'brightness(1.2) contrast(1.2)',
         animation: 'holo-idle-slide 10s infinite linear'
@@ -319,7 +358,7 @@ function getLayerStyle(inputLayer, index) {
         ...baseStyle,
         backgroundImage: `repeating-linear-gradient(-45deg, rgba(255,100,100,0.5), rgba(255,200,100,0.5) 10%, rgba(100,255,100,0.5) 20%, rgba(100,100,255,0.5) 30%, rgba(255,100,255,0.5) 40%, rgba(255,100,100,0.5) 50%), repeating-linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.3) 2%, transparent 4%)`,
         backgroundSize: '400% 400%',
-        backgroundPosition: `var(--posx) var(--posy)`,
+        backgroundPosition: `${posX} ${posY}`,
         mixBlendMode: 'color-dodge',
         filter: 'brightness(1.3) contrast(1.5) saturate(1.2)',
         animation: 'holo-idle-slide 15s infinite linear'
@@ -327,7 +366,7 @@ function getLayerStyle(inputLayer, index) {
     case 12: // Galaxy / Cosmos
       return {
         ...baseStyle,
-        backgroundImage: `radial-gradient(circle at var(--posx) var(--posy), rgba(255,255,255,0.8) 0%, transparent 15%), radial-gradient(circle at calc(var(--posx) * 0.5) calc(var(--posy) * 1.5), rgba(200,200,255,0.6) 0%, transparent 10%), radial-gradient(circle at calc(var(--posx) * 1.5) calc(var(--posy) * 0.5), rgba(255,200,255,0.6) 0%, transparent 10%), linear-gradient(115deg, rgba(255, 0, 0, 0.2), rgba(0, 0, 255, 0.2), rgba(0, 255, 0, 0.2))`,
+        backgroundImage: `radial-gradient(circle at ${posX} ${posY}, rgba(255,255,255,0.8) 0%, transparent 15%), radial-gradient(circle at calc(${posX} * 0.5) calc(${posY} * 1.5), rgba(200,200,255,0.6) 0%, transparent 10%), radial-gradient(circle at calc(${posX} * 1.5) calc(${posY} * 0.5), rgba(255,200,255,0.6) 0%, transparent 10%), linear-gradient(115deg, rgba(255, 0, 0, 0.2), rgba(0, 0, 255, 0.2), rgba(0, 255, 0, 0.2))`,
         backgroundSize: '150% 150%',
         backgroundPosition: 'center',
         mixBlendMode: 'color-dodge',
@@ -337,9 +376,9 @@ function getLayerStyle(inputLayer, index) {
     case 13: // Gold / Secret Rare
       return {
         ...baseStyle,
-        backgroundImage: `repeating-linear-gradient(45deg, rgba(255,215,0,0.6) 0%, rgba(255,255,255,0.6) 10%, rgba(218,165,32,0.6) 20%, rgba(255,215,0,0.6) 30%), radial-gradient(farthest-corner circle at var(--x) var(--y), transparent 0%, rgba(139,69,19,0.4) 100%)`,
+        backgroundImage: `repeating-linear-gradient(45deg, rgba(255,215,0,0.6) 0%, rgba(255,255,255,0.6) 10%, rgba(218,165,32,0.6) 20%, rgba(255,215,0,0.6) 30%), radial-gradient(farthest-corner circle at ${tiltPosX} ${tiltPosY}, transparent 0%, rgba(139,69,19,0.4) 100%)`,
         backgroundSize: '200% 200%',
-        backgroundPosition: `var(--posx) var(--posy)`,
+        backgroundPosition: `${posX} ${posY}`,
         mixBlendMode: 'color-dodge',
         filter: 'brightness(1.1) contrast(1.3) sepia(0.5)',
         animation: 'holo-idle-slide 12s infinite linear'

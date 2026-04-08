@@ -199,19 +199,21 @@
             <div class="grid grid-cols-1 gap-4">
               <!-- Basic Tools -->
               <div class="flex gap-2">
-                <AppButton variant="ghost" size="sm" class="flex-1 h-10 border border-white/10 bg-white/5 hover:bg-primary/10 hover:border-primary/20 text-[9px] font-black uppercase tracking-widest transition-all" @click="triggerSvgImport">
-                  📥 SVG
-                  <input type="file" ref="svgInputRef" accept=".svg" class="hidden" @change="handleSvgImport">
-                </AppButton>
-
                 <AppButton variant="ghost" size="sm" class="flex-1 h-10 border border-white/10 bg-white/5 hover:bg-primary/10 hover:border-primary/20 text-[9px] font-black uppercase tracking-widest transition-all" @click="triggerImageImport">
                   🖼️ IMAGE
                   <input type="file" ref="imageInputRef" accept="image/*" class="hidden" @change="handleImageImport">
                 </AppButton>
-                
-                <AppButton variant="ghost" size="sm" class="flex-1 h-10 border border-white/10 bg-white/5 hover:bg-primary/10 hover:border-primary/20 text-[9px] font-black uppercase tracking-widest transition-all" @click="generateMaskFromColor">
-                  🪄 BAGUETTE
+
+                <AppButton variant="ghost" size="sm" class="flex-1 h-10 border border-white/10 bg-white/5 hover:bg-primary/10 hover:border-primary/20 text-[9px] font-black uppercase tracking-widest transition-all" @click="triggerPatternImport">
+                  🏁 MOTIF
+                  <input type="file" ref="patternInputRef" accept="image/*" class="hidden" @change="handlePatternImport">
                 </AppButton>
+              </div>
+
+              <!-- Pattern Info Overlay (Subtle) -->
+              <div v-if="activeLayer.patternData" class="mx-4 p-2 rounded-xl bg-primary/5 border border-primary/20 flex items-center justify-between">
+                <span class="text-[8px] font-black text-primary uppercase">Motif de texture actif</span>
+                <button @click="activeLayer.patternData = null" class="text-red-500 text-[10px] font-bold hover:scale-110 transition-transform">×</button>
               </div>
 
               <!-- Mask Visibility and Advanced Settings -->
@@ -229,24 +231,6 @@
                     </div>
                   </div>
                   <input type="range" v-model.number="maskVisibility" min="0.0" max="1.0" step="0.01" class="w-full h-1 bg-white/10 rounded-full appearance-none accent-primary">
-                </div>
-
-                <!-- Advanced auto-selection tweak -->
-                <div class="grid grid-cols-2 gap-4 pt-2 border-t border-white/5">
-                   <div>
-                    <div class="flex justify-between items-center mb-2">
-                      <label class="text-[8px] font-bold text-gray-600 uppercase">Tolérance</label>
-                      <span class="text-[8px] text-primary">{{ Math.round(activeLayer.tolerance * 100) }}%</span>
-                    </div>
-                    <input type="range" v-model.number="activeLayer.tolerance" min="0.0" max="1.0" step="0.01" class="w-full h-0.5 bg-white/5 rounded-full appearance-none accent-primary/60">
-                  </div>
-                  <div>
-                    <div class="flex justify-between items-center mb-2">
-                      <label class="text-[8px] font-bold text-gray-600 uppercase">Sensibilité</label>
-                      <span class="text-[8px] text-primary">{{ Math.round(activeLayer.sensitivity * 100) }}%</span>
-                    </div>
-                    <input type="range" v-model.number="activeLayer.sensitivity" min="0.01" max="1.0" step="0.01" class="w-full h-0.5 bg-white/5 rounded-full appearance-none accent-primary/60">
-                  </div>
                 </div>
               </div>
             </div>
@@ -318,75 +302,15 @@
               </div>
 
               <!-- Movement & Scale Tabs / Grid -->
-              <div class="grid grid-cols-2 gap-6">
-                <!-- Scale & Speed -->
+              <div class="grid grid-cols-1 gap-6">
+                <!-- Parallax only -->
                 <div class="space-y-4">
-                  <div>
-                    <div class="flex justify-between items-center mb-1.5 px-1">
-                      <label class="text-[9px] font-black text-gray-500 uppercase tracking-widest">Échelle</label>
-                      <span class="text-[9px] font-bold text-white/50">{{ activeLayer.foilScale.toFixed(1) }}</span>
-                    </div>
-                    <input type="range" v-model.number="activeLayer.foilScale" min="0.1" max="10.0" step="0.1" class="w-full h-0.5 bg-white/10 rounded-full appearance-none accent-primary">
-                  </div>
-                  <div>
-                    <div class="flex justify-between items-center mb-1.5 px-1">
-                      <label class="text-[9px] font-black text-gray-500 uppercase tracking-widest">Vitesse</label>
-                      <span class="text-[9px] font-bold text-white/50">{{ activeLayer.foilSpeed.toFixed(1) }}</span>
-                    </div>
-                    <input type="range" v-model.number="activeLayer.foilSpeed" min="0" max="5" step="0.1" class="w-full h-0.5 bg-white/10 rounded-full appearance-none accent-primary/70">
-                  </div>
                   <div>
                     <div class="flex justify-between items-center mb-1.5 px-1">
                       <label class="text-[9px] font-black text-gray-500 uppercase tracking-widest">Parallax</label>
                       <span class="text-[9px] font-bold text-white/50">{{ activeLayer.parallaxDepth.toFixed(1) }}</span>
                     </div>
                     <input type="range" v-model.number="activeLayer.parallaxDepth" min="0" max="5" step="0.1" class="w-full h-0.5 bg-white/10 rounded-full appearance-none accent-primary/70">
-                  </div>
-
-                </div>
-
-                <!-- Direction & Rotation Pickers -->
-                <div class="flex justify-around items-center pt-2">
-                   <div class="flex flex-col items-center gap-2 group/picker">
-                    <div class="angle-picker-container !w-16 !h-16 relative"
-                         @mousedown="startAngleDrag($event, 'foilAngle')"
-                    >
-                      <svg viewBox="0 0 80 80" class="angle-picker-svg">
-                        <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="2" />
-                        <circle cx="40" cy="40" r="34" fill="none" stroke="var(--color-primary)" stroke-width="2"
-                          :stroke-dasharray="`${(activeLayer.foilAngle / 360) * 213.6} 213.6`"
-                          transform="rotate(-90 40 40)"
-                          stroke-linecap="round"
-                        />
-                        <line x1="40" y1="40"
-                          :x2="40 + 20 * Math.cos((activeLayer.foilAngle - 90) * Math.PI / 180)"
-                          :y2="40 + 20 * Math.sin((activeLayer.foilAngle - 90) * Math.PI / 180)"
-                          stroke="white" stroke-width="2" stroke-linecap="round"
-                        />
-                      </svg>
-                    </div>
-                    <span class="text-[8px] font-black text-gray-500 uppercase tracking-tight">Motif</span>
-                  </div>
-
-                  <div class="flex flex-col items-center gap-2 group/picker">
-                    <div class="angle-picker-container !w-16 !h-16 relative"
-                         @mousedown="startAngleDrag($event, 'foilDirection')"
-                    >
-                      <svg viewBox="0 0 80 80" class="angle-picker-svg">
-                        <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="2" />
-                        <circle cx="40" cy="40" r="34" fill="none" stroke="#22c55e" stroke-width="2"
-                          :stroke-dasharray="`${(activeLayer.foilDirection / 360) * 213.6} 213.6`"
-                          transform="rotate(-90 40 40)"
-                          stroke-linecap="round"
-                        />
-                        <line x1="40" y1="40"
-                          :x2="40 + 20 * Math.cos((activeLayer.foilDirection - 90) * Math.PI / 180)"
-                          :y2="40 + 20 * Math.sin((activeLayer.foilDirection - 90) * Math.PI / 180)"
-                          stroke="#22c55e" stroke-width="2" stroke-linecap="round"
-                        />
-                      </svg>
-                    </div>
-                    <span class="text-[8px] font-black text-gray-500 uppercase tracking-tight">Flux</span>
                   </div>
                 </div>
               </div>
@@ -443,10 +367,10 @@ const brushSoftness = ref(0.2);
 const userStore = useUserStore();
 const previewTilt = ref({ x: 0, y: 0 });
 const mouseUV = ref({ x: 0.5, y: 0.5 });
-const svgInputRef = ref(null);
-const imageInputRef = ref(null);
 const activeCanvasRef = ref(null);
 const cardContainerRef = ref(null);
+const imageInputRef = ref(null);
+const patternInputRef = ref(null);
 const cardDimensions = reactive({ width: 450, height: 450, aspectRatio: 1 });
 const canvasDimensions = reactive({ width: 1024, height: 1024 });
 const maskVisibility = ref(0.4);
@@ -480,30 +404,15 @@ const cardOptions = computed(() => {
   }));
 });
 
-// Angle picker logic
-const anglePickerRef = ref(null);
-let angleDragging = false;
-let isDragging = false;
-let previousMousePosition = { x: 0, y: 0 };
-let draggingProp = 'foilAngle';
-
 onMounted(async () => {
   await loadCards();
   layers.value.push(createDefaultLayer());
 
   window.addEventListener('resize', onWindowResize);
-  window.addEventListener('mousemove', onGlobalAngleMove);
-  window.addEventListener('mouseup', stopAngleDrag);
-  window.addEventListener('touchmove', onGlobalAngleMove);
-  window.addEventListener('touchend', stopAngleDrag);
 });
 
 onBeforeUnmount(() => {
   window.removeEventListener('resize', onWindowResize);
-  window.removeEventListener('mousemove', onGlobalAngleMove);
-  window.removeEventListener('mouseup', stopAngleDrag);
-  window.removeEventListener('touchmove', onGlobalAngleMove);
-  window.removeEventListener('touchend', stopAngleDrag);
 });
 
 async function loadCards() {
@@ -577,6 +486,8 @@ async function onCardSelected() {
           Object.keys(lData).forEach(k => {
             if (k === 'id') {
               newLayer.id = lData[k];
+            } else if (k === 'patternData') {
+              newLayer.patternData = lData[k];
             } else if (k !== 'drawData' && k in newLayer) {
               newLayer[k] = lData[k];
             }
@@ -616,68 +527,6 @@ function syncCanvasToOverlay() {
   overlayCtx.drawImage(activeLayer.value.canvas, 0, 0);
 }
 
-// Implement Magic Wand logic
-async function generateMaskFromColor() {
-  const layer = activeLayer.value;
-  const card = selectedCardData.value;
-  if (!layer || !card?.imageUrl) return;
-
-  const targetHex = layer.targetColor || '#ffffff';
-  const rT = parseInt(targetHex.slice(1, 3), 16);
-  const gT = parseInt(targetHex.slice(3, 5), 16);
-  const bT = parseInt(targetHex.slice(5, 7), 16);
-
-  const sensitivity = layer.sensitivity || 0.3;
-  const tolerance = (layer.tolerance || 0.2) * 255;
-
-  const img = new Image();
-  img.crossOrigin = "Anonymous"; // Crucial for multi-domain Strapi
-  img.onload = async () => {
-    const tempCanvas = document.createElement('canvas');
-    tempCanvas.width = canvasDimensions.width;
-    tempCanvas.height = canvasDimensions.height;
-    const tempCtx = tempCanvas.getContext('2d');
-    tempCtx.drawImage(img, 0, 0, canvasDimensions.width, canvasDimensions.height);
-
-    const imageData = tempCtx.getImageData(0, 0, canvasDimensions.width, canvasDimensions.height);
-    const pixels = imageData.data;
-    
-    // Target mask context
-    const maskCtx = layer.ctx;
-    maskCtx.clearRect(0, 0, canvasDimensions.width, canvasDimensions.height);
-    const maskImageData = maskCtx.createImageData(canvasDimensions.width, canvasDimensions.height);
-    const maskPixels = maskImageData.data;
-
-    for (let i = 0; i < pixels.length; i += 4) {
-      const r = pixels[i];
-      const g = pixels[i+1];
-      const b = pixels[i+2];
-
-      const diff = Math.sqrt(
-        Math.pow(r - rT, 2) +
-        Math.pow(g - gT, 2) + 
-        Math.pow(b - bT, 2)
-      );
-
-      // Simple thresholding logic: higher sensitivity = easier match
-      const threshold = (1 - sensitivity) * 441; // 441 is max distance in RGB space
-      const isMatch = diff < threshold + tolerance;
-
-      const alpha = isMatch ? 255 : 0;
-      maskPixels[i] = 255;   // White
-      maskPixels[i+1] = 255;
-      maskPixels[i+2] = 255;
-      maskPixels[i+3] = alpha;
-    }
-
-    maskCtx.putImageData(maskImageData, 0, 0);
-    layer.drawData = layer.canvas.toDataURL('image/png');
-    syncCanvasToOverlay();
-    alert("Masque généré par couleur avec succès !");
-  };
-  img.src = card.imageUrl;
-}
-
 function resetToDefaultLayer() {
   layers.value = [createDefaultLayer()];
   activeLayerIndex.value = 0;
@@ -704,7 +553,8 @@ async function saveEffect() {
         foilSpeed: l.foilSpeed,
         parallaxDepth: l.parallaxDepth,
         noiseIntensity: l.noiseIntensity,
-        drawData: l.canvas.toDataURL('image/png')
+        drawData: l.canvas.toDataURL('image/png'),
+        patternData: l.patternData
       };
       if (l.id) layerPayload.id = l.id;
       return layerPayload;
@@ -777,8 +627,8 @@ function createDefaultLayer() {
   canvas.width = canvasDimensions.width;
   canvas.height = canvasDimensions.height;
   const ctx = canvas.getContext('2d');
-  // New default: Empty mask (Black). Draw with White to reveal effect.
-  ctx.fillStyle = 'black';
+  // New default: Full mask (White). Reveals effect on whole card.
+  ctx.fillStyle = 'white';
   ctx.fillRect(0, 0, canvasDimensions.width, canvasDimensions.height);
 
   return reactive({
@@ -792,11 +642,12 @@ function createDefaultLayer() {
     foilAngle: 0,
     foilDirection: 0,
     useRainbow: false,
-    foilMode: 0,
+    foilMode: 10,
     foilSpeed: 1.0,
-    parallaxDepth: 1.0,
+    parallaxDepth: 1.5,
     noiseIntensity: 0,
     drawData: canvas.toDataURL('image/png'),
+    patternData: null,
     // Avoid proxying the context and canvas DOM elements as it can break native methods
     canvas: markRaw(canvas),
     ctx: markRaw(ctx)
@@ -907,11 +758,11 @@ async function handleImageImport(e) {
   reader.readAsDataURL(file);
 }
 
-function triggerSvgImport() {
-  if (svgInputRef.value) svgInputRef.value.click();
+function triggerPatternImport() {
+  patternInputRef.value?.click();
 }
 
-async function handleSvgImport(e) {
+async function handlePatternImport(e) {
   const file = e.target.files[0];
   if (!file) return;
 
@@ -922,50 +773,25 @@ async function handleSvgImport(e) {
       const layer = layers.value[activeLayerIndex.value];
       if (!layer) return;
 
-      const ctx = layer.ctx;
-      
-      // Clear with black
-      ctx.fillStyle = 'black';
-      ctx.fillRect(0, 0, canvasDimensions.width, canvasDimensions.height);
-
-      // Cover logic
-      const ratio = Math.max(canvasDimensions.width / img.width, canvasDimensions.height / img.height);
-      const nw = img.width * ratio;
-      const nh = img.height * ratio;
-      const nx = (canvasDimensions.width - nw) / 2;
-      const ny = (canvasDimensions.height - nh) / 2;
-
       const tempCanvas = document.createElement('canvas');
-      tempCanvas.width = canvasDimensions.width;
-      tempCanvas.height = canvasDimensions.height;
+      const maxDim = 512;
+      const ratio = Math.min(maxDim / img.width, maxDim / img.height, 1);
+      tempCanvas.width = img.width * ratio;
+      tempCanvas.height = img.height * ratio;
       const tempCtx = tempCanvas.getContext('2d');
-      tempCtx.drawImage(img, nx, ny, nw, nh);
-
-      const imageData = tempCtx.getImageData(0, 0, canvasDimensions.width, canvasDimensions.height);
-      const data = imageData.data;
-
-      // SVG: Convert shapes to white
-      for (let i = 0; i < data.length; i += 4) {
-        if (data[i+3] > 0) {
-          const alpha = data[i+3] / 255;
-          data[i] = 255 * alpha;
-          data[i+1] = 255 * alpha;
-          data[i+2] = 255 * alpha;
-          data[i+3] = 255;
-        }
-      }
-      tempCtx.putImageData(imageData, 0, 0);
-
-      // BAKE into the user's paint canvas
-      ctx.drawImage(tempCanvas, 0, 0);
-      layer.drawData = layer.canvas.toDataURL('image/png');
-      syncCanvasToOverlay();
+      tempCtx.drawImage(img, 0, 0, tempCanvas.width, tempCanvas.height);
+      
+      layer.patternData = tempCanvas.toDataURL('image/png');
+      alert("Motif de texture mis à jour !");
       e.target.value = '';
     };
     img.src = event.target.result;
   };
   reader.readAsDataURL(file);
 }
+
+let isDragging = false;
+let previousMousePosition = { x: 0, y: 0 };
 
 function paint(uv) {
   const layer = layers.value[activeLayerIndex.value];
@@ -1078,25 +904,6 @@ function onWindowResize() {}
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
-}
-
-.angle-picker-container {
-  width: 80px;
-  height: 80px;
-  flex-shrink: 0;
-  cursor: grab;
-  user-select: none;
-  touch-action: none;
-}
-
-.angle-picker-container:active {
-  cursor: grabbing;
-}
-
-.angle-picker-svg {
-  width: 100%;
-  height: 100%;
-  filter: drop-shadow(0 0 6px rgba(var(--color-primary-rgb, 99, 102, 241), 0.3));
 }
 
 .glass-panel {

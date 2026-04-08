@@ -17,6 +17,8 @@ export interface FoilLayer extends Struct.ComponentSchema {
     foilSpeed: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<1>;
     holoIntensity: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<1.2>;
     noiseIntensity: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<0>;
+    parallaxDepth: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<1.5>;
+    patternData: Schema.Attribute.Text;
     sensitivity: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<0.3>;
     targetColor: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'#cc3333'>;
