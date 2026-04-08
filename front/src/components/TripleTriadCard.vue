@@ -78,6 +78,7 @@
 
           <!-- Unowned lock -->
           <div class="unowned-overlay" v-if="unowned">🔒</div>
+
         </template>
 
         <!-- HP Bar -->
@@ -110,6 +111,11 @@
 
     <!-- Quantity badge (outside inner to avoid clipping) -->
     <div class="quantity-badge" v-if="quantity >= 1" :style="!flat ? tiltStyle : {}">×{{ quantity }}</div>
+
+    <!-- New badge (outside inner to avoid clipping, same as quantity) -->
+    <div class="new-badge" v-if="isNew" :style="newBadgeStyle">
+      <span>NEW</span>
+    </div>
   </div>
 
   <!-- Card Detail Modal -->
@@ -161,7 +167,8 @@ const props = defineProps({
   overrideEffect: { type: Object, default: null },
   tiltX: { type: Number, default: null },
   tiltY: { type: Number, default: null },
-  alwaysVisible: { type: Boolean, default: false }
+  alwaysVisible: { type: Boolean, default: false },
+  isNew: { type: Boolean, default: false }
 });
 
 const userStore = useUserStore();
@@ -389,6 +396,14 @@ const innerStyle = computed(() => {
   return {
     transform: `rotateX(${tx}deg) rotateY(${rotationY}deg)`,
     transition: (tx === 0 && ty === 0) ? 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)' : 'transform 0.1s ease-out'
+  };
+});
+
+const newBadgeStyle = computed(() => {
+  const base = !props.flat ? tiltStyle.value : { transform: '' };
+  return {
+    ...base,
+    transform: (base.transform || '') + ' rotate(30deg)'
   };
 });
 
@@ -1061,6 +1076,42 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 .craft-btn:disabled { background: #555; color: #888; cursor: not-allowed; }
 .disenchant-btn { background: #f44336; }
 .disenchant-btn:hover { background: #d32f2f; }
+
+/* New badge */
+.new-badge {
+  position: absolute;
+  top: -1em;
+  right: -1em;
+  width: 4.5em; /* Larger area for the burst shape */
+  height: 4.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #00f2ff, #0066ff);
+  color: white;
+  font-size: 0.6em;
+  font-weight: 900;
+  z-index: 20;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5), 0 0 15px rgba(0, 242, 255, 0.4);
+  /* Multi-point burst shape */
+  clip-path: polygon(
+    50% 0%, 58% 18%, 75% 6%, 77% 25%, 94% 20%, 88% 38%, 100% 50%, 88% 62%, 94% 80%, 77% 75%, 75% 94%, 58% 82%, 50% 100%, 42% 82%, 25% 94%, 23% 75%, 6% 80%, 12% 62%, 0% 50%, 12% 38%, 6% 20%, 23% 25%, 25% 6%, 42% 18%
+  );
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  pointer-events: none;
+  animation: badge-pop-burst 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.new-badge span {
+  transform: rotate(-10deg);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+@keyframes badge-pop-burst {
+  0% { transform: scale(0) rotate(-15deg); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
 </style>
 
 /* Unscoped styles for the Teleported zoom overlay */
