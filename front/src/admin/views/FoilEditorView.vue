@@ -335,6 +335,14 @@
                     </div>
                     <input type="range" v-model.number="activeLayer.foilSpeed" min="0" max="5" step="0.1" class="w-full h-0.5 bg-white/10 rounded-full appearance-none accent-primary/70">
                   </div>
+                  <div>
+                    <div class="flex justify-between items-center mb-1.5 px-1">
+                      <label class="text-[9px] font-black text-gray-500 uppercase tracking-widest">Parallax</label>
+                      <span class="text-[9px] font-bold text-white/50">{{ activeLayer.parallaxDepth.toFixed(1) }}</span>
+                    </div>
+                    <input type="range" v-model.number="activeLayer.parallaxDepth" min="0" max="5" step="0.1" class="w-full h-0.5 bg-white/10 rounded-full appearance-none accent-primary/70">
+                  </div>
+
                 </div>
 
                 <!-- Direction & Rotation Pickers -->
@@ -694,6 +702,7 @@ async function saveEffect() {
         useRainbow: l.useRainbow,
         foilMode: l.foilMode,
         foilSpeed: l.foilSpeed,
+        parallaxDepth: l.parallaxDepth,
         noiseIntensity: l.noiseIntensity,
         drawData: l.canvas.toDataURL('image/png')
       };
@@ -785,6 +794,7 @@ function createDefaultLayer() {
     useRainbow: false,
     foilMode: 0,
     foilSpeed: 1.0,
+    parallaxDepth: 1.0,
     noiseIntensity: 0,
     drawData: canvas.toDataURL('image/png'),
     // Avoid proxying the context and canvas DOM elements as it can break native methods

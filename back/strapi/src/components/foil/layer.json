@@ -58,6 +58,11 @@
       "type": "decimal",
       "default": 0.0
     },
+    "parallaxDepth": {
+      "type": "decimal",
+      "default": 1.0,
+      "description": "Degree of parallax depth effect on tilt"
+    },
     "drawData": {
       "type": "text",
       "description": "Base64 encoded mask image"

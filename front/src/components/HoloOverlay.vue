@@ -202,8 +202,9 @@ function getLayerStyle(inputLayer, index) {
   const angle = `${layer.foilAngle - layer.foilDirection}deg`;
   const scale = layer.foilScale * 50;
   
-  const ctx = `calc(var(--tx) + var(--itx))`;
-  const cty = `calc(var(--ty) + var(--ity))`;
+  const depth = layer.parallaxDepth !== undefined ? layer.parallaxDepth : 1.0;
+  const ctx = `calc((var(--tx) + var(--itx)) * ${depth})`;
+  const cty = `calc((var(--ty) + var(--ity)) * ${depth})`;
   
   const pY = `calc(50% + ${cty} * 1%)`;
   const pX = `calc(50% + ${ctx} * 1%)`;
