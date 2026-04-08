@@ -5,11 +5,6 @@
     <div class="flex-1 flex flex-col min-h-screen">
       <!-- Toolbar -->
       <AppPanel class="p-2 mb-4 flex items-center justify-center gap-2 max-w-fit mx-auto sticky top-0 z-20" :padding="false">
-        <AppButton
-          variant="ghost"
-          :class="['px-6 py-2 text-xs font-bold transition-all', currentTool === 'rotate' ? 'bg-primary/20 text-white' : 'text-gray-400']"
-          @click="setTool('rotate')"
-        >🔄 3D VIEW</AppButton>
 
         <!-- Paint button -->
         <AppButton
@@ -24,6 +19,13 @@
           :class="['px-6 py-2 text-xs font-bold transition-all', currentTool === 'erase' ? 'bg-primary/20 text-white' : 'text-gray-400']"
           @click="setTool('erase')"
         >🧽 ERASE</AppButton>
+        
+        <!-- Invert button -->
+        <AppButton
+          variant="ghost"
+          class="px-6 py-2 text-xs font-bold transition-all text-gray-400 hover:text-white"
+          @click="invertMask"
+        >🔄 INVERT</AppButton>
 
         <!-- Brush params -->
         <template v-if="currentTool === 'draw' || currentTool === 'erase'">
@@ -56,6 +58,11 @@
             @mouseup="onMouseUp"
             @mouseleave="onMouseUp"
           >
+            <!-- Loading Overlay for Effect -->
+            <div v-if="loadingEffect" class="absolute inset-0 z-[110] bg-[#0a0a1a]/80 backdrop-blur-sm flex flex-col items-center justify-center gap-4 animate-in fade-in duration-300">
+              <div class="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
+              <div class="text-[10px] font-black text-primary uppercase tracking-[0.3em]">Synchronisation...</div>
+            </div>
             <!-- Flexible Card Container based on Aspect Ratio -->
               <div 
                 v-if="selectedCardData"
@@ -154,7 +161,6 @@
               label="Sélectionner un modèle"
               placeholder="Choisir une carte..."
               searchable
-              @change="onCardSelected"
             >
               <template #icon>🎴</template>
             </PremiumSelect>
@@ -188,6 +194,11 @@
 
         <!-- Only show settings if there is at least 1 layer -->
         <template v-if="layers.length > 0">
+          <div class="relative min-h-[400px]">
+            <!-- Settings Loading Overlay -->
+            <div v-if="loadingEffect" class="absolute inset-x-0 top-0 bottom-0 z-50 bg-[#0a0a1a]/40 backdrop-blur-[2px] rounded-2xl flex items-center justify-center">
+              <!-- Minimalist loading bar or similar if needed -->
+            </div>
 
           <!-- 2. Configuration du Masque -->
           <section class="foil-section space-y-4 pt-2">
@@ -273,27 +284,11 @@
 
             <!-- Effect Customization Controls -->
             <div class="space-y-6 pt-2">
-              <!-- Color & Intensity -->
-              <div class="grid grid-cols-2 gap-4">
-                <div class="space-y-3">
-                  <div class="flex justify-between items-center px-1">
-                    <label class="text-[9px] font-black text-gray-500 uppercase tracking-widest">Teinte</label>
-                    <button 
-                      @click="activeLayer.useRainbow = !activeLayer.useRainbow" 
-                      :class="['text-[8px] font-black px-2 py-0.5 rounded transition-all', activeLayer.useRainbow ? 'bg-primary text-black' : 'bg-white/10 text-gray-500 px-1 border border-white/10']"
-                    >🌈 RAINBOW</button>
-                  </div>
-                  <div class="flex items-center gap-3 p-2 rounded-xl bg-white/[0.03] border border-white/5">
-                    <input type="color" v-model="activeLayer.foilColor" :disabled="activeLayer.useRainbow" 
-                           class="h-8 w-12 bg-transparent border-0 cursor-pointer p-0 rounded-lg overflow-hidden disabled:opacity-20 transition-all">
-                    <span class="text-[9px] font-black text-white/40 uppercase tracking-widest">{{ activeLayer.useRainbow ? 'Dynamique' : activeLayer.foilColor }}</span>
-                  </div>
-                </div>
-
+              <div class="grid grid-cols-1 gap-4">
                 <div class="space-y-3">
                   <div class="flex justify-between items-center px-1">
                     <label class="text-[9px] font-black text-gray-500 uppercase tracking-widest">Intensité</label>
-                    <span class="text-[9px] font-bold text-primary">{{ activeLayer.holoIntensity.toFixed(1) }}</span>
+                    <span class="text-[9px] font-bold text-primary">{{ (activeLayer.holoIntensity ?? 0).toFixed(1) }}</span>
                   </div>
                   <div class="flex flex-col justify-center h-12">
                     <input type="range" v-model.number="activeLayer.holoIntensity" min="0" max="3" step="0.1" class="w-full h-1 bg-white/10 rounded-full appearance-none accent-primary">
@@ -308,7 +303,7 @@
                   <div>
                     <div class="flex justify-between items-center mb-1.5 px-1">
                       <label class="text-[9px] font-black text-gray-500 uppercase tracking-widest">Parallax</label>
-                      <span class="text-[9px] font-bold text-white/50">{{ activeLayer.parallaxDepth.toFixed(1) }}</span>
+                      <span class="text-[9px] font-bold text-white/50">{{ (activeLayer.parallaxDepth ?? 0).toFixed(1) }}</span>
                     </div>
                     <input type="range" v-model.number="activeLayer.parallaxDepth" min="0" max="5" step="0.1" class="w-full h-0.5 bg-white/10 rounded-full appearance-none accent-primary/70">
                   </div>
@@ -316,7 +311,8 @@
               </div>
             </div>
           </section>
-        </template>
+        </div>
+      </template>
 
         <!-- 5. Export Action -->
         <AppButton
@@ -338,7 +334,8 @@
 <script setup>
 import AppPanel from '../../components/ui/AppPanel.vue';
 import AppButton from '../../components/ui/AppButton.vue';
-import { ref, reactive, computed, onMounted, onBeforeUnmount, markRaw } from 'vue';
+import { ref, reactive, computed, onMounted, onBeforeUnmount, markRaw, nextTick, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import HoloOverlay from '../../components/HoloOverlay.vue';
 import { useUserStore } from '../../stores/userStore.js';
 import strapiService from '@/api/strapi';
@@ -351,8 +348,9 @@ const MAX_LAYERS = 5;
 // Refs & State
 const cards = ref([]);
 const selectedCardId = ref('');
-const selectedCardData = computed(() => cards.value.find(c => (c.documentId || c.id) === selectedCardId.value));
+const selectedCardData = computed(() => cards.value.find(c => String(c.documentId || c.id) === String(selectedCardId.value)));
 const loadingCards = ref(false);
+const loadingEffect = ref(false);
 const saving = ref(false);
 const currentExistingEffectId = ref(null);
 
@@ -360,11 +358,13 @@ const layers = ref([]);
 const activeLayerIndex = ref(0);
 const activeLayer = computed(() => layers.value[activeLayerIndex.value] || {});
 
-const currentTool = ref('rotate');
+const currentTool = ref('draw');
 const brushSize = ref(30);
 const brushSoftness = ref(0.2);
 
 const userStore = useUserStore();
+const route = useRoute();
+const router = useRouter();
 const previewTilt = ref({ x: 0, y: 0 });
 const mouseUV = ref({ x: 0.5, y: 0.5 });
 const activeCanvasRef = ref(null);
@@ -405,10 +405,30 @@ const cardOptions = computed(() => {
 });
 
 onMounted(async () => {
+  // 1. Initialize immediate UI state so options are visible
+  if (layers.value.length === 0) {
+    resetToDefaultLayer();
+  }
+
+  // 2. Load the card list
   await loadCards();
-  layers.value.push(createDefaultLayer());
+  
+  // 3. Handle initial selection from URL
+  if (route.query.id) {
+    selectedCardId.value = String(route.query.id);
+  }
 
   window.addEventListener('resize', onWindowResize);
+});
+
+// Watch for card selection changes (from UI or URL)
+watch(selectedCardId, (newId) => {
+  if (newId) {
+    onCardSelected();
+  } else {
+    // If no card selected, ensure we have a clean default layer
+    resetToDefaultLayer();
+  }
 });
 
 onBeforeUnmount(() => {
@@ -439,72 +459,100 @@ async function loadCards() {
   }
 }
 
+let lastLoadId = 0;
+
 async function onCardSelected() {
-  const card = selectedCardData.value;
-  if (!card) return;
-
-  // 1. Load image to determine natural proportions
-  const imageLoader = new Image();
-  imageLoader.crossOrigin = "Anonymous";
-  imageLoader.src = card.imageUrl;
+  const currentLoadId = ++lastLoadId;
+  loadingEffect.value = true;
   
-  await new Promise((resolve) => {
-    imageLoader.onload = () => {
-      const ratio = imageLoader.naturalWidth / imageLoader.naturalHeight;
-      cardDimensions.aspectRatio = 1;
-      cardDimensions.width = 450;
-      cardDimensions.height = 450;
-
-      // Force Square High-Res Canvas
-      canvasDimensions.width = 1024;
-      canvasDimensions.height = 1024;
-      
-      resolve();
-    };
-    imageLoader.onerror = () => resolve(); // Fallback to default square
-  });
-
-  const cardIdentifier = card.documentId || card.id;
-
+  // IMMEDIATELY reset state to avoid showing old card's mask/layers
+  resetToDefaultLayer();
+  
   try {
+    await nextTick();
+
+    // 1. Resolve target card
+    let card = selectedCardData.value;
+    if (!card && selectedCardId.value) {
+      card = cards.value.find(c => String(c.documentId || c.id) === String(selectedCardId.value));
+    }
+    
+    if (!card) {
+      loadingEffect.value = false;
+      return;
+    }
+
+    // 2. Load Dimensions
+    const imageLoader = new Image();
+    imageLoader.crossOrigin = "Anonymous";
+    imageLoader.src = card.imageUrl;
+    
+    await new Promise((resolve) => {
+      imageLoader.onload = () => resolve();
+      imageLoader.onerror = () => resolve();
+    });
+    
+    // Set static dimensions for simplicity and reliability
+    cardDimensions.width = 450;
+    cardDimensions.height = 450;
+    canvasDimensions.width = 1024;
+    canvasDimensions.height = 1024;
+
+    const cardIdentifier = card.documentId || card.id;
+    
+    // Update URL if not already matching
+    if (String(route.query.id) !== String(cardIdentifier)) {
+       router.replace({ query: { ...route.query, id: cardIdentifier } });
+    }
+
+    // 3. Fetch Foil Effect
     const res = await strapiService.find('foil-effects', {
       filters: { card: { documentId: { $eq: cardIdentifier } } },
       populate: 'layers'
     });
 
-    const data = Array.isArray(res) ? res : (res.data || []);
+    // Race condition check
+    if (currentLoadId !== lastLoadId) return;
 
-    if (data.length > 0) {
-      const effect = data[0].attributes ? { id: data[0].id, documentId: data[0].documentId, ...data[0].attributes } : data[0];
-      currentExistingEffectId.value = effect.documentId || effect.id;
+    const dataArray = Array.isArray(res) ? res : (res.data || []);
+    
+    if (dataArray.length > 0) {
+      const rawEffect = dataArray[0];
+      const effectData = rawEffect.attributes || rawEffect;
+      currentExistingEffectId.value = rawEffect.documentId || rawEffect.id;
 
-      if (effect.layers && effect.layers.length > 0) {
-        layers.value = [];
-
-        effect.layers.forEach(lData => {
+      const rawLayers = effectData.layers || [];
+      if (Array.isArray(rawLayers) && rawLayers.length > 0) {
+        const layerPromises = rawLayers.map(async (lData) => {
           const newLayer = createDefaultLayer();
+          
+          // Map properties
           Object.keys(lData).forEach(k => {
-            if (k === 'id') {
-              newLayer.id = lData[k];
-            } else if (k === 'patternData') {
-              newLayer.patternData = lData[k];
-            } else if (k !== 'drawData' && k in newLayer) {
-              newLayer[k] = lData[k];
-            }
+            if (k === 'id') newLayer.id = lData[k];
+            else if (k === 'patternData') newLayer.patternData = lData[k];
+            else if (k !== 'drawData' && k in newLayer) newLayer[k] = lData[k];
           });
 
           if (lData.drawData) {
-            const img = new Image();
-            img.onload = () => {
-              // Ensure we draw the existing mask onto the new canvas dimensions
-              newLayer.ctx.drawImage(img, 0, 0, canvasDimensions.width, canvasDimensions.height);
-              newLayer.drawData = lData.drawData;
-            };
-            img.src = lData.drawData;
+            await new Promise((resolve) => {
+              const img = new Image();
+              img.onload = () => {
+                newLayer.ctx.clearRect(0, 0, canvasDimensions.width, canvasDimensions.height);
+                newLayer.ctx.drawImage(img, 0, 0, canvasDimensions.width, canvasDimensions.height);
+                newLayer.drawData = lData.drawData;
+                resolve();
+              };
+              img.onerror = () => resolve();
+              img.src = lData.drawData;
+            });
           }
-
-          layers.value.push(newLayer);
+          return newLayer;
         });
+
+        const results = await Promise.all(layerPromises);
+        if (currentLoadId === lastLoadId) {
+          layers.value = results;
+        }
       } else {
         resetToDefaultLayer();
       }
@@ -512,11 +560,18 @@ async function onCardSelected() {
       currentExistingEffectId.value = null;
       resetToDefaultLayer();
     }
-    activeLayerIndex.value = 0;
-    syncCanvasToOverlay();
+    
+    if (currentLoadId === lastLoadId) {
+      activeLayerIndex.value = 0;
+      syncCanvasToOverlay();
+    }
   } catch(err) {
-    console.error("Failed to load foil effect", err);
+    console.error("FoilEditor: Error in onCardSelected", err);
     resetToDefaultLayer();
+  } finally {
+    if (currentLoadId === lastLoadId) {
+      loadingEffect.value = false;
+    }
   }
 }
 
@@ -648,7 +703,6 @@ function createDefaultLayer() {
     noiseIntensity: 0,
     drawData: canvas.toDataURL('image/png'),
     patternData: null,
-    // Avoid proxying the context and canvas DOM elements as it can break native methods
     canvas: markRaw(canvas),
     ctx: markRaw(ctx)
   });
@@ -656,6 +710,24 @@ function createDefaultLayer() {
 
 function setTool(tool) {
   currentTool.value = tool;
+}
+
+function invertMask() {
+  if (!activeLayer.value?.ctx) return;
+  const { width, height } = canvasDimensions;
+  const ctx = activeLayer.value.ctx;
+  const imageData = ctx.getImageData(0, 0, width, height);
+  const data = imageData.data;
+  
+  for (let i = 0; i < data.length; i += 4) {
+    data[i] = 255 - data[i];
+    data[i+1] = 255 - data[i+1];
+    data[i+2] = 255 - data[i+2];
+  }
+  
+  ctx.putImageData(imageData, 0, 0);
+  activeLayer.value.drawData = activeLayer.value.canvas.toDataURL();
+  syncCanvasToOverlay();
 }
 
 function selectLayer(index) {
