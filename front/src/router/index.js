@@ -47,6 +47,12 @@ const routes = [
     meta: { requiresAdminAuth: true }
   },
   {
+    path: '/admin/foil-gallery',
+    name: 'admin-foil-gallery',
+    component: () => import('../admin/views/FoilGalleryView.vue'),
+    meta: { requiresAdminAuth: true }
+  },
+  {
     path: '/admin/test-api',
     name: 'admin-test-api',
     component: () => import('../admin/views/DevTestPage.vue'),

@@ -20,6 +20,55 @@ class StrapiApi {
         return this.strapiClient.collection(collection).find(queryParams);
     }
 
+    /**
+     * Fetch all records from a collection by handling pagination automatically.
+     * Use this for small-to-medium collections where a full dataset is needed (e.g. lists for filters, admin tools).
+     * 
+     * @param {string} collection - The collection name (e.g., 'cards')
+     * @param {Object} queryParams - Any Strapi query parameters (e.g., filters, populate)
+     * @returns {Promise<Object>} - An object with { data, meta } where data contains all records.
+     * 
+     * @example
+     * const allCards = await strapiService.fetchAll('cards', { populate: 'image' });
+     */
+    async fetchAll(collection, queryParams = {}) {
+        let allData = [];
+        let page = 1;
+        let pageCount = 1;
+        let lastMeta = {};
+
+        try {
+            while (page <= pageCount) {
+                const res = await this.find(collection, {
+                    ...queryParams,
+                    pagination: {
+                        ...(queryParams.pagination || {}),
+                        page,
+                        pageSize: 100, // Reasonable batch size
+                    }
+                });
+
+                if (res.data) {
+                    allData = allData.concat(res.data);
+                }
+                
+                if (res.meta && res.meta.pagination) {
+                    pageCount = res.meta.pagination.pageCount;
+                    lastMeta = res.meta;
+                } else {
+                    break;
+                }
+                
+                page++;
+            }
+
+            return { data: allData, meta: lastMeta };
+        } catch (error) {
+            console.error(`[StrapiApi] Error fetching all from ${collection}:`, error);
+            return { error, data: allData };
+        }
+    }
+
     findOne(collection, id, queryParams) {
         return this.strapiClient.collection(collection).findOne(String(id), queryParams);
     }
