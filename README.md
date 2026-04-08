@@ -1,122 +1,100 @@
 # Terra Nullius - Triple Triad
 
-**Terra Nullius** est une application web full-stack offrant un jeu de cartes à collectionner inspiré du célèbre mini-jeu Triple Triad, agrémenté de mécaniques de progression, de quêtes et de modes multijoueurs.
+**Terra Nullius** est une application web full-stack offrant un jeu de cartes à collectionner inspiré du célèbre mini-jeu Triple Triad, agrémenté de mécaniques de progression, de quêtes, d'un mode histoire narratif et de modes multijoueurs. Le jeu se déroule dans l'univers post-apocalyptique de "Terra Nullius" (An 3000), mettant en scène 9 factions distinctes.
 
 L'application est divisée en deux parties principales :
-- **Frontend** : Vue 3 + Vite, utilisant la Composition API et Tailwind CSS (et des styles globaux) pour une interface moderne et réactive.
-- **Backend** : Strapi 5 (TypeScript) fournissant une API REST robuste, avec une gestion complète de l'authentification, des collections de cartes, et de l'économie du jeu.
+- **Frontend** : Vue 3 + Vite, utilisant la Composition API et Tailwind CSS (ainsi que des styles globaux et des variables CSS pour le thème dynamique) pour une interface moderne, réactive et "glassmorphism".
+- **Backend** : Strapi 5 (TypeScript) fournissant une API REST robuste, avec une gestion complète de l'authentification, des collections de cartes, des quêtes et de l'économie du jeu, fonctionnant avec une base de données SQLite.
 
 ---
 
 ## 🌟 Fonctionnalités Principales
 
+*   **Univers et Factions** : 9 factions distinctes (ex: Omni-Réseau, Fléau Spore) avec un système de dominance type pierre-papier-ciseaux (Proie/Némésis).
 *   **Authentification et Profil Joueur** : Inscription, connexion et gestion du profil via Strapi (JWT).
-*   **Collection de Cartes** : Chaque joueur possède sa propre collection (`UserCards`), avec un système de rareté (Commune, Peu Commune, Rare, Épique, Légendaire) et des éléments spéciaux (Eau, Radiation, Réseau, Spore, etc.).
-*   **Construction de Decks (Deck Building)** : Outil dédié pleinement abouti pour créer et éditer jusqu'à 5 decks personnalisés de 15 cartes chacun. L'interface offre l'analyse de la courbe de mana et permet le choix du dos de carte (classique ou animé) et la sélection d'une couverture de deck.
-*   **Boutique & Ouverture de Boosters** : Dépensez vos pièces d'or (Coins) gagnées en jeu pour acheter des "Boosters Classiques" de 5 cartes et agrandir votre collection. L'expérience est enrichie par des animations d'ouverture de paquets immersives.
-*   **Mode Histoire & Quêtes** : Plongez dans un mode histoire riche en narration (Story mode). Accomplissez également des quêtes quotidiennes ou de bienvenue (ex: jouer une partie) pour gagner des récompenses (Pièces, Gemmes).
-*   **Jeu contre l'IA (Single Player)** : Affrontez une intelligence artificielle avec un deck aléatoire ou choisi. La désignation du joueur commençant la partie est animée par un système de pile ou face (Coin Toss).
-*   **Mode Multijoueur (WebRTC)** : Hébergez ou rejoignez des sessions de jeu en ligne directement dans le navigateur (peer-to-peer) en échangeant un code de session. Le système de pile ou face arbitre également le joueur initiant la partie.
-*   **Gestion de l'État Hors-Ligne** : Le jeu détecte les pertes de connexion avec le serveur et propose un mode hors-ligne limité permettant de jouer avec une collection de secours.
+*   **Collection de Cartes** : Chaque joueur possède sa propre collection (`UserCards`). Les cartes ont des éléments (factions), des raretés calculées dynamiquement (Commune à Légendaire) et peuvent posséder des compétences spéciales (ex: poison, combo).
+*   **Construction de Decks (Deck Building)** : Outil dédié pour créer et éditer des decks de 30 cartes (configurable via `DECK_SIZE`). Permet l'analyse de la courbe de mana, le choix du dos de carte (classique ou animé via shaders) et de la couverture.
+*   **Boutique & Ouverture de Boosters** : Dépensez vos pièces d'or gagnées pour acheter des "Boosters" (ex: Classique, Premium). L'expérience intègre de superbes animations immersives d'ouverture.
+*   **Mode Histoire & Quêtes** : Mode histoire non-linéaire "Choose Your Own Adventure" généré à partir de fichiers JSON. Le joueur progresse à travers des situations (Dialogue, Bataille, Choix) avec sauvegarde granulaire. Des quêtes quotidiennes récompensent l'engagement.
+*   **Jeu contre l'IA (Single Player)** : Affrontez une IA. L'arbitrage du premier joueur est animé par un "Coin Toss" avec un moteur physique.
+*   **Mode Multijoueur (WebRTC)** : Hébergez ou rejoignez des sessions de jeu en ligne (peer-to-peer) sans serveur intermédiaire pour le gameplay en temps réel.
+*   **Drag-and-Drop Custom** : Interface de jeu fluide utilisant un système de drag-and-drop personnalisé (supportant souris et tactile via un `<Teleport>` ghost et `document.elementsFromPoint()`).
+*   **Personnalisation Visuelle (Foil & Shaders)** : Un éditeur "Foil Editor" back-office permet de créer des effets holographiques et masques complexes sur les cartes via des shaders GLSL personnalisés.
 
 ---
 
 ## 🗺️ Navigation & Pages (Frontend)
 
-L'interface utilise `vue-router` pour naviguer entre les différents écrans du jeu.
+L'interface utilise `vue-router` et gère différents layouts (`PlayerLayout`, `AdminLayout`, `BlankLayout`).
 
 ### Pages Joueur
-*   **`MainMenu` (`/`)** : Le hub principal. C'est ici que l'on choisit son mode de jeu (Histoire, IA, Multijoueur) et qu'on accède aux autres sections.
-*   **`GameView` (`/game`)** : L'écran de jeu principal. Affiche le plateau, les scores, l'historique des actions et les mains des joueurs (Héros vs Adversaire). Gère à la fois les parties contre l'IA et les parties en ligne. Intègre l'animation de Coin Toss au lancement.
-*   **`CollectionView` (`/collection`)** : Votre classeur de cartes. Permet de visualiser toutes les cartes possédées, de filtrer, trier et voir la progression globale de la collection.
-*   **`DecksPage` (`/decks`)** : La liste de vos decks (jusqu'à 5). Affiche un aperçu des cartes et le statut d'achèvement (15/15).
-*   **`DeckEditorPage` (`/deck-editor`)** : L'interface aboutie de création/modification de deck. Permet d'ajouter/retirer des cartes, choisir la couverture du deck, définir le dos de carte et visualiser la courbe de mana.
-*   **`PackOpening` (`/boutique`)** : L'échoppe du jeu. Dépensez vos pièces pour ouvrir des boosters avec de superbes animations immersives.
-*   **`StoryPage` (`/story`)** : Affiche votre progression dans l'histoire et les chapitres narratifs débloqués.
-*   **`QuestsPage` (`/quests`)** : Affiche vos quêtes actives et terminées (journalières, de bienvenue, etc.).
+*   **`MainMenu` (`/`)** : Le hub principal. Choix des modes (Histoire, IA, Multijoueur).
+*   **`GameView` (`/game`)** : L'écran de jeu principal avec plateau (GameBoard) et mains (PlayerHand/OpponentHand). Gère l'IA et le multijoueur.
+*   **`CollectionView` (`/collection`)** : Votre classeur de cartes.
+*   **`DecksPage` (`/decks`)** : La liste de vos decks.
+*   **`DeckEditorPage` (`/deck-editor`)** : L'interface aboutie de création/modification de deck.
+*   **`PackOpening` / `BoutiquePage` (`/boutique`)** : L'échoppe du jeu pour ouvrir des boosters.
+*   **`StoryPage` (`/story`)** & **`StoryStepsPage` (`/story-steps`)** : Progression et chapitres de l'histoire.
+*   **`StoryStepView` (`/story-step/:id`)** : Moteur d'exécution des situations narratives interactives.
+*   **`QuestsPage` (`/quests`)** : Quêtes actives et terminées.
 
 ### Pages Admin (Route `/admin`)
 *   **`AdminLogin` (`/admin/login`)** : Page de connexion administrateur.
 *   **`Dashboard` (`/admin`)** : Tableau de bord administrateur principal.
-*   **`FoilEditor` (`/admin/foil-editor`)** : Éditeur visuel performant des effets holographiques (foil) des cartes, supportant l'édition des masques et des shaders.
-*   **`GameConfig` (`/admin/game-config`)** : Configuration globale du jeu (règles, probabilités d'ouverture de booster, etc.).
-*   **`ArchitectureMapPage` (`/admin/cartographie`)** : Vue d'ensemble cartographique et technique des vues et du projet.
-*   **Outils et Pages de Test** :
-    *   `/admin/test-api` : Tests de l'intégration API Strapi.
-    *   `/admin/test-card` : Test du rendu et du design des cartes (`CardTestPage`).
-    *   `/admin/test-seed` : Test de génération d'aléatoire pour les boosters (`SeedTesterPage`).
-    *   `/admin/test-coin` : Test de la physique et des animations du système de pile ou face (`CoinTossTestPage`).
-    *   `/admin/dev-test` : Divers tests de composants en développement (`DevTestPage`).
+*   **`FoilEditor` (`/admin/foil-editor`)** : Éditeur visuel avancé des effets holographiques (Three.js / GLSL).
+*   **`GameConfig` (`/admin/game-config`)** : Configuration globale du jeu injectée dynamiquement dans le frontend.
+*   **`ArchitectureMapPage` (`/admin/cartographie`)** : Vue d'ensemble architecturale.
 
 ---
 
 ## ⚙️ Architecture Technique
 
 ### Frontend (Vue 3 / Vite)
-*   **État Global** : Géré par **Pinia** :
-    *   `userStore.js` : Données joueur, decks, collection, portefeuille (coins, gems).
-    *   `notificationStore.js` : Gestion des alertes et notifications toast.
-    *   `layoutStore.js` : Gestion du layout dynamique (PlayerLayout, AdminLayout, BlankLayout).
-*   **Moteur de Jeu** (`src/game/`) :
-    *   `GameEngine.js` : Logique pure et immuable du jeu (calcul des captures, winner).
-    *   `TurnManager.js` : Gestion des tours et transition IA/Online.
-    *   `WebRTCManager.js` : Gestion Peer-to-Peer robuste (WebRTC) pour le mode multijoueur.
-    *   `ai.js` : Intelligence artificielle pour les parties solo.
-    *   `state.js` : État réactif global (source unique de vérité).
-    *   `rules.js` : Registre des règles optionnelles (Same, Plus, Combo, Elements).
-*   **Composants Réutilisables** (`src/components/`) :
-    *   `TripleTriadCard.vue` : Le cœur visuel, affichant les statistiques, éléments, et raretés d'une carte.
-    *   `TripleTriadCardGrid.vue` : Affichage en grille paginée ou horizontale des cartes.
-    *   `GameBoard.vue` : Plateau de jeu 3x3.
-    *   `PlayerHand.vue` / `OpponentHand.vue` : Mains des joueurs.
-    *   `CoinToss.vue` : Animation de lancer de pièce intégrant de la physique.
-    *   `PackOpening.vue` : Animations d'ouverture de boosters.
-    *   `AnimatedCardBack.vue` : Dos de carte animé.
-*   **Rendu Avancé** : Le projet intègre de la modélisation et du rendu 3D via Three.js (ex: pour le FoilEditor) directement au sein des composants Vue via des shaders GLSL.
+*   **État Global (Pinia)** : `userStore.js` (profil, progression), `layoutStore.js` (thème), `notificationStore.js`.
+*   **Moteur de Jeu Immuable** (`src/game/`) :
+    *   `GameEngine.js` : Logique pure sans dépendances Vue/Three.js.
+    *   `TurnManager.js` : Transition de tours et gestion du temps.
+    *   `WebRTCManager.js` : Synchronisation multijoueur.
+    *   `state.js` : État global réactif de la partie.
+    *   `logger-logic.js` : Système de logs avec injection de dépendances (testable unitairement).
+*   **Rendu Avancé** : Modélisation 3D et shaders via Three.js (ex: `AnimatedCardBack.vue`, Foil Editor) intégrés directement dans Vue.
+*   **Design System** : Utilisation intensive de variables CSS (`--color-primary`, etc.) injectées depuis Strapi, et d'effets "glassmorphism" (`color-mix`, `backdrop-filter`).
 
-### Backend (Strapi 5 / TypeScript)
-*   **API REST** :
-    *   `card` : Cartes du jeu (stats, éléments, rareté, image).
-    *   `deck` : Decks des joueurs.
-    *   `user-card` : Collection personnelle de chaque joueur.
-    *   `wallet` : Portefeuille (coins, gems).
-    *   `booster` : Ouverture de boosters et génération aléatoire.
-    *   `player-quest` / `quest-template` : Quêtes et génération.
-    *   `player-story-progress` / `story` / `story-step` : Progression histoire.
-    *   `match` : Gestion des parties et arbitrage P2P.
-    *   `game-history` : Historique des parties.
-    *   `game-config` : Configuration globale du jeu.
-    *   `foil-effect` : Effets visuels foil.
-    *   `shop` : Boutique et transactions.
-*   **Bootstrap Automatique** : Au démarrage (dans `src/index.ts`), Strapi configure automatiquement :
-    *   Les permissions par défaut pour le rôle `authenticated`.
-    *   Les cartes de base (Goblin, Slime, Bat, etc.).
-    *   Les quêtes de bienvenue (ex: "WELCOME_QUEST").
-*   **Hooks de Cycle de Vie** : Lorsqu'un nouvel utilisateur s'inscrit (`afterCreate`), Strapi lui attribue automatiquement une quête de bienvenue et un set de 5 cartes de départ.
+### Backend (Strapi 5 / TypeScript / SQLite)
+*   **API REST & Base de données** : Utilisation de SQLite (`back/strapi_data/.tmp/data.db`). Mapping automatique du camelCase (`schema.json`) vers le snake_case SQL.
+*   **Modélisation Avancée** :
+    *   Mode histoire basé sur des "Zones Dynamiques" (Dynamic Zones) pour un flow non-linéaire.
+    *   Validation stricte backend via `zod` pour éviter les failles DoS (ex: validation de longueur d'identifiant).
+    *   Optimisation des requêtes (ex: ouverture de boosters utilisant des requêtes `$in` et l'agrégation en mémoire pour éviter le N+1).
+*   **Génération de Contenu** : Les histoires de Terra Nullius sont compilées depuis des fichiers JSON via `shared/data/assemble_story.cjs`.
 
 ---
 
 ## 🚀 Démarrage et Développement
 
-L'environnement complet est géré via Docker.
+### Prérequis
+*   Docker & Docker Compose (v5.1.0+). La commande `docker-compose` legacy n'est plus supportée.
+*   Node.js (18+) pour le développement local.
 
-1.  **Lancer l'application complète** :
-    \`\`\`bash
-    sudo docker compose up -d
-    \`\`\`
-    *Le backend Strapi sera accessible sur `http://localhost:1337`.*
-    *(Note : Selon la configuration, le frontend peut nécessiter d'être lancé localement pour éviter les conflits de permissions).*
+### 1. Lancer l'environnement avec Docker
+```bash
+# À la racine du projet
+docker compose up -d
+```
+*Le backend Strapi sera accessible sur `http://localhost:1337`.*
 
-2.  **Lancer le Frontend en local** :
-    \`\`\`bash
-    cd front
-    npm install
-    npm run dev &
-    \`\`\`
-    *Le frontend sera accessible sur `http://localhost:5173`.*
+### 2. Démarrage Frontend (Local)
+Si vous développez l'interface, lancez le frontend localement :
+```bash
+cd front
+npm install
+npm run dev &
+```
+*Le frontend sera accessible sur `http://localhost:5173`.*
 
-3.  **Variables d'environnement** :
-    Le dossier `back/strapi` nécessite un fichier `.env` contenant les clés secrètes (`APP_KEYS`, `API_TOKEN_SALT`, `ADMIN_JWT_SECRET`, `TRANSFER_TOKEN_SALT`, `JWT_SECRET`) pour fonctionner correctement.
+### 3. Tests
+*   **API & Strapi** : Intégration via Playwright dans `front/test:api`. Utilisation de tokens mock (`bo_jwt`) pour les tests frontend nécessitant une authentification.
+*   **Logique Pure (Node.js)** : Les scripts de test isolés se trouvent dans `front/tests/` (ex: `node front/tests/minimal_engine_test.js`) pour vérifier la logique métier sans surcoût Vite/Vue.
 
-4.  **Options de Développement In-Game** :
-    Un panneau `DevOptions.vue` est disponible dans le jeu pour simuler le statut Premium, s'auto-connecter, ou manipuler les pièces à des fins de test. Ces options sont persistées via `localStorage`.
+### Variables d'environnement
+Le backend nécessite un fichier `back/strapi/.env` contenant les clés secrètes (`APP_KEYS`, `API_TOKEN_SALT`, `ADMIN_JWT_SECRET`, `TRANSFER_TOKEN_SALT`, `JWT_SECRET`). Ne définissez pas de valeurs par défaut "en dur" dans le code pour des raisons de sécurité.
