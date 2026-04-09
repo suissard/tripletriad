@@ -10,6 +10,8 @@
                 <HoloOverlay
                   :seed="premiumSeed"
                   :always-visible="true"
+                  :supertype="card.supertype"
+                  :subtypes="card.subtypes"
                 />
                 <div class="premium-border-layer" :style="premiumBorderStyle"></div>
               </template>

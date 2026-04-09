@@ -305,7 +305,7 @@
                       <label class="text-[9px] font-black text-gray-500 uppercase tracking-widest">Parallax</label>
                       <span class="text-[9px] font-bold text-white/50">{{ (activeLayer.parallaxDepth ?? 0).toFixed(1) }}</span>
                     </div>
-                    <input type="range" v-model.number="activeLayer.parallaxDepth" min="0" max="5" step="0.1" class="w-full h-0.5 bg-white/10 rounded-full appearance-none accent-primary/70">
+                    <input type="range" v-model.number="activeLayer.parallaxDepth" min="0" max="2.1" step="0.1" class="w-full h-0.5 bg-white/10 rounded-full appearance-none accent-primary/70">
                   </div>
                 </div>
               </div>
@@ -390,11 +390,15 @@ const premiumSeed = computed(() => {
 });
 
 const foilModes = [
-  { label: 'Nébuleuse', value: 9, icon: '🌌' },
-  { label: 'Rare Holo', value: 10, icon: '✨' },
+  { label: 'Standard', value: 0, icon: '🃏' },
   { label: 'Radiant', value: 11, icon: '☀️' },
   { label: 'Galaxy', value: 12, icon: '💠' },
-  { label: 'Gold', value: 13, icon: '🏆' }
+  { label: 'Gold', value: 13, icon: '🏆' },
+  { label: 'Ultra', value: 14, icon: '💎' },
+  { label: 'Holo V', value: 16, icon: '⚡' },
+  { label: 'V-Max', value: 17, icon: '🔥' },
+  { label: 'V-Star', value: 18, icon: '⭐' },
+  { label: 'Rainbow', value: 19, icon: '🌈' }
 ];
 
 const cardOptions = computed(() => {
@@ -692,14 +696,14 @@ function createDefaultLayer() {
     sensitivity: 0.3,
     tolerance: 0.2,
     foilColor: '#ffffff',
-    holoIntensity: 0.5,
+    holoIntensity: 0.6,
     foilScale: 4.0,
     foilAngle: 0,
     foilDirection: 0,
     useRainbow: false,
-    foilMode: 10,
+    foilMode: 0,
     foilSpeed: 1.0,
-    parallaxDepth: 1.5,
+    parallaxDepth: 1.0,
     noiseIntensity: 0,
     drawData: canvas.toDataURL('image/png'),
     patternData: null,

@@ -29,9 +29,16 @@
       </svg>
 
       <div 
-        class="holo-layer-content" 
+        class="holo-layer-content card" 
+        :data-rarity="getLayerRarity(resolveLayer(inputLayer, i))"
+        :data-supertype="resolveLayer(inputLayer, i).supertype || ''"
+        :data-subtypes="resolveLayer(inputLayer, i).subtypes || ''"
+        :data-gallery="alwaysVisible"
         :style="getLayerStyle(inputLayer, i)"
-      ></div>
+      >
+        <div class="card__shine"></div>
+        <div class="card__glare"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -45,7 +52,9 @@ const props = defineProps({
   seed: { type: Number, default: 0 },
   tiltX: { type: Number, default: 0 },
   tiltY: { type: Number, default: 0 },
-  alwaysVisible: { type: Boolean, default: false }
+  alwaysVisible: { type: Boolean, default: false },
+  supertype: { type: String, default: '' },
+  subtypes: { type: [Array, String], default: () => [] }
 });
 
 // --- Gestion des masques JPEG (Noir & Blanc -> Transparence) ---
@@ -117,20 +126,34 @@ function sfc32(a) {
 const computedSeed = computed(() => props.seed);
 
 // Transfert l'inclinaison en variables CSS pour des perfs optimales
-const containerStyle = computed(() => ({
-  zIndex: 2,
-  pointerEvents: 'none',
-  '--tx': props.tiltX,
-  '--ty': props.tiltY,
-  '--x': `${50 + props.tiltY * 3.33}%`,
-  '--y': `${50 - props.tiltX * 3.33}%`,
-  '--posx': `${50 - props.tiltY * 3.33}%`,
-  '--posy': `${50 + props.tiltX * 3.33}%`,
-  '--noise-intensity': props.layers?.[0]?.noiseIntensity || 0
-}));
+const containerStyle = computed(() => {
+  const tx = props.tiltX; // -15 to 15
+  const ty = props.tiltY; // -15 to 15
+  
+  // Mapping tilt to 0-100% position (mouse simulation)
+  const mx = 50 + (ty * 3.33); 
+  const my = 50 - (tx * 3.33); 
+  
+  // Hypotenuse/Intensity (0 to ~1.0)
+  const hyp = Math.min(1.0, Math.sqrt(Math.pow(ty / 15, 2) + Math.pow(tx / 15, 2)));
+
+  return {
+    zIndex: 2,
+    pointerEvents: 'none',
+    '--tx': tx,
+    '--ty': ty,
+    '--mx': `${mx}%`,
+    '--my': `${my}%`,
+    '--posx': `${mx}%`,
+    '--posy': `${my}%`,
+    '--hyp': hyp,
+    '--o': props.alwaysVisible ? 1 : hyp, // Define opacity for CSS textures
+    '--noise-intensity': props.layers?.[0]?.noiseIntensity || 0
+  };
+});
 
 function getLayerFrequency(layer) {
-  if (!layer.isStandard && layer.foilScale) {
+  if (!layer.isStandard && layer.foilMode !== 0 && layer.foilScale) {
     const f = (layer.foilScale / 100).toFixed(4);
     return `${f} ${f}`;
   }
@@ -142,7 +165,7 @@ function getLayerFrequency(layer) {
 }
 
 function getLayerOctaves(layer) {
-  if (!layer.isStandard) return 3;
+  if (!layer.isStandard && layer.foilMode !== 0) return 3;
   const rng = sfc32(computedSeed.value + 99);
   return 2 + Math.floor(rng() * 4);
 }
@@ -155,6 +178,7 @@ function resolveLayer(l, i) {
     ...l,
     index: i,
     isStandard: isStandard,
+    foilMode: l.foilMode || (isStandard ? 10 : 0), // Default to Rare Holo (10) for standard premium
     foilAngle: l.foilAngle !== undefined ? l.foilAngle : (l.angle || 0),
     foilDirection: l.foilDirection || 0,
     foilSpeed: l.foilSpeed || 1.0,
@@ -163,8 +187,28 @@ function resolveLayer(l, i) {
     foilScale: l.foilScale || 4.0,
     parallaxDepth: l.parallaxDepth !== undefined ? l.parallaxDepth : 1.0,
     patternData: l.patternData || null,
+    supertype: l.supertype || l.dataSupertype || props.supertype || '',
+    subtypes: l.subtypes || l.dataSubtypes || props.subtypes || '',
     filterUrl: `url(#holo-filter-${computedSeed.value}-${i})`
   };
+}
+
+function getLayerRarity(layer) {
+  const mode = layer.foilMode || 10;
+  const modeMappings = {
+    0: 'rare holo',
+    10: 'rare holo',
+    11: 'rare radiant',
+    12: 'rare holo galaxy',
+    13: 'rare secret',
+    14: 'rare ultra',
+    15: 'rare holo galaxy fullshine',
+    16: 'rare holo v',
+    17: 'rare holo vmax',
+    18: 'rare holo vstar',
+    19: 'rare rainbow'
+  };
+  return modeMappings[mode] || 'rare holo';
 }
 
 // Rendering style function
@@ -233,7 +277,7 @@ function getLayerStyle(inputLayer, index) {
   const angle = `${layer.foilAngle - layer.foilDirection}deg`;
   const scale = layer.foilScale * 50;
   
-  const depth = layer.parallaxDepth;
+  const depth = Math.min(layer.parallaxDepth || 1.0, 2.1);
   const moveDepth = depth - 1.0;
   const ctx = `calc((var(--tx) + var(--itx)) * ${moveDepth})`;
   const cty = `calc((var(--ty) + var(--ity)) * ${moveDepth})`;
@@ -332,56 +376,41 @@ function getLayerStyle(inputLayer, index) {
         animation: 'sparkle-pulse 6s infinite linear',
         mixBlendMode: 'screen'
       };
-    case 9: // Nebula
-      return {
-        ...baseStyle,
-        background: `radial-gradient(circle at calc(50% + ${cty}*1%) calc(50% + ${ctx}*1%), ${isRainbow ? rainbowColors[0] : foilColor}, transparent 60%), radial-gradient(circle at calc(20% - ${cty}*1%) calc(80% - ${ctx}*1%), ${isRainbow ? rainbowColors[3] : '#ff00ff'}, transparent 60%)`,
-        backgroundSize: '150% 150%',
-        filter: 'blur(10px) brightness(1.2)',
-        mixBlendMode: 'overlay',
-        opacity: (layer.holoIntensity || 0.6)
-      };
-    case 10: // Rare Holo (Classique)
+    case 10: // Rare Holo (Improved)
     case 0:  // Default/Standard
     default: // Rare Holo as new global default
       return {
         ...baseStyle,
-        backgroundImage: `linear-gradient(115deg, transparent 20%, rgba(255, 0, 0, 0.5) 25%, rgba(255, 165, 0, 0.5) 35%, rgba(255, 255, 0, 0.5) 45%, rgba(0, 128, 0, 0.5) 55%, rgba(0, 0, 255, 0.5) 65%, rgba(75, 0, 130, 0.5) 75%, rgba(238, 130, 238, 0.5) 85%, transparent 90%)`,
-        backgroundSize: '200% 200%',
-        backgroundPosition: `${posX} ${posY}`,
+        // Handled by CSS [data-rarity="rare holo"]
         mixBlendMode: 'color-dodge',
-        filter: 'brightness(1.2) contrast(1.2)',
-        animation: 'holo-idle-slide 10s infinite linear'
+        background: 'none'
       };
-    case 11: // Radiant / V (Stries)
+    case 11: // Radiant (Improved)
       return {
         ...baseStyle,
-        backgroundImage: `repeating-linear-gradient(-45deg, rgba(255,100,100,0.5), rgba(255,200,100,0.5) 10%, rgba(100,255,100,0.5) 20%, rgba(100,100,255,0.5) 30%, rgba(255,100,255,0.5) 40%, rgba(255,100,100,0.5) 50%), repeating-linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.3) 2%, transparent 4%)`,
-        backgroundSize: '400% 400%',
-        backgroundPosition: `${posX} ${posY}`,
+        // Handled by CSS [data-rarity="rare radiant"]
         mixBlendMode: 'color-dodge',
-        filter: 'brightness(1.3) contrast(1.5) saturate(1.2)',
-        animation: 'holo-idle-slide 15s infinite linear'
+        background: 'none'
       };
-    case 12: // Galaxy / Cosmos
+    case 12: // Galaxy (Improved)
       return {
         ...baseStyle,
-        backgroundImage: `radial-gradient(circle at ${posX} ${posY}, rgba(255,255,255,0.8) 0%, transparent 15%), radial-gradient(circle at calc(${posX} * 0.5) calc(${posY} * 1.5), rgba(200,200,255,0.6) 0%, transparent 10%), radial-gradient(circle at calc(${posX} * 1.5) calc(${posY} * 0.5), rgba(255,200,255,0.6) 0%, transparent 10%), linear-gradient(115deg, rgba(255, 0, 0, 0.2), rgba(0, 0, 255, 0.2), rgba(0, 255, 0, 0.2))`,
-        backgroundSize: '150% 150%',
-        backgroundPosition: 'center',
+        // Handled by CSS [data-rarity="rare holo galaxy"]
         mixBlendMode: 'color-dodge',
-        filter: 'brightness(1.4) contrast(1.5)',
-        animation: 'holo-pulse 8s infinite alternate ease-in-out'
+        background: 'none'
       };
-    case 13: // Gold / Secret Rare
+    case 13: // Rare Secret (Replaces legacy Gold)
+    case 14: // Rare Ultra
+    case 15: // Rare Holo GalaxyFullshine
+    case 16: // Rare Holo V
+    case 17: // Rare Holo VMax
+    case 18: // Rare Holo VStar
+    case 19: // Rare Rainbow
       return {
         ...baseStyle,
-        backgroundImage: `repeating-linear-gradient(45deg, rgba(255,215,0,0.6) 0%, rgba(255,255,255,0.6) 10%, rgba(218,165,32,0.6) 20%, rgba(255,215,0,0.6) 30%), radial-gradient(farthest-corner circle at ${tiltPosX} ${tiltPosY}, transparent 0%, rgba(139,69,19,0.4) 100%)`,
-        backgroundSize: '200% 200%',
-        backgroundPosition: `${posX} ${posY}`,
+        // Heavy lifting handled by CSS
         mixBlendMode: 'color-dodge',
-        filter: 'brightness(1.1) contrast(1.3) sepia(0.5)',
-        animation: 'holo-idle-slide 12s infinite linear'
+        background: 'none'
       };
   }
 }
@@ -394,7 +423,7 @@ function getLayerStyle(inputLayer, index) {
   border-radius: inherit;
   overflow: hidden;
   z-index: 2;
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.5s ease;
   pointer-events: none;
   
@@ -432,6 +461,19 @@ function getLayerStyle(inputLayer, index) {
 .holo-layer-content {
   transform: translateZ(1px); /* Force GPU accélération */
   will-change: background-position, transform; /* Aide le navigateur à optimiser */
+  position: relative;
+  overflow: hidden;
+}
+
+.card__shine, .card__glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card__glare {
+  z-index: 2;
 }
 
 @keyframes holo-slide {

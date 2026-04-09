@@ -180,27 +180,29 @@ const galleryCards = computed(() => {
   
   return modes.map(mode => ({
     ...baseData,
-    id: `${baseData.id}-${mode.value}`, // Unique ID for keys
-    name: mode.label, // Use mode label as title for this virtual card
+    id: `${baseData.id}-${mode.value}`,
+    name: mode.label,
     overrideEffect: {
       layers: [{
         foilMode: mode.value,
         enabled: true,
-        holoIntensity: mode.intensity || 1.2,
+        holoIntensity: mode.intensity || 0.6,
         foilColor: mode.color || '#ffffff',
         foilScale: 4,
-        foilSpeed: 1
+        foilSpeed: 1,
+        parallaxDepth: 1.0
       }]
     }
   }));
 });
 
 const modes = [
-  { value: 9, label: 'Nébuleuse', color: '#ff00ff', intensity: 1.2 },
-  { value: 10, label: 'Rare Holo', color: '#ffffff', intensity: 1.0 },
-  { value: 11, label: 'Radiant (V)', color: '#00ffff', intensity: 1.3 },
-  { value: 12, label: 'Galaxy (Cosmos)', color: '#ffffff', intensity: 1.4 },
-  { value: 13, label: 'Gold (Secret Rare)', color: '#ffd700', intensity: 1.1 }
+  { value: 0, label: 'Standard', intensity: 0.6 },
+  { value: 11, label: 'Rare Radiant', intensity: 0.6 },
+  { value: 12, label: 'Galaxy', intensity: 0.6 },
+  { value: 13, label: 'Secret Gold', intensity: 0.6 },
+  { value: 14, label: 'Ultra Holo', intensity: 0.6 },
+  { value: 19, label: 'Rainbow', intensity: 0.6 }
 ];
 </script>
 

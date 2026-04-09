@@ -47,6 +47,8 @@
           :tiltX="tiltX !== null ? tiltX : tilt.x"
           :tiltY="tiltY !== null ? tiltY : tilt.y"
           :always-visible="alwaysVisible"
+          :supertype="card.supertype"
+          :subtypes="card.subtypes"
         />
 
         <!-- CARD CONTENT (Unified layout) -->
