@@ -419,7 +419,7 @@ const glareStyle = computed(() => {
   };
 });
 
-const mouseStyle = ref({ '--mx': '50%', '--my': '50%', '--posx': '50%', '--posy': '50%' });
+const mouseStyle = ref({ '--mouse-x': '50%', '--mouse-y': '50%', '--pointer-x': '50%', '--pointer-y': '50%' });
 
 // --- HOLO SEED ---
 function hashCode(str) {
@@ -446,7 +446,7 @@ function handleMove(e) {
   const xPct = (x / rect.width) * 100, yPct = (y / rect.height) * 100;
   mousePos.value = { x: xPct, y: yPct };
   tilt.value = { x: ((y / rect.height) - 0.5) * -30, y: ((x / rect.width) - 0.5) * 30 };
-  mouseStyle.value = { '--mx': `${xPct}%`, '--my': `${yPct}%`, '--posx': `${100 - xPct}%`, '--posy': `${100 - yPct}%` };
+  mouseStyle.value = { '--mouse-x': `${xPct}%`, '--mouse-y': `${yPct}%`, '--pointer-x': `${100 - xPct}%`, '--pointer-y': `${100 - yPct}%` };
 
   if (props.showDetailOnHover && !props.disableZoom && !isZoomed.value && !hoverTimer.value && !longPressTimer.value) {
     hoverTimer.value = setTimeout(() => {
@@ -461,7 +461,7 @@ function handleLeave() {
   isActive.value = false;
   tilt.value = { x: 0, y: 0 };
   mousePos.value = { x: 50, y: 50 };
-  mouseStyle.value = { '--mx': '50%', '--my': '50%', '--posx': '50%', '--posy': '50%' };
+  mouseStyle.value = { '--mouse-x': '50%', '--mouse-y': '50%', '--pointer-x': '50%', '--pointer-y': '50%' };
 }
 
 // --- Capture Impact Animation ---
@@ -947,7 +947,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
     transparent 100%
   );
   background-size: var(--holo-bg-size, 300% 300%);
-  background-position: var(--posx, 50%) var(--posy, 50%);
+  background-position: var(--pointer-x, 50%) var(--pointer-y, 50%);
   opacity: 1.0;
 }
 

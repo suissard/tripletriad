@@ -140,14 +140,14 @@ const containerStyle = computed(() => {
   return {
     zIndex: 2,
     pointerEvents: 'none',
-    '--tx': tx,
-    '--ty': ty,
-    '--mx': `${mx}%`,
-    '--my': `${my}%`,
-    '--posx': `${mx}%`,
-    '--posy': `${my}%`,
-    '--hyp': hyp,
-    '--o': props.alwaysVisible ? 1 : hyp, // Define opacity for CSS textures
+    '--tilt-x': tx,
+    '--tilt-y': ty,
+    '--mouse-x': `${mx}%`,
+    '--mouse-y': `${my}%`,
+    '--pointer-x': `${mx}%`,
+    '--pointer-y': `${my}%`,
+    '--pointer-dist': hyp,
+    '--foil-opacity': props.alwaysVisible ? 1 : hyp, // Define opacity for CSS textures
     '--noise-intensity': props.layers?.[0]?.noiseIntensity || 0
   };
 });
@@ -279,13 +279,13 @@ function getLayerStyle(inputLayer, index) {
   
   const depth = Math.min(layer.parallaxDepth || 1.0, 2.1);
   const moveDepth = depth - 1.0;
-  const ctx = `calc((var(--tx) + var(--itx)) * ${moveDepth})`;
-  const cty = `calc((var(--ty) + var(--ity)) * ${moveDepth})`;
+  const ctx = `calc((var(--tilt-x) + var(--idle-tilt-x)) * ${moveDepth})`;
+  const cty = `calc((var(--tilt-y) + var(--idle-tilt-y)) * ${moveDepth})`;
   
   const pY = `calc(50% + ${cty} * 1%)`;
   const pX = `calc(50% + ${ctx} * 1%)`;
 
-  // Local position overrides global --posx/--posy to respect individual layer depth
+  // Local position overrides global --pointer-x/--pointer-y to respect individual layer depth
   // When depth = 1, moveDepth = 0, effect is static (pinned to card)
   const posX = `calc(50% - ${cty} * 3.33%)`;
   const posY = `calc(50% + ${ctx} * 3.33%)`;
@@ -428,8 +428,8 @@ function getLayerStyle(inputLayer, index) {
   pointer-events: none;
   
   /* Idle Animation State */
-  --itx: 0;
-  --ity: 0;
+  --idle-tilt-x: 0;
+  --idle-tilt-y: 0;
   animation: holo-idle-x 12s infinite ease-in-out, holo-idle-y 15s infinite ease-in-out;
 }
 
@@ -445,13 +445,13 @@ function getLayerStyle(inputLayer, index) {
 }
 
 @keyframes holo-idle-x {
-  0%, 100% { --itx: -2; }
-  50% { --itx: 2; }
+  0%, 100% { --idle-tilt-x: -2; }
+  50% { --idle-tilt-x: 2; }
 }
 
 @keyframes holo-idle-y {
-  0%, 100% { --ity: -1.5; }
-  50% { --ity: 1.5; }
+  0%, 100% { --idle-tilt-y: -1.5; }
+  50% { --idle-tilt-y: 1.5; }
 }
 
 .holo-container.always-visible {
@@ -504,7 +504,7 @@ function getLayerStyle(inputLayer, index) {
 }
 
 @keyframes matrix-scroll {
-  0% { background-position: calc(50% + var(--ty) * 0.5%) calc(50% + var(--tx) * 0.5%); }
-  100% { background-position: calc(50% + var(--ty) * 0.5%) calc(150% + var(--tx) * 0.5%); }
+  0% { background-position: calc(50% + var(--tilt-y) * 0.5%) calc(50% + var(--tilt-x) * 0.5%); }
+  100% { background-position: calc(50% + var(--tilt-y) * 0.5%) calc(150% + var(--tilt-x) * 0.5%); }
 }
 </style>
