@@ -7,7 +7,7 @@ export default factories.createCoreService('api::player-quest.player-quest', ({ 
       const activeQuests = await strapi.entityService.findMany('api::player-quest.player-quest', {
         filters: {
           user: userId as any,
-          status: 'in_progress' as any,
+          status: 'active' as any,
         },
         populate: ['quest_template'] as any
       }) as any[];
@@ -23,8 +23,8 @@ export default factories.createCoreService('api::player-quest.player-quest', ({ 
         // For example, if action is "win_game" and the quest is "win 3 games"
 
         const newProgress = Math.min(quest.progress + amount, quest.quest_template.target);
-        const newStatus = newProgress >= quest.quest_template.target ? 'completed' : 'in_progress';
-
+        const newStatus = newProgress >= quest.quest_template.target ? 'completed' : 'active';
+        
         await strapi.entityService.update('api::player-quest.player-quest', quest.id, {
           data: {
             progress: newProgress,
@@ -104,7 +104,7 @@ export default factories.createCoreService('api::player-quest.player-quest', ({ 
           user: userId as any,
           quest_template: t.id as any,
           progress: 0,
-          status: 'in_progress' as any
+          status: 'active' as any
         } as any
       });
     }

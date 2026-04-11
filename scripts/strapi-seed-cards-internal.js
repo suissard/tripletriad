@@ -3,11 +3,16 @@ const fs = require('fs');
 const path = require('path');
 
 async function seedCards() {
-    console.log('Initialisation de Strapi...');
-    const app = await strapiFactory.createStrapi({ distDir: path.join(__dirname, 'dist') }).load();
+    console.log('🚀 Initialisation de Strapi pour le seeding des cartes...');
+    
+    const APP_PATH = process.env.STRAPI_PATH || path.join(__dirname, '..');
+    
+    const app = await strapiFactory.createStrapi({ 
+        distDir: path.join(APP_PATH, 'dist') 
+    }).load();
 
-    console.log('Lecture du fichier cards.json (copié localement pour Docker)...');
-    const cardsPath = path.join(__dirname, 'cards.json');
+    console.log('Lecture du fichier cards.json...');
+    const cardsPath = path.join(APP_PATH, 'cards.json');
 
     if (!fs.existsSync(cardsPath)) {
         console.error('Erreur : Fichier cards.json introuvable à', cardsPath);
@@ -17,17 +22,17 @@ async function seedCards() {
     const cardsData = JSON.parse(fs.readFileSync(cardsPath, 'utf8'));
     console.log(`${cardsData.length} cartes trouvées dans le JSON.`);
 
-    // Instead of dropping all cards, we will update-or-create by name
-    console.log('Synchronizing cards (updates existing, creates new)...');
+    console.log('Synchronisation des cartes (mise à jour des existantes, création des nouvelles)...');
     
     for (let i = 0; i < cardsData.length; i++) {
         const cardData = cardsData[i];
 
         try {
             // Check if card already exists by name
-            const existing = await app.documents('api::card.card').findFirst({
+            const results = await app.documents('api::card.card').findMany({
                 filters: { name: cardData.name }
             });
+            const existing = results[0];
 
             const payload = {
                 name: cardData.name,
@@ -58,10 +63,10 @@ async function seedCards() {
             }
             
             if (i % 20 === 0 || i === cardsData.length - 1) {
-                process.stdout.write(`\rProgress : ${i + 1}/${cardsData.length} (${cardData.name})`);
+                process.stdout.write(`\rProgrès : ${i + 1}/${cardsData.length} (${cardData.name})`);
             }
         } catch (err) {
-            console.error(`\nError with card ${cardData.name}:`, err.message);
+            console.error(`\nErreur avec la carte ${cardData.name}:`, err.message);
         }
     }
 

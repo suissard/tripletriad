@@ -118,8 +118,6 @@
       <TripleTriadCardGrid
         :cards="drawnCards.map((c, i) => ({ 
           ...c, 
-          rarity: c.drawnRarity || c.rarity, 
-          isPremium: c.isDrawnPremium,
           faceDown: !isFlipped[i]
         }))"
         fitOnRow

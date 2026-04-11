@@ -53,8 +53,8 @@
             <div class="card-back card-front-face" :class="[getRarityClass(card), { 'premium-glow': card.isDrawnPremium }]">
               <!-- Face de la carte (TripleTriadCard) -->
               <TripleTriadCard :card="card" size="md" :isPremium="card.isDrawnPremium" />
-              <div class="rarity-badge">{{ getRarityLabel(card) }}</div>
-              <div v-if="card.isDrawnPremium" class="premium-badge">🌟 PREMIUM 🌟</div>
+              <AppBadge variant="secondary" size="xs" class="rarity-badge">{{ getRarityLabel(card) }}</AppBadge>
+              <AppBadge v-if="card.isDrawnPremium" variant="primary" size="xs" class="premium-badge">🌟 PREMIUM</AppBadge>
             </div>
           </div>
         </div>
@@ -85,6 +85,7 @@ import strapiService from '../api/strapi.js';
 import strapiMock from '../api/strapiMock.js';
 import TripleTriadCard from '../components/TripleTriadCard.vue';
 import AnimatedCardBack from '../components/AnimatedCardBack.vue';
+import AppBadge from '../components/ui/AppBadge.vue';
 
 const emit = defineEmits(['close', 'update-coins']);
 

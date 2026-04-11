@@ -18,7 +18,9 @@
     "docker:start": "bash scripts/start-docker.sh",
     "docker:stop": "sudo docker-compose down",
     "clean": "bash scripts/clean.sh",
-    " ": "node scripts/seed-strapi.js"
+    "seed": "node scripts/seed-cards.mjs",
+    "strapi:seed": "sudo docker compose exec strapi node scripts/strapi-seed-all.js",
+    "strapi:seed:cards": "sudo docker compose exec strapi node scripts/strapi-seed-cards-internal.js"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2"

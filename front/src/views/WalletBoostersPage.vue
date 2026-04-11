@@ -75,8 +75,8 @@
               </div>
               <div class="card-front" :class="[getRarityClass(card), { 'premium-glow': card.isDrawnPremium }]">
                 <TripleTriadCard :card="card" size="md" :isPremium="card.isDrawnPremium" />
-                <div class="rarity-badge">{{ getRarityLabel(card) }}</div>
-                <div v-if="card.isDrawnPremium" class="premium-badge">🌟 PREMIUM 🌟</div>
+                <AppBadge variant="secondary" size="xs" class="rarity-badge">{{ getRarityLabel(card) }}</AppBadge>
+                <AppBadge v-if="card.isDrawnPremium" variant="primary" size="xs" class="premium-badge">🌟 PREMIUM</AppBadge>
               </div>
             </div>
           </div>
@@ -100,6 +100,7 @@ import { getStrapiMediaUrl } from '../utils/url.js';
 import AppButton from '../components/ui/AppButton.vue';
 import TripleTriadCard from '../components/TripleTriadCard.vue';
 import AnimatedCardBack from '../components/AnimatedCardBack.vue';
+import AppBadge from '../components/ui/AppBadge.vue';
 
 const router = useRouter();
 const userStore = useUserStore();

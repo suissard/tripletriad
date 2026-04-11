@@ -13,7 +13,6 @@
                   :supertype="card.supertype"
                   :subtypes="card.subtypes"
                 />
-                <div class="premium-border-layer" :style="premiumBorderStyle"></div>
               </template>
 
               <!-- Card face (Always revealed in zoom) -->
@@ -145,18 +144,10 @@ const rarityColor = computed(() => {
 const cardZoomStyle = computed(() => {
   const scale = ZOOM_SIZE / 150;
   return {
-    '--card-border-width': `${props.borderWidth * scale}px`,
-    '--card-border-offset': `-${props.borderWidth * scale}px`
+    '--card-border-width': `${props.borderWidth * scale}px`
   };
 });
 
-const premiumBorderStyle = computed(() => {
-  const c = rarityColor.value;
-  return {
-    '--premium-border-gradient': `linear-gradient(135deg, ${c}, transparent, ${c}, transparent, ${c}) border-box`,
-    '--premium-border-glow': c
-  };
-});
 
 const cardElementsList = computed(() => {
   if (!props.card) return [];
@@ -315,37 +306,7 @@ const premiumSeed = computed(() => {
 .rarity-epic .zoom-card-inner     { border-color: var(--border-color, #9c27b0); box-shadow: 0 0 12px var(--border-glow, rgba(156, 39, 176, 0.5)); }
 .rarity-legendary .zoom-card-inner { border-color: var(--border-color, #ffc107); box-shadow: 0 0 15px var(--border-glow, rgba(255, 193, 7, 0.6)), 0 0 30px var(--border-glow, rgba(255, 193, 7, 0.2)); }
 
-.is-premium .zoom-card-inner {
-  overflow: visible !important;
-  border-color: transparent !important;
-}
 
-.premium-border-layer {
-  position: absolute;
-  top: var(--card-border-offset, -2px); 
-  left: var(--card-border-offset, -2px); 
-  right: var(--card-border-offset, -2px); 
-  bottom: var(--card-border-offset, -2px);
-  box-sizing: border-box;
-  border-radius: inherit;
-  border: var(--card-border-width, 2px) solid transparent;
-  background: var(--premium-border-gradient, linear-gradient(135deg, var(--border-color, #ffc107), transparent, var(--border-color, #ffc107)) border-box);
-  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  background-size: 400% 400%;
-  animation: rainbowBorder 4s linear infinite;
-  box-shadow: 0 0 15px var(--premium-border-glow, rgba(255, 206, 0, 0.4));
-  pointer-events: none;
-  z-index: 6;
-}
-
-@keyframes rainbowBorder {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
 
 .holo-container {
   position: absolute;

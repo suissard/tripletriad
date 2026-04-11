@@ -22,6 +22,7 @@ services:
     volumes:
       - ./back/strapi:/opt/app
       - /opt/app/node_modules
+      - ./scripts:/opt/app/scripts
       - ./shared:/opt/app/src/shared
       - ./back/strapi_data/.tmp:/opt/app/.tmp
       - ./back/strapi_data/uploads:/opt/app/public/uploads
@@ -38,6 +39,8 @@ services:
       TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
       ENCRYPTION_KEY: ${ENCRYPTION_KEY}
       NODE_ENV: development
+      STRAPI_AUTO_INIT: 'false'
     command: >
       sh -c "npm install --no-audit --no-fund --loglevel=error && npm run develop"
     restart: unless-stopped
+    # network_mode: "host"

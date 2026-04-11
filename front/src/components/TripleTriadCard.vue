@@ -105,19 +105,32 @@
       </div>
 
       <!-- Premium Border Animation (Sibling of front/back, inside inner for 3D flip) -->
-      <div v-if="isPremiumCard" class="premium-border-layer" :style="premiumBorderStyle"></div>
+
     </div>
     
-    <!-- Traveling light border for premium (outside tt-card-inner, behind it) -->
-    <div v-if="isPremiumCard" class="premium-travel-border" :style="{ '--rarity-color': borderColor || rarityColor, ...(!flat ? innerStyle : {}) }"></div>
 
-    <!-- Quantity badge (outside inner to avoid clipping) -->
-    <div class="quantity-badge" v-if="quantity >= 1" :style="!flat ? tiltStyle : {}">×{{ quantity }}</div>
 
-    <!-- New badge (outside inner to avoid clipping, same as quantity) -->
-    <div class="new-badge" v-if="isNew" :style="newBadgeStyle">
-      <span>NEW</span>
-    </div>
+    <!-- Quantity badge (unified) -->
+    <AppBadge 
+      v-if="quantity >= 1" 
+      variant="danger" 
+      class="quantity-badge" 
+      :style="!flat ? tiltStyle : {}"
+    >
+      ×{{ quantity }}
+    </AppBadge>
+
+    <!-- New badge (unified) -->
+    <AppBadge 
+      v-if="isNew" 
+      variant="primary" 
+      size="sm"
+      bounce
+      class="new-badge" 
+      :style="newBadgeStyle"
+    >
+      NEW
+    </AppBadge>
   </div>
 
   <!-- Card Detail Modal -->
@@ -139,10 +152,12 @@ import BrokenGlassOverlay from "./BrokenGlassOverlay.vue";
 import ElementIcon from "./ElementIcon.vue";
 import CardDetailModal from "./CardDetailModal.vue";
 import HoloOverlay from "./HoloOverlay.vue";
+import AppBadge from "./ui/AppBadge.vue";
 import HpBar from './game/HpBar.vue';
 import { useUserStore } from '../stores/userStore.js';
 import { useEffectStore } from '../stores/effectStore.js';
 import { GameEngine } from '../../../shared/GameEngine.ts';
+import { getRarity } from '../game/constants.js';
 
 const props = defineProps({
   card: { type: Object, required: true },
@@ -278,22 +293,46 @@ const cardLevel = computed(() => {
   });
 });
 
+const rarityData = computed(() => {
+  if (props.card.revealed === false) return { name: 'common', color: '#a0a0a0' };
+  
+  // Real rarity calculation from values
+  const values = {
+    top: props.card.top ?? (typeof props.card.topValue === 'string' ? (props.card.topValue.toUpperCase() === 'A' ? 10 : parseInt(props.card.topValue)) : props.card.topValue),
+    right: props.card.right ?? (typeof props.card.rightValue === 'string' ? (props.card.rightValue.toUpperCase() === 'A' ? 10 : parseInt(props.card.rightValue)) : props.card.rightValue),
+    bottom: props.card.bottom ?? (typeof props.card.bottomValue === 'string' ? (props.card.bottomValue.toUpperCase() === 'A' ? 10 : parseInt(props.card.bottomValue)) : props.card.bottomValue),
+    left: props.card.left ?? (typeof props.card.leftValue === 'string' ? (props.card.leftValue.toUpperCase() === 'A' ? 10 : parseInt(props.card.leftValue)) : props.card.leftValue),
+  };
+  
+  if (isNaN(values.top) || isNaN(values.right) || isNaN(values.bottom) || isNaN(values.left)) {
+     // Fallback if values are missing
+     if (props.card.rarity) return { name: props.card.rarity.toLowerCase(), color: null };
+     return { name: 'common', color: '#a0a0a0' };
+  }
+
+  const r = getRarity(values);
+  const rarityMapping = {
+    'Commun': 'common',
+    'Peu Commun': 'uncommon',
+    'Rare': 'rare',
+    'Épique': 'epic',
+    'Légendaire': 'legendary'
+  };
+  return { 
+    name: rarityMapping[r.name] || 'common', 
+    color: r.color 
+  };
+});
+
 const rarityClass = computed(() => {
-  if (props.card.revealed === false) return 'rarity-common';
-  if (props.card.rarity) return `rarity-${props.card.rarity.toLowerCase()}`;
-  const level = cardLevel.value;
-  if (level >= 9) return 'rarity-legendary';
-  if (level >= 7) return 'rarity-epic';
-  if (level >= 5) return 'rarity-rare';
-  if (level >= 3) return 'rarity-uncommon';
-  return 'rarity-common';
+  return `rarity-${rarityData.value.name}`;
 });
 
 const actualRarityColor = computed(() => {
   if (props.card.revealed === false) return '#a0a0a0';
+  if (rarityData.value.color) return rarityData.value.color;
   
   const rarityToCheck = props.card.drawnRarity || props.card.rarity;
-  
   if (rarityToCheck) {
     const map = {
       'common': '#a0a0a0',
@@ -304,12 +343,6 @@ const actualRarityColor = computed(() => {
     };
     return map[rarityToCheck.toLowerCase()] || '#a0a0a0';
   }
-
-  const level = cardLevel.value;
-  if (level >= 9) return '#ffc107';
-  if (level >= 7) return '#9c27b0';
-  if (level >= 5) return '#2196f3';
-  if (level >= 3) return '#4caf50';
   return '#a0a0a0';
 });
 
@@ -344,17 +377,10 @@ const cardStyle = computed(() => {
     style['--border-glow'] = props.borderColor;
   }
   style['--card-border-width'] = `${effectiveBorderWidth}px`;
-  style['--card-border-offset'] = `-${effectiveBorderWidth}px`;
   return style;
 });
 
-const premiumBorderStyle = computed(() => {
-  const c = rarityColor.value;
-  return {
-    '--premium-border-gradient': `linear-gradient(135deg, ${c}, transparent, ${c}, transparent, ${c}) border-box`,
-    '--premium-border-glow': c
-  };
-});
+
 
 const cardElementsList = computed(() => {
   if (!props.card) return [];
@@ -419,7 +445,7 @@ const glareStyle = computed(() => {
   };
 });
 
-const mouseStyle = ref({ '--mouse-x': '50%', '--mouse-y': '50%', '--pointer-x': '50%', '--pointer-y': '50%' });
+const mouseStyle = ref({ '--mx': '50%', '--my': '50%', '--posx': '50%', '--posy': '50%' });
 
 // --- HOLO SEED ---
 function hashCode(str) {
@@ -446,7 +472,7 @@ function handleMove(e) {
   const xPct = (x / rect.width) * 100, yPct = (y / rect.height) * 100;
   mousePos.value = { x: xPct, y: yPct };
   tilt.value = { x: ((y / rect.height) - 0.5) * -30, y: ((x / rect.width) - 0.5) * 30 };
-  mouseStyle.value = { '--mouse-x': `${xPct}%`, '--mouse-y': `${yPct}%`, '--pointer-x': `${100 - xPct}%`, '--pointer-y': `${100 - yPct}%` };
+  mouseStyle.value = { '--mx': `${xPct}%`, '--my': `${yPct}%`, '--posx': `${100 - xPct}%`, '--posy': `${100 - yPct}%` };
 
   if (props.showDetailOnHover && !props.disableZoom && !isZoomed.value && !hoverTimer.value && !longPressTimer.value) {
     hoverTimer.value = setTimeout(() => {
@@ -461,7 +487,7 @@ function handleLeave() {
   isActive.value = false;
   tilt.value = { x: 0, y: 0 };
   mousePos.value = { x: 50, y: 50 };
-  mouseStyle.value = { '--mouse-x': '50%', '--mouse-y': '50%', '--pointer-x': '50%', '--pointer-y': '50%' };
+  mouseStyle.value = { '--mx': '50%', '--my': '50%', '--posx': '50%', '--posy': '50%' };
 }
 
 // --- Capture Impact Animation ---
@@ -790,19 +816,11 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
 }
 
-/* Quantity badge */
 .quantity-badge {
   position: absolute;
   top: -0.6em;
   right: -0.6em;
-  background: #ff0055;
-  color: white;
-  font-size: 0.95em;
-  font-weight: bold;
-  padding: 0.2em 0.6em;
-  border-radius: 1em;
-  z-index: 10;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.8), 0 0 0 2px rgba(255,255,255,0.2);
+  z-index: 100;
 }
 
 /* Selected overlay */
@@ -856,48 +874,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 .rarity-epic .tt-card-inner     { border-color: var(--border-color, #9c27b0); box-shadow: 0 0 12px var(--border-glow, rgba(156, 39, 176, 0.5)); }
 .rarity-legendary .tt-card-inner { border-color: var(--border-color, #ffc107); box-shadow: 0 0 15px var(--border-glow, rgba(255, 193, 7, 0.6)), 0 0 30px var(--border-glow, rgba(255, 193, 7, 0.2)); }
 
-/* Premium rarity — traveling light border */
-.is-premium .tt-card-inner {
-  border-color: transparent !important;
-  overflow: visible !important;
-}
 
-.premium-travel-border {
-  display: none;
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.premium-travel-border::before {
-  content: '';
-  position: absolute;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    transparent 260deg,
-    var(--rarity-color, #ffc107) 290deg,
-    var(--rarity-color, white) 310deg,
-    var(--rarity-color, #ffc107) 330deg,
-    transparent 360deg
-  );
-  animation: travelBorder 2.5s linear infinite;
-}
-
-@keyframes travelBorder {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-.is-premium:not(.is-compact) .premium-travel-border {
-  display: block;
-}
 
 /* Selection border */
 .is-selected:not(.is-compact) .tt-card-inner { border-color: var(--border-color, #00d2ff); box-shadow: 0 0 12px rgba(0, 210, 255, 0.4); }
@@ -947,39 +924,13 @@ watch(() => props.borderColor, (newVal, oldVal) => {
     transparent 100%
   );
   background-size: var(--holo-bg-size, 300% 300%);
-  background-position: var(--pointer-x, 50%) var(--pointer-y, 50%);
+  background-position: var(--posx, 50%) var(--posy, 50%);
   opacity: 1.0;
 }
 
 .tt-card.is-premium:hover .holo-container { opacity: 1; }
 
-.premium-border-layer {
-  position: absolute;
-  top: var(--card-border-offset, -2px); 
-  left: var(--card-border-offset, -2px); 
-  right: var(--card-border-offset, -2px); 
-  bottom: var(--card-border-offset, -2px);
-  box-sizing: border-box;
-  border-radius: inherit;
-  border: var(--card-border-width, 2px) solid transparent;
-  backface-visibility: hidden;
-  background: var(--premium-border-gradient, linear-gradient(135deg, var(--border-color, #ffc107), transparent, var(--border-color, #ffc107)) border-box);
-  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  background-size: 400% 400%;
-  animation: rainbowBorder 4s linear infinite;
-  box-shadow: 0 0 15px var(--premium-border-glow, rgba(255, 206, 0, 0.4));
-  pointer-events: none;
-  z-index: 6;
-}
 
-@keyframes rainbowBorder {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
 
 /* ============================================ */
 /*  DETAIL MODE                                 */
@@ -992,9 +943,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 .card-size-xl .tt-card-inner {
   overflow-y: auto;
 }
-.card-size-xl.is-premium .tt-card-inner {
-  overflow: visible !important;
-}
+
 
 .detail-name { font-size: 1.5em; margin: 0.5em 0 0.3em; color: white; text-align: center; }
 .detail-level { font-size: 0.9em; color: #aaa; text-align: center; margin-bottom: 0.2em; }
@@ -1079,40 +1028,11 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 .disenchant-btn { background: #f44336; }
 .disenchant-btn:hover { background: #d32f2f; }
 
-/* New badge */
 .new-badge {
   position: absolute;
-  top: -1em;
-  right: -1em;
-  width: 4.5em; /* Larger area for the burst shape */
-  height: 4.5em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #00f2ff, #0066ff);
-  color: white;
-  font-size: 0.6em;
-  font-weight: 900;
-  z-index: 20;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5), 0 0 15px rgba(0, 242, 255, 0.4);
-  /* Multi-point burst shape */
-  clip-path: polygon(
-    50% 0%, 58% 18%, 75% 6%, 77% 25%, 94% 20%, 88% 38%, 100% 50%, 88% 62%, 94% 80%, 77% 75%, 75% 94%, 58% 82%, 50% 100%, 42% 82%, 25% 94%, 23% 75%, 6% 80%, 12% 62%, 0% 50%, 12% 38%, 6% 20%, 23% 25%, 25% 6%, 42% 18%
-  );
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  pointer-events: none;
-  animation: badge-pop-burst 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.new-badge span {
-  transform: rotate(-10deg);
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-}
-
-@keyframes badge-pop-burst {
-  0% { transform: scale(0) rotate(-15deg); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+  top: -0.8em;
+  left: -0.8em;
+  z-index: 100;
 }
 </style>
 
@@ -1129,26 +1049,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 }
 
 /* Premium Zoom Effect Styles */
-.zoom-overlay .premium-border-layer {
-  position: absolute;
-  top: var(--card-border-offset, -2px); 
-  left: var(--card-border-offset, -2px); 
-  right: var(--card-border-offset, -2px); 
-  bottom: var(--card-border-offset, -2px);
-  box-sizing: border-box;
-  border-radius: inherit;
-  border: var(--card-border-width, 2px) solid transparent;
-  background: var(--premium-border-gradient, linear-gradient(135deg, var(--border-color, #ffc107), transparent, var(--border-color, #ffc107)) border-box);
-  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  background-size: 400% 400%;
-  animation: rainbowBorder 4s linear infinite;
-  box-shadow: 0 0 15px rgba(255, 206, 0, 0.4);
-  pointer-events: none;
-  z-index: 6;
-}
+
 
 .zoom-overlay .holo-container {
   position: absolute;

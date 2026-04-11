@@ -21,7 +21,6 @@ export const logPlayerEvent = async (strapi, eventData) => {
 
   // 1. Proactive Quest Renewal (Cleanup + Gap filling)
   try {
-    const { assignQuestsToUser } = require('../services/quest-assignment');
     await assignQuestsToUser(strapi, userId, true);
   } catch (err) {
     console.error('[QuestService] Renewal error:', err);

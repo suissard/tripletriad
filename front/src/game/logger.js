@@ -10,6 +10,8 @@ import strapiService from '../api/strapi.js';
 export async function sendGameLog(actionType, emitter, target) {
     // 1. Quest Tracking (Independent and prioritised)
     try {
+        const isLocalPlayer = emitter.type === 'player' || emitter.id === 'player' || emitter.id === state.pId;
+
         if (actionType === 'game_over') {
             const winner = target?.winner;
             await strapiService.trackEvent('play_game');
@@ -17,7 +19,7 @@ export async function sendGameLog(actionType, emitter, target) {
             if (winner === 'PLAYER_1' || winner === 'player' || (state.pId === winner)) {
                 await strapiService.trackEvent('win_game');
             }
-        } else if (actionType === 'placement' && emitter.type === 'player') {
+        } else if (actionType === 'placement' && isLocalPlayer) {
             const card = target.card;
             await strapiService.trackEvent('play_card', { 
                 relatedCardId: card?.id,
@@ -34,8 +36,11 @@ export async function sendGameLog(actionType, emitter, target) {
             if (card?.faction && card.faction !== 'neutre') {
                 await strapiService.trackEvent('play_card_faction', { relatedElement: card.faction });
             }
-        } else if (actionType === 'competence' && emitter.type === 'player' && target.count > 0) {
-            await strapiService.trackEvent('capture_card', { value: target.count });
+        } else if (actionType === 'competence' && isLocalPlayer && (target.count > 0 || target.value > 0)) {
+            const amount = target.count || target.value || 0;
+            if (amount > 0) {
+              await strapiService.trackEvent('capture_card', { value: amount });
+            }
         }
     } catch (questErr) {
         console.error(`[QuestTracking] Error:`, questErr);

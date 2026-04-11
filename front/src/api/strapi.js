@@ -219,6 +219,7 @@ class StrapiApi {
     async getGameConfig(options = {}) {
         try {
             const res = await this.request('GET', '/game-config', options);
+            // Handle Strapi 5 flattened format vs Strapi 4 attributes format
             if (res && res.data) {
                 return res.data.attributes ? { id: res.data.id, ...res.data.attributes } : res.data;
             }
@@ -228,6 +229,21 @@ class StrapiApi {
             return null;
         }
     }
+
+    /**
+     * Reliable health check that doesn't depend on specific content entries.
+     * Uses /admin/init which is public and always exists if Strapi is running.
+     */
+    async healthCheck(options = {}) {
+        try {
+            const url = `${this.BASE_URL.replace('/api', '')}/admin/init`;
+            const res = await fetch(url, { ...options });
+            return res.ok;
+        } catch (e) {
+            return false;
+        }
+    }
+
 
     get rawClient() {
         return this.strapiClient;
