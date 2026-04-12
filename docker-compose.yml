@@ -21,7 +21,7 @@ services:
     working_dir: /opt/app
     volumes:
       - ./back/strapi:/opt/app
-      - /opt/app/node_modules
+      # - /opt/app/node_modules
       - ./scripts:/opt/app/scripts
       - ./shared:/opt/app/src/shared
       - ./back/strapi_data/.tmp:/opt/app/.tmp
@@ -41,6 +41,7 @@ services:
       NODE_ENV: development
       STRAPI_AUTO_INIT: 'false'
     command: >
-      sh -c "npm install --no-audit --no-fund --loglevel=error && npm run develop"
+      sh -c "if [ ! -d 'node_modules' ]; then npm install; fi && npm run develop"    # command: >
+    #     npm run develop
     restart: unless-stopped
     # network_mode: "host"
