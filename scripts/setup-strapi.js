@@ -39,7 +39,7 @@ function loadEnv() {
 }
 
 const env = loadEnv();
-const STRAPI_URL = `http://localhost:${env.STRAPI_PORT || 1337}`;
+const STRAPI_URL = env.VITE_STRAPI_URL || `http://localhost:${env.STRAPI_PORT || 1340}`;
 const ADMIN_EMAIL = env.ADMIN_EMAIL;
 const ADMIN_PASSWORD = env.ADMIN_PASSWORD;
 const ADMIN_FIRSTNAME = env.ADMIN_FIRSTNAME || 'Super';

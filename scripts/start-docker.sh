@@ -15,13 +15,13 @@ FRONTEND_PORT=${FRONTEND_PORT:-80}
 
 echo "🚀 Démarrage des conteneurs Docker (sudo) depuis $ROOT_DIR..."
 
-# Exécuter docker-compose depuis la racine avec sudo
+# Exécuter docker.compose depuis la racine
 cd "$ROOT_DIR"
-sudo docker-compose up -d
+docker.compose up -d
 
 echo ""
 echo "✨ Services démarrés :"
 echo "🌍 Frontend      : http://localhost:$FRONTEND_PORT"
 echo "⚙️  Strapi (API) : http://localhost:$PORT"
 echo ""
-echo "📝 Pour voir les logs : sudo docker-compose logs -f"
+echo "📝 Pour voir les logs : docker.compose logs -f"

@@ -22,6 +22,8 @@ async function uploadCards() {
     const envPath = path.join(__dirname, '..', '.env');
     let adminEmail = process.env.ADMIN_EMAIL;
     let adminPassword = process.env.ADMIN_PASSWORD;
+    let strapiPort = process.env.STRAPI_PORT || '1340';
+    let strapiUrlBase = process.env.VITE_STRAPI_URL;
 
     if (fs.existsSync(envPath)) {
         const envContent = fs.readFileSync(envPath, 'utf8');
@@ -32,6 +34,8 @@ async function uploadCards() {
                 const val = match[2].trim();
                 if (key === 'ADMIN_EMAIL' && !adminEmail) adminEmail = val;
                 if (key === 'ADMIN_PASSWORD' && !adminPassword) adminPassword = val;
+                if (key === 'STRAPI_PORT') strapiPort = val;
+                if (key === 'VITE_STRAPI_URL') strapiUrlBase = val;
             }
         });
     }
@@ -42,9 +46,9 @@ async function uploadCards() {
         process.exit(1);
     }
 
-    // --- AUTHENTIFICATION ADMIN STRAPI ---
-    console.log('Authentification auprès de Strapi...');
-    const loginRes = await fetch('http://localhost:1337/admin/login', {
+    const finalStrapiUrl = strapiUrlBase || `http://localhost:${strapiPort}`;
+    console.log(`Authentification auprès de Strapi (${finalStrapiUrl})...`);
+    const loginRes = await fetch(`${finalStrapiUrl}/admin/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: adminEmail, password: adminPassword })
@@ -63,7 +67,7 @@ async function uploadCards() {
     console.log('Authentification réussie ! Token récupéré.');
 
     // URL du Content Manager (réservé aux admins)
-    const STRAPI_URL = 'http://localhost:1337/content-manager/collection-types/api::card.card';
+    const STRAPI_CONTENT_URL = `${finalStrapiUrl}/content-manager/collection-types/api::card.card`;
 
     console.log('Envoi des cartes à Strapi via API REST...');
     let successCount = 0;
@@ -85,7 +89,7 @@ async function uploadCards() {
         };
 
         try {
-            const response = await fetch(STRAPI_URL, {
+            const response = await fetch(STRAPI_CONTENT_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

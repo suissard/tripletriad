@@ -4,23 +4,28 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npm run sync:cards && npm run stop && npm run docker:start && npm run dev:front",
-    "sync:cards": "node scripts/sync-offline-cards.mjs",
     "install": "node scripts/install-all.js && npm run sync:cards",
-    "setup": "node scripts/setup-strapi.js",
-    "start": "bash scripts/start-docker.sh",
-    "stop": "sudo docker-compose down",
-    "restart": "npm run stop && npm run start",
-    "test:api": "npm run test:api --prefix front",
-    "dev:front": "npm run dev --prefix front",
-    "dev:back": "sudo docker-compose logs -f strapi",
-    "build:front": "npm run build --prefix front",
-    "docker:start": "bash scripts/start-docker.sh",
-    "docker:stop": "sudo docker-compose down",
+    "setup": "npm run docker:install && node scripts/setup-strapi.js",
+    "docker:install": "docker.compose run --rm terra-nullius-strapi npm install && docker.compose run --rm frontend npm install",
     "clean": "bash scripts/clean.sh",
+
+    "dev": "npm run sync:cards && npm run stop && npm run docker:start && npm run dev:front",
+    "dev:front": "npm run dev --prefix front",
+    "dev:back": "docker.compose logs -f terra-nullius-strapi",
+    "sync:cards": "node scripts/sync-offline-cards.mjs",
+
+    "start": "npm run docker:start",
+    "stop": "npm run docker:stop",
+    "restart": "npm run stop && npm run start",
+    "docker:start": "bash scripts/start-docker.sh",
+    "docker:stop": "docker.compose down",
+
     "seed": "node scripts/seed-cards.mjs",
-    "strapi:seed": "sudo docker compose exec strapi node scripts/strapi-seed-all.js",
-    "strapi:seed:cards": "sudo docker compose exec strapi node scripts/strapi-seed-cards-internal.js"
+    "strapi:seed": "docker.compose exec terra-nullius-strapi node scripts/strapi-seed-all.js",
+    "strapi:seed:cards": "docker.compose exec terra-nullius-strapi node scripts/strapi-seed-cards-internal.js",
+
+    "build:front": "npm run build --prefix front",
+    "test:api": "npm run test:api --prefix front"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2"

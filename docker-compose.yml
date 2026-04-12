@@ -1,27 +1,28 @@
 services:
-#  frontend:
-#    image: node:24.14.0-alpine
-#    container_name: frontend
-#    working_dir: /app
-#    volumes:
-#      - ./front:/app
-#    ports:
-#      - "${FRONTEND_PORT:-80}:5173"
-#    environment:
-#      - VITE_STRAPI_URL=http://localhost:1337
-#    command: >
-#      sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 5173"
-#    restart: unless-stopped
-#    depends_on:
-#      - strapi
-
-  strapi:
+  terra-nullius-frontend:
     image: node:24.14.0-alpine
-    container_name: strapi
+    container_name: terra-nullius-frontend
+    working_dir: /app
+    volumes:
+      - ./front:/app
+      - /app/node_modules
+    ports:
+      - "${FRONTEND_PORT:-80}:5173"
+    environment:
+      - VITE_STRAPI_URL=${VITE_STRAPI_URL:-http://localhost:1340}
+    command: >
+      sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 5173"
+    restart: unless-stopped
+    depends_on:
+      - terra-nullius-strapi
+
+  terra-nullius-strapi:
+    image: node:24.14.0-alpine
+    container_name: terra-nullius-strapi
     working_dir: /opt/app
     volumes:
       - ./back/strapi:/opt/app
-      # - /opt/app/node_modules
+      - /opt/app/node_modules
       - ./scripts:/opt/app/scripts
       - ./shared:/opt/app/src/shared
       - ./back/strapi_data/.tmp:/opt/app/.tmp
@@ -40,8 +41,7 @@ services:
       ENCRYPTION_KEY: ${ENCRYPTION_KEY}
       NODE_ENV: development
       STRAPI_AUTO_INIT: 'false'
-    command: >
-      sh -c "if [ ! -d 'node_modules' ]; then npm install; fi && npm run develop"    # command: >
-    #     npm run develop
+    command: sh -c "if [ ! -d 'node_modules/.bin' ]; then npm install; fi && npm run develop"
+    # command: npm run develop
     restart: unless-stopped
     # network_mode: "host"
