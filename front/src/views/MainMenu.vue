@@ -123,6 +123,7 @@ import CoinToss from '../components/CoinToss.vue';
 import AnimatedCardBack from '../components/AnimatedCardBack.vue';
 import MiniDeck from '../components/MiniDeck.vue';
 import QuestRewardModal from '../components/QuestRewardModal.vue';
+import WeeklyRewardModal from '../components/WeeklyRewardModal.vue';
 import AppBadge from '../components/ui/AppBadge.vue';
 import { useUserStore } from '../stores/userStore.js';
 import strapiService from '../api/strapi.js';
@@ -300,6 +301,12 @@ onMounted(async () => {
     const hasUnclaimed = userStore.quests.some(q => q.status === 'completed' && !q.rewardClaimed);
     if (hasUnclaimed) {
       showQuestModal.value = true;
+    }
+
+    await userStore.fetchWeeklyQuests();
+    if (userStore.hasClaimableWeeklyTiers && !showQuestModal.value) {
+       // Si on veut aussi ouvrir la modale hebdmoadaire automatiquement (pour l'instant laissons l'utilisateur aller sur la page quêtes, ou on claim auto).
+       // En fait la page quetes gere le bouton de claim. La notification se fait sur la pastille.
     }
   } catch(e) {
     console.warn("Failed to fetch data in MainMenu", e);

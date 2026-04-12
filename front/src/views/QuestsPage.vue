@@ -12,6 +12,13 @@
       </div>
 
     <div v-else class="quests-list">
+        <WeeklyQuestProgress
+          v-if="userStore.weeklyConfig"
+          :weekly-config="userStore.weeklyConfig"
+          :weekly-progress="userStore.weeklyProgress"
+          @claim="handleWeeklyClaim"
+        />
+
         <div v-if="inProgressQuests.length > 0">
           <div class="section-title">Quêtes en cours</div>
           <div class="cards-grid">
@@ -48,6 +55,11 @@
         </div>
       </div>
     </div>
+    <WeeklyRewardModal
+      :is-open="showWeeklyModal"
+      :reward="weeklyReward"
+      @close="showWeeklyModal = false"
+    />
   </PageLayout>
 </template>
 
@@ -55,10 +67,14 @@
 import { computed, ref, onMounted, onUnmounted } from 'vue';
 import PageLayout from '../components/PageLayout.vue';
 import QuestItem from '../components/QuestItem.vue';
+import WeeklyQuestProgress from '../components/WeeklyQuestProgress.vue';
+import WeeklyRewardModal from '../components/WeeklyRewardModal.vue';
 import { useUserStore } from '../stores/userStore.js';
 
 const userStore = useUserStore();
 const now = ref(new Date());
+const showWeeklyModal = ref(false);
+const weeklyReward = ref(null);
 let timerInterval = null;
 
 const isPending = (quest) => {
@@ -82,6 +98,15 @@ const completedQuests = computed(() => {
 const upcomingQuests = computed(() => {
   return userStore.quests.filter(q => isPending(q));
 });
+
+async function handleWeeklyClaim(requiredCount) {
+  const result = await userStore.claimWeeklyTier(requiredCount);
+  if (result) {
+    // Show some notification or let the store handle alerts
+    weeklyReward.value = result;
+    showWeeklyModal.value = true;
+  }
+}
 
 async function handleClaim(questId) {
   console.log('Claiming reward for quest:', questId);

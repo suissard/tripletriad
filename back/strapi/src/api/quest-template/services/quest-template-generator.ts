@@ -1,47 +1,103 @@
-export const elements = ['eau', 'radiation', 'reseau', 'spore', 'furtif', 'longue_portee', 'faille_dimensionnelle', 'hacking', 'obsidienne'];
+export const elements = [
+  "eau",
+  "radiation",
+  "reseau",
+  "spore",
+  "furtif",
+  "longue_portee",
+  "faille_dimensionnelle",
+  "hacking",
+  "obsidienne",
+];
 
 export const factions = [
-  'Chœur Synthétique',
-  'Éveil Chthonien',
-  'Exode Pélagique',
-  'Ferrailleurs de la Ceinture',
-  'Fléau Spore',
-  'Hégémonie Martienne',
-  'Héritiers des Cendres',
-  'Incursion Dissonante',
-  'Omni-Réseau'
+  "Chœur Synthétique",
+  "Éveil Chthonien",
+  "Exode Pélagique",
+  "Ferrailleurs de la Ceinture",
+  "Fléau Spore",
+  "Hégémonie Martienne",
+  "Héritiers des Cendres",
+  "Incursion Dissonante",
+  "Omni-Réseau",
 ];
 
 const normalizeCode = (str: string) => {
-  return str.normalize("NFD")
+  return str
+    .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-zA-Z0-0]/g, '_')
-    .replace(/_+/g, '_')
+    .replace(/[^a-zA-Z0-0]/g, "_")
+    .replace(/_+/g, "_")
     .toUpperCase();
 };
 
 export const generateQuestTemplates = async (strapi) => {
   const durations = [
-    { name: 'daily', days: 1, multiplier: 1, typeEnum: 'daily' },
-    { name: '48h', days: 2, multiplier: 2, typeEnum: 'daily' },
-    { name: 'weekly', days: 7, multiplier: 7, typeEnum: 'weekly' }
+    { name: "daily", days: 1, multiplier: 1, typeEnum: "daily" },
+    { name: "48h", days: 2, multiplier: 2, typeEnum: "daily" },
+    { name: "weekly", days: 7, multiplier: 7, typeEnum: "weekly" },
   ];
 
   const baseQuests = [
-    { codePrefix: 'PLAY_GAMES', title: 'Jouer {x} partie(s)', desc: 'Jouez des parties de Triple Triad', baseTarget: 5, eventType: 'play_game' },
-    { codePrefix: 'WIN_GAMES', title: 'Gagner {x} partie(s)', desc: 'Gagnez des parties de Triple Triad', baseTarget: 3, eventType: 'win_game' },
-    { codePrefix: 'OPEN_BOOSTER', title: 'Ouvrir {x} booster(s)', desc: 'Ouvrez des boosters pour obtenir de nouvelles cartes', baseTarget: 1, eventType: 'open_booster' },
-    { codePrefix: 'CAPTURE_CARDS', title: 'Capturer {x} carte(s)', desc: 'Capturez les cartes de votre adversaire pendant une partie', baseTarget: 8, eventType: 'capture_card' },
-    { codePrefix: 'PLAY_CARDS', title: 'Jouer {x} carte(s)', desc: 'Placez des cartes sur le plateau de jeu', baseTarget: 15, eventType: 'play_card' }
+    {
+      codePrefix: "PLAY_GAMES",
+      title: "Jouer {x} partie(s)",
+      desc: "Jouez des parties de Triple Triad",
+      baseTarget: 5,
+      eventType: "play_game",
+    },
+    {
+      codePrefix: "WIN_GAMES",
+      title: "Gagner {x} partie(s)",
+      desc: "Gagnez des parties de Triple Triad",
+      baseTarget: 3,
+      eventType: "win_game",
+    },
+    {
+      codePrefix: "OPEN_BOOSTER",
+      title: "Ouvrir {x} booster(s)",
+      desc: "Ouvrez des boosters pour obtenir de nouvelles cartes",
+      baseTarget: 1,
+      eventType: "open_booster",
+    },
+    {
+      codePrefix: "CAPTURE_CARDS",
+      title: "Capturer {x} carte(s)",
+      desc: "Capturez les cartes de votre adversaire pendant une partie",
+      baseTarget: 8,
+      eventType: "capture_card",
+    },
+    {
+      codePrefix: "PLAY_CARDS",
+      title: "Jouer {x} carte(s)",
+      desc: "Placez des cartes sur le plateau de jeu",
+      baseTarget: 15,
+      eventType: "play_card",
+    },
   ];
 
-  const elementBaseQuest = { codePrefix: 'PLAY_ELEMENT', title: 'Jouer {x} carte(s) {element}', desc: 'Placez des cartes de l\'élément {element} sur le plateau', baseTarget: 8, eventType: 'play_card_element' };
-  const factionBaseQuest = { codePrefix: 'PLAY_FACTION', title: 'Jouer {x} carte(s) de la faction {faction}', desc: 'Placez des cartes de la faction {faction} sur le plateau', baseTarget: 10, eventType: 'play_card_faction' };
+  const elementBaseQuest = {
+    codePrefix: "PLAY_ELEMENT",
+    title: "Jouer {x} carte(s) {element}",
+    desc: "Placez des cartes de l'élément {element} sur le plateau",
+    baseTarget: 8,
+    eventType: "play_card_element",
+  };
+  const factionBaseQuest = {
+    codePrefix: "PLAY_FACTION",
+    title: "Jouer {x} carte(s) de la faction {faction}",
+    desc: "Placez des cartes de la faction {faction} sur le plateau",
+    baseTarget: 10,
+    eventType: "play_card_faction",
+  };
 
   // Optimization: Fetch all existing template codes once to avoid N+1 queries
-  const existingTemplates = await strapi.entityService.findMany('api::quest-template.quest-template', {
-    fields: ['code']
-  });
+  const existingTemplates = await strapi.entityService.findMany(
+    "api::quest-template.quest-template",
+    {
+      fields: ["code"],
+    },
+  );
   const existingCodes = new Set(existingTemplates.map((t: any) => t.code));
 
   for (const duration of durations) {
@@ -52,16 +108,19 @@ export const generateQuestTemplates = async (strapi) => {
       const rewardCoins = 100 * duration.multiplier;
 
       if (!existingCodes.has(code)) {
-        await strapi.entityService.create('api::quest-template.quest-template', {
-          data: {
-            code,
-            title: base.title.replace('{x}', target.toString()),
-            description: base.desc,
-            target,
-            rewardCoins,
-            type: duration.typeEnum
-          }
-        });
+        await strapi.entityService.create(
+          "api::quest-template.quest-template",
+          {
+            data: {
+              code,
+              title: base.title.replace("{x}", target.toString()),
+              description: base.desc,
+              target,
+              rewardCoins,
+              type: duration.typeEnum,
+            },
+          },
+        );
       }
     }
 
@@ -72,16 +131,24 @@ export const generateQuestTemplates = async (strapi) => {
       const rewardCoins = 100 * duration.multiplier;
 
       if (!existingCodes.has(code)) {
-        await strapi.entityService.create('api::quest-template.quest-template', {
-          data: {
-            code,
-            title: elementBaseQuest.title.replace('{x}', target.toString()).replace('{element}', element.replace('_', ' ')),
-            description: elementBaseQuest.desc.replace('{element}', element.replace('_', ' ')),
-            target,
-            rewardCoins,
-            type: duration.typeEnum
-          }
-        });
+        await strapi.entityService.create(
+          "api::quest-template.quest-template",
+          {
+            data: {
+              code,
+              title: elementBaseQuest.title
+                .replace("{x}", target.toString())
+                .replace("{element}", element.replace("_", " ")),
+              description: elementBaseQuest.desc.replace(
+                "{element}",
+                element.replace("_", " "),
+              ),
+              target,
+              rewardCoins,
+              type: duration.typeEnum,
+            },
+          },
+        );
       }
     }
 
@@ -93,16 +160,21 @@ export const generateQuestTemplates = async (strapi) => {
       const rewardCoins = 120 * duration.multiplier;
 
       if (!existingCodes.has(code)) {
-        await strapi.entityService.create('api::quest-template.quest-template', {
-          data: {
-            code,
-            title: factionBaseQuest.title.replace('{x}', target.toString()).replace('{faction}', faction),
-            description: factionBaseQuest.desc.replace('{faction}', faction),
-            target,
-            rewardCoins,
-            type: duration.typeEnum
-          }
-        });
+        await strapi.entityService.create(
+          "api::quest-template.quest-template",
+          {
+            data: {
+              code,
+              title: factionBaseQuest.title
+                .replace("{x}", target.toString())
+                .replace("{faction}", faction),
+              description: factionBaseQuest.desc.replace("{faction}", faction),
+              target,
+              rewardCoins,
+              type: duration.typeEnum,
+            },
+          },
+        );
       }
     }
   }

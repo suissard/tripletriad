@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_quest_weekly_tiers",
+  "info": {
+    "displayName": "Weekly Tier",
+    "icon": "star",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "requiredCount": {
+      "type": "integer",
+      "required": true,
+      "min": 1
+    },
+    "coins": {
+      "type": "integer",
+      "default": 0
+    },
+    "gems": {
+      "type": "integer",
+      "default": 0
+    },
+    "cardRarity": {
+      "type": "enumeration",
+      "enum": ["None", "Commun", "Peu Commun", "Rare", "Épique", "Légendaire"],
+      "default": "None"
+    }
+  }
+}

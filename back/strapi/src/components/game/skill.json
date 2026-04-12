@@ -8,13 +8,7 @@
   "attributes": {
     "type": {
       "type": "enumeration",
-      "enum": [
-        "growing",
-        "decrease",
-        "heal",
-        "death",
-        "turn"
-      ],
+      "enum": ["growing", "decrease", "heal", "death", "turn"],
       "required": true
     },
     "value": {

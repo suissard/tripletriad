@@ -43,6 +43,31 @@ export interface GameSkill extends Struct.ComponentSchema {
   };
 }
 
+export interface QuestWeeklyTier extends Struct.ComponentSchema {
+  collectionName: 'components_quest_weekly_tiers';
+  info: {
+    description: '';
+    displayName: 'Weekly Tier';
+    icon: 'star';
+  };
+  attributes: {
+    cardRarity: Schema.Attribute.Enumeration<
+      ['None', 'Commun', 'Peu Commun', 'Rare', '\u00C9pique', 'L\u00E9gendaire']
+    > &
+      Schema.Attribute.DefaultTo<'None'>;
+    coins: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    gems: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    requiredCount: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+  };
+}
+
 export interface StoryChoiceCondition extends Struct.ComponentSchema {
   collectionName: 'components_story_choice_conditions';
   info: {
@@ -189,6 +214,7 @@ declare module '@strapi/strapi' {
     export interface ComponentSchemas {
       'foil.layer': FoilLayer;
       'game.skill': GameSkill;
+      'quest.weekly-tier': QuestWeeklyTier;
       'story.choice-condition': StoryChoiceCondition;
       'story.choice-option': StoryChoiceOption;
       'story.dialogue': StoryDialogue;
