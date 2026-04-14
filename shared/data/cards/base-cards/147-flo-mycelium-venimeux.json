@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Mycelium Venimeux",
   "description": "Maître Mycélien connectant plusieurs colonies fongiques dispersées pour une action coordonnée simultanée sur plusieurs fronts.",
-  "element": "eau",
+  "element": "spore",
   "faction": "Fléau Spore",
   "topValue": "2",
   "rightValue": "6",
@@ -14,8 +14,7 @@
   "image": "base/147.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "eau",
-    "glace"
+    "spore"
   ],
   "prompt": {
     "format": "1:1",

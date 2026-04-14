@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Nomade",
   "description": "Garde-frontière protégeant les convois civils dans les zones neutres où aucune faction n'exerce de contrôle.",
-  "element": "furtif",
+  "element": "None",
   "faction": "neutre",
   "topValue": "1",
   "rightValue": "0",
@@ -19,9 +19,7 @@
   "defaultHp": 3,
   "image": "base/005.png",
   "storiesRewardedFrom": null,
-  "elements": [
-    "neutre"
-  ],
+  "elements": [],
   "prompt": {
     "format": "1:1",
     "subject": {

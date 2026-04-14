@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Pestilent",
   "description": "Végétal sentinelle détectant les intrusions ennemies par les modifications de l'environnement fongique environnant.",
-  "element": "eau",
+  "element": "spore",
   "faction": "Fléau Spore",
   "topValue": "1",
   "rightValue": "0",
@@ -20,8 +20,7 @@
   "image": "base/141.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "eau",
-    "glace"
+    "spore"
   ],
   "prompt": {
     "format": "1:1",

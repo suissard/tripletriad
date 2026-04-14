@@ -8,9 +8,50 @@ import strapiService from '../api/strapi.js';
  * @param {object} target - { card?: object, player?: string, case?: number, bouton?: string }
  */
 export async function sendGameLog(actionType, emitter, target) {
-    // Si on n'a pas d'UUID de match, on ne peut pas logguer
+    // 1. Quest Tracking (Independent and prioritised)
+    try {
+        const isLocalPlayer = emitter.type === 'player' || emitter.id === 'player' || emitter.id === state.pId;
+
+        if (actionType === 'game_over') {
+            const winner = target?.winner;
+            await strapiService.trackEvent('play_game');
+            
+            if (winner === 'PLAYER_1' || winner === 'player' || (state.pId === winner)) {
+                await strapiService.trackEvent('win_game');
+            }
+        } else if (actionType === 'placement' && isLocalPlayer) {
+            const card = target.card;
+            await strapiService.trackEvent('play_card', { 
+                relatedCardId: card?.id,
+                relatedElement: card?.element
+            });
+
+            const elements = card?.elements || (card?.element && card.element !== 'None' ? [card.element] : []);
+            for (const el of elements) {
+                if (el && el !== 'None') {
+                    await strapiService.trackEvent('play_card_element', { relatedElement: el });
+                }
+            }
+
+            if (card?.faction && card.faction !== 'neutre') {
+                await strapiService.trackEvent('play_card_faction', { relatedElement: card.faction });
+            }
+        } else if (actionType === 'competence' && isLocalPlayer && (target.count > 0 || target.value > 0)) {
+            const amount = target.count || target.value || 0;
+            if (amount > 0) {
+              await strapiService.trackEvent('capture_card', { value: amount });
+            }
+        }
+    } catch (questErr) {
+        console.error(`[QuestTracking] Error:`, questErr);
+    }
+
+    // 2. Match Log (Requires matchId)
     const matchId = state.matchId || (webrtc && webrtc.uuid);
-    if (!matchId) return;
+    if (!matchId) {
+        console.warn(`[GameLogger] Match log skipped: No matchId found for action ${actionType}`);
+        return;
+    }
 
     const logPayload = {
         timestamp: new Date().toISOString(),
@@ -28,36 +69,8 @@ export async function sendGameLog(actionType, emitter, target) {
             },
             body: JSON.stringify({ action: logPayload })
         });
-        console.log(`[GameLogger] Log envoyé:`, logPayload);
-
-        // Quest Tracking Integration
-        if (actionType === 'game_over') {
-            const winner = target?.winner;
-            // Track that a game was played
-            await strapiService.trackEvent('play_game');
-            
-            // If local player won
-            if (winner === 'PLAYER_1' || winner === 'player' || (state.pId === winner)) {
-                await strapiService.trackEvent('win_game');
-            }
-        } else if (actionType === 'placement' && emitter.type === 'player') {
-             await strapiService.trackEvent('play_card', { 
-                 relatedCardId: target.card?.id,
-                 relatedElement: target.card?.element
-             });
-             if (target.card?.element && target.card?.element !== 'None') {
-                 await strapiService.trackEvent('play_card_element', { 
-                     relatedElement: target.card?.element 
-                 });
-             }
-        } else if (actionType === 'competence' && emitter.type === 'player') {
-            // This usually tracks captures
-            if (target.count > 0) {
-                await strapiService.trackEvent('capture_card', { value: target.count });
-            }
-        }
-
+        console.log(`[GameLogger] Match log saved:`, actionType);
     } catch (e) {
-        console.error(`[GameLogger] Échec de l'envoi du log:`, e);
+        console.error(`[GameLogger] Match log error:`, e);
     }
 }

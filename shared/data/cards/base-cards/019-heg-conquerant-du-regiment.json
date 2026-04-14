@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Conquerant du Regiment",
   "description": "Infiltrateur s'introduisant dans les positions défensives adverses avant le déclenchement des assauts frontaux.",
-  "element": "reseau",
+  "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "6",
   "rightValue": "1",
@@ -20,7 +20,7 @@
   "image": "base/019.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "longue_portee"
   ],
   "prompt": {
     "format": "1:1",

@@ -1,5 +1,9 @@
-import { factories } from '@strapi/strapi';
-import { GameEngine, GameState, PlaceCardAction } from '../../../shared/GameEngine';
+import { factories } from "@strapi/strapi";
+import {
+  GameEngine,
+  GameState,
+  PlaceCardAction,
+} from "../../../shared/GameEngine";
 
 // Interface attendue dans le Body de la requête
 interface ArbitrateRequestBody {
@@ -11,187 +15,205 @@ interface ArbitrateRequestBody {
 // pour compter le nombre de demandes d'arbitrage par match.
 const arbitrationRequestsCount: Record<string, number> = {};
 
-export default factories.createCoreController('api::match.match', ({ strapi }) => ({
-  
-  /**
-   * Arbitre le match en rejouant les logs
-   */
-  async arbitrate(ctx) {
-    try {
-      const body = ctx.request.body as ArbitrateRequestBody;
-      
-      if (!body.matchId || !body.logs || !Array.isArray(body.logs)) {
-        return ctx.badRequest("Le body doit contenir 'matchId' et 'logs' (tableau d'actions).");
-      }
+export default factories.createCoreController(
+  "api::match.match",
+  ({ strapi }) => ({
+    /**
+     * Arbitre le match en rejouant les logs
+     */
+    async arbitrate(ctx) {
+      try {
+        const body = ctx.request.body as ArbitrateRequestBody;
 
-      const { matchId, logs } = body;
+        if (!body.matchId || !body.logs || !Array.isArray(body.logs)) {
+          return ctx.badRequest(
+            "Le body doit contenir 'matchId' et 'logs' (tableau d'actions).",
+          );
+        }
 
-      // 1. Vérifie la limite d'arbitrage (ex: max 3 requêtes)
-      if (!arbitrationRequestsCount[matchId]) {
-        arbitrationRequestsCount[matchId] = 0;
-      }
-      
-      arbitrationRequestsCount[matchId] += 1;
+        const { matchId, logs } = body;
 
-      if (arbitrationRequestsCount[matchId] > 3) {
+        // 1. Vérifie la limite d'arbitrage (ex: max 3 requêtes)
+        if (!arbitrationRequestsCount[matchId]) {
+          arbitrationRequestsCount[matchId] = 0;
+        }
+
+        arbitrationRequestsCount[matchId] += 1;
+
+        if (arbitrationRequestsCount[matchId] > 3) {
+          return ctx.send(
+            {
+              status: "ABORTED",
+              message: `Match ${matchId} annulé : Trop de requêtes d'arbitrage détectées (suspect d'abus réseau/triche).`,
+              state: null,
+            },
+            403,
+          );
+        }
+
+        // 2. Rejeu des logs
+        // Fetch match to get the starting player
+        const matches = await strapi.documents("api::match.match").findMany({
+          filters: { uuid: matchId },
+        });
+
+        if (matches.length === 0) {
+          return ctx.notFound(`Match ${matchId} non trouvé.`);
+        }
+
+        const match = matches[0];
+        const startingPlayer = (match.startingPlayer as any) || "PLAYER_1";
+
+        let currentState: GameState =
+          GameEngine.createInitialState(startingPlayer);
+
+        // Filtrer uniquement les actions de placement (celles qui concernent l'arbitrage du GameEngine)
+        // On suppose que l'action est imbriquée ou que le log a un format spécifique
+        // Si l'ancienne version passait des objets directs, on gère les deux.
+        const placeCardActions = logs
+          .filter(
+            (log) =>
+              log.type === "PLACE_CARD" ||
+              (log.action === "placement" && log.target && log.target.card),
+          )
+          .map((log) =>
+            log.action === "placement"
+              ? {
+                  type: "PLACE_CARD",
+                  player: log.emitter.id,
+                  x: log.target.case % 3,
+                  y: Math.floor(log.target.case / 3),
+                  card: log.target.card,
+                }
+              : log,
+          );
+
+        for (let i = 0; i < placeCardActions.length; i++) {
+          const action = placeCardActions[i];
+
+          try {
+            currentState = GameEngine.computeNextState(currentState, action);
+          } catch (error) {
+            return ctx.send(
+              {
+                status: "INVALID_LOGS",
+                message: `L'action au tour ${i} est invalide : ${error.message}`,
+                state: currentState,
+              },
+              400,
+            );
+          }
+        }
+
         return ctx.send({
-          status: 'ABORTED',
-          message: `Match ${matchId} annulé : Trop de requêtes d'arbitrage détectées (suspect d'abus réseau/triche).`,
-          state: null
-        }, 403);
+          status: "SUCCESS",
+          message: "Arbitrage terminé avec succès.",
+          state: currentState,
+        });
+      } catch (err) {
+        ctx.body = err;
       }
+    },
 
-      // 2. Rejeu des logs
-      // Fetch match to get the starting player
-      const matches = await strapi.documents('api::match.match').findMany({
-        filters: { uuid: matchId }
-      });
+    // --- STUBS POUR RESTAURER LA COMPATIBILITÉ AVEC custom.ts ---
+    // Note: Ces méthodes ont été perdues lors du précédent edit.
+    // Elles doivent être ré-implémentées avec la logique WebRTC réelle du projet.
 
-      if (matches.length === 0) {
-        return ctx.notFound(`Match ${matchId} non trouvé.`);
+    async createMatch(ctx) {
+      const { uuid, offer, users } = ctx.request.body;
+
+      // Pour l'IA, l'offre WebRTC n'est pas requise, mais l'UUID l'est.
+      if (!uuid) return ctx.badRequest("UUID is required");
+
+      try {
+        const startingPlayer = Math.random() < 0.5 ? "PLAYER_1" : "PLAYER_2";
+
+        const match = await strapi.documents("api::match.match").create({
+          data: {
+            uuid,
+            offer,
+            users,
+            logs: [],
+            startingPlayer,
+          },
+        });
+        return { data: match };
+      } catch (e) {
+        return ctx.internalServerError(e.message);
       }
+    },
 
-      const match = matches[0];
-      const startingPlayer = (match.startingPlayer as any) || 'PLAYER_1';
+    async findByUuid(ctx) {
+      const { uuid } = ctx.params;
+      if (!uuid) return ctx.badRequest("UUID is required");
 
-      let currentState: GameState = GameEngine.createInitialState(startingPlayer);
-      
-      // Filtrer uniquement les actions de placement (celles qui concernent l'arbitrage du GameEngine)
-      // On suppose que l'action est imbriquée ou que le log a un format spécifique
-      // Si l'ancienne version passait des objets directs, on gère les deux.
-      const placeCardActions = logs
-        .filter(log => log.type === 'PLACE_CARD' || (log.action === 'placement' && log.target && log.target.card))
-        .map(log => log.action === 'placement' ? {
-          type: 'PLACE_CARD',
-          player: log.emitter.id,
-          x: log.target.case % 3,
-          y: Math.floor(log.target.case / 3),
-          card: log.target.card
-        } : log);
+      try {
+        const matches = await strapi.documents("api::match.match").findMany({
+          filters: { uuid },
+        });
 
-      for (let i = 0; i < placeCardActions.length; i++) {
-        const action = placeCardActions[i];
-        
-        try {
-          currentState = GameEngine.computeNextState(currentState, action);
-        } catch (error) {
-           return ctx.send({
-             status: 'INVALID_LOGS',
-             message: `L'action au tour ${i} est invalide : ${error.message}`,
-             state: currentState
-           }, 400); 
-        }
+        if (matches.length === 0) return ctx.notFound("Match not found");
+        return { data: matches[0] };
+      } catch (e) {
+        return ctx.internalServerError(e.message);
       }
+    },
 
-      return ctx.send({
-        status: 'SUCCESS',
-        message: 'Arbitrage terminé avec succès.',
-        state: currentState
-      });
+    async updateByUuid(ctx) {
+      const { uuid } = ctx.params;
+      const { answer, offer, logs } = ctx.request.body;
+      if (!uuid) return ctx.badRequest("UUID is required");
 
-    } catch (err) {
-      ctx.body = err;
-    }
-  },
+      try {
+        // Dans Strapi 5, on doit d'abord trouver le documentId via l'UUID
+        const matches = await strapi.documents("api::match.match").findMany({
+          filters: { uuid },
+        });
 
-  // --- STUBS POUR RESTAURER LA COMPATIBILITÉ AVEC custom.ts ---
-  // Note: Ces méthodes ont été perdues lors du précédent edit. 
-  // Elles doivent être ré-implémentées avec la logique WebRTC réelle du projet.
+        if (matches.length === 0) return ctx.notFound("Match not found");
 
-  async createMatch(ctx) {
-    const { uuid, offer, users } = ctx.request.body;
+        const updated = await strapi.documents("api::match.match").update({
+          documentId: matches[0].documentId,
+          data: {
+            ...(answer && { answer }),
+            ...(offer && { offer }),
+            ...(logs && { logs }),
+          },
+        });
 
-    // Pour l'IA, l'offre WebRTC n'est pas requise, mais l'UUID l'est.
-    if (!uuid) return ctx.badRequest('UUID is required');
+        return { data: updated };
+      } catch (e) {
+        return ctx.internalServerError(e.message);
+      }
+    },
 
-    try {
-      const startingPlayer = Math.random() < 0.5 ? 'PLAYER_1' : 'PLAYER_2';
-      
-      const match = await strapi.documents('api::match.match').create({
-        data: {
-          uuid,
-          offer,
-          users,
-          logs: [],
-          startingPlayer
-        }
-      });
-      return { data: match };
-    } catch (e) {
-      return ctx.internalServerError(e.message);
-    }
-  },
+    async addLog(ctx) {
+      const { uuid } = ctx.params;
+      const { action } = ctx.request.body;
+      if (!uuid || !action)
+        return ctx.badRequest("UUID and action are required");
 
-  async findByUuid(ctx) {
-    const { uuid } = ctx.params;
-    if (!uuid) return ctx.badRequest('UUID is required');
+      try {
+        const matches = await strapi.documents("api::match.match").findMany({
+          filters: { uuid },
+        });
 
-    try {
-      const matches = await strapi.documents('api::match.match').findMany({
-        filters: { uuid }
-      });
-      
-      if (matches.length === 0) return ctx.notFound('Match not found');
-      return { data: matches[0] };
-    } catch (e) {
-      return ctx.internalServerError(e.message);
-    }
-  },
+        if (matches.length === 0) return ctx.notFound("Match not found");
 
-  async updateByUuid(ctx) {
-    const { uuid } = ctx.params;
-    const { answer, offer, logs } = ctx.request.body;
-    if (!uuid) return ctx.badRequest('UUID is required');
+        const match = matches[0];
+        const currentLogs = Array.isArray(match.logs) ? match.logs : [];
 
-    try {
-      // Dans Strapi 5, on doit d'abord trouver le documentId via l'UUID
-      const matches = await strapi.documents('api::match.match').findMany({
-        filters: { uuid }
-      });
+        const updated = await strapi.documents("api::match.match").update({
+          documentId: match.documentId,
+          data: {
+            logs: [...currentLogs, action],
+          },
+        });
 
-      if (matches.length === 0) return ctx.notFound('Match not found');
-
-      const updated = await strapi.documents('api::match.match').update({
-        documentId: matches[0].documentId,
-        data: {
-          ...(answer && { answer }),
-          ...(offer && { offer }),
-          ...(logs && { logs })
-        }
-      });
-
-      return { data: updated };
-    } catch (e) {
-      return ctx.internalServerError(e.message);
-    }
-  },
-
-  async addLog(ctx) {
-    const { uuid } = ctx.params;
-    const { action } = ctx.request.body;
-    if (!uuid || !action) return ctx.badRequest('UUID and action are required');
-
-    try {
-      const matches = await strapi.documents('api::match.match').findMany({
-        filters: { uuid }
-      });
-
-      if (matches.length === 0) return ctx.notFound('Match not found');
-
-      const match = matches[0];
-      const currentLogs = Array.isArray(match.logs) ? match.logs : [];
-      
-      const updated = await strapi.documents('api::match.match').update({
-        documentId: match.documentId,
-        data: {
-          logs: [...currentLogs, action]
-        }
-      });
-
-      return { data: updated };
-    } catch (e) {
-      return ctx.internalServerError(e.message);
-    }
-  }
-
-}));
+        return { data: updated };
+      } catch (e) {
+        return ctx.internalServerError(e.message);
+      }
+    },
+  }),
+);

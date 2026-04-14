@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Artisan Artisanal",
   "description": "Saboteur de chantier détruisant les installations ennemies en réutilisant habilement leurs propres matériaux de construction.",
-  "element": "obsidienne",
+  "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "5",
   "rightValue": "8",
@@ -14,7 +14,7 @@
   "image": "base/129.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "furtif"
   ],
   "prompt": {
     "format": "1:1",

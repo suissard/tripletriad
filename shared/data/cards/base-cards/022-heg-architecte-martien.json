@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Architecte Martien",
   "description": "Commandant de peloton coordonnant les assauts frontaux avec des formations de combat martiennes classiques.",
-  "element": "obsidienne",
+  "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "9",
   "rightValue": "5",
@@ -14,7 +14,7 @@
   "image": "base/022.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "longue_portee"
   ],
   "prompt": {
     "format": "1:1",

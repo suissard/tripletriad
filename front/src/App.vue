@@ -11,6 +11,7 @@
     <AlertMessage />
     <NotificationToast />
     <ConfirmationModal />
+    <FpsCounter />
   </template>
 </template>
 
@@ -27,6 +28,7 @@ import { initNotificationManager } from "./game/notificationManager.js";
 import strapiService from './api/strapi.js';
 import InitialLoader from './components/InitialLoader.vue';
 import LeftDrawer from './components/LeftDrawer.vue';
+import FpsCounter from './components/ui/FpsCounter.vue';
 
 console.warn('--- TRIPLE TRIAD: FRONTEND LOADED (VERSION: VUE_UI_REVAMP) ---');
 
@@ -36,15 +38,26 @@ const notificationStore = useNotificationStore();
 onMounted(async () => {
   console.warn('--- TRIPLE TRIAD: INITIALIZING ---');
   
-  // 1. Determine connection based on getGameConfig (with 3s timeout)
-  let config = null;
+  // 1. Determine connection based on reliable healthCheck (with 3s timeout)
+  let isAlive = false;
   try {
-    config = await strapiService.getGameConfig({ timeout: 3000 });
-    userStore.setConnectionStatus(!!config);
+    isAlive = await strapiService.healthCheck({ timeout: 3000 });
+    userStore.setConnectionStatus(isAlive);
   } catch (err) {
-    console.error('Initial connection check failed (Game Config unreachable)', err);
+    console.error('Initial connection check failed (Strapi unreachable)', err);
     userStore.setConnectionStatus(false);
   }
+
+  // 1b. Load game config if alive
+  let config = null;
+  if (isAlive) {
+    try {
+      config = await strapiService.getGameConfig();
+    } catch (err) {
+      console.error('Failed to load game config, using defaults', err);
+    }
+  }
+
   
   // 2. Load essential data in parallel
   const initPromises = [
@@ -106,15 +119,24 @@ onMounted(async () => {
       return;
     }
     
-    // Periodically retry game-config to see if we can go online
+    // Periodically retry healthCheck to see if we can go online
     try {
-        const retryConfig = await strapiService.getGameConfig();
-        if (retryConfig) {
+        const isNowAlive = await strapiService.healthCheck();
+        if (isNowAlive) {
             userStore.setConnectionStatus(true);
+            // Also try to load config now that we are online
+            const retryConfig = await strapiService.getGameConfig();
+            if (retryConfig) {
+                 // Update CSS variables if config loaded
+                 document.documentElement.style.setProperty('--color-primary', retryConfig.colorPrimary || '#FFBF00');
+                 document.documentElement.style.setProperty('--color-secondary', retryConfig.colorSecondary || '#0033ff');
+                 document.documentElement.style.setProperty('--color-accent', retryConfig.colorAccent || '#FFFF00');
+            }
         }
     } catch (e) {
         // Still offline
     }
+
   }, 10000);
 });
 </script>

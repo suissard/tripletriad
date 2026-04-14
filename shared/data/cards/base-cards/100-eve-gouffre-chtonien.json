@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Gouffre Chtonien",
   "description": "Oracle ténébreux révélant les points faibles cachés des stratégies adverses permettant des contre-offensives ciblées.",
-  "element": "spore",
+  "element": "obsidienne",
   "faction": "Éveil Chthonien",
   "topValue": "A",
   "rightValue": "0",
@@ -14,7 +14,7 @@
   "image": "base/100.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "obsidienne"
   ],
   "prompt": {
     "format": "1:1",

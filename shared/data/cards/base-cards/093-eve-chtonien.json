@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Chtonien",
   "description": "Prophète du Vide interprétant les signes avant-coureurs du réveil des Anciens pour préparer les défenses spirituelles.",
-  "element": "furtif",
+  "element": "obsidienne",
   "faction": "Éveil Chthonien",
   "topValue": "1",
   "rightValue": "2",
@@ -14,7 +14,7 @@
   "image": "base/093.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "obsidienne"
   ],
   "prompt": {
     "format": "1:1",

@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Bizarre Instable",
   "description": "Vortex instable aspirant les projectiles et les énergies hostiles protégeant les alliés dans un rayon large.",
-  "element": "radiation",
+  "element": "faille_dimensionnelle",
   "faction": "Incursion Dissonante",
   "topValue": "5",
   "rightValue": "4",
@@ -14,7 +14,7 @@
   "image": "base/115.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "faille_dimensionnelle"
   ],
   "prompt": {
     "format": "1:1",

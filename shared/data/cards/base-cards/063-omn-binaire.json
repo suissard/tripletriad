@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Binaire",
   "description": "Analyste de cryptographie processant les données ennemies interceptées pour identifier leurs vulnérabilités stratégiques.",
-  "element": "longue_portee",
+  "element": "reseau",
   "faction": "Omni-Réseau",
   "topValue": "1",
   "rightValue": "1",
@@ -14,7 +14,7 @@
   "image": "base/063.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "reseau"
   ],
   "prompt": {
     "format": "1:1",

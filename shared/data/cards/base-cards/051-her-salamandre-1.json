@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Salamandre 1",
   "description": "Sapeur incendiaire creusant des tunnels enflammés sous les fortifications ennemies pour les faire s'effondrer.",
-  "element": "spore",
+  "element": "radiation",
   "faction": "Héritiers des Cendres",
   "topValue": "4",
   "rightValue": "0",
@@ -20,7 +20,7 @@
   "image": "base/051.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "radiation"
   ],
   "prompt": {
     "format": "1:1",

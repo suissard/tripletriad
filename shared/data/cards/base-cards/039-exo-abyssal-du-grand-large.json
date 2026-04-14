@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Abyssal du Grand Large",
   "description": "Sondeur des abysses détectant les ressources souterraines aquatiques grâce à des capteurs bio-sensibles.",
-  "element": "spore",
+  "element": "eau",
   "faction": "Exode Pélagique",
   "topValue": "4",
   "rightValue": "3",
@@ -14,7 +14,7 @@
   "image": "base/039.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "eau"
   ],
   "prompt": {
     "format": "1:1",

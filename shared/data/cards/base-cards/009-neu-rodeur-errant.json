@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Rodeur Errant",
   "description": "Relais de communication transmettant les messages entre unités dispersées dans les zones de brouillage.",
-  "element": "reseau",
+  "element": "None",
   "faction": "neutre",
   "topValue": "3",
   "rightValue": "A",
@@ -13,9 +13,7 @@
   "defaultHp": 3,
   "image": "base/009.png",
   "storiesRewardedFrom": null,
-  "elements": [
-    "neutre"
-  ],
+  "elements": [],
   "prompt": {
     "format": "1:1",
     "subject": {

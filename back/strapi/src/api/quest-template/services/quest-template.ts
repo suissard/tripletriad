@@ -2,6 +2,8 @@
  * quest-template service
  */
 
-import { factories } from '@strapi/strapi';
+import { factories } from "@strapi/strapi";
 
-export default factories.createCoreService('api::quest-template.quest-template');
+export default factories.createCoreService(
+  "api::quest-template.quest-template",
+);

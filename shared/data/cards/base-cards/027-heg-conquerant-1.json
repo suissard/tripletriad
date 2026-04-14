@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Conquerant 1",
   "description": "Inquisiteur de l'Hégémonie traquant les dissidents, les espions infiltrés et les traîtres au sein du régime.",
-  "element": "radiation",
+  "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "3",
   "rightValue": "4",
@@ -20,7 +20,7 @@
   "image": "base/027.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "longue_portee"
   ],
   "prompt": {
     "format": "1:1",

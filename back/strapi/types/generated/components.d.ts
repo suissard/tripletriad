@@ -11,14 +11,19 @@ export interface FoilLayer extends Struct.ComponentSchema {
     enabled: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     foilAngle: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     foilColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#ffffff'>;
+    foilDirection: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     foilMode: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     foilScale: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<4>;
     foilSpeed: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<1>;
     holoIntensity: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<1.2>;
+    noiseIntensity: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<0>;
+    parallaxDepth: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<1.5>;
+    patternData: Schema.Attribute.Text;
     sensitivity: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<0.3>;
     targetColor: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'#cc3333'>;
     tolerance: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<0.2>;
+    useRainbow: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
   };
 }
 
@@ -35,6 +40,31 @@ export interface GameSkill extends Struct.ComponentSchema {
     > &
       Schema.Attribute.Required;
     value: Schema.Attribute.Integer & Schema.Attribute.Required;
+  };
+}
+
+export interface QuestWeeklyTier extends Struct.ComponentSchema {
+  collectionName: 'components_quest_weekly_tiers';
+  info: {
+    description: '';
+    displayName: 'Weekly Tier';
+    icon: 'star';
+  };
+  attributes: {
+    cardRarity: Schema.Attribute.Enumeration<
+      ['None', 'Commun', 'Peu Commun', 'Rare', '\u00C9pique', 'L\u00E9gendaire']
+    > &
+      Schema.Attribute.DefaultTo<'None'>;
+    coins: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    gems: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    requiredCount: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
   };
 }
 
@@ -184,6 +214,7 @@ declare module '@strapi/strapi' {
     export interface ComponentSchemas {
       'foil.layer': FoilLayer;
       'game.skill': GameSkill;
+      'quest.weekly-tier': QuestWeeklyTier;
       'story.choice-condition': StoryChoiceCondition;
       'story.choice-option': StoryChoiceOption;
       'story.dialogue': StoryDialogue;

@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Oppresseur de Mars",
   "description": "Artilleur orbital bombardant les fortifications ennemies depuis les stations en orbite martienne.",
-  "element": "reseau",
+  "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "6",
   "rightValue": "4",
@@ -20,7 +20,7 @@
   "image": "base/025.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "longue_portee"
   ],
   "prompt": {
     "format": "1:1",

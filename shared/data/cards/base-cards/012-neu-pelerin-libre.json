@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Pelerin Libre",
   "description": "Arbitre de guerre imposant des trêves locales permettant l'évolution stratégique du conflit régional.",
-  "element": "eau",
+  "element": "None",
   "faction": "neutre",
   "topValue": "8",
   "rightValue": "4",
@@ -13,10 +13,7 @@
   "defaultHp": 3,
   "image": "base/012.png",
   "storiesRewardedFrom": null,
-  "elements": [
-    "eau",
-    "glace"
-  ],
+  "elements": [],
   "prompt": {
     "format": "1:1",
     "subject": {

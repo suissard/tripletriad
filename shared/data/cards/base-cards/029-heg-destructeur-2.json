@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Destructeur 2",
   "description": "Architecte de guerre martienne concevant les stratégies de siège planétaire et les protocoles d'annexion.",
-  "element": "radiation",
+  "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "3",
   "rightValue": "A",
@@ -20,7 +20,7 @@
   "image": "base/029.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "longue_portee"
   ],
   "prompt": {
     "format": "1:1",

@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Recup",
   "description": "Électronicien recyclant les composants électroniques récupérés pour alimenter les systèmes vitaux de la base.",
-  "element": "radiation",
+  "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "0",
   "rightValue": "4",
@@ -14,7 +14,7 @@
   "image": "base/125.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "furtif"
   ],
   "prompt": {
     "format": "1:1",

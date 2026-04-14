@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Plongeur Aquatique",
   "description": "Gardien des nurseries protégeant les jeunes générations de l'Exode contre les prédateurs et les menaces extérieures.",
-  "element": "furtif",
+  "element": "eau",
   "faction": "Exode Pélagique",
   "topValue": "A",
   "rightValue": "3",
@@ -14,7 +14,7 @@
   "image": "base/038.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "eau"
   ],
   "prompt": {
     "format": "1:1",

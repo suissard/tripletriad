@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Irregulier",
   "description": "Fêlure du réel générant des fissures dans les défenses statiques ennemies rendant leurs positions vulnérables.",
-  "element": "furtif",
+  "element": "faille_dimensionnelle",
   "faction": "Incursion Dissonante",
   "topValue": "6",
   "rightValue": "0",
@@ -14,7 +14,7 @@
   "image": "base/110.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "faille_dimensionnelle"
   ],
   "prompt": {
     "format": "1:1",

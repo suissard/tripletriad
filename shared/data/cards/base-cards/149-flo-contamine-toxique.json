@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Contamine Toxique",
   "description": "Hôte Primordial portant la souche originelle du Fléau Spore immunisé contre toutes les formes connues de contamination inverse.",
-  "element": "eau",
+  "element": "spore",
   "faction": "Fléau Spore",
   "topValue": "0",
   "rightValue": "9",
@@ -14,8 +14,7 @@
   "image": "base/149.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "eau",
-    "glace"
+    "spore"
   ],
   "prompt": {
     "format": "1:1",

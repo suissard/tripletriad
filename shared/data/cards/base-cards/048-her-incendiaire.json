@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Incendiaire",
   "description": "Porte-flamme transmettant la colère du brasier ancestral aux alliés proches qui gagnent en courage au combat.",
-  "element": "obsidienne",
+  "element": "radiation",
   "faction": "Héritiers des Cendres",
   "topValue": "0",
   "rightValue": "0",
@@ -14,7 +14,7 @@
   "image": "base/048.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "radiation"
   ],
   "prompt": {
     "format": "1:1",

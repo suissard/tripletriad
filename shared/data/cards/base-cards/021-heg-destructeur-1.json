@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Destructeur 1",
   "description": "Ingénieur militaire déployant les infrastructures d'occupation sur les planètes récemment conquises.",
-  "element": "radiation",
+  "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "1",
   "rightValue": "4",
@@ -14,7 +14,7 @@
   "image": "base/021.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "longue_portee"
   ],
   "prompt": {
     "format": "1:1",

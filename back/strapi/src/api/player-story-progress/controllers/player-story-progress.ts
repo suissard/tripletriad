@@ -11,30 +11,27 @@ export default factories.createCoreController(
         return ctx.badRequest("storyId and stepId are required");
       }
 
-      const stories = await strapi.entityService.findMany(
-        "api::story.story",
-        {
-          filters: { 
-            $or: [
-              { id: { $eq: !isNaN(Number(storyId)) ? Number(storyId) : -1 } },
-              { documentId: { $eq: storyId } }
-            ]
-          },
-          populate: {
-            steps: {
-              populate: {
-                situations: {
-                  on: {
-                    'story.situation-reward': {
-                      populate: { rewardCards: { populate: ['image'] } }
-                    }
-                  }
+      const stories = await strapi.entityService.findMany("api::story.story", {
+        filters: {
+          $or: [
+            { id: { $eq: !isNaN(Number(storyId)) ? Number(storyId) : -1 } },
+            { documentId: { $eq: storyId } },
+          ],
+        },
+        populate: {
+          steps: {
+            populate: {
+              situations: {
+                on: {
+                  "story.situation-reward": {
+                    populate: { rewardCards: { populate: ["image"] } },
+                  },
                 },
               },
             },
-          } as any,
-        },
-      );
+          },
+        } as any,
+      });
 
       const story = stories.length > 0 ? stories[0] : null;
 
@@ -48,20 +45,22 @@ export default factories.createCoreController(
       const progresses = (await strapi.entityService.findMany(
         "api::player-story-progress.player-story-progress",
         {
-          filters: { 
-            user: userId, 
+          filters: {
+            user: userId,
             story: {
               $or: [
                 { id: { $eq: !isNaN(Number(storyId)) ? Number(storyId) : -1 } },
-                { documentId: { $eq: storyId } }
-              ]
-            }
+                { documentId: { $eq: storyId } },
+              ],
+            },
           },
         },
       )) as any;
 
       if (progresses.length === 0) {
-        return ctx.badRequest(`Story progress not found for claim. StoryId: ${storyId}`);
+        return ctx.badRequest(
+          `Story progress not found for claim. StoryId: ${storyId}`,
+        );
       }
       const progress = progresses[0];
 
@@ -78,11 +77,14 @@ export default factories.createCoreController(
       // Check if it's an entire step completion or just a situation reward
       if (!situationId) {
         // Legacy or Full Step Completion
-        const isStepAlreadyCompleted = completedSteps.some((id: any) => 
-          String(id) === String(stepId) || 
-          (step && (String(id) === String(step.id) || String(id) === String(step.documentId)))
+        const isStepAlreadyCompleted = completedSteps.some(
+          (id: any) =>
+            String(id) === String(stepId) ||
+            (step &&
+              (String(id) === String(step.id) ||
+                String(id) === String(step.documentId))),
         );
-        
+
         if (isStepAlreadyCompleted) {
           return ctx.badRequest("Step already completed");
         }
@@ -128,30 +130,26 @@ export default factories.createCoreController(
         const rewardCoins = rewardSituation.rewardCoins || 0;
 
         if (rewardCoins !== 0) {
-          let userDetails = await strapi.entityService.findOne(
+          let userDetails = (await strapi.entityService.findOne(
             "plugin::users-permissions.user",
             userId,
             {
               populate: ["wallet"],
             },
-          ) as any;
+          )) as any;
 
           let wallet = userDetails.wallet;
           if (!wallet) {
             // Lazy create wallet if missing
-            wallet = await strapi.entityService.create('api::wallet.wallet', {
-              data: { user: userId, coins: 100, gems: 0, dust: 0 }
+            wallet = await strapi.entityService.create("api::wallet.wallet", {
+              data: { user: userId, coins: 100, gems: 0, dust: 0 },
             });
             console.log(`Created missing wallet for user ${userId}`);
           }
 
-          await strapi.entityService.update(
-            "api::wallet.wallet",
-            wallet.id,
-            {
-              data: { coins: wallet.coins + rewardCoins },
-            },
-          );
+          await strapi.entityService.update("api::wallet.wallet", wallet.id, {
+            data: { coins: wallet.coins + rewardCoins },
+          });
           coinsRewarded = rewardCoins;
         }
 
@@ -235,19 +233,20 @@ export default factories.createCoreController(
       const existingProgresses = await strapi.entityService.findMany(
         "api::player-story-progress.player-story-progress",
         {
-          filters: { 
-            user: id, 
+          filters: {
+            user: id,
             story: {
               $or: [
                 { id: { $eq: !isNaN(Number(storyId)) ? Number(storyId) : -1 } },
-                { documentId: { $eq: storyId } }
-              ]
-            }
+                { documentId: { $eq: storyId } },
+              ],
+            },
           },
         },
       );
-      
-      const existingProgress = (existingProgresses as any).length > 0 ? existingProgresses[0] : null;
+
+      const existingProgress =
+        (existingProgresses as any).length > 0 ? existingProgresses[0] : null;
 
       if (existingProgress) {
         return ctx.badRequest("This story is already unlocked");
@@ -313,14 +312,14 @@ export default factories.createCoreController(
       const progresses = (await strapi.entityService.findMany(
         "api::player-story-progress.player-story-progress",
         {
-          filters: { 
-            user: userId, 
+          filters: {
+            user: userId,
             story: {
               $or: [
                 { id: { $eq: !isNaN(Number(storyId)) ? Number(storyId) : -1 } },
-                { documentId: { $eq: storyId } }
-              ]
-            }
+                { documentId: { $eq: storyId } },
+              ],
+            },
           },
         },
       )) as any;
@@ -329,7 +328,7 @@ export default factories.createCoreController(
 
       if (!progress) {
         return ctx.badRequest(
-          `Story progress not found for story explicitly. StoryId provided: ${storyId}. Must unlock story first.`
+          `Story progress not found for story explicitly. StoryId provided: ${storyId}. Must unlock story first.`,
         );
       }
 
@@ -338,28 +337,28 @@ export default factories.createCoreController(
         const stories = (await strapi.entityService.findMany(
           "api::story.story",
           {
-            filters: { 
+            filters: {
               $or: [
                 { id: { $eq: !isNaN(Number(storyId)) ? Number(storyId) : -1 } },
-                { documentId: { $eq: storyId } }
-              ]
+                { documentId: { $eq: storyId } },
+              ],
             },
             populate: {
               steps: {
                 populate: {
                   situations: {
                     on: {
-                      'story.situation-choice': {
+                      "story.situation-choice": {
                         populate: {
                           options: {
-                            populate: ['conditions']
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
+                            populate: ["conditions"],
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
             } as any,
           },
         )) as any;
@@ -387,19 +386,22 @@ export default factories.createCoreController(
             for (const condition of option.conditions) {
               if (condition.type === "hasCoin") {
                 const cost = parseInt(condition.value, 10);
-                const userDetails = await strapi.entityService.findOne(
+                const userDetails = (await strapi.entityService.findOne(
                   "plugin::users-permissions.user",
                   userId,
                   {
                     populate: ["wallet"],
                   },
-                ) as any;
+                )) as any;
 
                 let wallet = userDetails.wallet;
                 if (!wallet) {
-                  wallet = await strapi.entityService.create("api::wallet.wallet", {
-                    data: { user: userId, coins: 100, gems: 0, dust: 0 },
-                  });
+                  wallet = await strapi.entityService.create(
+                    "api::wallet.wallet",
+                    {
+                      data: { user: userId, coins: 100, gems: 0, dust: 0 },
+                    },
+                  );
                 }
 
                 if (wallet.coins < cost) {
@@ -467,14 +469,14 @@ export default factories.createCoreController(
       const progresses = (await strapi.entityService.findMany(
         "api::player-story-progress.player-story-progress",
         {
-          filters: { 
-            user: userId, 
+          filters: {
+            user: userId,
             story: {
               $or: [
                 { id: { $eq: !isNaN(Number(storyId)) ? Number(storyId) : -1 } },
-                { documentId: { $eq: storyId } }
-              ]
-            }
+                { documentId: { $eq: storyId } },
+              ],
+            },
           },
         },
       )) as any;

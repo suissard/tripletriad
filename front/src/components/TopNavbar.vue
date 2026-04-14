@@ -34,7 +34,10 @@
 
         <AppButton variant="secondary"  class="glass-panel" @click="isQuestModalOpen = true">
           <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 1.2rem;">📜</span>
+            <span style="font-size: 1.2rem; position: relative;">
+              📜
+              <div v-if="userStore.hasClaimableQuests || userStore.hasClaimableWeeklyTiers" class="badge-pastille"></div>
+            </span>
             <span class="username" style="display: none;">Quêtes</span>
           </div>
         </AppButton>
@@ -281,5 +284,16 @@ function toggleRightDrawer() {
   0% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.4; transform: scale(0.8); }
   100% { opacity: 1; transform: scale(1); }
+}
+.badge-pastille {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 10px;
+  height: 10px;
+  background-color: #ff3333;
+  border-radius: 50%;
+  border: 1px solid #141423;
+  box-shadow: 0 0 5px #ff3333;
 }
 </style>

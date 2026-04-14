@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "weekly_quest_progresses",
+  "info": {
+    "singularName": "weekly-quest-progress",
+    "pluralName": "weekly-quest-progresses",
+    "displayName": "Weekly Quest Progress",
+    "description": "Tracks user weekly quest progress and claimed rewards"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "completedCount": {
+      "type": "integer",
+      "default": 0,
+      "required": true
+    },
+    "lastResetDate": {
+      "type": "datetime",
+      "required": true
+    },
+    "claimedTiers": {
+      "type": "json",
+      "required": false,
+      "description": "Array of requiredCount values representing tiers the user has already claimed"
+    }
+  }
+}

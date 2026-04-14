@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Chtonien Profond",
   "description": "Gouffre absorbant l'énergie vitale des cibles proches drainant leur force pour la redistribuer aux alliés de l'Éveil.",
-  "element": "furtif",
+  "element": "obsidienne",
   "faction": "Éveil Chthonien",
   "topValue": "9",
   "rightValue": "0",
@@ -14,7 +14,7 @@
   "image": "base/099.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "obsidienne"
   ],
   "prompt": {
     "format": "1:1",

@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Proxy",
   "description": "Sentinelle algorithmique détectant les anomalies suspectes et les comportements inhabituels dans les systèmes amis.",
-  "element": "hacking",
+  "element": "reseau",
   "faction": "Omni-Réseau",
   "topValue": "0",
   "rightValue": "0",
@@ -20,7 +20,7 @@
   "image": "base/062.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "reseau"
   ],
   "prompt": {
     "format": "1:1",

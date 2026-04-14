@@ -2,9 +2,9 @@
   "collectionName": "base",
   "name": "Amp Chantant",
   "description": "Virtuose de la Résonance créant des boucles de feedback destructrices visant les armures et les équipements sensibles aux vibrations.",
-  "element": "reseau",
+  "element": "hacking",
   "elements": [
-    "obsidienne"
+    "hacking"
   ],
   "faction": "Chœur Synthétique",
   "topValue": "8",

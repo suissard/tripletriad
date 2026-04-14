@@ -2,9 +2,9 @@
   "collectionName": "base",
   "name": "Instable Instable",
   "description": "Entropiste accélérant la désintégration des structures ennemies faisant vieillir les constructions et les armures à vitesse exponentielle.",
-  "element": "furtif",
+  "element": "faille_dimensionnelle",
   "elements": [
-    "radiation"
+    "faille_dimensionnelle"
   ],
   "faction": "Incursion Dissonante",
   "topValue": "9",

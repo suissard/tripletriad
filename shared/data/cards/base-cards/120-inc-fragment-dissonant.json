@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Fragment Dissonant",
   "description": "Paradoxe Final brisant les lois fondamentales de la réalité sur un secteur entier rendant chaque action imprévisible et chaque défense obsolète.",
-  "element": "furtif",
+  "element": "faille_dimensionnelle",
   "faction": "Incursion Dissonante",
   "topValue": "A",
   "rightValue": "A",
@@ -25,7 +25,7 @@
   "image": "base/120.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "faille_dimensionnelle"
   ],
   "prompt": {
     "format": "1:1",

@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Soudeur",
   "description": "Soudeur réparant les armures et les équipements endommagés directement sur le terrain pendant les pauses entre deux combats.",
-  "element": "obsidienne",
+  "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "3",
   "rightValue": "1",
@@ -14,7 +14,7 @@
   "image": "base/123.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "furtif"
   ],
   "prompt": {
     "format": "1:1",

@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Mousse Corrompu",
   "description": "Mousse envahissante bloquant les voies de communication ennemies ralentissant leurs mouvements et leurs renforts.",
-  "element": "furtif",
+  "element": "spore",
   "faction": "Fléau Spore",
   "topValue": "2",
   "rightValue": "1",
@@ -14,7 +14,7 @@
   "image": "base/144.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "spore"
   ],
   "prompt": {
     "format": "1:1",

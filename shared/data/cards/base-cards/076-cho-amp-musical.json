@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Amp Musical",
   "description": "Résonateur amplifiant les signaux tactiques alliés pour une meilleure coordination sur le champ de bataille chaotique.",
-  "element": "faille_dimensionnelle",
+  "element": "hacking",
   "elements": [
     "hacking"
   ],

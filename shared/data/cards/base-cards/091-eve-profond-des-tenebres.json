@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Profond des Tenebres",
   "description": "Gardien des Sceaux veillant sur les portes dimensionnelles scellées empêchant les invasions inter-dimensionnelles accidentelles.",
-  "element": "faille_dimensionnelle",
+  "element": "obsidienne",
   "faction": "Éveil Chthonien",
   "topValue": "1",
   "rightValue": "0",
@@ -14,7 +14,7 @@
   "image": "base/091.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "obsidienne"
   ],
   "prompt": {
     "format": "1:1",

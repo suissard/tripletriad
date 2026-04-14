@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Necrose",
   "description": "Mycélium connectant les colonies fongiques distantes en un réseau souterrain de communication et de coordination.",
-  "element": "eau",
+  "element": "spore",
   "faction": "Fléau Spore",
   "topValue": "6",
   "rightValue": "3",
@@ -14,8 +14,7 @@
   "image": "base/137.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "eau",
-    "glace"
+    "spore"
   ],
   "prompt": {
     "format": "1:1",

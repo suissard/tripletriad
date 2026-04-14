@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Relay Digital",
   "description": "Architecte de grille renforçant les défenses numériques du réseau contre les tentatives d'intrusion adverses.",
-  "element": "hacking",
+  "element": "reseau",
   "faction": "Omni-Réseau",
   "topValue": "8",
   "rightValue": "1",
@@ -14,7 +14,7 @@
   "image": "base/068.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "reseau"
   ],
   "prompt": {
     "format": "1:1",

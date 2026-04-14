@@ -4,7 +4,7 @@
   "description": "Architecte des Abysses créant des écosystèmes aquatiques autonomes capables de survivre dans le vide spatial le plus hostile.",
   "element": "eau",
   "elements": [
-    "furtif"
+    "eau"
   ],
   "faction": "Exode Pélagique",
   "topValue": "A",

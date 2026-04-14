@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Strophe Sonore",
   "description": "Amplificateur projetant les ondes curatives sur une zone élargie soignant plusieurs alliés simultanément en zone de combat.",
-  "element": "furtif",
+  "element": "hacking",
   "faction": "Chœur Synthétique",
   "topValue": "A",
   "rightValue": "0",
@@ -14,7 +14,7 @@
   "image": "base/084.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "hacking"
   ],
   "prompt": {
     "format": "1:1",

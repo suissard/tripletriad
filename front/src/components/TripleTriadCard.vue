@@ -39,30 +39,17 @@
           <div class="glare" :style="glareStyle"></div>
         </template>
 
-        <!-- Custom Holo Effect from Database -->
-        <template v-if="customFoilEffect && !faceDown">
-          <HoloEffectCanvas 
-            :imageUrl="card.imageUrl || card.img" 
-            :effect="customFoilEffect" 
-            :tiltX="tilt.x"
-            :tiltY="tilt.y"
-          />
-        </template>
-
-        <!-- Premium Holo Effect (Standard) -->
-        <template v-if="isPremiumCard && !flat && !customFoilEffect">
-          <!-- Per-card SVG filter for unique holo texture -->
-          <svg width="0" height="0" style="position:absolute">
-            <filter :id="holoFilterId" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
-              <feTurbulence type="fractalNoise" :baseFrequency="holoFrequency" :numOctaves="holoOctaves" :seed="premiumSeed" result="noise" />
-              <feColorMatrix type="saturate" values="0" in="noise" result="mono" />
-              <feBlend in="SourceGraphic" in2="mono" mode="color-burn" />
-            </filter>
-          </svg>
-          <div class="holo-container" :style="holoStyle">
-            <div class="holo-gradient" :style="{ filter: holoFilterUrl }"></div>
-          </div>
-        </template>
+        <!-- Holographic Effects (Centralized Component) -->
+        <HoloOverlay
+          v-if="isPremiumCard && !faceDown && !flat"
+          :layers="customFoilEffect?.layers || null"
+          :seed="premiumSeed"
+          :tiltX="tiltX !== null ? tiltX : tilt.x"
+          :tiltY="tiltY !== null ? tiltY : tilt.y"
+          :always-visible="alwaysVisible"
+          :supertype="card.supertype"
+          :subtypes="card.subtypes"
+        />
 
         <!-- CARD CONTENT (Unified layout) -->
         <template v-if="card.revealed !== false || $attrs.forceFace">
@@ -93,6 +80,7 @@
 
           <!-- Unowned lock -->
           <div class="unowned-overlay" v-if="unowned">🔒</div>
+
         </template>
 
         <!-- HP Bar -->
@@ -117,14 +105,32 @@
       </div>
 
       <!-- Premium Border Animation (Sibling of front/back, inside inner for 3D flip) -->
-      <div v-if="isPremiumCard" class="premium-border-layer" :style="premiumBorderStyle"></div>
+
     </div>
     
-    <!-- Traveling light border for premium (outside tt-card-inner, behind it) -->
-    <div v-if="isPremiumCard" class="premium-travel-border" :style="{ '--rarity-color': borderColor || rarityColor, ...(!flat ? innerStyle : {}) }"></div>
 
-    <!-- Quantity badge (outside inner to avoid clipping) -->
-    <div class="quantity-badge" v-if="quantity >= 1" :style="!flat ? tiltStyle : {}">×{{ quantity }}</div>
+
+    <!-- Quantity badge (unified) -->
+    <AppBadge 
+      v-if="quantity >= 1" 
+      variant="danger" 
+      class="quantity-badge" 
+      :style="!flat ? tiltStyle : {}"
+    >
+      ×{{ quantity }}
+    </AppBadge>
+
+    <!-- New badge (unified) -->
+    <AppBadge 
+      v-if="isNew" 
+      variant="primary" 
+      size="sm"
+      bounce
+      class="new-badge" 
+      :style="newBadgeStyle"
+    >
+      NEW
+    </AppBadge>
   </div>
 
   <!-- Card Detail Modal -->
@@ -145,12 +151,13 @@ import AnimatedCardBack from "./AnimatedCardBack.vue";
 import BrokenGlassOverlay from "./BrokenGlassOverlay.vue";
 import ElementIcon from "./ElementIcon.vue";
 import CardDetailModal from "./CardDetailModal.vue";
+import HoloOverlay from "./HoloOverlay.vue";
+import AppBadge from "./ui/AppBadge.vue";
 import HpBar from './game/HpBar.vue';
-import { state } from '../game/state.js';
 import { useUserStore } from '../stores/userStore.js';
 import { useEffectStore } from '../stores/effectStore.js';
 import { GameEngine } from '../../../shared/GameEngine.ts';
-import HoloEffectCanvas from './game/HoloEffectCanvas.vue';
+import { getRarity } from '../game/constants.js';
 
 const props = defineProps({
   card: { type: Object, required: true },
@@ -173,16 +180,23 @@ const props = defineProps({
   height: { type: [String, Number], default: null },
   elementActive: { type: Boolean, default: true },
   showDetailOnHover: { type: Boolean, default: false },
-  owner: { type: String, default: null }
+  owner: { type: String, default: null },
+  overrideEffect: { type: Object, default: null },
+  tiltX: { type: Number, default: null },
+  tiltY: { type: Number, default: null },
+  alwaysVisible: { type: Boolean, default: false },
+  isNew: { type: Boolean, default: false }
 });
 
 const userStore = useUserStore();
 const effectStore = useEffectStore();
 const customFoilEffect = computed(() => {
+  if (props.overrideEffect) return props.overrideEffect;
+  if (props.card?.overrideEffect) return props.card.overrideEffect;
   if (!props.card) return null;
   const id = props.card.documentId || props.card.id;
   if (!id) return null;
-  return effectStore.getEffectForCard(id);
+  return useEffectStore().getEffectForCard(id);
 });
 
 const SIZES = {
@@ -206,6 +220,7 @@ const emit = defineEmits(['click', 'set-cover', 'left-click', 'right-click', 'lo
 const longPressButton = ref(0);
 
 function startLongPress(e) {
+  if (!props.interactive) return;
   longPressTriggered.value = false;
   longPressButton.value = e ? (e.button || 0) : 0;
 
@@ -244,6 +259,7 @@ function onTouchEnd() {
 }
 
 function handleRightClick(e) {
+  if (!props.interactive) return;
   if (longPressTriggered.value) {
     longPressTriggered.value = false;
     return;
@@ -252,6 +268,7 @@ function handleRightClick(e) {
 }
 
 function handleClick() {
+  if (!props.interactive) return;
   if (longPressTriggered.value) {
     longPressTriggered.value = false;
     return;
@@ -263,7 +280,7 @@ function handleClick() {
 // --- Computed ---
 const isPremiumCard = computed(() => {
   if (props.card.revealed === false) return false;
-  return props.isPremium || props.card.isDrawnPremium;
+  return props.isPremium || props.card.isDrawnPremium || !!customFoilEffect.value;
 });
 
 const cardLevel = computed(() => {
@@ -276,22 +293,46 @@ const cardLevel = computed(() => {
   });
 });
 
+const rarityData = computed(() => {
+  if (props.card.revealed === false) return { name: 'common', color: '#a0a0a0' };
+  
+  // Real rarity calculation from values
+  const values = {
+    top: props.card.top ?? (typeof props.card.topValue === 'string' ? (props.card.topValue.toUpperCase() === 'A' ? 10 : parseInt(props.card.topValue)) : props.card.topValue),
+    right: props.card.right ?? (typeof props.card.rightValue === 'string' ? (props.card.rightValue.toUpperCase() === 'A' ? 10 : parseInt(props.card.rightValue)) : props.card.rightValue),
+    bottom: props.card.bottom ?? (typeof props.card.bottomValue === 'string' ? (props.card.bottomValue.toUpperCase() === 'A' ? 10 : parseInt(props.card.bottomValue)) : props.card.bottomValue),
+    left: props.card.left ?? (typeof props.card.leftValue === 'string' ? (props.card.leftValue.toUpperCase() === 'A' ? 10 : parseInt(props.card.leftValue)) : props.card.leftValue),
+  };
+  
+  if (isNaN(values.top) || isNaN(values.right) || isNaN(values.bottom) || isNaN(values.left)) {
+     // Fallback if values are missing
+     if (props.card.rarity) return { name: props.card.rarity.toLowerCase(), color: null };
+     return { name: 'common', color: '#a0a0a0' };
+  }
+
+  const r = getRarity(values);
+  const rarityMapping = {
+    'Commun': 'common',
+    'Peu Commun': 'uncommon',
+    'Rare': 'rare',
+    'Épique': 'epic',
+    'Légendaire': 'legendary'
+  };
+  return { 
+    name: rarityMapping[r.name] || 'common', 
+    color: r.color 
+  };
+});
+
 const rarityClass = computed(() => {
-  if (props.card.revealed === false) return 'rarity-common';
-  if (props.card.rarity) return `rarity-${props.card.rarity.toLowerCase()}`;
-  const level = cardLevel.value;
-  if (level >= 9) return 'rarity-legendary';
-  if (level >= 7) return 'rarity-epic';
-  if (level >= 5) return 'rarity-rare';
-  if (level >= 3) return 'rarity-uncommon';
-  return 'rarity-common';
+  return `rarity-${rarityData.value.name}`;
 });
 
 const actualRarityColor = computed(() => {
   if (props.card.revealed === false) return '#a0a0a0';
+  if (rarityData.value.color) return rarityData.value.color;
   
   const rarityToCheck = props.card.drawnRarity || props.card.rarity;
-  
   if (rarityToCheck) {
     const map = {
       'common': '#a0a0a0',
@@ -302,12 +343,6 @@ const actualRarityColor = computed(() => {
     };
     return map[rarityToCheck.toLowerCase()] || '#a0a0a0';
   }
-
-  const level = cardLevel.value;
-  if (level >= 9) return '#ffc107';
-  if (level >= 7) return '#9c27b0';
-  if (level >= 5) return '#2196f3';
-  if (level >= 3) return '#4caf50';
   return '#a0a0a0';
 });
 
@@ -342,17 +377,10 @@ const cardStyle = computed(() => {
     style['--border-glow'] = props.borderColor;
   }
   style['--card-border-width'] = `${effectiveBorderWidth}px`;
-  style['--card-border-offset'] = `-${effectiveBorderWidth}px`;
   return style;
 });
 
-const premiumBorderStyle = computed(() => {
-  const c = rarityColor.value;
-  return {
-    '--premium-border-gradient': `linear-gradient(135deg, ${c}, transparent, ${c}, transparent, ${c}) border-box`,
-    '--premium-border-glow': c
-  };
-});
+
 
 const cardElementsList = computed(() => {
   if (!props.card) return [];
@@ -380,81 +408,56 @@ const isActive = ref(false);
 const tilt = ref({ x: 0, y: 0 });
 const mousePos = ref({ x: 50, y: 50 });
 
-const tiltStyle = computed(() => ({
-  transform: `rotateX(${tilt.value.x}deg) rotateY(${tilt.value.y}deg)`,
-  transition: (tilt.value.x === 0 && tilt.value.y === 0) ? 'transform 0.5s ease-out' : 'transform 0.1s ease-out'
-}));
-
-const innerStyle = computed(() => {
-  const rotationY = tilt.value.y + (props.faceDown ? 180 : 0);
+const tiltStyle = computed(() => {
+  const tx = props.tiltX !== null ? props.tiltX : tilt.value.x;
+  const ty = props.tiltY !== null ? props.tiltY : tilt.value.y;
   return {
-    transform: `rotateX(${tilt.value.x}deg) rotateY(${rotationY}deg)`,
-    transition: (tilt.value.x === 0 && tilt.value.y === 0) ? 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)' : 'transform 0.1s ease-out'
+    transform: `rotateX(${tx}deg) rotateY(${ty}deg)`,
+    transition: (tx === 0 && ty === 0) ? 'transform 0.5s ease-out' : 'transform 0.1s ease-out'
   };
 });
 
-const glareStyle = computed(() => ({
-  background: `radial-gradient(circle at ${mousePos.value.x}% ${mousePos.value.y}%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 60%)`,
-  opacity: tilt.value.x === 0 && tilt.value.y === 0 ? 0 : 0.8,
-  transition: tilt.value.x === 0 && tilt.value.y === 0 ? 'opacity 0.5s ease-out' : 'opacity 0.1s ease-out'
-}));
+const innerStyle = computed(() => {
+  const tx = props.tiltX !== null ? props.tiltX : tilt.value.x;
+  const ty = props.tiltY !== null ? props.tiltY : tilt.value.y;
+  const rotationY = ty + (props.faceDown ? 180 : 0);
+  return {
+    transform: `rotateX(${tx}deg) rotateY(${rotationY}deg)`,
+    transition: (tx === 0 && ty === 0) ? 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)' : 'transform 0.1s ease-out'
+  };
+});
+
+const newBadgeStyle = computed(() => {
+  const base = !props.flat ? tiltStyle.value : { transform: '' };
+  return {
+    ...base,
+    transform: (base.transform || '') + ' rotate(30deg)'
+  };
+});
+
+const glareStyle = computed(() => {
+  const tx = props.tiltX !== null ? props.tiltX : tilt.value.x;
+  const ty = props.tiltY !== null ? props.tiltY : tilt.value.y;
+  return {
+    background: `radial-gradient(circle at ${mousePos.value.x}% ${mousePos.value.y}%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 60%)`,
+    opacity: tx === 0 && ty === 0 ? 0 : 0.8,
+    transition: tx === 0 && ty === 0 ? 'opacity 0.5s ease-out' : 'opacity 0.1s ease-out'
+  };
+});
 
 const mouseStyle = ref({ '--mx': '50%', '--my': '50%', '--posx': '50%', '--posy': '50%' });
 
-// --- HOLO ---
+// --- HOLO SEED ---
 function hashCode(str) {
   let hash = 0;
   for (let i = 0; i < str.length; i++) { hash = (hash << 5) - hash + str.charCodeAt(i); hash |= 0; }
   return Math.abs(hash);
 }
 
-function sfc32(a) {
-  return function() {
-    a |= 0; a = a + 0x6D2B79F5 | 0;
-    var t = Math.imul(a ^ a >>> 15, 1 | a);
-    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
-    return ((t ^ t >>> 14) >>> 0) / 4294967296;
-  }
-}
-
 const premiumSeed = computed(() => {
   const cardPart = props.card.id || props.card.name || '0';
   const userPart = userStore.user?.id || 'anon';
   return hashCode(`${cardPart}-${userPart}`);
-});
-
-const holoStyle = computed(() => {
-  if (!isPremiumCard.value) return {};
-
-  const rng = sfc32(premiumSeed.value);
-  const isImageMode = state.premiumMode === 'image';
-  if (isImageMode) {
-    return { '--c1': 'rgba(255, 255, 255, 1.0)', '--c2': 'rgba(255, 255, 255, 1.0)', '--c3': 'rgba(255, 255, 255, 1.0)' };
-  }
-  return {
-    '--c1': `hsla(${rng() * 360}, 100%, 70%, 1.0)`,
-    '--c2': `hsla(${rng() * 360}, 100%, 70%, 1.0)`,
-    '--c3': `hsla(${rng() * 360}, 100%, 70%, 1.0)`
-  };
-});
-
-// Unique SVG filter per card
-const holoFilterId = computed(() => `holo-pattern-${premiumSeed.value}`);
-const holoFilterUrl = computed(() => `url(#${holoFilterId.value})`);
-
-// Vary texture params from seed
-const holoFrequency = computed(() => {
-  const rng = sfc32(premiumSeed.value + 42);
-  const fineness = state.holoFineness || 0.05;
-  const base = fineness * 0.4;
-  const range = fineness * 1.6;
-  const f = (base + rng() * range).toFixed(4);
-  const f2 = (base + rng() * range).toFixed(4);
-  return `${f} ${f2}`;
-});
-const holoOctaves = computed(() => {
-  const rng = sfc32(premiumSeed.value + 99);
-  return 2 + Math.floor(rng() * 4); // 2-5 octaves
 });
 
 function handleMove(e) {
@@ -813,19 +816,11 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
 }
 
-/* Quantity badge */
 .quantity-badge {
   position: absolute;
   top: -0.6em;
   right: -0.6em;
-  background: #ff0055;
-  color: white;
-  font-size: 0.95em;
-  font-weight: bold;
-  padding: 0.2em 0.6em;
-  border-radius: 1em;
-  z-index: 10;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.8), 0 0 0 2px rgba(255,255,255,0.2);
+  z-index: 100;
 }
 
 /* Selected overlay */
@@ -879,48 +874,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 .rarity-epic .tt-card-inner     { border-color: var(--border-color, #9c27b0); box-shadow: 0 0 12px var(--border-glow, rgba(156, 39, 176, 0.5)); }
 .rarity-legendary .tt-card-inner { border-color: var(--border-color, #ffc107); box-shadow: 0 0 15px var(--border-glow, rgba(255, 193, 7, 0.6)), 0 0 30px var(--border-glow, rgba(255, 193, 7, 0.2)); }
 
-/* Premium rarity — traveling light border */
-.is-premium .tt-card-inner {
-  border-color: transparent !important;
-  overflow: visible !important;
-}
 
-.premium-travel-border {
-  display: none;
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.premium-travel-border::before {
-  content: '';
-  position: absolute;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    transparent 260deg,
-    var(--rarity-color, #ffc107) 290deg,
-    var(--rarity-color, white) 310deg,
-    var(--rarity-color, #ffc107) 330deg,
-    transparent 360deg
-  );
-  animation: travelBorder 2.5s linear infinite;
-}
-
-@keyframes travelBorder {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-.is-premium:not(.is-compact) .premium-travel-border {
-  display: block;
-}
 
 /* Selection border */
 .is-selected:not(.is-compact) .tt-card-inner { border-color: var(--border-color, #00d2ff); box-shadow: 0 0 12px rgba(0, 210, 255, 0.4); }
@@ -976,33 +930,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 
 .tt-card.is-premium:hover .holo-container { opacity: 1; }
 
-.premium-border-layer {
-  position: absolute;
-  top: var(--card-border-offset, -2px); 
-  left: var(--card-border-offset, -2px); 
-  right: var(--card-border-offset, -2px); 
-  bottom: var(--card-border-offset, -2px);
-  box-sizing: border-box;
-  border-radius: inherit;
-  border: var(--card-border-width, 2px) solid transparent;
-  backface-visibility: hidden;
-  background: var(--premium-border-gradient, linear-gradient(135deg, var(--border-color, #ffc107), transparent, var(--border-color, #ffc107)) border-box);
-  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  background-size: 400% 400%;
-  animation: rainbowBorder 4s linear infinite;
-  box-shadow: 0 0 15px var(--premium-border-glow, rgba(255, 206, 0, 0.4));
-  pointer-events: none;
-  z-index: 6;
-}
 
-@keyframes rainbowBorder {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
 
 /* ============================================ */
 /*  DETAIL MODE                                 */
@@ -1015,9 +943,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 .card-size-xl .tt-card-inner {
   overflow-y: auto;
 }
-.card-size-xl.is-premium .tt-card-inner {
-  overflow: visible !important;
-}
+
 
 .detail-name { font-size: 1.5em; margin: 0.5em 0 0.3em; color: white; text-align: center; }
 .detail-level { font-size: 0.9em; color: #aaa; text-align: center; margin-bottom: 0.2em; }
@@ -1101,12 +1027,19 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 .craft-btn:disabled { background: #555; color: #888; cursor: not-allowed; }
 .disenchant-btn { background: #f44336; }
 .disenchant-btn:hover { background: #d32f2f; }
+
+.new-badge {
+  position: absolute;
+  top: -0.8em;
+  left: -0.8em;
+  z-index: 100;
+}
 </style>
 
 /* Unscoped styles for the Teleported zoom overlay */
 <style>
 /* Zoom card size */
-.card-size-zoom { width: min(350px, 70vw); font-size: 24px; aspect-ratio: 1 / 1; }
+.card-size-zoom { width: min(350px, 70vw); font-size: 24px; aspect-ratio: auto; }
 
 /* Card inner rendering for zoom (scoped styles don't apply in Teleport) */
 .zoom-overlay .tt-card { border-radius: 8px; overflow: visible; position: relative; }
@@ -1116,26 +1049,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 }
 
 /* Premium Zoom Effect Styles */
-.zoom-overlay .premium-border-layer {
-  position: absolute;
-  top: var(--card-border-offset, -2px); 
-  left: var(--card-border-offset, -2px); 
-  right: var(--card-border-offset, -2px); 
-  bottom: var(--card-border-offset, -2px);
-  box-sizing: border-box;
-  border-radius: inherit;
-  border: var(--card-border-width, 2px) solid transparent;
-  background: var(--premium-border-gradient, linear-gradient(135deg, var(--border-color, #ffc107), transparent, var(--border-color, #ffc107)) border-box);
-  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  background-size: 400% 400%;
-  animation: rainbowBorder 4s linear infinite;
-  box-shadow: 0 0 15px rgba(255, 206, 0, 0.4);
-  pointer-events: none;
-  z-index: 6;
-}
+
 
 .zoom-overlay .holo-container {
   position: absolute;

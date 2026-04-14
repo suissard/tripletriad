@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Forge Ardent",
   "description": "Forgeron de guerre armant les combattants avec des armes chauffées à blanc infligeant des brûlures persistantes.",
-  "element": "spore",
+  "element": "radiation",
   "faction": "Héritiers des Cendres",
   "topValue": "5",
   "rightValue": "7",
@@ -20,7 +20,7 @@
   "image": "base/053.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "radiation"
   ],
   "prompt": {
     "format": "1:1",

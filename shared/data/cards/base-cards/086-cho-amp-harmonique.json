@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Amp Harmonique",
   "description": "Maître du Chant ancien canalisant les harmoniques ancestraux pour booster considérablement les capacités de combat des alliés.",
-  "element": "faille_dimensionnelle",
+  "element": "hacking",
   "faction": "Chœur Synthétique",
   "topValue": "6",
   "rightValue": "4",
@@ -14,7 +14,7 @@
   "image": "base/086.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "hacking"
   ],
   "prompt": {
     "format": "1:1",

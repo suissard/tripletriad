@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "weekly_quest_configs",
+  "info": {
+    "singularName": "weekly-quest-config",
+    "pluralName": "weekly-quest-configs",
+    "displayName": "Weekly Quest Config",
+    "description": "Configuration for weekly quests and reward tiers"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "tiers": {
+      "type": "component",
+      "repeatable": true,
+      "component": "quest.weekly-tier"
+    }
+  }
+}

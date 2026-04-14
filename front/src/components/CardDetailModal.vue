@@ -6,18 +6,13 @@
           <div class="tt-card-zoom-wrapper" :class="[rarityClass, { 'is-premium': isPremium }]" :style="cardZoomStyle" @click="$emit('close')">
             <div class="zoom-card-inner">
               <template v-if="isPremium">
-                <svg width="0" height="0" style="position:absolute">
-                  <filter :id="holoFilterId + '-zoom'" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
-                    <feTurbulence type="fractalNoise" :baseFrequency="holoFrequency" :numOctaves="holoOctaves" :seed="premiumSeed" result="noise" />
-                    <feColorMatrix type="saturate" values="0" in="noise" result="mono" />
-                    <feBlend in="SourceGraphic" in2="mono" mode="color-burn" />
-                  </filter>
-                </svg>
                 <div class="glare" :style="{ background: 'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 60%)' }"></div>
-                <div class="holo-container" :style="[{ opacity: 1, mixBlendMode: 'color-dodge' }, holoStyle]">
-                  <div class="holo-gradient" :style="{ filter: `url(#${holoFilterId}-zoom)` }"></div>
-                </div>
-                <div class="premium-border-layer" :style="premiumBorderStyle"></div>
+                <HoloOverlay
+                  :seed="premiumSeed"
+                  :always-visible="true"
+                  :supertype="card.supertype"
+                  :subtypes="card.subtypes"
+                />
               </template>
 
               <!-- Card face (Always revealed in zoom) -->
@@ -87,7 +82,7 @@
 <script setup>
 import { computed } from 'vue';
 import ElementIcon from "./ElementIcon.vue";
-import { state } from '../game/state.js';
+import HoloOverlay from "./HoloOverlay.vue";
 import { useUserStore } from '../stores/userStore.js';
 import { GameEngine } from '../../../shared/GameEngine.ts';
 import PurchaseButton from './ui/PurchaseButton.vue';
@@ -149,18 +144,10 @@ const rarityColor = computed(() => {
 const cardZoomStyle = computed(() => {
   const scale = ZOOM_SIZE / 150;
   return {
-    '--card-border-width': `${props.borderWidth * scale}px`,
-    '--card-border-offset': `-${props.borderWidth * scale}px`
+    '--card-border-width': `${props.borderWidth * scale}px`
   };
 });
 
-const premiumBorderStyle = computed(() => {
-  const c = rarityColor.value;
-  return {
-    '--premium-border-gradient': `linear-gradient(135deg, ${c}, transparent, ${c}, transparent, ${c}) border-box`,
-    '--premium-border-glow': c
-  };
-});
 
 const cardElementsList = computed(() => {
   if (!props.card) return [];
@@ -195,40 +182,17 @@ const canCraft = computed(() => (userStore.user?.dust || 0) >= craftCost.value);
 async function handleCraft() { if (canCraft.value) await userStore.craftCard(props.card.id); }
 async function handleDisenchant() { if (props.quantity > 0) await userStore.disenchantCard(props.card.id); }
 
-// Holo effects
+// Holo seed
 function hashCode(str) {
   let hash = 0;
   for (let i = 0; i < str.length; i++) { hash = (hash << 5) - hash + str.charCodeAt(i); hash |= 0; }
   return Math.abs(hash);
-}
-function sfc32(a) {
-  return function() {
-    a |= 0; a = a + 0x6D2B79F5 | 0;
-    var t = Math.imul(a ^ a >>> 15, 1 | a);
-    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
-    return ((t ^ t >>> 14) >>> 0) / 4294967296;
-  }
 }
 const premiumSeed = computed(() => {
   const cardPart = props.card.id || props.card.name || '0';
   const userPart = userStore.user?.id || 'anon';
   return hashCode(`${cardPart}-${userPart}`);
 });
-const holoStyle = computed(() => {
-  if (!props.isPremium) return {};
-  const rng = sfc32(premiumSeed.value);
-  if (state.premiumMode === 'image') return { '--c1': 'rgba(255, 255, 255, 1.0)', '--c2': 'rgba(255, 255, 255, 1.0)', '--c3': 'rgba(255, 255, 255, 1.0)' };
-  return { '--c1': `hsla(${rng() * 360}, 100%, 70%, 1.0)`, '--c2': `hsla(${rng() * 360}, 100%, 70%, 1.0)`, '--c3': `hsla(${rng() * 360}, 100%, 70%, 1.0)` };
-});
-const holoFilterId = computed(() => `holo-pattern-${premiumSeed.value}`);
-const holoFrequency = computed(() => {
-  const rng = sfc32(premiumSeed.value + 42);
-  const fineness = state.holoFineness || 0.05;
-  const base = fineness * 0.4;
-  const range = fineness * 1.6;
-  return `${(base + rng() * range).toFixed(4)} ${(base + rng() * range).toFixed(4)}`;
-});
-const holoOctaves = computed(() => 2 + Math.floor(sfc32(premiumSeed.value + 99)() * 4));
 </script>
 
 <style scoped>
@@ -342,37 +306,7 @@ const holoOctaves = computed(() => 2 + Math.floor(sfc32(premiumSeed.value + 99)(
 .rarity-epic .zoom-card-inner     { border-color: var(--border-color, #9c27b0); box-shadow: 0 0 12px var(--border-glow, rgba(156, 39, 176, 0.5)); }
 .rarity-legendary .zoom-card-inner { border-color: var(--border-color, #ffc107); box-shadow: 0 0 15px var(--border-glow, rgba(255, 193, 7, 0.6)), 0 0 30px var(--border-glow, rgba(255, 193, 7, 0.2)); }
 
-.is-premium .zoom-card-inner {
-  overflow: visible !important;
-  border-color: transparent !important;
-}
 
-.premium-border-layer {
-  position: absolute;
-  top: var(--card-border-offset, -2px); 
-  left: var(--card-border-offset, -2px); 
-  right: var(--card-border-offset, -2px); 
-  bottom: var(--card-border-offset, -2px);
-  box-sizing: border-box;
-  border-radius: inherit;
-  border: var(--card-border-width, 2px) solid transparent;
-  background: var(--premium-border-gradient, linear-gradient(135deg, var(--border-color, #ffc107), transparent, var(--border-color, #ffc107)) border-box);
-  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  background-size: 400% 400%;
-  animation: rainbowBorder 4s linear infinite;
-  box-shadow: 0 0 15px var(--premium-border-glow, rgba(255, 206, 0, 0.4));
-  pointer-events: none;
-  z-index: 6;
-}
-
-@keyframes rainbowBorder {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
 
 .holo-container {
   position: absolute;

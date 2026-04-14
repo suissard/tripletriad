@@ -2,9 +2,9 @@
   "collectionName": "base",
   "name": "Soudure",
   "description": "Dépanneur restaurant les fonctions essentielles des installations endommagées maintenant la chaîne logistique opérationnelle.",
-  "element": "reseau",
+  "element": "furtif",
   "elements": [
-    "spore"
+    "furtif"
   ],
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "1",

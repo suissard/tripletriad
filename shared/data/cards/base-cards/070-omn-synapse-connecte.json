@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Synapse Connecte",
   "description": "Routeur tactique optimisant les flux d'information en temps de combat pour une réactivité maximale des unités alliées.",
-  "element": "faille_dimensionnelle",
+  "element": "reseau",
   "faction": "Omni-Réseau",
   "topValue": "6",
   "rightValue": "5",
@@ -20,7 +20,7 @@
   "image": "base/070.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "reseau"
   ],
   "prompt": {
     "format": "1:1",

@@ -2,9 +2,9 @@
   "collectionName": "base",
   "name": "Recup Artisanal",
   "description": "Artisan du scrap fabriquant des gadgets utiles à partir de débris collectés sur le champ de bataille après chaque engagement.",
-  "element": "radiation",
+  "element": "furtif",
   "elements": [
-    "faille_dimensionnelle"
+    "furtif"
   ],
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "1",

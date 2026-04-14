@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Pyro Volcanique",
   "description": "Phénix tacticien utilisant ses cendres pour bloquer les lignes ennemies et créer des murs de fumée infranchissables.",
-  "element": "spore",
+  "element": "radiation",
   "faction": "Héritiers des Cendres",
   "topValue": "4",
   "rightValue": "5",
@@ -20,7 +20,7 @@
   "image": "base/057.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "radiation"
   ],
   "prompt": {
     "format": "1:1",

@@ -10,6 +10,16 @@
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="state.menuView = 'ai'">JOUER CONTRE UNE IA 🤖</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="state.menuView = 'multi-deck'" :disabled="!userStore.strapiConnected">PARTIE MULTIJOUEUR 🌍</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openCollection">MA COLLECTION 📚</AppButton>
+      <AppButton fullWidth variant="primary" class="relative text-lg py-4 shadow-lg shadow-primary/20" @click="openBoosters" :disabled="!userStore.strapiConnected">
+        MES BOOSTERS 🎒
+        <AppBadge 
+          v-if="totalBoosters > 0" 
+          :content="totalBoosters" 
+          variant="danger" 
+          bounce 
+          class="booster-badge"
+        />
+      </AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openDecks">MES DECKS 🎴</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openBoutique" :disabled="!userStore.strapiConnected">BOUTIQUE 💎</AppButton>
       <!-- <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="router.push('/test-card')" style="margin-top:20px; background:linear-gradient(45deg, #f093fb 0%, #f5576c 100%)">TESTER LA CARTE 🧪</AppButton>
@@ -102,6 +112,7 @@
 
 <script setup>
 import { useRouter, useRoute } from 'vue-router';
+import { computed } from 'vue';
 const router = useRouter();
 const route = useRoute();
 
@@ -112,6 +123,8 @@ import CoinToss from '../components/CoinToss.vue';
 import AnimatedCardBack from '../components/AnimatedCardBack.vue';
 import MiniDeck from '../components/MiniDeck.vue';
 import QuestRewardModal from '../components/QuestRewardModal.vue';
+import WeeklyRewardModal from '../components/WeeklyRewardModal.vue';
+import AppBadge from '../components/ui/AppBadge.vue';
 import { useUserStore } from '../stores/userStore.js';
 import strapiService from '../api/strapi.js';
 
@@ -122,6 +135,11 @@ const onRewardClaimed = ({ quest, reward }) => {
   // Optionnel: On peut ajouter un petit effet visuel ici
   console.log(`Récompense récupérée pour ${quest.title}: ${reward.coins} coins`);
 };
+
+const totalBoosters = computed(() => {
+  if (!userStore.user?.boosters) return 0;
+  return userStore.user.boosters.reduce((acc, b) => acc + (b.quantity || 0), 0);
+});
 
 async function resumeStory() {
   const p = userStore.latestStoryProgress;
@@ -170,6 +188,10 @@ function openCollection() {
 
 function openDecks() {
   router.push('/decks');
+}
+
+function openBoosters() {
+  router.push('/wallet/boosters');
 }
 
 function openBoutique() {
@@ -279,6 +301,12 @@ onMounted(async () => {
     const hasUnclaimed = userStore.quests.some(q => q.status === 'completed' && !q.rewardClaimed);
     if (hasUnclaimed) {
       showQuestModal.value = true;
+    }
+
+    await userStore.fetchWeeklyQuests();
+    if (userStore.hasClaimableWeeklyTiers && !showQuestModal.value) {
+       // Si on veut aussi ouvrir la modale hebdmoadaire automatiquement (pour l'instant laissons l'utilisateur aller sur la page quêtes, ou on claim auto).
+       // En fait la page quetes gere le bouton de claim. La notification se fait sur la pastille.
     }
   } catch(e) {
     console.warn("Failed to fetch data in MainMenu", e);
@@ -470,5 +498,12 @@ button:hover { transform: scale(1.05); }
   background: linear-gradient(45deg, #00d2ff, #3a7bd5);
   padding: 10px 30px;
   font-size: 1.2rem;
+}
+
+.booster-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  z-index: 10;
 }
 </style>

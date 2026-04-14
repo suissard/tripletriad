@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Arcane 1",
   "description": "Ancien Endormi réveillé libérant la puissance oubliée des ères pré-cosmiques remodelant temporairement les règles physiques du champ de bataille.",
-  "element": "faille_dimensionnelle",
+  "element": "obsidienne",
   "faction": "Éveil Chthonien",
   "topValue": "8",
   "rightValue": "A",
@@ -25,7 +25,7 @@
   "image": "base/105.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "obsidienne"
   ],
   "prompt": {
     "format": "1:1",

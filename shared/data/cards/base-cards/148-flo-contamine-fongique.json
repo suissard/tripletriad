@@ -4,7 +4,7 @@
   "description": "Pandémie vivante se propageant exponentiellement sur le champ de bataille contaminant chaque zone touchée durablement.",
   "element": "spore",
   "elements": [
-    "radiation"
+    "spore"
   ],
   "faction": "Fléau Spore",
   "topValue": "3",

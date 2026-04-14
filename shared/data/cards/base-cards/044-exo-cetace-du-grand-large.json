@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Cetace du Grand Large",
   "description": "Hydromancien invoquant les marées submergeantes pour protéger les siens et inonder les positions ennemies.",
-  "element": "furtif",
+  "element": "eau",
   "faction": "Exode Pélagique",
   "topValue": "1",
   "rightValue": "9",
@@ -20,7 +20,7 @@
   "image": "base/044.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "eau"
   ],
   "prompt": {
     "format": "1:1",

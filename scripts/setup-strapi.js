@@ -39,7 +39,7 @@ function loadEnv() {
 }
 
 const env = loadEnv();
-const STRAPI_URL = `http://localhost:${env.PORT || 1337}`;
+const STRAPI_URL = env.VITE_STRAPI_URL || `http://localhost:${env.STRAPI_PORT || 1340}`;
 const ADMIN_EMAIL = env.ADMIN_EMAIL;
 const ADMIN_PASSWORD = env.ADMIN_PASSWORD;
 const ADMIN_FIRSTNAME = env.ADMIN_FIRSTNAME || 'Super';
@@ -155,7 +155,7 @@ async function loginAdmin() {
 async function setupPermissions(adminJwt) {
     info('Fetching users-permissions roles...');
 
-    const { status, data } = await api('/api/users-permissions/roles', {
+    const { status, data } = await api('/users-permissions/roles', {
         headers: authHeaders(adminJwt),
     });
 
@@ -206,7 +206,7 @@ async function setupPermissions(adminJwt) {
 
 async function updateRolePermissions(adminJwt, role, permissions, roleName) {
     // First, get the full role details including current permissions
-    const { status, data } = await api(`/api/users-permissions/roles/${role.id}`, {
+    const { status, data } = await api(`/users-permissions/roles/${role.id}`, {
         headers: authHeaders(adminJwt),
     });
 
@@ -233,7 +233,7 @@ async function updateRolePermissions(adminJwt, role, permissions, roleName) {
     }
 
     // Update the role with merged permissions
-    const updateRes = await api(`/api/users-permissions/roles/${role.id}`, {
+    const updateRes = await api(`/users-permissions/roles/${role.id}`, {
         method: 'PUT',
         headers: authHeaders(adminJwt),
         body: JSON.stringify({
@@ -251,28 +251,29 @@ async function updateRolePermissions(adminJwt, role, permissions, roleName) {
 async function createApiUser(adminJwt) {
     info(`Setting up API user: ${API_USER_NAME} (${API_USER_EMAIL})...`);
 
-    // Check if user already exists
-    const { data } = await api(`/api/users-permissions/users?filters[email][$eq]=${encodeURIComponent(API_USER_EMAIL)}`, {
+    // Check if user already exists (search by username which is most likely to conflict)
+    const { data } = await api(`/content-manager/collection-types/plugin::users-permissions.user?filters[username][$eq]=${encodeURIComponent(API_USER_NAME)}`, {
         headers: authHeaders(adminJwt),
     });
-
-    if (data && Array.isArray(data) && data.length > 0) {
-        ok(`API user already exists: ${API_USER_NAME} (ID: ${data[0].id})`);
+ 
+    if (data?.results && Array.isArray(data.results) && data.results.length > 0) {
+        ok(`API user already exists: ${API_USER_NAME} (ID: ${data.results[0].id})`);
         return;
     }
 
     // Get the Authenticated role ID
-    const rolesRes = await api('/api/users-permissions/roles', {
+    const rolesRes = await api('/users-permissions/roles', {
         headers: authHeaders(adminJwt),
     });
-    const authRoleId = rolesRes.data?.roles?.find(r => r.type === 'authenticated')?.id;
-
+    const authRole = rolesRes.data?.roles?.find(r => r.type === 'authenticated');
+    const authRoleId = authRole?.id;
+ 
     if (!authRoleId) {
         fail('Could not find Authenticated role ID for user creation.');
     }
 
-    // Create the user via admin API
-    const createRes = await api('/api/users-permissions/users', {
+    // Create the user via content-manager API
+    const createRes = await api('/content-manager/collection-types/plugin::users-permissions.user', {
         method: 'POST',
         headers: authHeaders(adminJwt),
         body: JSON.stringify({
@@ -281,32 +282,74 @@ async function createApiUser(adminJwt) {
             password: API_USER_PASSWORD,
             role: authRoleId,
             confirmed: true,
+            blocked: false,
         }),
     });
-
+ 
     if (createRes.ok) {
         ok(`API user created: ${API_USER_NAME}`);
     } else {
-        // If 400, maybe the user exists with a different filter match
         warn(`Could not create API user (${createRes.status}): ${JSON.stringify(createRes.data)}`);
-        info('Trying to register via public endpoint...');
-
-        const regRes = await api('/api/auth/local/register', {
-            method: 'POST',
-            body: JSON.stringify({
-                username: API_USER_NAME,
-                email: API_USER_EMAIL,
-                password: API_USER_PASSWORD,
-            }),
-        });
-
-        if (regRes.ok) {
-            ok(`API user registered via public endpoint: ${API_USER_NAME}`);
-        } else {
-            warn(`Public registration also failed (${regRes.status}): ${JSON.stringify(regRes.data)}`);
-        }
     }
 }
+
+async function setupGameConfig(adminJwt) {
+    info('Setting up Game Config...');
+
+    // Check if game-config already exists
+    const { status, data } = await api('/content-manager/single-types/api::game-config.game-config', {
+        headers: authHeaders(adminJwt),
+    });
+
+    if (status === 200 && data) {
+        ok('Game Config already exists.');
+        return;
+    }
+
+    // Default configuration (matching schema defaults)
+    const defaultConfig = {
+        cardsPerDeck: 15,
+        maxDecksPerUser: 5,
+        turnTimeSeconds: 60,
+        maxQuestsPerUser: 5,
+        playableLimit: 2,
+        craftingRatios: {
+            common: { disenchant: 10, craft: 40 },
+            uncommon: { disenchant: 20, craft: 80 },
+            rare: { disenchant: 50, craft: 200 },
+            epic: { disenchant: 100, craft: 400 },
+            legendary: { disenchant: 400, craft: 1600 }
+        },
+        boosterCost: 100,
+        boosterHits: 5,
+        probCommon: 39,
+        probUncommon: 30,
+        probRare: 20,
+        probEpic: 10,
+        probLegendary: 1,
+        probPremium: 5,
+        colorPrimary: '#FFBF00',
+        colorSecondary: '#0033ff',
+        colorAccent: '#FFFF00',
+        uiButtonHole: 30,
+        uiButtonSpeed: 1.0,
+        uiButtonOpacity: 0.25,
+        storyUnlockPrice: 500
+    };
+
+    const createRes = await api('/content-manager/single-types/api::game-config.game-config', {
+        method: 'PUT', // Single types use PUT to create/update
+        headers: authHeaders(adminJwt),
+        body: JSON.stringify(defaultConfig),
+    });
+
+    if (createRes.ok) {
+        ok('Game Config initialized successfully.');
+    } else {
+        warn(`Failed to initialize Game Config (${createRes.status}): ${JSON.stringify(createRes.data)}`);
+    }
+}
+
 
 // ─── Main ──────────────────────────────────────────────────────────────────────
 
@@ -335,7 +378,11 @@ async function main() {
     // Step 4: Create API user
     await createApiUser(adminJwt);
 
+    // Step 5: Setup Game Config
+    await setupGameConfig(adminJwt);
+
     // Done!
+
     console.log('');
     console.log('╔══════════════════════════════════════════╗');
     console.log('║   ✅ Setup complete!                     ║');

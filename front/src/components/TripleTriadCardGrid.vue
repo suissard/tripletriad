@@ -12,6 +12,7 @@
         :disableZoom="true"
         :faceDown="card.faceDown"
         :isPremium="card.isPremium"
+        :isNew="card.isNew"
         @left-click="handleCardAction('left-click', card, index)"
         @right-click="handleCardAction('right-click', card, index)"
         @long-left-click="handleCardAction('long-left-click', card)"

@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Pelerin",
   "description": "Passeur des confins connaissant les raccourcis permettant de contourner les zones de combat les plus dangereuses.",
-  "element": "reseau",
+  "element": "None",
   "faction": "neutre",
   "topValue": "1",
   "rightValue": "4",
@@ -13,9 +13,7 @@
   "defaultHp": 3,
   "image": "base/003.png",
   "storiesRewardedFrom": null,
-  "elements": [
-    "neutre"
-  ],
+  "elements": [],
   "prompt": {
     "format": "1:1",
     "subject": {

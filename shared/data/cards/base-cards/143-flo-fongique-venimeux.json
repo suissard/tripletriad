@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Fongique Venimeux",
   "description": "Spore tactique coordonnant les actions des unités fongiques dispersées à distance par des signaux chimiques imperceptibles.",
-  "element": "eau",
+  "element": "spore",
   "faction": "Fléau Spore",
   "topValue": "2",
   "rightValue": "7",
@@ -14,8 +14,7 @@
   "image": "base/143.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "eau",
-    "glace"
+    "spore"
   ],
   "prompt": {
     "format": "1:1",

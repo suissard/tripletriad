@@ -33,24 +33,35 @@ export const useUserStore = defineStore('user', {
     isOfflineStoryMode: false,
     error: null
   }),
-
   getters: {
-    isOffline: (state) => !state.strapiConnected,
-    isGuestStoryMode: (state) => state.isOfflineStoryMode || (!state.isLoggedIn && !state.strapiConnected),
-    isAdmin: (state) => state.user?.role === 'Admin' || state.user?.role === 'Super Admin',
     latestStoryProgress: (state) => {
-      if (!state.storyProgresses || state.storyProgresses.length === 0) return null;
-      // Filter for in-progress stories and sort by updatedAt descending
-      return [...state.storyProgresses]
+      if (!state.userStoryProgresses || state.userStoryProgresses.length === 0) return null;
+      return [...state.userStoryProgresses]
         .filter(p => p.status !== 'completed' && p.progressStatus !== 'completed')
         .sort((a, b) => {
           const dateA = new Date(a.updatedAt || a.updated_at || 0);
           const dateB = new Date(b.updatedAt || b.updated_at || 0);
           return dateB - dateA;
         })[0] || null;
+    },
+    hasClaimableQuests: (state) => {
+      return state.userQuests.some(q => q.status === 'completed' && !q.rewardClaimed);
+    },
+    hasClaimableWeeklyTiers: (state) => {
+       if (!state.weeklyConfig || !state.weeklyProgress) return false;
+       const completed = state.weeklyProgress.completedCount || 0;
+       const claimed = state.weeklyProgress.claimedTiers || [];
+       const tiers = state.weeklyConfig.tiers || [];
+       return tiers.some(t => completed >= t.requiredCount && !claimed.includes(t.requiredCount));
+    },
+    claimableWeeklyTiers: (state) => {
+      if (!state.weeklyConfig || !state.weeklyProgress) return [];
+      const completed = state.weeklyProgress.completedCount || 0;
+      const claimed = state.weeklyProgress.claimedTiers || [];
+      const tiers = state.weeklyConfig.tiers || [];
+      return tiers.filter(t => completed >= t.requiredCount && !claimed.includes(t.requiredCount));
     }
   },
-
   actions: {
     async login(identifier, password) {
       this.error = null;
@@ -160,6 +171,7 @@ export const useUserStore = defineStore('user', {
       this.fetchUserCollection();
       this.fetchUserDecks();
       this.fetchUserQuests();
+          this.fetchWeeklyQuests();
       this.fetchUserStoryProgresses();
       
       const effectStore = useEffectStore();
@@ -297,30 +309,64 @@ export const useUserStore = defineStore('user', {
       }
     },
 
+
     async fetchUserQuests() {
-      if (!this.isLoggedIn) return;
+      if (!this.strapiConnected) return;
       try {
-        const result = await strapiService.find('player-quests', {
-          populate: ['quest_template']
-        });
-        const items = this.toArray(result);
-        this.quests = items.map(item => ({
-          id: item.id,
-          documentId: item.documentId,
-          title: item.quest_template?.title || 'Quête sans titre',
-          description: item.quest_template?.description || '',
-          progress: item.progress || 0,
-          target: item.quest_template?.target || 1,
-          rewardCoins: item.quest_template?.rewardCoins || 0,
-          rewardGems: item.quest_template?.rewardGems || 0,
-          status: item.status || 'active',
-          rewardClaimed: !!item.rewardClaimed
-        }));
+        const result = await strapiService.request('GET', '/player-quests');
+        if (result && result.data) {
+          this.userQuests = result.data;
+        }
       } catch (e) {
-        console.error('Quests sync failed', e);
-        this.quests = [];
+        console.error('Failed to fetch user quests', e);
       }
     },
+
+    async fetchWeeklyQuests() {
+      if (!this.strapiConnected) return;
+      try {
+        const configResult = await strapiService.request('GET', '/weekly-quest/config');
+        if (configResult && configResult.data) {
+          this.weeklyConfig = configResult.data;
+        }
+
+        const progressResult = await strapiService.request('GET', '/weekly-quest/progress');
+        if (progressResult && progressResult.data) {
+          this.weeklyProgress = progressResult.data;
+        }
+      } catch (e) {
+        console.error('Failed to fetch weekly quests', e);
+      }
+    },
+
+    async claimWeeklyTier(requiredCount) {
+      if (!this.strapiConnected) return null;
+      try {
+        const result = await strapiService.request('POST', '/weekly-quest/claim', {
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ requiredCount })
+        });
+
+        if (result && result.success) {
+          this.weeklyProgress = result.progress;
+          if (result.reward) {
+             if (result.reward.coins) this.user.coins += result.reward.coins;
+             if (result.reward.gems) this.user.gems += result.reward.gems;
+             this.syncLocalUserWallets();
+             if (result.reward.card) {
+               // Reload collection to reflect the new card
+               this.fetchUserCollection(true);
+             }
+          }
+          return result.reward;
+        }
+        return null;
+      } catch (e) {
+        console.error('Failed to claim weekly tier', e);
+        return null;
+      }
+    },
+
 
     async claimQuestReward(questId) {
       if (!this.isLoggedIn) return { error: 'Not logged in' };
@@ -335,6 +381,7 @@ export const useUserStore = defineStore('user', {
           }
           // Refresh quests to update claimed status
           await this.fetchUserQuests();
+          this.fetchWeeklyQuests();
           return { success: true, reward: res.reward };
         }
         return { error: res.error?.message || 'Failed to claim reward' };
@@ -610,9 +657,10 @@ export const useUserStore = defineStore('user', {
             this.user.dust = result.newDustTotal;
             this.syncLocalUserWallets();
           }
-          if (result.totalCardsDisenchanted > 0) {
+          if (result.cardsDestroyed > 0 || result.totalCardsDisenchanted > 0) {
             this.collection.forEach(item => {
-              if (item.quantity > 1) item.quantity = 1;
+              // The backend reduces quantity to playableLimit (default 2)
+              if (item.quantity > 2) item.quantity = 2;
             });
           }
           return true;
@@ -669,6 +717,7 @@ export const useUserStore = defineStore('user', {
           this.fetchUserCollection();
           this.fetchUserDecks();
           this.fetchUserQuests();
+          this.fetchWeeklyQuests();
           this.fetchUserStoryProgresses();
         }
       } else {

@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Requin des Abimes",
   "description": "Hydrologue cartographiant les zones habitables aquatiques pour les futures colonies de l'Exode Pélagique.",
-  "element": "longue_portee",
+  "element": "eau",
   "faction": "Exode Pélagique",
   "topValue": "4",
   "rightValue": "1",
@@ -14,7 +14,7 @@
   "image": "base/034.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "eau"
   ],
   "prompt": {
     "format": "1:1",

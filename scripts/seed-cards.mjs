@@ -29,7 +29,7 @@ function loadEnv() {
 }
 
 const env = loadEnv();
-const STRAPI_URL = `http://127.0.0.1:${env.STRAPI_PORT || env.PORT || 1340}`;
+const STRAPI_URL = env.VITE_STRAPI_URL || env.STRAPI_URL || `http://127.0.0.1:${env.STRAPI_PORT || env.PORT || 1340}`;
 const ADMIN_EMAIL = env.ADMIN_EMAIL;
 const ADMIN_PASSWORD = env.ADMIN_PASSWORD;
 
@@ -71,6 +71,23 @@ async function uploadToStrapi(token, filePath, fileName) {
 
   const data = await res.json();
   return data[0];
+}
+
+async function deleteMediaFromStrapi(token, mediaId) {
+  if (!mediaId) return;
+  const res = await fetch(`${STRAPI_URL}/upload/files/${mediaId}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    console.warn(`  ⚠️  Échec suppression ancienne image (${mediaId}): ${err}`);
+  } else {
+    console.log(`  🗑️  Ancienne image supprimée (${mediaId})`);
+  }
 }
 
 async function fetchAllCards(token) {
@@ -192,9 +209,22 @@ async function main() {
                     process.stdout.write(`⏳ ${actionLabel} de ${cardData.name.padEnd(30)}... `);
                     
                     const media = await uploadToStrapi(token, imagePath, path.basename(imagePath));
+                    
+                    // Récupérer l'ID de l'image actuelle avant l'update
+                    let oldImageId = null;
+                    if (existingCard && existingCard.image) {
+                        oldImageId = typeof existingCard.image === 'object' ? existingCard.image.id : existingCard.image;
+                    }
+
                     await upsertCardInStrapi(token, cardData, media.id, existingCard);
                     
                     console.log(`✅ OK`);
+                    
+                    // Nettoyage de l'ancienne image
+                    if (oldImageId && oldImageId !== media.id) {
+                        await deleteMediaFromStrapi(token, oldImageId);
+                    }
+
                     if (existingCard) updateCount++; else successCount++;
                 } catch (err) {
                     console.log(`❌ Erreur: ${err.message}`);

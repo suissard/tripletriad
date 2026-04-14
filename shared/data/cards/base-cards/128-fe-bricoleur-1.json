@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Bricoleur 1",
   "description": "Ingénieur de récupération optimisant les ressources limitées du groupe pour maximiser leur durée de vie en zone hostile.",
-  "element": "reseau",
+  "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "1",
   "rightValue": "4",
@@ -14,7 +14,7 @@
   "image": "base/128.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "furtif"
   ],
   "prompt": {
     "format": "1:1",

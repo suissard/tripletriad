@@ -118,8 +118,6 @@
       <TripleTriadCardGrid
         :cards="drawnCards.map((c, i) => ({ 
           ...c, 
-          rarity: c.drawnRarity || c.rarity, 
-          isPremium: c.isDrawnPremium,
           faceDown: !isFlipped[i]
         }))"
         fitOnRow
@@ -276,75 +274,86 @@ const openPack = async () => {
   hits.value = 0;
   errorMessage.value = '';
 
-  try {
-    let data;
-    if (!userStore.strapiConnected) {
-        data = strapiMock.openBooster();
-        const cost = hasBooster ? 0 : 100;
-        data.wallet = { 
-          coins: wallet.value.coins - (selectedPackType.value === 'classic' ? cost : 0), 
-          gems: wallet.value.gems - (selectedPackType.value === 'premium' ? cost : 0), 
-          dust: wallet.value.dust 
-        };
-    } else {
-        const token = localStorage.getItem('tt_jwt');
-        
-        // 1. Buy if needed
-        if (!hasBooster) {
-          const buyRes = await fetch(getStrapiUrl('/booster/buy'), {
+    const previousCollection = [...userStore.collection];
+    
+    try {
+      let data;
+      if (!userStore.strapiConnected) {
+          data = strapiMock.openBooster();
+          const cost = hasBooster ? 0 : 100;
+          data.wallet = { 
+            coins: wallet.value.coins - (selectedPackType.value === 'classic' ? cost : 0), 
+            gems: wallet.value.gems - (selectedPackType.value === 'premium' ? cost : 0), 
+            dust: wallet.value.dust 
+          };
+      } else {
+          const token = localStorage.getItem('tt_jwt');
+          
+          // 1. Buy if needed
+          if (!hasBooster) {
+            const buyRes = await fetch(getStrapiUrl('/booster/buy'), {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+              },
+              body: JSON.stringify({ 
+                type: selectedPackType.value,
+                collection: selectedCollection.value 
+              })
+            });
+            if (!buyRes.ok) {
+              const errorData = await buyRes.json();
+              throw new Error(errorData.error?.message || 'Failed to buy pack');
+            }
+            // Update wallet immediately to show deduction
+            const buyData = await buyRes.json();
+            userStore.user.coins = buyData.wallet.coins;
+            userStore.user.gems = buyData.wallet.gems;
+            userStore.user.boosters = buyData.wallet.boosters;
+          }
+
+          // 2. Open
+          const openRes = await fetch(getStrapiUrl('/booster/open'), {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({ 
-              type: selectedPackType.value,
+              isPremium: isPremium,
               collection: selectedCollection.value 
             })
           });
-          if (!buyRes.ok) {
-            const errorData = await buyRes.json();
-            throw new Error(errorData.error?.message || 'Failed to buy pack');
+
+          if (!openRes.ok) {
+            const errorData = await openRes.json();
+            throw new Error(errorData.error?.message || 'Failed to open pack');
           }
-          // Update wallet immediately to show deduction
-          const buyData = await buyRes.json();
-          userStore.user.coins = buyData.wallet.coins;
-          userStore.user.gems = buyData.wallet.gems;
-          userStore.user.boosters = buyData.wallet.boosters;
-        }
 
-        // 2. Open
-        const openRes = await fetch(getStrapiUrl('/booster/open'), {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify({ 
-            isPremium: isPremium,
-            collection: selectedCollection.value 
-          })
-        });
-
-        if (!openRes.ok) {
-          const errorData = await openRes.json();
-          throw new Error(errorData.error?.message || 'Failed to open pack');
-        }
-
-        data = await openRes.json();
-    }
-    
-    drawnCards.value = (data.cards || []).map(c => ({
-      ...normalizeCard(c),
-      drawnRarity: c.drawnRarity,
-      isDrawnPremium: c.isDrawnPremium
-    }));
+          data = await openRes.json();
+      }
+      
+      drawnCards.value = (data.cards || []).map(c => {
+        const isPremiumCard = !!c.isDrawnPremium;
+        const isNew = !previousCollection.some(ec => ec.cardId === c.id && ec.isPremium === isPremiumCard);
+        return {
+          ...normalizeCard(c),
+          drawnRarity: c.drawnRarity,
+          isDrawnPremium: isPremiumCard,
+          isNew: isNew
+        };
+      });
     if (!drawnCards.value.length) {
        throw new Error("No cards found in pack");
     }
     
     // Update global wallet, boosters and collection
     userStore.handleBoosterResults(data);
+
+    if (userStore.strapiConnected) {
+       await strapiService.trackEvent('open_booster');
+    }
 
     isFlipped.value = new Array(drawnCards.value.length).fill(false);
 

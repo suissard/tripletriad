@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Crescendo Harmonique",
   "description": "Compositeur de guerre improvisant des stratégies musicales adaptatives changeant de tactique au rythme des événements.",
-  "element": "obsidienne",
+  "element": "hacking",
   "faction": "Chœur Synthétique",
   "topValue": "4",
   "rightValue": "8",
@@ -20,7 +20,7 @@
   "image": "base/085.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "hacking"
   ],
   "prompt": {
     "format": "1:1",

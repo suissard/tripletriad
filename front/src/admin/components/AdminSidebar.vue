@@ -1,151 +1,74 @@
 <template>
-  <nav class="flex-1 px-6 py-10 space-y-3 overflow-y-auto custom-scrollbar flex flex-col">
+  <nav class="flex-1 px-4 py-8 space-y-4 overflow-y-auto custom-scrollbar flex flex-col">
+    <!-- Dashboard - Always Visible -->
     <AppButton
       variant="ghost"
       fullWidth
       @click="navigate('/admin')"
-      class="premium-nav-item"
+      class="premium-nav-item mb-4"
       :class="{ 'premium-nav-item-active': route.path === '/admin' }"
     >
-      <span class="icon">📊</span> Dashboard
+      <div class="flex items-center gap-4 w-full overflow-hidden">
+        <span class="icon flex-shrink-0 text-lg">📊</span>
+        <span class="truncate font-semibold tracking-wide">Dashboard</span>
+      </div>
     </AppButton>
 
-    <div class="pt-12 pb-5">
-      <p class="px-6 text-[9px] font-black uppercase tracking-premium opacity-50">Collections</p>
+    <!-- Collapsible Categories -->
+    <div v-for="(category, index) in menuCategories" :key="index" class="category-wrapper">
+      <button 
+        @click="toggleCategory(category.id)"
+        class="category-header w-full flex items-center justify-between px-6 py-4 rounded-xl hover:bg-white/5 transition-all group backdrop-blur-sm"
+      >
+        <span class="text-[10px] font-black uppercase tracking-[0.2em] opacity-40 group-hover:opacity-100 transition-opacity">
+          {{ category.title }}
+        </span>
+        <span 
+          class="text-[10px] transition-transform duration-300 transform opacity-30 group-hover:opacity-100"
+          :class="{ 'rotate-180': expandedCategories[category.id] }"
+        >
+          ▼
+        </span>
+      </button>
+
+      <div 
+        class="category-content overflow-hidden transition-all duration-300 ease-in-out"
+        :style="{ maxHeight: expandedCategories[category.id] ? '800px' : '0px', opacity: expandedCategories[category.id] ? 1 : 0 }"
+      >
+        <div class="pt-2 space-y-2 pb-2">
+          <AppButton
+            v-for="item in category.items"
+            :key="item.path"
+            variant="ghost"
+            fullWidth
+            @click="navigate(item.path)"
+            class="premium-nav-item pl-8"
+            :class="{ 'premium-nav-item-active': route.path === item.path }"
+          >
+            <div class="flex items-center gap-4 w-full overflow-hidden">
+              <span class="icon flex-shrink-0 text-lg">{{ item.icon || '📁' }}</span>
+              <span class="truncate font-medium capitalize">{{ item.name }}</span>
+            </div>
+          </AppButton>
+        </div>
+      </div>
     </div>
 
-    <AppButton
-      variant="ghost"
-      fullWidth
-      v-for="col in collections" 
-      :key="col.path" 
-      @click="navigate(`/admin/${col.path}`)"
-      class="premium-nav-item"
-      :class="{ 'premium-nav-item-active': route.path === `/admin/${col.path}` }"
-    >
-      <span class="icon">{{ col.icon || '📁' }}</span>
-      <span class="capitalize">{{ col.name }}</span>
-    </AppButton>
-
-    <div class="pt-12 pb-5">
-      <p class="px-6 text-[9px] font-black uppercase tracking-premium opacity-50">Visual FX & Core</p>
-    </div>
-
-    <AppButton
-      variant="ghost"
-      fullWidth
-      @click="navigate('/admin/game-config')"
-      class="premium-nav-item"
-      :class="{ 'premium-nav-item-active': route.path === '/admin/game-config' }"
-    >
-      <span class="icon">⚙️</span> Configuration
-    </AppButton>
-
-    <AppButton
-      variant="ghost"
-      fullWidth
-      @click="navigate('/admin/foil-editor')"
-      class="premium-nav-item"
-      :class="{ 'premium-nav-item-active': route.path === '/admin/foil-editor' }"
-    >
-      <span class="icon">✨</span> HoloEditor Pro
-    </AppButton>
-
-    <AppButton
-      variant="ghost"
-      fullWidth
-      @click="navigate('/admin/simulateur')"
-      class="premium-nav-item"
-      :class="{ 'premium-nav-item-active': route.path === '/admin/simulateur' }"
-    >
-      <span class="icon">🤖</span> Simulateur IA
-    </AppButton>
-
-    <div class="pt-12 pb-5">
-      <p class="px-6 text-[9px] font-black uppercase tracking-premium opacity-50">Developer Tools</p>
-    </div>
-
-    <AppButton
-      variant="ghost"
-      fullWidth
-      @click="navigate('/admin/test-api')"
-      class="premium-nav-item"
-      :class="{ 'premium-nav-item-active': route.path === '/admin/test-api' }"
-    >
-      <span class="icon">🧪</span> Testeur API
-    </AppButton>
-
-    <AppButton
-      variant="ghost"
-      fullWidth
-      @click="navigate('/admin/cartographie')"
-      class="premium-nav-item"
-      :class="{ 'premium-nav-item-active': route.path === '/admin/cartographie' }"
-    >
-      <span class="icon">🗺️</span> Archi. Statique
-    </AppButton>
-
-    <AppButton
-      variant="ghost"
-      fullWidth
-      @click="navigate('/admin/cartographie-dyn')"
-      class="premium-nav-item"
-      :class="{ 'premium-nav-item-active': route.path === '/admin/cartographie-dyn' }"
-    >
-      <span class="icon">🔭</span> Archi. Dynamique
-    </AppButton>
-
-    <AppButton
-      variant="ghost"
-      fullWidth
-      @click="navigate('/admin/test-seed')"
-      class="premium-nav-item"
-      :class="{ 'premium-nav-item-active': route.path === '/admin/test-seed' }"
-    >
-      <span class="icon">🎲</span> Testeur Aléatoire
-    </AppButton>
-
-    <AppButton
-      variant="ghost"
-      fullWidth
-      @click="navigate('/admin/test-coin')"
-      class="premium-nav-item"
-      :class="{ 'premium-nav-item-active': route.path === '/admin/test-coin' }"
-    >
-      <span class="icon">🪙</span> Coin Toss
-    </AppButton>
-
-    <AppButton
-      variant="ghost"
-      fullWidth
-      @click="navigate('/admin/deck-editor')"
-      class="premium-nav-item"
-      :class="{ 'premium-nav-item-active': route.path === '/admin/deck-editor' }"
-    >
-      <span class="icon">🃏</span> Éditeur de Deck
-    </AppButton>
-
-    <AppButton
-      variant="ghost"
-      fullWidth
-      @click="navigate('/admin/test-card')"
-      class="premium-nav-item"
-      :class="{ 'premium-nav-item-active': route.path === '/admin/test-card' }"
-    >
-      <span class="icon">🎴</span> Card Test
-    </AppButton>
-
-    <div class="mt-auto pt-10 border-t border-white/5">
+    <!-- Return Home & Dev Options -->
+    <div class="mt-auto pt-8 border-t border-white/5 space-y-4">
       <DevOptions />
-      <AppButton variant="ghost" fullWidth @click="goHome" class="w-full flex items-center justify-between px-6 py-5 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/5 hover:border-white/10 transition-all group text-[10px] font-black uppercase tracking-widest mt-4">
-        <span class="text-gray-400 group-hover:text-white">Retour Accueil</span>
-        <span class="opacity-30 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-primary font-bold">←</span>
+      <AppButton variant="ghost" fullWidth @click="goHome" class="w-full rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/5 hover:border-white/10 transition-all group text-[10px] font-black uppercase tracking-widest">
+        <div class="flex items-center justify-between px-6 py-4 w-full font-black">
+          <span class="text-gray-400 group-hover:text-white">Retour Accueil</span>
+          <span class="opacity-30 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-primary font-bold">←</span>
+        </div>
       </AppButton>
     </div>
   </nav>
 </template>
 
 <script setup>
+import { ref, reactive, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import AppButton from '../../components/ui/AppButton.vue';
 import DevOptions from './DevOptions.vue';
@@ -156,15 +79,66 @@ const router = useRouter();
 const route = useRoute();
 const userStore = useUserStore();
 
-const collections = [
-  { name: 'Utilisateurs', path: 'users', icon: '👥' },
-  { name: 'Cartes', path: 'cards', icon: '🎴' },
-  { name: 'Decks', path: 'decks', icon: '🃏' },
-  { name: 'Quêtes (Templates)', path: 'quest-templates', icon: '📜' },
-  { name: 'Quêtes (Joueurs)', path: 'player-quests', icon: '⚔️' },
-  { name: 'Boutique', path: 'shops', icon: '🛒' },
-  { name: 'Wallets', path: 'wallets', icon: '💰' }
+// Define categories and their items
+const menuCategories = [
+  {
+    id: 'collections',
+    title: 'Collections',
+    items: [
+      { name: 'Utilisateurs', path: '/admin/users', icon: '👥' },
+      { name: 'Cartes', path: '/admin/cards', icon: '🎴' },
+      { name: 'Decks', path: '/admin/decks', icon: '🃏' },
+      { name: 'Quêtes (Templates)', path: '/admin/quest-templates', icon: '📜' },
+      { name: 'Quêtes (Joueurs)', path: '/admin/player-quests', icon: '⚔️' },
+      { name: 'Boutique', path: '/admin/shops', icon: '🛒' },
+      { name: 'Wallets', path: '/admin/wallets', icon: '💰' }
+    ]
+  },
+  {
+    id: 'visual-core',
+    title: 'Visual FX & Core',
+    items: [
+      { name: 'Configuration', path: '/admin/game-config', icon: '⚙️' },
+      { name: 'HoloEditor Pro', path: '/admin/foil-editor', icon: '✨' },
+      { name: 'Foil Gallery', path: '/admin/foil-gallery', icon: '🎨' },
+      { name: 'Simulateur IA', path: '/admin/simulateur', icon: '🤖' }
+    ]
+  },
+  {
+    id: 'dev-tools',
+    title: 'Developer Tools',
+    items: [
+      { name: 'Testeur API', path: '/admin/test-api', icon: '🧪' },
+      { name: 'Archi. Statique', path: '/admin/cartographie', icon: '🗺️' },
+      { name: 'Archi. Dynamique', path: '/admin/cartographie-dyn', icon: '🔭' },
+      { name: 'Testeur Aléatoire', path: '/admin/test-seed', icon: '🎲' },
+      { name: 'Coin Toss', path: '/admin/test-coin', icon: '🪙' },
+      { name: 'Éditeur de Deck', path: '/admin/deck-editor', icon: '🃏' },
+      { name: 'Card Test', path: '/admin/test-card', icon: '🎴' }
+    ]
+  }
 ];
+
+// Open/collapsed state
+// User request: "dissimulé par defaut"
+const expandedCategories = reactive({
+  collections: false,
+  'visual-core': false,
+  'dev-tools': false
+});
+
+const toggleCategory = (id) => {
+  expandedCategories[id] = !expandedCategories[id];
+};
+
+// Expand category ONLY if user is currently on a specific route, to help user orientation
+onMounted(() => {
+  menuCategories.forEach(cat => {
+    if (cat.items.some(item => route.path === item.path)) {
+      expandedCategories[cat.id] = true;
+    }
+  });
+});
 
 const navigate = (path) => {
   router.push(path);
@@ -194,5 +168,16 @@ const goHome = () => {
 .premium-nav-item {
   justify-content: flex-start;
   text-align: left;
+}
+
+.category-header {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.category-content {
+  will-change: max-height, opacity;
 }
 </style>

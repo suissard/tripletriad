@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Embrase",
   "description": "Incendiaire de ligne détruisant les barrières naturelles et artificielles pour ouvrir des voies d'accès aux assauts.",
-  "element": "spore",
+  "element": "radiation",
   "faction": "Héritiers des Cendres",
   "topValue": "8",
   "rightValue": "0",
@@ -14,7 +14,7 @@
   "image": "base/047.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "radiation"
   ],
   "prompt": {
     "format": "1:1",

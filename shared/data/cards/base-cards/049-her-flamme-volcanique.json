@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Flamme Volcanique",
   "description": "Pyroclaste projetant des roches volcaniques en fusion sur les cibles au sol avec une précision destructrice.",
-  "element": "faille_dimensionnelle",
+  "element": "radiation",
   "faction": "Héritiers des Cendres",
   "topValue": "0",
   "rightValue": "0",
@@ -14,7 +14,7 @@
   "image": "base/049.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "radiation"
   ],
   "prompt": {
     "format": "1:1",

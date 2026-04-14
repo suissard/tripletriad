@@ -2,9 +2,9 @@
   "collectionName": "base",
   "name": "Carbon des Cendres",
   "description": "Volcaniste créant des zones de combustion persistante sur le champ de bataille pour limiter les mouvements adverses.",
-  "element": "obsidienne",
+  "element": "radiation",
   "elements": [
-    "longue_portee"
+    "radiation"
   ],
   "faction": "Héritiers des Cendres",
   "topValue": "8",

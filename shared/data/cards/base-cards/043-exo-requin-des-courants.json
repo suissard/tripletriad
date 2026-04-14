@@ -14,8 +14,7 @@
   "image": "base/043.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "eau",
-    "glace"
+    "eau"
   ],
   "prompt": {
     "format": "1:1",

@@ -113,6 +113,18 @@ body {
   box-shadow: 0 8px 32px 0 color-mix(in srgb, var(--color-accent) 20%, transparent);
 }
 
+/* Quest items: no hover lift, rounded corners */
+.glass-card.quest-item {
+  border-radius: 12px;
+}
+
+.glass-card.quest-item:hover {
+  transform: none !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-color: inherit !important;
+  box-shadow: none !important;
+}
+
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 6px;

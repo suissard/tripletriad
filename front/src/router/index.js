@@ -41,9 +41,21 @@ const routes = [
     meta: { requiresAdminAuth: true }
   },
   {
+    path: '/admin/foil-editor-pro',
+    name: 'admin-foil-editor-pro',
+    component: () => import('../admin/views/FoilEditorProView.vue'),
+    meta: { requiresAdminAuth: true }
+  },
+  {
     path: '/admin/game-config',
     name: 'admin-game-config',
     component: () => import('../admin/views/GameConfigView.vue'),
+    meta: { requiresAdminAuth: true }
+  },
+  {
+    path: '/admin/foil-gallery',
+    name: 'admin-foil-gallery',
+    component: () => import('../admin/views/FoilGalleryView.vue'),
     meta: { requiresAdminAuth: true }
   },
   {

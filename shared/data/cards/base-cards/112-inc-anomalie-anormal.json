@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Anomalie Anormal",
   "description": "Rupture dimensionnelle ouvrant des portes entre les réalités parallèles permettant des manoeuvres tactiques impossibles autrement.",
-  "element": "furtif",
+  "element": "faille_dimensionnelle",
   "faction": "Incursion Dissonante",
   "topValue": "9",
   "rightValue": "0",
@@ -20,7 +20,7 @@
   "image": "base/112.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "faille_dimensionnelle"
   ],
   "prompt": {
     "format": "1:1",

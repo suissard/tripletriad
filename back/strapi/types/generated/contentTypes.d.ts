@@ -1284,6 +1284,74 @@ export interface ApiWalletWallet extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiWeeklyQuestConfigWeeklyQuestConfig
+  extends Struct.SingleTypeSchema {
+  collectionName: 'weekly_quest_configs';
+  info: {
+    description: 'Configuration for weekly quests and reward tiers';
+    displayName: 'Weekly Quest Config';
+    pluralName: 'weekly-quest-configs';
+    singularName: 'weekly-quest-config';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::weekly-quest-config.weekly-quest-config'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    tiers: Schema.Attribute.Component<'quest.weekly-tier', true>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiWeeklyQuestProgressWeeklyQuestProgress
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'weekly_quest_progresses';
+  info: {
+    description: 'Tracks user weekly quest progress and claimed rewards';
+    displayName: 'Weekly Quest Progress';
+    pluralName: 'weekly-quest-progresses';
+    singularName: 'weekly-quest-progress';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    claimedTiers: Schema.Attribute.JSON;
+    completedCount: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<0>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    lastResetDate: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::weekly-quest-progress.weekly-quest-progress'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1839,6 +1907,8 @@ declare module '@strapi/strapi' {
       'api::story.story': ApiStoryStory;
       'api::user-card.user-card': ApiUserCardUserCard;
       'api::wallet.wallet': ApiWalletWallet;
+      'api::weekly-quest-config.weekly-quest-config': ApiWeeklyQuestConfigWeeklyQuestConfig;
+      'api::weekly-quest-progress.weekly-quest-progress': ApiWeeklyQuestProgressWeeklyQuestProgress;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

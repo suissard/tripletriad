@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Conquerant",
   "description": "Officier subalterne maintenant la discipline des troupes sous le feu ennemi grâce à un commandement rigide.",
-  "element": "obsidienne",
+  "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "0",
   "rightValue": "0",
@@ -20,7 +20,7 @@
   "image": "base/020.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "longue_portee"
   ],
   "prompt": {
     "format": "1:1",

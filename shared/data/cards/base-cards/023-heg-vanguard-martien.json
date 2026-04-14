@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Vanguard Martien",
   "description": "Propagandiste de guerre brisant le moral adverse par la désinformation et les transmissions radio piégées.",
-  "element": "radiation",
+  "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "4",
   "rightValue": "2",
@@ -14,7 +14,7 @@
   "image": "base/023.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "longue_portee"
   ],
   "prompt": {
     "format": "1:1",

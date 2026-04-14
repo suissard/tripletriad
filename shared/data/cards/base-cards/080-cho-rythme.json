@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Rythme",
   "description": "Accordéon de guerre produisant des ondes choc perturbant les formations ennemies et désorganisant leurs lignes.",
-  "element": "faille_dimensionnelle",
+  "element": "hacking",
   "faction": "Chœur Synthétique",
   "topValue": "0",
   "rightValue": "1",
@@ -14,7 +14,7 @@
   "image": "base/080.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "hacking"
   ],
   "prompt": {
     "format": "1:1",

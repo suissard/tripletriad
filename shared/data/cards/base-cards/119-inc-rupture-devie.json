@@ -4,7 +4,7 @@
   "description": "Architecte du Chaos orchestrant les perturbations causant des erreurs en cascade dans les systèmes de défense adverses.",
   "element": "faille_dimensionnelle",
   "elements": [
-    "spore"
+    "faille_dimensionnelle"
   ],
   "faction": "Incursion Dissonante",
   "topValue": "9",

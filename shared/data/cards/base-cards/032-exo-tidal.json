@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Tidal",
   "description": "Pêcheur des courants stellaires récoltant les ressources alimentaires essentielles à la survie de l'exode.",
-  "element": "furtif",
+  "element": "eau",
   "faction": "Exode Pélagique",
   "topValue": "0",
   "rightValue": "0",
@@ -14,7 +14,7 @@
   "image": "base/032.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "eau"
   ],
   "prompt": {
     "format": "1:1",

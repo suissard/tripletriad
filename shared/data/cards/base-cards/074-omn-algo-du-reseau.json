@@ -2,9 +2,9 @@
   "collectionName": "base",
   "name": "Algo du Reseau",
   "description": "Architecte du Réseau tissant la toile de surveillance galactique connectant chaque point d'information en une seule conscience.",
-  "element": "hacking",
+  "element": "reseau",
   "elements": [
-    "spore"
+    "reseau"
   ],
   "faction": "Omni-Réseau",
   "topValue": "9",

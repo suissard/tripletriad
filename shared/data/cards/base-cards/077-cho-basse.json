@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Basse",
   "description": "Harmoniste synchronisant les rythmes de combat des unités proches augmentant leur efficacité au combat rapproché.",
-  "element": "reseau",
+  "element": "hacking",
   "faction": "Chœur Synthétique",
   "topValue": "3",
   "rightValue": "0",
@@ -14,7 +14,7 @@
   "image": "base/077.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "hacking"
   ],
   "prompt": {
     "format": "1:1",

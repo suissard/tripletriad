@@ -2,7 +2,7 @@
   "collectionName": "base",
   "name": "Algo Connecte",
   "description": "Code-mancer réécrivant les protocoles de sécurité en temps réel pour bloquer les contre-mesures numériques adverses.",
-  "element": "hacking",
+  "element": "reseau",
   "faction": "Omni-Réseau",
   "topValue": "6",
   "rightValue": "9",
@@ -14,7 +14,7 @@
   "image": "base/072.png",
   "storiesRewardedFrom": null,
   "elements": [
-    "neutre"
+    "reseau"
   ],
   "prompt": {
     "format": "1:1",

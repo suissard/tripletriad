@@ -35,10 +35,22 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
         <div class="space-y-2">
           <label class="block text-sm font-semibold text-gray-300">Nombre de parties à simuler</label>
           <input type="number" v-model.number="numGames" min="1" max="10000" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30" />
+        </div>
+
+        <div class="space-y-2">
+          <label class="block text-sm font-semibold text-gray-300">Premier joueur</label>
+          <div class="relative">
+            <select v-model="startingPlayerOption" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white appearance-none focus:outline-none focus:border-primary/50">
+              <option value="IA1">Toujours IA 1</option>
+              <option value="IA2">Toujours IA 2</option>
+              <option value="RANDOM">Aléatoire (50/50)</option>
+            </select>
+            <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-gray-400">▼</div>
+          </div>
         </div>
 
         <AppButton
@@ -127,6 +139,7 @@ const decks = ref([]);
 const selectedDeck1 = ref('');
 const selectedDeck2 = ref('');
 const numGames = ref(100);
+const startingPlayerOption = ref('IA1');
 
 const isRunning = ref(false);
 const hasResults = ref(false);
@@ -225,7 +238,14 @@ const startSimulation = async () => {
 };
 
 const runSingleGame = (deck1Data, deck2Data) => {
-  let gameState = GameEngine.createInitialState('PLAYER_1');
+  let startingPlayer = 'PLAYER_1';
+  if (startingPlayerOption.value === 'IA2') {
+    startingPlayer = 'PLAYER_2';
+  } else if (startingPlayerOption.value === 'RANDOM') {
+    startingPlayer = Math.random() < 0.5 ? 'PLAYER_1' : 'PLAYER_2';
+  }
+
+  let gameState = GameEngine.createInitialState(startingPlayer);
 
   // Clone decks for this game
   let d1 = [...deck1Data].sort(() => Math.random() - 0.5);
