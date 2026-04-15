@@ -7,8 +7,8 @@ import { fileURLToPath, URL } from 'node:url'
 export default defineConfig(({ mode }) => {
   // Load .env from front/ directory
   const env = loadEnv(mode, process.cwd(), '')
-  
-  const port = parseInt(env.FRONT_PORT || '5180', 10)
+
+  const port = parseInt(env.FRONTEND_PORT || '5180', 10)
   const host = env.FRONT_HOST || '0.0.0.0'
 
   return {

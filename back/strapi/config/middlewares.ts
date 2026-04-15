@@ -1,7 +1,7 @@
 import type { Core } from '@strapi/strapi';
 
 const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Middlewares => {
-  const frontPort = env('FRONT_PORT', '5180');
+  const frontPort = env('FRONTEND_PORT', '5180');
   const frontUrl = env('FRONT_URL', `http://localhost:${frontPort}`);
 
   return [

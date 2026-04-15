@@ -16,6 +16,24 @@ services:
     depends_on:
       - terra-nullius-strapi
 
+  terra-nullius-db:
+    image: postgres:16-alpine
+    container_name: terra-nullius-db
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME:-strapi}
+      POSTGRES_USER: ${DATABASE_USERNAME:-strapi}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-strapi}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME:-strapi} -d ${DATABASE_NAME:-strapi}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
   terra-nullius-strapi:
     image: node:24.14.0-alpine
     container_name: terra-nullius-strapi
@@ -25,14 +43,17 @@ services:
       - /opt/app/node_modules
       - ./scripts:/opt/app/scripts
       - ./shared:/opt/app/src/shared
-      - ./back/strapi_data/.tmp:/opt/app/.tmp
       - ./back/strapi_data/uploads:/opt/app/public/uploads
     ports:
       - "${STRAPI_PORT:-1340}:1337"
     env_file: .env
     environment:
-      DATABASE_CLIENT: sqlite
-      DATABASE_FILENAME: .tmp/data.db
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: terra-nullius-db
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${DATABASE_NAME:-strapi}
+      DATABASE_USERNAME: ${DATABASE_USERNAME:-strapi}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-strapi}
       JWT_SECRET: ${JWT_SECRET}
       ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
       APP_KEYS: ${APP_KEYS}
@@ -42,6 +63,10 @@ services:
       NODE_ENV: development
       STRAPI_AUTO_INIT: 'false'
     command: sh -c "if [ ! -d 'node_modules/.bin' ]; then npm install; fi && npm run develop"
-    # command: npm run develop
     restart: unless-stopped
-    # network_mode: "host"
+    depends_on:
+      terra-nullius-db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
