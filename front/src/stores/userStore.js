@@ -34,6 +34,12 @@ export const useUserStore = defineStore('user', {
     error: null
   }),
   getters: {
+    isAdmin: (state) => {
+      if (!state.user || !state.user.role) return false;
+      const role = state.user.role;
+      if (typeof role === 'string') return role.toLowerCase() === 'admin';
+      return role.type === 'admin' || (role.name && role.name.toLowerCase() === 'admin');
+    },
     latestStoryProgress: (state) => {
       if (!state.userStoryProgresses || state.userStoryProgresses.length === 0) return null;
       return [...state.userStoryProgresses]
@@ -112,8 +118,8 @@ export const useUserStore = defineStore('user', {
     async updateUserData() {
       if (!this.isLoggedIn) return;
       try {
-        // Consolidated call including role, wallet and avatar_card
-        const meRes = await strapiService.request('GET', '/users/me?populate[role]=*&populate[wallet]=*&populate[avatar_card][populate][image]=*');
+        // Consolidated call including role, wallet and avatar_card (now handled safely on the Strapi backend override)
+        const meRes = await strapiService.request('GET', '/users/me');
         if (!meRes.error) {
           // Handle nested wallet data from Strapi 5
           const wallet = meRes.wallet || {};
