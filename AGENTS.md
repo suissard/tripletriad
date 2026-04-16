@@ -19,6 +19,7 @@ Ce fichier regroupe les consignes, conventions et astuces techniques spécifique
     *   Les contrôleurs d'ouverture de pack (`shop.ts`) utilisent une seule requête `findMany` avec `$in` et une agrégation par `Map` pour la distribution. Conservez cette logique.
     *   Le hook de démarrage (`index.ts`) pré-fetch les permissions en vrac (bulk) et utilise des `Set` en mémoire.
     *   Les requêtes de tri complexes (ex: contrôleur `getFilters` de `card.ts`) délèguent le `DISTINCT` à la BDD via `strapi.db.connection` (Knex) plutôt qu'en JavaScript.
+*   **Initialisation & Permissions (Bootstrap)** : Lors de la création de nouvelles collections ou de nouveaux endpoints API, vous DEVEZ mettre à jour `back/strapi/src/bootstrap-utils.ts` pour inclure les permissions correspondantes dans les rôles `authenticated` ou `public`. Cela assure que l'environnement est reproductible sans intervention manuelle dans l'admin Strapi.
 
 ## 4. Conventions Frontend & Vue 3
 *   **Gestion des Valeurs & Factions** : La liste faisant autorité des éléments/factions se trouve dans `front/src/data/factions.js` (`ELEMENTS`, `ELEMENT_LABELS`). Dans les interfaces, la valeur de carte `10` s'affiche toujours comme `"A"` (As), géré par `displayVal` dans `constants.js`. La rareté d'une carte est la somme de ses 4 côtés (Commun < 20, Peu Commun 20-25, Rare 26-31, Épique 32-35, Légendaire 36+).
