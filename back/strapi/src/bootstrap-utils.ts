@@ -1,9 +1,92 @@
 import { Core } from '@strapi/strapi';
+import permissions from './permissions.json';
+
+// ---------------------------------------------------------------------------
+// Hierarchical Permission Engine
+// ---------------------------------------------------------------------------
+
+interface PermissionsConfig {
+  _meta: { hierarchy: string[]; description?: string };
+  routes: Record<string, string>;
+}
+
+/**
+ * Resolves the permission hierarchy: for each role, compute the full set of
+ * actions it should have (own level + all lower levels).
+ *
+ * Example with hierarchy ["public", "authenticated"]:
+ *   - "public" actions   → only routes tagged "public"
+ *   - "authenticated"    → routes tagged "public" + "authenticated"
+ *   - "admin"            → everything (handled separately)
+ */
+function resolvePermissions(
+  hierarchy: string[],
+  routes: Record<string, string>,
+): Map<string, Set<string>> {
+  const roleActions = new Map<string, Set<string>>();
+
+  for (const role of hierarchy) {
+    roleActions.set(role, new Set());
+  }
+
+  for (const [action, minRole] of Object.entries(routes)) {
+    const minIndex = hierarchy.indexOf(minRole);
+    if (minIndex === -1) {
+      console.warn(`⚠️  permissions.json: unknown role "${minRole}" for action "${action}" — skipped`);
+      continue;
+    }
+    // Grant this action to minRole and every role above it in the hierarchy
+    for (let i = minIndex; i < hierarchy.length; i++) {
+      roleActions.get(hierarchy[i])!.add(action);
+    }
+  }
+
+  return roleActions;
+}
+
+/**
+ * Ensure a Strapi role has all the given actions. Uses a bulk pre-fetch of
+ * existing permissions to avoid N+1 queries.
+ */
+async function ensureRolePermissions(
+  strapi: Core.Strapi,
+  roleId: number,
+  roleName: string,
+  actions: Set<string> | string[],
+) {
+  const actionList = actions instanceof Set ? [...actions] : actions;
+  if (actionList.length === 0) return;
+
+  // Bulk pre-fetch existing permissions for this role
+  const existing = await strapi.entityService.findMany(
+    'plugin::users-permissions.permission',
+    { filters: { role: { id: roleId } }, limit: -1 } as any,
+  );
+  const existingActions = new Set((existing as any[]).map((p: any) => p.action));
+
+  const toCreate = actionList.filter((a) => !existingActions.has(a));
+
+  for (const action of toCreate) {
+    await strapi.entityService.create('plugin::users-permissions.permission', {
+      data: { action, role: roleId },
+    });
+  }
+
+  console.log(
+    `✅ ${roleName} — ${toCreate.length} permissions added (${actionList.length} total).`,
+  );
+}
+
+// ---------------------------------------------------------------------------
 
 export async function runFullBootstrap(strapi: Core.Strapi) {
   console.log('🚀 Starting manual bootstrap sequence...');
 
-  // A. Setup Admin Role in Users-Permissions
+  const config: PermissionsConfig = permissions;
+  const hierarchy = config._meta.hierarchy; // e.g. ["public", "authenticated"]
+  const roleActionMap = resolvePermissions(hierarchy, config.routes);
+
+  // ── A. Admin Role — gets ALL discovered actions ──────────────────────────
   let adminRoles = await strapi.entityService.findMany('plugin::users-permissions.role', {
     filters: { type: 'admin' },
   });
@@ -22,7 +105,7 @@ export async function runFullBootstrap(strapi: Core.Strapi) {
         name: 'Admin',
         description: 'Role for back-office administrators.',
         type: 'admin',
-      }
+      },
     });
     console.log('✅ Admin Role created for back-office users.');
   }
@@ -30,9 +113,8 @@ export async function runFullBootstrap(strapi: Core.Strapi) {
   if (boAdminRole) {
     const permissionsService = strapi.plugin('users-permissions').service('users-permissions');
     const allPermissions = await permissionsService.getActions();
-    
-    const adminActions = [];
 
+    const adminActions: string[] = [];
     for (const sectionKey of Object.keys(allPermissions)) {
       const section = allPermissions[sectionKey];
       if (section.controllers) {
@@ -45,106 +127,23 @@ export async function runFullBootstrap(strapi: Core.Strapi) {
       }
     }
 
-    console.log(`Setting up ${adminActions.length} permissions for Admin role...`);
-
-    for (const action of adminActions) {
-      const existingPermission = await strapi.entityService.findMany('plugin::users-permissions.permission', {
-        filters: { action, role: { id: boAdminRole.id } }
-      });
-
-      if (existingPermission.length === 0) {
-        await strapi.entityService.create('plugin::users-permissions.permission', {
-          data: { action, role: boAdminRole.id }
-        });
-      }
-    }
-    console.log('✅ Admin Role permissions updated.');
+    await ensureRolePermissions(strapi, (boAdminRole as any).id, 'Admin', adminActions);
   }
 
-  // 1. Setup Permissions for Authenticated and Public roles
-  const roles = await strapi.entityService.findMany('plugin::users-permissions.role', {
-    filters: { type: 'authenticated' },
-  });
+  // ── B. Hierarchy-based roles (public, authenticated, …) ─────────────────
+  for (const roleName of hierarchy) {
+    const found = await strapi.entityService.findMany('plugin::users-permissions.role', {
+      filters: { type: roleName },
+    });
 
-  const authRole = roles[0];
-
-  if (authRole) {
-    const actions = [
-      'plugin::users-permissions.user.updateMe',
-      'api::user-card.user-card.disenchant',
-      'api::user-card.user-card.craft',
-      'api::user-card.user-card.massDisenchant',
-      'api::booster.booster.openBooster',
-      'api::card.card.find',
-      'api::card.card.findOne',
-      'api::foil-effect.foil-effect.find',
-      'api::foil-effect.foil-effect.findOne',
-      'api::deck.deck.find',
-      'api::deck.deck.findOne',
-      'api::deck.deck.create',
-      'api::deck.deck.update',
-      'api::deck.deck.delete',
-      'api::player-quest.player-quest.find',
-      'api::weekly-quest-progress.weekly-quest-progress.getProgress',
-      'api::weekly-quest-progress.weekly-quest-progress.claimTier',
-      'api::weekly-quest-config.weekly-quest-config.getConfig',
-      'api::quest-template.quest-template.find',
-      'api::shop.shop.find',
-      'api::user-card.user-card.find',
-      'api::wallet.wallet.find',
-      'api::wallet.wallet.getMe',
-      'api::story.story.find',
-      'api::story.story.findOne',
-      'api::player-story-progress.player-story-progress.find',
-      'api::player-story-progress.player-story-progress.findOne',
-      'api::player-story-progress.player-story-progress.claimStepReward',
-      'api::player-story-progress.player-story-progress.unlockStory',
-      'api::player-story-progress.player-story-progress.saveStepProgress',
-      'api::player-event-log.player-event-log.trackEvent',
-      'api::game-config.game-config.find',
-      'api::board-background.board-background.find',
-      'api::board-background.board-background.findOne',
-    ];
-
-    for (const action of actions) {
-      const existingPermission = await strapi.entityService.findMany('plugin::users-permissions.permission', {
-        filters: { action, role: { id: authRole.id } }
-      });
-
-      if (existingPermission.length === 0) {
-        await strapi.entityService.create('plugin::users-permissions.permission', {
-          data: { action, role: authRole.id }
-        });
-      }
+    const role = (found as any[])?.[0];
+    if (!role) {
+      console.warn(`⚠️  Role "${roleName}" from hierarchy not found in DB — skipped.`);
+      continue;
     }
-    console.log('✅ Authenticated Role permissions updated.');
-  }
 
-  const publicRoles = await strapi.entityService.findMany('plugin::users-permissions.role', {
-    filters: { type: 'public' },
-  });
-
-  const publicRole = publicRoles[0];
-
-  if (publicRole) {
-    const publicActions = [
-      'api::game-config.game-config.find',
-      'api::board-background.board-background.find',
-      'api::board-background.board-background.findOne',
-    ];
-
-    for (const action of publicActions) {
-      const existingPermission = await strapi.entityService.findMany('plugin::users-permissions.permission', {
-        filters: { action, role: { id: publicRole.id } }
-      });
-
-      if (existingPermission.length === 0) {
-        await strapi.entityService.create('plugin::users-permissions.permission', {
-          data: { action, role: publicRole.id }
-        });
-      }
-    }
-    console.log('✅ Public Role permissions updated.');
+    const actions = roleActionMap.get(roleName)!;
+    await ensureRolePermissions(strapi, role.id, roleName, actions);
   }
 
   // 2. Setup Quests

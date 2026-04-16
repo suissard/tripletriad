@@ -25,6 +25,9 @@ export const useUserStore = defineStore('user', {
     userDecks: [],
     decksLoaded: false,
     quests: [],
+    userQuests: [],
+    weeklyConfig: null,
+    weeklyProgress: null,
     storyProgresses: [],
     storyProgressesLoaded: false,
     strapiConnected: false,
@@ -318,6 +321,7 @@ export const useUserStore = defineStore('user', {
 
     async fetchUserQuests() {
       if (!this.strapiConnected) return;
+      if (!this.isLoggedIn) return;
       try {
         const result = await strapiService.request('GET', '/player-quests');
         if (result && result.data) {
@@ -330,6 +334,7 @@ export const useUserStore = defineStore('user', {
 
     async fetchWeeklyQuests() {
       if (!this.strapiConnected) return;
+      if (!this.isLoggedIn) return;
       try {
         const configResult = await strapiService.request('GET', '/weekly-quest/config');
         if (configResult && configResult.data) {

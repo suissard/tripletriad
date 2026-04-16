@@ -174,7 +174,7 @@ export interface StorySituationGameOver extends Struct.ComponentSchema {
   };
   attributes: {
     color: Schema.Attribute.String;
-    message: Schema.Attribute.String & Schema.Attribute.Required;
+    message: Schema.Attribute.Text & Schema.Attribute.Required;
     situationId: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
@@ -203,7 +203,7 @@ export interface StorySituationSuccess extends Struct.ComponentSchema {
   };
   attributes: {
     color: Schema.Attribute.String;
-    message: Schema.Attribute.String & Schema.Attribute.Required;
+    message: Schema.Attribute.Text & Schema.Attribute.Required;
     situationId: Schema.Attribute.String & Schema.Attribute.Required;
     variables: Schema.Attribute.JSON;
   };
