@@ -137,7 +137,24 @@ function syncUniforms() {
       if (l.drawData) {
         const img = new Image();
         img.onload = () => {
-          const canvasTex = new THREE.CanvasTexture(img);
+          // --- OPTIMISATION : Downscale le masque (comme dans HoloOverlay) ---
+          const MAX_DIMENSION = 256; 
+          let width = img.width;
+          let height = img.height;
+
+          if (width > MAX_DIMENSION || height > MAX_DIMENSION) {
+              const ratio = Math.min(MAX_DIMENSION / width, MAX_DIMENSION / height);
+              width = Math.round(width * ratio);
+              height = Math.round(height * ratio);
+          }
+
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d', { willReadFrequently: true });
+          ctx.drawImage(img, 0, 0, width, height);
+
+          const canvasTex = new THREE.CanvasTexture(canvas);
           uniforms['uDrawMask' + i].value = canvasTex;
         };
         img.src = l.drawData;

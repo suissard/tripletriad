@@ -38,7 +38,7 @@
               📜
               <div v-if="userStore.hasClaimableQuests || userStore.hasClaimableWeeklyTiers" class="badge-pastille"></div>
             </span>
-            <span class="username" style="display: none;">Quêtes</span>
+            <span class="username">Quêtes</span>
           </div>
         </AppButton>
 

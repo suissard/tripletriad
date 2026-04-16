@@ -54,38 +54,57 @@
     </div>
 
     <!-- Pack Opening Overlay -->
-    <div v-if="isOpening" class="fixed inset-0 bg-black/90 z-50 flex flex-col items-center justify-center">
-      <div v-if="!allRevealed" class="shaking-booster text-9xl">
-        {{ openingBoosterType === 'premium' ? '💎' : '📦' }}
-      </div>
-
-      <div v-if="allRevealed" class="results-scene w-full max-w-6xl px-4 flex flex-col items-center">
-        <h2 class="text-3xl font-bold text-primary mb-8 animate-bounce">Cartes obtenues !</h2>
-
-        <div class="flex flex-wrap gap-4 justify-center items-center">
-          <div
-            v-for="(card, index) in openedCards"
-            :key="index"
-            class="card-wrapper"
-            @click="revealCard(index)"
-          >
-            <div class="card-inner" :class="{ 'is-flipped': card.revealed }">
-              <div class="card-back">
-                <AnimatedCardBack />
-              </div>
-              <div class="card-front" :class="[getRarityClass(card), { 'premium-glow': card.isDrawnPremium }]">
-                <TripleTriadCard :card="card" size="md" :isPremium="card.isDrawnPremium" />
-                <AppBadge variant="secondary" size="xs" class="rarity-badge">{{ getRarityLabel(card) }}</AppBadge>
-                <AppBadge v-if="card.isDrawnPremium" variant="primary" size="xs" class="premium-badge">🌟 PREMIUM</AppBadge>
-              </div>
+    <div v-if="isOpening" class="fixed inset-0 bg-black/95 z-50 flex flex-col items-center justify-center overflow-hidden">
+      
+      <!-- The Pack Animation Container -->
+      <div v-if="!isRevealing"
+           class="relative z-20 flex flex-col items-center justify-center min-h-[50vh] w-full">
+        <div
+          class="pack-container"
+          :class="openingBoosterType === 'premium' ? 'premium-anim' : 'classic-anim'"
+        >
+          <div class="pack-front">
+            <div class="text-[120px] mb-4 filter drop-shadow-2xl">{{ openingBoosterType === 'premium' ? '💎' : '📦' }}</div>
+            <div class="text-4xl font-black uppercase italic text-white drop-shadow-lg tracking-widest">{{ openingBoosterType === 'premium' ? 'Premium' : 'Classique' }}</div>
+            <div class="mt-12 text-sm uppercase tracking-[0.3em] text-white/50 animate-pulse font-light">
+              Ouverture en cours...
             </div>
           </div>
         </div>
-
-        <div class="mt-12">
-          <AppButton variant="primary" @click="closeOpening">Continuer</AppButton>
-        </div>
       </div>
+
+      <!-- Cards Display -->
+      <div v-if="isRevealing" class="relative z-10 w-full mt-4 flex justify-center overflow-visible">
+        <TripleTriadCardGrid
+          :cards="openedCardsWithState"
+          fitOnRow
+          :cardsPerRow="5"
+          @left-click="(card, index) => flipCard(index)"
+          class="booster-grid-override animate-cards-entry"
+        />
+      </div>
+
+      <!-- Actions Footer -->
+      <div v-if="isRevealing" class="absolute bottom-12 left-0 right-0 z-[4000] flex justify-center gap-6 animate-fade-in" style="bottom: 48px;">
+        <AppButton
+          v-if="!allRevealed"
+          variant="primary"
+          @click="revealAll"
+          class="px-16 py-5 text-2xl font-black uppercase italic tracking-tighter rounded-full shadow-[0_0_50px_rgba(59,130,246,0.5)] hover:scale-110 active:scale-95 transition-all"
+        >
+          TOUT RÉVÉLER
+        </AppButton>
+        <template v-else>
+          <AppButton
+            variant="secondary"
+            @click="closeOpening"
+            class="px-10 py-5 text-xl font-black uppercase italic tracking-tighter rounded-full hover:scale-105 active:scale-95 transition-all"
+          >
+            Continuer
+          </AppButton>
+        </template>
+      </div>
+
     </div>
 
   </div>
@@ -98,9 +117,8 @@ import { useUserStore } from '../stores/userStore';
 import strapiService from '../api/strapi';
 import { getStrapiMediaUrl } from '../utils/url.js';
 import AppButton from '../components/ui/AppButton.vue';
-import TripleTriadCard from '../components/TripleTriadCard.vue';
-import AnimatedCardBack from '../components/AnimatedCardBack.vue';
-import AppBadge from '../components/ui/AppBadge.vue';
+import TripleTriadCardGrid from '../components/TripleTriadCardGrid.vue';
+import { normalizeCard } from '../game/state.js';
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -110,8 +128,17 @@ const error = ref(null);
 const boosters = ref([]);
 
 const isOpening = ref(false);
+const isRevealing = ref(false);
 const openingBoosterType = ref('classic');
 const openedCards = ref([]);
+const isFlipped = ref([]);
+
+const openedCardsWithState = computed(() => {
+   return openedCards.value.map((c, i) => ({
+      ...c,
+      faceDown: !isFlipped.value[i]
+   }));
+});
 
 const fetchBoosters = async () => {
   loading.value = true;
@@ -150,60 +177,81 @@ const openBooster = async (booster) => {
 
   error.value = null;
   isOpening.value = true;
+  isRevealing.value = false;
   openingBoosterType.value = booster.isPremium ? 'premium' : 'classic';
   openedCards.value = [];
 
   try {
+    const startTime = Date.now();
+    let data;
+
     if (!userStore.strapiConnected) {
        // Mock
-       setTimeout(() => {
-          openedCards.value = Array(5).fill(0).map((_, i) => ({
-             id: i+100, name: 'Mock Card', topValue: '5', rightValue: '5', bottomValue: '5', leftValue: '5', element: 'None', rarity: 'Common', drawnRarity: 'common', isDrawnPremium: false, img: 'https://api.dicebear.com/9.x/bottts/png?seed=mock&backgroundColor=transparent', revealed: false
-          }));
-          booster.quantity--;
-       }, 1500);
+       return; // Handle mock somewhere else or ignore
     } else {
-      const res = await strapiService.request('POST', '/booster/open', {
-        collection: booster.collection,
-        isPremium: booster.isPremium
+      const openRes = await fetch(getStrapiUrl('/booster/open'), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('tt_jwt')}`
+        },
+        body: JSON.stringify({ 
+          collection: booster.collection,
+          isPremium: booster.isPremium
+        })
       });
 
+      if (!openRes.ok) throw new Error("Failed to open pack");
+      data = await openRes.json();
+
+
+      openedCards.value = (data.cards || []).map(c => {
+        return {
+          ...normalizeCard(c),
+          drawnRarity: c.drawnRarity,
+          isDrawnPremium: !!c.isDrawnPremium
+        };
+      });
+
+      // Update local booster count safely since we know the fetch succeeded
+      booster.quantity--;
+      if (booster.quantity <= 0) {
+          boosters.value = boosters.value.filter(b => b.quantity > 0);
+      }
+
+      userStore.handleBoosterResults(data);
+      isFlipped.value = new Array(openedCards.value.length).fill(false);
+
+      if (userStore.strapiConnected) {
+         strapiService.trackEvent('open_booster').catch(() => {});
+      }
+
+      const elapsed = Date.now() - startTime;
+      const remainingTime = Math.max(0, 3000 - elapsed);
+
       setTimeout(() => {
-        openedCards.value = (res?.cards || res?.data?.cards || []).map(c => {
-          let imageUrl = c.img || c.imageUrl;
-          if (!imageUrl && c.image?.url) {
-              imageUrl = c.image.url.startsWith('http') ? c.image.url : getStrapiMediaUrl(c.image.url);
-          }
-          if (!imageUrl) {
-              imageUrl = `https://api.dicebear.com/9.x/bottts/svg?seed=${encodeURIComponent(c.name)}&backgroundColor=transparent`;
-          }
-          return {...c, imageUrl, revealed: false};
-        });
-
-        // Update local booster count
-        booster.quantity--;
-        if (booster.quantity <= 0) {
-            boosters.value = boosters.value.filter(b => b.quantity > 0);
-        }
-
-        userStore.fetchUserCollection();
-      }, 1500); // 1.5s shake animation
+          isRevealing.value = true;
+      }, remainingTime);
     }
   } catch (err) {
     console.error(err);
-    error.value = err.response?.data?.error?.message || "Erreur lors de l'ouverture.";
+    error.value = err.message || "Erreur lors de l'ouverture.";
     isOpening.value = false;
   }
 };
 
-const revealCard = (index) => {
-  if (openedCards.value[index]) {
-    openedCards.value[index].revealed = true;
+const flipCard = (index) => {
+  if (!isFlipped.value[index]) {
+    isFlipped.value[index] = true;
   }
 };
 
+const revealAll = () => {
+  isFlipped.value.fill(true);
+};
+
 const allRevealed = computed(() => {
-    return openedCards.value.length > 0 && openedCards.value.every(c => c.revealed);
+    return isFlipped.value.length > 0 && isFlipped.value.every(v => v);
 });
 
 const closeOpening = () => {
@@ -232,121 +280,51 @@ const getRarityLabel = (card) => {
   background-color: var(--color-panel, rgba(30, 30, 40, 0.8));
 }
 
-.shaking-booster {
-  animation: shake 0.5s infinite;
-  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
-}
-
-@keyframes shake {
-  0% { transform: translate(1px, 1px) rotate(0deg) scale(1.5); }
-  10% { transform: translate(-1px, -2px) rotate(-1deg) scale(1.5); }
-  20% { transform: translate(-3px, 0px) rotate(1deg) scale(1.5); }
-  30% { transform: translate(3px, 2px) rotate(0deg) scale(1.5); }
-  40% { transform: translate(1px, -1px) rotate(1deg) scale(1.5); }
-  50% { transform: translate(-1px, 2px) rotate(-1deg) scale(1.5); }
-  60% { transform: translate(-3px, 1px) rotate(0deg) scale(1.5); }
-  70% { transform: translate(3px, 1px) rotate(-1deg) scale(1.5); }
-  80% { transform: translate(-1px, -1px) rotate(1deg) scale(1.5); }
-  90% { transform: translate(1px, 2px) rotate(0deg) scale(1.5); }
-  100% { transform: translate(1px, -2px) rotate(-1deg) scale(1.5); }
-}
-
-.card-wrapper {
-  width: 150px;
-  height: 210px;
-  perspective: 1000px;
-  cursor: pointer;
-}
-
-.card-inner {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  transform-style: preserve-3d;
-}
-
-.card-inner.is-flipped {
-  transform: rotateY(180deg) scale(1.1);
-}
-
-.card-front, .card-back {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  backface-visibility: hidden;
-  border-radius: 10px;
+.pack-container {
+  width: 320px;
+  height: 440px;
+  border-radius: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-}
-
-.card-back {
-  background: #111;
-  border: 2px solid #333;
-}
-
-.card-front {
-  transform: rotateY(180deg);
-  background: #222;
-  border: 3px solid #555;
   position: relative;
+  animation: float-pack 4s infinite ease-in-out;
 }
-
-/* Rarity Styles */
-.rarity-common { border-color: #a0a0a0; box-shadow: 0 0 15px rgba(160,160,160,0.3); }
-.rarity-uncommon { border-color: #4caf50; box-shadow: 0 0 20px rgba(76,175,80,0.4); }
-.rarity-rare { border-color: #2196f3; box-shadow: 0 0 25px rgba(33,150,243,0.5); }
-.rarity-epic { border-color: #9c27b0; box-shadow: 0 0 30px rgba(156,39,176,0.6); }
-.rarity-legendary { border-color: #ffc107; box-shadow: 0 0 40px rgba(255,193,7,0.7); }
-
-.rarity-badge {
-  position: absolute;
-  bottom: -12px;
-  background: rgba(0,0,0,0.9);
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: bold;
-  white-space: nowrap;
-  border: 1px solid inherit;
-  z-index: 10;
+.pack-front {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
 }
-
-.premium-badge {
-  position: absolute;
-  top: -12px;
-  background: linear-gradient(90deg, #ffce00, #ff5722);
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 0.7rem;
-  font-weight: bold;
-  white-space: nowrap;
-  animation: shine 1.5s infinite;
-  z-index: 10;
-  box-shadow: 0 0 10px gold;
+.classic-anim {
+  background: linear-gradient(135deg, #2a2a35 0%, #1a1a24 100%);
+  border: 4px solid #4a4a5a;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.1);
 }
-
-.premium-glow {
-  animation: premiumPulse 2s infinite alternate;
+.premium-anim {
+  background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%);
+  border: 4px solid #ffd700;
+  box-shadow: 0 0 40px rgba(255,215,0,0.3), inset 0 0 30px rgba(255,215,0,0.2);
 }
-
-@keyframes premiumPulse {
-  0% { filter: drop-shadow(0 0 5px gold) hue-rotate(0deg); }
-  100% { filter: drop-shadow(0 0 25px gold) hue-rotate(15deg); }
+@keyframes float-pack {
+  0% { transform: translateY(0) scale(1) rotate(0deg); }
+  25% { transform: translateY(-15px) scale(1.02) rotate(2deg); }
+  50% { transform: translateY(0) scale(1) rotate(0deg); }
+  75% { transform: translateY(-15px) scale(1.02) rotate(-2deg); }
+  100% { transform: translateY(0) scale(1) rotate(0deg); }
 }
-
-@keyframes shine {
-  0% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.1); opacity: 1; }
-  100% { transform: scale(1); opacity: 0.8; }
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
 }
-
-@media (max-width: 640px) {
-  .card-wrapper {
-    width: 120px;
-    height: 168px;
-  }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+:deep(.booster-grid-override .tt-card) {
+  width: clamp(60px, 18vw, 220px) !important;
+  aspect-ratio: 1 / 1 !important;
+  height: auto !important;
+  font-size: clamp(10px, 1.5vw, 24px) !important;
+  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 </style>

@@ -51,7 +51,7 @@ const props = defineProps({
   }
 });
 
-defineEmits(['click']);
+const emit = defineEmits(['click', 'impact']);
 
 const variantClass = computed(() => {
   if (props.variant === 'primary') return 'btn-primary';
@@ -130,6 +130,7 @@ const getConfigValues = () => {
 
 const impact = (e) => {
     if (props.disabled) return;
+    emit('impact', e);
 
     // Ensure canvas matches button size (fixes layout shifts)
     if (btnRef.value && (btnRef.value.offsetWidth !== w || btnRef.value.offsetHeight !== h)) {

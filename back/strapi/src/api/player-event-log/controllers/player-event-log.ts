@@ -11,16 +11,15 @@ export default factories.createCoreController(
     async trackEvent(ctx) {
       try {
         const { user } = ctx.state;
-        if (!user) return ctx.unauthorized();
-
-        const { eventType, relatedCardId, relatedElement, value } =
+        const { eventType, type, relatedCardId, relatedElement, value } =
           ctx.request.body;
 
-        if (!eventType) return ctx.badRequest("eventType is required");
+        const actualEventType = eventType || type;
+        if (!actualEventType) return ctx.badRequest("eventType is required");
 
         await logPlayerEvent(strapi, {
           userId: user.id,
-          eventType,
+          eventType: actualEventType,
           relatedCardId,
           relatedElement,
           value,

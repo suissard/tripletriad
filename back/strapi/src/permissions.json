@@ -13,6 +13,7 @@
     "api::board-background.board-background.find": "public",
     "api::board-background.board-background.findOne": "public",
     "api::board-background.board-background.update": "admin",
+    "api::booster.booster.buyBooster": "authenticated",
     "api::booster.booster.create": "admin",
     "api::booster.booster.delete": "admin",
     "api::booster.booster.find": "admin",

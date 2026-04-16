@@ -66,13 +66,25 @@ function processImage(src, index, targetRef) {
   const img = new Image();
   img.crossOrigin = "Anonymous";
   img.onload = () => {
+    // --- OPTIMISATION : Downscale le masque pour éviter les ralentissements CSS ---
+    const MAX_DIMENSION = 256; 
+    let width = img.width;
+    let height = img.height;
+
+    if (width > MAX_DIMENSION || height > MAX_DIMENSION) {
+        const ratio = Math.min(MAX_DIMENSION / width, MAX_DIMENSION / height);
+        width = Math.round(width * ratio);
+        height = Math.round(height * ratio);
+    }
+
     const canvas = document.createElement('canvas');
-    canvas.width = img.width;
-    canvas.height = img.height;
-    const ctx = canvas.getContext('2d');
-    ctx.drawImage(img, 0, 0);
+    canvas.width = width;
+    canvas.height = height;
+    // willReadFrequently optimise getImageData
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    ctx.drawImage(img, 0, 0, width, height);
     
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const imageData = ctx.getImageData(0, 0, width, height);
     const data = imageData.data;
     
     // Transforme la luminosité (noir/blanc) en opacité (alpha)
@@ -81,7 +93,8 @@ function processImage(src, index, targetRef) {
         data[i+3] = luminance; // Modification de l'alpha
     }
     ctx.putImageData(imageData, 0, 0);
-    targetRef.value[index] = canvas.toDataURL();
+    // Export en WebP (ou PNG par défaut) pour alléger le string CSS
+    targetRef.value[index] = canvas.toDataURL('image/webp', 0.8);
   };
   img.src = src;
 }

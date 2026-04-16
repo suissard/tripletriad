@@ -39,7 +39,7 @@ const props = defineProps({
 const emit = defineEmits(['close', 'update:modelValue']);
 const userStore = useUserStore();
 
-const quests = ref([]);
+const quests = computed(() => userStore.quests);
 const loading = ref(false);
 let timerInterval = null;
 const now = ref(new Date());
@@ -48,50 +48,12 @@ const close = () => {
   emit('close');
 };
 
-const fetchQuests = async () => {
-  loading.value = true;
-  try {
-    const response = await strapiService.find('player-quests', {
-      populate: ['quest_template'],
-      sort: ['startsAt:asc'],
-      pagination: { limit: 10 }
-    });
-
-    let rawData = [];
-    if (Array.isArray(response)) {
-      rawData = response;
-    } else if (response && response.data && Array.isArray(response.data)) {
-      rawData = response.data;
-    }
-
-    // Map to Quest interface
-    quests.value = rawData.map(item => ({
-      id: item.id,
-      title: item.quest_template?.title || 'Quête sans titre',
-      description: item.quest_template?.description || '',
-      progress: item.progress || 0,
-      target: item.quest_template?.target || 1,
-      rewardCoins: item.quest_template?.rewardCoins || 0,
-      rewardGems: item.quest_template?.rewardGems || 0,
-      status: item.status || 'active',
-      startsAt: item.startsAt ? new Date(item.startsAt) : null,
-      expiresAt: item.expiresAt ? new Date(item.expiresAt) : null
-    }));
-  } catch (error) {
-    console.error('Error fetching quests:', error);
-    quests.value = [];
-  } finally {
-    loading.value = false;
-  }
-};
-
 const handleClaim = async (questId) => {
   await userStore.claimQuestReward(questId);
-  fetchQuests(); // Refresh list after claim
 };
 
 const isActuallyCompleted = (quest) => {
-  return quest.progress >= quest.target;
+  return quest.status === 'completed' || quest.progress >= quest.target;
 };
 
 const isPending = (quest) => {
@@ -126,7 +88,7 @@ const sortedQuests = computed(() => {
 
 watch(() => props.isOpen, (newVal) => {
   if (newVal) {
-    fetchQuests();
+    userStore.fetchUserQuests();
     timerInterval = setInterval(() => {
       now.value = new Date();
     }, 30000);

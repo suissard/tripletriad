@@ -93,17 +93,8 @@ export const assignQuestsToUser = async (strapi, userId, immediate = false) => {
       ? now
       : new Date(now.getTime() + 22 * 60 * 60 * 1000);
 
-    // Determine expiration based on quest type (daily = 24h, 48h = 48h, weekly = 7d)
-    // We infer duration from the code suffix or type
+    // Duration is always 24h for quests now
     let durationHours = 24;
-    if (selectedTemplate.code.endsWith("_48H")) {
-      durationHours = 48;
-    } else if (
-      selectedTemplate.code.endsWith("_WEEKLY") ||
-      selectedTemplate.type === "weekly"
-    ) {
-      durationHours = 24 * 7;
-    }
 
     const expiresAt = new Date(
       startsAt.getTime() + durationHours * 60 * 60 * 1000,
@@ -119,5 +110,43 @@ export const assignQuestsToUser = async (strapi, userId, immediate = false) => {
         expiresAt: expiresAt.toISOString(),
       },
     });
+  }
+};
+
+/**
+ * Ensures a user has a Welcome Quest assigned if it exists and hasn't been given yet
+ */
+export const ensureUserHasWelcomeQuest = async (strapi, userId) => {
+  try {
+    // 1. Check if user already has it
+    const existing = await strapi.entityService.findMany("api::player-quest.player-quest", {
+      filters: {
+        user: userId,
+        quest_template: { code: 'WELCOME_QUEST' }
+      }
+    });
+
+    if (existing && existing.length > 0) return; // Already assigned
+
+    // 2. Find template
+    const templates = await strapi.entityService.findMany("api::quest-template.quest-template", {
+      filters: { code: 'WELCOME_QUEST' }
+    });
+
+    if (templates && templates.length > 0) {
+      await strapi.entityService.create("api::player-quest.player-quest", {
+        data: {
+          user: userId,
+          quest_template: templates[0].id,
+          progress: 0,
+          status: 'active',
+          startsAt: new Date().toISOString(),
+          expiresAt: new Date(Date.now() + 10 * 365 * 24 * 60 * 60 * 1000).toISOString() // 10 years
+        }
+      });
+      console.log(`[QuestAssignment] Assigned missing Welcome Quest to user ${userId}`);
+    }
+  } catch (err) {
+    console.error(`[QuestAssignment] Error ensuring Welcome Quest for user ${userId}:`, err);
   }
 };

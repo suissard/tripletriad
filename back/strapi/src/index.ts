@@ -32,26 +32,12 @@ export default {
         const { result } = event;
 
         try {
-          // 4a. Assign Welcome Quest
-          const welcomeTemplate = await strapi.entityService.findMany('api::quest-template.quest-template', {
-            filters: { code: 'WELCOME_QUEST' }
-          });
+          const { assignQuestsToUser, ensureUserHasWelcomeQuest } = require('./api/player-quest/services/quest-assignment');
 
-          if (welcomeTemplate && welcomeTemplate.length > 0) {
-            await strapi.entityService.create('api::player-quest.player-quest', {
-              data: {
-                user: result.id,
-                quest_template: welcomeTemplate[0].id,
-                progress: 0,
-                status: 'active',
-                startsAt: new Date().toISOString(),
-                expiresAt: new Date(Date.now() + 10 * 365 * 24 * 60 * 60 * 1000).toISOString() // 10 years from now
-              }
-            });
-          }
+          // 4a. Assign Welcome Quest if missing
+          await ensureUserHasWelcomeQuest(strapi, result.id);
 
           // Assign remaining max quests immediately for new users
-          const { assignQuestsToUser } = require('./api/player-quest/services/quest-assignment');
           await assignQuestsToUser(strapi, result.id, true);
 
           // 4b. Give starter collection cards

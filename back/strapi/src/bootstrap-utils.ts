@@ -166,6 +166,28 @@ export async function runFullBootstrap(strapi: Core.Strapi) {
     console.log('✅ Default Welcome Quest Template created.');
   }
 
+  // Cleanup deprecated 48h, weekly, and element quest templates
+  try {
+    const allExistingTemplates = await strapi.entityService.findMany('api::quest-template.quest-template');
+    const deprecatedIds = (allExistingTemplates as any[])
+      .filter((t: any) => t.code.endsWith('_48H') || t.code.endsWith('_WEEKLY') || t.code.startsWith('PLAY_ELEMENT_'))
+      .map((t: any) => t.id);
+
+    if (deprecatedIds.length > 0) {
+      // Delete associated player quests first to avoid orphaned relations
+      await strapi.db.query('api::player-quest.player-quest').deleteMany({
+        where: { quest_template: { id: { $in: deprecatedIds } } }
+      });
+      // Delete the templates
+      await strapi.db.query('api::quest-template.quest-template').deleteMany({
+        where: { id: { $in: deprecatedIds } }
+      });
+      console.log(`🧹 Cleaned up ${deprecatedIds.length} deprecated quest templates (48h/7d/elements).`);
+    }
+  } catch (err) {
+    console.error('❌ Error cleaning up deprecated quests:', err);
+  }
+
   const { generateQuestTemplates } = require('./api/quest-template/services/quest-template-generator');
   await generateQuestTemplates(strapi);
   console.log('✅ Quest templates generated.');
@@ -189,9 +211,10 @@ export async function runFullBootstrap(strapi: Core.Strapi) {
 
   // 4. Backfill existing users
   const allUsers = await strapi.entityService.findMany('plugin::users-permissions.user');
-  const { assignQuestsToUser } = require('./api/player-quest/services/quest-assignment');
+  const { assignQuestsToUser, ensureUserHasWelcomeQuest } = require('./api/player-quest/services/quest-assignment');
   if (allUsers) {
     for (const user of (allUsers as any[])) {
+      await ensureUserHasWelcomeQuest(strapi, user.id);
       await assignQuestsToUser(strapi, user.id, true);
     }
   }

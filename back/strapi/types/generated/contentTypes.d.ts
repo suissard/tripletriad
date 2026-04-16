@@ -927,6 +927,7 @@ export interface ApiPlayerEventLogPlayerEventLog
         'capture_card',
         'play_card',
         'play_card_element',
+        'play_card_faction',
       ]
     > &
       Schema.Attribute.Required;

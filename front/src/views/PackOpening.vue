@@ -97,33 +97,28 @@
     <!-- The Pack Animation Container -->
     <div v-if="!packOpened && isOpening"
          class="relative z-20 flex flex-col items-center justify-center min-h-[50vh] w-full">
-      <AppButton
-        variant="ghost"
+      <div
         class="pack-container"
         :class="selectedPackType === 'premium' ? 'premium-anim' : 'classic-anim'"
-        @click="hitBooster"
       >
         <div class="pack-front">
           <div class="text-[120px] mb-4 filter drop-shadow-2xl">{{ selectedPackType === 'premium' ? '💎' : '📦' }}</div>
           <div class="text-4xl font-black uppercase italic text-white drop-shadow-lg tracking-widest">{{ selectedPackType === 'premium' ? 'Premium' : 'Classic' }}</div>
           <div class="mt-12 text-sm uppercase tracking-[0.3em] text-white/50 animate-pulse font-light">
-            {{ remainingHits > 0 ? `Clics restants: ${remainingHits}` : 'Ouverture...' }}
+            Ouverture en cours...
           </div>
         </div>
-      </AppButton>
+      </div>
     </div>
 
     <!-- Cards Display -->
     <div v-if="packOpened" class="relative z-10 w-full mt-4 flex justify-center overflow-visible">
       <TripleTriadCardGrid
-        :cards="drawnCards.map((c, i) => ({ 
-          ...c, 
-          faceDown: !isFlipped[i]
-        }))"
+        :cards="drawnCardsWithState"
         fitOnRow
         :cardsPerRow="5"
         @left-click="(card, index) => flipCard(index)"
-        class="booster-grid-override"
+        class="booster-grid-override animate-cards-entry"
       />
     </div>
 
@@ -194,22 +189,8 @@ const userStore = useUserStore();
 
 const emit = defineEmits(['close']);
 
-const maxHits = ref(5);
-
 onMounted(async () => {
   userStore.fetchUserCollection();
-  if (userStore.strapiConnected) {
-    try {
-      const res = await strapiService.request('GET', '/game-config');
-      if (res?.data?.attributes?.boosterHits) {
-          maxHits.value = res.data.attributes.boosterHits;
-      } else if (res?.data?.data?.attributes?.boosterHits) {
-          maxHits.value = res.data.data.attributes.boosterHits;
-      }
-    } catch (e) {
-      console.warn("Could not load boosterHits from config", e);
-    }
-  }
 });
 
 const wallet = computed(() => ({
@@ -237,16 +218,17 @@ const boosterCounts = computed(() => {
 
 const drawnCards = ref([]);
 const isFlipped = ref([]);
+const drawnCardsWithState = computed(() => {
+   return drawnCards.value.map((c, i) => ({
+      ...c,
+      faceDown: !isFlipped.value[i]
+   }));
+});
 const isOpening = ref(false);
 const packOpened = ref(false);
 const selectedPackType = ref('classic');
 const selectedCollection = ref('base');
 const errorMessage = ref('');
-const hits = ref(0);
-
-const remainingHits = computed(() => {
-  return Math.max(0, maxHits.value - hits.value);
-});
 
 const handlePackPurchase = (type, collection = 'base') => {
   selectedPackType.value = type;
@@ -271,12 +253,12 @@ const openPack = async () => {
   }
 
   isOpening.value = true;
-  hits.value = 0;
   errorMessage.value = '';
 
     const previousCollection = [...userStore.collection];
     
     try {
+      const startTime = Date.now();
       let data;
       if (!userStore.strapiConnected) {
           data = strapiMock.openBooster();
@@ -352,24 +334,23 @@ const openPack = async () => {
     userStore.handleBoosterResults(data);
 
     if (userStore.strapiConnected) {
-       await strapiService.trackEvent('open_booster');
+       strapiService.trackEvent('open_booster').catch(e => console.error(e));
     }
 
     isFlipped.value = new Array(drawnCards.value.length).fill(false);
+
+    const elapsed = Date.now() - startTime;
+    const remainingTime = Math.max(0, 3000 - elapsed);
+
+    setTimeout(() => {
+        revealCards();
+    }, remainingTime);
 
   } catch (err) {
     console.error("Open pack error:", err);
     errorMessage.value = err.message || "Erreur lors de l'ouverture.";
     isOpening.value = false;
     setTimeout(() => errorMessage.value = '', 3000);
-  }
-};
-
-const hitBooster = () => {
-  if (!isOpening.value) return;
-  hits.value++;
-  if (hits.value >= maxHits.value) {
-    revealCards();
   }
 };
 

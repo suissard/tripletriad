@@ -1,14 +1,4 @@
-export const elements = [
-  "eau",
-  "radiation",
-  "reseau",
-  "spore",
-  "furtif",
-  "longue_portee",
-  "faille_dimensionnelle",
-  "hacking",
-  "obsidienne",
-];
+
 
 export const factions = [
   "Chœur Synthétique",
@@ -34,8 +24,6 @@ const normalizeCode = (str: string) => {
 export const generateQuestTemplates = async (strapi) => {
   const durations = [
     { name: "daily", days: 1, multiplier: 1, typeEnum: "daily" },
-    { name: "48h", days: 2, multiplier: 2, typeEnum: "daily" },
-    { name: "weekly", days: 7, multiplier: 7, typeEnum: "weekly" },
   ];
 
   const baseQuests = [
@@ -76,13 +64,7 @@ export const generateQuestTemplates = async (strapi) => {
     },
   ];
 
-  const elementBaseQuest = {
-    codePrefix: "PLAY_ELEMENT",
-    title: "Jouer {x} carte(s) {element}",
-    desc: "Placez des cartes de l'élément {element} sur le plateau",
-    baseTarget: 8,
-    eventType: "play_card_element",
-  };
+
   const factionBaseQuest = {
     codePrefix: "PLAY_FACTION",
     title: "Jouer {x} carte(s) de la faction {faction}",
@@ -124,33 +106,7 @@ export const generateQuestTemplates = async (strapi) => {
       }
     }
 
-    // Generate element quests
-    for (const element of elements) {
-      const code = `${elementBaseQuest.codePrefix}_${element.toUpperCase()}_${duration.name.toUpperCase()}`;
-      const target = elementBaseQuest.baseTarget * duration.multiplier;
-      const rewardCoins = 100 * duration.multiplier;
 
-      if (!existingCodes.has(code)) {
-        await strapi.entityService.create(
-          "api::quest-template.quest-template",
-          {
-            data: {
-              code,
-              title: elementBaseQuest.title
-                .replace("{x}", target.toString())
-                .replace("{element}", element.replace("_", " ")),
-              description: elementBaseQuest.desc.replace(
-                "{element}",
-                element.replace("_", " "),
-              ),
-              target,
-              rewardCoins,
-              type: duration.typeEnum,
-            },
-          },
-        );
-      }
-    }
 
     // Generate faction quests
     for (const faction of factions) {

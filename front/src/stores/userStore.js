@@ -25,7 +25,6 @@ export const useUserStore = defineStore('user', {
     userDecks: [],
     decksLoaded: false,
     quests: [],
-    userQuests: [],
     weeklyConfig: null,
     weeklyProgress: null,
     storyProgresses: [],
@@ -54,7 +53,7 @@ export const useUserStore = defineStore('user', {
         })[0] || null;
     },
     hasClaimableQuests: (state) => {
-      return state.userQuests.some(q => q.status === 'completed' && !q.rewardClaimed);
+      return state.quests.some(q => q.status === 'completed' && !q.rewardClaimed);
     },
     hasClaimableWeeklyTiers: (state) => {
        if (!state.weeklyConfig || !state.weeklyProgress) return false;
@@ -325,7 +324,19 @@ export const useUserStore = defineStore('user', {
       try {
         const result = await strapiService.request('GET', '/player-quests');
         if (result && result.data) {
-          this.userQuests = result.data;
+          this.quests = result.data.map(item => ({
+            id: item.id,
+            ...item,
+            // Parse dates
+            startsAt: item.startsAt ? new Date(item.startsAt) : null,
+            expiresAt: item.expiresAt ? new Date(item.expiresAt) : null,
+            // Safety mapping for component expectations
+            title: item.quest_template?.title || item.title,
+            description: item.quest_template?.description || item.description,
+            target: item.quest_template?.target || item.target || 1,
+            rewardCoins: item.quest_template?.rewardCoins || item.rewardCoins || 0,
+            rewardGems: item.quest_template?.rewardGems || item.rewardGems || 0
+          }));
         }
       } catch (e) {
         console.error('Failed to fetch user quests', e);
