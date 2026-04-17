@@ -1,7 +1,13 @@
-:80, :443 {
-    tls internal
+{$APP_DOMAIN:localhost} {
     root * /srv
     encode gzip zstd
+
+    # Proxy to Strapi Backend
+    reverse_proxy /api/* terra-nullius-strapi:1337
+    reverse_proxy /admin* terra-nullius-strapi:1337
+    reverse_proxy /uploads/* terra-nullius-strapi:1337
+
+    # Static Frontend
     file_server
     try_files {path} /index.html
 }
