@@ -1,0 +1,19 @@
+# Docker ignore file
+node_modules
+**/node_modules
+dist
+**/dist
+.git
+.github
+.vscode
+.env
+.strapi
+.tmp
+front/tests
+back/strapi/.tmp
+back/strapi/dist
+back/strapi/node_modules
+back/strapi_data
+pgdata
+caddy_data
+caddy_config

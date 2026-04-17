@@ -1,22 +1,13 @@
 services:
-  terra-nullius-frontend-build:
-    image: node:24.14.0-alpine
-    container_name: terra-nullius-frontend-build
-    working_dir: /opt/app
-    volumes:
-      - ./front:/opt/app
-      - ./shared:/opt/shared
-      - /opt/app/node_modules
-    environment:
-      - VITE_STRAPI_URL=${VITE_STRAPI_URL}
-      - APP_DOMAIN=${APP_DOMAIN}
-    command: sh -c "if [ ! -d 'node_modules/.bin' ]; then npm install; fi && npm run build"
-
   terra-nullius-frontend:
-    image: caddy:2-alpine
+    build:
+      context: .
+      dockerfile: front/Dockerfile
+      args:
+        VITE_STRAPI_URL: ${VITE_STRAPI_URL}
+        APP_DOMAIN: ${APP_DOMAIN}
     container_name: terra-nullius-frontend
     volumes:
-      - ./front/dist:/srv
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
@@ -28,8 +19,6 @@ services:
       - APP_DOMAIN=${APP_DOMAIN:-localhost}
     restart: unless-stopped
     depends_on:
-      terra-nullius-frontend-build:
-        condition: service_completed_successfully
       terra-nullius-strapi:
         condition: service_started
 
