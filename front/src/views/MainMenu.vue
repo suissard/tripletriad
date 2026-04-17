@@ -118,7 +118,7 @@ const route = useRoute();
 
 import { ref, reactive, onMounted, onUnmounted } from 'vue';
 
-import { state, webrtc, resetGame, initOnlineTurnManager, getCardById, normalizeCard, refillHand, cardLibrary, initAIMatch } from '../game/state.js';
+import { state, webrtc, resetGame, initOnlineTurnManager, getCardById, normalizeCard, refillHand, cardLibrary, initAIMatch, shuffle } from '../game/state.js';
 import CoinToss from '../components/CoinToss.vue';
 import AnimatedCardBack from '../components/AnimatedCardBack.vue';
 import MiniDeck from '../components/MiniDeck.vue';
@@ -260,7 +260,7 @@ function startMultiGame(deck) {
   
   // 2. Set the player deck
   const playerDeck = deck.cards.map(id => normalizeCard(getCardById(id)));
-  state.pDeck = playerDeck;
+  state.pDeck = shuffle(playerDeck);
   
   // 3. Move to hosting/joining menu
   state.menuView = 'multi';

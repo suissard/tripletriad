@@ -105,7 +105,7 @@ import EndTurnButton from '../components/EndTurnButton.vue';
 import GameOver from '../components/GameOver.vue';
 import CoinToss from '../components/CoinToss.vue';
 import { useRouter, useRoute } from 'vue-router';
-import { cardLibrary, getCardById, normalizeCard, initAIMatch } from '../game/state.js';
+import { cardLibrary, getCardById, normalizeCard, initAIMatch, shuffle } from '../game/state.js';
 import { getStrapiMediaUrl } from '../utils/url.js';
 
 const router = useRouter();
@@ -157,9 +157,9 @@ function onCoinTossFinished() {
     }
     
     // Setup decks
-    state.aiDeck = aiDeck;
+    state.aiDeck = shuffle(aiDeck);
     // Deep clone the deck cards to prevent carrying over mutations (like isPlacing=true) from previous matches
-    state.pDeck = (state.playerDeckSelection || []).map(card => {
+    const pDeck = (state.playerDeckSelection || []).map(card => {
         const normalized = normalizeCard(card);
         return { 
             ...normalized, 
@@ -170,6 +170,7 @@ function onCoinTossFinished() {
             impactDirection: null 
         };
     });
+    state.pDeck = shuffle(pDeck);
     
     console.log(`[GameView] Match Initialized. Player Deck: ${state.pDeck.length}, AI Deck: ${state.aiDeck.length}`);
     

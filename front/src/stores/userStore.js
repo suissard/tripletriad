@@ -335,7 +335,8 @@ export const useUserStore = defineStore('user', {
             description: item.quest_template?.description || item.description,
             target: item.quest_template?.target || item.target || 1,
             rewardCoins: item.quest_template?.rewardCoins || item.rewardCoins || 0,
-            rewardGems: item.quest_template?.rewardGems || item.rewardGems || 0
+            rewardGems: item.quest_template?.rewardGems || item.rewardGems || 0,
+            type: item.quest_template?.type || item.type || 'daily'
           }));
         }
       } catch (e) {

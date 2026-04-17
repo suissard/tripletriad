@@ -1,7 +1,10 @@
 <template>
   <div class="weekly-quest-container">
     <div class="header">
-      <h3 class="section-title">QUÊTES HEBDOMADAIRES</h3>
+      <div class="header-left">
+        <h3 class="section-title">QUÊTES HEBDOMADAIRES</h3>
+        <div class="expiration-badge">Expire le {{ expiresAt }}</div>
+      </div>
       <div class="progress-text">{{ completedQuests }} Quêtes accomplies cette semaine</div>
     </div>
 
@@ -59,6 +62,14 @@ const tiers = computed(() => props.weeklyConfig?.tiers || []);
 const sortedTiers = computed(() => [...tiers.value].sort((a, b) => a.requiredCount - b.requiredCount));
 const completedQuests = computed(() => props.weeklyProgress?.completedCount || 0);
 const claimedTiers = computed(() => props.weeklyProgress?.claimedTiers || []);
+const expiresAt = computed(() => {
+  const now = new Date();
+  const day = now.getDay();
+  const daysToSunday = day === 0 ? 0 : 7 - day;
+  const sunday = new Date(now);
+  sunday.setDate(now.getDate() + daysToSunday);
+  return sunday.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' });
+});
 const maxTierCount = computed(() => {
   if (sortedTiers.value.length === 0) return 1;
   return sortedTiers.value[sortedTiers.value.length - 1].requiredCount;
@@ -112,6 +123,18 @@ function handleTierClick(tier) {
   text-transform: uppercase;
   letter-spacing: 2px;
   margin: 0;
+}
+.expiration-badge {
+  font-size: 0.75rem;
+  color: #ff9d00;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+.header-left {
+  display: flex;
+  flex-direction: column;
 }
 
 .progress-text {

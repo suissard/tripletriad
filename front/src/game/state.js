@@ -93,6 +93,18 @@ export const createCardData = (i) => {
 };
 
 /**
+ * Shuffles an array in place using Fisher-Yates algorithm.
+ */
+export function shuffle(array) {
+    if (!array || !Array.isArray(array)) return array;
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+/**
  * Wraps and normalizes board entries from either local {data, owner} format
  * or raw GameEngine card format.
  */

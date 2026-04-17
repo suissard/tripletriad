@@ -93,12 +93,25 @@ export const assignQuestsToUser = async (strapi, userId, immediate = false) => {
       ? now
       : new Date(now.getTime() + 22 * 60 * 60 * 1000);
 
-    // Duration is always 24h for quests now
-    let durationHours = 24;
+    // Calculate expiration based on type
+    let expiresAt;
+    const type = selectedTemplate.type || 'daily';
 
-    const expiresAt = new Date(
-      startsAt.getTime() + durationHours * 60 * 60 * 1000,
-    );
+    if (type === 'weekly') {
+      // Weekly quests are from Monday to Sunday. 
+      // We set expiration to the Sunday of the week it starts at 23:59:59 UTC.
+      const d = new Date(startsAt);
+      const day = d.getUTCDay(); // 0 (Sun) to 6 (Sat)
+      const daysToSunday = day === 0 ? 0 : 7 - day;
+      d.setUTCDate(d.getUTCDate() + daysToSunday);
+      d.setUTCHours(23, 59, 59, 999);
+      expiresAt = d;
+    } else {
+      // Daily quests (and others) end at midnight UTC of the start day
+      const d = new Date(startsAt);
+      d.setUTCHours(23, 59, 59, 999);
+      expiresAt = d;
+    }
 
     await strapi.entityService.create("api::player-quest.player-quest", {
       data: {

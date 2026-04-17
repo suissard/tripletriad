@@ -41,7 +41,8 @@
           <!-- Expiration Timer -->
           <div v-if="!isActuallyCompleted" class="quest-timer text-xs font-mono flex items-center gap-2" :class="isExpiringSoon ? 'text-orange-500 animate-pulse font-bold' : 'text-gray-500'">
             <span>🕒</span>
-            <span>Expire dans : {{ formatTime(quest.expiresAt) }}</span>
+            <span v-if="quest.type === 'weekly'">Expire le : {{ formatDate(quest.expiresAt) }}</span>
+            <span v-else>Expire dans : {{ formatTime(quest.expiresAt) }}</span>
           </div>
         </div>
       </div>
@@ -104,6 +105,7 @@ interface Quest {
   status: string;
   startsAt: Date | null;
   expiresAt: Date | null;
+  type?: string;
 }
 
 const props = defineProps<{
@@ -157,6 +159,11 @@ const formatTime = (date: Date | null) => {
   return `${hours}h ${minutes}m`;
 };
 
+const formatDate = (date: Date | null) => {
+  if (!date) return '...';
+  return date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' });
+};
+
 onMounted(() => {
   timerInterval = setInterval(() => {
     now.value = new Date();
@@ -200,13 +207,41 @@ onUnmounted(() => {
 }
 
 .claim-btn {
-  animation: bounce-shadow 2.5s infinite;
+  animation: epic-pulse 2s infinite;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
-@keyframes bounce-shadow {
-  0%, 100% { box-shadow: 0 5px 15px rgba(245, 158, 11, 0.2); transform: scale(1); }
-  50% { box-shadow: 0 10px 30px rgba(245, 158, 11, 0.4); transform: scale(1.02); }
+.claim-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 50%; height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.8), transparent);
+  transform: skewX(-20deg);
+  transition: none;
+  animation: shine-sweep 3s infinite;
 }
 
+@keyframes epic-pulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(245, 158, 11, 0.4), inset 0 -2px 0 rgba(0,0,0,0.2); transform: scale(1); }
+  50% { box-shadow: 0 0 30px rgba(245, 158, 11, 0.8), inset 0 -2px 0 rgba(0,0,0,0.2); transform: scale(1.05); }
+}
 
+@keyframes shine-sweep {
+  0% { left: -100%; }
+  20% { left: 200%; }
+  100% { left: 200%; }
+}
+
+.claim-btn:hover {
+  animation: none;
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 10px 30px rgba(245, 158, 11, 0.8), inset 0 -2px 0 rgba(0,0,0,0.2);
+}
+
+.claim-btn:active {
+  transform: scale(0.95) translateY(2px);
+  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.4), inset 0 2px 0 rgba(0,0,0,0.2);
+}
 </style>

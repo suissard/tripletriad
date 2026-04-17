@@ -262,27 +262,60 @@ async function handleClaim(quest) {
 .reward-item.gem .amount { color: #00d2ff; }
 
 .claim-button {
+  position: relative;
   background: linear-gradient(135deg, #FFD700, #FFA500);
   border: none;
-  padding: 0.8rem 2rem;
+  padding: 1rem 2.5rem;
   border-radius: 50px;
   color: #1a1a2e;
   font-weight: 900;
-  letter-spacing: 1px;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3), inset 0 -3px 0 rgba(0,0,0,0.2);
+  overflow: hidden;
+  animation: pulse-button 2s infinite;
+}
+
+@keyframes pulse-button {
+  0%, 100% { transform: scale(1); box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3), inset 0 -3px 0 rgba(0,0,0,0.2); }
+  50% { transform: scale(1.03); box-shadow: 0 10px 25px rgba(255, 215, 0, 0.6), inset 0 -3px 0 rgba(0,0,0,0.2); }
+}
+
+.claim-button::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 50%; height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.6), transparent);
+  transform: skewX(-20deg);
+  transition: all 0.5s;
 }
 
 .claim-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 12px 25px rgba(255, 215, 0, 0.6), inset 0 -3px 0 rgba(0,0,0,0.2);
+  animation: none;
+}
+
+.claim-button:hover:not(:disabled)::before {
+  left: 150%;
+  transition: all 0.7s ease-in-out;
+}
+
+.claim-button:active:not(:disabled) {
+  transform: translateY(2px) scale(0.95);
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4), inset 0 2px 0 rgba(0,0,0,0.2);
 }
 
 .claim-button:disabled {
   background: #444;
   color: #888;
   cursor: not-allowed;
+  box-shadow: none;
+  animation: none;
+  transform: none;
 }
 
 /* Active Section */
@@ -309,6 +342,12 @@ async function handleClaim(quest) {
   background: rgba(255, 255, 255, 0.03);
   padding: 0.75rem;
   border-radius: 8px;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.active-quest-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateX(5px);
 }
 
 .item-header {
@@ -328,16 +367,32 @@ async function handleClaim(quest) {
 }
 
 .progress-container {
-  height: 4px;
+  height: 6px;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
+  border-radius: 3px;
   overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
 }
 
 .progress-bar {
   height: 100%;
-  background: #FFD700;
-  transition: width 0.3s ease;
+  background: linear-gradient(90deg, #FFD700, #FFA500);
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
 .no-quests {
@@ -362,22 +417,23 @@ async function handleClaim(quest) {
 /* Transitions */
 .modal-fade-enter-active,
 .modal-fade-leave-active {
-  transition: opacity 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .modal-fade-enter-from,
 .modal-fade-leave-to {
   opacity: 0;
+  transform: scale(0.9);
 }
 
 .loader {
   display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 2px solid rgba(26, 26, 46, 0.3);
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(26, 26, 46, 0.3);
   border-radius: 50%;
   border-top-color: #1a1a2e;
-  animation: spin 1s ease-in-out infinite;
+  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
