@@ -5,11 +5,11 @@
       <transition-group name="list" tag="div">
         <div class="log-item" v-for="(log, index) in reversedLog" :key="index + '-' + log.playedCard.id">
           <div class="played-card">
-             <img :src="log.playedCard.img" class="card-thumb" :class="log.owner === state.pId ? 'player' : 'ai'" />
+             <img :src="log.playedCard.imageUrl" class="card-thumb" :class="log.owner === state.pId ? 'player' : 'ai'" />
           </div>
           <div class="arrow">➔</div>
           <div class="captured-cards" v-if="log.capturedCards.length > 0">
-             <img v-for="(cap, i) in log.capturedCards" :key="i" :src="cap.img" class="card-thumb cap" :class="log.owner === state.pId ? 'player' : 'ai'" />
+             <img v-for="(cap, i) in log.capturedCards" :key="i" :src="cap.imageUrl" class="card-thumb cap" :class="log.owner === state.pId ? 'player' : 'ai'" />
           </div>
           <div class="captured-cards empty" v-else>
              ∅
@@ -29,11 +29,7 @@ const reversedLog = computed(() => {
     return [...state.actionLog].reverse();
 });
 
-function getCardThumb(card) {
-  if (!card) return '';
-  if (card.imageUrl) return card.imageUrl;
-  return getStrapiMediaUrl(card.img || card.imageUrl);
-}
+
 </script>
 
 <style scoped>

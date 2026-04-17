@@ -54,7 +54,7 @@
         <!-- CARD CONTENT (Unified layout) -->
         <template v-if="card.revealed !== false || $attrs.forceFace">
           <!-- Card image -->
-          <img :src="card.imageUrl || `https://api.dicebear.com/9.x/bottts/svg?seed=${(card.id || 0) * 42}&backgroundColor=transparent`" class="card-img" :alt="card.name" />
+          <img :src="card.imageUrl" class="card-img" :alt="card.name" />
 
           <!-- Name bar -->
           <div class="card-name-bar" :style="{'--glow-color': actualRarityColor}">{{ card.name }}</div>

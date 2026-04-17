@@ -500,15 +500,8 @@ function skipDialogue() {
 
 function getAvatarUrl(card) {
   if (!card) return '';
-  let url = card.imageUrl || card.img;
-  if (!url && card.image?.url) {
-    url = card.image.url.startsWith('http') ? card.image.url : getStrapiMediaUrl(card.image.url);
-  }
-  if (!url) {
-    const seed = card.id || card.documentId || card.name || '0';
-    url = `https://api.dicebear.com/9.x/bottts/svg?seed=${encodeURIComponent(seed)}&backgroundColor=transparent`;
-  }
-  return url;
+  // card might be a raw Strapi object, normalizeCard handles both
+  return normalizeCard(card).imageUrl;
 }
 
 function getProgress(storyId) {

@@ -296,6 +296,7 @@ import strapiService from '@/api/strapi';
 import { getStrapiMediaUrl } from '@/utils/url';
 import PremiumSelect from '../components/PremiumSelect.vue';
 import TripleTriadCard from '../../components/TripleTriadCard.vue';
+import { normalizeCard } from '../../game/state.js';
 import '../../assets/foil-editor-pro.css'; // Import specific CSS
 
 const MAX_LAYERS = 5;
@@ -375,14 +376,8 @@ async function loadCards() {
     if (!res.error) {
       const data = Array.isArray(res) ? res : (res.data || []);
       cards.value = data.map(c => {
-        const attrs = c.attributes || c;
-        const imageUrl = attrs.image?.url ? getStrapiMediaUrl(attrs.image.url) : null;
-        return {
-          id: c.id,
-          documentId: c.documentId || c.id,
-          ...attrs,
-          imageUrl
-        };
+        const rawData = c.attributes ? { id: c.id, ...c.attributes } : c;
+        return normalizeCard(rawData);
       });
     }
   } catch (err) {

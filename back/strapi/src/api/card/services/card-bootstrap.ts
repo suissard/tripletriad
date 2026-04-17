@@ -54,7 +54,7 @@ export async function bootstrapCards(strapi: any) {
               bottomValue: String(c.bottomValue),
               leftValue: String(c.leftValue),
               rarity: rarity,
-              imageUrl: c.img || null,
+
               defaultHp: c.hp || 3,
               prompt: c.prompt || null,
             },

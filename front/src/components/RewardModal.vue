@@ -51,8 +51,7 @@
 <script setup>
 import { ref, computed, watch, nextTick } from 'vue';
 import TripleTriadCard from './TripleTriadCard.vue';
-import strapiService from '../api/strapi.js';
-import { getStrapiMediaUrl } from '../utils/url.js';
+import { normalizeCard } from '../game/state.js';
 
 const props = defineProps({
   show: { type: Boolean, default: false },
@@ -67,35 +66,11 @@ const emit = defineEmits(['claimed', 'close']);
 
 const contentVisible = ref(false);
 
-// Normalize card data for TripleTriadCard
 const normalizedCard = computed(() => {
   if (!props.reward) return {};
-  const card = props.reward.attributes || props.reward;
-  
-  let imageUrl = card.imageUrl || card.img;
-  if (!imageUrl && card.image?.url) {
-    imageUrl = card.image.url.startsWith('http') ? card.image.url : getStrapiMediaUrl(card.image.url);
-  }
-  if (!imageUrl && card.image?.data?.attributes?.url) {
-    const attrUrl = card.image.data.attributes.url;
-    imageUrl = attrUrl.startsWith('http') ? attrUrl : getStrapiMediaUrl(attrUrl);
-  }
-  if (!imageUrl) {
-    const seed = card.id || props.reward.id || card.name || '0';
-    imageUrl = `https://api.dicebear.com/9.x/bottts/svg?seed=${encodeURIComponent(seed)}&backgroundColor=transparent`;
-  }
-  return {
-    id: props.reward.id || card.id,
-    name: card.name,
-    topValue: card.topValue,
-    rightValue: card.rightValue,
-    bottomValue: card.bottomValue,
-    leftValue: card.leftValue,
-    element: card.element,
-    elements: card.elements,
-    imageUrl,
-    rarity: card.rarity,
-  };
+  // Handle both Strapi v4/v5 nested and flat structures
+  const rawData = props.reward.attributes ? { id: props.reward.id, ...props.reward.attributes } : props.reward;
+  return normalizeCard(rawData);
 });
 
 // Confetti particle style generator

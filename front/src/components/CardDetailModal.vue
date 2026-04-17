@@ -16,8 +16,7 @@
               </template>
 
               <!-- Card face (Always revealed in zoom) -->
-              <img v-if="card.imageUrl || card.img" :src="card.imageUrl || card.img || `https://api.dicebear.com/9.x/bottts/svg?seed=${(card.id || 0) * 42}&backgroundColor=transparent`" class="card-img" :alt="card.name" />
-              <img v-else :src="`https://api.dicebear.com/9.x/bottts/svg?seed=${(card.id || 0) * 42}&backgroundColor=transparent`" class="card-img" :alt="card.name" />
+              <img :src="card.imageUrl" class="card-img" :alt="card.name" />
               <div class="card-name-bar">{{ card.name }}</div>
               <div class="card-stats-cross">
                 <span class="stat stat-top">{{ card.topValue }}</span>

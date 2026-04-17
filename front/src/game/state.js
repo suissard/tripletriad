@@ -25,54 +25,72 @@ function parseStatValue(v) {
  * Normalizes topValue/rightValue/bottomValue/leftValue → top/right/bottom/left as numbers.
  */
 export function normalizeCard(raw) {
+    if (!raw) return null;
+    const attrs = raw.attributes || raw;
+    
     // Robust image URL extraction for Strapi
-    let imgUrl = raw.imageUrl || raw.img;
+    let imgUrl = null;
     
     // Handle Strapi media object (both flat and nested structures)
-    const strapiImg = raw.image?.data?.attributes || raw.image;
+    // Check both raw and attrs for the image property
+    const imageObj = raw.image || attrs.image;
+    const strapiImg = imageObj?.data?.attributes || imageObj;
+    
     if (strapiImg?.url) {
         imgUrl = strapiImg.url.startsWith('http') 
             ? strapiImg.url 
             : getStrapiMediaUrl(strapiImg.url);
     }
 
+    // Support already normalized cards or cards with direct imageUrl property
+    if (!imgUrl && (raw.imageUrl || attrs.imageUrl)) {
+      imgUrl = raw.imageUrl || attrs.imageUrl;
+    }
+
     if (!imgUrl) {
+      // Fallback to DiceBear if no image is found
       imgUrl = `https://api.dicebear.com/9.x/bottts/svg?seed=${(raw.id || 0) * 42}&backgroundColor=transparent`;
     }
 
+    const top = attrs.top ?? parseStatValue(attrs.topValue);
+    const right = attrs.right ?? parseStatValue(attrs.rightValue);
+    const bottom = attrs.bottom ?? parseStatValue(attrs.bottomValue);
+    const left = attrs.left ?? parseStatValue(attrs.leftValue);
+
     return {
         id: raw.id,
-        documentId: raw.documentId,
-        name: raw.name || `Card #${raw.id}`,
-        description: raw.description || '',
-        level: GameEngine.calculateCardLevel(raw),
-        element: raw.element || 'None',
-        elements: Array.isArray(raw.elements) ? raw.elements : (raw.element && raw.element !== 'None' ? [raw.element] : []),
-        faction: raw.faction || 'neutre',
-        top: raw.top ?? parseStatValue(raw.topValue),
-        right: raw.right ?? parseStatValue(raw.rightValue),
-        bottom: raw.bottom ?? parseStatValue(raw.bottomValue),
-        left: raw.left ?? parseStatValue(raw.leftValue),
-        topValue: raw.topValue ?? (raw.top === 10 ? 'A' : String(raw.top)),
-        rightValue: raw.rightValue ?? (raw.right === 10 ? 'A' : String(raw.right)),
-        bottomValue: raw.bottomValue ?? (raw.bottom === 10 ? 'A' : String(raw.bottom)),
-        leftValue: raw.leftValue ?? (raw.left === 10 ? 'A' : String(raw.left)),
+        documentId: raw.documentId || attrs.documentId,
+        name: attrs.name || `Card #${raw.id}`,
+        description: attrs.description || '',
+        level: GameEngine.calculateCardLevel(attrs),
+        element: attrs.element || 'None',
+        elements: Array.isArray(attrs.elements) ? attrs.elements : (attrs.element && attrs.element !== 'None' ? [attrs.element] : []),
+        faction: attrs.faction || 'neutre',
+        top,
+        right,
+        bottom,
+        left,
+        topValue: attrs.topValue ?? (top === 10 ? 'A' : String(top)),
+        rightValue: attrs.rightValue ?? (right === 10 ? 'A' : String(right)),
+        bottomValue: attrs.bottomValue ?? (bottom === 10 ? 'A' : String(bottom)),
+        leftValue: attrs.leftValue ?? (left === 10 ? 'A' : String(left)),
         imageUrl: imgUrl,
-        revealed: raw.revealed !== undefined ? raw.revealed : true,
-        isPremium: false, // Will be set by ownership logic in components
-        rarity: raw.rarity || null,
-        collectionName: (raw.collection?.data?.attributes?.code || raw.collection?.code || raw.collectionName || 'base')
-    ,
+        revealed: attrs.revealed !== undefined ? attrs.revealed : true,
+        isPremium: false,
+        rarity: attrs.rarity || null,
+        collectionName: (attrs.collection?.data?.attributes?.code || attrs.collection?.code || attrs.collectionName || 'base'),
+        
         // --- System Events Hooks ---
         onDrawn: (ctx) => {
-            console.log(`[Hook] ${raw.name || '(inconnu)'} a été piochée. Contexte:`, ctx);
+            console.log(`[Hook] ${attrs.name || '(inconnu)'} a été piochée.`, ctx);
         },
         onPlaced: (ctx) => {
-            console.log(`[Hook] ${raw.name || '(inconnu)'} a été posée sur le plateau. Contexte:`, ctx);
+            console.log(`[Hook] ${attrs.name || '(inconnu)'} a été posée.`, ctx);
         },
         onCaptured: (ctx) => {
-            console.log(`[Hook] ${raw.name || '(inconnu)'} a été capturée. Contexte:`, ctx);
-        }};
+            console.log(`[Hook] ${attrs.name || '(inconnu)'} a été capturée.`, ctx);
+        }
+    };
 }
 
 export const cardLibrary = reactive(cardsData.map(normalizeCard));

@@ -106,6 +106,7 @@ import AppButton from '../components/ui/AppButton.vue';
 import { useUserStore } from '../stores/userStore.js';
 import strapiService from '../api/strapi.js';
 import { getStrapiMediaUrl } from '../utils/url.js';
+import { normalizeCard } from '../game/state.js';
 
 const props = defineProps({
   storyId: {
@@ -362,20 +363,7 @@ function getStepCover(step, index) {
 
 function getRewardCardThumb(card) {
   if (!card) return '';
-  const cardData = card.attributes || card;
-  let url = cardData.imageUrl || cardData.img;
-  if (!url && cardData.image?.url) {
-    url = cardData.image.url.startsWith('http') ? cardData.image.url : getStrapiMediaUrl(cardData.image.url);
-  }
-  if (!url && cardData.image?.data?.attributes?.url) {
-    const attrUrl = cardData.image.data.attributes.url;
-    url = attrUrl.startsWith('http') ? attrUrl : getStrapiMediaUrl(attrUrl);
-  }
-  if (!url) {
-    const seed = cardData.id || card.id || cardData.name || '0';
-    url = `https://api.dicebear.com/9.x/bottts/svg?seed=${encodeURIComponent(seed)}&backgroundColor=transparent`;
-  }
-  return url;
+  return normalizeCard(card).imageUrl;
 }
 </script>
 

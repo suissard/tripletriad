@@ -108,9 +108,9 @@ import { ref, onMounted, computed } from 'vue';
 import AppPanel from '../../components/ui/AppPanel.vue';
 import AppButton from '../../components/ui/AppButton.vue';
 import TripleTriadCardGrid from '../../components/TripleTriadCardGrid.vue';
-import TripleTriadCard from '../../components/TripleTriadCard.vue';
+import { normalizeCard } from '../../game/state.js';
 import strapiService from '@/api/strapi';
-import { getStrapiMediaUrl } from '@/utils/url';
+import { ref, onMounted, computed } from 'vue';
 
 const tilt = ref({ x: 0, y: 0 });
 const cards = ref([]);
@@ -125,7 +125,7 @@ function resetTilt() {
 onMounted(async () => {
   try {
     const res = await strapiService.fetchAll('cards', { populate: 'image' });
-    cards.value = res.data || [];
+    cards.value = Array.isArray(res) ? res : (res.data || []);
     if (cards.value.length > 0) {
       selectedCard.value = cards.value[0];
     }
@@ -137,7 +137,7 @@ onMounted(async () => {
 });
 
 const filteredCards = computed(() => {
-  if (!searchQuery.value) return cards.value.slice(0, 15); // Show top 15 by default
+  if (!searchQuery.value) return cards.value.slice(0, 15);
   const q = searchQuery.value.toLowerCase();
   return cards.value.filter(c => {
     const name = (c.attributes?.name || c.name || '').toLowerCase();
@@ -146,37 +146,19 @@ const filteredCards = computed(() => {
 });
 
 function getCardImageUrl(card) {
-  if (!card) return 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop';
-  
-  const imgData = card.attributes?.image?.data || card.image?.data || card.image;
-  if (!imgData) return 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop';
-  
-  const url = imgData.attributes?.url || imgData.url || imgData;
-  if (typeof url !== 'string') return 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop';
-  
-  return getStrapiMediaUrl(url);
+  const data = getCardData(card);
+  return data?.imageUrl || '';
 }
 
-function selectedCardData(card) {
+function getCardData(card) {
   if (!card) return null;
-  return {
-    id: card.id,
-    documentId: card.documentId || card.id,
-    name: card.attributes?.name || card.name,
-    imageUrl: getCardImageUrl(card),
-    level: card.attributes?.level || card.level,
-    topValue: card.attributes?.topValue || card.topValue || 5,
-    rightValue: card.attributes?.rightValue || card.rightValue || 5,
-    bottomValue: card.attributes?.bottomValue || card.bottomValue || 5,
-    leftValue: card.attributes?.leftValue || card.leftValue || 5,
-    element: card.attributes?.element || card.element,
-    rarity: card.attributes?.rarity || card.rarity || 'Common'
-  };
+  const rawData = card.attributes ? { id: card.id, ...card.attributes } : card;
+  return normalizeCard(rawData);
 }
 
 const galleryCards = computed(() => {
   if (!selectedCard.value) return [];
-  const baseData = selectedCardData(selectedCard.value);
+  const baseData = getCardData(selectedCard.value);
   
   return modes.map(mode => ({
     ...baseData,

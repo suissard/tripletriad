@@ -114,9 +114,7 @@
       "type": "integer",
       "default": 1
     },
-    "imageUrl": {
-      "type": "string"
-    },
+
     "prompt": {
       "type": "json"
     }

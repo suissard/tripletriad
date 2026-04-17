@@ -7,7 +7,7 @@
   >
     <div class="deck-background" :class="{ 'placeholder': !deck.cover || !getCardById(deck.cover) }">
       <img 
-        :src="deck.cover && getCardById(deck.cover) ? (getCardById(deck.cover).imageUrl || getCardById(deck.cover).img || `https://api.dicebear.com/9.x/bottts/svg?seed=${deck.cover}&backgroundColor=transparent`) : `https://api.dicebear.com/9.x/bottts/svg?seed=${deck.name}&backgroundColor=transparent`" 
+        :src="deck.cover && getCardById(deck.cover) ? getCardById(deck.cover).imageUrl : `https://api.dicebear.com/9.x/bottts/svg?seed=${deck.name}&backgroundColor=transparent`" 
         class="bg-img" 
       />
       <div class="glass-overlay"></div>
@@ -27,7 +27,7 @@
       <!-- Preview Row -->
       <div class="card-previews no-scrollbar">
         <img v-for="cardId in deck.cards.slice(0, 6)" :key="cardId" 
-          :src="getCardById(cardId)?.imageUrl || getCardById(cardId)?.img || `https://api.dicebear.com/9.x/bottts/svg?seed=${cardId}&backgroundColor=transparent`"
+          :src="getCardById(cardId)?.imageUrl"
           class="preview-thumb" />
         <span v-if="deck.cards.length > 6" class="more-count">+{{ deck.cards.length - 6 }}</span>
       </div>

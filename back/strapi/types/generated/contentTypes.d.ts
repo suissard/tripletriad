@@ -522,7 +522,6 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.DefaultTo<'neutre'>;
     image: Schema.Attribute.Media<'images'>;
-    imageUrl: Schema.Attribute.String;
     leftValue: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{

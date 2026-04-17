@@ -444,7 +444,7 @@ function getStoryCover(story) {
 function getRewardCardThumb(card) {
   if (!card) return '';
   const cardData = card.attributes || card;
-  let url = cardData.imageUrl || cardData.img;
+  let url = cardData.imageUrl;
   if (!url && cardData.image?.url) {
     url = cardData.image.url.startsWith('http') ? cardData.image.url : getStrapiMediaUrl(cardData.image.url);
   }

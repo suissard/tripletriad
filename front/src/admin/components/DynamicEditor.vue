@@ -106,7 +106,7 @@
             <TripleTriadCard
               :card="{
                 ...formData,
-                imageUrl: formData.imageUrl || `https://api.dicebear.com/9.x/bottts/svg?seed=${(formData.id || 0) * 42}&backgroundColor=transparent`
+                imageUrl: `https://api.dicebear.com/9.x/bottts/svg?seed=${(formData.id || 0) * 42}&backgroundColor=transparent`
               }"
               size="md"
               :disableZoom="true"
