@@ -61,7 +61,7 @@ export function normalizeCard(raw) {
         revealed: raw.revealed !== undefined ? raw.revealed : true,
         isPremium: false, // Will be set by ownership logic in components
         rarity: raw.rarity || null,
-        collectionName: raw.collectionName || 'base'
+        collectionName: (raw.collection?.data?.attributes?.code || raw.collection?.code || raw.collectionName || 'base')
     ,
         // --- System Events Hooks ---
         onDrawn: (ctx) => {

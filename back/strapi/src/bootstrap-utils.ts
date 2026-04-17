@@ -192,7 +192,16 @@ export async function runFullBootstrap(strapi: Core.Strapi) {
   await generateQuestTemplates(strapi);
   console.log('✅ Quest templates generated.');
 
-  // 3. Decks & Stories
+  // 3. Collections
+  try {
+    const { bootstrapCollections } = require('./api/collection/services/collection-bootstrap');
+    await bootstrapCollections(strapi);
+    console.log('✅ Collections bootstrapped.');
+  } catch (err) {
+    console.error('❌ Error bootstrapping collections:', err);
+  }
+
+  // 4. Decks & Stories
   try {
     const { bootstrapDecks } = require('./api/deck/services/deck-bootstrap');
     await bootstrapDecks(strapi);

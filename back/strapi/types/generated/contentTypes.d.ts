@@ -479,7 +479,10 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 1;
       }>;
-    collectionName: Schema.Attribute.String;
+    collection: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::collection.collection'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -542,15 +545,48 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
         maxLength: 1;
       }>;
     skills: Schema.Attribute.Component<'game.skill', true>;
-    storiesRewardedFrom: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::story.story'
-    >;
     topValue: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 1;
       }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiCollectionCollection extends Struct.CollectionTypeSchema {
+  collectionName: 'collections';
+  info: {
+    description: 'Card Collections (sets)';
+    displayName: 'Collection';
+    pluralName: 'collections';
+    singularName: 'collection';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    cards: Schema.Attribute.Relation<'oneToMany', 'api::card.card'>;
+    code: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::collection.collection'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1895,6 +1931,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::board-background.board-background': ApiBoardBackgroundBoardBackground;
       'api::card.card': ApiCardCard;
+      'api::collection.collection': ApiCollectionCollection;
       'api::deck.deck': ApiDeckDeck;
       'api::foil-effect.foil-effect': ApiFoilEffectFoilEffect;
       'api::game-config.game-config': ApiGameConfigGameConfig;

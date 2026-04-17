@@ -42,7 +42,7 @@ export default {
 
           // 4b. Give starter collection cards
           const starterCards = await strapi.entityService.findMany('api::card.card', {
-            filters: { collectionName: 'starter' },
+            filters: { collection: { code: 'starter' } },
             limit: 200
           });
 
@@ -59,7 +59,7 @@ export default {
             }
             console.log(`✅ ${ (starterCards as any[]).length} starter cards given to user ${result.username}`);
           } else {
-            console.warn('⚠️ No starter cards found (collectionName=starter). Falling back to 5 weakest cards.');
+            console.warn('⚠️ No starter cards found (collection.code=starter). Falling back to 5 weakest cards.');
             const fallbackCards = await strapi.entityService.findMany('api::card.card', {
               limit: 5,
               sort: { level: 'asc' }

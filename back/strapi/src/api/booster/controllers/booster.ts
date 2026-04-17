@@ -107,13 +107,13 @@ export default {
 
       // 3. Fetch all available cards from collection
       const allCards = (await strapi.entityService.findMany("api::card.card", {
-        filters: { collectionName: collection },
+        filters: { collection: { code: collection } },
         populate: { image: true },
         limit: 1000,
       })) as any[];
 
       if (!allCards || allCards.length === 0) {
-        // Fallback to all cards if no cards with collectionName exist
+        // Fallback to all cards if no cards in the specified collection exist
         const anyCards = (await strapi.entityService.findMany(
           "api::card.card",
           {

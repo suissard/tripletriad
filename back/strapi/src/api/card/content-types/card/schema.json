@@ -87,8 +87,11 @@
         "images"
       ]
     },
-    "collectionName": {
-      "type": "string"
+    "collection": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::collection.collection",
+      "inversedBy": "cards"
     },
     "rarity": {
       "type": "enumeration",
@@ -101,12 +104,7 @@
         "Legendary"
       ]
     },
-    "storiesRewardedFrom": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::story.story",
-      "mappedBy": "rewardCards"
-    },
+
     "defaultHp": {
       "type": "integer",
       "default": 3,

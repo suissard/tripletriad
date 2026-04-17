@@ -31,8 +31,35 @@
       </div>
     </div>
 
-    <!-- Booster Selection Grouped by Collection -->
+    <!-- Mes Boosters (Inventory) -->
+    <div v-if="!packOpened && !isOpening && totalBoosters > 0" class="relative z-10 w-full max-w-6xl animate-fade-in flex flex-col gap-8 mb-16 px-4">
+      <div class="flex items-center gap-6">
+        <h2 class="text-4xl font-black uppercase italic tracking-wider text-primary">Vos Boosters</h2>
+        <div class="h-[2px] flex-1 bg-gradient-to-r from-primary/50 to-transparent"></div>
+      </div>
+      
+      <div class="flex flex-wrap justify-start gap-8">
+        <div v-for="b in boosters" :key="b.collection + b.isPremium" 
+             class="owned-booster-card group cursor-pointer"
+             @click="handlePackPurchase(b.isPremium ? 'premium' : 'classic', b.collection)">
+          <div class="owned-booster-inner glass-panel border border-white/10 rounded-2xl p-4 flex items-center gap-4 hover:border-primary/50 transition-all">
+            <div class="text-4xl">{{ b.isPremium ? '💎' : '📦' }}</div>
+            <div>
+              <div class="font-bold text-lg uppercase italic">{{ b.isPremium ? 'Premium' : 'Classique' }}</div>
+              <div class="text-xs text-white/40 uppercase tracking-widest">{{ b.collection }}</div>
+            </div>
+            <div class="ml-auto bg-primary/20 text-primary px-3 py-1 rounded-full font-black">x{{ b.quantity }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Booster Selection Grouped by Collection (Shop) -->
     <div v-if="!packOpened && !isOpening" class="relative z-10 w-full max-w-6xl animate-fade-in flex flex-col gap-16 mt-4">
+      <div class="flex items-center gap-6 px-4">
+        <h2 class="text-4xl font-black uppercase italic tracking-wider text-white/80">Boutique</h2>
+        <div class="h-[2px] flex-1 bg-gradient-to-r from-white/20 to-transparent"></div>
+      </div>
       <div v-for="coll in availableCollections" :key="coll.id" class="collection-section">
         <div class="flex items-center gap-6 mb-8 px-4">
           <div class="h-[2px] flex-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
@@ -191,7 +218,30 @@ const emit = defineEmits(['close']);
 
 onMounted(async () => {
   userStore.fetchUserCollection();
+  fetchCollections();
 });
+
+const totalBoosters = computed(() => {
+  if (!userStore.user?.boosters) return 0;
+  return userStore.user.boosters.reduce((acc, b) => acc + (b.quantity || 0), 0);
+});
+
+const fetchCollections = async () => {
+  try {
+    const res = await strapiService.find('collections', {
+      filters: { isActive: true },
+      sort: ['code:asc']
+    });
+    if (res.data) {
+      availableCollections.value = res.data.map(c => ({
+        id: c.code,
+        name: c.name || c.code
+      }));
+    }
+  } catch (e) {
+    console.error("Failed to fetch collections:", e);
+  }
+};
 
 const wallet = computed(() => ({
   coins: userStore.user?.coins || 0,
@@ -200,11 +250,7 @@ const wallet = computed(() => ({
 }));
 const boosters = computed(() => userStore.user?.boosters || []);
 
-const availableCollections = ref([
- { id: 'base', name: 'Base' },
- { id: 'expansion_one', name: 'Expansion #1' },
- { id: 'cyber_warfare', name: 'Cyber Warfare' }
-]);
+const availableCollections = ref([]);
 
 const boosterCounts = computed(() => {
   const counts = {};

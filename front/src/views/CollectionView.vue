@@ -448,7 +448,7 @@ async function fetchCards() {
 
       do {
         const queryParams = {
-          populate: ['image'],
+          populate: ['image', 'collection'],
           pagination: { page, pageSize: STRAPI_MAX_PAGE_SIZE },
         };
         const result = await strapiService.find('cards', queryParams);

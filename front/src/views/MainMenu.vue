@@ -191,7 +191,7 @@ function openDecks() {
 }
 
 function openBoosters() {
-  router.push('/wallet/boosters');
+  router.push('/boutique');
 }
 
 function openBoutique() {
