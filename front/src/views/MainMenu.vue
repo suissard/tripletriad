@@ -10,16 +10,6 @@
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="state.menuView = 'ai'">JOUER CONTRE UNE IA 🤖</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="state.menuView = 'multi-deck'" :disabled="!userStore.strapiConnected">PARTIE MULTIJOUEUR 🌍</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openCollection">MA COLLECTION 📚</AppButton>
-      <AppButton fullWidth variant="primary" class="relative text-lg py-4 shadow-lg shadow-primary/20" @click="openBoosters" :disabled="!userStore.strapiConnected">
-        MES BOOSTERS 🎒
-        <AppBadge 
-          v-if="totalBoosters > 0" 
-          :content="totalBoosters" 
-          variant="danger" 
-          bounce 
-          class="booster-badge"
-        />
-      </AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openDecks">MES DECKS 🎴</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openBoutique" :disabled="!userStore.strapiConnected">BOUTIQUE 💎</AppButton>
       <!-- <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="router.push('/test-card')" style="margin-top:20px; background:linear-gradient(45deg, #f093fb 0%, #f5576c 100%)">TESTER LA CARTE 🧪</AppButton>
@@ -136,10 +126,6 @@ const onRewardClaimed = ({ quest, reward }) => {
   console.log(`Récompense récupérée pour ${quest.title}: ${reward.coins} coins`);
 };
 
-const totalBoosters = computed(() => {
-  if (!userStore.user?.boosters) return 0;
-  return userStore.user.boosters.reduce((acc, b) => acc + (b.quantity || 0), 0);
-});
 
 async function resumeStory() {
   const p = userStore.latestStoryProgress;
@@ -190,9 +176,6 @@ function openDecks() {
   router.push('/decks');
 }
 
-function openBoosters() {
-  router.push('/boutique');
-}
 
 function openBoutique() {
   state.leftDrawerOpen = false;
@@ -500,10 +483,4 @@ button:hover { transform: scale(1.05); }
   font-size: 1.2rem;
 }
 
-.booster-badge {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  z-index: 10;
-}
 </style>

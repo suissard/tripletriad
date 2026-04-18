@@ -1,11 +1,11 @@
 <template>
-  <div class="weekly-quest-container">
+  <div class="weekly-quest-container" :class="{ 'is-small': small }">
     <div class="header">
       <div class="header-left">
-        <h3 class="section-title">QUÊTES HEBDOMADAIRES</h3>
+        <h3 class="section-title">{{ small ? 'HEBDO' : 'QUÊTES HEBDOMADAIRES' }}</h3>
         <div class="expiration-badge">Expire le {{ expiresAt }}</div>
       </div>
-      <div class="progress-text">{{ completedQuests }} Quêtes accomplies cette semaine</div>
+      <div class="progress-text">{{ completedQuests }} {{ small ? 'accomplies' : 'Quêtes accomplies cette semaine' }}</div>
     </div>
 
     <div class="tiers-wrapper">
@@ -53,7 +53,11 @@ import { computed } from 'vue';
 
 const props = defineProps({
   weeklyConfig: Object,
-  weeklyProgress: Object
+  weeklyProgress: Object,
+  small: {
+    type: Boolean,
+    default: false
+  }
 });
 
 const emit = defineEmits(['claim']);
@@ -258,5 +262,68 @@ function handleTierClick(tier) {
   align-items: center;
   gap: 4px;
   white-space: nowrap;
+}
+
+/* Small mode overrides */
+.weekly-quest-container.is-small {
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  background: rgba(20, 25, 40, 0.4);
+}
+
+.weekly-quest-container.is-small .header {
+  margin-bottom: 1rem;
+}
+
+.weekly-quest-container.is-small .section-title {
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.weekly-quest-container.is-small .expiration-badge {
+  font-size: 0.65rem;
+}
+
+.weekly-quest-container.is-small .progress-text {
+  font-size: 0.8rem;
+}
+
+.weekly-quest-container.is-small .tiers-wrapper {
+  height: 55px;
+  margin: 0 1rem;
+}
+
+.weekly-quest-container.is-small .progress-bar-bg {
+  top: 15px;
+  height: 6px;
+}
+
+.weekly-quest-container.is-small .tiers-row {
+  top: 8px;
+}
+
+.weekly-quest-container.is-small .tier-marker {
+  width: 20px;
+  height: 20px;
+  font-size: 0.7rem;
+}
+
+.weekly-quest-container.is-small .tier-rewards {
+  margin-top: 5px;
+  font-size: 0.65rem;
+  padding: 2px;
+  width: 50px;
+}
+
+.weekly-quest-container.is-small .tier-node {
+  width: 50px;
+}
+
+.weekly-quest-container.is-small .claimable-pulse {
+  font-size: 0.9rem;
+}
+
+.weekly-quest-container.is-small .claimed-check {
+  font-size: 0.8rem;
 }
 </style>

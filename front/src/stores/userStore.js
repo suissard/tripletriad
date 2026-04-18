@@ -29,6 +29,8 @@ export const useUserStore = defineStore('user', {
     weeklyProgress: null,
     storyProgresses: [],
     storyProgressesLoaded: false,
+    collections: [],
+    collectionsLoaded: false,
     strapiConnected: false,
     hasEverConnected: false,
     initializationStatus: 'loading', // 'loading' | 'ready'
@@ -137,9 +139,9 @@ export const useUserStore = defineStore('user', {
               ? getStrapiMediaUrl(meRes.avatar_card.image.url)
               : `https://api.dicebear.com/9.x/bottts/svg?seed=${meRes.username}&backgroundColor=transparent`,
             // Wallet data
-            coins: wallet.coins ?? meRes.coins ?? 0,
-            gems: wallet.gems ?? meRes.gems ?? 0,
-            dust: wallet.dust ?? meRes.dust ?? 0,
+            coins: wallet.coins ?? 0,
+            gems: wallet.gems ?? 0,
+            dust: wallet.dust ?? 0,
             boosters: wallet.boosters ?? []
           };
           this.syncLocalUserWallets();
@@ -156,10 +158,10 @@ export const useUserStore = defineStore('user', {
         documentId: user.documentId,
         username: user.username,
         role: user.role,
-        coins: user.coins || 0,
-        gems: user.gems || 0,
-        dust: user.dust || 0,
-        boosters: user.boosters || [],
+        coins: user.wallet?.coins || 0,
+        gems: user.wallet?.gems || 0,
+        dust: user.wallet?.dust || 0,
+        boosters: user.wallet?.boosters || [],
         avatar_card: user.avatar_card || null,
         avatar: user.avatar_card?.image?.url 
           ? getStrapiMediaUrl(user.avatar_card.image.url)
@@ -177,6 +179,7 @@ export const useUserStore = defineStore('user', {
 
       // Initial Sync (wallet is now synced in updateUserData)
       this.fetchUserCollection();
+      this.fetchCollections();
       this.fetchUserDecks();
       this.fetchUserQuests();
           this.fetchWeeklyQuests();
@@ -283,6 +286,28 @@ export const useUserStore = defineStore('user', {
           console.warn('Session expired (401). Logging out.');
           this.logout();
         }
+      }
+    },
+    
+    async fetchCollections(force = false) {
+      if (!this.strapiConnected) return;
+      if (this.collectionsLoaded && !force) return;
+      try {
+        const result = await strapiService.find('collections', {
+          filters: { isActive: true },
+          populate: ['boosterImage'],
+          sort: ['code:asc']
+        });
+        const items = this.toArray(result);
+        this.collections = items.map(item => ({
+          id: item.id,
+          code: item.code,
+          name: item.name,
+          boosterImage: item.boosterImage?.url ? getStrapiMediaUrl(item.boosterImage.url) : null
+        }));
+        this.collectionsLoaded = true;
+      } catch (e) {
+        console.error('Failed to fetch collections', e);
       }
     },
 

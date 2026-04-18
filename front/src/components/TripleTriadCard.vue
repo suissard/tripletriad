@@ -88,6 +88,9 @@
 
           <!-- Broken Glass Impact Effect for Captures -->
           <BrokenGlassOverlay v-if="card.impactDirection" :direction="card.impactDirection" />
+          
+          <!-- Reveal Shine Effect -->
+          <div v-if="revealShine" class="reveal-shine"></div>
 
         <!-- BASE CARD FACE (Fallback revealed false) -->
         <template v-else>
@@ -185,7 +188,8 @@ const props = defineProps({
   tiltX: { type: Number, default: null },
   tiltY: { type: Number, default: null },
   alwaysVisible: { type: Boolean, default: false },
-  isNew: { type: Boolean, default: false }
+  isNew: { type: Boolean, default: false },
+  revealShine: { type: Boolean, default: false }
 });
 
 const userStore = useUserStore();
@@ -1033,6 +1037,30 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   top: -0.8em;
   left: -0.8em;
   z-index: 100;
+}
+
+.reveal-shine {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    transparent 30%,
+    rgba(255, 255, 255, 0.8) 50%,
+    transparent 70%,
+    transparent 100%
+  );
+  transform: translateX(-150%) skewX(-25deg);
+  animation: shine-sweep 0.8s ease-in-out forwards;
+  pointer-events: none;
+}
+
+@keyframes shine-sweep {
+  0% { transform: translateX(-150%) skewX(-25deg); opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateX(150%) skewX(-25deg); opacity: 0; }
 }
 </style>
 

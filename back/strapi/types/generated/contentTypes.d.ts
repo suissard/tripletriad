@@ -567,6 +567,7 @@ export interface ApiCollectionCollection extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    boosterImage: Schema.Attribute.Media<'images'>;
     cards: Schema.Attribute.Relation<'oneToMany', 'api::card.card'>;
     code: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -1849,28 +1850,11 @@ export interface PluginUsersPermissionsUser
   attributes: {
     avatar_card: Schema.Attribute.Relation<'oneToOne', 'api::card.card'>;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    coins: Schema.Attribute.Integer &
-      Schema.Attribute.Configurable &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<100>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    dust: Schema.Attribute.Integer &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<0>;
     email: Schema.Attribute.Email &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{

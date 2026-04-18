@@ -110,7 +110,7 @@ import AppButton from '../../components/ui/AppButton.vue';
 import TripleTriadCardGrid from '../../components/TripleTriadCardGrid.vue';
 import { normalizeCard } from '../../game/state.js';
 import strapiService from '@/api/strapi';
-import { ref, onMounted, computed } from 'vue';
+
 
 const tilt = ref({ x: 0, y: 0 });
 const cards = ref([]);

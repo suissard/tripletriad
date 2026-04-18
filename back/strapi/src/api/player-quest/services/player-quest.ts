@@ -66,55 +66,6 @@ export default factories.createCoreService(
       });
     },
 
-    async claimQuestReward(userId: number, questId: number) {
-      const quest = (await strapi.entityService.findOne(
-        "api::player-quest.player-quest",
-        questId,
-        {
-          populate: ["quest_template", "user"] as any,
-        },
-      )) as any;
-
-      if (!quest) {
-        throw new Error("Quest not found");
-      }
-
-      if (quest.user.id !== userId) {
-        throw new Error("Unauthorized");
-      }
-
-      if (quest.status !== "completed") {
-        throw new Error("Quest not completed or already claimed");
-      }
-
-      // Award reward to user
-      const reward = quest.quest_template.reward;
-      const user = (await strapi.entityService.findOne(
-        "plugin::users-permissions.user",
-        userId,
-      )) as any;
-
-      await strapi.entityService.update(
-        "plugin::users-permissions.user",
-        userId,
-        {
-          data: {
-            coins: user.coins + reward,
-          },
-        },
-      );
-
-      // Mark quest as claimed
-      return strapi.entityService.update(
-        "api::player-quest.player-quest",
-        questId,
-        {
-          data: {
-            status: "claimed" as any,
-          },
-        },
-      );
-    },
 
     async assignDailyQuests(userId: number) {
       // This could be run via a cron job or when a user logs in for the first time in a day

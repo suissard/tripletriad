@@ -111,14 +111,6 @@ export default factories.createCoreController(
           data: { dust: newDust },
         });
 
-        // Synchronize back to user for safety/compatibility
-        await strapi.entityService.update(
-          "plugin::users-permissions.user",
-          user.id,
-          {
-            data: { dust: newDust } as any,
-          },
-        );
 
         return ctx.send({
           message: "Disenchanted successfully",
@@ -203,14 +195,6 @@ export default factories.createCoreController(
           data: { dust: newDust },
         });
 
-        // Synchronize back to user for safety
-        await strapi.entityService.update(
-          "plugin::users-permissions.user",
-          user.id,
-          {
-            data: { dust: newDust } as any,
-          },
-        );
 
         const userCards = await strapi.entityService.findMany(
           "api::user-card.user-card",
@@ -349,14 +333,6 @@ export default factories.createCoreController(
           data: { dust: newDust },
         });
 
-        // Synchronize back to user for safety
-        await strapi.entityService.update(
-          "plugin::users-permissions.user",
-          user.id,
-          {
-            data: { dust: newDust } as any,
-          },
-        );
 
         return ctx.send({
           message: "Mass disenchant successful",

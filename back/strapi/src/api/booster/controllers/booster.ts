@@ -8,8 +8,9 @@ export default {
         return ctx.unauthorized("You must be logged in to buy a booster.");
       }
 
-      const { type = "classic", collection = "base" } = ctx.request.body; // 'classic' (coins) or 'premium' (gems)
+      const { type = "classic", collection = "base", quantity = 1 } = ctx.request.body; // 'classic' (coins) or 'premium' (gems)
       const isPremium = type === "premium";
+      const parsedQuantity = Math.max(1, parseInt(quantity, 10) || 1);
 
       // 1. Fetch user with wallet
       const userWithWallet = (await strapi.entityService.findOne(
@@ -23,12 +24,13 @@ export default {
         return ctx.badRequest("Wallet not found.");
       }
 
-      const COST = 100; // Hardcoded for now, can be moved to config later
+      const UNIT_COST = 100; // Hardcoded for now, can be moved to config later
+      const COST = UNIT_COST * parsedQuantity;
       const currency = isPremium ? "gems" : "coins";
 
       if (wallet[currency] < COST) {
         return ctx.badRequest(
-          `Not enough ${currency} to buy a ${type} booster.`,
+          `Not enough ${currency} to buy ${parsedQuantity} ${type} booster(s).`,
         );
       }
 
@@ -39,9 +41,9 @@ export default {
       );
 
       if (boosterIndex !== -1) {
-        currentBoosters[boosterIndex].quantity += 1;
+        currentBoosters[boosterIndex].quantity += parsedQuantity;
       } else {
-        currentBoosters.push({ collection, isPremium, quantity: 1 });
+        currentBoosters.push({ collection, isPremium, quantity: parsedQuantity });
       }
 
       await strapi.entityService.update("api::wallet.wallet", wallet.id, {

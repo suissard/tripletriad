@@ -4,6 +4,7 @@ import CollectionView from '../views/CollectionView.vue'
 import DeckEditorPage from '../views/DeckEditorPage.vue'
 import DecksPage from '../views/DecksPage.vue'
 import PackOpening from '../views/PackOpening.vue'
+import BoutiquePage from '../views/BoutiquePage.vue'
 import MainMenu from '../views/MainMenu.vue'
 import StoryPage from '../views/StoryPage.vue'
 import QuestsPage from '../views/QuestsPage.vue'
@@ -17,11 +18,10 @@ const routes = [
   { path: '/', component: MainMenu },
   { path: '/game', component: GameView },
   { path: '/collection', component: CollectionView },
-  { path: '/wallet/boosters', component: () => import('../views/WalletBoostersPage.vue') },
   { path: '/deck-editor', name: 'deck-editor-new', component: DeckEditorPage },
   { path: '/deck-editor/:documentId', name: 'deck-editor-edit', component: DeckEditorPage, props: true },
   { path: '/decks', component: DecksPage },
-  { path: '/boutique', component: PackOpening },
+  { path: '/boutique', component: BoutiquePage },
   { path: '/story', component: StoryPage },
   { path: '/story/:storyId/steps', name: 'story-steps', component: () => import('../views/StoryStepsPage.vue'), props: true },
   { path: '/story/:storyId/step/:stepIndex', component: StoryStepView },
