@@ -307,13 +307,15 @@ const cardsPerPage = ref(9999);
 const showMassDisenchantModal = ref(false);
 const isDisenchanting = ref(false);
 
-const craftingRatios = {
-  "common": { craft: 50, disenchant: 10 },
-  "uncommon": { craft: 100, disenchant: 20 },
-  "rare": { craft: 400, disenchant: 50 },
-  "epic": { craft: 1600, disenchant: 100 },
-  "legendary": { craft: 3200, disenchant: 400 }
-};
+const craftingRatios = computed(() => {
+  return userStore.gameConfig?.craftingRatios || {
+    "common": { craft: 40, disenchant: 10 },
+    "uncommon": { craft: 80, disenchant: 20 },
+    "rare": { craft: 200, disenchant: 50 },
+    "epic": { craft: 400, disenchant: 100 },
+    "legendary": { craft: 1600, disenchant: 400 }
+  };
+});
 
 function getRarity(card) {
   if (card.rarity) return card.rarity.toLowerCase();
@@ -339,8 +341,8 @@ function getElementEmoji(element) {
   return map[element] || '';
 }
 
-function getCraftCost(card) { return craftingRatios[getRarity(card)].craft; }
-function getDisenchantGain(card) { return craftingRatios[getRarity(card)].disenchant; }
+function getCraftCost(card) { return craftingRatios.value[getRarity(card)].craft; }
+function getDisenchantGain(card) { return craftingRatios.value[getRarity(card)].disenchant; }
 function canCraft(card) { return (userStore.user?.dust || 0) >= getCraftCost(card); }
 
 async function handleCraft(card) {
@@ -368,11 +370,7 @@ const disenchantPreview = computed(() => {
   };
   let totalCards = 0;
   let totalDust = 0;
-  const ratios = {
-    "common": { disenchant: 10 }, "uncommon": { disenchant: 20 },
-    "rare": { disenchant: 50 }, "epic": { disenchant: 100 },
-    "legendary": { disenchant: 400 }
-  };
+  const ratios = craftingRatios.value;
   const playableLimit = 2;
   userStore.collection.forEach(item => {
     if (item.quantity > playableLimit) {

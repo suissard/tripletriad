@@ -53,6 +53,9 @@ onMounted(async () => {
   if (isAlive) {
     try {
       config = await strapiService.getGameConfig();
+      if (config) {
+        userStore.setGameConfig(config);
+      }
     } catch (err) {
       console.error('Failed to load game config, using defaults', err);
     }
@@ -127,6 +130,7 @@ onMounted(async () => {
             // Also try to load config now that we are online
             const retryConfig = await strapiService.getGameConfig();
             if (retryConfig) {
+                 userStore.setGameConfig(retryConfig);
                  // Update CSS variables if config loaded
                  document.documentElement.style.setProperty('--color-primary', retryConfig.colorPrimary || '#FFBF00');
                  document.documentElement.style.setProperty('--color-secondary', retryConfig.colorSecondary || '#0033ff');

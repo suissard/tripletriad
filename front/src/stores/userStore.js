@@ -35,6 +35,7 @@ export const useUserStore = defineStore('user', {
     hasEverConnected: false,
     initializationStatus: 'loading', // 'loading' | 'ready'
     isOfflineStoryMode: false,
+    gameConfig: null,
     error: null
   }),
   getters: {
@@ -773,6 +774,10 @@ export const useUserStore = defineStore('user', {
         this.fetchUserCollection();
         this.fetchUserDecks();
       }
+    },
+
+    setGameConfig(config) {
+      this.gameConfig = config;
     },
 
     async fetchUsers() {

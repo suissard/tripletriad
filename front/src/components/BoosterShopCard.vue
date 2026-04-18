@@ -12,16 +12,15 @@
       </div>
 
       <!-- Booster Visual -->
-      <div class="booster-visual flex-1 flex items-center justify-center mb-4 relative z-10">
-        <div class="relative w-24 h-32 flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
-          <img v-if="collection.boosterImage" :src="collection.boosterImage" class="w-full h-full object-contain filter drop-shadow-2xl" />
-          <div v-else class="text-7xl drop-shadow-2xl">📦</div>
-          
-          <!-- Premium Sparkles if selected -->
-          <div v-if="isPremium" class="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div class="absolute top-0 left-0 animate-pulse text-yellow-400">✨</div>
-            <div class="absolute bottom-0 right-0 animate-pulse text-yellow-400 delay-700">✨</div>
-          </div>
+      <div class="booster-visual flex-1 flex items-center justify-center mb-6 relative z-10">
+        <div class="transition-transform duration-500 group-hover:scale-110">
+          <BoosterCard
+            :name="collection.name"
+            :image="collection.boosterImage"
+            :isPremium="isPremium"
+            :quantity="0"
+            size="lg"
+          />
         </div>
       </div>
 
@@ -91,6 +90,7 @@
 
 <script setup>
 import { ref, computed } from 'vue';
+import BoosterCard from './BoosterCard.vue';
 
 const props = defineProps({
   collection: {

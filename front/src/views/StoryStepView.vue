@@ -237,17 +237,10 @@ onMounted(async () => {
     router.push('/story');
     return;
   }
-  await fetchConfig();
   await loadStepData();
 });
 
-async function fetchConfig() {
-  try {
-    await strapiService.getGameConfig();
-  } catch (err) {
-    console.error('Failed to fetch config details:', err);
-  }
-}
+// fetchConfig removed, handled by userStore
 
 async function loadStepData() {
   isLoading.value = true;

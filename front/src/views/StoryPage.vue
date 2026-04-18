@@ -161,7 +161,7 @@ const userStore = useUserStore();
 
 const stories = ref([]);
 const isLoading = ref(true);
-const unlockPrice = ref(500);
+const unlockPrice = computed(() => userStore.gameConfig?.storyUnlockPrice ?? 500);
 
 const showUnlockModal = ref(false);
 const selectedLockedStory = ref(null);
@@ -177,7 +177,6 @@ onMounted(async () => {
   if (userStore.isOfflineStoryMode) {
     await fetchLocalStories();
   } else {
-    await fetchConfig();
     await fetchStories();
   }
 });
@@ -298,16 +297,7 @@ async function fetchLocalStories() {
   }
 }
 
-async function fetchConfig() {
-  try {
-    const config = await strapiService.getGameConfig();
-    if (config && config.storyUnlockPrice !== undefined) {
-      unlockPrice.value = config.storyUnlockPrice;
-    }
-  } catch (err) {
-    console.error('Failed to fetch config details:', err);
-  }
-}
+// fetchConfig removed, handled by userStore
 
 async function unlockStory(storyId) {
   if (userStore.user.coins < unlockPrice.value) return;

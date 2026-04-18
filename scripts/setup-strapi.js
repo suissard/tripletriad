@@ -321,7 +321,7 @@ async function setupGameConfig(adminJwt) {
             legendary: { disenchant: 400, craft: 1600 }
         },
         boosterCost: 100,
-        boosterHits: 5,
+
         probCommon: 39,
         probUncommon: 30,
         probRare: 20,

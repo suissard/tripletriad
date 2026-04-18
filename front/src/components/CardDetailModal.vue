@@ -167,15 +167,17 @@ const getRarityStr = (level) => {
   if (level <= 8) return 'epic';
   return 'legendary';
 };
-const craftingRatios = {
-  common: { disenchant: 10, craft: 40 },
-  uncommon: { disenchant: 20, craft: 80 },
-  rare: { disenchant: 50, craft: 200 },
-  epic: { disenchant: 100, craft: 400 },
-  legendary: { disenchant: 400, craft: 1600 }
-};
-const craftCost = computed(() => craftingRatios[getRarityStr(cardLevel.value)].craft);
-const disenchantGain = computed(() => craftingRatios[getRarityStr(cardLevel.value)].disenchant);
+const craftingRatios = computed(() => {
+  return userStore.gameConfig?.craftingRatios || {
+    "common": { craft: 40, disenchant: 10 },
+    "uncommon": { craft: 80, disenchant: 20 },
+    "rare": { craft: 200, disenchant: 50 },
+    "epic": { craft: 400, disenchant: 100 },
+    "legendary": { craft: 1600, disenchant: 400 }
+  };
+});
+const craftCost = computed(() => craftingRatios.value[getRarityStr(cardLevel.value)].craft);
+const disenchantGain = computed(() => craftingRatios.value[getRarityStr(cardLevel.value)].disenchant);
 const canCraft = computed(() => (userStore.user?.dust || 0) >= craftCost.value);
 
 async function handleCraft() { if (canCraft.value) await userStore.craftCard(props.card.id); }
