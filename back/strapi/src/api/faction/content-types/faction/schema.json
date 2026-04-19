@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "factions",
+  "info": {
+    "singularName": "faction",
+    "pluralName": "factions",
+    "displayName": "Faction",
+    "description": "Factions of the Terra Nullius universe"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "code": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "lore": {
+      "type": "text"
+    },
+    "style": {
+      "type": "json"
+    },
+    "cards": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::card.card",
+      "mappedBy": "faction"
+    }
+  }
+}

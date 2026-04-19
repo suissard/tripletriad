@@ -24,7 +24,16 @@ export default {
         return ctx.badRequest("Wallet not found.");
       }
 
-      const UNIT_COST = 100; // Hardcoded for now, can be moved to config later
+      // 1b. Fetch game config for costs
+      const gameConfigs = await strapi.entityService.findMany(
+        "api::game-config.game-config",
+        {},
+      );
+      const gameConfig: any = gameConfigs || {};
+      const classicCost = gameConfig.boosterCost ?? 100;
+      const premiumCost = gameConfig.premiumBoosterCost ?? 50;
+
+      const UNIT_COST = isPremium ? premiumCost : classicCost;
       const COST = UNIT_COST * parsedQuantity;
       const currency = isPremium ? "gems" : "coins";
 

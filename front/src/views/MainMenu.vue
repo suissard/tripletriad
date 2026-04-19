@@ -2,16 +2,12 @@
   <div id="main-menu" v-if="state.gameState === 'menu' ">
 
     <div v-if="state.menuView === 'main'" class="menu-buttons">
-      <AppButton v-if="userStore.latestStoryProgress" fullWidth variant="ghost" class="resume-story-btn" @click="resumeStory">
-        ▶️ REPRENDRE L'AVENTURE : {{ (userStore.latestStoryProgress.story?.data || userStore.latestStoryProgress.story)?.title || 'Suite' }}
-      </AppButton>
-      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openStory">MODE HISTOIRE 📖</AppButton>
-      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openQuests" :disabled="!userStore.strapiConnected">QUÊTES JOURNALIÈRES 🎯</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="state.menuView = 'ai'">JOUER CONTRE UNE IA 🤖</AppButton>
-      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="state.menuView = 'multi-deck'" :disabled="!userStore.strapiConnected">PARTIE MULTIJOUEUR 🌍</AppButton>
+      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openBoutique" :disabled="!userStore.strapiConnected">BOUTIQUE 💎</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openCollection">MA COLLECTION 📚</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openDecks">MES DECKS 🎴</AppButton>
-      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openBoutique" :disabled="!userStore.strapiConnected">BOUTIQUE 💎</AppButton>
+      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" disabled>MODE HISTOIRE 📖</AppButton>
+      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" disabled>PARTIE MULTIJOUEUR 🌍</AppButton>
       <!-- <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="router.push('/test-card')" style="margin-top:20px; background:linear-gradient(45deg, #f093fb 0%, #f5576c 100%)">TESTER LA CARTE 🧪</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="router.push('/test-coin')" style="margin-top:10px; background:linear-gradient(45deg, #84fab0 0%, #8fd3f4 100%)">TESTER LA PIÈCE 🪙</AppButton> -->
     </div>
@@ -127,46 +123,7 @@ const onRewardClaimed = ({ quest, reward }) => {
 };
 
 
-async function resumeStory() {
-  const p = userStore.latestStoryProgress;
-  if (!p) return;
 
-  const storyData = p.story?.data || p.story;
-  const storyId = storyData?.documentId || storyData?.id || storyData;
-  
-  const stepData = p.currentStep?.data || p.currentStep;
-  const stepId = stepData?.documentId || stepData?.id || stepData;
-
-  if (!storyId || !stepId) return;
-
-  try {
-    const res = await strapiService.findOne('stories', storyId, {
-      populate: ['steps']
-    });
-
-    if (res.data) {
-      const steps = res.data.steps || [];
-      const stepIdx = steps.findIndex(s => String(s.documentId || s.id) === String(stepId));
-      if (stepIdx !== -1) {
-        router.push(`/story/${storyId}/step/${stepIdx + 1}`);
-      } else {
-        router.push(`/story/${storyId}/steps`);
-      }
-    }
-  } catch (e) {
-    console.error('Failed to resume story:', e);
-    router.push('/story');
-  }
-}
-
-function openStory() {
-  router.push('/story');
-}
-
-function openQuests() {
-
-  router.push('/quests');
-}
 
 function openCollection() {
   router.push('/collection');

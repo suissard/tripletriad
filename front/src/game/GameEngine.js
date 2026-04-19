@@ -103,7 +103,7 @@ export class GameEngine {
     if (!cell || !cell.data) return 0;
 
     let valStr = cell.data.values && cell.data.values[side] !== undefined ? cell.data.values[side] : cell.data[side + 'Value'];
-    let baseVal = valStr === 'A' || valStr === 'a' ? 10 : parseInt(valStr) || 0;
+    let baseVal = valStr === 'A' || valStr === 'a' ? 100 : parseInt(valStr) || 0;
 
     let auraBonus = 0;
     const directions = [
@@ -128,7 +128,7 @@ export class GameEngine {
       }
     }
 
-    return Math.min(10, baseVal + auraBonus); // Cap at 10
+    return baseVal + auraBonus; // No longer capped at 10
   }
 
   static processCaptures(board, x, y, placedCell) {
@@ -358,7 +358,7 @@ export class GameEngine {
               sides.forEach(side => {
                 if (targets.includes('all') || targets.includes(side)) {
                   let valStr = cell.data.values && cell.data.values[side] !== undefined ? cell.data.values[side] : cell.data[side + 'Value'];
-                  let val = valStr === 'A' || valStr === 'a' ? 10 : parseInt(valStr) || 0;
+                  let val = valStr === 'A' || valStr === 'a' ? 100 : parseInt(valStr) || 0;
 
                   if (skill.type === 'growing') {
                     val += skill.value;
@@ -366,11 +366,11 @@ export class GameEngine {
                     val -= skill.value;
                   }
 
-                  // Limites : 0 min, 10 max
-                  val = Math.max(0, Math.min(10, val));
+                  // Limites : 0 min, 100 max (A)
+                  val = Math.max(0, Math.min(100, val));
 
                   // Conversion inverse
-                  valStr = val === 10 ? 'A' : val.toString();
+                  valStr = val === 100 ? 'A' : val.toString();
 
                   if (cell.data.values) {
                     cell.data.values[side] = valStr;
@@ -439,7 +439,7 @@ export class GameEngine {
   static calculateCardLevel(values) {
     const parse = (v) => {
       if (typeof v === 'number') return v;
-      if (v?.toUpperCase() === 'A') return 10;
+      if (v?.toUpperCase() === 'A') return 100;
       return parseInt(v) || 0;
     };
 

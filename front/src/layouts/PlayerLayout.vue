@@ -1,5 +1,5 @@
 <template>
-  <div class="player-layout relative w-full h-full pb-20 md:pb-0">
+  <div class="player-layout relative w-full h-screen overflow-hidden pb-20 md:pb-0">
     <!-- Le contenu de la page (le routeur) viendra ici -->
     <slot />
 

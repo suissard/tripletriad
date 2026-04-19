@@ -9,4 +9,4 @@ export function getRarity(data) {
     return { color: '#b8860b', hex: 0xf1c40f, name: 'Légendaire' };                  // Or
 }
 
-export const displayVal = (v) => v === 10 ? 'A' : v;
+export const displayVal = (v) => (v === 100 || v === '100') ? 'A' : v;

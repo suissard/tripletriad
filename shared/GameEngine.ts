@@ -222,7 +222,7 @@ export class GameEngine {
   public static calculateCardLevel(values: { top: string|number, right: string|number, bottom: string|number, left: string|number }): number {
     const parse = (v: string|number) => {
       if (typeof v === 'number') return v;
-      if (v?.toUpperCase() === 'A') return 10;
+      if (v?.toUpperCase() === 'A') return 100;
       return parseInt(v) || 0;
     };
 

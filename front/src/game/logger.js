@@ -33,8 +33,8 @@ export async function sendGameLog(actionType, emitter, target) {
                 }
             }
 
-            if (card?.faction && card.faction !== 'neutre') {
-                await strapiService.trackEvent('play_card_faction', { relatedElement: card.faction });
+            if (card?.factionCode && card.factionCode !== 'NEUTRAL') {
+                await strapiService.trackEvent('play_card_faction', { relatedElement: card.factionCode });
             }
         } else if (actionType === 'competence' && isLocalPlayer && (target.count > 0 || target.value > 0)) {
             const amount = target.count || target.value || 0;

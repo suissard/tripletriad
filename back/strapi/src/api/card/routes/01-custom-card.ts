@@ -3,7 +3,7 @@ export default {
     {
       method: "GET",
       path: "/cards/filters",
-      handler: "api::card.card.getFilters",
+      handler: "card.getFilters",
       config: {
         auth: false,
         policies: [],

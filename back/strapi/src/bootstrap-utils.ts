@@ -1,5 +1,12 @@
 import { Core } from '@strapi/strapi';
 import permissions from './permissions.json';
+import { generateQuestTemplates } from './api/quest-template/services/quest-template-generator';
+import { bootstrapCollections } from './api/collection/services/collection-bootstrap';
+import { bootstrapFactions } from './api/faction/services/faction-bootstrap';
+import { migrateCardsToFactions } from './api/faction/services/faction-migration';
+import { bootstrapDecks } from './api/deck/services/deck-bootstrap';
+import { bootstrapStories } from './api/story/services/story-bootstrap';
+import { assignQuestsToUser, ensureUserHasWelcomeQuest } from './api/player-quest/services/quest-assignment';
 
 // ---------------------------------------------------------------------------
 // Hierarchical Permission Engine
@@ -188,22 +195,30 @@ export async function runFullBootstrap(strapi: Core.Strapi) {
     console.error('❌ Error cleaning up deprecated quests:', err);
   }
 
-  const { generateQuestTemplates } = require('./api/quest-template/services/quest-template-generator');
   await generateQuestTemplates(strapi);
   console.log('✅ Quest templates generated.');
 
   // 3. Collections
   try {
-    const { bootstrapCollections } = require('./api/collection/services/collection-bootstrap');
     await bootstrapCollections(strapi);
     console.log('✅ Collections bootstrapped.');
   } catch (err) {
     console.error('❌ Error bootstrapping collections:', err);
   }
 
+  // 3.5 Factions
+  try {
+    await bootstrapFactions(strapi);
+    console.log('✅ Factions bootstrapped.');
+
+    await migrateCardsToFactions(strapi);
+    console.log('✅ Card factions migration complete.');
+  } catch (err) {
+    console.error('❌ Error bootstrapping/migrating factions:', err);
+  }
+
   // 4. Decks & Stories
   try {
-    const { bootstrapDecks } = require('./api/deck/services/deck-bootstrap');
     await bootstrapDecks(strapi);
     console.log('✅ Decks bootstrapped.');
   } catch (err) {
@@ -211,7 +226,6 @@ export async function runFullBootstrap(strapi: Core.Strapi) {
   }
 
   try {
-    const { bootstrapStories } = require('./api/story/services/story-bootstrap');
     await bootstrapStories(strapi);
     console.log('✅ Stories bootstrapped.');
   } catch (err) {
@@ -220,7 +234,6 @@ export async function runFullBootstrap(strapi: Core.Strapi) {
 
   // 4. Backfill existing users
   const allUsers = await strapi.entityService.findMany('plugin::users-permissions.user');
-  const { assignQuestsToUser, ensureUserHasWelcomeQuest } = require('./api/player-quest/services/quest-assignment');
   if (allUsers) {
     for (const user of (allUsers as any[])) {
       await ensureUserHasWelcomeQuest(strapi, user.id);

@@ -189,101 +189,15 @@
         </div>
       </div>
     </div>
+       <!-- Pack Opening Overlay (new unified component) -->
+    <PackOpeningOverlay 
+      :is-open="isOpeningOverlayOpen"
+      :collection-code="selectedCollection"
+      :is-premium="selectedPackType === 'premium'"
+      :booster-image="selectedCollectionImage"
+      @close="closeOpening"
+    />
 
-    <!-- The Pack Animation Container -->
-    <div v-if="!packOpened && isOpening"
-         class="relative z-20 flex flex-col items-center justify-center min-h-[50vh] w-full">
-      <div
-        class="pack-container"
-        :class="[
-          selectedPackType === 'premium' ? 'premium-anim' : 'classic-anim',
-          { 'shaking': isShakingPack }
-        ]"
-      >
-        <div class="pack-front relative w-full h-full flex flex-col items-center justify-center">
-          <img v-if="selectedCollectionImage" :src="selectedCollectionImage" class="absolute inset-0 w-full h-full object-cover rounded-[2rem] filter drop-shadow-2xl" :class="selectedPackType === 'premium' ? 'brightness-125 saturate-150' : ''" />
-          <div v-else class="text-[120px] mb-4 filter drop-shadow-2xl z-10">{{ selectedPackType === 'premium' ? '💎' : '📦' }}</div>
-          <div class="relative z-10 text-4xl font-black uppercase italic text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] tracking-widest">{{ selectedPackType === 'premium' ? 'Premium' : 'Classic' }}</div>
-          <div class="relative z-10 mt-12 text-sm uppercase tracking-[0.3em] text-white/50 animate-pulse font-light bg-black/40 px-4 py-1 rounded-full backdrop-blur-sm">
-            Ouverture en cours...
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Cards Display (Fan Layout) -->
-    <div v-if="packOpened" class="relative z-10 w-full h-[500px] flex items-center justify-center overflow-visible select-none">
-      <div class="relative w-full max-w-4xl h-full flex items-center justify-center">
-        <div 
-          v-for="(card, index) in drawnCardsWithState" 
-          :key="'card-'+index"
-          class="absolute transition-all duration-500 ease-out cursor-pointer"
-          :class="[
-            getFanClass(index),
-            { 'premium-reveal-effect': showPremiumEffect[index] }
-          ]"
-          :style="getFanStyle(index)"
-          @click="handleCardClick(index)"
-        >
-          <TripleTriadCard
-            :card="card"
-            size="lg"
-            :faceDown="card.faceDown"
-            :interactive="false"
-            :isNew="card.isNew"
-            :revealShine="showPremiumEffect[index]"
-            class="shadow-2xl"
-          />
-        </div>
-      </div>
-    </div>
-
-    <!-- Actions Footer -->
-    <div v-if="packOpened" class="fixed bottom-12 left-0 right-0 z-[4000] flex justify-center gap-6 animate-fade-in" style="bottom: 48px;">
-      <AppButton
-        v-if="!allCardsRevealed"
-        variant="primary"
-        @click="revealAllCards"
-        class="px-16 py-5 text-2xl font-black uppercase italic tracking-tighter rounded-full shadow-[0_0_50px_rgba(59,130,246,0.5)] hover:scale-110 active:scale-95 transition-all"
-      >
-        TOUT RÉVÉLER
-      </AppButton>
-      <template v-else>
-        <AppButton
-          variant="secondary"
-          @click="reset"
-          class="px-10 py-5 text-xl font-black uppercase italic tracking-tighter rounded-full hover:scale-105 active:scale-95 transition-all"
-        >
-          Retour
-        </AppButton>
-        <AppButton
-          variant="primary"
-          @click="handlePackPurchase(selectedPackType)"
-          class="px-16 py-5 text-2xl font-black uppercase italic tracking-tighter rounded-full shadow-[0_0_50px_rgba(255,255,255,0.4)] hover:scale-110 active:scale-95 transition-all flex items-center gap-3"
-        >
-          <template v-if="(selectedPackType === 'premium' ? boosterCounts[selectedCollection]?.premium : boosterCounts[selectedCollection]?.classic) > 0">
-            Ouvrir un autre
-            <span class="text-xl flex items-center gap-1 opacity-70">
-              ({{ selectedPackType === 'premium' ? boosterCounts[selectedCollection]?.premium : boosterCounts[selectedCollection]?.classic }} dispos)
-            </span>
-          </template>
-          <template v-else>
-            Refaire un tirage
-            <span class="text-xl flex items-center gap-1 opacity-70">
-              (100 {{ selectedPackType === 'premium' ? '💎' : '🪙' }})
-            </span>
-          </template>
-        </AppButton>
-      </template>
-    </div>
-
-    <!-- Error Message -->
-    <Transition name="slide-up">
-      <div v-if="errorMessage" class="fixed bottom-8 left-1/2 -translate-x-1/2 glass-panel border border-red-500/50 text-red-400 px-8 py-4 rounded-2xl shadow-2xl z-[60] flex items-center gap-3">
-        <span class="text-xl">⚠️</span>
-        <span class="font-bold uppercase tracking-wider">{{ errorMessage }}</span>
-      </div>
-    </Transition>
   </div>
 </template>
 
@@ -292,27 +206,16 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 import { ref, computed, onMounted } from 'vue';
-import TripleTriadCard from '../components/TripleTriadCard.vue';
-import { state, normalizeCard } from '../game/state.js';
 import { useUserStore } from '../stores/userStore.js';
-import strapiMock from '../api/strapiMock.js';
-import TripleTriadCardGrid from '../components/TripleTriadCardGrid.vue';
 import AppButton from '../components/ui/AppButton.vue';
-import strapiService from '../api/strapi.js';
+import PackOpeningOverlay from '../components/PackOpeningOverlay.vue';
 import { getStrapiUrl } from '../utils/url.js';
 
 const userStore = useUserStore();
 
-const emit = defineEmits(['close']);
-
 onMounted(async () => {
   userStore.fetchUserCollection();
-  fetchCollections();
-});
-
-const totalBoosters = computed(() => {
-  if (!userStore.user?.boosters) return 0;
-  return userStore.user.boosters.reduce((acc, b) => acc + (b.quantity || 0), 0);
+  userStore.fetchCollections();
 });
 
 const availableCollections = computed(() => userStore.collections);
@@ -340,97 +243,64 @@ const boosterCounts = computed(() => {
   return counts;
 });
 
-const drawnCards = ref([]);
-const isFlipped = ref([]);
-const clickedCards = ref([]); // Tracking up/down animation state
-const showPremiumEffect = ref([]); // Tracking reveal shine for premium cards
-const isShakingPack = ref(false);
-
-const drawnCardsWithState = computed(() => {
-   return drawnCards.value.map((c, i) => ({
-      ...c,
-      faceDown: !isFlipped.value[i]
-   }));
-});
-const isOpening = ref(false);
-const packOpened = ref(false);
+const isOpeningOverlayOpen = ref(false);
 const selectedPackType = ref('classic');
 const selectedCollection = ref('base');
 const errorMessage = ref('');
 const buyingKey = ref(null);
 const confirmingKey = ref(null);
 
-// --- Animation Utils ---
-function createParticles() {
-    const container = document.getElementById('particles-container');
-    if (!container) return;
-    const colors = selectedPackType.value === 'premium' ? ['#3b82f6', '#60a5fa', '#ffffff', '#fbbf24'] : ['#f59e0b', '#fbbf24', '#ffffff', '#78350f'];
-    for (let i = 0; i < 50; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        const size = Math.random() * 8 + 4;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-        particle.style.left = '50%';
-        particle.style.top = '50%';
-        particle.style.position = 'absolute';
-        particle.style.borderRadius = '50%';
-        particle.style.pointerEvents = 'none';
-        
-        const angle = Math.random() * Math.PI * 2;
-        const distance = Math.random() * 400 + 100;
-        const tx = Math.cos(angle) * distance;
-        const ty = Math.sin(angle) * distance;
-        
-        particle.animate([
-            { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
-            { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0)`, opacity: 0 }
-        ], {
-            duration: 800 + Math.random() * 400,
-            easing: 'ease-out',
-            fill: 'forwards'
-        });
-        
-        container.appendChild(particle);
-        setTimeout(() => particle.remove(), 1200);
-    }
-}
-
-const getFanClass = (index) => {
-    return `fan-card-${index}`;
-};
-
-const getFanStyle = (index) => {
-    // If clicked, move to center and zoom
-    if (clickedCards.value[index]) {
-        return {
-            transform: `translate(0px, -140px) scale(1.4) rotate(0deg)`,
-            zIndex: 200,
-            transitionDelay: '0ms',
-            transitionDuration: '400ms'
-        };
-    }
-
-    // Standard fan positions (Desktop)
-    const xOffsets = [-240, -120, 0, 120, 240];
-    const yOffsets = [40, 0, -20, 0, 40];
-    const rotations = [-20, -10, 0, 10, 20];
-    
-    // Staggered entry delay
-    const delay = index * 100;
-    
-    return {
-        transform: `translate(${xOffsets[index]}px, ${yOffsets[index]}px) rotate(${rotations[index]}deg)`,
-        transitionDelay: packOpened.value ? `${delay}ms` : '0ms',
-        zIndex: 10 + index
-    };
-};
-
 const handlePackPurchase = (type, collection = 'base') => {
   selectedPackType.value = type;
   selectedCollection.value = collection;
-  openPack();
+  
+  // Quick check if we need to buy first
+  const isPremium = type === 'premium';
+  const currency = isPremium ? 'gems' : 'coins';
+  const hasBooster = (boosterCounts.value[collection]?.[type] || 0) > 0;
+
+  if (!hasBooster) {
+    if (wallet.value[currency] < 100) {
+      errorMessage.value = `Pas assez de ${currency === 'gems' ? 'gemmes' : 'pièces'} !`;
+      setTimeout(() => errorMessage.value = '', 3000);
+      return;
+    }
+    // If we need to buy, we'll let the overlay handle it if we want, 
+    // but for now let's buy here or just show the overlay and let it error if no booster.
+    // Actually, the overlay only OPENS. So we should buy here if needed.
+    buyAndOpen(type, collection);
+  } else {
+    isOpeningOverlayOpen.value = true;
+  }
+};
+
+const buyAndOpen = async (type, collection) => {
+  const isPremium = type === 'premium';
+  const currency = isPremium ? 'gems' : 'coins';
+  
+  try {
+    const token = localStorage.getItem('tt_jwt');
+    const buyRes = await fetch(getStrapiUrl('/booster/buy'), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ type, collection, quantity: 1 })
+    });
+    
+    if (!buyRes.ok) throw new Error("Erreur d'achat");
+    
+    const buyData = await buyRes.json();
+    userStore.user.coins = buyData.wallet.coins;
+    userStore.user.gems = buyData.wallet.gems;
+    userStore.user.boosters = buyData.wallet.boosters;
+    
+    isOpeningOverlayOpen.value = true;
+  } catch (err) {
+    errorMessage.value = err.message;
+    setTimeout(() => errorMessage.value = '', 3000);
+  }
 };
 
 const buyQuantities = ref({});
@@ -447,14 +317,9 @@ const updateBuyQuantity = (collId, type, delta) => {
 
 const buyOnly = async (type, collection, quantity) => {
   const key = `${collection}-${type}`;
-  
-  // Step 1: Confirmation
   if (confirmingKey.value !== key) {
     confirmingKey.value = key;
-    // Auto-cancel confirmation after 3 seconds
-    setTimeout(() => {
-        if (confirmingKey.value === key) confirmingKey.value = null;
-    }, 3000);
+    setTimeout(() => { if (confirmingKey.value === key) confirmingKey.value = null; }, 3000);
     return;
   }
 
@@ -473,17 +338,6 @@ const buyOnly = async (type, collection, quantity) => {
   confirmingKey.value = null;
   
   try {
-     if (!userStore.strapiConnected) {
-         userStore.user[currency] -= cost;
-         if (!userStore.user.boosters) userStore.user.boosters = [];
-         const existing = userStore.user.boosters.find(b => b.collection === collection && b.isPremium === isPremium);
-         if (existing) existing.quantity += quantity;
-         else userStore.user.boosters.push({ collection, isPremium, quantity });
-         userStore.syncLocalUserWallets();
-         buyingKey.value = null;
-         return;
-     }
-     
      const token = localStorage.getItem('tt_jwt');
      const buyRes = await fetch(getStrapiUrl('/booster/buy'), {
        method: 'POST',
@@ -494,10 +348,7 @@ const buyOnly = async (type, collection, quantity) => {
        body: JSON.stringify({ type, collection, quantity })
      });
      
-     if (!buyRes.ok) {
-       const err = await buyRes.json();
-       throw new Error(err.error?.message || "Erreur d'achat");
-     }
+     if (!buyRes.ok) throw new Error("Erreur d'achat");
      
      const buyData = await buyRes.json();
      userStore.user.coins = buyData.wallet.coins;
@@ -512,207 +363,10 @@ const buyOnly = async (type, collection, quantity) => {
   }
 };
 
-const openPack = async () => {
-  const isPremium = selectedPackType.value === 'premium';
-  const collection = selectedCollection.value;
-  const currency = isPremium ? 'gems' : 'coins';
-  const hasBooster = (boosterCounts.value[collection]?.[selectedPackType.value === 'premium' ? 'premium' : 'classic'] || 0) > 0;
-
-  if (!hasBooster && userStore.strapiConnected && wallet.value[currency] < 100) {
-    errorMessage.value = `Pas assez de ${currency === 'gems' ? 'gemmes' : 'pièces'} !`;
-    setTimeout(() => errorMessage.value = '', 3000);
-    return;
-  }
-
-  if (packOpened.value) {
-    reset();
-  }
-
-  isOpening.value = true;
-  errorMessage.value = '';
-
-    const previousCollection = [...userStore.collection];
-    
-    try {
-      const startTime = Date.now();
-      let data;
-      if (!userStore.strapiConnected) {
-          data = strapiMock.openBooster();
-          const cost = hasBooster ? 0 : 100;
-          data.wallet = { 
-            coins: wallet.value.coins - (selectedPackType.value === 'classic' ? cost : 0), 
-            gems: wallet.value.gems - (selectedPackType.value === 'premium' ? cost : 0), 
-            dust: wallet.value.dust 
-          };
-      } else {
-          const token = localStorage.getItem('tt_jwt');
-          
-          // 1. Buy if needed
-          if (!hasBooster) {
-            const buyRes = await fetch(getStrapiUrl('/booster/buy'), {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-              },
-              body: JSON.stringify({ 
-                type: selectedPackType.value,
-                collection: selectedCollection.value 
-              })
-            });
-            if (!buyRes.ok) {
-              const errorData = await buyRes.json();
-              throw new Error(errorData.error?.message || 'Failed to buy pack');
-            }
-            // Update wallet immediately to show deduction
-            const buyData = await buyRes.json();
-            userStore.user.coins = buyData.wallet.coins;
-            userStore.user.gems = buyData.wallet.gems;
-            userStore.user.boosters = buyData.wallet.boosters;
-          }
-
-          // 2. Open
-          const openRes = await fetch(getStrapiUrl('/booster/open'), {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({ 
-              isPremium: isPremium,
-              collection: selectedCollection.value 
-            })
-          });
-
-          if (!openRes.ok) {
-            const errorData = await openRes.json();
-            throw new Error(errorData.error?.message || 'Failed to open pack');
-          }
-
-          data = await openRes.json();
-      }
-      
-      drawnCards.value = (data.cards || []).map(c => {
-        const isPremiumCard = !!c.isDrawnPremium;
-        const isNew = !previousCollection.some(ec => ec.cardId === c.id && ec.isPremium === isPremiumCard);
-        return {
-          ...normalizeCard(c),
-          drawnRarity: c.drawnRarity,
-          isDrawnPremium: isPremiumCard,
-          isNew: isNew
-        };
-      });
-    if (!drawnCards.value.length) {
-       throw new Error("No cards found in pack");
-    }
-    
-    // Update global wallet, boosters and collection
-    userStore.handleBoosterResults(data);
-
-    if (userStore.strapiConnected) {
-       strapiService.trackEvent('open_booster').catch(e => console.error(e));
-    }
-
-    isFlipped.value = new Array(drawnCards.value.length).fill(false);
-
-    // START ANIMATION SEQUENCE
-    isShakingPack.value = true;
-    
-    const elapsed = Date.now() - startTime;
-    const remainingTime = Math.max(0, 2000 - elapsed); // Reduced to 2s for better flow
-
-    setTimeout(() => {
-        // Flash Effect
-        const flash = document.getElementById('flash');
-        if (flash) {
-            flash.style.opacity = '1';
-            setTimeout(() => flash.style.opacity = '0', 150);
-        }
-        
-        createParticles();
-        isShakingPack.value = false;
-        
-        setTimeout(() => {
-            revealCards();
-        }, 300);
-    }, remainingTime);
-
-  } catch (err) {
-    console.error("Open pack error:", err);
-    errorMessage.value = err.message || "Erreur lors de l'ouverture.";
-    isOpening.value = false;
-    setTimeout(() => errorMessage.value = '', 3000);
-  }
+const closeOpening = () => {
+  isOpeningOverlayOpen.value = false;
 };
 
-const revealCards = () => {
-  isOpening.value = false;
-  packOpened.value = true;
-  clickedCards.value = new Array(drawnCards.value.length).fill(false);
-  showPremiumEffect.value = new Array(drawnCards.value.length).fill(false);
-};
-
-const revealAllCards = async () => {
-  for (let i = 0; i < drawnCards.value.length; i++) {
-    if (!isFlipped.value[i]) {
-      const isPremium = drawnCards.value[i].isDrawnPremium;
-      flipCard(i);
-      if (isPremium) {
-        showPremiumEffect.value[i] = true;
-        setTimeout(() => { showPremiumEffect.value[i] = false; }, 1500);
-      }
-      await new Promise(r => setTimeout(r, 150));
-    }
-  }
-};
-
-const handleCardClick = (index) => {
-    if (isFlipped.value[index]) return; // Already revealed
-    if (clickedCards.value[index]) return; // Already animating
-    
-    const isPremium = drawnCards.value[index].isDrawnPremium;
-
-    // 1. Move up
-    clickedCards.value[index] = true;
-    
-    // 2. Flip halfway through
-    setTimeout(() => {
-        isFlipped.value[index] = true;
-        
-        // 3. Shine effect for premium
-        if (isPremium) {
-            showPremiumEffect.value[index] = true;
-            setTimeout(() => { showPremiumEffect.value[index] = false; }, 1500);
-        }
-
-        // 4. Move back down
-        setTimeout(() => {
-            clickedCards.value[index] = false;
-        }, 600);
-    }, 400);
-};
-
-const flipCard = (index) => {
-  if (!isFlipped.value[index]) {
-    isFlipped.value[index] = true;
-  }
-};
-
-const reset = () => {
-  packOpened.value = false;
-  drawnCards.value = [];
-  isFlipped.value = [];
-  clickedCards.value = [];
-};
-
-const allCardsRevealed = computed(() => {
-  return isFlipped.value.length > 0 && isFlipped.value.every(val => val === true);
-});
-
-const getGlowClass = (rarity) => {
-  const r = rarity?.toLowerCase() || 'common';
-  return `glow-${r}`;
-};
 </script>
 
 <style scoped>
@@ -726,7 +380,6 @@ const getGlowClass = (rarity) => {
   -webkit-backdrop-filter: blur(25px);
 }
 
-/* Booster Cards & Collections */
 .collection-section {
   animation: fade-in 1s forwards cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -739,8 +392,6 @@ const getGlowClass = (rarity) => {
 }
 
 .booster-inner {
-  /* width: 100%;
-  height: 100%; */
   background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 2.5rem;
@@ -784,11 +435,6 @@ const getGlowClass = (rarity) => {
   font-size: 6rem;
   z-index: 1;
   filter: drop-shadow(0 0 30px rgba(255,255,255,0.1));
-  transition: transform 0.6s estate;
-}
-
-.booster-card:hover .booster-icon {
-  transform: scale(1.15) rotate(8deg);
 }
 
 .booster-glow {
@@ -837,171 +483,20 @@ const getGlowClass = (rarity) => {
   box-shadow: none;
 }
 
-/* Pack Opening Area */
-.pack-container {
-  width: 320px;
-  height: 440px;
-  border-radius: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  position: relative;
-  animation: float-pack 4s infinite ease-in-out;
-}
-
-.pack-front {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.classic-anim {
-  background: linear-gradient(135deg, #78350f, #2d0e00);
-  border: 2px solid rgba(245, 158, 11, 0.5);
-  box-shadow: 0 0 100px rgba(245, 158, 11, 0.2);
-}
-
-.premium-anim {
-  background: linear-gradient(135deg, #1e3a8a, #020617);
-  border: 2px solid rgba(59, 130, 246, 0.5);
-  box-shadow: 0 0 100px rgba(59, 130, 246, 0.2);
-}
-
-
-.booster-grid-override {
-  padding: 10px;
-  width: 100%;
-  max-width: 1200px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-}
-
-:deep(.booster-grid-override .tt-card) {
-  border-radius: 1rem;
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
-  /* Use fixed clamp values for card size rather than 100% width,
-     but let it grow up to 280px max */
-  width: clamp(60px, 18vw, 220px) !important;
-  aspect-ratio: 1 / 1 !important;
-  height: auto !important;
-  font-size: clamp(10px, 1.5vw, 24px) !important;
-  cursor: pointer;
-}
-
-:deep(.booster-grid-override .tt-card:hover) {
-  transform: scale(1.2) translateY(-15px);
-  z-index: 100;
-}
-
-/* Ensuring inner wrapper scales properly inside the overridden card */
-:deep(.booster-grid-override .tt-card-inner) {
-  width: 100%;
-  height: 100%;
-}
-
-@media (max-width: 768px) {
-  .text-7xl { font-size: 3.5rem; }
-  .booster-card { width: 260px; height: 390px; }
-  .booster-icon { font-size: 6rem; }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-/* Custom Scrollbar */
-.custom-scrollbar::-webkit-scrollbar {
-  height: 6px;
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-/* Keyframes */
-@keyframes float-pack {
-  0%, 100% { transform: translateY(0) rotate(0); }
-  50% { transform: translateY(-30px) rotate(3deg); }
-}
-
-@keyframes shake {
-    10%, 90% { transform: translate3d(-2px, 2px, 0) scale(1.05); }
-    20%, 80% { transform: translate3d(4px, -2px, 0) scale(1.05); }
-    30%, 50%, 70% { transform: translate3d(-6px, 4px, 0) scale(1.1) rotate(-3deg); }
-    40%, 60% { transform: translate3d(6px, -4px, 0) scale(1.1) rotate(3deg); }
-}
-
-.shaking {
-    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) infinite both;
-}
-
-.particle {
-    position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-}
-
-/* Premium Reveal Effects */
-.premium-reveal-effect {
-    z-index: 300 !important;
-}
-
-.premium-reveal-effect::before {
-    content: '';
-    position: absolute;
-    inset: -10px;
-    background: radial-gradient(circle, rgba(255, 215, 0, 0.6) 0%, transparent 70%);
-    border-radius: 50%;
-    animation: premium-flash-pulse 1s ease-out forwards;
-    z-index: -1;
-}
-
-@keyframes premium-flash-pulse {
-    0% { transform: scale(0.5); opacity: 0; }
-    30% { transform: scale(1.2); opacity: 1; }
-    100% { transform: scale(1.8); opacity: 0; }
-}
-
-@keyframes bounce-in {
-  0% { transform: scale(0); opacity: 0; }
-  60% { transform: scale(1.1); }
-  100% { transform: scale(1); opacity: 1; }
-}
-
 @keyframes fade-in {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in { animation: fade-in 1s forwards cubic-bezier(0.16, 1, 0.3, 1); }
-.animate-cards-entry { animation: fade-in 1s forwards ease-out; }
 
 .slide-up-enter-active, .slide-up-leave-active { transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
 .slide-up-enter-from, .slide-up-leave-to { transform: translate(-50%, 40px); opacity: 0; }
-
-/* Responsive adjustments for fan */
 @media (max-width: 640px) {
-    .relative.z-10.w-full.h-\[500px\] {
-        height: 400px;
-        transform: scale(0.7);
-    }
+  .relative.z-10.w-full.h-\[500px\] {
+    height: 400px;
+    transform: scale(0.7);
+  }
 }
 </style>
+

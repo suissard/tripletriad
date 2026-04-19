@@ -74,6 +74,12 @@
             "default": 100,
             "min": 0
         },
+        "premiumBoosterCost": {
+            "type": "integer",
+            "required": true,
+            "default": 50,
+            "min": 0
+        },
 
         "probCommon": {
             "type": "integer",

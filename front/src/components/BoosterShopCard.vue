@@ -1,6 +1,6 @@
 <template>
-  <div class="booster-shop-card relative aspect-square group">
-    <div class="card-inner absolute inset-0 bg-panel/40 backdrop-blur-xl border-2 border-white/10 rounded-3xl p-6 flex flex-col items-center transition-all duration-300 group-hover:border-primary/50 group-hover:bg-panel/60 shadow-xl overflow-hidden">
+  <div class="booster-shop-card relative group">
+    <div class="card-inner bg-panel/40 backdrop-blur-xl border-2 border-white/10 rounded-3xl p-6 flex flex-col items-center transition-all duration-300 group-hover:border-primary/50 group-hover:bg-panel/60 shadow-xl overflow-hidden min-h-[520px]">
       
       <!-- Background Decorative Element -->
       <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 blur-[60px] rounded-full pointer-events-none group-hover:bg-primary/40 transition-colors"></div>
@@ -40,7 +40,7 @@
             <button 
               class="w-10 h-10 flex items-center justify-center text-white hover:bg-white/10 disabled:opacity-20 transition-colors"
               @click="increment"
-              :disabled="quantity >= 10"
+              :disabled="quantity >= 100"
             >
               <span class="text-xl">+</span>
             </button>
@@ -73,7 +73,7 @@
             : 'bg-primary border-blue-700 text-white hover:bg-blue-500'"
           @click="$emit('buy', { collection: collection.code, quantity, isPremium, totalCost })"
         >
-          <span>Valider</span>
+          <span>ACHETER</span>
           <span class="flex items-center gap-1 bg-black/20 px-3 py-1 rounded-full text-sm">
             {{ totalCost }}
             <span class="text-lg">{{ isPremium ? '💎' : '🪙' }}</span>
@@ -97,9 +97,13 @@ const props = defineProps({
     type: Object,
     required: true
   },
-  baseCost: {
+  classicCost: {
     type: Number,
     default: 100
+  },
+  premiumCost: {
+    type: Number,
+    default: 50
   }
 });
 
@@ -108,10 +112,13 @@ defineEmits(['buy']);
 const quantity = ref(1);
 const isPremium = ref(false);
 
-const totalCost = computed(() => props.baseCost * quantity.value);
+const totalCost = computed(() => {
+  const unit = isPremium.value ? props.premiumCost : props.classicCost;
+  return unit * quantity.value;
+});
 
 const increment = () => {
-  if (quantity.value < 10) quantity.value++;
+  if (quantity.value < 100) quantity.value++;
 };
 
 const decrement = () => {

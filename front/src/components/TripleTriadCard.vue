@@ -302,10 +302,10 @@ const rarityData = computed(() => {
   
   // Real rarity calculation from values
   const values = {
-    top: props.card.top ?? (typeof props.card.topValue === 'string' ? (props.card.topValue.toUpperCase() === 'A' ? 10 : parseInt(props.card.topValue)) : props.card.topValue),
-    right: props.card.right ?? (typeof props.card.rightValue === 'string' ? (props.card.rightValue.toUpperCase() === 'A' ? 10 : parseInt(props.card.rightValue)) : props.card.rightValue),
-    bottom: props.card.bottom ?? (typeof props.card.bottomValue === 'string' ? (props.card.bottomValue.toUpperCase() === 'A' ? 10 : parseInt(props.card.bottomValue)) : props.card.bottomValue),
-    left: props.card.left ?? (typeof props.card.leftValue === 'string' ? (props.card.leftValue.toUpperCase() === 'A' ? 10 : parseInt(props.card.leftValue)) : props.card.leftValue),
+    top: props.card.top ?? (typeof props.card.topValue === 'string' ? (props.card.topValue.toUpperCase() === 'A' ? 100 : parseInt(props.card.topValue)) : props.card.topValue),
+    right: props.card.right ?? (typeof props.card.rightValue === 'string' ? (props.card.rightValue.toUpperCase() === 'A' ? 100 : parseInt(props.card.rightValue)) : props.card.rightValue),
+    bottom: props.card.bottom ?? (typeof props.card.bottomValue === 'string' ? (props.card.bottomValue.toUpperCase() === 'A' ? 100 : parseInt(props.card.bottomValue)) : props.card.bottomValue),
+    left: props.card.left ?? (typeof props.card.leftValue === 'string' ? (props.card.leftValue.toUpperCase() === 'A' ? 100 : parseInt(props.card.leftValue)) : props.card.leftValue),
   };
   
   if (isNaN(values.top) || isNaN(values.right) || isNaN(values.bottom) || isNaN(values.left)) {

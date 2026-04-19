@@ -65,7 +65,9 @@ export function normalizeCard(raw) {
         level: GameEngine.calculateCardLevel(attrs),
         element: attrs.element || 'None',
         elements: Array.isArray(attrs.elements) ? attrs.elements : (attrs.element && attrs.element !== 'None' ? [attrs.element] : []),
-        faction: attrs.faction || 'neutre',
+        faction: (attrs.faction?.data?.attributes?.name || attrs.faction?.name || (typeof attrs.faction === 'string' ? attrs.faction : 'Neutre')),
+        factionCode: (attrs.faction?.data?.attributes?.code || attrs.faction?.code || (attrs.faction === 'neutre' ? 'NEUTRAL' : 'NEUTRAL')), // Default to NEUTRAL for old strings for now, or add a mapping if needed
+        factionStyle: (attrs.faction?.data?.attributes?.style || attrs.faction?.style || {}),
         top,
         right,
         bottom,
@@ -265,7 +267,7 @@ export async function loadCardsFromStrapi() {
 
         do {
             const result = await strapiService.find('cards', {
-                populate: ['image'],
+                populate: ['image', 'faction'],
                 pagination: { page, pageSize: 100 }
             });
             

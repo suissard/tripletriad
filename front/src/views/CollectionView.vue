@@ -27,7 +27,7 @@
                 <span v-if="selectedCard.elements && selectedCard.elements.length">
                   {{ selectedCard.elements.map(e => getElementEmoji(e) + ' ' + e).join(', ') }}
                 </span>
-                <span v-if="selectedCard.faction && selectedCard.faction !== 'neutre'">
+                <span v-if="selectedCard.factionCode && selectedCard.factionCode !== 'NEUTRAL'">
                   Faction: {{ selectedCard.faction }}
                 </span>
                 <span v-if="isOwnedPremium(selectedCard.id)" class="zoom-premium-badge">🌟 PREMIUM</span>
