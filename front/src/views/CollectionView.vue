@@ -356,7 +356,7 @@ async function fetchCards() {
 
       do {
         const queryParams = {
-          populate: ['image', 'collection'],
+          populate: ['image', 'collection', 'faction'],
           pagination: { page, pageSize: STRAPI_MAX_PAGE_SIZE },
         };
         const result = await strapiService.find('cards', queryParams);
@@ -442,14 +442,14 @@ async function fetchCards() {
     totalCardCount.value = filtered.length;
 
     // Fallback: Populate filters from loaded cards if they are empty
-    if (availableFactions.value.length <= 10 && availableCollections.value.length === 0) {
-      const factions = new Set(availableFactions.value);
-      const collections = new Set(availableCollections.value);
+    if (availableFactions.value.length === 0 || availableCollections.value.length === 0) {
+      const factions = new Set();
+      const collections = new Set();
       allCards.value.forEach(card => {
         if (card.faction) factions.add(card.faction);
         if (card.collectionName) collections.add(card.collectionName);
       });
-      if (factions.size > availableFactions.value.length) availableFactions.value = [...factions].sort();
+      if (factions.size > 0) availableFactions.value = [...factions].sort();
       if (collections.size > 0) availableCollections.value = [...collections].sort();
     }
   } catch (e) {
