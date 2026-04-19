@@ -144,8 +144,14 @@
     :quantity="quantity"
     :unowned="unowned"
     :border-width="borderWidth"
+    :show-default-info="showDetailInfo"
     @close="isZoomed = false"
-  />
+  >
+    <template #extra>
+      <slot name="detail-extra" />
+    </template>
+    <slot name="detail" />
+  </CardDetailModal>
 </template>
 
 <script setup>
@@ -190,7 +196,8 @@ const props = defineProps({
   alwaysVisible: { type: Boolean, default: false },
   isNew: { type: Boolean, default: false },
   revealShine: { type: Boolean, default: false },
-  dimOnHover: { type: Boolean, default: true }
+  dimOnHover: { type: Boolean, default: true },
+  showDetailInfo: { type: Boolean, default: true }
 });
 
 const userStore = useUserStore();

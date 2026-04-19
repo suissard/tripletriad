@@ -33,45 +33,51 @@
           </div>
 
           <div class="zoom-card-info" @click.stop>
-            <h2>{{ card.name }}</h2>
-            <div class="zoom-meta">
-              <span>Niveau {{ cardLevel }}</span>
-              <span v-if="cardElementsList.length">Éléments: {{ cardElementsList.join(', ') }}</span>
-              <span v-if="card.faction && card.faction !== 'neutre'">Faction: {{ card.faction }}</span>
-              <span v-if="isPremium" class="zoom-premium-badge">🌟 PREMIUM</span>
-            </div>
-
-            <p v-if="card.description" class="zoom-desc">{{ card.description }}</p>
-
-            <div class="zoom-stats">
-              <div class="zoom-stat-grid">
-                <span>⬆ HAUT: {{ card.topValue }}</span>
-                <span>⬅ GAUCHE: {{ card.leftValue }}</span>
-                <span>➡ DROITE: {{ card.rightValue }}</span>
-                <span>⬇ BAS: {{ card.bottomValue }}</span>
+            <template v-if="showDefaultInfo">
+              <h2>{{ card.name }}</h2>
+              <div class="zoom-meta">
+                <span>Niveau {{ cardLevel }}</span>
+                <span v-if="cardElementsList.length">Éléments: {{ cardElementsList.join(', ') }}</span>
+                <span v-if="card.faction && card.faction !== 'neutre'">Faction: {{ card.faction }}</span>
+                <span v-if="isPremium" class="zoom-premium-badge">🌟 PREMIUM</span>
               </div>
-            </div>
 
-            <div class="zoom-ownership">
-              <div v-if="unowned" class="ownership-status unowned">🔒 Non possédée</div>
-              <div v-else class="ownership-status owned">✅ Possédée ({{ quantity }})</div>
-            </div>
+              <p v-if="card.description" class="zoom-desc">{{ card.description }}</p>
 
-            <!-- Crafting/Disenchanting Buttons -->
-            <div class="zoom-actions">
-              <PurchaseButton 
-                :amount="craftCost" 
-                type="dust" 
-                label="Créer"
-                variant="primary"
-                :action="handleCraft"
-                class="zoom-action-btn craft"
-              />
-              <button class="zoom-action-btn disenchant" v-if="!unowned && quantity > 0" @click.stop="handleDisenchant">
-                <span>Désenchanter</span>
-                <span class="gain">+{{ disenchantGain }} ✨</span>
-              </button>
-            </div>
+              <div class="zoom-stats">
+                <div class="zoom-stat-grid">
+                  <span>⬆ HAUT: {{ card.topValue }}</span>
+                  <span>⬅ GAUCHE: {{ card.leftValue }}</span>
+                  <span>➡ DROITE: {{ card.rightValue }}</span>
+                  <span>⬇ BAS: {{ card.bottomValue }}</span>
+                </div>
+              </div>
+
+              <!-- Extra slot for things like skills -->
+              <slot name="extra" />
+
+              <div class="zoom-ownership">
+                <div v-if="unowned" class="ownership-status unowned">🔒 Non possédée</div>
+                <div v-else class="ownership-status owned">✅ Possédée ({{ quantity }})</div>
+              </div>
+
+              <!-- Crafting/Disenchanting Buttons -->
+              <div class="zoom-actions">
+                <PurchaseButton 
+                  :amount="craftCost" 
+                  type="dust" 
+                  label="Créer"
+                  variant="primary"
+                  :action="handleCraft"
+                  class="zoom-action-btn craft"
+                />
+                <button class="zoom-action-btn disenchant" v-if="!unowned && quantity > 0" @click.stop="handleDisenchant">
+                  <span>Désenchanter</span>
+                  <span class="gain">+{{ disenchantGain }} ✨</span>
+                </button>
+              </div>
+            </template>
+            <slot />
           </div>
           <button class="zoom-close" @click="$emit('close')">✕</button>
         </div>
@@ -96,7 +102,8 @@ const props = defineProps({
   isPremium: Boolean,
   quantity: Number,
   unowned: Boolean,
-  borderWidth: { type: Number, default: 2 }
+  borderWidth: { type: Number, default: 2 },
+  showDefaultInfo: { type: Boolean, default: true }
 });
 
 const emit = defineEmits(['close']);

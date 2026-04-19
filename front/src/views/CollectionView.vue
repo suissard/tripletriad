@@ -8,171 +8,111 @@
   </template>
 
     <div class="page-content">
-      <!-- Detail View Overlay -->
-      <div v-if="selectedCard" class="card-detail-overlay" @click.self="closeCardDetail">
-        <div class="zoom-card-container" @click.stop>
-            <TripleTriadCard 
-              :card="selectedCard" 
-              size="xl" 
-              class="card-size-zoom"
-              :unowned="!isOwned(selectedCard.id)" 
-              :quantity="getOwnedQuantity(selectedCard.id)"
-              :isPremium="isOwnedPremium(selectedCard.id)"
-            />
-            
-            <div class="zoom-card-info">
-              <h2>{{ selectedCard.name }}</h2>
-              <div class="zoom-meta">
-                <span>Niveau {{ GameEngine.calculateCardLevel(selectedCard) }}</span>
-                <span v-if="selectedCard.elements && selectedCard.elements.length">
-                  {{ selectedCard.elements.map(e => getElementEmoji(e) + ' ' + e).join(', ') }}
-                </span>
-                <span v-if="selectedCard.factionCode && selectedCard.factionCode !== 'NEUTRAL'">
-                  Faction: {{ selectedCard.faction }}
-                </span>
-                <span v-if="isOwnedPremium(selectedCard.id)" class="zoom-premium-badge">🌟 PREMIUM</span>
-              </div>
+      <div class="collection-controls-panel">
+        <div class="search-filter-main">
+          <input type="text" v-model="searchQuery" placeholder="Rechercher une carte (nom)..." class="filter-input-large" />
+          <button class="toggle-filters-btn" @click="showFilters = !showFilters" :class="{ active: showFilters }">
+            <span class="icon">{{ showFilters ? '▲' : '▼' }}</span>
+            <span class="text">{{ showFilters ? 'Moins de filtres' : 'Plus de filtres' }}</span>
+          </button>
+        </div>
 
-              <p v-if="selectedCard.description" class="zoom-desc">{{ selectedCard.description }}</p>
+        <transition name="expand-filters">
+          <div v-if="showFilters" class="collapsible-filters-region">
+            <div class="filters-row">
+              <select v-model="filterFaction" class="filter-select">
+                <option value="">Toutes les factions</option>
+                <option v-for="f in availableFactions" :key="f" :value="f">{{ f }}</option>
+              </select>
 
+              <select v-model="filterCollection" class="filter-select">
+                <option value="">Toutes les collections</option>
+                <option v-for="c in availableCollections" :key="c" :value="c">{{ c }}</option>
+              </select>
 
-              <div class="zoom-stats">
-                <div class="zoom-stat-grid">
-                  <span>⬆ {{ selectedCard.topValue }}</span>
-                  <span>⬅ {{ selectedCard.leftValue }}</span>
-                  <span>➡ {{ selectedCard.rightValue }}</span>
-                  <span>⬇ {{ selectedCard.bottomValue }}</span>
-                </div>
-              </div>
+              <select v-model="filterRarity" class="filter-select">
+                <option value="">Toutes les raretés</option>
+                <option v-for="rarity in uniqueRarities" :key="rarity.value" :value="rarity.value">{{ rarity.label }}</option>
+              </select>
 
-              <div class="zoom-skills" v-if="selectedCard.data && selectedCard.data.skills && selectedCard.data.skills.length">
-                <h4 class="zoom-skills-title">Compétences:</h4>
-                <div class="zoom-skill-list">
-                  <div class="zoom-skill-item" v-for="(skill, idx) in selectedCard.data.skills" :key="idx">
-                    <span class="skill-name">{{ skill.type }}</span>
-                    <span class="skill-val" v-if="skill.value">{{ skill.value }}</span>
+              <select v-model="sortBy" class="filter-select sort-select">
+                <option value="name:asc">Nom (A-Z)</option>
+                <option value="name:desc">Nom (Z-A)</option>
+                <option value="rarity:asc">Rareté (Plus rare d'abord)</option>
+                <option value="rarity:desc">Rareté (Moins rare d'abord)</option>
+                <option value="id:asc">Numéro</option>
+              </select>
+            </div>
+
+            <div class="filters-row">
+              <div class="filter-group">
+                <div class="element-filter-row">
+                  <span class="filter-label">Élément :</span>
+                  <div v-for="element in uniqueElements" :key="element"
+                       class="element-btn-icon-wrapper"
+                       :class="{ active: selectedElements.includes(element) }"
+                       @click="toggleElement(element)"
+                       :title="element">
+                    <ElementIcon :element="element" :active="selectedElements.includes(element)" />
                   </div>
                 </div>
               </div>
-
-
-              <div class="zoom-ownership">
-                <div v-if="!isOwned(selectedCard.id)" class="ownership-status unowned">🔒 Non possédée</div>
-                <div v-else class="ownership-status owned">✅ Possédée ({{ getOwnedQuantity(selectedCard.id) }})</div>
-              </div>
-
-              <div class="zoom-actions">
-                <button class="zoom-action-btn craft" @click.stop="handleCraft(selectedCard)" :disabled="!canCraft(selectedCard)">
-                  <span>Créer</span>
-                  <span class="cost">-{{ getCraftCost(selectedCard) }} ✨</span>
-                </button>
-                <button class="zoom-action-btn disenchant" v-if="isOwned(selectedCard.id) && getOwnedQuantity(selectedCard.id) > 0" @click.stop="handleDisenchant(selectedCard)">
-                  <span>Désenchanter</span>
-                  <span class="gain">+{{ getDisenchantGain(selectedCard) }} ✨</span>
-                </button>
-              </div>
             </div>
 
-            <button class="zoom-close" @click="closeCardDetail">✕</button>
+            <div class="filters-row">
+              <div class="toggle-group">
+                <span class="filter-label">Possession :</span>
+                <div class="btn-toggle-row">
+                  <button @click="filterOwnership = ''" :class="{ active: filterOwnership === '' }">Toutes</button>
+                  <button @click="filterOwnership = 'owned'" :class="{ active: filterOwnership === 'owned' }">Possédées</button>
+                  <button @click="filterOwnership = 'unowned'" :class="{ active: filterOwnership === 'unowned' }">Non-possédées</button>
+                </div>
+              </div>
+
+              <div class="toggle-group">
+                <span class="filter-label">Qualité :</span>
+                <div class="btn-toggle-row">
+                  <button @click="filterPremium = ''" :class="{ active: filterPremium === '' }">Toutes</button>
+                  <button @click="filterPremium = 'premium'" :class="{ active: filterPremium === 'premium' }">Premium</button>
+                  <button @click="filterPremium = 'regular'" :class="{ active: filterPremium === 'regular' }">Normales</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </transition>
+      </div>
+
+      <div class="collection-stats-bar">
+        <div class="results-info">
+          Résultats : <strong>{{ totalCardCount }}</strong> cartes
+        </div>
+        
+        <div class="bar-actions">
+          <button class="mass-disenchant-btn" @click="handleMassDisenchant">✨ Désenchantement de Masse</button>
         </div>
       </div>
 
-      <!-- Main Collection View -->
-      <div v-else class="collection-view">
-         <div class="collection-controls-panel">
-           <div class="search-filter-main">
-             <input type="text" v-model="searchQuery" placeholder="Rechercher une carte (nom)..." class="filter-input-large" />
-             <button class="toggle-filters-btn" @click="showFilters = !showFilters" :class="{ active: showFilters }">
-               <span class="icon">{{ showFilters ? '▲' : '▼' }}</span>
-               <span class="text">{{ showFilters ? 'Moins de filtres' : 'Plus de filtres' }}</span>
-             </button>
-           </div>
-
-           <transition name="expand-filters">
-             <div v-if="showFilters" class="collapsible-filters-region">
-               <div class="filters-row">
-                 <select v-model="filterFaction" class="filter-select">
-                   <option value="">Toutes les factions</option>
-                   <option v-for="f in availableFactions" :key="f" :value="f">{{ f }}</option>
-                 </select>
-
-                 <select v-model="filterCollection" class="filter-select">
-                   <option value="">Toutes les collections</option>
-                   <option v-for="c in availableCollections" :key="c" :value="c">{{ c }}</option>
-                 </select>
-
-                 <select v-model="filterRarity" class="filter-select">
-                   <option value="">Toutes les raretés</option>
-                   <option v-for="rarity in uniqueRarities" :key="rarity.value" :value="rarity.value">{{ rarity.label }}</option>
-                 </select>
-
-                 <select v-model="sortBy" class="filter-select sort-select">
-                   <option value="name:asc">Nom (A-Z)</option>
-                   <option value="name:desc">Nom (Z-A)</option>
-                   <option value="rarity:asc">Rareté (Plus rare d'abord)</option>
-                   <option value="rarity:desc">Rareté (Moins rare d'abord)</option>
-                   <option value="id:asc">Numéro</option>
-                 </select>
-               </div>
-
-               <div class="filters-row">
-                 <div class="filter-group">
-                   <div class="element-filter-row">
-                     <span class="filter-label">Élément :</span>
-                     <div v-for="element in uniqueElements" :key="element"
-                          class="element-btn-icon-wrapper"
-                          :class="{ active: selectedElements.includes(element) }"
-                          @click="toggleElement(element)"
-                          :title="element">
-                       <ElementIcon :element="element" :active="selectedElements.includes(element)" />
-                     </div>
-                   </div>
-                 </div>
-               </div>
-
-               <div class="filters-row">
-                 <div class="toggle-group">
-                   <span class="filter-label">Possession :</span>
-                   <div class="btn-toggle-row">
-                     <button @click="filterOwnership = ''" :class="{ active: filterOwnership === '' }">Toutes</button>
-                     <button @click="filterOwnership = 'owned'" :class="{ active: filterOwnership === 'owned' }">Possédées</button>
-                     <button @click="filterOwnership = 'unowned'" :class="{ active: filterOwnership === 'unowned' }">Non-possédées</button>
-                   </div>
-                 </div>
-
-                 <div class="toggle-group">
-                   <span class="filter-label">Qualité :</span>
-                   <div class="btn-toggle-row">
-                     <button @click="filterPremium = ''" :class="{ active: filterPremium === '' }">Toutes</button>
-                     <button @click="filterPremium = 'premium'" :class="{ active: filterPremium === 'premium' }">Premium</button>
-                     <button @click="filterPremium = 'regular'" :class="{ active: filterPremium === 'regular' }">Normales</button>
-                   </div>
-                 </div>
-               </div>
-             </div>
-           </transition>
-         </div>
-
-
-          <div class="collection-stats-bar">
-            <div class="results-info">
-              Résultats : <strong>{{ totalCardCount }}</strong> cartes
-            </div>
-            
-            <div class="bar-actions">
-              <button class="mass-disenchant-btn" @click="handleMassDisenchant">✨ Désenchantement de Masse</button>
+      <TripleTriadCardGrid
+        v-if="!isLoadingCards"
+        :cards="displayCards.map(c => ({...c, quantity: getOwnedQuantity(c.id), isPremium: isOwnedPremium(c.id)}))"
+        cardSize="md"
+        :showOwnNum="true"
+        :disableZoom="false"
+      >
+        <template #card-detail-extra="{ card }">
+          <div class="zoom-skills" v-if="card.data && card.data.skills && card.data.skills.length">
+            <h4 class="zoom-skills-title">Compétences:</h4>
+            <div class="zoom-skill-list">
+              <div class="zoom-skill-item" v-for="(skill, idx) in card.data.skills" :key="idx">
+                <span class="skill-name">{{ skill.type }}</span>
+                <span class="skill-val" v-if="skill.value">{{ skill.value }}</span>
+              </div>
             </div>
           </div>
+        </template>
+      </TripleTriadCardGrid>
 
-          <div v-if="isLoadingCards" class="loading-indicator">Chargement des cartes...</div>
-
-          <TripleTriadCardGrid
-       :cards="displayCards.map(c => ({...c, quantity: getOwnedQuantity(c.id), isPremium: isOwnedPremium(c.id)}))"
-       cardSize="md"
-       :showOwnNum="true"
-       @long-left-click="c => openCardDetail(c)"
-     />
-      </div>
+      <div v-else class="loading-indicator">Chargement des cartes...</div>
 
       <!-- Mass Disenchant Modal -->
       <div v-if="showMassDisenchantModal" class="card-detail-overlay mass-disenchant-modal-overlay" @click.self="showMassDisenchantModal = false">
@@ -293,7 +233,6 @@ const filterRarity = ref('');
 const filterFaction = ref('');
 const filterCollection = ref('');
 const sortBy = ref('name:asc');
-const selectedCard = ref(null);
 const showFilters = ref(false); // Collapsed by default
 
 const allCards = ref([]);
@@ -330,26 +269,6 @@ function getRarity(card) {
   if (level <= 6) return 'rare';
   if (level <= 8) return 'epic';
   return 'legendary';
-}
-
-function getElementEmoji(element) {
-  const map = { 
-    'eau': '💧', 'radiation': '☢️', 'reseau': '🌐', 'spore': '🍄', 
-    'furtif': '🥷', 'longue_portee': '🎯', 'faille_dimensionnelle': '🌀', 
-    'hacking': '💻', 'obsidienne': '💎' 
-  };
-  return map[element] || '';
-}
-
-function getCraftCost(card) { return craftingRatios.value[getRarity(card)].craft; }
-function getDisenchantGain(card) { return craftingRatios.value[getRarity(card)].disenchant; }
-function canCraft(card) { return (userStore.user?.dust || 0) >= getCraftCost(card); }
-
-async function handleCraft(card) {
-  if (canCraft(card)) await userStore.craftCard(card.id);
-}
-async function handleDisenchant(card) {
-  if (getOwnedQuantity(card.id) > 0) await userStore.disenchantCard(card.id);
 }
 
 function handleMassDisenchant() { showMassDisenchantModal.value = true; }
@@ -406,12 +325,6 @@ const toggleElement = (el) => {
   else selectedElements.value.push(el);
 };
 
-// ===== Ownership helpers =====
-function isOwned(cardId) {
-  if (!userStore.strapiConnected) return true;
-  return userStore.collection.some(c => c.cardId === cardId);
-}
-
 function getOwnedQuantity(cardId) {
   if (!userStore.strapiConnected) return 99;
   const owned = userStore.collection.find(c => c.cardId === cardId);
@@ -421,9 +334,6 @@ function getOwnedQuantity(cardId) {
 function isOwnedPremium(cardId) {
   return userStore.collection.some(c => c.cardId === cardId && c.isPremium);
 }
-
-function openCardDetail(card) { selectedCard.value = card; }
-function closeCardDetail() { selectedCard.value = null; }
 
 // ===== Server-side fetching =====
 async function fetchCards() {
