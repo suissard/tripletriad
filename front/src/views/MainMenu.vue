@@ -3,7 +3,17 @@
 
     <div v-if="state.menuView === 'main'" class="menu-buttons">
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="state.menuView = 'ai'">JOUER CONTRE UNE IA 🤖</AppButton>
-      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openBoutique" :disabled="!userStore.strapiConnected">BOUTIQUE 💎</AppButton>
+      <div class="relative w-full">
+        <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openBoutique" :disabled="!userStore.strapiConnected">BOUTIQUE 💎</AppButton>
+        <AppBadge 
+          v-if="userStore.totalBoostersCount > 0" 
+          :content="userStore.totalBoostersCount" 
+          variant="danger" 
+          size="sm" 
+          pulsate
+          class="absolute -top-2 -right-2 z-50 shadow-xl"
+        />
+      </div>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openCollection">MA COLLECTION 📚</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openDecks">MES DECKS 🎴</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" disabled>MODE HISTOIRE 📖</AppButton>

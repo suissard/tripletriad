@@ -71,6 +71,10 @@ export const useUserStore = defineStore('user', {
       const claimed = state.weeklyProgress.claimedTiers || [];
       const tiers = state.weeklyConfig.tiers || [];
       return tiers.filter(t => completed >= t.requiredCount && !claimed.includes(t.requiredCount));
+    },
+    totalBoostersCount: (state) => {
+      if (!state.user || !state.user.boosters) return 0;
+      return state.user.boosters.reduce((total, b) => total + (b.quantity || 0), 0);
     }
   },
   actions: {
