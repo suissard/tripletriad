@@ -145,6 +145,7 @@
     :unowned="unowned"
     :border-width="borderWidth"
     :show-default-info="showDetailInfo"
+    :show-crafting-actions="showCraftingActions"
     @close="isZoomed = false"
   >
     <template #extra>
@@ -197,7 +198,8 @@ const props = defineProps({
   isNew: { type: Boolean, default: false },
   revealShine: { type: Boolean, default: false },
   dimOnHover: { type: Boolean, default: true },
-  showDetailInfo: { type: Boolean, default: true }
+  showDetailInfo: { type: Boolean, default: true },
+  showCraftingActions: { type: Boolean, default: true }
 });
 
 const userStore = useUserStore();

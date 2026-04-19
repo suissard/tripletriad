@@ -14,6 +14,7 @@
         :isPremium="card.isPremium"
         :isNew="card.isNew"
         :showDetailInfo="showDetailInfo"
+        :showCraftingActions="showCraftingActions"
         @left-click="handleCardAction('left-click', card, index)"
         @right-click="handleCardAction('right-click', card, index)"
         @long-left-click="handleCardAction('long-left-click', card)"
@@ -53,7 +54,8 @@ const props = defineProps({
   cardSize: { type: String, default: null }, // Explicit size override
   horizontal: { type: Boolean, default: false }, // New horizontal layout 
   disableZoom: { type: Boolean, default: true },
-  showDetailInfo: { type: Boolean, default: true }
+  showDetailInfo: { type: Boolean, default: true },
+  showCraftingActions: { type: Boolean, default: true }
 });
 
 const emit = defineEmits([

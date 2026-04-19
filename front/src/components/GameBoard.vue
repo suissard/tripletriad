@@ -48,6 +48,7 @@
               :dimOnHover="false"
               :owner="cell.owner"
               :isPremium="cell.data.isPremium"
+              :showCraftingActions="false"
             />
           </div>
         </Transition>

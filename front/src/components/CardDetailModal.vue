@@ -3,15 +3,28 @@
     <Transition name="zoom-fade">
       <div v-if="show" class="zoom-overlay" @click="$emit('close')">
         <div class="zoom-card-container">
-          <div class="tt-card-zoom-wrapper" :class="[rarityClass, { 'is-premium': isPremium }]" :style="cardZoomStyle" @click="$emit('close')">
+          <div 
+            ref="cardRef"
+            class="tt-card-zoom-wrapper" 
+            :class="[rarityClass, { 'is-premium': isPremium }]" 
+            :style="cardZoomStyle" 
+            @click.stop="$emit('close')"
+            @mousemove="handleMove"
+            @mouseleave="handleLeave"
+            @touchstart="handleMove"
+            @touchmove="handleMove"
+            @touchend="handleLeave"
+          >
             <div class="zoom-card-inner">
               <template v-if="isPremium">
-                <div class="glare" :style="{ background: 'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 60%)' }"></div>
+                <div class="glare" :style="glareStyle"></div>
                 <HoloOverlay
                   :seed="premiumSeed"
                   :always-visible="true"
                   :supertype="card.supertype"
                   :subtypes="card.subtypes"
+                  :tiltX="tilt.x"
+                  :tiltY="tilt.y"
                 />
               </template>
 
@@ -36,22 +49,12 @@
             <template v-if="showDefaultInfo">
               <h2>{{ card.name }}</h2>
               <div class="zoom-meta">
-                <span>Niveau {{ cardLevel }}</span>
-                <span v-if="cardElementsList.length">Éléments: {{ cardElementsList.join(', ') }}</span>
-                <span v-if="card.faction && card.faction !== 'neutre'">Faction: {{ card.faction }}</span>
+                <span v-if="factionDisplay" class="faction-info">Faction: {{ factionDisplay }}</span>
+                <span :style="{ color: rarityColor }" class="zoom-rarity-badge">{{ rarityLabel }}</span>
                 <span v-if="isPremium" class="zoom-premium-badge">🌟 PREMIUM</span>
               </div>
 
               <p v-if="card.description" class="zoom-desc">{{ card.description }}</p>
-
-              <div class="zoom-stats">
-                <div class="zoom-stat-grid">
-                  <span>⬆ HAUT: {{ card.topValue }}</span>
-                  <span>⬅ GAUCHE: {{ card.leftValue }}</span>
-                  <span>➡ DROITE: {{ card.rightValue }}</span>
-                  <span>⬇ BAS: {{ card.bottomValue }}</span>
-                </div>
-              </div>
 
               <!-- Extra slot for things like skills -->
               <slot name="extra" />
@@ -62,7 +65,7 @@
               </div>
 
               <!-- Crafting/Disenchanting Buttons -->
-              <div class="zoom-actions">
+              <div v-if="showCraftingActions" class="zoom-actions">
                 <PurchaseButton 
                   :amount="craftCost" 
                   type="dust" 
@@ -87,7 +90,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import ElementIcon from "./ElementIcon.vue";
 import HoloOverlay from "./HoloOverlay.vue";
 import { useUserStore } from '../stores/userStore.js';
@@ -103,12 +106,34 @@ const props = defineProps({
   quantity: Number,
   unowned: Boolean,
   borderWidth: { type: Number, default: 2 },
-  showDefaultInfo: { type: Boolean, default: true }
+  showDefaultInfo: { type: Boolean, default: true },
+  showCraftingActions: { type: Boolean, default: true }
 });
 
 const emit = defineEmits(['close']);
 
 const ZOOM_SIZE = 350;
+
+const cardRef = ref(null);
+const tilt = ref({ x: 0, y: 0 });
+const mousePos = ref({ x: 50, y: 50 });
+
+function handleMove(e) {
+  const el = cardRef.value;
+  if (!el) return;
+  const rect = el.getBoundingClientRect();
+  const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+  const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+  const x = clientX - rect.left, y = clientY - rect.top;
+  const xPct = (x / rect.width) * 100, yPct = (y / rect.height) * 100;
+  mousePos.value = { x: xPct, y: yPct };
+  tilt.value = { x: ((y / rect.height) - 0.5) * -30, y: ((x / rect.width) - 0.5) * 30 };
+}
+
+function handleLeave() {
+  tilt.value = { x: 0, y: 0 };
+  mousePos.value = { x: 50, y: 50 };
+}
 
 const cardLevel = computed(() => {
   if (props.card.level) return props.card.level;
@@ -149,10 +174,38 @@ const rarityColor = computed(() => {
   return '#a0a0a0';
 });
 
+const rarityLabel = computed(() => {
+  const r = props.card.rarity || getRarityStr(cardLevel.value);
+  const map = {
+    'Common': 'Commune',
+    'Uncommon': 'Peu Commune',
+    'Rare': 'Rare',
+    'Epic': 'Épique',
+    'Legendary': 'Légendaire',
+    'common': 'Commune',
+    'uncommon': 'Peu Commune',
+    'rare': 'Rare',
+    'epic': 'Épique',
+    'legendary': 'Légendaire'
+  };
+  return map[r] || r;
+});
+
+const factionDisplay = computed(() => {
+  if (!props.card.faction) return null;
+  // Handle Strapi 5 object relation or flat string
+  const faction = props.card.faction;
+  const name = typeof faction === 'object' ? faction.name : faction;
+  if (!name || name.toLowerCase() === 'neutre' || name.toLowerCase() === 'neutral') return null;
+  return name;
+});
+
 const cardZoomStyle = computed(() => {
   const scale = ZOOM_SIZE / 150;
   return {
-    '--card-border-width': `${props.borderWidth * scale}px`
+    '--card-border-width': `${props.borderWidth * scale}px`,
+    transform: `rotateX(${tilt.value.x}deg) rotateY(${tilt.value.y}deg)`,
+    transition: (tilt.value.x === 0 && tilt.value.y === 0) ? 'transform 0.5s ease-out' : 'transform 0.1s ease-out'
   };
 });
 
@@ -203,6 +256,14 @@ const premiumSeed = computed(() => {
   const userPart = userStore.user?.id || 'anon';
   return hashCode(`${cardPart}-${userPart}`);
 });
+
+const glareStyle = computed(() => {
+  return {
+    background: `radial-gradient(circle at ${mousePos.value.x}% ${mousePos.value.y}%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 60%)`,
+    opacity: tilt.value.x === 0 && tilt.value.y === 0 ? 0 : 1,
+    transition: tilt.value.x === 0 && tilt.value.y === 0 ? 'opacity 0.5s ease-out' : 'opacity 0.1s ease-out'
+  };
+});
 </script>
 
 <style scoped>
@@ -225,6 +286,7 @@ const premiumSeed = computed(() => {
   cursor: default;
   position: relative;
   max-width: 90vw;
+  perspective: 1200px;
 }
 
 .zoom-card-info {
@@ -263,9 +325,13 @@ const premiumSeed = computed(() => {
   flex-wrap: wrap;
 }
 
+.zoom-premium-badge, .zoom-rarity-badge {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
 .zoom-premium-badge {
   color: #ffce00;
-  font-weight: bold;
   text-shadow: 0 0 8px rgba(255, 206, 0, 0.6);
 }
 
@@ -303,6 +369,8 @@ const premiumSeed = computed(() => {
   font-size: 24px; 
   aspect-ratio: 1 / 1; 
   position: relative; 
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .zoom-card-inner {

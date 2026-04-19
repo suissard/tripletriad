@@ -21,6 +21,7 @@
           :dimOnHover="false"
           :cardBack="state.editingDeck?.cardBack || 'default'"
           :isPremium="card.isPremium"
+          :showCraftingActions="false"
         />
 
       </div>
@@ -60,6 +61,7 @@
           :dimOnHover="false"
           :cardBack="state.editingDeck?.cardBack || 'default'"
           :isPremium="getDraggingCard()?.isPremium"
+          :showCraftingActions="false"
         />
       </div>
     </Teleport>
