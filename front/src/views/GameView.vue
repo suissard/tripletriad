@@ -107,7 +107,9 @@ import CoinToss from '../components/CoinToss.vue';
 import { useRouter, useRoute } from 'vue-router';
 import { cardLibrary, getCardById, normalizeCard, initAIMatch, shuffle } from '../game/state.js';
 import { getStrapiMediaUrl } from '../utils/url.js';
+import { useUserStore } from '../stores/userStore.js';
 
+const userStore = useUserStore();
 const router = useRouter();
 const route = useRoute();
 
@@ -150,7 +152,7 @@ function onCoinTossFinished() {
     if (state.isStoryMatch && state.storyEnemyDeckConfig && state.storyEnemyDeckConfig.length > 0) {
         aiDeck.push(...state.storyEnemyDeckConfig.map(normalizeCard));
     } else {
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < (userStore.gameConfig?.cardsPerDeck || 15); i++) {
             const randomCard = cardLibrary[Math.floor(Math.random() * cardLibrary.length)];
             aiDeck.push(normalizeCard(randomCard));
         }
@@ -158,13 +160,12 @@ function onCoinTossFinished() {
     
     // Setup decks
     state.aiDeck = shuffle(aiDeck);
-    // Deep clone the deck cards to prevent carrying over mutations (like isPlacing=true) from previous matches
+    
+    // Normalize and deep clone the deck cards
     const pDeck = (state.playerDeckSelection || []).map(card => {
         const normalized = normalizeCard(card);
         return { 
-            ...normalized, 
-            ...card, 
-            imageUrl: normalized.imageUrl, 
+            ...normalized,
             isPlacing: false, 
             revealed: true, 
             impactDirection: null 
@@ -239,7 +240,7 @@ onMounted(async () => {
             if (deckId) {
                 console.log(`[GameView] Fetching AI deck: ${deckId}`);
                 try {
-                    const res = await strapiService.request('GET', `/decks/${deckId}?populate=cards`);
+                    const res = await strapiService.request('GET', `/decks/${deckId}?populate=cards.image,cards.faction`);
                     const deckData = res.data || res;
                     const deck = deckData.attributes || deckData;
                     const cards = deck.cards?.data || deck.cards || [];
@@ -292,7 +293,7 @@ onMounted(async () => {
         if (!state.playerDeckSelection || state.playerDeckSelection.length === 0) {
             console.log(`[GameView] Fetching Story match data: Story=${storyId}, Step=${stepId}`);
             try {
-                const res = await strapiService.request('GET', `/stories/${storyId}?populate=steps.playerDeck.cards,steps.enemyDeck.cards`);
+                const res = await strapiService.request('GET', `/stories/${storyId}?populate=steps.playerDeck.cards.image,steps.playerDeck.cards.faction,steps.enemyDeck.cards.image,steps.enemyDeck.cards.faction`);
                 const storyData = res.data || res;
                 const story = storyData.attributes || storyData;
                 const steps = story.steps?.data || story.steps || [];
@@ -307,7 +308,7 @@ onMounted(async () => {
                         let eCards = eDeckObj?.cards?.data || eDeckObj?.cards || [];
                         
                         if (pCards.length === 0) {
-                            for (let i = 0; i < 15; i++) {
+                            for (let i = 0; i < (userStore.gameConfig?.cardsPerDeck || 15); i++) {
                                 pCards.push(cardLibrary[Math.floor(Math.random() * cardLibrary.length)]);
                             }
                         }

@@ -59,8 +59,8 @@
           v-for="coll in availableCollections" 
           :key="coll.code"
           :collection="coll"
-          :classicCost="boosterCost"
-          :premiumCost="premiumBoosterCost"
+          :defaultClassicCost="defaultBoosterCost"
+          :defaultPremiumCost="defaultPremiumBoosterCost"
           @buy="handlePurchaseIntent"
         />
       </div>
@@ -68,16 +68,6 @@
 
     <!-- Global Confirmation Modal -->
     <ConfirmationModal />
-
-    <!-- Pack Opening Overlay (new unified component) -->
-    <PackOpeningOverlay 
-      :is-open="isOpeningOverlayOpen"
-      :collection-code="openingCollectionCode"
-      :is-premium="openingBoosterType === 'premium'"
-      :booster-image="openingBoosterImage"
-      @close="closeOpening"
-      @complete="onOpeningComplete"
-    />
 
   </div>
 </template>
@@ -92,7 +82,6 @@ import AppButton from '../components/ui/AppButton.vue';
 import BoosterInventoryFan from '../components/BoosterInventoryFan.vue';
 import BoosterShopCard from '../components/BoosterShopCard.vue';
 import ConfirmationModal from '../components/ConfirmationModal.vue';
-import PackOpeningOverlay from '../components/PackOpeningOverlay.vue';
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -106,25 +95,26 @@ const loadingAction = ref(false);
 
 const userCoins = computed(() => userStore.user?.coins || 0);
 const userGems = computed(() => userStore.user?.gems || 0);
-const boosterCost = ref(100);
-const premiumBoosterCost = ref(50);
+const defaultBoosterCost = ref(100);
+const defaultPremiumBoosterCost = ref(50);
 
 // --- État Inventaire ---
 const boosters = computed(() => {
   return userStore.user?.boosters || [];
 });
 
-const availableCollections = computed(() => userStore.collections);
+const availableCollections = computed(() => {
+  return [...userStore.collections].sort((a, b) => {
+    // Active ones first
+    if (a.isActive && !b.isActive) return -1;
+    if (!a.isActive && b.isActive) return 1;
+    // Then by code
+    return a.code.localeCompare(b.code);
+  });
+});
 
 // --- État Ouverture ---
-const isOpeningOverlayOpen = ref(false);
-const openingBoosterType = ref('classic');
-const openingCollectionCode = ref('base');
-
-const openingBoosterImage = computed(() => {
-  const coll = availableCollections.value.find(c => c.code === openingCollectionCode.value);
-  return coll?.boosterImage || null;
-});
+// Les états d'ouverture sont maintenant gérés par la page dédiée /open-pack
 
 // --- Lifecycle ---
 onMounted(async () => {
@@ -132,8 +122,8 @@ onMounted(async () => {
       const res = await strapiService.request('GET', '/game-config');
       const config = res.data?.attributes || res.data?.data?.attributes || res.data || res;
       if (config) {
-          boosterCost.value = config.boosterCost || 100;
-          premiumBoosterCost.value = config.premiumBoosterCost || 50;
+          defaultBoosterCost.value = config.defaultBoosterCost || 100;
+          defaultPremiumBoosterCost.value = config.defaultPremiumBoosterCost || 50;
       }
   } catch(e) {
       console.log("Using default booster cost");
@@ -173,7 +163,7 @@ const buyBoosters = async (collectionCode, quantity, isPremium) => {
   try {
     if (!userStore.strapiConnected) {
         // Mode offline (mock)
-        const unit = isPremium ? premiumBoosterCost.value : boosterCost.value;
+        const unit = isPremium ? defaultPremiumBoosterCost.value : defaultBoosterCost.value;
         const total = unit * quantity;
         if (userStore.user[currency] < total) {
           error.value = "Fonds insuffisants.";
@@ -214,17 +204,14 @@ const buyBoosters = async (collectionCode, quantity, isPremium) => {
 
 // --- Logique d'Ouverture ---
 const handleOpenRequest = (booster) => {
-  openingBoosterType.value = booster.isPremium ? 'premium' : 'classic';
-  openingCollectionCode.value = booster.collection;
-  isOpeningOverlayOpen.value = true;
-};
-
-const closeOpening = () => {
-  isOpeningOverlayOpen.value = false;
-};
-
-const onOpeningComplete = (data) => {
-  console.log("Booster opened successfully:", data);
+  const type = booster.isPremium ? 'premium' : 'classic';
+  router.push({ 
+    name: 'pack-opening', 
+    params: { 
+      collection: booster.collection, 
+      type: type 
+    } 
+  });
 };
 
 </script>

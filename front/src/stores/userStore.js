@@ -295,7 +295,6 @@ export const useUserStore = defineStore('user', {
       if (this.collectionsLoaded && !force) return;
       try {
         const result = await strapiService.find('collections', {
-          filters: { isActive: true },
           populate: ['boosterImage'],
           sort: ['code:asc']
         });
@@ -304,7 +303,11 @@ export const useUserStore = defineStore('user', {
           id: item.id,
           code: item.code,
           name: item.name,
-          boosterImage: item.boosterImage?.url ? getStrapiMediaUrl(item.boosterImage.url) : null
+          boosterImage: item.boosterImage?.url ? getStrapiMediaUrl(item.boosterImage.url) : null,
+          boosterCostMultiplier: item.boosterCostMultiplier ?? 1.0,
+          premiumBoosterCostMultiplier: item.premiumBoosterCostMultiplier ?? 1.0,
+          isActive: item.isActive ?? true,
+          startDate: item.startDate || null
         }));
         this.collectionsLoaded = true;
       } catch (e) {

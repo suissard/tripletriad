@@ -54,6 +54,8 @@
             ]"
             :style="getFanStyle(index)"
             @click="handleCardClick(index)"
+            @mouseenter="hoveredCardIndex = index"
+            @mouseleave="hoveredCardIndex = null"
           >
             <TripleTriadCard
               :card="card"
@@ -62,6 +64,7 @@
               :interactive="false"
               :isNew="card.isNew"
               :revealShine="showPremiumEffect[index]"
+              :dimOnHover="false"
               class="shadow-2xl"
             />
           </div>
@@ -114,7 +117,7 @@
 <script setup>
 import { ref, computed, watch, nextTick } from 'vue';
 import { useUserStore } from '../stores/userStore';
-import { normalizeCard } from '../game/state.js';
+import { normalizeCard } from '../utils/cardUtils.js';
 import { getStrapiUrl } from '../utils/url.js';
 import TripleTriadCard from './TripleTriadCard.vue';
 import AppButton from './ui/AppButton.vue';
@@ -136,9 +139,11 @@ const isShaking = ref(false);
 const error = ref(null);
 const drawnCards = ref([]);
 const isFlipped = ref([]);
-const clickedCards = ref([]);
 const showPremiumEffect = ref([]);
 const loadingText = ref('Préparation...');
+const hoveredCardIndex = ref(null);
+const focusedCardIndex = ref(null);
+const entranceFinished = ref(false);
 
 const cardsWithState = computed(() => {
   return drawnCards.value.map((c, i) => ({
@@ -165,9 +170,11 @@ const resetLocalState = () => {
   error.value = null;
   drawnCards.value = [];
   isFlipped.value = [];
-  clickedCards.value = [];
   showPremiumEffect.value = [];
   loadingText.value = 'Préparation...';
+  hoveredCardIndex.value = null;
+  focusedCardIndex.value = null;
+  entranceFinished.value = false;
 };
 
 const handleClose = () => {
@@ -231,7 +238,6 @@ const startOpening = async () => {
     emit('complete', data);
 
     isFlipped.value = new Array(drawnCards.value.length).fill(false);
-    clickedCards.value = new Array(drawnCards.value.length).fill(false);
     showPremiumEffect.value = new Array(drawnCards.value.length).fill(false);
 
     // 4. Animation Sequence
@@ -243,6 +249,10 @@ const startOpening = async () => {
       setTimeout(() => {
         isShaking.value = false;
         status.value = 'revealing';
+        // Mark entrance as finished after animations
+        setTimeout(() => {
+          entranceFinished.value = true;
+        }, 1000);
       }, 300);
     }, remainingTime);
 
@@ -304,46 +314,60 @@ const createParticles = () => {
 const getFanClass = (index) => `fan-card-${index}`;
 
 const getFanStyle = (index) => {
-  if (clickedCards.value[index]) {
-    return {
-      transform: `translate(0px, -120px) scale(1.3) rotate(0deg)`,
-      zIndex: 5300,
-      transitionDuration: '400ms'
-    };
-  }
+  const isFocused = focusedCardIndex.value === index;
+  const isHovered = hoveredCardIndex.value === index;
+  const isRevealed = isFlipped.value[index];
 
   // Desktop offsets for 5 cards
   const xOffsets = [-240, -120, 0, 120, 240];
   const yOffsets = [40, 10, 0, 10, 40];
   const rotations = [-20, -10, 0, 10, 20];
+
+  if (isFocused) {
+    return {
+      transform: `translate(0px, -120px) scale(1.3) rotate(0deg)`,
+      zIndex: 5500,
+      transitionDuration: '400ms'
+    };
+  }
+
+  if (isHovered && isRevealed) {
+    return {
+      transform: `translate(${xOffsets[index] || 0}px, ${(yOffsets[index] || 0) - 60}px) scale(1.15) rotate(0deg)`,
+      zIndex: 5400,
+      transitionDuration: '250ms'
+    };
+  }
   
   const delay = index * 100;
   
   return {
     transform: `translate(${xOffsets[index] || 0}px, ${yOffsets[index] || 0}px) rotate(${rotations[index] || 0}deg)`,
-    transitionDelay: status.value === 'revealing' ? `${delay}ms` : '0ms',
+    transitionDelay: (!entranceFinished.value && status.value === 'revealing') ? `${delay}ms` : '0ms',
     zIndex: 5100 + index
   };
 };
 
 const handleCardClick = (index) => {
-  if (isFlipped.value[index] || clickedCards.value[index]) return;
-  
-  const isPremiumCard = drawnCards.value[index].isDrawnPremium;
-
-  clickedCards.value[index] = true;
-  
-  setTimeout(() => {
+  // If not revealed, reveal it (identical to automatic mode, no movement)
+  if (!isFlipped.value[index]) {
     isFlipped.value[index] = true;
+    focusedCardIndex.value = null; // Clear focus when revealing new cards
+    
+    const isPremiumCard = drawnCards.value[index].isDrawnPremium;
     if (isPremiumCard) {
       showPremiumEffect.value[index] = true;
       setTimeout(() => { showPremiumEffect.value[index] = false; }, 1500);
     }
-
-    setTimeout(() => {
-      clickedCards.value[index] = false;
-    }, 600);
-  }, 400);
+    return;
+  }
+  
+  // If already revealed, handle focus/zoom
+  if (focusedCardIndex.value === index) {
+    focusedCardIndex.value = null;
+  } else {
+    focusedCardIndex.value = index;
+  }
 };
 
 const revealAllCards = async () => {

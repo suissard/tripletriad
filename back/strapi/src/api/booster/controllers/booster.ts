@@ -30,16 +30,31 @@ export default {
         {},
       );
       const gameConfig: any = gameConfigs || {};
-      const classicCost = gameConfig.boosterCost ?? 100;
-      const premiumCost = gameConfig.premiumBoosterCost ?? 50;
+      const classicBaseCost = gameConfig.defaultBoosterCost ?? 100;
+      const premiumBaseCost = gameConfig.defaultPremiumBoosterCost ?? 50;
 
-      const UNIT_COST = isPremium ? premiumCost : classicCost;
+      // 1c. Fetch collection for multiplier and active status
+      const collections = await strapi.entityService.findMany(
+        "api::collection.collection",
+        { filters: { code: collection } }
+      );
+      const targetCollection = collections?.[0] as any;
+      
+      if (!targetCollection || targetCollection.isActive === false) {
+        return ctx.badRequest("This collection is not currently active for purchase.");
+      }
+
+      const multiplier = isPremium 
+        ? (targetCollection?.premiumBoosterCostMultiplier ?? 1.0)
+        : (targetCollection?.boosterCostMultiplier ?? 1.0);
+
+      const UNIT_COST = Math.floor((isPremium ? premiumBaseCost : classicBaseCost) * multiplier);
       const COST = UNIT_COST * parsedQuantity;
       const currency = isPremium ? "gems" : "coins";
 
       if (wallet[currency] < COST) {
         return ctx.badRequest(
-          `Not enough ${currency} to buy ${parsedQuantity} ${type} booster(s).`,
+          `Not enough ${currency} to buy ${parsedQuantity} ${type} booster(s). Final cost: ${COST} ${currency}.`,
         );
       }
 
@@ -87,6 +102,20 @@ export default {
       }
 
       const { collection = "base", isPremium = false } = ctx.request.body;
+
+      // 1. Fetch collection to check startDate
+      const collections = await strapi.entityService.findMany("api::collection.collection", {
+        filters: { code: collection }
+      });
+      const targetCollection = collections?.[0] as any;
+
+      if (targetCollection?.startDate) {
+        const openingDate = new Date(targetCollection.startDate);
+        const now = new Date();
+        if (now < openingDate) {
+          return ctx.badRequest(`Cette collection ne peut être ouverte qu'à partir du ${openingDate.toLocaleString()}.`);
+        }
+      }
 
       // 1. Fetch user with wallet
       const userWithWallet = (await strapi.entityService.findOne(

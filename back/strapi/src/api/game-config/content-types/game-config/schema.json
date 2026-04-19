@@ -68,13 +68,13 @@
                 }
             }
         },
-        "boosterCost": {
+        "defaultBoosterCost": {
             "type": "integer",
             "required": true,
             "default": 100,
             "min": 0
         },
-        "premiumBoosterCost": {
+        "defaultPremiumBoosterCost": {
             "type": "integer",
             "required": true,
             "default": 50,

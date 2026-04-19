@@ -189,7 +189,7 @@ const router = useRouter();
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
 
 import PageLayout from '../components/PageLayout.vue';
-import { state, cardLibrary, getCardById, normalizeCard } from '../game/state.js';
+import { state, cardLibrary, getCardById } from '../game/state.js';
 import { ELEMENTS } from '../data/factions.js';
 import TripleTriadCard from '../components/TripleTriadCard.vue';
 import TripleTriadCardGrid from '../components/TripleTriadCardGrid.vue';
@@ -197,6 +197,8 @@ import ElementIcon from '../components/ElementIcon.vue';
 import { useUserStore } from '../stores/userStore.js';
 import { GameEngine } from '../../../shared/GameEngine.ts';
 import strapiService from '../api/strapi.js';
+import { normalizeCard } from '../utils/cardUtils.js';
+import { getRarity as getCardRarity } from '../game/constants.js';
 
 const userStore = useUserStore();
 
@@ -257,18 +259,16 @@ const craftingRatios = computed(() => {
 });
 
 function getRarity(card) {
-  if (card.rarity) return card.rarity.toLowerCase();
-  const level = GameEngine.calculateCardLevel({
-    top: card.topValue,
-    right: card.rightValue,
-    bottom: card.bottomValue,
-    left: card.leftValue
-  });
-  if (level <= 2) return 'common';
-  if (level <= 4) return 'uncommon';
-  if (level <= 6) return 'rare';
-  if (level <= 8) return 'epic';
-  return 'legendary';
+  const norm = normalizeCard(card);
+  const r = getCardRarity(norm);
+  const rarityMapping = {
+    'Commun': 'common',
+    'Peu Commun': 'uncommon',
+    'Rare': 'rare',
+    'Épique': 'epic',
+    'Légendaire': 'legendary'
+  };
+  return rarityMapping[r.name] || 'common';
 }
 
 function handleMassDisenchant() { showMassDisenchantModal.value = true; }

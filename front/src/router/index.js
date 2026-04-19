@@ -22,6 +22,7 @@ const routes = [
   { path: '/deck-editor/:documentId', name: 'deck-editor-edit', component: DeckEditorPage, props: true },
   { path: '/decks', component: DecksPage },
   { path: '/boutique', component: BoutiquePage },
+  { path: '/open-pack/:collection/:type', name: 'pack-opening', component: PackOpening, props: true },
   { path: '/story', component: StoryPage },
   { path: '/story/:storyId/steps', name: 'story-steps', component: () => import('../views/StoryStepsPage.vue'), props: true },
   { path: '/story/:storyId/step/:stepIndex', component: StoryStepView },

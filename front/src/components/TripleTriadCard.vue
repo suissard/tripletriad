@@ -48,17 +48,17 @@
           :tiltX="tiltX !== null ? tiltX : tilt.x"
           :tiltY="tiltY !== null ? tiltY : tilt.y"
           :always-visible="alwaysVisible"
-          :supertype="card.supertype"
-          :subtypes="card.subtypes"
+          :supertype="displayCard.supertype"
+          :subtypes="displayCard.subtypes"
         />
 
         <!-- CARD CONTENT (Unified layout) -->
-        <template v-if="card.revealed !== false || $attrs.forceFace">
+        <template v-if="displayCard.revealed !== false || $attrs.forceFace">
           <!-- Card image -->
-          <img :src="card.imageUrl" class="card-img" :alt="card.name" />
+          <img :src="displayCard.imageUrl" class="card-img" :alt="displayCard.name" />
 
           <!-- HP Bar (Moved to top) -->
-          <HpBar v-if="card.hp !== undefined" :hp="card.hp" :default-hp="card.defaultHp || 3" :owner="owner" />
+          <HpBar v-if="displayCard.hp !== undefined" :hp="displayCard.hp" :default-hp="displayCard.defaultHp || 3" :owner="owner" />
 
           <!-- Element badges (Top-Left) -->
           <div class="card-elements" v-if="cardElementsList.length">
@@ -70,13 +70,13 @@
 
           <!-- Stats & Name (Edge-aligned) -->
           <div class="card-stats-cross">
-            <div class="stat stat-top">{{ card.topValue }}</div>
-            <div class="stat stat-left">{{ card.leftValue }}</div>
-            <div class="stat stat-right">{{ card.rightValue }}</div>
-            <div class="stat stat-bottom">{{ card.bottomValue }}</div>
+            <div class="stat stat-top">{{ displayCard.topValue }}</div>
+            <div class="stat stat-left">{{ displayCard.leftValue }}</div>
+            <div class="stat stat-right">{{ displayCard.rightValue }}</div>
+            <div class="stat stat-bottom">{{ displayCard.bottomValue }}</div>
             
             <!-- Name (Floating above bottom stat) -->
-            <div class="card-name-bar" :style="{'--rarity-color': actualRarityColor}">{{ card.name }}</div>
+            <div class="card-name-bar" :style="{'--rarity-color': actualRarityColor}">{{ displayCard.name }}</div>
           </div>
 
           <!-- Selected check -->
@@ -87,7 +87,7 @@
         </template>
 
         <!-- Broken Glass Impact Effect for Captures -->
-        <BrokenGlassOverlay v-if="card.impactDirection" :direction="card.impactDirection" />
+        <BrokenGlassOverlay v-if="displayCard.impactDirection" :direction="displayCard.impactDirection" />
         
         <!-- Reveal Shine Effect -->
         <div v-if="revealShine" class="reveal-shine"></div>
@@ -111,6 +111,7 @@
 
     </div>
     
+
 
 
     <!-- Quantity badge (unified) -->
@@ -139,7 +140,7 @@
   <!-- Card Detail Modal -->
   <CardDetailModal
     :show="isZoomed"
-    :card="card"
+    :card="displayCard"
     :is-premium="isPremiumCard"
     :quantity="quantity"
     :unowned="unowned"
@@ -166,8 +167,8 @@ import AppBadge from "./ui/AppBadge.vue";
 import HpBar from './game/HpBar.vue';
 import { useUserStore } from '../stores/userStore.js';
 import { useEffectStore } from '../stores/effectStore.js';
-import { GameEngine } from '../../../shared/GameEngine.ts';
 import { getRarity } from '../game/constants.js';
+import { normalizeCard } from '../utils/cardUtils.js';
 
 const props = defineProps({
   card: { type: Object, required: true },
@@ -204,11 +205,15 @@ const props = defineProps({
 
 const userStore = useUserStore();
 const effectStore = useEffectStore();
+
+// Internal normalization to handle raw Strapi data or pre-normalized data
+const displayCard = computed(() => normalizeCard(props.card));
+
 const customFoilEffect = computed(() => {
   if (props.overrideEffect) return props.overrideEffect;
-  if (props.card?.overrideEffect) return props.card.overrideEffect;
-  if (!props.card) return null;
-  const id = props.card.documentId || props.card.id;
+  if (displayCard.value?.overrideEffect) return displayCard.value.overrideEffect;
+  if (!displayCard.value) return null;
+  const id = displayCard.value.documentId || displayCard.value.id;
   if (!id) return null;
   return useEffectStore().getEffectForCard(id);
 });
@@ -241,12 +246,12 @@ function startLongPress(e) {
   longPressTimer.value = setTimeout(() => {
     longPressTriggered.value = true;
     if (longPressButton.value === 0) {
-      emit('long-left-click', props.card);
+      emit('long-left-click', displayCard.value);
       if (!props.disableZoom) {
         isZoomed.value = true;
       }
     } else if (longPressButton.value === 2) {
-      emit('long-right-click', props.card);
+      emit('long-right-click', displayCard.value);
     }
   }, 500);
 }
@@ -278,7 +283,7 @@ function handleRightClick(e) {
     longPressTriggered.value = false;
     return;
   }
-  emit('right-click', props.card);
+  emit('right-click', displayCard.value);
 }
 
 function handleClick() {
@@ -287,40 +292,40 @@ function handleClick() {
     longPressTriggered.value = false;
     return;
   }
-  emit('left-click', props.card);
-  emit('click', props.card);
+  emit('left-click', displayCard.value);
+  emit('click', displayCard.value);
 }
 
 // --- Computed ---
 const isPremiumCard = computed(() => {
-  if (props.card.revealed === false) return false;
-  return props.isPremium || props.card.isDrawnPremium || !!customFoilEffect.value;
+  if (displayCard.value.revealed === false) return false;
+  return props.isPremium || displayCard.value.isDrawnPremium || !!customFoilEffect.value;
 });
 
 const cardLevel = computed(() => {
-  if (props.card.level) return props.card.level; // Fallback if still present in some data
+  if (displayCard.value.level) return displayCard.value.level; // Fallback if still present in some data
   return GameEngine.calculateCardLevel({
-    top: props.card.topValue,
-    right: props.card.rightValue,
-    bottom: props.card.bottomValue,
-    left: props.card.leftValue
+    topValue: displayCard.value.topValue,
+    rightValue: displayCard.value.rightValue,
+    bottomValue: displayCard.value.bottomValue,
+    leftValue: displayCard.value.leftValue
   });
 });
 
 const rarityData = computed(() => {
-  if (props.card.revealed === false) return { name: 'common', color: '#a0a0a0' };
+  if (displayCard.value.revealed === false) return { name: 'common', color: '#a0a0a0' };
   
   // Real rarity calculation from values
   const values = {
-    top: props.card.top ?? (typeof props.card.topValue === 'string' ? (props.card.topValue.toUpperCase() === 'A' ? 100 : parseInt(props.card.topValue)) : props.card.topValue),
-    right: props.card.right ?? (typeof props.card.rightValue === 'string' ? (props.card.rightValue.toUpperCase() === 'A' ? 100 : parseInt(props.card.rightValue)) : props.card.rightValue),
-    bottom: props.card.bottom ?? (typeof props.card.bottomValue === 'string' ? (props.card.bottomValue.toUpperCase() === 'A' ? 100 : parseInt(props.card.bottomValue)) : props.card.bottomValue),
-    left: props.card.left ?? (typeof props.card.leftValue === 'string' ? (props.card.leftValue.toUpperCase() === 'A' ? 100 : parseInt(props.card.leftValue)) : props.card.leftValue),
+    top: displayCard.value.top,
+    right: displayCard.value.right,
+    bottom: displayCard.value.bottom,
+    left: displayCard.value.left,
   };
   
   if (isNaN(values.top) || isNaN(values.right) || isNaN(values.bottom) || isNaN(values.left)) {
      // Fallback if values are missing
-     if (props.card.rarity) return { name: props.card.rarity.toLowerCase(), color: null };
+     if (displayCard.value.rarity) return { name: displayCard.value.rarity.toLowerCase(), color: null };
      return { name: 'common', color: '#a0a0a0' };
   }
 
@@ -343,10 +348,10 @@ const rarityClass = computed(() => {
 });
 
 const actualRarityColor = computed(() => {
-  if (props.card.revealed === false) return '#a0a0a0';
+  if (displayCard.value.revealed === false) return '#a0a0a0';
   if (rarityData.value.color) return rarityData.value.color;
   
-  const rarityToCheck = props.card.drawnRarity || props.card.rarity;
+  const rarityToCheck = displayCard.value.drawnRarity || displayCard.value.rarity;
   if (rarityToCheck) {
     const map = {
       'common': '#a0a0a0',
@@ -397,9 +402,9 @@ const cardStyle = computed(() => {
 
 
 const cardElementsList = computed(() => {
-  if (!props.card) return [];
-  const elements = props.card.elements;
-  const element = props.card.element;
+  if (!displayCard.value) return [];
+  const elements = displayCard.value.elements;
+  const element = displayCard.value.element;
   
   let result = [];
   if (Array.isArray(elements)) {
@@ -413,8 +418,8 @@ const cardElementsList = computed(() => {
   return [...new Set(result)].filter(e => e && e !== 'None');
 });
 
-async function handleCraft() { if (canCraft.value) await userStore.craftCard(props.card.id); }
-async function handleDisenchant() { if (props.quantity > 0) await userStore.disenchantCard(props.card.id); }
+async function handleCraft() { if (canCraft.value) await userStore.craftCard(displayCard.value.id); }
+async function handleDisenchant() { if (props.quantity > 0) await userStore.disenchantCard(displayCard.value.id); }
 
 // --- 3D TILT ---
 const containerRef = ref(null);
@@ -469,7 +474,7 @@ function hashCode(str) {
 }
 
 const premiumSeed = computed(() => {
-  const cardPart = props.card.id || props.card.name || '0';
+  const cardPart = displayCard.value.id || displayCard.value.name || '0';
   const userPart = userStore.user?.id || 'anon';
   return hashCode(`${cardPart}-${userPart}`);
 });
@@ -506,7 +511,7 @@ function handleLeave() {
 
 // --- Capture Impact Animation ---
 const isShaking = ref(false);
-watch(() => props.card?.impactDirection, (newVal) => {
+watch(() => displayCard.value?.impactDirection, (newVal) => {
   if (newVal) {
     isShaking.value = true;
     setTimeout(() => { isShaking.value = false; }, 300);
@@ -515,7 +520,7 @@ watch(() => props.card?.impactDirection, (newVal) => {
 
 // --- Capture Flip Animation ---
 watch(() => props.borderColor, (newVal, oldVal) => {
-  if (oldVal && newVal !== oldVal && !props.card?.impactDirection) {
+  if (oldVal && newVal !== oldVal && !displayCard.value?.impactDirection) {
     isFlipping.value = true;
     isShaking.value = true; // Add shake on capture
     setTimeout(() => {

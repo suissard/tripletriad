@@ -3,11 +3,11 @@
         <div class="page-header">
             <AppButton variant="secondary"  class="glass-panel" @click="closeDecksPage">← RETOUR</AppButton>
             <h2 class="page-title">MES DECKS</h2>
-            <div class="header-stats">{{ userStore.userDecks.length }} / 5 Decks</div>
+            <div class="header-stats">{{ userStore.userDecks.length }} / {{ userStore.gameConfig?.maxDecksPerUser || 5 }} Decks</div>
         </div>
 
         <div class="page-content">
-            <AppButton variant="secondary"  class="glass-panel w-full py-4 mb-8 text-lg flex items-center justify-center gap-4" @click="openNewDeck" :disabled="userStore.userDecks.length >= 5">
+            <AppButton variant="secondary"  class="glass-panel w-full py-4 mb-8 text-lg flex items-center justify-center gap-4" @click="openNewDeck" :disabled="userStore.userDecks.length >= (userStore.gameConfig?.maxDecksPerUser || 5)">
                 <span class="new-deck-icon">+</span>
                 <span>Créer un Nouveau Deck</span>
             </AppButton>

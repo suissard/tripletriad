@@ -4,10 +4,10 @@
       <button class="btn btn-secondary glass-panel" @click="closeDeckEditor">← RETOUR</button>
       <h2 class="page-title">{{ isNew ? 'NOUVEAU DECK' : 'ÉDITER LE DECK' }}</h2>
       <div class="header-actions">
-        <span class="deck-counter" :class="{ full: state.editingDeck.cards.length === 15 || (isAdminMode && state.editingDeck.cards.length > 0) }">
-          {{ state.editingDeck.cards.length }} {{ isAdminMode ? '' : '/ 15' }}
+        <span class="deck-counter" :class="{ full: state.editingDeck.cards.length === (userStore.gameConfig?.cardsPerDeck || 15) || (isAdminMode && state.editingDeck.cards.length > 0) }">
+          {{ state.editingDeck.cards.length }} {{ isAdminMode ? '' : '/ ' + (userStore.gameConfig?.cardsPerDeck || 15) }}
         </span>
-        <button class="btn btn-primary glass-panel" :disabled="!isAdminMode && state.editingDeck.cards.length !== 15" @click="saveDeck">
+        <button class="btn btn-primary glass-panel" :disabled="!isAdminMode && state.editingDeck.cards.length !== (userStore.gameConfig?.cardsPerDeck || 15)" @click="saveDeck">
           💾 Enregistrer
         </button>
       </div>
@@ -67,7 +67,7 @@
             @click="removeCard(cardId)">
             <TripleTriadCard v-if="getCardById(cardId)" :card="getCardById(cardId)" size="100%" :height="80" compact flat :cardBack="state.editingDeck.cardBack" />
           </div>
-          <div v-for="i in Math.max(0, 15 - state.editingDeck.cards.length)" :key="'empty-' + i"
+          <div v-for="i in Math.max(0, (userStore.gameConfig?.cardsPerDeck || 15) - state.editingDeck.cards.length)" :key="'empty-' + i"
             class="deck-card-slot empty">
             <span>—</span>
           </div>
@@ -291,7 +291,7 @@ function toggleCard(cardId) {
 
   if (idx > -1) {
     state.editingDeck.cards.splice(idx, 1);
-  } else if (state.editingDeck.cards.length < 15) {
+  } else if (state.editingDeck.cards.length < (userStore.gameConfig?.cardsPerDeck || 15)) {
     state.editingDeck.cards.push(cardId);
   }
 }
@@ -309,7 +309,7 @@ function setCover(cardId) {
 }
 
 async function saveDeck() {
-  if (!isAdminMode.value && state.editingDeck.cards.length !== 15) return;
+  if (!isAdminMode.value && state.editingDeck.cards.length !== (userStore.gameConfig?.cardsPerDeck || 15)) return;
   
   // If admin, we should make sure the deck is saved correctly
   const success = await userStore.saveDeck({ ...state.editingDeck }, selectedOwnerId.value);
@@ -339,7 +339,7 @@ function importDeckCode() {
   try {
     const decoded = atob(importCode.value);
     const ids = decoded.split(',').map(id => parseInt(id, 10)).filter(id => !isNaN(id));
-    const valid = ids.filter(id => isOwned(id) && cardLibrary.find(c => c.id === id)).slice(0, 15);
+    const valid = ids.filter(id => isOwned(id) && cardLibrary.find(c => c.id === id)).slice(0, (userStore.gameConfig?.cardsPerDeck || 15));
     state.editingDeck.cards = valid;
     importCode.value = '';
     showFeedback(`${valid.length} cartes importées.`, valid.length === ids.length ? 'success' : 'info');

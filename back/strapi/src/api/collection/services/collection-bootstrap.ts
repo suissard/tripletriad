@@ -20,6 +20,8 @@ export async function bootstrapCollections(strapi: Core.Strapi) {
           name: name.charAt(0).toUpperCase() + name.slice(1),
           code: name,
           isActive: true,
+          boosterCostMultiplier: 1.0,
+          premiumBoosterCostMultiplier: 1.0,
         },
       });
       console.log(`✅ Collection "${name}" created.`);

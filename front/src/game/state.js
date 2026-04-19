@@ -7,93 +7,13 @@ import { gameEvents } from './events.js';
 import cardsData from '../../../shared/data/cards.json' with { type: 'json' };
 import strapiService from '../api/strapi.js';
 import { getStrapiUrl, getStrapiMediaUrl } from '../utils/url.js';
+import { normalizeCard } from '../utils/cardUtils.js';
+export { normalizeCard };
 
 // export const cardLibrary = reactive([...cardsData]); // Moved below normalizeCard
 export const webrtc = new WebRTCManager();
 
-/**
- * Parse a card stat value: 'A' → 10, string numbers → int
- */
-function parseStatValue(v) {
-    if (v === 'A' || v === 'a') return 10;
-    const n = parseInt(v, 10);
-    return isNaN(n) ? 0 : n;
-}
-
-/**
- * Create a card data object from a raw card (from cards.json or random).
- * Normalizes topValue/rightValue/bottomValue/leftValue → top/right/bottom/left as numbers.
- */
-export function normalizeCard(raw) {
-    if (!raw) return null;
-    const attrs = raw.attributes || raw;
-    
-    // Robust image URL extraction for Strapi
-    let imgUrl = null;
-    
-    // Handle Strapi media object (both flat and nested structures)
-    // Check both raw and attrs for the image property
-    const imageObj = raw.image || attrs.image;
-    const strapiImg = imageObj?.data?.attributes || imageObj;
-    
-    if (strapiImg?.url) {
-        imgUrl = strapiImg.url.startsWith('http') 
-            ? strapiImg.url 
-            : getStrapiMediaUrl(strapiImg.url);
-    }
-
-    // Support already normalized cards or cards with direct imageUrl property
-    if (!imgUrl && (raw.imageUrl || attrs.imageUrl)) {
-      imgUrl = raw.imageUrl || attrs.imageUrl;
-    }
-
-    if (!imgUrl) {
-      // Fallback to DiceBear if no image is found
-      imgUrl = `https://api.dicebear.com/9.x/bottts/svg?seed=${(raw.id || 0) * 42}&backgroundColor=transparent`;
-    }
-
-    const top = attrs.top ?? parseStatValue(attrs.topValue);
-    const right = attrs.right ?? parseStatValue(attrs.rightValue);
-    const bottom = attrs.bottom ?? parseStatValue(attrs.bottomValue);
-    const left = attrs.left ?? parseStatValue(attrs.leftValue);
-
-    return {
-        id: raw.id,
-        documentId: raw.documentId || attrs.documentId,
-        name: attrs.name || `Card #${raw.id}`,
-        description: attrs.description || '',
-        level: GameEngine.calculateCardLevel(attrs),
-        element: attrs.element || 'None',
-        elements: Array.isArray(attrs.elements) ? attrs.elements : (attrs.element && attrs.element !== 'None' ? [attrs.element] : []),
-        faction: (attrs.faction?.data?.attributes?.name || attrs.faction?.name || (typeof attrs.faction === 'string' ? attrs.faction : 'Neutre')),
-        factionCode: (attrs.faction?.data?.attributes?.code || attrs.faction?.code || (attrs.faction === 'neutre' ? 'NEUTRAL' : 'NEUTRAL')), // Default to NEUTRAL for old strings for now, or add a mapping if needed
-        factionStyle: (attrs.faction?.data?.attributes?.style || attrs.faction?.style || {}),
-        top,
-        right,
-        bottom,
-        left,
-        topValue: attrs.topValue ?? (top === 10 ? 'A' : String(top)),
-        rightValue: attrs.rightValue ?? (right === 10 ? 'A' : String(right)),
-        bottomValue: attrs.bottomValue ?? (bottom === 10 ? 'A' : String(bottom)),
-        leftValue: attrs.leftValue ?? (left === 10 ? 'A' : String(left)),
-        imageUrl: imgUrl,
-        revealed: attrs.revealed !== undefined ? attrs.revealed : true,
-        isPremium: false,
-        rarity: attrs.rarity || null,
-        collectionName: (attrs.collection?.data?.attributes?.code || attrs.collection?.code || attrs.collectionName || 'base'),
-        
-        // --- System Events Hooks ---
-        onDrawn: (ctx) => {
-            console.log(`[Hook] ${attrs.name || '(inconnu)'} a été piochée.`, ctx);
-        },
-        onPlaced: (ctx) => {
-            console.log(`[Hook] ${attrs.name || '(inconnu)'} a été posée.`, ctx);
-        },
-        onCaptured: (ctx) => {
-            console.log(`[Hook] ${attrs.name || '(inconnu)'} a été capturée.`, ctx);
-        }
-    };
-}
+// normalizeCard moved to ../utils/cardUtils.js
 
 export const cardLibrary = reactive(cardsData.map(normalizeCard));
 

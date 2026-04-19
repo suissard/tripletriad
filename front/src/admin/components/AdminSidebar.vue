@@ -90,7 +90,8 @@ const menuCategories = [
       { name: 'Decks', path: '/admin/decks', icon: '🃏' },
       { name: 'Quêtes (Templates)', path: '/admin/quest-templates', icon: '📜' },
       { name: 'Quêtes (Joueurs)', path: '/admin/player-quests', icon: '⚔️' },
-      { name: 'Boutique', path: '/admin/shops', icon: '🛒' },
+      { name: 'Collections', path: '/admin/collections', icon: '📦' },
+      { name: 'Boutique (Legacy)', path: '/admin/shops', icon: '🛒' },
       { name: 'Wallets', path: '/admin/wallets', icon: '💰' }
     ]
   },

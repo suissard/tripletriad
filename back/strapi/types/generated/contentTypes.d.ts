@@ -553,6 +553,8 @@ export interface ApiCollectionCollection extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    boosterCostMultiplier: Schema.Attribute.Decimal &
+      Schema.Attribute.DefaultTo<1>;
     boosterImage: Schema.Attribute.Media<'images'>;
     cards: Schema.Attribute.Relation<'oneToMany', 'api::card.card'>;
     code: Schema.Attribute.String &
@@ -572,7 +574,10 @@ export interface ApiCollectionCollection extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
+    premiumBoosterCostMultiplier: Schema.Attribute.Decimal &
+      Schema.Attribute.DefaultTo<1>;
     publishedAt: Schema.Attribute.DateTime;
+    startDate: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -704,15 +709,6 @@ export interface ApiGameConfigGameConfig extends Struct.SingleTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    boosterCost: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<100>;
     cardsPerDeck: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMax<
@@ -758,6 +754,24 @@ export interface ApiGameConfigGameConfig extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    defaultBoosterCost: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<100>;
+    defaultPremiumBoosterCost: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<50>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -791,15 +805,6 @@ export interface ApiGameConfigGameConfig extends Struct.SingleTypeSchema {
         number
       > &
       Schema.Attribute.DefaultTo<2>;
-    premiumBoosterCost: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<50>;
     probCommon: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMax<

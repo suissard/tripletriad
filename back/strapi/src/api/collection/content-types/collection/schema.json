@@ -42,6 +42,17 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "boosterCostMultiplier": {
+      "type": "decimal",
+      "default": 1.0
+    },
+    "premiumBoosterCostMultiplier": {
+      "type": "decimal",
+      "default": 1.0
+    },
+    "startDate": {
+      "type": "datetime"
     }
   }
 }
