@@ -38,8 +38,8 @@ const routes = [
   {
     path: '/admin/foil-editor',
     name: 'admin-foil-editor',
-    component: () => import('../admin/views/FoilEditorView.vue'),
-    meta: { requiresAdminAuth: true }
+    component: () => import('../admin/views/FoilEditorProView.vue'),
+    meta: { layout: 'BlankLayout', requiresAdminAuth: true }
   },
   {
     path: '/admin/foil-editor-pro',

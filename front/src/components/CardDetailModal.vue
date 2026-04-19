@@ -31,10 +31,10 @@
               <!-- Card face (Always revealed in zoom) -->
               <img :src="card.imageUrl" class="card-img" :alt="card.name" />
               <div class="card-stats-cross">
-                <div class="stat stat-top">{{ card.topValue }}</div>
-                <div class="stat stat-left">{{ card.leftValue }}</div>
-                <div class="stat stat-right">{{ card.rightValue }}</div>
-                <div class="stat stat-bottom">{{ card.bottomValue }}</div>
+                <div class="stat stat-top" :class="{ 'is-boosted': bonus > 0 && card.top < 100 }">{{ card.topValue }}</div>
+                <div class="stat stat-left" :class="{ 'is-boosted': bonus > 0 && card.left < 100 }">{{ card.leftValue }}</div>
+                <div class="stat stat-right" :class="{ 'is-boosted': bonus > 0 && card.right < 100 }">{{ card.rightValue }}</div>
+                <div class="stat stat-bottom" :class="{ 'is-boosted': bonus > 0 && card.bottom < 100 }">{{ card.bottomValue }}</div>
                 
                 <!-- Name (Floating above bottom stat) -->
                 <div class="card-name-bar" :style="{'--rarity-color': rarityColor}">{{ card.name }}</div>
@@ -107,7 +107,8 @@ const props = defineProps({
   unowned: Boolean,
   borderWidth: { type: Number, default: 2 },
   showDefaultInfo: { type: Boolean, default: true },
-  showCraftingActions: { type: Boolean, default: true }
+  showCraftingActions: { type: Boolean, default: true },
+  bonus: { type: Number, default: 0 }
 });
 
 const emit = defineEmits(['close']);
@@ -145,34 +146,45 @@ const cardLevel = computed(() => {
   });
 });
 
-const rarityClass = computed(() => {
-  if (props.card.rarity) return `rarity-${props.card.rarity.toLowerCase()}`;
+const rarityInfo = computed(() => {
+  const rarityMapping = {
+    'common': 'common',
+    'commun': 'common',
+    'uncommon': 'uncommon',
+    'peu commun': 'uncommon',
+    'rare': 'rare',
+    'epic': 'epic',
+    'épique': 'epic',
+    'legendary': 'legendary',
+    'légendaire': 'legendary'
+  };
+
+  const colors = {
+    'common': '#a0a0a0',
+    'uncommon': '#4caf50',
+    'rare': '#2196f3',
+    'epic': '#9c27b0',
+    'legendary': '#ffc107'
+  };
+
+  const explicitRarity = props.card.drawnRarity || props.card.rarity;
+  if (explicitRarity) {
+    const normalized = rarityMapping[explicitRarity.toLowerCase()] || 'common';
+    return { name: normalized, color: colors[normalized] };
+  }
+
   const level = cardLevel.value;
-  if (level >= 9) return 'rarity-legendary';
-  if (level >= 7) return 'rarity-epic';
-  if (level >= 5) return 'rarity-rare';
-  if (level >= 3) return 'rarity-uncommon';
-  return 'rarity-common';
+  let name = 'common';
+  if (level >= 9) name = 'legendary';
+  else if (level >= 7) name = 'epic';
+  else if (level >= 5) name = 'rare';
+  else if (level >= 3) name = 'uncommon';
+
+  return { name, color: colors[name] };
 });
 
-const rarityColor = computed(() => {
-  if (props.card.rarity) {
-    const map = {
-      'Common': '#a0a0a0',
-      'Uncommon': '#4caf50',
-      'Rare': '#2196f3',
-      'Epic': '#9c27b0',
-      'Legendary': '#ffc107'
-    };
-    return map[props.card.rarity] || '#a0a0a0';
-  }
-  const level = cardLevel.value;
-  if (level >= 9) return '#ffc107';
-  if (level >= 7) return '#9c27b0';
-  if (level >= 5) return '#2196f3';
-  if (level >= 3) return '#4caf50';
-  return '#a0a0a0';
-});
+const rarityClass = computed(() => `rarity-${rarityInfo.value.name}`);
+const rarityColor = computed(() => rarityInfo.value.color);
 
 const rarityLabel = computed(() => {
   const r = props.card.rarity || getRarityStr(cardLevel.value);
@@ -204,6 +216,8 @@ const cardZoomStyle = computed(() => {
   const scale = ZOOM_SIZE / 150;
   return {
     '--card-border-width': `${props.borderWidth * scale}px`,
+    '--border-color': rarityColor.value,
+    '--border-glow': rarityColor.value,
     transform: `rotateX(${tilt.value.x}deg) rotateY(${tilt.value.y}deg)`,
     transition: (tilt.value.x === 0 && tilt.value.y === 0) ? 'transform 0.5s ease-out' : 'transform 0.1s ease-out'
   };
@@ -535,5 +549,11 @@ const glareStyle = computed(() => {
   padding: 10px 15px;
   border-radius: 6px;
   border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.stat.is-boosted {
+  color: #4aff4a !important;
+  text-shadow: 0 0 15px rgba(74, 255, 74, 0.8), 0 2px 4px black !important;
+  font-weight: 900;
 }
 </style>

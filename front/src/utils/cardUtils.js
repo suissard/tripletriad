@@ -93,7 +93,7 @@ export function normalizeCard(raw) {
         imageUrl: imgUrl,
         revealed: attrs.revealed !== undefined ? attrs.revealed : true,
         isPremium: attrs.isPremium || false,
-        rarity: attrs.rarity || null,
+        rarity: (typeof attrs.rarity === 'object' ? attrs.rarity?.name : attrs.rarity) || null,
         collectionName: collectionCode,
         
         // --- System Events Hooks (preserving if they exist) ---

@@ -22,6 +22,7 @@
           :cardBack="state.editingDeck?.cardBack || 'default'"
           :isPremium="card.isPremium"
           :showCraftingActions="false"
+          :bonus="factionBonuses[card.factionCode] || 0"
         />
 
       </div>
@@ -62,6 +63,7 @@
           :cardBack="state.editingDeck?.cardBack || 'default'"
           :isPremium="getDraggingCard()?.isPremium"
           :showCraftingActions="false"
+          :bonus="getDraggingCard() ? (factionBonuses[getDraggingCard().factionCode] || 0) : 0"
         />
       </div>
     </Teleport>
@@ -70,7 +72,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
-import { state } from '../game/state.js';
+import { state, factionBonuses } from '../game/state.js';
 import { selectCard, placeCard } from '../game/game-actions.js';
 import TripleTriadCard from './TripleTriadCard.vue';
 

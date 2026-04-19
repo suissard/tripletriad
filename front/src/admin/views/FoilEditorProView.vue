@@ -3,19 +3,20 @@
     <!-- Header: Match Stitch prototype -->
     <header class="h-14 border-b border-outline-variant/10 bg-surface-container-lowest flex items-center justify-between px-6 z-50">
       <div class="flex items-center gap-8">
-        <div class="flex items-center gap-3">
+          <button @click="router.push('/admin')" class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center hover:bg-primary/20 transition-colors group mr-2" title="Retour au Dashboard">
+            <span class="material-symbols-outlined text-sm text-slate-400 group-hover:text-primary">arrow_back</span>
+          </button>
           <div class="w-8 h-8 rounded-lg gradient-primary flex items-center justify-center shadow-[0_0_15px_rgba(0,210,255,0.3)]">
             <span class="material-symbols-outlined text-on-primary text-sm font-bold">layers</span>
           </div>
           <h1 class="font-headline font-bold text-lg tracking-tight text-on-surface">HoloEditor <span class="text-primary italic">Pro</span></h1>
-        </div>
 
         <!-- Extracted Card Selection Dropdown to Header -->
-        <nav class="hidden md:flex gap-6 relative" style="width: 300px;">
+        <nav v-if="selectedCardId" class="hidden md:flex gap-6 relative" style="width: 300px;">
           <PremiumSelect
             v-model="selectedCardId"
             :options="cardOptions"
-            label="Sélectionner un modèle"
+            label="Changer de modèle"
             placeholder="Choisir une carte..."
             searchable
           >
@@ -24,6 +25,14 @@
         </nav>
       </div>
       <div class="flex items-center gap-4">
+        <div v-if="selectedCardId" class="flex items-center gap-2 mr-4 border-r border-outline-variant/20 pr-4">
+          <button @click="undo" :disabled="!canUndo" class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-high text-on-surface-variant disabled:opacity-30 transition-all" title="Undo (Ctrl+Z)">
+            <span class="material-symbols-outlined text-sm">undo</span>
+          </button>
+          <button @click="redo" :disabled="!canRedo" class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-high text-on-surface-variant disabled:opacity-30 transition-all" title="Redo (Ctrl+Y)">
+            <span class="material-symbols-outlined text-sm">redo</span>
+          </button>
+        </div>
         <!-- Optional: search/notifications as from design -->
         <button class="gradient-primary text-on-primary px-5 py-1.5 rounded-xl font-headline font-bold text-sm uppercase tracking-wider active:scale-95 transition-transform duration-150" @click="saveEffect" :disabled="!selectedCardId || saving">
           <span v-if="saving" class="animate-spin mr-2">⏳</span>
@@ -32,9 +41,51 @@
       </div>
     </header>
 
-    <div class="flex flex-1 overflow-hidden">
+    <div class="flex flex-1 overflow-hidden relative">
+      <!-- 0. Selection Screen: Card selection as first step -->
+      <div v-if="!selectedCardId" class="absolute inset-0 z-[100] bg-background flex flex-col items-center justify-center p-8 animate-in fade-in duration-500">
+        <div class="max-w-4xl w-full text-center space-y-12">
+          <div class="space-y-4">
+            <h2 class="text-5xl font-headline font-black text-on-surface tracking-tighter">Bienvenue dans <span class="gradient-text">HoloEditor Pro</span></h2>
+            <p class="text-on-surface-variant text-lg max-w-2xl mx-auto">Choisissez une carte dans votre collection pour commencer à éditer ses effets holographiques personnalisés.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-h-[50vh] overflow-y-auto p-4 custom-scrollbar bg-surface-container-lowest/30 rounded-3xl border border-outline-variant/10">
+            <div
+              v-for="card in cards"
+              :key="card.id"
+              @click="selectedCardId = card.documentId || card.id"
+              class="group relative bg-surface-container-low rounded-2xl p-4 border border-outline-variant/10 hover:border-primary/50 hover:bg-surface-container-high transition-all cursor-pointer flex flex-col items-center gap-4"
+            >
+              <div class="w-full aspect-[3/4] rounded-xl overflow-hidden relative shadow-lg group-hover:shadow-primary/20 transition-all">
+                <img :src="card.imageUrl" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+                  <span class="text-xs font-headline font-bold text-primary uppercase tracking-widest">Éditer cette carte</span>
+                </div>
+              </div>
+              <div class="text-center">
+                <div class="font-headline font-bold text-on-surface">{{ card.name }}</div>
+                <div class="text-[10px] font-black text-primary/60 uppercase tracking-widest">{{ card.rarity }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-80 mx-auto pt-8">
+             <PremiumSelect
+              v-model="selectedCardId"
+              :options="cardOptions"
+              label="Ou recherchez par nom"
+              placeholder="Rechercher une carte..."
+              searchable
+            >
+              <template #icon>🔍</template>
+            </PremiumSelect>
+          </div>
+        </div>
+      </div>
+
       <!-- SideNavBar: Persistent Layers from desktop_final -->
-      <aside class="w-80 border-r border-outline-variant/10 bg-surface-container-lowest flex flex-col z-40 relative">
+      <aside v-if="selectedCardId" class="w-80 border-r border-outline-variant/10 bg-surface-container-lowest flex flex-col z-40 relative">
         <div class="flex justify-around items-center py-6 border-b border-outline-variant/5">
            <!-- Basic Tools Header (Info or generic icons from design) -->
           <button class="flex flex-col items-center gap-1 group">
@@ -88,7 +139,7 @@
       </aside>
 
       <!-- Main Workspace -->
-      <main class="flex-1 relative overflow-hidden flex flex-col items-center justify-center bg-surface-container-lowest editor-grid">
+      <main v-if="selectedCardId" class="flex-1 relative overflow-hidden flex flex-col items-center justify-center bg-surface-container-lowest editor-grid">
         <!-- Loading Overlay -->
         <div v-if="loadingEffect" class="absolute inset-0 z-[110] bg-[#0a0a1a]/80 backdrop-blur-sm flex flex-col items-center justify-center gap-4 animate-in fade-in duration-300">
             <div class="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
@@ -103,14 +154,14 @@
         </div>
 
         <!-- 1. Mask Editor (Left) & Live 3D Preview (Right) container -->
-        <div class="flex w-full h-full p-8 pt-24 gap-8 justify-center items-center">
-
-            <!-- Left: Square Viewport Container (Editor) -->
-            <div class="relative w-[450px] h-[450px] bg-black rounded-xl overflow-hidden border-2 border-primary/30 shadow-[0_0_50px_rgba(0,210,255,0.15)] group flex-shrink-0"
+        <div class="flex w-full h-full p-4 lg:p-8 pt-20 lg:pt-24 gap-4 lg:gap-12 justify-center items-center overflow-hidden">
+            <!-- Left: Editor Container -->
+            <div class="relative flex-1 max-w-[450px] lg:max-w-[550px] aspect-square bg-black rounded-xl overflow-hidden border-2 border-primary/30 shadow-[0_0_50px_rgba(0,210,255,0.15)] group flex-shrink"
                  @mousedown="onMouseDown"
                  @mousemove="onMouseMove"
                  @mouseup="onMouseUp"
-                 @mouseleave="onMouseUp"
+                 @mouseleave="onMouseLeave"
+                 @mouseenter="isHovering = true"
                  ref="cardContainerRef">
               <div class="absolute inset-0 z-0">
                 <div class="w-full h-full bg-[url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-40 mix-blend-screen pointer-events-none"></div>
@@ -147,7 +198,7 @@
                   height: `${(brushSize / 512) * cardDimensions.width}px`,
                   transform: 'translate(-50%, -50%)',
                   backgroundColor: currentTool === 'draw' ? 'rgba(255,255,255,0.2)' : 'rgba(255,0,0,0.2)',
-                  display: isDragging ? 'block' : 'none'
+                  display: isHovering || isDragging ? 'block' : 'none'
                 }"
               ></div>
 
@@ -159,16 +210,17 @@
             </div>
 
             <!-- Right: 3D Preview Container -->
-            <div class="relative w-[450px] h-[450px] rounded-xl overflow-visible flex items-center justify-center z-10">
-                <div v-if="selectedCardData" class="transform scale-125 z-10">
+            <div class="relative flex-1 max-w-[450px] lg:max-w-[550px] aspect-square rounded-xl overflow-visible flex items-center justify-center z-10 flex-shrink">
+                <div v-if="selectedCardData" class="w-full h-full flex items-center justify-center">
                     <TripleTriadCard
                         :card="selectedCardData"
                         :override-effect="{ layers: layers }"
-                        size="zoom"
+                        size="100%"
                         :ratio="cardDimensions.aspectRatio"
                         :interactive="true"
                         :is-premium="true"
                         :always-visible="true"
+                        class="max-w-[90%] max-h-[90%]"
                     />
                 </div>
             </div>
@@ -187,7 +239,7 @@
       </main>
 
       <!-- Right Property Panel -->
-      <aside class="w-80 glass-panel border-l border-outline-variant/10 flex flex-col p-6 overflow-y-auto custom-scrollbar z-30">
+      <aside v-if="selectedCardId" class="w-80 glass-panel border-l border-outline-variant/10 flex flex-col p-6 overflow-y-auto custom-scrollbar z-30">
 
         <!-- Section 1: Mask Tools -->
         <section class="mb-8" v-if="layers.length > 0">
@@ -318,6 +370,16 @@ const currentTool = ref('draw');
 const brushSize = ref(30);
 const brushSoftness = ref(0.2);
 
+// Cursor State
+const isHovering = ref(false);
+const isDragging = ref(false);
+const undoStack = ref([]);
+const redoStack = ref([]);
+const MAX_STACK_SIZE = 50;
+
+const canUndo = computed(() => undoStack.value.length > 0);
+const canRedo = computed(() => redoStack.value.length > 0);
+
 const userStore = useUserStore();
 const route = useRoute();
 const router = useRouter();
@@ -327,7 +389,7 @@ const activeCanvasRef = ref(null);
 const cardContainerRef = ref(null);
 const imageInputRef = ref(null);
 const patternInputRef = ref(null);
-const cardDimensions = reactive({ width: 450, height: 450, aspectRatio: 1 });
+const cardDimensions = reactive({ width: 512, height: 512, aspectRatio: 1 });
 const canvasDimensions = reactive({ width: 1024, height: 1024 });
 const maskVisibility = ref(0.4);
 const showFullMask = ref(false);
@@ -359,7 +421,33 @@ onMounted(async () => {
   if (route.query.id) {
     selectedCardId.value = String(route.query.id);
   }
+
+  window.addEventListener('keydown', handleGlobalKeydown);
+  window.addEventListener('resize', updateDimensions);
 });
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', handleGlobalKeydown);
+  window.removeEventListener('resize', updateDimensions);
+});
+
+function updateDimensions() {
+  const rect = cardContainerRef.value?.getBoundingClientRect();
+  if (rect) {
+    cardDimensions.width = rect.width;
+    cardDimensions.height = rect.height;
+  }
+}
+
+function handleGlobalKeydown(e) {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
+    e.preventDefault();
+    undo();
+  } else if ((e.ctrlKey || e.metaKey) && e.key === 'y') {
+    e.preventDefault();
+    redo();
+  }
+}
 
 watch(selectedCardId, (newId) => {
   if (newId) {
@@ -392,6 +480,8 @@ async function onCardSelected() {
   const currentLoadId = ++lastLoadId;
   loadingEffect.value = true;
   resetToDefaultLayer();
+  undoStack.value = [];
+  redoStack.value = [];
 
   try {
     await nextTick();
@@ -413,8 +503,8 @@ async function onCardSelected() {
       imageLoader.onerror = () => resolve();
     });
 
-    cardDimensions.width = 450;
-    cardDimensions.height = 450;
+    // Synchronize editor dimensions to the actual container
+    updateDimensions();
     canvasDimensions.width = 1024;
     canvasDimensions.height = 1024;
 
@@ -475,6 +565,8 @@ async function onCardSelected() {
     if (currentLoadId === lastLoadId) {
       activeLayerIndex.value = 0;
       syncCanvasToOverlay();
+      // Push initial state to undo stack
+      saveSnapshot();
     }
   } catch(err) {
     console.error("FoilEditor: Error in onCardSelected", err);
@@ -482,6 +574,60 @@ async function onCardSelected() {
   } finally {
     if (currentLoadId === lastLoadId) loadingEffect.value = false;
   }
+}
+
+function saveSnapshot() {
+  const layer = activeLayer.value;
+  if (!layer?.canvas) return;
+
+  const snapshot = layer.canvas.toDataURL('image/png');
+
+  // Avoid pushing identical snapshots
+  if (undoStack.value.length > 0 && undoStack.value[undoStack.value.length - 1] === snapshot) return;
+
+  undoStack.value.push(snapshot);
+  if (undoStack.value.length > MAX_STACK_SIZE) undoStack.value.shift();
+  redoStack.value = [];
+}
+
+function undo() {
+  if (!canUndo.value) return;
+
+  const current = undoStack.value.pop();
+  redoStack.value.push(current);
+
+  const prev = undoStack.value[undoStack.value.length - 1];
+  if (prev) {
+    applySnapshot(prev);
+  } else {
+    // If no more history, reset to blank (white for mask)
+    const layer = activeLayer.value;
+    layer.ctx.fillStyle = 'white';
+    layer.ctx.fillRect(0, 0, canvasDimensions.width, canvasDimensions.height);
+    layer.drawData = layer.canvas.toDataURL();
+    syncCanvasToOverlay();
+  }
+}
+
+function redo() {
+  if (!canRedo.value) return;
+  const snapshot = redoStack.value.pop();
+  undoStack.value.push(snapshot);
+  applySnapshot(snapshot);
+}
+
+function applySnapshot(snapshot) {
+  const layer = activeLayer.value;
+  if (!layer) return;
+
+  const img = new Image();
+  img.onload = () => {
+    layer.ctx.clearRect(0, 0, canvasDimensions.width, canvasDimensions.height);
+    layer.ctx.drawImage(img, 0, 0);
+    layer.drawData = layer.canvas.toDataURL();
+    syncCanvasToOverlay();
+  };
+  img.src = snapshot;
 }
 
 function syncCanvasToOverlay() {
@@ -597,11 +743,15 @@ function invertMask() {
   ctx.putImageData(imageData, 0, 0);
   activeLayer.value.drawData = activeLayer.value.canvas.toDataURL();
   syncCanvasToOverlay();
+  saveSnapshot();
 }
 
 function selectLayer(index) {
   activeLayerIndex.value = index;
   syncCanvasToOverlay();
+  undoStack.value = [];
+  redoStack.value = [];
+  saveSnapshot();
 }
 
 function toggleLayer(index) {
@@ -613,6 +763,9 @@ function addLayer() {
     layers.value.push(createDefaultLayer());
     activeLayerIndex.value = layers.value.length - 1;
     syncCanvasToOverlay();
+    undoStack.value = [];
+    redoStack.value = [];
+    saveSnapshot();
   }
 }
 
@@ -664,6 +817,7 @@ async function handleImageImport(e) {
       ctx.drawImage(tempCanvas, 0, 0);
       layer.drawData = layer.canvas.toDataURL('image/png');
       syncCanvasToOverlay();
+      saveSnapshot();
       e.target.value = '';
     };
     img.src = event.target.result;
@@ -698,32 +852,43 @@ async function handlePatternImport(e) {
   reader.readAsDataURL(file);
 }
 
-let isDragging = false;
 let previousMousePosition = { x: 0, y: 0 };
 
 function paint(uv) {
   const layer = layers.value[activeLayerIndex.value];
   if (!layer) return;
+  
+  // Use container width for relative brush size
+  const currentWidth = cardContainerRef.value?.offsetWidth || 512;
   const cx = uv.x * canvasDimensions.width;
   const cy = (1 - uv.y) * canvasDimensions.height;
-  const r = (brushSize.value / 1024) * canvasDimensions.width;
+  const r = (brushSize.value / currentWidth) * canvasDimensions.width;
   layer.ctx.beginPath();
   layer.ctx.arc(cx, cy, r, 0, Math.PI * 2);
+
+  const color = currentTool.value === 'draw' ? '#ffffff' : '#000000';
+
   if (brushSoftness.value > 0) {
     const gradient = layer.ctx.createRadialGradient(cx, cy, r * (1 - brushSoftness.value), cx, cy, r);
-    const color = currentTool.value === 'draw' ? '255, 255, 255' : '0, 0, 0';
-    gradient.addColorStop(0, `rgba(${color}, 1)`);
-    gradient.addColorStop(1, `rgba(${color}, 0)`);
+
+    // Convert hex to rgb for gradient
+    const hex = color.replace('#', '');
+    const r_val = parseInt(hex.substring(0, 2), 16);
+    const g_val = parseInt(hex.substring(2, 4), 16);
+    const b_val = parseInt(hex.substring(4, 6), 16);
+
+    gradient.addColorStop(0, `rgba(${r_val}, ${g_val}, ${b_val}, 1)`);
+    gradient.addColorStop(1, `rgba(${r_val}, ${g_val}, ${b_val}, 0)`);
     layer.ctx.fillStyle = gradient;
   } else {
-    layer.ctx.fillStyle = currentTool.value === 'draw' ? 'white' : 'black';
+    layer.ctx.fillStyle = color;
   }
   layer.ctx.fill();
   syncCanvasToOverlay();
 }
 
 function onMouseDown(e) {
-  isDragging = true;
+  isDragging.value = true;
   previousMousePosition = { x: e.clientX, y: e.clientY };
   const rect = cardContainerRef.value?.getBoundingClientRect();
   if (!rect) return;
@@ -739,7 +904,7 @@ function onMouseMove(e) {
   const x = (e.clientX - rect.left) / rect.width;
   const y = 1.0 - (e.clientY - rect.top) / rect.height;
   mouseUV.value = { x, y };
-  if (!isDragging) return;
+  if (!isDragging.value) return;
   if (currentTool.value !== 'rotate') {
     paint({ x, y });
   } else {
@@ -751,14 +916,20 @@ function onMouseMove(e) {
   }
 }
 
+function onMouseLeave() {
+  onMouseUp();
+  isHovering.value = false;
+}
+
 function onMouseUp() {
-  if (isDragging && currentTool.value !== 'rotate') {
+  if (isDragging.value && currentTool.value !== 'rotate') {
     const layer = activeLayer.value;
     if (layer && layer.canvas) {
       layer.drawData = layer.canvas.toDataURL('image/png');
+      saveSnapshot();
     }
   }
-  isDragging = false;
+  isDragging.value = false;
 }
 
 </script>

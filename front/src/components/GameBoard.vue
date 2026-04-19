@@ -49,6 +49,7 @@
               :owner="cell.owner"
               :isPremium="cell.data.isPremium"
               :showCraftingActions="false"
+              :bonus="factionBonuses[cell.data.factionCode] || 0"
             />
           </div>
         </Transition>
@@ -99,7 +100,7 @@
 
 <script setup>
 import { ref, watch, nextTick, computed, onMounted, onUnmounted } from 'vue';
-import { state } from '../game/state.js';
+import { state, factionBonuses } from '../game/state.js';
 import { placeCard } from '../game/game-actions.js';
 import { computeAllPreviews } from '../game/capture-preview.js';
 import TripleTriadCard from './TripleTriadCard.vue';

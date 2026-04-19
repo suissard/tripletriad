@@ -69,11 +69,11 @@
           <div class="cover-badge" v-if="isCover">★</div>
 
           <!-- Stats & Name (Edge-aligned) -->
-          <div class="card-stats-cross">
-            <div class="stat stat-top">{{ displayCard.topValue }}</div>
-            <div class="stat stat-left">{{ displayCard.leftValue }}</div>
-            <div class="stat stat-right">{{ displayCard.rightValue }}</div>
-            <div class="stat stat-bottom">{{ displayCard.bottomValue }}</div>
+          <div class="card-stats-cross" :class="{ 'has-bonus': bonus > 0 }">
+            <div class="stat stat-top" :class="{ 'is-boosted': bonus > 0 && normalizedCardData.top < 100 }">{{ displayCard.topValue }}</div>
+            <div class="stat stat-left" :class="{ 'is-boosted': bonus > 0 && normalizedCardData.left < 100 }">{{ displayCard.leftValue }}</div>
+            <div class="stat stat-right" :class="{ 'is-boosted': bonus > 0 && normalizedCardData.right < 100 }">{{ displayCard.rightValue }}</div>
+            <div class="stat stat-bottom" :class="{ 'is-boosted': bonus > 0 && normalizedCardData.bottom < 100 }">{{ displayCard.bottomValue }}</div>
             
             <!-- Name (Floating above bottom stat) -->
             <div class="card-name-bar" :style="{'--rarity-color': actualRarityColor}">{{ displayCard.name }}</div>
@@ -147,6 +147,7 @@
     :border-width="borderWidth"
     :show-default-info="showDetailInfo"
     :show-crafting-actions="showCraftingActions"
+    :bonus="bonus"
     @close="isZoomed = false"
   >
     <template #extra>
@@ -200,14 +201,32 @@ const props = defineProps({
   revealShine: { type: Boolean, default: false },
   dimOnHover: { type: Boolean, default: true },
   showDetailInfo: { type: Boolean, default: true },
-  showCraftingActions: { type: Boolean, default: true }
+  showCraftingActions: { type: Boolean, default: true },
+  bonus: { type: Number, default: 0 }
 });
 
 const userStore = useUserStore();
 const effectStore = useEffectStore();
 
 // Internal normalization to handle raw Strapi data or pre-normalized data
-const displayCard = computed(() => normalizeCard(props.card));
+const normalizedCardData = computed(() => normalizeCard(props.card));
+
+// Apply dynamic bonuses (Faction, etc.) to values
+const displayCard = computed(() => {
+  const card = { ...normalizedCardData.value };
+  if (props.bonus > 0) {
+    const sides = ['top', 'right', 'bottom', 'left'];
+    sides.forEach(side => {
+      const baseVal = card[side];
+      if (baseVal < 100) {
+        const newVal = Math.min(100, baseVal + props.bonus);
+        card[side] = newVal;
+        card[side + 'Value'] = newVal === 100 ? 'A' : String(newVal);
+      }
+    });
+  }
+  return card;
+});
 
 const customFoilEffect = computed(() => {
   if (props.overrideEffect) return props.overrideEffect;
@@ -315,7 +334,45 @@ const cardLevel = computed(() => {
 const rarityData = computed(() => {
   if (displayCard.value.revealed === false) return { name: 'common', color: '#a0a0a0' };
   
-  // Real rarity calculation from values
+  const rarityMapping = {
+    'common': 'common',
+    'commun': 'common',
+    'uncommon': 'uncommon',
+    'peu commun': 'uncommon',
+    'rare': 'rare',
+    'epic': 'epic',
+    'épique': 'epic',
+    'legendary': 'legendary',
+    'légendaire': 'legendary'
+  };
+
+  const reverseMapping = {
+    'common': 'Commun',
+    'uncommon': 'Peu Commun',
+    'rare': 'Rare',
+    'epic': 'Épique',
+    'legendary': 'Légendaire'
+  };
+
+  const colors = {
+    'common': '#a0a0a0',
+    'uncommon': '#4caf50',
+    'rare': '#2196f3',
+    'epic': '#9c27b0',
+    'legendary': '#ffc107'
+  };
+
+  // 1. Prioritize explicit rarity if provided (especially for boosters)
+  const explicitRarity = displayCard.value.drawnRarity || displayCard.value.rarity;
+  if (explicitRarity) {
+    const normalizedName = rarityMapping[explicitRarity.toLowerCase()] || 'common';
+    return {
+      name: normalizedName,
+      color: colors[normalizedName]
+    };
+  }
+
+  // 2. Fallback to calculation from values
   const values = {
     top: displayCard.value.top,
     right: displayCard.value.right,
@@ -324,21 +381,12 @@ const rarityData = computed(() => {
   };
   
   if (isNaN(values.top) || isNaN(values.right) || isNaN(values.bottom) || isNaN(values.left)) {
-     // Fallback if values are missing
-     if (displayCard.value.rarity) return { name: displayCard.value.rarity.toLowerCase(), color: null };
      return { name: 'common', color: '#a0a0a0' };
   }
 
   const r = getRarity(values);
-  const rarityMapping = {
-    'Commun': 'common',
-    'Peu Commun': 'uncommon',
-    'Rare': 'rare',
-    'Épique': 'epic',
-    'Légendaire': 'legendary'
-  };
   return { 
-    name: rarityMapping[r.name] || 'common', 
+    name: rarityMapping[r.name.toLowerCase()] || 'common', 
     color: r.color 
   };
 });
@@ -349,20 +397,7 @@ const rarityClass = computed(() => {
 
 const actualRarityColor = computed(() => {
   if (displayCard.value.revealed === false) return '#a0a0a0';
-  if (rarityData.value.color) return rarityData.value.color;
-  
-  const rarityToCheck = displayCard.value.drawnRarity || displayCard.value.rarity;
-  if (rarityToCheck) {
-    const map = {
-      'common': '#a0a0a0',
-      'uncommon': '#4caf50',
-      'rare': '#2196f3',
-      'epic': '#9c27b0',
-      'legendary': '#ffc107'
-    };
-    return map[rarityToCheck.toLowerCase()] || '#a0a0a0';
-  }
-  return '#a0a0a0';
+  return rarityData.value.color;
 });
 
 const rarityColor = computed(() => {
@@ -391,10 +426,11 @@ const cardStyle = computed(() => {
   }
   
   if (!props.flat && !props.compact) Object.assign(style, mouseStyle.value);
-  if (props.borderColor) {
-    style['--border-color'] = props.borderColor;
-    style['--border-glow'] = props.borderColor;
-  }
+  
+  // Always set the border color/glow variables so they are consistent across calculations and props
+  style['--border-color'] = rarityColor.value;
+  style['--border-glow'] = rarityColor.value;
+  
   style['--card-border-width'] = `${effectiveBorderWidth}px`;
   return style;
 });
@@ -900,8 +936,8 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 
 
 /* Selection border */
-.is-selected:not(.is-compact) .tt-card-inner { border-color: var(--border-color, #00d2ff); box-shadow: 0 0 12px rgba(0, 210, 255, 0.4); }
-.is-cover:not(.is-compact) .tt-card-inner    { border-color: var(--border-color, gold); box-shadow: 0 0 12px rgba(255, 215, 0, 0.5); }
+.is-selected:not(.is-compact) .tt-card-inner { border-color: #00d2ff !important; box-shadow: 0 0 12px rgba(0, 210, 255, 0.4); }
+.is-cover:not(.is-compact) .tt-card-inner    { border-color: gold !important; box-shadow: 0 0 12px rgba(255, 215, 0, 0.5); }
 .is-compact.is-selected .tt-card-inner { border-color: #00d2ff !important; }
 .is-compact.is-cover .tt-card-inner { border-color: gold !important; }
 
@@ -1080,6 +1116,12 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   20% { opacity: 1; }
   80% { opacity: 1; }
   100% { transform: translateX(150%) skewX(-25deg); opacity: 0; }
+}
+
+.stat.is-boosted {
+  color: #4aff4a !important;
+  text-shadow: 0 0 8px rgba(74, 255, 74, 0.8), 2px 2px 4px black !important;
+  font-weight: 900;
 }
 </style>
 

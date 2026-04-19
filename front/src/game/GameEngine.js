@@ -51,6 +51,9 @@ export class GameEngine {
       board: currentState.board.map(row => [...row])
     };
 
+    // Faction counts BEFORE placement to delay bonus for the 4th card
+    const factionCountsBefore = GameEngine.getFactionCounts(currentState.board);
+
     // 2. Placer la carte
     const cellOwner = action.player;
     const placedCell = {
@@ -67,7 +70,7 @@ export class GameEngine {
     GameEngine.applyPlacementSkills(nextState.board, x, y, placedCell);
 
     // 3. Calculer les captures (Règles "Classiques" d'adjacence)
-    nextState.lastCaptures = GameEngine.processCaptures(nextState.board, x, y, placedCell);
+    nextState.lastCaptures = GameEngine.processCaptures(nextState.board, x, y, placedCell, factionCountsBefore);
 
     // 4. Appliquer les effets de fin de tour (Growing, Decrease)
     GameEngine.applyEndOfTurnSkills(nextState.board);
@@ -96,15 +99,33 @@ export class GameEngine {
 
 
   /**
-   * Helper function to get effective card value considering Auras
+   * Helper function to get effective card value considering Auras and Faction Bonuses
    */
-  static getEffectiveValue(board, x, y, side) {
+  static getEffectiveValue(board, x, y, side, factionCountsOverride = null) {
     const cell = board[y][x];
     if (!cell || !cell.data) return 0;
 
     let valStr = cell.data.values && cell.data.values[side] !== undefined ? cell.data.values[side] : cell.data[side + 'Value'];
     let baseVal = valStr === 'A' || valStr === 'a' ? 100 : parseInt(valStr) || 0;
 
+    // 1. Faction Bonus (+1 if at least 4 cards of the same faction are on board)
+    let factionBonus = 0;
+    if (cell.data.factionCode && cell.data.factionCode !== 'NEUTRAL') {
+      const currentCounts = GameEngine.getFactionCounts(board);
+      // Requirement: At least 4 cards
+      if (currentCounts[cell.data.factionCode] >= 4) {
+        // Requirement: Bonus appears AFTER the capture phase of the 4th card.
+        // If an override is provided and it shows we had less than 4 before this turn, 
+        // we keep the bonus inactive for this turn's capture sequence.
+        const hadBonusBefore = factionCountsOverride ? (factionCountsOverride[cell.data.factionCode] >= 4) : true;
+        
+        if (hadBonusBefore && baseVal < 100) {
+          factionBonus = 1;
+        }
+      }
+    }
+
+    // 2. Aura Bonus
     let auraBonus = 0;
     const directions = [
       { dx: 0, dy: -1 },
@@ -128,10 +149,26 @@ export class GameEngine {
       }
     }
 
-    return baseVal + auraBonus; // No longer capped at 10
+    return baseVal + factionBonus + auraBonus;
   }
 
-  static processCaptures(board, x, y, placedCell) {
+  /**
+   * Returns a map of faction counts on the board
+   */
+  static getFactionCounts(board) {
+    const counts = {};
+    for (const row of board) {
+      for (const cell of row) {
+        if (cell && cell.data && cell.data.factionCode) {
+          const code = cell.data.factionCode;
+          counts[code] = (counts[code] || 0) + 1;
+        }
+      }
+    }
+    return counts;
+  }
+
+  static processCaptures(board, x, y, placedCell, factionCountsOverride = null) {
     const player = placedCell.owner;
     const captures = [];
     const attackQueue = [{ x, y, cell: placedCell, isCombo: false }];
@@ -198,8 +235,8 @@ export class GameEngine {
         }
 
         if (targetCell && targetCell.owner !== attackerCell.owner) {
-          const myValue = GameEngine.getEffectiveValue(board, cx, cy, dir.mySide);
-          const oppValue = GameEngine.getEffectiveValue(board, actualNx, actualNy, dir.oppSide);
+          const myValue = GameEngine.getEffectiveValue(board, cx, cy, dir.mySide, factionCountsOverride);
+          const oppValue = GameEngine.getEffectiveValue(board, actualNx, actualNy, dir.oppSide, factionCountsOverride);
 
           if (myValue > oppValue) {
             triggeredCapture = true;

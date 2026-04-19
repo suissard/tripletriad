@@ -1,4 +1,4 @@
-import { reactive } from 'vue';
+import { reactive, computed } from 'vue';
 import { rulesRegistry } from './rules.js';
 import { WebRTCManager } from './WebRTCManager.js';
 import { TurnManager } from './TurnManager.js';
@@ -169,6 +169,30 @@ export const state = reactive({
 
     // Capture preview (Map<slotIndex, {directCaptures, comboCaptures, totalCaptures}> | null)
     capturePreview: null,
+});
+
+/**
+ * Computed property to track global faction bonuses based on the current board state.
+ * Returns a Map of factionCode -> bonusValue (1 or 0)
+ */
+export const factionBonuses = computed(() => {
+    const counts = {};
+    const board = Array.isArray(state.board[0]) ? state.board.flat() : state.board;
+    
+    board.forEach(cell => {
+        if (cell && cell.data && cell.data.factionCode && cell.data.factionCode !== 'NEUTRAL') {
+            const code = cell.data.factionCode;
+            counts[code] = (counts[code] || 0) + 1;
+        }
+    });
+    
+    const bonuses = {};
+    for (const code in counts) {
+        if (counts[code] >= 4) {
+            bonuses[code] = 1;
+        }
+    }
+    return bonuses;
 });
 
 export function getCardById(id) {

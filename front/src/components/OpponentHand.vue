@@ -13,6 +13,7 @@
           borderColor="#ff0055"
           :disableZoom="true"
           :dimOnHover="false"
+          :bonus="factionBonuses[card.factionCode] || 0"
         />
       </div>
     </TransitionGroup>
@@ -30,7 +31,7 @@
 </template>
 
 <script setup>
-import { state } from '../game/state.js';
+import { state, factionBonuses } from '../game/state.js';
 import TripleTriadCard from './TripleTriadCard.vue';
 </script>
 
