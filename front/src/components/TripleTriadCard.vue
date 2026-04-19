@@ -13,7 +13,8 @@
         'has-custom-border': !!borderColor,
         'is-flipping': isFlipping,
         'is-shaking': isShaking,
-        'is-compact': compact
+        'is-compact': compact,
+        'dim-on-hover': dimOnHover
       }
     ]"
     :style="cardStyle"
@@ -56,41 +57,40 @@
           <!-- Card image -->
           <img :src="card.imageUrl" class="card-img" :alt="card.name" />
 
-          <!-- Name bar -->
-          <div class="card-name-bar" :style="{'--glow-color': actualRarityColor}">{{ card.name }}</div>
+          <!-- HP Bar (Moved to top) -->
+          <HpBar v-if="card.hp !== undefined" :hp="card.hp" :default-hp="card.defaultHp || 3" :owner="owner" />
 
-          <!-- Element badges -->
+          <!-- Element badges (Top-Left) -->
           <div class="card-elements" v-if="cardElementsList.length">
             <ElementIcon v-for="el in cardElementsList" :key="el" :element="el" :active="elementActive" class="element-icon" />
           </div>
 
-          <!-- Stats cross -->
+          <!-- Cover badge (Top-Right) -->
+          <div class="cover-badge" v-if="isCover">★</div>
+
+          <!-- Stats & Name (Edge-aligned) -->
           <div class="card-stats-cross">
-            <span class="stat stat-top">{{ card.topValue }}</span>
-            <span class="stat stat-left">{{ card.leftValue }}</span>
-            <span class="stat stat-right">{{ card.rightValue }}</span>
-            <span class="stat stat-bottom">{{ card.bottomValue }}</span>
+            <div class="stat stat-top">{{ card.topValue }}</div>
+            <div class="stat stat-left">{{ card.leftValue }}</div>
+            <div class="stat stat-right">{{ card.rightValue }}</div>
+            <div class="stat stat-bottom">{{ card.bottomValue }}</div>
+            
+            <!-- Name (Floating above bottom stat) -->
+            <div class="card-name-bar" :style="{'--rarity-color': actualRarityColor}">{{ card.name }}</div>
           </div>
 
           <!-- Selected check -->
           <div class="selected-overlay" v-if="selected">✓</div>
 
-          <!-- Cover badge -->
-          <div class="cover-badge" v-if="isCover">★</div>
-
           <!-- Unowned lock -->
           <div class="unowned-overlay" v-if="unowned">🔒</div>
-
         </template>
 
-        <!-- HP Bar -->
-          <HpBar v-if="card.hp !== undefined" :hp="card.hp" :default-hp="card.defaultHp || 3" :owner="owner" />
-
-          <!-- Broken Glass Impact Effect for Captures -->
-          <BrokenGlassOverlay v-if="card.impactDirection" :direction="card.impactDirection" />
-          
-          <!-- Reveal Shine Effect -->
-          <div v-if="revealShine" class="reveal-shine"></div>
+        <!-- Broken Glass Impact Effect for Captures -->
+        <BrokenGlassOverlay v-if="card.impactDirection" :direction="card.impactDirection" />
+        
+        <!-- Reveal Shine Effect -->
+        <div v-if="revealShine" class="reveal-shine"></div>
 
         <!-- BASE CARD FACE (Fallback revealed false) -->
         <template v-else>
@@ -189,7 +189,8 @@ const props = defineProps({
   tiltY: { type: Number, default: null },
   alwaysVisible: { type: Boolean, default: false },
   isNew: { type: Boolean, default: false },
-  revealShine: { type: Boolean, default: false }
+  revealShine: { type: Boolean, default: false },
+  dimOnHover: { type: Boolean, default: true }
 });
 
 const userStore = useUserStore();
@@ -748,70 +749,74 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 
 .card-name-bar {
   position: absolute;
-  bottom: 0;
+  bottom: 28%;
   left: 0;
   right: 0;
-  background: linear-gradient(transparent, rgba(0,0,0,0.85));
+  background: transparent;
   color: white;
   font-size: 7cqw;
-  font-weight: bold;
-  padding: 2.5em 0.5em 0.4em;
+  font-weight: 900;
+  padding: 0.2em;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  z-index: 3;
-  text-shadow: 0 1px 3px black;
+  z-index: 5;
+  text-shadow: 
+    0 0 10px var(--rarity-color, #000),
+    0 0 5px var(--rarity-color, #000),
+    0 2px 4px rgba(0,0,0,1);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.card-name-bar::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, var(--glow-color) 0%, transparent 100%);
-  mix-blend-mode: screen;
-  opacity: 0.8;
-  z-index: -1;
-  pointer-events: none;
-}
-
-/* Stats cross overlay */
+/* Stats cross overlay - Expanded to full card */
 .card-stats-cross {
   position: absolute;
-  top: 0.3em;
-  left: 0.3em;
-  width: 32cqw;
-  height: 32cqw;
+  inset: 0;
   z-index: 4;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.tt-card.dim-on-hover:hover .card-stats-cross,
+.tt-card.dim-on-hover:hover .card-elements,
+.tt-card.dim-on-hover:hover .cover-badge,
+.tt-card.dim-on-hover:hover :deep(.hp-bar-container) {
+  opacity: 0.15;
 }
 
 .stat {
   position: absolute;
   color: #ffd700;
-  font-weight: bold;
-  font-size: 12cqw;
-  text-shadow: 0 1px 3px black, 0 0 8px rgba(0,0,0,0.9);
+  font-weight: 900;
+  font-size: 20cqw;
+  text-shadow: 
+    0 0 10px rgba(0,0,0,1),
+    0 2px 4px rgba(0,0,0,1),
+    0 0 20px rgba(0,0,0,0.5);
   line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease, opacity 0.3s ease;
 }
 
-.stat-top    { top: 0;     left: 50%;  transform: translateX(-50%); }
-.stat-bottom { bottom: 0;  left: 50%;  transform: translateX(-50%); }
-.stat-left   { top: 50%;   left: 0;    transform: translateY(-50%); }
-.stat-right  { top: 50%;   right: 0;   transform: translateY(-50%); }
+.stat-top    { top: 8%;    left: 50%;  transform: translateX(-50%); }
+.stat-bottom { bottom: 6%;  left: 50%;  transform: translateX(-50%); }
+.stat-left   { top: 50%;   left: 6%;    transform: translateY(-50%); }
+.stat-right  { top: 50%;   right: 6%;   transform: translateY(-50%); }
 
-/* Element badges */
+/* Element badges - Moved to top-left to avoid stats */
 .card-elements {
   position: absolute;
-  top: 10%;
-  bottom: 18%; /* Increased from 8% to avoid overlap with name bar */
-  right: 5%;
+  top: 4%;
+  left: 4%;
   display: flex;
-  flex-direction: column-reverse; /* Start from bottom */
-  flex-wrap: wrap-reverse; /* Wrap towards the left */
-  align-content: flex-end; /* Align columns to the right */
-  justify-content: flex-start; /* Align items to the bottom (because of column-reverse) */
-  gap: 0.3em;
+  flex-direction: column;
+  gap: 0.2em;
   z-index: 10;
+  transition: opacity 0.3s ease;
 }
 
 .element-icon {
@@ -844,16 +849,16 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   box-shadow: inset 0 0 20px rgba(0,255,170,0.5);
 }
 
-/* Cover badge */
+/* Cover badge - Moved to top-right to avoid stat-top */
 .cover-badge {
   position: absolute;
-  top: 0.3em;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 4%;
+  right: 6%;
   color: gold;
-  font-size: 1.8em;
-  text-shadow: 0 0 8px gold;
+  font-size: 1.5em;
+  text-shadow: 0 0 8px gold, 0 1px 3px black;
   z-index: 9;
+  transition: opacity 0.3s ease;
 }
 
 /* Unowned lock */

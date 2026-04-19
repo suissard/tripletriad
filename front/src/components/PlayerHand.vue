@@ -17,7 +17,8 @@
           :flat="false"
           size="md"
           borderColor="#00d2ff"
-          :disableZoom="true"
+          :disableZoom="false"
+          :dimOnHover="false"
           :cardBack="state.editingDeck?.cardBack || 'default'"
           :isPremium="card.isPremium"
         />
@@ -55,7 +56,8 @@
           :flat="false"
           size="md"
           borderColor="#00d2ff"
-          :disableZoom="true"
+          :disableZoom="false"
+          :dimOnHover="false"
           :cardBack="state.editingDeck?.cardBack || 'default'"
           :isPremium="getDraggingCard()?.isPremium"
         />

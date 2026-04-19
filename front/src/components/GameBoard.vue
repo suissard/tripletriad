@@ -44,7 +44,8 @@
               :flat="true"
               size="100%"
               :borderColor="cell.owner === state.pId ? '#00d2ff' : '#ff0055'"
-              :disableZoom="true"
+              :disableZoom="false"
+              :dimOnHover="false"
               :owner="cell.owner"
               :isPremium="cell.data.isPremium"
             />

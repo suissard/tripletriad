@@ -12,6 +12,7 @@
           size="sm"
           borderColor="#ff0055"
           :disableZoom="true"
+          :dimOnHover="false"
         />
       </div>
     </TransitionGroup>

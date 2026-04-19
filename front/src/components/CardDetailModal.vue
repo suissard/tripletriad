@@ -17,12 +17,14 @@
 
               <!-- Card face (Always revealed in zoom) -->
               <img :src="card.imageUrl" class="card-img" :alt="card.name" />
-              <div class="card-name-bar">{{ card.name }}</div>
               <div class="card-stats-cross">
-                <span class="stat stat-top">{{ card.topValue }}</span>
-                <span class="stat stat-left">{{ card.leftValue }}</span>
-                <span class="stat stat-right">{{ card.rightValue }}</span>
-                <span class="stat stat-bottom">{{ card.bottomValue }}</span>
+                <div class="stat stat-top">{{ card.topValue }}</div>
+                <div class="stat stat-left">{{ card.leftValue }}</div>
+                <div class="stat stat-right">{{ card.rightValue }}</div>
+                <div class="stat stat-bottom">{{ card.bottomValue }}</div>
+                
+                <!-- Name (Floating above bottom stat) -->
+                <div class="card-name-bar" :style="{'--rarity-color': rarityColor}">{{ card.name }}</div>
               </div>
               <div class="card-elements" v-if="cardElementsList.length">
                 <ElementIcon v-for="el in cardElementsList" :key="el" :element="el" :active="true" class="element-icon" />
@@ -301,6 +303,11 @@ const premiumSeed = computed(() => {
   overflow: hidden; background: #1a1a2e; border: 2px solid #333; box-sizing: border-box;
 }
 
+.zoom-card-inner:hover .card-stats-cross,
+.zoom-card-inner:hover .card-elements {
+  opacity: 0.15;
+}
+
 .rarity-common .zoom-card-inner  { border-color: var(--border-color, #a0a0a0); }
 .rarity-uncommon .zoom-card-inner { border-color: var(--border-color, #4caf50); box-shadow: 0 0 8px var(--border-glow, rgba(76, 175, 80, 0.3)); }
 .rarity-rare .zoom-card-inner     { border-color: var(--border-color, #2196f3); box-shadow: 0 0 10px var(--border-glow, rgba(33, 150, 243, 0.4)); }
@@ -352,22 +359,58 @@ const premiumSeed = computed(() => {
 .card-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1.0; z-index: 1; }
 
 .card-name-bar {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  background: linear-gradient(transparent, rgba(0,0,0,0.85));
-  color: white; font-size: 1.1em; font-weight: bold;
-  padding: 2.5em 0.5em 0.4em; text-align: center;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  z-index: 3; text-shadow: 0 1px 3px black;
+  position: absolute; 
+  bottom: 28%; 
+  left: 0; 
+  right: 0;
+  background: transparent;
+  color: white;
+  font-size: 1.8rem; 
+  font-weight: 900;
+  padding: 0.2em; 
+  text-align: center;
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  z-index: 5; 
+  text-shadow: 0 0 15px var(--rarity-color, #000), 0 0 5px var(--rarity-color, #000), 0 2px 4px rgba(0,0,0,1);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.card-stats-cross { position: absolute; top: 0.3em; left: 0.3em; width: 5em; height: 5em; z-index: 4; }
-.stat { position: absolute; color: #ffd700; font-weight: bold; font-size: 1.3em; text-shadow: 0 1px 3px black, 0 0 6px rgba(0,0,0,0.8); line-height: 1; }
-.stat-top    { top: 0; left: 50%; transform: translateX(-50%); }
-.stat-bottom { bottom: 0; left: 50%; transform: translateX(-50%); }
-.stat-left   { top: 50%; left: 0; transform: translateY(-50%); }
-.stat-right  { top: 50%; right: 0; transform: translateY(-50%); }
+.card-stats-cross { 
+  position: absolute; 
+  inset: 0; 
+  z-index: 4; 
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.stat { 
+  position: absolute; 
+  color: #ffd700; 
+  font-weight: 900; 
+  font-size: 4rem; 
+  text-shadow: 0 2px 4px black, 0 0 10px rgba(0,0,0,1), 0 0 20px rgba(0,0,0,0.5); 
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.stat-top    { top: 8%; left: 50%; transform: translateX(-50%); }
+.stat-bottom { bottom: 6%; left: 50%; transform: translateX(-50%); }
+.stat-left   { top: 50%; left: 6%; transform: translateY(-50%); }
+.stat-right  { top: 50%; right: 6%; transform: translateY(-50%); }
 
-.card-elements { position: absolute; top: 10%; bottom: 8%; right: 5%; display: flex; flex-direction: column-reverse; flex-wrap: wrap-reverse; align-content: flex-end; justify-content: flex-start; gap: 0.3em; z-index: 4; }
+.card-elements { 
+  position: absolute; 
+  top: 4%; 
+  left: 4%; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 0.2em; 
+  z-index: 4; 
+  transition: opacity 0.3s ease;
+}
 .element-icon { width: 1.5em; height: 1.5em; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8)); }
 
 .zoom-ownership {

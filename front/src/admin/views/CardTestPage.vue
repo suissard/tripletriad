@@ -73,6 +73,10 @@
         </div>
 
         <div class="control-group">
+          <label><input type="checkbox" v-model="cardProps.dimOnHover"> 🌫️ Dim Info on Hover (Transparence)</label>
+        </div>
+
+        <div class="control-group">
           <label>Quantité (quantity):</label>
           <input type="number" v-model="cardProps.quantity" min="0" max="99" style="width: 50px;">
         </div>
@@ -141,6 +145,7 @@
           :borderWidth="cardProps.borderWidth"
           :disableZoom="cardProps.disableZoom"
           :face-down="cardProps.faceDown"
+          :dimOnHover="cardProps.dimOnHover"
           @click="logEvent('click', $event)"
           @left-click="logEvent('left-click', $event)"
           @right-click="logEvent('right-click', $event)"
@@ -190,7 +195,8 @@ const cardProps = reactive({
   borderWidth: 2,
   disableZoom: false,
   elementActive: false,
-  faceDown: false
+  faceDown: false,
+  dimOnHover: true
 });
 
 const isCustomSize = ref(false);
