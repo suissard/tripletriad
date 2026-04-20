@@ -46,8 +46,8 @@ export const useUserStore = defineStore('user', {
       return role.type === 'admin' || (role.name && role.name.toLowerCase() === 'admin');
     },
     latestStoryProgress: (state) => {
-      if (!state.userStoryProgresses || state.userStoryProgresses.length === 0) return null;
-      return [...state.userStoryProgresses]
+      if (!state.storyProgresses || state.storyProgresses.length === 0) return null;
+      return [...state.storyProgresses]
         .filter(p => p.status !== 'completed' && p.progressStatus !== 'completed')
         .sort((a, b) => {
           const dateA = new Date(a.updatedAt || a.updated_at || 0);

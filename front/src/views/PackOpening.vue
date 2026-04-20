@@ -64,14 +64,9 @@
             :interactive="false"
             :isNew="card.isNew"
             :revealShine="showPremiumEffect[index]"
-            :dimOnHover="false"
+            :dimOnHover="true"
             class="shadow-[0_30px_60px_rgba(0,0,0,0.8)]"
           />
-          
-          <!-- New Label -->
-          <div v-if="!card.faceDown && card.isNew" class="absolute -top-4 -right-4 bg-yellow-400 text-black font-black px-3 py-1 rounded-lg text-xs uppercase italic z-50 shadow-lg animate-bounce">
-            Nouveau !
-          </div>
         </div>
       </div>
     </div>
@@ -253,16 +248,30 @@ const startOpening = async () => {
     const data = await response.json();
     
     // Process Cards
-    drawnCards.value = (data.cards || []).map(c => {
+    const processedCards = (data.cards || []).map(c => {
       const isPremiumCard = !!c.isDrawnPremium;
       const isNew = !previousCollection.some(ec => ec.cardId === c.id && ec.isPremium === isPremiumCard);
+      const normalized = normalizeCard(c);
       return {
-        ...normalizeCard(c),
+        ...normalized,
         drawnRarity: c.drawnRarity,
         isDrawnPremium: isPremiumCard,
-        isNew: isNew
+        isNew: isNew,
+        // Calculate rarity score based on sum of stats as defined in AGENTS.md
+        rarityScore: normalized.top + normalized.right + normalized.bottom + normalized.left
       };
     });
+
+    // Sort by rarityScore: common (lowest sum) to rare (highest sum)
+    // Tie-breaker: Premium cards are placed to the right of non-premium cards with same stats
+    processedCards.sort((a, b) => {
+      if (a.rarityScore !== b.rarityScore) {
+        return a.rarityScore - b.rarityScore;
+      }
+      return (a.isDrawnPremium ? 1 : 0) - (b.isDrawnPremium ? 1 : 0);
+    });
+
+    drawnCards.value = processedCards;
 
     if (!drawnCards.value.length) throw new Error("Aucune carte trouvée dans le booster.");
 

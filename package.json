@@ -27,6 +27,8 @@
     "strapi:seed": "docker.compose exec terra-nullius-strapi node scripts/strapi-seed-all.js",
     "strapi:seed:cards": "docker.compose exec terra-nullius-strapi node scripts/strapi-seed-cards-internal.js",
     "strapi:repair": "docker.compose exec terra-nullius-strapi node scripts/strapi-repair-cards.js",
+    "sync:weekly:pull": "node scripts/sync-weekly-config.mjs export",
+    "sync:weekly:push": "node scripts/sync-weekly-config.mjs import",
 
 
     "build:front": "npm run build --prefix front",

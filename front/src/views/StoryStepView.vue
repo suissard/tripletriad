@@ -511,7 +511,7 @@ function getProgress(storyId) {
 function isStepCompleted(storyId, stepId) {
   if (userStore.isOfflineStoryMode) return false;
   const p = getProgress(storyId);
-  return p && p.completedSteps && p.completedSteps.includes(stepId);
+  return p && p.completedSteps && p.completedSteps.some(id => String(id) === String(stepId));
 }
 
 function isStepActive(storyId, stepIdx) {

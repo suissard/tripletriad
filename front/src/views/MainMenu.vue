@@ -16,7 +16,19 @@
       </div>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openCollection">MA COLLECTION 📚</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openDecks">MES DECKS 🎴</AppButton>
-      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" disabled>MODE HISTOIRE 📖</AppButton>
+      
+      <AppButton 
+        v-if="userStore.latestStoryProgress" 
+        fullWidth 
+        variant="primary" 
+        class="text-lg py-4 resume-story-btn" 
+        @click="resumeLatestStory"
+        glow
+      >
+        ▶️ REPRENDRE L'HISTOIRE
+      </AppButton>
+      
+      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="router.push('/story')">MODE HISTOIRE 📖</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" disabled>PARTIE MULTIJOUEUR 🌍</AppButton>
       <!-- <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="router.push('/test-card')" style="margin-top:20px; background:linear-gradient(45deg, #f093fb 0%, #f5576c 100%)">TESTER LA CARTE 🧪</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="router.push('/test-coin')" style="margin-top:10px; background:linear-gradient(45deg, #84fab0 0%, #8fd3f4 100%)">TESTER LA PIÈCE 🪙</AppButton> -->
@@ -150,6 +162,28 @@ function openBoutique() {
   router.push('/boutique');
 }
 
+function resumeLatestStory() {
+  const p = userStore.latestStoryProgress;
+  if (!p) return;
+
+  const storyId = p.story?.documentId || p.story?.id || p.story;
+  const stepId = p.currentStep?.documentId || p.currentStep?.id || p.currentStep;
+
+  if (!storyId) return;
+
+  if (!stepId) {
+    router.push({ name: 'story-steps', params: { storyId } });
+    return;
+  }
+
+  // We need the story object to find the step index
+  // For simplicity, we can just go to the steps list if we don't have the full story object yet
+  // or we can fetch it. But in MainMenu, we might not want to fetch it.
+  // Actually, StoryPage.vue has the logic.
+  // Let's just go to the steps list for now, or use a generic "resume" route if it exists.
+  router.push({ name: 'story-steps', params: { storyId } });
+}
+
 function startAiGame(deck) {
   if (deck.cards.length < 5) {
     state.alerts = "Ce deck est incomplet (min 5 cartes)";
@@ -244,7 +278,8 @@ onMounted(async () => {
   try {
     await Promise.all([
       userStore.fetchUserDecks(),
-      userStore.fetchUserQuests()
+      userStore.fetchUserQuests(),
+      userStore.fetchUserStoryProgresses()
     ]);
 
     // Check if any quest is completed and reward not claimed

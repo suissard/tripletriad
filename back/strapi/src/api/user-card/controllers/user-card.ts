@@ -8,15 +8,47 @@ export default factories.createCoreController(
       const user = ctx.state.user;
       if (!user) return ctx.unauthorized("You must be logged in.");
 
-      // Ensure we only see our own cards
-      ctx.query.filters = {
-        ...((ctx.query.filters as any) || {}),
+      const { query } = ctx as any;
+
+      // Extract and normalize pagination
+      const page = parseInt(query.pagination?.page) || 1;
+      const pageSize = parseInt(query.pagination?.pageSize) || 100;
+      const start = (page - 1) * pageSize;
+
+      // Force filter by user
+      const filters = {
+        ...((query.filters as any) || {}),
         user: user.id,
       };
 
-      // Use the default find implementation but with our filter forced
-      const { data, meta } = await super.find(ctx);
-      return { data, meta };
+      // Use entityService to bypass the Query Parser validation which is complaining about 'user'
+      const results = await strapi.entityService.findMany(
+        "api::user-card.user-card",
+        {
+          filters,
+          populate: query.populate,
+          sort: query.sort,
+          start,
+          limit: pageSize,
+        }
+      );
+
+      // Count for pagination meta
+      const total = await strapi.entityService.count("api::user-card.user-card", {
+        filters,
+      });
+
+      return {
+        data: results,
+        meta: {
+          pagination: {
+            page,
+            pageSize,
+            pageCount: Math.ceil(total / pageSize),
+            total,
+          },
+        },
+      };
     },
 
     async disenchant(ctx) {

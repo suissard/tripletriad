@@ -6,6 +6,7 @@ import { bootstrapFactions } from './api/faction/services/faction-bootstrap';
 import { migrateCardsToFactions } from './api/faction/services/faction-migration';
 import { bootstrapDecks } from './api/deck/services/deck-bootstrap';
 import { bootstrapStories } from './api/story/services/story-bootstrap';
+import { bootstrapWeeklyQuestConfig } from './api/weekly-quest-config/services/weekly-quest-config-bootstrap';
 import { assignQuestsToUser, ensureUserHasWelcomeQuest } from './api/player-quest/services/quest-assignment';
 
 // ---------------------------------------------------------------------------
@@ -230,6 +231,14 @@ export async function runFullBootstrap(strapi: Core.Strapi) {
     console.log('✅ Stories bootstrapped.');
   } catch (err) {
     console.error('❌ Error bootstrapping stories:', err);
+  }
+
+  // 4.5 Weekly Quest Config
+  try {
+    await bootstrapWeeklyQuestConfig(strapi);
+    console.log('✅ WeeklyQuest Config bootstrapped.');
+  } catch (err) {
+    console.error('❌ Error bootstrapping WeeklyQuest Config:', err);
   }
 
   // 4. Backfill existing users

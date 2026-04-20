@@ -129,8 +129,8 @@ const sortedSteps = computed(() => {
   const completedSteps = p?.completedSteps || [];
   
   return [...story.value.steps].sort((a, b) => {
-    const isACompleted = completedSteps.includes(a.id);
-    const isBCompleted = completedSteps.includes(b.id);
+    const isACompleted = completedSteps.some(id => String(id) === String(a.id) || String(id) === String(a.documentId));
+    const isBCompleted = completedSteps.some(id => String(id) === String(b.id) || String(id) === String(b.documentId));
     
     if (isACompleted && !isBCompleted) return -1;
     if (!isACompleted && isBCompleted) return 1;
@@ -265,7 +265,7 @@ async function resetStory() {
 function isStepCompleted(stepId) {
   if (userStore.isOfflineStoryMode) return false;
   const p = getProgress();
-  return p && p.completedSteps && p.completedSteps.includes(stepId);
+  return p && p.completedSteps && p.completedSteps.some(id => String(id) === String(stepId));
 }
 
 function checkCondition(condition, progress) {
