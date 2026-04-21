@@ -26,15 +26,14 @@ ENV APP_DOMAIN=$APP_DOMAIN
 # Build the frontend
 RUN npm run build
 
-# Stage 2: Production environment (Caddy)
-FROM caddy:2-alpine
+# Stage 2: Production environment (Nginx)
+FROM nginx:alpine
 
 # Copy the built files from the builder stage
-COPY --from=builder /opt/app/front/dist /srv
+COPY --from=builder /opt/app/front/dist /usr/share/nginx/html
 
-# Copy the Caddyfile configuration
-COPY Caddyfile /etc/caddy/Caddyfile
+# Copy the Nginx configuration template
+COPY nginx.conf.template /etc/nginx/templates/default.conf.template
 
 # Metadata
 EXPOSE 80
-EXPOSE 443

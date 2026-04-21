@@ -8,12 +8,9 @@ services:
         APP_DOMAIN: ${APP_DOMAIN}
     container_name: terra-nullius-frontend
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - caddy_data:/data
-      - caddy_config:/config
+      - ./nginx.conf.template:/etc/nginx/templates/default.conf.template
     ports:
       - "80:80"
-      - "443:443"
     environment:
       - VITE_STRAPI_URL=${VITE_STRAPI_URL:-http://localhost:1340}
       - APP_DOMAIN=${APP_DOMAIN:-localhost}
@@ -77,5 +74,3 @@ services:
 
 volumes:
   pgdata:
-  caddy_data:
-  caddy_config:
