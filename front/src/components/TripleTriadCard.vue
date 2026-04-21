@@ -13,7 +13,8 @@
         'has-custom-border': !!borderColor,
         'is-flipping': isFlipping,
         'is-shaking': isShaking,
-        'is-compact': compact
+        'is-compact': compact,
+        'dim-on-hover': dimOnHover
       }
     ]"
     :style="cardStyle"
@@ -47,50 +48,49 @@
           :tiltX="tiltX !== null ? tiltX : tilt.x"
           :tiltY="tiltY !== null ? tiltY : tilt.y"
           :always-visible="alwaysVisible"
-          :supertype="card.supertype"
-          :subtypes="card.subtypes"
+          :supertype="displayCard.supertype"
+          :subtypes="displayCard.subtypes"
         />
 
         <!-- CARD CONTENT (Unified layout) -->
-        <template v-if="card.revealed !== false || $attrs.forceFace">
+        <template v-if="displayCard.revealed !== false || $attrs.forceFace">
           <!-- Card image -->
-          <img :src="card.imageUrl" class="card-img" :alt="card.name" />
+          <img :src="displayCard.imageUrl" class="card-img" :alt="displayCard.name" />
 
-          <!-- Name bar -->
-          <div class="card-name-bar" :style="{'--glow-color': actualRarityColor}">{{ card.name }}</div>
+          <!-- HP Bar (Moved to top) -->
+          <HpBar v-if="displayCard.hp !== undefined" :hp="displayCard.hp" :default-hp="displayCard.defaultHp || 3" :owner="owner" />
 
-          <!-- Element badges -->
+          <!-- Element badges (Top-Left) -->
           <div class="card-elements" v-if="cardElementsList.length">
             <ElementIcon v-for="el in cardElementsList" :key="el" :element="el" :active="elementActive" class="element-icon" />
           </div>
 
-          <!-- Stats cross -->
-          <div class="card-stats-cross">
-            <span class="stat stat-top">{{ card.topValue }}</span>
-            <span class="stat stat-left">{{ card.leftValue }}</span>
-            <span class="stat stat-right">{{ card.rightValue }}</span>
-            <span class="stat stat-bottom">{{ card.bottomValue }}</span>
+          <!-- Cover badge (Top-Right) -->
+          <div class="cover-badge" v-if="isCover">★</div>
+
+          <!-- Stats & Name (Edge-aligned) -->
+          <div class="card-stats-cross" :class="{ 'has-bonus': bonus > 0 }">
+            <div class="stat stat-top" :class="{ 'is-boosted': bonus > 0 && normalizedCardData.top < 100 }">{{ displayCard.topValue }}</div>
+            <div class="stat stat-left" :class="{ 'is-boosted': bonus > 0 && normalizedCardData.left < 100 }">{{ displayCard.leftValue }}</div>
+            <div class="stat stat-right" :class="{ 'is-boosted': bonus > 0 && normalizedCardData.right < 100 }">{{ displayCard.rightValue }}</div>
+            <div class="stat stat-bottom" :class="{ 'is-boosted': bonus > 0 && normalizedCardData.bottom < 100 }">{{ displayCard.bottomValue }}</div>
+            
+            <!-- Name (Floating above bottom stat) -->
+            <div class="card-name-bar" :style="{'--rarity-color': actualRarityColor}">{{ displayCard.name }}</div>
           </div>
 
           <!-- Selected check -->
           <div class="selected-overlay" v-if="selected">✓</div>
 
-          <!-- Cover badge -->
-          <div class="cover-badge" v-if="isCover">★</div>
-
           <!-- Unowned lock -->
           <div class="unowned-overlay" v-if="unowned">🔒</div>
-
         </template>
 
-        <!-- HP Bar -->
-          <HpBar v-if="card.hp !== undefined" :hp="card.hp" :default-hp="card.defaultHp || 3" :owner="owner" />
-
-          <!-- Broken Glass Impact Effect for Captures -->
-          <BrokenGlassOverlay v-if="card.impactDirection" :direction="card.impactDirection" />
-          
-          <!-- Reveal Shine Effect -->
-          <div v-if="revealShine" class="reveal-shine"></div>
+        <!-- Broken Glass Impact Effect for Captures -->
+        <BrokenGlassOverlay v-if="displayCard.impactDirection" :direction="displayCard.impactDirection" />
+        
+        <!-- Reveal Shine Effect -->
+        <div v-if="revealShine" class="reveal-shine"></div>
 
         <!-- BASE CARD FACE (Fallback revealed false) -->
         <template v-else>
@@ -111,6 +111,7 @@
 
     </div>
     
+
 
 
     <!-- Quantity badge (unified) -->
@@ -139,13 +140,21 @@
   <!-- Card Detail Modal -->
   <CardDetailModal
     :show="isZoomed"
-    :card="card"
+    :card="displayCard"
     :is-premium="isPremiumCard"
     :quantity="quantity"
     :unowned="unowned"
     :border-width="borderWidth"
+    :show-default-info="showDetailInfo"
+    :show-crafting-actions="showCraftingActions"
+    :bonus="bonus"
     @close="isZoomed = false"
-  />
+  >
+    <template #extra>
+      <slot name="detail-extra" />
+    </template>
+    <slot name="detail" />
+  </CardDetailModal>
 </template>
 
 <script setup>
@@ -159,8 +168,8 @@ import AppBadge from "./ui/AppBadge.vue";
 import HpBar from './game/HpBar.vue';
 import { useUserStore } from '../stores/userStore.js';
 import { useEffectStore } from '../stores/effectStore.js';
-import { GameEngine } from '../../../shared/GameEngine.ts';
 import { getRarity } from '../game/constants.js';
+import { normalizeCard } from '../utils/cardUtils.js';
 
 const props = defineProps({
   card: { type: Object, required: true },
@@ -189,16 +198,41 @@ const props = defineProps({
   tiltY: { type: Number, default: null },
   alwaysVisible: { type: Boolean, default: false },
   isNew: { type: Boolean, default: false },
-  revealShine: { type: Boolean, default: false }
+  revealShine: { type: Boolean, default: false },
+  dimOnHover: { type: Boolean, default: true },
+  showDetailInfo: { type: Boolean, default: true },
+  showCraftingActions: { type: Boolean, default: true },
+  bonus: { type: Number, default: 0 }
 });
 
 const userStore = useUserStore();
 const effectStore = useEffectStore();
+
+// Internal normalization to handle raw Strapi data or pre-normalized data
+const normalizedCardData = computed(() => normalizeCard(props.card));
+
+// Apply dynamic bonuses (Faction, etc.) to values
+const displayCard = computed(() => {
+  const card = { ...normalizedCardData.value };
+  if (props.bonus > 0) {
+    const sides = ['top', 'right', 'bottom', 'left'];
+    sides.forEach(side => {
+      const baseVal = card[side];
+      if (baseVal < 100) {
+        const newVal = Math.min(100, baseVal + props.bonus);
+        card[side] = newVal;
+        card[side + 'Value'] = newVal === 100 ? 'A' : String(newVal);
+      }
+    });
+  }
+  return card;
+});
+
 const customFoilEffect = computed(() => {
   if (props.overrideEffect) return props.overrideEffect;
-  if (props.card?.overrideEffect) return props.card.overrideEffect;
-  if (!props.card) return null;
-  const id = props.card.documentId || props.card.id;
+  if (displayCard.value?.overrideEffect) return displayCard.value.overrideEffect;
+  if (!displayCard.value) return null;
+  const id = displayCard.value.documentId || displayCard.value.id;
   if (!id) return null;
   return useEffectStore().getEffectForCard(id);
 });
@@ -231,12 +265,12 @@ function startLongPress(e) {
   longPressTimer.value = setTimeout(() => {
     longPressTriggered.value = true;
     if (longPressButton.value === 0) {
-      emit('long-left-click', props.card);
+      emit('long-left-click', displayCard.value);
       if (!props.disableZoom) {
         isZoomed.value = true;
       }
     } else if (longPressButton.value === 2) {
-      emit('long-right-click', props.card);
+      emit('long-right-click', displayCard.value);
     }
   }, 500);
 }
@@ -268,7 +302,7 @@ function handleRightClick(e) {
     longPressTriggered.value = false;
     return;
   }
-  emit('right-click', props.card);
+  emit('right-click', displayCard.value);
 }
 
 function handleClick() {
@@ -277,53 +311,82 @@ function handleClick() {
     longPressTriggered.value = false;
     return;
   }
-  emit('left-click', props.card);
-  emit('click', props.card);
+  emit('left-click', displayCard.value);
+  emit('click', displayCard.value);
 }
 
 // --- Computed ---
 const isPremiumCard = computed(() => {
-  if (props.card.revealed === false) return false;
-  return props.isPremium || props.card.isDrawnPremium || !!customFoilEffect.value;
+  if (displayCard.value.revealed === false) return false;
+  return props.isPremium || displayCard.value.isDrawnPremium || !!customFoilEffect.value;
 });
 
 const cardLevel = computed(() => {
-  if (props.card.level) return props.card.level; // Fallback if still present in some data
+  if (displayCard.value.level) return displayCard.value.level; // Fallback if still present in some data
   return GameEngine.calculateCardLevel({
-    top: props.card.topValue,
-    right: props.card.rightValue,
-    bottom: props.card.bottomValue,
-    left: props.card.leftValue
+    topValue: displayCard.value.topValue,
+    rightValue: displayCard.value.rightValue,
+    bottomValue: displayCard.value.bottomValue,
+    leftValue: displayCard.value.leftValue
   });
 });
 
 const rarityData = computed(() => {
-  if (props.card.revealed === false) return { name: 'common', color: '#a0a0a0' };
+  if (displayCard.value.revealed === false) return { name: 'common', color: '#a0a0a0' };
   
-  // Real rarity calculation from values
+  const rarityMapping = {
+    'common': 'common',
+    'commun': 'common',
+    'uncommon': 'uncommon',
+    'peu commun': 'uncommon',
+    'rare': 'rare',
+    'epic': 'epic',
+    'épique': 'epic',
+    'legendary': 'legendary',
+    'légendaire': 'legendary'
+  };
+
+  const reverseMapping = {
+    'common': 'Commun',
+    'uncommon': 'Peu Commun',
+    'rare': 'Rare',
+    'epic': 'Épique',
+    'legendary': 'Légendaire'
+  };
+
+  const colors = {
+    'common': '#a0a0a0',
+    'uncommon': '#4caf50',
+    'rare': '#2196f3',
+    'epic': '#9c27b0',
+    'legendary': '#ffc107'
+  };
+
+  // 1. Prioritize explicit rarity if provided (especially for boosters)
+  const explicitRarity = displayCard.value.drawnRarity || displayCard.value.rarity;
+  if (explicitRarity) {
+    const normalizedName = rarityMapping[explicitRarity.toLowerCase()] || 'common';
+    return {
+      name: normalizedName,
+      color: colors[normalizedName]
+    };
+  }
+
+  // 2. Fallback to calculation from values
   const values = {
-    top: props.card.top ?? (typeof props.card.topValue === 'string' ? (props.card.topValue.toUpperCase() === 'A' ? 10 : parseInt(props.card.topValue)) : props.card.topValue),
-    right: props.card.right ?? (typeof props.card.rightValue === 'string' ? (props.card.rightValue.toUpperCase() === 'A' ? 10 : parseInt(props.card.rightValue)) : props.card.rightValue),
-    bottom: props.card.bottom ?? (typeof props.card.bottomValue === 'string' ? (props.card.bottomValue.toUpperCase() === 'A' ? 10 : parseInt(props.card.bottomValue)) : props.card.bottomValue),
-    left: props.card.left ?? (typeof props.card.leftValue === 'string' ? (props.card.leftValue.toUpperCase() === 'A' ? 10 : parseInt(props.card.leftValue)) : props.card.leftValue),
+    top: displayCard.value.top,
+    right: displayCard.value.right,
+    bottom: displayCard.value.bottom,
+    left: displayCard.value.left,
   };
   
   if (isNaN(values.top) || isNaN(values.right) || isNaN(values.bottom) || isNaN(values.left)) {
-     // Fallback if values are missing
-     if (props.card.rarity) return { name: props.card.rarity.toLowerCase(), color: null };
      return { name: 'common', color: '#a0a0a0' };
   }
 
   const r = getRarity(values);
-  const rarityMapping = {
-    'Commun': 'common',
-    'Peu Commun': 'uncommon',
-    'Rare': 'rare',
-    'Épique': 'epic',
-    'Légendaire': 'legendary'
-  };
   return { 
-    name: rarityMapping[r.name] || 'common', 
+    name: rarityMapping[r.name.toLowerCase()] || 'common', 
     color: r.color 
   };
 });
@@ -333,21 +396,8 @@ const rarityClass = computed(() => {
 });
 
 const actualRarityColor = computed(() => {
-  if (props.card.revealed === false) return '#a0a0a0';
-  if (rarityData.value.color) return rarityData.value.color;
-  
-  const rarityToCheck = props.card.drawnRarity || props.card.rarity;
-  if (rarityToCheck) {
-    const map = {
-      'common': '#a0a0a0',
-      'uncommon': '#4caf50',
-      'rare': '#2196f3',
-      'epic': '#9c27b0',
-      'legendary': '#ffc107'
-    };
-    return map[rarityToCheck.toLowerCase()] || '#a0a0a0';
-  }
-  return '#a0a0a0';
+  if (displayCard.value.revealed === false) return '#a0a0a0';
+  return rarityData.value.color;
 });
 
 const rarityColor = computed(() => {
@@ -376,10 +426,11 @@ const cardStyle = computed(() => {
   }
   
   if (!props.flat && !props.compact) Object.assign(style, mouseStyle.value);
-  if (props.borderColor) {
-    style['--border-color'] = props.borderColor;
-    style['--border-glow'] = props.borderColor;
-  }
+  
+  // Always set the border color/glow variables so they are consistent across calculations and props
+  style['--border-color'] = rarityColor.value;
+  style['--border-glow'] = rarityColor.value;
+  
   style['--card-border-width'] = `${effectiveBorderWidth}px`;
   return style;
 });
@@ -387,9 +438,9 @@ const cardStyle = computed(() => {
 
 
 const cardElementsList = computed(() => {
-  if (!props.card) return [];
-  const elements = props.card.elements;
-  const element = props.card.element;
+  if (!displayCard.value) return [];
+  const elements = displayCard.value.elements;
+  const element = displayCard.value.element;
   
   let result = [];
   if (Array.isArray(elements)) {
@@ -403,8 +454,8 @@ const cardElementsList = computed(() => {
   return [...new Set(result)].filter(e => e && e !== 'None');
 });
 
-async function handleCraft() { if (canCraft.value) await userStore.craftCard(props.card.id); }
-async function handleDisenchant() { if (props.quantity > 0) await userStore.disenchantCard(props.card.id); }
+async function handleCraft() { if (canCraft.value) await userStore.craftCard(displayCard.value.id); }
+async function handleDisenchant() { if (props.quantity > 0) await userStore.disenchantCard(displayCard.value.id); }
 
 // --- 3D TILT ---
 const containerRef = ref(null);
@@ -459,7 +510,7 @@ function hashCode(str) {
 }
 
 const premiumSeed = computed(() => {
-  const cardPart = props.card.id || props.card.name || '0';
+  const cardPart = displayCard.value.id || displayCard.value.name || '0';
   const userPart = userStore.user?.id || 'anon';
   return hashCode(`${cardPart}-${userPart}`);
 });
@@ -496,7 +547,7 @@ function handleLeave() {
 
 // --- Capture Impact Animation ---
 const isShaking = ref(false);
-watch(() => props.card?.impactDirection, (newVal) => {
+watch(() => displayCard.value?.impactDirection, (newVal) => {
   if (newVal) {
     isShaking.value = true;
     setTimeout(() => { isShaking.value = false; }, 300);
@@ -505,7 +556,7 @@ watch(() => props.card?.impactDirection, (newVal) => {
 
 // --- Capture Flip Animation ---
 watch(() => props.borderColor, (newVal, oldVal) => {
-  if (oldVal && newVal !== oldVal && !props.card?.impactDirection) {
+  if (oldVal && newVal !== oldVal && !displayCard.value?.impactDirection) {
     isFlipping.value = true;
     isShaking.value = true; // Add shake on capture
     setTimeout(() => {
@@ -748,70 +799,74 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 
 .card-name-bar {
   position: absolute;
-  bottom: 0;
+  bottom: 28%;
   left: 0;
   right: 0;
-  background: linear-gradient(transparent, rgba(0,0,0,0.85));
+  background: transparent;
   color: white;
   font-size: 7cqw;
-  font-weight: bold;
-  padding: 2.5em 0.5em 0.4em;
+  font-weight: 900;
+  padding: 0.2em;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  z-index: 3;
-  text-shadow: 0 1px 3px black;
+  z-index: 5;
+  text-shadow: 
+    0 0 10px var(--rarity-color, #000),
+    0 0 5px var(--rarity-color, #000),
+    0 2px 4px rgba(0,0,0,1);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.card-name-bar::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, var(--glow-color) 0%, transparent 100%);
-  mix-blend-mode: screen;
-  opacity: 0.8;
-  z-index: -1;
-  pointer-events: none;
-}
-
-/* Stats cross overlay */
+/* Stats cross overlay - Expanded to full card */
 .card-stats-cross {
   position: absolute;
-  top: 0.3em;
-  left: 0.3em;
-  width: 32cqw;
-  height: 32cqw;
+  inset: 0;
   z-index: 4;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.tt-card.dim-on-hover:hover .card-stats-cross,
+.tt-card.dim-on-hover:hover .card-elements,
+.tt-card.dim-on-hover:hover .cover-badge,
+.tt-card.dim-on-hover:hover :deep(.hp-bar-container) {
+  opacity: 0.15;
 }
 
 .stat {
   position: absolute;
   color: #ffd700;
-  font-weight: bold;
-  font-size: 12cqw;
-  text-shadow: 0 1px 3px black, 0 0 8px rgba(0,0,0,0.9);
+  font-weight: 900;
+  font-size: 20cqw;
+  text-shadow: 
+    0 0 10px rgba(0,0,0,1),
+    0 2px 4px rgba(0,0,0,1),
+    0 0 20px rgba(0,0,0,0.5);
   line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease, opacity 0.3s ease;
 }
 
-.stat-top    { top: 0;     left: 50%;  transform: translateX(-50%); }
-.stat-bottom { bottom: 0;  left: 50%;  transform: translateX(-50%); }
-.stat-left   { top: 50%;   left: 0;    transform: translateY(-50%); }
-.stat-right  { top: 50%;   right: 0;   transform: translateY(-50%); }
+.stat-top    { top: 8%;    left: 50%;  transform: translateX(-50%); }
+.stat-bottom { bottom: 6%;  left: 50%;  transform: translateX(-50%); }
+.stat-left   { top: 50%;   left: 6%;    transform: translateY(-50%); }
+.stat-right  { top: 50%;   right: 6%;   transform: translateY(-50%); }
 
-/* Element badges */
+/* Element badges - Moved to top-left to avoid stats */
 .card-elements {
   position: absolute;
-  top: 10%;
-  bottom: 18%; /* Increased from 8% to avoid overlap with name bar */
-  right: 5%;
+  top: 4%;
+  left: 4%;
   display: flex;
-  flex-direction: column-reverse; /* Start from bottom */
-  flex-wrap: wrap-reverse; /* Wrap towards the left */
-  align-content: flex-end; /* Align columns to the right */
-  justify-content: flex-start; /* Align items to the bottom (because of column-reverse) */
-  gap: 0.3em;
+  flex-direction: column;
+  gap: 0.2em;
   z-index: 10;
+  transition: opacity 0.3s ease;
 }
 
 .element-icon {
@@ -844,16 +899,16 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   box-shadow: inset 0 0 20px rgba(0,255,170,0.5);
 }
 
-/* Cover badge */
+/* Cover badge - Moved to top-right to avoid stat-top */
 .cover-badge {
   position: absolute;
-  top: 0.3em;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 4%;
+  right: 6%;
   color: gold;
-  font-size: 1.8em;
-  text-shadow: 0 0 8px gold;
+  font-size: 1.5em;
+  text-shadow: 0 0 8px gold, 0 1px 3px black;
   z-index: 9;
+  transition: opacity 0.3s ease;
 }
 
 /* Unowned lock */
@@ -881,8 +936,8 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 
 
 /* Selection border */
-.is-selected:not(.is-compact) .tt-card-inner { border-color: var(--border-color, #00d2ff); box-shadow: 0 0 12px rgba(0, 210, 255, 0.4); }
-.is-cover:not(.is-compact) .tt-card-inner    { border-color: var(--border-color, gold); box-shadow: 0 0 12px rgba(255, 215, 0, 0.5); }
+.is-selected:not(.is-compact) .tt-card-inner { border-color: #00d2ff !important; box-shadow: 0 0 12px rgba(0, 210, 255, 0.4); }
+.is-cover:not(.is-compact) .tt-card-inner    { border-color: gold !important; box-shadow: 0 0 12px rgba(255, 215, 0, 0.5); }
 .is-compact.is-selected .tt-card-inner { border-color: #00d2ff !important; }
 .is-compact.is-cover .tt-card-inner { border-color: gold !important; }
 
@@ -1061,6 +1116,12 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   20% { opacity: 1; }
   80% { opacity: 1; }
   100% { transform: translateX(150%) skewX(-25deg); opacity: 0; }
+}
+
+.stat.is-boosted {
+  color: #4aff4a !important;
+  text-shadow: 0 0 8px rgba(74, 255, 74, 0.8), 2px 2px 4px black !important;
+  font-weight: 900;
 }
 </style>
 

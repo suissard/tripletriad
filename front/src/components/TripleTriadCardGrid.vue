@@ -9,15 +9,24 @@
         :quantity="showOwnNum && card.quantity !== undefined ? card.quantity : 0"
         :selected="selectedCards.has(card.id || card.name)"
         :unowned="card.quantity === 0"
-        :disableZoom="true"
+        :disableZoom="disableZoom"
         :faceDown="card.faceDown"
         :isPremium="card.isPremium"
         :isNew="card.isNew"
+        :showDetailInfo="showDetailInfo"
+        :showCraftingActions="showCraftingActions"
         @left-click="handleCardAction('left-click', card, index)"
         @right-click="handleCardAction('right-click', card, index)"
         @long-left-click="handleCardAction('long-left-click', card)"
         @long-right-click="handleCardAction('long-right-click', card)"
-      />
+      >
+        <template #detail>
+          <slot name="card-detail" :card="card" />
+        </template>
+        <template #detail-extra>
+          <slot name="card-detail-extra" :card="card" />
+        </template>
+      </TripleTriadCard>
     </div>
 
     <!-- Pagination controls -->
@@ -43,7 +52,10 @@ const props = defineProps({
   selectable: { type: Boolean, default: false },
   maxSelection: { type: Number, default: null }, // Optional: limit selection
   cardSize: { type: String, default: null }, // Explicit size override
-  horizontal: { type: Boolean, default: false } // New horizontal layout 
+  horizontal: { type: Boolean, default: false }, // New horizontal layout 
+  disableZoom: { type: Boolean, default: true },
+  showDetailInfo: { type: Boolean, default: true },
+  showCraftingActions: { type: Boolean, default: true }
 });
 
 const emit = defineEmits([

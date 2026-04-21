@@ -511,7 +511,7 @@ function getProgress(storyId) {
 function isStepCompleted(storyId, stepId) {
   if (userStore.isOfflineStoryMode) return false;
   const p = getProgress(storyId);
-  return p && p.completedSteps && p.completedSteps.includes(stepId);
+  return p && p.completedSteps && p.completedSteps.some(id => String(id) === String(stepId));
 }
 
 function isStepActive(storyId, stepIdx) {
@@ -635,7 +635,7 @@ async function playCombat() {
     let playerDeckCards = currentSituation.value.playerDeck?.cards || [];
     let enemyDeckCards = currentSituation.value.enemyDeck?.cards || [];
 
-    gameState.playerDeckSelection = playerDeckCards.length > 0 ? playerDeckCards.map(normalizeCard) : Array(15).fill(0).map(() => normalizeCard(cardLibrary[Math.floor(Math.random() * cardLibrary.length)]));
+    gameState.playerDeckSelection = playerDeckCards.length > 0 ? playerDeckCards.map(normalizeCard) : Array(userStore.gameConfig?.cardsPerDeck || 15).fill(0).map(() => normalizeCard(cardLibrary[Math.floor(Math.random() * cardLibrary.length)]));
     gameState.storyEnemyDeckConfig = enemyDeckCards.length > 0 ? enemyDeckCards.map(normalizeCard) : [];
 
     gameState.isStoryMatch = true;

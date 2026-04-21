@@ -4,9 +4,9 @@
       <div 
         v-for="(booster, index) in flattenedBoosters" 
         :key="index"
-        class="booster-fan-item absolute cursor-pointer transition-all duration-500 ease-out"
+        class="booster-fan-item absolute cursor-pointer transition-all duration-500 ease-out group"
         :style="getBoosterStyle(index, flattenedBoosters.length)"
-        @click="$emit('open', booster)"
+        @click="handleBoosterClick(booster)"
       >
         <BoosterCard
           :name="getCollectionName(booster.collection)"
@@ -14,8 +14,17 @@
           :isPremium="booster.isPremium"
           :quantity="booster.quantity"
           size="md"
+          :class="{ 'opacity-50 grayscale-[0.5]': isLocked(booster) }"
         />
         
+        <!-- Lock Overlay -->
+        <div v-if="isLocked(booster)" class="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none">
+          <div class="text-4xl filter drop-shadow-lg mb-2">🔒</div>
+          <div class="bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest text-white border border-white/20">
+            Prêt le {{ formatDate(getStartDate(booster.collection)) }}
+          </div>
+        </div>
+
         <!-- Tooltip on hover -->
         <div class="absolute -bottom-12 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap bg-black/80 text-white text-[10px] px-2 py-1 rounded uppercase tracking-widest font-bold pointer-events-none z-[100]">
           {{ getCollectionName(booster.collection) }} {{ booster.isPremium ? '(PREMIUM)' : '' }}
@@ -58,6 +67,32 @@ const getCollectionName = (code) => {
 const getBoosterImage = (code) => {
   const coll = userStore.collections.find(c => c.code === code);
   return coll?.boosterImage || null;
+};
+
+const getStartDate = (code) => {
+  const coll = userStore.collections.find(c => c.code === code);
+  return coll?.startDate || null;
+};
+
+const isLocked = (booster) => {
+  const startDate = getStartDate(booster.collection);
+  if (!startDate) return false;
+  return new Date() < new Date(startDate);
+};
+
+const formatDate = (dateString) => {
+  if (!dateString) return '';
+  return new Date(dateString).toLocaleDateString('fr-FR', {
+    day: '2-digit',
+    month: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+};
+
+const handleBoosterClick = (booster) => {
+  if (isLocked(booster)) return;
+  emit('open', booster);
 };
 
 const getBoosterStyle = (index, total) => {

@@ -39,39 +39,29 @@
       "type": "json"
     },
     "faction": {
-      "type": "enumeration",
-      "default": "neutre",
-      "enum": [
-        "neutre",
-        "Hégémonie Martienne",
-        "Exode Pélagique",
-        "Héritiers des Cendres",
-        "Omni-Réseau",
-        "Chœur Synthétique",
-        "Éveil Chthonien",
-        "Incursion Dissonante",
-        "Ferrailleurs de la Ceinture",
-        "Fléau Spore"
-      ]
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::faction.faction",
+      "inversedBy": "cards"
     },
     "topValue": {
       "type": "string",
-      "maxLength": 1,
+      "maxLength": 2,
       "required": true
     },
     "rightValue": {
       "type": "string",
-      "maxLength": 1,
+      "maxLength": 2,
       "required": true
     },
     "bottomValue": {
       "type": "string",
-      "maxLength": 1,
+      "maxLength": 2,
       "required": true
     },
     "leftValue": {
       "type": "string",
-      "maxLength": 1,
+      "maxLength": 2,
       "required": true
     },
     "skills": {

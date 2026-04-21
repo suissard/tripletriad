@@ -46,8 +46,8 @@ export const useUserStore = defineStore('user', {
       return role.type === 'admin' || (role.name && role.name.toLowerCase() === 'admin');
     },
     latestStoryProgress: (state) => {
-      if (!state.userStoryProgresses || state.userStoryProgresses.length === 0) return null;
-      return [...state.userStoryProgresses]
+      if (!state.storyProgresses || state.storyProgresses.length === 0) return null;
+      return [...state.storyProgresses]
         .filter(p => p.status !== 'completed' && p.progressStatus !== 'completed')
         .sort((a, b) => {
           const dateA = new Date(a.updatedAt || a.updated_at || 0);
@@ -71,6 +71,10 @@ export const useUserStore = defineStore('user', {
       const claimed = state.weeklyProgress.claimedTiers || [];
       const tiers = state.weeklyConfig.tiers || [];
       return tiers.filter(t => completed >= t.requiredCount && !claimed.includes(t.requiredCount));
+    },
+    totalBoostersCount: (state) => {
+      if (!state.user || !state.user.boosters) return 0;
+      return state.user.boosters.reduce((total, b) => total + (b.quantity || 0), 0);
     }
   },
   actions: {
@@ -295,7 +299,6 @@ export const useUserStore = defineStore('user', {
       if (this.collectionsLoaded && !force) return;
       try {
         const result = await strapiService.find('collections', {
-          filters: { isActive: true },
           populate: ['boosterImage'],
           sort: ['code:asc']
         });
@@ -304,7 +307,11 @@ export const useUserStore = defineStore('user', {
           id: item.id,
           code: item.code,
           name: item.name,
-          boosterImage: item.boosterImage?.url ? getStrapiMediaUrl(item.boosterImage.url) : null
+          boosterImage: item.boosterImage?.url ? getStrapiMediaUrl(item.boosterImage.url) : null,
+          boosterCostMultiplier: item.boosterCostMultiplier ?? 1.0,
+          premiumBoosterCostMultiplier: item.premiumBoosterCostMultiplier ?? 1.0,
+          isActive: item.isActive ?? true,
+          startDate: item.startDate || null
         }));
         this.collectionsLoaded = true;
       } catch (e) {

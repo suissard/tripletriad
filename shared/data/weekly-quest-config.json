@@ -1,0 +1,34 @@
+{
+  "tiers": [
+    {
+      "requiredCount": 5,
+      "coins": 100,
+      "gems": 0,
+      "cardRarity": "Commun"
+    },
+    {
+      "requiredCount": 10,
+      "coins": 150,
+      "gems": 0,
+      "cardRarity": "Peu Commun"
+    },
+    {
+      "requiredCount": 15,
+      "coins": 200,
+      "gems": 0,
+      "cardRarity": "Rare"
+    },
+    {
+      "requiredCount": 20,
+      "coins": 250,
+      "gems": 0,
+      "cardRarity": "Épique"
+    },
+    {
+      "requiredCount": 25,
+      "coins": null,
+      "gems": 100,
+      "cardRarity": "Légendaire"
+    }
+  ]
+}

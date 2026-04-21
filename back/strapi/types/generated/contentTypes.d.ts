@@ -477,7 +477,7 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
     bottomValue: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 1;
+        maxLength: 2;
       }>;
     collection: Schema.Attribute.Relation<
       'manyToOne',
@@ -506,26 +506,12 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.DefaultTo<'None'>;
     elements: Schema.Attribute.JSON;
-    faction: Schema.Attribute.Enumeration<
-      [
-        'neutre',
-        'H\u00E9g\u00E9monie Martienne',
-        'Exode P\u00E9lagique',
-        'H\u00E9ritiers des Cendres',
-        'Omni-R\u00E9seau',
-        'Ch\u0153ur Synth\u00E9tique',
-        '\u00C9veil Chthonien',
-        'Incursion Dissonante',
-        'Ferrailleurs de la Ceinture',
-        'Fl\u00E9au Spore',
-      ]
-    > &
-      Schema.Attribute.DefaultTo<'neutre'>;
+    faction: Schema.Attribute.Relation<'manyToOne', 'api::faction.faction'>;
     image: Schema.Attribute.Media<'images'>;
     leftValue: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 1;
+        maxLength: 2;
       }>;
     level: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -541,13 +527,13 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
     rightValue: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 1;
+        maxLength: 2;
       }>;
     skills: Schema.Attribute.Component<'game.skill', true>;
     topValue: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 1;
+        maxLength: 2;
       }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -567,6 +553,8 @@ export interface ApiCollectionCollection extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    boosterCostMultiplier: Schema.Attribute.Decimal &
+      Schema.Attribute.DefaultTo<1>;
     boosterImage: Schema.Attribute.Media<'images'>;
     cards: Schema.Attribute.Relation<'oneToMany', 'api::card.card'>;
     code: Schema.Attribute.String &
@@ -586,7 +574,10 @@ export interface ApiCollectionCollection extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
+    premiumBoosterCostMultiplier: Schema.Attribute.Decimal &
+      Schema.Attribute.DefaultTo<1>;
     publishedAt: Schema.Attribute.DateTime;
+    startDate: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -629,6 +620,44 @@ export interface ApiDeckDeck extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+  };
+}
+
+export interface ApiFactionFaction extends Struct.CollectionTypeSchema {
+  collectionName: 'factions';
+  info: {
+    description: 'Factions of the Terra Nullius universe';
+    displayName: 'Faction';
+    pluralName: 'factions';
+    singularName: 'faction';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    cards: Schema.Attribute.Relation<'oneToMany', 'api::card.card'>;
+    code: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::faction.faction'
+    > &
+      Schema.Attribute.Private;
+    lore: Schema.Attribute.Text;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    style: Schema.Attribute.JSON;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -680,15 +709,6 @@ export interface ApiGameConfigGameConfig extends Struct.SingleTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    boosterCost: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<100>;
     cardsPerDeck: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMax<
@@ -734,6 +754,24 @@ export interface ApiGameConfigGameConfig extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    defaultBoosterCost: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<100>;
+    defaultPremiumBoosterCost: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<50>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1907,6 +1945,7 @@ declare module '@strapi/strapi' {
       'api::card.card': ApiCardCard;
       'api::collection.collection': ApiCollectionCollection;
       'api::deck.deck': ApiDeckDeck;
+      'api::faction.faction': ApiFactionFaction;
       'api::foil-effect.foil-effect': ApiFoilEffectFoilEffect;
       'api::game-config.game-config': ApiGameConfigGameConfig;
       'api::game-history.game-history': ApiGameHistoryGameHistory;

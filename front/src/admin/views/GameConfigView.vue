@@ -131,10 +131,18 @@
 
           <div class="space-y-6">
             <div class="setting-group">
-              <label for="boosterCost">Coût du Booster</label>
+              <label for="defaultBoosterCost">Coût du Booster Classique</label>
               <div class="relative">
-                <input type="number" id="boosterCost" v-model.number="config.boosterCost" class="pr-16 text-primary font-bold">
+                <input type="number" id="defaultBoosterCost" v-model.number="config.defaultBoosterCost" class="pr-16 text-primary font-bold">
                 <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-primary uppercase">Coins</span>
+              </div>
+            </div>
+
+            <div class="setting-group">
+              <label for="defaultPremiumBoosterCost">Coût du Booster Premium</label>
+              <div class="relative">
+                <input type="number" id="defaultPremiumBoosterCost" v-model.number="config.defaultPremiumBoosterCost" class="pr-16 text-indigo-400 font-bold">
+                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-indigo-400 uppercase">Gems</span>
               </div>
             </div>
 
@@ -284,7 +292,8 @@ const loadConfig = async () => {
           turnTimeSeconds: 60,
           maxQuestsPerUser: 5,
           playableLimit: 2,
-          boosterCost: 100,
+          defaultBoosterCost: 100,
+          defaultPremiumBoosterCost: 50,
 
           probCommon: 39,
           probUncommon: 30,

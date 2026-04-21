@@ -7,6 +7,7 @@
  */
 import { state } from './state.js';
 import { rulesRegistry } from './rules.js';
+import { GameEngine } from './GameEngine.js';
 
 /**
  * Get neighbors for a given flat index on the board.
@@ -30,36 +31,54 @@ function getNeighborsPure(index, w, h) {
  */
 export function simulateCaptures(card, slotIndex) {
     const owner = 'player';
-    const opp = 'ai';
     const w = state.boardWidth;
     const h = state.boardHeight;
-    const board = state.board;
+    const boardFlat = state.board;
 
     // Quick exit if slot is occupied
-    if (board[slotIndex] !== null) {
+    if (boardFlat[slotIndex] !== null) {
         return { directCaptures: [], comboCaptures: [] };
     }
 
-    const neighbors = getNeighborsPure(slotIndex, w, h);
+    // Convert flat board to 2D for GameEngine
+    const board2D = [];
+    for (let r = 0; r < h; r++) {
+        board2D.push(boardFlat.slice(r * w, (r + 1) * w));
+    }
 
-    // Mock the placed card as a board entry
-    const mockEntry = { data: card, owner };
+    // Faction counts BEFORE placement to delay bonus for the 4th card
+    const factionCountsBefore = GameEngine.getFactionCounts(board2D);
+
+    const x = slotIndex % w;
+    const y = Math.floor(slotIndex / w);
+
+    // Mock the placed card
+    const mockEntry = { 
+        data: { 
+            ...card,
+            hp: card.hp !== undefined ? card.hp : (card.defaultHp || 3)
+        }, 
+        owner 
+    };
+    
+    // Temporarily place on 2D board
+    board2D[y][x] = mockEntry;
 
     const directCaptures = [];
     const comboCaptures = [];
-
-    // Track which indices were already captured (to avoid duplicates)
     const capturedSet = new Set();
 
     // --- 1. Complex rules (Same, Plus) ---
+    // Note: rules still use flat board internally in some cases, but they expect board objects
     let complexCaptureIndices = new Set();
+    const neighbors = getNeighborsPure(slotIndex, w, h);
 
     rulesRegistry.forEach(rule => {
         if (state.rules[rule.id] && rule.id !== 'combo') {
-            const result = rule.execute(mockEntry, neighbors, board);
+            const result = rule.execute(mockEntry, neighbors, boardFlat);
             if (result.triggered) {
                 result.captures.forEach(capturedEntry => {
-                    const idx = board.indexOf(capturedEntry);
+                    const idx = boardFlat.indexOf(capturedEntry);
                     if (idx !== -1 && capturedEntry.owner !== owner) {
                         complexCaptureIndices.add(idx);
                     }
@@ -68,59 +87,75 @@ export function simulateCaptures(card, slotIndex) {
         }
     });
 
-    // Add complex captures to directCaptures
     for (const idx of complexCaptureIndices) {
         if (!capturedSet.has(idx)) {
             capturedSet.add(idx);
-            // Find the direction from slotIndex to idx
             const dir = getDirectionBetween(slotIndex, idx, w);
             directCaptures.push({ index: idx, direction: dir });
         }
     }
 
-    // --- 2. Classic captures (value comparison) ---
+    // --- 2. Classic captures ---
     neighbors.forEach(n => {
-        const adj = board[n.i];
-        if (adj && adj.owner !== owner && card[n.dir] > adj.data[n.opp]) {
-            if (!capturedSet.has(n.i)) {
-                capturedSet.add(n.i);
-                directCaptures.push({ index: n.i, direction: n.opp });
+        const nx = n.i % w;
+        const ny = Math.floor(n.i / w);
+        const adj = board2D[ny][nx];
+
+        if (adj && adj.owner !== owner) {
+            const myVal = GameEngine.getEffectiveValue(board2D, x, y, n.dir, factionCountsBefore);
+            const oppVal = GameEngine.getEffectiveValue(board2D, nx, ny, n.opp, factionCountsBefore);
+
+            if (myVal > oppVal) {
+                if (!capturedSet.has(n.i)) {
+                    capturedSet.add(n.i);
+                    directCaptures.push({ index: n.i, direction: n.opp });
+                }
             }
         }
     });
 
-    // --- 3. Combo simulation (if combo rule is enabled) ---
-    if (state.rules.combo && complexCaptureIndices.size > 0) {
-        // Build a temporary ownership map for combo simulation
-        const ownershipOverrides = new Map();
-        // Cards captured by Same/Plus now belong to the player
-        for (const idx of complexCaptureIndices) {
-            ownershipOverrides.set(idx, owner);
-        }
+    // --- 3. Combo simulation ---
+    if (state.rules.combo && (complexCaptureIndices.size > 0 || directCaptures.length > 0)) {
+        // We also allow combos from classic captures if the rule permits, 
+        // but here we follow the existing logic which was slightly restricted.
+        // Let's broaden it to match GameEngine's combo logic.
+        
+        // Deep clone board for combo simulation
+        const comboBoard = board2D.map(row => row.map(cell => cell ? { ...cell, data: { ...cell.data } } : null));
+        
+        // Initial captures are flipped
+        [...directCaptures].forEach(cap => {
+            const cx = cap.index % w;
+            const cy = Math.floor(cap.index / w);
+            comboBoard[cy][cx].owner = owner;
+        });
 
-        let comboStack = [...complexCaptureIndices];
+        let comboStack = [...capturedSet].map(idx => ({
+            idx,
+            x: idx % w,
+            y: Math.floor(idx / w)
+        }));
 
         while (comboStack.length > 0) {
-            const currentIdx = comboStack.shift();
-            const currentEntry = board[currentIdx];
-            if (!currentEntry) continue;
+            const current = comboStack.shift();
+            const currentEntry = comboBoard[current.y][current.x];
+            const currentNeighbors = getNeighborsPure(current.idx, w, h);
 
-            const currentCardData = currentEntry.data;
-            const comboNeighbors = getNeighborsPure(currentIdx, w, h);
+            currentNeighbors.forEach(n => {
+                const nx = n.i % w;
+                const ny = Math.floor(n.i / w);
+                const adj = comboBoard[ny][nx];
+                if (!adj || adj.owner === owner) return;
 
-            comboNeighbors.forEach(n => {
-                const adj = board[n.i];
-                if (!adj) return;
+                const myVal = GameEngine.getEffectiveValue(comboBoard, current.x, current.y, n.dir, factionCountsBefore);
+                const oppVal = GameEngine.getEffectiveValue(comboBoard, nx, ny, n.opp, factionCountsBefore);
 
-                // Determine effective owner
-                const adjEffectiveOwner = ownershipOverrides.has(n.i) ? ownershipOverrides.get(n.i) : adj.owner;
-                
-                if (adjEffectiveOwner !== owner && currentCardData[n.dir] > adj.data[n.opp]) {
+                if (myVal > oppVal) {
                     if (!capturedSet.has(n.i)) {
                         capturedSet.add(n.i);
-                        ownershipOverrides.set(n.i, owner);
-                        comboCaptures.push({ index: n.i, sourceIndex: currentIdx, direction: n.opp });
-                        comboStack.push(n.i);
+                        adj.owner = owner;
+                        comboCaptures.push({ index: n.i, sourceIndex: current.idx, direction: n.opp });
+                        comboStack.push({ idx: n.i, x: nx, y: ny });
                     }
                 }
             });

@@ -3,26 +3,41 @@
     <Transition name="zoom-fade">
       <div v-if="show" class="zoom-overlay" @click="$emit('close')">
         <div class="zoom-card-container">
-          <div class="tt-card-zoom-wrapper" :class="[rarityClass, { 'is-premium': isPremium }]" :style="cardZoomStyle" @click="$emit('close')">
+          <div 
+            ref="cardRef"
+            class="tt-card-zoom-wrapper" 
+            :class="[rarityClass, { 'is-premium': isPremium }]" 
+            :style="cardZoomStyle" 
+            @click.stop="$emit('close')"
+            @mousemove="handleMove"
+            @mouseleave="handleLeave"
+            @touchstart="handleMove"
+            @touchmove="handleMove"
+            @touchend="handleLeave"
+          >
             <div class="zoom-card-inner">
               <template v-if="isPremium">
-                <div class="glare" :style="{ background: 'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 60%)' }"></div>
+                <div class="glare" :style="glareStyle"></div>
                 <HoloOverlay
                   :seed="premiumSeed"
                   :always-visible="true"
                   :supertype="card.supertype"
                   :subtypes="card.subtypes"
+                  :tiltX="tilt.x"
+                  :tiltY="tilt.y"
                 />
               </template>
 
               <!-- Card face (Always revealed in zoom) -->
               <img :src="card.imageUrl" class="card-img" :alt="card.name" />
-              <div class="card-name-bar">{{ card.name }}</div>
               <div class="card-stats-cross">
-                <span class="stat stat-top">{{ card.topValue }}</span>
-                <span class="stat stat-left">{{ card.leftValue }}</span>
-                <span class="stat stat-right">{{ card.rightValue }}</span>
-                <span class="stat stat-bottom">{{ card.bottomValue }}</span>
+                <div class="stat stat-top" :class="{ 'is-boosted': bonus > 0 && card.top < 100 }">{{ card.topValue }}</div>
+                <div class="stat stat-left" :class="{ 'is-boosted': bonus > 0 && card.left < 100 }">{{ card.leftValue }}</div>
+                <div class="stat stat-right" :class="{ 'is-boosted': bonus > 0 && card.right < 100 }">{{ card.rightValue }}</div>
+                <div class="stat stat-bottom" :class="{ 'is-boosted': bonus > 0 && card.bottom < 100 }">{{ card.bottomValue }}</div>
+                
+                <!-- Name (Floating above bottom stat) -->
+                <div class="card-name-bar" :style="{'--rarity-color': rarityColor}">{{ card.name }}</div>
               </div>
               <div class="card-elements" v-if="cardElementsList.length">
                 <ElementIcon v-for="el in cardElementsList" :key="el" :element="el" :active="true" class="element-icon" />
@@ -31,45 +46,41 @@
           </div>
 
           <div class="zoom-card-info" @click.stop>
-            <h2>{{ card.name }}</h2>
-            <div class="zoom-meta">
-              <span>Niveau {{ cardLevel }}</span>
-              <span v-if="cardElementsList.length">Éléments: {{ cardElementsList.join(', ') }}</span>
-              <span v-if="card.faction && card.faction !== 'neutre'">Faction: {{ card.faction }}</span>
-              <span v-if="isPremium" class="zoom-premium-badge">🌟 PREMIUM</span>
-            </div>
-
-            <p v-if="card.description" class="zoom-desc">{{ card.description }}</p>
-
-            <div class="zoom-stats">
-              <div class="zoom-stat-grid">
-                <span>⬆ HAUT: {{ card.topValue }}</span>
-                <span>⬅ GAUCHE: {{ card.leftValue }}</span>
-                <span>➡ DROITE: {{ card.rightValue }}</span>
-                <span>⬇ BAS: {{ card.bottomValue }}</span>
+            <template v-if="showDefaultInfo">
+              <h2>{{ card.name }}</h2>
+              <div class="zoom-meta">
+                <span v-if="factionDisplay" class="faction-info">Faction: {{ factionDisplay }}</span>
+                <span :style="{ color: rarityColor }" class="zoom-rarity-badge">{{ rarityLabel }}</span>
+                <span v-if="isPremium" class="zoom-premium-badge">🌟 PREMIUM</span>
               </div>
-            </div>
 
-            <div class="zoom-ownership">
-              <div v-if="unowned" class="ownership-status unowned">🔒 Non possédée</div>
-              <div v-else class="ownership-status owned">✅ Possédée ({{ quantity }})</div>
-            </div>
+              <p v-if="card.description" class="zoom-desc">{{ card.description }}</p>
 
-            <!-- Crafting/Disenchanting Buttons -->
-            <div class="zoom-actions">
-              <PurchaseButton 
-                :amount="craftCost" 
-                type="dust" 
-                label="Créer"
-                variant="primary"
-                :action="handleCraft"
-                class="zoom-action-btn craft"
-              />
-              <button class="zoom-action-btn disenchant" v-if="!unowned && quantity > 0" @click.stop="handleDisenchant">
-                <span>Désenchanter</span>
-                <span class="gain">+{{ disenchantGain }} ✨</span>
-              </button>
-            </div>
+              <!-- Extra slot for things like skills -->
+              <slot name="extra" />
+
+              <div class="zoom-ownership">
+                <div v-if="unowned" class="ownership-status unowned">🔒 Non possédée</div>
+                <div v-else class="ownership-status owned">✅ Possédée ({{ quantity }})</div>
+              </div>
+
+              <!-- Crafting/Disenchanting Buttons -->
+              <div v-if="showCraftingActions" class="zoom-actions">
+                <PurchaseButton 
+                  :amount="craftCost" 
+                  type="dust" 
+                  label="Créer"
+                  variant="primary"
+                  :action="handleCraft"
+                  class="zoom-action-btn craft"
+                />
+                <button class="zoom-action-btn disenchant" v-if="!unowned && quantity > 0" @click.stop="handleDisenchant">
+                  <span>Désenchanter</span>
+                  <span class="gain">+{{ disenchantGain }} ✨</span>
+                </button>
+              </div>
+            </template>
+            <slot />
           </div>
           <button class="zoom-close" @click="$emit('close')">✕</button>
         </div>
@@ -79,7 +90,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import ElementIcon from "./ElementIcon.vue";
 import HoloOverlay from "./HoloOverlay.vue";
 import { useUserStore } from '../stores/userStore.js';
@@ -94,12 +105,36 @@ const props = defineProps({
   isPremium: Boolean,
   quantity: Number,
   unowned: Boolean,
-  borderWidth: { type: Number, default: 2 }
+  borderWidth: { type: Number, default: 2 },
+  showDefaultInfo: { type: Boolean, default: true },
+  showCraftingActions: { type: Boolean, default: true },
+  bonus: { type: Number, default: 0 }
 });
 
 const emit = defineEmits(['close']);
 
 const ZOOM_SIZE = 350;
+
+const cardRef = ref(null);
+const tilt = ref({ x: 0, y: 0 });
+const mousePos = ref({ x: 50, y: 50 });
+
+function handleMove(e) {
+  const el = cardRef.value;
+  if (!el) return;
+  const rect = el.getBoundingClientRect();
+  const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+  const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+  const x = clientX - rect.left, y = clientY - rect.top;
+  const xPct = (x / rect.width) * 100, yPct = (y / rect.height) * 100;
+  mousePos.value = { x: xPct, y: yPct };
+  tilt.value = { x: ((y / rect.height) - 0.5) * -30, y: ((x / rect.width) - 0.5) * 30 };
+}
+
+function handleLeave() {
+  tilt.value = { x: 0, y: 0 };
+  mousePos.value = { x: 50, y: 50 };
+}
 
 const cardLevel = computed(() => {
   if (props.card.level) return props.card.level;
@@ -111,39 +146,80 @@ const cardLevel = computed(() => {
   });
 });
 
-const rarityClass = computed(() => {
-  if (props.card.rarity) return `rarity-${props.card.rarity.toLowerCase()}`;
+const rarityInfo = computed(() => {
+  const rarityMapping = {
+    'common': 'common',
+    'commun': 'common',
+    'uncommon': 'uncommon',
+    'peu commun': 'uncommon',
+    'rare': 'rare',
+    'epic': 'epic',
+    'épique': 'epic',
+    'legendary': 'legendary',
+    'légendaire': 'legendary'
+  };
+
+  const colors = {
+    'common': '#a0a0a0',
+    'uncommon': '#4caf50',
+    'rare': '#2196f3',
+    'epic': '#9c27b0',
+    'legendary': '#ffc107'
+  };
+
+  const explicitRarity = props.card.drawnRarity || props.card.rarity;
+  if (explicitRarity) {
+    const normalized = rarityMapping[explicitRarity.toLowerCase()] || 'common';
+    return { name: normalized, color: colors[normalized] };
+  }
+
   const level = cardLevel.value;
-  if (level >= 9) return 'rarity-legendary';
-  if (level >= 7) return 'rarity-epic';
-  if (level >= 5) return 'rarity-rare';
-  if (level >= 3) return 'rarity-uncommon';
-  return 'rarity-common';
+  let name = 'common';
+  if (level >= 9) name = 'legendary';
+  else if (level >= 7) name = 'epic';
+  else if (level >= 5) name = 'rare';
+  else if (level >= 3) name = 'uncommon';
+
+  return { name, color: colors[name] };
 });
 
-const rarityColor = computed(() => {
-  if (props.card.rarity) {
-    const map = {
-      'Common': '#a0a0a0',
-      'Uncommon': '#4caf50',
-      'Rare': '#2196f3',
-      'Epic': '#9c27b0',
-      'Legendary': '#ffc107'
-    };
-    return map[props.card.rarity] || '#a0a0a0';
-  }
-  const level = cardLevel.value;
-  if (level >= 9) return '#ffc107';
-  if (level >= 7) return '#9c27b0';
-  if (level >= 5) return '#2196f3';
-  if (level >= 3) return '#4caf50';
-  return '#a0a0a0';
+const rarityClass = computed(() => `rarity-${rarityInfo.value.name}`);
+const rarityColor = computed(() => rarityInfo.value.color);
+
+const rarityLabel = computed(() => {
+  const r = props.card.rarity || getRarityStr(cardLevel.value);
+  const map = {
+    'Common': 'Commune',
+    'Uncommon': 'Peu Commune',
+    'Rare': 'Rare',
+    'Epic': 'Épique',
+    'Legendary': 'Légendaire',
+    'common': 'Commune',
+    'uncommon': 'Peu Commune',
+    'rare': 'Rare',
+    'epic': 'Épique',
+    'legendary': 'Légendaire'
+  };
+  return map[r] || r;
+});
+
+const factionDisplay = computed(() => {
+  if (!props.card.faction) return null;
+  // Handle Strapi 5 object relation or flat string
+  const faction = props.card.faction;
+  const name = typeof faction === 'object' ? faction.name : faction;
+  if (!name || name.toLowerCase() === 'neutre' || name.toLowerCase() === 'neutral') return null;
+  return name;
 });
 
 const cardZoomStyle = computed(() => {
   const scale = ZOOM_SIZE / 150;
   return {
-    '--card-border-width': `${props.borderWidth * scale}px`
+    '--card-border-width': `${props.borderWidth * scale}px`,
+    '--border-color': rarityColor.value,
+    '--border-glow': rarityColor.value,
+    transform: `rotateX(${tilt.value.x}deg) rotateY(${tilt.value.y}deg)`,
+    transition: (tilt.value.x === 0 && tilt.value.y === 0) ? 'transform 0.5s ease-out' : 'transform 0.1s ease-out'
   };
 });
 
@@ -194,6 +270,14 @@ const premiumSeed = computed(() => {
   const userPart = userStore.user?.id || 'anon';
   return hashCode(`${cardPart}-${userPart}`);
 });
+
+const glareStyle = computed(() => {
+  return {
+    background: `radial-gradient(circle at ${mousePos.value.x}% ${mousePos.value.y}%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 60%)`,
+    opacity: tilt.value.x === 0 && tilt.value.y === 0 ? 0 : 1,
+    transition: tilt.value.x === 0 && tilt.value.y === 0 ? 'opacity 0.5s ease-out' : 'opacity 0.1s ease-out'
+  };
+});
 </script>
 
 <style scoped>
@@ -216,6 +300,7 @@ const premiumSeed = computed(() => {
   cursor: default;
   position: relative;
   max-width: 90vw;
+  perspective: 1200px;
 }
 
 .zoom-card-info {
@@ -254,9 +339,13 @@ const premiumSeed = computed(() => {
   flex-wrap: wrap;
 }
 
+.zoom-premium-badge, .zoom-rarity-badge {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
 .zoom-premium-badge {
   color: #ffce00;
-  font-weight: bold;
   text-shadow: 0 0 8px rgba(255, 206, 0, 0.6);
 }
 
@@ -294,11 +383,18 @@ const premiumSeed = computed(() => {
   font-size: 24px; 
   aspect-ratio: 1 / 1; 
   position: relative; 
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .zoom-card-inner {
   width: 100%; height: 100%; position: relative; border-radius: 8px;
   overflow: hidden; background: #1a1a2e; border: 2px solid #333; box-sizing: border-box;
+}
+
+.zoom-card-inner:hover .card-stats-cross,
+.zoom-card-inner:hover .card-elements {
+  opacity: 0.15;
 }
 
 .rarity-common .zoom-card-inner  { border-color: var(--border-color, #a0a0a0); }
@@ -352,22 +448,58 @@ const premiumSeed = computed(() => {
 .card-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1.0; z-index: 1; }
 
 .card-name-bar {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  background: linear-gradient(transparent, rgba(0,0,0,0.85));
-  color: white; font-size: 1.1em; font-weight: bold;
-  padding: 2.5em 0.5em 0.4em; text-align: center;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  z-index: 3; text-shadow: 0 1px 3px black;
+  position: absolute; 
+  bottom: 28%; 
+  left: 0; 
+  right: 0;
+  background: transparent;
+  color: white;
+  font-size: 1.8rem; 
+  font-weight: 900;
+  padding: 0.2em; 
+  text-align: center;
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  z-index: 5; 
+  text-shadow: 0 0 15px var(--rarity-color, #000), 0 0 5px var(--rarity-color, #000), 0 2px 4px rgba(0,0,0,1);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.card-stats-cross { position: absolute; top: 0.3em; left: 0.3em; width: 5em; height: 5em; z-index: 4; }
-.stat { position: absolute; color: #ffd700; font-weight: bold; font-size: 1.3em; text-shadow: 0 1px 3px black, 0 0 6px rgba(0,0,0,0.8); line-height: 1; }
-.stat-top    { top: 0; left: 50%; transform: translateX(-50%); }
-.stat-bottom { bottom: 0; left: 50%; transform: translateX(-50%); }
-.stat-left   { top: 50%; left: 0; transform: translateY(-50%); }
-.stat-right  { top: 50%; right: 0; transform: translateY(-50%); }
+.card-stats-cross { 
+  position: absolute; 
+  inset: 0; 
+  z-index: 4; 
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.stat { 
+  position: absolute; 
+  color: #ffd700; 
+  font-weight: 900; 
+  font-size: 4rem; 
+  text-shadow: 0 2px 4px black, 0 0 10px rgba(0,0,0,1), 0 0 20px rgba(0,0,0,0.5); 
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.stat-top    { top: 8%; left: 50%; transform: translateX(-50%); }
+.stat-bottom { bottom: 6%; left: 50%; transform: translateX(-50%); }
+.stat-left   { top: 50%; left: 6%; transform: translateY(-50%); }
+.stat-right  { top: 50%; right: 6%; transform: translateY(-50%); }
 
-.card-elements { position: absolute; top: 10%; bottom: 8%; right: 5%; display: flex; flex-direction: column-reverse; flex-wrap: wrap-reverse; align-content: flex-end; justify-content: flex-start; gap: 0.3em; z-index: 4; }
+.card-elements { 
+  position: absolute; 
+  top: 4%; 
+  left: 4%; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 0.2em; 
+  z-index: 4; 
+  transition: opacity 0.3s ease;
+}
 .element-icon { width: 1.5em; height: 1.5em; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8)); }
 
 .zoom-ownership {
@@ -417,5 +549,11 @@ const premiumSeed = computed(() => {
   padding: 10px 15px;
   border-radius: 6px;
   border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.stat.is-boosted {
+  color: #4aff4a !important;
+  text-shadow: 0 0 15px rgba(74, 255, 74, 0.8), 0 2px 4px black !important;
+  font-weight: 900;
 }
 </style>

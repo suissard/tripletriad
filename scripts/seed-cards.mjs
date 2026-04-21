@@ -11,6 +11,7 @@ const __dirname = path.dirname(__filename);
 
 const ENV_PATH = path.join(__dirname, '..', '.env');
 const CARDS_DIR = path.join(__dirname, '..', 'shared', 'data', 'cards');
+const WEEKLY_CONFIG_PATH = path.join(__dirname, '..', 'shared', 'data', 'weekly-quest-config.json');
 
 function loadEnv() {
   const env = {};
@@ -90,6 +91,36 @@ async function deleteMediaFromStrapi(token, mediaId) {
   }
 }
 
+async function fetchFactions(token) {
+  console.log('🔍 Récupération des factions...');
+  const res = await fetch(`${STRAPI_URL}/content-manager/collection-types/api::faction.faction`, {
+    headers: { 'Authorization': `Bearer ${token}` }
+  });
+  if (!res.ok) throw new Error('Échec récupération factions');
+  const data = await res.json();
+  const map = {};
+  data.results.forEach(f => {
+    map[f.name.toLowerCase()] = f.documentId;
+    if (f.code) map[f.code.toLowerCase()] = f.documentId;
+  });
+  return map;
+}
+
+async function fetchCollections(token) {
+  console.log('🔍 Récupération des collections...');
+  const res = await fetch(`${STRAPI_URL}/content-manager/collection-types/api::collection.collection`, {
+    headers: { 'Authorization': `Bearer ${token}` }
+  });
+  if (!res.ok) throw new Error('Échec récupération collections');
+  const data = await res.json();
+  const map = {};
+  data.results.forEach(c => {
+    map[c.name.toLowerCase()] = c.documentId;
+    if (c.code) map[c.code.toLowerCase()] = c.documentId;
+  });
+  return map;
+}
+
 async function fetchAllCards(token) {
   console.log('🔍 Récupération des cartes existantes...');
   let allCards = [];
@@ -121,22 +152,31 @@ async function fetchAllCards(token) {
   return cardMap;
 }
 
-async function upsertCardInStrapi(token, cardData, mediaId, existingCard = null) {
+async function upsertCardInStrapi(token, cardData, mediaId, factionMap, collectionMap, existingCard = null) {
+  const factionKey = (cardData.faction || 'neutre').toLowerCase();
+  const collectionKey = (cardData.collectionName || 'base').toLowerCase();
+
+  const factionId = factionMap[factionKey];
+  const collectionId = collectionMap[collectionKey];
+
+  if (!factionId) console.warn(`  ⚠️ Faction "${factionKey}" non trouvée, la carte sera créée sans faction.`);
+  if (!collectionId) console.warn(`  ⚠️ Collection "${collectionKey}" non trouvée, la carte sera créée sans collection.`);
+
   const payload = {
       name: cardData.name,
       description: cardData.description,
       level: cardData.level || 1,
       element: cardData.element,
       elements: Array.isArray(cardData.elements) ? cardData.elements : [cardData.element || 'None'],
-      faction: cardData.faction || 'neutre',
+      faction: factionId,
+      collection: collectionId,
       rarity: cardData.rarity || 'Common',
       defaultHp: cardData.defaultHp || 3,
       topValue: cardData.topValue?.toString() || "0",
       rightValue: cardData.rightValue?.toString() || "0",
       bottomValue: cardData.bottomValue?.toString() || "0",
       leftValue: cardData.leftValue?.toString() || "0",
-      image: mediaId,
-      collectionName: cardData.collectionName
+      image: mediaId
   };
   
   const method = existingCard ? 'PUT' : 'POST';
@@ -159,9 +199,41 @@ async function upsertCardInStrapi(token, cardData, mediaId, existingCard = null)
   }
 }
 
+async function importWeeklyQuestConfig(token) {
+  if (!fs.existsSync(WEEKLY_CONFIG_PATH)) return;
+
+  console.log('\n📤 Importation de WeeklyQuest Config...');
+  try {
+    const config = JSON.parse(fs.readFileSync(WEEKLY_CONFIG_PATH, 'utf-8'));
+    const res = await fetch(`${STRAPI_URL}/content-manager/single-types/api::weekly-quest-config.weekly-quest-config`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(config)
+    });
+
+    if (!res.ok) {
+      const err = await res.text();
+      console.warn(`  ⚠️  Échec importation WeeklyQuest Config: ${err}`);
+    } else {
+      console.log('  ✅ WeeklyQuest Config mise à jour.');
+    }
+  } catch (err) {
+    console.warn(`  ⚠️  Erreur lecture/importation WeeklyQuest Config: ${err.message}`);
+  }
+}
+
 async function main() {
     try {
         const token = await getAdminToken();
+
+        // Seed configuration types first
+        await importWeeklyQuestConfig(token);
+
+        const factionMap = await fetchFactions(token);
+        const collectionMap = await fetchCollections(token);
         const cardMap = await fetchAllCards(token);
         const directories = fs.readdirSync(CARDS_DIR).filter(file => fs.statSync(path.join(CARDS_DIR, file)).isDirectory());
         
@@ -216,7 +288,7 @@ async function main() {
                         oldImageId = typeof existingCard.image === 'object' ? existingCard.image.id : existingCard.image;
                     }
 
-                    await upsertCardInStrapi(token, cardData, media.id, existingCard);
+                    await upsertCardInStrapi(token, cardData, media.id, factionMap, collectionMap, existingCard);
                     
                     console.log(`✅ OK`);
                     

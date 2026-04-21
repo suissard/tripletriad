@@ -39,7 +39,7 @@ const maxHp = computed(() => Math.max(props.defaultHp, currentHp.value));
 <style scoped>
 .hp-bar-container {
   position: absolute;
-  bottom: 8px; /* Slightly higher than default to clear stats */
+  top: 2cqw; /* Moved to top to avoid overlap with bottom stats */
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -48,6 +48,7 @@ const maxHp = computed(() => Math.max(props.defaultHp, currentHp.value));
   width: 80%;
   height: 6px;
   pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
 .hp-segment {
