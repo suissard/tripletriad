@@ -8,6 +8,7 @@ import cardsData from '../../../shared/data/cards.json' with { type: 'json' };
 import strapiService from '../api/strapi.js';
 import { getStrapiUrl, getStrapiMediaUrl } from '../utils/url.js';
 import { normalizeCard } from '../utils/cardUtils.js';
+import { useUserStore } from '../stores/userStore.js';
 export { normalizeCard };
 
 // export const cardLibrary = reactive([...cardsData]); // Moved below normalizeCard
@@ -299,6 +300,13 @@ export function initOnlineTurnManager(isHost, startingPlayer = 'PLAYER_1') {
                 if (result.status === 'SUCCESS') {
                     hydrate(result.state);
                     state.alerts = "Partie resynchronisée par le serveur.";
+                    
+                    // Refresh quests if the match just finished
+                    if (result.state && result.state.isFinished) {
+                        const userStore = useUserStore();
+                        userStore.fetchUserQuests();
+                        userStore.fetchWeeklyQuests();
+                    }
                 } else if (result.status === 'ABORTED') {
                     state.gameOver = true;
                     state.alerts = "Partie annulée : suspicion de triche.";

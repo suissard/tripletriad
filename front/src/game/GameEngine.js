@@ -1,4 +1,9 @@
 // --- Logique Métier (Game Engine) ---
+// Refactoré : utilise le SkillRegistry pour dispatcher les skills de cartes
+// via des lifecycle hooks au lieu de blocs hardcodés.
+
+import { skillRegistry } from './skills/index.js';
+import { DIRECTIONS_4, COMBAT_DIRECTIONS } from './skills/helpers.js';
 
 export class GameEngine {
   /**
@@ -15,6 +20,26 @@ export class GameEngine {
       currentPlayer: startingPlayer,
       isFinished: false,
       winner: null
+    };
+  }
+
+  /**
+   * Construit un objet contexte pour les hooks de skills.
+   * Tous les hooks reçoivent un ctx uniforme.
+   */
+  static buildContext(board, x, y, extras = {}) {
+    const cell = board[y]?.[x];
+    return {
+      board,
+      x, y,
+      card: cell?.data || extras.card,
+      owner: cell?.owner || extras.owner,
+      cell,
+      alerts: extras.alerts || [],
+      captures: extras.captures || [],
+      dyingCards: extras.dyingCards || [],
+      attackQueue: extras.attackQueue || [],
+      ...extras,
     };
   }
 
@@ -66,25 +91,20 @@ export class GameEngine {
     };
     nextState.board[y][x] = placedCell;
 
-    // Appliquer Heal et Death au placement
-    GameEngine.applyPlacementSkills(nextState.board, x, y, placedCell);
+    // 3. Dispatcher onEnterPlay pour les skills de la carte posée
+    GameEngine.dispatchEnterPlay(nextState.board, x, y, placedCell);
 
-    // 3. Calculer les captures (Règles "Classiques" d'adjacence)
+    // 4. Calculer les captures (Règles "Classiques" d'adjacence)
     nextState.lastCaptures = GameEngine.processCaptures(nextState.board, x, y, placedCell, factionCountsBefore);
 
-    // 4. Appliquer les effets de fin de tour (Growing, Decrease)
-    GameEngine.applyEndOfTurnSkills(nextState.board);
+    // 5. Appliquer les effets de fin de tour (Growing, Decrease)
+    GameEngine.dispatchEndOfTurn(nextState.board);
 
-    // 4. Passer au joueur suivant
+    // 6. Passer au joueur suivant
     nextState.currentPlayer = action.player === 'PLAYER_1' ? 'PLAYER_2' : 'PLAYER_1';
 
-    // Expand board if a row or column is full
-    // GameEngine.expandBoard2D(nextState.board);
-
-    // 5. Vérifier les conditions de fin de partie (remplacé par désactivé ici car géré par le deck localement)
+    // 7. Vérifier les conditions de fin de partie
     if (GameEngine.isBoardFull(nextState.board)) {
-      // In dynamic size, the board is technically never full
-      // Keeping backward compatibility logic just in case
       nextState.isFinished = true;
       nextState.winner = GameEngine.computeWinner(nextState.board);
     }
@@ -93,13 +113,35 @@ export class GameEngine {
   }
 
   /**
-   * Logique privée de capture. Altière seulement le "board" cloné du nouvel état.
+   * Dispatche le hook onEnterPlay pour la carte qui vient d'être posée.
+   * Remplace l'ancien applyPlacementSkills.
    */
+  static dispatchEnterPlay(board, x, y, placedCell) {
+    if (!placedCell.data.skills || placedCell.data.skills.length === 0) return;
 
-
+    const ctx = GameEngine.buildContext(board, x, y);
+    skillRegistry.dispatch('onEnterPlay', ctx);
+  }
 
   /**
-   * Helper function to get effective card value considering Auras and Faction Bonuses
+   * Dispatche le hook onEndOfTurn pour toutes les cartes sur le board.
+   * Remplace l'ancien applyEndOfTurnSkills.
+   */
+  static dispatchEndOfTurn(board) {
+    for (let y = 0; y < board.length; y++) {
+      for (let x = 0; x < board[y].length; x++) {
+        const cell = board[y][x];
+        if (cell?.data?.skills && cell.data.skills.length > 0) {
+          const ctx = GameEngine.buildContext(board, x, y);
+          skillRegistry.dispatch('onEndOfTurn', ctx);
+        }
+      }
+    }
+  }
+
+  /**
+   * Helper function to get effective card value considering Auras and Faction Bonuses.
+   * L'aura est maintenant gérée via getValueModifier du SkillRegistry.
    */
   static getEffectiveValue(board, x, y, side, factionCountsOverride = null) {
     const cell = board[y][x];
@@ -112,44 +154,32 @@ export class GameEngine {
     let factionBonus = 0;
     if (cell.data.factionCode && cell.data.factionCode !== 'NEUTRAL') {
       const currentCounts = GameEngine.getFactionCounts(board);
-      // Requirement: At least 4 cards
       if (currentCounts[cell.data.factionCode] >= 4) {
-        // Requirement: Bonus appears AFTER the capture phase of the 4th card.
-        // If an override is provided and it shows we had less than 4 before this turn, 
-        // we keep the bonus inactive for this turn's capture sequence.
         const hadBonusBefore = factionCountsOverride ? (factionCountsOverride[cell.data.factionCode] >= 4) : true;
-        
         if (hadBonusBefore && baseVal < 100) {
           factionBonus = 1;
         }
       }
     }
 
-    // 2. Aura Bonus
-    let auraBonus = 0;
-    const directions = [
-      { dx: 0, dy: -1 },
-      { dx: 0, dy: 1 },
-      { dx: -1, dy: 0 },
-      { dx: 1, dy: 0 }
-    ];
-
-    for (const dir of directions) {
+    // 2. Skill-based value modifiers (remplace le hardcode aura)
+    let skillBonus = 0;
+    for (const dir of DIRECTIONS_4) {
       const nx = x + dir.dx;
       const ny = y + dir.dy;
       if (nx >= 0 && nx < board[0].length && ny >= 0 && ny < board.length) {
         const adj = board[ny][nx];
-        // Aura applies to allies
-        if (adj && adj.owner === cell.owner && adj.data && adj.data.skills) {
-          const auraSkill = adj.data.skills.find(s => s.type === 'aura');
-          if (auraSkill) {
-            auraBonus += auraSkill.value;
-          }
+        // Les modificateurs s'appliquent depuis les alliés adjacents
+        if (adj && adj.owner === cell.owner && adj.data?.skills) {
+          const adjCtx = GameEngine.buildContext(board, nx, ny, {
+            targetX: x, targetY: y, side
+          });
+          skillBonus += skillRegistry.dispatchSum('getValueModifier', adjCtx);
         }
       }
     }
 
-    return baseVal + factionBonus + auraBonus;
+    return baseVal + factionBonus + skillBonus;
   }
 
   /**
@@ -168,19 +198,16 @@ export class GameEngine {
     return counts;
   }
 
+  /**
+   * Logique de capture refactorée avec le SkillRegistry.
+   * Les skills influencent le combat via des hooks au lieu de blocs hardcodés.
+   */
   static processCaptures(board, x, y, placedCell, factionCountsOverride = null) {
     const player = placedCell.owner;
     const captures = [];
     const attackQueue = [{ x, y, cell: placedCell, isCombo: false }];
     const alerts = [];
     const dyingCards = [];
-
-    const directions = [
-      { dx: 0, dy: -1, mySide: 'top', oppSide: 'bottom' },
-      { dx: 0, dy: 1, mySide: 'bottom', oppSide: 'top' },
-      { dx: -1, dy: 0, mySide: 'left', oppSide: 'right' },
-      { dx: 1, dy: 0, mySide: 'right', oppSide: 'left' }
-    ];
 
     while (attackQueue.length > 0) {
       const currentAttack = attackQueue.shift();
@@ -191,32 +218,45 @@ export class GameEngine {
       // Ensure attacker is still on board
       if (board[cy][cx] !== attackerCell) continue;
 
+      const sharedCtx = { alerts, captures, dyingCards, attackQueue };
+
+      // ── Freeze check via hook ──
+      // On vérifie si un voisin bloque le combo de l'attaquant
       let isFrozen = false;
-      for (const dir of directions) {
-        const fx = cx + dir.dx;
-        const fy = cy + dir.dy;
-        if (fx >= 0 && fx < board[0].length && fy >= 0 && fy < board.length) {
-          const fAdj = board[fy][fx];
-          if (fAdj && fAdj.data.skills && fAdj.data.skills.some(s => s.type === 'freeze')) {
-            alerts.push("FREEZE!"); isFrozen = true;
-            break;
+      if (currentAttack.isCombo) {
+        for (const dir of COMBAT_DIRECTIONS) {
+          const fx = cx + dir.dx;
+          const fy = cy + dir.dy;
+          if (fx >= 0 && fx < board[0].length && fy >= 0 && fy < board.length) {
+            const fAdj = board[fy][fx];
+            if (fAdj?.data?.skills) {
+              const adjCtx = GameEngine.buildContext(board, fx, fy, sharedCtx);
+              if (skillRegistry.dispatchAny('blocksCombo', adjCtx)) {
+                isFrozen = true;
+                break;
+              }
+            }
           }
         }
+        if (isFrozen) continue;
       }
 
-      if (currentAttack.isCombo && isFrozen) continue;
-
       let triggeredCapture = false;
-      const hasCombo = attackerCell.data.skills && attackerCell.data.skills.some(s => s.type === 'combo');
-      const hasSniper = attackerCell.data.skills && attackerCell.data.skills.some(s => s.type === 'sniper');
 
-      for (const dir of directions) {
+      // ── Skill queries sur l'attaquant ──
+      const attackerCtx = GameEngine.buildContext(board, cx, cy, sharedCtx);
+      const extendsRange = skillRegistry.dispatchAny('extendsAttackRange', attackerCtx);
+      const hasCombo = skillRegistry.dispatchAny('hasCombo', attackerCtx);
+
+      // ── Résolution d'attaque par direction ──
+      for (const dir of COMBAT_DIRECTIONS) {
         let nx = cx + dir.dx;
         let ny = cy + dir.dy;
         let targetCell = null;
         let actualNx = nx;
         let actualNy = ny;
 
+        // Résolution de la cible (sniper étend la portée via hook)
         while (nx >= 0 && nx < board[0].length && ny >= 0 && ny < board.length) {
           const cell = board[ny][nx];
           if (cell !== null) {
@@ -225,12 +265,12 @@ export class GameEngine {
             actualNy = ny;
             break;
           }
-          if (hasSniper) {
-             if (nx !== cx + dir.dx || ny !== cy + dir.dy) alerts.push("SNIPER!");
-             nx += dir.dx;
-             ny += dir.dy;
+          if (extendsRange) {
+            if (nx !== cx + dir.dx || ny !== cy + dir.dy) alerts.push('SNIPER!');
+            nx += dir.dx;
+            ny += dir.dy;
           } else {
-             break;
+            break;
           }
         }
 
@@ -240,12 +280,17 @@ export class GameEngine {
 
           if (myValue > oppValue) {
             triggeredCapture = true;
-            let hasWard = targetCell.data.skills && targetCell.data.skills.some(s => s.type === 'ward');
 
-            if (hasWard) {
-              alerts.push("WARD!"); targetCell.data.skills = targetCell.data.skills.filter(s => s.type !== 'ward');
-              captures.push({ ...targetCell.data, event: 'ward_triggered', wardedTarget: targetCell.data.id });
-            } else {
+            // ── Hook: onBeforeCaptured (ward) ──
+            const targetCtx = GameEngine.buildContext(board, actualNx, actualNy, {
+              ...sharedCtx,
+              attackerX: cx, attackerY: cy
+            });
+            const preventResults = skillRegistry.dispatch('onBeforeCaptured', targetCtx);
+            const prevented = preventResults.some(r => r?.prevented);
+
+            if (!prevented) {
+              // Appliquer la capture
               let hpLoss = 1;
               let targetHp = (targetCell.data.hp !== undefined ? targetCell.data.hp : (targetCell.data.defaultHp || 3)) - hpLoss;
 
@@ -260,166 +305,44 @@ export class GameEngine {
                 };
                 captures.push({ ...board[actualNy][actualNx].data, event: 'captured_survived' });
               }
-            }
 
-            // Target Poison check
-            const poisonSkill = targetCell.data.skills ? targetCell.data.skills.find(s => s.type === 'poison') : null;
-            if (poisonSkill) {
-               alerts.push("POISON!");
-               let attackerHasWard = attackerCell.data.skills && attackerCell.data.skills.some(s => s.type === 'ward');
-               if (attackerHasWard) {
-                 alerts.push("WARD!"); attackerCell.data.skills = attackerCell.data.skills.filter(s => s.type !== 'ward');
-                 captures.push({ ...attackerCell.data, event: 'ward_triggered_poison' });
-               } else {
-                 let attackerHp = (attackerCell.data.hp !== undefined ? attackerCell.data.hp : (attackerCell.data.defaultHp || 3)) - poisonSkill.value;
-                 attackerCell.data.hp = attackerHp;
-                 if (attackerHp <= 0) {
-                    dyingCards.push({ x: cx, y: cy, cell: attackerCell });
-                    board[cy][cx] = null;
-                    captures.push({ ...attackerCell.data, dead: true, event: 'poison_death' });
-                 } else {
-                    captures.push({ ...attackerCell.data, event: 'poison_damage' });
-                 }
-               }
+              // ── Hook: onCaptured (poison counter-attack, etc.) ──
+              const capturedCtx = GameEngine.buildContext(board, actualNx, actualNy, {
+                ...sharedCtx,
+                attackerX: cx,
+                attackerY: cy,
+                card: targetCell.data,
+                owner: targetCell.owner
+              });
+              skillRegistry.dispatch('onCaptured', capturedCtx);
             }
           }
         }
       }
 
+      // ── Combo: si des captures ont eu lieu et l'attaquant a le combo ──
       if (triggeredCapture && hasCombo && board[cy][cx] !== null) {
-         alerts.push("COMBO!"); attackQueue.push({ x: cx, y: cy, cell: board[cy][cx], isCombo: true });
+        alerts.push('COMBO!');
+        attackQueue.push({ x: cx, y: cy, cell: board[cy][cx], isCombo: true });
       }
     }
 
+    // ── Traitement des cartes mortes (bomb, etc.) via hook onDestroyed ──
     while (dyingCards.length > 0) {
-        const dying = dyingCards.shift();
-        const bombSkill = dying.cell.data.skills ? dying.cell.data.skills.find(s => s.type === 'bomb') : null;
+      const dying = dyingCards.shift();
 
-        if (bombSkill) {
-           alerts.push("BOMB!");
-           for (const dir of directions) {
-              const nx = dying.x + dir.dx;
-              const ny = dying.y + dir.dy;
-              if (nx >= 0 && nx < board[0].length && ny >= 0 && ny < board.length) {
-                 const adj = board[ny][nx];
-                 if (adj) {
-                    let adjHasWard = adj.data.skills && adj.data.skills.some(s => s.type === 'ward');
-                    if (adjHasWard) {
-                        alerts.push("WARD!"); adj.data.skills = adj.data.skills.filter(s => s.type !== 'ward');
-                        captures.push({ ...adj.data, event: 'ward_triggered_bomb' });
-                    } else {
-                        let adjHp = (adj.data.hp !== undefined ? adj.data.hp : (adj.data.defaultHp || 3)) - bombSkill.value;
-                        if (adjHp <= 0) {
-                           dyingCards.push({ x: nx, y: ny, cell: adj });
-                           board[ny][nx] = null;
-                           captures.push({ ...adj.data, dead: true, event: 'bomb_death' });
-                        } else {
-                           adj.data.hp = adjHp;
-                           board[ny][nx] = { data: adj.data, owner: adj.owner };
-                           captures.push({ ...adj.data, event: 'bomb_damage' });
-                        }
-                    }
-                 }
-              }
-           }
-        }
+      if (dying.cell.data?.skills) {
+        const dyingCtx = GameEngine.buildContext(board, dying.x, dying.y, {
+          alerts, captures, dyingCards,
+          card: dying.cell.data,
+          owner: dying.cell.owner
+        });
+        skillRegistry.dispatch('onDestroyed', dyingCtx);
+      }
     }
 
     if (alerts.length > 0) captures.alerts = alerts;
     return captures;
-  }
-
-
-  static applyPlacementSkills(board, x, y, placedCell) {
-    if (!placedCell.data.skills) return;
-
-    const directions = [
-      { dx: 0, dy: -1 }, // Haut
-      { dx: 0, dy: 1 },  // Bas
-      { dx: -1, dy: 0 }, // Gauche
-      { dx: 1, dy: 0 }   // Droite
-    ];
-
-    placedCell.data.skills.forEach(skill => {
-      if (skill.type === 'turn') {
-        const direction = skill.value || 1; // 1 for Right, -1 for Left
-        GameEngine.rotateCardValues(placedCell, direction);
-      }
-    });
-
-    placedCell.data.skills.forEach(skill => {
-      if (skill.type === 'heal' || skill.type === 'death') {
-        for (const dir of directions) {
-          const nx = x + dir.dx;
-          const ny = y + dir.dy;
-
-          if (nx >= 0 && nx < board[0].length && ny >= 0 && ny < board.length) {
-            const adjacentCell = board[ny][nx];
-            if (adjacentCell) {
-              let hp = adjacentCell.data.hp !== undefined ? adjacentCell.data.hp : (adjacentCell.data.defaultHp || 3);
-
-              if (skill.type === 'heal') {
-                hp += skill.value;
-              } else if (skill.type === 'death') {
-                hp -= skill.value;
-              }
-
-              if (hp <= 0) {
-                board[ny][nx] = null;
-              } else {
-                adjacentCell.data = { ...adjacentCell.data, hp: hp };
-              }
-            }
-          }
-        }
-      }
-    });
-  }
-
-  /**
-   * Applique les compétences de fin de tour (Growing, Decrease)
-   */
-  static applyEndOfTurnSkills(board) {
-    for (let y = 0; y < board.length; y++) {
-      for (let x = 0; x < board[y].length; x++) {
-        const cell = board[y][x];
-        if (cell && cell.data && cell.data.skills) {
-          cell.data.skills.forEach(skill => {
-            if (skill.type === 'growing' || skill.type === 'decrease') {
-              let targets = ['all'];
-              if (skill.target) {
-                targets = [skill.target.toLowerCase()];
-              }
-              const sides = ['top', 'right', 'bottom', 'left'];
-
-              sides.forEach(side => {
-                if (targets.includes('all') || targets.includes(side)) {
-                  let valStr = cell.data.values && cell.data.values[side] !== undefined ? cell.data.values[side] : cell.data[side + 'Value'];
-                  let val = valStr === 'A' || valStr === 'a' ? 100 : parseInt(valStr) || 0;
-
-                  if (skill.type === 'growing') {
-                    val += skill.value;
-                  } else if (skill.type === 'decrease') {
-                    val -= skill.value;
-                  }
-
-                  // Limites : 0 min, 100 max (A)
-                  val = Math.max(0, Math.min(100, val));
-
-                  // Conversion inverse
-                  valStr = val === 100 ? 'A' : val.toString();
-
-                  if (cell.data.values) {
-                    cell.data.values[side] = valStr;
-                  }
-                  cell.data[side + 'Value'] = valStr;
-                }
-              });
-            }
-          });
-        }
-      }
-    }
   }
 
   /**
@@ -444,7 +367,7 @@ export class GameEngine {
   }
 
   /**
-   * Vérifie si toutes les cases de la grille 3x3 sont occupées
+   * Vérifie si toutes les cases de la grille sont occupées
    */
   static isBoardFull(board) {
     return board.every(row => row.every(cell => cell !== null));
@@ -498,7 +421,8 @@ export class GameEngine {
   }
 
   /**
-   * Rotates card values clockwise (direction > 0) or counter-clockwise (direction < 0)
+   * Rotates card values clockwise (direction > 0) or counter-clockwise (direction < 0).
+   * Conservé pour rétro-compatibilité avec le code UI.
    */
   static rotateCardValues(cell, direction) {
     if (!cell || !cell.data) return;

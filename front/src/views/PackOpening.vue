@@ -130,7 +130,7 @@ import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useUserStore } from '../stores/userStore';
 import { normalizeCard } from '../utils/cardUtils.js';
-import { getStrapiUrl } from '../utils/url.js';
+import strapiService from '../api/strapi.js';
 import TripleTriadCard from '../components/TripleTriadCard.vue';
 import AppButton from '../components/ui/AppButton.vue';
 
@@ -227,25 +227,16 @@ const startOpening = async () => {
   const previousCollection = [...(userStore.collection || [])];
 
   try {
-    const token = localStorage.getItem('tt_jwt');
-    const response = await fetch(getStrapiUrl('/booster/open'), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ 
+    const data = await strapiService.request('POST', '/booster/open', {
+      body: { 
         isPremium: isPremium.value,
         collection: collectionCode.value 
-      })
+      }
     });
 
-    if (!response.ok) {
-      const errData = await response.json();
-      throw new Error(errData?.error?.message || "Erreur lors de l'ouverture.");
+    if (data.error) {
+      throw new Error(data.error.message || "Erreur lors de l'ouverture.");
     }
-
-    const data = await response.json();
     
     // Process Cards
     const processedCards = (data.cards || []).map(c => {

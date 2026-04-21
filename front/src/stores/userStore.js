@@ -569,6 +569,9 @@ export const useUserStore = defineStore('user', {
       if (this.strapiConnected) {
         console.log('[UserStore] Booster opened, background collection sync starting...');
         this.fetchUserCollection(true);
+        // Also refresh quests as booster opening is now tracked server-side
+        this.fetchUserQuests();
+        this.fetchWeeklyQuests();
       }
     },
 

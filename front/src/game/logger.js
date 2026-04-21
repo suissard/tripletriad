@@ -1,5 +1,6 @@
 import { state, webrtc } from './state.js';
 import strapiService from '../api/strapi.js';
+import { useUserStore } from '../stores/userStore.js';
 
 /**
  * Dispatch un log structuré vers l'API de match
@@ -13,35 +14,32 @@ export async function sendGameLog(actionType, emitter, target) {
         const isLocalPlayer = emitter.type === 'player' || emitter.id === 'player' || emitter.id === state.pId;
 
         if (actionType === 'game_over') {
-            const winner = target?.winner;
-            await strapiService.trackEvent('play_game');
-            
-            if (winner === 'PLAYER_1' || winner === 'player' || (state.pId === winner)) {
-                await strapiService.trackEvent('win_game');
-            }
-        } else if (actionType === 'placement' && isLocalPlayer) {
-            const card = target.card;
-            await strapiService.trackEvent('play_card', { 
-                relatedCardId: card?.id,
-                relatedElement: card?.element
-            });
-
-            const elements = card?.elements || (card?.element && card.element !== 'None' ? [card.element] : []);
-            for (const el of elements) {
-                if (el && el !== 'None') {
-                    await strapiService.trackEvent('play_card_element', { relatedElement: el });
+            // Systematic Arbitration for Quest Security
+            console.log("[QuestTracking] Triggering secure arbitration at game over...");
+            const userStore = useUserStore();
+            try {
+                await strapiService.request('POST', '/match/arbitrate', {
+                    body: {
+                        matchId: state.matchId,
+                        logs: state.actionLog
+                    }
+                });
+                // Refresh Quests after secure arbitration to update UI
+                await userStore.fetchUserQuests();
+                await userStore.fetchWeeklyQuests();
+            } catch (arbErr) {
+                console.error("[QuestTracking] Arbitration failed:", arbErr);
+                
+                // Fallback (only for UX/Offline, won't be as secure as arbitration)
+                const winner = target?.winner;
+                await strapiService.trackEvent('play_game');
+                if (winner === 'PLAYER_1' || winner === 'player' || (state.pId === winner)) {
+                    await strapiService.trackEvent('win_game');
                 }
             }
-
-            if (card?.faction && card.factionCode !== 'NEUTRAL') {
-                await strapiService.trackEvent('play_card_faction', { relatedElement: card.faction });
-            }
-        } else if (actionType === 'competence' && isLocalPlayer && (target.count > 0 || target.value > 0)) {
-            const amount = target.count || target.value || 0;
-            if (amount > 0) {
-              await strapiService.trackEvent('capture_card', { value: amount });
-            }
         }
+        // Mid-game events (placement, competence) are now handled securely by arbitration at the end.
+        // We remove them from here to prevent double counting and cheating.
     } catch (questErr) {
         console.error(`[QuestTracking] Error:`, questErr);
     }

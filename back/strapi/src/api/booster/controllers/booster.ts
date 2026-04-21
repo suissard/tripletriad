@@ -1,4 +1,5 @@
 import { factories } from "@strapi/strapi";
+import { logPlayerEvent } from "../../player-event-log/services/event-logger";
 
 export default {
   async buyBooster(ctx) {
@@ -311,6 +312,17 @@ export default {
             },
           });
         }
+      }
+
+      // 8. Track event for quest (Server-side for security)
+      try {
+        await logPlayerEvent(strapi, {
+          userId: user.id,
+          eventType: "open_booster",
+          value: 1,
+        });
+      } catch (trackErr) {
+        console.error("Error tracking booster opening event:", trackErr);
       }
 
       return {

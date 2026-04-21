@@ -18,6 +18,17 @@ class GameEventEmitter {
     }
 
     /**
+     * S'abonner à un événement pour une seule exécution
+     */
+    once(event, callback) {
+        const wrapper = (payload) => {
+            this.off(event, wrapper);
+            callback(payload);
+        };
+        this.on(event, wrapper);
+    }
+
+    /**
      * Se désabonner d'un événement
      */
     off(event, callback) {
@@ -26,11 +37,24 @@ class GameEventEmitter {
     }
 
     /**
+     * Supprimer tous les listeners d'un événement (ou tous si pas d'argument)
+     */
+    removeAll(event) {
+        if (event) {
+            this.listeners.delete(event);
+        } else {
+            this.listeners.clear();
+        }
+    }
+
+    /**
      * Diffuser un événement
      */
     emit(event, payload) {
         if (!this.listeners.has(event)) return;
-        this.listeners.get(event).forEach(callback => {
+        // Copy array to avoid issues if listeners modify the list during iteration
+        const callbacks = [...this.listeners.get(event)];
+        callbacks.forEach(callback => {
             try {
                 callback(payload);
             } catch (err) {

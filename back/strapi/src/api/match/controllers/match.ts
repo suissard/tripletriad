@@ -4,6 +4,7 @@ import {
   GameState,
   PlaceCardAction,
 } from "../../../shared/GameEngine";
+import { logPlayerEvent } from "../../player-event-log/services/event-logger";
 
 // Interface attendue dans le Body de la requête
 interface ArbitrateRequestBody {
@@ -52,9 +53,10 @@ export default factories.createCoreController(
         }
 
         // 2. Rejeu des logs
-        // Fetch match to get the starting player
+        // Fetch match to get the starting player and users for quest tracking
         const matches = await strapi.documents("api::match.match").findMany({
           filters: { uuid: matchId },
+          populate: ["users"],
         });
 
         if (matches.length === 0) {
@@ -68,8 +70,6 @@ export default factories.createCoreController(
           GameEngine.createInitialState(startingPlayer);
 
         // Filtrer uniquement les actions de placement (celles qui concernent l'arbitrage du GameEngine)
-        // On suppose que l'action est imbriquée ou que le log a un format spécifique
-        // Si l'ancienne version passait des objets directs, on gère les deux.
         const placeCardActions = logs
           .filter(
             (log) =>
@@ -88,11 +88,24 @@ export default factories.createCoreController(
               : log,
           );
 
+        let totalCapturesByPlayer: Record<string, number> = { PLAYER_1: 0, PLAYER_2: 0 };
+
         for (let i = 0; i < placeCardActions.length; i++) {
           const action = placeCardActions[i];
+          const previousBoard = currentState.board.map(row => row.map(cell => cell ? { ...cell } : null));
 
           try {
             currentState = GameEngine.computeNextState(currentState, action);
+            
+            // Count captures by comparing owners before/after
+            currentState.board.forEach((row, y) => {
+              row.forEach((cell, x) => {
+                const prevCell = previousBoard[y][x];
+                if (cell && prevCell && cell.owner !== prevCell.owner && cell.owner === action.player) {
+                  totalCapturesByPlayer[action.player]++;
+                }
+              });
+            });
           } catch (error) {
             return ctx.send(
               {
@@ -105,9 +118,83 @@ export default factories.createCoreController(
           }
         }
 
+        // 3. Secure Quest Tracking
+        try {
+          const user = ctx.state.user;
+          if (user && currentState.isFinished && matches[0]) {
+            const matchRecord = matches[0] as any;
+            const processedUsers = matchRecord.processedUsers || [];
+            
+            if (processedUsers.includes(user.id)) {
+              console.log(`[Arbitrate] Quests already processed for user ${user.id} in match ${matchId}`);
+            } else {
+              const users = matchRecord.users || [];
+              const userIndex = users.findIndex(u => u.id === user.id);
+              
+              if (userIndex !== -1) {
+                const userRole = userIndex === 0 ? "PLAYER_1" : "PLAYER_2";
+                
+                // Base events
+                await logPlayerEvent(strapi, { userId: user.id, eventType: "play_game" });
+                
+                if (currentState.isFinished && currentState.winner === userRole) {
+                  await logPlayerEvent(strapi, { userId: user.id, eventType: "win_game" });
+                }
+
+                if (totalCapturesByPlayer[userRole] > 0) {
+                  await logPlayerEvent(strapi, { 
+                    userId: user.id, 
+                    eventType: "capture_card", 
+                    value: totalCapturesByPlayer[userRole] 
+                  });
+                }
+
+                // Card specific events (Play Card, Faction, Element)
+                const myActions = placeCardActions.filter(a => a.player === userRole);
+                for (const action of myActions) {
+                  const card = action.card;
+                  await logPlayerEvent(strapi, { 
+                    userId: user.id, 
+                    eventType: "play_card",
+                    relatedCardId: card.id
+                  });
+
+                  if (card.faction) {
+                    await logPlayerEvent(strapi, { 
+                      userId: user.id, 
+                      eventType: "play_card_faction", 
+                      relatedElement: card.faction 
+                    });
+                  }
+
+                  if (card.element && card.element !== 'None') {
+                    await logPlayerEvent(strapi, { 
+                      userId: user.id, 
+                      eventType: "play_card_element", 
+                      relatedElement: card.element 
+                    });
+                  }
+                }
+
+                // Mark as processed only if the match is actually finished
+                if (currentState.isFinished) {
+                  await strapi.documents("api::match.match").update({
+                    documentId: matchRecord.documentId,
+                    data: {
+                      processedUsers: [...processedUsers, user.id]
+                    }
+                  });
+                }
+              }
+            }
+          }
+        } catch (questErr) {
+          console.error("Error in secure quest tracking during arbitration:", questErr);
+        }
+
         return ctx.send({
           status: "SUCCESS",
-          message: "Arbitrage terminé avec succès.",
+          message: "Arbitrage terminé avec succès et quêtes mises à jour.",
           state: currentState,
         });
       } catch (err) {

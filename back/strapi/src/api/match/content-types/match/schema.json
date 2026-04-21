@@ -38,6 +38,9 @@
                 "PLAYER_2"
             ],
             "default": "PLAYER_1"
+        },
+        "processedUsers": {
+            "type": "json"
         }
     }
 }
