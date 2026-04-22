@@ -77,6 +77,13 @@
         "images"
       ]
     },
+    "variants": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
     "collection": {
       "type": "relation",
       "relation": "manyToOne",

@@ -270,10 +270,12 @@ export const useUserStore = defineStore('user', {
           const card = item.card?.data || item.card; 
           return {
             id: item.id,
+            userCardDocumentId: item.documentId,
             cardId: card?.id || null,
             cardDocumentId: card?.documentId || null,
             quantity: item.quantity,
-            isPremium: !!item.isPremium
+            isPremium: !!item.isPremium,
+            selectedVariantIndex: item.selectedVariantIndex || 0
           };
         });
         this.collectionLoaded = true;
@@ -572,6 +574,27 @@ export const useUserStore = defineStore('user', {
         // Also refresh quests as booster opening is now tracked server-side
         this.fetchUserQuests();
         this.fetchWeeklyQuests();
+      }
+    },
+
+    async updateCardVariant(userCardDocumentId, variantIndex) {
+      if (!this.strapiConnected || !this.isLoggedIn) return false;
+      try {
+        const res = await strapiService.request('PUT', `/user-cards/${userCardDocumentId}/variant`, {
+          body: { variantIndex }
+        });
+        if (!res.error) {
+          // Update local collection cache
+          const item = this.collection.find(c => c.userCardDocumentId === userCardDocumentId || c.id === userCardDocumentId);
+          if (item) {
+            item.selectedVariantIndex = variantIndex;
+          }
+          return true;
+        }
+        return false;
+      } catch (e) {
+        console.error('Failed to update card variant', e);
+        return false;
       }
     },
 

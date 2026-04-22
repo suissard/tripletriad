@@ -214,6 +214,22 @@ const normalizedCardData = computed(() => normalizeCard(props.card));
 // Apply dynamic bonuses (Faction, etc.) to values
 const displayCard = computed(() => {
   const card = { ...normalizedCardData.value };
+
+  // Handle variant
+  // Prefer direct variant index if passed or already populated
+  let variantIndex = card.selectedVariantIndex || 0;
+
+  // If not provided in the card object, try to find it in the user's collection
+  if (!card.selectedVariantIndex && userStore.isLoggedIn && card.id) {
+    const userCard = userStore.collection.find(c => c.cardId === card.id);
+    if (userCard && userCard.selectedVariantIndex) {
+      variantIndex = userCard.selectedVariantIndex;
+    }
+  }
+
+  if (variantIndex > 0 && card.variantUrls && card.variantUrls.length > variantIndex) {
+    card.imageUrl = card.variantUrls[variantIndex];
+  }
   if (props.bonus > 0) {
     const sides = ['top', 'right', 'bottom', 'left'];
     sides.forEach(side => {
