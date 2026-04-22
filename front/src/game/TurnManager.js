@@ -68,7 +68,7 @@ export class TurnManager {
       gameEvents.emit('TURN_START', { player: this.state.currentPlayer });
     }
 
-    // 2. Transmettre l'action à l'adversaire via WebRTC
+    // 2. Transmettre l'action à l'adversaire via Socket.IO relay
     this.sendNetworkMessage({
       type: 'ACTION',
       action,
@@ -80,7 +80,7 @@ export class TurnManager {
   }
 
   /**
-   * Appelé par le gestionnaire WebRTC (ex: depuis onmessage du DataChannel)
+   * Appelé par le gestionnaire réseau (ex: depuis le relay Socket.IO)
    */
   async handleNetworkMessage(msg) {
     if (msg.type === 'ACTION') {

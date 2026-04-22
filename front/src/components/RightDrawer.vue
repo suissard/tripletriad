@@ -319,6 +319,7 @@
 
               <input v-model="authForm.email" type="email" placeholder="Adresse Email" required />
               <input v-model="authForm.password" type="password" placeholder="Mot de Passe" required />
+              <input v-if="isRegistering" v-model="authForm.confirmPassword" type="password" placeholder="Confirmer le Mot de Passe" required />
 
               <p v-if="authError" class="auth-error">{{ authError }}</p>
 
@@ -500,7 +501,8 @@ const viewTitle = computed(() => {
 const authForm = reactive({
   username: '',
   email: '',
-  password: ''
+  password: '',
+  confirmPassword: ''
 });
 
 function isOwned(cardId) {
@@ -712,6 +714,11 @@ async function submitAuth() {
   try {
     let result;
     if (isRegistering.value) {
+      if (authForm.password !== authForm.confirmPassword) {
+        authError.value = "Les mots de passe ne correspondent pas.";
+        isLoading.value = false;
+        return;
+      }
       result = await userStore.register({
         username: authForm.username,
         email: authForm.email,

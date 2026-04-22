@@ -1,6 +1,6 @@
 import { reactive, computed } from 'vue';
 import { rulesRegistry } from './rules.js';
-import { WebRTCManager } from './WebRTCManager.js';
+import { SocketManager } from './SocketManager.js';
 import { TurnManager } from './TurnManager.js';
 import { GameEngine } from './GameEngine.js';
 import { gameEvents } from './events.js';
@@ -12,7 +12,7 @@ import { useUserStore } from '../stores/userStore.js';
 export { normalizeCard };
 
 // export const cardLibrary = reactive([...cardsData]); // Moved below normalizeCard
-export const webrtc = new WebRTCManager();
+export const socketManager = new SocketManager();
 
 // normalizeCard moved to ../utils/cardUtils.js
 
@@ -253,7 +253,7 @@ export function initOnlineTurnManager(isHost, startingPlayer = 'PLAYER_1') {
         initialState: GameEngine.createInitialState(startingPlayer),
         
         sendNetworkMessage: (msg) => {
-            webrtc.sendMessage(msg);
+            socketManager.sendMessage(msg);
         },
         
         onStateUpdate: (newState) => {
@@ -283,14 +283,14 @@ export function initOnlineTurnManager(isHost, startingPlayer = 'PLAYER_1') {
             
             try {
                 // Appel à l'arbitre Strapi
-                const response = await fetch(`${webrtc.strapiUrl}/api/match/arbitrate`, {
+                const response = await fetch(getStrapiUrl('/match/arbitrate'), {
                     method: 'POST',
                     headers: { 
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${state.jwt}`
                     },
                     body: JSON.stringify({
-                        matchId: webrtc.uuid,
+                        matchId: socketManager.uuid,
                         logs: state.actionLog
                     })
                 });

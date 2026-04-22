@@ -3,6 +3,26 @@ import { factories } from "@strapi/strapi";
 export default factories.createCoreController(
   "api::player-story-progress.player-story-progress",
   ({ strapi }) => ({
+    async find(ctx) {
+      const user = ctx.state.user;
+      if (!user) return ctx.unauthorized("You must be logged in.");
+
+      const isAdmin = (user as any).role?.type === 'admin' || (user as any).role?.name === 'Admin';
+
+      // If not admin, automatically filter by the current user
+      if (!isAdmin) {
+        ctx.query = {
+          ...ctx.query,
+          filters: {
+            ...((ctx.query.filters as any) || {}),
+            user: { id: user.id }
+          }
+        };
+      }
+
+      return await super.find(ctx);
+    },
+
     async claimStepReward(ctx) {
       const { id: userId } = ctx.state.user;
       const { storyId, stepId, situationId } = ctx.request.body;

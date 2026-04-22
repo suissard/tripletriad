@@ -113,6 +113,20 @@ import { useUserStore } from '../stores/userStore.js';
 import { GameEngine } from '../../../shared/GameEngine.ts';
 import PurchaseButton from './ui/PurchaseButton.vue';
 
+const props = defineProps({
+  show: Boolean,
+  card: { type: Object, required: true },
+  isPremium: Boolean,
+  quantity: Number,
+  unowned: Boolean,
+  borderWidth: { type: Number, default: 2 },
+  showDefaultInfo: { type: Boolean, default: true },
+  showCraftingActions: { type: Boolean, default: true },
+  bonus: { type: Number, default: 0 }
+});
+
+const emit = defineEmits(['close']);
+
 const userStore = useUserStore();
 
 // Variant Logic
@@ -165,20 +179,6 @@ function saveVariantIfNeeded() {
 onUnmounted(() => {
   saveVariantIfNeeded();
 });
-
-const props = defineProps({
-  show: Boolean,
-  card: { type: Object, required: true },
-  isPremium: Boolean,
-  quantity: Number,
-  unowned: Boolean,
-  borderWidth: { type: Number, default: 2 },
-  showDefaultInfo: { type: Boolean, default: true },
-  showCraftingActions: { type: Boolean, default: true },
-  bonus: { type: Number, default: 0 }
-});
-
-const emit = defineEmits(['close']);
 
 const ZOOM_SIZE = 350;
 

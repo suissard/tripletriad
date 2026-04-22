@@ -1,4 +1,5 @@
 // import type { Core } from '@strapi/strapi';
+import { initSocketIO } from './socketio';
 
 export default {
   /**
@@ -97,5 +98,8 @@ export default {
         }
       }
     });
+
+    // 3. Initialize Socket.IO relay server (attaches to Strapi's httpServer)
+    initSocketIO(strapi);
   },
 };

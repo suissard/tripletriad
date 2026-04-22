@@ -177,6 +177,16 @@ class StrapiApi {
         try {
             const response = await this.strapiClient.fetch(url, fetchOptions);
             clearTimeout(timeoutId);
+            
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                console.error(`[StrapiApi] Request failed (${response.status}): ${url}`, errorData);
+                const error = new Error(errorData.error?.message || `Request failed with status ${response.status}`);
+                error.status = response.status;
+                error.data = errorData;
+                throw error;
+            }
+
             return await response.json();
         } catch (error) {
             clearTimeout(timeoutId);

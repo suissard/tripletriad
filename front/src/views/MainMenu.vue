@@ -29,7 +29,7 @@
       </AppButton>
       
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="router.push('/story')">MODE HISTOIRE 📖</AppButton>
-      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" disabled>PARTIE MULTIJOUEUR 🌍</AppButton>
+      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="state.menuView = 'multi-deck'" :disabled="!userStore.strapiConnected">PARTIE MULTIJOUEUR 🌍</AppButton>
       <!-- <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="router.push('/test-card')" style="margin-top:20px; background:linear-gradient(45deg, #f093fb 0%, #f5576c 100%)">TESTER LA CARTE 🧪</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="router.push('/test-coin')" style="margin-top:10px; background:linear-gradient(45deg, #84fab0 0%, #8fd3f4 100%)">TESTER LA PIÈCE 🪙</AppButton> -->
     </div>
@@ -126,7 +126,7 @@ const route = useRoute();
 
 import { ref, reactive, onMounted, onUnmounted } from 'vue';
 
-import { state, webrtc, resetGame, initOnlineTurnManager, getCardById, normalizeCard, refillHand, cardLibrary, initAIMatch, shuffle } from '../game/state.js';
+import { state, socketManager, resetGame, initOnlineTurnManager, getCardById, normalizeCard, refillHand, cardLibrary, initAIMatch, shuffle } from '../game/state.js';
 import CoinToss from '../components/CoinToss.vue';
 import AnimatedCardBack from '../components/AnimatedCardBack.vue';
 import MiniDeck from '../components/MiniDeck.vue';
@@ -219,7 +219,7 @@ const multiState = reactive({
 });
 
 function cancelMulti() {
-  webrtc.close();
+  socketManager.close();
   multiState.hosting = false;
   multiState.joining = false;
   multiState.uuid = null;
@@ -297,34 +297,30 @@ onMounted(async () => {
     console.warn("Failed to fetch data in MainMenu", e);
   }
 
-  webrtc.onConnected = () => {
+  socketManager.onConnected = () => {
     state.aiDifficulty = 1;
 
-    if (webrtc.isHost) {
-      // For Host, we might need to fetch the match from server to get the random startingPlayer
-      fetch(`${webrtc.strapiUrl}/api/webrtc/matches/${multiState.uuid}`)
-        .then(res => res.json())
-        .then(response => {
-          const startingPlayer = response.data?.startingPlayer || 'PLAYER_1';
-          initOnlineTurnManager(true, startingPlayer);
-          
-          state.aiHand = [ { id: 'dummy', revealed: false }, { id: 'dummy', revealed: false }, { id: 'dummy', revealed: false } ];
+    if (socketManager.isHost) {
+      // Host determines starting player and sends init to guest
+      const startingPlayer = Math.random() < 0.5 ? 'PLAYER_1' : 'PLAYER_2';
+      initOnlineTurnManager(true, startingPlayer);
+      
+      state.aiHand = [ { id: 'dummy', revealed: false }, { id: 'dummy', revealed: false }, { id: 'dummy', revealed: false } ];
 
-          const localIsStarting = startingPlayer === 'PLAYER_1'; // Host is PLAYER_1
-          state.coinTossResult = localIsStarting ? 'player' : 'ai';
-          state.showCoinToss = true;
+      const localIsStarting = startingPlayer === 'PLAYER_1'; // Host is PLAYER_1
+      state.coinTossResult = localIsStarting ? 'player' : 'ai';
+      state.showCoinToss = true;
 
-          state.pendingMultiGame = () => {
-            state.gameState = 'playing';
-            router.push({ path: '/game', query: { mode: 'multi', match: multiState.uuid } });
-          };
-          
-          webrtc.sendMessage({ type: 'init', startingPlayer });
-        });
+      state.pendingMultiGame = () => {
+        state.gameState = 'playing';
+        router.push({ path: '/game', query: { mode: 'multi', match: multiState.uuid } });
+      };
+      
+      socketManager.sendMessage({ type: 'init', startingPlayer });
     }
   };
   
-  webrtc.onError = (err) => {
+  socketManager.onError = (err) => {
     multiState.error = err;
     multiState.loading = false;
     
@@ -335,7 +331,7 @@ onMounted(async () => {
       multiState.joining = true;
     }
   };
-  webrtc.addMessageListener(handleNetworkMessage);
+  socketManager.addMessageListener(handleNetworkMessage);
 
   // Auto-Join logic from URL ?match=UUID
   if (route.query.match) {
@@ -348,14 +344,14 @@ onMounted(async () => {
 });
 
 onUnmounted(() => {
-  webrtc.removeMessageListener(handleNetworkMessage);
+  socketManager.removeMessageListener(handleNetworkMessage);
 });
 
 async function hostGame() {
   multiState.hosting = true;
   multiState.error = null;
   try {
-    const uuid = await webrtc.createSession();
+    const uuid = await socketManager.createSession();
     multiState.uuid = uuid;
     // Pousser immédiatement l'UUID dans l'URL (même avant que le jeu ne commence)
     // Pour que le joueur puisse le copier
@@ -372,7 +368,7 @@ async function joinGame() {
   multiState.loading = true;
   multiState.error = null;
   try {
-    await webrtc.joinSession(multiState.joinUuid);
+    await socketManager.joinSession(multiState.joinUuid);
   } catch(e) {
     multiState.error = 'Session introuvable ou erreur réseau';
     multiState.loading = false;

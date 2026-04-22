@@ -1,4 +1,4 @@
-import { state, webrtc } from './state.js';
+import { state, socketManager } from './state.js';
 import strapiService from '../api/strapi.js';
 import { useUserStore } from '../stores/userStore.js';
 
@@ -45,7 +45,7 @@ export async function sendGameLog(actionType, emitter, target) {
     }
 
     // 2. Match Log (Requires matchId)
-    const matchId = state.matchId || (webrtc && webrtc.uuid);
+    const matchId = state.matchId || (socketManager && socketManager.uuid);
     if (!matchId) {
         console.warn(`[GameLogger] Match log skipped: No matchId found for action ${actionType}`);
         return;

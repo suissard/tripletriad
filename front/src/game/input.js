@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import gsap from 'gsap';
-import { state, webrtc } from './state.js';
+import { state, socketManager } from './state.js';
 import { camera, slots, refillHand } from './three-scene.js';
 import { resolveRules, sleep, updateScores } from './engine.js';
 import { getBestAIMove } from './ai.js';
@@ -20,7 +20,7 @@ const handleNetworkMove = async (msg) => {
 };
 
 export function initInput() {
-    webrtc.addMessageListener(handleNetworkMove);
+    socketManager.addMessageListener(handleNetworkMove);
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2();
 
@@ -161,7 +161,7 @@ export function initInput() {
 export function cleanupInput() {
     currentListeners.forEach(l => window.removeEventListener(l.type, l.fn));
     currentListeners = [];
-    webrtc.removeMessageListener(handleNetworkMove);
+    socketManager.removeMessageListener(handleNetworkMove);
 }
 
 export async function processOpponentMove(move) {

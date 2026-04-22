@@ -309,22 +309,29 @@ function setCover(cardId) {
 }
 
 async function saveDeck() {
+  if (!state.editingDeck.name || !state.editingDeck.name.trim()) {
+    showFeedback('Veuillez donner un nom à votre deck.', 'error');
+    return;
+  }
   if (!isAdminMode.value && state.editingDeck.cards.length !== (userStore.gameConfig?.cardsPerDeck || 15)) return;
   
-  // If admin, we should make sure the deck is saved correctly
-  const success = await userStore.saveDeck({ ...state.editingDeck }, selectedOwnerId.value);
-  
-  if (success) {
-    showFeedback('Deck enregistré !', 'success');
-    setTimeout(() => {
-      if (route.query.from === 'admin') {
-        router.push('/admin/decks');
-      } else {
-        router.push('/decks');
-      }
-    }, 800);
-  } else {
-    showFeedback('Erreur lors de l\'enregistrement.', 'error');
+  try {
+    const success = await userStore.saveDeck({ ...state.editingDeck }, selectedOwnerId.value);
+    
+    if (success) {
+      showFeedback('Deck enregistré !', 'success');
+      setTimeout(() => {
+        if (route.query.from === 'admin') {
+          router.push('/admin/decks');
+        } else {
+          router.push('/decks');
+        }
+      }, 800);
+    } else {
+      showFeedback('Erreur lors de l\'enregistrement.', 'error');
+    }
+  } catch (e) {
+    showFeedback(e.message || 'Erreur lors de l\'enregistrement.', 'error');
   }
 }
 

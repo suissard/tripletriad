@@ -116,6 +116,13 @@ export const useUserStore = defineStore('user', {
         // Fetch User with their role and wallet (Consolidated)
         await this.updateUserData();
         
+        // --- ADDED: Wait for backend to finish quest generation ---
+        // Registration triggers quest creation on backend, which might take a moment
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        await this.fetchUserQuests();
+        await this.fetchWeeklyQuests();
+        // -----------------------------------------------------------
+        
         return { jwt: response.jwt, user: this.user };
       } catch (err) {
         console.error('Registration error:', err);
@@ -521,7 +528,6 @@ export const useUserStore = defineStore('user', {
 
       try {
         const result = await strapiService.find('player-story-progresses', {
-          filters: { user: { id: { $eq: this.user.id } } },
           populate: ['story', 'currentStep']
         });
         this.storyProgresses = this.toArray(result);
@@ -611,14 +617,33 @@ export const useUserStore = defineStore('user', {
       }
       if (!this.isLoggedIn) return false;
       const isNew = !deck.documentId;
+      let payload = null;
       try {
-        const payload = {
-          name: deck.name,
-          cover: deck.cover,
-          cards: deck.cards.map(id => getCardById(id)?.documentId || id),
-          cardBack: deck.cardBack || 'default',
-          user: overrideUser || this.user.documentId || this.user.id
+        const cardDocumentIds = deck.cards
+          .map(id => getCardById(id)?.documentId)
+          .filter(docId => !!docId);
+
+        if (cardDocumentIds.length < deck.cards.length && !this.isAdmin) {
+          console.warn('[UserStore] Some cards are missing documentId. Deck might be incomplete on server.');
+        }
+
+        if (isNew && !this.isAdmin) {
+          const maxDecks = this.gameConfig?.maxDecksPerUser ?? 5;
+          if (this.userDecks.length >= maxDecks) {
+            throw new Error(`Limite de decks atteinte (${maxDecks}).`);
+          }
+        }
+
+        payload = {
+          data: {
+            name: deck.name,
+            cover: deck.cover || 1, // Default to 1 if null
+            cards: cardDocumentIds,
+            cardBack: deck.cardBack || 'default',
+            user: overrideUser || this.user.documentId || this.user.id // Prefer documentId for Strapi 5 relations
+          }
         };
+
         let res;
         if (isNew) {
           res = await strapiService.create('decks', payload);
@@ -648,7 +673,11 @@ export const useUserStore = defineStore('user', {
         }
         return true;
       } catch (e) {
-        console.error('Deck save failed', e);
+        console.error('Deck save failed. Payload:', payload);
+        if (e.data) {
+          console.error('Strapi Error Details:', e.data.error?.details || e.data.error);
+        }
+        console.error('Error details:', e);
       }
       return false;
     },

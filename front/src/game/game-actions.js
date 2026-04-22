@@ -2,7 +2,7 @@
  * Game Actions — handles player/AI card placement and turn logic.
  * Replaces the old Three.js raycaster-based input.js.
  */
-import { state, webrtc, refillHand } from './state.js';
+import { state, socketManager, refillHand } from './state.js';
 import { resolveRules, sleep, updateScores, endTurn, expandBoard } from './engine.js';
 import { getBestAIMove } from './ai.js';
 
@@ -212,12 +212,12 @@ const handleNetworkMove = async (msg) => {
  * Initialize network message listener.
  */
 export function initGameListeners() {
-    webrtc.addMessageListener(handleNetworkMove);
+    socketManager.addMessageListener(handleNetworkMove);
 }
 
 /**
  * Cleanup network message listener.
  */
 export function cleanupGameListeners() {
-    webrtc.removeMessageListener(handleNetworkMove);
+    socketManager.removeMessageListener(handleNetworkMove);
 }

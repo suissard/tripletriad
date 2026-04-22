@@ -27,7 +27,7 @@
 
 <script setup>
 import { computed, ref, watch } from 'vue';
-import { state, resetGame, webrtc } from '../game/state.js';
+import { state, resetGame, socketManager } from '../game/state.js';
 import { useRouter, useRoute } from 'vue-router';
 
 const router = useRouter();
@@ -65,7 +65,7 @@ function handleReplay() {
     const wasOnline = state.online;
     
     if (wasOnline) {
-        webrtc.close();
+        socketManager.close();
         resetGame();
         state.menuView = 'multi';
         router.push('/');
@@ -147,7 +147,7 @@ function handleStoryQuit() {
 
 function handleQuit() {
     if (state.online) {
-        webrtc.close();
+        socketManager.close();
     }
     resetGame();
     state.menuView = 'main';

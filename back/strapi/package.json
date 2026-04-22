@@ -18,11 +18,12 @@
     "@strapi/plugin-cloud": "5.39.0",
     "@strapi/plugin-users-permissions": "5.39.0",
     "@strapi/strapi": "5.39.0",
-    "pg": "^8.13.0",
     "esbuild": "^0.27.4",
+    "pg": "^8.13.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.30.3",
+    "socket.io": "^4.8.3",
     "styled-components": "^6.3.11",
     "zod": "^4.3.6"
   },
