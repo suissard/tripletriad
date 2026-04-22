@@ -45,6 +45,26 @@ export function normalizeCard(raw) {
       imgUrl = raw.imageUrl || attrs.imageUrl;
     }
 
+    // Extract variants
+    let variantUrls = [];
+    if (imgUrl) {
+      variantUrls.push(imgUrl); // First one is the default
+    }
+
+    const variantsData = raw.variants || attrs.variants;
+    const strapiVariants = variantsData?.data || variantsData;
+    if (Array.isArray(strapiVariants)) {
+      strapiVariants.forEach(v => {
+        const vAttrs = v?.attributes || v;
+        if (vAttrs?.url) {
+          const vUrl = vAttrs.url.startsWith('http')
+              ? vAttrs.url
+              : getStrapiMediaUrl(vAttrs.url);
+          variantUrls.push(vUrl);
+        }
+      });
+    }
+
     if (!imgUrl) {
       // Fallback to DiceBear if no image is found
       imgUrl = `https://api.dicebear.com/9.x/bottts/svg?seed=${(raw.id || raw.documentId || 0) * 42}&backgroundColor=transparent`;
@@ -91,6 +111,8 @@ export function normalizeCard(raw) {
         bottomValue: attrs.bottomValue ?? (bottom === 100 ? 'A' : String(bottom)),
         leftValue: attrs.leftValue ?? (left === 100 ? 'A' : String(left)),
         imageUrl: imgUrl,
+        variantUrls: variantUrls,
+        variantsCount: variantUrls.length,
         revealed: attrs.revealed !== undefined ? attrs.revealed : true,
         isPremium: attrs.isPremium || false,
         rarity: (typeof attrs.rarity === 'object' ? attrs.rarity?.name : attrs.rarity) || null,

@@ -27,5 +27,14 @@ export default {
         middlewares: [],
       },
     },
+    {
+      method: "PUT",
+      path: "/user-cards/:id/variant",
+      handler: "user-card.updateVariant",
+      config: {
+        policies: [],
+        middlewares: [],
+      },
+    },
   ],
 };

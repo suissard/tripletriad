@@ -31,6 +31,10 @@
         "isPremium": {
             "type": "boolean",
             "default": false
+        },
+        "selectedVariantIndex": {
+            "type": "integer",
+            "default": 0
         }
     }
 }

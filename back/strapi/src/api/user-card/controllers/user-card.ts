@@ -380,6 +380,51 @@ export default factories.createCoreController(
         );
       }
     },
+    async updateVariant(ctx) {
+      try {
+        const user = ctx.state.user;
+        if (!user) return ctx.unauthorized("You must be logged in.");
+
+        const { id } = ctx.params;
+        const { variantIndex } = ctx.request.body;
+
+        if (variantIndex === undefined || typeof variantIndex !== "number") {
+          return ctx.badRequest("variantIndex is required and must be a number.");
+        }
+
+        // Ensure the user-card belongs to the user
+        const userCard = await strapi.entityService.findOne(
+          "api::user-card.user-card",
+          id,
+          {
+            populate: ["user"],
+          }
+        );
+
+        if (!userCard || (userCard as any).user?.id !== user.id) {
+          return ctx.notFound("User card not found or does not belong to you.");
+        }
+
+        const updatedUserCard = await strapi.entityService.update(
+          "api::user-card.user-card",
+          id,
+          {
+            data: { selectedVariantIndex: variantIndex } as any,
+          }
+        );
+
+        return ctx.send({
+          message: "Variant updated successfully",
+          selectedVariantIndex: (updatedUserCard as any).selectedVariantIndex,
+        });
+      } catch (err) {
+        console.error(err);
+        return ctx.internalServerError(
+          "An error occurred while updating the variant."
+        );
+      }
+    },
+
     async addDevCurrencies(ctx) {
       try {
         const user = ctx.state.user;
