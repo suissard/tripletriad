@@ -195,6 +195,14 @@ function startAiGame(deck) {
   const playerDeck = deck.cards.map(id => normalizeCard(getCardById(id)));
   state.playerDeckSelection = playerDeck;
   
+  const frameId = deck.cardFrame?.documentId || deck.cardFrame?.id || deck.cardFrame;
+  if (frameId) {
+    const frame = userStore.cardFrames.find(f => f.documentId === frameId || f.id === frameId);
+    state.pFrame = frame ? frame.image : null;
+  } else {
+    state.pFrame = null;
+  }
+  
   router.push({ path: '/game', query: { mode: 'ia', deckId: deck.documentId || deck.id } });
 }
 
@@ -245,6 +253,14 @@ function startMultiGame(deck) {
   // 2. Set the player deck
   const playerDeck = deck.cards.map(id => normalizeCard(getCardById(id)));
   state.pDeck = shuffle(playerDeck);
+  
+  const frameId = deck.cardFrame?.documentId || deck.cardFrame?.id || deck.cardFrame;
+  if (frameId) {
+    const frame = userStore.cardFrames.find(f => f.documentId === frameId || f.id === frameId);
+    state.pFrame = frame ? frame.image : null;
+  } else {
+    state.pFrame = null;
+  }
   
   // 3. Move to hosting/joining menu
   state.menuView = 'multi';

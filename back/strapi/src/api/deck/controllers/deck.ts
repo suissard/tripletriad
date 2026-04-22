@@ -34,14 +34,15 @@ export default factories.createCoreController(
 
         if (!isAdmin) {
           // 1. Check max decks limit
-          const gameConfig = await strapi.db.query("api::game-config.game-config").findOne({});
+          const gameConfig = await strapi.documents("api::game-config.game-config").findFirst({});
           const maxDecks = (gameConfig as any)?.maxDecksPerUser ?? 5;
 
-          const userDecksCount = await strapi.db.query("api::deck.deck").count({
-            where: { user: { id: user.id } }
+          const userDecks = await strapi.documents("api::deck.deck").findMany({
+            filters: { user: { id: user.id } },
+            fields: ['id']
           });
 
-          if (userDecksCount >= maxDecks) {
+          if (userDecks.length >= maxDecks) {
             return ctx.badRequest(`Vous avez atteint la limite de ${maxDecks} decks.`);
           }
         }
@@ -53,9 +54,7 @@ export default factories.createCoreController(
           user: isAdmin ? (data.user || user.id) : user.id
         };
 
-        // Use Document Service for CREATE but handle user manually if needed?
-        // Actually, if super.create failed, let's use db.query which is the most reliable
-        const deck = await strapi.db.query("api::deck.deck").create({
+        const deck = await strapi.documents("api::deck.deck").create({
           data: deckData
         });
 
@@ -74,9 +73,9 @@ export default factories.createCoreController(
         const { id } = ctx.params; 
         const isAdmin = (user as any).role?.type === 'admin' || (user as any).role?.name === 'Admin';
 
-        // 1. Find existing deck
-        const deck = await strapi.db.query("api::deck.deck").findOne({
-          where: { documentId: id },
+        // 1. Find existing deck to check ownership
+        const deck = await strapi.documents("api::deck.deck").findOne({
+          documentId: id,
           populate: ["user"]
         }) as any;
         
@@ -94,8 +93,8 @@ export default factories.createCoreController(
         const updateData = { ...data };
         if (!isAdmin) delete updateData.user;
 
-        const updatedDeck = await strapi.db.query("api::deck.deck").update({
-          where: { id: deck.id },
+        const updatedDeck = await strapi.documents("api::deck.deck").update({
+          documentId: id,
           data: updateData
         });
 
@@ -115,8 +114,8 @@ export default factories.createCoreController(
         const isAdmin = (user as any).role?.type === 'admin' || (user as any).role?.name === 'Admin';
 
         // 1. Find existing
-        const deck = await strapi.db.query("api::deck.deck").findOne({
-          where: { documentId: id },
+        const deck = await strapi.documents("api::deck.deck").findOne({
+          documentId: id,
           populate: ["user"]
         }) as any;
         
@@ -130,8 +129,8 @@ export default factories.createCoreController(
         }
 
         // 3. Delete
-        await strapi.db.query("api::deck.deck").delete({
-          where: { id: deck.id }
+        await strapi.documents("api::deck.deck").delete({
+          documentId: id
         });
 
         return { data: deck };

@@ -57,6 +57,9 @@
           <!-- Card image -->
           <img :src="displayCard.imageUrl" class="card-img" :alt="displayCard.name" />
 
+          <!-- Card Frame Overlay -->
+          <img v-if="cardFrame" :src="cardFrame" class="card-frame-overlay" alt="Card Frame" />
+
           <!-- HP Bar (Moved to top) -->
           <HpBar v-if="displayCard.hp !== undefined" :hp="displayCard.hp" :default-hp="displayCard.defaultHp || 3" :owner="owner" />
 
@@ -186,6 +189,7 @@ const props = defineProps({
   faceDown: { type: Boolean, default: false },
   interactive: { type: Boolean, default: true },
   cardBack: { type: String, default: "default" },
+  cardFrame: { type: String, default: null }, // URL of the card frame image
   borderColor: { type: String, default: '' },
   borderWidth: { type: Number, default: 2 },
   disableZoom: { type: Boolean, default: false },
@@ -810,6 +814,17 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   object-fit: cover;
   opacity: 1.0;
   z-index: 1;
+  border-radius: 6px;
+}
+
+.card-frame-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  z-index: 2;
+  pointer-events: none;
   border-radius: 6px;
 }
 

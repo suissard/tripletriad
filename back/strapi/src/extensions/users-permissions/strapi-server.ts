@@ -16,7 +16,9 @@ export default (plugin: any) => {
         wallet: true,
         avatar_card: {
           populate: ['image']
-        }
+        },
+        unlockedCardFrames: true,
+        storyProgresses: true
       }
     });
 

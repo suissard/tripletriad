@@ -92,6 +92,11 @@
       "relation": "oneToMany",
       "target": "api::player-story-progress.player-story-progress",
       "mappedBy": "user"
+    },
+    "unlockedCardFrames": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::card-frame.card-frame"
     }
   }
 }

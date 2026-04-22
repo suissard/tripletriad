@@ -49,6 +49,7 @@
               :owner="cell.owner"
               :isPremium="cell.data.isPremium"
               :showCraftingActions="false"
+              :cardFrame="cell.owner === state.pId ? state.pFrame : state.aiFrame"
               :bonus="factionBonuses[cell.data.factionCode] || 0"
             />
           </div>

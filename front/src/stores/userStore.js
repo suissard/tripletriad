@@ -36,6 +36,8 @@ export const useUserStore = defineStore('user', {
     initializationStatus: 'loading', // 'loading' | 'ready'
     isOfflineStoryMode: false,
     gameConfig: null,
+    cardFrames: [],
+    cardFramesLoaded: false,
     error: null
   }),
   getters: {
@@ -134,8 +136,8 @@ export const useUserStore = defineStore('user', {
     async updateUserData() {
       if (!this.isLoggedIn) return;
       try {
-        // Consolidated call including role, wallet and avatar_card (now handled safely on the Strapi backend override)
-        const meRes = await strapiService.request('GET', '/users/me');
+        // Consolidated call including role, wallet, avatar_card, and unlockedCardFrames
+        const meRes = await strapiService.request('GET', '/users/me?populate[0]=role&populate[1]=wallet&populate[2]=avatar_card.image&populate[3]=unlockedCardFrames');
         if (!meRes.error) {
           // Handle nested wallet data from Strapi 5
           const wallet = meRes.wallet || {};
@@ -154,7 +156,8 @@ export const useUserStore = defineStore('user', {
             coins: wallet.coins ?? 0,
             gems: wallet.gems ?? 0,
             dust: wallet.dust ?? 0,
-            boosters: wallet.boosters ?? []
+            boosters: wallet.boosters ?? [],
+            unlockedCardFrames: meRes.unlockedCardFrames || []
           };
           this.syncLocalUserWallets();
         }
@@ -177,7 +180,8 @@ export const useUserStore = defineStore('user', {
         avatar_card: user.avatar_card || null,
         avatar: user.avatar_card?.image?.url 
           ? getStrapiMediaUrl(user.avatar_card.image.url)
-          : `https://api.dicebear.com/9.x/bottts/svg?seed=${user.username}&backgroundColor=transparent`
+          : `https://api.dicebear.com/9.x/bottts/svg?seed=${user.username}&backgroundColor=transparent`,
+        unlockedCardFrames: user.unlockedCardFrames || []
       };
       
       this.isLoggedIn = true;
@@ -196,6 +200,7 @@ export const useUserStore = defineStore('user', {
       this.fetchUserQuests();
           this.fetchWeeklyQuests();
       this.fetchUserStoryProgresses();
+      this.fetchCardFrames();
       
       const effectStore = useEffectStore();
       effectStore.fetchEffects();
@@ -223,7 +228,8 @@ export const useUserStore = defineStore('user', {
         gems: 0,
         dust: 0,
         boosters: [],
-        role: null
+        role: null,
+        unlockedCardFrames: []
       };
       this.isLoggedIn = false;
       this.isOfflineStoryMode = false;
@@ -328,6 +334,28 @@ export const useUserStore = defineStore('user', {
       }
     },
 
+    async fetchCardFrames(force = false) {
+      if (!this.strapiConnected) return;
+      if (this.cardFramesLoaded && !force) return;
+      try {
+        const result = await strapiService.find('card-frames', {
+          populate: ['image'],
+          sort: ['id:asc']
+        });
+        const items = this.toArray(result);
+        this.cardFrames = items.map(item => ({
+          id: item.id,
+          documentId: item.documentId,
+          name: item.name,
+          description: item.description,
+          image: item.image?.url ? getStrapiMediaUrl(item.image.url) : null
+        }));
+        this.cardFramesLoaded = true;
+      } catch (e) {
+        console.error('Failed to fetch card frames', e);
+      }
+    },
+
     async fetchUserDecks(force = false) {
       if (!this.strapiConnected) {
           this.userDecks = strapiMock.getOfflineUserDecks();
@@ -347,6 +375,8 @@ export const useUserStore = defineStore('user', {
           documentId: item.documentId,
           name: item.name,
           cover: item.cover,
+          cardBack: item.cardBack,
+          cardFrame: item.cardFrame?.documentId || item.cardFrame?.id || null,
           cards: (item.cards || []).map(c => c.id)
         }));
         this.decksLoaded = true;
@@ -640,6 +670,7 @@ export const useUserStore = defineStore('user', {
             cover: deck.cover || 1, // Default to 1 if null
             cards: cardDocumentIds,
             cardBack: deck.cardBack || 'default',
+            cardFrame: deck.cardFrame || null,
             user: overrideUser || this.user.documentId || this.user.id // Prefer documentId for Strapi 5 relations
           }
         };
@@ -659,6 +690,8 @@ export const useUserStore = defineStore('user', {
             documentId: savedItem.documentId,
             name: savedItem.name,
             cover: savedItem.cover,
+            cardBack: savedItem.cardBack,
+            cardFrame: savedItem.cardFrame?.documentId || savedItem.cardFrame?.id || deck.cardFrame || null,
             cards: [...deck.cards] // Use current IDs to maintain UI state
           };
 

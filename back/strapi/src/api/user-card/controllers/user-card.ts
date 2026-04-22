@@ -385,29 +385,31 @@ export default factories.createCoreController(
         const user = ctx.state.user;
         if (!user) return ctx.unauthorized("You must be logged in.");
 
-        const { id } = ctx.params;
+        const { id } = ctx.params; // This is a documentId from the frontend
         const { variantIndex } = ctx.request.body;
 
         if (variantIndex === undefined || typeof variantIndex !== "number") {
           return ctx.badRequest("variantIndex is required and must be a number.");
         }
 
-        // Ensure the user-card belongs to the user
-        const userCard = await strapi.entityService.findOne(
+        // In Strapi 5, the frontend sends documentId, not numeric id.
+        // Use findMany with documentId filter to find the record.
+        const userCards = await strapi.entityService.findMany(
           "api::user-card.user-card",
-          id,
           {
-            populate: ["user"],
+            filters: { documentId: id, user: user.id },
+            limit: 1,
           }
         );
 
-        if (!userCard || (userCard as any).user?.id !== user.id) {
+        const userCard = userCards?.[0];
+        if (!userCard) {
           return ctx.notFound("User card not found or does not belong to you.");
         }
 
         const updatedUserCard = await strapi.entityService.update(
           "api::user-card.user-card",
-          id,
+          userCard.id,
           {
             data: { selectedVariantIndex: variantIndex } as any,
           }
@@ -418,7 +420,7 @@ export default factories.createCoreController(
           selectedVariantIndex: (updatedUserCard as any).selectedVariantIndex,
         });
       } catch (err) {
-        console.error(err);
+        console.error("[updateVariant] Error:", err);
         return ctx.internalServerError(
           "An error occurred while updating the variant."
         );

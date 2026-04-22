@@ -13,6 +13,7 @@
           borderColor="#ff0055"
           :disableZoom="true"
           :dimOnHover="false"
+          :cardFrame="state.aiFrame"
           :bonus="factionBonuses[card.factionCode] || 0"
         />
       </div>

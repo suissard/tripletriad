@@ -1,1171 +1,566 @@
 <template>
-  <PageLayout title="MA COLLECTION" back-route="/">
-  <template #header-actions>
-    <div class="header-stats">
-      Possédées : {{ ownedUniqueCount }} / {{ totalLibraryCount }}
-      <span style="margin-left: 20px; color: #ffc107;">✨ Poussière: {{ userStore.user?.dust || 0 }}</span>
-    </div>
-  </template>
+  <div class="collection-page">
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar sidebar-left">
+      <div class="sidebar-section">
+        <h4 class="sidebar-title">MODE</h4>
+        <button class="sidebar-btn" :class="{ active: activeMode === 'collection' }" @click="activeMode = 'collection'">
+          <span class="sb-icon">📜</span><span class="sb-label">Collection</span>
+        </button>
+        <button class="sidebar-btn" :class="{ active: activeMode === 'craft' }" @click="switchToCraftMode">
+          <span class="sb-icon">✨</span><span class="sb-label">Craft</span>
+        </button>
+      </div>
+      <div class="sidebar-section">
+        <h4 class="sidebar-title">COSMÉTIQUES</h4>
+        <button class="sidebar-btn disabled" disabled><span class="sb-icon">🂠</span><span class="sb-label">Dos de carte</span><span class="wip-tag">WIP</span></button>
+        <button class="sidebar-btn disabled" disabled><span class="sb-icon">🏞️</span><span class="sb-label">Plateaux</span><span class="wip-tag">WIP</span></button>
+        <button class="sidebar-btn disabled" disabled><span class="sb-icon">🖼️</span><span class="sb-label">Cadres</span><span class="wip-tag">WIP</span></button>
+      </div>
+      <!-- Craft mode: mass disenchant -->
+      <div v-if="activeMode === 'craft'" class="sidebar-section craft-actions">
+        <button class="mass-disenchant-sidebar-btn" @click="showMassDisenchantModal = true">🔥 Désenchantement de Masse</button>
+      </div>
+      <div class="sidebar-footer">
+        <div class="dust-display">✨ {{ userStore.user?.dust || 0 }}</div>
+      </div>
+    </aside>
 
-    <div class="page-content">
-      <div class="collection-controls-panel">
-        <div class="search-filter-main">
-          <input type="text" v-model="searchQuery" placeholder="Rechercher une carte (nom)..." class="filter-input-large" />
-          <button class="toggle-filters-btn" @click="showFilters = !showFilters" :class="{ active: showFilters }">
-            <span class="icon">{{ showFilters ? '▲' : '▼' }}</span>
-            <span class="text">{{ showFilters ? 'Moins de filtres' : 'Plus de filtres' }}</span>
+    <!-- CENTER -->
+    <main class="center-column" ref="centerRef">
+      <!-- HEADER BAR -->
+      <div class="top-bar">
+        <button class="back-btn" @click="router.push('/')">← Retour</button>
+        <h2 class="page-title">{{ activeMode === 'craft' ? 'ATELIER' : 'MA COLLECTION' }}</h2>
+        <div class="header-stats">{{ ownedUniqueCount }} / {{ totalLibraryCount }}</div>
+      </div>
+
+      <!-- FILTERS BAR -->
+      <div class="filters-bar">
+        <input type="text" v-model="searchQuery" placeholder="Rechercher..." class="search-input" />
+        <select v-model="filterFaction" class="filter-sel">
+          <option value="">Factions</option>
+          <option v-for="f in availableFactions" :key="f" :value="f">{{ f }}</option>
+        </select>
+        <select v-model="sortBy" class="filter-sel">
+          <option value="name:asc">Nom A-Z</option>
+          <option value="name:desc">Nom Z-A</option>
+          <option value="rarity:asc">+ Rare</option>
+          <option value="rarity:desc">- Rare</option>
+          <option value="id:asc">Numéro</option>
+        </select>
+        <div class="toggle-pills">
+          <button :class="{ active: filterOwnership === '' }" @click="filterOwnership = ''">Toutes</button>
+          <button :class="{ active: filterOwnership === 'owned' }" @click="filterOwnership = 'owned'">Possédées</button>
+          <button :class="{ active: filterOwnership === 'unowned' }" @click="filterOwnership = 'unowned'">Manquantes</button>
+        </div>
+        <div class="toggle-pills">
+          <button :class="{ active: filterPremium === '' }" @click="filterPremium = ''">Toutes</button>
+          <button :class="{ active: filterPremium === 'premium' }" @click="filterPremium = 'premium'">Premium</button>
+          <button :class="{ active: filterPremium === 'regular' }" @click="filterPremium = 'regular'">Normal</button>
+        </div>
+      </div>
+
+      <!-- CARD GRID -->
+      <div class="card-grid-area" v-if="!isLoadingCards">
+        <TripleTriadCardGrid
+          :cards="pageCards"
+          :cardsPerRow="gridCols"
+          cardSize="md"
+          :showOwnNum="true"
+          :disableZoom="false"
+          :showCraftingActions="activeMode === 'craft'"
+        />
+      </div>
+      <div v-else class="loading-indicator">Chargement...</div>
+
+      <!-- PAGINATION -->
+      <div class="pagination-bar" v-if="totalPages > 1">
+        <button class="pg-btn" :disabled="currentPage <= 1" @click="currentPage--">‹</button>
+        <template v-for="p in paginationRange" :key="p">
+          <button v-if="p !== '...'" class="pg-btn" :class="{ active: p === currentPage }" @click="currentPage = p">{{ p }}</button>
+          <span v-else class="pg-dots">…</span>
+        </template>
+        <button class="pg-btn" :disabled="currentPage >= totalPages" @click="currentPage++">›</button>
+      </div>
+
+      <div class="results-footer">
+        {{ totalCardCount }} résultats — Page {{ currentPage }} / {{ totalPages || 1 }}
+      </div>
+    </main>
+
+    <!-- RIGHT SIDEBAR -->
+    <aside class="sidebar sidebar-right">
+      <div class="sidebar-section">
+        <h4 class="sidebar-title">MES DECKS</h4>
+        <div class="deck-list" v-if="userStore.userDecks.length > 0">
+          <MiniDeck v-for="deck in userStore.userDecks" :key="deck.id" :deck="deck" :compact="true" class="deck-mini-item" @click="openEditDeck(deck)" />
+        </div>
+        <p v-else class="empty-decks">Aucun deck</p>
+      </div>
+      <button class="create-deck-btn" @click="openNewDeck">+ Nouveau Deck</button>
+      <button class="view-decks-btn" @click="router.push('/decks')">Voir tous les decks →</button>
+    </aside>
+
+    <!-- MASS DISENCHANT MODAL -->
+    <div v-if="showMassDisenchantModal" class="modal-overlay" @click.self="showMassDisenchantModal = false">
+      <div class="modal-box">
+        <h3>🔥 Désenchantement de Masse</h3>
+        <p class="modal-desc">Détruire les cartes en surplus (>2 exemplaires) pour de la poussière.</p>
+        <div v-if="disenchantPreview.totalCards > 0" class="disenchant-preview">
+          <div class="dp-row header"><span>Rareté</span><span>Cartes</span><span>Poussière</span></div>
+          <div class="dp-row" v-for="(data, key) in disenchantPreview.breakdown" :key="key" v-show="data.cards > 0">
+            <span :class="'rarity-' + key">{{ rarityLabels[key] }}</span>
+            <span>{{ data.cards }}</span><span>+{{ data.dust }} ✨</span>
+          </div>
+          <div class="dp-row total"><span>TOTAL</span><span>{{ disenchantPreview.totalCards }}</span><span class="gold">+{{ disenchantPreview.totalDust }} ✨</span></div>
+        </div>
+        <div v-else class="no-surplus">Aucune carte en surplus.</div>
+        <div class="modal-btns">
+          <button class="btn-cancel" @click="showMassDisenchantModal = false">Annuler</button>
+          <button class="btn-confirm" :disabled="disenchantPreview.totalCards === 0 || isDisenchanting" @click="confirmMassDisenchant">
+            {{ isDisenchanting ? 'Destruction...' : 'Confirmer' }}
           </button>
         </div>
-
-        <transition name="expand-filters">
-          <div v-if="showFilters" class="collapsible-filters-region">
-            <div class="filters-row">
-              <select v-model="filterFaction" class="filter-select">
-                <option value="">Toutes les factions</option>
-                <option v-for="f in availableFactions" :key="f" :value="f">{{ f }}</option>
-              </select>
-
-              <select v-model="filterCollection" class="filter-select">
-                <option value="">Toutes les collections</option>
-                <option v-for="c in availableCollections" :key="c" :value="c">{{ c }}</option>
-              </select>
-
-              <select v-model="filterRarity" class="filter-select">
-                <option value="">Toutes les raretés</option>
-                <option v-for="rarity in uniqueRarities" :key="rarity.value" :value="rarity.value">{{ rarity.label }}</option>
-              </select>
-
-              <select v-model="sortBy" class="filter-select sort-select">
-                <option value="name:asc">Nom (A-Z)</option>
-                <option value="name:desc">Nom (Z-A)</option>
-                <option value="rarity:asc">Rareté (Plus rare d'abord)</option>
-                <option value="rarity:desc">Rareté (Moins rare d'abord)</option>
-                <option value="id:asc">Numéro</option>
-              </select>
-            </div>
-
-            <div class="filters-row">
-              <div class="filter-group">
-                <div class="element-filter-row">
-                  <span class="filter-label">Élément :</span>
-                  <div v-for="element in uniqueElements" :key="element"
-                       class="element-btn-icon-wrapper"
-                       :class="{ active: selectedElements.includes(element) }"
-                       @click="toggleElement(element)"
-                       :title="element">
-                    <ElementIcon :element="element" :active="selectedElements.includes(element)" />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="filters-row">
-              <div class="toggle-group">
-                <span class="filter-label">Possession :</span>
-                <div class="btn-toggle-row">
-                  <button @click="filterOwnership = ''" :class="{ active: filterOwnership === '' }">Toutes</button>
-                  <button @click="filterOwnership = 'owned'" :class="{ active: filterOwnership === 'owned' }">Possédées</button>
-                  <button @click="filterOwnership = 'unowned'" :class="{ active: filterOwnership === 'unowned' }">Non-possédées</button>
-                </div>
-              </div>
-
-              <div class="toggle-group">
-                <span class="filter-label">Qualité :</span>
-                <div class="btn-toggle-row">
-                  <button @click="filterPremium = ''" :class="{ active: filterPremium === '' }">Toutes</button>
-                  <button @click="filterPremium = 'premium'" :class="{ active: filterPremium === 'premium' }">Premium</button>
-                  <button @click="filterPremium = 'regular'" :class="{ active: filterPremium === 'regular' }">Normales</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </transition>
-      </div>
-
-      <div class="collection-stats-bar">
-        <div class="results-info">
-          Résultats : <strong>{{ totalCardCount }}</strong> cartes
-        </div>
-        
-        <div class="bar-actions">
-          <button class="mass-disenchant-btn" @click="handleMassDisenchant">✨ Désenchantement de Masse</button>
-        </div>
-      </div>
-
-      <TripleTriadCardGrid
-        v-if="!isLoadingCards"
-        :cards="displayCards.map(c => ({...c, quantity: getOwnedQuantity(c.id), isPremium: isOwnedPremium(c.id)}))"
-        cardSize="md"
-        :showOwnNum="true"
-        :disableZoom="false"
-      >
-        <template #card-detail-extra="{ card }">
-          <div class="zoom-skills" v-if="card.data && card.data.skills && card.data.skills.length">
-            <h4 class="zoom-skills-title">Compétences:</h4>
-            <div class="zoom-skill-list">
-              <div class="zoom-skill-item" v-for="(skill, idx) in card.data.skills" :key="idx">
-                <span class="skill-name">{{ skill.type }}</span>
-                <span class="skill-val" v-if="skill.value">{{ skill.value }}</span>
-              </div>
-            </div>
-          </div>
-        </template>
-      </TripleTriadCardGrid>
-
-      <div v-else class="loading-indicator">Chargement des cartes...</div>
-
-      <!-- Mass Disenchant Modal -->
-      <div v-if="showMassDisenchantModal" class="card-detail-overlay mass-disenchant-modal-overlay" @click.self="showMassDisenchantModal = false">
-        <div class="mass-disenchant-modal">
-          <h3>Désenchantement de Masse</h3>
-          <p class="modal-desc">
-            Voulez-vous détruire vos cartes en surplus (plus de 2 exemplaires) pour récupérer de la poussière ?
-          </p>
-
-          <div v-if="disenchantPreview.totalCards > 0" class="disenchant-preview">
-             <div class="preview-row header">
-               <span>Rareté</span>
-               <span>Cartes Détruites</span>
-               <span>Poussière Gagnée</span>
-             </div>
-             
-             <div class="preview-row" v-if="disenchantPreview.breakdown.common.cards > 0">
-                <span class="rarity common">Commune</span>
-                <span>{{ disenchantPreview.breakdown.common.cards }}</span>
-                <span>+{{ disenchantPreview.breakdown.common.dust }} ✨</span>
-             </div>
-             <div class="preview-row" v-if="disenchantPreview.breakdown.uncommon.cards > 0">
-                <span class="rarity uncommon">Peu Commune</span>
-                <span>{{ disenchantPreview.breakdown.uncommon.cards }}</span>
-                <span>+{{ disenchantPreview.breakdown.uncommon.dust }} ✨</span>
-             </div>
-             <div class="preview-row" v-if="disenchantPreview.breakdown.rare.cards > 0">
-                <span class="rarity rare">Rare</span>
-                <span>{{ disenchantPreview.breakdown.rare.cards }}</span>
-                <span>+{{ disenchantPreview.breakdown.rare.dust }} ✨</span>
-             </div>
-             <div class="preview-row" v-if="disenchantPreview.breakdown.epic.cards > 0">
-                <span class="rarity epic">Épique</span>
-                <span>{{ disenchantPreview.breakdown.epic.cards }}</span>
-                <span>+{{ disenchantPreview.breakdown.epic.dust }} ✨</span>
-             </div>
-             <div class="preview-row" v-if="disenchantPreview.breakdown.legendary.cards > 0">
-                <span class="rarity legendary">Légendaire</span>
-                <span>{{ disenchantPreview.breakdown.legendary.cards }}</span>
-                <span>+{{ disenchantPreview.breakdown.legendary.dust }} ✨</span>
-             </div>
-
-             <div class="preview-row total">
-               <span>TOTAL</span>
-               <span>{{ disenchantPreview.totalCards }} cartes</span>
-               <span class="total-dust">+{{ disenchantPreview.totalDust }} ✨</span>
-             </div>
-          </div>
-          
-          <div v-else class="no-surplus-msg">
-            Vous n'avez actuellement aucune carte en surplus (plus de 2 exemplaires).
-          </div>
-
-          <div class="modal-actions">
-            <button class="btn-cancel" @click="showMassDisenchantModal = false">Annuler</button>
-            <button 
-              class="btn-confirm" 
-              :disabled="disenchantPreview.totalCards === 0 || isDisenchanting"
-              @click="confirmMassDisenchant"
-            >
-              {{ isDisenchanting ? 'Destruction...' : 'Confirmer' }}
-            </button>
-          </div>
-        </div>
       </div>
     </div>
-  </PageLayout>
+  </div>
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
-const router = useRouter();
-
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
-
-import PageLayout from '../components/PageLayout.vue';
+import { useRouter } from 'vue-router';
 import { state, cardLibrary, getCardById } from '../game/state.js';
 import { ELEMENTS } from '../data/factions.js';
-import TripleTriadCard from '../components/TripleTriadCard.vue';
 import TripleTriadCardGrid from '../components/TripleTriadCardGrid.vue';
-import ElementIcon from '../components/ElementIcon.vue';
+import MiniDeck from '../components/MiniDeck.vue';
 import { useUserStore } from '../stores/userStore.js';
-import { GameEngine } from '../../../shared/GameEngine.ts';
 import strapiService from '../api/strapi.js';
 import { normalizeCard } from '../utils/cardUtils.js';
 import { getRarity as getCardRarity } from '../game/constants.js';
 
+const router = useRouter();
 const userStore = useUserStore();
 
-// ===== Server-side data =====
+// === Mode ===
+const activeMode = ref('collection');
+function switchToCraftMode() {
+  activeMode.value = 'craft';
+  filterOwnership.value = '';
+}
+
+// === Data ===
+const allCards = ref([]);
+const isLibraryLoaded = ref(false);
 const displayCards = ref([]);
 const totalCardCount = ref(0);
 const isLoadingCards = ref(false);
-
-// ===== Dynamic filters from Strapi =====
 const availableFactions = ref([]);
-const availableCollections = ref([]);
+let searchDebounceTimer = null;
 
-// ===== Owned count =====
-const totalLibraryCount = computed(() => {
-  if (!userStore.strapiConnected) return cardLibrary.length;
-  return allCards.value.length;
+// === Filters ===
+const searchQuery = ref('');
+const filterFaction = ref('');
+const filterOwnership = ref('owned');
+const filterPremium = ref('');
+const sortBy = ref('name:asc');
+
+// === Dynamic grid sizing ===
+const centerRef = ref(null);
+const gridCols = ref(4);
+const gridRows = ref(2);
+let resizeObserver = null;
+
+const CARD_W = 165; // card width + gap
+const CARD_H = 210; // card height + gap
+const FIXED_UI_HEIGHT = 220; // top-bar(~50) + filters(~90) + pagination(~50) + footer(~30)
+
+function recalcGrid() {
+  if (!centerRef.value) return;
+  const w = centerRef.value.clientWidth - 48;
+  const h = centerRef.value.clientHeight - FIXED_UI_HEIGHT;
+  gridCols.value = Math.max(2, Math.floor(w / CARD_W));
+  gridRows.value = Math.max(1, Math.floor(Math.max(200, h) / CARD_H));
+}
+
+// === Pagination ===
+const currentPage = ref(1);
+const cardsPerPage = computed(() => Math.max(4, gridCols.value * gridRows.value));
+const totalPages = computed(() => Math.max(1, Math.ceil(displayCards.value.length / cardsPerPage.value)));
+const pageCards = computed(() => {
+  const start = (currentPage.value - 1) * cardsPerPage.value;
+  return displayCards.value.slice(start, start + cardsPerPage.value).map(c => ({
+    ...c, quantity: getOwnedQuantity(c.id), isPremium: isOwnedPremium(c.id)
+  }));
 });
 
+const paginationRange = computed(() => {
+  const tp = totalPages.value;
+  const cp = currentPage.value;
+  if (tp <= 7) return Array.from({ length: tp }, (_, i) => i + 1);
+  const pages = [];
+  pages.push(1);
+  if (cp > 3) pages.push('...');
+  for (let i = Math.max(2, cp - 1); i <= Math.min(tp - 1, cp + 1); i++) pages.push(i);
+  if (cp < tp - 2) pages.push('...');
+  pages.push(tp);
+  return pages;
+});
+
+// === Stats ===
+const totalLibraryCount = computed(() => !userStore.strapiConnected ? cardLibrary.length : allCards.value.length);
 const ownedUniqueCount = computed(() => {
   if (!userStore.strapiConnected) return cardLibrary.length;
   const ownedIds = new Set(userStore.collection.map(c => c.cardId));
-  // Only count IDs that actually exist in our library to avoid 122/121 scenario
   const libraryIds = new Set(allCards.value.map(c => c.id));
-  const validOwnedIds = [...ownedIds].filter(id => libraryIds.has(id));
-  return validOwnedIds.length;
+  return [...ownedIds].filter(id => libraryIds.has(id)).length;
 });
 
-// ===== Filter state =====
-const searchQuery = ref('');
-const selectedElements = ref([]);
-const filterOwnership = ref('owned');
-const filterPremium = ref('');
-const filterRarity = ref('');
-const filterFaction = ref('');
-const filterCollection = ref('');
-const sortBy = ref('name:asc');
-const showFilters = ref(false); // Collapsed by default
+// === Helpers ===
+function getOwnedQuantity(cardId) {
+  if (!userStore.strapiConnected) return 99;
+  return userStore.collection.find(c => c.cardId === cardId)?.quantity || 0;
+}
+function isOwnedPremium(cardId) {
+  return userStore.collection.some(c => c.cardId === cardId && c.isPremium);
+}
 
-const allCards = ref([]);
-const isLibraryLoaded = ref(false);
-
-// ===== Auto-load all logic =====
-// Pagination is removed, we always fetch all cards
-const cardsPerPage = ref(9999);
-
-// ===== Mass disenchant =====
+// === Mass Disenchant ===
 const showMassDisenchantModal = ref(false);
 const isDisenchanting = ref(false);
+const rarityLabels = { common: 'Commune', uncommon: 'Peu Commune', rare: 'Rare', epic: 'Épique', legendary: 'Légendaire' };
 
-const craftingRatios = computed(() => {
-  return userStore.gameConfig?.craftingRatios || {
-    "common": { craft: 40, disenchant: 10 },
-    "uncommon": { craft: 80, disenchant: 20 },
-    "rare": { craft: 200, disenchant: 50 },
-    "epic": { craft: 400, disenchant: 100 },
-    "legendary": { craft: 1600, disenchant: 400 }
-  };
+const craftingRatios = computed(() => userStore.gameConfig?.craftingRatios || {
+  common: { craft: 40, disenchant: 10 }, uncommon: { craft: 80, disenchant: 20 },
+  rare: { craft: 200, disenchant: 50 }, epic: { craft: 400, disenchant: 100 },
+  legendary: { craft: 1600, disenchant: 400 }
 });
 
 function getRarity(card) {
   const norm = normalizeCard(card);
   const r = getCardRarity(norm);
-  const rarityMapping = {
-    'Commun': 'common',
-    'Peu Commun': 'uncommon',
-    'Rare': 'rare',
-    'Épique': 'epic',
-    'Légendaire': 'legendary'
-  };
-  return rarityMapping[r.name] || 'common';
-}
-
-function handleMassDisenchant() { showMassDisenchantModal.value = true; }
-
-async function confirmMassDisenchant() {
-  if (disenchantPreview.value.totalCards === 0) return;
-  isDisenchanting.value = true;
-  const success = await userStore.massDisenchantCards(); 
-  isDisenchanting.value = false;
-  if (success) showMassDisenchantModal.value = false;
+  const map = { 'Commun': 'common', 'Peu Commun': 'uncommon', 'Rare': 'rare', 'Épique': 'epic', 'Légendaire': 'legendary' };
+  return map[r.name] || 'common';
 }
 
 const disenchantPreview = computed(() => {
-  const breakdown = {
-    common: { cards: 0, dust: 0 }, uncommon: { cards: 0, dust: 0 },
-    rare: { cards: 0, dust: 0 }, epic: { cards: 0, dust: 0 },
-    legendary: { cards: 0, dust: 0 }
-  };
-  let totalCards = 0;
-  let totalDust = 0;
-  const ratios = craftingRatios.value;
-  const playableLimit = 2;
+  const breakdown = { common: { cards: 0, dust: 0 }, uncommon: { cards: 0, dust: 0 }, rare: { cards: 0, dust: 0 }, epic: { cards: 0, dust: 0 }, legendary: { cards: 0, dust: 0 } };
+  let totalCards = 0, totalDust = 0;
   userStore.collection.forEach(item => {
-    if (item.quantity > playableLimit) {
-      const surplus = item.quantity - playableLimit;
+    if (item.quantity > 2) {
+      const surplus = item.quantity - 2;
       const card = getCardById(item.cardId);
       if (card) {
-        const rarity = getRarity(card);
-        const dustPerCard = ratios[rarity].disenchant;
-        breakdown[rarity].cards += surplus;
-        breakdown[rarity].dust += (surplus * dustPerCard);
-        totalCards += surplus;
-        totalDust += (surplus * dustPerCard);
+        const r = getRarity(card);
+        const d = craftingRatios.value[r].disenchant;
+        breakdown[r].cards += surplus; breakdown[r].dust += surplus * d;
+        totalCards += surplus; totalDust += surplus * d;
       }
     }
   });
   return { breakdown, totalCards, totalDust };
 });
 
-// ===== Elements & Rarities =====
-const uniqueElements = ELEMENTS;
-
-const uniqueRarities = [
-  { value: 'Legendary', label: 'Légendaire' },
-  { value: 'Epic', label: 'Épique' },
-  { value: 'Rare', label: 'Rare' },
-  { value: 'Uncommon', label: 'Peu Commune' },
-  { value: 'Common', label: 'Commune' }
-];
-
-const toggleElement = (el) => {
-  const index = selectedElements.value.indexOf(el);
-  if (index > -1) selectedElements.value.splice(index, 1);
-  else selectedElements.value.push(el);
-};
-
-function getOwnedQuantity(cardId) {
-  if (!userStore.strapiConnected) return 99;
-  const owned = userStore.collection.find(c => c.cardId === cardId);
-  return owned ? owned.quantity : 0;
+async function confirmMassDisenchant() {
+  if (disenchantPreview.value.totalCards === 0) return;
+  isDisenchanting.value = true;
+  const ok = await userStore.massDisenchantCards();
+  isDisenchanting.value = false;
+  if (ok) showMassDisenchantModal.value = false;
 }
 
-function isOwnedPremium(cardId) {
-  return userStore.collection.some(c => c.cardId === cardId && c.isPremium);
+// === Deck nav ===
+function openNewDeck() {
+  state.editingDeck.id = null; state.editingDeck.documentId = null;
+  state.editingDeck.name = 'Nouveau Deck'; state.editingDeck.cover = null;
+  state.editingDeck.cards = []; state.editingDeck.cardBack = 'default';
+  router.push({ name: 'deck-editor-new' });
+}
+function openEditDeck(deck) {
+  state.editingDeck.id = deck.id; state.editingDeck.documentId = deck.documentId;
+  state.editingDeck.name = deck.name; state.editingDeck.cover = deck.cover;
+  state.editingDeck.cards = [...deck.cards]; state.editingDeck.cardBack = deck.cardBack || 'default';
+  router.push({ name: 'deck-editor-edit', params: { documentId: deck.documentId } });
 }
 
-// ===== Server-side fetching =====
+// === Fetching ===
 async function fetchCards() {
   if (!userStore.strapiConnected) {
-    displayCards.value = [...cardLibrary];
-    totalCardCount.value = cardLibrary.length;
-    isLoadingCards.value = false;
-    return;
+    displayCards.value = [...cardLibrary]; totalCardCount.value = cardLibrary.length;
+    isLoadingCards.value = false; return;
   }
-
   isLoadingCards.value = true;
   try {
-    // 1. Initial Load: Fetch everything once if not already loaded
     if (!isLibraryLoaded.value) {
-      console.log('[Collection] Loading full library from Strapi...');
-      let allRawCards = [];
-      let page = 1;
-      let strapiPageCount = 1;
-      const STRAPI_MAX_PAGE_SIZE = 100;
-
+      let raw = [], page = 1, pageCount = 1;
       do {
-        const queryParams = {
-          populate: ['image', 'collection', 'faction'],
-          pagination: { page, pageSize: STRAPI_MAX_PAGE_SIZE },
-        };
-        const result = await strapiService.find('cards', queryParams);
-        const rawCards = Array.isArray(result) ? result : (result?.data || []);
-        allRawCards = [...allRawCards, ...rawCards];
-
-        const meta = result?.meta?.pagination;
-        strapiPageCount = meta?.pageCount || 1;
-        page++;
-      } while (page <= strapiPageCount);
-
-      allCards.value = allRawCards.map(c => normalizeCard(c));
+        const res = await strapiService.find('cards', { populate: ['image', 'collection', 'faction', 'variants'], pagination: { page, pageSize: 100 } });
+        raw = [...raw, ...(Array.isArray(res) ? res : (res?.data || []))];
+        pageCount = res?.meta?.pagination?.pageCount || 1; page++;
+      } while (page <= pageCount);
+      allCards.value = raw.map(c => normalizeCard(c));
       isLibraryLoaded.value = true;
-      console.log(`[Collection] Library loaded: ${allCards.value.length} cards.`);
     }
-
-    // 2. Local Filtering
     let filtered = [...allCards.value];
-
-    // Search Query
-    if (searchQuery.value.trim()) {
-      const q = searchQuery.value.trim().toLowerCase();
-      filtered = filtered.filter(c => c.name.toLowerCase().includes(q));
-    }
-
-    // Faction
-    if (filterFaction.value) {
-      filtered = filtered.filter(c => c.faction === filterFaction.value);
-    }
-
-    // Collection
-    if (filterCollection.value) {
-      filtered = filtered.filter(c => c.collectionName === filterCollection.value);
-    }
-
-    // Rarity
-    if (filterRarity.value) {
-      filtered = filtered.filter(c => c.rarity === filterRarity.value);
-    }
-
-    // Elements
-    if (selectedElements.value.length > 0) {
-      filtered = filtered.filter(c => selectedElements.value.includes(c.element));
-    }
-
-    // Ownership & Premium
+    if (searchQuery.value.trim()) { const q = searchQuery.value.trim().toLowerCase(); filtered = filtered.filter(c => c.name.toLowerCase().includes(q)); }
+    if (filterFaction.value) filtered = filtered.filter(c => c.faction === filterFaction.value);
     filtered = filtered.filter(c => {
-      const quantity = getOwnedQuantity(c.id);
-      const premium = isOwnedPremium(c.id);
-
-      // Ownership Filter
-      if (filterOwnership.value === 'owned' && quantity === 0) return false;
-      if (filterOwnership.value === 'unowned' && quantity > 0) return false;
-
-      // Premium Filter
-      if (filterPremium.value === 'premium' && !premium) return false;
-      if (filterPremium.value === 'regular' && premium) return false;
-
+      const qty = getOwnedQuantity(c.id), prem = isOwnedPremium(c.id);
+      if (filterOwnership.value === 'owned' && qty === 0) return false;
+      if (filterOwnership.value === 'unowned' && qty > 0) return false;
+      if (filterPremium.value === 'premium' && !prem) return false;
+      if (filterPremium.value === 'regular' && prem) return false;
       return true;
     });
-
-    // 3. Local Sorting
     filtered.sort((a, b) => {
       const [field, order] = sortBy.value.split(':');
-      const isAsc = order === 'asc';
-
-      if (field === 'name') {
-        return isAsc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
-      }
+      const asc = order === 'asc';
+      if (field === 'name') return asc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
       if (field === 'rarity') {
-        const rarityOrder = ['Legendary', 'Epic', 'Rare', 'Uncommon', 'Common'];
-        const valA = rarityOrder.indexOf(a.rarity || 'Common');
-        const valB = rarityOrder.indexOf(b.rarity || 'Common');
-        return isAsc ? valA - valB : valB - valA;
+        const ro = ['Legendary', 'Epic', 'Rare', 'Uncommon', 'Common'];
+        return asc ? ro.indexOf(a.rarity || 'Common') - ro.indexOf(b.rarity || 'Common') : ro.indexOf(b.rarity || 'Common') - ro.indexOf(a.rarity || 'Common');
       }
-      if (field === 'id') {
-        return isAsc ? a.id - b.id : b.id - a.id;
-      }
+      if (field === 'id') return asc ? a.id - b.id : b.id - a.id;
       return 0;
     });
-
-    displayCards.value = filtered;
-    totalCardCount.value = filtered.length;
-
-    // Fallback: Populate filters from loaded cards if they are empty
-    if (availableFactions.value.length === 0 || availableCollections.value.length === 0) {
-      const factions = new Set();
-      const collections = new Set();
-      allCards.value.forEach(card => {
-        if (card.faction) factions.add(card.faction);
-        if (card.collectionName) collections.add(card.collectionName);
-      });
-      if (factions.size > 0) availableFactions.value = [...factions].sort();
-      if (collections.size > 0) availableCollections.value = [...collections].sort();
+    displayCards.value = filtered; totalCardCount.value = filtered.length;
+    if (availableFactions.value.length === 0) {
+      const f = new Set(); allCards.value.forEach(c => { if (c.faction) f.add(c.faction); });
+      if (f.size > 0) availableFactions.value = [...f].sort();
     }
   } catch (e) {
-    console.error('[Collection] Local filter/sort failed:', e);
-    displayCards.value = [...cardLibrary];
-    totalCardCount.value = cardLibrary.length;
-  } finally {
-    isLoadingCards.value = false;
-  }
+    console.error('[Collection] Error:', e);
+    displayCards.value = [...cardLibrary]; totalCardCount.value = cardLibrary.length;
+  } finally { isLoadingCards.value = false; }
 }
 
 async function fetchFilters() {
   try {
-    const result = await strapiService.request('GET', '/cards/filters');
-    if (result && !result.error) {
-      availableFactions.value = result.factions || [];
-      availableCollections.value = result.collections || [];
-    } else {
-      throw new Error('Endpoint returned error or 404');
-    }
-  } catch (e) {
-    console.warn('[Collection] Custom filters endpoint failed, using fallback:', e);
-    // Fallback: Populate from current cards if possible
-    if (displayCards.value.length > 0) {
-      const factions = new Set(availableFactions.value);
-      const collections = new Set(availableCollections.value);
-      displayCards.value.forEach(card => {
-        if (card.faction) factions.add(card.faction);
-        if (card.collectionName) collections.add(card.collectionName);
-      });
-      availableFactions.value = [...factions].sort();
-      availableCollections.value = [...collections].sort();
-    }
-    
-    // Additional hardcoded fallback for factions (from schema)
-    if (availableFactions.value.length === 0) {
-      availableFactions.value = [
-        "neutre", "Hégémonie Martienne", "Exode Pélagique", "Héritiers des Cendres",
-        "Omni-Réseau", "Chœur Synthétique", "Éveil Chthonien", "Incursion Dissonante",
-        "Ferrailleurs de la Ceinture", "Fléau Spore"
-      ].sort();
-    }
-  }
+    const r = await strapiService.request('GET', '/cards/filters');
+    if (r && !r.error) availableFactions.value = r.factions || [];
+    else throw new Error('fallback');
+  } catch { /* fallback handled in fetchCards */ }
 }
 
-// ===== Watchers =====
-watch([filterFaction, filterCollection, filterRarity, selectedElements, filterOwnership, filterPremium, sortBy], () => {
-  fetchCards();
-});
+// === Watchers ===
+watch([filterFaction, filterOwnership, filterPremium, sortBy], () => { currentPage.value = 1; fetchCards(); });
+watch(searchQuery, () => { clearTimeout(searchDebounceTimer); searchDebounceTimer = setTimeout(() => { currentPage.value = 1; fetchCards(); }, 350); });
+watch(activeMode, () => { currentPage.value = 1; fetchCards(); });
 
-watch(searchQuery, () => {
-  clearTimeout(searchDebounceTimer);
-  searchDebounceTimer = setTimeout(() => {
-    fetchCards();
-  }, 350);
-});
-
-// ===== Init =====
 onMounted(async () => {
-  await fetchFilters();
-  await fetchCards();
+  await fetchFilters(); await fetchCards(); userStore.fetchUserDecks();
+  // Setup ResizeObserver on center column (always mounted)
+  if (centerRef.value) {
+    recalcGrid();
+    resizeObserver = new ResizeObserver(() => {
+      recalcGrid();
+      if (currentPage.value > totalPages.value) currentPage.value = Math.max(1, totalPages.value);
+    });
+    resizeObserver.observe(centerRef.value);
+  }
 });
 
-// No cleanup needed for resize
+onUnmounted(() => {
+  if (resizeObserver) { resizeObserver.disconnect(); resizeObserver = null; }
+});
 </script>
 
-
 <style scoped>
+/* === LAYOUT === */
 .collection-page {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: radial-gradient(circle at center, #1a1a2e 0%, #0d0d14 100%);
-  z-index: 500;
-  display: flex;
-  flex-direction: column;
-  color: white;
-  pointer-events: auto;
-  overflow: hidden;
+  position: fixed; inset: 0;
+  display: grid;
+  grid-template-columns: 72px 1fr 280px;
+  background: radial-gradient(ellipse at 30% 20%, #1a1a2e 0%, #0d0d14 100%);
+  color: white; z-index: 500; overflow: hidden;
 }
 
-.page-header {
-  height: 80px;
-  background: rgba(0, 0, 0, 0.6);
-  border-bottom: 2px solid #00d2ff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;
-  box-shadow: 0 4px 20px rgba(0, 210, 255, 0.2);
+/* === SIDEBARS === */
+.sidebar {
+  display: flex; flex-direction: column; gap: 4px;
+  background: rgba(0,0,0,0.5); border-right: 1px solid rgba(255,255,255,0.06);
+  overflow-y: auto; padding: 10px 0;
+}
+.sidebar-right {
+  border-right: none; border-left: 1px solid rgba(255,255,255,0.06);
+  padding: 16px 12px; gap: 12px;
+}
+.sidebar-title {
+  font-size: 0.55rem; font-weight: 900; letter-spacing: 0.15em;
+  color: #555; text-align: center; margin: 12px 0 4px; padding: 0;
+}
+.sidebar-right .sidebar-title { font-size: 0.7rem; text-align: left; }
+.sidebar-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 10px 4px; background: transparent; border: none; color: #667;
+  cursor: pointer; transition: all 0.2s; border-left: 2px solid transparent;
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+}
+.sidebar-btn:hover { background: rgba(255,255,255,0.04); color: #aab; }
+.sidebar-btn.active {
+  color: var(--color-primary); border-left-color: var(--color-primary);
+  background: linear-gradient(90deg, rgba(255,191,0,0.08), transparent);
+}
+.sidebar-btn.disabled { opacity: 0.35; cursor: not-allowed; }
+.sb-icon { font-size: 1.3rem; }
+.sb-label { line-height: 1.1; }
+.wip-tag {
+  font-size: 0.45rem; background: rgba(255,150,0,0.2); color: #f90;
+  padding: 1px 4px; border-radius: 3px; margin-top: 1px;
+}
+.sidebar-footer { margin-top: auto; padding: 12px 8px; text-align: center; }
+.dust-display {
+  font-size: 0.8rem; font-weight: 900; color: #ffc107;
+  text-shadow: 0 0 8px rgba(255,193,7,0.4);
+}
+.craft-actions { margin-top: auto; padding: 8px; }
+.mass-disenchant-sidebar-btn {
+  width: 100%; padding: 8px 4px; font-size: 0.55rem; font-weight: 800;
+  background: rgba(255,40,40,0.15); border: 1px solid rgba(255,40,40,0.3);
+  color: #f88; border-radius: 6px; cursor: pointer; transition: all 0.2s;
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.mass-disenchant-sidebar-btn:hover {
+  background: rgba(255,40,40,0.3); border-color: #f55;
+  box-shadow: 0 0 12px rgba(255,40,40,0.3);
 }
 
+/* === DECK LIST (RIGHT) === */
+.deck-list { display: flex; flex-direction: column; gap: 10px; max-height: 60vh; overflow-y: auto; }
+.deck-mini-item { min-height: 100px !important; }
+.empty-decks { color: #555; font-size: 0.85rem; text-align: center; font-style: italic; }
+.create-deck-btn, .view-decks-btn {
+  width: 100%; padding: 10px; border-radius: 8px; font-weight: 700;
+  font-size: 0.8rem; cursor: pointer; transition: all 0.2s; border: 1px solid;
+}
+.create-deck-btn {
+  background: rgba(0,210,255,0.1); border-color: rgba(0,210,255,0.3); color: #0df;
+  margin-top: auto;
+}
+.create-deck-btn:hover { background: rgba(0,210,255,0.2); box-shadow: 0 0 10px rgba(0,210,255,0.2); }
+.view-decks-btn {
+  background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.1); color: #889;
+}
+.view-decks-btn:hover { background: rgba(255,255,255,0.08); color: #ccc; }
+
+/* === CENTER COLUMN === */
+.center-column {
+  display: flex; flex-direction: column; min-height: 0; overflow: hidden;
+}
+.top-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 24px; background: rgba(0,0,0,0.4);
+  border-bottom: 1px solid rgba(255,255,255,0.06); flex-shrink: 0;
+}
 .back-btn {
-  background: transparent;
-  border: 1px solid #00d2ff;
-  color: #00d2ff;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+  color: #aab; padding: 6px 14px; border-radius: 6px; cursor: pointer;
+  font-weight: 700; font-size: 0.8rem; transition: all 0.2s;
 }
-
-.back-btn:hover {
-  background: rgba(0, 210, 255, 0.2);
-  box-shadow: 0 0 10px #00d2ff;
-}
-
+.back-btn:hover { background: rgba(255,255,255,0.12); color: white; }
 .page-title {
-  margin: 0;
-  font-size: 2rem;
-  letter-spacing: 4px;
-  text-shadow: 0 0 15px #00d2ff;
+  margin: 0; font-size: 1.2rem; font-weight: 900; letter-spacing: 3px;
+  text-shadow: 0 0 15px rgba(0,210,255,0.3);
 }
+.header-stats { font-size: 0.85rem; font-weight: 700; color: #7788aa; }
 
-.header-stats {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #a0a0ff;
+/* === FILTERS === */
+.filters-bar {
+  display: flex; align-items: center; gap: 10px; padding: 10px 24px;
+  background: rgba(0,0,0,0.2); border-bottom: 1px solid rgba(255,255,255,0.04);
+  flex-shrink: 0; flex-wrap: wrap;
 }
-
-.page-content {
-  flex: 1;
-  padding: 20px 40px;
-  overflow-y: auto;
+.search-input {
+  flex: 1; min-width: 120px; padding: 7px 12px;
+  background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1);
+  color: white; border-radius: 6px; font-size: 0.85rem;
 }
-
-.collection-controls-panel {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  border: 1px solid rgba(255,255,255,0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.filter-sel {
+  padding: 7px 10px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1);
+  color: white; border-radius: 6px; font-size: 0.8rem; min-width: 90px;
 }
-
-.filter-input-large {
-  flex: 1;
-  padding: 12px;
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid #555;
-  color: white;
-  border-radius: 5px;
-  font-size: 1.1rem;
+.toggle-pills {
+  display: flex; background: rgba(0,0,0,0.3); border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.06); overflow: hidden;
 }
-
-.search-filter-main {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-}
-
-.toggle-filters-btn {
-  background: rgba(33, 150, 243, 0.1);
-  border: 1px solid rgba(33, 150, 243, 0.4);
-  color: #2196f3;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-weight: bold;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.3s;
+.toggle-pills button {
+  padding: 6px 10px; background: transparent; border: none; color: #667;
+  font-size: 0.72rem; font-weight: 700; cursor: pointer; transition: all 0.2s;
   white-space: nowrap;
 }
+.toggle-pills button.active { background: rgba(33,150,243,0.25); color: #5bf; }
+.toggle-pills button:hover:not(.active) { background: rgba(255,255,255,0.04); }
 
-.toggle-filters-btn:hover {
-  background: rgba(33, 150, 243, 0.2);
-  border-color: #2196f3;
-  box-shadow: 0 0 10px rgba(33, 150, 243, 0.3);
+/* === CARD GRID === */
+.card-grid-area {
+  flex: 1; min-height: 0; overflow-y: auto; padding: 20px 24px;
+  display: flex; align-items: flex-start; justify-content: center;
 }
-
-.toggle-filters-btn.active {
-  background: #2196f3;
-  color: white;
-}
-
-.collapsible-filters-region {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  padding-top: 15px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Transition Expand-Filters */
-.expand-filters-enter-active,
-.expand-filters-leave-active {
-  transition: all 0.3s ease;
-  max-height: 400px;
-  opacity: 1;
-  overflow: hidden;
-}
-
-.expand-filters-enter-from,
-.expand-filters-leave-to {
-  max-height: 0;
-  opacity: 0;
-  padding-top: 0;
-  margin-top: 0;
-}
-
-.mana-filter-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-}
-
-.filter-label {
-  font-weight: bold;
-  font-size: 1.1rem;
-  margin-right: 10px;
-}
-
-.mana-btn {
-  background: #2a2a35;
-  border: 1px solid #444;
-  color: #e0e0e0;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.mana-btn:hover {
-  background: #3a3a45;
-}
-
-.mana-btn.active {
-  background: #4caf50;
-  color: white;
-  border-color: #4caf50;
-  box-shadow: 0 0 12px rgba(76, 175, 80, 0.7);
-}
-
-.filters-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-
-.filter-select {
-  flex: 1;
-  min-width: 150px;
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: 1px solid #555;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 1rem;
-}
-
-.collection-stats-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(0,0,0,0.4);
-  padding: 10px 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  font-size: 1.1rem;
-}
-
-.filter-group {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.element-filter-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: center;
-}
-
-.element-btn-icon-wrapper {
-  width: 44px;
-  height: 44px;
-  padding: 6px;
-  background: rgba(42, 42, 53, 0.4);
-  border: 1px solid #444;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.element-btn-icon-wrapper:hover {
-  background: rgba(58, 58, 69, 0.6);
-  border-color: #666;
-  transform: translateY(-2px);
-}
-
-.element-btn-icon-wrapper.active {
-  background: rgba(0, 188, 212, 0.2);
-  border-color: #00bcd4;
-  box-shadow: 0 0 15px rgba(0, 188, 212, 0.4);
-}
-
-.toggle-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex: 1;
-}
-
-.btn-toggle-row {
-  display: flex;
-  background: rgba(0,0,0,0.3);
-  padding: 4px;
-  border-radius: 6px;
-  border: 1px solid #444;
-}
-
-.btn-toggle-row button {
-  flex: 1;
-  background: transparent;
-  border: none;
-  color: #999;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.2s;
-}
-
-.btn-toggle-row button.active {
-  background: #2196f3;
-  color: white;
-  box-shadow: 0 2px 6px rgba(33, 150, 243, 0.3);
-}
-
-.sort-select optgroup {
-  background: #1a1a2e;
-  color: #888;
-  font-style: normal;
-  font-weight: bold;
-}
-
-
-
 .loading-indicator {
-  text-align: center;
-  padding: 40px;
-  font-size: 1.2rem;
-  color: #aaa;
-  animation: pulse 1.5s infinite;
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; color: #667; animation: pulse 1.5s infinite;
+}
+@keyframes pulse { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+/* === PAGINATION === */
+.pagination-bar {
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+  padding: 10px 24px; background: rgba(0,0,0,0.2); flex-shrink: 0;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+.pg-btn {
+  width: 32px; height: 32px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04); color: #889; font-weight: 700;
+  cursor: pointer; transition: all 0.2s; font-size: 0.85rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.pg-btn:hover:not(:disabled):not(.active) { background: rgba(255,255,255,0.08); color: white; }
+.pg-btn.active { background: rgba(33,150,243,0.3); color: #5bf; border-color: rgba(33,150,243,0.4); }
+.pg-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.pg-dots { color: #445; font-size: 0.8rem; padding: 0 4px; }
+.results-footer {
+  text-align: center; padding: 6px; font-size: 0.7rem; color: #445;
+  background: rgba(0,0,0,0.3); flex-shrink: 0;
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
+/* === MODAL === */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1050; backdrop-filter: blur(5px);
 }
-
-
-
-.large-card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 20px;
-  padding-bottom: 40px;
-}
-
-/* Detail Overlay */
-.card-detail-overlay {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  backdrop-filter: blur(5px);
-}
-
-.detail-card-wrapper {
-  position: relative;
-}
-
-.close-detail-btn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 2rem;
-  cursor: pointer;
-  z-index: 50;
-}
-
-/* Shared zoom style classes (duplicated for CollectionView scoped context) */
-.zoom-card-container {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  cursor: default;
-  position: relative;
-  max-width: 90vw;
-}
-
-.zoom-card-info {
-  color: white;
-  max-width: 320px;
-  text-align: left;
-}
-
-.zoom-card-info h2 {
-  font-size: 2.2rem;
-  margin: 0 0 0.4em;
-  text-shadow: 0 0 15px rgba(255, 206, 0, 0.4);
-  letter-spacing: 1px;
-}
-
-.zoom-desc {
-  font-style: italic;
-  color: #bbb;
-  font-size: 1rem;
-  line-height: 1.6;
-  margin: 1.5rem 0;
-  padding: 1rem 0;
-  border-top: 1px solid rgba(255,255,255,0.1);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-.zoom-stat-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px 20px;
-  background: rgba(0, 0, 0, 0.3);
-  padding: 12px 18px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 215, 0, 0.2);
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #ffd700;
-}
-
-.zoom-meta {
-  display: flex;
-  gap: 15px;
-  font-size: 1rem;
-  color: #aaa;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.zoom-premium-badge {
-  color: #ffce00;
-  font-weight: bold;
-  text-shadow: 0 0 8px rgba(255, 206, 0, 0.6);
-}
-
-.zoom-close {
-  position: absolute;
-  top: -30px;
-  right: -30px;
-  background: rgba(255, 0, 85, 0.8);
-  border: none;
-  color: white;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  font-size: 1.4rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-  z-index: 100;
-}
-
-.zoom-close:hover {
-  background: #ff0055;
-  transform: scale(1.1) rotate(90deg);
-}
-
-.zoom-ownership {
-  margin: 1.5rem 0;
-  padding: 0.6rem 1.2rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 6px;
-  display: inline-block;
-}
-.ownership-status.owned { color: #4caf50; font-weight: bold; }
-.ownership-status.unowned { color: #ff5252; opacity: 0.9; }
-
-.zoom-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 1rem;
-}
-.zoom-action-btn {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.9rem 1.4rem;
-  border-radius: 8px;
-  border: none;
-  font-weight: bold;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: all 0.2s;
-  color: white;
-  min-width: 260px;
-}
-.zoom-action-btn.craft { background: #1976d2; }
-.zoom-action-btn.craft:hover:not(:disabled) { background: #2196f3; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4); }
-.zoom-action-btn.craft:disabled { background: #444; color: #888; cursor: not-allowed; }
-
-.zoom-action-btn.disenchant { background: #c62828; }
-.zoom-action-btn.disenchant:hover { background: #f44336; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(244, 67, 54, 0.4); }
-
-.cost, .gain { font-size: 0.85em; opacity: 0.9; margin-left: 10px; }
-
-/* Responsive Overlay */
-@media (max-width: 900px) {
-  .zoom-card-container {
-    flex-direction: column;
-    gap: 30px;
-    padding-top: 40px;
-    max-height: 95vh;
-    overflow-y: auto;
-  }
-  .zoom-card-info { max-width: 85vw; text-align: center; }
-  .zoom-stat-grid { justify-content: center; }
-  .zoom-meta { justify-content: center; }
-  .zoom-close { top: 10px; right: 10px; }
-}
-
-/* Mass Disenchant Modal */
-.mass-disenchant-modal-overlay {
-  z-index: 1050; /* Above regular detail modal */
-}
-
-.mass-disenchant-modal {
-  background: #1a1a24;
-  border: 2px solid #333;
-  border-radius: 12px;
-  padding: 30px;
-  max-width: 500px;
-  width: 90%;
+.modal-box {
+  background: #1a1a24; border: 2px solid #333; border-radius: 12px;
+  padding: 30px; max-width: 460px; width: 90%; text-align: center;
   box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-  text-align: center;
 }
+.modal-box h3 { color: #f55; font-size: 1.5rem; margin: 0 0 10px; }
+.modal-desc { color: #aaa; font-size: 0.95rem; margin-bottom: 20px; }
+.disenchant-preview { background: rgba(0,0,0,0.4); border-radius: 8px; padding: 12px; margin-bottom: 20px; }
+.dp-row { display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.9rem; }
+.dp-row.header { font-weight: 700; color: #667; font-size: 0.75rem; text-transform: uppercase; border-bottom: 2px solid rgba(255,255,255,0.08); }
+.dp-row.total { font-weight: 900; font-size: 1.05rem; border-top: 2px solid rgba(255,255,255,0.08); border-bottom: none; padding-top: 10px; }
+.gold { color: #ffd700; text-shadow: 0 0 5px rgba(255,215,0,0.4); }
+.rarity-common { color: #a0a0a0; } .rarity-uncommon { color: #4caf50; }
+.rarity-rare { color: #2196f3; } .rarity-epic { color: #9c27b0; } .rarity-legendary { color: #ff9800; }
+.no-surplus { padding: 20px; color: #667; font-style: italic; }
+.modal-btns { display: flex; justify-content: center; gap: 16px; }
+.btn-cancel, .btn-confirm {
+  padding: 10px 22px; font-size: 1rem; font-weight: 700;
+  border: none; border-radius: 6px; cursor: pointer; transition: all 0.2s;
+}
+.btn-cancel { background: #333; color: white; }
+.btn-cancel:hover { background: #444; }
+.btn-confirm { background: #e53935; color: white; }
+.btn-confirm:hover:not(:disabled) { background: #f44; transform: scale(1.03); box-shadow: 0 0 15px rgba(244,67,54,0.4); }
+.btn-confirm:disabled { background: #444; color: #777; cursor: not-allowed; }
 
-.mass-disenchant-modal h3 {
-  color: #ff5252;
-  font-size: 1.8rem;
-  margin-top: 0;
-  margin-bottom: 15px;
-  letter-spacing: 1px;
-}
-
-.modal-desc {
-  font-size: 1.1rem;
-  color: #ccc;
-  margin-bottom: 25px;
-  line-height: 1.4;
-}
-
-.disenchant-preview {
-  background: rgba(0,0,0,0.4);
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 25px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.preview-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-.preview-row:last-child {
-  border-bottom: none;
-}
-
-.preview-row.header {
-  font-weight: bold;
-  color: #888;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  border-bottom: 2px solid rgba(255,255,255,0.1);
-  padding-bottom: 12px;
-}
-
-.preview-row.total {
-  font-weight: bold;
-  font-size: 1.2rem;
-  border-top: 2px solid rgba(255,255,255,0.1);
-  padding-top: 15px;
-  margin-top: 5px;
-}
-
-.total-dust {
-  color: #ffd700;
-  text-shadow: 0 0 5px rgba(255, 215, 0, 0.4);
-}
-
-.rarity {
-  font-weight: bold;
-}
-.rarity.common { color: #a0a0a0; }
-.rarity.uncommon { color: #4caf50; }
-.rarity.rare { color: #2196f3; }
-.rarity.epic { color: #9c27b0; }
-.rarity.legendary { color: #ff9800; }
-
-.no-surplus-msg {
-  padding: 30px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-  margin-bottom: 25px;
-  color: #aaa;
-  font-style: italic;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.modal-actions button {
-  padding: 12px 25px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btn-cancel {
-  background: #444;
-  color: white;
-}
-.btn-cancel:hover {
-  background: #555;
-}
-
-.btn-confirm {
-  background: #f44336;
-  color: white;
-}
-.btn-confirm:hover:not(:disabled) {
-  background: #d32f2f;
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(244, 67, 54, 0.4);
-}
-.btn-confirm:disabled {
-  background: #555;
-  color: #888;
-  cursor: not-allowed;
-}
-
-
-
-/* Zoom skills styles */
-.zoom-skills {
-  margin-top: 15px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-  padding: 12px;
-  border-left: 3px solid #00bcd4;
-}
-
-.zoom-skills-title {
-  margin: 0 0 10px 0;
-  color: #00bcd4;
-  font-size: 1.1rem;
-}
-
-.zoom-skill-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.zoom-skill-item {
-  display: flex;
-  justify-content: space-between;
-  background: rgba(0, 0, 0, 0.3);
-  padding: 8px 12px;
-  border-radius: 4px;
-  font-weight: bold;
-}
-
-.skill-name {
-  color: #e0e0e0;
-  text-transform: capitalize;
-}
-
-.skill-val {
-  color: #ff9800;
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .collection-page { grid-template-columns: 56px 1fr; }
+  .sidebar-right { display: none; }
+  .filters-bar { gap: 6px; padding: 8px 12px; }
+  .top-bar { padding: 10px 12px; }
+  .card-grid-area { padding: 12px; }
 }
 </style>

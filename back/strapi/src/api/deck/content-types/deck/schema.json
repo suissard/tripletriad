@@ -39,6 +39,11 @@
                 "animated"
             ],
             "default": "default"
+        },
+        "cardFrame": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "api::card-frame.card-frame"
         }
     }
 }

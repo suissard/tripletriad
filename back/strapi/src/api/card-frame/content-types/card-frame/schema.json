@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "card_frames",
+  "info": {
+    "singularName": "card-frame",
+    "pluralName": "card-frames",
+    "displayName": "Card Frame",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

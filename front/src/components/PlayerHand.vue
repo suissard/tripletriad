@@ -22,6 +22,7 @@
           :cardBack="state.editingDeck?.cardBack || 'default'"
           :isPremium="card.isPremium"
           :showCraftingActions="false"
+          :cardFrame="state.pFrame"
           :bonus="factionBonuses[card.factionCode] || 0"
         />
 
@@ -63,6 +64,7 @@
           :cardBack="state.editingDeck?.cardBack || 'default'"
           :isPremium="getDraggingCard()?.isPremium"
           :showCraftingActions="false"
+          :cardFrame="state.pFrame"
           :bonus="getDraggingCard() ? (factionBonuses[getDraggingCard().factionCode] || 0) : 0"
         />
       </div>

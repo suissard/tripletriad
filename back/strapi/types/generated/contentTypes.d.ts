@@ -462,6 +462,37 @@ export interface ApiBoardBackgroundBoardBackground
   };
 }
 
+export interface ApiCardFrameCardFrame extends Struct.CollectionTypeSchema {
+  collectionName: 'card_frames';
+  info: {
+    description: '';
+    displayName: 'Card Frame';
+    pluralName: 'card-frames';
+    singularName: 'card-frame';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::card-frame.card-frame'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCardCard extends Struct.CollectionTypeSchema {
   collectionName: 'cards';
   info: {
@@ -599,6 +630,10 @@ export interface ApiDeckDeck extends Struct.CollectionTypeSchema {
   attributes: {
     cardBack: Schema.Attribute.Enumeration<['default', 'animated']> &
       Schema.Attribute.DefaultTo<'default'>;
+    cardFrame: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::card-frame.card-frame'
+    >;
     cards: Schema.Attribute.Relation<'manyToMany', 'api::card.card'>;
     cover: Schema.Attribute.Integer;
     createdAt: Schema.Attribute.DateTime;
@@ -1921,6 +1956,10 @@ export interface PluginUsersPermissionsUser
       'oneToMany',
       'api::player-story-progress.player-story-progress'
     >;
+    unlockedCardFrames: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::card-frame.card-frame'
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1946,6 +1985,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::board-background.board-background': ApiBoardBackgroundBoardBackground;
+      'api::card-frame.card-frame': ApiCardFrameCardFrame;
       'api::card.card': ApiCardCard;
       'api::collection.collection': ApiCollectionCollection;
       'api::deck.deck': ApiDeckDeck;

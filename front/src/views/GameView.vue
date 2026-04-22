@@ -240,12 +240,19 @@ onMounted(async () => {
             if (deckId) {
                 console.log(`[GameView] Fetching AI deck: ${deckId}`);
                 try {
-                    const res = await strapiService.request('GET', `/decks/${deckId}?populate=cards.image,cards.faction`);
+                    const res = await strapiService.request('GET', `/decks/${deckId}?populate[0]=cards.image&populate[1]=cards.faction&populate[2]=cardFrame.image`);
                     const deckData = res.data || res;
                     const deck = deckData.attributes || deckData;
                     const cards = deck.cards?.data || deck.cards || [];
                     if (cards.length >= 5) {
                         state.playerDeckSelection = cards.map(normalizeCard);
+                        const frameData = deck.cardFrame?.data?.attributes || deck.cardFrame;
+                        if (frameData && frameData.image) {
+                            const imgUrl = frameData.image.url || frameData.image.data?.attributes?.url;
+                            state.pFrame = imgUrl ? getStrapiMediaUrl(imgUrl) : null;
+                        } else {
+                            state.pFrame = null;
+                        }
                         initAIMatchSetup();
                         return;
                     }
@@ -293,7 +300,7 @@ onMounted(async () => {
         if (!state.playerDeckSelection || state.playerDeckSelection.length === 0) {
             console.log(`[GameView] Fetching Story match data: Story=${storyId}, Step=${stepId}`);
             try {
-                const res = await strapiService.request('GET', `/stories/${storyId}?populate=steps.playerDeck.cards.image,steps.playerDeck.cards.faction,steps.enemyDeck.cards.image,steps.enemyDeck.cards.faction`);
+                const res = await strapiService.request('GET', `/stories/${storyId}?populate[0]=steps.playerDeck.cards.image&populate[1]=steps.playerDeck.cards.faction&populate[2]=steps.enemyDeck.cards.image&populate[3]=steps.enemyDeck.cards.faction&populate[4]=steps.playerDeck.cardFrame.image&populate[5]=steps.enemyDeck.cardFrame.image`);
                 const storyData = res.data || res;
                 const story = storyData.attributes || storyData;
                 const steps = story.steps?.data || story.steps || [];
@@ -315,6 +322,23 @@ onMounted(async () => {
                         
                         state.playerDeckSelection = pCards.map(normalizeCard);
                         state.storyEnemyDeckConfig = eCards.map(normalizeCard);
+                        
+                        const pFrameObj = pDeckObj?.cardFrame?.data?.attributes || pDeckObj?.cardFrame;
+                        if (pFrameObj && pFrameObj.image) {
+                            const imgUrl = pFrameObj.image.url || pFrameObj.image.data?.attributes?.url;
+                            state.pFrame = imgUrl ? getStrapiMediaUrl(imgUrl) : null;
+                        } else {
+                            state.pFrame = null;
+                        }
+
+                        const eFrameObj = eDeckObj?.cardFrame?.data?.attributes || eDeckObj?.cardFrame;
+                        if (eFrameObj && eFrameObj.image) {
+                            const imgUrl = eFrameObj.image.url || eFrameObj.image.data?.attributes?.url;
+                            state.aiFrame = imgUrl ? getStrapiMediaUrl(imgUrl) : null;
+                        } else {
+                            state.aiFrame = null;
+                        }
+                        
                         state.storyMatchData = { story, step };
                         
                         console.log(`[GameView] Story match initialized. Decks: P=${state.playerDeckSelection.length}, E=${state.storyEnemyDeckConfig.length}`);

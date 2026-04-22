@@ -28,6 +28,16 @@
           </div>
         </div>
 
+        <div class="deck-frame-selector mt-1 mb-2">
+          <label class="block text-[10px] font-bold text-primary uppercase tracking-widest mb-1">Cadre de carte</label>
+          <select v-model="state.editingDeck.cardFrame" class="filter-select w-full bg-black/40 border-primary/10">
+            <option :value="null">Aucun cadre (Défaut)</option>
+            <option v-for="frame in availableFrames" :key="frame.documentId || frame.id" :value="frame.documentId || frame.id">
+              {{ frame.name }}
+            </option>
+          </select>
+        </div>
+
           <input v-model="state.editingDeck.name" placeholder="Nom du Deck" class="deck-name-input" />
         </div>
 
@@ -65,7 +75,9 @@
         <div class="deck-cards-grid">
           <div v-for="cardId in sortedDeckCards" :key="cardId" class="deck-card-slot"
             @click="removeCard(cardId)">
-            <TripleTriadCard v-if="getCardById(cardId)" :card="getCardById(cardId)" size="100%" :height="80" compact flat :cardBack="state.editingDeck.cardBack" />
+            <TripleTriadCard v-if="getCardById(cardId)" :card="getCardById(cardId)" size="100%" :height="80" compact flat 
+                             :cardBack="state.editingDeck.cardBack" 
+                             :cardFrame="getFrameUrl(state.editingDeck.cardFrame)" />
           </div>
           <div v-for="i in Math.max(0, (userStore.gameConfig?.cardsPerDeck || 15) - state.editingDeck.cards.length)" :key="'empty-' + i"
             class="deck-card-slot empty">
@@ -167,12 +179,13 @@ const props = defineProps({
 });
 
 onMounted(async () => {
+  // Ensure basic data is loaded
+  const promises = [];
+  if (!userStore.decksLoaded) promises.push(userStore.fetchUserDecks());
+  if (!userStore.cardFramesLoaded) promises.push(userStore.fetchCardFrames());
+  if (promises.length > 0) await Promise.all(promises);
+
   if (props.documentId) {
-    // Ensure decks are loaded
-    if (!userStore.decksLoaded) {
-      await userStore.fetchUserDecks();
-    }
-    
     const deck = userStore.userDecks.find(d => d.documentId === props.documentId);
     if (deck) {
       state.editingDeck.id = deck.id;
@@ -181,9 +194,15 @@ onMounted(async () => {
       state.editingDeck.cover = deck.cover;
       state.editingDeck.cards = [...deck.cards];
       state.editingDeck.cardBack = deck.cardBack || 'default';
+      state.editingDeck.cardFrame = deck.cardFrame || null;
     } else {
       console.error(`Deck with Document ID ${props.documentId} not found.`);
       router.push('/decks');
+    }
+  } else {
+    // New deck: Set default frame to oldest available if user has any
+    if (availableFrames.value.length > 0) {
+      state.editingDeck.cardFrame = availableFrames.value[0].documentId || availableFrames.value[0].id;
     }
   }
 
@@ -191,9 +210,6 @@ onMounted(async () => {
     allUsers.value = await userStore.fetchUsers();
     // If we are editing an existing deck, preset the owner
     if (props.documentId) {
-        const deck = userStore.userDecks.find(d => d.documentId === props.documentId);
-        // We'll need to fetch the deck detail to get its actual owner if it's not the current user
-        // But for now, let's assume userDecks has all info we need or we'll fetch it
         try {
             const res = await strapiService.findOne('decks', props.documentId, { populate: ['user'] });
             if (res.data && res.data.user) {
@@ -221,6 +237,36 @@ const allUsers = ref([]);
 const selectedOwnerId = ref(null);
 
 const isAdminMode = computed(() => route.path.startsWith('/admin'));
+
+const availableFrames = computed(() => {
+  // If no card frames are loaded yet, return empty
+  if (!userStore.cardFrames || userStore.cardFrames.length === 0) return [];
+
+  if (isAdminMode.value) return userStore.cardFrames;
+  
+  // Get unlocked frame identifiers (as strings for safe comparison)
+  const unlockedRefs = (userStore.user.unlockedCardFrames || []).map(f => {
+    if (typeof f === 'object' && f !== null) return String(f.documentId || f.id);
+    return String(f); // Fallback if it's just a list of IDs/strings
+  });
+  
+  // Filter cardFrames to only those unlocked
+  const frames = userStore.cardFrames.filter(f => {
+    const docId = f.documentId ? String(f.documentId) : null;
+    const id = f.id ? String(f.id) : null;
+    // Check if either the documentId or the simple id is in the unlockedRefs
+    return unlockedRefs.includes(docId) || unlockedRefs.includes(id);
+  });
+  
+  // Sort by ID to get a consistent order
+  return frames.sort((a, b) => a.id - b.id);
+});
+
+function getFrameUrl(frameId) {
+  if (!frameId) return null;
+  const frame = userStore.cardFrames.find(f => f.documentId === frameId || f.id === frameId);
+  return frame ? frame.image : null;
+}
 
 const uniqueElements = ELEMENTS;
 

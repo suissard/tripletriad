@@ -98,6 +98,8 @@ export const state = reactive({
   holoFineness: 0.05, // default texture scale for SVG filter
   pDeck: [],
   aiDeck: [],
+  pFrame: null,
+  aiFrame: null,
     // Dynamic Board dimensions
     boardWidth: 4,
     boardHeight: 4,
@@ -142,7 +144,7 @@ export const state = reactive({
 
     confirmation: { isOpen: false, title: '', message: '' },
     // Deck Editor Page
-    editingDeck: { id: null, documentId: null, name: '', cover: null, cards: [], cardBack: 'default' },
+    editingDeck: { id: null, documentId: null, name: '', cover: null, cards: [], cardBack: 'default', cardFrame: null },
     
     // Logging / Match
     matchId: null,
@@ -212,7 +214,7 @@ export async function loadCardsFromStrapi() {
 
         do {
             const result = await strapiService.find('cards', {
-                populate: ['image', 'faction'],
+                populate: ['image', 'faction', 'variants'],
                 pagination: { page, pageSize: 100 }
             });
             
@@ -396,6 +398,8 @@ export function resetGame(deckSize = 30, goToMenu = true, forcedTurn = null) {
     state.aiHand = [];
     state.pDeck = [];
     state.aiDeck = [];
+    state.pFrame = null;
+    state.aiFrame = null;
     state.selectedCardIndex = null;
     
     if (forcedTurn) {
