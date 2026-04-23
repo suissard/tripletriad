@@ -38,6 +38,8 @@ export const useUserStore = defineStore('user', {
     gameConfig: null,
     cardFrames: [],
     cardFramesLoaded: false,
+    boardBackgrounds: [],
+    boardBackgroundsLoaded: false,
     error: null
   }),
   getters: {
@@ -201,6 +203,7 @@ export const useUserStore = defineStore('user', {
           this.fetchWeeklyQuests();
       this.fetchUserStoryProgresses();
       this.fetchCardFrames();
+      this.fetchBoardBackgrounds();
       
       const effectStore = useEffectStore();
       effectStore.fetchEffects();
@@ -353,6 +356,28 @@ export const useUserStore = defineStore('user', {
         this.cardFramesLoaded = true;
       } catch (e) {
         console.error('Failed to fetch card frames', e);
+      }
+    },
+
+    async fetchBoardBackgrounds(force = false) {
+      if (!this.strapiConnected) return;
+      if (this.boardBackgroundsLoaded && !force) return;
+      try {
+        const result = await strapiService.find('board-backgrounds', {
+          populate: ['image'],
+          sort: ['name:asc']
+        });
+        const items = this.toArray(result);
+        this.boardBackgrounds = items.map(item => ({
+          id: item.id,
+          documentId: item.documentId,
+          name: item.name,
+          description: item.description,
+          image: item.image?.url ? getStrapiMediaUrl(item.image.url) : null
+        }));
+        this.boardBackgroundsLoaded = true;
+      } catch (e) {
+        console.error('Failed to fetch board backgrounds', e);
       }
     },
 

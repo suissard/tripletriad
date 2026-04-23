@@ -441,19 +441,20 @@ export function resetGame(deckSize = 30, goToMenu = true, forcedTurn = null) {
  */
 export async function initAIMatch() {
     state.matchId = generateLocalUUID();
+    
+    // Pour l'accomplissement des quêtes, on doit attacher l'utilisateur
+    // à ce match IA, afin que l'arbitrage valide ses objectifs
+    const userStore = useUserStore();
+    const currentUserId = userStore.user?.documentId || userStore.user?.id;
+    const users = currentUserId ? [currentUserId] : [];
 
     try {
-        await fetch(getStrapiUrl('/webrtc/matches'), {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                ...(strapiService.token ? { 'Authorization': `Bearer ${strapiService.token}` } : {})
-            },
-            body: JSON.stringify({
+        await strapiService.request('POST', '/webrtc/matches', {
+            body: {
                 uuid: state.matchId,
                 offer: null, // No WebRTC offer needed for AI
-                users: [] // You might want to populate with the current user ID if authenticated
-            })
+                users
+            }
         });
         console.log(`[GameManager] AI Match Initialized with UUID: ${state.matchId}`);
     } catch (error) {

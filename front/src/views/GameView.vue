@@ -375,8 +375,10 @@ async function handleForfeit() {
     );
     
     if (confirmed) {
-        state.winner = state.aiId;
-        state.gameOver = true;
+        state.pHealth = 0;
+        import('../game/engine.js').then(({ checkGameOver }) => {
+            checkGameOver();
+        });
     }
 }
 

@@ -631,6 +631,16 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   transition: border-color 0.8s ease, box-shadow 0.8s ease, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.is-unowned .tt-card-inner {
+  border-color: #666 !important;
+  box-shadow: none !important;
+}
+
+.is-unowned .tt-card-front > *:not(.unowned-overlay),
+.is-unowned .tt-card-back > *:not(.unowned-overlay) {
+  filter: grayscale(1) contrast(0.8) brightness(1.1);
+}
+
 /* Ensure children are clipped only on their own side if needed */
 .tt-card-front, .tt-card-back {
   position: absolute;
@@ -946,13 +956,14 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 .unowned-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.7);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 2.5em;
   z-index: 10;
   border-radius: inherit;
+  opacity: 0.6;
+  pointer-events: none;
 }
 
 /* ============================================ */

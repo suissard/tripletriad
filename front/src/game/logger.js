@@ -21,7 +21,9 @@ export async function sendGameLog(actionType, emitter, target) {
                 await strapiService.request('POST', '/match/arbitrate', {
                     body: {
                         matchId: state.matchId,
-                        logs: state.actionLog
+                        logs: state.actionLog,
+                        isFinished: true,
+                        winner: target?.winner
                     }
                 });
                 // Refresh Quests after secure arbitration to update UI

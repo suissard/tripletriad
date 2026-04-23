@@ -10,6 +10,8 @@ import { logPlayerEvent } from "../../player-event-log/services/event-logger";
 interface ArbitrateRequestBody {
   matchId: string;
   logs: any[]; // Modifié pour accepter le nouveau format de log enrichi. On filtrera les PlaceCardAction à la volée.
+  isFinished?: boolean;
+  winner?: string;
 }
 
 // On simule une base de données locale ou un cache mémoire (ex: Redis en prod)
@@ -32,7 +34,7 @@ export default factories.createCoreController(
           );
         }
 
-        const { matchId, logs } = body;
+        const { matchId, logs, isFinished: clientIsFinished, winner: clientWinner } = body;
 
         // 1. Vérifie la limite d'arbitrage (ex: max 3 requêtes)
         if (!arbitrationRequestsCount[matchId]) {
@@ -120,16 +122,42 @@ export default factories.createCoreController(
 
         // 3. Secure Quest Tracking
         try {
-          const user = ctx.state.user;
-          if (user && currentState.isFinished && matches[0]) {
+          let user = ctx.state.user;
+          
+          if (!user && ctx.request.header && ctx.request.header.authorization) {
+            const token = ctx.request.header.authorization.split(' ')[1];
+            if (token) {
+              try {
+                const jwtService = strapi.plugin('users-permissions').service('jwt');
+                const payload = await jwtService.verify(token);
+                console.log("[Arbitrate Debug] JWT Payload extracted:", JSON.stringify(payload));
+                if (payload && (payload.id || payload.documentId)) {
+                  user = { id: payload.documentId || payload.id };
+                }
+              } catch (e) {
+                console.warn("[Arbitrate] Invalid token provided", e.message);
+              }
+            }
+          }
+
+          console.log(`[Arbitrate Debug] Found user for quests?`, user ? user.id : 'No user');
+
+          const isActuallyFinished = clientIsFinished || currentState.isFinished;
+          const actualWinner = clientIsFinished ? clientWinner : currentState.winner;
+
+          if (user && isActuallyFinished && matches[0]) {
             const matchRecord = matches[0] as any;
             const processedUsers = matchRecord.processedUsers || [];
             
+            console.log(`[Arbitrate Debug] Match users relation:`, JSON.stringify(matchRecord.users));
+
             if (processedUsers.includes(user.id)) {
               console.log(`[Arbitrate] Quests already processed for user ${user.id} in match ${matchId}`);
             } else {
               const users = matchRecord.users || [];
-              const userIndex = users.findIndex(u => u.id === user.id);
+              const userIndex = users.findIndex(u => String(u.id) === String(user.id) || String(u.documentId) === String(user.id));
+              
+              console.log(`[Arbitrate Debug] userIndex found:`, userIndex);
               
               if (userIndex !== -1) {
                 const userRole = userIndex === 0 ? "PLAYER_1" : "PLAYER_2";
@@ -137,22 +165,31 @@ export default factories.createCoreController(
                 // Base events
                 await logPlayerEvent(strapi, { userId: user.id, eventType: "play_game" });
                 
-                if (currentState.isFinished && currentState.winner === userRole) {
+                if (isActuallyFinished && actualWinner === userRole) {
                   await logPlayerEvent(strapi, { userId: user.id, eventType: "win_game" });
                 }
 
-                if (totalCapturesByPlayer[userRole] > 0) {
+                // Extract actions directly from the complete match logs instead of the replay engine
+                const dbLogs = matchRecord.logs || [];
+                const isAIMatch = users.length === 1;
+                const myEmitterId = isAIMatch ? 'player' : userRole;
+
+                const myCompetenceLogs = dbLogs.filter((l: any) => l.action === 'competence' && l.emitter?.id === myEmitterId);
+                const myTotalCaptures = myCompetenceLogs.reduce((sum: number, log: any) => sum + (log.target?.count || 0), 0);
+
+                if (myTotalCaptures > 0) {
                   await logPlayerEvent(strapi, { 
                     userId: user.id, 
                     eventType: "capture_card", 
-                    value: totalCapturesByPlayer[userRole] 
+                    value: myTotalCaptures 
                   });
                 }
 
                 // Card specific events (Play Card, Faction, Element)
-                const myActions = placeCardActions.filter(a => a.player === userRole);
-                for (const action of myActions) {
-                  const card = action.card;
+                const myPlayActions = dbLogs.filter((l: any) => l.action === 'placement' && l.emitter?.id === myEmitterId && l.target?.card);
+                
+                for (const action of myPlayActions) {
+                  const card = action.target.card;
                   await logPlayerEvent(strapi, { 
                     userId: user.id, 
                     eventType: "play_card",
@@ -167,7 +204,7 @@ export default factories.createCoreController(
                     });
                   }
 
-                  if (card.element && card.element !== 'None') {
+                  if (card.element) {
                     await logPlayerEvent(strapi, { 
                       userId: user.id, 
                       eventType: "play_card_element", 
@@ -177,7 +214,7 @@ export default factories.createCoreController(
                 }
 
                 // Mark as processed only if the match is actually finished
-                if (currentState.isFinished) {
+                if (isActuallyFinished) {
                   await strapi.documents("api::match.match").update({
                     documentId: matchRecord.documentId,
                     data: {

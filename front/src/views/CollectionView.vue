@@ -13,9 +13,15 @@
       </div>
       <div class="sidebar-section">
         <h4 class="sidebar-title">COSMÉTIQUES</h4>
-        <button class="sidebar-btn disabled" disabled><span class="sb-icon">🂠</span><span class="sb-label">Dos de carte</span><span class="wip-tag">WIP</span></button>
-        <button class="sidebar-btn disabled" disabled><span class="sb-icon">🏞️</span><span class="sb-label">Plateaux</span><span class="wip-tag">WIP</span></button>
-        <button class="sidebar-btn disabled" disabled><span class="sb-icon">🖼️</span><span class="sb-label">Cadres</span><span class="wip-tag">WIP</span></button>
+        <button class="sidebar-btn disabled" disabled>
+          <span class="sb-icon">🂠</span><span class="sb-label">Dos de carte</span><span class="wip-tag">WIP</span>
+        </button>
+        <button class="sidebar-btn" :class="{ active: activeMode === 'boards' }" @click="activeMode = 'boards'">
+          <span class="sb-icon">🏞️</span><span class="sb-label">Plateaux</span>
+        </button>
+        <button class="sidebar-btn disabled" disabled>
+          <span class="sb-icon">🖼️</span><span class="sb-label">Cadres</span><span class="wip-tag">WIP</span>
+        </button>
       </div>
       <!-- Craft mode: mass disenchant -->
       <div v-if="activeMode === 'craft'" class="sidebar-section craft-actions">
@@ -26,17 +32,20 @@
       </div>
     </aside>
 
-    <!-- CENTER -->
+    <!-- CENTER (Taking all available space) -->
     <main class="center-column" ref="centerRef">
       <!-- HEADER BAR -->
       <div class="top-bar">
         <button class="back-btn" @click="router.push('/')">← Retour</button>
-        <h2 class="page-title">{{ activeMode === 'craft' ? 'ATELIER' : 'MA COLLECTION' }}</h2>
-        <div class="header-stats">{{ ownedUniqueCount }} / {{ totalLibraryCount }}</div>
+        <h2 class="page-title">
+          {{ activeMode === 'craft' ? 'ATELIER' : (activeMode === 'boards' ? 'PLATEAUX' : 'MA COLLECTION') }}
+        </h2>
+        <div class="header-stats" v-if="activeMode !== 'boards'">{{ ownedUniqueCount }} / {{ totalLibraryCount }}</div>
+        <div class="header-stats" v-else>{{ userStore.boardBackgrounds.length }} Plateaux</div>
       </div>
 
       <!-- FILTERS BAR -->
-      <div class="filters-bar">
+      <div class="filters-bar" v-if="activeMode !== 'boards'">
         <input type="text" v-model="searchQuery" placeholder="Rechercher..." class="search-input" />
         <select v-model="filterFaction" class="filter-sel">
           <option value="">Factions</option>
@@ -62,20 +71,33 @@
       </div>
 
       <!-- CARD GRID -->
-      <div class="card-grid-area" v-if="!isLoadingCards">
+      <div class="card-grid-area" v-if="!isLoadingCards && activeMode !== 'boards'">
         <TripleTriadCardGrid
           :cards="pageCards"
-          :cardsPerRow="gridCols"
-          cardSize="md"
+          :cardsPerRow="4"
+          cardSize="lg"
           :showOwnNum="true"
           :disableZoom="false"
           :showCraftingActions="activeMode === 'craft'"
         />
       </div>
-      <div v-else class="loading-indicator">Chargement...</div>
+      <div v-else-if="activeMode === 'boards'" class="boards-grid-area">
+        <div class="boards-grid">
+          <div v-for="board in userStore.boardBackgrounds" :key="board.id" class="board-card">
+            <div class="board-preview">
+              <img :src="board.image" :alt="board.name" />
+            </div>
+            <div class="board-info">
+              <h3 class="board-name">{{ board.name }}</h3>
+              <p class="board-desc">{{ board.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-else-if="isLoadingCards" class="loading-indicator">Chargement...</div>
 
       <!-- PAGINATION -->
-      <div class="pagination-bar" v-if="totalPages > 1">
+      <div class="pagination-bar" v-if="totalPages > 1 && activeMode !== 'boards'">
         <button class="pg-btn" :disabled="currentPage <= 1" @click="currentPage--">‹</button>
         <template v-for="p in paginationRange" :key="p">
           <button v-if="p !== '...'" class="pg-btn" :class="{ active: p === currentPage }" @click="currentPage = p">{{ p }}</button>
@@ -84,23 +106,10 @@
         <button class="pg-btn" :disabled="currentPage >= totalPages" @click="currentPage++">›</button>
       </div>
 
-      <div class="results-footer">
+      <div class="results-footer" v-if="activeMode !== 'boards'">
         {{ totalCardCount }} résultats — Page {{ currentPage }} / {{ totalPages || 1 }}
       </div>
     </main>
-
-    <!-- RIGHT SIDEBAR -->
-    <aside class="sidebar sidebar-right">
-      <div class="sidebar-section">
-        <h4 class="sidebar-title">MES DECKS</h4>
-        <div class="deck-list" v-if="userStore.userDecks.length > 0">
-          <MiniDeck v-for="deck in userStore.userDecks" :key="deck.id" :deck="deck" :compact="true" class="deck-mini-item" @click="openEditDeck(deck)" />
-        </div>
-        <p v-else class="empty-decks">Aucun deck</p>
-      </div>
-      <button class="create-deck-btn" @click="openNewDeck">+ Nouveau Deck</button>
-      <button class="view-decks-btn" @click="router.push('/decks')">Voir tous les decks →</button>
-    </aside>
 
     <!-- MASS DISENCHANT MODAL -->
     <div v-if="showMassDisenchantModal" class="modal-overlay" @click.self="showMassDisenchantModal = false">
@@ -109,7 +118,7 @@
         <p class="modal-desc">Détruire les cartes en surplus (>2 exemplaires) pour de la poussière.</p>
         <div v-if="disenchantPreview.totalCards > 0" class="disenchant-preview">
           <div class="dp-row header"><span>Rareté</span><span>Cartes</span><span>Poussière</span></div>
-          <div class="dp-row" v-for="(data, key) in disenchantPreview.breakdown" :key="key" v-show="data.cards > 0">
+          <div v-for="(data, key) in disenchantPreview.breakdown" :key="key" v-show="data.cards > 0" class="dp-row">
             <span :class="'rarity-' + key">{{ rarityLabels[key] }}</span>
             <span>{{ data.cards }}</span><span>+{{ data.dust }} ✨</span>
           </div>
@@ -185,7 +194,7 @@ function recalcGrid() {
 
 // === Pagination ===
 const currentPage = ref(1);
-const cardsPerPage = computed(() => Math.max(4, gridCols.value * gridRows.value));
+const cardsPerPage = ref(8); // Fixed to 8 cards per window as requested
 const totalPages = computed(() => Math.max(1, Math.ceil(displayCards.value.length / cardsPerPage.value)));
 const pageCards = computed(() => {
   const start = (currentPage.value - 1) * cardsPerPage.value;
@@ -285,6 +294,7 @@ function openEditDeck(deck) {
 
 // === Fetching ===
 async function fetchCards() {
+  if (activeMode.value === 'boards') return;
   if (!userStore.strapiConnected) {
     displayCards.value = [...cardLibrary]; totalCardCount.value = cardLibrary.length;
     isLoadingCards.value = false; return;
@@ -348,7 +358,10 @@ watch(searchQuery, () => { clearTimeout(searchDebounceTimer); searchDebounceTime
 watch(activeMode, () => { currentPage.value = 1; fetchCards(); });
 
 onMounted(async () => {
-  await fetchFilters(); await fetchCards(); userStore.fetchUserDecks();
+  await fetchFilters();
+  await fetchCards();
+  userStore.fetchUserDecks();
+  userStore.fetchBoardBackgrounds();
   // Setup ResizeObserver on center column (always mounted)
   if (centerRef.value) {
     recalcGrid();
@@ -370,7 +383,7 @@ onUnmounted(() => {
 .collection-page {
   position: fixed; inset: 0;
   display: grid;
-  grid-template-columns: 72px 1fr 280px;
+  grid-template-columns: 72px 1fr; /* Removed right sidebar to take all space */
   background: radial-gradient(ellipse at 30% 20%, #1a1a2e 0%, #0d0d14 100%);
   color: white; z-index: 500; overflow: hidden;
 }
@@ -494,7 +507,7 @@ onUnmounted(() => {
 /* === CARD GRID === */
 .card-grid-area {
   flex: 1; min-height: 0; overflow-y: auto; padding: 20px 24px;
-  display: flex; align-items: flex-start; justify-content: center;
+  display: flex; align-items: center; justify-content: center;
 }
 .loading-indicator {
   flex: 1; display: flex; align-items: center; justify-content: center;
@@ -521,6 +534,63 @@ onUnmounted(() => {
 .results-footer {
   text-align: center; padding: 6px; font-size: 0.7rem; color: #445;
   background: rgba(0,0,0,0.3); flex-shrink: 0;
+}
+
+/* === BOARDS GRID === */
+.boards-grid-area {
+  flex: 1; min-height: 0; overflow-y: auto; padding: 30px;
+}
+.boards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+.board-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+.board-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-primary);
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+.board-preview {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.board-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.board-card:hover .board-preview img {
+  transform: scale(1.05);
+}
+.board-info {
+  padding: 16px;
+}
+.board-name {
+  margin: 0 0 6px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.board-desc {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #889;
+  line-height: 1.4;
 }
 
 /* === MODAL === */

@@ -23,7 +23,7 @@
           <div
             ref="cardRef"
             class="tt-card-zoom-wrapper"
-            :class="[rarityClass, { 'is-premium': isPremium }]"
+            :class="[rarityClass, { 'is-premium': isPremium, 'is-unowned': unowned }]"
             :style="cardZoomStyle"
             @click.stop="$emit('close')"
             @mousemove="handleMove"
@@ -420,6 +420,10 @@ const glareStyle = computed(() => {
 }
 .zoom-card-inner:hover .card-stats-cross,
 .zoom-card-inner:hover .card-elements { opacity: 0.15; }
+
+.is-unowned .zoom-card-inner {
+  filter: grayscale(1) contrast(0.8) brightness(1.1);
+}
 
 .rarity-common .zoom-card-inner  { border-color: var(--border-color, #a0a0a0); }
 .rarity-uncommon .zoom-card-inner { border-color: var(--border-color, #4caf50); box-shadow: 0 0 8px var(--border-glow, rgba(76, 175, 80, 0.3)); }
