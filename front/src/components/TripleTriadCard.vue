@@ -3,7 +3,7 @@
     ref="containerRef"
     class="tt-card" 
     :class="[
-      rarityClass,
+      sizeClass,
       { 
         'is-unowned': unowned, 
         'is-selected': selected, 
@@ -54,32 +54,46 @@
 
         <!-- CARD CONTENT (Unified layout) -->
         <template v-if="displayCard.revealed !== false || $attrs.forceFace">
-          <!-- Card image -->
-          <img :src="displayCard.imageUrl" class="card-img" :alt="displayCard.name" />
+          <!-- Clipped visual stack (Shine, Glass, Image, Frame) -->
+          <div class="card-visual-stack" style="position: absolute; inset: 0; overflow: hidden; border-radius: inherit; z-index: 1; pointer-events: none;">
+            <!-- Card image -->
+            <img :src="displayCard.imageUrl" class="card-img" :alt="displayCard.name" :style="imageStyle" style="pointer-events: auto;" />
 
-          <!-- Card Frame Overlay -->
-          <img v-if="cardFrame" :src="cardFrame" class="card-frame-overlay" alt="Card Frame" />
+            <!-- Card Frame Overlay -->
+            <img v-if="displayFrameUrl" :src="displayFrameUrl" class="card-frame-overlay" alt="Card Frame" />
+
+            <!-- Broken Glass Impact Effect (Clipped) -->
+            <BrokenGlassOverlay v-if="displayCard.impactDirection" :direction="displayCard.impactDirection" />
+            
+            <!-- Reveal Shine Effect (Clipped) -->
+            <div v-if="revealShine" class="reveal-shine"></div>
+          </div>
 
           <!-- HP Bar (Moved to top) -->
           <HpBar v-if="displayCard.hp !== undefined" :hp="displayCard.hp" :default-hp="displayCard.defaultHp || 3" :owner="owner" />
 
-          <!-- Element badges (Top-Left) -->
-          <div class="card-elements" v-if="cardElementsList.length">
+          <!-- Element badges (Dynamic) -->
+          <div class="card-elements" v-if="cardElementsList.length" :style="elementStyle">
             <ElementIcon v-for="el in cardElementsList" :key="el" :element="el" :active="elementActive" class="element-icon" />
           </div>
 
           <!-- Cover badge (Top-Right) -->
           <div class="cover-badge" v-if="isCover">★</div>
 
-          <!-- Stats & Name (Edge-aligned) -->
+          <!--           <!-- Stats (Edge-aligned) -->
           <div class="card-stats-cross" :class="{ 'has-bonus': bonus > 0 }">
-            <div class="stat stat-top" :class="{ 'is-boosted': bonus > 0 && normalizedCardData.top < 100 }">{{ displayCard.topValue }}</div>
-            <div class="stat stat-left" :class="{ 'is-boosted': bonus > 0 && normalizedCardData.left < 100 }">{{ displayCard.leftValue }}</div>
-            <div class="stat stat-right" :class="{ 'is-boosted': bonus > 0 && normalizedCardData.right < 100 }">{{ displayCard.rightValue }}</div>
-            <div class="stat stat-bottom" :class="{ 'is-boosted': bonus > 0 && normalizedCardData.bottom < 100 }">{{ displayCard.bottomValue }}</div>
-            
-            <!-- Name (Floating above bottom stat) -->
-            <div class="card-name-bar" :style="{'--rarity-color': actualRarityColor}">{{ displayCard.name }}</div>
+            <div class="stat stat-top" :class="{ 'is-boosted': bonus > 0 && normalizedCardData.top < 100 }" :style="statStyles.top">{{ displayCard.topValue }}</div>
+            <div class="stat stat-left" :class="{ 'is-boosted': bonus > 0 && normalizedCardData.left < 100 }" :style="statStyles.left">{{ displayCard.leftValue }}</div>
+            <div class="stat stat-right" :class="{ 'is-boosted': bonus > 0 && normalizedCardData.right < 100 }" :style="statStyles.right">{{ displayCard.rightValue }}</div>
+            <div class="stat stat-bottom" :class="{ 'is-boosted': bonus > 0 && normalizedCardData.bottom < 100 }" :style="statStyles.bottom">{{ displayCard.bottomValue }}</div>
+          </div>
+
+          <!-- Name (Dynamic Position) -->
+          <div class="card-name-bar" :style="[nameStyle, {'--rarity-color': actualRarityColor}]">{{ displayCard.name }}</div>
+
+          <!-- Skills Indicators (Dynamic Position) -->
+          <div class="card-skills-indicators" v-if="displayCard.skills?.length" :style="skillsStyle">
+            <div v-for="s in displayCard.skills" :key="s" class="skill-dot" :title="s"></div>
           </div>
 
           <!-- Selected check -->
@@ -88,12 +102,6 @@
           <!-- Unowned lock -->
           <div class="unowned-overlay" v-if="unowned">🔒</div>
         </template>
-
-        <!-- Broken Glass Impact Effect for Captures -->
-        <BrokenGlassOverlay v-if="displayCard.impactDirection" :direction="displayCard.impactDirection" />
-        
-        <!-- Reveal Shine Effect -->
-        <div v-if="revealShine" class="reveal-shine"></div>
 
         <!-- BASE CARD FACE (Fallback revealed false) -->
         <template v-else>
@@ -151,6 +159,7 @@
     :show-default-info="showDetailInfo"
     :show-crafting-actions="showCraftingActions"
     :bonus="bonus"
+    :card-frame="displayFrameUrl"
     @close="isZoomed = false"
   >
     <template #extra>
@@ -172,6 +181,7 @@ import HpBar from './game/HpBar.vue';
 import { useUserStore } from '../stores/userStore.js';
 import { useEffectStore } from '../stores/effectStore.js';
 import { getRarity } from '../game/constants.js';
+import { GameEngine } from '../game/GameEngine.js';
 import { normalizeCard } from '../utils/cardUtils.js';
 
 const props = defineProps({
@@ -206,7 +216,8 @@ const props = defineProps({
   dimOnHover: { type: Boolean, default: true },
   showDetailInfo: { type: Boolean, default: true },
   showCraftingActions: { type: Boolean, default: true },
-  bonus: { type: Number, default: 0 }
+  bonus: { type: Number, default: 0 },
+  overrideFrameCoords: { type: Object, default: null }
 });
 
 const userStore = useUserStore();
@@ -246,6 +257,81 @@ const displayCard = computed(() => {
     });
   }
   return card;
+});
+
+const currentFrame = computed(() => {
+  const url = props.cardFrame || userStore.defaultFrame?.image;
+  if (!url) return null;
+  return userStore.cardFrames.find(f => f.image === url);
+});
+
+const displayFrameUrl = computed(() => {
+  const f = currentFrame.value;
+  if (!f) return null;
+  
+  // Select image based on rarity
+  const rarity = rarityData.value.name; // 'common', 'uncommon', 'rare', 'epic', 'legendary'
+  if (rarity === 'uncommon' && f.imageUncommon) return f.imageUncommon;
+  if (rarity === 'rare' && f.imageRare) return f.imageRare;
+  if (rarity === 'epic' && f.imageEpic) return f.imageEpic;
+  if (rarity === 'legendary' && f.imageLegendary) return f.imageLegendary;
+  
+  return f.image;
+});
+
+const imageStyle = computed(() => {
+  const f = props.overrideFrameCoords || currentFrame.value;
+  if (!f) return {};
+  return {
+    top: `${f.illustrationY ?? 0}%`,
+    left: `${f.illustrationX ?? 0}%`,
+    width: `${f.illustrationWidth ?? 100}%`,
+    height: `${f.illustrationHeight ?? 100}%`,
+    position: 'absolute',
+    objectFit: 'cover',
+    right: 'auto',
+    bottom: 'auto'
+  };
+});
+
+const statStyles = computed(() => {
+  const f = props.overrideFrameCoords || currentFrame.value;
+  if (!f) return {
+    top: {}, left: {}, right: {}, bottom: {}
+  };
+  return {
+    top: { left: `${f.topX ?? 50}%`, top: `${f.topY ?? 8}%` },
+    bottom: { left: `${f.bottomX ?? 50}%`, top: `${f.bottomY ?? 94}%` },
+    left: { left: `${f.leftX ?? 6}%`, top: `${f.leftY ?? 50}%` },
+    right: { left: `${f.rightX ?? 94}%`, top: `${f.rightY ?? 50}%` }
+  };
+});
+
+const elementStyle = computed(() => {
+  const f = props.overrideFrameCoords || currentFrame.value;
+  if (!f) return {};
+  return {
+    left: `${f.elementX ?? 4}%`,
+    top: `${f.elementY ?? 4}%`
+  };
+});
+
+const nameStyle = computed(() => {
+  const f = props.overrideFrameCoords || currentFrame.value;
+  if (!f) return {};
+  return {
+    left: `${f.nameX ?? 50}%`,
+    top: `${f.nameY ?? 85}%`
+  };
+});
+
+const skillsStyle = computed(() => {
+  const f = props.overrideFrameCoords || currentFrame.value;
+  if (!f) return {};
+  return {
+    left: `${f.skillsX ?? 50}%`,
+    top: `${f.skillsY ?? 65}%`
+  };
 });
 
 const customFoilEffect = computed(() => {
@@ -411,18 +497,16 @@ const rarityData = computed(() => {
   };
 });
 
-const rarityClass = computed(() => {
-  return `rarity-${rarityData.value.name}`;
-});
+
 
 const actualRarityColor = computed(() => {
   if (displayCard.value.revealed === false) return '#a0a0a0';
   return rarityData.value.color;
 });
 
-const rarityColor = computed(() => {
+const effectiveBorderColor = computed(() => {
   if (props.borderColor) return props.borderColor;
-  return actualRarityColor.value;
+  return '#333'; // Neutral default
 });
 
 const cardStyle = computed(() => {
@@ -448,8 +532,8 @@ const cardStyle = computed(() => {
   if (!props.flat && !props.compact) Object.assign(style, mouseStyle.value);
   
   // Always set the border color/glow variables so they are consistent across calculations and props
-  style['--border-color'] = rarityColor.value;
-  style['--border-glow'] = rarityColor.value;
+  style['--border-color'] = effectiveBorderColor.value;
+  style['--border-glow'] = effectiveBorderColor.value;
   
   style['--card-border-width'] = `${effectiveBorderWidth}px`;
   return style;
@@ -482,6 +566,11 @@ const containerRef = ref(null);
 const isActive = ref(false);
 const tilt = ref({ x: 0, y: 0 });
 const mousePos = ref({ x: 50, y: 50 });
+
+const sizeClass = computed(() => {
+  if (typeof props.size === 'number') return '';
+  return `card-size-${props.size}`;
+});
 
 const tiltStyle = computed(() => {
   const tx = props.tiltX !== null ? props.tiltX : tilt.value.x;
@@ -647,7 +736,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   inset: 0;
   backface-visibility: hidden;
   border-radius: inherit;
-  overflow: hidden; /* Local overflow for each side */
+  overflow: visible; /* Allow stats to spill out if positioned near edges */
   display: flex;
   flex-direction: column;
 }
@@ -818,7 +907,8 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 /* ============================================ */
 .card-img {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -840,9 +930,8 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 
 .card-name-bar {
   position: absolute;
-  bottom: 28%;
-  left: 0;
-  right: 0;
+  transform: translate(-50%, -50%);
+  width: 80%;
   background: transparent;
   color: white;
   font-size: 7cqw;
@@ -859,6 +948,23 @@ watch(() => props.borderColor, (newVal, oldVal) => {
     0 2px 4px rgba(0,0,0,1);
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+.card-skills-indicators {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 2px;
+  z-index: 5;
+  transition: opacity 0.3s ease;
+}
+
+.skill-dot {
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 3px white;
 }
 
 /* Stats cross overlay - Expanded to full card */
@@ -891,18 +997,15 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease, opacity 0.3s ease;
+  transform: translate(-50%, -50%);
 }
 
-.stat-top    { top: 8%;    left: 50%;  transform: translateX(-50%); }
-.stat-bottom { bottom: 6%;  left: 50%;  transform: translateX(-50%); }
-.stat-left   { top: 50%;   left: 6%;    transform: translateY(-50%); }
-.stat-right  { top: 50%;   right: 6%;   transform: translateY(-50%); }
 
-/* Element badges - Moved to top-left to avoid stats */
+
+/* Element badges - Dynamic position via frame */
 .card-elements {
   position: absolute;
-  top: 4%;
-  left: 4%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   gap: 0.2em;
@@ -969,11 +1072,7 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 /* ============================================ */
 /*  RARITY                                      */
 /* ============================================ */
-.rarity-common .tt-card-inner  { border-color: var(--border-color, #a0a0a0); }
-.rarity-uncommon .tt-card-inner { border-color: var(--border-color, #4caf50); box-shadow: 0 0 8px var(--border-glow, rgba(76, 175, 80, 0.3)); }
-.rarity-rare .tt-card-inner     { border-color: var(--border-color, #2196f3); box-shadow: 0 0 10px var(--border-glow, rgba(33, 150, 243, 0.4)); }
-.rarity-epic .tt-card-inner     { border-color: var(--border-color, #9c27b0); box-shadow: 0 0 12px var(--border-glow, rgba(156, 39, 176, 0.5)); }
-.rarity-legendary .tt-card-inner { border-color: var(--border-color, #ffc107); box-shadow: 0 0 15px var(--border-glow, rgba(255, 193, 7, 0.6)), 0 0 30px var(--border-glow, rgba(255, 193, 7, 0.2)); }
+
 
 
 
@@ -1034,16 +1133,9 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 
 
 /* ============================================ */
-/*  DETAIL MODE                                 */
+/*  DETAIL MODE (OBSOLETE OVERRIDES)           */
 /* ============================================ */
-.card-size-xl.tt-card {
-  aspect-ratio: auto;
-  min-height: 500px;
-}
-
-.card-size-xl .tt-card-inner {
-  overflow-y: auto;
-}
+/* Removed specific xl overrides to keep cards square */
 
 
 .detail-name { font-size: 1.5em; margin: 0.5em 0 0.3em; color: white; text-align: center; }

@@ -23,7 +23,7 @@
           <div
             ref="cardRef"
             class="tt-card-zoom-wrapper"
-            :class="[rarityClass, { 'is-premium': isPremium, 'is-unowned': unowned }]"
+            :class="[{ 'is-premium': isPremium, 'is-unowned': unowned }]"
             :style="cardZoomStyle"
             @click.stop="$emit('close')"
             @mousemove="handleMove"
@@ -32,30 +32,19 @@
             @touchmove="handleMove"
             @touchend="handleLeave"
           >
-            <div class="zoom-card-inner">
-              <template v-if="isPremium">
-                <div class="glare" :style="glareStyle"></div>
-                <HoloOverlay
-                  :seed="premiumSeed"
-                  :always-visible="true"
-                  :supertype="card.supertype"
-                  :subtypes="card.subtypes"
-                  :tiltX="tilt.x"
-                  :tiltY="tilt.y"
-                />
-              </template>
-              <img :src="currentImageUrl" class="card-img" :alt="card.name" />
-              <div class="card-stats-cross">
-                <div class="stat stat-top" :class="{ 'is-boosted': bonus > 0 && card.top < 100 }">{{ card.topValue }}</div>
-                <div class="stat stat-left" :class="{ 'is-boosted': bonus > 0 && card.left < 100 }">{{ card.leftValue }}</div>
-                <div class="stat stat-right" :class="{ 'is-boosted': bonus > 0 && card.right < 100 }">{{ card.rightValue }}</div>
-                <div class="stat stat-bottom" :class="{ 'is-boosted': bonus > 0 && card.bottom < 100 }">{{ card.bottomValue }}</div>
-                <div class="card-name-bar" :style="{'--rarity-color': rarityColor}">{{ card.name }}</div>
-              </div>
-              <div class="card-elements" v-if="cardElementsList.length">
-                <ElementIcon v-for="el in cardElementsList" :key="el" :element="el" :active="true" class="element-icon" />
-              </div>
-            </div>
+            <TripleTriadCard
+              v-if="zoomCard"
+              :card="zoomCard"
+              size="zoom"
+              :tiltX="tilt.x"
+              :tiltY="tilt.y"
+              :interactive="false"
+              :disable-zoom="true"
+              :card-frame="baseFrameUrl"
+              :is-premium="isPremium"
+              :unowned="unowned"
+              :bonus="bonus"
+            />
           </div>
 
           <!-- RIGHT PANEL -->
@@ -120,6 +109,34 @@
                 </button>
               </div>
             </template>
+            
+            <!-- TAB: FRAMES (Visual Only) -->
+            <template v-if="activeTab === 'frames'">
+              <h2>Cadres de carte</h2>
+              <p class="zoom-desc">Prévisualisez différents cadres sur cette carte. Ces changements sont purement visuels et ne sont pas enregistrés.</p>
+              
+              <div class="zoom-variants">
+                <div class="variants-list">
+                  <div 
+                    class="variant-thumb" 
+                    :class="{ 'is-active': selectedPreviewFrame === null }"
+                    @click="selectedPreviewFrame = null"
+                  >
+                    <div class="no-frame-preview">❌</div>
+                  </div>
+                  <div
+                    v-for="frame in userStore.cardFrames"
+                    :key="frame.id"
+                    class="variant-thumb"
+                    :class="{ 'is-active': selectedPreviewFrame === frame.image }"
+                    @click="selectedPreviewFrame = frame.image"
+                    :title="frame.name"
+                  >
+                    <img :src="frame.image" />
+                  </div>
+                </div>
+              </div>
+            </template>
 
             <slot />
           </div>
@@ -132,12 +149,14 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onUnmounted } from 'vue';
+import { ref, computed, watch, onUnmounted, defineAsyncComponent } from 'vue';
 import ElementIcon from "./ElementIcon.vue";
 import HoloOverlay from "./HoloOverlay.vue";
 import { useUserStore } from '../stores/userStore.js';
-import { GameEngine } from '../../../shared/GameEngine.ts';
+import { GameEngine } from '../game/GameEngine.js';
 import PurchaseButton from './ui/PurchaseButton.vue';
+
+const TripleTriadCard = defineAsyncComponent(() => import('./TripleTriadCard.vue'));
 
 const props = defineProps({
   show: Boolean,
@@ -148,7 +167,8 @@ const props = defineProps({
   borderWidth: { type: Number, default: 2 },
   showDefaultInfo: { type: Boolean, default: true },
   showCraftingActions: { type: Boolean, default: true },
-  bonus: { type: Number, default: 0 }
+  bonus: { type: Number, default: 0 },
+  cardFrame: { type: String, default: null }
 });
 
 const emit = defineEmits(['close']);
@@ -158,9 +178,24 @@ const userStore = useUserStore();
 const tabs = [
   { id: 'info', icon: '📋', label: 'Infos' },
   { id: 'variants', icon: '🎨', label: 'Illustrations' },
+  { id: 'frames', icon: '🖼️', label: 'Cadres' },
   { id: 'crafting', icon: '⚒️', label: 'Artisanat' }
 ];
 const activeTab = ref('info');
+const selectedPreviewFrame = ref(null);
+
+const baseFrameUrl = computed(() => {
+  if (selectedPreviewFrame.value) return selectedPreviewFrame.value;
+  return props.cardFrame;
+});
+
+const zoomCard = computed(() => {
+  if (!props.card) return null;
+  return {
+    ...props.card,
+    selectedVariantIndex: currentVariantIndex.value
+  };
+});
 
 // --- VARIANT LOGIC ---
 const initialVariantIndex = ref(0);
@@ -186,6 +221,8 @@ function setVariant(idx) {
 watch(() => props.show, (newVal) => {
   if (newVal) {
     activeTab.value = 'info';
+    selectedPreviewFrame.value = null;
+    userStore.fetchCardFrames();
     if (userStore.isLoggedIn && props.card.id) {
       const uc = userStore.collection.find(c => c.cardId === props.card.id);
       if (uc && uc.selectedVariantIndex !== undefined) {
@@ -272,7 +309,7 @@ const rarityInfo = computed(() => {
   return { name, color: colors[name] };
 });
 
-const rarityClass = computed(() => `rarity-${rarityInfo.value.name}`);
+
 const rarityColor = computed(() => rarityInfo.value.color);
 
 const rarityLabel = computed(() => {
@@ -295,25 +332,9 @@ const factionDisplay = computed(() => {
 });
 
 const cardZoomStyle = computed(() => {
-  const scale = ZOOM_SIZE / 150;
   return {
-    '--card-border-width': `${props.borderWidth * scale}px`,
-    '--border-color': rarityColor.value,
-    '--border-glow': rarityColor.value,
-    transform: `rotateX(${tilt.value.x}deg) rotateY(${tilt.value.y}deg)`,
-    transition: (tilt.value.x === 0 && tilt.value.y === 0) ? 'transform 0.5s ease-out' : 'transform 0.1s ease-out'
+    perspective: '1200px'
   };
-});
-
-const cardElementsList = computed(() => {
-  if (!props.card) return [];
-  const elements = props.card.elements;
-  const element = props.card.element;
-  let result = [];
-  if (Array.isArray(elements)) result = elements;
-  else if (typeof elements === 'string') result = elements.split(',').map(e => e.trim());
-  else if (element && element !== 'None') result = [element];
-  return [...new Set(result)].filter(e => e && e !== 'None');
 });
 
 // --- CRAFTING ---
@@ -340,25 +361,6 @@ const canCraft = computed(() => (userStore.user?.dust || 0) >= craftCost.value);
 async function handleCraft() { if (canCraft.value) await userStore.craftCard(props.card.id); }
 async function handleDisenchant() { if (props.quantity > 0) await userStore.disenchantCard(props.card.id); }
 
-// --- HOLO ---
-function hashCode(str) {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) { hash = (hash << 5) - hash + str.charCodeAt(i); hash |= 0; }
-  return Math.abs(hash);
-}
-const premiumSeed = computed(() => {
-  const cardPart = props.card.id || props.card.name || '0';
-  const userPart = userStore.user?.id || 'anon';
-  return hashCode(`${cardPart}-${userPart}`);
-});
-
-const glareStyle = computed(() => {
-  return {
-    background: `radial-gradient(circle at ${mousePos.value.x}% ${mousePos.value.y}%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 60%)`,
-    opacity: tilt.value.x === 0 && tilt.value.y === 0 ? 0 : 1,
-    transition: tilt.value.x === 0 && tilt.value.y === 0 ? 'opacity 0.5s ease-out' : 'opacity 0.1s ease-out'
-  };
-});
 </script>
 
 <style scoped>
@@ -425,54 +427,6 @@ const glareStyle = computed(() => {
   filter: grayscale(1) contrast(0.8) brightness(1.1);
 }
 
-.rarity-common .zoom-card-inner  { border-color: var(--border-color, #a0a0a0); }
-.rarity-uncommon .zoom-card-inner { border-color: var(--border-color, #4caf50); box-shadow: 0 0 8px var(--border-glow, rgba(76, 175, 80, 0.3)); }
-.rarity-rare .zoom-card-inner     { border-color: var(--border-color, #2196f3); box-shadow: 0 0 10px var(--border-glow, rgba(33, 150, 243, 0.4)); }
-.rarity-epic .zoom-card-inner     { border-color: var(--border-color, #9c27b0); box-shadow: 0 0 12px var(--border-glow, rgba(156, 39, 176, 0.5)); }
-.rarity-legendary .zoom-card-inner { border-color: var(--border-color, #ffc107); box-shadow: 0 0 15px var(--border-glow, rgba(255, 193, 7, 0.6)), 0 0 30px var(--border-glow, rgba(255, 193, 7, 0.2)); }
-
-.glare {
-  position: absolute; inset: 0; border-radius: inherit;
-  mix-blend-mode: overlay; z-index: 5; pointer-events: none;
-}
-.card-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
-
-.card-name-bar {
-  position: absolute; bottom: 28%; left: 0; right: 0;
-  background: transparent; color: white;
-  font-size: 1.8rem; font-weight: 900;
-  padding: 0.2em; text-align: center;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  z-index: 5;
-  text-shadow: 0 0 15px var(--rarity-color, #000), 0 0 5px var(--rarity-color, #000), 0 2px 4px rgba(0,0,0,1);
-  text-transform: uppercase; letter-spacing: 1px;
-}
-.card-stats-cross {
-  position: absolute; inset: 0; z-index: 4;
-  pointer-events: none; transition: opacity 0.3s ease;
-}
-.stat {
-  position: absolute; color: #ffd700; font-weight: 900; font-size: 4rem;
-  text-shadow: 0 2px 4px black, 0 0 10px rgba(0,0,0,1), 0 0 20px rgba(0,0,0,0.5);
-  line-height: 1; display: flex; align-items: center; justify-content: center;
-}
-.stat-top    { top: 8%; left: 50%; transform: translateX(-50%); }
-.stat-bottom { bottom: 6%; left: 50%; transform: translateX(-50%); }
-.stat-left   { top: 50%; left: 6%; transform: translateY(-50%); }
-.stat-right  { top: 50%; right: 6%; transform: translateY(-50%); }
-
-.stat.is-boosted {
-  color: #4aff4a !important;
-  text-shadow: 0 0 15px rgba(74, 255, 74, 0.8), 0 2px 4px black !important;
-}
-
-.card-elements {
-  position: absolute; top: 4%; left: 4%;
-  display: flex; flex-direction: column; gap: 0.2em;
-  z-index: 4; transition: opacity 0.3s ease;
-}
-.element-icon { width: 1.5em; height: 1.5em; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8)); }
-
 /* ========== RIGHT PANEL ========== */
 .zoom-card-info {
   color: white; max-width: 300px; min-width: 220px;
@@ -515,6 +469,10 @@ const glareStyle = computed(() => {
 .variant-thumb:hover { transform: translateY(-2px); border-color: rgba(255, 255, 255, 0.5); }
 .variant-thumb.is-active { border-color: #ffd700; box-shadow: 0 0 8px rgba(255, 215, 0, 0.6); }
 .variant-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.no-frame-preview {
+  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.1); font-size: 1.5rem;
+}
 .variants-empty { color: #666; font-style: italic; font-size: 0.9rem; }
 
 /* ========== CRAFTING ========== */

@@ -61,6 +61,7 @@ function openNewDeck() {
     state.editingDeck.cover = null;
     state.editingDeck.cards = [];
     state.editingDeck.cardBack = 'default';
+    state.editingDeck.cardFrame = null;
     router.push({ name: 'deck-editor-new' });
 }
 
@@ -71,6 +72,7 @@ function openEditDeck(deck) {
     state.editingDeck.cover = deck.cover;
     state.editingDeck.cards = [...deck.cards];
     state.editingDeck.cardBack = deck.cardBack || 'default';
+    state.editingDeck.cardFrame = deck.cardFrame || null;
     router.push({ name: 'deck-editor-edit', params: { documentId: deck.documentId } });
 }
 

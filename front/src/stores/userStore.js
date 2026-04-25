@@ -38,11 +38,18 @@ export const useUserStore = defineStore('user', {
     gameConfig: null,
     cardFrames: [],
     cardFramesLoaded: false,
+    defaultFrameId: null, // Set to the documentId of the default frame
     boardBackgrounds: [],
     boardBackgroundsLoaded: false,
     error: null
   }),
   getters: {
+    defaultFrame(state) {
+      if (state.defaultFrameId) {
+        return state.cardFrames.find(f => f.documentId === state.defaultFrameId || f.id === state.defaultFrameId);
+      }
+      return state.cardFrames[0] || null;
+    },
     isAdmin: (state) => {
       if (!state.user || !state.user.role) return false;
       const role = state.user.role;
@@ -159,8 +166,10 @@ export const useUserStore = defineStore('user', {
             gems: wallet.gems ?? 0,
             dust: wallet.dust ?? 0,
             boosters: wallet.boosters ?? [],
-            unlockedCardFrames: meRes.unlockedCardFrames || []
+            unlockedCardFrames: meRes.unlockedCardFrames || [],
+            defaultCardFrame: meRes.defaultCardFrame || null
           };
+          this.defaultFrameId = meRes.defaultCardFrame?.documentId || meRes.defaultCardFrame?.id || null;
           this.syncLocalUserWallets();
         }
       } catch (e) {
@@ -342,7 +351,7 @@ export const useUserStore = defineStore('user', {
       if (this.cardFramesLoaded && !force) return;
       try {
         const result = await strapiService.find('card-frames', {
-          populate: ['image'],
+          populate: ['image', 'imageUncommon', 'imageRare', 'imageEpic', 'imageLegendary'],
           sort: ['id:asc']
         });
         const items = this.toArray(result);
@@ -351,7 +360,29 @@ export const useUserStore = defineStore('user', {
           documentId: item.documentId,
           name: item.name,
           description: item.description,
-          image: item.image?.url ? getStrapiMediaUrl(item.image.url) : null
+          image: item.image?.url ? getStrapiMediaUrl(item.image.url) : null,
+          imageUncommon: item.imageUncommon?.url ? getStrapiMediaUrl(item.imageUncommon.url) : null,
+          imageRare: item.imageRare?.url ? getStrapiMediaUrl(item.imageRare.url) : null,
+          imageEpic: item.imageEpic?.url ? getStrapiMediaUrl(item.imageEpic.url) : null,
+          imageLegendary: item.imageLegendary?.url ? getStrapiMediaUrl(item.imageLegendary.url) : null,
+          illustrationX: item.illustrationX ?? 0,
+          illustrationY: item.illustrationY ?? 0,
+          illustrationWidth: item.illustrationWidth ?? 100,
+          illustrationHeight: item.illustrationHeight ?? 100,
+          topX: item.topX ?? 50,
+          topY: item.topY ?? 8,
+          bottomX: item.bottomX ?? 50,
+          bottomY: item.bottomY ?? 94,
+          leftX: item.leftX ?? 6,
+          leftY: item.leftY ?? 50,
+          rightX: item.rightX ?? 94,
+          rightY: item.rightY ?? 50,
+          elementX: item.elementX ?? 4,
+          elementY: item.elementY ?? 4,
+          nameX: item.nameX ?? 50,
+          nameY: item.nameY ?? 85,
+          skillsX: item.skillsX ?? 50,
+          skillsY: item.skillsY ?? 65
         }));
         this.cardFramesLoaded = true;
       } catch (e) {
@@ -392,7 +423,7 @@ export const useUserStore = defineStore('user', {
 
       try {
         const result = await strapiService.find('decks', {
-          populate: ['cards']
+          populate: ['cards', 'cardFrame']
         });
         const items = this.toArray(result);
         this.userDecks = items.map(item => ({

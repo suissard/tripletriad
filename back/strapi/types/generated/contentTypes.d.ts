@@ -474,11 +474,27 @@ export interface ApiCardFrameCardFrame extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    bottomX: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<50>;
+    bottomY: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<94>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
+    elementX: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<4>;
+    elementY: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<4>;
+    illustrationHeight: Schema.Attribute.Decimal &
+      Schema.Attribute.DefaultTo<100>;
+    illustrationWidth: Schema.Attribute.Decimal &
+      Schema.Attribute.DefaultTo<100>;
+    illustrationX: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<0>;
+    illustrationY: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<0>;
     image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    imageEpic: Schema.Attribute.Media<'images'>;
+    imageLegendary: Schema.Attribute.Media<'images'>;
+    imageRare: Schema.Attribute.Media<'images'>;
+    imageUncommon: Schema.Attribute.Media<'images'>;
+    leftX: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<6>;
+    leftY: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<50>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -486,7 +502,15 @@ export interface ApiCardFrameCardFrame extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     name: Schema.Attribute.String & Schema.Attribute.Required;
+    nameX: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<50>;
+    nameY: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<85>;
     publishedAt: Schema.Attribute.DateTime;
+    rightX: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<94>;
+    rightY: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<50>;
+    skillsX: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<50>;
+    skillsY: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<65>;
+    topX: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<50>;
+    topY: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<8>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1923,6 +1947,10 @@ export interface PluginUsersPermissionsUser
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    defaultCardFrame: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::card-frame.card-frame'
+    >;
     email: Schema.Attribute.Email &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{

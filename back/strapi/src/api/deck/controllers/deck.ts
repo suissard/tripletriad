@@ -19,7 +19,7 @@ export default factories.createCoreController(
 
       const result = await strapi.documents("api::deck.deck").findMany({
         filters: { user: { id: user.id } },
-        populate: ["cards"],
+        populate: ["cards", "cardFrame"],
       });
 
       return { data: result };
@@ -55,7 +55,8 @@ export default factories.createCoreController(
         };
 
         const deck = await strapi.documents("api::deck.deck").create({
-          data: deckData
+          data: deckData,
+          populate: ["cards", "cardFrame"]
         });
 
         return { data: deck };
@@ -95,7 +96,8 @@ export default factories.createCoreController(
 
         const updatedDeck = await strapi.documents("api::deck.deck").update({
           documentId: id,
-          data: updateData
+          data: updateData,
+          populate: ["cards", "cardFrame"]
         });
 
         return { data: updatedDeck };

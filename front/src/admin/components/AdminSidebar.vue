@@ -101,6 +101,7 @@ const menuCategories = [
     items: [
       { name: 'Configuration', path: '/admin/game-config', icon: '⚙️' },
       { name: 'HoloEditor Pro', path: '/admin/foil-editor', icon: '✨' },
+      { name: 'Éditeur de Cadres', path: '/admin/frame-editor', icon: '🖼️' },
       { name: 'Foil Gallery', path: '/admin/foil-gallery', icon: '🎨' },
       { name: 'Simulateur IA', path: '/admin/simulateur', icon: '🤖' }
     ]

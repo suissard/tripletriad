@@ -18,6 +18,7 @@ export default (plugin: any) => {
           populate: ['image']
         },
         unlockedCardFrames: true,
+        defaultCardFrame: true,
         storyProgresses: true
       }
     });
@@ -37,13 +38,14 @@ export default (plugin: any) => {
     if (!user) {
       return ctx.unauthorized();
     }
-    const { username, avatar_card } = ctx.request.body;
+    const { username, avatar_card, defaultCardFrame } = ctx.request.body;
     
     try {
       const updatedUser = await strapi.entityService.update('plugin::users-permissions.user', user.id, {
         data: { 
           ...(username ? { username } : {}),
-          ...(avatar_card ? { avatar_card } : {})
+          ...(avatar_card ? { avatar_card } : {}),
+          ...(defaultCardFrame ? { defaultCardFrame } : {})
         },
       });
       

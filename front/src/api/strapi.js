@@ -141,7 +141,7 @@ class StrapiApi {
     }
 
     async getMe() {
-        const response = await this.strapiClient.fetch('/users/me');
+        const response = await this.strapiClient.fetch('/users/me?populate=unlockedCardFrames,defaultCardFrame,wallet,avatar_card,avatar_card.image,role');
         return await response.json();
     }
 

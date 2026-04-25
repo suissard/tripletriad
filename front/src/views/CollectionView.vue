@@ -19,8 +19,8 @@
         <button class="sidebar-btn" :class="{ active: activeMode === 'boards' }" @click="activeMode = 'boards'">
           <span class="sb-icon">🏞️</span><span class="sb-label">Plateaux</span>
         </button>
-        <button class="sidebar-btn disabled" disabled>
-          <span class="sb-icon">🖼️</span><span class="sb-label">Cadres</span><span class="wip-tag">WIP</span>
+        <button class="sidebar-btn" :class="{ active: activeMode === 'frames' }" @click="activeMode = 'frames'">
+          <span class="sb-icon">🖼️</span><span class="sb-label">Cadres</span>
         </button>
       </div>
       <!-- Craft mode: mass disenchant -->
@@ -38,14 +38,15 @@
       <div class="top-bar">
         <button class="back-btn" @click="router.push('/')">← Retour</button>
         <h2 class="page-title">
-          {{ activeMode === 'craft' ? 'ATELIER' : (activeMode === 'boards' ? 'PLATEAUX' : 'MA COLLECTION') }}
+          {{ activeMode === 'craft' ? 'ATELIER' : (activeMode === 'boards' ? 'PLATEAUX' : (activeMode === 'frames' ? 'CADRES' : 'MA COLLECTION')) }}
         </h2>
-        <div class="header-stats" v-if="activeMode !== 'boards'">{{ ownedUniqueCount }} / {{ totalLibraryCount }}</div>
-        <div class="header-stats" v-else>{{ userStore.boardBackgrounds.length }} Plateaux</div>
+        <div class="header-stats" v-if="activeMode === 'boards'">{{ userStore.boardBackgrounds.length }} Plateaux</div>
+        <div class="header-stats" v-else-if="activeMode === 'frames'">{{ userStore.cardFrames.length }} Cadres</div>
+        <div class="header-stats" v-else>{{ ownedUniqueCount }} / {{ totalLibraryCount }}</div>
       </div>
 
       <!-- FILTERS BAR -->
-      <div class="filters-bar" v-if="activeMode !== 'boards'">
+      <div class="filters-bar" v-if="activeMode !== 'boards' && activeMode !== 'frames'">
         <input type="text" v-model="searchQuery" placeholder="Rechercher..." class="search-input" />
         <select v-model="filterFaction" class="filter-sel">
           <option value="">Factions</option>
@@ -94,10 +95,49 @@
           </div>
         </div>
       </div>
+      <div v-else-if="activeMode === 'frames'" class="frames-grid-area">
+        <div class="boards-grid">
+          <div v-for="frame in userStore.cardFrames" :key="frame.id" class="board-card" :class="{ locked: !isFrameUnlocked(frame) }">
+            <div class="board-preview frame-preview-bg">
+              <img v-if="frame.image" :src="frame.image" :alt="frame.name" class="frame-img" />
+              <div v-else class="no-image">Aucune image</div>
+            </div>
+            <div class="board-info frame-info">
+              <h3 class="board-name">
+                {{ frame.name }}
+                <span v-if="isDefaultFrame(frame)" class="default-badge" title="Cadre par défaut">★</span>
+              </h3>
+              <p class="board-desc">{{ frame.description }}</p>
+              
+              <div class="frame-actions" v-if="isFrameUnlocked(frame)">
+                <button 
+                  class="action-btn" 
+                  :class="{ active: isDefaultFrame(frame) }" 
+                  @click="setDefaultFrame(frame)"
+                  :disabled="isDefaultFrame(frame) || isSettingDefault"
+                >
+                  {{ isDefaultFrame(frame) ? 'Par défaut' : 'Définir par défaut' }}
+                </button>
+                <div class="assign-deck">
+                  <select v-model="selectedDeckForFrame[frame.id]" @change="assignFrameToDeck(frame, $event)" class="deck-select">
+                    <option value="">+ Assigner à un deck</option>
+                    <option v-for="deck in userStore.userDecks" :key="deck.id" :value="deck.documentId">
+                      {{ deck.name }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="frame-locked" v-else>
+                <span>🔒 Verrouillé</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div v-else-if="isLoadingCards" class="loading-indicator">Chargement...</div>
 
       <!-- PAGINATION -->
-      <div class="pagination-bar" v-if="totalPages > 1 && activeMode !== 'boards'">
+      <div class="pagination-bar" v-if="totalPages > 1 && activeMode !== 'boards' && activeMode !== 'frames'">
         <button class="pg-btn" :disabled="currentPage <= 1" @click="currentPage--">‹</button>
         <template v-for="p in paginationRange" :key="p">
           <button v-if="p !== '...'" class="pg-btn" :class="{ active: p === currentPage }" @click="currentPage = p">{{ p }}</button>
@@ -106,10 +146,40 @@
         <button class="pg-btn" :disabled="currentPage >= totalPages" @click="currentPage++">›</button>
       </div>
 
-      <div class="results-footer" v-if="activeMode !== 'boards'">
+      <div class="results-footer" v-if="activeMode !== 'boards' && activeMode !== 'frames'">
         {{ totalCardCount }} résultats — Page {{ currentPage }} / {{ totalPages || 1 }}
       </div>
     </main>
+
+    <!-- RIGHT SIDEBAR (Decks) -->
+    <aside class="sidebar sidebar-right" :class="{ 'collapsed': !isDeckListVisible }">
+      <div class="sidebar-content-wrapper" v-if="isDeckListVisible">
+        <h4 class="sidebar-title">MES DECKS</h4>
+        
+        <div class="deck-list custom-scrollbar">
+          <div v-if="userStore.userDecks.length === 0" class="empty-decks">
+            Aucun deck créé
+          </div>
+          <MiniDeck 
+            v-for="deck in userStore.userDecks" 
+            :key="deck.id" 
+            :deck="deck" 
+            :compact="true"
+            class="deck-mini-item"
+            @click="openEditDeck(deck)"
+          />
+        </div>
+
+        <button class="create-deck-btn" @click="openNewDeck">
+          + Nouveau Deck
+        </button>
+      </div>
+
+      <!-- Toggle Button (Vertical bar at the bottom) -->
+      <button class="sidebar-toggle-btn" @click="isDeckListVisible = !isDeckListVisible" :title="isDeckListVisible ? 'Réduire' : 'Développer'">
+        <span class="toggle-icon">{{ isDeckListVisible ? '❯' : '❮' }}</span>
+      </button>
+    </aside>
 
     <!-- MASS DISENCHANT MODAL -->
     <div v-if="showMassDisenchantModal" class="modal-overlay" @click.self="showMassDisenchantModal = false">
@@ -150,6 +220,9 @@ import { getRarity as getCardRarity } from '../game/constants.js';
 
 const router = useRouter();
 const userStore = useUserStore();
+
+// === UI State ===
+const isDeckListVisible = ref(true);
 
 // === Mode ===
 const activeMode = ref('collection');
@@ -283,18 +356,51 @@ function openNewDeck() {
   state.editingDeck.id = null; state.editingDeck.documentId = null;
   state.editingDeck.name = 'Nouveau Deck'; state.editingDeck.cover = null;
   state.editingDeck.cards = []; state.editingDeck.cardBack = 'default';
+  state.editingDeck.cardFrame = null;
   router.push({ name: 'deck-editor-new' });
 }
 function openEditDeck(deck) {
   state.editingDeck.id = deck.id; state.editingDeck.documentId = deck.documentId;
   state.editingDeck.name = deck.name; state.editingDeck.cover = deck.cover;
   state.editingDeck.cards = [...deck.cards]; state.editingDeck.cardBack = deck.cardBack || 'default';
+  state.editingDeck.cardFrame = deck.cardFrame || null;
   router.push({ name: 'deck-editor-edit', params: { documentId: deck.documentId } });
+}
+
+// === Frames ===
+const isSettingDefault = ref(false);
+const selectedDeckForFrame = ref({});
+
+function isFrameUnlocked(frame) {
+  if (!userStore.user?.unlockedCardFrames) return false;
+  return userStore.user.unlockedCardFrames.some(f => f.documentId === frame.documentId || f.id === frame.id);
+}
+
+function isDefaultFrame(frame) {
+  const defId = userStore.defaultFrameId;
+  return defId && (defId === frame.documentId || defId === frame.id);
+}
+
+async function setDefaultFrame(frame) {
+  isSettingDefault.value = true;
+  await userStore.updateProfile({ defaultCardFrame: frame.documentId || frame.id });
+  isSettingDefault.value = false;
+}
+
+async function assignFrameToDeck(frame, event) {
+  const deckDocId = event.target.value;
+  if (!deckDocId) return;
+  const deck = userStore.userDecks.find(d => d.documentId === deckDocId);
+  if (deck) {
+    deck.cardFrame = frame.documentId || frame.id;
+    await userStore.saveDeck(deck);
+  }
+  selectedDeckForFrame.value[frame.id] = ""; // reset dropdown
 }
 
 // === Fetching ===
 async function fetchCards() {
-  if (activeMode.value === 'boards') return;
+  if (activeMode.value === 'boards' || activeMode.value === 'frames') return;
   if (!userStore.strapiConnected) {
     displayCards.value = [...cardLibrary]; totalCardCount.value = cardLibrary.length;
     isLoadingCards.value = false; return;
@@ -383,7 +489,7 @@ onUnmounted(() => {
 .collection-page {
   position: fixed; inset: 0;
   display: grid;
-  grid-template-columns: 72px 1fr; /* Removed right sidebar to take all space */
+  grid-template-columns: 72px 1fr auto;
   background: radial-gradient(ellipse at 30% 20%, #1a1a2e 0%, #0d0d14 100%);
   color: white; z-index: 500; overflow: hidden;
 }
@@ -395,14 +501,30 @@ onUnmounted(() => {
   overflow-y: auto; padding: 10px 0;
 }
 .sidebar-right {
+  width: 240px;
   border-right: none; border-left: 1px solid rgba(255,255,255,0.06);
-  padding: 16px 12px; gap: 12px;
+  padding: 0; gap: 0;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  background: rgba(0,0,0,0.3);
+}
+.sidebar-right.collapsed {
+  width: 32px;
+}
+.sidebar-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px 12px 60px; /* space for toggle button */
+  gap: 12px;
+  overflow: hidden;
+  width: 240px;
 }
 .sidebar-title {
   font-size: 0.55rem; font-weight: 900; letter-spacing: 0.15em;
   color: #555; text-align: center; margin: 12px 0 4px; padding: 0;
 }
-.sidebar-right .sidebar-title { font-size: 0.7rem; text-align: left; }
+.sidebar-right .sidebar-title { font-size: 0.7rem; text-align: left; margin: 0 0 4px; }
 .sidebar-btn {
   display: flex; flex-direction: column; align-items: center; gap: 2px;
   padding: 10px 4px; background: transparent; border: none; color: #667;
@@ -439,22 +561,58 @@ onUnmounted(() => {
 }
 
 /* === DECK LIST (RIGHT) === */
-.deck-list { display: flex; flex-direction: column; gap: 10px; max-height: 60vh; overflow-y: auto; }
-.deck-mini-item { min-height: 100px !important; }
-.empty-decks { color: #555; font-size: 0.85rem; text-align: center; font-style: italic; }
-.create-deck-btn, .view-decks-btn {
-  width: 100%; padding: 10px; border-radius: 8px; font-weight: 700;
-  font-size: 0.8rem; cursor: pointer; transition: all 0.2s; border: 1px solid;
+.deck-list { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 12px; 
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
 }
+.deck-mini-item { 
+  min-height: 100px !important; 
+  flex-shrink: 0;
+}
+.empty-decks { color: #555; font-size: 0.85rem; text-align: center; font-style: italic; padding: 20px 0; }
 .create-deck-btn {
-  background: rgba(0,210,255,0.1); border-color: rgba(0,210,255,0.3); color: #0df;
-  margin-top: auto;
+  width: 100%; padding: 12px; border-radius: 8px; font-weight: 800;
+  font-size: 0.85rem; cursor: pointer; transition: all 0.2s; 
+  border: 1px solid rgba(0,210,255,0.3);
+  background: rgba(0,210,255,0.1); color: #0df;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
-.create-deck-btn:hover { background: rgba(0,210,255,0.2); box-shadow: 0 0 10px rgba(0,210,255,0.2); }
-.view-decks-btn {
-  background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.1); color: #889;
+.create-deck-btn:hover { background: rgba(0,210,255,0.2); box-shadow: 0 0 15px rgba(0,210,255,0.2); border-color: #0df; }
+
+/* === TOGGLE BUTTON === */
+.sidebar-toggle-btn {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: rgba(255,255,255,0.03);
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  color: #556;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  z-index: 10;
 }
-.view-decks-btn:hover { background: rgba(255,255,255,0.08); color: #ccc; }
+.sidebar-toggle-btn:hover {
+  background: rgba(255,255,255,0.08);
+  color: #889;
+}
+.toggle-icon {
+  font-size: 1.2rem;
+  transition: transform 0.3s;
+}
+.collapsed .toggle-icon {
+  transform: scaleX(-1);
+}
 
 /* === CENTER COLUMN === */
 .center-column {

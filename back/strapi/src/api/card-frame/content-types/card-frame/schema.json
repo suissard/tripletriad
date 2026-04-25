@@ -26,6 +26,106 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "illustrationX": {
+      "type": "decimal",
+      "default": 0
+    },
+    "illustrationY": {
+      "type": "decimal",
+      "default": 0
+    },
+    "illustrationWidth": {
+      "type": "decimal",
+      "default": 100
+    },
+    "illustrationHeight": {
+      "type": "decimal",
+      "default": 100
+    },
+    "topX": {
+      "type": "decimal",
+      "default": 50
+    },
+    "topY": {
+      "type": "decimal",
+      "default": 8
+    },
+    "bottomX": {
+      "type": "decimal",
+      "default": 50
+    },
+    "bottomY": {
+      "type": "decimal",
+      "default": 94
+    },
+    "leftX": {
+      "type": "decimal",
+      "default": 6
+    },
+    "leftY": {
+      "type": "decimal",
+      "default": 50
+    },
+    "rightX": {
+      "type": "decimal",
+      "default": 94
+    },
+    "rightY": {
+      "type": "decimal",
+      "default": 50
+    },
+    "elementX": {
+      "type": "decimal",
+      "default": 4
+    },
+    "elementY": {
+      "type": "decimal",
+      "default": 4
+    },
+    "nameX": {
+      "type": "decimal",
+      "default": 50
+    },
+    "nameY": {
+      "type": "decimal",
+      "default": 85
+    },
+    "skillsX": {
+      "type": "decimal",
+      "default": 50
+    },
+    "skillsY": {
+      "type": "decimal",
+      "default": 65
+    },
+    "imageUncommon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "imageRare": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "imageEpic": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "imageLegendary": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

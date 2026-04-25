@@ -134,6 +134,12 @@ const routes = [
     props: true
   },
   {
+    path: '/admin/frame-editor',
+    name: 'admin-frame-editor',
+    component: () => import('../admin/views/FrameEditorView.vue'),
+    meta: { requiresAdminAuth: true }
+  },
+  {
     path: '/admin/:collection',
     name: 'admin-dynamic-editor',
     component: () => import('../admin/components/DynamicEditor.vue'),

@@ -198,9 +198,9 @@ function startAiGame(deck) {
   const frameId = deck.cardFrame?.documentId || deck.cardFrame?.id || deck.cardFrame;
   if (frameId) {
     const frame = userStore.cardFrames.find(f => f.documentId === frameId || f.id === frameId);
-    state.pFrame = frame ? frame.image : null;
+    state.pFrame = frame ? frame.image : (userStore.defaultFrame?.image || null);
   } else {
-    state.pFrame = null;
+    state.pFrame = userStore.defaultFrame?.image || null;
   }
   
   router.push({ path: '/game', query: { mode: 'ia', deckId: deck.documentId || deck.id } });
@@ -257,9 +257,9 @@ function startMultiGame(deck) {
   const frameId = deck.cardFrame?.documentId || deck.cardFrame?.id || deck.cardFrame;
   if (frameId) {
     const frame = userStore.cardFrames.find(f => f.documentId === frameId || f.id === frameId);
-    state.pFrame = frame ? frame.image : null;
+    state.pFrame = frame ? frame.image : (userStore.defaultFrame?.image || null);
   } else {
-    state.pFrame = null;
+    state.pFrame = userStore.defaultFrame?.image || null;
   }
   
   // 3. Move to hosting/joining menu

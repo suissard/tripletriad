@@ -211,7 +211,7 @@ onMounted(async () => {
     // If we are editing an existing deck, preset the owner
     if (props.documentId) {
         try {
-            const res = await strapiService.findOne('decks', props.documentId, { populate: ['user'] });
+            const res = await strapiService.findOne('decks', props.documentId, { populate: ['user', 'cardFrame'] });
             if (res.data && res.data.user) {
               selectedOwnerId.value = res.data.user.documentId || res.data.user.id;
             }
