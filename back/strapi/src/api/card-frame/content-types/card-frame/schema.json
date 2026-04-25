@@ -126,6 +126,14 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "priceCoins": {
+      "type": "integer",
+      "default": 0
+    },
+    "priceGems": {
+      "type": "integer",
+      "default": 250
     }
   }
 }

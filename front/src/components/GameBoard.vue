@@ -451,8 +451,22 @@ defineExpose({
 
 .board-slot.slot-occupied {
   cursor: default;
-  border-color: transparent;
-  background: transparent;
+}
+
+.board-slot.slot-player {
+  background: color-mix(in srgb, #00d2ff 35%, rgba(0, 0, 0, 0.3));
+  border: 4px solid rgba(0, 210, 255, 0.9);
+  box-shadow: 
+    inset 0 0 50px rgba(0, 210, 255, 0.4),
+    0 0 20px rgba(0, 210, 255, 0.3);
+}
+
+.board-slot.slot-ai {
+  background: color-mix(in srgb, #ff0055 35%, rgba(0, 0, 0, 0.3));
+  border: 4px solid rgba(255, 0, 85, 0.9);
+  box-shadow: 
+    inset 0 0 50px rgba(255, 0, 85, 0.4),
+    0 0 20px rgba(255, 0, 85, 0.3);
 }
 
 .board-slot.is-drag-over {

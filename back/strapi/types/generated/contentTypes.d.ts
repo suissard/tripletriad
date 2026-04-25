@@ -504,6 +504,8 @@ export interface ApiCardFrameCardFrame extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String & Schema.Attribute.Required;
     nameX: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<50>;
     nameY: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<85>;
+    priceCoins: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    priceGems: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<250>;
     publishedAt: Schema.Attribute.DateTime;
     rightX: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<94>;
     rightY: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<50>;
@@ -823,6 +825,10 @@ export interface ApiGameConfigGameConfig extends Struct.SingleTypeSchema {
         number
       > &
       Schema.Attribute.DefaultTo<100>;
+    defaultCardFrame: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::card-frame.card-frame'
+    >;
     defaultPremiumBoosterCost: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMax<

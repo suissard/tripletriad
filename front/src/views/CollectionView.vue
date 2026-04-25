@@ -72,7 +72,7 @@
       </div>
 
       <!-- CARD GRID -->
-      <div class="card-grid-area" v-if="!isLoadingCards && activeMode !== 'boards'">
+      <div class="card-grid-area" v-if="!isLoadingCards && activeMode !== 'boards' && activeMode !== 'frames'">
         <TripleTriadCardGrid
           :cards="pageCards"
           :cardsPerRow="4"
@@ -97,27 +97,39 @@
       </div>
       <div v-else-if="activeMode === 'frames'" class="frames-grid-area">
         <div class="boards-grid">
-          <div v-for="frame in userStore.cardFrames" :key="frame.id" class="board-card" :class="{ locked: !isFrameUnlocked(frame) }">
+          <div v-for="frame in userStore.cardFrames" :key="frame.id" class="board-card frame-card" :class="{ locked: !isFrameUnlocked(frame), 'is-default': isDefaultFrame(frame) }">
             <div class="board-preview frame-preview-bg">
-              <img v-if="frame.image" :src="frame.image" :alt="frame.name" class="frame-img" />
-              <div v-else class="no-image">Aucune image</div>
+              <div class="frame-preview-container">
+                <TripleTriadCard 
+                  :card="demoCard" 
+                  :card-frame="frame.image" 
+                  size="md" 
+                  :flat="true" 
+                  :interactive="false"
+                  :unowned="!isFrameUnlocked(frame)"
+                />
+              </div>
             </div>
             <div class="board-info frame-info">
-              <h3 class="board-name">
-                {{ frame.name }}
-                <span v-if="isDefaultFrame(frame)" class="default-badge" title="Cadre par défaut">★</span>
-              </h3>
+              <div class="frame-header">
+                <h3 class="board-name">
+                  {{ frame.name }}
+                </h3>
+                <span v-if="isDefaultFrame(frame)" class="default-badge-pill">ACTIF</span>
+              </div>
               <p class="board-desc">{{ frame.description }}</p>
               
               <div class="frame-actions" v-if="isFrameUnlocked(frame)">
                 <button 
-                  class="action-btn" 
+                  class="set-default-btn" 
                   :class="{ active: isDefaultFrame(frame) }" 
                   @click="setDefaultFrame(frame)"
                   :disabled="isDefaultFrame(frame) || isSettingDefault"
                 >
-                  {{ isDefaultFrame(frame) ? 'Par défaut' : 'Définir par défaut' }}
+                  <span v-if="isDefaultFrame(frame)">✓ Cadre par défaut</span>
+                  <span v-else>Sélectionner comme défaut</span>
                 </button>
+                
                 <div class="assign-deck">
                   <select v-model="selectedDeckForFrame[frame.id]" @change="assignFrameToDeck(frame, $event)" class="deck-select">
                     <option value="">+ Assigner à un deck</option>
@@ -126,9 +138,14 @@
                     </option>
                   </select>
                 </div>
+                
+                <div class="assigned-decks" v-if="decksUsingFrame(frame).length > 0">
+                  <span class="decks-list">Utilisé par: {{ decksUsingFrame(frame).map(d => d.name).join(', ') }}</span>
+                </div>
               </div>
               <div class="frame-locked" v-else>
                 <span>🔒 Verrouillé</span>
+                <button class="shop-link-btn" @click="router.push('/boutique')">Voir en boutique</button>
               </div>
             </div>
           </div>
@@ -212,6 +229,7 @@ import { useRouter } from 'vue-router';
 import { state, cardLibrary, getCardById } from '../game/state.js';
 import { ELEMENTS } from '../data/factions.js';
 import TripleTriadCardGrid from '../components/TripleTriadCardGrid.vue';
+import TripleTriadCard from '../components/TripleTriadCard.vue';
 import MiniDeck from '../components/MiniDeck.vue';
 import { useUserStore } from '../stores/userStore.js';
 import strapiService from '../api/strapi.js';
@@ -245,6 +263,11 @@ const searchQuery = ref('');
 const filterFaction = ref('');
 const filterOwnership = ref('owned');
 const filterPremium = ref('');
+const demoCard = computed(() => {
+  if (userStore.user?.avatar_card) return userStore.user.avatar_card;
+  if (allCards.value.length > 0) return allCards.value[0];
+  return { name: 'Demo', top: 5, right: 5, bottom: 5, left: 5, imageUrl: '/card-back.svg' };
+});
 const sortBy = ref('name:asc');
 
 // === Dynamic grid sizing ===
@@ -372,13 +395,17 @@ const isSettingDefault = ref(false);
 const selectedDeckForFrame = ref({});
 
 function isFrameUnlocked(frame) {
-  if (!userStore.user?.unlockedCardFrames) return false;
-  return userStore.user.unlockedCardFrames.some(f => f.documentId === frame.documentId || f.id === frame.id);
+  return userStore.unlockedFrames.some(f => f.documentId === frame.documentId || f.id === frame.id);
 }
 
 function isDefaultFrame(frame) {
   const defId = userStore.defaultFrameId;
   return defId && (defId === frame.documentId || defId === frame.id);
+}
+
+function decksUsingFrame(frame) {
+  const fId = frame.documentId || frame.id;
+  return userStore.userDecks.filter(d => d.cardFrame === fId);
 }
 
 async function setDefaultFrame(frame) {
@@ -743,12 +770,110 @@ onUnmounted(() => {
   color: white;
   text-transform: uppercase;
   letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .board-desc {
   margin: 0;
   font-size: 0.85rem;
   color: #889;
   line-height: 1.4;
+}
+
+/* === FRAMES GRID === */
+.frames-grid-area {
+  flex: 1; min-height: 0; overflow-y: auto; padding: 30px;
+}
+.board-card.locked {
+  filter: grayscale(1);
+  opacity: 0.7;
+}
+.board-card.locked .board-preview {
+  opacity: 0.5;
+}
+.frame-preview-bg {
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.8) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.frame-img {
+  width: auto !important;
+  height: 100% !important;
+  max-width: 100%;
+  object-fit: contain !important;
+  filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+}
+.no-image {
+  color: #555;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+.default-badge {
+  color: #ffd700;
+  font-size: 1.2rem;
+  text-shadow: 0 0 10px rgba(255,215,0,0.6);
+}
+.frame-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 15px;
+}
+.action-btn {
+  padding: 8px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  color: #ccc;
+  transition: all 0.2s;
+}
+.action-btn:hover:not(:disabled) {
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+.action-btn.active {
+  background: rgba(255,193,7,0.15);
+  border-color: rgba(255,193,7,0.3);
+  color: #ffd700;
+  cursor: default;
+}
+.assign-deck {
+  display: flex;
+}
+.deck-select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #ccc;
+  font-size: 0.8rem;
+}
+.deck-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+.assigned-decks {
+  margin-top: 6px;
+  font-size: 0.75rem;
+  color: #889;
+  font-style: italic;
+}
+.frame-locked {
+  margin-top: 15px;
+  padding: 8px;
+  text-align: center;
+  background: rgba(0,0,0,0.3);
+  border-radius: 6px;
+  color: #888;
+  font-size: 0.8rem;
+  font-weight: 700;
 }
 
 /* === MODAL === */
@@ -782,6 +907,72 @@ onUnmounted(() => {
 .btn-confirm { background: #e53935; color: white; }
 .btn-confirm:hover:not(:disabled) { background: #f44; transform: scale(1.03); box-shadow: 0 0 15px rgba(244,67,54,0.4); }
 .btn-confirm:disabled { background: #444; color: #777; cursor: not-allowed; }
+
+.frame-preview-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+.frame-card.is-default {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 20px rgba(255, 191, 0, 0.2);
+}
+.frame-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.default-badge-pill {
+  background: var(--color-primary);
+  color: #000;
+  font-size: 0.6rem;
+  font-weight: 900;
+  padding: 2px 8px;
+  border-radius: 10px;
+  letter-spacing: 1px;
+}
+.set-default-btn {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 12px;
+}
+.set-default-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-primary);
+}
+.set-default-btn.active {
+  background: var(--color-primary);
+  color: black;
+  border-color: var(--color-primary);
+}
+.shop-link-btn {
+  margin-top: 8px;
+  background: transparent;
+  border: none;
+  color: var(--color-primary);
+  font-size: 0.8rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.frame-locked {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: #666;
+  font-style: italic;
+}
 
 /* === RESPONSIVE === */
 @media (max-width: 900px) {

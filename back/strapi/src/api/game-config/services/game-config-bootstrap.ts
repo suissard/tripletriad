@@ -43,6 +43,23 @@ export async function bootstrapGameConfig(strapi: Core.Strapi) {
     } else {
       console.log('ℹ️ Game Config already exists.');
     }
+
+    // Ensure defaultCardFrame is set if frames exist
+    const config = (await strapi.entityService.findMany('api::game-config.game-config', {
+      populate: ['defaultCardFrame']
+    })) as any;
+    
+    if (config && !config.defaultCardFrame) {
+      const frames = await strapi.entityService.findMany('api::card-frame.card-frame');
+      if (frames && (frames as any).length > 0) {
+        await strapi.entityService.update('api::game-config.game-config', config.id, {
+          data: {
+            defaultCardFrame: (frames as any)[0].id
+          }
+        } as any);
+        console.log(`✅ Default Card Frame set to: ${(frames as any)[0].name}`);
+      }
+    }
   } catch (err) {
     console.error('❌ Error bootstrapping Game Config:', err);
   }

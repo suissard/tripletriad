@@ -534,6 +534,7 @@ const cardStyle = computed(() => {
   // Always set the border color/glow variables so they are consistent across calculations and props
   style['--border-color'] = effectiveBorderColor.value;
   style['--border-glow'] = effectiveBorderColor.value;
+  style['--rarity-color'] = actualRarityColor.value;
   
   style['--card-border-width'] = `${effectiveBorderWidth}px`;
   return style;
@@ -717,7 +718,11 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   background: #1a1a2e;
   border: var(--card-border-width, 2px) solid #333;
   box-sizing: border-box;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 0 0 8px color-mix(in srgb, var(--rarity-color) 40%, transparent);
   transition: border-color 0.8s ease, box-shadow 0.8s ease, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.tt-card:hover .tt-card-inner {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 15px color-mix(in srgb, var(--rarity-color) 70%, transparent);
 }
 
 .is-unowned .tt-card-inner {

@@ -46,9 +46,32 @@ export const useUserStore = defineStore('user', {
   getters: {
     defaultFrame(state) {
       if (state.defaultFrameId) {
-        return state.cardFrames.find(f => f.documentId === state.defaultFrameId || f.id === state.defaultFrameId);
+        const found = state.cardFrames.find(f => f.documentId === state.defaultFrameId || f.id === state.defaultFrameId);
+        if (found) return found;
       }
+      
+      // Fallback to global default frame from gameConfig
+      if (state.gameConfig?.defaultCardFrame) {
+        const globalDefault = state.gameConfig.defaultCardFrame;
+        const foundGlobal = state.cardFrames.find(f => f.documentId === globalDefault.documentId || f.id === globalDefault.id);
+        if (foundGlobal) return foundGlobal;
+      }
+
       return state.cardFrames[0] || null;
+    },
+    unlockedFrames(state) {
+      if (!state.user) return [];
+      const unlocked = [...(state.user.unlockedCardFrames || [])];
+      
+      // Always include global default frame
+      const globalDefault = state.gameConfig?.defaultCardFrame;
+      if (globalDefault) {
+        const hasGlobal = unlocked.some(f => f.documentId === globalDefault.documentId || f.id === globalDefault.id);
+        if (!hasGlobal) {
+          unlocked.push(globalDefault);
+        }
+      }
+      return unlocked;
     },
     isAdmin: (state) => {
       if (!state.user || !state.user.role) return false;
@@ -382,7 +405,9 @@ export const useUserStore = defineStore('user', {
           nameX: item.nameX ?? 50,
           nameY: item.nameY ?? 85,
           skillsX: item.skillsX ?? 50,
-          skillsY: item.skillsY ?? 65
+          skillsY: item.skillsY ?? 65,
+          priceCoins: item.priceCoins ?? 0,
+          priceGems: item.priceGems ?? 250
         }));
         this.cardFramesLoaded = true;
       } catch (e) {
@@ -987,6 +1012,28 @@ export const useUserStore = defineStore('user', {
     },
     toggleOfflineStoryMode(value) {
       this.isOfflineStoryMode = value;
+    },
+    async buyFrame(frameId, currency = 'gems') {
+      if (!this.isLoggedIn) return { error: 'Not logged in' };
+      try {
+        const res = await strapiService.request('POST', '/card-frames/buy', {
+          body: { frameId, currency }
+        });
+        
+        if (!res.error && res.success) {
+          if (res.wallet) {
+            this.user.coins = res.wallet.coins;
+            this.user.gems = res.wallet.gems;
+            this.syncLocalUserWallets();
+          }
+          await this.updateUserData(); // refresh unlocked frames
+          return { success: true };
+        }
+        return { error: res.error?.message || 'Achat échoué' };
+      } catch (e) {
+        console.error('buyFrame failed', e);
+        return { error: 'Network error' };
+      }
     }
   }
 });

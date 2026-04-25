@@ -158,6 +158,11 @@
             "required": true,
             "default": 500,
             "min": 0
+        },
+        "defaultCardFrame": {
+            "type": "relation",
+            "relation": "oneToOne",
+            "target": "api::card-frame.card-frame"
         }
     }
 }

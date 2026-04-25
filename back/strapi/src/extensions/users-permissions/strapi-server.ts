@@ -10,7 +10,7 @@ export default (plugin: any) => {
     if (!baseUser || !baseUser.id) return;
 
     // 2) Récupère l'utilisateur avec toutes les relations demandées par le front
-    const populatedUser = await strapi.entityService.findOne('plugin::users-permissions.user', baseUser.id, {
+    const populatedUser = (await strapi.entityService.findOne('plugin::users-permissions.user', baseUser.id, {
       populate: {
         role: true,
         wallet: true,
@@ -21,7 +21,27 @@ export default (plugin: any) => {
         defaultCardFrame: true,
         storyProgresses: true
       }
-    });
+    })) as any;
+
+    // 2b) Récupère le cadre par défaut global depuis la GameConfig
+    try {
+      const gameConfigs = await strapi.entityService.findMany('api::game-config.game-config', {
+        populate: ['defaultCardFrame']
+      });
+      const globalDefaultFrame = (gameConfigs as any)?.[0]?.defaultCardFrame;
+      
+      if (globalDefaultFrame && populatedUser) {
+        if (!populatedUser.unlockedCardFrames) populatedUser.unlockedCardFrames = [];
+        const alreadyHasIt = populatedUser.unlockedCardFrames.some((f: any) => 
+          f.id === globalDefaultFrame.id || f.documentId === globalDefaultFrame.documentId
+        );
+        if (!alreadyHasIt) {
+          populatedUser.unlockedCardFrames.push(globalDefaultFrame);
+        }
+      }
+    } catch (err) {
+      console.error('Error injecting global default frame:', err);
+    }
 
     // 3) Clean up sensitive fields manually since `sanitize.contentAPI` is undefined in Strapi 5 utils
     if (populatedUser) {

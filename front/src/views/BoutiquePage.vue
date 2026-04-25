@@ -66,6 +66,51 @@
       </div>
     </div>
 
+    <!-- FRAMES SECTION -->
+    <div class="w-full max-w-6xl mb-12 relative z-10" v-if="!isOpening && availableFrames.length > 0">
+      <div class="flex flex-col items-center mb-12">
+        <h3 class="text-3xl font-black text-white italic tracking-tighter uppercase mb-2">Cadres Exclusifs</h3>
+        <div class="h-1 w-16 bg-indigo-500 rounded-full"></div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
+        <div 
+          v-for="frame in availableFrames" 
+          :key="frame.id"
+          class="bg-black/40 border border-white/10 rounded-xl overflow-hidden flex flex-col backdrop-blur-sm transition-all hover:border-indigo-500/50 hover:shadow-[0_0_20px_rgba(99,102,241,0.2)]"
+        >
+          <div class="h-48 relative bg-gradient-to-b from-white/5 to-black/80 p-4 flex items-center justify-center">
+            <img v-if="frame.image" :src="frame.image" class="h-full object-contain filter drop-shadow-[0_0_10px_rgba(0,0,0,0.8)]" />
+          </div>
+          <div class="p-4 flex flex-col flex-1">
+            <h4 class="text-lg font-bold text-white mb-1 uppercase tracking-wider">{{ frame.name }}</h4>
+            <p class="text-xs text-white/50 mb-4 flex-1 line-clamp-2">{{ frame.description || 'Personnalisez vos cartes' }}</p>
+            
+            <div class="flex gap-2 mt-auto">
+              <!-- Acheter avec Coins -->
+              <button 
+                v-if="(frame.priceCoins || 0) > 0"
+                @click="handleFramePurchaseIntent(frame, 'coins', frame.priceCoins)"
+                class="flex-1 bg-yellow-500/20 hover:bg-yellow-500/30 border border-yellow-500/30 rounded py-2 flex justify-center items-center gap-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                :disabled="userCoins < frame.priceCoins"
+              >
+                <span class="text-yellow-400 font-bold text-sm">{{ frame.priceCoins }}</span>🪙
+              </button>
+              
+              <!-- Acheter avec Gems -->
+              <button 
+                @click="handleFramePurchaseIntent(frame, 'gems', frame.priceGems || 250)"
+                class="flex-1 bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-500/30 rounded py-2 flex justify-center items-center gap-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                :disabled="userGems < (frame.priceGems || 250)"
+              >
+                <span class="text-indigo-400 font-bold text-sm">{{ frame.priceGems || 250 }}</span>💎
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Global Confirmation Modal -->
     <ConfirmationModal />
 
@@ -110,6 +155,14 @@ const availableCollections = computed(() => {
     if (!a.isActive && b.isActive) return 1;
     // Then by code
     return a.code.localeCompare(b.code);
+  });
+});
+
+const availableFrames = computed(() => {
+  const allFrames = userStore.cardFrames || [];
+  const unlocked = userStore.unlockedFrames;
+  return allFrames.filter(frame => {
+    return !unlocked.some(u => u.id === frame.id || u.documentId === frame.documentId);
   });
 });
 
@@ -199,6 +252,34 @@ const buyBoosters = async (collectionCode, quantity, isPremium) => {
     setTimeout(clearMessages, 4000);
   } finally {
     loadingAction.value = false;
+  }
+};
+
+const handleFramePurchaseIntent = async (frame, currency, cost) => {
+  clearMessages();
+  const currencyName = currency === 'gems' ? 'Gems' : 'Pièces';
+  
+  const confirmed = await confirmAction(
+    "Confirmer l'achat",
+    `Voulez-vous débloquer le cadre "${frame.name}" pour ${cost} ${currencyName} ?`
+  );
+
+  if (confirmed) {
+    loadingAction.value = true;
+    try {
+      const result = await userStore.buyFrame(frame.id || frame.documentId, currency);
+      if (result.success) {
+        successMsg.value = `Cadre "${frame.name}" débloqué avec succès !`;
+      } else {
+        error.value = result.error || "Erreur lors de l'achat du cadre.";
+      }
+      setTimeout(clearMessages, 3000);
+    } catch (err) {
+      error.value = "Erreur réseau.";
+      setTimeout(clearMessages, 4000);
+    } finally {
+      loadingAction.value = false;
+    }
   }
 };
 

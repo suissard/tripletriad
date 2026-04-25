@@ -20,6 +20,7 @@
     "api::booster.booster.findOne": "admin",
     "api::booster.booster.openBooster": "authenticated",
     "api::booster.booster.update": "admin",
+    "api::card-frame.card-frame.buy": "authenticated",
     "api::card-frame.card-frame.create": "admin",
     "api::card-frame.card-frame.delete": "admin",
     "api::card-frame.card-frame.find": "public",

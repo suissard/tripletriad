@@ -228,7 +228,7 @@ class StrapiApi {
 
     async getGameConfig(options = {}) {
         try {
-            const res = await this.request('GET', '/game-config', options);
+            const res = await this.request('GET', '/game-config?populate=defaultCardFrame', options);
             // Handle Strapi 5 flattened format vs Strapi 4 attributes format
             if (res && res.data) {
                 return res.data.attributes ? { id: res.data.id, ...res.data.attributes } : res.data;
