@@ -102,6 +102,16 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::card-frame.card-frame"
+    },
+    "unlockedCardBacks": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::card-back.card-back"
+    },
+    "defaultCardBack": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::card-back.card-back"
     }
   }
 }

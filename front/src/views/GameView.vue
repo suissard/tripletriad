@@ -240,7 +240,7 @@ onMounted(async () => {
             if (deckId) {
                 console.log(`[GameView] Fetching AI deck: ${deckId}`);
                 try {
-                    const res = await strapiService.request('GET', `/decks/${deckId}?populate[0]=cards.image&populate[1]=cards.faction&populate[2]=cardFrame.image`);
+                    const res = await strapiService.request('GET', `/decks/${deckId}?populate[0]=cards.image&populate[1]=cards.faction&populate[2]=cardFrame.image&populate[3]=cardBack.image`);
                     const deckData = res.data || res;
                     const deck = deckData.attributes || deckData;
                     const cards = deck.cards?.data || deck.cards || [];
@@ -252,6 +252,14 @@ onMounted(async () => {
                             state.pFrame = imgUrl ? getStrapiMediaUrl(imgUrl) : null;
                         } else {
                             state.pFrame = null;
+                        }
+
+                        const backData = deck.cardBack?.data?.attributes || deck.cardBack;
+                        if (backData && backData.image) {
+                            const imgUrl = backData.image.url || backData.image.data?.attributes?.url;
+                            state.pBack = imgUrl ? getStrapiMediaUrl(imgUrl) : null;
+                        } else {
+                            state.pBack = null;
                         }
                         initAIMatchSetup();
                         return;
@@ -300,7 +308,7 @@ onMounted(async () => {
         if (!state.playerDeckSelection || state.playerDeckSelection.length === 0) {
             console.log(`[GameView] Fetching Story match data: Story=${storyId}, Step=${stepId}`);
             try {
-                const res = await strapiService.request('GET', `/stories/${storyId}?populate[0]=steps.playerDeck.cards.image&populate[1]=steps.playerDeck.cards.faction&populate[2]=steps.enemyDeck.cards.image&populate[3]=steps.enemyDeck.cards.faction&populate[4]=steps.playerDeck.cardFrame.image&populate[5]=steps.enemyDeck.cardFrame.image`);
+                const res = await strapiService.request('GET', `/stories/${storyId}?populate[0]=steps.playerDeck.cards.image&populate[1]=steps.playerDeck.cards.faction&populate[2]=steps.enemyDeck.cards.image&populate[3]=steps.enemyDeck.cards.faction&populate[4]=steps.playerDeck.cardFrame.image&populate[5]=steps.enemyDeck.cardFrame.image&populate[6]=steps.playerDeck.cardBack.image&populate[7]=steps.enemyDeck.cardBack.image`);
                 const storyData = res.data || res;
                 const story = storyData.attributes || storyData;
                 const steps = story.steps?.data || story.steps || [];
@@ -337,6 +345,23 @@ onMounted(async () => {
                             state.aiFrame = imgUrl ? getStrapiMediaUrl(imgUrl) : null;
                         } else {
                             state.aiFrame = null;
+                        }
+
+                        // --- Card Backs (Story) ---
+                        const pBackObj = pDeckObj?.cardBack?.data?.attributes || pDeckObj?.cardBack;
+                        if (pBackObj && pBackObj.image) {
+                            const imgUrl = pBackObj.image.url || pBackObj.image.data?.attributes?.url;
+                            state.pBack = imgUrl ? getStrapiMediaUrl(imgUrl) : null;
+                        } else {
+                            state.pBack = null;
+                        }
+
+                        const eBackObj = eDeckObj?.cardBack?.data?.attributes || eDeckObj?.cardBack;
+                        if (eBackObj && eBackObj.image) {
+                            const imgUrl = eBackObj.image.url || eBackObj.image.data?.attributes?.url;
+                            state.aiBack = imgUrl ? getStrapiMediaUrl(imgUrl) : null;
+                        } else {
+                            state.aiBack = null;
                         }
                         
                         state.storyMatchData = { story, step };

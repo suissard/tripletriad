@@ -39,6 +39,9 @@ export const useUserStore = defineStore('user', {
     cardFrames: [],
     cardFramesLoaded: false,
     defaultFrameId: null, // Set to the documentId of the default frame
+    cardBacks: [],
+    cardBacksLoaded: false,
+    defaultBackId: null,
     boardBackgrounds: [],
     boardBackgroundsLoaded: false,
     error: null
@@ -61,14 +64,63 @@ export const useUserStore = defineStore('user', {
     },
     unlockedFrames(state) {
       if (!state.user) return [];
-      const unlocked = [...(state.user.unlockedCardFrames || [])];
+      // Handle both objects and primitive IDs
+      const unlocked = (state.user.unlockedCardFrames || []).map(f => {
+        if (typeof f === 'object' && f !== null) return f;
+        return { id: f, documentId: String(f) };
+      });
       
-      // Always include global default frame
-      const globalDefault = state.gameConfig?.defaultCardFrame;
+      let globalDefault = state.gameConfig?.defaultCardFrame;
       if (globalDefault) {
-        const hasGlobal = unlocked.some(f => f.documentId === globalDefault.documentId || f.id === globalDefault.id);
+        const flatGlobal = globalDefault.data 
+          ? { id: globalDefault.data.id, documentId: globalDefault.data.documentId, ...globalDefault.data.attributes }
+          : globalDefault;
+
+        const gId = String(flatGlobal.documentId || flatGlobal.id);
+        const hasGlobal = unlocked.some(f => String(f.documentId || f.id) === gId);
         if (!hasGlobal) {
-          unlocked.push(globalDefault);
+          unlocked.push(flatGlobal);
+        }
+      }
+      return unlocked;
+    },
+    defaultBack(state) {
+      if (state.defaultBackId) {
+        const found = state.cardBacks.find(b => String(b.documentId || b.id) === String(state.defaultBackId));
+        if (found) return found;
+      }
+      
+      let globalDefault = state.gameConfig?.defaultCardBack;
+      if (globalDefault) {
+        const flatGlobal = globalDefault.data 
+          ? { id: globalDefault.data.id, documentId: globalDefault.data.documentId, ...globalDefault.data.attributes }
+          : globalDefault;
+        
+        const gId = String(flatGlobal.documentId || flatGlobal.id);
+        const foundGlobal = state.cardBacks.find(b => String(b.documentId || b.id) === gId);
+        if (foundGlobal) return foundGlobal;
+      }
+
+      return state.cardBacks[0] || null;
+    },
+    unlockedBacks(state) {
+      if (!state.user) return [];
+      // Handle both objects and primitive IDs
+      const unlocked = (state.user.unlockedCardBacks || []).map(b => {
+        if (typeof b === 'object' && b !== null) return b;
+        return { id: b, documentId: String(b) };
+      });
+      
+      let globalDefault = state.gameConfig?.defaultCardBack;
+      if (globalDefault) {
+        const flatGlobal = globalDefault.data 
+          ? { id: globalDefault.data.id, documentId: globalDefault.data.documentId, ...globalDefault.data.attributes }
+          : globalDefault;
+
+        const gId = String(flatGlobal.documentId || flatGlobal.id);
+        const hasGlobal = unlocked.some(b => String(b.documentId || b.id) === gId);
+        if (!hasGlobal) {
+          unlocked.push(flatGlobal);
         }
       }
       return unlocked;
@@ -168,8 +220,8 @@ export const useUserStore = defineStore('user', {
     async updateUserData() {
       if (!this.isLoggedIn) return;
       try {
-        // Consolidated call including role, wallet, avatar_card, and unlockedCardFrames
-        const meRes = await strapiService.request('GET', '/users/me?populate[0]=role&populate[1]=wallet&populate[2]=avatar_card.image&populate[3]=unlockedCardFrames');
+        // Consolidated call including role, wallet, avatar_card, unlockedCardFrames, and unlockedCardBacks
+        const meRes = await strapiService.request('GET', '/users/me?populate[0]=role&populate[1]=wallet&populate[2]=avatar_card.image&populate[3]=unlockedCardFrames&populate[4]=unlockedCardBacks&populate[5]=defaultCardBack&populate[6]=defaultCardFrame');
         if (!meRes.error) {
           // Handle nested wallet data from Strapi 5
           const wallet = meRes.wallet || {};
@@ -190,9 +242,12 @@ export const useUserStore = defineStore('user', {
             dust: wallet.dust ?? 0,
             boosters: wallet.boosters ?? [],
             unlockedCardFrames: meRes.unlockedCardFrames || [],
-            defaultCardFrame: meRes.defaultCardFrame || null
+            defaultCardFrame: meRes.defaultCardFrame || null,
+            unlockedCardBacks: meRes.unlockedCardBacks || [],
+            defaultCardBack: meRes.defaultCardBack || null
           };
           this.defaultFrameId = meRes.defaultCardFrame?.documentId || meRes.defaultCardFrame?.id || null;
+          this.defaultBackId = meRes.defaultCardBack?.documentId || meRes.defaultCardBack?.id || null;
           this.syncLocalUserWallets();
         }
       } catch (e) {
@@ -215,7 +270,8 @@ export const useUserStore = defineStore('user', {
         avatar: user.avatar_card?.image?.url 
           ? getStrapiMediaUrl(user.avatar_card.image.url)
           : `https://api.dicebear.com/9.x/bottts/svg?seed=${user.username}&backgroundColor=transparent`,
-        unlockedCardFrames: user.unlockedCardFrames || []
+        unlockedCardFrames: user.unlockedCardFrames || [],
+        unlockedCardBacks: user.unlockedCardBacks || []
       };
       
       this.isLoggedIn = true;
@@ -235,6 +291,7 @@ export const useUserStore = defineStore('user', {
           this.fetchWeeklyQuests();
       this.fetchUserStoryProgresses();
       this.fetchCardFrames();
+      this.fetchCardBacks();
       this.fetchBoardBackgrounds();
       
       const effectStore = useEffectStore();
@@ -412,6 +469,54 @@ export const useUserStore = defineStore('user', {
         this.cardFramesLoaded = true;
       } catch (e) {
         console.error('Failed to fetch card frames', e);
+      }
+    },
+
+    async fetchCardBacks(force = false) {
+      if (!this.strapiConnected) return;
+      if (this.cardBacksLoaded && !force) return;
+      try {
+        const result = await strapiService.find('card-backs', {
+          populate: ['image'],
+          sort: ['id:asc']
+        });
+        const items = this.toArray(result);
+        this.cardBacks = items.map(item => ({
+          id: item.id,
+          documentId: item.documentId,
+          name: item.name,
+          description: item.description,
+          image: item.image?.url ? getStrapiMediaUrl(item.image.url) : null,
+          priceCoins: item.priceCoins ?? 0,
+          priceGems: item.priceGems ?? 250,
+          slug: item.slug
+        }));
+        this.cardBacksLoaded = true;
+      } catch (e) {
+        console.error('Failed to fetch card backs', e);
+      }
+    },
+
+    async buyCardBack(backId, currency = 'gems') {
+      if (!this.isLoggedIn) return { error: 'Not logged in' };
+      try {
+        const res = await strapiService.request('POST', '/card-backs/buy', {
+          body: { backId, currency }
+        });
+        
+        if (!res.error && res.success) {
+          if (res.wallet) {
+            this.user.coins = res.wallet.coins;
+            this.user.gems = res.wallet.gems;
+            this.syncLocalUserWallets();
+          }
+          await this.updateUserData(); // refresh unlocked backs
+          return { success: true };
+        }
+        return { error: res.error?.message || 'Achat échoué' };
+      } catch (e) {
+        console.error('buyCardBack failed', e);
+        return { error: e.message || 'Network error' };
       }
     },
 
@@ -1032,7 +1137,7 @@ export const useUserStore = defineStore('user', {
         return { error: res.error?.message || 'Achat échoué' };
       } catch (e) {
         console.error('buyFrame failed', e);
-        return { error: 'Network error' };
+        return { error: e.message || 'Network error' };
       }
     }
   }

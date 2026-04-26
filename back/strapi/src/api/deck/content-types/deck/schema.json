@@ -33,12 +33,9 @@
             "configurable": false
         },
         "cardBack": {
-            "type": "enumeration",
-            "enum": [
-                "default",
-                "animated"
-            ],
-            "default": "default"
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "api::card-back.card-back"
         },
         "cardFrame": {
             "type": "relation",

@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "card_backs",
+  "info": {
+    "singularName": "card-back",
+    "pluralName": "card-backs",
+    "displayName": "Card Back",
+    "description": "Customizable backs for Triple Triad cards"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "priceCoins": {
+      "type": "integer",
+      "default": 0
+    },
+    "priceGems": {
+      "type": "integer",
+      "default": 250
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    }
+  }
+}

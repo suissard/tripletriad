@@ -14,6 +14,7 @@
           :disableZoom="true"
           :dimOnHover="false"
           :cardFrame="state.aiFrame"
+          :cardBack="state.aiBack"
           :bonus="factionBonuses[card.factionCode] || 0"
         />
       </div>

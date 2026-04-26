@@ -18,29 +18,41 @@ export default (plugin: any) => {
           populate: ['image']
         },
         unlockedCardFrames: true,
+        unlockedCardBacks: true,
         defaultCardFrame: true,
+        defaultCardBack: true,
         storyProgresses: true
       }
     })) as any;
 
-    // 2b) Récupère le cadre par défaut global depuis la GameConfig
+    // 2b) Récupère les défauts globaux depuis la GameConfig
     try {
       const gameConfigs = await strapi.entityService.findMany('api::game-config.game-config', {
-        populate: ['defaultCardFrame']
+        populate: ['defaultCardFrame', 'defaultCardBack']
       });
-      const globalDefaultFrame = (gameConfigs as any)?.[0]?.defaultCardFrame;
+      const config = (gameConfigs as any)?.[0];
+      const globalDefaultFrame = config?.defaultCardFrame;
+      const globalDefaultBack = config?.defaultCardBack;
       
-      if (globalDefaultFrame && populatedUser) {
-        if (!populatedUser.unlockedCardFrames) populatedUser.unlockedCardFrames = [];
-        const alreadyHasIt = populatedUser.unlockedCardFrames.some((f: any) => 
-          f.id === globalDefaultFrame.id || f.documentId === globalDefaultFrame.documentId
-        );
-        if (!alreadyHasIt) {
-          populatedUser.unlockedCardFrames.push(globalDefaultFrame);
+      if (populatedUser) {
+        if (globalDefaultFrame) {
+          if (!populatedUser.unlockedCardFrames) populatedUser.unlockedCardFrames = [];
+          const alreadyHasFrame = populatedUser.unlockedCardFrames.some((f: any) => 
+            f.id === globalDefaultFrame.id || f.documentId === globalDefaultFrame.documentId
+          );
+          if (!alreadyHasFrame) populatedUser.unlockedCardFrames.push(globalDefaultFrame);
+        }
+
+        if (globalDefaultBack) {
+          if (!populatedUser.unlockedCardBacks) populatedUser.unlockedCardBacks = [];
+          const alreadyHasBack = populatedUser.unlockedCardBacks.some((b: any) => 
+            b.id === globalDefaultBack.id || b.documentId === globalDefaultBack.documentId
+          );
+          if (!alreadyHasBack) populatedUser.unlockedCardBacks.push(globalDefaultBack);
         }
       }
     } catch (err) {
-      console.error('Error injecting global default frame:', err);
+      console.error('Error injecting global defaults:', err);
     }
 
     // 3) Clean up sensitive fields manually since `sanitize.contentAPI` is undefined in Strapi 5 utils
@@ -58,14 +70,15 @@ export default (plugin: any) => {
     if (!user) {
       return ctx.unauthorized();
     }
-    const { username, avatar_card, defaultCardFrame } = ctx.request.body;
+    const { username, avatar_card, defaultCardFrame, defaultCardBack } = ctx.request.body;
     
     try {
       const updatedUser = await strapi.entityService.update('plugin::users-permissions.user', user.id, {
         data: { 
           ...(username ? { username } : {}),
           ...(avatar_card ? { avatar_card } : {}),
-          ...(defaultCardFrame ? { defaultCardFrame } : {})
+          ...(defaultCardFrame ? { defaultCardFrame } : {}),
+          ...(defaultCardBack ? { defaultCardBack } : {})
         },
       });
       

@@ -110,6 +110,54 @@
         </div>
       </div>
     </div>
+    
+    <!-- BACKS SECTION -->
+    <div class="w-full max-w-6xl mb-12 relative z-10" v-if="!isOpening && availableBacks.length > 0">
+      <div class="flex flex-col items-center mb-12">
+        <h3 class="text-3xl font-black text-white italic tracking-tighter uppercase mb-2">Dos de Cartes</h3>
+        <div class="h-1 w-16 bg-pink-500 rounded-full"></div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
+        <div 
+          v-for="back in availableBacks" 
+          :key="back.id"
+          class="bg-black/40 border border-white/10 rounded-xl overflow-hidden flex flex-col backdrop-blur-sm transition-all hover:border-pink-500/50 hover:shadow-[0_0_20px_rgba(236,72,153,0.2)]"
+        >
+          <div class="h-48 relative bg-gradient-to-b from-white/5 to-black/80 p-4 flex items-center justify-center">
+             <!-- Card preview with back -->
+             <div class="w-32 aspect-square relative">
+                <img v-if="back.image" :src="back.image" class="w-full h-full object-cover rounded-lg border border-white/20 shadow-2xl" />
+             </div>
+          </div>
+          <div class="p-4 flex flex-col flex-1">
+            <h4 class="text-lg font-bold text-white mb-1 uppercase tracking-wider">{{ back.name }}</h4>
+            <p class="text-xs text-white/50 mb-4 flex-1 line-clamp-2">{{ back.description || 'Changez le style de vos cartes' }}</p>
+            
+            <div class="flex gap-2 mt-auto">
+              <!-- Acheter avec Coins -->
+              <button 
+                v-if="(back.priceCoins || 0) > 0"
+                @click="handleBackPurchaseIntent(back, 'coins', back.priceCoins)"
+                class="flex-1 bg-yellow-500/20 hover:bg-yellow-500/30 border border-yellow-500/30 rounded py-2 flex justify-center items-center gap-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                :disabled="userCoins < back.priceCoins"
+              >
+                <span class="text-yellow-400 font-bold text-sm">{{ back.priceCoins }}</span>🪙
+              </button>
+              
+              <!-- Acheter avec Gems -->
+              <button 
+                @click="handleBackPurchaseIntent(back, 'gems', back.priceGems || 250)"
+                class="flex-1 bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-500/30 rounded py-2 flex justify-center items-center gap-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                :disabled="userGems < (back.priceGems || 250)"
+              >
+                <span class="text-indigo-400 font-bold text-sm">{{ back.priceGems || 250 }}</span>💎
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Global Confirmation Modal -->
     <ConfirmationModal />
@@ -162,7 +210,17 @@ const availableFrames = computed(() => {
   const allFrames = userStore.cardFrames || [];
   const unlocked = userStore.unlockedFrames;
   return allFrames.filter(frame => {
-    return !unlocked.some(u => u.id === frame.id || u.documentId === frame.documentId);
+    const fId = String(frame.documentId || frame.id);
+    return !unlocked.some(u => String(u.documentId || u.id) === fId);
+  });
+});
+
+const availableBacks = computed(() => {
+  const allBacks = userStore.cardBacks || [];
+  const unlocked = userStore.unlockedBacks;
+  return allBacks.filter(back => {
+    const bId = String(back.documentId || back.id);
+    return !unlocked.some(u => String(u.documentId || u.id) === bId);
   });
 });
 
@@ -171,6 +229,8 @@ const availableFrames = computed(() => {
 
 // --- Lifecycle ---
 onMounted(async () => {
+  userStore.fetchCardBacks();
+  userStore.fetchCardFrames();
   try {
       const res = await strapiService.request('GET', '/game-config');
       const config = res.data?.attributes || res.data?.data?.attributes || res.data || res;
@@ -272,6 +332,34 @@ const handleFramePurchaseIntent = async (frame, currency, cost) => {
         successMsg.value = `Cadre "${frame.name}" débloqué avec succès !`;
       } else {
         error.value = result.error || "Erreur lors de l'achat du cadre.";
+      }
+      setTimeout(clearMessages, 3000);
+    } catch (err) {
+      error.value = "Erreur réseau.";
+      setTimeout(clearMessages, 4000);
+    } finally {
+      loadingAction.value = false;
+    }
+  }
+};
+
+const handleBackPurchaseIntent = async (back, currency, cost) => {
+  clearMessages();
+  const currencyName = currency === 'gems' ? 'Gems' : 'Pièces';
+  
+  const confirmed = await confirmAction(
+    "Confirmer l'achat",
+    `Voulez-vous débloquer le dos de carte "${back.name}" pour ${cost} ${currencyName} ?`
+  );
+
+  if (confirmed) {
+    loadingAction.value = true;
+    try {
+      const result = await userStore.buyCardBack(back.id || back.documentId, currency);
+      if (result.success) {
+        successMsg.value = `Dos de carte "${back.name}" débloqué avec succès !`;
+      } else {
+        error.value = result.error || "Erreur lors de l'achat du dos.";
       }
       setTimeout(clearMessages, 3000);
     } catch (err) {

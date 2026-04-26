@@ -60,6 +60,22 @@ export async function bootstrapGameConfig(strapi: Core.Strapi) {
         console.log(`✅ Default Card Frame set to: ${(frames as any)[0].name}`);
       }
     }
+    // Ensure defaultCardBack is set if backs exist
+    const configWithBack = (await strapi.entityService.findMany('api::game-config.game-config', {
+      populate: ['defaultCardBack']
+    })) as any;
+
+    if (configWithBack && !configWithBack.defaultCardBack) {
+      const backs = await strapi.entityService.findMany('api::card-back.card-back');
+      if (backs && (backs as any).length > 0) {
+        await strapi.entityService.update('api::game-config.game-config', configWithBack.id, {
+          data: {
+            defaultCardBack: (backs as any)[0].id
+          }
+        } as any);
+        console.log(`✅ Default Card Back set to: ${(backs as any)[0].name}`);
+      }
+    }
   } catch (err) {
     console.error('❌ Error bootstrapping Game Config:', err);
   }

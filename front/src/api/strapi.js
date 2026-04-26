@@ -141,7 +141,7 @@ class StrapiApi {
     }
 
     async getMe() {
-        const response = await this.strapiClient.fetch('/users/me?populate=unlockedCardFrames,defaultCardFrame,wallet,avatar_card,avatar_card.image,role');
+        const response = await this.strapiClient.fetch('/users/me?populate=unlockedCardFrames,defaultCardFrame,unlockedCardBacks,defaultCardBack,wallet,avatar_card,avatar_card.image,role');
         return await response.json();
     }
 
@@ -228,7 +228,7 @@ class StrapiApi {
 
     async getGameConfig(options = {}) {
         try {
-            const res = await this.request('GET', '/game-config?populate=defaultCardFrame', options);
+            const res = await this.request('GET', '/game-config?populate=defaultCardFrame,defaultCardBack', options);
             // Handle Strapi 5 flattened format vs Strapi 4 attributes format
             if (res && res.data) {
                 return res.data.attributes ? { id: res.data.id, ...res.data.attributes } : res.data;

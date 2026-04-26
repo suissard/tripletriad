@@ -100,6 +100,8 @@ export const state = reactive({
   aiDeck: [],
   pFrame: null,
   aiFrame: null,
+  pBack: null,
+  aiBack: null,
     // Dynamic Board dimensions
     boardWidth: 4,
     boardHeight: 4,
@@ -400,6 +402,8 @@ export function resetGame(deckSize = 30, goToMenu = true, forcedTurn = null) {
     state.aiDeck = [];
     state.pFrame = null;
     state.aiFrame = null;
+    state.pBack = null;
+    state.aiBack = null;
     state.selectedCardIndex = null;
     
     if (forcedTurn) {

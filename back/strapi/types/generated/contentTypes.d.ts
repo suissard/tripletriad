@@ -462,6 +462,42 @@ export interface ApiBoardBackgroundBoardBackground
   };
 }
 
+export interface ApiCardBackCardBack extends Struct.CollectionTypeSchema {
+  collectionName: 'card_backs';
+  info: {
+    description: 'Customizable backs for Triple Triad cards';
+    displayName: 'Card Back';
+    pluralName: 'card-backs';
+    singularName: 'card-back';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::card-back.card-back'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    priceCoins: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    priceGems: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<250>;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCardFrameCardFrame extends Struct.CollectionTypeSchema {
   collectionName: 'card_frames';
   info: {
@@ -654,8 +690,10 @@ export interface ApiDeckDeck extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    cardBack: Schema.Attribute.Enumeration<['default', 'animated']> &
-      Schema.Attribute.DefaultTo<'default'>;
+    cardBack: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::card-back.card-back'
+    >;
     cardFrame: Schema.Attribute.Relation<
       'manyToOne',
       'api::card-frame.card-frame'
@@ -825,6 +863,10 @@ export interface ApiGameConfigGameConfig extends Struct.SingleTypeSchema {
         number
       > &
       Schema.Attribute.DefaultTo<100>;
+    defaultCardBack: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::card-back.card-back'
+    >;
     defaultCardFrame: Schema.Attribute.Relation<
       'oneToOne',
       'api::card-frame.card-frame'
@@ -1953,6 +1995,10 @@ export interface PluginUsersPermissionsUser
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    defaultCardBack: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::card-back.card-back'
+    >;
     defaultCardFrame: Schema.Attribute.Relation<
       'oneToOne',
       'api::card-frame.card-frame'
@@ -1990,6 +2036,10 @@ export interface PluginUsersPermissionsUser
       'oneToMany',
       'api::player-story-progress.player-story-progress'
     >;
+    unlockedCardBacks: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::card-back.card-back'
+    >;
     unlockedCardFrames: Schema.Attribute.Relation<
       'manyToMany',
       'api::card-frame.card-frame'
@@ -2019,6 +2069,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::board-background.board-background': ApiBoardBackgroundBoardBackground;
+      'api::card-back.card-back': ApiCardBackCardBack;
       'api::card-frame.card-frame': ApiCardFrameCardFrame;
       'api::card.card': ApiCardCard;
       'api::collection.collection': ApiCollectionCollection;

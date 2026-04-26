@@ -105,7 +105,8 @@
 
         <!-- BASE CARD FACE (Fallback revealed false) -->
         <template v-else>
-          <AnimatedCardBack v-if="cardBack === 'animated'" class="card-back-img" /><img v-else src="/card-back.svg" class="card-back-img" alt="Card Back" />
+          <AnimatedCardBack v-if="cardBack === 'animated'" class="card-back-img" />
+          <img v-else :src="activeCardBackUrl" class="card-back-img" alt="Card Back" />
           <!-- Unowned lock -->
           <div class="unowned-overlay" v-if="unowned">🔒</div>
         </template>
@@ -113,7 +114,8 @@
 
       <!-- BACK SIDE -->
       <div class="tt-card-back" v-if="!compact">
-        <AnimatedCardBack v-if="cardBack === 'animated'" class="card-back-img" /><img v-else src="/card-back.svg" class="card-back-img" alt="Card Back" />
+        <AnimatedCardBack v-if="cardBack === 'animated'" class="card-back-img" />
+        <img v-else :src="activeCardBackUrl" class="card-back-img" alt="Card Back" />
         <!-- Unowned lock (show it on back too if unowned) -->
         <div class="unowned-overlay" v-if="unowned">🔒</div>
       </div>
@@ -277,6 +279,22 @@ const displayFrameUrl = computed(() => {
   if (rarity === 'legendary' && f.imageLegendary) return f.imageLegendary;
   
   return f.image;
+});
+
+const activeCardBackUrl = computed(() => {
+  if (props.cardBack && props.cardBack !== 'default' && props.cardBack !== 'animated') {
+     // If it's a URL (from props), use it.
+     if (props.cardBack.startsWith('http') || props.cardBack.startsWith('/') || props.cardBack.startsWith('blob:')) {
+       return props.cardBack;
+     }
+     
+     // If it's an ID/Slug, try to find it in the store
+     const found = userStore.cardBacks.find(b => b.documentId === props.cardBack || b.id === props.cardBack);
+     if (found && found.image) return found.image;
+  }
+  
+  // Fallback to user's default back or global default
+  return userStore.defaultBack?.image || '/card-back.svg';
 });
 
 const imageStyle = computed(() => {

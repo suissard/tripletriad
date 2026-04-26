@@ -17,25 +17,56 @@
       <!-- LEFT: Deck info + selected cards -->
       <div class="deck-panel">
         <div class="deck-info-section">
-        <div class="deck-back-selector">
-          <div class="back-option" :class="{ active: state.editingDeck.cardBack === 'default' || !state.editingDeck.cardBack }" @click="state.editingDeck.cardBack = 'default'">
-             <img src="/card-back.svg" class="back-preview-img" />
-             <span>Classique</span>
-          </div>
-          <div class="back-option" :class="{ active: state.editingDeck.cardBack === 'animated' }" @click="state.editingDeck.cardBack = 'animated'">
-             <div class="back-preview-animated"><AnimatedCardBack /></div>
-             <span>Terra Nullius</span>
+        <div class="deck-back-selector-v2 mb-2">
+          <label class="block text-[10px] font-bold text-primary uppercase tracking-widest mb-1">Dos de carte</label>
+          <div class="back-options-grid">
+            <div class="back-mini-option" 
+                 :class="{ active: state.editingDeck.cardBack === 'default' || !state.editingDeck.cardBack }" 
+                 @click="state.editingDeck.cardBack = 'default'"
+                 title="Classique">
+              <img src="/card-back.svg" class="back-mini-img" />
+            </div>
+            <div class="back-mini-option" 
+                 :class="{ active: state.editingDeck.cardBack === 'animated' }" 
+                 @click="state.editingDeck.cardBack = 'animated'"
+                 title="Terra Nullius (Animé)">
+              <div class="back-mini-animated"><AnimatedCardBack /></div>
+            </div>
+            <div v-for="back in availableBacks" :key="back.documentId || back.id"
+                 class="back-mini-option"
+                 :class="{ active: state.editingDeck.cardBack === (back.documentId || back.id) }"
+                 @click="state.editingDeck.cardBack = (back.documentId || back.id)"
+                 :title="back.name">
+               <img :src="back.image" class="back-mini-img" />
+            </div>
           </div>
         </div>
 
-        <div class="deck-frame-selector mt-1 mb-2">
+        <div class="deck-frame-selector-v2 mb-2">
           <label class="block text-[10px] font-bold text-primary uppercase tracking-widest mb-1">Cadre de carte</label>
-          <select v-model="state.editingDeck.cardFrame" class="filter-select w-full bg-black/40 border-primary/10">
-            <option :value="null">Aucun cadre (Défaut)</option>
-            <option v-for="frame in availableFrames" :key="frame.documentId || frame.id" :value="frame.documentId || frame.id">
-              {{ frame.name }}
-            </option>
-          </select>
+          <div class="back-options-grid">
+            <div class="back-mini-option" 
+                 :class="{ active: state.editingDeck.cardFrame === null }" 
+                 @click="state.editingDeck.cardFrame = null"
+                 title="Aucun (Défaut)">
+              <div class="back-mini-img flex items-center justify-center bg-black/40 text-[10px] opacity-40">—</div>
+            </div>
+            <div v-for="frame in availableFrames" :key="frame.documentId || frame.id"
+                 class="back-mini-option"
+                 :class="{ active: state.editingDeck.cardFrame === (frame.documentId || frame.id) }"
+                 @click="state.editingDeck.cardFrame = (frame.documentId || frame.id)"
+                 :title="frame.name">
+               <img :src="frame.image" class="back-mini-img" />
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-2 mb-4">
+           <button class="btn btn-secondary glass-panel flex-1 text-[10px] py-1" 
+                   @click="setAsGlobalDefault" 
+                   :disabled="!state.editingDeck.cardBack || state.editingDeck.cardBack === 'animated'">
+             ⭐ Définir le dos comme défaut global
+           </button>
         </div>
 
           <input v-model="state.editingDeck.name" placeholder="Nom du Deck" class="deck-name-input" />
@@ -183,6 +214,7 @@ onMounted(async () => {
   const promises = [];
   if (!userStore.decksLoaded) promises.push(userStore.fetchUserDecks());
   if (!userStore.cardFramesLoaded) promises.push(userStore.fetchCardFrames());
+  if (!userStore.cardBacksLoaded) promises.push(userStore.fetchCardBacks());
   if (promises.length > 0) await Promise.all(promises);
 
   if (props.documentId) {
@@ -243,23 +275,17 @@ const availableFrames = computed(() => {
   if (!userStore.cardFrames || userStore.cardFrames.length === 0) return [];
 
   if (isAdminMode.value) return userStore.cardFrames;
-  
-  // Get unlocked frame identifiers (as strings for safe comparison)
-  const unlockedRefs = (userStore.user.unlockedCardFrames || []).map(f => {
-    if (typeof f === 'object' && f !== null) return String(f.documentId || f.id);
-    return String(f); // Fallback if it's just a list of IDs/strings
-  });
-  
-  // Filter cardFrames to only those unlocked
-  const frames = userStore.cardFrames.filter(f => {
-    const docId = f.documentId ? String(f.documentId) : null;
-    const id = f.id ? String(f.id) : null;
-    // Check if either the documentId or the simple id is in the unlockedRefs
-    return unlockedRefs.includes(docId) || unlockedRefs.includes(id);
-  });
-  
-  // Sort by ID to get a consistent order
+  const unlocked = userStore.unlockedFrames;
+  const frames = userStore.cardFrames.filter(f => unlocked.some(u => u.documentId === f.documentId || u.id === f.id));
   return frames.sort((a, b) => a.id - b.id);
+});
+
+const availableBacks = computed(() => {
+  if (!userStore.cardBacks || userStore.cardBacks.length === 0) return [];
+  if (isAdminMode.value) return userStore.cardBacks;
+  const unlocked = userStore.unlockedBacks;
+  const backs = userStore.cardBacks.filter(b => unlocked.some(u => u.documentId === b.documentId || u.id === b.id));
+  return backs.sort((a, b) => a.id - b.id);
 });
 
 function getFrameUrl(frameId) {
@@ -409,6 +435,22 @@ function exportDeckCode() {
   });
 }
 
+async function setAsGlobalDefault() {
+  const backId = state.editingDeck.cardBack;
+  if (!backId || backId === 'animated' || backId === 'default') return;
+  
+  try {
+    const success = await userStore.updateProfile({ defaultCardBack: backId });
+    if (success) {
+      showFeedback('Dos défini par défaut globalement !', 'success');
+    } else {
+      showFeedback('Erreur lors de la mise à jour.', 'error');
+    }
+  } catch (e) {
+    showFeedback('Erreur réseau.', 'error');
+  }
+}
+
 function getBarHeight(level) {
   const count = state.editingDeck.cards.filter(id => {
     const card = getCardById(id);
@@ -496,38 +538,46 @@ const sortedDeckCards = computed(() => {
 </script>
 
 <style scoped>
-.deck-back-selector {
+.back-options-grid {
   display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-.back-option {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid #444;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: rgba(0,0,0,0.2);
+  padding: 8px;
   border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s;
+  border: 1px solid rgba(255, 0, 85, 0.1);
 }
-.back-option.active {
-  border-color: #00ff88;
-  background: rgba(0, 255, 136, 0.1);
-}
-.back-preview-img {
-  width: 40px;
-  height: 60px;
-  margin-bottom: 5px;
-}
-.back-preview-animated {
-  width: 40px;
-  height: 60px;
-  margin-bottom: 5px;
+.back-mini-option {
+  width: 44px;
+  height: 64px;
   border-radius: 4px;
+  border: 1px solid #444;
+  cursor: pointer;
   overflow: hidden;
+  transition: all 0.2s;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back-mini-option:hover {
+  border-color: #ff0055;
+  transform: scale(1.05);
+}
+.back-mini-option.active {
+  border-color: #00d2ff;
+  box-shadow: 0 0 10px rgba(0, 210, 255, 0.4);
+  border-width: 2px;
+}
+.back-mini-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.back-mini-animated {
+  width: 100%;
+  height: 100%;
+  transform: scale(0.4);
 }
 
 .deck-editor-page {

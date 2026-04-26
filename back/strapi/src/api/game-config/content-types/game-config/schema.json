@@ -163,6 +163,11 @@
             "type": "relation",
             "relation": "oneToOne",
             "target": "api::card-frame.card-frame"
+        },
+        "defaultCardBack": {
+            "type": "relation",
+            "relation": "oneToOne",
+            "target": "api::card-back.card-back"
         }
     }
 }
