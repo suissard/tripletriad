@@ -1,35 +1,44 @@
 <template>
   <div class="player-hand" :class="{ 'is-disabled': state.turn !== 'player' || state.busy }">
-    <TransitionGroup name="hand-card" tag="div" class="hand-cards">
-      <div
-        v-for="(card, index) in state.pHand"
-        :key="card.id"
-        class="hand-card-slot"
-        :class="{
-          'is-selected': state.selectedCardIndex === index,
-          'is-dragging-id': draggingCardId === card.id,
-          'is-placing': card.isPlacing
-        }"
-        @pointerdown="onPointerDown($event, index, card.id)"
-      >
-        <TripleTriadCard
-          :card="card"
-          :flat="false"
-          size="md"
-          borderColor="#00d2ff"
-          :disableZoom="false"
-          :dimOnHover="false"
-          :cardBack="state.pBack"
-          :isPremium="card.isPremium"
-          :showCraftingActions="false"
-          :cardFrame="state.pFrame"
-          :bonus="factionBonuses[card.factionCode] || 0"
-        />
+    
+    <ArchedFanContainer
+      :items="state.pHand"
+      :selected-index="state.selectedCardIndex"
+      :arc-size="0.06"
+      :radius="handRadius"
+      :hover-delta="0.005"
+      :arc-center="0.75"
+      vertical-offset="620%"
+      height="140px"
+      item-class="hand-card-slot"
+      @click="onCardClick"
+      @pointerdown="onPointerDownFromFan"
+    >
+      <template #default="{ item: card, index }">
+        <div 
+          class="card-wrapper"
+          :class="{
+            'is-dragging-id': draggingCardId === card.id,
+            'is-placing': card.isPlacing
+          }"
+        >
+          <TripleTriadCard
+            :card="card"
+            :flat="false"
+            size="md"
+            borderColor="#00d2ff"
+            :disableZoom="false"
+            :dimOnHover="false"
+            :cardBack="state.pBack"
+            :isPremium="card.isPremium"
+            :showCraftingActions="false"
+            :cardFrame="state.pFrame"
+            :bonus="factionBonuses[card.factionCode] || 0"
+          />
+        </div>
+      </template>
+    </ArchedFanContainer>
 
-      </div>
-    </TransitionGroup>
-
-    <!-- Turn indicator -->
     <!-- Turn indicator & Deck count -->
     <div class="hand-footer" v-if="state.gameState === 'playing'">
       <div class="turn-indicator">
@@ -73,10 +82,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onUnmounted } from 'vue';
 import { state, factionBonuses } from '../game/state.js';
 import { selectCard, placeCard } from '../game/game-actions.js';
 import TripleTriadCard from './TripleTriadCard.vue';
+import ArchedFanContainer from './ui/ArchedFanContainer.vue';
 
 const draggingIndex = ref(null);
 const draggingCardId = ref(null);
@@ -88,21 +98,30 @@ const hasMoved = ref(false);
 let originalRect = null;
 let pointerOffset = { x: 0, y: 0 };
 
+const handRadius = computed(() => {
+    // Even flatter radius
+    return '800px';
+});
+
 function getDraggingCard() {
     if (draggingCardId.value === null) return null;
     return state.pHand.find(c => c.id === draggingCardId.value);
 }
 
-function onPointerDown(event, index, cardId) {
+function onCardClick({ index }) {
+    if (!hasMoved.value) {
+        selectCard(index);
+    }
+}
+
+function onPointerDownFromFan({ event, item: card, index }) {
   if (state.turn !== 'player' || state.busy) return;
 
-  // Prevent default to avoid selection issues and native drag behavior
   event.preventDefault();
 
   const el = event.currentTarget;
   originalRect = el.getBoundingClientRect();
 
-  // Calculate offset of pointer relative to the top-left of the card
   pointerOffset = {
     x: event.clientX - originalRect.left,
     y: event.clientY - originalRect.top
@@ -112,19 +131,15 @@ function onPointerDown(event, index, cardId) {
   hasMoved.value = false;
   isSnappingBack.value = false;
 
-  // Set initial position of the ghost
   dragPos.value = {
     x: event.clientX - pointerOffset.x,
     y: event.clientY - pointerOffset.y
   };
 
   draggingIndex.value = index;
-  draggingCardId.value = cardId;
-
-  // Set selectedCardIndex immediately so capture preview activates during drag
+  draggingCardId.value = card.id;
   state.selectedCardIndex = index;
 
-  // Add global listeners
   document.addEventListener('pointermove', onPointerMove, { passive: false });
   document.addEventListener('pointerup', onPointerUp);
   document.addEventListener('pointercancel', onPointerCancel);
@@ -132,14 +147,11 @@ function onPointerDown(event, index, cardId) {
 
 function onPointerMove(event) {
   if (draggingCardId.value === null) return;
-
-  // Prevent scrolling on touch devices while dragging
   event.preventDefault();
 
   const dx = event.clientX - startPos.value.x;
   const dy = event.clientY - startPos.value.y;
 
-  // Small threshold to distinguish a click from a drag
   if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
     hasMoved.value = true;
   }
@@ -149,7 +161,6 @@ function onPointerMove(event) {
     y: event.clientY - pointerOffset.y
   };
   
-  // Track hovered board slot
   if (hasMoved.value) {
     const elementsUnderPointer = document.elementsFromPoint(event.clientX, event.clientY);
     const boardSlot = elementsUnderPointer.find(el => el.classList && el.classList.contains('board-slot'));
@@ -176,25 +187,13 @@ async function onPointerUp(event) {
   if (draggingCardId.value === null) return;
 
   if (!hasMoved.value) {
-    // Treat as a click
-    selectCard(draggingIndex.value);
     draggingIndex.value = null;
-    draggingCardId.value = null; // Fix: Hide ghost on click
-
-    // Explicitly hide the ghost to avoid visual glitch during click
-    const ghostEl = document.querySelector('.drag-ghost');
-    if (ghostEl) {
-        ghostEl.style.display = 'none';
-    }
+    draggingCardId.value = null;
     return;
   }
 
-  // Find the drop target
-  // Hide ghost temporarily to let elementFromPoint see underneath
   const ghostEl = document.querySelector('.drag-ghost');
-  if (ghostEl) {
-      ghostEl.style.pointerEvents = 'none';
-  }
+  if (ghostEl) ghostEl.style.pointerEvents = 'none';
 
   const elementsUnderPointer = document.elementsFromPoint(event.clientX, event.clientY);
   const boardSlot = elementsUnderPointer.find(el => el.classList && el.classList.contains('board-slot'));
@@ -203,32 +202,25 @@ async function onPointerUp(event) {
     const slotIndexStr = boardSlot.getAttribute('data-slot-index');
     if (slotIndexStr !== null) {
       const slotIndex = parseInt(slotIndexStr, 10);
-
-      // Select the card first so placeCard knows which one to place
       state.selectedCardIndex = draggingIndex.value;
-
-      // Attempt to place
       if (state.board[slotIndex] === null) {
           const p = placeCard(slotIndex);
           draggingIndex.value = null;
-          draggingCardId.value = null; // Hide ghost immediately
+          draggingCardId.value = null;
           await p;
-          return; // Success
+          return;
       }
     }
   }
 
-  // Ensure the card is selected even if dropped outside, 
-  // so the player can then just click a slot (click-to-place)
   if (state.selectedCardIndex !== draggingIndex.value) {
     selectCard(draggingIndex.value);
   }
 
-  // Snap back if dropped outside valid slot or slot was occupied
   snapBack();
 }
 
-function onPointerCancel(event) {
+function onPointerCancel() {
   state.hoveredSlotIndex = null;
   document.removeEventListener('pointermove', onPointerMove);
   document.removeEventListener('pointerup', onPointerUp);
@@ -237,10 +229,6 @@ function onPointerCancel(event) {
   if (draggingCardId.value !== null && hasMoved.value) {
       snapBack();
   } else {
-      // Clear preview if cancelled without selecting
-      if (state.selectedCardIndex === draggingIndex.value) {
-          state.selectedCardIndex = null;
-      }
       draggingIndex.value = null;
       draggingCardId.value = null;
   }
@@ -248,7 +236,6 @@ function onPointerCancel(event) {
 
 function snapBack() {
     isSnappingBack.value = true;
-    // Animate back to original rectangle position
     dragPos.value = {
         x: originalRect.left,
         y: originalRect.top
@@ -276,14 +263,16 @@ onUnmounted(() => {
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  padding: 12px 16px;
+  padding: 24px 32px;
   background: rgba(0, 0, 0, 0.4);
-  border-radius: 16px;
+  border-radius: 24px;
   border: 1px solid rgba(0, 210, 255, 0.15);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
   transition: opacity 0.3s;
-  /* Prevent touch actions like zooming/panning on the hand container */
   touch-action: none;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .player-hand.is-disabled {
@@ -293,66 +282,27 @@ onUnmounted(() => {
 
 @media (max-width: 900px) {
   .player-hand {
-    padding: 6px 8px;
+    padding: 12px;
     gap: 4px;
-    border-radius: 10px;
-    width: 100%;
+    border-radius: 16px;
   }
 }
 
-.hand-cards {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  align-items: center;
-}
-
-@media (max-width: 900px) {
-  .hand-cards {
-    gap: 4px;
-  }
-}
-
-.hand-card-slot {
-  position: relative;
-  cursor: grab;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+:deep(.hand-card-slot) {
+  width: clamp(90px, 12vw, 130px);
+  aspect-ratio: 4/6;
   border-radius: 10px;
-  /* Ensure pointers work properly */
-  touch-action: none;
-  user-select: none;
-}
-
-.hand-card-slot:active {
-  cursor: grabbing;
-}
-
-@media (max-width: 900px) {
-  .hand-card-slot :deep(.tt-card) {
-    transform: scale(0.85);
-  }
-}
-
-.hand-card-slot:hover {
-  transform: translateY(-8px) scale(1.05);
-  z-index: 5;
-}
-
-.hand-card-slot.is-selected {
-  transform: translateY(-16px) scale(1.08);
-  z-index: 10;
 }
 
 /* Dim the original card while it's being dragged via the ghost */
-.hand-card-slot.is-dragging-id,
-.hand-card-slot.is-placing {
+.card-wrapper.is-dragging-id,
+.card-wrapper.is-placing {
   opacity: 0;
   pointer-events: none;
-  transform: none !important;
   transition: opacity 0.1s;
 }
 
-.hand-card-slot.is-selected::after {
+:deep(.hand-card-slot.is-selected)::after {
   content: '';
   position: absolute;
   inset: -4px;
@@ -364,13 +314,12 @@ onUnmounted(() => {
   z-index: -1;
 }
 
-
 .hand-footer {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 4px;
+  margin-top: 12px;
   padding: 0 4px;
 }
 
@@ -415,30 +364,6 @@ onUnmounted(() => {
   color: #888;
 }
 
-/* Card enter/leave transitions */
-.hand-card-enter-active {
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.hand-card-leave-active {
-  transition: all 0.3s ease-in;
-  position: absolute;
-}
-
-.hand-card-enter-from {
-  opacity: 0;
-  transform: translateX(40px) scale(0.5);
-}
-
-.hand-card-leave-to {
-  opacity: 0;
-  transform: translateY(-30px) scale(0.8);
-}
-
-.hand-card-move {
-  transition: transform 0.4s ease;
-}
-
 @keyframes selected-pulse {
   0%   { box-shadow: 0 0 20px rgba(0, 210, 255, 0.5), 0 0 40px rgba(0, 210, 255, 0.2); }
   50%  { box-shadow: 0 0 30px rgba(0, 210, 255, 0.8), 0 0 60px rgba(0, 210, 255, 0.3); }
@@ -453,10 +378,8 @@ onUnmounted(() => {
   top: 0;
   left: 0;
   z-index: 9999;
-  pointer-events: none; /* Let pointer events pass through to find drop target */
+  pointer-events: none;
   will-change: transform;
-  /* Same size as regular card */
-  /* Remove scaling from ghost itself if it's applied in transform, or let transform handle it */
   transition: filter 0.2s ease, opacity 0.2s ease;
   opacity: 0.8;
 }
@@ -465,9 +388,6 @@ onUnmounted(() => {
   opacity: 1;
 }
 
-/* Important: Make sure the ghost renders exactly like a hand card.
-   We reuse TripleTriadCard inside it. If we need scale corrections for mobile,
-   we handle it in the style binding or CSS. */
 @media (max-width: 900px) {
   .drag-ghost :deep(.tt-card) {
     transform: scale(0.85);

@@ -42,20 +42,28 @@
     </div>
 
     <!-- 2. Reveal State (Cards Fan) -->
-    <div v-if="status === 'revealing'" class="relative z-10 w-full h-[600px] flex items-center justify-center overflow-visible select-none animate-fade-in">
-      <div class="relative w-full max-w-6xl h-full flex items-center justify-center">
+    <ArchedFanContainer
+      v-if="status === 'revealing'"
+      :items="cardsWithState"
+      :selected-index="focusedCardIndex"
+      :arc-size="fanArcSize"
+      :radius="fanRadius"
+      :hover-delta="0.006"
+      :arc-center="0.75"
+      vertical-offset="120%"
+      height="auto"
+      class="flex-1 z-10 select-none animate-fade-in"
+      item-class="reveal-card-wrapper"
+      @click="({ index }) => handleCardClick(index)"
+    >
+      <template #default="{ item: card, index }">
         <div 
-          v-for="(card, index) in cardsWithState" 
-          :key="'drawn-'+index"
-          class="absolute transition-all duration-700 ease-out cursor-pointer reveal-card-wrapper"
-          :class="[
-            getFanClass(index),
-            { 'premium-reveal-effect': showPremiumEffect[index] }
-          ]"
-          :style="getFanStyle(index)"
-          @click="handleCardClick(index)"
-          @mouseenter="hoveredCardIndex = index"
-          @mouseleave="hoveredCardIndex = null"
+            class="card-render-wrapper"
+            :class="{ 
+              'premium-reveal-effect': showPremiumEffect[index],
+              'entrance-anim': !entranceFinished
+            }"
+            :style="{ transitionDelay: (!entranceFinished) ? `${index * 120}ms` : '0ms' }"
         >
           <TripleTriadCard
             :card="card"
@@ -64,12 +72,12 @@
             :interactive="false"
             :isNew="card.isNew"
             :revealShine="showPremiumEffect[index]"
-            :dimOnHover="true"
+            :dimOnHover="false"
             class="shadow-[0_30px_60px_rgba(0,0,0,0.8)]"
           />
         </div>
-      </div>
-    </div>
+      </template>
+    </ArchedFanContainer>
 
     <!-- 3. Actions Footer -->
     <div v-if="status === 'revealing'" class="absolute bottom-16 left-0 right-0 z-[5200] flex justify-center gap-8 animate-fade-in">
@@ -126,13 +134,14 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+import { ref, computed, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import { useUserStore } from '../stores/userStore';
 import { normalizeCard } from '../utils/cardUtils.js';
 import strapiService from '../api/strapi.js';
 import TripleTriadCard from '../components/TripleTriadCard.vue';
 import AppButton from '../components/ui/AppButton.vue';
+import ArchedFanContainer from '../components/ui/ArchedFanContainer.vue';
 
 const props = defineProps({
   collection: String,
@@ -140,7 +149,6 @@ const props = defineProps({
 });
 
 const router = useRouter();
-const route = useRoute();
 const userStore = useUserStore();
 
 // --- Computed ---
@@ -159,17 +167,26 @@ const boosterCount = computed(() => {
 
 const hasMoreBoosters = computed(() => boosterCount.value > 0);
 
+const fanRadius = computed(() => {
+    if (window.innerWidth < 900) return '40vh';
+    return 'clamp(350px, 80vh, 1000px)';
+});
+
 // --- Local State ---
-const status = ref('opening'); // opening, revealing, error
+const status = ref('opening'); 
 const isShaking = ref(false);
 const error = ref(null);
 const drawnCards = ref([]);
 const isFlipped = ref([]);
 const showPremiumEffect = ref([]);
 const loadingText = ref('Préparation...');
-const hoveredCardIndex = ref(null);
 const focusedCardIndex = ref(null);
 const entranceFinished = ref(false);
+
+const fanArcSize = computed(() => {
+    // Expand the fan slightly once all cards are revealed
+    return allCardsRevealed.value ? 0.28 : 0.22;
+});
 
 const cardsWithState = computed(() => {
   return drawnCards.value.map((c, i) => ({
@@ -182,16 +199,13 @@ const allCardsRevealed = computed(() => {
   return isFlipped.value.length > 0 && isFlipped.value.every(v => v);
 });
 
-// --- Lifecycle ---
 onMounted(() => {
-  // Ensure we have collections loaded
   if (userStore.collections.length === 0) {
     userStore.fetchCollections();
   }
   startOpening();
 });
 
-// --- Methods ---
 const handleClose = () => {
   router.push('/boutique');
 };
@@ -213,7 +227,6 @@ const resetLocalState = () => {
   isFlipped.value = [];
   showPremiumEffect.value = [];
   loadingText.value = 'Ouverture en cours...';
-  hoveredCardIndex.value = null;
   focusedCardIndex.value = null;
   entranceFinished.value = false;
 };
@@ -228,51 +241,34 @@ const startOpening = async () => {
 
   try {
     const data = await strapiService.request('POST', '/booster/open', {
-      body: { 
-        isPremium: isPremium.value,
-        collection: collectionCode.value 
-      }
+      body: { isPremium: isPremium.value, collection: collectionCode.value }
     });
 
-    if (data.error) {
-      throw new Error(data.error.message || "Erreur lors de l'ouverture.");
-    }
+    if (data.error) throw new Error(data.error.message || "Erreur.");
     
-    // Process Cards
     const processedCards = (data.cards || []).map(c => {
       const isPremiumCard = !!c.isDrawnPremium;
       const isNew = !previousCollection.some(ec => ec.cardId === c.id && ec.isPremium === isPremiumCard);
       const normalized = normalizeCard(c);
       return {
         ...normalized,
-        drawnRarity: c.drawnRarity,
         isDrawnPremium: isPremiumCard,
         isNew: isNew,
-        // Calculate rarity score based on sum of stats as defined in AGENTS.md
         rarityScore: normalized.top + normalized.right + normalized.bottom + normalized.left
       };
     });
 
-    // Sort by rarityScore: common (lowest sum) to rare (highest sum)
-    // Tie-breaker: Premium cards are placed to the right of non-premium cards with same stats
     processedCards.sort((a, b) => {
-      if (a.rarityScore !== b.rarityScore) {
-        return a.rarityScore - b.rarityScore;
-      }
+      if (a.rarityScore !== b.rarityScore) return a.rarityScore - b.rarityScore;
       return (a.isDrawnPremium ? 1 : 0) - (b.isDrawnPremium ? 1 : 0);
     });
 
     drawnCards.value = processedCards;
-
-    if (!drawnCards.value.length) throw new Error("Aucune carte trouvée dans le booster.");
-
-    // Update User Store
     userStore.handleBoosterResults(data);
 
     isFlipped.value = new Array(drawnCards.value.length).fill(false);
     showPremiumEffect.value = new Array(drawnCards.value.length).fill(false);
 
-    // Animation Sequence
     const elapsed = Date.now() - startTime;
     const remainingTime = Math.max(0, 1500 - elapsed);
 
@@ -281,11 +277,7 @@ const startOpening = async () => {
       setTimeout(() => {
         isShaking.value = false;
         status.value = 'revealing';
-        // Mark entrance as finished after animations (wait for the last card + duration)
-        setTimeout(() => {
-          entranceFinished.value = true;
-          console.log("[PackOpening] Entrance finished, interactivity now instant.");
-        }, 2000);
+        setTimeout(() => { entranceFinished.value = true; }, 2000);
       }, 300);
     }, remainingTime);
 
@@ -308,12 +300,9 @@ const triggerExplosion = () => {
 const createParticles = () => {
   const container = document.getElementById('opening-particles');
   if (!container) return;
-  
   const colors = isPremium.value ? ['#3b82f6', '#60a5fa', '#ffffff', '#fbbf24'] : ['#f59e0b', '#fbbf24', '#ffffff', '#78350f'];
-  
   for (let i = 0; i < 80; i++) {
     const particle = document.createElement('div');
-    particle.className = 'particle';
     const size = Math.random() * 10 + 4;
     particle.style.width = `${size}px`;
     particle.style.height = `${size}px`;
@@ -324,92 +313,37 @@ const createParticles = () => {
     particle.style.borderRadius = '50%';
     particle.style.pointerEvents = 'none';
     particle.style.boxShadow = `0 0 10px ${particle.style.background}`;
-    
     const angle = Math.random() * Math.PI * 2;
     const distance = Math.random() * 600 + 200;
     const tx = Math.cos(angle) * distance;
     const ty = Math.sin(angle) * distance;
-    
     particle.animate([
       { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
       { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0)`, opacity: 0 }
-    ], {
-      duration: 1000 + Math.random() * 800,
-      easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-      fill: 'forwards'
-    });
-    
+    ], { duration: 1000 + Math.random() * 800, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' });
     container.appendChild(particle);
     setTimeout(() => particle.remove(), 2000);
   }
 };
 
-// --- Fan Layout Helpers ---
-const getFanClass = (index) => `fan-card-${index}`;
-
-const getFanStyle = (index) => {
-  const isFocused = focusedCardIndex.value === index;
-  const isHovered = hoveredCardIndex.value === index;
-  const isRevealed = isFlipped.value[index];
-
-  // Desktop offsets for 5 cards
-  const xOffsets = [-350, -175, 0, 175, 350];
-  const yOffsets = [60, 20, 0, 20, 60];
-  const rotations = [-25, -12, 0, 12, 25];
-
-  if (isFocused) {
-    return {
-      transform: `translate(0px, -150px) scale(1.4) rotate(0deg)`,
-      zIndex: 7000,
-      transitionDuration: '500ms'
-    };
-  }
-
-  if (isHovered && isRevealed) {
-    return {
-      transform: `translate(${xOffsets[index] || 0}px, ${(yOffsets[index] || 0) - 80}px) scale(1.2) rotate(0deg)`,
-      zIndex: 6500,
-      transitionDuration: '250ms'
-    };
-  }
-  
-  const delay = index * 120;
-  
-  return {
-    transform: `translate(${xOffsets[index] || 0}px, ${yOffsets[index] || 0}px) rotate(${rotations[index] || 0}deg)`,
-    transitionDelay: (!entranceFinished.value && status.value === 'revealing') ? `${delay}ms` : '0ms',
-    zIndex: 5100 + index
-  };
-};
-
 const handleCardClick = (index) => {
-  // If not revealed, reveal it (identical to automatic mode, no movement)
   if (!isFlipped.value[index]) {
     isFlipped.value[index] = true;
-    focusedCardIndex.value = null; // Clear focus when revealing new cards
-    
-    const isPremiumCard = drawnCards.value[index].isDrawnPremium;
-    if (isPremiumCard) {
+    focusedCardIndex.value = null;
+    if (drawnCards.value[index].isDrawnPremium) {
       showPremiumEffect.value[index] = true;
       setTimeout(() => { showPremiumEffect.value[index] = false; }, 2000);
     }
     return;
   }
-  
-  // If already revealed, handle focus/zoom
-  if (focusedCardIndex.value === index) {
-    focusedCardIndex.value = null;
-  } else {
-    focusedCardIndex.value = index;
-  }
+  focusedCardIndex.value = (focusedCardIndex.value === index) ? null : index;
 };
 
 const revealAllCards = async () => {
   for (let i = 0; i < drawnCards.value.length; i++) {
     if (!isFlipped.value[i]) {
-      const isPremiumCard = drawnCards.value[i].isDrawnPremium;
       isFlipped.value[i] = true;
-      if (isPremiumCard) {
+      if (drawnCards.value[i].isDrawnPremium) {
         showPremiumEffect.value[i] = true;
         setTimeout(() => { showPremiumEffect.value[i] = false; }, 1500);
       }
@@ -420,8 +354,17 @@ const revealAllCards = async () => {
 </script>
 
 <style scoped>
-.page-background {
-  background-color: #050505;
+.page-background { background-color: #050505; }
+
+:deep(.reveal-card-wrapper) {
+  width: clamp(100px, 12vw, 180px);
+  aspect-ratio: 4/6;
+}
+
+:deep(.reveal-card-wrapper.is-selected) {
+  offset-path: none;
+  transform: translateY(-120px) scale(1.3);
+  z-index: 5000 !important;
 }
 
 .glass-panel {
@@ -495,18 +438,12 @@ const revealAllCards = async () => {
   animation: fade-in 0.8s forwards cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.reveal-card-wrapper {
-  will-change: transform;
+.entrance-anim {
+  animation: card-entrance 1s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
 }
 
-/* Mobile Adjustments */
-@media (max-width: 640px) {
-  .relative.h-\[600px\] {
-    height: 450px;
-    transform: scale(0.65);
-  }
-  .pack-container {
-    transform: scale(0.75);
-  }
+@keyframes card-entrance {
+  from { opacity: 0; transform: scale(0) translateY(100px) rotate(20deg); }
+  to { opacity: 1; transform: scale(1) translateY(0) rotate(0); }
 }
 </style>
