@@ -553,7 +553,7 @@ export const useUserStore = defineStore('user', {
 
       try {
         const result = await strapiService.find('decks', {
-          populate: ['cards', 'cardFrame']
+          populate: ['cards', 'cardFrame', 'cardBack']
         });
         const items = this.toArray(result);
         this.userDecks = items.map(item => ({
@@ -561,7 +561,7 @@ export const useUserStore = defineStore('user', {
           documentId: item.documentId,
           name: item.name,
           cover: item.cover,
-          cardBack: item.cardBack,
+          cardBack: item.cardBack?.documentId || item.cardBack?.id || null,
           cardFrame: item.cardFrame?.documentId || item.cardFrame?.id || null,
           cards: (item.cards || []).map(c => c.id)
         }));
@@ -876,7 +876,7 @@ export const useUserStore = defineStore('user', {
             documentId: savedItem.documentId,
             name: savedItem.name,
             cover: savedItem.cover,
-            cardBack: savedItem.cardBack,
+            cardBack: savedItem.cardBack?.documentId || savedItem.cardBack?.id || deck.cardBack || null,
             cardFrame: savedItem.cardFrame?.documentId || savedItem.cardFrame?.id || deck.cardFrame || null,
             cards: [...deck.cards] // Use current IDs to maintain UI state
           };
