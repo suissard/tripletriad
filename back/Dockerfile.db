@@ -1,0 +1,6 @@
+FROM postgres:16-alpine
+
+# Use environment variables configured in docker-compose.yml
+# to initialize the database (POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD).
+# No additional setup is required for now.
+EXPOSE 5432
