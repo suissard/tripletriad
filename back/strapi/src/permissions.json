@@ -154,6 +154,13 @@
     "plugin::users-permissions.user.find": "admin",
     "plugin::users-permissions.user.findOne": "admin",
     "plugin::users-permissions.user.update": "admin",
-    "plugin::users-permissions.user.updateMe": "authenticated"
+    "plugin::users-permissions.user.updateMe": "authenticated",
+    "api::guild.guild.find": "authenticated",
+    "api::guild.guild.findOne": "authenticated",
+    "api::guild.guild.join": "authenticated",
+    "api::guild.guild.leave": "authenticated",
+    "api::chat-message.chat-message.find": "authenticated",
+    "api::chat-message.chat-message.sendMessage": "authenticated",
+    "api::chat-message.chat-message.getMessages": "authenticated"
   }
 }

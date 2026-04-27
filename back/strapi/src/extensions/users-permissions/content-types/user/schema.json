@@ -9,8 +9,7 @@
     "displayName": "User"
   },
   "options": {
-    "draftAndPublish": false,
-    "timestamps": true
+    "draftAndPublish": false
   },
   "attributes": {
     "username": {
@@ -66,15 +65,11 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "premiumMode": {
-      "type": "string",
-      "default": "random",
-      "configurable": true
-    },
-    "holoFineness": {
-      "type": "decimal",
-      "default": 0.05,
-      "configurable": true
+    "collection": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::collection.collection",
+      "mappedBy": "user"
     },
     "wallet": {
       "type": "relation",
@@ -82,16 +77,59 @@
       "target": "api::wallet.wallet",
       "mappedBy": "user"
     },
-    "avatar_card": {
+    "sentFriendships": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::card.card"
+      "relation": "oneToMany",
+      "target": "api::friendship.friendship",
+      "mappedBy": "requester"
     },
-    "storyProgresses": {
+    "receivedFriendships": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::friendship.friendship",
+      "mappedBy": "receiver"
+    },
+    "playerEventLogs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::player-event-log.player-event-log",
+      "mappedBy": "user"
+    },
+    "playerQuests": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::player-quest.player-quest",
+      "mappedBy": "user"
+    },
+    "weeklyQuestProgresses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::weekly-quest-progress.weekly-quest-progress",
+      "mappedBy": "user"
+    },
+    "playerStoryProgresses": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::player-story-progress.player-story-progress",
       "mappedBy": "user"
+    },
+    "decks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::deck.deck",
+      "mappedBy": "user"
+    },
+    "matchHistoryHost": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::match.match",
+      "mappedBy": "hostUser"
+    },
+    "matchHistoryGuest": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::match.match",
+      "mappedBy": "guestUser"
     },
     "unlockedCardFrames": {
       "type": "relation",
@@ -100,7 +138,7 @@
     },
     "defaultCardFrame": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::card-frame.card-frame"
     },
     "unlockedCardBacks": {
@@ -110,8 +148,31 @@
     },
     "defaultCardBack": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::card-back.card-back"
+    },
+    "avatar_card": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::card.card"
+    },
+    "guilds": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::guild.guild",
+      "mappedBy": "members"
+    },
+    "sentMessages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::chat-message.chat-message",
+      "mappedBy": "sender"
+    },
+    "receivedMessages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::chat-message.chat-message",
+      "mappedBy": "receiver"
     }
   }
 }

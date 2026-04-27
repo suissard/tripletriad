@@ -12,6 +12,7 @@
     <NotificationToast />
     <ConfirmationModal />
     <FpsCounter />
+    <ChatWidget />
   </template>
 </template>
 
@@ -28,6 +29,7 @@ import { initNotificationManager } from "./game/notificationManager.js";
 import strapiService from './api/strapi.js';
 import InitialLoader from './components/InitialLoader.vue';
 import LeftDrawer from './components/LeftDrawer.vue';
+import ChatWidget from './components/ChatWidget.vue';
 import FpsCounter from './components/ui/FpsCounter.vue';
 
 console.warn('--- TRIPLE TRIAD: FRONTEND LOADED (VERSION: VUE_UI_REVAMP) ---');
