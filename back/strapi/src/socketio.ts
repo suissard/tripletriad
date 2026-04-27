@@ -119,6 +119,23 @@ export function initSocketIO(strapi: any) {
     /**
      * Handle disconnection.
      */
+
+    socket.on("join-chat-room", (payload) => {
+      const { room } = payload;
+      if (room) {
+        socket.join(room);
+        strapi.log.info(`💬 Socket ${socket.id} joined chat room: ${room}`);
+      }
+    });
+
+    socket.on("leave-chat-room", (payload) => {
+      const { room } = payload;
+      if (room) {
+        socket.leave(room);
+        strapi.log.info(`👋 Socket ${socket.id} left chat room: ${room}`);
+      }
+    });
+
     socket.on("disconnect", () => {
       strapi.log.info(`❌ Socket.IO: Client disconnected (${socket.id})`);
 

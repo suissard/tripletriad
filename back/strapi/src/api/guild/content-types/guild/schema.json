@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "guilds",
+  "info": {
+    "singularName": "guild",
+    "pluralName": "guilds",
+    "displayName": "Guild",
+    "description": "General discussion channels where users can join"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "members": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "guilds"
+    }
+  }
+}
