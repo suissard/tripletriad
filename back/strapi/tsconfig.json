@@ -8,7 +8,9 @@
   },
   "include": [
     "./",
-    "src/**/*.ts"
+    "./**/*.ts",
+    "./**/*.js",
+    "src/**/*.json"
   ],
   "exclude": [
     "node_modules/",
@@ -16,6 +18,10 @@
     "dist/",
     ".cache/",
     ".tmp/",
-    "src/api/friendship/**/*"
+    ".strapi/",
+    "src/admin/",
+    "**/*.test.*",
+    "src/plugins/**",
+    "src/shared/data/**/*"
   ]
 }

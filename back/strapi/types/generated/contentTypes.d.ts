@@ -635,6 +635,44 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiChatMessageChatMessage extends Struct.CollectionTypeSchema {
+  collectionName: 'chat_messages';
+  info: {
+    description: 'Messages sent in DMs or Guilds';
+    displayName: 'Chat Message';
+    pluralName: 'chat-messages';
+    singularName: 'chat-message';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    content: Schema.Attribute.Text & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    guild: Schema.Attribute.Relation<'manyToOne', 'api::guild.guild'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::chat-message.chat-message'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    receiver: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    sender: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCollectionCollection extends Struct.CollectionTypeSchema {
   collectionName: 'collections';
   info: {
@@ -791,6 +829,51 @@ export interface ApiFoilEffectFoilEffect extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiFriendshipFriendship extends Struct.CollectionTypeSchema {
+  collectionName: 'friendships';
+  info: {
+    description: 'Represents friend requests and established friendships between users';
+    displayName: 'Friendship';
+    pluralName: 'friendships';
+    singularName: 'friendship';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    blockedBy: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::friendship.friendship'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    receiver: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    requester: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    status: Schema.Attribute.Enumeration<
+      ['pending', 'accepted', 'rejected', 'blocked']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'pending'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1036,6 +1119,39 @@ export interface ApiGameHistoryGameHistory extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     winner: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ApiGuildGuild extends Struct.CollectionTypeSchema {
+  collectionName: 'guilds';
+  info: {
+    description: 'General discussion channels where users can join';
+    displayName: 'Guild';
+    pluralName: 'guilds';
+    singularName: 'guild';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::guild.guild'> &
+      Schema.Attribute.Private;
+    members: Schema.Attribute.Relation<
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -1985,22 +2101,26 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     avatar_card: Schema.Attribute.Relation<'oneToOne', 'api::card.card'>;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    collection: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::collection.collection'
+    >;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    decks: Schema.Attribute.Relation<'oneToMany', 'api::deck.deck'>;
     defaultCardBack: Schema.Attribute.Relation<
-      'oneToOne',
+      'manyToOne',
       'api::card-back.card-back'
     >;
     defaultCardFrame: Schema.Attribute.Relation<
-      'oneToOne',
+      'manyToOne',
       'api::card-frame.card-frame'
     >;
     email: Schema.Attribute.Email &
@@ -2008,33 +2128,60 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
-    holoFineness: Schema.Attribute.Decimal &
-      Schema.Attribute.Configurable &
-      Schema.Attribute.DefaultTo<0.05>;
+    guilds: Schema.Attribute.Relation<'manyToMany', 'api::guild.guild'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'plugin::users-permissions.user'
     > &
       Schema.Attribute.Private;
+    matchHistoryGuest: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::match.match'
+    >;
+    matchHistoryHost: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::match.match'
+    >;
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
-    premiumMode: Schema.Attribute.String &
-      Schema.Attribute.Configurable &
-      Schema.Attribute.DefaultTo<'random'>;
+    playerEventLogs: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::player-event-log.player-event-log'
+    >;
+    playerQuests: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::player-quest.player-quest'
+    >;
+    playerStoryProgresses: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::player-story-progress.player-story-progress'
+    >;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    receivedFriendships: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::friendship.friendship'
+    >;
+    receivedMessages: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::chat-message.chat-message'
+    >;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
     role: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    storyProgresses: Schema.Attribute.Relation<
+    sentFriendships: Schema.Attribute.Relation<
       'oneToMany',
-      'api::player-story-progress.player-story-progress'
+      'api::friendship.friendship'
+    >;
+    sentMessages: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::chat-message.chat-message'
     >;
     unlockedCardBacks: Schema.Attribute.Relation<
       'manyToMany',
@@ -2054,6 +2201,10 @@ export interface PluginUsersPermissionsUser
         minLength: 3;
       }>;
     wallet: Schema.Attribute.Relation<'oneToOne', 'api::wallet.wallet'>;
+    weeklyQuestProgresses: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::weekly-quest-progress.weekly-quest-progress'
+    >;
   };
 }
 
@@ -2072,12 +2223,15 @@ declare module '@strapi/strapi' {
       'api::card-back.card-back': ApiCardBackCardBack;
       'api::card-frame.card-frame': ApiCardFrameCardFrame;
       'api::card.card': ApiCardCard;
+      'api::chat-message.chat-message': ApiChatMessageChatMessage;
       'api::collection.collection': ApiCollectionCollection;
       'api::deck.deck': ApiDeckDeck;
       'api::faction.faction': ApiFactionFaction;
       'api::foil-effect.foil-effect': ApiFoilEffectFoilEffect;
+      'api::friendship.friendship': ApiFriendshipFriendship;
       'api::game-config.game-config': ApiGameConfigGameConfig;
       'api::game-history.game-history': ApiGameHistoryGameHistory;
+      'api::guild.guild': ApiGuildGuild;
       'api::match.match': ApiMatchMatch;
       'api::player-event-log.player-event-log': ApiPlayerEventLogPlayerEventLog;
       'api::player-quest.player-quest': ApiPlayerQuestPlayerQuest;
