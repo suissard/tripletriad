@@ -1145,9 +1145,17 @@ export interface ApiGuildGuild extends Struct.CollectionTypeSchema {
       'manyToMany',
       'plugin::users-permissions.user'
     >;
+    moderators: Schema.Attribute.Relation<
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
+    owner: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -2143,6 +2151,11 @@ export interface PluginUsersPermissionsUser
       'oneToMany',
       'api::match.match'
     >;
+    moderatedGuilds: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::guild.guild'
+    >;
+    ownedGuilds: Schema.Attribute.Relation<'oneToMany', 'api::guild.guild'>;
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
       Schema.Attribute.SetMinMaxLength<{

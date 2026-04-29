@@ -141,7 +141,7 @@ class StrapiApi {
     }
 
     async getMe() {
-        const response = await this.strapiClient.fetch('/users/me?populate=unlockedCardFrames,defaultCardFrame,unlockedCardBacks,defaultCardBack,wallet,avatar_card,avatar_card.image,role');
+        const response = await this.strapiClient.fetch('/users/me');
         return await response.json();
     }
 
@@ -156,6 +156,14 @@ class StrapiApi {
     }
 
     async request(method, url, options = {}) {
+        let finalUrl = url;
+        if (options.params) {
+            const query = new URLSearchParams(options.params).toString();
+            if (query) {
+                finalUrl += (finalUrl.includes('?') ? '&' : '?') + query;
+            }
+        }
+
         const controller = new AbortController();
         const timeout = options.timeout || 10000;
         const timeoutId = setTimeout(() => controller.abort(), timeout);
@@ -175,12 +183,12 @@ class StrapiApi {
         }
 
         try {
-            const response = await this.strapiClient.fetch(url, fetchOptions);
+            const response = await this.strapiClient.fetch(finalUrl, fetchOptions);
             clearTimeout(timeoutId);
             
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
-                console.error(`[StrapiApi] Request failed (${response.status}): ${url}`, errorData);
+                console.error(`[StrapiApi] Request failed (${response.status}): ${finalUrl}`, errorData);
                 const error = new Error(errorData.error?.message || `Request failed with status ${response.status}`);
                 error.status = response.status;
                 error.data = errorData;
@@ -191,7 +199,7 @@ class StrapiApi {
         } catch (error) {
             clearTimeout(timeoutId);
             if (error.name === 'AbortError') {
-                console.error(`[StrapiApi] Request timed out (${timeout}ms): ${url}`);
+                console.error(`[StrapiApi] Request timed out (${timeout}ms): ${finalUrl}`);
                 return { error: { message: 'Request timed out' } };
             }
             throw error;
@@ -228,7 +236,8 @@ class StrapiApi {
 
     async getGameConfig(options = {}) {
         try {
-            const res = await this.request('GET', '/game-config?populate=defaultCardFrame,defaultCardBack', options);
+            // Strapi 5 population format (bracket notation) to avoid 400 ValidationError
+            const res = await this.request('GET', '/game-config?populate[0]=defaultCardFrame&populate[1]=defaultCardBack', options);
             // Handle Strapi 5 flattened format vs Strapi 4 attributes format
             if (res && res.data) {
                 return res.data.attributes ? { id: res.data.id, ...res.data.attributes } : res.data;

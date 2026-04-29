@@ -13,8 +13,8 @@ export const useFriendStore = defineStore('friendStore', () => {
         loading.value = true;
         error.value = null;
         try {
-            const response = await api.strapiClient.client.get('/friendships/me');
-            friendships.value = response.data.data;
+            const response = await api.request('GET', '/friendships/me');
+            friendships.value = response.data;
         } catch (err) {
             console.error('Error fetching friendships:', err);
             error.value = err.response?.data?.error?.message || 'Failed to fetch friends.';
@@ -27,8 +27,8 @@ export const useFriendStore = defineStore('friendStore', () => {
         loading.value = true;
         error.value = null;
         try {
-            const response = await api.strapiClient.client.post('/friendships/request', {
-                identifier
+            const response = await api.request('POST', '/friendships/request', {
+                body: { identifier }
             });
             await fetchFriendships(); // Refresh list
             return response.data;
@@ -44,7 +44,7 @@ export const useFriendStore = defineStore('friendStore', () => {
     const acceptRequest = async (friendshipId) => {
         loading.value = true;
         try {
-            await api.strapiClient.client.post(`/friendships/${friendshipId}/accept`);
+            await api.request('POST', `/friendships/${friendshipId}/accept`);
             await fetchFriendships();
         } catch (err) {
             console.error('Error accepting friend request:', err);
@@ -58,7 +58,7 @@ export const useFriendStore = defineStore('friendStore', () => {
     const rejectRequest = async (friendshipId) => {
         loading.value = true;
         try {
-            await api.strapiClient.client.post(`/friendships/${friendshipId}/reject`);
+            await api.request('POST', `/friendships/${friendshipId}/reject`);
             await fetchFriendships();
         } catch (err) {
             console.error('Error rejecting friend request:', err);
@@ -72,7 +72,7 @@ export const useFriendStore = defineStore('friendStore', () => {
     const removeFriend = async (friendshipId) => {
         loading.value = true;
         try {
-            await api.strapiClient.client.delete(`/friendships/${friendshipId}`);
+            await api.request('DELETE', `/friendships/${friendshipId}`);
             await fetchFriendships();
         } catch (err) {
             console.error('Error removing friend:', err);
@@ -86,8 +86,8 @@ export const useFriendStore = defineStore('friendStore', () => {
     const blockUser = async (targetUserId) => {
         loading.value = true;
         try {
-            await api.strapiClient.client.post('/friendships/block', {
-                targetUserId
+            await api.request('POST', '/friendships/block', {
+                body: { targetUserId }
             });
             await fetchFriendships();
         } catch (err) {

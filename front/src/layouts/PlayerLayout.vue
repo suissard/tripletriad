@@ -9,9 +9,6 @@
 
     <!-- Mobile Bottom Navigation -->
     <BottomMobileNav class="md:hidden" />
-
-    <!-- Friends System -->
-    <FriendsPanel />
   </div>
 </template>
 
@@ -19,7 +16,6 @@
 import TopNavbar from '../components/TopNavbar.vue';
 import RightDrawer from '../components/RightDrawer.vue';
 import BottomMobileNav from '../components/BottomMobileNav.vue';
-import FriendsPanel from '../components/friends/FriendsPanel.vue';
 </script>
 
 <style scoped>

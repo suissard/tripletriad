@@ -139,7 +139,7 @@ onMounted(async () => {
 
 const routes = [
   // --- AUTH ---
-  { group: 'Auth & Users', name: 'Get Current User', method: 'GET', path: '/users/me?populate=*', fields: [] },
+  { group: 'Auth & Users', name: 'Get Current User', method: 'GET', path: '/users/me', fields: [] },
   { group: 'Auth & Users', name: 'Login Local', method: 'POST', path: '/auth/local', fields: [
       { key: 'identifier', label: 'Email / Username', type: 'text', default: 'admin@gmail.com', required: true },
       { key: 'password', label: 'Password', type: 'text', default: 'Password123456789!', required: true }

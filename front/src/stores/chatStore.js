@@ -10,16 +10,40 @@ import { getStrapiUrl } from '../utils/url.js';
 export const useChatStore = defineStore('chatStore', () => {
     const userStore = useUserStore();
 
+    // --- STATE ---
     const activeTab = ref('guilds'); // 'friends' or 'guilds'
     const activeTargetId = ref(null); // The ID of the friend or guild
-
     const messages = ref({}); // Dictionary where keys are room strings ("guild_X" or "dm_1_2")
     const guilds = ref([]);
-
     const loading = ref(false);
     const widgetOpen = ref(false);
-
     let socket = null;
+
+    // --- HELPERS ---
+    // Determines the canonical room name based on targets
+    const getRoomName = (type, targetId) => {
+        if (type === 'guild') {
+            return `guild_${targetId}`;
+        } else {
+            const myId = userStore.user?.id || 1; // 1 fallback for mock
+            const smallerId = Math.min(myId, targetId);
+            const largerId = Math.max(myId, targetId);
+            return `dm_${smallerId}_${largerId}`;
+        }
+    };
+
+    // --- ACTIONS / FUNCTIONS ---
+    // Called by the SocketManager when a new message event is received
+    const receiveMessage = (msg) => {
+        const type = msg.guild ? 'guild' : 'dm';
+        const targetId = msg.guild ? msg.guild : (msg.sender.id === userStore.user?.id ? msg.receiver : msg.sender.id);
+        const roomName = getRoomName(type, targetId);
+
+        if (!messages.value[roomName]) messages.value[roomName] = [];
+        if (!messages.value[roomName].find(m => m.id === msg.id)) {
+             messages.value[roomName] = [...messages.value[roomName], msg];
+        }
+    };
 
     const initSocket = () => {
         if (socket || !userStore.strapiConnected) return;
@@ -38,53 +62,14 @@ export const useChatStore = defineStore('chatStore', () => {
         });
     };
 
-    // Watch for connection changes
-
-    watch(() => userStore.strapiConnected, (isConnected) => {
-        if (isConnected) {
-            initSocket();
-        }
-    }, { immediate: true });
-
-    // When switching rooms, we need to join them
-    watch(activeRoomName, (newRoom, oldRoom) => {
-        if (socket && socket.connected) {
-            if (oldRoom) socket.emit('leave-chat-room', { room: oldRoom });
-            if (newRoom) socket.emit('join-chat-room', { room: newRoom });
-        }
-    });
-
-
-    // Determines the canonical room name based on targets
-    const getRoomName = (type, targetId) => {
-        if (type === 'guild') {
-            return `guild_${targetId}`;
-        } else {
-            const myId = userStore.user?.id || 1; // 1 fallback for mock
-            const smallerId = Math.min(myId, targetId);
-            const largerId = Math.max(myId, targetId);
-            return `dm_${smallerId}_${largerId}`;
-        }
-    };
-
-    const activeRoomName = computed(() => {
-        if (!activeTargetId.value) return null;
-        return getRoomName(activeTab.value === 'guilds' ? 'guild' : 'dm', activeTargetId.value);
-    });
-
-    const activeMessages = computed(() => {
-        if (!activeRoomName.value) return [];
-        return messages.value[activeRoomName.value] || [];
-    });
-
     const fetchGuilds = async () => {
         if (!userStore.strapiConnected) {
             guilds.value = mockGuilds;
             return;
         }
         try {
-            const response = await api.strapiClient.client.get('/guilds');
-            guilds.value = response.data.data;
+            const response = await api.request('GET', '/guilds');
+            guilds.value = response.data;
         } catch (err) {
             console.error('Failed to fetch guilds', err);
         }
@@ -102,13 +87,64 @@ export const useChatStore = defineStore('chatStore', () => {
         }
 
         try {
-            const params = type === 'guild' ? { guildId: targetId } : { targetUserId: targetId };
-            const response = await api.strapiClient.client.get('/chat-messages', { params });
-            messages.value[roomName] = response.data.data;
+            const isGuild = type === 'guild' || type === 'guilds';
+            const params = isGuild ? { guildId: targetId } : { targetUserId: targetId };
+            const response = await api.request('GET', '/chat-messages', { params });
+            messages.value[roomName] = response.data;
         } catch (err) {
             console.error('Failed to fetch chat messages', err);
         } finally {
             loading.value = false;
+        }
+    };
+
+    const searchGuilds = async (query = '') => {
+        if (!userStore.strapiConnected) {
+            return mockGuilds.filter(g => g.name.toLowerCase().includes(query.toLowerCase()));
+        }
+        try {
+            const params = query ? { 'filters[name][$containsi]': query } : {};
+            const response = await api.request('GET', '/guilds', { params });
+            return response.data;
+        } catch (err) {
+            console.error('Failed to search guilds', err);
+            return [];
+        }
+    };
+
+    const joinGuild = async (guildId) => {
+        if (!userStore.strapiConnected) {
+            const guild = mockGuilds.find(g => g.id === guildId);
+            if (guild && !guilds.value.find(g => g.id === guildId)) {
+                guilds.value = [...guilds.value, guild];
+            }
+            return;
+        }
+        try {
+            await api.request('POST', `/guilds/${guildId}/join`);
+            await fetchGuilds();
+        } catch (err) {
+            console.error('Failed to join guild', err);
+            throw err;
+        }
+    };
+
+    const createGuild = async (name, description) => {
+        if (!userStore.strapiConnected) {
+            const newGuild = { id: Date.now(), name, description };
+            mockGuilds.push(newGuild);
+            guilds.value = [...mockGuilds];
+            return newGuild;
+        }
+        try {
+            const response = await api.request('POST', '/guilds', {
+                body: { data: { name, description } }
+            });
+            await fetchGuilds();
+            return response.data;
+        } catch (err) {
+            console.error('Failed to create guild', err);
+            throw err;
         }
     };
 
@@ -135,11 +171,13 @@ export const useChatStore = defineStore('chatStore', () => {
                 payload.receiverId = activeTargetId.value;
             }
 
-            const response = await api.strapiClient.client.post('/chat-messages', payload);
+            const response = await api.request('POST', '/chat-messages', {
+                body: payload
+            });
 
             // Add locally instantly, the socket will also broadcast it but we might skip double adding
             // For now let's just let the socket handle it, or add it instantly and handle dupes
-            const msg = response.data.data;
+            const msg = response.data;
             if (!messages.value[roomName]) messages.value[roomName] = [];
 
             // Basic dupe check
@@ -149,18 +187,6 @@ export const useChatStore = defineStore('chatStore', () => {
 
         } catch (err) {
             console.error('Failed to send message', err);
-        }
-    };
-
-    // Called by the SocketManager when a new message event is received
-    const receiveMessage = (msg) => {
-        const type = msg.guild ? 'guild' : 'dm';
-        const targetId = msg.guild ? msg.guild : (msg.sender.id === userStore.user?.id ? msg.receiver : msg.sender.id);
-        const roomName = getRoomName(type, targetId);
-
-        if (!messages.value[roomName]) messages.value[roomName] = [];
-        if (!messages.value[roomName].find(m => m.id === msg.id)) {
-             messages.value[roomName] = [...messages.value[roomName], msg];
         }
     };
 
@@ -177,6 +203,32 @@ export const useChatStore = defineStore('chatStore', () => {
         fetchMessages(type, id);
     };
 
+    // --- COMPUTED ---
+    const activeRoomName = computed(() => {
+        if (!activeTargetId.value) return null;
+        return getRoomName(activeTab.value === 'guilds' ? 'guild' : 'dm', activeTargetId.value);
+    });
+
+    const activeMessages = computed(() => {
+        if (!activeRoomName.value) return [];
+        return messages.value[activeRoomName.value] || [];
+    });
+
+    // --- WATCHERS ---
+    watch(() => userStore.strapiConnected, (isConnected) => {
+        if (isConnected) {
+            initSocket();
+        }
+    }, { immediate: true });
+
+    // When switching rooms, we need to join them
+    watch(activeRoomName, (newRoom, oldRoom) => {
+        if (socket && socket.connected) {
+            if (oldRoom) socket.emit('leave-chat-room', { room: oldRoom });
+            if (newRoom) socket.emit('join-chat-room', { room: newRoom });
+        }
+    });
+
     return {
         widgetOpen,
         activeTab,
@@ -187,6 +239,9 @@ export const useChatStore = defineStore('chatStore', () => {
         toggleWidget,
         selectTarget,
         fetchGuilds,
+        searchGuilds,
+        joinGuild,
+        createGuild,
         sendMessage,
         receiveMessage
     };

@@ -157,6 +157,7 @@
     "plugin::users-permissions.user.updateMe": "authenticated",
     "api::guild.guild.find": "authenticated",
     "api::guild.guild.findOne": "authenticated",
+    "api::guild.guild.create": "authenticated",
     "api::guild.guild.join": "authenticated",
     "api::guild.guild.leave": "authenticated",
     "api::chat-message.chat-message.find": "authenticated",

@@ -16,6 +16,7 @@
       </div>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openCollection">MA COLLECTION 📚</AppButton>
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openDecks">MES DECKS 🎴</AppButton>
+      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="router.push('/guilds')" :disabled="!userStore.strapiConnected">GUILDES 🛡️</AppButton>
       
       <AppButton 
         v-if="userStore.latestStoryProgress" 

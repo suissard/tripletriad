@@ -9,6 +9,7 @@ import MainMenu from '../views/MainMenu.vue'
 import StoryPage from '../views/StoryPage.vue'
 import QuestsPage from '../views/QuestsPage.vue'
 import StoryStepView from '../views/StoryStepView.vue'
+import GuildsPage from '../views/GuildsPage.vue'
 
 import { useUserStore } from '../stores/userStore'
 // On ne peut pas importer useLayoutStore ici directement car pinia n'est peut-être pas encore instancié.
@@ -27,6 +28,8 @@ const routes = [
   { path: '/story/:storyId/steps', name: 'story-steps', component: () => import('../views/StoryStepsPage.vue'), props: true },
   { path: '/story/:storyId/step/:stepIndex', component: StoryStepView },
   { path: '/quests', component: QuestsPage },
+  { path: '/guilds', name: 'guilds', component: GuildsPage },
+  { path: '/guilds/:documentId', name: 'guild-detail', component: GuildsPage, props: true },
 
   // Admin Routes
   {

@@ -61,15 +61,36 @@
         <span class="nav-label">Boutique</span>
       </button>
 
+      <button
+        class="nav-item"
+        :class="{ active: route.path.includes('/guilds') }"
+        @click="goToGuilds"
+      >
+        <div class="icon-container">
+          <span style="font-size: 1.5rem;">🛡️</span>
+        </div>
+        <span class="nav-label">Guildes</span>
+      </button>
+
     </div>
   </nav>
 </template>
 
 <script setup>
 import { useRouter, useRoute } from 'vue-router';
+import { useChatStore } from '../stores/chatStore';
 
 const router = useRouter();
 const route = useRoute();
+const chatStore = useChatStore();
+
+const goToGuilds = () => {
+  if (chatStore.activeTab === 'guilds' && chatStore.activeTargetId) {
+    router.push(`/guilds/${chatStore.activeTargetId}`);
+  } else {
+    router.push('/guilds');
+  }
+};
 </script>
 
 <style scoped>

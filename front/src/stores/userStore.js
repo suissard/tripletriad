@@ -221,7 +221,7 @@ export const useUserStore = defineStore('user', {
       if (!this.isLoggedIn) return;
       try {
         // Consolidated call including role, wallet, avatar_card, unlockedCardFrames, and unlockedCardBacks
-        const meRes = await strapiService.request('GET', '/users/me?populate[0]=role&populate[1]=wallet&populate[2]=avatar_card.image&populate[3]=unlockedCardFrames&populate[4]=unlockedCardBacks&populate[5]=defaultCardBack&populate[6]=defaultCardFrame');
+        const meRes = await strapiService.request('GET', '/users/me');
         if (!meRes.error) {
           // Handle nested wallet data from Strapi 5
           const wallet = meRes.wallet || {};

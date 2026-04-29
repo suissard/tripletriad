@@ -10,18 +10,24 @@ export default (plugin: any) => {
     if (!baseUser || !baseUser.id) return;
 
     // 2) Récupère l'utilisateur avec toutes les relations demandées par le front
-    const populatedUser = (await strapi.entityService.findOne('plugin::users-permissions.user', baseUser.id, {
+    // En Strapi 5, on privilégie l'usage de documentId si disponible
+    const userDocId = baseUser.documentId || baseUser.id;
+    
+    const populatedUser = (await strapi.documents('plugin::users-permissions.user').findOne({
+      documentId: userDocId,
       populate: {
         role: true,
         wallet: true,
         avatar_card: {
-          populate: ['image']
+          populate: {
+            image: true
+          }
         },
         unlockedCardFrames: true,
         unlockedCardBacks: true,
         defaultCardFrame: true,
         defaultCardBack: true,
-        storyProgresses: true
+        playerStoryProgresses: true
       }
     })) as any;
 

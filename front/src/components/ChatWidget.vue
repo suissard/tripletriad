@@ -3,8 +3,8 @@
     <!-- Header -->
     <div class="chat-header" @click="chatStore.toggleWidget">
       <div class="header-title">
-        <span class="icon">💬</span>
-        <span>Messagerie</span>
+        <span class="icon">👥</span>
+        <span>Social & Messages</span>
       </div>
       <div class="header-actions">
         <span class="toggle-icon">{{ chatStore.widgetOpen ? '▼' : '▲' }}</span>
@@ -14,53 +14,89 @@
     <!-- Body -->
     <div v-if="chatStore.widgetOpen" class="chat-body">
 
-      <!-- List View (Selection) -->
+      <!-- List View (Selection & Social Management) -->
       <div v-if="!chatStore.activeTargetId" class="chat-list-view">
         <div class="tabs">
           <button
-            :class="{ active: chatStore.activeTab === 'friends' }"
-            @click="chatStore.activeTab = 'friends'"
+            :class="{ active: socialTab === 'friends' }"
+            @click="socialTab = 'friends'"
           >Amis</button>
           <button
-            :class="{ active: chatStore.activeTab === 'guilds' }"
-            @click="chatStore.activeTab = 'guilds'"
-          >Guildes</button>
+            :class="{ active: socialTab === 'requests' }"
+            @click="socialTab = 'requests'"
+          >
+            Demandes <span v-if="friendStore.pendingIncomingRequests.length" class="badge">{{ friendStore.pendingIncomingRequests.length }}</span>
+          </button>
+          <button
+            :class="{ active: socialTab === 'add' }"
+            @click="socialTab = 'add'"
+          >Ajouter</button>
         </div>
 
         <div class="list-content">
           <!-- Friends List -->
-          <template v-if="chatStore.activeTab === 'friends'">
+          <template v-if="socialTab === 'friends'">
             <div v-if="friendStore.acceptedFriends.length === 0" class="empty-state">
-              Aucun ami en ligne.
+              Vous n'avez pas encore d'amis.
             </div>
             <div
               v-for="friend in friendStore.acceptedFriends"
               :key="friend.id"
               class="list-item"
-              @click="chatStore.selectTarget('friends', friend.id)"
             >
-              <div class="avatar"></div>
-              <span>{{ friend.username }}</span>
+              <div class="item-content" @click="chatStore.selectTarget('friends', friend.id)">
+                <div class="avatar"></div>
+                <span>{{ friend.username }}</span>
+              </div>
+              <div class="actions">
+                <button @click.stop="removeFriend(friend.friendshipId)" title="Supprimer l'ami" class="icon-btn">❌</button>
+                <button @click.stop="blockUser(friend.id)" title="Bloquer" class="icon-btn">🚫</button>
+              </div>
             </div>
           </template>
 
-          <!-- Guilds List -->
-          <template v-if="chatStore.activeTab === 'guilds'">
-            <div v-if="chatStore.guilds.length === 0" class="empty-state">
-              Aucune guilde disponible.
+          <!-- Requests -->
+          <template v-if="socialTab === 'requests'">
+            <h4>Reçues</h4>
+            <div v-if="friendStore.pendingIncomingRequests.length === 0" class="empty-state mb-2">
+              Aucune demande reçue.
             </div>
-            <div
-              v-for="guild in chatStore.guilds"
-              :key="guild.documentId || guild.id"
-              class="list-item guild-item"
-              @click="chatStore.selectTarget('guilds', guild.documentId || guild.id)"
-            >
-              <span class="icon">🛡️</span>
-              <div class="guild-info">
-                <span class="guild-name">{{ guild.name }}</span>
-                <span class="guild-desc">{{ guild.description }}</span>
+            <div v-for="req in friendStore.pendingIncomingRequests" :key="req.id" class="list-item request-item">
+              <span>{{ req.requester.username }}</span>
+              <div class="actions">
+                <button @click="acceptRequest(req.documentId || req.id)" title="Accepter" class="icon-btn">✔️</button>
+                <button @click="rejectRequest(req.documentId || req.id)" title="Refuser" class="icon-btn">❌</button>
               </div>
             </div>
+
+            <h4>Envoyées</h4>
+            <div v-if="friendStore.pendingOutgoingRequests.length === 0" class="empty-state">
+              Aucune demande envoyée.
+            </div>
+            <div v-for="req in friendStore.pendingOutgoingRequests" :key="req.id" class="list-item request-item">
+              <span>{{ req.receiver.username }}</span>
+              <div class="actions">
+                <span class="text-xs italic">En attente...</span>
+              </div>
+            </div>
+          </template>
+
+          <!-- Add Friend -->
+          <template v-if="socialTab === 'add'">
+            <p class="text-sm mb-2 text-white p-2">Ajoutez un ami par Username, Email ou ID.</p>
+            <div class="add-friend-form">
+              <input
+                v-model="addIdentifier"
+                type="text"
+                placeholder="Username..."
+                class="friend-input"
+                @keyup.enter="sendRequest"
+              />
+              <button @click="sendRequest" :disabled="friendStore.loading || !addIdentifier" class="btn-primary">
+                Envoyer
+              </button>
+            </div>
+            <p v-if="friendStore.error" class="error-msg text-xs mt-2 p-2">{{ friendStore.error }}</p>
           </template>
         </div>
       </div>
@@ -111,6 +147,7 @@ import { ref, computed, watch, nextTick, onMounted } from 'vue';
 import { useChatStore } from '../stores/chatStore.js';
 import { useFriendStore } from '../stores/friendStore.js';
 import { useUserStore } from '../stores/userStore.js';
+import { gameEvents } from '../game/events.js';
 
 const chatStore = useChatStore();
 const friendStore = useFriendStore();
@@ -118,6 +155,8 @@ const userStore = useUserStore();
 
 const newMessage = ref('');
 const messagesContainer = ref(null);
+const socialTab = ref('friends');
+const addIdentifier = ref('');
 
 onMounted(() => {
   if (userStore.isLoggedIn) {
@@ -125,15 +164,17 @@ onMounted(() => {
   }
 });
 
+watch(() => chatStore.widgetOpen, (isOpen) => {
+  if (isOpen && userStore.isLoggedIn) {
+    friendStore.fetchFriendships();
+    chatStore.activeTab = 'friends'; // Force chat mode to friends
+  }
+});
+
 const activeTargetName = computed(() => {
   if (!chatStore.activeTargetId) return '';
-  if (chatStore.activeTab === 'friends') {
-    const friend = friendStore.acceptedFriends.find(f => f.id === chatStore.activeTargetId);
-    return friend ? friend.username : 'Ami';
-  } else {
-    const guild = chatStore.guilds.find(g => (g.documentId === chatStore.activeTargetId || g.id === chatStore.activeTargetId));
-    return guild ? guild.name : 'Guilde';
-  }
+  const friend = friendStore.acceptedFriends.find(f => f.id === chatStore.activeTargetId);
+  return friend ? friend.username : 'Ami';
 });
 
 const scrollToBottom = async () => {
@@ -157,6 +198,57 @@ const sendMessage = async () => {
   newMessage.value = '';
   scrollToBottom();
 };
+
+// --- Social Management Methods ---
+const sendRequest = async () => {
+  if (!addIdentifier.value) return;
+  try {
+    await friendStore.sendFriendRequest(addIdentifier.value);
+    gameEvents.emit('SHOW_ALERT', { text: `Demande envoyée à ${addIdentifier.value} !` });
+    addIdentifier.value = '';
+    socialTab.value = 'requests'; 
+  } catch (e) {
+    gameEvents.emit('SHOW_ALERT', { text: 'Erreur: ' + friendStore.error });
+  }
+};
+
+const acceptRequest = async (id) => {
+  try {
+    await friendStore.acceptRequest(id);
+    gameEvents.emit('SHOW_ALERT', { text: 'Demande acceptée !' });
+  } catch (e) {
+     gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors de l\'acceptation.' });
+  }
+};
+
+const rejectRequest = async (id) => {
+  try {
+    await friendStore.rejectRequest(id);
+    gameEvents.emit('SHOW_ALERT', { text: 'Demande refusée.' });
+  } catch (e) {
+     gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors du refus.' });
+  }
+};
+
+const removeFriend = async (id) => {
+  if (!confirm("Voulez-vous vraiment retirer cet ami ?")) return;
+  try {
+    await friendStore.removeFriend(id);
+    gameEvents.emit('SHOW_ALERT', { text: 'Ami supprimé.' });
+  } catch (e) {
+     gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors de la suppression.' });
+  }
+};
+
+const blockUser = async (userId) => {
+  if (!confirm("Voulez-vous vraiment bloquer cet utilisateur ?")) return;
+  try {
+    await friendStore.blockUser(userId);
+    gameEvents.emit('SHOW_ALERT', { text: 'Utilisateur bloqué.' });
+  } catch (e) {
+     gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors du blocage.' });
+  }
+};
 </script>
 
 <style scoped>
@@ -174,6 +266,7 @@ const sendMessage = async () => {
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease;
+  font-family: 'Rajdhani', sans-serif;
 }
 
 .chat-header {
@@ -193,7 +286,6 @@ const sendMessage = async () => {
   gap: 8px;
   color: var(--color-accent);
   font-weight: bold;
-  font-family: 'Rajdhani', sans-serif;
 }
 
 .chat-body {
@@ -219,12 +311,25 @@ const sendMessage = async () => {
   font-family: 'Rajdhani', sans-serif;
   opacity: 0.6;
   transition: all 0.2s;
+  position: relative;
 }
 
 .tabs button.active {
   opacity: 1;
   border-bottom: 2px solid var(--color-primary);
   color: var(--color-primary);
+}
+
+.badge {
+  background: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 0.7rem;
+  margin-left: 5px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
 
 .list-content {
@@ -235,17 +340,26 @@ const sendMessage = async () => {
 
 .list-item {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 10px;
-  padding: 10px;
+  padding: 8px 10px;
   border-radius: 4px;
-  cursor: pointer;
   transition: background 0.2s;
   color: white;
+  margin-bottom: 4px;
 }
 
 .list-item:hover {
   background: rgba(255, 255, 255, 0.1);
+}
+
+.item-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  cursor: pointer;
 }
 
 .avatar {
@@ -256,19 +370,24 @@ const sendMessage = async () => {
   border: 1px solid var(--color-primary);
 }
 
-.guild-info {
+.actions {
   display: flex;
-  flex-direction: column;
+  gap: 5px;
 }
 
-.guild-name {
-  font-weight: bold;
-  color: var(--color-primary);
-}
-
-.guild-desc {
-  font-size: 0.8rem;
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 2px 5px;
+  color: white;
   opacity: 0.7;
+}
+
+.icon-btn:hover {
+  opacity: 1;
+  transform: scale(1.1);
 }
 
 .empty-state {
@@ -277,6 +396,53 @@ const sendMessage = async () => {
   color: rgba(255, 255, 255, 0.5);
   font-style: italic;
 }
+
+h4 {
+  color: var(--color-primary);
+  margin: 10px 5px 5px;
+  font-size: 0.9rem;
+}
+
+/* Add Friend Form */
+.add-friend-form {
+  display: flex;
+  gap: 10px;
+  padding: 0 10px;
+}
+
+.friend-input {
+  flex: 1;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 4px;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  border: none;
+  color: black;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error-msg {
+  color: #ff4d4d;
+}
+
+.text-xs { font-size: 0.75rem; }
+.text-sm { font-size: 0.85rem; }
+.italic { font-style: italic; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mt-2 { margin-top: 0.5rem; }
 
 /* Conversation View */
 .chat-conversation-view {
@@ -348,6 +514,7 @@ const sendMessage = async () => {
   color: white;
   font-size: 0.9rem;
   word-break: break-word;
+  font-family: 'Space Mono', monospace;
 }
 
 .message.is-mine .bubble {
@@ -372,6 +539,7 @@ const sendMessage = async () => {
   border-radius: 4px 0 0 4px;
   color: white;
   outline: none;
+  font-family: 'Space Mono', monospace;
 }
 
 .input-container input:focus {

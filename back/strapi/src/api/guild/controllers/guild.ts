@@ -1,59 +1,130 @@
 // @ts-nocheck
-// @ts-nocheck
-// @ts-nocheck
-// @ts-nocheck
-// @ts-nocheck
-// @ts-nocheck
 import { factories } from '@strapi/strapi';
 
 export default factories.createCoreController('api::guild.guild' as any, ({ strapi }: { strapi: any }) => ({
-  async join(ctx) {
-    const user = ctx.state.user;
-    if (!user) return ctx.unauthorized();
+  async create(ctx) {
+    try {
+      const authUser = ctx.state.user;
+      if (!authUser) return ctx.unauthorized();
 
-    const { id } = ctx.params;
+      // Ensure we have the user's documentId
+      const users = await strapi.documents('plugin::users-permissions.user').findMany({
+        filters: { id: authUser.id },
+        limit: 1
+      });
+      const user = users[0];
+      if (!user) return ctx.notFound('User record not found');
 
-    // Check if guild exists
-    const guild = await (strapi as any).entityService.findOne('api::guild.guild' as any, id, {
-      populate: ['members']
-    }) as any;
-
-    if (!guild) return ctx.notFound('Guild not found');
-
-    // Check if already a member
-    const isMember = guild.members?.some((member: any) => member.id === user.id);
-    if (isMember) {
-      return ctx.badRequest('You are already a member of this guild');
-    }
-
-    // Add member
-    const updatedGuild = await (strapi as any).entityService.update('api::guild.guild' as any, id, {
-      data: {
-        members: [...(guild.members || []).map((m: any) => m.id), user.id]
+      // Initialize data if not present
+      if (!ctx.request.body.data) {
+        ctx.request.body.data = {};
       }
-    });
 
-    return { data: updatedGuild, message: 'Successfully joined the guild' };
+      // Set the owner
+      ctx.request.body.data.owner = user.documentId;
+      
+      // Also add the owner to members automatically
+      if (!ctx.request.body.data.members) {
+        ctx.request.body.data.members = { connect: [user.documentId] };
+      } else if (typeof ctx.request.body.data.members === 'object' && ctx.request.body.data.members.connect) {
+        if (!ctx.request.body.data.members.connect.includes(user.documentId)) {
+          ctx.request.body.data.members.connect.push(user.documentId);
+        }
+      } else if (Array.isArray(ctx.request.body.data.members)) {
+        if (!ctx.request.body.data.members.includes(user.documentId)) {
+          ctx.request.body.data.members.push(user.documentId);
+        }
+      } else {
+        // Fallback or override if it's some other format
+        ctx.request.body.data.members = { connect: [user.documentId] };
+      }
+
+      // Call the default core create controller
+      const response = await super.create(ctx);
+      return response;
+    } catch (err) {
+      strapi.log.error('[Guild] Error in create:', err);
+      ctx.throw(500, err.message);
+    }
+  },
+
+  async join(ctx) {
+    try {
+      const authUser = ctx.state.user;
+      if (!authUser) return ctx.unauthorized();
+
+      // Ensure we have the user's documentId
+      const users = await strapi.documents('plugin::users-permissions.user').findMany({
+        filters: { id: authUser.id },
+        limit: 1
+      });
+      const user = users[0];
+      if (!user) return ctx.notFound('User record not found');
+
+      const { id: documentId } = ctx.params;
+      strapi.log.info(`[Guild] User ${user.username} (${user.documentId}) joining guild ${documentId}`);
+
+      // Check if guild exists
+      const guild = await strapi.documents('api::guild.guild').findOne({
+        documentId,
+        populate: ['members', 'owner', 'moderators']
+      });
+
+      if (!guild) return ctx.notFound('Guild not found');
+
+      // Check if already a member
+      const isAlreadyMember = guild.members?.some((member: any) => 
+        member.documentId === user.documentId
+      );
+      
+      if (isAlreadyMember) {
+        return ctx.badRequest('You are already a member of this guild');
+      }
+
+      // Add member using 'connect' - The Strapi 5 way for relations
+      const updatedGuild = await strapi.documents('api::guild.guild').update({
+        documentId,
+        data: {
+          members: {
+            connect: [user.documentId]
+          }
+        }
+      });
+
+      return { data: updatedGuild, message: 'Successfully joined the guild' };
+    } catch (err) {
+      strapi.log.error('[Guild] Error in join:', err);
+      ctx.throw(500, err.message);
+    }
   },
 
   async leave(ctx) {
-    const user = ctx.state.user;
-    if (!user) return ctx.unauthorized();
+    try {
+      const authUser = ctx.state.user;
+      if (!authUser) return ctx.unauthorized();
 
-    const { id } = ctx.params;
+      const users = await strapi.documents('plugin::users-permissions.user').findMany({
+        filters: { id: authUser.id },
+        limit: 1
+      });
+      const user = users[0];
+      if (!user) return ctx.notFound('User record not found');
 
-    const guild = await (strapi as any).entityService.findOne('api::guild.guild' as any, id, {
-      populate: ['members']
-    }) as any;
+      const { id: documentId } = ctx.params;
 
-    if (!guild) return ctx.notFound('Guild not found');
+      const updatedGuild = await strapi.documents('api::guild.guild').update({
+        documentId,
+        data: {
+          members: {
+            disconnect: [user.documentId]
+          }
+        }
+      });
 
-    const updatedGuild = await (strapi as any).entityService.update('api::guild.guild' as any, id, {
-      data: {
-        members: (guild.members || []).map((m: any) => m.id).filter((memberId: any) => memberId !== user.id)
-      }
-    });
-
-    return { data: updatedGuild, message: 'Successfully left the guild' };
+      return { data: updatedGuild, message: 'Successfully left the guild' };
+    } catch (err) {
+      strapi.log.error('[Guild] Error in leave:', err);
+      ctx.throw(500, err.message);
+    }
   }
 }));

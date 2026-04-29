@@ -173,6 +173,18 @@
       "relation": "oneToMany",
       "target": "api::chat-message.chat-message",
       "mappedBy": "receiver"
+    },
+    "ownedGuilds": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::guild.guild",
+      "mappedBy": "owner"
+    },
+    "moderatedGuilds": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::guild.guild",
+      "mappedBy": "moderators"
     }
   }
 }

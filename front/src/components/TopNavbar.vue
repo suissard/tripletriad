@@ -42,6 +42,13 @@
           </div>
         </AppButton>
 
+        <AppButton variant="secondary" class="glass-panel" @click="goToGuilds" title="Guildes">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 1.2rem;">🛡️</span>
+            <span class="username">Guildes</span>
+          </div>
+        </AppButton>
+
         <!-- Offline Indicator -->
         <div v-if="userStore.isOffline" class="offline-indicator">
           <span class="blink-dot"></span>
@@ -73,8 +80,19 @@ import { ref } from 'vue';
 
 const isQuestModalOpen = ref(false);
 import { useRouter, useRoute } from 'vue-router';
+import { useChatStore } from '../stores/chatStore';
+
 const router = useRouter();
 const route = useRoute();
+const chatStore = useChatStore();
+
+function goToGuilds() {
+  if (chatStore.activeTab === 'guilds' && chatStore.activeTargetId) {
+    router.push(`/guilds/${chatStore.activeTargetId}`);
+  } else {
+    router.push('/guilds');
+  }
+}
 
 function goToHome() {
   state.gameState = 'menu';

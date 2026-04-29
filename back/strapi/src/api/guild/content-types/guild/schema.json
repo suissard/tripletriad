@@ -25,6 +25,18 @@
       "relation": "manyToMany",
       "target": "plugin::users-permissions.user",
       "inversedBy": "guilds"
+    },
+    "owner": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "ownedGuilds"
+    },
+    "moderators": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "moderatedGuilds"
     }
   }
 }
