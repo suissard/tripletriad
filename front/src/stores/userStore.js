@@ -941,7 +941,7 @@ export const useUserStore = defineStore('user', {
             name: deck.name,
             cover: deck.cover || 1, // Default to 1 if null
             cards: cardDocumentIds,
-            cardBack: deck.cardBack || 'default',
+            cardBack: (deck.cardBack && deck.cardBack !== 'default' && deck.cardBack !== 'animated') ? deck.cardBack : null,
             cardFrame: deck.cardFrame || null,
             user: overrideUser || this.user.documentId || this.user.id // Prefer documentId for Strapi 5 relations
           }
