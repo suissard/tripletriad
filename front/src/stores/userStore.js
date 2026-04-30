@@ -219,39 +219,125 @@ export const useUserStore = defineStore('user', {
 
     async updateUserData() {
       if (!this.isLoggedIn) return;
+      this.initializationStatus = 'loading';
+      console.log('[UserStore] Starting full user data update...');
+
       try {
-        // Consolidated call including role, wallet, avatar_card, unlockedCardFrames, and unlockedCardBacks
-        const meRes = await strapiService.request('GET', '/users/me');
-        if (!meRes.error) {
-          // Handle nested wallet data from Strapi 5
-          const wallet = meRes.wallet || {};
-          
-          this.user = {
-            ...this.user,
-            id: meRes.id,
-            documentId: meRes.documentId,
-            username: meRes.username,
-            role: meRes.role?.name,
-            avatar_card: meRes.avatar_card,
-            avatar: meRes.avatar_card?.image?.url 
-              ? getStrapiMediaUrl(meRes.avatar_card.image.url)
-              : `https://api.dicebear.com/9.x/bottts/svg?seed=${meRes.username}&backgroundColor=transparent`,
-            // Wallet data
-            coins: wallet.coins ?? 0,
-            gems: wallet.gems ?? 0,
-            dust: wallet.dust ?? 0,
-            boosters: wallet.boosters ?? [],
-            unlockedCardFrames: meRes.unlockedCardFrames || [],
-            defaultCardFrame: meRes.defaultCardFrame || null,
-            unlockedCardBacks: meRes.unlockedCardBacks || [],
-            defaultCardBack: meRes.defaultCardBack || null
-          };
-          this.defaultFrameId = meRes.defaultCardFrame?.documentId || meRes.defaultCardFrame?.id || null;
-          this.defaultBackId = meRes.defaultCardBack?.documentId || meRes.defaultCardBack?.id || null;
-          this.syncLocalUserWallets();
-        }
+        // We run all fetches in parallel for better performance
+        // and wrap them in allSettled so one failure doesn't block everything
+        const results = await Promise.allSettled([
+          this.fetchMe(),
+          this.fetchUserWallet(),
+          this.fetchUserAssets(),
+          this.fetchUserAvatar()
+        ]);
+
+        results.forEach((result, index) => {
+          if (result.status === 'rejected') {
+            const tasks = ['Basic Profile', 'Wallet', 'Assets (Frames/Backs)', 'Avatar'];
+            console.error(`[UserStore] ${tasks[index]} fetch failed:`, result.reason);
+          }
+        });
+
+        this.initializationStatus = 'ready';
+        this.syncLocalUserWallets();
+        console.log('[UserStore] User data update completed.');
       } catch (e) {
-        console.error('Update user data failed', e);
+        console.error('[UserStore] Critical error during updateUserData:', e);
+      }
+    },
+
+    async fetchMe() {
+      try {
+        const res = await strapiService.request('GET', '/users/me?populate[role]=*');
+        if (res && !res.error) {
+          this.user.id = res.id;
+          this.user.documentId = res.documentId;
+          this.user.username = res.username;
+          this.user.role = res.role?.name || res.role;
+          return res;
+        }
+        throw new Error(res?.error?.message || 'Failed to fetch basic profile');
+      } catch (e) {
+        console.error('[UserStore] fetchMe failed:', e);
+        throw e;
+      }
+    },
+
+    async fetchUserWallet() {
+      try {
+        // We fetch the wallet specifically. Strapi 5 allows filtering by user.
+        // If not found, we fallback to an empty wallet or try to find it via user-permissions
+        const res = await strapiService.find('wallets', {
+          filters: { user: { id: this.user.id } }
+        });
+        
+        const walletData = this.toArray(res)[0];
+        if (walletData) {
+          this.user.coins = walletData.coins ?? 0;
+          this.user.gems = walletData.gems ?? 0;
+          this.user.dust = walletData.dust ?? 0;
+          this.user.boosters = walletData.boosters ?? [];
+          return walletData;
+        }
+        
+        // Fallback: maybe it's nested in /users/me
+        const meRes = await strapiService.request('GET', '/users/me?populate[wallet]=*');
+        if (meRes && meRes.wallet) {
+          this.user.coins = meRes.wallet.coins ?? 0;
+          this.user.gems = meRes.wallet.gems ?? 0;
+          this.user.dust = meRes.wallet.dust ?? 0;
+          this.user.boosters = meRes.wallet.boosters ?? [];
+          return meRes.wallet;
+        }
+        
+        console.warn('[UserStore] No wallet found for user');
+        return null;
+      } catch (e) {
+        console.error('[UserStore] fetchUserWallet failed:', e);
+        throw e;
+      }
+    },
+
+    async fetchUserAssets() {
+      try {
+        // Fetching frames and backs specifically
+        const res = await strapiService.request('GET', '/users/me?populate[unlockedCardFrames]=*&populate[unlockedCardBacks]=*&populate[defaultCardBack]=*&populate[defaultCardFrame]=*');
+        
+        if (res && !res.error) {
+          this.user.unlockedCardFrames = res.unlockedCardFrames || [];
+          this.user.unlockedCardBacks = res.unlockedCardBacks || [];
+          this.user.defaultCardFrame = res.defaultCardFrame || null;
+          this.user.defaultCardBack = res.defaultCardBack || null;
+          
+          this.defaultFrameId = res.defaultCardFrame?.documentId || res.defaultCardFrame?.id || null;
+          this.defaultBackId = res.defaultCardBack?.documentId || res.defaultCardBack?.id || null;
+          
+          return res;
+        }
+        throw new Error(res?.error?.message || 'Failed to fetch user assets');
+      } catch (e) {
+        console.error('[UserStore] fetchUserAssets failed:', e);
+        throw e;
+      }
+    },
+
+    async fetchUserAvatar() {
+      try {
+        // Fetching avatar specifically
+        const res = await strapiService.request('GET', '/users/me?populate[avatar_card][populate][image]=*');
+        
+        if (res && !res.error) {
+          this.user.avatar_card = res.avatar_card || null;
+          this.user.avatar = res.avatar_card?.image?.url 
+            ? getStrapiMediaUrl(res.avatar_card.image.url)
+            : `https://api.dicebear.com/9.x/bottts/svg?seed=${res.username || 'player'}&backgroundColor=transparent`;
+          return res;
+        }
+        throw new Error(res?.error?.message || 'Failed to fetch user avatar');
+      } catch (e) {
+        console.error('[UserStore] fetchUserAvatar failed:', e);
+        throw e;
       }
     },
 
