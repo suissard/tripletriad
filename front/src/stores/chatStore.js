@@ -10,14 +10,7 @@ import { getStrapiUrl } from '../utils/url.js';
 export const useChatStore = defineStore('chatStore', () => {
     const userStore = useUserStore();
 
-    // --- STATE ---
-    const activeTab = ref('guilds'); // 'friends' or 'guilds'
-    const activeTargetId = ref(null); // The ID of the friend or guild
-    const messages = ref({}); // Dictionary where keys are room strings ("guild_X" or "dm_1_2")
-    const guilds = ref([]);
-    const loading = ref(false);
-    const widgetOpen = ref(false);
-    let socket = null;
+    const activeGuildDetails = ref(null);
 
     // --- HELPERS ---
     // Determines the canonical room name based on targets
@@ -75,6 +68,25 @@ export const useChatStore = defineStore('chatStore', () => {
         }
     };
 
+    const fetchGuildDetails = async (guildId) => {
+        if (!userStore.strapiConnected) {
+            activeGuildDetails.value = mockGuilds.find(g => (g.documentId === guildId || g.id === guildId));
+            return;
+        }
+        try {
+            const response = await api.request('GET', `/guilds/${guildId}`, {
+                params: {
+                    'populate[0]': 'members',
+                    'populate[1]': 'owner',
+                    'populate[2]': 'moderators'
+                }
+            });
+            activeGuildDetails.value = response.data;
+        } catch (err) {
+            console.error('Failed to fetch guild details', err);
+        }
+    };
+
     const fetchMessages = async (type, targetId) => {
         const roomName = getRoomName(type, targetId);
         if (messages.value[roomName] && messages.value[roomName].length > 0) return; // Cache hit
@@ -123,6 +135,7 @@ export const useChatStore = defineStore('chatStore', () => {
         try {
             await api.request('POST', `/guilds/${guildId}/join`);
             await fetchGuilds();
+            await fetchGuildDetails(guildId);
         } catch (err) {
             console.error('Failed to join guild', err);
             throw err;
@@ -201,6 +214,9 @@ export const useChatStore = defineStore('chatStore', () => {
         activeTab.value = type;
         activeTargetId.value = id;
         fetchMessages(type, id);
+        if (type === 'guilds' || type === 'guild') {
+            fetchGuildDetails(id);
+        }
     };
 
     // --- COMPUTED ---
@@ -233,12 +249,14 @@ export const useChatStore = defineStore('chatStore', () => {
         widgetOpen,
         activeTab,
         activeTargetId,
+        activeGuildDetails,
         guilds,
         activeMessages,
         loading,
         toggleWidget,
         selectTarget,
         fetchGuilds,
+        fetchGuildDetails,
         searchGuilds,
         joinGuild,
         createGuild,

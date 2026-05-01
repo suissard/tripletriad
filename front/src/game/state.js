@@ -453,11 +453,13 @@ export async function initAIMatch() {
     const users = currentUserId ? [currentUserId] : [];
 
     try {
+        const startingPlayer = state.turn === 'player' ? 'PLAYER_1' : 'PLAYER_2';
         await strapiService.request('POST', '/webrtc/matches', {
             body: {
                 uuid: state.matchId,
                 offer: null, // No WebRTC offer needed for AI
-                users
+                users,
+                startingPlayer
             }
         });
         console.log(`[GameManager] AI Match Initialized with UUID: ${state.matchId}`);

@@ -8,6 +8,7 @@ import { bootstrapDecks } from './api/deck/services/deck-bootstrap';
 import { bootstrapStories } from './api/story/services/story-bootstrap';
 import { bootstrapWeeklyQuestConfig } from './api/weekly-quest-config/services/weekly-quest-config-bootstrap';
 import { bootstrapGameConfig } from './api/game-config/services/game-config-bootstrap';
+import { bootstrapGuild } from './api/guild/services/guild-bootstrap';
 import { assignQuestsToUser, ensureUserHasWelcomeQuest } from './api/player-quest/services/quest-assignment';
 
 // ---------------------------------------------------------------------------
@@ -247,6 +248,14 @@ export async function runFullBootstrap(strapi: Core.Strapi) {
     console.log('✅ Game Config bootstrapped.');
   } catch (err) {
     console.error('❌ Error bootstrapping Game Config:', err);
+  }
+
+  // 4.6 Guilds
+  try {
+    await bootstrapGuild(strapi);
+    console.log('✅ Guilds bootstrapped.');
+  } catch (err) {
+    console.error('❌ Error bootstrapping Guilds:', err);
   }
 
   // 4. Backfill existing users

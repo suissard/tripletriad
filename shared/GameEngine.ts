@@ -84,9 +84,10 @@ export class GameEngine {
   public static createInitialState(startingPlayer: Player = 'PLAYER_1'): GameState {
     return {
       board: [
-        [null, null, null],
-        [null, null, null],
-        [null, null, null]
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null]
       ],
       currentPlayer: startingPlayer,
       isFinished: false,
@@ -112,8 +113,8 @@ export class GameEngine {
     const { x, y, card } = action;
 
     // Vérification des bords de la grille
-    if (x < 0 || x > 2 || y < 0 || y > 2) {
-      throw new Error("Placement en dehors de la grille (doit être entre 0 et 2).");
+    if (x < 0 || x > 3 || y < 0 || y > 3) {
+      throw new Error("Placement en dehors de la grille (doit être entre 0 et 3).");
     }
 
     // Vérification de placement sur une case libre
@@ -165,8 +166,8 @@ export class GameEngine {
       const nx = x + dir.dx;
       const ny = y + dir.dy;
 
-      // On vérifie que la case ciblée soit bien comprise dans la grille 3x3
-      if (nx >= 0 && nx < 3 && ny >= 0 && ny < 3) {
+      // On vérifie que la case ciblée soit bien comprise dans la grille 4x4
+      if (nx >= 0 && nx < 4 && ny >= 0 && ny < 4) {
         const adjacentCard = board[ny][nx];
 
         // On vérifie s'il y a une carte et qu'elle n'est pas déjà à nous

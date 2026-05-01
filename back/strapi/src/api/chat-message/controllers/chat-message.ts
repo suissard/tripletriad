@@ -26,23 +26,32 @@ export default factories.createCoreController('api::chat-message.chat-message', 
 
       if (guildId) {
         // Fetching guild messages
-        filters = { guild: { documentId: guildId } };
-        
+        // Support both numeric ID and documentId string
+        const guildFilter = typeof guildId === 'string' && guildId.length > 10 
+          ? { documentId: guildId } 
+          : { id: guildId };
+
         const guild = await strapi.documents('api::guild.guild').findOne({ 
-          documentId: guildId, 
+          ...guildFilter,
           populate: ['members'] 
         });
         
         if (!guild) return ctx.notFound('Guild not found');
         
-        // Check membership using documentId or ID
+        // Canonical documentId for the filter
+        filters = { guild: guild.documentId };
+        
+        // Check membership
         const isMember = guild.members?.some(m => 
           (m.documentId && m.documentId === user.documentId) || 
           (m.id === user.id)
         );
         
-        if (!isMember && guild.name !== 'Global') {
-           strapi.log.warn(`[ChatMessage] User ${user.username} (${user.documentId}) is not a member of guild ${guild.name} (${guild.documentId}). Members: ${guild.members?.map(m => m.documentId || m.id).join(', ')}`);
+        // Allow access if member OR if it's the Global/Général guild
+        const isPublicGuild = ['global', 'général', 'general'].includes(guild.name?.toLowerCase());
+        
+        if (!isMember && !isPublicGuild) {
+           strapi.log.warn(`[ChatMessage] User ${user.username} (${user.documentId}) is not a member of guild ${guild.name} (${guild.documentId})`);
            return ctx.forbidden('Not a member of this guild');
         }
       } else if (targetUserId) {
@@ -117,8 +126,13 @@ export default factories.createCoreController('api::chat-message.chat-message', 
       let emitRoom = null;
 
       if (guildId) {
+        // Support both numeric ID and documentId string
+        const guildFilter = typeof guildId === 'string' && guildId.length > 10 
+          ? { documentId: guildId } 
+          : { id: guildId };
+
         const guild = await strapi.documents('api::guild.guild').findOne({ 
-          documentId: guildId, 
+          ...guildFilter,
           populate: ['members'] 
         });
         if (!guild) return ctx.notFound('Guild not found');
@@ -128,13 +142,15 @@ export default factories.createCoreController('api::chat-message.chat-message', 
           (m.id === user.id)
         );
         
-        if (!isMember && guild.name !== 'Global') {
-          strapi.log.warn(`[ChatMessage] User ${user.username} (${user.documentId}) tried to send message to guild ${guild.name} (${guild.documentId}) without being a member. Members: ${guild.members?.map(m => m.documentId || m.id).join(', ')}`);
+        const isPublicGuild = ['global', 'général', 'general'].includes(guild.name?.toLowerCase());
+
+        if (!isMember && !isPublicGuild) {
+          strapi.log.warn(`[ChatMessage] User ${user.username} tried to send message to guild ${guild.name} without being a member.`);
           return ctx.forbidden('Not a member of this guild');
         }
 
         data.guild = guild.documentId;
-        emitRoom = `guild_${guildId}`;
+        emitRoom = `guild_${guild.documentId}`;
       } else {
         const targetUser = await strapi.documents('plugin::users-permissions.user').findOne({
             documentId: receiverId

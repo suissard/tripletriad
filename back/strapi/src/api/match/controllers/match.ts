@@ -71,6 +71,8 @@ export default factories.createCoreController(
         let currentState: GameState =
           GameEngine.createInitialState(startingPlayer);
 
+        const isAIMatch = matches[0].users?.length === 1;
+
         // Filtrer uniquement les actions de placement (celles qui concernent l'arbitrage du GameEngine)
         const placeCardActions = logs
           .filter(
@@ -78,17 +80,22 @@ export default factories.createCoreController(
               log.type === "PLACE_CARD" ||
               (log.action === "placement" && log.target && log.target.card),
           )
-          .map((log) =>
-            log.action === "placement"
+          .map((log) => {
+            let playerId = log.emitter.id;
+            if (isAIMatch) {
+              playerId = (playerId === 'player') ? 'PLAYER_1' : 'PLAYER_2';
+            }
+
+            return log.action === "placement"
               ? {
                   type: "PLACE_CARD",
-                  player: log.emitter.id,
-                  x: log.target.case % 3,
-                  y: Math.floor(log.target.case / 3),
+                  player: playerId,
+                  x: log.target.case % 4,
+                  y: Math.floor(log.target.case / 4),
                   card: log.target.card,
                 }
-              : log,
-          );
+              : { ...log, player: playerId };
+          });
 
         let totalCapturesByPlayer: Record<string, number> = { PLAYER_1: 0, PLAYER_2: 0 };
 
@@ -143,7 +150,13 @@ export default factories.createCoreController(
           console.log(`[Arbitrate Debug] Found user for quests?`, user ? user.id : 'No user');
 
           const isActuallyFinished = clientIsFinished || currentState.isFinished;
-          const actualWinner = clientIsFinished ? clientWinner : currentState.winner;
+          let actualWinner = clientIsFinished ? clientWinner : currentState.winner;
+
+          // Normalisation du winner pour l'IA
+          if (isAIMatch) {
+            if (actualWinner === 'player') actualWinner = 'PLAYER_1';
+            if (actualWinner === 'ai') actualWinner = 'PLAYER_2';
+          }
 
           if (user && isActuallyFinished && matches[0]) {
             const matchRecord = matches[0] as any;
@@ -250,7 +263,7 @@ export default factories.createCoreController(
       if (!uuid) return ctx.badRequest("UUID is required");
 
       try {
-        const startingPlayer = Math.random() < 0.5 ? "PLAYER_1" : "PLAYER_2";
+        const defaultStartingPlayer = Math.random() < 0.5 ? "PLAYER_1" : "PLAYER_2";
 
         const match = await strapi.documents("api::match.match").create({
           data: {
@@ -258,7 +271,7 @@ export default factories.createCoreController(
             offer,
             users,
             logs: [],
-            startingPlayer,
+            startingPlayer: ctx.request.body.startingPlayer || defaultStartingPlayer,
           },
         });
         return { data: match };

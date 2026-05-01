@@ -1,7 +1,7 @@
 <template>
   <div class="user-parameters">
     <!-- Main Settings View -->
-    <div v-if="!showAvatarSelection" class="settings-form">
+    <div v-if="!currentSelectionMode" class="settings-form">
       <div class="form-group">
         <label>Pseudonyme</label>
         <input 
@@ -10,6 +10,20 @@
           placeholder="Entrez votre pseudonyme"
           class="glass-input"
         />
+      </div>
+
+      <div class="form-group">
+        <label>Avatar (Carte)</label>
+        <div class="avatar-preview-container" @click="openAvatarSelection">
+          <img :src="userStore.user.avatar" class="avatar-preview" alt="Current Avatar" />
+          <div class="avatar-info">
+            <span class="avatar-name">{{ userStore.user.avatar_card?.name || 'Avatar par défaut' }}</span>
+            <p class="avatar-sub">Cliquez pour changer</p>
+          </div>
+          <AppButton variant="secondary" class="change-avatar-btn">
+            Changer
+          </AppButton>
+        </div>
       </div>
 
       <div class="form-group">
@@ -23,7 +37,7 @@
             <span>Aucun cadre sélectionné</span>
           </div>
           <AppButton variant="secondary" class="change-frame-btn">
-            Changer de cadre
+            Changer
           </AppButton>
         </div>
       </div>
@@ -47,7 +61,7 @@
         <AppButton variant="secondary" @click="closeSelection" class="back-btn">
           ← Retour
         </AppButton>
-        <h3>Choisir un Avatar (Carte)</h3>
+        <h3>Choisir un Avatar</h3>
       </div>
       
       <p class="selection-hint">Sélectionnez une carte de votre collection pour l'utiliser comme avatar.</p>
@@ -83,7 +97,7 @@
 
       <div class="frames-grid">
         <div 
-          v-for="frame in userStore.unlockedCardFrames" 
+          v-for="frame in userStore.unlockedFrames" 
           :key="frame.id" 
           class="frame-selection-item"
           :class="{ active: selectedFrameId === (frame.documentId || frame.id) }"
@@ -95,7 +109,7 @@
         </div>
       </div>
 
-      <div v-if="userStore.unlockedCardFrames.length === 0" class="empty-collection">
+      <div v-if="userStore.unlockedFrames.length === 0" class="empty-collection">
         Vous n'avez aucun cadre débloqué.
       </div>
     </div>
@@ -121,7 +135,7 @@ const selectedFrameId = ref(userStore.defaultFrameId);
 
 const selectedFrame = computed(() => {
   if (!selectedFrameId.value) return null;
-  return userStore.unlockedCardFrames.find(f => (f.documentId || f.id) === selectedFrameId.value);
+  return userStore.unlockedFrames.find(f => (f.documentId || f.id) === selectedFrameId.value);
 });
 
 const isValid = computed(() => {
