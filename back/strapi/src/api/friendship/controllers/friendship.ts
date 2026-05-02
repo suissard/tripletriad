@@ -12,11 +12,11 @@ export default factories.createCoreController('api::friendship.friendship' as an
       return ctx.unauthorized();
     }
 
-    const friendships = await (strapi as any).entityService.findMany('api::friendship.friendship' as any, {
+    const friendships = await (strapi as any).documents('api::friendship.friendship').findMany({
       filters: {
         $or: [
-          { requester: user.id },
-          { receiver: user.id }
+          { requester: { id: user.id } },
+          { receiver: { id: user.id } }
         ]
       },
       populate: ['requester', 'receiver', 'blockedBy']
@@ -26,13 +26,13 @@ export default factories.createCoreController('api::friendship.friendship' as an
     const sanitizedFriendships = friendships.map(f => {
       const sanitized = { ...f };
       if (sanitized.requester) {
-        sanitized.requester = { id: f.requester.id, username: f.requester.username };
+        sanitized.requester = { id: f.requester.id, documentId: f.requester.documentId, username: f.requester.username };
       }
       if (sanitized.receiver) {
-        sanitized.receiver = { id: f.receiver.id, username: f.receiver.username };
+        sanitized.receiver = { id: f.receiver.id, documentId: f.receiver.documentId, username: f.receiver.username };
       }
       if (sanitized.blockedBy) {
-        sanitized.blockedBy = { id: f.blockedBy.id, username: f.blockedBy.username };
+        sanitized.blockedBy = { id: f.blockedBy.id, documentId: f.blockedBy.documentId, username: f.blockedBy.username };
       }
       return sanitized;
     });
@@ -46,19 +46,20 @@ export default factories.createCoreController('api::friendship.friendship' as an
       return ctx.unauthorized();
     }
 
-    const { identifier } = ctx.request.body; // can be username, email, or id
+    const { identifier } = ctx.request.body; // can be username, email, or documentId/id
 
     if (!identifier) {
       return ctx.badRequest('Identifier is required (username, email, or id).');
     }
 
     // Find the target user
-    let targetUsers = await (strapi as any).entityService.findMany('plugin::users-permissions.user', {
+    let targetUsers = await (strapi as any).documents('plugin::users-permissions.user').findMany({
       filters: {
         $or: [
           { username: identifier },
           { email: identifier },
-          { id: isNaN(identifier) ? null : identifier }
+          { documentId: identifier },
+          { id: isNaN(identifier) ? undefined : identifier }
         ]
       },
       limit: 1
@@ -75,11 +76,11 @@ export default factories.createCoreController('api::friendship.friendship' as an
     }
 
     // Check if a friendship already exists between the two
-    const existingFriendships = await (strapi as any).entityService.findMany('api::friendship.friendship' as any, {
+    const existingFriendships = await (strapi as any).documents('api::friendship.friendship').findMany({
       filters: {
         $or: [
-          { requester: user.id, receiver: targetUser.id },
-          { requester: targetUser.id, receiver: user.id }
+          { requester: { id: user.id }, receiver: { id: targetUser.id } },
+          { requester: { id: targetUser.id }, receiver: { id: user.id } }
         ]
       }
     });
@@ -110,7 +111,8 @@ export default factories.createCoreController('api::friendship.friendship' as an
         }
 
         // Update the existing rejected friendship to pending
-        const updated = await (strapi as any).entityService.update('api::friendship.friendship' as any, existing.id, {
+        const updated = await (strapi as any).documents('api::friendship.friendship').update({
+          documentId: existing.documentId,
           data: {
             requester: user.id, // Update requester in case roles reversed
             receiver: targetUser.id,
@@ -123,7 +125,7 @@ export default factories.createCoreController('api::friendship.friendship' as an
     }
 
     // Create new friend request
-    const newRequest = await (strapi as any).entityService.create('api::friendship.friendship' as any, {
+    const newRequest = await (strapi as any).documents('api::friendship.friendship').create({
       data: {
         requester: user.id,
         receiver: targetUser.id,
@@ -138,9 +140,10 @@ export default factories.createCoreController('api::friendship.friendship' as an
     const user = ctx.state.user;
     if (!user) return ctx.unauthorized();
 
-    const { id } = ctx.params;
+    const { id } = ctx.params; // This is the documentId
 
-    const friendship = await (strapi as any).entityService.findOne('api::friendship.friendship' as any, id, {
+    const friendship = await (strapi as any).documents('api::friendship.friendship').findOne({
+      documentId: id,
       populate: ['receiver']
     });
 
@@ -154,7 +157,8 @@ export default factories.createCoreController('api::friendship.friendship' as an
       return ctx.badRequest(`Cannot accept a request with status: ${(friendship as any).status}`);
     }
 
-    const updated = await (strapi as any).entityService.update('api::friendship.friendship' as any, id, {
+    const updated = await (strapi as any).documents('api::friendship.friendship').update({
+      documentId: id,
       data: {
         status: 'accepted'
       }
@@ -169,7 +173,8 @@ export default factories.createCoreController('api::friendship.friendship' as an
 
     const { id } = ctx.params;
 
-    const friendship = await (strapi as any).entityService.findOne('api::friendship.friendship' as any, id, {
+    const friendship = await (strapi as any).documents('api::friendship.friendship').findOne({
+      documentId: id,
       populate: ['receiver']
     });
 
@@ -183,7 +188,8 @@ export default factories.createCoreController('api::friendship.friendship' as an
       return ctx.badRequest(`Cannot reject a request with status: ${(friendship as any).status}`);
     }
 
-    const updated = await (strapi as any).entityService.update('api::friendship.friendship' as any, id, {
+    const updated = await (strapi as any).documents('api::friendship.friendship').update({
+      documentId: id,
       data: {
         status: 'rejected'
       }
@@ -198,7 +204,8 @@ export default factories.createCoreController('api::friendship.friendship' as an
 
     const { id } = ctx.params;
 
-    const friendship = await (strapi as any).entityService.findOne('api::friendship.friendship' as any, id, {
+    const friendship = await (strapi as any).documents('api::friendship.friendship').findOne({
+      documentId: id,
       populate: ['requester', 'receiver']
     });
 
@@ -214,7 +221,9 @@ export default factories.createCoreController('api::friendship.friendship' as an
       return ctx.badRequest('Cannot remove a blocked friendship record directly. Unblock first.');
     }
 
-    await (strapi as any).entityService.delete('api::friendship.friendship' as any, id);
+    await (strapi as any).documents('api::friendship.friendship').delete({
+      documentId: id
+    });
 
     return { message: 'Friendship removed.' };
   },
@@ -230,18 +239,19 @@ export default factories.createCoreController('api::friendship.friendship' as an
     if (targetUserId === user.id) return ctx.badRequest('You cannot block yourself.');
 
     // Find existing
-    const existingFriendships = await (strapi as any).entityService.findMany('api::friendship.friendship' as any, {
+    const existingFriendships = await (strapi as any).documents('api::friendship.friendship').findMany({
       filters: {
         $or: [
-          { requester: user.id, receiver: targetUserId },
-          { requester: targetUserId, receiver: user.id }
+          { requester: { id: user.id }, receiver: { id: targetUserId } },
+          { requester: { id: targetUserId }, receiver: { id: user.id } }
         ]
       }
     });
 
     if ((existingFriendships as any[]).length > 0) {
       const existing = (existingFriendships as any[])[0];
-      const updated = await (strapi as any).entityService.update('api::friendship.friendship' as any, existing.id, {
+      const updated = await (strapi as any).documents('api::friendship.friendship').update({
+        documentId: existing.documentId,
         data: {
           status: 'blocked',
           blockedBy: user.id
@@ -251,7 +261,7 @@ export default factories.createCoreController('api::friendship.friendship' as an
     }
 
     // Create block record
-    const newBlock = await (strapi as any).entityService.create('api::friendship.friendship' as any, {
+    const newBlock = await (strapi as any).documents('api::friendship.friendship').create({
       data: {
         requester: user.id,
         receiver: targetUserId,

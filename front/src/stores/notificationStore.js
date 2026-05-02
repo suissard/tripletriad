@@ -13,6 +13,7 @@ export const useNotificationStore = defineStore('notification', {
       TURN_START: true,
       GAME_OVER: true,
       SYSTEM: true,
+      GUILD_MESSAGE: true,
       // Default duration in ms
       duration: 3000
     };

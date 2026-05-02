@@ -6,17 +6,15 @@ import { factories } from "@strapi/strapi";
 
 export default factories.createCoreController(
   "api::player-quest.player-quest",
-  ({ strapi }) => ({
+  ({ strapi }: { strapi: any }) => ({
     async find(ctx) {
       const user = ctx.state.user;
       if (!user) return ctx.unauthorized("You must be logged in.");
 
-      const result = await strapi.db
-        .query("api::player-quest.player-quest")
-        .findMany({
-          where: { user: user.id },
-          populate: ["quest_template"],
-        });
+      const result = await strapi.documents("api::player-quest.player-quest").findMany({
+        filters: { user: { id: user.id } },
+        populate: ["quest_template"],
+      });
 
       return { data: result };
     },
@@ -25,15 +23,12 @@ export default factories.createCoreController(
       const user = ctx.state.user;
       if (!user) return ctx.unauthorized("You must be logged in.");
 
-      const { id } = ctx.params;
+      const { id } = ctx.params; // This is the documentId
 
-      const playerQuest = (await strapi.entityService.findOne(
-        "api::player-quest.player-quest",
-        id,
-        {
-          populate: ["quest_template", "user"],
-        },
-      )) as any;
+      const playerQuest = (await strapi.documents("api::player-quest.player-quest").findOne({
+        documentId: id,
+        populate: ["quest_template", "user"],
+      })) as any;
 
       if (!playerQuest) {
         return ctx.notFound("Quest not found.");
@@ -57,17 +52,15 @@ export default factories.createCoreController(
       }
 
       // Grant rewards
-      const userWallets = await strapi.entityService.findMany(
-        "api::wallet.wallet",
-        {
-          filters: { user: user.id },
-        },
-      );
+      const userWallets = await strapi.documents("api::wallet.wallet").findMany({
+        filters: { user: { id: user.id } },
+      });
 
       let wallet;
       if (userWallets && userWallets.length > 0) {
         wallet = userWallets[0];
-        await strapi.entityService.update("api::wallet.wallet", wallet.id, {
+        await strapi.documents("api::wallet.wallet").update({
+          documentId: wallet.documentId,
           data: {
             coins: (wallet.coins || 0) + (template.rewardCoins || 0),
             gems: (wallet.gems || 0) + (template.rewardGems || 0),
@@ -76,16 +69,13 @@ export default factories.createCoreController(
       }
 
       // Mark as claimed
-      const updatedQuest = await strapi.entityService.update(
-        "api::player-quest.player-quest",
-        id,
-        {
-          data: {
-            rewardClaimed: true,
-          },
-          populate: ["quest_template"],
+      const updatedQuest = await strapi.documents("api::player-quest.player-quest").update({
+        documentId: id,
+        data: {
+          rewardClaimed: true,
         },
-      );
+        populate: ["quest_template"],
+      });
 
       // Increment weekly quest progress if it was a daily quest
       if (template.type === "daily") {

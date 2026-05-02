@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref, computed, watch } from 'vue';
 import { useUserStore } from './userStore.js';
+import { useNotificationStore } from './notificationStore.js';
 import api from '../api/strapi.js';
 import { getMockMessages, addMockMessage, mockGuilds } from '../api/chatMock.js';
 import { io } from 'socket.io-client';
@@ -9,19 +10,34 @@ import { getStrapiUrl } from '../utils/url.js';
 // If Strapi is connected we use real API, otherwise we use Mocks
 export const useChatStore = defineStore('chatStore', () => {
     const userStore = useUserStore();
+    const notificationStore = useNotificationStore();
 
     const activeGuildDetails = ref(null);
+    const widgetOpen = ref(false);
+    const activeTab = ref('guilds');
+    const activeTargetId = ref(null);
+    const guilds = ref([]);
+    const messages = ref({});
+    const loading = ref(false);
+    let socket = null;
+
+
+    const unreadCounts = ref({});
 
     // --- HELPERS ---
     // Determines the canonical room name based on targets
     const getRoomName = (type, targetId) => {
-        if (type === 'guild') {
+        if (type === 'guild' || type === 'guilds') {
             return `guild_${targetId}`;
         } else {
-            const myId = userStore.user?.id || 1; // 1 fallback for mock
-            const smallerId = Math.min(myId, targetId);
-            const largerId = Math.max(myId, targetId);
-            return `dm_${smallerId}_${largerId}`;
+            const myId = userStore.user?.documentId;
+            // Ensure we are using the documentId (string) if available for consistent sorting
+            const otherId = targetId;
+            if (!myId || !otherId) return `dm_pending`;
+            
+            // Convert to string to ensure consistent sorting even if one is numeric
+            const ids = [String(myId), String(otherId)].sort();
+            return `dm_${ids[0]}_${ids[1]}`;
         }
     };
 
@@ -29,12 +45,46 @@ export const useChatStore = defineStore('chatStore', () => {
     // Called by the SocketManager when a new message event is received
     const receiveMessage = (msg) => {
         const type = msg.guild ? 'guild' : 'dm';
-        const targetId = msg.guild ? msg.guild : (msg.sender.id === userStore.user?.id ? msg.receiver : msg.sender.id);
+        // In Strapi 5, msg.guild is often the documentId or an object with documentId
+        const guildId = typeof msg.guild === 'object' ? msg.guild.documentId : msg.guild;
+        const senderId = typeof msg.sender === 'object' ? msg.sender.documentId : msg.sender;
+        const receiverId = typeof msg.receiver === 'object' ? msg.receiver.documentId : msg.receiver;
+
+        const targetId = msg.guild ? guildId : (senderId === userStore.user?.documentId ? receiverId : senderId);
         const roomName = getRoomName(type, targetId);
 
         if (!messages.value[roomName]) messages.value[roomName] = [];
+        
+        // Basic dupe check
         if (!messages.value[roomName].find(m => m.id === msg.id)) {
              messages.value[roomName] = [...messages.value[roomName], msg];
+             
+             // Increment unread if not active or widget closed
+             if (!widgetOpen.value || activeRoomName.value !== roomName) {
+                 unreadCounts.value[roomName] = (unreadCounts.value[roomName] || 0) + 1;
+                 
+                 // Notify if it's a guild message from someone else
+                 if (msg.guild && senderId !== userStore.user?.documentId) {
+                     const guild = guilds.value.find(g => (g.documentId === guildId || g.id === guildId));
+                     const guildName = guild?.name || 'Guilde';
+                     notificationStore.addNotification('GUILD_MESSAGE', `[${guildName}] ${msg.sender?.username}: ${msg.content}`, 'info');
+                 }
+             }
+        }
+    };
+
+    const joinAllGuildRooms = () => {
+        if (!socket || !socket.connected || guilds.value.length === 0) return;
+        
+        guilds.value.forEach(guild => {
+            const docId = guild.documentId || guild.id;
+            socket.emit('join-chat-room', { room: `guild_${docId}` });
+        });
+        console.log(`[ChatStore] Joined ${guilds.value.length} guild rooms`);
+        
+        // Also ensure we join the room of the active target if it's a guild not yet in the list
+        if (activeTab.value === 'guilds' && activeTargetId.value) {
+            socket.emit('join-chat-room', { room: `guild_${activeTargetId.value}` });
         }
     };
 
@@ -51,18 +101,37 @@ export const useChatStore = defineStore('chatStore', () => {
 
         socket.on('connect', () => {
             console.log('[ChatStore] Socket connected');
-            // Rejoin rooms if needed, but in our design rooms are joined dynamically
+            joinAllGuildRooms();
         });
     };
 
     const fetchGuilds = async () => {
-        if (!userStore.strapiConnected) {
+        if (!userStore.strapiConnected || !userStore.user) {
             guilds.value = mockGuilds;
             return;
         }
         try {
-            const response = await api.request('GET', '/guilds');
-            guilds.value = response.data;
+            // Fetch user's guilds and Global guild separately to avoid Strapi 5 400 error on complex $or filters
+            // We use the custom /guilds/me endpoint to avoid permission issues when filtering on relations via REST
+            const [userGuildsRes, globalGuildRes] = await Promise.all([
+                api.request('GET', '/guilds/me'),
+                api.request('GET', '/guilds', {
+                    params: { 'filters[name][$containsi]': 'Global' }
+                })
+            ]);
+
+            const userGuilds = userGuildsRes.data || [];
+            const globalGuilds = globalGuildRes.data || [];
+
+            // Merge and deduplicate by documentId
+            const merged = [...userGuilds];
+            globalGuilds.forEach(g => {
+                if (!merged.find(mg => (mg.documentId || mg.id) === (g.documentId || g.id))) {
+                    merged.push(g);
+                }
+            });
+
+            guilds.value = merged;
         } catch (err) {
             console.error('Failed to fetch guilds', err);
         }
@@ -74,14 +143,14 @@ export const useChatStore = defineStore('chatStore', () => {
             return;
         }
         try {
-            const response = await api.request('GET', `/guilds/${guildId}`, {
-                params: {
-                    'populate[0]': 'members',
-                    'populate[1]': 'owner',
-                    'populate[2]': 'moderators'
-                }
-            });
+            const response = await api.request('GET', `/guilds/${guildId}/data`);
             activeGuildDetails.value = response.data;
+            
+            // Also populate messages for this guild room to avoid extra call
+            const roomName = getRoomName('guild', guildId);
+            if (response.data.messages) {
+                messages.value[roomName] = response.data.messages;
+            }
         } catch (err) {
             console.error('Failed to fetch guild details', err);
         }
@@ -188,8 +257,7 @@ export const useChatStore = defineStore('chatStore', () => {
                 body: payload
             });
 
-            // Add locally instantly, the socket will also broadcast it but we might skip double adding
-            // For now let's just let the socket handle it, or add it instantly and handle dupes
+            // Add locally instantly
             const msg = response.data;
             if (!messages.value[roomName]) messages.value[roomName] = [];
 
@@ -200,6 +268,10 @@ export const useChatStore = defineStore('chatStore', () => {
 
         } catch (err) {
             console.error('Failed to send message', err);
+            // If it failed with 404, it might be because the receiverId is invalid
+            if (err.status === 404) {
+                 console.warn('[ChatStore] Receiver or Room not found. Check if using documentId.');
+            }
         }
     };
 
@@ -213,9 +285,17 @@ export const useChatStore = defineStore('chatStore', () => {
     const selectTarget = (type, id) => {
         activeTab.value = type;
         activeTargetId.value = id;
-        fetchMessages(type, id);
+        
+        const roomName = getRoomName(type === 'guilds' ? 'guild' : 'dm', id);
+        // Clear unread count
+        unreadCounts.value[roomName] = 0;
+
         if (type === 'guilds' || type === 'guild') {
+            // Guilds: fetchGuildDetails now also fetches the last 50 messages
             fetchGuildDetails(id);
+        } else {
+            // DMs: standard fetch
+            fetchMessages(type, id);
         }
     };
 
@@ -237,11 +317,21 @@ export const useChatStore = defineStore('chatStore', () => {
         }
     }, { immediate: true });
 
-    // When switching rooms, we need to join them
+    // When guilds are fetched, join their rooms
+    watch(guilds, () => {
+        joinAllGuildRooms();
+    }, { deep: true });
+
+    // When switching rooms, we need to join them (mainly for DMs now, as guilds are joined globally)
     watch(activeRoomName, (newRoom, oldRoom) => {
         if (socket && socket.connected) {
-            if (oldRoom) socket.emit('leave-chat-room', { room: oldRoom });
-            if (newRoom) socket.emit('join-chat-room', { room: newRoom });
+            // No need to leave guild rooms as we want to stay listening
+            if (oldRoom && !oldRoom.startsWith('guild_')) {
+                socket.emit('leave-chat-room', { room: oldRoom });
+            }
+            if (newRoom) {
+                socket.emit('join-chat-room', { room: newRoom });
+            }
         }
     });
 
@@ -253,6 +343,7 @@ export const useChatStore = defineStore('chatStore', () => {
         guilds,
         activeMessages,
         loading,
+        unreadCounts,
         toggleWidget,
         selectTarget,
         fetchGuilds,

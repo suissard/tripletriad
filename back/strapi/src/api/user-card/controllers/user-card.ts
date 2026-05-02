@@ -3,7 +3,7 @@ import { GameEngine } from "../../../shared/GameEngine";
 
 export default factories.createCoreController(
   "api::user-card.user-card",
-  ({ strapi }) => ({
+  ({ strapi }: { strapi: any }) => ({
     async find(ctx) {
       const user = ctx.state.user;
       if (!user) return ctx.unauthorized("You must be logged in.");
@@ -13,42 +13,22 @@ export default factories.createCoreController(
       // Extract and normalize pagination
       const page = parseInt(query.pagination?.page) || 1;
       const pageSize = parseInt(query.pagination?.pageSize) || 100;
-      const start = (page - 1) * pageSize;
 
       // Force filter by user
       const filters = {
         ...((query.filters as any) || {}),
-        user: user.id,
+        user: { id: user.id },
       };
 
-      // Use entityService to bypass the Query Parser validation which is complaining about 'user'
-      const results = await strapi.entityService.findMany(
-        "api::user-card.user-card",
-        {
-          filters,
-          populate: query.populate,
-          sort: query.sort,
-          start,
-          limit: pageSize,
-        }
-      );
-
-      // Count for pagination meta
-      const total = await strapi.entityService.count("api::user-card.user-card", {
+      const results = await strapi.documents("api::user-card.user-card").findMany({
         filters,
+        populate: query.populate,
+        sort: query.sort,
+        page,
+        pageSize,
       });
 
-      return {
-        data: results,
-        meta: {
-          pagination: {
-            page,
-            pageSize,
-            pageCount: Math.ceil(total / pageSize),
-            total,
-          },
-        },
-      };
+      return results; // documents.findMany already returns { data, meta }
     },
 
     async disenchant(ctx) {
@@ -59,9 +39,7 @@ export default factories.createCoreController(
         const { cardId } = ctx.request.body;
         if (!cardId) return ctx.badRequest("cardId is required.");
 
-        const gameConfigs = await strapi.entityService.findMany(
-          "api::game-config.game-config",
-        );
+        const gameConfigs = await strapi.documents("api::game-config.game-config").findMany();
         const gameConfig = Array.isArray(gameConfigs)
           ? gameConfigs[0]
           : gameConfigs;
@@ -74,10 +52,12 @@ export default factories.createCoreController(
           legendary: { disenchant: 400, craft: 1600 },
         };
 
-        const card = await strapi.entityService.findOne(
-          "api::card.card",
-          cardId,
-        );
+        // Find card by documentId or numeric id
+        const card = await strapi.documents("api::card.card").findOne({
+          documentId: isNaN(cardId) ? cardId : undefined,
+          status: 'published', // standard in documents service
+        }) || ( !isNaN(cardId) ? await strapi.documents("api::card.card").findMany({ filters: { id: cardId }, limit: 1 }).then(r => r[0]) : null);
+
         if (!card) return ctx.notFound("Card not found.");
 
         const cardLevel = GameEngine.calculateCardLevel({
@@ -96,12 +76,17 @@ export default factories.createCoreController(
 
         const dustGained = craftingRatios[rarity]?.disenchant || 10;
 
-        const userCards = await strapi.entityService.findMany(
-          "api::user-card.user-card",
-          {
-            filters: { user: user.id, card: cardId },
+        const userCards = await strapi.documents("api::user-card.user-card").findMany({
+          filters: { 
+            user: { id: user.id }, 
+            card: { 
+              $or: [
+                { id: isNaN(cardId) ? undefined : cardId },
+                { documentId: isNaN(cardId) ? cardId : undefined }
+              ]
+            } 
           },
-        );
+        });
 
         const userCard = userCards[0];
         if (!userCard || userCard.quantity <= 0)
@@ -109,37 +94,31 @@ export default factories.createCoreController(
 
         const updatedQuantity = userCard.quantity - 1;
         if (updatedQuantity === 0) {
-          await strapi.entityService.delete(
-            "api::user-card.user-card",
-            userCard.id,
-          );
+          await strapi.documents("api::user-card.user-card").delete({
+            documentId: userCard.documentId
+          });
         } else {
-          await strapi.entityService.update(
-            "api::user-card.user-card",
-            userCard.id,
-            {
-              data: { quantity: updatedQuantity },
-            },
-          );
+          await strapi.documents("api::user-card.user-card").update({
+            documentId: userCard.documentId,
+            data: { quantity: updatedQuantity },
+          });
         }
 
         // Find or create the wallet for this user
-        const wallets = await strapi.entityService.findMany(
-          "api::wallet.wallet",
-          {
-            filters: { user: user.id },
-          },
-        );
+        const wallets = await strapi.documents("api::wallet.wallet").findMany({
+          filters: { user: { id: user.id } },
+        });
 
         let wallet = wallets[0];
         if (!wallet) {
-          wallet = await strapi.entityService.create("api::wallet.wallet", {
+          wallet = await strapi.documents("api::wallet.wallet").create({
             data: { user: user.id, coins: 0, gems: 0, dust: 0 },
           });
         }
 
         const newDust = (wallet.dust || 0) + dustGained;
-        await strapi.entityService.update("api::wallet.wallet", wallet.id, {
+        await strapi.documents("api::wallet.wallet").update({
+          documentId: wallet.documentId,
           data: { dust: newDust },
         });
 
@@ -166,9 +145,7 @@ export default factories.createCoreController(
         const { cardId } = ctx.request.body;
         if (!cardId) return ctx.badRequest("cardId is required.");
 
-        const gameConfigs = await strapi.entityService.findMany(
-          "api::game-config.game-config",
-        );
+        const gameConfigs = await strapi.documents("api::game-config.game-config").findMany();
         const gameConfig = Array.isArray(gameConfigs)
           ? gameConfigs[0]
           : gameConfigs;
@@ -181,10 +158,10 @@ export default factories.createCoreController(
           legendary: { disenchant: 400, craft: 1600 },
         };
 
-        const card = await strapi.entityService.findOne(
-          "api::card.card",
-          cardId,
-        );
+        const card = await strapi.documents("api::card.card").findOne({
+          documentId: isNaN(cardId) ? cardId : undefined,
+        }) || (!isNaN(cardId) ? await strapi.documents("api::card.card").findMany({ filters: { id: cardId }, limit: 1 }).then(r => r[0]) : null);
+        
         if (!card) return ctx.notFound("Card not found.");
 
         const cardLevel = GameEngine.calculateCardLevel({
@@ -204,16 +181,13 @@ export default factories.createCoreController(
         const dustCost = craftingRatios[rarity]?.craft || 40;
 
         // Find or create the wallet for this user
-        const wallets = await strapi.entityService.findMany(
-          "api::wallet.wallet",
-          {
-            filters: { user: user.id },
-          },
-        );
+        const wallets = await strapi.documents("api::wallet.wallet").findMany({
+          filters: { user: { id: user.id } },
+        });
 
         let wallet = wallets[0];
         if (!wallet) {
-          wallet = await strapi.entityService.create("api::wallet.wallet", {
+          wallet = await strapi.documents("api::wallet.wallet").create({
             data: { user: user.id, coins: 0, gems: 0, dust: 0 },
           });
         }
@@ -223,33 +197,36 @@ export default factories.createCoreController(
         if (currentDust < dustCost) return ctx.badRequest("Not enough dust.");
 
         const newDust = currentDust - dustCost;
-        await strapi.entityService.update("api::wallet.wallet", wallet.id, {
+        await strapi.documents("api::wallet.wallet").update({
+          documentId: wallet.documentId,
           data: { dust: newDust },
         });
 
 
-        const userCards = await strapi.entityService.findMany(
-          "api::user-card.user-card",
-          {
-            filters: { user: user.id, card: cardId },
+        const userCards = await strapi.documents("api::user-card.user-card").findMany({
+          filters: { 
+            user: { id: user.id }, 
+            card: {
+              $or: [
+                { id: isNaN(cardId) ? undefined : cardId },
+                { documentId: isNaN(cardId) ? cardId : undefined }
+              ]
+            }
           },
-        );
+        });
 
         let updatedQuantity = 1;
         const userCard = userCards[0];
         if (!userCard) {
-          await strapi.entityService.create("api::user-card.user-card", {
-            data: { user: user.id, card: cardId, quantity: 1 },
+          await strapi.documents("api::user-card.user-card").create({
+            data: { user: user.id, card: card.documentId || card.id, quantity: 1 },
           });
         } else {
           updatedQuantity = userCard.quantity + 1;
-          await strapi.entityService.update(
-            "api::user-card.user-card",
-            userCard.id,
-            {
-              data: { quantity: updatedQuantity },
-            },
-          );
+          await strapi.documents("api::user-card.user-card").update({
+            documentId: userCard.documentId,
+            data: { quantity: updatedQuantity },
+          });
         }
 
         return ctx.send({
@@ -269,9 +246,7 @@ export default factories.createCoreController(
         const user = ctx.state.user;
         if (!user) return ctx.unauthorized("You must be logged in.");
 
-        const gameConfigs = await strapi.entityService.findMany(
-          "api::game-config.game-config",
-        );
+        const gameConfigs = await strapi.documents("api::game-config.game-config").findMany();
         const gameConfig = Array.isArray(gameConfigs)
           ? gameConfigs[0]
           : gameConfigs;
@@ -285,13 +260,10 @@ export default factories.createCoreController(
           legendary: { disenchant: 400, craft: 1600 },
         };
 
-        const userCards = await strapi.entityService.findMany(
-          "api::user-card.user-card",
-          {
-            filters: { user: user.id, quantity: { $gt: playableLimit } },
-            populate: ["card"],
-          },
-        );
+        const userCards = await strapi.documents("api::user-card.user-card").findMany({
+          filters: { user: { id: user.id }, quantity: { $gt: playableLimit } },
+          populate: ["card"],
+        });
 
         if (!userCards || userCards.length === 0) {
           return ctx.send({
@@ -335,33 +307,28 @@ export default factories.createCoreController(
           totalDustGained += dustPerCard * surplusQuantity;
           cardsDestroyed += surplusQuantity;
 
-          await strapi.entityService.update(
-            "api::user-card.user-card",
-            userCard.id,
-            {
-              data: { quantity: playableLimit },
-            },
-          );
+          await strapi.documents("api::user-card.user-card").update({
+            documentId: userCard.documentId,
+            data: { quantity: playableLimit },
+          });
         }
 
         // Find or create the wallet for this user
-        const wallets = await strapi.entityService.findMany(
-          "api::wallet.wallet",
-          {
-            filters: { user: user.id },
-          },
-        );
+        const wallets = await strapi.documents("api::wallet.wallet").findMany({
+          filters: { user: { id: user.id } },
+        });
 
         let wallet = wallets[0];
         if (!wallet) {
-          wallet = await strapi.entityService.create("api::wallet.wallet", {
+          wallet = await strapi.documents("api::wallet.wallet").create({
             data: { user: user.id, coins: 0, gems: 0, dust: 0 },
           });
         }
 
         const newDust = (wallet.dust || 0) + totalDustGained;
 
-        await strapi.entityService.update("api::wallet.wallet", wallet.id, {
+        await strapi.documents("api::wallet.wallet").update({
+          documentId: wallet.documentId,
           data: { dust: newDust },
         });
 
@@ -392,28 +359,20 @@ export default factories.createCoreController(
           return ctx.badRequest("variantIndex is required and must be a number.");
         }
 
-        // In Strapi 5, the frontend sends documentId, not numeric id.
-        // Use findMany with documentId filter to find the record.
-        const userCards = await strapi.entityService.findMany(
-          "api::user-card.user-card",
-          {
-            filters: { documentId: id, user: user.id },
-            limit: 1,
-          }
-        );
+        const userCards = await strapi.documents("api::user-card.user-card").findMany({
+          filters: { documentId: id, user: { id: user.id } },
+          limit: 1,
+        });
 
         const userCard = userCards?.[0];
         if (!userCard) {
           return ctx.notFound("User card not found or does not belong to you.");
         }
 
-        const updatedUserCard = await strapi.entityService.update(
-          "api::user-card.user-card",
-          userCard.id,
-          {
-            data: { selectedVariantIndex: variantIndex } as any,
-          }
-        );
+        const updatedUserCard = await strapi.documents("api::user-card.user-card").update({
+          documentId: userCard.documentId,
+          data: { selectedVariantIndex: variantIndex },
+        });
 
         return ctx.send({
           message: "Variant updated successfully",
@@ -435,17 +394,14 @@ export default factories.createCoreController(
         const { coins, gems, dust } = ctx.request.body;
 
         // Find the wallet for this user
-        const wallets = await strapi.entityService.findMany(
-          "api::wallet.wallet",
-          {
-            filters: { user: user.id },
-          },
-        );
+        const wallets = await strapi.documents("api::wallet.wallet").findMany({
+          filters: { user: { id: user.id } },
+        });
 
         let wallet = wallets[0];
         if (!wallet) {
           // Create wallet if it doesn't exist for some reason
-          wallet = await strapi.entityService.create("api::wallet.wallet", {
+          wallet = await strapi.documents("api::wallet.wallet").create({
             data: { user: user.id, coins: 0, gems: 0, dust: 0 },
           });
         }
@@ -458,13 +414,10 @@ export default factories.createCoreController(
         if (typeof dust === "number")
           updateData.dust = (wallet.dust || 0) + dust;
 
-        const updatedWallet = await strapi.entityService.update(
-          "api::wallet.wallet",
-          wallet.id,
-          {
-            data: updateData,
-          },
-        );
+        const updatedWallet = await strapi.documents("api::wallet.wallet").update({
+          documentId: wallet.documentId,
+          data: updateData,
+        });
 
         return ctx.send({
           message: "Currencies added successfully",

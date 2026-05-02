@@ -160,6 +160,8 @@
     "api::guild.guild.create": "authenticated",
     "api::guild.guild.join": "authenticated",
     "api::guild.guild.leave": "authenticated",
+    "api::guild.guild.getGuildData": "authenticated",
+    "api::guild.guild.getMeGuilds": "authenticated",
     "api::chat-message.chat-message.find": "authenticated",
     "api::chat-message.chat-message.sendMessage": "authenticated",
     "api::chat-message.chat-message.getMessages": "authenticated"

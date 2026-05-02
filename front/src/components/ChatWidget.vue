@@ -44,7 +44,7 @@
               :key="friend.id"
               class="list-item"
             >
-              <div class="item-content" @click="chatStore.selectTarget('friends', friend.id)">
+              <div class="item-content" @click="chatStore.selectTarget('friends', friend.documentId || friend.id)">
                 <div class="avatar"></div>
                 <span>{{ friend.username }}</span>
               </div>

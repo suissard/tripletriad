@@ -8,17 +8,27 @@ export const assignQuestsToUser = async (strapi, userId, immediate = false) => {
 
   // 1. Cleanup: Delete expired quests for this user
   try {
-    const deletedCount = await strapi.db
-      .query("api::player-quest.player-quest")
-      .deleteMany({
-        where: {
-          user: userId,
-          expiresAt: { $lt: nowISO },
-        },
+    // In Strapi 5, we can use documents().delete() with filters for deleteMany like behavior if supported,
+    // or stick with db.query for bulk operations if documents service doesn't support filters in delete.
+    // Actually, documents().delete() usually takes a documentId. 
+    // Let's use documents().findMany() then loop delete or use db.query which is fine for bulk internal ops.
+    const expiredQuests = await strapi.documents("api::player-quest.player-quest").findMany({
+      filters: {
+        user: { id: userId },
+        expiresAt: { $lt: nowISO },
+      },
+      fields: ["documentId"],
+    });
+
+    for (const quest of expiredQuests) {
+      await strapi.documents("api::player-quest.player-quest").delete({
+        documentId: quest.documentId,
       });
-    if (deletedCount.count > 0) {
+    }
+
+    if (expiredQuests.length > 0) {
       console.log(
-        `[QuestService] Deleted ${deletedCount.count} expired quests for user ${userId}`,
+        `[QuestService] Deleted ${expiredQuests.length} expired quests for user ${userId}`,
       );
     }
   } catch (err) {
@@ -26,24 +36,20 @@ export const assignQuestsToUser = async (strapi, userId, immediate = false) => {
   }
 
   // 1. Get user and their active/pending/valid quests
-  const userQuests = await strapi.entityService.findMany(
-    "api::player-quest.player-quest",
-    {
-      filters: {
-        user: userId,
-        status: "active",
-        expiresAt: { $gte: nowISO }, // Only count quests that are not expired
-      },
-      populate: ["quest_template"],
+  const userQuests = await strapi.documents("api::player-quest.player-quest").findMany({
+    filters: {
+      user: { id: userId },
+      status: "active",
+      expiresAt: { $gte: nowISO }, // Only count quests that are not expired
     },
-  );
+    populate: ["quest_template"],
+  });
 
   // 2. Get game config for max quests
   let maxQuests = 5;
   try {
-    const config = await strapi.entityService.findMany(
-      "api::game-config.game-config",
-    );
+    const configs = await strapi.documents("api::game-config.game-config").findMany();
+    const config = configs[0];
     if (config && config.maxQuestsPerUser) {
       maxQuests = config.maxQuestsPerUser;
     }
@@ -58,23 +64,21 @@ export const assignQuestsToUser = async (strapi, userId, immediate = false) => {
   }
 
   // 3. Get all quest templates EXCEPT welcome quest
-  const allTemplates = await strapi.entityService.findMany(
-    "api::quest-template.quest-template",
-    {
-      filters: {
-        code: { $ne: "WELCOME_QUEST" },
-      },
+  const allTemplates = await strapi.documents("api::quest-template.quest-template").findMany({
+    filters: {
+      code: { $ne: "WELCOME_QUEST" },
     },
-  );
+  });
 
   if (allTemplates.length === 0) return;
 
   // 4. Assign random quests
   const activeQuestTemplateIds = userQuests
-    .map((q) => q.quest_template?.id)
+    .map((q) => q.quest_template?.documentId || q.quest_template?.id)
     .filter((id) => id);
+  
   let availableTemplates = allTemplates.filter(
-    (t) => !activeQuestTemplateIds.includes(t.id),
+    (t) => !activeQuestTemplateIds.includes(t.documentId) && !activeQuestTemplateIds.includes(t.id),
   );
 
   for (let i = 0; i < questsNeeded; i++) {
@@ -113,10 +117,10 @@ export const assignQuestsToUser = async (strapi, userId, immediate = false) => {
       expiresAt = d;
     }
 
-    await strapi.entityService.create("api::player-quest.player-quest", {
+    await strapi.documents("api::player-quest.player-quest").create({
       data: {
-        user: userId,
-        quest_template: selectedTemplate.id,
+        user: { id: userId },
+        quest_template: selectedTemplate.documentId || selectedTemplate.id,
         progress: 0,
         status: "active",
         startsAt: startsAt.toISOString(),
@@ -132,9 +136,9 @@ export const assignQuestsToUser = async (strapi, userId, immediate = false) => {
 export const ensureUserHasWelcomeQuest = async (strapi, userId) => {
   try {
     // 1. Check if user already has it
-    const existing = await strapi.entityService.findMany("api::player-quest.player-quest", {
+    const existing = await strapi.documents("api::player-quest.player-quest").findMany({
       filters: {
-        user: userId,
+        user: { id: userId },
         quest_template: { code: 'WELCOME_QUEST' }
       }
     });
@@ -142,15 +146,15 @@ export const ensureUserHasWelcomeQuest = async (strapi, userId) => {
     if (existing && existing.length > 0) return; // Already assigned
 
     // 2. Find template
-    const templates = await strapi.entityService.findMany("api::quest-template.quest-template", {
+    const templates = await strapi.documents("api::quest-template.quest-template").findMany({
       filters: { code: 'WELCOME_QUEST' }
     });
 
     if (templates && templates.length > 0) {
-      await strapi.entityService.create("api::player-quest.player-quest", {
+      await strapi.documents("api::player-quest.player-quest").create({
         data: {
-          user: userId,
-          quest_template: templates[0].id,
+          user: { id: userId },
+          quest_template: templates[0].documentId || templates[0].id,
           progress: 0,
           status: 'active',
           startsAt: new Date().toISOString(),

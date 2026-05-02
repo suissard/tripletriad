@@ -6,7 +6,7 @@ import { factories } from "@strapi/strapi";
 
 export default factories.createCoreController(
   "api::card-back.card-back",
-  ({ strapi }) => ({
+  ({ strapi }: { strapi: any }) => ({
     async buy(ctx) {
       try {
         const user = ctx.state.user;
@@ -22,12 +22,9 @@ export default factories.createCoreController(
         }
 
         // Fetch card back using documentId or ID
-        let cardBack;
-        if (typeof backId === 'string') {
-          cardBack = await strapi.documents("api::card-back.card-back").findOne({ documentId: backId });
-        } else {
-          cardBack = await strapi.entityService.findOne("api::card-back.card-back", backId);
-        }
+        let cardBack = await strapi.documents("api::card-back.card-back").findOne({
+          documentId: isNaN(backId) ? backId : undefined,
+        }) || (!isNaN(backId) ? await strapi.documents("api::card-back.card-back").findMany({ filters: { id: backId }, limit: 1 }).then(r => r[0]) : null);
 
         if (!cardBack) {
           return ctx.notFound("Card back not found.");
@@ -36,12 +33,10 @@ export default factories.createCoreController(
         const cost = currency === "gems" ? ((cardBack as any).priceGems || 250) : ((cardBack as any).priceCoins || 2500);
 
         // Fetch user with wallet and unlocked card backs
-        // In Strapi 5, we prefer strapi.documents for users too if possible, but entityService is fine for IDs
-        const populatedUser = (await strapi.entityService.findOne(
-          "plugin::users-permissions.user",
-          user.id,
-          { populate: ["wallet", "unlockedCardBacks"] }
-        )) as any;
+        const populatedUser = (await strapi.documents("plugin::users-permissions.user").findOne({
+          documentId: user.documentId || (await strapi.documents("plugin::users-permissions.user").findMany({ filters: { id: user.id }, limit: 1 }).then(r => r[0]?.documentId)),
+          populate: ["wallet", "unlockedCardBacks"]
+        })) as any;
 
         // Check if it's the global default (free for everyone)
         const gameConfigs = await strapi.documents('api::game-config.game-config').findMany({
@@ -77,7 +72,8 @@ export default factories.createCoreController(
         }
 
         // Deduct currency
-        await strapi.entityService.update("api::wallet.wallet", wallet.id, {
+        await strapi.documents("api::wallet.wallet").update({
+          documentId: wallet.documentId,
           data: {
             [currency]: wallet[currency] - cost
           }

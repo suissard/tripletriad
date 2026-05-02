@@ -8,12 +8,13 @@
     <div class="guilds-layout">
       <!-- Sidebar : Liste des guildes et création -->
       <div class="guilds-sidebar">
+        <!-- Section 1: Mes Guildes -->
         <div class="sidebar-section">
-          <h3>Mes Guildes</h3>
+          <h3>🛡️ Mes Guildes</h3>
           <div v-if="chatStore.loading && chatStore.guilds.length === 0" class="loading">
             Chargement...
           </div>
-          <div v-else-if="chatStore.guilds.length === 0" class="empty-state">
+          <div v-else-if="chatStore.guilds.length === 0" class="empty-state-sidebar">
             Vous n'êtes membre d'aucune guilde.
           </div>
           <ul v-else class="guild-list">
@@ -28,22 +29,36 @@
               <div class="guild-info">
                 <span class="guild-name">{{ guild.name }}</span>
               </div>
+              <span v-if="chatStore.unreadCounts[`guild_${guild.documentId || guild.id}`]" class="unread-badge">
+                {{ chatStore.unreadCounts[`guild_${guild.documentId || guild.id}`] }}
+              </span>
             </li>
           </ul>
         </div>
 
-        <div class="sidebar-section search-guilds">
-          <h3>Chercher une Guilde</h3>
+        <!-- Section 2: Explorer / Autres Guildes -->
+        <div class="sidebar-section explorer">
+          <h3>🧭 Explorer les Guildes</h3>
           <div class="search-form">
             <input v-model="searchQuery" type="text" placeholder="Rechercher..." @input="handleSearch" />
           </div>
+          
           <div v-if="searching" class="loading-small">Recherche...</div>
-          <ul v-else class="search-results">
-            <li v-for="guild in allAvailableGuilds" :key="guild.documentId || guild.id" class="result-item">
-              <div class="result-info">
-                <span class="name">{{ guild.name }}</span>
+          <div v-else-if="otherGuilds.length === 0" class="empty-state-sidebar">
+            Aucune autre guilde trouvée.
+          </div>
+          <ul v-else class="guild-list secondary">
+            <li 
+              v-for="guild in otherGuilds" 
+              :key="guild.documentId || guild.id" 
+              class="guild-item secondary"
+              :class="{ active: chatStore.activeTargetId === (guild.documentId || guild.id) }"
+              @click="selectGuild(guild.documentId || guild.id)"
+            >
+              <div class="guild-info">
+                <span class="guild-name">{{ guild.name }}</span>
               </div>
-              <button v-if="!isMember(guild.documentId || guild.id)" class="btn-join" @click="handleJoinGuild(guild.documentId || guild.id)">
+              <button v-if="!isMember(guild.documentId || guild.id)" class="btn-join-small" @click.stop="handleJoinGuild(guild.documentId || guild.id)">
                 Rejoindre
               </button>
               <span v-else class="member-tag">Membre</span>
@@ -52,7 +67,7 @@
         </div>
 
         <div class="sidebar-section create-guild">
-          <h3>Créer une Guilde</h3>
+          <h3>✨ Créer une Guilde</h3>
           <div class="form-group">
             <input v-model="newGuildName" type="text" placeholder="Nom de la guilde" />
             <input v-model="newGuildDesc" type="text" placeholder="Description (optionnelle)" />
@@ -64,17 +79,35 @@
         </div>
       </div>
 
-      <!-- Main Content : Chat de guilde -->
+      <!-- Main Content : Chat ou Join -->
       <div class="guilds-main">
+        <!-- Etat: Aucun sélectionné -->
         <div v-if="!chatStore.activeTargetId || chatStore.activeTab !== 'guilds'" class="empty-state-main">
           <h2>Sélectionnez une guilde</h2>
           <p>Choisissez une guilde dans la liste pour voir les messages et les membres.</p>
         </div>
         
+        <!-- Etat: Pas membre -->
+        <div v-else-if="!isMember(chatStore.activeTargetId) && !isPublicGuild(activeGuild)" class="not-member-container">
+          <div class="not-member-card">
+            <div class="guild-icon-large">🛡️</div>
+            <h2>{{ activeGuildName }}</h2>
+            <p class="guild-desc">{{ activeGuildDesc }}</p>
+            <div class="membership-alert">
+              <span class="alert-icon">🔒</span>
+              <p>Vous n'êtes pas encore membre de cette guilde. Rejoignez-la pour accéder au chat et à la liste des membres.</p>
+            </div>
+            <button class="btn-primary join-btn-large" @click="handleJoinGuild(chatStore.activeTargetId)" :disabled="joining">
+              {{ joining ? 'Action en cours...' : 'Rejoindre la Guilde' }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Etat: Membre ou Public -->
         <div v-else class="guild-content-container">
           <div class="chat-header">
             <div class="header-info">
-              <h2>{{ activeGuildName }}</h2>
+              <h2>{{ activeGuildName }} <span v-if="isPublicGuild(activeGuild)" class="public-tag">Global</span></h2>
               <p class="guild-desc">{{ activeGuildDesc }}</p>
             </div>
             <div class="guild-tabs">
@@ -188,6 +221,7 @@ const createError = ref('');
 const searchQuery = ref('');
 const allAvailableGuilds = ref([]);
 const searching = ref(false);
+const joining = ref(false);
 
 const newMessage = ref('');
 const messagesContainer = ref(null);
@@ -219,10 +253,27 @@ const handleSearch = async () => {
   }
 };
 
-const activeGuild = computed(() => {
-  if (!chatStore.activeTargetId || chatStore.activeTab !== 'guilds') return null;
-  return chatStore.guilds.find(g => (g.documentId === chatStore.activeTargetId || g.id === chatStore.activeTargetId));
+const otherGuilds = computed(() => {
+  const joinedIds = new Set(chatStore.guilds.map(g => (g.documentId || g.id)));
+  return allAvailableGuilds.value.filter(g => !joinedIds.has(g.documentId || g.id));
 });
+
+const activeGuild = computed(() => {
+  const targetId = chatStore.activeTargetId;
+  if (!targetId || chatStore.activeTab !== 'guilds') return null;
+  // Look in joined guilds first
+  let guild = chatStore.guilds.find(g => (g.documentId === targetId || g.id === targetId));
+  // Then in all available
+  if (!guild) {
+    guild = allAvailableGuilds.value.find(g => (g.documentId === targetId || g.id === targetId));
+  }
+  return guild;
+});
+
+const isPublicGuild = (guild) => {
+  if (!guild) return false;
+  return ['global', 'général', 'general'].includes(guild.name?.toLowerCase());
+};
 
 const activeGuildName = computed(() => activeGuild.value?.name || 'Guilde Inconnue');
 const activeGuildDesc = computed(() => activeGuild.value?.description || '');
@@ -264,12 +315,15 @@ const selectGuild = (id) => {
 };
 
 const handleJoinGuild = async (guildId) => {
+  joining.value = true;
   try {
     await chatStore.joinGuild(guildId);
     gameEvents.emit('SHOW_ALERT', { text: 'Vous avez rejoint la guilde !' });
     handleSearch(); // Refresh list
   } catch (err) {
     gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors de la tentative de rejoindre la guilde.' });
+  } finally {
+    joining.value = false;
   }
 };
 
@@ -837,6 +891,151 @@ const sendMessage = async () => {
     flex: 1;
     justify-content: center;
   }
+}
+.sidebar-section.explorer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.guild-list.secondary {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.guild-item.secondary {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+}
+
+.btn-join-small {
+  background: var(--color-secondary);
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-join-small:hover {
+  filter: brightness(1.2);
+  transform: scale(1.05);
+}
+
+.empty-state-sidebar {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-align: center;
+  padding: 10px 0;
+  font-style: italic;
+}
+
+/* Not Member Container */
+.not-member-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 40px;
+  background: radial-gradient(circle at center, rgba(var(--color-primary-rgb), 0.05) 0%, transparent 70%);
+}
+
+.not-member-card {
+  max-width: 500px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  padding: 40px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.guild-icon-large {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 0 20px rgba(var(--color-primary-rgb), 0.4));
+}
+
+.not-member-card h2 {
+  font-size: 2.2rem;
+  margin: 0 0 10px 0;
+  color: white;
+}
+
+.not-member-card .guild-desc {
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+}
+
+.membership-alert {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.alert-icon {
+  font-size: 1.5rem;
+}
+
+.membership-alert p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: left;
+  line-height: 1.5;
+}
+
+.join-btn-large {
+  width: 100%;
+  padding: 16px;
+  font-size: 1.1rem;
+}
+
+.public-tag {
+  font-size: 0.8rem;
+  vertical-align: middle;
+  background: #4caf50;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 10px;
+  text-transform: uppercase;
+}
+
+.error-msg {
+  color: #ff5252;
+  font-size: 0.85rem;
+  margin-top: 10px;
+}
+.unread-badge {
+  background: var(--color-primary);
+  color: black;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 20px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(var(--color-primary-rgb), 0.5);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
 }
 </style>
 

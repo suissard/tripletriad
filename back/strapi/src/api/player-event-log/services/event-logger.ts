@@ -12,9 +12,9 @@ export const logPlayerEvent = async (strapi, eventData) => {
   if (!userId) return;
 
   // 1. Log the event
-  await strapi.entityService.create("api::player-event-log.player-event-log", {
+  await strapi.documents("api::player-event-log.player-event-log").create({
     data: {
-      user: userId,
+      user: { id: userId },
       eventType,
       relatedCard: relatedCardId || null,
       relatedElement: relatedElement || null,
@@ -35,25 +35,22 @@ export const logPlayerEvent = async (strapi, eventData) => {
   // 2. Process current active quests
   const now = new Date();
   const nowISO = now.toISOString();
-  const activeQuests = await strapi.entityService.findMany(
-    "api::player-quest.player-quest",
-    {
-      filters: {
-        user: { id: userId },
-        status: "active",
-        $and: [
-          {
-            $or: [
-              { startsAt: { $null: true } },
-              { startsAt: { $lte: nowISO } },
-            ],
-          },
-          { expiresAt: { $gte: nowISO } },
-        ],
-      },
-      populate: ["quest_template"],
+  const activeQuests = await strapi.documents("api::player-quest.player-quest").findMany({
+    filters: {
+      user: { id: userId },
+      status: "active",
+      $and: [
+        {
+          $or: [
+            { startsAt: { $null: true } },
+            { startsAt: { $lte: nowISO } },
+          ],
+        },
+        { expiresAt: { $gte: nowISO } },
+      ],
     },
-  );
+    populate: ["quest_template"],
+  });
 
   if (activeQuests.length === 0) {
     console.log(`[QuestService] No active/valid quests for User ${userId}.`);
@@ -138,16 +135,13 @@ export const logPlayerEvent = async (strapi, eventData) => {
       const newProgress = Math.min(quest.progress + amount, template.target);
       const isCompleted = newProgress >= template.target;
 
-      await strapi.entityService.update(
-        "api::player-quest.player-quest",
-        quest.id,
-        {
-          data: {
-            progress: newProgress,
-            status: isCompleted ? "completed" : "active",
-          },
+      await strapi.documents("api::player-quest.player-quest").update({
+        documentId: quest.documentId,
+        data: {
+          progress: newProgress,
+          status: isCompleted ? "completed" : "active",
         },
-      );
+      });
 
       if (isCompleted) {
         // Assign a new quest to replace this one (starts in 22h)

@@ -14,11 +14,10 @@ export default {
       const parsedQuantity = Math.max(1, parseInt(quantity, 10) || 1);
 
       // 1. Fetch user with wallet
-      const userWithWallet = (await strapi.entityService.findOne(
-        "plugin::users-permissions.user",
-        user.id,
-        { populate: ["wallet"] },
-      )) as any;
+      const userWithWallet = (await strapi.documents("plugin::users-permissions.user").findOne({
+        documentId: user.documentId || (await strapi.documents("plugin::users-permissions.user").findMany({ filters: { id: user.id }, limit: 1 }).then(r => r[0]?.documentId)),
+        populate: ["wallet"]
+      })) as any;
 
       const wallet = userWithWallet?.wallet;
       if (!wallet) {
@@ -26,19 +25,14 @@ export default {
       }
 
       // 1b. Fetch game config for costs
-      const gameConfigs = await strapi.entityService.findMany(
-        "api::game-config.game-config",
-        {},
-      );
-      const gameConfig: any = gameConfigs || {};
-      const classicBaseCost = gameConfig.defaultBoosterCost ?? 100;
-      const premiumBaseCost = gameConfig.defaultPremiumBoosterCost ?? 50;
+      const gameConfig = await strapi.documents("api::game-config.game-config").findFirst({}) as any;
+      const classicBaseCost = gameConfig?.defaultBoosterCost ?? 100;
+      const premiumBaseCost = gameConfig?.defaultPremiumBoosterCost ?? 50;
 
       // 1c. Fetch collection for multiplier and active status
-      const collections = await strapi.entityService.findMany(
-        "api::collection.collection",
-        { filters: { code: collection } }
-      );
+      const collections = await strapi.documents("api::collection.collection").findMany({
+        filters: { code: collection }
+      });
       const targetCollection = collections?.[0] as any;
       
       if (!targetCollection || targetCollection.isActive === false) {
@@ -71,7 +65,8 @@ export default {
         currentBoosters.push({ collection, isPremium, quantity: parsedQuantity });
       }
 
-      await strapi.entityService.update("api::wallet.wallet", wallet.id, {
+      await strapi.documents("api::wallet.wallet").update({
+        documentId: wallet.documentId,
         data: {
           [currency]: wallet[currency] - COST,
           boosters: currentBoosters,
@@ -105,7 +100,7 @@ export default {
       const { collection = "base", isPremium = false } = ctx.request.body;
 
       // 1. Fetch collection to check startDate
-      const collections = await strapi.entityService.findMany("api::collection.collection", {
+      const collections = await strapi.documents("api::collection.collection").findMany({
         filters: { code: collection }
       });
       const targetCollection = collections?.[0] as any;
@@ -119,11 +114,10 @@ export default {
       }
 
       // 1. Fetch user with wallet
-      const userWithWallet = (await strapi.entityService.findOne(
-        "plugin::users-permissions.user",
-        user.id,
-        { populate: ["wallet"] },
-      )) as any;
+      const userWithWallet = (await strapi.documents("plugin::users-permissions.user").findOne({
+        documentId: user.documentId || (await strapi.documents("plugin::users-permissions.user").findMany({ filters: { id: user.id }, limit: 1 }).then(r => r[0]?.documentId)),
+        populate: ["wallet"]
+      })) as any;
 
       const wallet = userWithWallet?.wallet;
       if (!wallet) {
@@ -140,14 +134,10 @@ export default {
       }
 
       // 2. Fetch game config
-      const gameConfigs = await strapi.entityService.findMany(
-        "api::game-config.game-config",
-        {},
-      );
-      const gameConfig: any = gameConfigs || {};
+      const gameConfig = await strapi.documents("api::game-config.game-config").findFirst({}) as any;
 
       // 3. Fetch all available cards from collection
-      const allCards = (await strapi.entityService.findMany("api::card.card", {
+      const allCards = (await strapi.documents("api::card.card").findMany({
         filters: { collection: { code: collection } },
         populate: { image: true },
         limit: 1000,
@@ -155,13 +145,10 @@ export default {
 
       if (!allCards || allCards.length === 0) {
         // Fallback to all cards if no cards in the specified collection exist
-        const anyCards = (await strapi.entityService.findMany(
-          "api::card.card",
-          {
-            populate: { image: true },
-            limit: 1000,
-          },
-        )) as any[];
+        const anyCards = (await strapi.documents("api::card.card").findMany({
+          populate: { image: true },
+          limit: 1000,
+        })) as any[];
         if (!anyCards || anyCards.length === 0) {
           return ctx.internalServerError("No cards available in the game.");
         }
@@ -174,7 +161,8 @@ export default {
         currentBoosters.splice(boosterIndex, 1);
       }
 
-      await strapi.entityService.update("api::wallet.wallet", wallet.id, {
+      await strapi.documents("api::wallet.wallet").update({
+        documentId: wallet.documentId,
         data: {
           boosters: currentBoosters,
         },
@@ -211,14 +199,14 @@ export default {
 
       // Probabilities (Premium packs could have better rates, but keeping it simple for now as requested)
       const probs = {
-        common: gameConfig.probCommon ?? 39,
-        uncommon: gameConfig.probUncommon ?? 30,
-        rare: gameConfig.probRare ?? 20,
-        epic: gameConfig.probEpic ?? 10,
-        legendary: gameConfig.probLegendary ?? 1,
+        common: gameConfig?.probCommon ?? 39,
+        uncommon: gameConfig?.probUncommon ?? 30,
+        rare: gameConfig?.probRare ?? 20,
+        epic: gameConfig?.probEpic ?? 10,
+        legendary: gameConfig?.probLegendary ?? 1,
       };
 
-      const probPremium = gameConfig.probPremium ?? 5;
+      const probPremium = gameConfig?.probPremium ?? 5;
 
       const cumProbs = {
         legendary: probs.legendary,
@@ -269,46 +257,39 @@ export default {
           isDrawnPremium: isDrawnPremium,
         });
 
-        const cardKey = `${card.id}_${isDrawnPremium}`;
+        const cardKey = `${card.documentId || card.id}_${isDrawnPremium}`;
         userCardsToCreateOrUpdate[cardKey] =
           (userCardsToCreateOrUpdate[cardKey] || 0) + 1;
       }
 
       // 7. Add to user collection
-      const existingUserCards: any[] = (await strapi.entityService.findMany(
-        "api::user-card.user-card",
-        {
-          filters: { user: user.id },
-          populate: { card: true },
-        },
-      )) as any[];
+      const existingUserCards: any[] = (await strapi.documents("api::user-card.user-card").findMany({
+        filters: { user: { id: user.id } },
+        populate: { card: true },
+      })) as any[];
 
       for (const [cardKey, quantityToAdd] of Object.entries(
         userCardsToCreateOrUpdate,
       )) {
         const [cardIdStr, isPremiumStr] = cardKey.split("_");
-        const cardId = parseInt(cardIdStr, 10);
-        const pStr = isPremiumStr === "true";
+        const isPStr = isPremiumStr === "true";
 
         const existingUserCard = existingUserCards.find(
-          (uc) => uc.card && uc.card.id === cardId && !!uc.isPremium === pStr,
+          (uc) => uc.card && (uc.card.documentId === cardIdStr || String(uc.card.id) === cardIdStr) && !!uc.isPremium === isPStr,
         );
 
         if (existingUserCard) {
-          await strapi.entityService.update(
-            "api::user-card.user-card",
-            existingUserCard.id,
-            {
-              data: { quantity: existingUserCard.quantity + quantityToAdd },
-            },
-          );
+          await strapi.documents("api::user-card.user-card").update({
+            documentId: existingUserCard.documentId,
+            data: { quantity: existingUserCard.quantity + quantityToAdd },
+          });
         } else {
-          await strapi.entityService.create("api::user-card.user-card", {
+          await strapi.documents("api::user-card.user-card").create({
             data: {
-              user: user.id,
-              card: cardId,
+              user: { id: user.id },
+              card: cardIdStr,
               quantity: quantityToAdd,
-              isPremium: pStr,
+              isPremium: isPStr,
             },
           });
         }

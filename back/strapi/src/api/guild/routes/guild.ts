@@ -8,6 +8,12 @@ export default {
     },
     {
       method: 'GET',
+      path: '/guilds/me',
+      handler: 'guild.getMeGuilds',
+      config: { policies: [] }
+    },
+    {
+      method: 'GET',
       path: '/guilds/:id',
       handler: 'guild.findOne',
       config: { policies: [] }
@@ -28,6 +34,12 @@ export default {
       method: 'POST',
       path: '/guilds/:id/leave',
       handler: 'guild.leave',
+      config: { policies: [] }
+    },
+    {
+      method: 'GET',
+      path: '/guilds/:id/data',
+      handler: 'guild.getGuildData',
       config: { policies: [] }
     }
   ]

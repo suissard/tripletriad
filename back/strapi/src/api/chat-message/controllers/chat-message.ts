@@ -38,8 +38,8 @@ export default factories.createCoreController('api::chat-message.chat-message', 
         
         if (!guild) return ctx.notFound('Guild not found');
         
-        // Canonical documentId for the filter
-        filters = { guild: guild.documentId };
+        // Canonical ID for the filter to avoid SQL type errors
+        filters = { guild: guild.id };
         
         // Check membership
         const isMember = guild.members?.some(m => 
@@ -56,10 +56,23 @@ export default factories.createCoreController('api::chat-message.chat-message', 
         }
       } else if (targetUserId) {
         // Fetching DM messages
+        // Support both numeric ID and documentId string for the target user
+        const targetUserFilter = typeof targetUserId === 'string' && targetUserId.length > 10 
+          ? { documentId: targetUserId } 
+          : { id: targetUserId };
+        
+        const targetUsers = await strapi.documents('plugin::users-permissions.user').findMany({
+          filters: targetUserFilter,
+          limit: 1
+        });
+        
+        const targetUser = targetUsers[0];
+        if (!targetUser) return ctx.notFound('Target user not found');
+
         filters = {
           $or: [
-            { sender: { documentId: user.documentId }, receiver: { documentId: targetUserId } },
-            { sender: { documentId: targetUserId }, receiver: { documentId: user.documentId } }
+            { sender: { documentId: user.documentId }, receiver: { documentId: targetUser.documentId } },
+            { sender: { documentId: targetUser.documentId }, receiver: { documentId: user.documentId } }
           ]
         };
       }
@@ -73,8 +86,9 @@ export default factories.createCoreController('api::chat-message.chat-message', 
         populate: ['sender']
       });
 
-      // Explicit count for meta
-      const total = await strapi.documents('api::chat-message.chat-message').count({ filters });
+      // Fix for Strapi 5: documentService does not have a .count() method. 
+      // Use strapi.db.query instead.
+      const total = await strapi.db.query('api::chat-message.chat-message').count({ where: filters });
 
       // Sanitize
       const sanitized = messages.map(m => ({
@@ -152,9 +166,16 @@ export default factories.createCoreController('api::chat-message.chat-message', 
         data.guild = guild.documentId;
         emitRoom = `guild_${guild.documentId}`;
       } else {
-        const targetUser = await strapi.documents('plugin::users-permissions.user').findOne({
-            documentId: receiverId
+        // Support both numeric ID and documentId string for receiver
+        const targetUserFilter = typeof receiverId === 'string' && receiverId.length > 10 
+          ? { documentId: receiverId } 
+          : { id: receiverId };
+
+        const targetUsers = await strapi.documents('plugin::users-permissions.user').findMany({
+            filters: targetUserFilter,
+            limit: 1
         });
+        const targetUser = targetUsers[0];
         if (!targetUser) return ctx.notFound('Receiver not found');
 
         data.receiver = targetUser.documentId;

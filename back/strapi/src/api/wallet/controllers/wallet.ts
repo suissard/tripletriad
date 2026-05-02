@@ -2,21 +2,22 @@ import { factories } from "@strapi/strapi";
 
 export default factories.createCoreController(
   "api::wallet.wallet",
-  ({ strapi }) => ({
+  ({ strapi }: { strapi: any }) => ({
     async getMe(ctx) {
       const user = ctx.state.user;
       if (!user) {
         return ctx.unauthorized("You must be logged in to access your wallet");
       }
 
-      let wallet = await strapi.db.query("api::wallet.wallet").findOne({
-        where: { user: user.id },
+      const wallets = await strapi.documents("api::wallet.wallet").findMany({
+        filters: { user: { id: user.id } },
       });
+      let wallet = wallets[0];
 
       if (!wallet) {
-        wallet = await strapi.entityService.create("api::wallet.wallet", {
+        wallet = await strapi.documents("api::wallet.wallet").create({
           data: {
-            user: user.id,
+            user: { id: user.id },
             coins: 100, // Initial coins
             gems: 0,
             dust: 0,
