@@ -117,11 +117,14 @@
             <div
               v-for="msg in chatStore.activeMessages"
               :key="msg.id"
-              class="message"
+              class="message-wrapper"
               :class="{ 'is-mine': msg.sender?.id === userStore.user?.id }"
             >
-              <span class="sender">{{ msg.sender?.username || 'Inconnu' }}</span>
-              <div class="bubble">{{ msg.content }}</div>
+              <img :src="getAvatarUrl(msg.sender)" class="message-avatar" alt="Avatar" />
+              <div class="message">
+                <span class="sender" :style="{ color: getUserColor(msg.sender?.documentId || msg.sender?.id) }">{{ msg.sender?.username || 'Inconnu' }}</span>
+                <div class="bubble">{{ msg.content }}</div>
+              </div>
             </div>
           </template>
         </div>
@@ -148,6 +151,30 @@ import { useChatStore } from '../stores/chatStore.js';
 import { useFriendStore } from '../stores/friendStore.js';
 import { useUserStore } from '../stores/userStore.js';
 import { gameEvents } from '../game/events.js';
+import { getStrapiMediaUrl } from '../utils/url.js';
+
+const getUserColor = (userId) => {
+  if (!userId) return 'white';
+  const colors = [
+    '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEEAD',
+    '#D4A5A5', '#9B59B6', '#3498DB', '#E67E22', '#F1C40F',
+    '#1ABC9C', '#E74C3C', '#2ECC71', '#8E44AD', '#34495E',
+    '#16A085', '#27AE60', '#2980B9', '#D35400', '#C0392B'
+  ];
+  let hash = 0;
+  const strId = String(userId);
+  for (let i = 0; i < strId.length; i++) {
+    hash = strId.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return colors[Math.abs(hash) % colors.length];
+};
+
+const getAvatarUrl = (user) => {
+  if (user?.avatar_card?.image?.url) {
+    return getStrapiMediaUrl(user.avatar_card.image.url);
+  }
+  return `https://api.dicebear.com/9.x/bottts/svg?seed=${user?.username || 'player'}&backgroundColor=transparent`;
+};
 
 const chatStore = useChatStore();
 const friendStore = useFriendStore();
@@ -482,15 +509,35 @@ h4 {
   gap: 12px;
 }
 
-.message {
+.message-wrapper {
   display: flex;
-  flex-direction: column;
-  max-width: 80%;
+  gap: 8px;
+  max-width: 85%;
   align-self: flex-start;
 }
 
-.message.is-mine {
+.message-wrapper.is-mine {
   align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.message-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.5);
+  object-fit: cover;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+}
+
+.message-wrapper.is-mine .message {
   align-items: flex-end;
 }
 

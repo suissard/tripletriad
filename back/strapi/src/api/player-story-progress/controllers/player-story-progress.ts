@@ -9,18 +9,31 @@ export default factories.createCoreController(
 
       const isAdmin = (user as any).role?.type === 'admin' || (user as any).role?.name === 'Admin';
 
-      // If not admin, automatically filter by the current user
-      if (!isAdmin) {
-        ctx.query = {
-          ...ctx.query,
-          filters: {
-            ...((ctx.query.filters as any) || {}),
-            user: { id: user.id }
-          }
-        };
+      // Normalize pagination from query if present
+      const query = { ...ctx.query } as any;
+      if (query.pagination) {
+        if (query.pagination.page) query.page = parseInt(query.pagination.page);
+        if (query.pagination.pageSize) query.pageSize = parseInt(query.pagination.pageSize);
       }
 
-      return await super.find(ctx);
+      // Ensure filters object exists
+      query.filters = { ...(query.filters || {}) };
+
+      // If not admin, automatically filter by the current user
+      if (!isAdmin) {
+        query.filters.user = { id: user.id };
+      }
+
+      // Strapi 5: findMany using documents service
+      const results = await strapi.documents("api::player-story-progress.player-story-progress").findMany(query);
+      
+      // If pagination was used, results is already { data, meta }
+      if (results && 'data' in (results as any)) {
+        return results;
+      }
+      
+      // Otherwise it's a simple array
+      return { data: results };
     },
 
     async claimStepReward(ctx) {

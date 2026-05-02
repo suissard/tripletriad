@@ -139,11 +139,14 @@
                 <div
                   v-for="msg in chatStore.activeMessages"
                   :key="msg.id"
-                  class="message"
+                  class="message-wrapper"
                   :class="{ 'is-mine': msg.sender?.id === userStore.user?.id }"
                 >
-                  <span class="sender">{{ msg.sender?.username || 'Inconnu' }}</span>
-                  <div class="bubble">{{ msg.content }}</div>
+                  <img :src="getAvatarUrl(msg.sender)" class="message-avatar" alt="Avatar" />
+                  <div class="message">
+                    <span class="sender" :style="{ color: getUserColor(msg.sender?.documentId || msg.sender?.id) }">{{ msg.sender?.username || 'Inconnu' }}</span>
+                    <div class="bubble">{{ msg.content }}</div>
+                  </div>
                 </div>
               </template>
             </div>
@@ -175,9 +178,7 @@
                   </h3>
                   <div class="members-grid">
                     <div v-for="member in group" :key="member.id" class="member-card">
-                      <div class="member-avatar">
-                        {{ member.username.charAt(0).toUpperCase() }}
-                      </div>
+                      <img :src="getAvatarUrl(member)" class="member-avatar-img" alt="Avatar" />
                       <div class="member-info">
                         <span class="member-name">{{ member.username }}</span>
                         <span class="member-role-tag">{{ roleName }}</span>
@@ -200,6 +201,30 @@ import { useRouter } from 'vue-router';
 import { useChatStore } from '../stores/chatStore.js';
 import { useUserStore } from '../stores/userStore.js';
 import { gameEvents } from '../game/events.js';
+import { getStrapiMediaUrl } from '../utils/url.js';
+
+const getUserColor = (userId) => {
+  if (!userId) return 'white';
+  const colors = [
+    '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEEAD',
+    '#D4A5A5', '#9B59B6', '#3498DB', '#E67E22', '#F1C40F',
+    '#1ABC9C', '#E74C3C', '#2ECC71', '#8E44AD', '#34495E',
+    '#16A085', '#27AE60', '#2980B9', '#D35400', '#C0392B'
+  ];
+  let hash = 0;
+  const strId = String(userId);
+  for (let i = 0; i < strId.length; i++) {
+    hash = strId.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return colors[Math.abs(hash) % colors.length];
+};
+
+const getAvatarUrl = (user) => {
+  if (user?.avatar_card?.image?.url) {
+    return getStrapiMediaUrl(user.avatar_card.image.url);
+  }
+  return `https://api.dicebear.com/9.x/bottts/svg?seed=${user?.username || 'player'}&backgroundColor=transparent`;
+};
 
 const props = defineProps({
   documentId: {
@@ -692,22 +717,42 @@ const sendMessage = async () => {
   gap: 15px;
 }
 
+.message-wrapper {
+  display: flex;
+  gap: 10px;
+  max-width: 85%;
+  align-self: flex-start;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.message-wrapper.is-mine {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.message-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.5);
+  object-fit: cover;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
 .message {
   display: flex;
   flex-direction: column;
-  max-width: 75%;
-  align-self: flex-start;
-  animation: fadeIn 0.3s ease-out;
+}
+
+.message-wrapper.is-mine .message {
+  align-items: flex-end;
 }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-.message.is-mine {
-  align-self: flex-end;
-  align-items: flex-end;
 }
 
 .sender {
@@ -838,17 +883,14 @@ const sendMessage = async () => {
   border-color: rgba(255, 255, 255, 0.2);
 }
 
-.member-avatar {
+.member-avatar-img {
   width: 40px;
   height: 40px;
-  background: var(--color-primary);
-  color: black;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.5);
+  object-fit: cover;
+  flex-shrink: 0;
   box-shadow: 0 0 10px rgba(var(--color-primary-rgb), 0.3);
 }
 

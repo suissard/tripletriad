@@ -77,13 +77,12 @@ export default factories.createCoreController('api::chat-message.chat-message', 
         };
       }
 
-      // Strapi 5 documentService.findMany for data
       const messages = await strapi.documents('api::chat-message.chat-message').findMany({
         filters,
         sort: 'createdAt:desc',
         limit: Number(pageSize),
         start: (Number(page) - 1) * Number(pageSize),
-        populate: ['sender']
+        populate: ['sender', 'sender.avatar_card.image']
       });
 
       // Fix for Strapi 5: documentService does not have a .count() method. 
@@ -93,7 +92,12 @@ export default factories.createCoreController('api::chat-message.chat-message', 
       // Sanitize
       const sanitized = messages.map(m => ({
         ...m,
-        sender: m.sender ? { id: m.sender.id, username: m.sender.username, documentId: m.sender.documentId } : null
+        sender: m.sender ? { 
+          id: m.sender.id, 
+          username: m.sender.username, 
+          documentId: m.sender.documentId,
+          avatar_card: m.sender.avatar_card
+        } : null
       })).reverse();
 
       return {
@@ -120,6 +124,7 @@ export default factories.createCoreController('api::chat-message.chat-message', 
 
       const users = await strapi.documents('plugin::users-permissions.user').findMany({
         filters: { id: authUser.id },
+        populate: ['avatar_card.image'],
         limit: 1
       });
       const user = users[0];
@@ -190,10 +195,21 @@ export default factories.createCoreController('api::chat-message.chat-message', 
         populate: ['sender']
       });
 
-      const sanitizedMessage = {
+      const sanitizedMessage: any = {
         ...newMessage,
-        sender: { id: user.id, username: user.username, documentId: user.documentId }
+        sender: { 
+          id: user.id, 
+          username: user.username, 
+          documentId: user.documentId,
+          avatar_card: user.avatar_card
+        }
       };
+
+      if (guildId) {
+        sanitizedMessage.guild = { documentId: data.guild };
+      } else {
+        sanitizedMessage.receiver = { documentId: data.receiver };
+      }
 
       if (strapi.io) {
         strapi.io.to(emitRoom).emit('new-chat-message', sanitizedMessage);

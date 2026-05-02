@@ -163,10 +163,9 @@ export default factories.createCoreController('api::guild.guild' as any, ({ stra
       const { id: documentId } = ctx.params;
       strapi.log.info(`[Guild] getGuildData - user: ${authUser.username}, guild: ${documentId}`);
 
-      // Fetch guild with members, owner, and moderators
       const guild = await strapi.documents('api::guild.guild').findOne({
         documentId,
-        populate: ['members', 'owner', 'moderators']
+        populate: ['members', 'members.avatar_card.image', 'owner', 'owner.avatar_card.image', 'moderators', 'moderators.avatar_card.image']
       });
 
       if (!guild) return ctx.notFound('Guild not found');
@@ -180,12 +179,11 @@ export default factories.createCoreController('api::guild.guild' as any, ({ stra
         return ctx.forbidden('Not a member of this guild');
       }
 
-      // Fetch recent messages (last 50)
       const messages = await strapi.documents('api::chat-message.chat-message').findMany({
         filters: { guild: guild.id },
         sort: 'createdAt:desc',
         limit: 50,
-        populate: ['sender']
+        populate: ['sender', 'sender.avatar_card.image']
       });
 
       // Sanitize members and messages
@@ -193,6 +191,7 @@ export default factories.createCoreController('api::guild.guild' as any, ({ stra
         id: m.id,
         documentId: m.documentId,
         username: m.username,
+        avatar_card: m.avatar_card
       }));
 
       const sanitizedMessages = messages.map((m: any) => ({
@@ -203,7 +202,8 @@ export default factories.createCoreController('api::guild.guild' as any, ({ stra
         sender: m.sender ? {
           id: m.sender.id,
           documentId: m.sender.documentId,
-          username: m.sender.username
+          username: m.sender.username,
+          avatar_card: m.sender.avatar_card
         } : null
       })).reverse();
 

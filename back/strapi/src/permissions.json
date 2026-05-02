@@ -90,6 +90,7 @@
     "api::player-quest.player-quest.find": "authenticated",
     "api::player-quest.player-quest.findOne": "admin",
     "api::player-quest.player-quest.update": "admin",
+    "api::player-quest.player-quest.claimReward": "authenticated",
     "api::player-story-progress.player-story-progress.claimStepReward": "authenticated",
     "api::player-story-progress.player-story-progress.create": "admin",
     "api::player-story-progress.player-story-progress.delete": "admin",

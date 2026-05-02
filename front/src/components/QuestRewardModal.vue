@@ -35,10 +35,10 @@
                 </div>
                 <button 
                   class="claim-button" 
-                  :disabled="claiming === quest.id"
+                  :disabled="claiming === (quest.documentId || quest.id)"
                   @click="handleClaim(quest)"
                 >
-                  <span v-if="claiming === quest.id" class="loader"></span>
+                  <span v-if="claiming === (quest.documentId || quest.id)" class="loader"></span>
                   <span v-else>RÉCUPÉRER</span>
                 </button>
               </div>
@@ -100,9 +100,9 @@ const activeQuests = computed(() =>
 
 async function handleClaim(quest) {
   if (claiming.value) return;
-  claiming.value = quest.id;
+  claiming.value = quest.documentId || quest.id;
   
-  const result = await userStore.claimQuestReward(quest.id);
+  const result = await userStore.claimQuestReward(quest.documentId || quest.id);
   
   if (result.success) {
     emit('rewardClaimed', { quest, reward: result.reward });

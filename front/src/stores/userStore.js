@@ -266,13 +266,10 @@ export const useUserStore = defineStore('user', {
 
     async fetchUserWallet() {
       try {
-        // We fetch the wallet specifically. Strapi 5 allows filtering by user.
-        // If not found, we fallback to an empty wallet or try to find it via user-permissions
-        const res = await strapiService.find('wallets', {
-          filters: { user: { id: this.user.id } }
-        });
+        // Use the dedicated /wallets/me endpoint which is safer and handles creation if needed
+        const res = await strapiService.request('GET', '/wallets/me');
         
-        const walletData = this.toArray(res)[0];
+        const walletData = res?.data || res;
         if (walletData) {
           this.user.coins = walletData.coins ?? 0;
           this.user.gems = walletData.gems ?? 0;
