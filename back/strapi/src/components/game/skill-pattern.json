@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_game_skill_patterns",
+  "info": {
+    "displayName": "skill-pattern",
+    "description": "Motif de zone pour une compétence (adjacent, cross, row, etc.)"
+  },
+  "options": {},
+  "attributes": {
+    "value": {
+      "type": "enumeration",
+      "enum": [
+        "self",
+        "adjacent",
+        "top",
+        "bottom",
+        "left",
+        "right",
+        "row",
+        "column",
+        "diagonals",
+        "cross",
+        "all"
+      ],
+      "required": true,
+      "default": "adjacent"
+    }
+  }
+}

@@ -58,6 +58,35 @@
                 <span v-if="isPremium" class="zoom-premium-badge">🌟 PREMIUM</span>
               </div>
               <p v-if="card.description" class="zoom-desc">{{ card.description }}</p>
+
+              <!-- Skills List -->
+              <div v-if="skillDetails.length" class="zoom-skills-list">
+                <div v-for="s in skillDetails" :key="s.type" class="zoom-skill-item">
+                  <div class="zoom-skill-header">
+                    <span class="zoom-skill-name">
+                      {{ s.name }} 
+                      <span v-if="s.value" class="skill-value">+{{ s.value }}</span>
+                      <span v-if="s.duration" class="skill-duration">({{ s.duration }}t)</span>
+                    </span>
+                    <div class="zoom-skill-params">
+                      <span class="param-badge origin" v-if="s.isManual" title="Le joueur doit cibler une case">
+                        📍 {{ s.originDesc }}
+                      </span>
+                      <span class="param-badge origin fixed" v-else-if="s.originType !== 'self'">
+                        📍 {{ s.originDesc }}
+                      </span>
+                      <span class="param-badge target" :title="'Portée: ' + s.range">
+                        🎯 {{ s.patternLabels }} <span v-if="s.range > 1">({{ s.range }})</span>
+                      </span>
+                      <span v-if="s.filter && s.filter !== 'none'" class="param-badge filter">
+                        🔍 {{ s.filterLabel }}
+                      </span>
+                    </div>
+                  </div>
+                  <span class="zoom-skill-desc">{{ s.description }}</span>
+                </div>
+              </div>
+
               <slot name="extra" />
               <div class="zoom-ownership">
                 <div v-if="unowned" class="ownership-status unowned">🔒 Non possédée</div>
@@ -154,6 +183,7 @@ import ElementIcon from "./ElementIcon.vue";
 import HoloOverlay from "./HoloOverlay.vue";
 import { useUserStore } from '../stores/userStore.js';
 import { GameEngine } from '../game/GameEngine.js';
+import { skillRegistry } from '../../../shared/skills/index';
 import PurchaseButton from './ui/PurchaseButton.vue';
 
 const TripleTriadCard = defineAsyncComponent(() => import('./TripleTriadCard.vue'));
@@ -195,6 +225,87 @@ const zoomCard = computed(() => {
     ...props.card,
     selectedVariantIndex: currentVariantIndex.value
   };
+});
+
+const targetLabels = {
+  self: 'Soi-même',
+  adjacent: 'Adjacents',
+  top: 'Haut',
+  bottom: 'Bas',
+  left: 'Gauche',
+  right: 'Droite',
+  all: 'Plateau',
+  allies: 'Alliés',
+  enemies: 'Ennemis',
+  row: 'Ligne',
+  column: 'Colonne',
+  diagonals: 'Diagonales',
+  cross: 'En croix'
+};
+
+const filterLabels = {
+  allies: 'Alliés',
+  enemies: 'Ennemis',
+  empty: 'Cases vides',
+  self: 'Soi-même'
+};
+
+const originTypeLabels = {
+  self: 'Soi-même',
+  fixed: 'Fixé',
+  manual: 'Manuel',
+  manual_constrained: 'Manuel (portée limitée)'
+};
+
+const originDirectionLabels = {
+  top: 'Haut', bottom: 'Bas', left: 'Gauche', right: 'Droite',
+  top_left: 'Haut-Gauche', top_right: 'Haut-Droite',
+  bottom_left: 'Bas-Gauche', bottom_right: 'Bas-Droite'
+};
+
+const skillDetails = computed(() => {
+  if (!props.card.skills) return [];
+  return props.card.skills.map(s => {
+    const type = typeof s === 'string' ? s : s.type;
+    const handler = skillRegistry.getHandler(type);
+
+    // Patterns : format [{value: 'adjacent'}, ...] ou string legacy
+    const rawPatterns = s.patterns || [{ value: 'adjacent' }];
+    const patternLabels = rawPatterns
+      .map(p => {
+        const key = typeof p === 'string' ? p : p.value;
+        return targetLabels[key] || key;
+      })
+      .join(' + ');
+
+    const originType = s.origin_type || 'self';
+    const filter = s.filter || 'none';
+
+    // Description de l'origine
+    let originDesc = originTypeLabels[originType] || originType;
+    if (originType === 'fixed' && s.origin_direction) {
+      const reach = s.origin_reach || 1;
+      originDesc = `${reach} case${reach > 1 ? 's' : ''} vers ${originDirectionLabels[s.origin_direction] || s.origin_direction}`;
+    }
+    if (originType === 'manual_constrained' && s.origin_reach) {
+      originDesc = `Manuel (rayon ${s.origin_reach})`;
+    }
+
+    return {
+      type,
+      name: handler ? handler.name : type,
+      description: handler ? handler.description : '',
+      value: s.value,
+      duration: s.duration,
+      range: s.range || 1,
+      patternLabels,
+      originType,
+      originDesc,
+      isManual: originType === 'manual' || originType === 'manual_constrained',
+      filter,
+      filterLabel: filterLabels[filter] || filter
+    };
+  });
 });
 
 // --- VARIANT LOGIC ---
@@ -445,6 +556,76 @@ async function handleDisenchant() { if (props.quantity > 0) await userStore.dise
 }
 .zoom-premium-badge, .zoom-rarity-badge { font-weight: bold; text-transform: uppercase; }
 .zoom-premium-badge { color: #ffce00; text-shadow: 0 0 8px rgba(255, 206, 0, 0.6); }
+
+.zoom-skills-list {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.zoom-skill-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.zoom-skill-name {
+  color: #ffd700;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+.zoom-skill-desc {
+  color: #ddd;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.zoom-skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.zoom-skill-params {
+  display: flex;
+  gap: 8px;
+}
+
+.param-badge {
+  font-size: 0.7em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ccc;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.param-badge.target { border: 1px solid rgba(0, 210, 255, 0.3); color: #00d2ff; }
+.param-badge.filter { border: 1px solid rgba(255, 215, 0, 0.3); color: #ffd700; }
+.param-badge.origin { border: 1px solid rgba(255, 100, 255, 0.3); color: #ff64ff; }
+
+.skill-value {
+  color: #4aff4a;
+}
+
+.skill-duration {
+  color: #00d2ff;
+  font-style: italic;
+  font-size: 0.9em;
+}
 
 .zoom-ownership {
   margin: 1rem 0; padding: 0.5rem 1rem;

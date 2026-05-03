@@ -34,12 +34,76 @@ export interface GameSkill extends Struct.ComponentSchema {
     displayName: 'skill';
   };
   attributes: {
-    target: Schema.Attribute.String;
+    duration: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    filter: Schema.Attribute.Enumeration<
+      ['none', 'allies', 'enemies', 'empty', 'self']
+    > &
+      Schema.Attribute.DefaultTo<'none'>;
+    origin_direction: Schema.Attribute.Enumeration<
+      [
+        'top',
+        'bottom',
+        'left',
+        'right',
+        'top_left',
+        'top_right',
+        'bottom_left',
+        'bottom_right',
+      ]
+    >;
+    origin_reach: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
+    origin_type: Schema.Attribute.Enumeration<
+      ['self', 'fixed', 'manual', 'manual_constrained']
+    > &
+      Schema.Attribute.DefaultTo<'self'>;
+    patterns: Schema.Attribute.Component<'game.skill-pattern', true>;
+    range: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
     type: Schema.Attribute.Enumeration<
-      ['growing', 'decrease', 'heal', 'death', 'turn']
+      [
+        'growing',
+        'decrease',
+        'heal',
+        'death',
+        'turn',
+        'aura',
+        'bomb',
+        'combo',
+        'freeze',
+        'poison',
+        'sniper',
+        'ward',
+        'teleportation',
+      ]
     > &
       Schema.Attribute.Required;
     value: Schema.Attribute.Integer & Schema.Attribute.Required;
+  };
+}
+
+export interface GameSkillPattern extends Struct.ComponentSchema {
+  collectionName: 'components_game_skill_patterns';
+  info: {
+    description: 'Motif de zone pour une comp\u00E9tence (adjacent, cross, row, etc.)';
+    displayName: 'skill-pattern';
+  };
+  attributes: {
+    value: Schema.Attribute.Enumeration<
+      [
+        'self',
+        'adjacent',
+        'top',
+        'bottom',
+        'left',
+        'right',
+        'row',
+        'column',
+        'diagonals',
+        'cross',
+        'all',
+      ]
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'adjacent'>;
   };
 }
 
@@ -214,6 +278,7 @@ declare module '@strapi/strapi' {
     export interface ComponentSchemas {
       'foil.layer': FoilLayer;
       'game.skill': GameSkill;
+      'game.skill-pattern': GameSkillPattern;
       'quest.weekly-tier': QuestWeeklyTier;
       'story.choice-condition': StoryChoiceCondition;
       'story.choice-option': StoryChoiceOption;

@@ -117,6 +117,7 @@ export function normalizeCard(raw) {
         isPremium: attrs.isPremium || false,
         rarity: (typeof attrs.rarity === 'object' ? attrs.rarity?.name : attrs.rarity) || null,
         collectionName: collectionCode,
+        skills: attrs.skills || [],
         
         // --- System Events Hooks (preserving if they exist) ---
         onDrawn: raw.onDrawn || ((ctx) => {}),

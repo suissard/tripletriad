@@ -115,14 +115,30 @@
               Aucun message. Commencez la discussion !
             </div>
             <div
-              v-for="msg in chatStore.activeMessages"
+              v-for="(msg, index) in chatStore.activeMessages"
               :key="msg.id"
               class="message-wrapper"
-              :class="{ 'is-mine': msg.sender?.id === userStore.user?.id }"
+              :class="{ 
+                'is-mine': msg.sender?.id === userStore.user?.id,
+                'consecutive': index > 0 && chatStore.activeMessages[index-1].sender?.id === msg.sender?.id 
+              }"
             >
-              <img :src="getAvatarUrl(msg.sender)" class="message-avatar" alt="Avatar" />
+              <img 
+                v-if="index === 0 || chatStore.activeMessages[index-1].sender?.id !== msg.sender?.id"
+                :src="getAvatarUrl(msg.sender)" 
+                class="message-avatar" 
+                alt="Avatar" 
+              />
+              <div v-else class="avatar-spacer"></div>
+
               <div class="message">
-                <span class="sender" :style="{ color: getUserColor(msg.sender?.documentId || msg.sender?.id) }">{{ msg.sender?.username || 'Inconnu' }}</span>
+                <span 
+                  v-if="index === 0 || chatStore.activeMessages[index-1].sender?.id !== msg.sender?.id"
+                  class="sender" 
+                  :style="{ color: getUserColor(msg.sender?.documentId || msg.sender?.id) }"
+                >
+                  {{ msg.sender?.username || 'Inconnu' }}
+                </span>
                 <div class="bubble">{{ msg.content }}</div>
               </div>
             </div>
@@ -521,6 +537,16 @@ h4 {
   flex-direction: row-reverse;
 }
 
+.message-wrapper.consecutive {
+  gap: 8px;
+  margin-top: -8px;
+}
+
+.avatar-spacer {
+  width: 32px;
+  flex-shrink: 0;
+}
+
 .message-avatar {
   width: 32px;
   height: 32px;
@@ -548,7 +574,7 @@ h4 {
   margin-left: 4px;
 }
 
-.message.is-mine .sender {
+.message-wrapper.is-mine .sender {
   margin-right: 4px;
   margin-left: 0;
 }

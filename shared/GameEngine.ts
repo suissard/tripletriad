@@ -1,4 +1,5 @@
 // --- Interfaces des Données ---
+import { skillRegistry } from './skills';
 
 export type Player = 'PLAYER_1' | 'PLAYER_2';
 
@@ -18,6 +19,10 @@ export interface Card {
   values: CardValues;
   owner?: Player; // Détermine à qui appartient la carte sur le plateau
   prompt?: any; // Prompt JSON pour la génération d'image
+  skillId?: string; // ID de la compétence (optionnel)
+  skills?: any[];   // Liste des compétences avec propriétés (type, value, duration, target)
+  hp?: number;
+  defaultHp?: number;
 }
 
 // Une case de la grille contient une carte ou est vide
@@ -43,6 +48,7 @@ export interface PlaceCardAction {
   x: number;     // Colonne de destination (0 à 2)
   y: number;     // Ligne de destination (0 à 2)
   player: Player; // Joueur effectuant l'action
+  targets?: any[]; // Cibles de la compétence (le cas échéant)
 }
 
 // --- Logique Métier (Game Engine) ---
@@ -132,13 +138,30 @@ export class GameEngine {
     const placedCard: Card = { ...card, owner: action.player };
     nextState.board[y][x] = placedCard;
 
-    // 3. Calculer les captures (Règles "Classiques" d'adjacence)
-    GameEngine.processCaptures(nextState.board, x, y, placedCard);
+    // 2.5 Exécuter les compétences "onEnterPlay" (si présentes sur la carte)
+    // Note: Le ciblage manuel est présumé être géré par le front (qui fournit action.targets)
+    skillRegistry.dispatch('onEnterPlay', {
+      board: nextState.board,
+      state: nextState,
+      x, y,
+      card: placedCard,
+      skill: { type: placedCard.skillId || 'unknown' },
+      targets: action.targets || []
+    });
 
-    // 4. Passer au joueur suivant
+    // 3. Calculer les captures (Règles "Classiques" d'adjacence)
+    // Ne calculer que si la carte placée n'a pas été détruite par sa propre compétence/effets
+    if (nextState.board[y][x] !== null) {
+      GameEngine.processCaptures(nextState.board, x, y, placedCard);
+    }
+
+    // 4. Exécuter les compétences "onEndOfTurn" et gérer les durées
+    GameEngine.dispatchEndOfTurn(nextState.board, nextState);
+
+    // 5. Passer au joueur suivant
     nextState.currentPlayer = action.player === 'PLAYER_1' ? 'PLAYER_2' : 'PLAYER_1';
 
-    // 5. Vérifier les conditions de fin de partie
+    // 6. Vérifier les conditions de fin de partie
     if (GameEngine.isBoardFull(nextState.board)) {
       nextState.isFinished = true;
       nextState.winner = GameEngine.computeWinner(nextState.board);
@@ -214,6 +237,39 @@ export class GameEngine {
     if (p1Count > p2Count) return 'PLAYER_1';
     if (p2Count > p1Count) return 'PLAYER_2';
     return 'DRAW';
+  }
+
+  /**
+   * Dispatche le hook onEndOfTurn pour toutes les cartes sur le board et gère les durées.
+   */
+  public static dispatchEndOfTurn(board: BoardCell[][], state: GameState) {
+    for (let y = 0; y < board.length; y++) {
+      for (let x = 0; x < board[y].length; x++) {
+        const cell = board[y][x];
+        if (cell && cell.owner) {
+          // 1. Exécuter les hooks de fin de tour
+          skillRegistry.dispatch('onEndOfTurn', {
+            board,
+            state,
+            x, y,
+            card: cell,
+            skill: { type: 'batch' } // Sera dispatché individuellement par le registry
+          });
+
+          // 2. Gérer les durées des skills
+          if (cell.skills && cell.skills.length > 0) {
+            cell.skills = cell.skills.filter(skill => {
+              if (skill.duration !== undefined && skill.duration > 0) {
+                skill.duration--;
+                // Si la durée tombe à 0, on supprime le skill
+                return skill.duration > 0;
+              }
+              return true; // Durée infinie ou 0 par défaut
+            });
+          }
+        }
+      }
+    }
   }
 
   /**

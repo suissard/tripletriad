@@ -8,17 +8,86 @@
   "attributes": {
     "type": {
       "type": "enumeration",
-      "enum": ["growing", "decrease", "heal", "death", "turn"],
+      "enum": [
+        "growing",
+        "decrease",
+        "heal",
+        "death",
+        "turn",
+        "aura",
+        "bomb",
+        "combo",
+        "freeze",
+        "poison",
+        "sniper",
+        "ward",
+        "teleportation"
+      ],
       "required": true
     },
     "value": {
       "type": "integer",
       "required": true
     },
-    "target": {
-      "type": "string",
-      "required": false,
-      "description": "Cible de la compétence (ex: all, top, adjacent, etc.)"
+    "duration": {
+      "type": "integer",
+      "description": "Durée en tours (0 ou vide = infini)",
+      "default": 0
+    },
+
+    "origin_type": {
+      "type": "enumeration",
+      "enum": [
+        "self",
+        "fixed",
+        "manual",
+        "manual_constrained"
+      ],
+      "default": "self",
+      "description": "Où se trouve l'origine de la zone d'effet"
+    },
+    "origin_direction": {
+      "type": "enumeration",
+      "enum": [
+        "top",
+        "bottom",
+        "left",
+        "right",
+        "top_left",
+        "top_right",
+        "bottom_left",
+        "bottom_right"
+      ],
+      "description": "Direction de l'origine (si origin_type = fixed)"
+    },
+    "origin_reach": {
+      "type": "integer",
+      "default": 1,
+      "description": "Distance de la carte à l'origine (pour fixed) / rayon max du curseur (pour manual_constrained)"
+    },
+
+    "patterns": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.skill-pattern",
+      "description": "Motifs de zone appliqués autour de l'origine"
+    },
+    "range": {
+      "type": "integer",
+      "default": 1,
+      "description": "Portée de chaque motif autour de l'origine"
+    },
+    "filter": {
+      "type": "enumeration",
+      "enum": [
+        "none",
+        "allies",
+        "enemies",
+        "empty",
+        "self"
+      ],
+      "default": "none",
+      "description": "Filtre appliqué à la zone finale"
     }
   }
 }

@@ -137,14 +137,30 @@
                   Aucun message dans cette guilde. Soyez le premier à parler !
                 </div>
                 <div
-                  v-for="msg in chatStore.activeMessages"
+                  v-for="(msg, index) in chatStore.activeMessages"
                   :key="msg.id"
                   class="message-wrapper"
-                  :class="{ 'is-mine': msg.sender?.id === userStore.user?.id }"
+                  :class="{ 
+                    'is-mine': msg.sender?.id === userStore.user?.id,
+                    'consecutive': index > 0 && chatStore.activeMessages[index-1].sender?.id === msg.sender?.id 
+                  }"
                 >
-                  <img :src="getAvatarUrl(msg.sender)" class="message-avatar" alt="Avatar" />
+                  <img 
+                    v-if="index === 0 || chatStore.activeMessages[index-1].sender?.id !== msg.sender?.id"
+                    :src="getAvatarUrl(msg.sender)" 
+                    class="message-avatar" 
+                    alt="Avatar" 
+                  />
+                  <div v-else class="avatar-spacer"></div>
+
                   <div class="message">
-                    <span class="sender" :style="{ color: getUserColor(msg.sender?.documentId || msg.sender?.id) }">{{ msg.sender?.username || 'Inconnu' }}</span>
+                    <span 
+                      v-if="index === 0 || chatStore.activeMessages[index-1].sender?.id !== msg.sender?.id"
+                      class="sender" 
+                      :style="{ color: getUserColor(msg.sender?.documentId || msg.sender?.id) }"
+                    >
+                      {{ msg.sender?.username || 'Inconnu' }}
+                    </span>
                     <div class="bubble">{{ msg.content }}</div>
                   </div>
                 </div>
@@ -730,6 +746,15 @@ const sendMessage = async () => {
   flex-direction: row-reverse;
 }
 
+.message-wrapper.consecutive {
+  margin-top: -10px;
+}
+
+.avatar-spacer {
+  width: 40px;
+  flex-shrink: 0;
+}
+
 .message-avatar {
   width: 40px;
   height: 40px;
@@ -773,7 +798,7 @@ const sendMessage = async () => {
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.message.is-mine .bubble {
+.message-wrapper.is-mine .bubble {
   background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.2) 0%, rgba(var(--color-primary-rgb), 0.1) 100%);
   border: 1px solid rgba(var(--color-primary-rgb), 0.3);
   border-bottom-left-radius: 16px;

@@ -91,9 +91,13 @@
           <!-- Name (Dynamic Position) -->
           <div class="card-name-bar" :style="[nameStyle, {'--rarity-color': actualRarityColor}]">{{ displayCard.name }}</div>
 
-          <!-- Skills Indicators (Dynamic Position) -->
-          <div class="card-skills-indicators" v-if="displayCard.skills?.length" :style="skillsStyle">
-            <div v-for="s in displayCard.skills" :key="s" class="skill-dot" :title="s"></div>
+          <!-- Skills Indicators (Dynamic Keywords) -->
+          <div class="card-skills-indicators" v-if="skillKeywords.length" :style="skillsStyle">
+            <div v-for="s in skillKeywords" :key="s.type" class="skill-keyword-badge">
+              {{ s.name }} 
+              <span v-if="s.value" class="skill-value">+{{ s.value }}</span>
+              <span v-if="s.duration" class="skill-duration">({{ s.duration }}t)</span>
+            </div>
           </div>
 
           <!-- Selected check -->
@@ -184,6 +188,7 @@ import { useUserStore } from '../stores/userStore.js';
 import { useEffectStore } from '../stores/effectStore.js';
 import { getRarity } from '../game/constants.js';
 import { GameEngine } from '../game/GameEngine.js';
+import { skillRegistry } from '../../../shared/skills/index';
 import { normalizeCard } from '../utils/cardUtils.js';
 
 const props = defineProps({
@@ -350,6 +355,20 @@ const skillsStyle = computed(() => {
     left: `${f.skillsX ?? 50}%`,
     top: `${f.skillsY ?? 65}%`
   };
+});
+
+const skillKeywords = computed(() => {
+  if (!displayCard.value.skills) return [];
+  return displayCard.value.skills.map(s => {
+    const type = typeof s === 'string' ? s : s.type;
+    const handler = skillRegistry.getHandler(type);
+    return {
+      type,
+      name: handler ? handler.name : type,
+      value: s.value,
+      duration: s.duration
+    };
+  });
 });
 
 const customFoilEffect = computed(() => {
@@ -891,6 +910,11 @@ watch(() => props.borderColor, (newVal, oldVal) => {
 }
 
 .tt-card.is-compact .selected-overlay,
+.tt-card.is-compact .card-skills-indicators {
+  display: none !important;
+}
+
+.tt-card.is-compact .selected-overlay,
 .tt-card.is-compact .unowned-overlay {
   font-size: 1.2em !important;
 }
@@ -988,6 +1012,35 @@ watch(() => props.borderColor, (newVal, oldVal) => {
   background: white;
   border-radius: 50%;
   box-shadow: 0 0 3px white;
+}
+
+.skill-keyword-badge {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 5cqw;
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(2px);
+  white-space: nowrap;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.skill-value {
+  color: #4aff4a;
+  font-size: 0.9em;
+}
+
+.skill-duration {
+  color: #00d2ff;
+  font-size: 0.8em;
+  font-style: italic;
 }
 
 /* Stats cross overlay - Expanded to full card */

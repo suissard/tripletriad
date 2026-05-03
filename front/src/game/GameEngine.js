@@ -2,8 +2,8 @@
 // Refactoré : utilise le SkillRegistry pour dispatcher les skills de cartes
 // via des lifecycle hooks au lieu de blocs hardcodés.
 
-import { skillRegistry } from './skills/index.js';
-import { DIRECTIONS_4, COMBAT_DIRECTIONS } from './skills/helpers.js';
+import { skillRegistry } from '../../../shared/skills/index';
+import { DIRECTIONS_4, COMBAT_DIRECTIONS } from '../../../shared/skills/helpers';
 
 export class GameEngine {
   /**
