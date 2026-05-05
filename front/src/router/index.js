@@ -143,6 +143,12 @@ const routes = [
     meta: { requiresAdminAuth: true }
   },
   {
+    path: '/admin/skill-tester',
+    name: 'admin-skill-tester',
+    component: () => import('../admin/views/SkillTesterPage.vue'),
+    meta: { requiresAdminAuth: true }
+  },
+  {
     path: '/admin/:collection',
     name: 'admin-dynamic-editor',
     component: () => import('../admin/components/DynamicEditor.vue'),

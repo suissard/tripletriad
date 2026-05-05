@@ -84,7 +84,7 @@ export function resolveOrigin(ctx): { ox: number, oy: number } | null {
  * Supports: origin_type, origin_direction, origin_reach, patterns (répétable), range, filter.
  */
 export function getTargetCells(ctx) {
-  const { board, skill, card } = ctx;
+  const { board, skill, card, owner } = ctx;
 
   // 1. Résoudre l'origine
   const origin = resolveOrigin(ctx);
@@ -156,10 +156,10 @@ export function getTargetCells(ctx) {
   return allCells.filter(target => {
     const targetCell = target.cell;
     if (filter === 'empty') return targetCell === null;
-    if (!targetCell) return false;
-    if (filter === 'allies')   return targetCell.owner === card.owner;
-    if (filter === 'enemies')  return targetCell.owner !== card.owner;
-    if (filter === 'self')     return targetCell === card;
+    if (!targetCell || !targetCell.owner) return false;
+    if (filter === 'allies')   return targetCell.owner === owner;
+    if (filter === 'enemies')  return targetCell.owner !== owner;
+    if (filter === 'self')     return targetCell === card || targetCell?.data === card;
     return true;
   });
 }

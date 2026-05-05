@@ -1,5 +1,12 @@
+<script>
+export default {
+  inheritAttrs: false
+}
+</script>
+
 <template>
   <div 
+    v-bind="$attrs"
     ref="containerRef"
     class="tt-card" 
     :class="[

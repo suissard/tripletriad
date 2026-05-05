@@ -115,6 +115,7 @@ const menuCategories = [
       { name: 'Archi. Dynamique', path: '/admin/cartographie-dyn', icon: '🔭' },
       { name: 'Testeur Aléatoire', path: '/admin/test-seed', icon: '🎲' },
       { name: 'Coin Toss', path: '/admin/test-coin', icon: '🪙' },
+      { name: 'Skill Tester', path: '/admin/skill-tester', icon: '✨' },
       { name: 'Éditeur de Deck', path: '/admin/deck-editor', icon: '🃏' },
       { name: 'Card Test', path: '/admin/test-card', icon: '🎴' }
     ]

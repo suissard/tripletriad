@@ -1,4 +1,5 @@
 import { reactive, computed } from 'vue';
+console.log("[State] game/state.js loading...");
 import { rulesRegistry } from './rules.js';
 import { SocketManager } from './SocketManager.js';
 import { TurnManager } from './TurnManager.js';
@@ -174,6 +175,9 @@ export const state = reactive({
 
     // Capture preview (Map<slotIndex, {directCaptures, comboCaptures, totalCaptures}> | null)
     capturePreview: null,
+
+    // Skill Tester
+    skillTestCard: null,
 });
 
 /**

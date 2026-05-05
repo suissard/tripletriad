@@ -66,6 +66,16 @@
         >
           ABANDONNER 🏳️
         </AppButton>
+
+        <!-- Skill Test Button -->
+        <AppButton 
+          v-if="route.query.skillTest === 'true' && state.skillTestCard" 
+          variant="primary" 
+          @click="isSkillEditorOpen = true"
+          class="w-full mt-4 bg-primary/20 hover:bg-primary/40 border-primary/50 text-primary-light font-black"
+        >
+          ✨ ÉDITER SKILLS
+        </AppButton>
       </div>
 
     </div>
@@ -89,11 +99,18 @@
     <!-- Coin Toss Overlay -->
     <CoinToss v-if="state.showCoinToss" :result="state.coinTossResult" @finished="onCoinTossFinished" />
 
+    <!-- Skill Editor Modal (Live) -->
+    <SkillEditorModal 
+      v-if="state.skillTestCard"
+      v-model="isSkillEditorOpen" 
+      :card="state.skillTestCard" 
+    />
+
   </div>
 </template>
 
 <script setup>
-import { onMounted, onBeforeUnmount, watch } from 'vue';
+import { onMounted, onBeforeUnmount, watch, ref } from 'vue';
 import { state, refillHand, resetGame, confirmAction } from '../game/state.js';
 import { initGameListeners, cleanupGameListeners, aiPlay } from '../game/game-actions.js';
 import ScorePanel from '../components/ScorePanel.vue';
@@ -104,14 +121,17 @@ import ActionLog from '../components/ActionLog.vue';
 import EndTurnButton from '../components/EndTurnButton.vue';
 import GameOver from '../components/GameOver.vue';
 import CoinToss from '../components/CoinToss.vue';
+import SkillEditorModal from '../admin/components/SkillEditorModal.vue';
 import { useRouter, useRoute } from 'vue-router';
 import { cardLibrary, getCardById, normalizeCard, initAIMatch, shuffle } from '../game/state.js';
-import { getStrapiMediaUrl } from '../utils/url.js';
+import { getStrapiUrl, getStrapiMediaUrl } from '../utils/url.js';
 import { useUserStore } from '../stores/userStore.js';
 
 const userStore = useUserStore();
 const router = useRouter();
 const route = useRoute();
+
+const isSkillEditorOpen = ref(false);
 
 const isDev = import.meta.env.DEV;
 
@@ -183,6 +203,29 @@ function onCoinTossFinished() {
     
     initAIMatch().catch(e => console.error("Match logging failed:", e));
 }
+
+// Live Sync for Skill Tester
+watch(() => state.skillTestCard?.skills, (newSkills) => {
+    if (route.query.skillTest === 'true' && newSkills) {
+        console.log('[SkillTester] Syncing skills to hand and deck...', newSkills);
+        const syncSkills = (card) => {
+            const baseId = state.skillTestCard.id;
+            const cardId = String(card?.id || '');
+            if (card && (card.id === baseId || cardId.startsWith(baseId + '_test_'))) {
+                card.skills = JSON.parse(JSON.stringify(newSkills));
+            }
+        };
+        state.pHand.forEach(syncSkills);
+        state.pDeck.forEach(syncSkills);
+        
+        // Also sync board for already played cards? 
+        // User said "en la jouant", so maybe only hand/deck is enough.
+        // But for completeness:
+        state.board.forEach(cell => {
+            if (cell && cell.data) syncSkills(cell.data);
+        });
+    }
+}, { deep: true });
 
 onMounted(async () => {
     const mode = route.query.mode;

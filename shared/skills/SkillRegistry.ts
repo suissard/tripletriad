@@ -36,6 +36,7 @@ export class Registry {
    * Dispatche un hook pour tous les skills d'une carte.
    */
   dispatch(hookName: keyof SkillHandler, ctx: SkillContext): any[] {
+    console.log(`[SkillRegistry] Attempting dispatch: "${hookName}" on card "${ctx.card?.name || 'unknown'}"`);
     // Dans le GameEngine, la carte a `skills` (tableau de définitions)
     // On suppose que card.skills est un tableau du type [{ type: 'growing', value: 2 }, ...] 
     // ou bien on utilise card.skillId si c'est un skill unique. Pour être rétro-compatible :
@@ -52,6 +53,7 @@ export class Registry {
       const handler = this.handlers.get(skill.type);
       if (handler && typeof handler[hookName] === 'function') {
         const fn = handler[hookName] as Function;
+        console.log(`[SkillRegistry] Dispatching "${hookName}" for skill "${skill.type}" on card "${ctx.card.name}"`);
         const result = fn({ ...ctx, skill });
         if (result !== undefined) {
           results.push(result);

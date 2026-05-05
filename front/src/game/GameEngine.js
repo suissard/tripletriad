@@ -50,6 +50,7 @@ export class GameEngine {
    * un nouvel objet d'état sans manipuler l'état précédent.
    */
   static computeNextState(currentState, action) {
+    console.log(`[GameEngine] Action: ${action.type}`, action);
     if (currentState.isFinished) {
       return currentState; // La partie est terminée, l'état n'évolue plus
     }
@@ -128,10 +129,12 @@ export class GameEngine {
    * Remplace l'ancien applyEndOfTurnSkills.
    */
   static dispatchEndOfTurn(board) {
+    console.log("[GameEngine] dispatchEndOfTurn starting...");
     for (let y = 0; y < board.length; y++) {
       for (let x = 0; x < board[y].length; x++) {
         const cell = board[y][x];
         if (cell?.data?.skills && cell.data.skills.length > 0) {
+          console.log(`[GameEngine] Card at (${x},${y}) has ${cell.data.skills.length} skills. Dispatching...`);
           const ctx = GameEngine.buildContext(board, x, y);
           skillRegistry.dispatch('onEndOfTurn', ctx);
         }

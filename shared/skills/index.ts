@@ -37,6 +37,7 @@ const allSkills = [
 ];
 
 allSkills.forEach(skill => skillRegistry.register(skill));
+console.log(`[SkillRegistry] Initialized with ${allSkills.length} skills.`);
 
 // Re-export
 export { skillRegistry, Registry, TargetType };

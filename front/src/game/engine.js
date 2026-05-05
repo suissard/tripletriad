@@ -1,6 +1,7 @@
 import { state } from './state.js';
 import { rulesRegistry } from './rules.js';
 import { getNeighbors } from './getNeighbors.js';
+import { skillRegistry } from '../../../shared/skills/index';
 
 export { getNeighbors };
 
@@ -140,6 +141,48 @@ export async function resolveRules(startIndex, owner) {
     }
 
     updateScores();
+
+    // --- SKILLS INTEGRATION ---
+    const w = state.boardWidth || 3;
+    const h = state.boardHeight || 3;
+    
+    // 1. Helper to build 2D context
+    const buildCtx = (idx) => {
+        const board2D = [];
+        for (let y0 = 0; y0 < h; y0++) {
+            const row = [];
+            for (let x0 = 0; x0 < w; x0++) {
+                const cell = state.board[y0 * w + x0];
+                row.push(cell ? { 
+                    data: cell.data, 
+                    owner: cell.owner === 'player' ? 'PLAYER_1' : 'PLAYER_2' 
+                } : null);
+            }
+            board2D.push(row);
+        }
+        const x = idx % w;
+        const y = Math.floor(idx / w);
+        const cell = state.board[idx];
+        return {
+            board: board2D,
+            x, y,
+            card: cell?.data,
+            owner: cell?.owner === 'player' ? 'PLAYER_1' : 'PLAYER_2'
+        };
+    };
+
+    // 2. Dispatch onEnterPlay for the placed card
+    skillRegistry.dispatch('onEnterPlay', buildCtx(startIndex));
+
+    // 3. Dispatch onEndOfTurn for all cards on board
+    console.log("[Engine] Dispatching end of turn skills...");
+    for (let i = 0; i < state.board.length; i++) {
+        const cell = state.board[i];
+        if (cell?.data?.skills?.length > 0) {
+            console.log(`[Engine] Card at slot ${i} has skills. Dispatching onEndOfTurn...`);
+            skillRegistry.dispatch('onEndOfTurn', buildCtx(i));
+        }
+    }
 
     // Reset combo active index after a brief delay
     setTimeout(() => {
