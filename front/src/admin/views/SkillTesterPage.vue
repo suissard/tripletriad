@@ -76,6 +76,7 @@
               <div class="space-y-2">
                 <div v-for="(s, i) in selectedCard.skills" :key="i" class="p-3 bg-white/5 rounded-xl border border-white/10 text-xs">
                   <span class="text-white font-bold">{{ s.type }}</span>
+                  <span v-if="s.trigger" class="text-green-400 ml-2">🕒 {{ s.trigger }}</span>
                   <span v-if="s.value" class="text-gray-400 ml-2">Valeur: {{ s.value }}</span>
                   <span v-if="s.range" class="text-gray-400 ml-2">Portée: {{ s.range }}</span>
                 </div>

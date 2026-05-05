@@ -12,6 +12,9 @@
           'slot-occupied': !!cell,
           'slot-player': cell && cell.owner === state.pId,
           'slot-ai': cell && cell.owner === state.aiId,
+          'slot-skill-positive': skillPreviewMap && skillPreviewMap.get(index) === 'positive',
+          'slot-skill-negative': skillPreviewMap && skillPreviewMap.get(index) === 'negative',
+          'slot-skill-occupied-boost': skillPreviewMap && skillPreviewMap.has(index) && cell && cell.owner === state.pId,
           'is-impact': lastPlacedIndex === index,
           'is-drag-over': state.hoveredSlotIndex === index,
           'slot-capture-preview': !cell && previewMap && previewMap.has(index),
@@ -105,6 +108,8 @@ import { ref, watch, nextTick, computed, onMounted, onUnmounted } from 'vue';
 import { state, factionBonuses } from '../game/state.js';
 import { placeCard } from '../game/game-actions.js';
 import { computeAllPreviews } from '../game/capture-preview.js';
+import { getTargetCells } from '../../../shared/skills/helpers';
+import { skillRegistry } from '../../../shared/skills/index';
 import TripleTriadCard from './TripleTriadCard.vue';
 import BrokenGlassOverlay from './BrokenGlassOverlay.vue';
 
@@ -168,6 +173,55 @@ const capturedIndicesInfo = computed(() => {
   }
 
   return info;
+});
+
+// ---- Skill Preview Logic ----
+
+const skillPreviewMap = computed(() => {
+  const map = new Map();
+  if (state.hoveredSlotIndex === null || state.selectedCardIndex === null || state.turn !== 'player') return map;
+  
+  const card = state.pHand[state.selectedCardIndex];
+  if (!card || !card.skills || card.skills.length === 0) return map;
+
+  const w = state.boardWidth;
+  const h = state.boardHeight;
+  const x = state.hoveredSlotIndex % w;
+  const y = Math.floor(state.hoveredSlotIndex / w);
+
+  // Convert flat board to 2D for getting targets accurately
+  const board2D = [];
+  for (let r = 0; r < h; r++) {
+      board2D.push(state.board.slice(r * w, (r + 1) * w));
+  }
+  
+  // Temporarily place the card to simulate its position
+  board2D[y][x] = { data: card, owner: state.pId };
+
+  for (const skill of card.skills) {
+     const handler = skillRegistry.getHandler(skill.type);
+     if (!handler) continue;
+     
+     const effectType = handler.effectType || 'neutral';
+     if (effectType === 'neutral') continue;
+     
+     const ctx = {
+       board: board2D,
+       state: state,
+       x, y,
+       card: card,
+       skill: skill,
+       owner: state.pId
+     };
+     
+     const targets = getTargetCells(ctx);
+     for (const t of targets) {
+       const flatIndex = t.y * w + t.x;
+       map.set(flatIndex, effectType);
+     }
+  }
+
+  return map;
 });
 
 // ---- SVG Lines ----
@@ -499,6 +553,37 @@ defineExpose({
 
 .board-slot.slot-capture-combo {
   animation: capture-combo-pulse 1.8s ease-in-out infinite;
+}
+
+/* ---- Skill Preview Styles ---- */
+
+.board-slot.slot-skill-positive {
+  background: color-mix(in srgb, rgba(34, 197, 94, 0.25) 100%, transparent);
+  border-color: #22c55e;
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.4), inset 0 0 10px rgba(34, 197, 94, 0.2);
+  animation: skill-positive-pulse 2s ease-in-out infinite;
+}
+
+.board-slot.slot-skill-negative {
+  background: color-mix(in srgb, rgba(239, 68, 68, 0.25) 100%, transparent);
+  border-color: #ef4444;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.4), inset 0 0 10px rgba(239, 68, 68, 0.2);
+  animation: skill-negative-pulse 2s ease-in-out infinite;
+}
+
+.board-slot.slot-skill-occupied-boost {
+  border-width: 3px;
+  filter: brightness(1.4);
+}
+
+@keyframes skill-positive-pulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(34, 197, 94, 0.3), inset 0 0 5px rgba(34, 197, 94, 0.1); }
+  50% { box-shadow: 0 0 25px rgba(34, 197, 94, 0.6), inset 0 0 15px rgba(34, 197, 94, 0.3); }
+}
+
+@keyframes skill-negative-pulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(239, 68, 68, 0.3), inset 0 0 5px rgba(239, 68, 68, 0.1); }
+  50% { box-shadow: 0 0 25px rgba(239, 68, 68, 0.6), inset 0 0 15px rgba(239, 68, 68, 0.3); }
 }
 
 /* ---- Capture Halo under cards ---- */

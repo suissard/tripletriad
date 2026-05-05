@@ -29,9 +29,9 @@
       "type": "integer",
       "required": true
     },
-    "duration": {
+    "counter": {
       "type": "integer",
-      "description": "Durée en tours (0 ou vide = infini)",
+      "description": "Nombre de déclenchements restants (0 ou vide = infini)",
       "default": 0
     },
 
@@ -88,6 +88,20 @@
       ],
       "default": "none",
       "description": "Filtre appliqué à la zone finale"
+    },
+    "trigger": {
+      "type": "enumeration",
+      "enum": [
+        "onEnterPlay",
+        "onEndOfTurn",
+        "onStartOfTurn",
+        "onCapture",
+        "onCaptured",
+        "onDeath",
+        "passive"
+      ],
+      "default": "onEnterPlay",
+      "description": "Moment du tour où la compétence se déclenche"
     }
   }
 }

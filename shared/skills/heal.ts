@@ -11,6 +11,7 @@ const handler: SkillHandler = {
   id: 'heal',
   name: 'Soin',
   description: 'Soigne les cartes ciblées au placement.',
+  effectType: 'positive',
 
   onEnterPlay(ctx: SkillContext) {
     const { skill } = ctx;

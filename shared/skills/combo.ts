@@ -8,6 +8,7 @@ const handler: SkillHandler = {
   id: 'combo',
   name: 'Combo',
   description: 'Après une capture, la carte re-attaque ses voisins.',
+  effectType: 'positive',
 
   /**
    * Retourne true pour indiquer que cette carte peut déclencher

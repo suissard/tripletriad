@@ -74,6 +74,9 @@ export default {
             
             <!-- Reveal Shine Effect (Clipped) -->
             <div v-if="revealShine" class="reveal-shine"></div>
+            
+            <!-- Skill Animation Overlay -->
+            <SkillAnimationOverlay ref="skillAnimationRef" />
           </div>
 
           <!-- HP Bar (Moved to top) -->
@@ -191,6 +194,7 @@ import CardDetailModal from "./CardDetailModal.vue";
 import HoloOverlay from "./HoloOverlay.vue";
 import AppBadge from "./ui/AppBadge.vue";
 import HpBar from './game/HpBar.vue';
+import SkillAnimationOverlay from './animations/SkillAnimationOverlay.vue';
 import { useUserStore } from '../stores/userStore.js';
 import { useEffectStore } from '../stores/effectStore.js';
 import { getRarity } from '../game/constants.js';
@@ -239,6 +243,32 @@ const effectStore = useEffectStore();
 
 // Internal normalization to handle raw Strapi data or pre-normalized data
 const normalizedCardData = computed(() => normalizeCard(props.card));
+
+const skillAnimationRef = ref(null);
+
+watch(
+  () => [normalizedCardData.value.top, normalizedCardData.value.right, normalizedCardData.value.bottom, normalizedCardData.value.left],
+  (newVals, oldVals) => {
+    // Skip initial mount or undefined values
+    if (!oldVals) return;
+    if (oldVals.some(v => v === undefined || isNaN(v))) return;
+    
+    // Only trigger if we are actively playing/showing a visible card
+    if (props.faceDown) return;
+
+    const oldSum = oldVals.reduce((a, b) => a + (Number(b) || 0), 0);
+    const newSum = newVals.reduce((a, b) => a + (Number(b) || 0), 0);
+
+    // If total stats increased, trigger the growth animation
+    if (oldSum > 0 && newSum > oldSum) {
+      skillAnimationRef.value?.trigger('grow');
+    } else if (oldSum > 0 && newSum < oldSum) {
+      // If total stats decreased, trigger the decrease animation
+      skillAnimationRef.value?.trigger('decrease');
+    }
+  },
+  { deep: false }
+);
 
 // Apply dynamic bonuses (Faction, etc.) to values
 const displayCard = computed(() => {

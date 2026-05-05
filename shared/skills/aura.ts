@@ -11,6 +11,7 @@ const handler: SkillHandler = {
   id: 'aura',
   name: 'Aura',
   description: 'Booste les valeurs des alliés adjacents.',
+  effectType: 'positive',
 
   /**
    * Retourne le bonus de valeur que cette carte confère à un allié adjacent.

@@ -8,6 +8,7 @@ const handler: SkillHandler = {
   id: 'turn',
   name: 'Rotation',
   description: 'Fait tourner les valeurs de la carte au placement.',
+  effectType: 'neutral',
 
   onEnterPlay(ctx: any) {
     const { skill } = ctx;

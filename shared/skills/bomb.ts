@@ -10,6 +10,7 @@ const handler: SkillHandler = {
   id: 'bomb',
   name: 'Explosion',
   description: 'Inflige des dégâts aux cartes ciblées à la mort.',
+  effectType: 'negative',
 
   /**
    * Appelé quand la carte porteuse meurt (HP <= 0).

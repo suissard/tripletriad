@@ -40,8 +40,8 @@
             </div>
 
             <div>
-              <label class="label-text">Durée (duration)</label>
-              <input type="number" v-model.number="skill.duration" class="admin-input w-full" placeholder="0 = permanent" />
+              <label class="label-text">Compteur (counter)</label>
+              <input type="number" v-model.number="skill.counter" class="admin-input w-full" placeholder="0 = infini" />
             </div>
 
             <div>
@@ -61,6 +61,19 @@
             </div>
 
             <div>
+              <label class="label-text">Déclencheur (trigger)</label>
+              <select v-model="skill.trigger" class="admin-input w-full">
+                <option value="onEnterPlay">Au placement</option>
+                <option value="onEndOfTurn">Fin de tour</option>
+                <option value="onStartOfTurn">Début de tour</option>
+                <option value="onCapture">Lors d'une capture</option>
+                <option value="onCaptured">Lors d'une capture subie</option>
+                <option value="onDeath">Lors de la mort</option>
+                <option value="passive">Passif</option>
+              </select>
+            </div>
+
+            <div>
               <label class="label-text">Origine (origin_type)</label>
               <select v-model="skill.origin_type" class="admin-input w-full">
                 <option value="self">Self (Carte jouée)</option>
@@ -75,14 +88,44 @@
             </div>
             
             <div class="col-span-2">
-                <label class="label-text">Patterns (Séparez par des virgules : "0,-1", "1,0")</label>
-                <input 
-                    type="text" 
-                    :value="patternsToString(skill.patterns)" 
-                    @input="e => skill.patterns = stringToPatterns(e.target.value)"
-                    class="admin-input w-full" 
-                    placeholder="ex: 0,-1, 0,1, -1,0, 1,0"
-                />
+                <label class="label-text mb-2">Patterns (Zones d'effet)</label>
+                <div class="flex flex-wrap gap-2">
+                  <button 
+                    v-for="pat in AVAILABLE_PATTERNS" 
+                    :key="pat.value"
+                    @click="togglePattern(skill, pat.value)"
+                    class="px-3 py-1.5 rounded-full text-[0.75rem] font-bold transition-all border"
+                    :class="hasPattern(skill, pat.value) 
+                      ? 'bg-[#00d2ff]/30 text-[#00d2ff] border-[#00d2ff] shadow-[0_0_10px_rgba(0,210,255,0.4)] opacity-100' 
+                      : 'bg-black/40 text-gray-400 border-white/10 hover:border-white/30 opacity-70'"
+                  >
+                    {{ pat.label }}
+                  </button>
+                </div>
+            </div>
+
+            <!-- Preview Grid -->
+            <div class="col-span-2 mt-4 p-4 bg-black/50 rounded-xl border border-white/5 flex flex-col items-center">
+              <label class="label-text mb-4 text-center">Aperçu de la zone d'effet (Portée max affichée: 3)</label>
+              
+              <div class="grid gap-1 p-2 bg-white/5 rounded-lg border border-white/10" style="grid-template-columns: repeat(7, 1fr);">
+                <template v-for="y in 7" :key="'row-'+y">
+                  <div 
+                    v-for="x in 7" 
+                    :key="'cell-'+x+'-'+y"
+                    class="w-6 h-6 rounded-sm border transition-all duration-300 flex items-center justify-center relative"
+                    :class="[
+                       previewSets[index] && previewSets[index].has(`${x-1},${y-1}`) ? 'bg-[#00d2ff]/40 border-[#00d2ff] shadow-[0_0_8px_rgba(0,210,255,0.5)]' : 'bg-black/60 border-white/5',
+                       (x-1 === 3 && y-1 === 3) ? 'ring-2 ring-white z-10' : ''
+                    ]"
+                  >
+                    <!-- Center icon -->
+                    <span v-if="x-1 === 3 && y-1 === 3" class="text-[10px]">👤</span>
+                    <!-- Origin indicator for fixed -->
+                    <span v-else-if="getOriginCell(skill).x === x-1 && getOriginCell(skill).y === y-1" class="text-[8px] text-red-400 font-bold absolute">X</span>
+                  </div>
+                </template>
+              </div>
             </div>
           </div>
         </div>
@@ -104,6 +147,7 @@ import { computed } from 'vue';
 import AppModal from '../../components/ui/AppModal.vue';
 import AppButton from '../../components/ui/AppButton.vue';
 import { skillRegistry } from '../../../../shared/skills';
+import { getTargetCells } from '../../../../shared/skills/helpers';
 
 const props = defineProps({
   modelValue: Boolean,
@@ -122,6 +166,7 @@ function addSkill() {
     type: 'growing',
     value: 1,
     filter: 'none',
+    trigger: 'onEnterPlay',
     origin_type: 'self'
   });
 }
@@ -130,18 +175,79 @@ function removeSkill(index) {
   props.card.skills.splice(index, 1);
 }
 
-function patternsToString(patterns) {
-    if (!patterns || !Array.isArray(patterns)) return '';
-    return patterns.map(p => {
-        if (typeof p === 'string') return p;
-        if (p.value) return p.value;
-        return '';
-    }).filter(Boolean).join(', ');
+const AVAILABLE_PATTERNS = [
+  { value: 'adjacent', label: 'Croix (adjacent)' },
+  { value: 'diagonals', label: 'Diagonales' },
+  { value: 'cross', label: 'Étoile (cross)' },
+  { value: 'row', label: 'Ligne' },
+  { value: 'column', label: 'Colonne' },
+  { value: 'all', label: 'Tout' },
+  { value: 'top', label: 'Haut' },
+  { value: 'bottom', label: 'Bas' },
+  { value: 'left', label: 'Gauche' },
+  { value: 'right', label: 'Droite' },
+  { value: 'self', label: 'Soi-même' }
+];
+
+function hasPattern(skill, patternValue) {
+  if (!skill.patterns || !Array.isArray(skill.patterns)) return false;
+  return skill.patterns.some(p => (p.value || p) === patternValue);
 }
 
-function stringToPatterns(str) {
-    if (!str) return [];
-    return str.split(',').map(s => s.trim()).filter(Boolean).map(s => ({ value: s }));
+function togglePattern(skill, patternValue) {
+  if (!skill.patterns) skill.patterns = [];
+  const index = skill.patterns.findIndex(p => (p.value || p) === patternValue);
+  if (index !== -1) {
+    skill.patterns.splice(index, 1);
+  } else {
+    skill.patterns.push({ value: patternValue });
+  }
+}
+
+function getPreviewCells(skill) {
+  const w = 7, h = 7, cx = 3, cy = 3;
+  const board = [];
+  for (let y = 0; y < h; y++) {
+    const row = [];
+    for (let x = 0; x < w; x++) row.push({ owner: 'dummy' });
+    board.push(row);
+  }
+  
+  const skillCopy = { ...skill, filter: 'none' };
+  const ctx = {
+    board, x: cx, y: cy,
+    card: { owner: 'player' },
+    owner: 'player',
+    skill: skillCopy
+  };
+  
+  const targets = getTargetCells(ctx);
+  const set = new Set();
+  for (const t of targets) {
+    set.add(`${t.x},${t.y}`);
+  }
+  return set;
+}
+
+const previewSets = computed(() => {
+  if (!props.card || !props.card.skills) return [];
+  return props.card.skills.map(skill => getPreviewCells(skill));
+});
+
+function getOriginCell(skill) {
+  const cx = 3, cy = 3;
+  if (skill.origin_type === 'fixed') {
+    const dirMap = {
+      top: {dx: 0, dy: -1}, bottom: {dx: 0, dy: 1}, left: {dx: -1, dy: 0}, right: {dx: 1, dy: 0},
+      top_left: {dx: -1, dy: -1}, top_right: {dx: 1, dy: -1}, bottom_left: {dx: -1, dy: 1}, bottom_right: {dx: 1, dy: 1}
+    };
+    const dir = dirMap[skill.origin_direction || 'top'];
+    const reach = skill.origin_reach || 1;
+    if (dir) {
+      return { x: cx + dir.dx * reach, y: cy + dir.dy * reach };
+    }
+  }
+  return { x: cx, y: cy };
 }
 </script>
 

@@ -10,6 +10,7 @@ const handler: SkillHandler = {
   id: 'death',
   name: 'Mort',
   description: 'Inflige des dégâts aux cartes adjacentes au placement.',
+  effectType: 'negative',
 
   onEnterPlay(ctx: any) {
     const { board, x, y, skill } = ctx;

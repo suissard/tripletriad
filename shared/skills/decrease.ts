@@ -10,6 +10,7 @@ const handler: SkillHandler = {
   id: 'decrease',
   name: 'Décroissance',
   description: 'Les valeurs des cartes cibles diminuent à chaque fin de tour.',
+  effectType: 'negative',
 
   onEndOfTurn(ctx: SkillContext) {
     const { skill } = ctx;

@@ -66,9 +66,12 @@
                     <span class="zoom-skill-name">
                       {{ s.name }} 
                       <span v-if="s.value" class="skill-value">+{{ s.value }}</span>
-                      <span v-if="s.duration" class="skill-duration">({{ s.duration }}t)</span>
+                      <span v-if="s.counter" class="skill-counter">({{ s.counter }}x)</span>
                     </span>
                     <div class="zoom-skill-params">
+                      <span class="param-badge trigger" :title="'Se déclenche: ' + s.triggerLabel">
+                        🕒 {{ s.triggerLabel }}
+                      </span>
                       <span class="param-badge origin" v-if="s.isManual" title="Le joueur doit cibler une case">
                         📍 {{ s.originDesc }}
                       </span>
@@ -263,6 +266,16 @@ const originDirectionLabels = {
   bottom_left: 'Bas-Gauche', bottom_right: 'Bas-Droite'
 };
 
+const triggerLabels = {
+  onEnterPlay: 'Placement',
+  onEndOfTurn: 'Fin de tour',
+  onStartOfTurn: 'Début de tour',
+  onCapture: 'Capture',
+  onCaptured: 'Capturé',
+  onDeath: 'Mort',
+  passive: 'Passif'
+};
+
 const skillDetails = computed(() => {
   if (!props.card.skills) return [];
   return props.card.skills.map(s => {
@@ -280,6 +293,7 @@ const skillDetails = computed(() => {
 
     const originType = s.origin_type || 'self';
     const filter = s.filter || 'none';
+    const trigger = s.trigger || 'onEnterPlay';
 
     // Description de l'origine
     let originDesc = originTypeLabels[originType] || originType;
@@ -296,14 +310,16 @@ const skillDetails = computed(() => {
       name: handler ? handler.name : type,
       description: handler ? handler.description : '',
       value: s.value,
-      duration: s.duration,
+      counter: s.counter,
       range: s.range || 1,
       patternLabels,
       originType,
       originDesc,
       isManual: originType === 'manual' || originType === 'manual_constrained',
       filter,
-      filterLabel: filterLabels[filter] || filter
+      filterLabel: filterLabels[filter] || filter,
+      trigger,
+      triggerLabel: triggerLabels[trigger] || trigger
     };
   });
 });
@@ -616,12 +632,13 @@ async function handleDisenchant() { if (props.quantity > 0) await userStore.dise
 .param-badge.target { border: 1px solid rgba(0, 210, 255, 0.3); color: #00d2ff; }
 .param-badge.filter { border: 1px solid rgba(255, 215, 0, 0.3); color: #ffd700; }
 .param-badge.origin { border: 1px solid rgba(255, 100, 255, 0.3); color: #ff64ff; }
+.param-badge.trigger { border: 1px solid rgba(34, 197, 94, 0.3); color: #22c55e; }
 
 .skill-value {
   color: #4aff4a;
 }
 
-.skill-duration {
+.skill-counter {
   color: #00d2ff;
   font-style: italic;
   font-size: 0.9em;

@@ -8,6 +8,7 @@ const handler: SkillHandler = {
   id: 'sniper',
   name: 'Sniper',
   description: 'Attaque à distance en traversant les cases vides.',
+  effectType: 'negative',
 
   /**
    * Retourne true pour indiquer que cette carte peut attaquer

@@ -8,6 +8,7 @@ const handler: SkillHandler = {
   id: 'freeze',
   name: 'Gel',
   description: 'Bloque la propagation combo des attaquants adjacents.',
+  effectType: 'negative',
 
   /**
    * Retourne true si cette carte empêche un attaquant adjacent

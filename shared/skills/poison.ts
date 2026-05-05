@@ -9,6 +9,7 @@ const handler: SkillHandler = {
   id: 'poison',
   name: 'Poison',
   description: 'Inflige des dégâts à l\'attaquant lors de la capture.',
+  effectType: 'negative',
 
   /**
    * Appelé après que cette carte est capturée.

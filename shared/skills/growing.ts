@@ -10,6 +10,7 @@ const handler: SkillHandler = {
   id: 'growing',
   name: 'Croissance',
   description: 'Les valeurs des cartes cibles augmentent à chaque fin de tour.',
+  effectType: 'positive',
 
   onEndOfTurn(ctx: SkillContext) {
     const { skill } = ctx;

@@ -8,6 +8,7 @@ const handler: SkillHandler = {
   id: 'teleportation',
   name: 'Téléportation',
   description: 'Se téléporte sur une case vide ciblée au placement.',
+  effectType: 'neutral',
 
   targetingSteps: [
     { type: TargetType.CELL, emptyOnly: true }

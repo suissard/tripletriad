@@ -8,6 +8,7 @@ const handler: SkillHandler = {
   id: 'ward',
   name: 'Bouclier',
   description: 'Bloque la première capture. Consommé après utilisation.',
+  effectType: 'positive',
 
   /**
    * Appelé avant que cette carte ne soit capturée.

@@ -25,7 +25,7 @@ export interface SkillContext {
   skill: {
     type: string;
     value?: number;
-    duration?: number;
+    counter?: number;
     // Origine
     origin_type?: 'self' | 'fixed' | 'manual' | 'manual_constrained';
     origin_direction?: string;
@@ -34,6 +34,7 @@ export interface SkillContext {
     patterns?: Array<{ value: string } | string>;
     range?: number;
     filter?: 'none' | 'allies' | 'enemies' | 'empty' | 'self';
+    trigger?: 'onEnterPlay' | 'onEndOfTurn' | 'onStartOfTurn' | 'onCapture' | 'onCaptured' | 'onDeath' | 'passive';
     [key: string]: any;
   };
   targets?: any[]; // Cibles fournies lors du placement
@@ -47,6 +48,7 @@ export interface SkillHandler {
   id: string;
   name: string;
   description: string;
+  effectType?: 'positive' | 'negative' | 'neutral';
   targetingSteps?: TargetingStep[];
 
   // Cycle de vie / Hooks optionnels

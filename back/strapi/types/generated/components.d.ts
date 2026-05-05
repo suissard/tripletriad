@@ -34,7 +34,7 @@ export interface GameSkill extends Struct.ComponentSchema {
     displayName: 'skill';
   };
   attributes: {
-    duration: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    counter: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     filter: Schema.Attribute.Enumeration<
       ['none', 'allies', 'enemies', 'empty', 'self']
     > &
@@ -58,6 +58,18 @@ export interface GameSkill extends Struct.ComponentSchema {
       Schema.Attribute.DefaultTo<'self'>;
     patterns: Schema.Attribute.Component<'game.skill-pattern', true>;
     range: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
+    trigger: Schema.Attribute.Enumeration<
+      [
+        'onEnterPlay',
+        'onEndOfTurn',
+        'onStartOfTurn',
+        'onCapture',
+        'onCaptured',
+        'onDeath',
+        'passive',
+      ]
+    > &
+      Schema.Attribute.DefaultTo<'onEnterPlay'>;
     type: Schema.Attribute.Enumeration<
       [
         'growing',
