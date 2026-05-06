@@ -114,6 +114,8 @@ onMounted(async () => {
           notificationStore.addNotification('SYSTEM', 'Connexion rétablie ! Les données hors-ligne (decks, boosters) ont été effacées.', 'warning');
           userStore.fetchUserCollection();
           userStore.fetchUserDecks();
+          userStore.fetchCollections();
+          userStore.updateUserData();
       }
   });
   

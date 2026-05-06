@@ -45,7 +45,7 @@
               class="list-item"
             >
               <div class="item-content" @click="chatStore.selectTarget('friends', friend.documentId || friend.id)">
-                <div class="avatar"></div>
+                <img :src="getAvatarUrl(friend)" class="avatar" alt="Avatar" />
                 <span>{{ friend.username }}</span>
               </div>
               <div class="actions">
@@ -105,7 +105,13 @@
       <div v-else class="chat-conversation-view">
         <div class="convo-header">
           <button class="back-btn" @click="chatStore.activeTargetId = null">◀ Retour</button>
-          <span class="convo-title">{{ activeTargetName }}</span>
+          <div class="convo-user-info">
+            <template v-if="activeTargetAvatar">
+              <img v-if="activeTargetAvatar.startsWith('http')" :src="activeTargetAvatar" class="convo-avatar" alt="Avatar" />
+              <span v-else class="convo-avatar-emoji">{{ activeTargetAvatar }}</span>
+            </template>
+            <span class="convo-title">{{ activeTargetName }}</span>
+          </div>
         </div>
 
         <div class="messages-container" ref="messagesContainer">
@@ -216,8 +222,21 @@ watch(() => chatStore.widgetOpen, (isOpen) => {
 
 const activeTargetName = computed(() => {
   if (!chatStore.activeTargetId) return '';
-  const friend = friendStore.acceptedFriends.find(f => f.id === chatStore.activeTargetId);
+  if (chatStore.activeTab === 'guilds') {
+    const guild = chatStore.guilds.find(g => (g.documentId === chatStore.activeTargetId || g.id === chatStore.activeTargetId));
+    return guild ? guild.name : 'Guilde';
+  }
+  const friend = friendStore.acceptedFriends.find(f => (f.documentId === chatStore.activeTargetId || f.id === chatStore.activeTargetId));
   return friend ? friend.username : 'Ami';
+});
+
+const activeTargetAvatar = computed(() => {
+  if (!chatStore.activeTargetId) return null;
+  if (chatStore.activeTab === 'guilds') {
+    return '📜'; // Default emoji for guilds
+  }
+  const friend = friendStore.acceptedFriends.find(f => (f.documentId === chatStore.activeTargetId || f.id === chatStore.activeTargetId));
+  return friend ? getAvatarUrl(friend) : null;
 });
 
 const scrollToBottom = async () => {
@@ -411,6 +430,7 @@ const blockUser = async (userId) => {
   border-radius: 50%;
   background: var(--color-secondary);
   border: 1px solid var(--color-primary);
+  object-fit: cover;
 }
 
 .actions {
@@ -514,6 +534,28 @@ h4 {
 .convo-title {
   color: white;
   font-weight: bold;
+}
+
+.convo-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.convo-avatar, .convo-avatar-emoji {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--color-primary);
+  object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.convo-avatar-emoji {
+  font-size: 1.2rem;
 }
 
 .messages-container {

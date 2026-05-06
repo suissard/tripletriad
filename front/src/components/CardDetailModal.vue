@@ -54,6 +54,7 @@
               <h2>{{ card.name }}</h2>
               <div class="zoom-meta">
                 <span v-if="factionDisplay" class="faction-info">Faction: {{ factionDisplay }}</span>
+                <span v-if="collectionDisplay" class="collection-info">Collections: {{ collectionDisplay }}</span>
                 <span :style="{ color: rarityColor }" class="zoom-rarity-badge">{{ rarityLabel }}</span>
                 <span v-if="isPremium" class="zoom-premium-badge">🌟 PREMIUM</span>
               </div>
@@ -456,6 +457,15 @@ const factionDisplay = computed(() => {
   const name = typeof faction === 'object' ? faction.name : faction;
   if (!name || name.toLowerCase() === 'neutre' || name.toLowerCase() === 'neutral') return null;
   return name;
+});
+
+const collectionDisplay = computed(() => {
+  const codes = props.card.collectionNames || (props.card.collectionName ? [props.card.collectionName] : []);
+  if (codes.length === 0) return null;
+  return codes.map(code => {
+    const coll = userStore.collections.find(c => c.code === code);
+    return coll ? coll.name : (code.charAt(0).toUpperCase() + code.slice(1));
+  }).join(', ');
 });
 
 const cardZoomStyle = computed(() => {

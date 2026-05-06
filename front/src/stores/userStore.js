@@ -229,7 +229,11 @@ export const useUserStore = defineStore('user', {
           this.fetchMe(),
           this.fetchUserWallet(),
           this.fetchUserAssets(),
-          this.fetchUserAvatar()
+          this.fetchUserAvatar(),
+          this.fetchCollections(),
+          this.fetchCardFrames(),
+          this.fetchCardBacks(),
+          this.fetchBoardBackgrounds()
         ]);
 
         results.forEach((result, index) => {

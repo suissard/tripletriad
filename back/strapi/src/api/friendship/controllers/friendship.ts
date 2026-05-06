@@ -19,20 +19,35 @@ export default factories.createCoreController('api::friendship.friendship' as an
           { receiver: { id: user.id } }
         ]
       },
-      populate: ['requester', 'receiver', 'blockedBy']
+      populate: ['requester.avatar_card.image', 'receiver.avatar_card.image', 'blockedBy']
     });
 
     // Sanitize user info to avoid sending passwords, etc.
     const sanitizedFriendships = friendships.map(f => {
       const sanitized = { ...f };
       if (sanitized.requester) {
-        sanitized.requester = { id: f.requester.id, documentId: f.requester.documentId, username: f.requester.username };
+        sanitized.requester = { 
+          id: f.requester.id, 
+          documentId: f.requester.documentId, 
+          username: f.requester.username,
+          avatar_card: f.requester.avatar_card 
+        };
       }
       if (sanitized.receiver) {
-        sanitized.receiver = { id: f.receiver.id, documentId: f.receiver.documentId, username: f.receiver.username };
+        sanitized.receiver = { 
+          id: f.receiver.id, 
+          documentId: f.receiver.documentId, 
+          username: f.receiver.username,
+          avatar_card: f.receiver.avatar_card
+        };
       }
       if (sanitized.blockedBy) {
-        sanitized.blockedBy = { id: f.blockedBy.id, documentId: f.blockedBy.documentId, username: f.blockedBy.username };
+        sanitized.blockedBy = { 
+          id: f.blockedBy.id, 
+          documentId: f.blockedBy.documentId, 
+          username: f.blockedBy.username,
+          avatar_card: f.blockedBy.avatar_card
+        };
       }
       return sanitized;
     });

@@ -572,8 +572,8 @@ export interface ApiCardCard extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 2;
       }>;
-    collection: Schema.Attribute.Relation<
-      'manyToOne',
+    collections: Schema.Attribute.Relation<
+      'manyToMany',
       'api::collection.collection'
     >;
     createdAt: Schema.Attribute.DateTime;
@@ -688,7 +688,7 @@ export interface ApiCollectionCollection extends Struct.CollectionTypeSchema {
     boosterCostMultiplier: Schema.Attribute.Decimal &
       Schema.Attribute.DefaultTo<1>;
     boosterImage: Schema.Attribute.Media<'images'>;
-    cards: Schema.Attribute.Relation<'oneToMany', 'api::card.card'>;
+    cards: Schema.Attribute.Relation<'manyToMany', 'api::card.card'>;
     code: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;

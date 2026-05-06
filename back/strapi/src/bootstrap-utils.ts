@@ -2,6 +2,7 @@ import { Core } from '@strapi/strapi';
 import permissions from './permissions.json';
 import { generateQuestTemplates } from './api/quest-template/services/quest-template-generator';
 import { bootstrapCollections } from './api/collection/services/collection-bootstrap';
+import { bootstrapCards } from './api/card/services/card-bootstrap';
 import { bootstrapFactions } from './api/faction/services/faction-bootstrap';
 import { migrateCardsToFactions } from './api/faction/services/faction-migration';
 import { bootstrapDecks } from './api/deck/services/deck-bootstrap';
@@ -205,6 +206,9 @@ export async function runFullBootstrap(strapi: Core.Strapi) {
   try {
     await bootstrapCollections(strapi);
     console.log('✅ Collections bootstrapped.');
+
+    await bootstrapCards(strapi);
+    console.log('✅ Cards bootstrapped.');
   } catch (err) {
     console.error('❌ Error bootstrapping collections:', err);
   }

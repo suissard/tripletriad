@@ -43,7 +43,7 @@ export default {
 
           // 4b. Give starter collection cards
           const starterCards = await strapi.entityService.findMany('api::card.card', {
-            filters: { collection: { code: 'starter' } },
+            filters: { collections: { code: 'starter' } },
             limit: 200
           });
 

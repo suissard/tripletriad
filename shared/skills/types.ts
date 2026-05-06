@@ -53,11 +53,16 @@ export interface SkillHandler {
 
   // Cycle de vie / Hooks optionnels
   onDrawn?: (ctx: SkillContext) => void;
+  onBeforePlacement?: (ctx: SkillContext) => void;
   onEnterPlay?: (ctx: SkillContext) => void;
   onEndOfTurn?: (ctx: SkillContext) => void;
   getValueModifier?: (ctx: SkillContext) => number;
   blocksCombo?: (ctx: SkillContext) => boolean;
   onCapture?: (ctx: SkillContext) => void;
+  onCaptured?: (ctx: SkillContext) => void;
+  onBeforeCaptured?: (ctx: SkillContext) => void;
   onDeath?: (ctx: SkillContext) => void;
+  extendsAttackRange?: (ctx: SkillContext) => boolean;
+  hasCombo?: (ctx: SkillContext) => boolean;
   // Autres hooks au besoin...
 }

@@ -84,9 +84,9 @@
         "images"
       ]
     },
-    "collection": {
+    "collections": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "manyToMany",
       "target": "api::collection.collection",
       "inversedBy": "cards"
     },

@@ -27,9 +27,9 @@
     },
     "cards": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::card.card",
-      "mappedBy": "collection"
+      "mappedBy": "collections"
     },
     "isActive": {
       "type": "boolean",

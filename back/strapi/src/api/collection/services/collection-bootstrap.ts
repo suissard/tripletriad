@@ -1,12 +1,31 @@
 import { Core } from '@strapi/strapi';
+import fs from "fs";
+import path from "path";
 
 export async function bootstrapCollections(strapi: Core.Strapi) {
   console.log('📦 Bootstrapping collections...');
 
-  // 1. Get all unique collection codes
-  // We check for 'base' by default. We don't rely on the deprecated collectionName anymore.
   const uniqueNames = new Set<string>();
   uniqueNames.add('base');
+  uniqueNames.add('starter');
+
+  // 1. Scan cards.json for collection codes
+  const cardsFilePath = path.join(
+    strapi.dirs.app.src,
+    "shared",
+    "data",
+    "cards.json",
+  );
+
+  if (fs.existsSync(cardsFilePath)) {
+    const cardsData = JSON.parse(fs.readFileSync(cardsFilePath, "utf8"));
+    for (const c of cardsData) {
+      if (c.collectionName) uniqueNames.add(c.collectionName);
+      if (Array.isArray(c.collectionNames)) {
+        c.collectionNames.forEach(n => uniqueNames.add(n));
+      }
+    }
+  }
 
   // 2. Ensure each exists as a Collection entity
   for (const name of uniqueNames) {
@@ -27,5 +46,4 @@ export async function bootstrapCollections(strapi: Core.Strapi) {
       console.log(`✅ Collection "${name}" created.`);
     }
   }
-
 }

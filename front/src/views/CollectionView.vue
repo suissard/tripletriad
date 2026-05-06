@@ -558,7 +558,7 @@ async function fetchCards() {
     if (!isLibraryLoaded.value) {
       let raw = [], page = 1, pageCount = 1;
       do {
-        const res = await strapiService.find('cards', { populate: ['image', 'collection', 'faction', 'variants'], pagination: { page, pageSize: 100 } });
+        const res = await strapiService.find('cards', { populate: ['image', 'collections', 'faction', 'variants'], pagination: { page, pageSize: 100 } });
         raw = [...raw, ...(Array.isArray(res) ? res : (res?.data || []))];
         pageCount = res?.meta?.pagination?.pageCount || 1; page++;
       } while (page <= pageCount);

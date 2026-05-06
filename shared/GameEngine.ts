@@ -16,6 +16,7 @@ export interface CardValues {
 
 export interface Card {
   id: string; // Identifiant unique
+  name?: string; // Nom de la carte (optionnel pour le moteur, utile pour les logs)
   values: CardValues;
   owner?: Player; // Détermine à qui appartient la carte sur le plateau
   prompt?: any; // Prompt JSON pour la génération d'image
@@ -134,8 +135,18 @@ export class GameEngine {
       board: currentState.board.map(row => [...row])
     };
 
-    // 2. Placer la carte
+    // 1.5 Exécuter les compétences "onBeforePlacement" (si présentes sur la carte)
     const placedCard: Card = { ...card, owner: action.player };
+    skillRegistry.dispatch('onBeforePlacement', {
+      board: nextState.board,
+      state: nextState,
+      x, y,
+      card: placedCard,
+      skill: { type: placedCard.skillId || 'unknown' },
+      targets: action.targets || []
+    });
+
+    // 2. Placer la carte sur le plateau
     nextState.board[y][x] = placedCard;
 
     // 2.5 Exécuter les compétences "onEnterPlay" (si présentes sur la carte)

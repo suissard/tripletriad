@@ -138,7 +138,7 @@ export default {
 
       // 3. Fetch all available cards from collection
       const allCards = (await strapi.documents("api::card.card").findMany({
-        filters: { collection: { code: collection } },
+        filters: { collections: { code: collection } },
         populate: { image: true },
         limit: 1000,
       })) as any[];

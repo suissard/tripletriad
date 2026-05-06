@@ -82,9 +82,24 @@ export function normalizeCard(raw) {
     const factionCode = factionData?.code || (attrs.faction === 'neutre' ? 'NEUTRAL' : 'NEUTRAL');
     const factionStyle = factionData?.style || {};
 
-    // Collection normalization
-    const collectionData = attrs.collection?.data?.attributes || attrs.collection?.data || attrs.collection;
-    const collectionCode = collectionData?.code || attrs.collectionName || 'base';
+    // Collection normalization (handles many-to-many)
+    const collectionsData = attrs.collections?.data || attrs.collections;
+    let collectionCodes = [];
+    if (Array.isArray(collectionsData)) {
+        collectionCodes = collectionsData.map(c => {
+            const cAttrs = c.attributes || c;
+            return cAttrs?.code;
+        }).filter(Boolean);
+    }
+    
+    // Fallback for legacy 'collection' field
+    if (collectionCodes.length === 0) {
+        const legacyColl = attrs.collection?.data?.attributes || attrs.collection?.data || attrs.collection;
+        if (legacyColl?.code) collectionCodes.push(legacyColl.code);
+        else if (attrs.collectionName) collectionCodes.push(attrs.collectionName);
+    }
+    
+    const collectionCode = collectionCodes[0] || 'base';
 
     return {
         id: raw.id,
@@ -117,6 +132,7 @@ export function normalizeCard(raw) {
         isPremium: attrs.isPremium || false,
         rarity: (typeof attrs.rarity === 'object' ? attrs.rarity?.name : attrs.rarity) || null,
         collectionName: collectionCode,
+        collectionNames: collectionCodes,
         skills: attrs.skills || [],
         
         // --- System Events Hooks (preserving if they exist) ---
