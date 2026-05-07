@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Fongique Toxique",
-  "description": "Née de la contamination, Fongique Toxique est une abomination fongique avide de biomasse. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
+  "description": "Née de la contamination, Fongique Toxique muté par les spores ancestrales, maîtrise l'élément Spore, vaporise des spores toxiques, esthétique horrifique biologique. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
   "element": "spore",
   "faction": "Fléau Spore",
   "topValue": "2",
