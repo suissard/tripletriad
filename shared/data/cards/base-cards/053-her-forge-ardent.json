@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Forge Ardent",
-  "description": "Forgeron de guerre armant les combattants avec des armes chauffées à blanc infligeant des brûlures persistantes.",
+  "description": "Porté par la mémoire des mondes disparus, Forge Ardent manie l'héritage des cendres avec une portée mortelle. Sous une pluie de cendres dorées, il rappelle aux vivants que même le feu laisse un héritage à réclamer.",
   "element": "radiation",
   "faction": "Héritiers des Cendres",
   "topValue": "5",

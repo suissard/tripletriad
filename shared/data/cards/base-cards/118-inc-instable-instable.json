@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Instable Instable",
-  "description": "Entropiste accélérant la désintégration des structures ennemies faisant vieillir les constructions et les armures à vitesse exponentielle.",
+  "description": "Manifestation d'une réalité parallèle, Instable Instable émane de la Faille Dimensionnelle. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
   "element": "faille_dimensionnelle",
   "elements": [
     "faille_dimensionnelle"

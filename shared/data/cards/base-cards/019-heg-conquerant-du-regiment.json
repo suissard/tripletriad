@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Conquerant du Regiment",
-  "description": "Infiltrateur s'introduisant dans les positions défensives adverses avant le déclenchement des assauts frontaux.",
+  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Conquerant du Regiment incarne la rigueur de la IIIe Légion. Sous l'œil rouge de Mars, il fait respecter l'ordre par la force de la radiation et du fer.",
   "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "6",

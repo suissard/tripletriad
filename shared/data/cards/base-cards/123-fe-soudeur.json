@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Soudeur",
-  "description": "Soudeur réparant les armures et les équipements endommagés directement sur le terrain pendant les pauses entre deux combats.",
+  "description": "Parmi les débris de la Ceinture, Soudeur survit en récupérant les restes de l'ancien monde. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
   "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "3",

@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Refugie",
-  "description": "Contrebassiste logistique assurant le maintien des lignes de ravitaillement entre les zones contestées.",
+  "description": "Survivant solitaire des confins de la galaxie, Refugie ne doit allégeance à aucune faction. Ancien membre de la Légion ou simple nomade, il parcourt les débris spatiaux avec pour seule loi sa propre survie.",
   "element": "None",
   "faction": "neutre",
   "topValue": "2",

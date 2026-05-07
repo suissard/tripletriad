@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Noeud",
-  "description": "Cortex de surveillance analysant en continu les communications adverses détectant les plans d'attaque avant leur exécution.",
+  "description": "Extension vivante de l'Omni-Réseau, Noeud traite l'information à une vitesse phénoménale. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
   "element": "reseau",
   "faction": "Omni-Réseau",
   "topValue": "7",

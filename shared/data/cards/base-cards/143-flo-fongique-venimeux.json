@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Fongique Venimeux",
-  "description": "Spore tactique coordonnant les actions des unités fongiques dispersées à distance par des signaux chimiques imperceptibles.",
+  "description": "Née de la contamination, Fongique Venimeux est une abomination fongique avide de biomasse. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
   "element": "spore",
   "faction": "Fléau Spore",
   "topValue": "2",

@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Necrose",
-  "description": "Mycélium connectant les colonies fongiques distantes en un réseau souterrain de communication et de coordination.",
+  "description": "Née de la contamination, Necrose est une abomination fongique avide de biomasse. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
   "element": "spore",
   "faction": "Fléau Spore",
   "topValue": "6",

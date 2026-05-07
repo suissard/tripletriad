@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Mucus Toxique",
-  "description": "Fongique guérisseur régénérant les tissus endommagés des unités alliées grâce aux propriétés curatives de la spore.",
+  "description": "Née de la contamination, Mucus Toxique est une abomination fongique avide de biomasse. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
   "element": "spore",
   "faction": "Fléau Spore",
   "topValue": "3",

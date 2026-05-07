@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Basse",
-  "description": "Harmoniste synchronisant les rythmes de combat des unités proches augmentant leur efficacité au combat rapproché.",
+  "description": "Véritable nexus de données vivant, Basse appartient au Chœur Synthétique. Il module les fréquences du réseau pour transcender le chaos, transformant la bataille en une symphonie cybernétique parfaite.",
   "element": "hacking",
   "faction": "Chœur Synthétique",
   "topValue": "3",

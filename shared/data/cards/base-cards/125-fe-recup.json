@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Recup",
-  "description": "Électronicien recyclant les composants électroniques récupérés pour alimenter les systèmes vitaux de la base.",
+  "description": "Parmi les débris de la Ceinture, Recup survit en récupérant les restes de l'ancien monde. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
   "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "0",

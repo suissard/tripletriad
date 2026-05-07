@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Forge 1",
-  "description": "Incendiaire du Jugement déclenchant des conflagrations incontrôlables dans les rangs adverses ravageant les positions fortifiées.",
+  "description": "Porté par la mémoire des mondes disparus, Forge 1 manie l'héritage des cendres avec une portée mortelle. Sous une pluie de cendres dorées, il rappelle aux vivants que même le feu laisse un héritage à réclamer.",
   "element": "radiation",
   "faction": "Héritiers des Cendres",
   "topValue": "6",

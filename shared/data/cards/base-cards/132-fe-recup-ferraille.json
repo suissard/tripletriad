@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Recup Ferraille",
-  "description": "Stratège de survie planifiant les itinéraires de collecte les plus rentables en évitant les zones contrôlées par les factions hostiles.",
+  "description": "Parmi les débris de la Ceinture, Recup Ferraille survit en récupérant les restes de l'ancien monde. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
   "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "A",

@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Fracture Instable",
-  "description": "Fracture instable créant des perturbations localisées dans les systèmes ennemis provoquant des malfunctions temporaires.",
+  "description": "Manifestation d'une réalité parallèle, Fracture Instable émane de la Faille Dimensionnelle. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
   "element": "faille_dimensionnelle",
   "faction": "Incursion Dissonante",
   "topValue": "1",

@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Artisan Artisanal",
-  "description": "Saboteur de chantier détruisant les installations ennemies en réutilisant habilement leurs propres matériaux de construction.",
+  "description": "Parmi les débris de la Ceinture, Artisan Artisanal survit en récupérant les restes de l'ancien monde. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
   "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "5",

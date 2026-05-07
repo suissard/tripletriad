@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Inquisiteur Imperial",
-  "description": "Recrue de la IIIe Légion exécutant les ordres disciplinés de la hiérarchie martienne au combat rapproché.",
+  "name": "Martian Hégémonie",
+  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Martian Hégémonie incarne la rigueur de la IIIe Légion. Sous l'œil rouge de Mars, il fait respecter l'ordre par la force de la radiation et du fer.",
   "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "3",

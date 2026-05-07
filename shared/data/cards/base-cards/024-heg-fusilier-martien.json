@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Fusilier Martien",
-  "description": "Stratège de campagne calculant les vecteurs d'invasion optimaux pour maximiser l'efficacité des offensives.",
+  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Fusilier Martien incarne la rigueur de la IIIe Légion. Sous l'œil rouge de Mars, il fait respecter l'ordre par la force de la radiation et du fer.",
   "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "3",

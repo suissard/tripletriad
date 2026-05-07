@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Rouille Rustique",
-  "description": "Ingénieur Génie transformant les catastrophes environnementales en opportunités économiques exploitant chaque débris avec créativité.",
+  "description": "Parmi les débris de la Ceinture, Rouille Rustique survit en récupérant les restes de l'ancien monde. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
   "element": "furtif",
   "elements": [
     "furtif"

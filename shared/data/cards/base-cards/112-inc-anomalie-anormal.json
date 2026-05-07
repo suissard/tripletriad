@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Anomalie Anormal",
-  "description": "Rupture dimensionnelle ouvrant des portes entre les réalités parallèles permettant des manoeuvres tactiques impossibles autrement.",
+  "description": "Manifestation d'une réalité parallèle, Anomalie Anormal émane de la Faille Dimensionnelle. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
   "element": "faille_dimensionnelle",
   "faction": "Incursion Dissonante",
   "topValue": "9",

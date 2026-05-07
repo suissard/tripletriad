@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Combustion en Feu",
-  "description": "Embrasé tactique coordonnant les attaques synchronisées au feu pour maximiser les dégâts thermiques en chaîne.",
+  "description": "Porté par la mémoire des mondes disparus, Combustion en Feu manie l'héritage des cendres avec une portée mortelle. Sous une pluie de cendres dorées, il rappelle aux vivants que même le feu laisse un héritage à réclamer.",
   "element": "radiation",
   "faction": "Héritiers des Cendres",
   "topValue": "6",

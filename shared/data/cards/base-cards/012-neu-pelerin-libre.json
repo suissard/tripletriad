@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Pelerin Libre",
-  "description": "Arbitre de guerre imposant des trêves locales permettant l'évolution stratégique du conflit régional.",
+  "description": "Survivant solitaire des confins de la galaxie, Pelerin Libre ne doit allégeance à aucune faction. Ancien membre de la Légion ou simple nomade, il parcourt les débris spatiaux avec pour seule loi sa propre survie.",
   "element": "None",
   "faction": "neutre",
   "topValue": "8",

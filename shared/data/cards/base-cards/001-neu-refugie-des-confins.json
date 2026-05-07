@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Refugie des Confins",
-  "description": "Observateur discret fournissant des informations tactiques sur les mouvements ennemis aux deux camps sans prendre parti.",
+  "description": "Survivant solitaire des confins de la galaxie, Refugie des Confins ne doit allégeance à aucune faction. Ancien membre de la Légion ou simple nomade, il parcourt les débris spatiaux avec pour seule loi sa propre survie.",
   "element": "None",
   "faction": "neutre",
   "topValue": "2",

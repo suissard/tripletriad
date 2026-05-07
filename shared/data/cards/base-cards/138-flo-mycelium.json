@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Mycelium",
-  "description": "Contaminateur infectant les équipements ennemis avec des spores corrosives affaiblissant leur efficacité opérationnelle.",
+  "description": "Née de la contamination, Mycelium est une abomination fongique avide de biomasse. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
   "element": "spore",
   "faction": "Fléau Spore",
   "topValue": "0",

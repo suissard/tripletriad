@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Bizarre Instable",
-  "description": "Vortex instable aspirant les projectiles et les énergies hostiles protégeant les alliés dans un rayon large.",
+  "description": "Manifestation d'une réalité parallèle, Bizarre Instable émane de la Faille Dimensionnelle. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
   "element": "faille_dimensionnelle",
   "faction": "Incursion Dissonante",
   "topValue": "5",

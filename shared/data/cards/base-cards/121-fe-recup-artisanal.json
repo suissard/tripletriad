@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Recup Artisanal",
-  "description": "Artisan du scrap fabriquant des gadgets utiles à partir de débris collectés sur le champ de bataille après chaque engagement.",
+  "description": "Parmi les débris de la Ceinture, Recup Artisanal survit en récupérant les restes de l'ancien monde. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
   "element": "furtif",
   "elements": [
     "furtif"

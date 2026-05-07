@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Relay Digital",
-  "description": "Architecte de grille renforçant les défenses numériques du réseau contre les tentatives d'intrusion adverses.",
+  "description": "Extension vivante de l'Omni-Réseau, Relay Digital traite l'information à une vitesse phénoménale. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
   "element": "reseau",
   "faction": "Omni-Réseau",
   "topValue": "8",

@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Bricoleur 1",
-  "description": "Ingénieur de récupération optimisant les ressources limitées du groupe pour maximiser leur durée de vie en zone hostile.",
+  "description": "Parmi les débris de la Ceinture, Bricoleur 1 survit en récupérant les restes de l'ancien monde. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
   "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "1",

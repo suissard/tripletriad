@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Proxy",
-  "description": "Sentinelle algorithmique détectant les anomalies suspectes et les comportements inhabituels dans les systèmes amis.",
+  "description": "Extension vivante de l'Omni-Réseau, Proxy traite l'information à une vitesse phénoménale. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
   "element": "reseau",
   "faction": "Omni-Réseau",
   "topValue": "0",

@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Bricoleur Ferraille",
-  "description": "Bricoleur improvisant des armes à partir de pièces détachées créant des solutions inattendues face aux menaces non anticipées.",
+  "description": "Parmi les débris de la Ceinture, Bricoleur Ferraille survit en récupérant les restes de l'ancien monde. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
   "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "3",

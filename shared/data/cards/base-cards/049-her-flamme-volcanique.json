@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Flamme Volcanique",
-  "description": "Pyroclaste projetant des roches volcaniques en fusion sur les cibles au sol avec une précision destructrice.",
+  "description": "Porté par la mémoire des mondes disparus, Flamme Volcanique manie l'héritage des cendres avec une portée mortelle. Sous une pluie de cendres dorées, il rappelle aux vivants que même le feu laisse un héritage à réclamer.",
   "element": "radiation",
   "faction": "Héritiers des Cendres",
   "topValue": "0",

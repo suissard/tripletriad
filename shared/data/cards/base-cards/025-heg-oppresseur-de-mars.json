@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Oppresseur de Mars",
-  "description": "Artilleur orbital bombardant les fortifications ennemies depuis les stations en orbite martienne.",
+  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Oppresseur de Mars incarne la rigueur de la IIIe Légion. Sous l'œil rouge de Mars, il fait respecter l'ordre par la force de la radiation et du fer.",
   "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "6",

@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Casse Artisanal",
-  "description": "Fondateur des Ferrailleurs bâtissant des colonies entières à partir de déchets créant des avant-postes viables dans les environnements les plus hostiles.",
+  "description": "Parmi les débris de la Ceinture, Casse Artisanal survit en récupérant les restes de l'ancien monde. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
   "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "6",

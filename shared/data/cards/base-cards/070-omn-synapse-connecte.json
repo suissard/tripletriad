@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Synapse Connecte",
-  "description": "Routeur tactique optimisant les flux d'information en temps de combat pour une réactivité maximale des unités alliées.",
+  "description": "Extension vivante de l'Omni-Réseau, Synapse Connecte traite l'information à une vitesse phénoménale. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
   "element": "reseau",
   "faction": "Omni-Réseau",
   "topValue": "6",

@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Contamine Fongique",
-  "description": "Pandémie vivante se propageant exponentiellement sur le champ de bataille contaminant chaque zone touchée durablement.",
+  "description": "Née de la contamination, Contamine Fongique est une abomination fongique avide de biomasse. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
   "element": "spore",
   "elements": [
     "spore"

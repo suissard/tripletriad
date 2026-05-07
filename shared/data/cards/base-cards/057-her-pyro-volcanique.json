@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Pyro Volcanique",
-  "description": "Phénix tacticien utilisant ses cendres pour bloquer les lignes ennemies et créer des murs de fumée infranchissables.",
+  "description": "Porté par la mémoire des mondes disparus, Pyro Volcanique manie l'héritage des cendres avec une portée mortelle. Sous une pluie de cendres dorées, il rappelle aux vivants que même le feu laisse un héritage à réclamer.",
   "element": "radiation",
   "faction": "Héritiers des Cendres",
   "topValue": "4",
