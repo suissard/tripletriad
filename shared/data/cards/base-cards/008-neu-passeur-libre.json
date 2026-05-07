@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Passeur Libre",
-  "description": "Survivant solitaire des confins de la galaxie, Passeur Libre ne doit allégeance à aucune faction. Ancien membre de la Légion ou simple nomade, il parcourt les débris spatiaux avec pour seule loi sa propre survie.",
+  "name": "Passeur Humanitaire",
+  "description": "Courseur autravers les zones de combat avec une agilité foudroyante, son équipement médical lourd rebondissant sur sa poitrine. Ignorent les tirs de plasma qui pleuvent, il se jette au sol pour protéger les blessés, déployant ses soins de choc avec une précision de chirurgien sous le feu ennemi.",
   "element": "None",
   "elements": [],
   "faction": "neutre",

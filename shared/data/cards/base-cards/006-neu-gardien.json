@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Gardien",
-  "description": "Survivant solitaire des confins de la galaxie, Gardien ne doit allégeance à aucune faction. Ancien membre de la Légion ou simple nomade, il parcourt les débris spatiaux avec pour seule loi sa propre survie.",
+  "name": "Gardien du Néant",
+  "description": "Colosse silencieux monté sur un exosquelette de récupération, il fait respecter l'ordre parmi les débris spatiaux. Ses plaques d'armure soudées de récupération et son harpon lourd font de lui un rempart inébranlable contre quiconque ose menacer les zones neutres de la Ceinture.",
   "element": "None",
   "faction": "neutre",
   "topValue": "6",

@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Observateur des Confins",
-  "description": "Survivant solitaire des confins de la galaxie, Observateur des Confins ne doit allégeance à aucune faction. Ancien membre de la Légion ou simple nomade, il parcourt les débris spatiaux avec pour seule loi sa propre survie.",
+  "name": "Coordinateur Tactique",
+  "description": "Elite des survivants, ce maître de guerre orchestrre les mouvements alliés depuis les hauteurs des stations de la Ceinture. Ses gestes précis dirigés vers l'horizon activent des renforts invisibles, tandis que ses traits burinés par l'expérience trahissent une intelligence tactique supérieure.",
   "element": "None",
   "faction": "neutre",
   "topValue": "9",

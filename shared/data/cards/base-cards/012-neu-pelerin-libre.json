@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Pelerin Libre",
-  "description": "Survivant solitaire des confins de la galaxie, Pelerin Libre ne doit allégeance à aucune faction. Ancien membre de la Légion ou simple nomade, il parcourt les débris spatiaux avec pour seule loi sa propre survie.",
+  "name": "Pèlerin de Guerre",
+  "description": "Arbitre impitoyable dont l'armure de puissance récupérée impose le respect, il fait la loi dans les zones de non-droit de la Ceinture. Son canon cinétique massif et sa lame de scie circulaire tranchent le chaos pour imposer un ordre brutal, refusant toute allégeance aux grandes factions.",
   "element": "None",
   "faction": "neutre",
   "topValue": "8",

@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Nomade",
-  "description": "Survivant solitaire des confins de la galaxie, Nomade ne doit allégeance à aucune faction. Ancien membre de la Légion ou simple nomade, il parcourt les débris spatiaux avec pour seule loi sa propre survie.",
+  "name": "Nomade Vengeur",
+  "description": "Captureur de prime transformé en guerrier solitaire suite à la destruction de sa station d'origine. Enfelé par la perte de ses frères, il déploie une énergie sombre et vengeresse chaque fois qu'on tente de l'emprisonner, refusant de mourir sans avoir réglé ses comptes.",
   "element": "None",
   "faction": "neutre",
   "topValue": "1",

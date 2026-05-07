@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Medic des Confins",
-  "description": "Survivant solitaire des confins de la galaxie, Medic des Confins ne doit allégeance à aucune faction. Ancien membre de la Légion ou simple nomade, il parcourt les débris spatiaux avec pour seule loi sa propre survie.",
+  "name": "Médecin des Frontières",
+  "description": "Vétéran des services médicaux de la Légion devenue soigneur errant, il tracte son équipement de stabilisation à travers les champs de bataille. Son scanner de précision repère les blessés sous les débris, tandis que son déifibrillateur artisanal rappelle les mourants à la vie.",
   "element": "None",
   "faction": "neutre",
   "topValue": "5",

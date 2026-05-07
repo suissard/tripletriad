@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Pelerin",
-  "description": "Survivant solitaire des confins de la galaxie, Pelerin ne doit allégeance à aucune faction. Ancien membre de la Légion ou simple nomade, il parcourt les débris spatiaux avec pour seule loi sa propre survie.",
+  "name": "Sapeur des Débris",
+  "description": "Spécialiste des explosifs improvisés, ce combattant fouille les épaves à la recherche de composants précieux. Sa scie circulaire et son harpon électromagnétique transforment chaque débris en piège mortel pour quiconque ose s'approcher de son territoire.",
   "element": "None",
   "faction": "neutre",
   "topValue": "1",

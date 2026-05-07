@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Voyageur",
-  "description": "Survivant solitaire des confins de la galaxie, Voyageur ne doit allégeance à aucune faction. Ancien membre de la Légion ou simple nomade, il parcourt les débris spatiaux avec pour seule loi sa propre survie.",
+  "name": "Voyageur Cybernétique",
+  "description": "Commandant mythique dont le corps est devenu une extension du réseau des débris spatiaux, il projette des toiles d'énergie bleutée depuis son torse mécanique. Au centre d'un vortex de métal et de foudre, il orchestre la bataille avec une précision mathématique, transformant le chaos en une symphonie de destruction contrôlée.",
   "element": "None",
   "faction": "neutre",
   "topValue": "A",
