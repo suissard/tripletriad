@@ -2,7 +2,13 @@ import { SkillHandler, SkillContext } from './types';
 
 /**
  * Skill: Freeze (Gel)
- * Bloque la propagation de combo des attaquants adjacents.
+ * Effet : Bloque la propagation de combo des attaquants adjacents. Un contre passif essentiel.
+ * 
+ * Exemple Strapi :
+ * {
+ *   "type": "freeze",
+ *   "trigger": "passive"
+ * }
  */
 const handler: SkillHandler = {
   id: 'freeze',

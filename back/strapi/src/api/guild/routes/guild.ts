@@ -55,6 +55,12 @@ export default {
       config: { policies: [] }
     },
     {
+      method: 'POST',
+      path: '/guilds/:id/add-member',
+      handler: 'guild.addMember',
+      config: { policies: [] }
+    },
+    {
       method: 'PUT',
       path: '/guilds/:id',
       handler: 'guild.update',

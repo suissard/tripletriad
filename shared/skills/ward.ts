@@ -2,7 +2,13 @@ import { SkillHandler, SkillContext } from './types';
 
 /**
  * Skill: Ward (Bouclier)
- * Bloque la première capture ou le premier dégât reçu. Consommable.
+ * Effet : Bloque la première capture ou le premier dégât reçu. Consommable.
+ * 
+ * Exemple Strapi :
+ * {
+ *   "type": "ward",
+ *   "trigger": "passive"
+ * }
  */
 const handler: SkillHandler = {
   id: 'ward',

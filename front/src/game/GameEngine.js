@@ -340,7 +340,7 @@ export class GameEngine {
           card: dying.cell.data,
           owner: dying.cell.owner
         });
-        skillRegistry.dispatch('onDestroyed', dyingCtx);
+        skillRegistry.dispatch('onDeath', dyingCtx);
       }
     }
 

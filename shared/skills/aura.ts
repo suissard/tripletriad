@@ -2,10 +2,17 @@ import { SkillHandler, SkillContext } from './types';
 
 /**
  * Skill: Aura
- * Booste les valeurs de combat des cartes alliées adjacentes.
+ * Effet : Booste les valeurs de combat des cartes alliées adjacentes.
  * 
- * Ce hook est appelé sur les VOISINS de la carte évaluée,
- * pour vérifier si elle bénéficie d'un bonus d'aura.
+ * Exemple Strapi :
+ * {
+ *   "type": "aura",
+ *   "value": 2,
+ *   "trigger": "passive",
+ *   "origin_type": "self",
+ *   "patterns": [{ "value": "adjacent" }],
+ *   "filter": "allies"
+ * }
  */
 const handler: SkillHandler = {
   id: 'aura',

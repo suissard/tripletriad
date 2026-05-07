@@ -200,6 +200,17 @@
                 Chargement de la liste des membres...
               </div>
               <template v-else>
+                <!-- Add Member Form -->
+                <div v-if="isModerator" class="add-member-section">
+                  <div class="add-member-form">
+                    <input v-model="targetUsername" type="text" placeholder="Pseudo du joueur..." @keyup.enter="handleAddMember" />
+                    <button class="btn-add-small" @click="handleAddMember" :disabled="!targetUsername.trim() || addingMember">
+                      {{ addingMember ? '...' : '➕ Ajouter' }}
+                    </button>
+                  </div>
+                  <p v-if="addMemberError" class="error-msg-small">{{ addMemberError }}</p>
+                </div>
+
                 <div v-for="(group, roleName) in groupedMembers" :key="roleName" class="member-role-section">
                   <h3 class="role-title" v-if="group.length > 0">
                     {{ roleName }} <span class="count">{{ group.length }}</span>
@@ -334,6 +345,10 @@ const editGuildDesc = ref('');
 const updating = ref(false);
 const deleting = ref(false);
 
+const targetUsername = ref('');
+const addingMember = ref(false);
+const addMemberError = ref('');
+
 watch(() => chatStore.pageActiveGuildDetails, (details) => {
   if (details) {
     editGuildName.value = details.name;
@@ -390,6 +405,22 @@ const handleDemote = async (member) => {
     gameEvents.emit('SHOW_ALERT', { text: `${member.username} n'est plus modérateur.` });
   } catch (err) {
     gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors de la rétrogradation.' });
+  }
+};
+
+const handleAddMember = async () => {
+  if (!targetUsername.value.trim()) return;
+  addingMember.value = true;
+  addMemberError.value = '';
+  try {
+    await chatStore.addMemberByUsername(chatStore.pageActiveTargetId, targetUsername.value.trim());
+    gameEvents.emit('SHOW_ALERT', { text: `${targetUsername.value} a été ajouté à la guilde !` });
+    targetUsername.value = '';
+  } catch (err) {
+    addMemberError.value = err.message || 'Erreur lors de l\'ajout.';
+    gameEvents.emit('SHOW_ALERT', { text: 'Impossible d\'ajouter ce joueur.' });
+  } finally {
+    addingMember.value = false;
   }
 };
 
@@ -1362,6 +1393,49 @@ const sendMessage = async () => {
 
 .action-btn.demote:hover {
   background: rgba(255, 152, 0, 0.3);
+}
+
+/* Add Member Section */
+.add-member-section {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.add-member-form {
+  display: flex;
+  gap: 10px;
+}
+
+.add-member-form input {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.btn-add-small {
+  background: var(--color-primary);
+  color: black;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.error-msg-small {
+  color: #ff5252;
+  font-size: 0.8rem;
+  margin-top: 8px;
+  margin-bottom: 0;
 }
 
 /* Settings View */

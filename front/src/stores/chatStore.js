@@ -438,6 +438,18 @@ export const useChatStore = defineStore('chatStore', () => {
         }
     };
 
+    const addMemberByUsername = async (guildId, username) => {
+        try {
+            await api.request('POST', `/guilds/${guildId}/add-member`, {
+                body: { username }
+            });
+            await fetchGuildDetails(guildId, 'page');
+        } catch (err) {
+            console.error('Failed to add member', err);
+            throw err;
+        }
+    };
+
     const updateGuild = async (guildId, data) => {
         try {
             await api.request('PUT', `/guilds/${guildId}`, {
@@ -490,6 +502,7 @@ export const useChatStore = defineStore('chatStore', () => {
         kickMember,
         promoteMember,
         demoteMember,
+        addMemberByUsername,
         updateGuild,
         deleteGuild
     };

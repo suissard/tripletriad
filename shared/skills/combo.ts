@@ -2,7 +2,13 @@ import { SkillHandler, SkillContext } from './types';
 
 /**
  * Skill: Combo
- * Après une capture, la carte attaque à nouveau ses voisins.
+ * Effet : Après une capture, la carte attaque à nouveau ses voisins, déclenchant potentiellement des captures en chaîne.
+ * 
+ * Exemple Strapi :
+ * {
+ *   "type": "combo",
+ *   "trigger": "passive"
+ * }
  */
 const handler: SkillHandler = {
   id: 'combo',

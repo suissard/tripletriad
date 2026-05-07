@@ -2,7 +2,17 @@ import { SkillHandler, SkillContext } from './types';
 
 /**
  * Skill: Death (Mort)
- * Inflige des dégâts aux cartes adjacentes au placement.
+ * Effet : Inflige des dégâts aux cartes adjacentes dès que la carte est posée (Cri de guerre).
+ * 
+ * Exemple Strapi :
+ * {
+ *   "type": "death",
+ *   "value": 1,
+ *   "trigger": "onEnterPlay",
+ *   "origin_type": "self",
+ *   "patterns": [{ "value": "adjacent" }],
+ *   "filter": "none"
+ * }
  */
 import { DIRECTIONS_4 } from './helpers.js';
 

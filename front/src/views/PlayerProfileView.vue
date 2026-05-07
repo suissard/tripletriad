@@ -25,8 +25,8 @@
           <div class="player-info">
             <h1 class="username">{{ profile.username }}</h1>
             <div class="player-tags">
-              <span v-if="profile.guild" class="tag guild-tag">
-                🛡️ {{ profile.guild.name }}
+              <span v-for="guild in profile.guilds" :key="guild.documentId || guild.id" class="tag guild-tag">
+                🛡️ {{ guild.name }}
               </span>
               <span class="tag role-tag">Joueur</span>
             </div>

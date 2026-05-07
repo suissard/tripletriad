@@ -6,12 +6,7 @@ export const useLayoutStore = defineStore('layout', {
   }),
   actions: {
     setLayout(layoutName) {
-      if (['PlayerLayout', 'AdminLayout', 'BlankLayout'].includes(layoutName)) {
-        this.currentLayout = layoutName;
-      } else {
-        console.warn(`Tentative de définir un layout inconnu: ${layoutName}`);
-        this.currentLayout = 'PlayerLayout'; // Fallback
-      }
+      this.currentLayout = layoutName;
     }
   }
 });

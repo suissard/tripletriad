@@ -60,6 +60,8 @@ export interface GameSkill extends Struct.ComponentSchema {
     range: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
     trigger: Schema.Attribute.Enumeration<
       [
+        'onDrawn',
+        'onBeforePlacement',
         'onEnterPlay',
         'onEndOfTurn',
         'onStartOfTurn',

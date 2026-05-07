@@ -2,7 +2,13 @@ import { SkillHandler, SkillContext, TargetType } from './types';
 
 /**
  * Skill: Teleportation
- * Permet à la carte de se déplacer vers une case vide ciblée au placement.
+ * Effet : Permet à la carte de se déplacer vers une case vide ciblée lors du placement.
+ * 
+ * Exemple Strapi :
+ * {
+ *   "type": "teleportation",
+ *   "trigger": "onEnterPlay"
+ * }
  */
 const handler: SkillHandler = {
   id: 'teleportation',

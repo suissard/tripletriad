@@ -3,8 +3,17 @@ import { getTargetCells } from './helpers.js';
 
 /**
  * Skill: Growing (Croissance)
- * Augmente les valeurs des cartes cibles à chaque fin de tour.
- * Par défaut (si patterns: self), augmente les valeurs de la carte elle-même.
+ * Effet : Augmente les valeurs de combat (Haut, Bas, Gauche, Droite) des cartes cibles à chaque fin de tour.
+ * 
+ * Exemple Strapi :
+ * {
+ *   "type": "growing",
+ *   "value": 1,
+ *   "trigger": "onEndOfTurn",
+ *   "origin_type": "self",
+ *   "patterns": [{ "value": "self" }],
+ *   "filter": "self"
+ * }
  */
 const handler: SkillHandler = {
   id: 'growing',

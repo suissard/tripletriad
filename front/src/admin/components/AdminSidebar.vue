@@ -111,6 +111,7 @@ const menuCategories = [
     title: 'Developer Tools',
     items: [
       { name: 'Testeur API', path: '/admin/test-api', icon: '🧪' },
+      { name: 'Testeur Layouts', path: '/admin/layouts', icon: '🎨' },
       { name: 'Archi. Statique', path: '/admin/cartographie', icon: '🗺️' },
       { name: 'Archi. Dynamique', path: '/admin/cartographie-dyn', icon: '🔭' },
       { name: 'Testeur Aléatoire', path: '/admin/test-seed', icon: '🎲' },

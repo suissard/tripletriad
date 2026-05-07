@@ -2,8 +2,14 @@ import { SkillHandler, SkillContext } from './types';
 
 /**
  * Skill: Poison
- * Contre-attaque empoisonnée : inflige des dégâts à l'attaquant
- * quand cette carte est capturée.
+ * Effet : Contre-attaque empoisonnée. Inflige des dégâts à l'attaquant quand cette carte est capturée.
+ * 
+ * Exemple Strapi :
+ * {
+ *   "type": "poison",
+ *   "value": 1,
+ *   "trigger": "onCaptured"
+ * }
  */
 const handler: SkillHandler = {
   id: 'poison',

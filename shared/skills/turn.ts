@@ -2,7 +2,15 @@ import { SkillHandler, SkillContext } from './types';
 
 /**
  * Skill: Turn (Rotation)
- * Fait tourner les valeurs de la carte au moment du placement.
+ * Effet : Fait pivoter les valeurs de combat de la carte au moment du placement.
+ * 
+ * Exemple Strapi :
+ * {
+ *   "type": "turn",
+ *   "value": 1,
+ *   "trigger": "onEnterPlay"
+ * }
+ * (Note: value 1 = horaire, -1 = anti-horaire)
  */
 const handler: SkillHandler = {
   id: 'turn',

@@ -3,8 +3,17 @@ import { getTargetCells } from './helpers.js';
 
 /**
  * Skill: Decrease (Décroissance)
- * Diminue les valeurs des cartes cibles à chaque fin de tour.
- * Par défaut (si patterns: self), diminue les valeurs de la carte elle-même.
+ * Effet : Diminue les valeurs de combat (Haut, Bas, Gauche, Droite) des cartes cibles à chaque fin de tour.
+ * 
+ * Exemple Strapi :
+ * {
+ *   "type": "decrease",
+ *   "value": 1,
+ *   "trigger": "onEndOfTurn",
+ *   "origin_type": "self",
+ *   "patterns": [{ "value": "self" }],
+ *   "filter": "self"
+ * }
  */
 const handler: SkillHandler = {
   id: 'decrease',

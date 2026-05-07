@@ -3,7 +3,17 @@ import { SkillHandler, SkillContext } from './types';
 
 /**
  * Skill: Heal (Soin)
- * Soigne les cartes adjacentes au placement.
+ * Effet : Rend des points de vie (HP) aux cartes ciblées au moment du placement.
+ * 
+ * Exemple Strapi :
+ * {
+ *   "type": "heal",
+ *   "value": 2,
+ *   "trigger": "onEnterPlay",
+ *   "origin_type": "self",
+ *   "patterns": [{ "value": "adjacent" }],
+ *   "filter": "allies"
+ * }
  */
 import { getTargetCells } from './helpers.js';
 

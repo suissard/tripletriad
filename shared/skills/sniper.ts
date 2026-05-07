@@ -2,7 +2,13 @@ import { SkillHandler, SkillContext } from './types';
 
 /**
  * Skill: Sniper
- * Permet d'attaquer à travers les cases vides.
+ * Effet : Permet d'attaquer à travers les cases vides (attaque à distance).
+ * 
+ * Exemple Strapi :
+ * {
+ *   "type": "sniper",
+ *   "trigger": "passive"
+ * }
  */
 const handler: SkillHandler = {
   id: 'sniper',

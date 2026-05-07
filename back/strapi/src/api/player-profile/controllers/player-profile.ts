@@ -91,11 +91,11 @@ export default {
           totalCards,
           uniqueCards,
         },
-        guild: activeGuild ? {
-          id: activeGuild.id,
-          documentId: activeGuild.documentId,
-          name: activeGuild.name,
-        } : null,
+        guilds: targetUser.guilds?.map((g: any) => ({
+          id: g.id,
+          documentId: g.documentId,
+          name: g.name
+        })) || [],
         friendship: requester ? {
           status: friendshipStatus,
           documentId: friendshipId,

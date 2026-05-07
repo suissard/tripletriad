@@ -317,6 +317,53 @@ export default factories.createCoreController('api::guild.guild' as any, ({ stra
     }
   },
 
+  async addMember(ctx) {
+    try {
+      const authUser = ctx.state.user;
+      const { id: documentId } = ctx.params;
+      const { username } = ctx.request.body;
+
+      if (!username) return ctx.badRequest('Username is required');
+
+      const guild = await strapi.documents('api::guild.guild').findOne({
+        documentId,
+        populate: ['owner', 'moderators', 'members']
+      });
+
+      if (!guild) return ctx.notFound('Guild not found');
+
+      const isOwner = guild.owner?.id === authUser.id;
+      const isModerator = guild.moderators?.some((m: any) => m.id === authUser.id);
+
+      if (!isOwner && !isModerator) return ctx.forbidden('Only owners and moderators can add members');
+
+      // Find user to add
+      const users = await strapi.documents('plugin::users-permissions.user').findMany({
+        filters: { username },
+        limit: 1
+      });
+
+      const targetUser = users[0];
+      if (!targetUser) return ctx.notFound('User not found');
+
+      // Check if already in guild
+      const isAlreadyMember = guild.members?.some((m: any) => m.documentId === targetUser.documentId);
+      if (isAlreadyMember) return ctx.badRequest('User is already a member of this guild');
+
+      await strapi.documents('api::guild.guild').update({
+        documentId,
+        data: {
+          members: { connect: [targetUser.documentId] }
+        }
+      });
+
+      return { message: 'Member added successfully' };
+    } catch (err) {
+      strapi.log.error('[Guild] Error in addMember:', err);
+      ctx.throw(500, err.message);
+    }
+  },
+
   async update(ctx) {
     try {
       const authUser = ctx.state.user;

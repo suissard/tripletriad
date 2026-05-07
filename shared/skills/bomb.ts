@@ -2,7 +2,17 @@ import { SkillHandler, SkillContext } from './types';
 
 /**
  * Skill: Bomb (Explosion)
- * Inflige des dégâts AoE aux cartes adjacentes à la mort.
+ * Effet : Inflige des dégâts AoE aux cartes ciblées à la mort (HP <= 0).
+ * 
+ * Exemple Strapi :
+ * {
+ *   "type": "bomb",
+ *   "value": 1,
+ *   "trigger": "onDeath",
+ *   "origin_type": "self",
+ *   "patterns": [{ "value": "adjacent" }],
+ *   "filter": "none"
+ * }
  */
 import { getTargetCells, getEffectiveHp } from './helpers.js';
 

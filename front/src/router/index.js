@@ -71,6 +71,12 @@ const routes = [
     meta: { requiresAdminAuth: true }
   },
   {
+    path: '/admin/layouts',
+    name: 'admin-layouts',
+    component: () => import('../admin/views/LayoutTesterPage.vue'),
+    meta: { requiresAdminAuth: true }
+  },
+  {
     path: '/admin/cartographie',
     name: 'admin-cartographie',
     component: () => import('../admin/views/ArchitectureMapPage.vue'),

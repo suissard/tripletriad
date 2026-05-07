@@ -92,6 +92,8 @@
     "trigger": {
       "type": "enumeration",
       "enum": [
+        "onDrawn",
+        "onBeforePlacement",
         "onEnterPlay",
         "onEndOfTurn",
         "onStartOfTurn",
