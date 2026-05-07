@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Erratique",
-  "description": "Manifestation d'une réalité parallèle, Erratique émane de la Faille Dimensionnelle. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
+  "description": "Manifestation d'une réalité parallèle, Erratique vibre hors fréquence, maîtrise la Faille Dimensionnelle, arme une lame instable, froid des espaces inter-dimensions. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
   "element": "faille_dimensionnelle",
   "faction": "Incursion Dissonante",
   "topValue": "3",

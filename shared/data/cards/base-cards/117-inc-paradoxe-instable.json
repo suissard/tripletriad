@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Paradoxe Instable",
-  "description": "Manifestation d'une réalité parallèle, Paradoxe Instable émane de la Faille Dimensionnelle. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
+  "description": "Manifestation d'une réalité parallèle, Paradoxe Instable existe en état de superposition, maîtrise la Faille Dimensionnelle, élu des réalités dissonantes, déforme l'espace autour de lui. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
   "element": "faille_dimensionnelle",
   "faction": "Incursion Dissonante",
   "topValue": "2",
