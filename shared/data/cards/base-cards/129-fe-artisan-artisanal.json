@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Artisan Artisanal",
-  "description": "Parmi les débris de la Ceinture, Artisan Artisanal survit en récupérant les restes de l'ancien monde. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
+  "description": "Parmi les débris de la Ceinture, Artisan Artisanal sculpte l'inutile en trésor, maîtrise la furtivité spatiale, force de frappe de ↑5 dans l'ombre, arme un pistolet modifié, brandit une clé à molette géante. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
   "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "5",

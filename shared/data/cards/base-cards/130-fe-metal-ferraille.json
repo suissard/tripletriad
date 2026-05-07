@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Metal Ferraille",
-  "description": "Parmi les débris de la Ceinture, Metal Ferraille survit en récupérant les restes de l'ancien monde. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
+  "description": "Parmi les débris de la Ceinture, Metal Ferraille soude les espoirs brisés, maîtrise la furtivité spatiale, esthétique post-apocalyptique, ambiance grimdark des astéroïdes. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
   "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "3",

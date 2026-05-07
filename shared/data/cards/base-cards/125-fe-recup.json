@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Recup",
-  "description": "Parmi les débris de la Ceinture, Recup survit en récupérant les restes de l'ancien monde. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
+  "description": "Parmi les débris de la Ceinture, Recup récupère les débris précieux, maîtrise la furtivité spatiale, manie une torche de soudure, esthétique post-apocalyptique, ambiance grimdark des astéroïdes. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
   "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "0",

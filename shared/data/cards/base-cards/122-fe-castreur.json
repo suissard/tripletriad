@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Castreur",
-  "description": "Parmi les débris de la Ceinture, Castreur survit en récupérant les restes de l'ancien monde. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
+  "description": "Parmi les débris de la Ceinture, Castreur soude les espoirs brisés, maîtrise la furtivité spatiale, arme un fusil de récupération, brandit une clé à molette géante, manie une torche de soudure. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
   "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "3",

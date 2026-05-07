@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Metal de la Ceinture",
-  "description": "Parmi les débris de la Ceinture, Metal de la Ceinture survit en récupérant les restes de l'ancien monde. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
+  "description": "Parmi les débris de la Ceinture, Metal de la Ceinture forge le métal de la Ceinture, maîtrise la furtivité spatiale, manie une torche de soudure, esthétique post-apocalyptique, ambiance grimdark des astéroïdes. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
   "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "3",
