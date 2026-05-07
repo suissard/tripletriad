@@ -22,6 +22,10 @@
             @click="socialTab = 'friends'"
           >Amis</button>
           <button
+            :class="{ active: socialTab === 'guilds' }"
+            @click="socialTab = 'guilds'"
+          >Guildes</button>
+          <button
             :class="{ active: socialTab === 'requests' }"
             @click="socialTab = 'requests'"
           >
@@ -55,6 +59,28 @@
             </div>
           </template>
 
+          <!-- Guilds List -->
+          <template v-if="socialTab === 'guilds'">
+            <div v-if="chatStore.guilds.length === 0" class="empty-state">
+              Vous n'êtes membre d'aucune guilde.
+            </div>
+            <div
+              v-for="guild in chatStore.guilds"
+              :key="guild.documentId || guild.id"
+              class="list-item"
+            >
+              <div class="item-content" @click="chatStore.selectTarget('guilds', guild.documentId || guild.id)">
+                <span class="avatar-emoji">🛡️</span>
+                <span>{{ guild.name }}</span>
+              </div>
+              <div class="actions">
+                <span v-if="chatStore.unreadCounts[`guild_${guild.documentId || guild.id}`]" class="badge-mini">
+                  {{ chatStore.unreadCounts[`guild_${guild.documentId || guild.id}`] }}
+                </span>
+              </div>
+            </div>
+          </template>
+
           <!-- Requests -->
           <template v-if="socialTab === 'requests'">
             <h4>Reçues</h4>
@@ -77,6 +103,7 @@
               <span>{{ req.receiver.username }}</span>
               <div class="actions">
                 <span class="text-xs italic">En attente...</span>
+                <button @click="removeFriend(req.documentId || req.id, true)" title="Annuler la demande" class="icon-btn">❌</button>
               </div>
             </div>
           </template>
@@ -216,9 +243,11 @@ onMounted(() => {
 watch(() => chatStore.widgetOpen, (isOpen) => {
   if (isOpen && userStore.isLoggedIn) {
     friendStore.fetchFriendships();
-    chatStore.activeTab = 'friends'; // Force chat mode to friends
+    chatStore.fetchGuilds();
   }
 });
+
+// Sync logic removed as per user request: "aucune lien entre le widget de chat et les pages regardé"
 
 const activeTargetName = computed(() => {
   if (!chatStore.activeTargetId) return '';
@@ -292,11 +321,11 @@ const rejectRequest = async (id) => {
   }
 };
 
-const removeFriend = async (id) => {
-  if (!confirm("Voulez-vous vraiment retirer cet ami ?")) return;
+const removeFriend = async (id, skipConfirm = false) => {
+  if (!skipConfirm && !confirm("Voulez-vous vraiment retirer cet ami ?")) return;
   try {
     await friendStore.removeFriend(id);
-    gameEvents.emit('SHOW_ALERT', { text: 'Ami supprimé.' });
+    gameEvents.emit('SHOW_ALERT', { text: skipConfirm ? 'Demande annulée.' : 'Ami supprimé.' });
   } catch (e) {
      gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors de la suppression.' });
   }
@@ -458,6 +487,27 @@ const blockUser = async (userId) => {
   padding: 20px;
   color: rgba(255, 255, 255, 0.5);
   font-style: italic;
+}
+
+.avatar-emoji {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.badge-mini {
+  background: var(--color-primary);
+  color: black;
+  border-radius: 10px;
+  padding: 1px 6px;
+  font-size: 0.65rem;
+  font-weight: bold;
 }
 
 h4 {

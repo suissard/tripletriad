@@ -53,10 +53,19 @@ export default factories.createCoreController(
         };
 
         // Find card by documentId or numeric id
-        const card = await strapi.documents("api::card.card").findOne({
-          documentId: isNaN(cardId) ? cardId : undefined,
-          status: 'published', // standard in documents service
-        }) || ( !isNaN(cardId) ? await strapi.documents("api::card.card").findMany({ filters: { id: cardId }, limit: 1 }).then(r => r[0]) : null);
+        let card = null;
+        if (isNaN(cardId)) {
+          card = await strapi.documents("api::card.card").findOne({
+            documentId: cardId,
+            status: 'published'
+          });
+        } else {
+          const cards = await strapi.documents("api::card.card").findMany({
+            filters: { id: cardId },
+            limit: 1
+          });
+          card = cards[0];
+        }
 
         if (!card) return ctx.notFound("Card not found.");
 
@@ -158,9 +167,18 @@ export default factories.createCoreController(
           legendary: { disenchant: 400, craft: 1600 },
         };
 
-        const card = await strapi.documents("api::card.card").findOne({
-          documentId: isNaN(cardId) ? cardId : undefined,
-        }) || (!isNaN(cardId) ? await strapi.documents("api::card.card").findMany({ filters: { id: cardId }, limit: 1 }).then(r => r[0]) : null);
+        let card = null;
+        if (isNaN(cardId)) {
+          card = await strapi.documents("api::card.card").findOne({
+            documentId: cardId
+          });
+        } else {
+          const cards = await strapi.documents("api::card.card").findMany({
+            filters: { id: cardId },
+            limit: 1
+          });
+          card = cards[0];
+        }
         
         if (!card) return ctx.notFound("Card not found.");
 
@@ -207,10 +225,9 @@ export default factories.createCoreController(
           filters: { 
             user: { id: user.id }, 
             card: {
-              $or: [
-                { id: isNaN(cardId) ? undefined : cardId },
-                { documentId: isNaN(cardId) ? cardId : undefined }
-              ]
+              $or: isNaN(cardId) 
+                ? [{ documentId: cardId }]
+                : [{ id: Number(cardId) }]
             }
           },
         });

@@ -37,6 +37,36 @@ export default {
       config: { policies: [] }
     },
     {
+      method: 'POST',
+      path: '/guilds/:id/kick',
+      handler: 'guild.kick',
+      config: { policies: [] }
+    },
+    {
+      method: 'POST',
+      path: '/guilds/:id/promote',
+      handler: 'guild.promote',
+      config: { policies: [] }
+    },
+    {
+      method: 'POST',
+      path: '/guilds/:id/demote',
+      handler: 'guild.demote',
+      config: { policies: [] }
+    },
+    {
+      method: 'PUT',
+      path: '/guilds/:id',
+      handler: 'guild.update',
+      config: { policies: [] }
+    },
+    {
+      method: 'DELETE',
+      path: '/guilds/:id',
+      handler: 'guild.delete',
+      config: { policies: [] }
+    },
+    {
       method: 'GET',
       path: '/guilds/:id/data',
       handler: 'guild.getGuildData',

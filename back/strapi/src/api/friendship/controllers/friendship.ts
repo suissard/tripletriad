@@ -67,16 +67,21 @@ export default factories.createCoreController('api::friendship.friendship' as an
       return ctx.badRequest('Identifier is required (username, email, or id).');
     }
 
+    const targetFilters: any = {
+      $or: [
+        { username: identifier },
+        { email: identifier },
+        { documentId: identifier }
+      ]
+    };
+
+    if (!isNaN(Number(identifier))) {
+      targetFilters.$or.push({ id: Number(identifier) });
+    }
+
     // Find the target user
     let targetUsers = await (strapi as any).documents('plugin::users-permissions.user').findMany({
-      filters: {
-        $or: [
-          { username: identifier },
-          { email: identifier },
-          { documentId: identifier },
-          { id: isNaN(identifier) ? undefined : identifier }
-        ]
-      },
+      filters: targetFilters,
       limit: 1
     });
 

@@ -30,6 +30,8 @@ const routes = [
   { path: '/quests', component: QuestsPage },
   { path: '/guilds', name: 'guilds', component: GuildsPage },
   { path: '/guilds/:documentId', name: 'guild-detail', component: GuildsPage, props: true },
+  { path: '/profile/:identifier', name: 'player-profile', component: () => import('../views/PlayerProfileView.vue'), props: true },
+  { path: '/friends', name: 'friends', component: () => import('../views/FriendsView.vue') },
 
   // Admin Routes
   {

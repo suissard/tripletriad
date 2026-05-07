@@ -218,5 +218,144 @@ export default factories.createCoreController('api::guild.guild' as any, ({ stra
       strapi.log.error('[Guild] Error in getGuildData:', err);
       ctx.throw(500, err.message);
     }
+  },
+
+  async kick(ctx) {
+    try {
+      const authUser = ctx.state.user;
+      const { id: documentId } = ctx.params;
+      const { memberDocId } = ctx.request.body;
+
+      if (!memberDocId) return ctx.badRequest('Member documentId is required');
+
+      const guild = await strapi.documents('api::guild.guild').findOne({
+        documentId,
+        populate: ['owner', 'moderators']
+      });
+
+      if (!guild) return ctx.notFound('Guild not found');
+
+      const isOwner = guild.owner?.id === authUser.id;
+      const isModerator = guild.moderators?.some((m: any) => m.id === authUser.id);
+
+      if (!isOwner && !isModerator) return ctx.forbidden('Only owners and moderators can kick members');
+
+      // Moderator security checks
+      if (isModerator && !isOwner) {
+        if (guild.owner?.documentId === memberDocId) return ctx.forbidden('Moderators cannot kick the owner');
+        if (guild.moderators?.some((m: any) => m.documentId === memberDocId)) return ctx.forbidden('Moderators cannot kick other moderators');
+      }
+
+      await strapi.documents('api::guild.guild').update({
+        documentId,
+        data: {
+          members: { disconnect: [memberDocId] },
+          moderators: { disconnect: [memberDocId] } // Also remove from moderators if they were one
+        }
+      });
+
+      return { message: 'Member kicked successfully' };
+    } catch (err) {
+      strapi.log.error('[Guild] Error in kick:', err);
+      ctx.throw(500, err.message);
+    }
+  },
+
+  async promote(ctx) {
+    try {
+      const authUser = ctx.state.user;
+      const { id: documentId } = ctx.params;
+      const { memberDocId } = ctx.request.body;
+
+      const guild = await strapi.documents('api::guild.guild').findOne({
+        documentId,
+        populate: ['owner']
+      });
+
+      if (!guild) return ctx.notFound('Guild not found');
+      if (guild.owner?.id !== authUser.id) return ctx.forbidden('Only the owner can promote members');
+
+      await strapi.documents('api::guild.guild').update({
+        documentId,
+        data: {
+          moderators: { connect: [memberDocId] }
+        }
+      });
+
+      return { message: 'Member promoted to moderator' };
+    } catch (err) {
+      strapi.log.error('[Guild] Error in promote:', err);
+      ctx.throw(500, err.message);
+    }
+  },
+
+  async demote(ctx) {
+    try {
+      const authUser = ctx.state.user;
+      const { id: documentId } = ctx.params;
+      const { memberDocId } = ctx.request.body;
+
+      const guild = await strapi.documents('api::guild.guild').findOne({
+        documentId,
+        populate: ['owner']
+      });
+
+      if (!guild) return ctx.notFound('Guild not found');
+      if (guild.owner?.id !== authUser.id) return ctx.forbidden('Only the owner can demote moderators');
+
+      await strapi.documents('api::guild.guild').update({
+        documentId,
+        data: {
+          moderators: { disconnect: [memberDocId] }
+        }
+      });
+
+      return { message: 'Moderator demoted to member' };
+    } catch (err) {
+      strapi.log.error('[Guild] Error in demote:', err);
+      ctx.throw(500, err.message);
+    }
+  },
+
+  async update(ctx) {
+    try {
+      const authUser = ctx.state.user;
+      const { id: documentId } = ctx.params;
+
+      const guild = await strapi.documents('api::guild.guild').findOne({
+        documentId,
+        populate: ['owner']
+      });
+
+      if (!guild) return ctx.notFound('Guild not found');
+      if (guild.owner?.id !== authUser.id) return ctx.forbidden('Only the owner can update guild settings');
+
+      const response = await super.update(ctx);
+      return response;
+    } catch (err) {
+      strapi.log.error('[Guild] Error in update:', err);
+      ctx.throw(500, err.message);
+    }
+  },
+
+  async delete(ctx) {
+    try {
+      const authUser = ctx.state.user;
+      const { id: documentId } = ctx.params;
+
+      const guild = await strapi.documents('api::guild.guild').findOne({
+        documentId,
+        populate: ['owner']
+      });
+
+      if (!guild) return ctx.notFound('Guild not found');
+      if (guild.owner?.id !== authUser.id) return ctx.forbidden('Only the owner can delete the guild');
+
+      const response = await super.delete(ctx);
+      return response;
+    } catch (err) {
+      strapi.log.error('[Guild] Error in delete:', err);
+      ctx.throw(500, err.message);
+    }
   }
 }));

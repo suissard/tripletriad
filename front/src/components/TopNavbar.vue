@@ -48,6 +48,13 @@
             <span class="username">Guildes</span>
           </div>
         </AppButton>
+        
+        <AppButton variant="secondary" class="glass-panel" @click="router.push('/friends')" title="Amis">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 1.2rem;">👥</span>
+            <span class="username">Amis</span>
+          </div>
+        </AppButton>
 
         <!-- Offline Indicator -->
         <div v-if="userStore.isOffline" class="offline-indicator">
@@ -87,8 +94,9 @@ const route = useRoute();
 const chatStore = useChatStore();
 
 function goToGuilds() {
-  if (chatStore.activeTab === 'guilds' && chatStore.activeTargetId) {
-    router.push(`/guilds/${chatStore.activeTargetId}`);
+  const targetId = chatStore.pageActiveTargetId || (chatStore.activeTab === 'guilds' ? chatStore.activeTargetId : null);
+  if (targetId) {
+    router.push(`/guilds/${targetId}`);
   } else {
     router.push('/guilds');
   }

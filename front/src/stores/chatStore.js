@@ -13,9 +13,17 @@ export const useChatStore = defineStore('chatStore', () => {
     const notificationStore = useNotificationStore();
 
     const activeGuildDetails = ref(null);
+    const pageActiveGuildDetails = ref(null);
     const widgetOpen = ref(false);
+    
+    // Widget State
     const activeTab = ref('guilds');
     const activeTargetId = ref(null);
+    
+    // Page State (for GuildsPage)
+    const pageActiveTab = ref('guilds');
+    const pageActiveTargetId = ref(null);
+
     const guilds = ref([]);
     const messages = ref({});
     const loading = ref(false);
@@ -59,8 +67,11 @@ export const useChatStore = defineStore('chatStore', () => {
         if (!messages.value[roomName].find(m => m.id === msg.id)) {
              messages.value[roomName] = [...messages.value[roomName], msg];
              
-             // Increment unread if not active or widget closed
-             if (!widgetOpen.value || activeRoomName.value !== roomName) {
+             // Increment unread if not active in either widget or page, or widget closed
+             const isSeenInWidget = widgetOpen.value && activeRoomName.value === roomName;
+             const isSeenInPage = pageActiveRoomName.value === roomName;
+
+             if (!isSeenInWidget && !isSeenInPage) {
                  unreadCounts.value[roomName] = (unreadCounts.value[roomName] || 0) + 1;
                  
                  // Notify if it's a guild message from someone else
@@ -85,6 +96,9 @@ export const useChatStore = defineStore('chatStore', () => {
         // Also ensure we join the room of the active target if it's a guild not yet in the list
         if (activeTab.value === 'guilds' && activeTargetId.value) {
             socket.emit('join-chat-room', { room: `guild_${activeTargetId.value}` });
+        }
+        if (pageActiveTab.value === 'guilds' && pageActiveTargetId.value) {
+            socket.emit('join-chat-room', { room: `guild_${pageActiveTargetId.value}` });
         }
     };
 
@@ -137,14 +151,17 @@ export const useChatStore = defineStore('chatStore', () => {
         }
     };
 
-    const fetchGuildDetails = async (guildId) => {
+    const fetchGuildDetails = async (guildId, context = 'widget') => {
         if (!userStore.strapiConnected) {
-            activeGuildDetails.value = mockGuilds.find(g => (g.documentId === guildId || g.id === guildId));
+            const mock = mockGuilds.find(g => (g.documentId === guildId || g.id === guildId));
+            if (context === 'page') pageActiveGuildDetails.value = mock;
+            else activeGuildDetails.value = mock;
             return;
         }
         try {
             const response = await api.request('GET', `/guilds/${guildId}/data`);
-            activeGuildDetails.value = response.data;
+            if (context === 'page') pageActiveGuildDetails.value = response.data;
+            else activeGuildDetails.value = response.data;
             
             // Also populate messages for this guild room to avoid extra call
             const roomName = getRoomName('guild', guildId);
@@ -204,7 +221,7 @@ export const useChatStore = defineStore('chatStore', () => {
         try {
             await api.request('POST', `/guilds/${guildId}/join`);
             await fetchGuilds();
-            await fetchGuildDetails(guildId);
+            await fetchGuildDetails(guildId, 'page');
         } catch (err) {
             console.error('Failed to join guild', err);
             throw err;
@@ -230,9 +247,14 @@ export const useChatStore = defineStore('chatStore', () => {
         }
     };
 
-    const sendMessage = async (content) => {
-        if (!content.trim() || !activeTargetId.value) return;
-        const roomName = activeRoomName.value;
+    const sendMessage = async (content, context = 'widget') => {
+        if (!content.trim()) return;
+        
+        const targetId = context === 'page' ? pageActiveTargetId.value : activeTargetId.value;
+        const tab = context === 'page' ? pageActiveTab.value : activeTab.value;
+        const roomName = context === 'page' ? pageActiveRoomName.value : activeRoomName.value;
+
+        if (!targetId) return;
 
         if (!userStore.strapiConnected) {
             const msg = addMockMessage(roomName, {
@@ -247,10 +269,10 @@ export const useChatStore = defineStore('chatStore', () => {
 
         try {
             const payload = { content };
-            if (activeTab.value === 'guilds') {
-                payload.guildId = activeTargetId.value;
+            if (tab === 'guilds') {
+                payload.guildId = targetId;
             } else {
-                payload.receiverId = activeTargetId.value;
+                payload.receiverId = targetId;
             }
 
             const response = await api.request('POST', '/chat-messages', {
@@ -268,7 +290,6 @@ export const useChatStore = defineStore('chatStore', () => {
 
         } catch (err) {
             console.error('Failed to send message', err);
-            // If it failed with 404, it might be because the receiverId is invalid
             if (err.status === 404) {
                  console.warn('[ChatStore] Receiver or Room not found. Check if using documentId.');
             }
@@ -291,10 +312,23 @@ export const useChatStore = defineStore('chatStore', () => {
         unreadCounts.value[roomName] = 0;
 
         if (type === 'guilds' || type === 'guild') {
-            // Guilds: fetchGuildDetails now also fetches the last 50 messages
-            fetchGuildDetails(id);
+            fetchGuildDetails(id, 'widget');
         } else {
-            // DMs: standard fetch
+            fetchMessages(type, id);
+        }
+    };
+
+    const selectPageTarget = (type, id) => {
+        pageActiveTab.value = type;
+        pageActiveTargetId.value = id;
+        
+        const roomName = getRoomName(type === 'guilds' ? 'guild' : 'dm', id);
+        // Clear unread count
+        unreadCounts.value[roomName] = 0;
+
+        if (type === 'guilds' || type === 'guild') {
+            fetchGuildDetails(id, 'page');
+        } else {
             fetchMessages(type, id);
         }
     };
@@ -308,6 +342,16 @@ export const useChatStore = defineStore('chatStore', () => {
     const activeMessages = computed(() => {
         if (!activeRoomName.value) return [];
         return messages.value[activeRoomName.value] || [];
+    });
+
+    const pageActiveRoomName = computed(() => {
+        if (!pageActiveTargetId.value) return null;
+        return getRoomName(pageActiveTab.value === 'guilds' ? 'guild' : 'dm', pageActiveTargetId.value);
+    });
+
+    const pageActiveMessages = computed(() => {
+        if (!pageActiveRoomName.value) return [];
+        return messages.value[pageActiveRoomName.value] || [];
     });
 
     // --- WATCHERS ---
@@ -335,23 +379,118 @@ export const useChatStore = defineStore('chatStore', () => {
         }
     });
 
+    watch(pageActiveRoomName, (newRoom, oldRoom) => {
+        if (socket && socket.connected) {
+            if (oldRoom && !oldRoom.startsWith('guild_')) {
+                socket.emit('leave-chat-room', { room: oldRoom });
+            }
+            if (newRoom) {
+                socket.emit('join-chat-room', { room: newRoom });
+            }
+        }
+    });
+
+    const leaveGuild = async (guildId) => {
+        try {
+            await api.request('POST', `/guilds/${guildId}/leave`);
+            await fetchGuilds();
+            pageActiveTargetId.value = null;
+            pageActiveGuildDetails.value = null;
+        } catch (err) {
+            console.error('Failed to leave guild', err);
+            throw err;
+        }
+    };
+
+    const kickMember = async (guildId, memberDocId) => {
+        try {
+            await api.request('POST', `/guilds/${guildId}/kick`, {
+                body: { memberDocId }
+            });
+            await fetchGuildDetails(guildId, 'page');
+        } catch (err) {
+            console.error('Failed to kick member', err);
+            throw err;
+        }
+    };
+
+    const promoteMember = async (guildId, memberDocId) => {
+        try {
+            await api.request('POST', `/guilds/${guildId}/promote`, {
+                body: { memberDocId }
+            });
+            await fetchGuildDetails(guildId, 'page');
+        } catch (err) {
+            console.error('Failed to promote member', err);
+            throw err;
+        }
+    };
+
+    const demoteMember = async (guildId, memberDocId) => {
+        try {
+            await api.request('POST', `/guilds/${guildId}/demote`, {
+                body: { memberDocId }
+            });
+            await fetchGuildDetails(guildId, 'page');
+        } catch (err) {
+            console.error('Failed to demote member', err);
+            throw err;
+        }
+    };
+
+    const updateGuild = async (guildId, data) => {
+        try {
+            await api.request('PUT', `/guilds/${guildId}`, {
+                body: { data }
+            });
+            await fetchGuilds();
+            await fetchGuildDetails(guildId, 'page');
+        } catch (err) {
+            console.error('Failed to update guild', err);
+            throw err;
+        }
+    };
+
+    const deleteGuild = async (guildId) => {
+        try {
+            await api.request('DELETE', `/guilds/${guildId}`);
+            await fetchGuilds();
+            pageActiveTargetId.value = null;
+            pageActiveGuildDetails.value = null;
+        } catch (err) {
+            console.error('Failed to delete guild', err);
+            throw err;
+        }
+    };
+
     return {
         widgetOpen,
         activeTab,
         activeTargetId,
         activeGuildDetails,
+        pageActiveTab,
+        pageActiveTargetId,
+        pageActiveGuildDetails,
         guilds,
         activeMessages,
+        pageActiveMessages,
         loading,
         unreadCounts,
         toggleWidget,
         selectTarget,
+        selectPageTarget,
         fetchGuilds,
         fetchGuildDetails,
         searchGuilds,
         joinGuild,
+        leaveGuild,
         createGuild,
         sendMessage,
-        receiveMessage
+        receiveMessage,
+        kickMember,
+        promoteMember,
+        demoteMember,
+        updateGuild,
+        deleteGuild
     };
 });

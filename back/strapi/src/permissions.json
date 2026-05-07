@@ -163,8 +163,14 @@
     "api::guild.guild.leave": "authenticated",
     "api::guild.guild.getGuildData": "authenticated",
     "api::guild.guild.getMeGuilds": "authenticated",
+    "api::guild.guild.kick": "authenticated",
+    "api::guild.guild.promote": "authenticated",
+    "api::guild.guild.demote": "authenticated",
+    "api::guild.guild.update": "authenticated",
+    "api::guild.guild.delete": "authenticated",
     "api::chat-message.chat-message.find": "authenticated",
     "api::chat-message.chat-message.sendMessage": "authenticated",
-    "api::chat-message.chat-message.getMessages": "authenticated"
+    "api::chat-message.chat-message.getMessages": "authenticated",
+    "api::player-profile.player-profile.getProfile": "public"
   }
 }

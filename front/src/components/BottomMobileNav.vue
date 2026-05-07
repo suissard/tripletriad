@@ -85,8 +85,9 @@ const route = useRoute();
 const chatStore = useChatStore();
 
 const goToGuilds = () => {
-  if (chatStore.activeTab === 'guilds' && chatStore.activeTargetId) {
-    router.push(`/guilds/${chatStore.activeTargetId}`);
+  const targetId = chatStore.pageActiveTargetId || (chatStore.activeTab === 'guilds' ? chatStore.activeTargetId : null);
+  if (targetId) {
+    router.push(`/guilds/${targetId}`);
   } else {
     router.push('/guilds');
   }

@@ -22,7 +22,7 @@
               v-for="guild in chatStore.guilds" 
               :key="guild.documentId || guild.id"
               class="guild-item"
-              :class="{ active: chatStore.activeTargetId === (guild.documentId || guild.id) }"
+              :class="{ active: chatStore.pageActiveTargetId === (guild.documentId || guild.id) }"
               @click="selectGuild(guild.documentId || guild.id)"
             >
               <span class="icon">🛡️</span>
@@ -52,7 +52,7 @@
               v-for="guild in otherGuilds" 
               :key="guild.documentId || guild.id" 
               class="guild-item secondary"
-              :class="{ active: chatStore.activeTargetId === (guild.documentId || guild.id) }"
+              :class="{ active: chatStore.pageActiveTargetId === (guild.documentId || guild.id) }"
               @click="selectGuild(guild.documentId || guild.id)"
             >
               <div class="guild-info">
@@ -82,13 +82,13 @@
       <!-- Main Content : Chat ou Join -->
       <div class="guilds-main">
         <!-- Etat: Aucun sélectionné -->
-        <div v-if="!chatStore.activeTargetId || chatStore.activeTab !== 'guilds'" class="empty-state-main">
+        <div v-if="!chatStore.pageActiveTargetId || chatStore.pageActiveTab !== 'guilds'" class="empty-state-main">
           <h2>Sélectionnez une guilde</h2>
           <p>Choisissez une guilde dans la liste pour voir les messages et les membres.</p>
         </div>
         
         <!-- Etat: Pas membre -->
-        <div v-else-if="!isMember(chatStore.activeTargetId) && !isPublicGuild(activeGuild)" class="not-member-container">
+        <div v-else-if="!isMember(chatStore.pageActiveTargetId) && !isPublicGuild(activeGuild)" class="not-member-container">
           <div class="not-member-card">
             <div class="guild-icon-large">🛡️</div>
             <h2>{{ activeGuildName }}</h2>
@@ -97,7 +97,7 @@
               <span class="alert-icon">🔒</span>
               <p>Vous n'êtes pas encore membre de cette guilde. Rejoignez-la pour accéder au chat et à la liste des membres.</p>
             </div>
-            <button class="btn-primary join-btn-large" @click="handleJoinGuild(chatStore.activeTargetId)" :disabled="joining">
+            <button class="btn-primary join-btn-large" @click="handleJoinGuild(chatStore.pageActiveTargetId)" :disabled="joining">
               {{ joining ? 'Action en cours...' : 'Rejoindre la Guilde' }}
             </button>
           </div>
@@ -125,6 +125,14 @@
               >
                 <span class="tab-icon">👥</span> Membres
               </button>
+              <button 
+                v-if="isOwner"
+                class="tab-btn" 
+                :class="{ active: currentTab === 'settings' }" 
+                @click="currentTab = 'settings'"
+              >
+                <span class="tab-icon">⚙️</span> Paramètres
+              </button>
             </div>
           </div>
           
@@ -133,20 +141,20 @@
             <div class="messages-container" ref="messagesContainer">
               <div v-if="chatStore.loading" class="loading-msg">Chargement...</div>
               <template v-else>
-                <div v-if="chatStore.activeMessages.length === 0" class="empty-state">
+                <div v-if="chatStore.pageActiveMessages.length === 0" class="empty-state">
                   Aucun message dans cette guilde. Soyez le premier à parler !
                 </div>
                 <div
-                  v-for="(msg, index) in chatStore.activeMessages"
+                  v-for="(msg, index) in chatStore.pageActiveMessages"
                   :key="msg.id"
                   class="message-wrapper"
                   :class="{ 
                     'is-mine': msg.sender?.id === userStore.user?.id,
-                    'consecutive': index > 0 && chatStore.activeMessages[index-1].sender?.id === msg.sender?.id 
+                    'consecutive': index > 0 && chatStore.pageActiveMessages[index-1].sender?.id === msg.sender?.id 
                   }"
                 >
                   <img 
-                    v-if="index === 0 || chatStore.activeMessages[index-1].sender?.id !== msg.sender?.id"
+                    v-if="index === 0 || chatStore.pageActiveMessages[index-1].sender?.id !== msg.sender?.id"
                     :src="getAvatarUrl(msg.sender)" 
                     class="message-avatar" 
                     alt="Avatar" 
@@ -155,7 +163,7 @@
 
                   <div class="message">
                     <span 
-                      v-if="index === 0 || chatStore.activeMessages[index-1].sender?.id !== msg.sender?.id"
+                      v-if="index === 0 || chatStore.pageActiveMessages[index-1].sender?.id !== msg.sender?.id"
                       class="sender" 
                       :style="{ color: getUserColor(msg.sender?.documentId || msg.sender?.id) }"
                     >
@@ -175,16 +183,20 @@
                 @keyup.enter="sendMessage"
                 :disabled="chatStore.loading"
               />
-              <button @click="sendMessage" :disabled="!newMessage.trim() || chatStore.loading">
+              <button class="send-btn" @click="sendMessage" :disabled="!newMessage.trim() || chatStore.loading">
                 Envoyer
               </button>
+            </div>
+            
+            <div v-if="!isOwner && isMember(chatStore.pageActiveTargetId)" class="guild-actions-footer">
+               <button class="btn-leave" @click="handleLeaveGuild">Quitter la Guilde</button>
             </div>
           </template>
 
           <!-- Tab: Members -->
-          <template v-else>
+          <template v-else-if="currentTab === 'members'">
             <div class="members-view custom-scrollbar">
-              <div v-if="!chatStore.activeGuildDetails" class="loading-members">
+              <div v-if="!chatStore.pageActiveGuildDetails" class="loading-members">
                 Chargement de la liste des membres...
               </div>
               <template v-else>
@@ -193,16 +205,66 @@
                     {{ roleName }} <span class="count">{{ group.length }}</span>
                   </h3>
                   <div class="members-grid">
-                    <div v-for="member in group" :key="member.id" class="member-card">
-                      <img :src="getAvatarUrl(member)" class="member-avatar-img" alt="Avatar" />
-                      <div class="member-info">
+                    <div v-for="member in group" :key="member.id" class="member-card" :class="getRoleClass(roleName)">
+                      <img :src="getAvatarUrl(member)" class="member-avatar-img" alt="Avatar" @click="goToProfile(member.username || member.documentId)" />
+                      <div class="member-info" @click="goToProfile(member.username || member.documentId)">
                         <span class="member-name">{{ member.username }}</span>
                         <span class="member-role-tag">{{ roleName }}</span>
+                      </div>
+                      
+                      <!-- Action Buttons -->
+                      <div class="member-actions" v-if="member.id !== userStore.user?.id">
+                        <button 
+                          v-if="isOwner && roleName === 'Membres'" 
+                          class="action-btn promote" 
+                          title="Promouvoir"
+                          @click.stop="handlePromote(member)"
+                        >⬆️</button>
+                        <button 
+                          v-if="isOwner && roleName === 'Modérateurs'" 
+                          class="action-btn demote" 
+                          title="Rétrograder"
+                          @click.stop="handleDemote(member)"
+                        >⬇️</button>
+                        <button 
+                          v-if="canKick(member, roleName)" 
+                          class="action-btn kick" 
+                          title="Expulser"
+                          @click.stop="handleKick(member)"
+                        >🚫</button>
                       </div>
                     </div>
                   </div>
                 </div>
               </template>
+            </div>
+          </template>
+
+          <!-- Tab: Settings -->
+          <template v-else-if="currentTab === 'settings' && isOwner">
+            <div class="settings-view custom-scrollbar">
+              <div class="settings-card">
+                <h3>⚙️ Paramètres de la Guilde</h3>
+                <div class="form-group">
+                  <label>Nom de la guilde</label>
+                  <input v-model="editGuildName" type="text" placeholder="Nom" />
+                </div>
+                <div class="form-group">
+                  <label>Description</label>
+                  <textarea v-model="editGuildDesc" placeholder="Description de la guilde..." rows="4"></textarea>
+                </div>
+                <button class="btn-primary" @click="handleUpdateGuild" :disabled="updating || !editGuildName">
+                  {{ updating ? 'Mise à jour...' : 'Enregistrer les modifications' }}
+                </button>
+              </div>
+
+              <div class="settings-card danger-zone">
+                <h3>⚠️ Zone de Danger</h3>
+                <p>La suppression de la guilde est définitive et supprimera tous les messages et membres.</p>
+                <button class="btn-danger" @click="handleDeleteGuild" :disabled="deleting">
+                  {{ deleting ? 'Suppression...' : 'Supprimer la Guilde' }}
+                </button>
+              </div>
             </div>
           </template>
         </div>
@@ -267,21 +329,124 @@ const joining = ref(false);
 const newMessage = ref('');
 const messagesContainer = ref(null);
 
+const editGuildName = ref('');
+const editGuildDesc = ref('');
+const updating = ref(false);
+const deleting = ref(false);
+
+watch(() => chatStore.pageActiveGuildDetails, (details) => {
+  if (details) {
+    editGuildName.value = details.name;
+    editGuildDesc.value = details.description || '';
+  }
+}, { immediate: true });
+
+const currentUserRole = computed(() => {
+  const details = chatStore.pageActiveGuildDetails;
+  if (!details || !userStore.user) return 'Membres';
+  if (details.owner?.id === userStore.user.id) return 'Chef de Guilde';
+  if (details.moderators?.some(m => m.id === userStore.user.id)) return 'Modérateurs';
+  return 'Membres';
+});
+
+const isOwner = computed(() => currentUserRole.value === 'Chef de Guilde');
+const isModerator = computed(() => currentUserRole.value === 'Modérateurs' || isOwner.value);
+
+const getRoleClass = (role) => {
+  if (role === 'Chef de Guilde') return 'role-owner';
+  if (role === 'Modérateurs') return 'role-moderator';
+  return '';
+};
+
+const canKick = (member, roleName) => {
+  if (member.id === userStore.user?.id) return false;
+  if (isOwner.value) return true;
+  if (isModerator.value && roleName === 'Membres') return true;
+  return false;
+};
+
+const handleKick = async (member) => {
+  if (!confirm(`Voulez-vous vraiment expulser ${member.username} de la guilde ?`)) return;
+  try {
+    await chatStore.kickMember(chatStore.pageActiveTargetId, member.documentId);
+    gameEvents.emit('SHOW_ALERT', { text: `${member.username} a été expulsé.` });
+  } catch (err) {
+    gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors de l\'expulsion.' });
+  }
+};
+
+const handlePromote = async (member) => {
+  try {
+    await chatStore.promoteMember(chatStore.pageActiveTargetId, member.documentId);
+    gameEvents.emit('SHOW_ALERT', { text: `${member.username} est maintenant modérateur.` });
+  } catch (err) {
+    gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors de la promotion.' });
+  }
+};
+
+const handleDemote = async (member) => {
+  try {
+    await chatStore.demoteMember(chatStore.pageActiveTargetId, member.documentId);
+    gameEvents.emit('SHOW_ALERT', { text: `${member.username} n'est plus modérateur.` });
+  } catch (err) {
+    gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors de la rétrogradation.' });
+  }
+};
+
+const handleUpdateGuild = async () => {
+  updating.value = true;
+  try {
+    await chatStore.updateGuild(chatStore.pageActiveTargetId, {
+      name: editGuildName.value,
+      description: editGuildDesc.value
+    });
+    gameEvents.emit('SHOW_ALERT', { text: 'Paramètres mis à jour.' });
+  } catch (err) {
+    gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors de la mise à jour.' });
+  } finally {
+    updating.value = false;
+  }
+};
+
+const handleDeleteGuild = async () => {
+  if (!confirm('Êtes-vous SÛR de vouloir supprimer cette guilde ? Cette action est irréversible.')) return;
+  deleting.value = true;
+  try {
+    await chatStore.deleteGuild(chatStore.pageActiveTargetId);
+    gameEvents.emit('SHOW_ALERT', { text: 'Guilde supprimée.' });
+    router.push({ name: 'guilds' });
+  } catch (err) {
+    gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors de la suppression.' });
+  } finally {
+    deleting.value = false;
+  }
+};
+
+const handleLeaveGuild = async () => {
+  if (!confirm('Voulez-vous vraiment quitter cette guilde ?')) return;
+  try {
+    await chatStore.leaveGuild(chatStore.pageActiveTargetId);
+    gameEvents.emit('SHOW_ALERT', { text: 'Vous avez quitté la guilde.' });
+  } catch (err) {
+    gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors de la sortie.' });
+  }
+};
+
 onMounted(async () => {
   await chatStore.fetchGuilds();
-  chatStore.activeTab = 'guilds';
+  chatStore.pageActiveTab = 'guilds';
   handleSearch();
   
   // If we have a documentId in the URL, select it
   if (props.documentId) {
-    chatStore.selectTarget('guilds', props.documentId);
+    chatStore.selectPageTarget('guilds', props.documentId);
   }
 });
 
 // Watch for URL changes to update active guild
 watch(() => props.documentId, (newId) => {
-  if (newId && chatStore.activeTargetId !== newId) {
-    chatStore.selectTarget('guilds', newId);
+  if (newId && chatStore.pageActiveTargetId !== newId) {
+    chatStore.selectPageTarget('guilds', newId);
   }
 });
 
@@ -300,8 +465,8 @@ const otherGuilds = computed(() => {
 });
 
 const activeGuild = computed(() => {
-  const targetId = chatStore.activeTargetId;
-  if (!targetId || chatStore.activeTab !== 'guilds') return null;
+  const targetId = chatStore.pageActiveTargetId;
+  if (!targetId || chatStore.pageActiveTab !== 'guilds') return null;
   // Look in joined guilds first
   let guild = chatStore.guilds.find(g => (g.documentId === targetId || g.id === targetId));
   // Then in all available
@@ -320,7 +485,7 @@ const activeGuildName = computed(() => activeGuild.value?.name || 'Guilde Inconn
 const activeGuildDesc = computed(() => activeGuild.value?.description || '');
 
 const groupedMembers = computed(() => {
-  const details = chatStore.activeGuildDetails;
+  const details = chatStore.pageActiveGuildDetails;
   if (!details) return {};
 
   const groups = {
@@ -352,7 +517,11 @@ const selectGuild = (id) => {
   if (props.documentId !== id) {
     router.push({ name: 'guild-detail', params: { documentId: id } });
   }
-  chatStore.selectTarget('guilds', id);
+  chatStore.selectPageTarget('guilds', id);
+};
+
+const goToProfile = (identifier) => {
+  router.push({ name: 'player-profile', params: { identifier } });
 };
 
 const handleJoinGuild = async (guildId) => {
@@ -398,13 +567,13 @@ const scrollToBottom = async () => {
   }
 };
 
-watch(() => chatStore.activeMessages.length, () => {
+watch(() => chatStore.pageActiveMessages.length, () => {
   if (currentTab.value === 'chat') {
     scrollToBottom();
   }
 });
 
-watch(() => chatStore.activeTargetId, () => {
+watch(() => chatStore.pageActiveTargetId, () => {
   if (currentTab.value === 'chat') {
     scrollToBottom();
   }
@@ -412,7 +581,7 @@ watch(() => chatStore.activeTargetId, () => {
 
 const sendMessage = async () => {
   if (!newMessage.value.trim()) return;
-  await chatStore.sendMessage(newMessage.value);
+  await chatStore.sendMessage(newMessage.value, 'page');
   newMessage.value = '';
   scrollToBottom();
 };
@@ -1103,6 +1272,198 @@ const sendMessage = async () => {
   0% { transform: scale(1); }
   50% { transform: scale(1.1); }
   100% { transform: scale(1); }
+}
+.member-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.member-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+  border-color: rgba(var(--color-primary-rgb), 0.3);
+}
+
+.role-owner {
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.05) 0%, rgba(255, 215, 0, 0.02) 100%);
+}
+
+.role-owner .member-name {
+  color: #ffd700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.role-owner .member-avatar-img {
+  border-color: #ffd700;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+}
+
+.role-moderator {
+  border: 1px solid rgba(192, 192, 192, 0.3);
+  background: linear-gradient(135deg, rgba(192, 192, 192, 0.05) 0%, rgba(192, 192, 192, 0.02) 100%);
+}
+
+.role-moderator .member-name {
+  color: #e0e0e0;
+}
+
+.role-moderator .member-avatar-img {
+  border-color: #c0c0c0;
+}
+
+.member-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 5px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.member-card:hover .member-actions {
+  opacity: 1;
+}
+
+.action-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 4px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.action-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.action-btn.kick:hover {
+  background: rgba(255, 82, 82, 0.3);
+}
+
+.action-btn.promote:hover {
+  background: rgba(76, 175, 80, 0.3);
+}
+
+.action-btn.demote:hover {
+  background: rgba(255, 152, 0, 0.3);
+}
+
+/* Settings View */
+.settings-view {
+  flex: 1;
+  overflow-y: auto;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.settings-card {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 25px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.settings-card h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: var(--color-primary);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.settings-card .form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.settings-card label {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.settings-card input, .settings-card textarea {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px;
+  border-radius: 8px;
+  color: white;
+  width: 100%;
+  font-family: inherit;
+}
+
+.settings-card input:focus, .settings-card textarea:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.danger-zone {
+  border-color: rgba(255, 82, 82, 0.2);
+  background: rgba(255, 82, 82, 0.02);
+}
+
+.danger-zone h3 {
+  color: #ff5252;
+}
+
+.btn-danger {
+  background: #ff5252;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-danger:hover:not(:disabled) {
+  filter: brightness(1.1);
+  box-shadow: 0 0 15px rgba(255, 82, 82, 0.3);
+}
+
+.guild-actions-footer {
+  padding: 15px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-leave {
+  background: transparent;
+  color: rgba(255, 82, 82, 0.7);
+  border: 1px solid rgba(255, 82, 82, 0.3);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-leave:hover {
+  background: rgba(255, 82, 82, 0.1);
+  color: #ff5252;
+  border-color: #ff5252;
 }
 </style>
 
