@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Plongeur Aquatique",
-  "description": "Cité flottante sur les océans stellaires, Plongeur Aquatique maîtrise l'élément Eau. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
+  "description": "Cité flottante sur les océans stellaires, Plongeur Aquatique parcourt les plaines océaniques, maîtrise l'élément Eau. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
   "element": "eau",
   "faction": "Exode Pélagique",
   "topValue": "A",

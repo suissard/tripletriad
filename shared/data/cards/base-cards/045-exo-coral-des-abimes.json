@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Coral des Abimes",
-  "description": "Cité flottante sur les océans stellaires, Coral des Abimes maîtrise l'élément Eau. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
+  "description": "Cité flottante sur les océans stellaires, Coral des Abimes cultive les récifs stellaires, maîtrise l'élément Eau. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
   "element": "eau",
   "elements": [
     "eau"

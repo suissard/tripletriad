@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Requin des Courants",
-  "description": "Cité flottante sur les océans stellaires, Requin des Courants maîtrise l'élément Eau. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
+  "description": "Cité flottante sur les océans stellaires, Requin des Courants chasse dans les profondeurs océaniques, maîtrise l'élément Eau, puissance océanique de ↑7, légende des océans stellaires, équipement pressurisé intégral. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
   "element": "eau",
   "faction": "Exode Pélagique",
   "topValue": "7",

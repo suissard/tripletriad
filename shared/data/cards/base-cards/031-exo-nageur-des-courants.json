@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Nageur des Courants",
-  "description": "Cité flottante sur les océans stellaires, Nageur des Courants maîtrise l'élément Eau. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
+  "description": "Cité flottante sur les océans stellaires, Nageur des Courants glisse dans les courants stellaires, maîtrise l'élément Eau, puissance océanique de ↑6, déploie des drones aquatiques. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
   "element": "eau",
   "faction": "Exode Pélagique",
   "topValue": "6",
