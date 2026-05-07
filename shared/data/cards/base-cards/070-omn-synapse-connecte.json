@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Synapse Connecte",
-  "description": "Extension vivante de l'Omni-Réseau, Synapse Connecte traite l'information à une vitesse phénoménale. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
+  "description": "Extension vivante de l'Omni-Réseau, Synapse Connecte aiguille les flux de données, maîtrise l'élément Réseau, vitesse de traitement ↑7, sacrifie ses cycles pour la survie du réseau, calcul dénué d'émotion. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
   "element": "reseau",
   "faction": "Omni-Réseau",
   "topValue": "6",

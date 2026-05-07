@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Algo Connecte",
-  "description": "Extension vivante de l'Omni-Réseau, Algo Connecte traite l'information à une vitesse phénoménale. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
+  "description": "Extension vivante de l'Omni-Réseau, Algo Connecte exécute des algorithmes prédictifs, maîtrise l'élément Réseau, vitesse de traitement ↑6, processeur de rang supérieur, interfaces neurales directes. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
   "element": "reseau",
   "faction": "Omni-Réseau",
   "topValue": "6",

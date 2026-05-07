@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Pulse du Reseau",
-  "description": "Extension vivante de l'Omni-Réseau, Pulse du Reseau traite l'information à une vitesse phénoménale. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
+  "description": "Extension vivante de l'Omni-Réseau, Pulse du Reseau rythme sur la fréquence du réseau, maîtrise l'élément Réseau, vitesse de traitement ↑5, interfaces neurales directes. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
   "element": "reseau",
   "faction": "Omni-Réseau",
   "topValue": "5",

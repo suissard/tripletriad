@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Proxy",
-  "description": "Extension vivante de l'Omni-Réseau, Proxy traite l'information à une vitesse phénoménale. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
+  "description": "Extension vivante de l'Omni-Réseau, Proxy masque sa signature numérique, maîtrise l'élément Réseau, sacrifie ses cycles pour la survie du réseau. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
   "element": "reseau",
   "faction": "Omni-Réseau",
   "topValue": "0",
