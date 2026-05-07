@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Combustion en Feu",
-  "description": "Porté par la mémoire des mondes disparus, Combustion en Feu manie l'héritage des cendres avec une portée mortelle. Sous une pluie de cendres dorées, il rappelle aux vivants que même le feu laisse un héritage à réclamer.",
+  "description": "Porté par la mémoire des mondes disparus, Combustion en Feu explose de chaleur dévastatrice, manie le pouvoir de la radiation, force de frappe de ↑6, arme une lame enflammée.",
   "element": "radiation",
   "faction": "Héritiers des Cendres",
   "topValue": "6",

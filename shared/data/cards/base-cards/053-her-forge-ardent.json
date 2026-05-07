@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Forge Ardent",
-  "description": "Porté par la mémoire des mondes disparus, Forge Ardent manie l'héritage des cendres avec une portée mortelle. Sous une pluie de cendres dorées, il rappelle aux vivants que même le feu laisse un héritage à réclamer.",
+  "description": "Porté par la mémoire des mondes disparus, Forge Ardent façonne les armes du nouveau monde, manie le pouvoir de la radiation, force de frappe de ↑5, arme une lame enflammée.",
   "element": "radiation",
   "faction": "Héritiers des Cendres",
   "topValue": "5",
