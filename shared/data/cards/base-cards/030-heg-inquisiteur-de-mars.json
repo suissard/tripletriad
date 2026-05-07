@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Inquisiteur de Mars",
-  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Inquisiteur de Mars incarne la rigueur de la IIIe Légion. Sous l'œil rouge de Mars, il fait respecter l'ordre par la force de la radiation et du fer.",
+  "name": "Légionnaire de Mars",
+  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, arme équipée d'un railgun.",
   "element": "longue_portee",
   "elements": [
     "longue_portee"

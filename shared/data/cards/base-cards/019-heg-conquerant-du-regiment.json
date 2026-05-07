@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Conquerant du Regiment",
-  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Conquerant du Regiment incarne la rigueur de la IIIe Légion. Sous l'œil rouge de Mars, il fait respecter l'ordre par la force de la radiation et du fer.",
+  "name": "Conquérant du Régiment",
+  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Conquérant du Régiment mène les assauts frontaux, arme équipée d'un railgun.",
   "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "6",

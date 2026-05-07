@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Tyrant",
-  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Tyrant incarne la rigueur de la IIIe Légion. Sous l'œil rouge de Mars, il fait respecter l'ordre par la force de la radiation et du fer.",
+  "name": "Tyrant de l'Hégémonie",
+  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Sentinelle impériale surarmée impose la loi martiale, arme équipée d'un railgun, portant une lame thermique incandescente, force de frappe maximale (↑4), discipline de fer.",
   "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "4",

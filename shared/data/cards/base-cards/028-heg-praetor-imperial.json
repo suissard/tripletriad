@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Praetor Imperial",
-  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Praetor Imperial incarne la rigueur de la IIIe Légion. Sous l'œil rouge de Mars, il fait respecter l'ordre par la force de la radiation et du fer.",
+  "name": "Praetor Impérial",
+  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Praetor de l'Ordre Impérial commande avec autorité, arme équipée d'un railgun, rôle épique au sein de l'Hégémonie.",
   "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "6",

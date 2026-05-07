@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Destructeur",
-  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Destructeur incarne la rigueur de la IIIe Légion. Sous l'œil rouge de Mars, il fait respecter l'ordre par la force de la radiation et du fer.",
+  "name": "Destructeur Martien",
+  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Tireur d'élite redoutable anéantit les cibles à longue distance, arme équipée d'un railgun, portant une lame thermique incandescente, dévotion absolue et déshumanisée.",
   "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "0",
