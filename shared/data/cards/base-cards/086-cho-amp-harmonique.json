@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Android Chœur",
-  "description": "Véritable nexus de données vivant, Android Chœur appartient au Chœur Synthétique. Il module les fréquences du réseau pour transcender le chaos, transformant la bataille en une symphonie cybernétique parfaite.",
+  "description": "Véritable nexus de données vivant, Android Chœur module les fréquences du réseau, maîtrise le hacking mélodique, puissance de ↑6 dans le flux, voix principale du Chœur.",
   "element": "hacking",
   "faction": "Chœur Synthétique",
   "topValue": "6",

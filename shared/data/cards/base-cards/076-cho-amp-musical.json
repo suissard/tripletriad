@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Faceless Chœur",
-  "description": "Véritable nexus de données vivant, Faceless Chœur appartient au Chœur Synthétique. Il module les fréquences du réseau pour transcender le chaos, transformant la bataille en une symphonie cybernétique parfaite.",
+  "description": "Véritable nexus de données vivant, Faceless Chœur module les fréquences du réseau, maîtrise le hacking mélodique.",
   "element": "hacking",
   "elements": [
     "hacking"
