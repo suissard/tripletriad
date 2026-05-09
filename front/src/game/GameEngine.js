@@ -39,6 +39,7 @@ export class GameEngine {
       captures: extras.captures || [],
       dyingCards: extras.dyingCards || [],
       attackQueue: extras.attackQueue || [],
+      targets: extras.targets || [],
       ...extras,
     };
   }
@@ -93,7 +94,7 @@ export class GameEngine {
     nextState.board[y][x] = placedCell;
 
     // 3. Dispatcher onEnterPlay pour les skills de la carte posée
-    GameEngine.dispatchEnterPlay(nextState.board, x, y, placedCell);
+    GameEngine.dispatchEnterPlay(nextState.board, x, y, placedCell, action.targets);
 
     // 4. Calculer les captures (Règles "Classiques" d'adjacence)
     nextState.lastCaptures = GameEngine.processCaptures(nextState.board, x, y, placedCell, factionCountsBefore);
@@ -117,10 +118,10 @@ export class GameEngine {
    * Dispatche le hook onEnterPlay pour la carte qui vient d'être posée.
    * Remplace l'ancien applyPlacementSkills.
    */
-  static dispatchEnterPlay(board, x, y, placedCell) {
+  static dispatchEnterPlay(board, x, y, placedCell, targets = []) {
     if (!placedCell.data.skills || placedCell.data.skills.length === 0) return;
 
-    const ctx = GameEngine.buildContext(board, x, y);
+    const ctx = GameEngine.buildContext(board, x, y, { targets });
     skillRegistry.dispatch('onEnterPlay', ctx);
   }
 

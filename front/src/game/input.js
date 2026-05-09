@@ -4,6 +4,8 @@ import { state, socketManager } from './state.js';
 import { camera, slots, refillHand } from './three-scene.js';
 import { resolveRules, sleep, updateScores } from './engine.js';
 import { getBestAIMove } from './ai.js';
+import { requestTargets } from './targeting.js';
+import { skillRegistry } from '../../../shared/skills/index.js';
 
 let raycaster;
 let mouse;
@@ -90,6 +92,37 @@ export function initInput() {
             const cardLevel = current.userData.data.level || 1;
 
             if (state.pMana >= cardLevel) {
+                // Determine targeting steps
+                const skills = current.userData.data.skills || [];
+                if (current.userData.data.skillId && !skills.some(s => s.type === current.userData.data.skillId)) {
+                    skills.push({ type: current.userData.data.skillId });
+                }
+
+                let targetingSteps = [];
+                for (const skill of skills) {
+                    const handler = skillRegistry.getHandler(skill.type);
+                    if (handler && handler.targetingSteps) {
+                        targetingSteps = targetingSteps.concat(handler.targetingSteps);
+                    }
+                }
+
+                // If targets are needed, pause and request them
+                let targets = [];
+                if (targetingSteps.length > 0) {
+                    state.busy = true;
+                    // Reset UI slightly while targeting
+                    gsap.to(current.position, { x: slot.position.x, y: 0.15, z: slot.position.z, duration: 0.2 });
+
+                    targets = await requestTargets(targetingSteps, state.board, 'player', {});
+
+                    if (!targets || targets.length < targetingSteps.length) {
+                        // Targeting cancelled or failed
+                        state.busy = false;
+                        refillHand('player');
+                        return; // Abort play
+                    }
+                }
+
                 state.busy = true;
                 state.pMana -= cardLevel;
 
@@ -102,7 +135,7 @@ export function initInput() {
                 gsap.to(current.position, { x: slot.position.x, y: 0.15, z: slot.position.z, duration: 0.2 });
                 await sleep(300);
 
-                await resolveRules(slot.userData.id, 'player');
+                await resolveRules(slot.userData.id, 'player', targets);
 
                 refillHand('player');
                 updateScores();
@@ -130,7 +163,8 @@ export function initInput() {
                             },
                             x,
                             y,
-                            player: state.isHost ? 'PLAYER_1' : 'PLAYER_2'
+                            player: state.isHost ? 'PLAYER_1' : 'PLAYER_2',
+                            targets
                         };
                         
                         state.actionLog.push(action);
@@ -173,6 +207,26 @@ export async function processOpponentMove(move) {
     const cardLevel = cardMesh.userData.data.level || 1;
     state.aiMana -= cardLevel;
 
+    // AI targeting logic
+    const skills = cardMesh.userData.data.skills || [];
+    if (cardMesh.userData.data.skillId && !skills.some(s => s.type === cardMesh.userData.data.skillId)) {
+        skills.push({ type: cardMesh.userData.data.skillId });
+    }
+
+    let targetingSteps = [];
+    for (const skill of skills) {
+        const handler = skillRegistry.getHandler(skill.type);
+        if (handler && handler.targetingSteps) {
+            targetingSteps = targetingSteps.concat(handler.targetingSteps);
+        }
+    }
+
+    let targets = [];
+    if (targetingSteps.length > 0) {
+        targets = await requestTargets(targetingSteps, state.board, 'ai', {});
+    }
+
+
     state.board[move.slot] = cardMesh;
     cardMesh.userData.data.revealed = true;
     cardMesh.userData.redraw(cardMesh.userData.img, 'ai');
@@ -181,7 +235,7 @@ export async function processOpponentMove(move) {
     gsap.to(cardMesh.rotation, { y: 0, z: 0, duration: 0.6 });
 
     await sleep(600);
-    await resolveRules(move.slot, 'ai');
+    await resolveRules(move.slot, 'ai', targets);
 
     refillHand('ai');
     updateScores();

@@ -39,7 +39,7 @@ export function showAlert(text) {
     }, 1500);
 }
 
-export async function resolveRules(startIndex, owner) {
+export async function resolveRules(startIndex, owner, targets = []) {
     const useCombo = state.rules.combo;
 
     let comboStack = [];
@@ -52,7 +52,8 @@ export async function resolveRules(startIndex, owner) {
     const actionRecord = {
         playedCard: centerEntry.data,
         owner: owner,
-        capturedCards: []
+        capturedCards: [],
+        targets
     };
 
     let complexCaptures = new Set();
@@ -165,6 +166,7 @@ export async function resolveRules(startIndex, owner) {
         const cell = state.board[idx];
         return {
             board: board2D,
+            targets: idx === startIndex ? targets : [],
             x, y,
             card: cell?.data,
             owner: cell?.owner === 'player' ? 'PLAYER_1' : 'PLAYER_2'
