@@ -132,6 +132,12 @@ const routes = [
     meta: { requiresAdminAuth: true }
   },
   {
+    path: '/admin/card-tester',
+    name: 'admin-card-tester',
+    component: () => import('../admin/views/CardTesterPage.vue'),
+    meta: { requiresAdminAuth: true }
+  },
+  {
     path: '/admin/stories',
     name: 'admin-stories',
     component: () => import('../admin/views/StoryArchivesPage.vue'),

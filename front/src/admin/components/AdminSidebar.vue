@@ -102,8 +102,15 @@ const menuCategories = [
       { name: 'Configuration', path: '/admin/game-config', icon: '⚙️' },
       { name: 'HoloEditor Pro', path: '/admin/foil-editor', icon: '✨' },
       { name: 'Éditeur de Cadres', path: '/admin/frame-editor', icon: '🖼️' },
-      { name: 'Foil Gallery', path: '/admin/foil-gallery', icon: '🎨' },
-      { name: 'Simulateur IA', path: '/admin/simulateur', icon: '🤖' }
+      { name: 'Foil Gallery', path: '/admin/foil-gallery', icon: '🎨' }
+    ]
+  },
+  {
+    id: 'gameplay',
+    title: 'Gameplay',
+    items: [
+      { name: 'Simulateur IA', path: '/admin/simulateur', icon: '🤖' },
+      { name: 'Testeur de Carte', path: '/admin/card-tester', icon: '⚖️' }
     ]
   },
   {
@@ -128,6 +135,7 @@ const menuCategories = [
 const expandedCategories = reactive({
   collections: false,
   'visual-core': false,
+  gameplay: false,
   'dev-tools': false
 });
 
