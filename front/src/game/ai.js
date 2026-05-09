@@ -1,83 +1,53 @@
 import { state } from './state.js';
-import { getNeighbors } from './engine.js';
-import { rulesRegistry } from './rules.js';
+import { getBestAIMovePure } from './pureAi.js';
 
 /**
- * AI picks the best move from its hand.
+ * Helper to convert 1D state.board to 2D board required by pureAi
+ */
+function get2DBoard() {
+    const w = state.boardWidth;
+    const h = state.boardHeight;
+    const board2D = [];
+    for (let y = 0; y < h; y++) {
+        const row = [];
+        for (let x = 0; x < w; x++) {
+            const entry = state.board[y * w + x];
+            if (entry) {
+                // normalize owner to GameEngine format if needed ('player' -> 'PLAYER_1', 'ai' -> 'PLAYER_2')
+                const owner = entry.owner === 'player' ? 'PLAYER_1' : (entry.owner === 'ai' ? 'PLAYER_2' : entry.owner);
+                row.push({ data: entry.data, owner });
+            } else {
+                row.push(null);
+            }
+        }
+        board2D.push(row);
+    }
+    return board2D;
+}
+
+/**
+ * AI picks the best move from its hand using pureAi logic.
  * state.aiHand contains plain card data objects.
  * Returns { slot, cardIdx } or null.
  */
 export function getBestAIMove() {
-    let bestScore = -Infinity;
-    let bestMove = null;
+    // If AI has no mana, return null immediately
+    if (state.aiMana < 1) return null;
 
-    const emptySlots = state.board.map((v, i) => v === null ? i : null).filter(v => v !== null);
+    const board2D = get2DBoard();
+    // Default difficulty to 100 if not set
+    const difficulty = state.aiDifficulty !== undefined ? state.aiDifficulty : 100;
 
-    for (let slotIdx of emptySlots) {
-        for (let c = 0; c < state.aiHand.length; c++) {
-            const card = state.aiHand[c];
-            const cost = 1;
+    // owner 'PLAYER_2' represents AI
+    const move2D = getBestAIMovePure(board2D, state.aiHand, 'PLAYER_2', state.rules, difficulty);
 
-            // AI must be able to afford the card
-            if (state.aiMana >= cost) {
-                let score = evaluatePlacementScore(slotIdx, card, 'ai');
-
-                // Dynamic corners logic
-                const w = state.boardWidth;
-                const h = state.boardHeight;
-                const corners = [0, w - 1, (h - 1) * w, h * w - 1];
-                if (corners.includes(slotIdx)) score += 2;
-                
-                const centerX = Math.floor(w / 2);
-                const centerY = Math.floor(h / 2);
-                const centerIdx = centerY * w + centerX;
-                if (slotIdx === centerIdx) score -= 1.5;
-
-                score += Math.random() * 0.5;
-
-                if (score > bestScore) {
-                    bestScore = score;
-                    bestMove = { slot: slotIdx, cardIdx: c };
-                }
-            }
-        }
+    if (move2D) {
+        // Convert back to 1D slot index
+        return {
+            slot: move2D.y * state.boardWidth + move2D.x,
+            cardIdx: move2D.cardIdx
+        };
     }
-    return bestMove;
-}
 
-/**
- * Evaluate how good a placement is.
- * cardData is a plain card object, board entries are { data, owner } | null.
- */
-export function evaluatePlacementScore(slotIdx, cardData, owner) {
-    let score = 0;
-    const opp = owner === 'player' ? 'ai' : 'player';
-
-    // Mock board entry for rule evaluation
-    const mockEntry = { data: cardData, owner: owner };
-    const neighbors = getNeighbors(slotIdx);
-
-    // Score from direct overrides
-    neighbors.forEach(n => {
-        const adj = state.board[n.i];
-        if (adj) {
-            if (adj.owner === opp) {
-                if (cardData[n.dir] > adj.data[n.opp]) score += 10;
-            } else {
-                score += 1;
-            }
-        }
-    });
-
-    // Score from modular rules
-    rulesRegistry.forEach(rule => {
-        if (state.rules[rule.id] && rule.id !== 'combo') {
-            const result = rule.execute(mockEntry, neighbors, state.board);
-            if (result.triggered) {
-                score += (result.captures.length * 15);
-            }
-        }
-    });
-
-    return score;
+    return null;
 }

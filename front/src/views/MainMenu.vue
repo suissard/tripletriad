@@ -2,7 +2,7 @@
   <div id="main-menu" v-if="state.gameState === 'menu' ">
 
     <div v-if="state.menuView === 'main'" class="menu-buttons">
-      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="state.menuView = 'ai'">JOUER CONTRE UNE IA 🤖</AppButton>
+      <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="state.menuView = 'ai-difficulty'">JOUER CONTRE UNE IA 🤖</AppButton>
       <div class="relative w-full">
         <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="openBoutique" :disabled="!userStore.strapiConnected">BOUTIQUE 💎</AppButton>
         <AppBadge 
@@ -35,8 +35,23 @@
       <AppButton fullWidth variant="primary" class="text-lg py-4 shadow-lg shadow-primary/20" @click="router.push('/test-coin')" style="margin-top:10px; background:linear-gradient(45deg, #84fab0 0%, #8fd3f4 100%)">TESTER LA PIÈCE 🪙</AppButton> -->
     </div>
     
+
     <!-- Coin Toss Overlay -->
     <CoinToss v-if="state.showCoinToss" :result="state.coinTossResult" @finished="onCoinTossFinished" />
+
+    <div v-else-if="state.menuView === 'ai-difficulty'" class="difficulty-options multi-menu">
+      <h2 style="color: white; margin-bottom: 1.5rem;">CHOISIS LA DIFFICULTÉ</h2>
+
+      <div class="difficulty-buttons" style="display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 300px; margin: 0 auto;">
+        <AppButton fullWidth variant="primary" style="background: linear-gradient(45deg, #a8e063 0%, #56ab2f 100%); color: white;" @click="setAiDifficulty(25)">FACILE (25%)</AppButton>
+        <AppButton fullWidth variant="primary" style="background: linear-gradient(45deg, #f6d365 0%, #fda085 100%); color: white;" @click="setAiDifficulty(50)">MOYEN (50%)</AppButton>
+        <AppButton fullWidth variant="primary" style="background: linear-gradient(45deg, #ff0844 0%, #ffb199 100%); color: white;" @click="setAiDifficulty(75)">DIFFICILE (75%)</AppButton>
+        <AppButton fullWidth variant="primary" style="background: linear-gradient(45deg, #0f2027 0%, #203a43 50%, #2c5364 100%); color: white; border: 1px solid #ff0844;" @click="setAiDifficulty(100)">CAUCHEMAR (100%)</AppButton>
+      </div>
+
+      <AppButton variant="primary" @click="state.menuView = 'main'" style="margin-top: 25px;">RETOUR</AppButton>
+    </div>
+
 
     <div v-else-if="state.menuView === 'ai'" class="deck-selection-menu">
       <h2 style="color: white; margin-bottom: 1.5rem;">CHOISIS TON DECK</h2>
@@ -185,14 +200,21 @@ function resumeLatestStory() {
   router.push({ name: 'story-steps', params: { storyId } });
 }
 
+
+function setAiDifficulty(diff) {
+  state.aiDifficulty = diff;
+  state.menuView = 'ai';
+}
+
 function startAiGame(deck) {
+
   if (deck.cards.length < 5) {
     state.alerts = "Ce deck est incomplet (min 5 cartes)";
     return;
   }
   
   state.online = false;
-  state.aiDifficulty = 1;
+  // state.aiDifficulty is set in difficulty view
   const playerDeck = deck.cards.map(id => normalizeCard(getCardById(id)));
   state.playerDeckSelection = playerDeck;
   

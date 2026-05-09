@@ -35,6 +35,19 @@
         </div>
       </div>
 
+
+        <!-- Difficulté IA 1 -->
+        <div class="space-y-2">
+          <label class="block text-sm font-semibold text-gray-300">Difficulté IA 1 (0-100)</label>
+          <input type="number" v-model.number="difficulty1" min="0" max="100" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50" />
+        </div>
+
+        <!-- Difficulté IA 2 -->
+        <div class="space-y-2">
+          <label class="block text-sm font-semibold text-gray-300">Difficulté IA 2 (0-100)</label>
+          <input type="number" v-model.number="difficulty2" min="0" max="100" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-red-500/50" />
+        </div>
+
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
         <div class="space-y-2">
           <label class="block text-sm font-semibold text-gray-300">Nombre de parties à simuler</label>
@@ -140,6 +153,8 @@ const selectedDeck1 = ref('');
 const selectedDeck2 = ref('');
 const numGames = ref(100);
 const startingPlayerOption = ref('IA1');
+const difficulty1 = ref(100);
+const difficulty2 = ref(100);
 
 const isRunning = ref(false);
 const hasResults = ref(false);
@@ -279,7 +294,8 @@ const runSingleGame = (deck1Data, deck2Data) => {
        break;
     }
 
-    const move = getBestAIMovePure(gameState.board, currentHand, currentPlayer, {});
+    const diff = currentPlayer === 'PLAYER_1' ? difficulty1.value : difficulty2.value;
+    const move = getBestAIMovePure(gameState.board, currentHand, currentPlayer, {}, diff);
 
     if (move) {
       const cardToPlay = currentHand[move.cardIdx];
