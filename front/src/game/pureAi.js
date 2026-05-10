@@ -1,4 +1,5 @@
 import { rulesRegistry } from './rules.js';
+import { GameEngine } from './GameEngine.js';
 
 /**
  * Get neighbors on a board as a flat array (like the old game logic, but pure)
@@ -18,83 +19,103 @@ export function getNeighborsPure(index, boardWidth, boardHeight) {
 /**
  * Pure evaluation function for placement
  *
- * @param {number} slotIdx
- * @param {object} cardData
- * @param {string} owner
- * @param {array} flatBoard - The 1D array representing the board
- * @param {number} boardWidth
- * @param {number} boardHeight
- * @param {object} rules - Dictionary of enabled rules
+ * @param {number} x - The X coordinate of the placement
+ * @param {number} y - The Y coordinate of the placement
+ * @param {object} cardData - The plain card object
+ * @param {string} owner - The owner of the card ('PLAYER_1' or 'PLAYER_2')
+ * @param {array} board2D - The 2D array representing the board
  * @returns {number} The score for this move
  */
-export function evaluatePlacementScorePure(slotIdx, cardData, owner, flatBoard, boardWidth, boardHeight, rules) {
+export function evaluatePlacementScorePure(x, y, cardData, owner, board2D) {
     let score = 0;
-    const opp = owner === 'PLAYER_1' ? 'PLAYER_2' : 'PLAYER_1';
 
-    // Mock board entry for rule evaluation
-    const mockEntry = { data: cardData, owner: owner };
-    const neighbors = getNeighborsPure(slotIdx, boardWidth, boardHeight);
+    // Create a mock current state to use with computeNextState
+    const currentState = {
+        board: board2D,
+        currentPlayer: owner,
+        isFinished: false,
+        winner: null
+    };
 
-    // Score from direct overrides
-    neighbors.forEach(n => {
-        const adj = flatBoard[n.i];
-        if (adj) {
-            if (adj.owner === opp) {
-                // Determine values
-                let myValue = cardData[n.dir];
-                if (myValue === undefined && cardData.values) myValue = cardData.values[n.dir];
-                if (myValue === undefined) myValue = cardData[`${n.dir}Value`];
-                let oppValue = adj.data[n.opp];
-                if (oppValue === undefined && adj.data.values) oppValue = adj.data.values[n.opp];
-                if (oppValue === undefined) oppValue = adj.data[`${n.opp}Value`];
+    const action = {
+        type: 'PLACE_CARD',
+        player: owner,
+        x: x,
+        y: y,
+        card: cardData
+    };
 
-                myValue = myValue === 'A' ? 10 : parseInt(myValue) || 0;
-                oppValue = oppValue === 'A' ? 10 : parseInt(oppValue) || 0;
+    try {
+        const nextState = GameEngine.computeNextState(currentState, action);
 
-                if (myValue > oppValue) score += 10;
-            } else {
-                score += 1;
+        // Calculate score based on board control difference
+        let myCardsBefore = 0;
+        let myCardsAfter = 0;
+
+        for (let row = 0; row < board2D.length; row++) {
+            for (let col = 0; col < board2D[row].length; col++) {
+                if (board2D[row][col] && board2D[row][col].owner === owner) {
+                    myCardsBefore++;
+                }
+                if (nextState.board[row][col] && nextState.board[row][col].owner === owner) {
+                    myCardsAfter++;
+                }
             }
         }
-    });
 
-    // Score from modular rules
-    rulesRegistry.forEach(rule => {
-        if (rules && rules[rule.id] && rule.id !== 'combo') {
-            const result = rule.execute(mockEntry, neighbors, flatBoard);
-            if (result.triggered) {
-                score += (result.captures.length * 15);
-            }
-        }
-    });
+        // Base score is the number of cards gained (captures + the played card)
+        const netGain = myCardsAfter - myCardsBefore;
+        score += netGain * 15;
+
+    } catch (e) {
+        // Invalid move or error in computation, score remains 0
+        console.warn("Invalid move evaluation:", e.message);
+        score = -Infinity;
+    }
 
     return score;
 }
 
 /**
  * Pure AI picking the best move from its hand.
- * Returns { slot, cardIdx } or null.
+ * Returns { x, y, cardIdx } or null.
+ * Difficulty is 0-100: 100 is 100% smart, 0 is 100% random
  */
-export function getBestAIMovePure(board2D, hand, owner, rules = {}) {
-    let bestScore = -Infinity;
-    let bestMove = null;
+export function getBestAIMovePure(board2D, hand, owner, rules = {}, difficulty = 100) {
+    if (hand.length === 0) return null;
 
     const boardWidth = board2D[0].length;
     const boardHeight = board2D.length;
-
-    // Flatten the board for easy index tracking used by old rule registry if needed,
-    // though the registry might expect a 1D array. We need to be careful here if
-    // GameEngine.js uses 2D arrays, whereas engine.js uses 1D arrays.
     const flatBoard = board2D.flat();
-
     const emptySlots = flatBoard.map((v, i) => v === null ? i : null).filter(v => v !== null);
 
+    if (emptySlots.length === 0) return null;
+
+    // Difficulty logic: Random move chance (difficulty 100 -> 0% random)
+    const randomChance = 100 - difficulty;
+    let isRandomMove = (Math.random() * 100) < randomChance;
+
+    if (isRandomMove) {
+        const randomSlotIdx = emptySlots[Math.floor(Math.random() * emptySlots.length)];
+        const randomCardIdx = Math.floor(Math.random() * hand.length);
+        return {
+            x: randomSlotIdx % boardWidth,
+            y: Math.floor(randomSlotIdx / boardWidth),
+            cardIdx: randomCardIdx
+        };
+    }
+
+    let bestScore = -Infinity;
+    let bestMove = null;
+
     for (let slotIdx of emptySlots) {
+        const x = slotIdx % boardWidth;
+        const y = Math.floor(slotIdx / boardWidth);
+
         for (let c = 0; c < hand.length; c++) {
             const card = hand[c];
 
-            // Assume mana is always enough for AI vs AI simulation
-            let score = evaluatePlacementScorePure(slotIdx, card, owner, flatBoard, boardWidth, boardHeight, rules);
+            let score = evaluatePlacementScorePure(x, y, card, owner, board2D);
 
             // Dynamic corners logic
             const corners = [0, boardWidth - 1, (boardHeight - 1) * boardWidth, boardHeight * boardWidth - 1];
@@ -105,21 +126,15 @@ export function getBestAIMovePure(board2D, hand, owner, rules = {}) {
             const centerIdx = centerY * boardWidth + centerX;
             if (slotIdx === centerIdx) score -= 1.5;
 
+            // Small randomness to avoid deterministic loops
             score += Math.random() * 0.5;
 
             if (score > bestScore) {
                 bestScore = score;
-                bestMove = { slot: slotIdx, cardIdx: c };
+                bestMove = { x, y, cardIdx: c };
             }
         }
     }
 
-    if (bestMove) {
-        return {
-            x: bestMove.slot % boardWidth,
-            y: Math.floor(bestMove.slot / boardWidth),
-            cardIdx: bestMove.cardIdx
-        };
-    }
-    return null;
+    return bestMove;
 }
