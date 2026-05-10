@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Cetace du Grand Large",
-  "description": "Hydromancien invoquant les marées submergeantes pour protéger les siens et inonder les positions ennemies.",
+  "description": "Cité flottante sur les océans stellaires, Cetace du Grand Large vogue majestueux entre les mondes, maîtrise l'élément Eau, légende des océans stellaires, équipement pressurisé intégral. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
   "element": "eau",
   "faction": "Exode Pélagique",
   "topValue": "1",

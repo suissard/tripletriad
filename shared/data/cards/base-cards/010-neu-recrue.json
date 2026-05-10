@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Recrue",
-  "description": "Technicien réparant l'équipement endommagé des deux camps, expertise recherchée par toutes les factions.",
+  "name": "Soudard des Astéroïdes",
+  "description": "Recrue fraîchement débarquée d'un transport minier, déjà endurcie par les réalités brutales de l'espace profond. Sous son masque de soudé maculé de suie, il manie son outil multifonction comme une arme, transformant chaque réparation de fortune en acte de résistance désespérée.",
   "element": "None",
   "faction": "neutre",
   "topValue": "1",

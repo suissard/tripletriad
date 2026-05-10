@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Basse",
-  "description": "Harmoniste synchronisant les rythmes de combat des unités proches augmentant leur efficacité au combat rapproché.",
+  "description": "Véritable nexus de données vivant, Basse fait vibrer les basses fréquences, maîtrise le hacking mélodique, émotion détachée du Chœur.",
   "element": "hacking",
   "faction": "Chœur Synthétique",
   "topValue": "3",

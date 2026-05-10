@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Embrase",
-  "description": "Incendiaire de ligne détruisant les barrières naturelles et artificielles pour ouvrir des voies d'accès aux assauts.",
+  "description": "Porté par la mémoire des mondes disparus, Embrase embrase l'horizon de feu, manie le pouvoir de la radiation.",
   "element": "radiation",
   "faction": "Héritiers des Cendres",
   "topValue": "8",

@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Rouille Recycle",
-  "description": "Maître Ferrailleur concevant des machines de guerre improvisées à partir d'épaves transformant les déchets en avantages tactiques.",
+  "description": "Parmi les débris de la Ceinture, Rouille Recycle rouille mais ne cède pas, maîtrise la furtivité spatiale, force de frappe de ↑5 dans l'ombre, vétéran des astéroïdes, esthétique post-apocalyptique. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
   "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "5",

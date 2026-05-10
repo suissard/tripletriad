@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Rodeur Errant",
-  "description": "Relais de communication transmettant les messages entre unités dispersées dans les zones de brouillage.",
+  "name": "Rôdeur des Confins",
+  "description": "Ancien membre des Ferrailleurs devenue communicateur solitaire, il relaie les messages à travers les fréquences corrompues de la Ceinture. Son sac à dos d'antennes artisanales et son harpon à brouillage IEM en font un fantôme des ondes, invisible mais omniprésent dans les terminaux de tous les camps.",
   "element": "None",
   "faction": "neutre",
   "topValue": "3",

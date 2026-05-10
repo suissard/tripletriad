@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Metal de la Ceinture",
-  "description": "Architecte de fortune construisant des défenses temporaires avec des matériaux récupérés sur les épaves les plus récentes.",
+  "description": "Parmi les débris de la Ceinture, Metal de la Ceinture forge le métal de la Ceinture, maîtrise la furtivité spatiale, manie une torche de soudure, esthétique post-apocalyptique, ambiance grimdark des astéroïdes. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
   "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "3",

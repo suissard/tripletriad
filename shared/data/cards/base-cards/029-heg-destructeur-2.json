@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Destructeur 2",
-  "description": "Architecte de guerre martienne concevant les stratégies de siège planétaire et les protocoles d'annexion.",
+  "name": "Champion de Mars",
+  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, arme équipée d'un railgun.",
   "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "3",

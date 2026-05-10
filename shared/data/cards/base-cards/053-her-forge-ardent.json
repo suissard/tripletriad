@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Forge Ardent",
-  "description": "Forgeron de guerre armant les combattants avec des armes chauffées à blanc infligeant des brûlures persistantes.",
+  "description": "Porté par la mémoire des mondes disparus, Forge Ardent façonne les armes du nouveau monde, manie le pouvoir de la radiation, force de frappe de ↑5, arme une lame enflammée.",
   "element": "radiation",
   "faction": "Héritiers des Cendres",
   "topValue": "5",

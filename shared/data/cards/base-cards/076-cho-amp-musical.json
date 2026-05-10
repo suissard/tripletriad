@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Amp Musical",
-  "description": "Résonateur amplifiant les signaux tactiques alliés pour une meilleure coordination sur le champ de bataille chaotique.",
+  "name": "Faceless Chœur",
+  "description": "Véritable nexus de données vivant, Faceless Chœur module les fréquences du réseau, maîtrise le hacking mélodique.",
   "element": "hacking",
   "elements": [
     "hacking"

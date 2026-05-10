@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Pecheur des Courants",
-  "description": "Courantiste manipulant les flux liquides pour piéger et ralentir les unités ennemies dans les environnements aquatiques.",
+  "description": "Cité flottante sur les océans stellaires, Pecheur des Courants pêche les rumeurs des courants, maîtrise l'élément Eau, équipement pressurisé intégral, mouvement fluide et gracieux. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
   "element": "eau",
   "faction": "Exode Pélagique",
   "topValue": "0",

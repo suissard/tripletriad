@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Combustion en Feu",
-  "description": "Embrasé tactique coordonnant les attaques synchronisées au feu pour maximiser les dégâts thermiques en chaîne.",
+  "description": "Porté par la mémoire des mondes disparus, Combustion en Feu explose de chaleur dévastatrice, manie le pouvoir de la radiation, force de frappe de ↑6, arme une lame enflammée.",
   "element": "radiation",
   "faction": "Héritiers des Cendres",
   "topValue": "6",

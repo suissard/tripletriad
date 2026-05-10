@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Requin des Abimes",
-  "description": "Hydrologue cartographiant les zones habitables aquatiques pour les futures colonies de l'Exode Pélagique.",
+  "description": "Cité flottante sur les océans stellaires, Requin des Abimes chasse dans les profondeurs océaniques, maîtrise l'élément Eau, déploie des drones aquatiques. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
   "element": "eau",
   "faction": "Exode Pélagique",
   "topValue": "4",

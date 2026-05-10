@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Conquerant du Regiment",
-  "description": "Infiltrateur s'introduisant dans les positions défensives adverses avant le déclenchement des assauts frontaux.",
+  "name": "Conquérant du Régiment",
+  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Conquérant du Régiment mène les assauts frontaux, arme équipée d'un railgun.",
   "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "6",

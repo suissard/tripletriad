@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Fusilier Martien",
-  "description": "Stratège de campagne calculant les vecteurs d'invasion optimaux pour maximiser l'efficacité des offensives.",
+  "name": "Fusilier de l'Hégémonie",
+  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Fusilier de l'Hégémonie tient la ligne de défense, arme équipée d'un railgun, discipline de fer.",
   "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "3",

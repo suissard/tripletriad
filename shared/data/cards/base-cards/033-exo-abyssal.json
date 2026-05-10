@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Abyssal",
-  "description": "Nageur de l'ombre se déplaçant silencieusement dans les fluides du vide pour des opérations de reconnaissance.",
+  "description": "Cité flottante sur les océans stellaires, Abyssal émerge des abysses sans fond, maîtrise l'élément Eau, mouvement fluide et gracieux, sérénité des grands fonds. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
   "element": "eau",
   "elements": [
     "eau"

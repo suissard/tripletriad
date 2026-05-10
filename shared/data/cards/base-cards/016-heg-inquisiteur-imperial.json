@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Inquisiteur Imperial",
-  "description": "Recrue de la IIIe Légion exécutant les ordres disciplinés de la hiérarchie martienne au combat rapproché.",
+  "name": "Inquisiteur de Mars",
+  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Inquisiteur de la IIIe Légion traque les hérétiques, arme équipée d'un railgun, portant une lame thermique incandescente, discipline de fer, dévotion absolue et déshumanisée.",
   "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "3",

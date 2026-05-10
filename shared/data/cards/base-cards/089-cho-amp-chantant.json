@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Amp Chantant",
-  "description": "Virtuose de la Résonance créant des boucles de feedback destructrices visant les armures et les équipements sensibles aux vibrations.",
+  "name": "Resonance Chœur",
+  "description": "Véritable nexus de données vivant, Resonance Chœur fait résonner les données vivantes, maîtrise le hacking mélodique, rôle épique dans la symphonie.",
   "element": "hacking",
   "elements": [
     "hacking"

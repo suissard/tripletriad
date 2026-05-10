@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Tidal",
-  "description": "Pêcheur des courants stellaires récoltant les ressources alimentaires essentielles à la survie de l'exode.",
+  "description": "Cité flottante sur les océans stellaires, Tidal chevauche les marées cosmiques, maîtrise l'élément Eau, arme un harpon pressurisé. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
   "element": "eau",
   "faction": "Exode Pélagique",
   "topValue": "0",

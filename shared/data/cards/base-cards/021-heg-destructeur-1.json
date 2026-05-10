@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Destructeur 1",
-  "description": "Ingénieur militaire déployant les infrastructures d'occupation sur les planètes récemment conquises.",
+  "name": "Destructeur Martien",
+  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Tireur d'élite redoutable anéantit les cibles à longue distance, arme équipée d'un railgun.",
   "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "1",

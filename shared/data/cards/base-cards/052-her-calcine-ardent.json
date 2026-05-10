@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Calcine Ardent",
-  "description": "Salamandre de choc résistant aux températures extrêmes du champ de bataille et menant les assauts les plus périlleux.",
+  "description": "Porté par la mémoire des mondes disparus, Calcine Ardent réduit ses ennemis en cendres, manie le pouvoir de la radiation.",
   "element": "radiation",
   "faction": "Héritiers des Cendres",
   "topValue": "0",

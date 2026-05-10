@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Pelerin Libre",
-  "description": "Arbitre de guerre imposant des trêves locales permettant l'évolution stratégique du conflit régional.",
+  "name": "Pèlerin de Guerre",
+  "description": "Arbitre impitoyable dont l'armure de puissance récupérée impose le respect, il fait la loi dans les zones de non-droit de la Ceinture. Son canon cinétique massif et sa lame de scie circulaire tranchent le chaos pour imposer un ordre brutal, refusant toute allégeance aux grandes factions.",
   "element": "None",
   "faction": "neutre",
   "topValue": "8",

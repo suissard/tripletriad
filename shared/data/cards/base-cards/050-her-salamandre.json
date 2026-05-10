@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Salamandre",
-  "description": "Sentinelle du brasier veillant inlassablement sur les avant-postes calcinés et repoussant les assauts nocturnes.",
+  "description": "Porté par la mémoire des mondes disparus, Salamandre danse entre les braises incandescentes, manie le pouvoir de la radiation, force de frappe de ↑5.",
   "element": "radiation",
   "faction": "Héritiers des Cendres",
   "topValue": "5",

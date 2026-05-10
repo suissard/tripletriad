@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Sentinelle Errant",
-  "description": "Sentinelle du dernier relais veillant sur les points de convergence stratégiques entre les zones de conflit.",
+  "name": "Sentinelle Médicale",
+  "description": "Gardien bienveillant parcourant les champs de bataille, ses tendrils de soins cyan s'étendant vers les alliés blessés. Monté sur un exosquelette de récupération, il trie les victimes sur le vif avec une précision clinique tout en continuant de pilonner les ennemis de ses tirs de harpon.",
   "element": "None",
   "faction": "neutre",
   "topValue": "5",

@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Observateur des Confins",
-  "description": "Stratège neutre coordonnant les mouvements de plusieurs factions alliées lors des opérations multi-équipes.",
+  "name": "Coordinateur Tactique",
+  "description": "Elite des survivants, ce maître de guerre orchestrre les mouvements alliés depuis les hauteurs des stations de la Ceinture. Ses gestes précis dirigés vers l'horizon activent des renforts invisibles, tandis que ses traits burinés par l'expérience trahissent une intelligence tactique supérieure.",
   "element": "None",
   "faction": "neutre",
   "topValue": "9",

@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Pestilent Corrompu",
-  "description": "Colonisateur fondant de nouvelles bases fongiques parasitant les ressources locales pour nourrir la croissance du Fléau.",
+  "description": "Née de la contamination, Pestilent Corrompu répand la peste fongique, maîtrise l'élément Spore, champion de la contamination, vaporise des spores toxiques,  corrosive par sécrétion acide. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
   "element": "spore",
   "faction": "Fléau Spore",
   "topValue": "1",

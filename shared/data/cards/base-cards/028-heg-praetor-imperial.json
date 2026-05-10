@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Praetor Imperial",
-  "description": "Praetor impérial orchestrant les opérations de domination galactique sur plusieurs fronts avec une coordination parfaite.",
+  "name": "Praetor Impérial",
+  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Praetor de l'Ordre Impérial commande avec autorité, arme équipée d'un railgun, rôle épique au sein de l'Hégémonie.",
   "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "6",

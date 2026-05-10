@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Resonance Musical",
-  "description": "Dissonateur créant des interférences sonores désorientantes empêchant l'ennemi de communiquer efficacement sur le champ de bataille.",
+  "name": "Cybernetic Chœur",
+  "description": "Véritable nexus de données vivant, Cybernetic Chœur module les fréquences du réseau, maîtrise le hacking mélodique.",
   "element": "hacking",
   "elements": [
     "hacking"

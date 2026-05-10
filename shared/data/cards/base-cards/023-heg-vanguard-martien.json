@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Vanguard Martien",
-  "description": "Propagandiste de guerre brisant le moral adverse par la désinformation et les transmissions radio piégées.",
+  "name": "Légionnaire de Mars",
+  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, arme équipée d'un railgun portant une lame thermique incandescente, force de frappe maximale (↑4), dévotion absolue et déshumanisée.",
   "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "4",

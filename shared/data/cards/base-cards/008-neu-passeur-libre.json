@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Passeur Libre",
-  "description": "Médic de terrain soignant les blessés des deux camps sans discrimination, garant de la neutralité humanitaire.",
+  "name": "Passeur Humanitaire",
+  "description": "Courseur autravers les zones de combat avec une agilité foudroyante, son équipement médical lourd rebondissant sur sa poitrine. Ignorent les tirs de plasma qui pleuvent, il se jette au sol pour protéger les blessés, déployant ses soins de choc avec une précision de chirurgien sous le feu ennemi.",
   "element": "None",
   "elements": [],
   "faction": "neutre",

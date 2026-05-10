@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Abyssal du Grand Large",
-  "description": "Sondeur des abysses détectant les ressources souterraines aquatiques grâce à des capteurs bio-sensibles.",
+  "description": "Cité flottante sur les océans stellaires, Abyssal du Grand Large émerge des abysses sans fond, maîtrise l'élément Eau, déploie des drones aquatiques. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
   "element": "eau",
   "faction": "Exode Pélagique",
   "topValue": "4",

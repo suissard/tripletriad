@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Soudure",
-  "description": "Dépanneur restaurant les fonctions essentielles des installations endommagées maintenant la chaîne logistique opérationnelle.",
+  "description": "Parmi les débris de la Ceinture, Soudure soude les espoirs brisés, maîtrise la furtivité spatiale, manie une torche de soudure, ambiance grimdark des astéroïdes. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
   "element": "furtif",
   "elements": [
     "furtif"

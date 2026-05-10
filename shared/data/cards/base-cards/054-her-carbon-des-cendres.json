@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Carbon des Cendres",
-  "description": "Volcaniste créant des zones de combustion persistante sur le champ de bataille pour limiter les mouvements adverses.",
+  "description": "Porté par la mémoire des mondes disparus, Carbon des Cendres émerge des cendres des anciens mondes, manie le pouvoir de la radiation.",
   "element": "radiation",
   "elements": [
     "radiation"

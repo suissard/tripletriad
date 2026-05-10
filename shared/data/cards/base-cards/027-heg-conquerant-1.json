@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Conquerant 1",
-  "description": "Inquisiteur de l'Hégémonie traquant les dissidents, les espions infiltrés et les traîtres au sein du régime.",
+  "name": "Officier Martien",
+  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, arme équipée d'un railgun portant une lame thermique incandescente, officier de rang supérieur, dévotion absolue et déshumanisée.",
   "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "3",

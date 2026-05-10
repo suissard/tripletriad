@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Pelerin",
-  "description": "Passeur des confins connaissant les raccourcis permettant de contourner les zones de combat les plus dangereuses.",
+  "name": "Sapeur des Débris",
+  "description": "Spécialiste des explosifs improvisés, ce combattant fouille les épaves à la recherche de composants précieux. Sa scie circulaire et son harpon électromagnétique transforment chaque débris en piège mortel pour quiconque ose s'approcher de son territoire.",
   "element": "None",
   "faction": "neutre",
   "topValue": "1",

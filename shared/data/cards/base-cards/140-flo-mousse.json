@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Mousse",
-  "description": "Pulsion toxique libérant des nuages de spores empoisonnées autour de lui créant une zone de contamination persistante.",
+  "description": "Née de la contamination, Mousse prolifère dans l'humidité toxique, maîtrise l'élément Spore, vaporise des spores toxiques, esthétique horrifique biologique. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
   "element": "spore",
   "faction": "Fléau Spore",
   "topValue": "0",

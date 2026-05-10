@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Tyrant",
-  "description": "Sentinelle impériale patrouillant les périmètres des installations conquises et repoussant les contre-attaques.",
+  "name": "Tyrant de l'Hégémonie",
+  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Sentinelle impériale surarmée impose la loi martiale, arme équipée d'un railgun, portant une lame thermique incandescente, force de frappe maximale (↑4), discipline de fer.",
   "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "4",

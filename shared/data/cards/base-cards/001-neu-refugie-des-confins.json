@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Refugie des Confins",
-  "description": "Observateur discret fournissant des informations tactiques sur les mouvements ennemis aux deux camps sans prendre parti.",
+  "name": "Éclaireur des Confins",
+  "description": "Tapi dans l'ombre d'une station orbitale désaffectée, cet observateur solitaire scrute l'horizon à travers sa visière de soudé. Son arbalète artisanale et ses drones de récupération lui permettent de recueillir des renseignements précieux sans jamais prendre parti dans les conflits qui déchirent la Ceinture.",
   "element": "None",
   "faction": "neutre",
   "topValue": "2",

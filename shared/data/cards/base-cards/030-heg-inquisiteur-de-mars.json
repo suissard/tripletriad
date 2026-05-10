@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Inquisiteur de Mars",
-  "description": "Supreme Commander unifiant les flottes martiennes sous un commandement unique avec une autorité absolue et indiscutable.",
+  "name": "Légionnaire de Mars",
+  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, arme équipée d'un railgun.",
   "element": "longue_portee",
   "elements": [
     "longue_portee"

@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Refugie",
-  "description": "Contrebassiste logistique assurant le maintien des lignes de ravitaillement entre les zones contestées.",
+  "name": "Briseur de Ligne",
+  "description": "Ancien logisticien de la Légion transformé en survivant des confins, il défend les lignes d'approvisionnement avec une rage silencieuse. Son marteau cinétique martèle les ennemis tandis que son gantelet à plasma purifie les débris spatiaux de toute menace.",
   "element": "None",
   "faction": "neutre",
   "topValue": "2",

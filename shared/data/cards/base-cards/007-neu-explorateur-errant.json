@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Explorateur Errant",
-  "description": "Négociateur ouvrant des alliances temporaires entre factions rivales pour des opérations communes ponctuelles.",
+  "name": "Explorateur Diplomate",
+  "description": "Pacifiste aguerri parcourant les astéroïdes avec une grâce surprenante, il lève les mains vers le ciel pour arrêter les combats. Ancien émissaire de factions oubliées, il préfère la négotiation à la force, mais sa précision au harpon et sa résilience légendaire en font un adversaire redoutable.",
   "element": "None",
   "faction": "neutre",
   "topValue": "9",

@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Rythme",
-  "description": "Accordéon de guerre produisant des ondes choc perturbant les formations ennemies et désorganisant leurs lignes.",
+  "description": "Véritable nexus de données vivant, Rythme marque le tempo de la bataille, maîtrise le hacking mélodique.",
   "element": "hacking",
   "faction": "Chœur Synthétique",
   "topValue": "0",

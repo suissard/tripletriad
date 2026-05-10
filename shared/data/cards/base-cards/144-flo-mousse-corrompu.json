@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Mousse Corrompu",
-  "description": "Mousse envahissante bloquant les voies de communication ennemies ralentissant leurs mouvements et leurs renforts.",
+  "description": "Née de la contamination, Mousse Corrompu prolifère dans l'humidité toxique, maîtrise l'élément Spore, vaporise des spores toxiques, esthétique horrifique biologique. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
   "element": "spore",
   "faction": "Fléau Spore",
   "topValue": "2",

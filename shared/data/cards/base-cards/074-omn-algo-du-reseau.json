@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Algo du Reseau",
-  "description": "Architecte du Réseau tissant la toile de surveillance galactique connectant chaque point d'information en une seule conscience.",
+  "description": "Extension vivante de l'Omni-Réseau, Algo du Reseau exécute des algorithmes prédictifs, maîtrise l'élément Réseau, légende de l'Omni-Réseau, interfaces neurales directes, calcul dénué d'émotion. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
   "element": "reseau",
   "elements": [
     "reseau"

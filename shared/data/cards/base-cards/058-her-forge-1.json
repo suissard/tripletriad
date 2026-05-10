@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Forge 1",
-  "description": "Incendiaire du Jugement déclenchant des conflagrations incontrôlables dans les rangs adverses ravageant les positions fortifiées.",
+  "description": "Porté par la mémoire des mondes disparus, Forge 1 façonne les armes du nouveau monde, manie le pouvoir de la radiation, force de frappe de ↑6, pouvoir épique hérité des cendres.",
   "element": "radiation",
   "faction": "Héritiers des Cendres",
   "topValue": "6",

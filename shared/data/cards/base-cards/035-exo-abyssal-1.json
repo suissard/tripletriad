@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Abyssal 1",
-  "description": "Plongeur des abysses récupérant les artefacts engloutis des stations submergées lors des grandes inondations.",
+  "description": "Cité flottante sur les océans stellaires, Abyssal 1 émerge des abysses sans fond, maîtrise l'élément Eau, agilité aquatique mortelle. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
   "element": "eau",
   "faction": "Exode Pélagique",
   "topValue": "0",

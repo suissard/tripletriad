@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Neuro Numerique",
-  "description": "Neuro-hacker piratant les équipements électroniques ennemis et les retournant contre leurs propres opérateurs.",
+  "description": "Extension vivante de l'Omni-Réseau, Neuro Numerique fusionne neurones et silicium, maîtrise l'élément Réseau, calcul dénué d'émotion. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
   "element": "reseau",
   "faction": "Omni-Réseau",
   "topValue": "2",

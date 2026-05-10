@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Oppresseur de Mars",
-  "description": "Artilleur orbital bombardant les fortifications ennemies depuis les stations en orbite martienne.",
+  "name": "Légionnaire de Mars",
+  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, arme équipée d'un railgun.",
   "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "6",

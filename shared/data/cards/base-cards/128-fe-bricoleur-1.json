@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Bricoleur 1",
-  "description": "Ingénieur de récupération optimisant les ressources limitées du groupe pour maximiser leur durée de vie en zone hostile.",
+  "description": "Parmi les débris de la Ceinture, Bricoleur 1 soude les espoirs brisés, maîtrise la furtivité spatiale, manie une torche de soudure, esthétique post-apocalyptique, ambiance grimdark des astéroïdes. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
   "element": "furtif",
   "faction": "Ferrailleurs de la Ceinture",
   "topValue": "1",

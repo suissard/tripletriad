@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Synapse",
-  "description": "Pixel infiltrateur injectant subtilement des virus dans les systèmes de défense ennemis sans être détecté.",
+  "description": "Extension vivante de l'Omni-Réseau, Synapse propage les influx numériques, maîtrise l'élément Réseau, interfaces neurales directes, calcul dénué d'émotion. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
   "element": "reseau",
   "faction": "Omni-Réseau",
   "topValue": "1",

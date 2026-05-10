@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Volcan en Feu",
-  "description": "Maître Pyromancien orchestrant les offensives thermiques multi-cibles coordonnant plusieurs sources de chaleur simultanées.",
+  "description": "Porté par la mémoire des mondes disparus, Volcan en Feu incarne la fureur des mondes calcinés, manie le pouvoir de la radiation, pouvoir épique hérité des cendres, arme une lame enflammée.",
   "element": "radiation",
   "elements": [
     "radiation"

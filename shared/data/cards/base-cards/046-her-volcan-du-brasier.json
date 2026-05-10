@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Volcan du Brasier",
-  "description": "Artilleur pyrotechnique saturant les positions ennemies de flammes et de projections incendiaires dévastatrices.",
+  "description": "Porté par la mémoire des mondes disparus, Volcan du Brasier incarne la fureur des mondes calcinés, manie le pouvoir de la radiation, arme une lame enflammée, fureur contenue des cendres.",
   "element": "radiation",
   "faction": "Héritiers des Cendres",
   "topValue": "2",

@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Irregulier",
-  "description": "Fêlure du réel générant des fissures dans les défenses statiques ennemies rendant leurs positions vulnérables.",
+  "description": "Manifestation d'une réalité parallèle, Irregulier défie toute logique connue, maîtrise la Faille Dimensionnelle, pouvoir de distorsion de ↑6, arme une lame instable, arme une arme imprévisible. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
   "element": "faille_dimensionnelle",
   "faction": "Incursion Dissonante",
   "topValue": "6",

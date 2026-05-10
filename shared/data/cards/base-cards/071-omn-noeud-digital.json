@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Noeud Digital",
-  "description": "IA autonomisée coordonnant les attaques numériques multi-cibles avec une précision que l'intuition humaine ne pourrait égaler.",
+  "description": "Extension vivante de l'Omni-Réseau, Noeud Digital connecte les terminaux distants, maîtrise l'élément Réseau, processeur de rang supérieur, calcul dénué d'émotion. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
   "element": "reseau",
   "faction": "Omni-Réseau",
   "topValue": "4",

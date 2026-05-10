@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Binaire",
-  "description": "Analyste de cryptographie processant les données ennemies interceptées pour identifier leurs vulnérabilités stratégiques.",
+  "description": "Extension vivante de l'Omni-Réseau, Binaire traite l'information pure, maîtrise l'élément Réseau, calcul dénué d'émotion. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
   "element": "reseau",
   "faction": "Omni-Réseau",
   "topValue": "1",

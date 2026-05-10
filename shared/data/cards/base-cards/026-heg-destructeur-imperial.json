@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
-  "name": "Destructeur Imperial",
-  "description": "Général légionnaire planifiant les campagnes de conquête multi-systèmes avec une précision martienne implacable.",
+  "name": "Officier Martien",
+  "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, arme équipée d'un railgun.",
   "element": "longue_portee",
   "faction": "Hégémonie Martienne",
   "topValue": "1",

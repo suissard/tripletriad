@@ -1,7 +1,7 @@
 {
   "collectionName": "base",
   "name": "Faille Devie",
-  "description": "Paradoxe créant des boucles temporelles piégeant les unités ennemies dans des cycles de combat répétitifs.",
+  "description": "Manifestation d'une réalité parallèle, Faille Devie ouvre des brèches interdites, maîtrise la Faille Dimensionnelle, arme une lame instable, arme une arme imprévisible. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
   "element": "faille_dimensionnelle",
   "faction": "Incursion Dissonante",
   "topValue": "4",
