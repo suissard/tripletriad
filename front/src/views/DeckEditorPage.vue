@@ -132,6 +132,8 @@
               <optgroup label="Général">
                 <option value="rarity-desc">Rareté ↓</option>
                 <option value="rarity-asc">Rareté ↑</option>
+                <option value="skills-desc">Compétences ↓</option>
+                <option value="skills-asc">Compétences ↑</option>
                 <option value="id-asc">Numéro</option>
                 <option value="level-desc">Niv. ↓</option>
                 <option value="level-asc">Niv. ↑</option>
@@ -505,6 +507,8 @@ const filteredCards = computed(() => {
       case 'name-asc': return a.name.localeCompare(b.name);
       case 'rarity-desc': return (rarityOrder[getRarity(b)] - rarityOrder[getRarity(a)]) || a.id - b.id;
       case 'rarity-asc': return (rarityOrder[getRarity(a)] - rarityOrder[getRarity(b)]) || a.id - b.id;
+      case 'skills-desc': return ((Array.isArray(b.skills) ? b.skills.length : 0) - (Array.isArray(a.skills) ? a.skills.length : 0)) || a.id - b.id;
+      case 'skills-asc': return ((Array.isArray(a.skills) ? a.skills.length : 0) - (Array.isArray(b.skills) ? b.skills.length : 0)) || a.id - b.id;
       case 'power-top-desc': return parsePowerValue(b.topValue) - parsePowerValue(a.topValue) || a.id - b.id;
       case 'power-right-desc': return parsePowerValue(b.rightValue) - parsePowerValue(a.rightValue) || a.id - b.id;
       case 'power-bottom-desc': return parsePowerValue(b.bottomValue) - parsePowerValue(a.bottomValue) || a.id - b.id;

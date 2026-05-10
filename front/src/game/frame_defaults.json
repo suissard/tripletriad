@@ -1,0 +1,20 @@
+{
+  "illustrationX": 0,
+  "illustrationY": 0,
+  "illustrationWidth": 100,
+  "illustrationHeight": 100,
+  "topX": 50,
+  "topY": 0,
+  "bottomX": 50,
+  "bottomY": 100,
+  "leftX": 0,
+  "leftY": 50,
+  "rightX": 100,
+  "rightY": 50,
+  "elementX": 15,
+  "elementY": 15,
+  "nameX": 50,
+  "nameY": 85,
+  "skillsX": 50,
+  "skillsY": 50
+}

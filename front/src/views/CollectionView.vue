@@ -58,6 +58,8 @@
           <option value="name:desc">Nom Z-A</option>
           <option value="rarity:asc">+ Rare</option>
           <option value="rarity:desc">- Rare</option>
+          <option value="skills:desc">Compétences ↓</option>
+          <option value="skills:asc">Compétences ↑</option>
           <option value="id:asc">Numéro</option>
         </select>
         <div class="toggle-pills">
@@ -585,6 +587,11 @@ async function fetchCards() {
         return asc ? ro.indexOf(a.rarity || 'Common') - ro.indexOf(b.rarity || 'Common') : ro.indexOf(b.rarity || 'Common') - ro.indexOf(a.rarity || 'Common');
       }
       if (field === 'id') return asc ? a.id - b.id : b.id - a.id;
+      if (field === 'skills') {
+        const aCount = Array.isArray(a.skills) ? a.skills.length : 0;
+        const bCount = Array.isArray(b.skills) ? b.skills.length : 0;
+        return asc ? aCount - bCount : bCount - aCount;
+      }
       return 0;
     });
     displayCards.value = filtered; totalCardCount.value = filtered.length;

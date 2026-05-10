@@ -63,13 +63,14 @@
 
       <button
         class="nav-item"
-        :class="{ active: route.path.includes('/guilds') }"
-        @click="goToGuilds"
+        :class="{ active: route.path.includes('/quests') }"
+        @click="router.push('/quests')"
       >
-        <div class="icon-container">
-          <span style="font-size: 1.5rem;">🛡️</span>
+        <div class="icon-container" style="position: relative;">
+          <span style="font-size: 1.5rem;">📜</span>
+          <div v-if="userStore.hasClaimableQuests || userStore.hasClaimableWeeklyTiers" class="badge-pastille"></div>
         </div>
-        <span class="nav-label">Guildes</span>
+        <span class="nav-label">Quêtes</span>
       </button>
 
     </div>
@@ -78,20 +79,11 @@
 
 <script setup>
 import { useRouter, useRoute } from 'vue-router';
-import { useChatStore } from '../stores/chatStore';
+import { useUserStore } from '../stores/userStore';
 
 const router = useRouter();
 const route = useRoute();
-const chatStore = useChatStore();
-
-const goToGuilds = () => {
-  const targetId = chatStore.pageActiveTargetId || (chatStore.activeTab === 'guilds' ? chatStore.activeTargetId : null);
-  if (targetId) {
-    router.push(`/guilds/${targetId}`);
-  } else {
-    router.push('/guilds');
-  }
-};
+const userStore = useUserStore();
 </script>
 
 <style scoped>
@@ -186,5 +178,17 @@ const goToGuilds = () => {
 
 .nav-item:hover:not(.active) {
   color: rgba(255, 255, 255, 0.8);
+}
+
+.badge-pastille {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  background-color: #ff3333;
+  border-radius: 50%;
+  border: 1px solid rgba(10, 10, 20, 0.9);
+  box-shadow: 0 0 5px #ff3333;
 }
 </style>

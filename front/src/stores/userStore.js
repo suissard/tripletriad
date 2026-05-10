@@ -4,6 +4,7 @@ import strapiMock from '../api/strapiMock.js';
 import { getCardById } from '../game/state.js';
 import { getStrapiUrl, getStrapiMediaUrl } from '../utils/url.js';
 import { useEffectStore } from './effectStore.js';
+import DEFAULT_FRAME_COORDS from '../game/frame_defaults.json';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -532,24 +533,24 @@ export const useUserStore = defineStore('user', {
           imageRare: item.imageRare?.url ? getStrapiMediaUrl(item.imageRare.url) : null,
           imageEpic: item.imageEpic?.url ? getStrapiMediaUrl(item.imageEpic.url) : null,
           imageLegendary: item.imageLegendary?.url ? getStrapiMediaUrl(item.imageLegendary.url) : null,
-          illustrationX: item.illustrationX ?? 0,
-          illustrationY: item.illustrationY ?? 0,
-          illustrationWidth: item.illustrationWidth ?? 100,
-          illustrationHeight: item.illustrationHeight ?? 100,
-          topX: item.topX ?? 50,
-          topY: item.topY ?? 8,
-          bottomX: item.bottomX ?? 50,
-          bottomY: item.bottomY ?? 94,
-          leftX: item.leftX ?? 6,
-          leftY: item.leftY ?? 50,
-          rightX: item.rightX ?? 94,
-          rightY: item.rightY ?? 50,
-          elementX: item.elementX ?? 4,
-          elementY: item.elementY ?? 4,
-          nameX: item.nameX ?? 50,
-          nameY: item.nameY ?? 85,
-          skillsX: item.skillsX ?? 50,
-          skillsY: item.skillsY ?? 65,
+          illustrationX: item.illustrationX ?? DEFAULT_FRAME_COORDS.illustrationX,
+          illustrationY: item.illustrationY ?? DEFAULT_FRAME_COORDS.illustrationY,
+          illustrationWidth: item.illustrationWidth ?? DEFAULT_FRAME_COORDS.illustrationWidth,
+          illustrationHeight: item.illustrationHeight ?? DEFAULT_FRAME_COORDS.illustrationHeight,
+          topX: item.topX ?? DEFAULT_FRAME_COORDS.topX,
+          topY: item.topY ?? DEFAULT_FRAME_COORDS.topY,
+          bottomX: item.bottomX ?? DEFAULT_FRAME_COORDS.bottomX,
+          bottomY: item.bottomY ?? DEFAULT_FRAME_COORDS.bottomY,
+          leftX: item.leftX ?? DEFAULT_FRAME_COORDS.leftX,
+          leftY: item.leftY ?? DEFAULT_FRAME_COORDS.leftY,
+          rightX: item.rightX ?? DEFAULT_FRAME_COORDS.rightX,
+          rightY: item.rightY ?? DEFAULT_FRAME_COORDS.rightY,
+          elementX: item.elementX ?? DEFAULT_FRAME_COORDS.elementX,
+          elementY: item.elementY ?? DEFAULT_FRAME_COORDS.elementY,
+          nameX: item.nameX ?? DEFAULT_FRAME_COORDS.nameX,
+          nameY: item.nameY ?? DEFAULT_FRAME_COORDS.nameY,
+          skillsX: item.skillsX ?? DEFAULT_FRAME_COORDS.skillsX,
+          skillsY: item.skillsY ?? DEFAULT_FRAME_COORDS.skillsY,
           priceCoins: item.priceCoins ?? 0,
           priceGems: item.priceGems ?? 250
         }));

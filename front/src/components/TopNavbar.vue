@@ -110,11 +110,12 @@ function goToHome() {
 }
 
 function goToAdmin() {
-  if (route.path.startsWith('/admin')) {
-    state.leftDrawerOpen = !state.leftDrawerOpen;
-  } else {
+  if (!route.path.startsWith('/admin')) {
     router.push('/admin');
-    state.leftDrawerOpen = true;
+  }
+  // On mobile, toggle the drawer for navigation  
+  if (window.innerWidth < 768) {
+    state.leftDrawerOpen = !state.leftDrawerOpen;
   }
 }
 

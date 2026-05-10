@@ -201,6 +201,7 @@ import { getRarity } from '../game/constants.js';
 import { GameEngine } from '../game/GameEngine.js';
 import { skillRegistry } from '../../../shared/skills/index';
 import { normalizeCard } from '../utils/cardUtils.js';
+import DEFAULT_FRAME_COORDS from '../game/frame_defaults.json';
 
 const props = defineProps({
   card: { type: Object, required: true },
@@ -303,6 +304,10 @@ const displayCard = computed(() => {
   return card;
 });
 
+const activeFrameCoords = computed(() => {
+  return props.overrideFrameCoords || currentFrame.value || DEFAULT_FRAME_COORDS;
+});
+
 const currentFrame = computed(() => {
   const url = props.cardFrame || userStore.defaultFrame?.image;
   if (!url) return null;
@@ -340,13 +345,12 @@ const activeCardBackUrl = computed(() => {
 });
 
 const imageStyle = computed(() => {
-  const f = props.overrideFrameCoords || currentFrame.value;
-  if (!f) return {};
+  const f = activeFrameCoords.value;
   return {
-    top: `${f.illustrationY ?? 0}%`,
-    left: `${f.illustrationX ?? 0}%`,
-    width: `${f.illustrationWidth ?? 100}%`,
-    height: `${f.illustrationHeight ?? 100}%`,
+    top: `${f.illustrationY ?? DEFAULT_FRAME_COORDS.illustrationY}%`,
+    left: `${f.illustrationX ?? DEFAULT_FRAME_COORDS.illustrationX}%`,
+    width: `${f.illustrationWidth ?? DEFAULT_FRAME_COORDS.illustrationWidth}%`,
+    height: `${f.illustrationHeight ?? DEFAULT_FRAME_COORDS.illustrationHeight}%`,
     position: 'absolute',
     objectFit: 'cover',
     right: 'auto',
@@ -355,42 +359,36 @@ const imageStyle = computed(() => {
 });
 
 const statStyles = computed(() => {
-  const f = props.overrideFrameCoords || currentFrame.value;
-  if (!f) return {
-    top: {}, left: {}, right: {}, bottom: {}
-  };
+  const f = activeFrameCoords.value;
   return {
-    top: { left: `${f.topX ?? 50}%`, top: `${f.topY ?? 8}%` },
-    bottom: { left: `${f.bottomX ?? 50}%`, top: `${f.bottomY ?? 94}%` },
-    left: { left: `${f.leftX ?? 6}%`, top: `${f.leftY ?? 50}%` },
-    right: { left: `${f.rightX ?? 94}%`, top: `${f.rightY ?? 50}%` }
+    top: { left: `${f.topX ?? DEFAULT_FRAME_COORDS.topX}%`, top: `${f.topY ?? DEFAULT_FRAME_COORDS.topY}%` },
+    bottom: { left: `${f.bottomX ?? DEFAULT_FRAME_COORDS.bottomX}%`, top: `${f.bottomY ?? DEFAULT_FRAME_COORDS.bottomY}%` },
+    left: { left: `${f.leftX ?? DEFAULT_FRAME_COORDS.leftX}%`, top: `${f.leftY ?? DEFAULT_FRAME_COORDS.leftY}%` },
+    right: { left: `${f.rightX ?? DEFAULT_FRAME_COORDS.rightX}%`, top: `${f.rightY ?? DEFAULT_FRAME_COORDS.rightY}%` }
   };
 });
 
 const elementStyle = computed(() => {
-  const f = props.overrideFrameCoords || currentFrame.value;
-  if (!f) return {};
+  const f = activeFrameCoords.value;
   return {
-    left: `${f.elementX ?? 4}%`,
-    top: `${f.elementY ?? 4}%`
+    left: `${f.elementX ?? DEFAULT_FRAME_COORDS.elementX}%`,
+    top: `${f.elementY ?? DEFAULT_FRAME_COORDS.elementY}%`
   };
 });
 
 const nameStyle = computed(() => {
-  const f = props.overrideFrameCoords || currentFrame.value;
-  if (!f) return {};
+  const f = activeFrameCoords.value;
   return {
-    left: `${f.nameX ?? 50}%`,
-    top: `${f.nameY ?? 85}%`
+    left: `${f.nameX ?? DEFAULT_FRAME_COORDS.nameX}%`,
+    top: `${f.nameY ?? DEFAULT_FRAME_COORDS.nameY}%`
   };
 });
 
 const skillsStyle = computed(() => {
-  const f = props.overrideFrameCoords || currentFrame.value;
-  if (!f) return {};
+  const f = activeFrameCoords.value;
   return {
-    left: `${f.skillsX ?? 50}%`,
-    top: `${f.skillsY ?? 65}%`
+    left: `${f.skillsX ?? DEFAULT_FRAME_COORDS.skillsX}%`,
+    top: `${f.skillsY ?? DEFAULT_FRAME_COORDS.skillsY}%`
   };
 });
 

@@ -243,6 +243,7 @@ import { ref, computed, onMounted, reactive } from 'vue';
 import { useUserStore } from '../../stores/userStore';
 import strapiService from '@/api/strapi';
 import TripleTriadCard from '../../components/TripleTriadCard.vue';
+import DEFAULT_FRAME_COORDS from '../../game/frame_defaults.json';
 
 const userStore = useUserStore();
 const frames = computed(() => userStore.cardFrames);
@@ -255,26 +256,7 @@ const symmetryEnabled = ref(true);
 const isMatrixSelectorCollapsed = ref(false);
 const selectedRarity = ref('Legendary');
 
-const editedValues = reactive({
-  illustrationX: 0,
-  illustrationY: 0,
-  illustrationWidth: 100,
-  illustrationHeight: 100,
-  topX: 50,
-  topY: 8,
-  bottomX: 50,
-  bottomY: 94,
-  leftX: 6,
-  leftY: 50,
-  rightX: 94,
-  rightY: 50,
-  elementX: 4,
-  elementY: 4,
-  nameX: 50,
-  nameY: 85,
-  skillsX: 50,
-  skillsY: 65
-});
+const editedValues = reactive({ ...DEFAULT_FRAME_COORDS });
 
 const previewCard = computed(() => {
   const card = availableCards.value.find(c => c.id === selectedCardId.value);
@@ -344,14 +326,7 @@ function centerStats(axis) {
 
 function resetToDefault() {
   if (!confirm('Réinitialiser toutes les coordonnées ?')) return;
-  Object.assign(editedValues, {
-    illustrationX: 0, illustrationY: 0, illustrationWidth: 100, illustrationHeight: 100,
-    topX: 50, topY: 8, bottomX: 50, bottomY: 94,
-    leftX: 6, leftY: 50, rightX: 94, rightY: 50,
-    elementX: 4, elementY: 4,
-    nameX: 50, nameY: 85,
-    skillsX: 50, skillsY: 65
-  });
+  Object.assign(editedValues, DEFAULT_FRAME_COORDS);
 }
 
 function selectFrame(frame) {
