@@ -13,7 +13,7 @@
         </div>
 
         <!-- Body -->
-        <div class="modal-body p-6 text-gray-200">
+        <div class="modal-body p-6 text-gray-200 overflow-y-auto custom-scrollbar" style="max-height: 85vh;">
           <slot></slot>
         </div>
 
@@ -111,5 +111,16 @@ onUnmounted(() => {
 @keyframes scaleUp {
   from { transform: scale(0.95); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
 }
 </style>

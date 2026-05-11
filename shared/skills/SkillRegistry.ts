@@ -1,4 +1,5 @@
-import { SkillHandler, SkillContext } from './types';
+import type { SkillHandler, SkillContext } from './types';
+import { SKILL_TRIGGERS } from './constants';
 
 /**
  * SkillRegistry — Registre central des compétences de cartes.
@@ -34,15 +35,18 @@ export class Registry {
 
   /**
    * Dispatche un hook pour tous les skills d'une carte.
+   * 
+   * Logique de résolution (par skill sur la carte) :
+   * 1. Si le handler a `execute()` ET que le trigger du skill correspond au hookName → appel execute()
+   * 2. Sinon, si le handler a un hook nommé handler[hookName] → appel direct (rétro-compatibilité / passifs)
+   * 
+   * Cela permet aux skills actifs (growing, decrease, heal, etc.) de respecter le trigger
+   * configuré dans Strapi, tout en conservant le fonctionnement natif des passifs (aura, freeze...).
    */
   dispatch(hookName: keyof SkillHandler, ctx: SkillContext): any[] {
     console.log(`[SkillRegistry] Attempting dispatch: "${hookName}" on card "${ctx.card?.name || 'unknown'}"`);
-    // Dans le GameEngine, la carte a `skills` (tableau de définitions)
-    // On suppose que card.skills est un tableau du type [{ type: 'growing', value: 2 }, ...] 
-    // ou bien on utilise card.skillId si c'est un skill unique. Pour être rétro-compatible :
     const skills = ctx.card?.skills || [];
     
-    // Note: Pour supporter la nouvelle implémentation de targetting via `skillId` :
     if (ctx.card?.skillId && !skills.some(s => s.type === ctx.card.skillId)) {
       skills.push({ type: ctx.card.skillId });
     }
@@ -51,13 +55,30 @@ export class Registry {
 
     for (const skill of skills) {
       const handler = this.handlers.get(skill.type);
-      if (handler && typeof handler[hookName] === 'function') {
+      if (!handler) continue;
+
+      // Déterminer le trigger effectif du skill
+      const effectiveTrigger = skill.trigger || handler.defaultTrigger;
+
+      // Route 1 : Le handler a execute() et le trigger correspond au hook dispatché
+      if (handler.execute && effectiveTrigger && effectiveTrigger === hookName) {
+        console.log(`[SkillRegistry] Dispatching "${hookName}" via execute() for skill "${skill.type}" (trigger: ${effectiveTrigger}) on card "${ctx.card.name}"`);
+        const result = handler.execute({ ...ctx, skill });
+        if (result !== undefined) results.push(result);
+        continue;
+      }
+
+      // Route 2 : Rétro-compatibilité — hook nommé direct (passifs, ward, etc.)
+      if (typeof handler[hookName] === 'function') {
+        // Pour les handlers avec execute(), ne PAS appeler le hook nommé 
+        // si le trigger ne correspond pas (évite les doubles exécutions)
+        if (handler.execute && effectiveTrigger && effectiveTrigger !== hookName) {
+          continue;
+        }
         const fn = handler[hookName] as Function;
         console.log(`[SkillRegistry] Dispatching "${hookName}" for skill "${skill.type}" on card "${ctx.card.name}"`);
         const result = fn({ ...ctx, skill });
-        if (result !== undefined) {
-          results.push(result);
-        }
+        if (result !== undefined) results.push(result);
       }
     }
 

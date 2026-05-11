@@ -220,7 +220,7 @@ export async function loadCardsFromStrapi() {
 
         do {
             const result = await strapiService.find('cards', {
-                populate: ['image', 'faction', 'variants'],
+                populate: ['image', 'faction', 'variants', 'skills', 'skills.patterns'],
                 pagination: { page, pageSize: 100 }
             });
             

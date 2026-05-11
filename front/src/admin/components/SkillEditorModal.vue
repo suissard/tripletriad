@@ -32,6 +32,10 @@
                   {{ handler.name }} ({{ handler.id }})
                 </option>
               </select>
+              <p v-if="getSkillMetadata(skill)" class="text-[10px] text-gray-400 mt-2 italic px-1">
+                <span v-if="getSkillMetadata(skill).name !== availableSkills.find(s => s.id === skill.type)?.name" class="text-[#ffd700] font-bold">{{ getSkillMetadata(skill).name }} : </span>
+                {{ getSkillMetadata(skill).description }}
+              </p>
             </div>
 
             <div>
@@ -52,33 +56,36 @@
             <div>
               <label class="label-text">Filtre (filter)</label>
               <select v-model="skill.filter" class="admin-input w-full">
-                <option value="none">Aucun</option>
-                <option value="allies">Alliés</option>
-                <option value="enemies">Ennemis</option>
-                <option value="empty">Cases Vides</option>
-                <option value="self">Soi-même</option>
+                <option v-for="(value, key) in SKILL_FILTERS" :key="key" :value="value">
+                  {{ key }} ({{ value }})
+                </option>
               </select>
             </div>
 
             <div>
               <label class="label-text">Déclencheur (trigger)</label>
               <select v-model="skill.trigger" class="admin-input w-full">
-                <option value="onEnterPlay">Au placement</option>
-                <option value="onEndOfTurn">Fin de tour</option>
-                <option value="onStartOfTurn">Début de tour</option>
-                <option value="onCapture">Lors d'une capture</option>
-                <option value="onCaptured">Lors d'une capture subie</option>
-                <option value="onDeath">Lors de la mort</option>
-                <option value="passive">Passif</option>
+                <option v-for="(value, key) in SKILL_TRIGGERS" :key="key" :value="value">
+                  {{ key }} ({{ value }})
+                </option>
               </select>
             </div>
 
             <div>
               <label class="label-text">Origine (origin_type)</label>
               <select v-model="skill.origin_type" class="admin-input w-full">
-                <option value="self">Self (Carte jouée)</option>
-                <option value="fixed">Fixed (Coordonnées fixes)</option>
-                <option value="manual">Manual (Choix utilisateur)</option>
+                <option v-for="(value, key) in ORIGIN_TYPES" :key="key" :value="value">
+                  {{ key }} ({{ value }})
+                </option>
+              </select>
+            </div>
+
+            <div v-if="skill.origin_type === ORIGIN_TYPES.FIXED">
+              <label class="label-text">Direction Origine</label>
+              <select v-model="skill.origin_direction" class="admin-input w-full">
+                <option v-for="(value, key) in CARD_DIRECTIONS" :key="key" :value="value">
+                  {{ key }} ({{ value }})
+                </option>
               </select>
             </div>
 
@@ -146,8 +153,15 @@
 import { computed } from 'vue';
 import AppModal from '../../components/ui/AppModal.vue';
 import AppButton from '../../components/ui/AppButton.vue';
-import { skillRegistry } from '../../../../shared/skills';
+import { skillRegistry, SKILL_METADATA, getSkillMetadata } from '../../../../shared/skills';
 import { getTargetCells } from '../../../../shared/skills/helpers';
+import { 
+  SKILL_TRIGGERS, 
+  SKILL_PATTERNS, 
+  SKILL_FILTERS, 
+  ORIGIN_TYPES, 
+  CARD_DIRECTIONS 
+} from '../../../../shared/skills/constants';
 
 const props = defineProps({
   modelValue: Boolean,
@@ -162,12 +176,13 @@ const availableSkills = computed(() => {
 
 function addSkill() {
   if (!props.card.skills) props.card.skills = [];
+  const firstHandler = availableSkills.value[0];
   props.card.skills.push({
-    type: 'growing',
+    type: firstHandler?.id || 'growing',
     value: 1,
-    filter: 'none',
-    trigger: 'onEnterPlay',
-    origin_type: 'self'
+    filter: SKILL_FILTERS.NONE,
+    trigger: firstHandler?.defaultTrigger || SKILL_TRIGGERS.ON_ENTER_PLAY,
+    origin_type: ORIGIN_TYPES.SELF
   });
 }
 
@@ -175,19 +190,26 @@ function removeSkill(index) {
   props.card.skills.splice(index, 1);
 }
 
-const AVAILABLE_PATTERNS = [
-  { value: 'adjacent', label: 'Croix (adjacent)' },
-  { value: 'diagonals', label: 'Diagonales' },
-  { value: 'cross', label: 'Étoile (cross)' },
-  { value: 'row', label: 'Ligne' },
-  { value: 'column', label: 'Colonne' },
-  { value: 'all', label: 'Tout' },
-  { value: 'top', label: 'Haut' },
-  { value: 'bottom', label: 'Bas' },
-  { value: 'left', label: 'Gauche' },
-  { value: 'right', label: 'Droite' },
-  { value: 'self', label: 'Soi-même' }
-];
+const PATTERN_LABELS = {
+  [SKILL_PATTERNS.ADJACENT]: 'Croix (adjacent)',
+  [SKILL_PATTERNS.DIAGONALS]: 'Diagonales',
+  [SKILL_PATTERNS.CROSS]: 'Étoile (cross)',
+  [SKILL_PATTERNS.DIAMOND]: 'Losange (diamond)',
+  [SKILL_PATTERNS.SQUARE]: 'Carré (square)',
+  [SKILL_PATTERNS.ROW]: 'Ligne',
+  [SKILL_PATTERNS.COLUMN]: 'Colonne',
+  [SKILL_PATTERNS.ALL]: 'Tout',
+  [SKILL_PATTERNS.TOP]: 'Haut',
+  [SKILL_PATTERNS.BOTTOM]: 'Bas',
+  [SKILL_PATTERNS.LEFT]: 'Gauche',
+  [SKILL_PATTERNS.RIGHT]: 'Droite',
+  [SKILL_PATTERNS.SELF]: 'Soi-même'
+};
+
+const AVAILABLE_PATTERNS = Object.values(SKILL_PATTERNS).map(value => ({
+  value,
+  label: PATTERN_LABELS[value] || value
+}));
 
 function hasPattern(skill, patternValue) {
   if (!skill.patterns || !Array.isArray(skill.patterns)) return false;
@@ -236,12 +258,18 @@ const previewSets = computed(() => {
 
 function getOriginCell(skill) {
   const cx = 3, cy = 3;
-  if (skill.origin_type === 'fixed') {
+  if (skill.origin_type === ORIGIN_TYPES.FIXED) {
     const dirMap = {
-      top: {dx: 0, dy: -1}, bottom: {dx: 0, dy: 1}, left: {dx: -1, dy: 0}, right: {dx: 1, dy: 0},
-      top_left: {dx: -1, dy: -1}, top_right: {dx: 1, dy: -1}, bottom_left: {dx: -1, dy: 1}, bottom_right: {dx: 1, dy: 1}
+      [CARD_DIRECTIONS.TOP]: {dx: 0, dy: -1}, 
+      [CARD_DIRECTIONS.BOTTOM]: {dx: 0, dy: 1}, 
+      [CARD_DIRECTIONS.LEFT]: {dx: -1, dy: 0}, 
+      [CARD_DIRECTIONS.RIGHT]: {dx: 1, dy: 0},
+      [CARD_DIRECTIONS.TOP_LEFT]: {dx: -1, dy: -1}, 
+      [CARD_DIRECTIONS.TOP_RIGHT]: {dx: 1, dy: -1}, 
+      [CARD_DIRECTIONS.BOTTOM_LEFT]: {dx: -1, dy: 1}, 
+      [CARD_DIRECTIONS.BOTTOM_RIGHT]: {dx: 1, dy: 1}
     };
-    const dir = dirMap[skill.origin_direction || 'top'];
+    const dir = dirMap[skill.origin_direction || CARD_DIRECTIONS.TOP];
     const reach = skill.origin_reach || 1;
     if (dir) {
       return { x: cx + dir.dx * reach, y: cy + dir.dy * reach };

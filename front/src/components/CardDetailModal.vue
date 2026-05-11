@@ -187,7 +187,7 @@ import ElementIcon from "./ElementIcon.vue";
 import HoloOverlay from "./HoloOverlay.vue";
 import { useUserStore } from '../stores/userStore.js';
 import { GameEngine } from '../game/GameEngine.js';
-import { skillRegistry } from '../../../shared/skills/index';
+import { skillRegistry, SKILL_METADATA, getSkillMetadata } from '../../../shared/skills/index';
 import PurchaseButton from './ui/PurchaseButton.vue';
 
 const TripleTriadCard = defineAsyncComponent(() => import('./TripleTriadCard.vue'));
@@ -306,10 +306,14 @@ const skillDetails = computed(() => {
       originDesc = `Manuel (rayon ${s.origin_reach})`;
     }
 
+    const metadata = getSkillMetadata(s);
+    const name = metadata?.name || type;
+    const description = metadata?.description || '';
+
     return {
       type,
-      name: handler ? handler.name : type,
-      description: handler ? handler.description : '',
+      name,
+      description,
       value: s.value,
       counter: s.counter,
       range: s.range || 1,

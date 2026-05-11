@@ -1,20 +1,15 @@
-import { SkillHandler, SkillContext } from './types';
+import type { SkillHandler } from './types';
+import { EFFECT_TYPES } from './constants';
 
 /**
  * Skill: Sniper
  * Effet : Permet d'attaquer à travers les cases vides (attaque à distance).
- * 
- * Exemple Strapi :
- * {
- *   "type": "sniper",
- *   "trigger": "passive"
- * }
  */
 const handler: SkillHandler = {
   id: 'sniper',
   name: 'Sniper',
   description: 'Attaque à distance en traversant les cases vides.',
-  effectType: 'negative',
+  effectType: EFFECT_TYPES.NEGATIVE,
 
   /**
    * Retourne true pour indiquer que cette carte peut attaquer

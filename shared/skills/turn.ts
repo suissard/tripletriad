@@ -1,30 +1,31 @@
-import { SkillHandler, SkillContext } from './types';
+import type { SkillHandler } from './types';
+import { 
+  EFFECT_TYPES, 
+  SKILL_TRIGGERS 
+} from './constants';
 
 /**
  * Skill: Turn (Rotation)
- * Effet : Fait pivoter les valeurs de combat de la carte au moment du placement.
+ * Effet : Fait pivoter les valeurs de combat de la carte.
  * 
- * Exemple Strapi :
- * {
- *   "type": "turn",
- *   "value": 1,
- *   "trigger": "onEnterPlay"
- * }
- * (Note: value 1 = horaire, -1 = anti-horaire)
+ * Trigger variable : par défaut onEnterPlay, mais configurable dans Strapi
  */
 const handler: SkillHandler = {
   id: 'turn',
   name: 'Rotation',
-  description: 'Fait tourner les valeurs de la carte au placement.',
-  effectType: 'neutral',
+  description: 'Fait tourner les valeurs de la carte (trigger variable).',
+  effectType: EFFECT_TYPES.NEUTRAL,
+  defaultTrigger: SKILL_TRIGGERS.ON_ENTER_PLAY,
 
-  onEnterPlay(ctx: any) {
+  execute(ctx: any) {
     const { skill } = ctx;
     const cell = ctx.board[ctx.y][ctx.x];
     if (!cell || !cell.data) return;
 
     const direction = skill.value || 1; // 1 = clockwise, -1 = counter-clockwise
     const steps = Math.abs(direction);
+
+    console.log(`[Skill:Turn] Rotating card "${cell.data.name}" at (${ctx.x},${ctx.y}). Direction: ${direction > 0 ? 'CW' : 'CCW'} x${steps} (trigger: ${skill.trigger || 'default'})`);
 
     for (let i = 0; i < steps; i++) {
       const old = {

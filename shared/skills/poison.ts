@@ -1,36 +1,27 @@
-import { SkillHandler, SkillContext } from './types';
+import type { SkillHandler } from './types';
+import { 
+  EFFECT_TYPES, 
+  SKILL_TRIGGERS 
+} from './constants';
 
 /**
  * Skill: Poison
- * Effet : Contre-attaque empoisonnée. Inflige des dégâts à l'attaquant quand cette carte est capturée.
- * 
- * Exemple Strapi :
- * {
- *   "type": "poison",
- *   "value": 1,
- *   "trigger": "onCaptured"
- * }
+ * Trigger variable : par défaut onCaptured, configurable dans Strapi.
  */
 const handler: SkillHandler = {
   id: 'poison',
   name: 'Poison',
-  description: 'Inflige des dégâts à l\'attaquant lors de la capture.',
-  effectType: 'negative',
+  description: 'Inflige des dégâts à l\'attaquant lors de la capture (trigger variable).',
+  effectType: EFFECT_TYPES.NEGATIVE,
+  defaultTrigger: SKILL_TRIGGERS.ON_CAPTURED,
 
-  /**
-   * Appelé après que cette carte est capturée.
-   * Inflige skill.value dégâts à l'attaquant.
-   * Interagit avec Ward sur l'attaquant.
-   */
-  onCaptured(ctx: any) {
+  execute(ctx: any) {
     const { board, skill, alerts, captures, dyingCards, attackerX, attackerY } = ctx;
-
     const attackerCell = board[attackerY]?.[attackerX];
     if (!attackerCell) return;
 
     alerts.push('POISON!');
 
-    // Vérifier si l'attaquant a un Ward
     const attackerHasWard = attackerCell.data.skills &&
       attackerCell.data.skills.some(s => s.type === 'ward');
 

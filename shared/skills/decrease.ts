@@ -1,34 +1,32 @@
-import { SkillHandler, SkillContext } from './types';
+import type { SkillHandler, SkillContext } from './types';
 import { getTargetCells } from './helpers.js';
+import { 
+  EFFECT_TYPES, 
+  SKILL_TRIGGERS, 
+  SKILL_PATTERNS 
+} from './constants';
 
 /**
  * Skill: Decrease (Décroissance)
- * Effet : Diminue les valeurs de combat (Haut, Bas, Gauche, Droite) des cartes cibles à chaque fin de tour.
+ * Effet : Diminue les valeurs de combat (Haut, Bas, Gauche, Droite) des cartes cibles.
  * 
- * Exemple Strapi :
- * {
- *   "type": "decrease",
- *   "value": 1,
- *   "trigger": "onEndOfTurn",
- *   "origin_type": "self",
- *   "patterns": [{ "value": "self" }],
- *   "filter": "self"
- * }
+ * Trigger variable : par défaut onEndOfTurn, mais configurable dans Strapi
  */
 const handler: SkillHandler = {
   id: 'decrease',
   name: 'Décroissance',
-  description: 'Les valeurs des cartes cibles diminuent à chaque fin de tour.',
-  effectType: 'negative',
+  description: 'Les valeurs des cartes cibles diminuent (trigger variable).',
+  effectType: EFFECT_TYPES.NEGATIVE,
+  defaultTrigger: SKILL_TRIGGERS.ON_END_OF_TURN,
 
-  onEndOfTurn(ctx: SkillContext) {
+  execute(ctx: SkillContext) {
     const { skill } = ctx;
     const decrement = skill.value || 0;
     
     // Par défaut, Décroissance s'applique à soi-même si aucun pattern n'est défini
     const skillWithDefault = {
         ...skill,
-        patterns: skill.patterns && skill.patterns.length > 0 ? skill.patterns : [{ value: 'self' }]
+        patterns: skill.patterns && skill.patterns.length > 0 ? skill.patterns : [{ value: SKILL_PATTERNS.SELF }]
     };
 
     const targets = getTargetCells({ ...ctx, skill: skillWithDefault });
@@ -36,7 +34,7 @@ const handler: SkillHandler = {
     targets.forEach(({ x, y, cell }) => {
       if (!cell || !cell.data) return;
 
-      console.log(`[Skill:Decrease] Processing card "${cell.data.name}" at (${x},${y}). Decrement: -${decrement}`);
+      console.log(`[Skill:Decrease] Processing card "${cell.data.name}" at (${x},${y}). Decrement: -${decrement} (trigger: ${skill.trigger || 'default'})`);
 
       const sides = ['top', 'right', 'bottom', 'left'] as const;
       const oldValues = { top: cell.data.topValue, right: cell.data.rightValue, bottom: cell.data.bottomValue, left: cell.data.leftValue };

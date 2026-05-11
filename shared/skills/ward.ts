@@ -1,25 +1,18 @@
-import { SkillHandler, SkillContext } from './types';
+import type { SkillHandler } from './types';
+import { EFFECT_TYPES } from './constants';
 
 /**
  * Skill: Ward (Bouclier)
  * Effet : Bloque la première capture ou le premier dégât reçu. Consommable.
- * 
- * Exemple Strapi :
- * {
- *   "type": "ward",
- *   "trigger": "passive"
- * }
  */
 const handler: SkillHandler = {
   id: 'ward',
   name: 'Bouclier',
   description: 'Bloque la première capture. Consommé après utilisation.',
-  effectType: 'positive',
+  effectType: EFFECT_TYPES.POSITIVE,
 
   /**
    * Appelé avant que cette carte ne soit capturée.
-   * Retourne { prevented: true } pour bloquer la capture.
-   * Le ward est consommé (retiré des skills de la carte).
    */
   onBeforeCaptured(ctx: any) {
     const { card, alerts, captures } = ctx;

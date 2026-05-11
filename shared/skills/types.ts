@@ -1,4 +1,12 @@
 import { GameState, Card } from '../GameEngine';
+import { 
+  type SkillTrigger, 
+  type SkillFilter, 
+  type OriginType, 
+  type EffectType,
+  type SkillPattern,
+  type CardDirection
+} from './constants';
 
 export enum TargetType {
   CELL = 'CELL',
@@ -27,14 +35,14 @@ export interface SkillContext {
     value?: number;
     counter?: number;
     // Origine
-    origin_type?: 'self' | 'fixed' | 'manual' | 'manual_constrained';
-    origin_direction?: string;
+    origin_type?: OriginType;
+    origin_direction?: CardDirection;
     origin_reach?: number;
     // Zone
-    patterns?: Array<{ value: string } | string>;
+    patterns?: Array<{ value: SkillPattern | string } | SkillPattern | string>;
     range?: number;
-    filter?: 'none' | 'allies' | 'enemies' | 'empty' | 'self';
-    trigger?: 'onEnterPlay' | 'onEndOfTurn' | 'onStartOfTurn' | 'onCapture' | 'onCaptured' | 'onDeath' | 'passive';
+    filter?: SkillFilter;
+    trigger?: SkillTrigger;
     [key: string]: any;
   };
   targets?: any[]; // Cibles fournies lors du placement
@@ -44,14 +52,29 @@ export interface SkillContext {
   dir?: { dx: number, dy: number, mySide: string, oppSide: string };
 }
 
+export type { SkillTrigger };
+
 export interface SkillHandler {
   id: string;
   name: string;
   description: string;
-  effectType?: 'positive' | 'negative' | 'neutral';
+  effectType?: EffectType;
   targetingSteps?: TargetingStep[];
 
-  // Cycle de vie / Hooks optionnels
+  /**
+   * Trigger par défaut de ce skill, utilisé si skill.trigger n'est pas défini dans Strapi.
+   * Ex: 'growing' → 'onEndOfTurn', 'heal' → 'onEnterPlay'
+   */
+  defaultTrigger?: SkillTrigger;
+
+  /**
+   * Logique d'exécution principale du skill (indépendante du trigger).
+   * Quand défini, le SkillRegistry route l'appel ici selon skill.trigger (ou defaultTrigger).
+   * Si non défini, le dispatch se rabat sur les hooks nommés (rétro-compatibilité).
+   */
+  execute?: (ctx: SkillContext) => any;
+
+  // Cycle de vie / Hooks optionnels (rétro-compatibilité & skills passifs)
   onDrawn?: (ctx: SkillContext) => void;
   onBeforePlacement?: (ctx: SkillContext) => void;
   onEnterPlay?: (ctx: SkillContext) => void;

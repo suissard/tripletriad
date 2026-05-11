@@ -1,32 +1,27 @@
-import { SkillHandler, SkillContext } from './types';
+import type { SkillHandler } from './types';
+import { getTargetCells, getEffectiveHp } from './helpers.js';
+import { 
+  EFFECT_TYPES, 
+  SKILL_TRIGGERS 
+} from './constants';
 
 /**
  * Skill: Bomb (Explosion)
- * Effet : Inflige des dégâts AoE aux cartes ciblées à la mort (HP <= 0).
+ * Effet : Inflige des dégâts AoE aux cartes ciblées.
  * 
- * Exemple Strapi :
- * {
- *   "type": "bomb",
- *   "value": 1,
- *   "trigger": "onDeath",
- *   "origin_type": "self",
- *   "patterns": [{ "value": "adjacent" }],
- *   "filter": "none"
- * }
+ * Trigger variable : par défaut onDeath, mais configurable dans Strapi
  */
-import { getTargetCells, getEffectiveHp } from './helpers.js';
-
 const handler: SkillHandler = {
   id: 'bomb',
   name: 'Explosion',
-  description: 'Inflige des dégâts aux cartes ciblées à la mort.',
-  effectType: 'negative',
+  description: 'Inflige des dégâts aux cartes ciblées (trigger variable).',
+  effectType: EFFECT_TYPES.NEGATIVE,
+  defaultTrigger: SKILL_TRIGGERS.ON_DEATH,
 
-  /**
-   * Appelé quand la carte porteuse meurt (HP <= 0).
-   */
-  onDeath(ctx: any) {
+  execute(ctx: any) {
     const { skill, alerts, captures, dyingCards } = ctx;
+
+    console.log(`[Skill:Bomb] Executing at (${ctx.x},${ctx.y}). Value: ${skill.value} (trigger: ${skill.trigger || 'default'})`);
 
     alerts.push('BOMB!');
     const targets = getTargetCells(ctx);

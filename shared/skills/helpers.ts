@@ -1,4 +1,10 @@
-import { SkillHandler, SkillContext } from './types';
+import type { SkillHandler, SkillContext } from './types';
+import { 
+  SKILL_PATTERNS, 
+  SKILL_FILTERS, 
+  ORIGIN_TYPES,
+  CARD_DIRECTIONS
+} from './constants';
 
 /**
  * Constantes et helpers partagés par les modules de skills.
@@ -36,21 +42,21 @@ export function getEffectiveHp(cardData) {
 
 // Map direction -> vecteur
 const DIRECTION_VECTORS: Record<string, {dx: number, dy: number}> = {
-  top:          { dx: 0, dy: -1 },
-  bottom:       { dx: 0, dy:  1 },
-  left:         { dx: -1, dy: 0 },
-  right:        { dx:  1, dy: 0 },
-  top_left:     { dx: -1, dy: -1 },
-  top_right:    { dx:  1, dy: -1 },
-  bottom_left:  { dx: -1, dy:  1 },
-  bottom_right: { dx:  1, dy:  1 },
+  [CARD_DIRECTIONS.TOP]:          { dx: 0, dy: -1 },
+  [CARD_DIRECTIONS.BOTTOM]:       { dx: 0, dy:  1 },
+  [CARD_DIRECTIONS.LEFT]:         { dx: -1, dy: 0 },
+  [CARD_DIRECTIONS.RIGHT]:        { dx:  1, dy: 0 },
+  [CARD_DIRECTIONS.TOP_LEFT]:     { dx: -1, dy: -1 },
+  [CARD_DIRECTIONS.TOP_RIGHT]:    { dx:  1, dy: -1 },
+  [CARD_DIRECTIONS.BOTTOM_LEFT]:  { dx: -1, dy:  1 },
+  [CARD_DIRECTIONS.BOTTOM_RIGHT]: { dx:  1, dy:  1 },
 };
 
 const DIAGONALS = [
-  DIRECTION_VECTORS.top_left,
-  DIRECTION_VECTORS.top_right,
-  DIRECTION_VECTORS.bottom_left,
-  DIRECTION_VECTORS.bottom_right,
+  DIRECTION_VECTORS[CARD_DIRECTIONS.TOP_LEFT],
+  DIRECTION_VECTORS[CARD_DIRECTIONS.TOP_RIGHT],
+  DIRECTION_VECTORS[CARD_DIRECTIONS.BOTTOM_LEFT],
+  DIRECTION_VECTORS[CARD_DIRECTIONS.BOTTOM_RIGHT],
 ];
 
 /**
@@ -59,14 +65,14 @@ const DIAGONALS = [
  */
 export function resolveOrigin(ctx): { ox: number, oy: number } | null {
   const { skill } = ctx;
-  const originType = skill.origin_type || 'self';
+  const originType = skill.origin_type || ORIGIN_TYPES.SELF;
 
-  if (originType === 'self') {
+  if (originType === ORIGIN_TYPES.SELF) {
     return { ox: ctx.x, oy: ctx.y };
   }
 
-  if (originType === 'fixed') {
-    const dir = DIRECTION_VECTORS[skill.origin_direction || 'top'];
+  if (originType === ORIGIN_TYPES.FIXED) {
+    const dir = DIRECTION_VECTORS[skill.origin_direction || CARD_DIRECTIONS.TOP];
     const reach = skill.origin_reach || 1;
     return { ox: ctx.x + dir.dx * reach, oy: ctx.y + dir.dy * reach };
   }
@@ -92,19 +98,19 @@ export function getTargetCells(ctx) {
   const { ox, oy } = origin;
 
   // 2. Lire les patterns (composant répétable → [{value: 'adjacent'}, ...] ou ['adjacent', ...])
-  const rawPatterns = skill.patterns || [{ value: 'adjacent' }];
+  const rawPatterns = skill.patterns || [{ value: SKILL_PATTERNS.ADJACENT }];
   const patternValues: string[] = rawPatterns.map(p =>
-    typeof p === 'string' ? p : (p.value || 'adjacent')
+    typeof p === 'string' ? p : (p.value || SKILL_PATTERNS.ADJACENT)
   );
 
   const range = skill.range || 1;
-  const filter = skill.filter || 'none';
+  const filter = skill.filter || SKILL_FILTERS.NONE;
 
   const cellsMap = new Map<string, { x: number, y: number, cell: any }>();
 
   // 3. Appliquer chaque pattern autour de l'origine
   for (const p of patternValues) {
-    if (p === 'self') {
+    if (p === SKILL_PATTERNS.SELF) {
       if (isInBounds(board, ox, oy)) {
         cellsMap.set(`${ox},${oy}`, { x: ox, y: oy, cell: board[oy][ox] });
       }
@@ -113,25 +119,48 @@ export function getTargetCells(ctx) {
 
     let directions: { dx: number, dy: number }[] = [];
 
-    if (p === 'top')       directions = [DIRECTION_VECTORS.top];
-    else if (p === 'bottom')    directions = [DIRECTION_VECTORS.bottom];
-    else if (p === 'left')      directions = [DIRECTION_VECTORS.left];
-    else if (p === 'right')     directions = [DIRECTION_VECTORS.right];
-    else if (p === 'adjacent')  directions = DIRECTIONS_4;
-    else if (p === 'diagonals') directions = DIAGONALS;
-    else if (p === 'cross')     directions = [...DIRECTIONS_4, ...DIAGONALS];
-    else if (p === 'row') {
+    if (p === SKILL_PATTERNS.TOP)       directions = [DIRECTION_VECTORS[CARD_DIRECTIONS.TOP]];
+    else if (p === SKILL_PATTERNS.BOTTOM)    directions = [DIRECTION_VECTORS[CARD_DIRECTIONS.BOTTOM]];
+    else if (p === SKILL_PATTERNS.LEFT)      directions = [DIRECTION_VECTORS[CARD_DIRECTIONS.LEFT]];
+    else if (p === SKILL_PATTERNS.RIGHT)     directions = [DIRECTION_VECTORS[CARD_DIRECTIONS.RIGHT]];
+    else if (p === SKILL_PATTERNS.ADJACENT)  directions = DIRECTIONS_4;
+    else if (p === SKILL_PATTERNS.DIAGONALS) directions = DIAGONALS;
+    else if (p === SKILL_PATTERNS.CROSS)     directions = [...DIRECTIONS_4, ...DIAGONALS];
+    else if (p === SKILL_PATTERNS.DIAMOND || p === SKILL_PATTERNS.CROSS_DIAMOND) {
+      for (let dy = -range; dy <= range; dy++) {
+        for (let dx = -range; dx <= range; dx++) {
+          if (dx === 0 && dy === 0) continue;
+          if (Math.abs(dx) + Math.abs(dy) > range) continue;
+          const nx = ox + dx, ny = oy + dy;
+          if (isInBounds(board, nx, ny)) {
+            cellsMap.set(`${nx},${ny}`, { x: nx, y: ny, cell: board[ny][nx] });
+          }
+        }
+      }
+      continue;
+    } else if (p === SKILL_PATTERNS.SQUARE || p === SKILL_PATTERNS.AREA || p === SKILL_PATTERNS.CROSS_FULL) {
+      for (let dy = -range; dy <= range; dy++) {
+        for (let dx = -range; dx <= range; dx++) {
+          if (dx === 0 && dy === 0) continue;
+          const nx = ox + dx, ny = oy + dy;
+          if (isInBounds(board, nx, ny)) {
+            cellsMap.set(`${nx},${ny}`, { x: nx, y: ny, cell: board[ny][nx] });
+          }
+        }
+      }
+      continue;
+    } else if (p === SKILL_PATTERNS.ROW) {
       for (let nx = 0; nx < board[0].length; nx++) {
         if (nx === ox && oy === oy) { /* skip self */ }
         if (isInBounds(board, nx, oy)) cellsMap.set(`${nx},${oy}`, { x: nx, y: oy, cell: board[oy][nx] });
       }
       continue;
-    } else if (p === 'column') {
+    } else if (p === SKILL_PATTERNS.COLUMN) {
       for (let ny = 0; ny < board.length; ny++) {
         if (isInBounds(board, ox, ny)) cellsMap.set(`${ox},${ny}`, { x: ox, y: ny, cell: board[ny][ox] });
       }
       continue;
-    } else if (p === 'all') {
+    } else if (p === SKILL_PATTERNS.ALL) {
       for (let ny = 0; ny < board.length; ny++) {
         for (let nx = 0; nx < board[ny].length; nx++) {
           cellsMap.set(`${nx},${ny}`, { x: nx, y: ny, cell: board[ny][nx] });

@@ -199,7 +199,7 @@ import { useUserStore } from '../stores/userStore.js';
 import { useEffectStore } from '../stores/effectStore.js';
 import { getRarity } from '../game/constants.js';
 import { GameEngine } from '../game/GameEngine.js';
-import { skillRegistry } from '../../../shared/skills/index';
+import { skillRegistry, getSkillMetadata } from '../../../shared/skills/index';
 import { normalizeCard } from '../utils/cardUtils.js';
 import DEFAULT_FRAME_COORDS from '../game/frame_defaults.json';
 
@@ -396,10 +396,10 @@ const skillKeywords = computed(() => {
   if (!displayCard.value.skills) return [];
   return displayCard.value.skills.map(s => {
     const type = typeof s === 'string' ? s : s.type;
-    const handler = skillRegistry.getHandler(type);
+    const metadata = getSkillMetadata(s);
     return {
       type,
-      name: handler ? handler.name : type,
+      name: metadata.name,
       value: s.value,
       duration: s.duration
     };

@@ -1,29 +1,27 @@
-import { SkillHandler, SkillContext } from './types';
+import type { SkillHandler, SkillContext } from './types';
+import { DIRECTIONS_4 } from './helpers.js';
+import { 
+  EFFECT_TYPES, 
+  SKILL_TRIGGERS 
+} from './constants';
 
 /**
  * Skill: Death (Mort)
- * Effet : Inflige des dégâts aux cartes adjacentes dès que la carte est posée (Cri de guerre).
+ * Effet : Inflige des dégâts aux cartes adjacentes (Cri de guerre).
  * 
- * Exemple Strapi :
- * {
- *   "type": "death",
- *   "value": 1,
- *   "trigger": "onEnterPlay",
- *   "origin_type": "self",
- *   "patterns": [{ "value": "adjacent" }],
- *   "filter": "none"
- * }
+ * Trigger variable : par défaut onEnterPlay, mais configurable dans Strapi
  */
-import { DIRECTIONS_4 } from './helpers.js';
-
 const handler: SkillHandler = {
   id: 'death',
   name: 'Mort',
-  description: 'Inflige des dégâts aux cartes adjacentes au placement.',
-  effectType: 'negative',
+  description: 'Inflige des dégâts aux cartes adjacentes (trigger variable).',
+  effectType: EFFECT_TYPES.NEGATIVE,
+  defaultTrigger: SKILL_TRIGGERS.ON_ENTER_PLAY,
 
-  onEnterPlay(ctx: any) {
+  execute(ctx: any) {
     const { board, x, y, skill } = ctx;
+
+    console.log(`[Skill:Death] Executing at (${x},${y}). Value: ${skill.value} (trigger: ${skill.trigger || 'default'})`);
 
     for (const dir of DIRECTIONS_4) {
       const nx = x + dir.dx;

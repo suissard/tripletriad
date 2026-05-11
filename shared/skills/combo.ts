@@ -1,20 +1,15 @@
-import { SkillHandler, SkillContext } from './types';
+import type { SkillHandler } from './types';
+import { EFFECT_TYPES } from './constants';
 
 /**
  * Skill: Combo
- * Effet : Après une capture, la carte attaque à nouveau ses voisins, déclenchant potentiellement des captures en chaîne.
- * 
- * Exemple Strapi :
- * {
- *   "type": "combo",
- *   "trigger": "passive"
- * }
+ * Effet : Après une capture, la carte attaque à nouveau ses voisins.
  */
 const handler: SkillHandler = {
   id: 'combo',
   name: 'Combo',
   description: 'Après une capture, la carte re-attaque ses voisins.',
-  effectType: 'positive',
+  effectType: EFFECT_TYPES.POSITIVE,
 
   /**
    * Retourne true pour indiquer que cette carte peut déclencher
