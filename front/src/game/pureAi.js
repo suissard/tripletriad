@@ -67,6 +67,34 @@ export function evaluatePlacementScorePure(x, y, cardData, owner, board2D) {
         const netGain = myCardsAfter - myCardsBefore;
         score += netGain * 15;
 
+        // --- Defensive Evaluation ---
+        // We favor protecting weak sides (low values) against edges or existing cards
+        // and exposing strong sides (high values) to empty slots.
+        const getVal = (v) => (v === 'A' || v === 10) ? 10 : parseInt(v);
+        const sides = [
+            { dy: -1, dx: 0, val: getVal(cardData.topValue) },    // top
+            { dy: 0, dx: 1, val: getVal(cardData.rightValue) },   // right
+            { dy: 1, dx: 0, val: getVal(cardData.bottomValue) },  // bottom
+            { dy: 0, dx: -1, val: getVal(cardData.leftValue) }    // left
+        ];
+
+        sides.forEach(side => {
+            const ny = y + side.dy;
+            const nx = x + side.dx;
+            const isEdge = ny < 0 || ny >= board2D.length || nx < 0 || nx >= board2D[0].length;
+            const isOccupied = !isEdge && board2D[ny][nx] !== null;
+
+            if (isEdge || isOccupied) {
+                // Protected side: hiding a weakness is good
+                // If value is 1, bonus is 7. If 10, bonus is 0.7.
+                score += (11 - side.val) * 0.7; 
+            } else {
+                // Exposed side: showing strength is good
+                // If value is 10, bonus is 4. If 1, bonus is 0.4.
+                score += side.val * 0.4;
+            }
+        });
+
     } catch (e) {
         // Invalid move or error in computation, score remains 0
         console.warn("Invalid move evaluation:", e.message);

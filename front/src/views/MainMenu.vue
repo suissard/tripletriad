@@ -39,18 +39,15 @@
     <!-- Coin Toss Overlay -->
     <CoinToss v-if="state.showCoinToss" :result="state.coinTossResult" @finished="onCoinTossFinished" />
 
-    <div v-else-if="state.menuView === 'ai-difficulty'" class="difficulty-options multi-menu">
-      <h2 style="color: white; margin-bottom: 1.5rem;">CHOISIS LA DIFFICULTÉ</h2>
+    <div v-else-if="state.menuView === 'ai-difficulty'" class="difficulty-menu-container">
+      <DifficultySelector v-model="state.aiDifficulty" />
 
-      <div class="difficulty-buttons" style="display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 300px; margin: 0 auto;">
-        <AppButton fullWidth variant="primary" style="background: linear-gradient(45deg, #a8e063 0%, #56ab2f 100%); color: white;" @click="setAiDifficulty(25)">FACILE (25%)</AppButton>
-        <AppButton fullWidth variant="primary" style="background: linear-gradient(45deg, #f6d365 0%, #fda085 100%); color: white;" @click="setAiDifficulty(50)">MOYEN (50%)</AppButton>
-        <AppButton fullWidth variant="primary" style="background: linear-gradient(45deg, #ff0844 0%, #ffb199 100%); color: white;" @click="setAiDifficulty(75)">DIFFICILE (75%)</AppButton>
-        <AppButton fullWidth variant="primary" style="background: linear-gradient(45deg, #0f2027 0%, #203a43 50%, #2c5364 100%); color: white; border: 1px solid #ff0844;" @click="setAiDifficulty(100)">CAUCHEMAR (100%)</AppButton>
+      <div class="flex gap-4 mt-8 w-full max-w-md mx-auto">
+        <AppButton variant="secondary" @click="state.menuView = 'main'" class="flex-1">RETOUR</AppButton>
+        <AppButton variant="primary" @click="state.menuView = 'ai'" class="flex-2">CONFIRMER</AppButton>
       </div>
-
-      <AppButton variant="primary" @click="state.menuView = 'main'" style="margin-top: 25px;">RETOUR</AppButton>
     </div>
+
 
 
     <div v-else-if="state.menuView === 'ai'" class="deck-selection-menu">
@@ -151,6 +148,8 @@ import WeeklyRewardModal from '../components/WeeklyRewardModal.vue';
 import AppBadge from '../components/ui/AppBadge.vue';
 import { useUserStore } from '../stores/userStore.js';
 import strapiService from '../api/strapi.js';
+import DifficultySelector from '../components/DifficultySelector.vue';
+
 
 const userStore = useUserStore();
 const showQuestModal = ref(false);
@@ -201,10 +200,10 @@ function resumeLatestStory() {
 }
 
 
-function setAiDifficulty(diff) {
-  state.aiDifficulty = diff;
+function confirmDifficulty() {
   state.menuView = 'ai';
 }
+
 
 function startAiGame(deck) {
 
@@ -520,4 +519,15 @@ button:hover { transform: scale(1.05); }
   font-size: 1.2rem;
 }
 
+.difficulty-menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+}
+
+.flex-2 {
+  flex: 2;
+}
 </style>

@@ -1,8 +1,8 @@
 [
   {
     "collectionName": "base",
-    "name": "Refugie des Confins",
-    "description": "Observateur discret fournissant des informations tactiques sur les mouvements ennemis aux deux camps sans prendre parti.",
+    "name": "Éclaireur des Confins",
+    "description": "Tapi dans l'ombre d'une station orbitale désaffectée, cet observateur solitaire scrute l'horizon à travers sa visière de soudé. Son arbalète artisanale et ses drones de récupération lui permettent de recueillir des renseignements précieux sans jamais prendre parti dans les conflits qui déchirent la Ceinture.",
     "element": "None",
     "faction": "neutre",
     "topValue": "2",
@@ -82,8 +82,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Refugie",
-    "description": "Contrebassiste logistique assurant le maintien des lignes de ravitaillement entre les zones contestées.",
+    "name": "Briseur de Ligne",
+    "description": "Ancien logisticien de la Légion transformé en survivant des confins, il défend les lignes d'approvisionnement avec une rage silencieuse. Son marteau cinétique martèle les ennemis tandis que son gantelet à plasma purifie les débris spatiaux de toute menace.",
     "element": "None",
     "faction": "neutre",
     "topValue": "2",
@@ -165,8 +165,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Pelerin",
-    "description": "Passeur des confins connaissant les raccourcis permettant de contourner les zones de combat les plus dangereuses.",
+    "name": "Sapeur des Débris",
+    "description": "Spécialiste des explosifs improvisés, ce combattant fouille les épaves à la recherche de composants précieux. Sa scie circulaire et son harpon électromagnétique transforment chaque débris en piège mortel pour quiconque ose s'approcher de son territoire.",
     "element": "None",
     "faction": "neutre",
     "topValue": "1",
@@ -247,8 +247,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Medic des Confins",
-    "description": "Éclaireur indépendant détectant les embuscades potentielles avant que les patrouilles militaires ne s'en approchent.",
+    "name": "Médecin des Frontières",
+    "description": "Vétéran des services médicaux de la Légion devenue soigneur errant, il tracte son équipement de stabilisation à travers les champs de bataille. Son scanner de précision repère les blessés sous les débris, tandis que son déifibrillateur artisanal rappelle les mourants à la vie.",
     "element": "None",
     "faction": "neutre",
     "topValue": "5",
@@ -330,8 +330,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Nomade",
-    "description": "Garde-frontière protégeant les convois civils dans les zones neutres où aucune faction n'exerce de contrôle.",
+    "name": "Nomade Vengeur",
+    "description": "Captureur de prime transformé en guerrier solitaire suite à la destruction de sa station d'origine. Enfelé par la perte de ses frères, il déploie une énergie sombre et vengeresse chaque fois qu'on tente de l'emprisonner, refusant de mourir sans avoir réglé ses comptes.",
     "element": "None",
     "faction": "neutre",
     "topValue": "1",
@@ -419,8 +419,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Gardien",
-    "description": "Survivant adaptatif se déplaçant librement dans les territoires que les factions refusent d'occuper durablement.",
+    "name": "Gardien du Néant",
+    "description": "Colosse silencieux monté sur un exosquelette de récupération, il fait respecter l'ordre parmi les débris spatiaux. Ses plaques d'armure soudées de récupération et son harpon lourd font de lui un rempart inébranlable contre quiconque ose menacer les zones neutres de la Ceinture.",
     "element": "None",
     "faction": "neutre",
     "topValue": "6",
@@ -507,8 +507,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Explorateur Errant",
-    "description": "Négociateur ouvrant des alliances temporaires entre factions rivales pour des opérations communes ponctuelles.",
+    "name": "Explorateur Diplomate",
+    "description": "Pacifiste aguerri parcourant les astéroïdes avec une grâce surprenante, il lève les mains vers le ciel pour arrêter les combats. Ancien émissaire de factions oubliées, il préfère la négotiation à la force, mais sa précision au harpon et sa résilience légendaire en font un adversaire redoutable.",
     "element": "None",
     "faction": "neutre",
     "topValue": "9",
@@ -584,8 +584,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Passeur Libre",
-    "description": "Médic de terrain soignant les blessés des deux camps sans discrimination, garant de la neutralité humanitaire.",
+    "name": "Passeur Humanitaire",
+    "description": "Courseur autravers les zones de combat avec une agilité foudroyante, son équipement médical lourd rebondissant sur sa poitrine. Ignorent les tirs de plasma qui pleuvent, il se jette au sol pour protéger les blessés, déployant ses soins de choc avec une précision de chirurgien sous le feu ennemi.",
     "element": "None",
     "elements": [],
     "faction": "neutre",
@@ -671,8 +671,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Rodeur Errant",
-    "description": "Relais de communication transmettant les messages entre unités dispersées dans les zones de brouillage.",
+    "name": "Rôdeur des Confins",
+    "description": "Ancien membre des Ferrailleurs devenue communicateur solitaire, il relaie les messages à travers les fréquences corrompues de la Ceinture. Son sac à dos d'antennes artisanales et son harpon à brouillage IEM en font un fantôme des ondes, invisible mais omniprésent dans les terminaux de tous les camps.",
     "element": "None",
     "faction": "neutre",
     "topValue": "3",
@@ -760,8 +760,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Recrue",
-    "description": "Technicien réparant l'équipement endommagé des deux camps, expertise recherchée par toutes les factions.",
+    "name": "Soudard des Astéroïdes",
+    "description": "Recrue fraîchement débarquée d'un transport minier, déjà endurcie par les réalités brutales de l'espace profond. Sous son masque de soudé maculé de suie, il manie son outil multifonction comme une arme, transformant chaque réparation de fortune en acte de résistance désespérée.",
     "element": "None",
     "faction": "neutre",
     "topValue": "1",
@@ -843,8 +843,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Observateur des Confins",
-    "description": "Stratège neutre coordonnant les mouvements de plusieurs factions alliées lors des opérations multi-équipes.",
+    "name": "Coordinateur Tactique",
+    "description": "Elite des survivants, ce maître de guerre orchestrre les mouvements alliés depuis les hauteurs des stations de la Ceinture. Ses gestes précis dirigés vers l'horizon activent des renforts invisibles, tandis que ses traits burinés par l'expérience trahissent une intelligence tactique supérieure.",
     "element": "None",
     "faction": "neutre",
     "topValue": "9",
@@ -926,8 +926,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Pelerin Libre",
-    "description": "Arbitre de guerre imposant des trêves locales permettant l'évolution stratégique du conflit régional.",
+    "name": "Pèlerin de Guerre",
+    "description": "Arbitre impitoyable dont l'armure de puissance récupérée impose le respect, il fait la loi dans les zones de non-droit de la Ceinture. Son canon cinétique massif et sa lame de scie circulaire tranchent le chaos pour imposer un ordre brutal, refusant toute allégeance aux grandes factions.",
     "element": "None",
     "faction": "neutre",
     "topValue": "8",
@@ -1009,8 +1009,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Solitaire des Confins",
-    "description": "Passeur de mémoire préservant les savoirs tactiques des civilisations disparues pour les générations futures.",
+    "name": "Solitaire Régénératif",
+    "description": "Guerrier légendaire dont le corps blessé irradie d'une lumière dorée miraculeuse lorsqu'il fait face à la mort. Ses plaies se referment instantanément sous l'effet d'une technologie perdue, faisant de lui une force de la nature que rien ne semble pouvoir arrêter, pas même les blessures les plus mortelles.",
     "element": "None",
     "elements": [],
     "faction": "neutre",
@@ -1102,8 +1102,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Sentinelle Errant",
-    "description": "Sentinelle du dernier relais veillant sur les points de convergence stratégiques entre les zones de conflit.",
+    "name": "Sentinelle Médicale",
+    "description": "Gardien bienveillant parcourant les champs de bataille, ses tendrils de soins cyan s'étendant vers les alliés blessés. Monté sur un exosquelette de récupération, il trie les victimes sur le vif avec une précision clinique tout en continuant de pilonner les ennemis de ses tirs de harpon.",
     "element": "None",
     "faction": "neutre",
     "topValue": "5",
@@ -1185,8 +1185,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Voyageur",
-    "description": "Architecte de la Neutralité orchestrant l'équilibre des rapports de force entre factions pour empêcher l'hégémonie totale.",
+    "name": "Voyageur Cybernétique",
+    "description": "Commandant mythique dont le corps est devenu une extension du réseau des débris spatiaux, il projette des toiles d'énergie bleutée depuis son torse mécanique. Au centre d'un vortex de métal et de foudre, il orchestre la bataille avec une précision mathématique, transformant le chaos en une symphonie de destruction contrôlée.",
     "element": "None",
     "faction": "neutre",
     "topValue": "A",
@@ -1279,8 +1279,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Inquisiteur Imperial",
-    "description": "Recrue de la IIIe Légion exécutant les ordres disciplinés de la hiérarchie martienne au combat rapproché.",
+    "name": "Inquisiteur de Mars",
+    "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Inquisiteur de la IIIe Légion traque les hérétiques, arme équipée d'un railgun, portant une lame thermique incandescente, discipline de fer, dévotion absolue et déshumanisée.",
     "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "3",
@@ -1351,8 +1351,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Tyrant",
-    "description": "Sentinelle impériale patrouillant les périmètres des installations conquises et repoussant les contre-attaques.",
+    "name": "Tyrant de l'Hégémonie",
+    "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Sentinelle impériale surarmée impose la loi martiale, arme équipée d'un railgun, portant une lame thermique incandescente, force de frappe maximale (↑4), discipline de fer.",
     "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "4",
@@ -1424,8 +1424,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Destructeur",
-    "description": "Tireur d'élite neutralisant les cibles prioritaires ennemies depuis les positions de surplomb orbital.",
+    "name": "Destructeur Martien",
+    "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Tireur d'élite redoutable anéantit les cibles à longue distance, arme équipée d'un railgun, portant une lame thermique incandescente, dévotion absolue et déshumanisée.",
     "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "0",
@@ -1495,8 +1495,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Conquerant du Regiment",
-    "description": "Infiltrateur s'introduisant dans les positions défensives adverses avant le déclenchement des assauts frontaux.",
+    "name": "Conquérant du Régiment",
+    "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Conquérant du Régiment mène les assauts frontaux, arme équipée d'un railgun.",
     "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "6",
@@ -1572,8 +1572,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Conquerant",
-    "description": "Officier subalterne maintenant la discipline des troupes sous le feu ennemi grâce à un commandement rigide.",
+    "name": "Conquérant Martien",
+    "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Conquérant du Régiment mène les assauts frontaux, arme équipée d'un railgun.",
     "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "0",
@@ -1657,8 +1657,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Destructeur 1",
-    "description": "Ingénieur militaire déployant les infrastructures d'occupation sur les planètes récemment conquises.",
+    "name": "Destructeur Martien",
+    "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Tireur d'élite redoutable anéantit les cibles à longue distance, arme équipée d'un railgun.",
     "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "1",
@@ -1728,8 +1728,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Architecte Martien",
-    "description": "Commandant de peloton coordonnant les assauts frontaux avec des formations de combat martiennes classiques.",
+    "name": "Légionnaire de Mars",
+    "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, arme équipée d'un railgun.",
     "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "9",
@@ -1807,8 +1807,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Vanguard Martien",
-    "description": "Propagandiste de guerre brisant le moral adverse par la désinformation et les transmissions radio piégées.",
+    "name": "Légionnaire de Mars",
+    "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, arme équipée d'un railgun portant une lame thermique incandescente, force de frappe maximale (↑4), dévotion absolue et déshumanisée.",
     "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "4",
@@ -1888,8 +1888,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Fusilier Martien",
-    "description": "Stratège de campagne calculant les vecteurs d'invasion optimaux pour maximiser l'efficacité des offensives.",
+    "name": "Fusilier de l'Hégémonie",
+    "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Fusilier de l'Hégémonie tient la ligne de défense, arme équipée d'un railgun, discipline de fer.",
     "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "3",
@@ -1968,8 +1968,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Oppresseur de Mars",
-    "description": "Artilleur orbital bombardant les fortifications ennemies depuis les stations en orbite martienne.",
+    "name": "Légionnaire de Mars",
+    "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, arme équipée d'un railgun.",
     "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "6",
@@ -2046,8 +2046,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Destructeur Imperial",
-    "description": "Général légionnaire planifiant les campagnes de conquête multi-systèmes avec une précision martienne implacable.",
+    "name": "Officier Martien",
+    "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, arme équipée d'un railgun.",
     "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "1",
@@ -2124,8 +2124,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Conquerant 1",
-    "description": "Inquisiteur de l'Hégémonie traquant les dissidents, les espions infiltrés et les traîtres au sein du régime.",
+    "name": "Officier Martien",
+    "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, arme équipée d'un railgun portant une lame thermique incandescente, officier de rang supérieur, dévotion absolue et déshumanisée.",
     "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "3",
@@ -2211,8 +2211,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Praetor Imperial",
-    "description": "Praetor impérial orchestrant les opérations de domination galactique sur plusieurs fronts avec une coordination parfaite.",
+    "name": "Praetor Impérial",
+    "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, Praetor de l'Ordre Impérial commande avec autorité, arme équipée d'un railgun, rôle épique au sein de l'Hégémonie.",
     "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "6",
@@ -2282,8 +2282,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Destructeur 2",
-    "description": "Architecte de guerre martienne concevant les stratégies de siège planétaire et les protocoles d'annexion.",
+    "name": "Champion de Mars",
+    "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, arme équipée d'un railgun.",
     "element": "longue_portee",
     "faction": "Hégémonie Martienne",
     "topValue": "3",
@@ -2359,8 +2359,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Inquisiteur de Mars",
-    "description": "Supreme Commander unifiant les flottes martiennes sous un commandement unique avec une autorité absolue et indiscutable.",
+    "name": "Légionnaire de Mars",
+    "description": "Servant l'Hégémonie Martienne avec une dévotion absolue, arme équipée d'un railgun.",
     "element": "longue_portee",
     "elements": [
       "longue_portee"
@@ -2438,7 +2438,7 @@
   {
     "collectionName": "base",
     "name": "Nageur des Courants",
-    "description": "Éclaireur aquatique sondant les profondeurs inconnues du secteur pour identifier les zones accessibles aux colonies.",
+    "description": "Cité flottante sur les océans stellaires, Nageur des Courants glisse dans les courants stellaires, maîtrise l'élément Eau, puissance océanique de ↑6, déploie des drones aquatiques. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
     "element": "eau",
     "faction": "Exode Pélagique",
     "topValue": "6",
@@ -2525,7 +2525,7 @@
   {
     "collectionName": "base",
     "name": "Tidal",
-    "description": "Pêcheur des courants stellaires récoltant les ressources alimentaires essentielles à la survie de l'exode.",
+    "description": "Cité flottante sur les océans stellaires, Tidal chevauche les marées cosmiques, maîtrise l'élément Eau, arme un harpon pressurisé. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
     "element": "eau",
     "faction": "Exode Pélagique",
     "topValue": "0",
@@ -2614,7 +2614,7 @@
   {
     "collectionName": "base",
     "name": "Abyssal",
-    "description": "Nageur de l'ombre se déplaçant silencieusement dans les fluides du vide pour des opérations de reconnaissance.",
+    "description": "Cité flottante sur les océans stellaires, Abyssal émerge des abysses sans fond, maîtrise l'élément Eau, mouvement fluide et gracieux, sérénité des grands fonds. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
     "element": "eau",
     "elements": [
       "eau"
@@ -2702,7 +2702,7 @@
   {
     "collectionName": "base",
     "name": "Requin des Abimes",
-    "description": "Hydrologue cartographiant les zones habitables aquatiques pour les futures colonies de l'Exode Pélagique.",
+    "description": "Cité flottante sur les océans stellaires, Requin des Abimes chasse dans les profondeurs océaniques, maîtrise l'élément Eau, déploie des drones aquatiques. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
     "element": "eau",
     "faction": "Exode Pélagique",
     "topValue": "4",
@@ -2785,7 +2785,7 @@
   {
     "collectionName": "base",
     "name": "Abyssal 1",
-    "description": "Plongeur des abysses récupérant les artefacts engloutis des stations submergées lors des grandes inondations.",
+    "description": "Cité flottante sur les océans stellaires, Abyssal 1 émerge des abysses sans fond, maîtrise l'élément Eau, agilité aquatique mortelle. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
     "element": "eau",
     "faction": "Exode Pélagique",
     "topValue": "0",
@@ -2874,7 +2874,7 @@
   {
     "collectionName": "base",
     "name": "Pelagique",
-    "description": "Coralin cultivant les structures de croissance organique servant de base aux habitats flottants.",
+    "description": "Cité flottante sur les océans stellaires, Pelagique parcourt les plaines océaniques, maîtrise l'élément Eau, sérénité des grands fonds. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
     "element": "eau",
     "faction": "Exode Pélagique",
     "topValue": "4",
@@ -2962,7 +2962,7 @@
   {
     "collectionName": "base",
     "name": "Abyssin du Grand Large",
-    "description": "Nautile cartographe traçant les routes migratoires sûres à travers les courants stellaires les plus dangereux.",
+    "description": "Cité flottante sur les océans stellaires, Abyssin du Grand Large émerge des abysses sans fond, maîtrise l'élément Eau. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
     "element": "eau",
     "faction": "Exode Pélagique",
     "topValue": "0",
@@ -3045,7 +3045,7 @@
   {
     "collectionName": "base",
     "name": "Plongeur Aquatique",
-    "description": "Gardien des nurseries protégeant les jeunes générations de l'Exode contre les prédateurs et les menaces extérieures.",
+    "description": "Cité flottante sur les océans stellaires, Plongeur Aquatique parcourt les plaines océaniques, maîtrise l'élément Eau. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
     "element": "eau",
     "faction": "Exode Pélagique",
     "topValue": "A",
@@ -3128,7 +3128,7 @@
   {
     "collectionName": "base",
     "name": "Abyssal du Grand Large",
-    "description": "Sondeur des abysses détectant les ressources souterraines aquatiques grâce à des capteurs bio-sensibles.",
+    "description": "Cité flottante sur les océans stellaires, Abyssal du Grand Large émerge des abysses sans fond, maîtrise l'élément Eau, déploie des drones aquatiques. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
     "element": "eau",
     "faction": "Exode Pélagique",
     "topValue": "4",
@@ -3216,7 +3216,7 @@
   {
     "collectionName": "base",
     "name": "Pecheur des Courants",
-    "description": "Courantiste manipulant les flux liquides pour piéger et ralentir les unités ennemies dans les environnements aquatiques.",
+    "description": "Cité flottante sur les océans stellaires, Pecheur des Courants pêche les rumeurs des courants, maîtrise l'élément Eau, équipement pressurisé intégral, mouvement fluide et gracieux. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
     "element": "eau",
     "faction": "Exode Pélagique",
     "topValue": "0",
@@ -3311,7 +3311,7 @@
   {
     "collectionName": "base",
     "name": "Ecumeur des Courants",
-    "description": "Chef de migration guidant les flots de réfugiés aquatiques vers les océans promis avec une détermination inébranlable.",
+    "description": "Cité flottante sur les océans stellaires, Ecumeur des Courants écume la surface des nébuleuses, maîtrise l'élément Eau, puissance océanique de ↑7, éclaireur d'élite de l'Exode. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
     "element": "eau",
     "faction": "Exode Pélagique",
     "topValue": "7",
@@ -3396,7 +3396,7 @@
   {
     "collectionName": "base",
     "name": "Tidal Pelagique",
-    "description": "Abyssaliste exploitant la pression des profondeurs comme arme défensive contre les agresseurs de surface.",
+    "description": "Cité flottante sur les océans stellaires, Tidal Pelagique chevauche les marées cosmiques, maîtrise l'élément Eau, éclaireur d'élite de l'Exode. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
     "element": "eau",
     "faction": "Exode Pélagique",
     "topValue": "A",
@@ -3491,7 +3491,7 @@
   {
     "collectionName": "base",
     "name": "Requin des Courants",
-    "description": "Léviathan protecteur générant des barrières aquatiques impénétrables autour des colonies les plus vulnérables.",
+    "description": "Cité flottante sur les océans stellaires, Requin des Courants chasse dans les profondeurs océaniques, maîtrise l'élément Eau, puissance océanique de ↑7, légende des océans stellaires, équipement pressurisé intégral. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
     "element": "eau",
     "faction": "Exode Pélagique",
     "topValue": "7",
@@ -3580,7 +3580,7 @@
   {
     "collectionName": "base",
     "name": "Cetace du Grand Large",
-    "description": "Hydromancien invoquant les marées submergeantes pour protéger les siens et inonder les positions ennemies.",
+    "description": "Cité flottante sur les océans stellaires, Cetace du Grand Large vogue majestueux entre les mondes, maîtrise l'élément Eau, légende des océans stellaires, équipement pressurisé intégral. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
     "element": "eau",
     "faction": "Exode Pélagique",
     "topValue": "1",
@@ -3679,7 +3679,7 @@
   {
     "collectionName": "base",
     "name": "Coral des Abimes",
-    "description": "Architecte des Abysses créant des écosystèmes aquatiques autonomes capables de survivre dans le vide spatial le plus hostile.",
+    "description": "Cité flottante sur les océans stellaires, Coral des Abimes cultive les récifs stellaires, maîtrise l'élément Eau. Son équipement pressurisé lui permet de naviguer dans les courants les plus dangereux, loin des contraintes des mondes arides.",
     "element": "eau",
     "elements": [
       "eau"
@@ -3777,7 +3777,7 @@
   {
     "collectionName": "base",
     "name": "Volcan du Brasier",
-    "description": "Artilleur pyrotechnique saturant les positions ennemies de flammes et de projections incendiaires dévastatrices.",
+    "description": "Porté par la mémoire des mondes disparus, Volcan du Brasier incarne la fureur des mondes calcinés, manie le pouvoir de la radiation, arme une lame enflammée, fureur contenue des cendres.",
     "element": "radiation",
     "faction": "Héritiers des Cendres",
     "topValue": "2",
@@ -3871,7 +3871,7 @@
   {
     "collectionName": "base",
     "name": "Embrase",
-    "description": "Incendiaire de ligne détruisant les barrières naturelles et artificielles pour ouvrir des voies d'accès aux assauts.",
+    "description": "Porté par la mémoire des mondes disparus, Embrase embrase l'horizon de feu, manie le pouvoir de la radiation.",
     "element": "radiation",
     "faction": "Héritiers des Cendres",
     "topValue": "8",
@@ -3964,7 +3964,7 @@
   {
     "collectionName": "base",
     "name": "Incendiaire",
-    "description": "Porte-flamme transmettant la colère du brasier ancestral aux alliés proches qui gagnent en courage au combat.",
+    "description": "Porté par la mémoire des mondes disparus, Incendiaire répand le chaos enflammé, manie le pouvoir de la radiation, arme une lame enflammée, fureur contenue des cendres.",
     "element": "radiation",
     "faction": "Héritiers des Cendres",
     "topValue": "0",
@@ -4047,7 +4047,7 @@
   {
     "collectionName": "base",
     "name": "Flamme Volcanique",
-    "description": "Pyroclaste projetant des roches volcaniques en fusion sur les cibles au sol avec une précision destructrice.",
+    "description": "Porté par la mémoire des mondes disparus, Flamme Volcanique incarne la fureur des mondes calcinés, manie le pouvoir de la radiation.",
     "element": "radiation",
     "faction": "Héritiers des Cendres",
     "topValue": "0",
@@ -4126,7 +4126,7 @@
   {
     "collectionName": "base",
     "name": "Salamandre",
-    "description": "Sentinelle du brasier veillant inlassablement sur les avant-postes calcinés et repoussant les assauts nocturnes.",
+    "description": "Porté par la mémoire des mondes disparus, Salamandre danse entre les braises incandescentes, manie le pouvoir de la radiation, force de frappe de ↑5.",
     "element": "radiation",
     "faction": "Héritiers des Cendres",
     "topValue": "5",
@@ -4211,7 +4211,7 @@
   {
     "collectionName": "base",
     "name": "Salamandre 1",
-    "description": "Sapeur incendiaire creusant des tunnels enflammés sous les fortifications ennemies pour les faire s'effondrer.",
+    "description": "Porté par la mémoire des mondes disparus, Salamandre 1 danse entre les braises incandescentes, manie le pouvoir de la radiation, arme équipée de lance-flammes.",
     "element": "radiation",
     "faction": "Héritiers des Cendres",
     "topValue": "4",
@@ -4297,7 +4297,7 @@
   {
     "collectionName": "base",
     "name": "Calcine Ardent",
-    "description": "Salamandre de choc résistant aux températures extrêmes du champ de bataille et menant les assauts les plus périlleux.",
+    "description": "Porté par la mémoire des mondes disparus, Calcine Ardent réduit ses ennemis en cendres, manie le pouvoir de la radiation.",
     "element": "radiation",
     "faction": "Héritiers des Cendres",
     "topValue": "0",
@@ -4384,7 +4384,7 @@
   {
     "collectionName": "base",
     "name": "Forge Ardent",
-    "description": "Forgeron de guerre armant les combattants avec des armes chauffées à blanc infligeant des brûlures persistantes.",
+    "description": "Porté par la mémoire des mondes disparus, Forge Ardent façonne les armes du nouveau monde, manie le pouvoir de la radiation, force de frappe de ↑5, arme une lame enflammée.",
     "element": "radiation",
     "faction": "Héritiers des Cendres",
     "topValue": "5",
@@ -4474,7 +4474,7 @@
   {
     "collectionName": "base",
     "name": "Carbon des Cendres",
-    "description": "Volcaniste créant des zones de combustion persistante sur le champ de bataille pour limiter les mouvements adverses.",
+    "description": "Porté par la mémoire des mondes disparus, Carbon des Cendres émerge des cendres des anciens mondes, manie le pouvoir de la radiation.",
     "element": "radiation",
     "elements": [
       "radiation"
@@ -4558,7 +4558,7 @@
   {
     "collectionName": "base",
     "name": "Combustion en Feu",
-    "description": "Embrasé tactique coordonnant les attaques synchronisées au feu pour maximiser les dégâts thermiques en chaîne.",
+    "description": "Porté par la mémoire des mondes disparus, Combustion en Feu explose de chaleur dévastatrice, manie le pouvoir de la radiation, force de frappe de ↑6, arme une lame enflammée.",
     "element": "radiation",
     "faction": "Héritiers des Cendres",
     "topValue": "6",
@@ -4637,7 +4637,7 @@
   {
     "collectionName": "base",
     "name": "Calcine Volcanique",
-    "description": "Gardien du Brasier Sacré protégeant la flamme éternelle des ancêtres qui confère une résistance au feu aux alliés.",
+    "description": "Porté par la mémoire des mondes disparus, Calcine Volcanique incarne la fureur des mondes calcinés, manie le pouvoir de la radiation, rôle de premier plan dans la faction, arme une lame enflammée.",
     "element": "radiation",
     "faction": "Héritiers des Cendres",
     "topValue": "A",
@@ -4725,7 +4725,7 @@
   {
     "collectionName": "base",
     "name": "Pyro Volcanique",
-    "description": "Phénix tacticien utilisant ses cendres pour bloquer les lignes ennemies et créer des murs de fumée infranchissables.",
+    "description": "Porté par la mémoire des mondes disparus, Pyro Volcanique incarne la fureur des mondes calcinés, manie le pouvoir de la radiation, rôle de premier plan dans la faction, fureur contenue des cendres.",
     "element": "radiation",
     "faction": "Héritiers des Cendres",
     "topValue": "4",
@@ -4820,7 +4820,7 @@
   {
     "collectionName": "base",
     "name": "Forge 1",
-    "description": "Incendiaire du Jugement déclenchant des conflagrations incontrôlables dans les rangs adverses ravageant les positions fortifiées.",
+    "description": "Porté par la mémoire des mondes disparus, Forge 1 façonne les armes du nouveau monde, manie le pouvoir de la radiation, force de frappe de ↑6, pouvoir épique hérité des cendres.",
     "element": "radiation",
     "faction": "Héritiers des Cendres",
     "topValue": "6",
@@ -4909,7 +4909,7 @@
   {
     "collectionName": "base",
     "name": "Volcan en Feu",
-    "description": "Maître Pyromancien orchestrant les offensives thermiques multi-cibles coordonnant plusieurs sources de chaleur simultanées.",
+    "description": "Porté par la mémoire des mondes disparus, Volcan en Feu incarne la fureur des mondes calcinés, manie le pouvoir de la radiation, pouvoir épique hérité des cendres, arme une lame enflammée.",
     "element": "radiation",
     "elements": [
       "radiation"
@@ -4992,7 +4992,7 @@
   {
     "collectionName": "base",
     "name": "Flamme en Feu",
-    "description": "Phoenix Primordial renaissant éternellement de ses cendres pour guider la vengeance des Héritiers et inspirer leur rage combattante.",
+    "description": "Porté par la mémoire des mondes disparus, Flamme en Feu brûle d'une ardeur éternelle, manie le pouvoir de la radiation.",
     "element": "radiation",
     "elements": [
       "radiation"
@@ -5087,7 +5087,7 @@
   {
     "collectionName": "base",
     "name": "Routeur Quantique",
-    "description": "Nœud de données relayant les informations tactiques entre les unités alliées connectées au réseau omnidirectionnel.",
+    "description": "Extension vivante de l'Omni-Réseau, Routeur Quantique aiguille les flux de données, maîtrise l'élément Réseau, vitesse de traitement ↑6, sacrifie ses cycles pour la survie du réseau, calcul dénué d'émotion. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
     "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "0",
@@ -5182,7 +5182,7 @@
   {
     "collectionName": "base",
     "name": "Proxy",
-    "description": "Sentinelle algorithmique détectant les anomalies suspectes et les comportements inhabituels dans les systèmes amis.",
+    "description": "Extension vivante de l'Omni-Réseau, Proxy masque sa signature numérique, maîtrise l'élément Réseau, sacrifie ses cycles pour la survie du réseau. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
     "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "0",
@@ -5267,7 +5267,7 @@
   {
     "collectionName": "base",
     "name": "Binaire",
-    "description": "Analyste de cryptographie processant les données ennemies interceptées pour identifier leurs vulnérabilités stratégiques.",
+    "description": "Extension vivante de l'Omni-Réseau, Binaire traite l'information pure, maîtrise l'élément Réseau, calcul dénué d'émotion. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
     "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "1",
@@ -5352,7 +5352,7 @@
   {
     "collectionName": "base",
     "name": "Pulse du Reseau",
-    "description": "Relais quantique étendant la portée du réseau dans les zones reculées où les communications conventionnelles échouent.",
+    "description": "Extension vivante de l'Omni-Réseau, Pulse du Reseau rythme sur la fréquence du réseau, maîtrise l'élément Réseau, vitesse de traitement ↑5, interfaces neurales directes. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
     "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "5",
@@ -5441,7 +5441,7 @@
   {
     "collectionName": "base",
     "name": "Noeud",
-    "description": "Cortex de surveillance analysant en continu les communications adverses détectant les plans d'attaque avant leur exécution.",
+    "description": "Extension vivante de l'Omni-Réseau, Noeud connecte les terminaux distants, maîtrise l'élément Réseau, vitesse de traitement ↑7, interfaces neurales directes, calcul dénué d'émotion. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
     "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "7",
@@ -5525,7 +5525,7 @@
   {
     "collectionName": "base",
     "name": "Synapse",
-    "description": "Pixel infiltrateur injectant subtilement des virus dans les systèmes de défense ennemis sans être détecté.",
+    "description": "Extension vivante de l'Omni-Réseau, Synapse propage les influx numériques, maîtrise l'élément Réseau, interfaces neurales directes, calcul dénué d'émotion. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
     "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "1",
@@ -5604,7 +5604,7 @@
   {
     "collectionName": "base",
     "name": "Neuro Numerique",
-    "description": "Neuro-hacker piratant les équipements électroniques ennemis et les retournant contre leurs propres opérateurs.",
+    "description": "Extension vivante de l'Omni-Réseau, Neuro Numerique fusionne neurones et silicium, maîtrise l'élément Réseau, calcul dénué d'émotion. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
     "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "2",
@@ -5688,7 +5688,7 @@
   {
     "collectionName": "base",
     "name": "Relay Digital",
-    "description": "Architecte de grille renforçant les défenses numériques du réseau contre les tentatives d'intrusion adverses.",
+    "description": "Extension vivante de l'Omni-Réseau, Relay Digital relaie les signaux cryptés, maîtrise l'élément Réseau, calcul dénué d'émotion. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
     "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "8",
@@ -5768,7 +5768,7 @@
   {
     "collectionName": "base",
     "name": "Binaire Quantique",
-    "description": "Data-miner extrayant les secrets stratégiques enfouis dans les bases de données ennemies sous le camouflage numérique.",
+    "description": "Extension vivante de l'Omni-Réseau, Binaire Quantique traite l'information pure, maîtrise l'élément Réseau, calcul dénué d'émotion. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
     "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "A",
@@ -5852,7 +5852,7 @@
   {
     "collectionName": "base",
     "name": "Synapse Connecte",
-    "description": "Routeur tactique optimisant les flux d'information en temps de combat pour une réactivité maximale des unités alliées.",
+    "description": "Extension vivante de l'Omni-Réseau, Synapse Connecte aiguille les flux de données, maîtrise l'élément Réseau, vitesse de traitement ↑7, sacrifie ses cycles pour la survie du réseau, calcul dénué d'émotion. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
     "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "6",
@@ -5945,7 +5945,7 @@
   {
     "collectionName": "base",
     "name": "Noeud Digital",
-    "description": "IA autonomisée coordonnant les attaques numériques multi-cibles avec une précision que l'intuition humaine ne pourrait égaler.",
+    "description": "Extension vivante de l'Omni-Réseau, Noeud Digital connecte les terminaux distants, maîtrise l'élément Réseau, processeur de rang supérieur, calcul dénué d'émotion. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
     "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "4",
@@ -6032,7 +6032,7 @@
   {
     "collectionName": "base",
     "name": "Algo Connecte",
-    "description": "Code-mancer réécrivant les protocoles de sécurité en temps réel pour bloquer les contre-mesures numériques adverses.",
+    "description": "Extension vivante de l'Omni-Réseau, Algo Connecte exécute des algorithmes prédictifs, maîtrise l'élément Réseau, vitesse de traitement ↑6, processeur de rang supérieur, interfaces neurales directes. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
     "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "6",
@@ -6104,7 +6104,7 @@
   {
     "collectionName": "base",
     "name": "Terminal Synaptique",
-    "description": "Nœud Prime centralisant les opérations de guerre cybernétique de l'Omni-Réseau sur tous les fronts simultanément.",
+    "description": "Extension vivante de l'Omni-Réseau, Terminal Synaptique connecte les terminaux distants, maîtrise l'élément Réseau, vitesse de traitement ↑7, légende de l'Omni-Réseau, calcul dénué d'émotion. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
     "element": "reseau",
     "elements": [
       "reseau"
@@ -6189,7 +6189,7 @@
   {
     "collectionName": "base",
     "name": "Algo du Reseau",
-    "description": "Architecte du Réseau tissant la toile de surveillance galactique connectant chaque point d'information en une seule conscience.",
+    "description": "Extension vivante de l'Omni-Réseau, Algo du Reseau exécute des algorithmes prédictifs, maîtrise l'élément Réseau, légende de l'Omni-Réseau, interfaces neurales directes, calcul dénué d'émotion. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
     "element": "reseau",
     "elements": [
       "reseau"
@@ -6279,7 +6279,7 @@
   {
     "collectionName": "base",
     "name": "Pixel Synaptique",
-    "description": "Conscience Collective fusionnant des millions d'esprits connectés en une intelligence stratégique unique dépassant toute compréhension individuelle.",
+    "description": "Extension vivante de l'Omni-Réseau, Pixel Synaptique rend la réalité en pixels, maîtrise l'élément Réseau, sacrifie ses cycles pour la survie du réseau. Lié au réseau par des fibres optiques invisibles, il anticipe les mouvements ennemis via la latence zéro.",
     "element": "reseau",
     "faction": "Omni-Réseau",
     "topValue": "9",
@@ -6368,8 +6368,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Amp Musical",
-    "description": "Résonateur amplifiant les signaux tactiques alliés pour une meilleure coordination sur le champ de bataille chaotique.",
+    "name": "Faceless Chœur",
+    "description": "Véritable nexus de données vivant, Faceless Chœur module les fréquences du réseau, maîtrise le hacking mélodique.",
     "element": "hacking",
     "elements": [
       "hacking"
@@ -6457,7 +6457,7 @@
   {
     "collectionName": "base",
     "name": "Basse",
-    "description": "Harmoniste synchronisant les rythmes de combat des unités proches augmentant leur efficacité au combat rapproché.",
+    "description": "Véritable nexus de données vivant, Basse fait vibrer les basses fréquences, maîtrise le hacking mélodique, émotion détachée du Chœur.",
     "element": "hacking",
     "faction": "Chœur Synthétique",
     "topValue": "3",
@@ -6541,7 +6541,7 @@
   {
     "collectionName": "base",
     "name": "Harmon",
-    "description": "Sondeur sismique détectant les mouvements ennemis à travers les vibrations du sol permettant des contre-mesures précoces.",
+    "description": "Véritable nexus de données vivant, Harmon tisse des harmonies cybernétiques, maîtrise le hacking mélodique.",
     "element": "hacking",
     "faction": "Chœur Synthétique",
     "topValue": "1",
@@ -6626,7 +6626,7 @@
   {
     "collectionName": "base",
     "name": "Crescendo Sonore",
-    "description": "Vibrato soignant les blessures des alliés proches par des fréquences sonores apaisantes accélérant la guérison naturelle.",
+    "description": "Véritable nexus de données vivant, Crescendo Sonore tisse des harmonies cybernétiques, maîtrise le hacking mélodique.",
     "element": "hacking",
     "faction": "Chœur Synthétique",
     "topValue": "1",
@@ -6711,7 +6711,7 @@
   {
     "collectionName": "base",
     "name": "Rythme",
-    "description": "Accordéon de guerre produisant des ondes choc perturbant les formations ennemies et désorganisant leurs lignes.",
+    "description": "Véritable nexus de données vivant, Rythme marque le tempo de la bataille, maîtrise le hacking mélodique.",
     "element": "hacking",
     "faction": "Chœur Synthétique",
     "topValue": "0",
@@ -6798,7 +6798,7 @@
   {
     "collectionName": "base",
     "name": "Resonance",
-    "description": "Chronométreur marquant le tempo des assauts coordonnés pour maximiser l'impact des attaques synchronisées.",
+    "description": "Véritable nexus de données vivant, Resonance fait résonner les données vivantes, maîtrise le hacking mélodique.",
     "element": "hacking",
     "faction": "Chœur Synthétique",
     "topValue": "0",
@@ -6885,7 +6885,7 @@
   {
     "collectionName": "base",
     "name": "Basse Chantant",
-    "description": "Chef d'orchestre de combat dirigeant les mouvements synchronisés des troupes alliées avec une précision musicale remarquable.",
+    "description": "Véritable nexus de données vivant, Basse Chantant fait vibrer les basses fréquences, maîtrise le hacking mélodique.",
     "element": "hacking",
     "faction": "Chœur Synthétique",
     "topValue": "1",
@@ -6968,8 +6968,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Resonance Musical",
-    "description": "Dissonateur créant des interférences sonores désorientantes empêchant l'ennemi de communiquer efficacement sur le champ de bataille.",
+    "name": "Cybernetic Chœur",
+    "description": "Véritable nexus de données vivant, Cybernetic Chœur module les fréquences du réseau, maîtrise le hacking mélodique.",
     "element": "hacking",
     "elements": [
       "hacking"
@@ -7061,7 +7061,7 @@
   {
     "collectionName": "base",
     "name": "Strophe Sonore",
-    "description": "Amplificateur projetant les ondes curatives sur une zone élargie soignant plusieurs alliés simultanément en zone de combat.",
+    "description": "Véritable nexus de données vivant, Strophe Sonore chante la ballade numérique, maîtrise le hacking mélodique.",
     "element": "hacking",
     "faction": "Chœur Synthétique",
     "topValue": "A",
@@ -7148,7 +7148,7 @@
   {
     "collectionName": "base",
     "name": "Crescendo Harmonique",
-    "description": "Compositeur de guerre improvisant des stratégies musicales adaptatives changeant de tactique au rythme des événements.",
+    "description": "Véritable nexus de données vivant, Crescendo Harmonique tisse des harmonies cybernétiques, maîtrise le hacking mélodique, mouvement fluide et mélodieux.",
     "element": "hacking",
     "faction": "Chœur Synthétique",
     "topValue": "4",
@@ -7249,8 +7249,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Amp Harmonique",
-    "description": "Maître du Chant ancien canalisant les harmoniques ancestraux pour booster considérablement les capacités de combat des alliés.",
+    "name": "Android Chœur",
+    "description": "Véritable nexus de données vivant, Android Chœur module les fréquences du réseau, maîtrise le hacking mélodique, puissance de ↑6 dans le flux, voix principale du Chœur.",
     "element": "hacking",
     "faction": "Chœur Synthétique",
     "topValue": "6",
@@ -7335,7 +7335,7 @@
   {
     "collectionName": "base",
     "name": "Chord Chantant",
-    "description": "Symphoniste orchestrant les attaques multi-niveaux du Chœur coordonnant les assauts terrestres et aériens en harmonie.",
+    "description": "Véritable nexus de données vivant, Chord Chantant  harmonise les protocoles du réseau, maîtrise le hacking mélodique, voix principale du Chœur.",
     "element": "hacking",
     "elements": [
       "hacking"
@@ -7430,7 +7430,7 @@
   {
     "collectionName": "base",
     "name": "Vibra Chantant",
-    "description": "Conducteur du Silence absolu annulant tous les sons ennemis dans un rayon étendu rendant la coordination adverse impossible.",
+    "description": "Véritable nexus de données vivant, Vibra Chantant fait vibrer les flux de données, maîtrise le hacking mélodique, rôle épique dans la symphonie.",
     "element": "hacking",
     "elements": [
       "hacking"
@@ -7520,8 +7520,8 @@
   },
   {
     "collectionName": "base",
-    "name": "Amp Chantant",
-    "description": "Virtuose de la Résonance créant des boucles de feedback destructrices visant les armures et les équipements sensibles aux vibrations.",
+    "name": "Resonance Chœur",
+    "description": "Véritable nexus de données vivant, Resonance Chœur fait résonner les données vivantes, maîtrise le hacking mélodique, rôle épique dans la symphonie.",
     "element": "hacking",
     "elements": [
       "hacking"
@@ -7626,7 +7626,7 @@
   {
     "collectionName": "base",
     "name": "Resonance Dissonant",
-    "description": "Symphonie Ultime fusionnant toutes les harmoniques disponibles en une seule note dévastatrice capable de réduire des structures entières en poussière.",
+    "description": "Véritable nexus de données vivant, Resonance Dissonant tisse des harmonies cybernétiques, maîtrise le hacking mélodique, puissance de ↑7 dans le flux.",
     "element": "hacking",
     "faction": "Chœur Synthétique",
     "topValue": "7",
@@ -7733,7 +7733,7 @@
   {
     "collectionName": "base",
     "name": "Profond des Tenebres",
-    "description": "Gardien des Sceaux veillant sur les portes dimensionnelles scellées empêchant les invasions inter-dimensionnelles accidentelles.",
+    "description": "Éveillé des profondeurs de la croûte planétaire, Profond des Tenebres émerge des abysses sans fond, manie l'obsidienne brute, déplacement lourd et tellurique, fureur des dieux anciens, ambiance grimdark oppressante. Son pas massive fait trembler le sol, annonçant l'éveil des anciens dieux de la terre.",
     "element": "obsidienne",
     "faction": "Éveil Chthonien",
     "topValue": "1",
@@ -7822,7 +7822,7 @@
   {
     "collectionName": "base",
     "name": "Arcane",
-    "description": "Ombre rampante se faufilant dans les recoins les plus sombres des installations ennemies pour des opérations d'espionnage.",
+    "description": "Éveillé des profondeurs de la croûte planétaire, Arcane détient les secrets interdits, manie l'obsidienne brute, arme une lame obsidienne, déplacement lourd et tellurique, fureur des dieux anciens. Son pas massive fait trembler le sol, annonçant l'éveil des anciens dieux de la terre.",
     "element": "obsidienne",
     "faction": "Éveil Chthonien",
     "topValue": "1",
@@ -7907,7 +7907,7 @@
   {
     "collectionName": "base",
     "name": "Chtonien",
-    "description": "Prophète du Vide interprétant les signes avant-coureurs du réveil des Anciens pour préparer les défenses spirituelles.",
+    "description": "Éveillé des profondeurs de la croûte planétaire, Chtonien incarne la colère tellurique, manie l'obsidienne brute, déplacement lourd et tellurique, vide intérieur abyssal, ambiance grimdark oppressante. Son pas massive fait trembler le sol, annonçant l'éveil des anciens dieux de la terre.",
     "element": "obsidienne",
     "faction": "Éveil Chthonien",
     "topValue": "1",
@@ -7988,7 +7988,7 @@
   {
     "collectionName": "base",
     "name": "Mystique de l Abysse",
-    "description": "Spectre des Abysses terrifiant les unités ennemies par sa simple présence réduisant leur capacité combative de moitié.",
+    "description": "Éveillé des profondeurs de la croûte planétaire, Mystique de l Abysse émerge des abysses sans fond, manie l'obsidienne brute, déplacement lourd et tellurique, fureur des dieux anciens, ambiance grimdark oppressante. Son pas massive fait trembler le sol, annonçant l'éveil des anciens dieux de la terre.",
     "element": "obsidienne",
     "faction": "Éveil Chthonien",
     "topValue": "1",
@@ -8073,7 +8073,7 @@
   {
     "collectionName": "base",
     "name": "Chtonien 1",
-    "description": "Mystique ancien lisant les runes prédisant les événements futurs et permettant des anticipations tactiques surprenantes.",
+    "description": "Éveillé des profondeurs de la croûte planétaire, Chtonien 1 incarne la colère tellurique, manie l'obsidienne brute, déplacement lourd et tellurique, fureur des dieux anciens, ambiance grimdark oppressante. Son pas massive fait trembler le sol, annonçant l'éveil des anciens dieux de la terre.",
     "element": "obsidienne",
     "faction": "Éveil Chthonien",
     "topValue": "0",
@@ -8152,7 +8152,7 @@
   {
     "collectionName": "base",
     "name": "Ombre",
-    "description": "Rampant des ténèbres exploitant l'obscurité comme bouclier naturel devenant pratiquement invisible dans les zones peu éclairées.",
+    "description": "Éveillé des profondeurs de la croûte planétaire, Ombre incarne la colère tellurique, manie l'obsidienne brute, force tellurique de ↑5, brandit une arme colossale, fureur des dieux anciens. Son pas massive fait trembler le sol, annonçant l'éveil des anciens dieux de la terre.",
     "element": "obsidienne",
     "faction": "Éveil Chthonien",
     "topValue": "5",
@@ -8246,7 +8246,7 @@
   {
     "collectionName": "base",
     "name": "Mystique 1",
-    "description": "Invocateur ouvrant des portails vers les dimensions chthoniennes permettant le passage d'entités alliées depuis d'autres mondes.",
+    "description": "Éveillé des profondeurs de la croûte planétaire, Mystique 1 détient les secrets interdits, manie l'obsidienne brute, déplacement lourd et tellurique, ambiance grimdark oppressante. Son pas massive fait trembler le sol, annonçant l'éveil des anciens dieux de la terre.",
     "element": "obsidienne",
     "faction": "Éveil Chthonien",
     "topValue": "0",
@@ -8337,7 +8337,7 @@
   {
     "collectionName": "base",
     "name": "Maudit de l Abysse",
-    "description": "Maudit contaminant les ennemis par des malédictions persistantes affaiblissant leurs capacités sur plusieurs tours de combat.",
+    "description": "Éveillé des profondeurs de la croûte planétaire, Maudit de l Abysse émerge des abysses sans fond, manie l'obsidienne brute, déplacement lourd et tellurique, fureur des dieux anciens, ambiance grimdark oppressante. Son pas massive fait trembler le sol, annonçant l'éveil des anciens dieux de la terre.",
     "element": "obsidienne",
     "faction": "Éveil Chthonien",
     "topValue": "2",
@@ -8421,7 +8421,7 @@
   {
     "collectionName": "base",
     "name": "Chtonien Profond",
-    "description": "Gouffre absorbant l'énergie vitale des cibles proches drainant leur force pour la redistribuer aux alliés de l'Éveil.",
+    "description": "Éveillé des profondeurs de la croûte planétaire, Chtonien Profond émerge des abysses sans fond, manie l'obsidienne brute, déplacement lourd et tellurique, ambiance grimdark oppressante. Son pas massive fait trembler le sol, annonçant l'éveil des anciens dieux de la terre.",
     "element": "obsidienne",
     "faction": "Éveil Chthonien",
     "topValue": "9",
@@ -8504,7 +8504,7 @@
   {
     "collectionName": "base",
     "name": "Gouffre Chtonien",
-    "description": "Oracle ténébreux révélant les points faibles cachés des stratégies adverses permettant des contre-offensives ciblées.",
+    "description": "Éveillé des profondeurs de la croûte planétaire, Gouffre Chtonien incarne la colère tellurique, manie l'obsidienne brute, déplacement lourd et tellurique, fureur des dieux anciens, ambiance grimdark oppressante. Son pas massive fait trembler le sol, annonçant l'éveil des anciens dieux de la terre.",
     "element": "obsidienne",
     "faction": "Éveil Chthonien",
     "topValue": "A",
@@ -8589,7 +8589,7 @@
   {
     "collectionName": "base",
     "name": "Mystique Chtonien",
-    "description": "Gardien des Portes Anciennes ouvrant les passages vers les plans inférieurs permettant des déplacements tactiques imprévus.",
+    "description": "Éveillé des profondeurs de la croûte planétaire, Mystique Chtonien détient les secrets interdits, manie l'obsidienne brute, élu des profondeurs, déplacement lourd et tellurique, ambiance grimdark oppressante. Son pas massive fait trembler le sol, annonçant l'éveil des anciens dieux de la terre.",
     "element": "obsidienne",
     "elements": [
       "obsidienne"
@@ -8680,7 +8680,7 @@
   {
     "collectionName": "base",
     "name": "Arcane Chtonien",
-    "description": "Nécromancien ranimant les unités perdues lors des combats pour les faire combattre une dernière fois sous la bannière de l'Éveil.",
+    "description": "Éveillé des profondeurs de la croûte planétaire, Arcane Chtonien détient les secrets interdits, manie l'obsidienne brute, force tellurique de ↑7, élu des profondeurs, déplacement lourd et tellurique. Son pas massive fait trembler le sol, annonçant l'éveil des anciens dieux de la terre.",
     "element": "obsidienne",
     "faction": "Éveil Chthonien",
     "topValue": "7",
@@ -8770,7 +8770,7 @@
   {
     "collectionName": "base",
     "name": "Maudit du Vide",
-    "description": "Avatar de l'Abysse incarnant la terreur primordiale des profondeurs répandant la peur et la confusion dans les rangs adverses.",
+    "description": "Éveillé des profondeurs de la croûte planétaire, Maudit du Vide incarne la colère tellurique, manie l'obsidienne brute, pouvoir épique des anciens dieux, déplacement lourd et tellurique, fureur des dieux anciens. Son pas massive fait trembler le sol, annonçant l'éveil des anciens dieux de la terre.",
     "element": "obsidienne",
     "elements": [
       "obsidienne"
@@ -8851,7 +8851,7 @@
   {
     "collectionName": "base",
     "name": "Horrifique Chtonien",
-    "description": "Prophète du Néant annonçant la fin imminente du cycle cosmique actuel démoralisant durablement les forces ennemies.",
+    "description": "Éveillé des profondeurs de la croûte planétaire, Horrifique Chtonien incarne la colère tellurique, manie l'obsidienne brute, pouvoir épique des anciens dieux, déplacement lourd et tellurique, vide intérieur abyssal. Son pas massive fait trembler le sol, annonçant l'éveil des anciens dieux de la terre.",
     "element": "obsidienne",
     "elements": [
       "obsidienne"
@@ -8937,7 +8937,7 @@
   {
     "collectionName": "base",
     "name": "Arcane 1",
-    "description": "Ancien Endormi réveillé libérant la puissance oubliée des ères pré-cosmiques remodelant temporairement les règles physiques du champ de bataille.",
+    "description": "Éveillé des profondeurs de la croûte planétaire, Arcane 1 détient les secrets interdits, manie l'obsidienne brute, déplacement lourd et tellurique. Son pas massive fait trembler le sol, annonçant l'éveil des anciens dieux de la terre.",
     "element": "obsidienne",
     "faction": "Éveil Chthonien",
     "topValue": "8",
@@ -9036,7 +9036,7 @@
   {
     "collectionName": "base",
     "name": "Fracture Instable",
-    "description": "Fracture instable créant des perturbations localisées dans les systèmes ennemis provoquant des malfunctions temporaires.",
+    "description": "Manifestation d'une réalité parallèle, Fracture Instable déchire le tissu spatial, maîtrise la Faille Dimensionnelle, arme une lame instable, arme une arme imprévisible. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
     "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "1",
@@ -9129,7 +9129,7 @@
   {
     "collectionName": "base",
     "name": "Vortex",
-    "description": "Anomalie erratique se déplaçant de manière imprévisible pour éviter les systèmes de ciblage conventionnels adverses.",
+    "description": "Manifestation d'une réalité parallèle, Vortex aspire la réalité environnante, maîtrise la Faille Dimensionnelle, arme une arme imprévisible. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
     "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "1",
@@ -9220,7 +9220,7 @@
   {
     "collectionName": "base",
     "name": "Fragment",
-    "description": "Mutant dimensionnel résistant aux attaques physiques conventionnelles grâce à un déphasage partiel avec la réalité.",
+    "description": "Manifestation d'une réalité parallèle, Fragment éclate en shards dissonants, maîtrise la Faille Dimensionnelle, pouvoir de distorsion de ↑5, arme une lame instable, arme une arme imprévisible. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
     "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "5",
@@ -9305,7 +9305,7 @@
   {
     "collectionName": "base",
     "name": "Chaos Devie",
-    "description": "Erratique brouillant les senseurs adverses par des mouvements aléatoires détournant les attaques loin des alliés de l'Incursion.",
+    "description": "Manifestation d'une réalité parallèle, Chaos Devie danse dans le désordre total, maîtrise la Faille Dimensionnelle, pouvoir de distorsion de ↑6, arme une lame instable, arme une arme imprévisible. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
     "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "6",
@@ -9390,7 +9390,7 @@
   {
     "collectionName": "base",
     "name": "Irregulier",
-    "description": "Fêlure du réel générant des fissures dans les défenses statiques ennemies rendant leurs positions vulnérables.",
+    "description": "Manifestation d'une réalité parallèle, Irregulier défie toute logique connue, maîtrise la Faille Dimensionnelle, pouvoir de distorsion de ↑6, arme une lame instable, arme une arme imprévisible. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
     "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "6",
@@ -9479,7 +9479,7 @@
   {
     "collectionName": "base",
     "name": "Erratique",
-    "description": "Glitch spatial apparaissant et disparaissant sans schéma détectable pour harceler les positions ennemies sans exposition.",
+    "description": "Manifestation d'une réalité parallèle, Erratique vibre hors fréquence, maîtrise la Faille Dimensionnelle, arme une lame instable, froid des espaces inter-dimensions. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
     "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "3",
@@ -9567,7 +9567,7 @@
   {
     "collectionName": "base",
     "name": "Anomalie Anormal",
-    "description": "Rupture dimensionnelle ouvrant des portes entre les réalités parallèles permettant des manoeuvres tactiques impossibles autrement.",
+    "description": "Manifestation d'une réalité parallèle, Anomalie Anormal défie les lois de la physique, maîtrise la Faille Dimensionnelle, arme une lame instable, arme une arme imprévisible. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
     "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "9",
@@ -9666,7 +9666,7 @@
   {
     "collectionName": "base",
     "name": "Mutant Dissonant",
-    "description": "Disrupteur annulant les effets magiques et technologiques dans son périmètre neutralisant les capacités spéciales adverses.",
+    "description": "Manifestation d'une réalité parallèle, Mutant Dissonant déchire le tissu spatial, maîtrise la Faille Dimensionnelle, arme une lame instable, arme une arme imprévisible, mouvement imprévisible et chaotique. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
     "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "0",
@@ -9746,7 +9746,7 @@
   {
     "collectionName": "base",
     "name": "Faille Devie",
-    "description": "Paradoxe créant des boucles temporelles piégeant les unités ennemies dans des cycles de combat répétitifs.",
+    "description": "Manifestation d'une réalité parallèle, Faille Devie ouvre des brèches interdites, maîtrise la Faille Dimensionnelle, arme une lame instable, arme une arme imprévisible. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
     "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "4",
@@ -9831,7 +9831,7 @@
   {
     "collectionName": "base",
     "name": "Bizarre Instable",
-    "description": "Vortex instable aspirant les projectiles et les énergies hostiles protégeant les alliés dans un rayon large.",
+    "description": "Manifestation d'une réalité parallèle, Bizarre Instable aspire la réalité environnante, maîtrise la Faille Dimensionnelle, pouvoir de distorsion de ↑5, arme une lame instable, arme une arme imprévisible. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
     "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "5",
@@ -9941,7 +9941,7 @@
   {
     "collectionName": "base",
     "name": "Deviant du Chaos",
-    "description": "Chaos pur désorganisant l'ordre établi des formations adverses rendant la coordination tactique impossible pendant plusieurs cycles.",
+    "description": "Manifestation d'une réalité parallèle, Deviant du Chaos danse dans le désordre total, maîtrise la Faille Dimensionnelle, élu des réalités dissonantes, arme une arme imprévisible. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
     "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "3",
@@ -10031,7 +10031,7 @@
   {
     "collectionName": "base",
     "name": "Paradoxe Instable",
-    "description": "Faille vivante traversant les dimensions pour contourner les barricades et les barrières les plus impénétrables.",
+    "description": "Manifestation d'une réalité parallèle, Paradoxe Instable existe en état de superposition, maîtrise la Faille Dimensionnelle, élu des réalités dissonantes, déforme l'espace autour de lui. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
     "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "2",
@@ -10117,7 +10117,7 @@
   {
     "collectionName": "base",
     "name": "Instable Instable",
-    "description": "Entropiste accélérant la désintégration des structures ennemies faisant vieillir les constructions et les armures à vitesse exponentielle.",
+    "description": "Manifestation d'une réalité parallèle, Instable Instable émerge d'une réalité parallèle, maîtrise la Faille Dimensionnelle, anomalie épique de la faille, arme une arme imprévisible. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
     "element": "faille_dimensionnelle",
     "elements": [
       "faille_dimensionnelle"
@@ -10223,7 +10223,7 @@
   {
     "collectionName": "base",
     "name": "Rupture Devie",
-    "description": "Architecte du Chaos orchestrant les perturbations causant des erreurs en cascade dans les systèmes de défense adverses.",
+    "description": "Manifestation d'une réalité parallèle, Rupture Devie déchire le tissu spatial, maîtrise la Faille Dimensionnelle, anomalie épique de la faille, froid des espaces inter-dimensions. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
     "element": "faille_dimensionnelle",
     "elements": [
       "faille_dimensionnelle"
@@ -10314,7 +10314,7 @@
   {
     "collectionName": "base",
     "name": "Fragment Dissonant",
-    "description": "Paradoxe Final brisant les lois fondamentales de la réalité sur un secteur entier rendant chaque action imprévisible et chaque défense obsolète.",
+    "description": "Manifestation d'une réalité parallèle, Fragment Dissonant éclate en shards dissonants, maîtrise la Faille Dimensionnelle, arme une lame instable. Son existence même crée des distorsions spatio-temporelles, rendant les attaques ennemies imprévisibles et disjointes.",
     "element": "faille_dimensionnelle",
     "faction": "Incursion Dissonante",
     "topValue": "A",
@@ -10414,7 +10414,7 @@
   {
     "collectionName": "base",
     "name": "Recup Artisanal",
-    "description": "Artisan du scrap fabriquant des gadgets utiles à partir de débris collectés sur le champ de bataille après chaque engagement.",
+    "description": "Parmi les débris de la Ceinture, Recup Artisanal récupère les débris précieux, maîtrise la furtivité spatiale, arme un fusil de récupération, manie une torche de soudure, ambiance grimdark des astéroïdes. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
     "element": "furtif",
     "elements": [
       "furtif"
@@ -10497,7 +10497,7 @@
   {
     "collectionName": "base",
     "name": "Castreur",
-    "description": "Récupérateur collectant les ressources abandonnées après les batailles et les redistribuant aux unités qui en ont le plus besoin.",
+    "description": "Parmi les débris de la Ceinture, Castreur soude les espoirs brisés, maîtrise la furtivité spatiale, arme un fusil de récupération, brandit une clé à molette géante, manie une torche de soudure. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
     "element": "furtif",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "3",
@@ -10590,7 +10590,7 @@
   {
     "collectionName": "base",
     "name": "Soudeur",
-    "description": "Soudeur réparant les armures et les équipements endommagés directement sur le terrain pendant les pauses entre deux combats.",
+    "description": "Parmi les débris de la Ceinture, Soudeur soude les espoirs brisés, maîtrise la furtivité spatiale, manie une torche de soudure, esthétique post-apocalyptique, ambiance grimdark des astéroïdes. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
     "element": "furtif",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "3",
@@ -10679,7 +10679,7 @@
   {
     "collectionName": "base",
     "name": "Bricoleur Ferraille",
-    "description": "Bricoleur improvisant des armes à partir de pièces détachées créant des solutions inattendues face aux menaces non anticipées.",
+    "description": "Parmi les débris de la Ceinture, Bricoleur Ferraille bricole avec les restes du passé, maîtrise la furtivité spatiale, arme un pistolet modifié, manie une torche de soudure, esthétique post-apocalyptique. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
     "element": "furtif",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "3",
@@ -10765,7 +10765,7 @@
   {
     "collectionName": "base",
     "name": "Recup",
-    "description": "Électronicien recyclant les composants électroniques récupérés pour alimenter les systèmes vitaux de la base.",
+    "description": "Parmi les débris de la Ceinture, Recup récupère les débris précieux, maîtrise la furtivité spatiale, manie une torche de soudure, esthétique post-apocalyptique, ambiance grimdark des astéroïdes. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
     "element": "furtif",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "0",
@@ -10844,7 +10844,7 @@
   {
     "collectionName": "base",
     "name": "Soudure",
-    "description": "Dépanneur restaurant les fonctions essentielles des installations endommagées maintenant la chaîne logistique opérationnelle.",
+    "description": "Parmi les débris de la Ceinture, Soudure soude les espoirs brisés, maîtrise la furtivité spatiale, manie une torche de soudure, ambiance grimdark des astéroïdes. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
     "element": "furtif",
     "elements": [
       "furtif"
@@ -10933,7 +10933,7 @@
   {
     "collectionName": "base",
     "name": "Metal de la Ceinture",
-    "description": "Architecte de fortune construisant des défenses temporaires avec des matériaux récupérés sur les épaves les plus récentes.",
+    "description": "Parmi les débris de la Ceinture, Metal de la Ceinture forge le métal de la Ceinture, maîtrise la furtivité spatiale, manie une torche de soudure, esthétique post-apocalyptique, ambiance grimdark des astéroïdes. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
     "element": "furtif",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "3",
@@ -11022,7 +11022,7 @@
   {
     "collectionName": "base",
     "name": "Bricoleur 1",
-    "description": "Ingénieur de récupération optimisant les ressources limitées du groupe pour maximiser leur durée de vie en zone hostile.",
+    "description": "Parmi les débris de la Ceinture, Bricoleur 1 soude les espoirs brisés, maîtrise la furtivité spatiale, manie une torche de soudure, esthétique post-apocalyptique, ambiance grimdark des astéroïdes. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
     "element": "furtif",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "1",
@@ -11102,7 +11102,7 @@
   {
     "collectionName": "base",
     "name": "Artisan Artisanal",
-    "description": "Saboteur de chantier détruisant les installations ennemies en réutilisant habilement leurs propres matériaux de construction.",
+    "description": "Parmi les débris de la Ceinture, Artisan Artisanal sculpte l'inutile en trésor, maîtrise la furtivité spatiale, force de frappe de ↑5 dans l'ombre, arme un pistolet modifié, brandit une clé à molette géante. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
     "element": "furtif",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "5",
@@ -11192,7 +11192,7 @@
   {
     "collectionName": "base",
     "name": "Metal Ferraille",
-    "description": "Chef d'équipe coordonnant les efforts de sauvetage et de collecte dans les zones de combat les plus dangereuses.",
+    "description": "Parmi les débris de la Ceinture, Metal Ferraille soude les espoirs brisés, maîtrise la furtivité spatiale, esthétique post-apocalyptique, ambiance grimdark des astéroïdes. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
     "element": "furtif",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "3",
@@ -11276,7 +11276,7 @@
   {
     "collectionName": "base",
     "name": "Rouille Recycle",
-    "description": "Maître Ferrailleur concevant des machines de guerre improvisées à partir d'épaves transformant les déchets en avantages tactiques.",
+    "description": "Parmi les débris de la Ceinture, Rouille Recycle rouille mais ne cède pas, maîtrise la furtivité spatiale, force de frappe de ↑5 dans l'ombre, vétéran des astéroïdes, esthétique post-apocalyptique. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
     "element": "furtif",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "5",
@@ -11361,7 +11361,7 @@
   {
     "collectionName": "base",
     "name": "Recup Ferraille",
-    "description": "Stratège de survie planifiant les itinéraires de collecte les plus rentables en évitant les zones contrôlées par les factions hostiles.",
+    "description": "Parmi les débris de la Ceinture, Recup Ferraille récupère les débris précieux, maîtrise la furtivité spatiale, vétéran des astéroïdes, manie une torche de soudure, esthétique post-apocalyptique. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
     "element": "furtif",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "A",
@@ -11452,7 +11452,7 @@
   {
     "collectionName": "base",
     "name": "Casse Artisanal",
-    "description": "Fondateur des Ferrailleurs bâtissant des colonies entières à partir de déchets créant des avant-postes viables dans les environnements les plus hostiles.",
+    "description": "Parmi les débris de la Ceinture, Casse Artisanal démonte les épaves abandonnées, maîtrise la furtivité spatiale, force de frappe de ↑6 dans l'ombre, légende des ferrailleurs, brandit une clé à molette géante. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
     "element": "furtif",
     "faction": "Ferrailleurs de la Ceinture",
     "topValue": "6",
@@ -11547,7 +11547,7 @@
   {
     "collectionName": "base",
     "name": "Rouille Rustique",
-    "description": "Ingénieur Génie transformant les catastrophes environnementales en opportunités économiques exploitant chaque débris avec créativité.",
+    "description": "Parmi les débris de la Ceinture, Rouille Rustique rouille mais ne cède pas, maîtrise la furtivité spatiale, force de frappe de ↑6 dans l'ombre, légende des ferrailleurs, brandit une clé à molette géante. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
     "element": "furtif",
     "elements": [
       "furtif"
@@ -11637,7 +11637,7 @@
   {
     "collectionName": "base",
     "name": "Depanneur Artisanal",
-    "description": "Dernier Survivant de la Grande Panne ayant résisté aux pires conditions de la Ceinture incarnant la résilience absolue de son peuple.",
+    "description": "Parmi les débris de la Ceinture, Depanneur Artisanal sculpte l'inutile en trésor, maîtrise la furtivité spatiale, arme un fusil de récupération, esthétique post-apocalyptique, ambiance grimdark des astéroïdes. Son armure bricolée et son furtivité lui permettent d'opérer là où les grandes factions échouent, dans l'ombre des astéroïdes.",
     "element": "furtif",
     "elements": [
       "furtif"
@@ -11732,7 +11732,7 @@
   {
     "collectionName": "base",
     "name": "Mousse Venimeux",
-    "description": "Spore rampante colonisant progressivement les surfaces proches étendant l'influence fongique du Fléau sur le terrain.",
+    "description": "Née de la contamination, Mousse Venimeux prolifère dans l'humidité toxique, maîtrise l'élément Spore, vaporise des spores toxiques, esthétique horrifique biologique. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
     "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "0",
@@ -11817,7 +11817,7 @@
   {
     "collectionName": "base",
     "name": "Necrose",
-    "description": "Mycélium connectant les colonies fongiques distantes en un réseau souterrain de communication et de coordination.",
+    "description": "Née de la contamination, Necrose répand la nécrose mortelle, maîtrise l'élément Spore, force de corruption de ↑6, vaporise des spores toxiques, esthétique horrifique biologique. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
     "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "6",
@@ -11906,7 +11906,7 @@
   {
     "collectionName": "base",
     "name": "Mycelium",
-    "description": "Contaminateur infectant les équipements ennemis avec des spores corrosives affaiblissant leur efficacité opérationnelle.",
+    "description": "Née de la contamination, Mycelium tisse un réseau mycorhizien, maîtrise l'élément Spore, vaporise des spores toxiques, esthétique horrifique biologique. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
     "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "0",
@@ -12000,7 +12000,7 @@
   {
     "collectionName": "base",
     "name": "Vegetal de la Spore",
-    "description": "Décomposeur détruisant les ressources organiques adverses privant l'ennemi de ravitaillement alimentaire naturel.",
+    "description": "Née de la contamination, Vegetal de la Spore consomme la biomasse organique, maîtrise l'élément Spore, vaporise des spores toxiques,  corrosive par sécrétion acide, esthétique horrifique biologique. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
     "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "4",
@@ -12090,7 +12090,7 @@
   {
     "collectionName": "base",
     "name": "Mousse",
-    "description": "Pulsion toxique libérant des nuages de spores empoisonnées autour de lui créant une zone de contamination persistante.",
+    "description": "Née de la contamination, Mousse prolifère dans l'humidité toxique, maîtrise l'élément Spore, vaporise des spores toxiques, esthétique horrifique biologique. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
     "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "0",
@@ -12178,7 +12178,7 @@
   {
     "collectionName": "base",
     "name": "Pestilent",
-    "description": "Végétal sentinelle détectant les intrusions ennemies par les modifications de l'environnement fongique environnant.",
+    "description": "Née de la contamination, Pestilent répand la peste fongique, maîtrise l'élément Spore, vaporise des spores toxiques, esthétique horrifique biologique. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
     "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "1",
@@ -12268,7 +12268,7 @@
   {
     "collectionName": "base",
     "name": "Fongique Toxique",
-    "description": "Corrompeur infiltrant les systèmes biologiques ennemis les affaiblissant progressivement au fil des engagements successifs.",
+    "description": "Née de la contamination, Fongique Toxique muté par les spores ancestrales, maîtrise l'élément Spore, vaporise des spores toxiques, esthétique horrifique biologique. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
     "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "2",
@@ -12349,7 +12349,7 @@
   {
     "collectionName": "base",
     "name": "Fongique Venimeux",
-    "description": "Spore tactique coordonnant les actions des unités fongiques dispersées à distance par des signaux chimiques imperceptibles.",
+    "description": "Née de la contamination, Fongique Venimeux muté par les spores ancestrales, maîtrise l'élément Spore, vaporise des spores toxiques, frappe avec des filaments,  corrosive par sécrétion acide. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
     "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "2",
@@ -12428,7 +12428,7 @@
   {
     "collectionName": "base",
     "name": "Mousse Corrompu",
-    "description": "Mousse envahissante bloquant les voies de communication ennemies ralentissant leurs mouvements et leurs renforts.",
+    "description": "Née de la contamination, Mousse Corrompu prolifère dans l'humidité toxique, maîtrise l'élément Spore, vaporise des spores toxiques, esthétique horrifique biologique. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
     "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "2",
@@ -12513,7 +12513,7 @@
   {
     "collectionName": "base",
     "name": "Mucus Toxique",
-    "description": "Fongique guérisseur régénérant les tissus endommagés des unités alliées grâce aux propriétés curatives de la spore.",
+    "description": "Née de la contamination, Mucus Toxique muté par les spores ancestrales, maîtrise l'élément Spore, vaporise des spores toxiques, esthétique horrifique biologique. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
     "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "3",
@@ -12598,7 +12598,7 @@
   {
     "collectionName": "base",
     "name": "Pestilent Corrompu",
-    "description": "Colonisateur fondant de nouvelles bases fongiques parasitant les ressources locales pour nourrir la croissance du Fléau.",
+    "description": "Née de la contamination, Pestilent Corrompu répand la peste fongique, maîtrise l'élément Spore, champion de la contamination, vaporise des spores toxiques,  corrosive par sécrétion acide. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
     "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "1",
@@ -12691,7 +12691,7 @@
   {
     "collectionName": "base",
     "name": "Mycelium Venimeux",
-    "description": "Maître Mycélien connectant plusieurs colonies fongiques dispersées pour une action coordonnée simultanée sur plusieurs fronts.",
+    "description": "Née de la contamination, Mycelium Venimeux tisse un réseau mycorhizien, maîtrise l'élément Spore, champion de la contamination, vaporise des spores toxiques, esthétique horrifique biologique. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
     "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "2",
@@ -12781,7 +12781,7 @@
   {
     "collectionName": "base",
     "name": "Contamine Fongique",
-    "description": "Pandémie vivante se propageant exponentiellement sur le champ de bataille contaminant chaque zone touchée durablement.",
+    "description": "Née de la contamination, Contamine Fongique muté par les spores ancestrales, maîtrise l'élément Spore, cauchemar épique du Fléau, vaporise des spores toxiques,  corrosive par sécrétion acide. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
     "element": "spore",
     "elements": [
       "spore"
@@ -12861,7 +12861,7 @@
   {
     "collectionName": "base",
     "name": "Contamine Toxique",
-    "description": "Hôte Primordial portant la souche originelle du Fléau Spore immunisé contre toutes les formes connues de contamination inverse.",
+    "description": "Née de la contamination, Contamine Toxique tisse un réseau mycorhizien, maîtrise l'élément Spore, cauchemar épique du Fléau, vaporise des spores toxiques, esthétique horrifique biologique. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
     "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "0",
@@ -12943,7 +12943,7 @@
   {
     "collectionName": "base",
     "name": "Fongique Fongique",
-    "description": "Fléau Ultime englobant des écosystèmes entiers dans une conscience fongique collective coordonnant l'assaut final sur les dernières positions libres.",
+    "description": "Née de la contamination, Fongique Fongique muté par les spores ancestrales, maîtrise l'élément Spore, vaporise des spores toxiques, esthétique horrifique biologique. Son corps en décomposition libère des nuages de spores toxiques qui consomment la matière organique pour alimenter l'expansion inexorable du Fléau.",
     "element": "spore",
     "faction": "Fléau Spore",
     "topValue": "A",
