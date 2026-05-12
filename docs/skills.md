@@ -11,6 +11,7 @@ Ce document est le guide de référence ultime pour configurer les compétences 
 - **Value** : Intensité de l'effet (quantité de soin, dégâts, ou bonus de stat).
 - **Counter** : Nombre limite de déclenchements. La compétence s'autodétruit quand le compteur atteint 0. *(0 ou vide = Infini)*.
 - **Duration** : Durée en nombre de tours. La compétence s'autodétruit après X tours passés sur le plateau.
+- **Effect Type** : Impact visuel et thématique (ex: `positive` [Vert], `negative` [Rouge], `neutral` [Bleu/Gris]).
 
 ### 2. Les Déclencheurs (`trigger`)
 Le `trigger` définit le moment de l'activation.
@@ -43,10 +44,12 @@ Définit la forme de la zone autour de l'origine. C'est un composant répétable
 - `self` : Uniquement la case d'origine.
 - `adjacent` : Les 4 cases cardinales (Haut, Bas, Gauche, Droite).
 - `diagonals` : Les 4 cases en diagonale.
-- `cross` : Les 8 cases entourant l'origine.
+- `cross` : Les cases adjacentes ET diagonales (étoile à 8 branches).
+- `diamond` / `cross_diamond` : Cible toutes les cases dans un losange (distance de Manhattan). Pas de trous.
+- `square` / `area` / `cross_full` : Cible toutes les cases dans un carré (distance de Chebyshev). Couvre une zone rectangulaire pleine.
 - `row` : Toute la ligne horizontale.
 - `column` : Toute la colonne verticale.
-- `top`, `bottom`, `left`, `right` : Une seule direction spécifique.
+- `top`, `bottom`, `left`, `right` : Une ligne droite dans une direction spécifique (jusqu'à portée).
 - `all` : L'intégralité du plateau de jeu.
 
 #### Les Modificateurs de Zone
