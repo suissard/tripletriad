@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { GameEngine } from '../src/game/GameEngine.js';
 // Importing index.js ensures all skills are registered
-import '../src/game/skills/index.js';
+import '../../shared/skills/index.js';
 
 /**
  * Tests d'intégration : GameEngine + SkillRegistry

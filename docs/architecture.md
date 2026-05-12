@@ -66,6 +66,17 @@ src/
 └── layouts/              # Layouts dynamiques
 ```
 
+### Code Partagé (`shared/`)
+
+```
+shared/
+└── skills/                 # Système centralisé des compétences
+    ├── constants.ts       # Source de vérité des constantes (Triggers, Patterns, etc.)
+    ├── SkillRegistry.ts   # Registre d'exécution et dispatch des hooks
+    ├── types.ts           # Types TypeScript pour la sécurité
+    └── [skill].ts         # Implémentations spécifiques (aura, heal, bomb, etc.)
+```
+
 ### Backend (`back/strapi/src/`)
 
 ```
