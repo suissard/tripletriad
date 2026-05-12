@@ -12,7 +12,6 @@
     <NotificationToast />
     <ConfirmationModal />
     <FpsCounter />
-    <ChatWidget />
   </template>
 </template>
 

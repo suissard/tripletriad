@@ -184,10 +184,10 @@ body {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 30%, transparent), color-mix(in srgb, #e6ac00 30%, transparent));
-  color: var(--text-main);
-  border: 1px solid color-mix(in srgb, var(--primary) 50%, transparent);
-  backdrop-filter: blur(10px);
+  background: linear-gradient(135deg, var(--primary), #e6ac00);
+  color: #05050a; /* High contrast dark text */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-weight: 800;
 }
 
 .btn-primary:hover {
@@ -206,10 +206,10 @@ body {
 }
 
 .btn-accent {
-  background: linear-gradient(135deg, color-mix(in srgb, var(--color-accent) 30%, transparent), color-mix(in srgb, var(--color-accent) 15%, transparent));
-  color: var(--text-main);
-  border: 1px solid color-mix(in srgb, var(--color-accent) 50%, transparent);
-  backdrop-filter: blur(10px);
+  background: linear-gradient(135deg, var(--color-accent), #ffd700);
+  color: #05050a; /* High contrast dark text */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-weight: 800;
 }
 
 .btn-accent:hover {

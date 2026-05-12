@@ -6,50 +6,47 @@ Ce fichier regroupe les consignes, conventions et astuces techniques spécifique
 *   **Mode Planification Requis** : Avant d'entamer des modifications, l'IA DOIT entrer en "planning mode" : poser des questions de clarification pour valider les hypothèses (`message_user` / `request_user_input`), créer un plan formel via `set_plan`, et attendre la validation de l'utilisateur avant d'exécuter.
 *   **Priorité des Instructions** : Les demandes explicites de l'utilisateur priment toujours sur les règles écrites dans ce fichier ou en mémoire.
 
-## 2. Architecture & Environnement (Docker / Strapi / Vite)
-*   **Docker Compose** : Le projet utilise `docker compose` (v5.1.0+). N'utilisez **jamais** l'alias legacy `docker-compose`. Les commandes de type `npm install` massives ou `docker compose up` pour le backend Strapi peuvent "time out" en sandbox : privilégiez la revue de code manuelle ou de petits scripts Node.js pour vérifier la logique si le serveur ne peut pas démarrer.
-*   **Fichiers Communs (Standalone)** : Le projet utilise `"type": "module"`. Les scripts Node.js isolés utilisant `require()` (ex: scripts d'assemblage JSON dans `shared/`) DOIVENT avoir l'extension `.cjs`.
-*   **Configuration Base de Données (Strapi)** : L'application utilise PostgreSQL 16 (conteneur `terra-nullius-db` dans `docker-compose.yml`). Les identifiants sont définis via les variables `DATABASE_*` dans `.env`. Ne définissez JAMAIS de valeurs de repli par défaut (ex: `DATABASE_PASSWORD`) dans `back/strapi/config/database.ts` : si l'env ne fournit pas les identifiants, l'application doit échouer silencieusement/sécuritairement.
-*   **Variables d'Environnement (Vite)** : Lors de l'exécution de scripts Node.js autonomes sur des modules Vue/Vite, moquez manuellement les références à `import.meta.env` (ex: `import.meta.env.VITE_STRAPI_URL`) pour éviter les erreurs "Cannot read properties of undefined".
+## 2. Architecture & Environnement (Monorepo)
+*   **Structure** : 
+    *   `front/` : Vue.js 3 + Vite (Composition API, Pinia). Dossiers clés : `api/`, `components/`, `game/` (moteur), `stores/`, `views/`.
+    *   `back/` : Strapi 5 (TypeScript). Dossiers clés : `api/`, `src/bootstrap-utils.ts`.
+    *   `shared/` : Logique et données partagées (ex: stories).
+*   **Docker Compose** : Le projet utilise `docker compose` (v5.1.0+). N'utilisez **jamais** l'alias legacy `docker-compose`.
+*   **Communication** : API REST pour la persistance et WebRTC (Peer-to-Peer) pour le multijoueur (arbitrage serveur via Strapi en cas de désync).
+*   **Base de Données** : PostgreSQL 16 (conteneur `terra-nullius-db`). Les identifiants sont dans `.env`. Ne définissez JAMAIS de valeurs de repli par défaut dans la config.
+*   **Variables d'Environnement (Vite)** : Moquez manuellement `import.meta.env` lors de l'exécution de scripts Node.js autonomes sur des modules Vue/Vite.
 
-## 3. Base de Données Strapi et Sécurité
-*   **Mapping PostgreSQL** : Dans Strapi 5, les noms d'attributs définis en camelCase dans `schema.json` (ex: `collectionName`) sont **automatiquement mapés** en snake_case dans les colonnes de la base de données (ex: `collection_name`).
-*   **Validation Backend (Zod)** : Dans les extensions de contrôleurs Strapi, utilisez `zod` pour forcer des limites de longueur (ex: 3-32 caractères pour un pseudo) et une liste blanche de caractères (ex: `/^[a-zA-Z0-9_]+$/`) afin de prévenir les DoS et injections.
-*   **Optimisation (N+1)** :
-    *   Les contrôleurs d'ouverture de pack (`shop.ts`) utilisent une seule requête `findMany` avec `$in` et une agrégation par `Map` pour la distribution. Conservez cette logique.
-    *   Le hook de démarrage (`index.ts`) pré-fetch les permissions en vrac (bulk) et utilise des `Set` en mémoire.
-    *   Les requêtes de tri complexes (ex: contrôleur `getFilters` de `card.ts`) délèguent le `DISTINCT` à la BDD via `strapi.db.connection` (Knex) plutôt qu'en JavaScript.
-*   **Initialisation & Permissions (Bootstrap)** : Lors de la création de nouvelles collections ou de nouveaux endpoints API, vous DEVEZ mettre à jour `back/strapi/src/bootstrap-utils.ts` pour inclure les permissions correspondantes dans les rôles `authenticated` ou `public`. Cela assure que l'environnement est reproductible sans intervention manuelle dans l'admin Strapi.
+## 3. Mécaniques de Jeu & Story Mode
+*   **Règles de Base** : Grille 3x3, 5 cartes en main. Capture classique (valeur supérieure) + règles spéciales : **Same**, **Plus**, **Combo** (réaction en chaîne) et **Éléments** (bonus/malus sur cases élémentaires).
+*   **Logique de Jeu** : Les états sont partagés via Pinia (`front/src/game/state.js`). Le moteur (`GameEngine.js`) utilise des fonctions d'état pures (immuabilité).
+*   **TurnManager** : Gère les tours en local ou via WebRTC (comparaison de Hashs d'état).
+*   **Mode Histoire (Terra Nullius)** : Architecture "Choose Your Own Adventure" via Strapi Dynamic Zones. Les JSON sont dans `shared/data/stories/` et compilés via `assemble_story.cjs`.
+*   **Notifications** : Utilisez `gameEvents.emit('SHOW_ALERT', { text: '...' })` pour les alertes visuelles.
 
-## 4. Conventions Frontend & Vue 3
-*   **Gestion des Valeurs & Factions** : La liste faisant autorité des éléments/factions se trouve dans `front/src/data/factions.js` (`ELEMENTS`, `ELEMENT_LABELS`). Dans les interfaces, les valeurs peuvent aller jusqu'à deux chiffres. La valeur `"A"` (As) représente le maximum absolu (100) et ne peut jamais être battue. Elle est gérée par `displayVal` dans `constants.js`. La rareté d'une carte est la somme de ses 4 côtés (Commun < 20, Peu Commun 20-25, Rare 26-31, Épique 32-35, Légendaire 36+).
-*   **UI et Glassmorphism** :
-    *   Utilisez des variables CSS injectées dynamiquement (`--color-primary`) depuis la config Strapi (dans `App.vue`). Ne "hardcodez" pas les couleurs.
-    *   Pour les éléments transparents (glassmorphism), utilisez la combinaison : `background: color-mix(in srgb, var(--color-variable) <percentage>%, transparent)` + `backdrop-filter: blur(...)`.
-*   **Icônes** : Privilégiez les émojis (ex: 📜) ou les SVGs inlines personnalisés aux librairies externes.
-*   **Scrollbars & Layouts** :
-    *   Appliquez la classe `.custom-scrollbar` aux conteneurs nécessitant un défilement.
-    *   Pour les layouts flexbox (ex: page Admin), assurez-vous que les enfants scrollables (ex: `<main>`) ont `min-height: 0` (`min-h-0`) et que les vues internes utilisent `h-full` plutôt que `min-h-screen`.
-    *   Sur mobile, prévoyez le padding bas pour la barre de navigation fixe : `padding-bottom: calc([height] + env(safe-area-inset-bottom))`.
-*   **Navigation & Boutons** : Au lieu de `<router-link>`, utilisez les composants personnalisés comme `<AppButton>` avec `@click="router.push('...')"` et un binding `:class` pour gérer les états actifs selon `route.path`. Pour les composants complexes ajoutant du canvas (FoilEditor), insérez le canvas en enfant avec `pointer-events: none` plutôt que de remplacer l'élément natif pour préserver l'accessibilité.
-*   **Drag & Drop Mobile-Friendly** : Le drag and drop n'utilise PAS l'API native HTML5. Il repose sur un `<Teleport>` affichant un "ghost", des événements `pointerdown`/`pointermove`/`pointerup`, et `document.elementsFromPoint()` pour cibler les zones de drop de façon cross-device. En cas de latence de Vue (`v-if`), utilisez la manipulation DOM directe (ex: `element.style.display = 'none'`) dans les handlers pour supprimer l'artefact "fantôme" au moment du drop.
+## 4. Base de Données Strapi et Sécurité
+*   **Mapping PostgreSQL** : camelCase dans `schema.json` -> snake_case dans la BDD.
+*   **Validation (Zod)** : Forcez des limites (longueur, whitelist) dans les contrôleurs.
+*   **Optimisation (N+1)** : Utilisez `findMany` avec `$in` pour les packs, pré-fetch des permissions en bulk, et déléguez les tris complexes (DISTINCT) à Knex.
+*   **Permissions (Bootstrap)** : Mettez à jour `back/strapi/src/bootstrap-utils.ts` pour chaque nouvelle collection/endpoint.
 
-## 5. Mécaniques de Jeu & Story Mode
-*   **Logique de Jeu** : Les états de jeu sont partagés via Pinia (`front/src/game/state.js`). Évitez les "Event Bus". Le moteur de jeu multijoueur (`GameEngine.js`) utilise des fonctions d'état pures pour faciliter la synchro WebRTC (via `TurnManager.js`).
-*   **Notifications en jeu** : Pour déclencher une alerte visuelle (ex: "COMBO!"), utilisez `gameEvents.emit('SHOW_ALERT', { text: '...' })` depuis `events.js`.
-*   **Mode Histoire (Terra Nullius)** :
-    *   Architecture "Choose Your Own Adventure" via Strapi Dynamic Zones.
-    *   Génération : Les JSON de situation se créent dans `shared/data/stories/<folder>` et se compilent avec `node shared/data/assemble_story.cjs <folder-path>`. Les IDs dynamiques (`enemyDeck`, `playerDeck`) peuvent être omis pour forcer une génération aléatoire.
-    *   Interface : `StoryStepView.vue` agit comme une machine à état. Les validations de récompenses/sauvegardes sont strictement reléguées à l'API Strapi (via `userStore.js`) pour empêcher la triche client.
+## 5. Conventions Frontend & Vue 3
+*   **Gestion des Valeurs** : Autorité dans `front/src/data/factions.js`. Valeur `"A"` = 100 (As), maximum absolu. Rareté calculée sur la somme des 4 côtés.
+*   **UI et Glassmorphism** : Utilisez `--color-primary` injectée. Pour le verre : `color-mix(in srgb, var(--color-variable) <percentage>%, transparent)` + `backdrop-filter: blur(...)`.
+*   **Icônes** : Émojis ou SVGs inlines uniquement.
+*   **Scrollbars & Layouts** : Classe `.custom-scrollbar`. Sur mobile, `padding-bottom` avec `safe-area-inset-bottom`.
+*   **Navigation** : Utilisez `<AppButton>` avec `router.push()` au lieu de `<router-link>`.
+*   **Three.js & Shaders** : Définissez le GLSL en chaînes littérales dans `<script setup>`, jamais dans le `<template>`.
+*   **Drag & Drop** : Pas d'API native. Utilise `<Teleport>`, événements `pointer*` et `document.elementsFromPoint()`.
+*   **Debug** : Les options (auto-login, etc.) sont dans le `localStorage`.
 
 ## 6. Stratégies de Tests
-*   **Test de Logique Pure (Node.js)** : Les tests de règles pures (ex: `front/tests/minimal_engine_test.js`) utilisent le module natif `assert` de Node. Ils DOIVENT rester isolés sans importer Vue, Pinia, ou Three.js.
-*   **Tests End-to-End (Playwright)** :
-    *   **Bypass Auth** : Injectez des mock tokens dans le localStorage (`bo_jwt`, `tt_jwt`) et moquez `**/api/users/me` avec un payload valide (ex: `{"role": {"type": "admin"}}`).
-    *   **Moquerie des Données** : Utilisez `page.route('**/api/cards*')` pour intercepter et simuler les réponses Strapi afin d'éviter les erreurs de rendu ("Failed to fetch") si la BDD est vide.
-    *   **Dropdowns Custom** : Le projet utilise des dropdowns custom (ex: `<PremiumSelect>`) et non des balises `<select>` natives. Ne pas utiliser `page.select_option()` sur ces éléments.
-    *   **Vérification Visuelle Sans Vitest** : Pour tester un composant Vue de manière isolée via Playwright, modifiez temporairement l'entrée Vite (`index.html` vers `src/main_test.js` ou `AppTest.vue`), effectuez le test visuel, **puis annulez la modification**.
+*   **Logique Pure** : Modules natifs Node `assert`. Pas d'import Vue/Pinia/Three.js dans les tests de moteur.
+*   **Playwright (E2E)** :
+    *   **Bypass Auth** : Mock tokens dans localStorage + mock `/api/users/me?populate=role`.
+    *   **Data Mocking** : Interceptez `**/api/cards*` pour éviter les bases vides.
+    *   **UI** : Manipulez le DOM pour les dropdowns custom (pas de `select_option`).
+    *   **Isolation** : Modification temporaire de l'entrée Vite pour tester un composant seul.
 
 ## 7. Conventions de Pull Requests
-*   Sécurité : Utilisez le format `🔒 [security fix description]`. La PR doit inclure des sections `What`, `Risk`, et `Solution`.
-*   Performance : Utilisez le format `⚡ [performance improvement description]`.
+*   **Sécurité** : `🔒 [description]`. Inclure sections `What`, `Risk`, `Solution`.
+*   **Performance** : `⚡ [description]`.

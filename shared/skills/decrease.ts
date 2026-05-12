@@ -46,8 +46,9 @@ const handler: SkillHandler = {
           : cell.data[side + 'Value'];
 
         if (valStr === undefined) return;
-
+        
         let val = (valStr === 'A' || valStr === 'a') ? 100 : parseInt(valStr as string) || 0;
+        if (val >= 100) return;
 
         // Calculer la nouvelle valeur
         val = Math.max(0, Math.min(100, val - decrement));

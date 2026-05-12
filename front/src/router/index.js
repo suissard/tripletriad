@@ -10,6 +10,7 @@ import StoryPage from '../views/StoryPage.vue'
 import QuestsPage from '../views/QuestsPage.vue'
 import StoryStepView from '../views/StoryStepView.vue'
 import GuildsPage from '../views/GuildsPage.vue'
+import FrameDetailView from '../views/FrameDetailView.vue'
 
 import { useUserStore } from '../stores/userStore'
 // On ne peut pas importer useLayoutStore ici directement car pinia n'est peut-être pas encore instancié.
@@ -23,6 +24,7 @@ const routes = [
   { path: '/deck-editor/:documentId', name: 'deck-editor-edit', component: DeckEditorPage, props: true },
   { path: '/decks', component: DecksPage },
   { path: '/boutique', component: BoutiquePage },
+  { path: '/boutique/frame/:id', name: 'frame-detail', component: FrameDetailView },
   { path: '/open-pack/:collection/:type', name: 'pack-opening', component: PackOpening, props: true },
   { path: '/story', component: StoryPage },
   { path: '/story/:storyId/steps', name: 'story-steps', component: () => import('../views/StoryStepsPage.vue'), props: true },
@@ -207,9 +209,11 @@ router.afterEach(async (to) => {
   const { useLayoutStore } = await import('../stores/layoutStore');
   const layoutStore = useLayoutStore();
   
-  let targetLayout = 'PlayerLayout';
+  let targetLayout = 'NavigationLayout';
   if (to.meta.layout) {
     targetLayout = to.meta.layout;
+  } else if (to.path === '/') {
+    targetLayout = 'HomeLayout';
   } else if (to.path.startsWith('/admin')) {
     targetLayout = 'AdminLayout';
   } else if (to.path.startsWith('/game')) {

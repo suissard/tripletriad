@@ -36,7 +36,6 @@
     <main class="center-column" ref="centerRef">
       <!-- HEADER BAR -->
       <div class="top-bar">
-        <button class="back-btn" @click="router.push('/')">← Retour</button>
         <h2 class="page-title">
           {{ activeMode === 'craft' ? 'ATELIER' : (activeMode === 'boards' ? 'PLATEAUX' : (activeMode === 'frames' ? 'CADRES' : (activeMode === 'backs' ? 'DOS DE CARTE' : 'MA COLLECTION'))) }}
         </h2>
@@ -643,14 +642,13 @@ onUnmounted(() => {
 <style scoped>
 /* === LAYOUT === */
 .collection-page {
-  position: fixed;
-  inset: 0;
+  position: relative;
   display: grid;
   grid-template-columns: 72px 1fr auto;
   background: radial-gradient(ellipse at 30% 20%, #1a1a2e 0%, #0d0d14 100%);
   color: white;
-  z-index: 50; /* Lower than TopNavbar (100) */
-  padding-top: 80px; /* Space for TopNavbar */
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 

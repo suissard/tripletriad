@@ -5,22 +5,6 @@
     <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] -z-10"></div>
     <div class="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-primary/10 to-transparent -z-10"></div>
     
-    <!-- Header -->
-    <div class="w-full max-w-6xl flex justify-between items-center mb-8 px-4">
-      <div class="flex items-center gap-4">
-        <h2 class="text-4xl font-black text-white italic tracking-tighter" style="font-family: var(--font-heading)">BOUTIQUE</h2>
-        <div class="h-8 w-[2px] bg-white/20"></div>
-        <div class="flex gap-4">
-          <div class="coins-display flex items-center gap-2 text-lg font-bold text-yellow-400 bg-black/40 px-4 py-1.5 rounded-full border border-yellow-400/30 backdrop-blur-md">
-            🪙 {{ userCoins }} <span class="text-xs uppercase opacity-70 ml-1">Pièces</span>
-          </div>
-          <div class="gems-display flex items-center gap-2 text-lg font-bold text-indigo-400 bg-black/40 px-4 py-1.5 rounded-full border border-indigo-400/30 backdrop-blur-md">
-            💎 {{ userGems }} <span class="text-xs uppercase opacity-70 ml-1">Gems</span>
-          </div>
-        </div>
-      </div>
-      <AppButton variant="secondary" class="glass-panel w-10 h-10 !p-0 flex items-center justify-center rounded-full" @click="handleClose">✕</AppButton>
-    </div>
 
     <!-- Messages -->
     <Transition name="fade">
@@ -35,7 +19,7 @@
     </Transition>
 
     <!-- INVENTORY FAN SECTION -->
-    <div class="w-full max-w-6xl mb-4 relative z-20" v-if="!isOpening">
+    <div class="w-full mb-4 relative z-20" v-if="!isOpening">
       <div class="flex flex-col items-center mb-[-40px]">
         <h3 class="text-xs font-black text-white/40 uppercase tracking-[0.4em] mb-2">Vos Réserves</h3>
         <div class="h-[1px] w-24 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
@@ -48,7 +32,7 @@
     </div>
 
     <!-- SHOP SECTION -->
-    <div class="w-full max-w-6xl mb-12 relative z-10" v-if="!isOpening">
+    <div class="w-full mb-12 relative z-10" v-if="!isOpening">
       <div class="flex flex-col items-center mb-12">
         <h3 class="text-3xl font-black text-white italic tracking-tighter uppercase mb-2">Collections Disponibles</h3>
         <div class="h-1 w-16 bg-primary rounded-full"></div>
@@ -67,7 +51,7 @@
     </div>
 
     <!-- FRAMES SECTION -->
-    <div class="w-full max-w-6xl mb-12 relative z-10" v-if="!isOpening && availableFrames.length > 0">
+    <div class="w-full mb-12 relative z-10" v-if="!isOpening && availableFrames.length > 0">
       <div class="flex flex-col items-center mb-12">
         <h3 class="text-3xl font-black text-white italic tracking-tighter uppercase mb-2">Cadres Exclusifs</h3>
         <div class="h-1 w-16 bg-indigo-500 rounded-full"></div>
@@ -87,6 +71,15 @@
             <p class="text-xs text-white/50 mb-4 flex-1 line-clamp-2">{{ frame.description || 'Personnalisez vos cartes' }}</p>
             
             <div class="flex gap-2 mt-auto">
+              <!-- Voir Détails -->
+              <button 
+                @click="openFrameDetail(frame)"
+                class="bg-white/5 hover:bg-white/10 border border-white/10 rounded px-3 flex justify-center items-center transition-colors"
+                title="Voir les détails et variantes"
+              >
+                👁️
+              </button>
+
               <!-- Acheter avec Coins -->
               <button 
                 v-if="(frame.priceCoins || 0) > 0"
@@ -341,6 +334,10 @@ const handleFramePurchaseIntent = async (frame, currency, cost) => {
       loadingAction.value = false;
     }
   }
+};
+
+const openFrameDetail = (frame) => {
+  router.push({ name: 'frame-detail', params: { id: frame.documentId || frame.id } });
 };
 
 const handleBackPurchaseIntent = async (back, currency, cost) => {
