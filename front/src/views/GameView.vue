@@ -38,7 +38,7 @@
         <ActionLog />
         <EndTurnButton />
         <!-- Developer Tools -->
-        <div v-if="isDev" class="dev-controls">
+        <div v-if="userStore.isAdmin" class="dev-controls">
           <p class="dev-title">DEV TOOLS</p>
           <div class="dev-buttons">
             <AppButton 

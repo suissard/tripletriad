@@ -182,7 +182,8 @@ const menuCategories = [
       { name: 'Testeur Seed', path: '/admin/test-seed', icon: '🎲', desc: 'Tester la distribution aléatoire et les seeds.' },
       { name: 'Coin Toss', path: '/admin/test-coin', icon: '🪙', desc: 'Testeur visuel du lancer de pièce (pile ou face).' },
       { name: 'Layout Tester', path: '/admin/layouts', icon: '🖥️', desc: 'Basculer entre les différents layouts de l\'app.' },
-      { name: 'Card Test', path: '/admin/test-card', icon: '🎴', desc: 'Prévisualiser le rendu visuel d\'une carte isolée.' }
+      { name: 'Card Test', path: '/admin/test-card', icon: '🎴', desc: 'Prévisualiser le rendu visuel d\'une carte isolée.' },
+      { name: 'Design System', path: '/admin/design-system', icon: '🧩', desc: 'Référentiel des composants UI et boutons du projet.' }
     ]
   }
 ];

@@ -906,7 +906,7 @@ header svg {
   display: inline-block;
 }
 
-@media screen and (min-width: 600px) {
+/* @media screen and (min-width: 600px) {
   header {
     grid-template-columns: 0% 1fr;
   }
@@ -921,7 +921,7 @@ header svg {
   header {
     grid-template-columns: 0% 1fr;
   }
-}
+} */
 
 .showcase {
   z-index: 99;

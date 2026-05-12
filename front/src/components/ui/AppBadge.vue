@@ -60,7 +60,7 @@ defineProps({
   border-color: rgba(255, 255, 255, 0.4);
 }
 .secondary {
-  background: rgba(60, 60, 80, 0.8);
+  background: color-mix(in srgb, var(--color-secondary, #3c5096) 30%, rgba(60, 60, 80, 0.8));
   color: white;
   border-color: rgba(255, 255, 255, 0.1);
 }

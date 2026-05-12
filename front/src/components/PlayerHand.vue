@@ -123,8 +123,8 @@ function onPointerDownFromFan({ event, item: card, index }) {
   originalRect = el.getBoundingClientRect();
 
   pointerOffset = {
-    x: event.clientX - originalRect.left,
-    y: event.clientY - originalRect.top
+    x: originalRect.width / 2,
+    y: originalRect.height / 2
   };
 
   startPos.value = { x: event.clientX, y: event.clientY };
@@ -382,6 +382,7 @@ onUnmounted(() => {
   will-change: transform;
   transition: filter 0.2s ease, opacity 0.2s ease;
   opacity: 0.8;
+  transform-origin: center center;
 }
 
 .drag-ghost.is-over-valid {

@@ -2,7 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Coolvetica';
+  src: url('/Coolvetica Rg.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
+  --font-heading: 'Coolvetica', 'Outfit', sans-serif;
+  --font-ui: 'Coolvetica', 'Inter', sans-serif;
+  
   /* Premium Palette */
   --bg-deep: #0a0a1a;
   --bg-surface: #12122b;
@@ -158,8 +169,8 @@ body {
   outline: none;
   border-radius: 12px;
   padding: 10px 24px;
-  font-family: inherit;
-  font-size: 14px;
+  font-family: var(--font-ui);
+  font-size: 17px;
   font-weight: 600;
   letter-spacing: 0.02em;
   text-decoration: none;
@@ -184,8 +195,8 @@ body {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary), #e6ac00);
-  color: #05050a; /* High contrast dark text */
+  background: linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary) 70%, black));
+  color: var(--color-primary-text, #05050a); /* Dynamic contrast text */
   border: 1px solid rgba(255, 255, 255, 0.2);
   font-weight: 800;
 }
@@ -196,7 +207,7 @@ body {
 
 .btn-secondary {
   background: linear-gradient(135deg, color-mix(in srgb, var(--color-secondary) 20%, transparent), transparent);
-  color: var(--text-main);
+  color: var(--color-secondary-text, var(--text-main));
   border: 1px solid color-mix(in srgb, var(--color-secondary) 30%, transparent);
   backdrop-filter: blur(10px);
 }
@@ -206,8 +217,8 @@ body {
 }
 
 .btn-accent {
-  background: linear-gradient(135deg, var(--color-accent), #ffd700);
-  color: #05050a; /* High contrast dark text */
+  background: linear-gradient(135deg, var(--color-accent), color-mix(in srgb, var(--color-accent) 70%, black));
+  color: var(--color-accent-text, #05050a); /* Dynamic contrast text */
   border: 1px solid rgba(255, 255, 255, 0.2);
   font-weight: 800;
 }
@@ -324,7 +335,7 @@ textarea:focus {
   transition: all 0.3s ease;
   text-transform: uppercase;
   font-weight: 900;
-  font-size: 11px;
+  font-size: 14px; /* Bumping this one by 3px too as it's UI */
   letter-spacing: 0.2em;
   color: #64748b;
   /* text-gray-500 */
@@ -352,17 +363,17 @@ textarea:focus {
 }
 
 .premium-nav-item-active {
-  background: rgba(255, 191, 0, 0.1);
-  color: #FFBF00 !important;
-  border-color: rgba(255, 191, 0, 0.3);
-  box-shadow: 0 15px 40px rgba(255, 191, 0, 0.15);
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  color: var(--color-primary) !important;
+  border-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
+  box-shadow: 0 15px 40px color-mix(in srgb, var(--color-primary) 15%, transparent);
   backdrop-filter: blur(24px);
 }
 
 .premium-nav-item-active .icon {
   opacity: 1;
   filter: grayscale(0);
-  filter: drop-shadow(0 0 8px rgba(255, 191, 0, 0.5));
+  filter: drop-shadow(0 0 8px color-mix(in srgb, var(--color-primary) 50%, transparent));
 }
 
 /* Premium Loading Indicator */

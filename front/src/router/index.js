@@ -11,6 +11,8 @@ import QuestsPage from '../views/QuestsPage.vue'
 import StoryStepView from '../views/StoryStepView.vue'
 import GuildsPage from '../views/GuildsPage.vue'
 import FrameDetailView from '../views/FrameDetailView.vue'
+import DesignSystemView from '../views/DesignSystemView.vue'
+
 
 import { useUserStore } from '../stores/userStore'
 // On ne peut pas importer useLayoutStore ici directement car pinia n'est peut-être pas encore instancié.
@@ -34,8 +36,13 @@ const routes = [
   { path: '/guilds/:documentId', name: 'guild-detail', component: GuildsPage, props: true },
   { path: '/profile/:identifier', name: 'player-profile', component: () => import('../views/PlayerProfileView.vue'), props: true },
   { path: '/friends', name: 'friends', component: () => import('../views/FriendsView.vue') },
-
   // Admin Routes
+  {
+    path: '/admin/design-system',
+    name: 'admin-design-system',
+    component: DesignSystemView,
+    meta: { requiresAdminAuth: true }
+  },
   {
     path: '/admin',
     name: 'admin-dashboard',

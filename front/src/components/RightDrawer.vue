@@ -94,6 +94,7 @@
           </div>
 
           <div class="menu-list">
+            <AppButton v-if="userStore.isAdmin" variant="secondary" class="glass-panel w-full text-left text-red-400 border-red-500/30 font-bold" @click="goToAdmin">🛠️ Administration</AppButton>
             <AppButton variant="secondary"  class="glass-panel w-full text-left" @click="goToHome">🏠 Accueil / Menu</AppButton>
             <AppButton variant="secondary"  class="glass-panel w-full text-left" @click="goToAiMenu">🤖 Jouer contre l'IA</AppButton>
             <AppButton variant="secondary"  class="glass-panel w-full text-left" @click="currentView = 'settings'">⚙️ Paramètres du Profil</AppButton>
@@ -681,6 +682,11 @@ function goToAiMenu() {
   state.menuView = 'ai';
   state.rightDrawerOpen = false;
   router.push('/');
+}
+
+function goToAdmin() {
+  state.rightDrawerOpen = false;
+  router.push('/admin');
 }
 
 function toggleAuthMode() {

@@ -25,12 +25,7 @@
           </div>
         </AppButton>
 
-        <AppButton variant="secondary" class="glass-panel" @click="goToAdmin" title="Administration">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 1.2rem;">⚙️</span>
-            <span class="username" style="display: none;">Admin</span>
-          </div>
-        </AppButton>
+
 
         <AppButton variant="secondary"  class="glass-panel" @click="isQuestModalOpen = true">
           <div style="display: flex; align-items: center; gap: 10px;">

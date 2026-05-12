@@ -4,6 +4,7 @@ Ce fichier regroupe les consignes, conventions et astuces techniques spécifique
 
 ## 1. Contexte Général et Principes
 *   **Mode Planification Requis** : Avant d'entamer des modifications, l'IA DOIT entrer en "planning mode" : poser des questions de clarification pour valider les hypothèses (`message_user` / `request_user_input`), créer un plan formel via `set_plan`, et attendre la validation de l'utilisateur avant d'exécuter.
+*   **Design System** : Référez-vous toujours au [Design System](/admin/design-system) pour maintenir la cohérence visuelle et réutiliser les composants existants.
 *   **Priorité des Instructions** : Les demandes explicites de l'utilisateur priment toujours sur les règles écrites dans ce fichier ou en mémoire.
 
 ## 2. Architecture & Environnement (Monorepo)
