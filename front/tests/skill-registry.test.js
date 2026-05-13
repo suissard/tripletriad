@@ -1,11 +1,11 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { SkillRegistry } from '../src/game/skills/SkillRegistry.js';
+import { Registry } from '../../shared/skills/SkillRegistry.js';
 
 describe('SkillRegistry', () => {
   let registry;
 
   beforeEach(() => {
-    registry = new SkillRegistry();
+    registry = new Registry();
   });
 
   it('should register and retrieve a handler', () => {

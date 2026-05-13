@@ -1,7 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import { getNeighbors } from '../src/game/getNeighbors.js';
+import { state } from '../src/game/state.js';
 
 describe('getNeighbors', () => {
+    // Default the state board width/height to 3x3 for the tests
+    state.boardWidth = 3;
+    state.boardHeight = 3;
+
     it('should return correct neighbors for corner (0)', () => {
         const neighbors = getNeighbors(0);
         expect(neighbors).toHaveLength(2);
