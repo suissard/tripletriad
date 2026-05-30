@@ -40,8 +40,7 @@
       "enum": [
         "self",
         "fixed",
-        "manual",
-        "manual_constrained"
+        "manual"
       ],
       "default": "self",
       "description": "Où se trouve l'origine de la zone d'effet"
@@ -63,7 +62,7 @@
     "origin_reach": {
       "type": "integer",
       "default": 1,
-      "description": "Distance de la carte à l'origine (pour fixed) / rayon max du curseur (pour manual_constrained)"
+      "description": "Distance de la carte à l'origine (pour fixed) / rayon max de sélection de la cible par rapport à la carte (pour manual)"
     },
 
     "patterns": {

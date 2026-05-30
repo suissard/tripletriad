@@ -25,49 +25,67 @@ export async function requestTargets(targetingSteps, board, playerType, context,
 }
 
 function requestSinglePlayerTarget(step, board) {
+    console.log('[targeting.js] requestSinglePlayerTarget 2D DOM started with step:', JSON.stringify(step));
     return new Promise((resolve) => {
-        const originalCursor = document.body.style.cursor;
-        document.body.style.cursor = 'url(/target-cursor.svg) 50 50, crosshair';
+        const w = state.boardWidth || 3;
+        const validSlots = [];
 
-        const raycaster = new THREE.Raycaster();
-        const mouse = new THREE.Vector2();
+        // Determine which slot indices are valid targets
+        for (let slotId = 0; slotId < state.board.length; slotId++) {
+            const x = slotId % w;
+            const y = Math.floor(slotId / w);
 
-        const onTargetClick = (e) => {
-            if (e.target.closest('.ui-layer')) return;
+            let isValid = true;
+            if (step.emptyOnly && state.board[slotId] !== null) isValid = false;
+            if (step.enemyOnly && (!state.board[slotId] || state.board[slotId].owner !== 'ai')) isValid = false;
+            if (step.origin_type === 'manual' && step.sourceSlotId !== undefined) {
+                const reach = step.origin_reach !== undefined && step.origin_reach !== null && step.origin_reach !== 0 ? step.origin_reach : 99;
+                const sourceX = step.sourceSlotId % w;
+                const sourceY = Math.floor(step.sourceSlotId / w);
+                const dist = Math.abs(x - sourceX) + Math.abs(y - sourceY);
+                if (dist > reach) {
+                    isValid = false;
+                }
+            }
 
-            // Prevent default behavior or bubbling
-            e.stopPropagation();
+            if (isValid) {
+                validSlots.push(slotId);
+            }
+        }
 
-            mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-            mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-            raycaster.setFromCamera(mouse, camera);
+        console.log('[targeting.js] valid slot indices for targeting:', validSlots);
 
-            const hits = raycaster.intersectObjects(slots);
-            if (hits.length > 0) {
-                const slot = hits[0].object;
-                const slotId = slot.userData.id;
-
-                const w = state.boardWidth || 3;
+        // Put the targeting session in global state so GameBoard.vue can render and handle selection
+        state.targeting = {
+            active: true,
+            step,
+            validSlots,
+            resolve: (slotId) => {
                 const x = slotId % w;
                 const y = Math.floor(slotId / w);
-
-                // Validate if needed based on step
-                if (step.emptyOnly && state.board[slotId] !== null) {
-                    return; // Invalid
-                }
-
-                if (step.enemyOnly && (!state.board[slotId] || state.board[slotId].owner !== 'ai')) {
-                    return; // Invalid
-                }
-
-                // Valid target
-                window.removeEventListener('pointerdown', onTargetClick, true);
-                document.body.style.cursor = originalCursor;
+                console.log(`[targeting.js] selected slotId: ${slotId} (${x}, ${y})`);
+                
+                // Clear state.targeting
+                state.targeting = {
+                    active: false,
+                    step: null,
+                    resolve: null,
+                    validSlots: []
+                };
+                
                 resolve({ x, y });
+            },
+            cancel: () => {
+                // Clear state.targeting
+                state.targeting = {
+                    active: false,
+                    step: null,
+                    resolve: null,
+                    validSlots: []
+                };
+                resolve(null);
             }
         };
-
-        window.addEventListener('pointerdown', onTargetClick, true);
     });
 }
 
@@ -82,6 +100,16 @@ function evaluateAITarget(step, board, context, aiLogic) {
         let valid = true;
         if (step.emptyOnly && cell !== null) valid = false;
         if (step.enemyOnly && (!cell || cell.owner !== 'player')) valid = false; // AI targeting player
+
+        if (step.origin_type === 'manual' && step.sourceSlotId !== undefined) {
+            const reach = step.origin_reach !== undefined && step.origin_reach !== null && step.origin_reach !== 0 ? step.origin_reach : 99;
+            const sourceX = step.sourceSlotId % w;
+            const sourceY = Math.floor(step.sourceSlotId / w);
+            const dist = Math.abs(x - sourceX) + Math.abs(y - sourceY);
+            if (dist > reach) {
+                valid = false;
+            }
+        }
 
         if (valid) {
             validTargets.push({ x, y, id: i });

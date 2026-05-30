@@ -257,8 +257,7 @@ const filterLabels = {
 const originTypeLabels = {
   self: 'Soi-même',
   fixed: 'Fixé',
-  manual: 'Manuel',
-  manual_constrained: 'Manuel (portée limitée)'
+  manual: 'Manuel'
 };
 
 const originDirectionLabels = {
@@ -302,8 +301,12 @@ const skillDetails = computed(() => {
       const reach = s.origin_reach || 1;
       originDesc = `${reach} case${reach > 1 ? 's' : ''} vers ${originDirectionLabels[s.origin_direction] || s.origin_direction}`;
     }
-    if (originType === 'manual_constrained' && s.origin_reach) {
-      originDesc = `Manuel (rayon ${s.origin_reach})`;
+    if (originType === 'manual') {
+      if (s.origin_reach) {
+        originDesc = `Manuel (portée max: ${s.origin_reach})`;
+      } else {
+        originDesc = `Manuel (portée infinie)`;
+      }
     }
 
     const metadata = getSkillMetadata(s);
@@ -320,7 +323,7 @@ const skillDetails = computed(() => {
       patternLabels,
       originType,
       originDesc,
-      isManual: originType === 'manual' || originType === 'manual_constrained',
+      isManual: originType === 'manual',
       filter,
       filterLabel: filterLabels[filter] || filter,
       trigger,

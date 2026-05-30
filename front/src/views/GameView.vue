@@ -88,8 +88,13 @@
     </Transition>
 
     <!-- Game info message -->
-    <div class="game-help-msg" v-if="state.turn === 'player' && !state.busy && !state.gameOver">
-      <span v-if="state.selectedCardIndex !== null">📍 Cliquez sur une case du plateau</span>
+    <div class="game-help-msg" v-if="state.turn === 'player' && !state.gameOver">
+      <span v-if="state.targeting?.active" class="flex items-center justify-center gap-2">
+        🎯 Sélectionnez une case pour cibler la compétence
+        <AppButton size="sm" variant="danger" class="ml-2 py-0.5 px-2 text-[10px]" @click="state.targeting.cancel()">ANNULER ❌</AppButton>
+      </span>
+      <span v-else-if="state.busy">⏳ En attente...</span>
+      <span v-else-if="state.selectedCardIndex !== null">📍 Cliquez sur une case du plateau</span>
       <span v-else>👆 Sélectionnez une carte dans votre main</span>
     </div>
 
@@ -205,27 +210,36 @@ function onCoinTossFinished() {
 }
 
 // Live Sync for Skill Tester
-watch(() => state.skillTestCard?.skills, (newSkills) => {
+const performSkillTesterSync = (newSkills) => {
     if (route.query.skillTest === 'true' && newSkills) {
         console.log('[SkillTester] Syncing skills to hand and deck...', newSkills);
-        const syncSkills = (card) => {
-            const baseId = state.skillTestCard.id;
-            const cardId = String(card?.id || '');
-            if (card && (card.id === baseId || cardId.startsWith(baseId + '_test_'))) {
+        const syncSkills = (cardOrMesh) => {
+            const baseId = String(state.skillTestCard.id || '');
+            const card = cardOrMesh?.userData?.data ? cardOrMesh.userData.data : cardOrMesh;
+            if (!card) return;
+            const cardId = String(card.id || '');
+            if (cardId === baseId || cardId.startsWith(baseId + '_test_')) {
                 card.skills = JSON.parse(JSON.stringify(newSkills));
             }
         };
         state.pHand.forEach(syncSkills);
         state.pDeck.forEach(syncSkills);
-        
-        // Also sync board for already played cards? 
-        // User said "en la jouant", so maybe only hand/deck is enough.
-        // But for completeness:
         state.board.forEach(cell => {
             if (cell && cell.data) syncSkills(cell.data);
         });
     }
+};
+
+watch(() => state.skillTestCard?.skills, (newSkills) => {
+    performSkillTesterSync(newSkills);
 }, { deep: true });
+
+watch(isSkillEditorOpen, (isOpen) => {
+    if (!isOpen && state.skillTestCard?.skills) {
+        console.log('[SkillTester] Skill editor closed, forcing final sync...');
+        performSkillTesterSync(state.skillTestCard.skills);
+    }
+});
 
 onMounted(async () => {
     const mode = route.query.mode;

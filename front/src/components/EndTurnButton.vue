@@ -18,23 +18,13 @@ import { state, confirmAction } from '../game/state.js';
 import { handleEndTurn } from '../game/game-actions.js';
 
 const isReady = computed(() => {
-  if (state.turn !== 'player') return false;
-  if (state.pMana === 0) return true;
-
-  // Check if player has affordable cards
-  const affordableCard = state.pHand.find(c => (c.level || 1) <= state.pMana);
-  return !affordableCard;
+  return state.turn === 'player';
 });
 
 import { sendGameLog } from '../game/logger.js';
 
 const onEndTurn = async () => {
   if (state.turn !== 'player') return;
-
-  if (!isReady.value) {
-    const confirm = await confirmAction('Fin de Tour', 'Il vous reste du Mana et des cartes jouables. Êtes-vous sûr de vouloir terminer votre tour ?');
-    if (!confirm) return;
-  }
 
   sendGameLog('click', { type: 'player', id: state.pId }, { bouton: 'fin_de_tour' });
 

@@ -77,7 +77,7 @@ export function resolveOrigin(ctx): { ox: number, oy: number } | null {
     return { ox: ctx.x + dir.dx * reach, oy: ctx.y + dir.dy * reach };
   }
 
-  // manual / manual_constrained : l'origine est la première cible fournie par le joueur
+  // manual : l'origine est la première cible fournie par le joueur
   if (ctx.targets && ctx.targets.length > 0) {
     return { ox: ctx.targets[0].x, oy: ctx.targets[0].y };
   }

@@ -1,5 +1,5 @@
 <template>
-  <div class="game-board-container" ref="containerRef">
+  <div class="game-board-container" :class="{ 'is-targeting': state.targeting?.active }" ref="containerRef">
     <div class="game-board" ref="boardRef" :style="{ gridTemplateColumns: `repeat(${state.boardWidth}, 1fr)`, gridTemplateRows: `repeat(${state.boardHeight}, auto)` }">
       <div
         v-for="(cell, index) in state.board"
@@ -19,6 +19,8 @@
           'is-drag-over': state.hoveredSlotIndex === index,
           'slot-capture-preview': !cell && previewMap && previewMap.has(index),
           'slot-capture-combo': !cell && previewMap && previewMap.has(index) && previewMap.get(index).comboCaptures.length > 0,
+          'slot-targeting-valid': state.targeting?.active && state.targeting.validSlots.includes(index),
+          'slot-targeting-invalid': state.targeting?.active && !state.targeting.validSlots.includes(index)
         }"
         :style="getCaptureSlotStyle(index)"
         @click="handleSlotClick(index)"
@@ -421,6 +423,12 @@ function triggerGlassEffect(slotIndex) {
 }
 
 function handleSlotClick(index) {
+  if (state.targeting?.active) {
+    if (state.targeting.validSlots.includes(index)) {
+      state.targeting.resolve(index);
+    }
+    return;
+  }
   if (state.board[index] !== null) return;
   if (state.selectedCardIndex === null) return;
   triggerPlacement(index);
@@ -522,6 +530,30 @@ defineExpose({
   box-shadow: 
     inset 0 0 50px rgba(255, 0, 85, 0.4),
     0 0 20px rgba(255, 0, 85, 0.3);
+}
+
+/* ---- Targeting session styles ---- */
+.game-board-container.is-targeting {
+  cursor: crosshair !important;
+}
+.board-slot.slot-targeting-valid {
+  cursor: pointer !important;
+  background: color-mix(in srgb, #8800ff 25%, transparent) !important;
+  border-color: #8800ff !important;
+  box-shadow: 0 0 25px rgba(136, 0, 255, 0.7), inset 0 0 15px rgba(136, 0, 255, 0.4) !important;
+  animation: capture-slot-pulse 1.5s ease-in-out infinite !important;
+  z-index: 20 !important;
+}
+.board-slot.slot-targeting-valid:hover {
+  background: color-mix(in srgb, #8800ff 45%, transparent) !important;
+  box-shadow: 0 0 35px rgba(136, 0, 255, 1.0), inset 0 0 20px rgba(136, 0, 255, 0.6) !important;
+  transform: scale(1.05) !important;
+}
+.board-slot.slot-targeting-invalid {
+  opacity: 0.25 !important;
+  filter: grayscale(80%) brightness(0.6) !important;
+  cursor: not-allowed !important;
+  pointer-events: auto !important;
 }
 
 .board-slot.is-drag-over {

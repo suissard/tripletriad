@@ -31,9 +31,6 @@ function get2DBoard() {
  * Returns { slot, cardIdx } or null.
  */
 export function getBestAIMove() {
-    // If AI has no mana, return null immediately
-    if (state.aiMana < 1) return null;
-
     const board2D = get2DBoard();
     // Default difficulty to 100 if not set
     const difficulty = state.aiDifficulty !== undefined ? state.aiDifficulty : 100;

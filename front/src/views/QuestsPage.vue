@@ -1,8 +1,11 @@
 <template>
   <PageLayout title="QUÊTES JOURNALIÈRES" backRoute="/">
     <div class="story-container">
-      <div v-if="!userStore.isLoggedIn" class="auth-notice">
-        <p>Connectez-vous pour voir vos quêtes et progresser dans l'histoire.</p>
+      <div v-if="!userStore.isLoggedIn" class="auth-notice flex flex-col items-center gap-4">
+        <p class="mb-4">Connectez-vous pour voir vos quêtes et progresser dans l'histoire.</p>
+        <AppButton variant="primary" class="px-6 py-3 shadow-lg shadow-primary/20" @click="state.authModalOpen = true">
+          Se connecter / S'inscrire
+        </AppButton>
       </div>
 
       <div v-else-if="userStore.quests.length === 0" class="no-quests">
@@ -70,6 +73,7 @@ import QuestItem from '../components/QuestItem.vue';
 import WeeklyQuestProgress from '../components/WeeklyQuestProgress.vue';
 import WeeklyRewardModal from '../components/WeeklyRewardModal.vue';
 import { useUserStore } from '../stores/userStore.js';
+import { state } from '../game/state.js';
 
 const userStore = useUserStore();
 const now = ref(new Date());

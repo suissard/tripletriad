@@ -5,6 +5,8 @@
 import { state, socketManager, refillHand } from './state.js';
 import { resolveRules, sleep, updateScores, endTurn, expandBoard } from './engine.js';
 import { getBestAIMove } from './ai.js';
+import { requestTargets } from './targeting.js';
+import { skillRegistry } from '../../../shared/skills/index.js';
 
 /**
  * Select a card in the player's hand.
@@ -17,12 +19,6 @@ export function selectCard(index) {
     if (state.selectedCardIndex === index) {
         state.selectedCardIndex = null;
     } else {
-        const cost = 1; // All cards cost 1 mana now
-        if (state.pMana < cost) {
-            state.alerts = "Plus d'actions possibles ce tour!";
-            setTimeout(() => { if (state.alerts === "Plus d'actions possibles ce tour!") state.alerts = ''; }, 1500);
-            return;
-        }
         state.selectedCardIndex = index;
     }
 }
@@ -37,17 +33,39 @@ export async function placeCard(slotIndex) {
 
     const cardIdx = state.selectedCardIndex;
     const card = state.pHand[cardIdx];
-    const cost = 1; // All cards cost 1 mana now
-
-    if (state.pMana < cost) {
-        state.alerts = "Plus d'actions possibles ce tour!";
-        setTimeout(() => { if (state.alerts === "Plus d'actions possibles ce tour!") state.alerts = ''; }, 1500);
-        return;
-    }
 
     state.busy = true;
-    state.pMana -= cost;
     state.selectedCardIndex = null;
+
+    // Determine targeting steps
+    const skills = card.skills || [];
+    let targetingSteps = [];
+    for (const skill of skills) {
+        const handler = skillRegistry.getHandler(skill.type);
+        if (handler && handler.targetingSteps) {
+            targetingSteps = targetingSteps.concat(handler.targetingSteps);
+        } else if (skill.origin_type === 'manual') {
+            const reach = skill.origin_reach !== undefined && skill.origin_reach !== null && skill.origin_reach !== 0 ? skill.origin_reach : (skill.range !== undefined && skill.range !== null && skill.range !== 0 ? skill.range : 99);
+            targetingSteps.push({
+                type: 'CELL',
+                origin_type: 'manual',
+                origin_reach: reach,
+                sourceSlotId: slotIndex
+            });
+        }
+    }
+
+    let targets = [];
+    if (targetingSteps.length > 0) {
+        targets = await requestTargets(targetingSteps, state.board, 'player', {});
+        if (!targets || targets.length < targetingSteps.length) {
+            // Targeting cancelled or failed
+            state.busy = false;
+            card.isPlacing = false;
+            state.selectedCardIndex = cardIdx; // Re-select the card
+            return; // Abort play
+        }
+    }
 
     // Mark as being played (don't splice yet to keep hand stable)
     card.isPlacing = true;
@@ -81,7 +99,8 @@ export async function placeCard(slotIndex) {
             },
             x,
             y,
-            player: state.isHost ? 'PLAYER_1' : 'PLAYER_2'
+            player: state.isHost ? 'PLAYER_1' : 'PLAYER_2',
+            targets: targets
         };
 
         await state.turnManager.playLocalAction(action);
@@ -116,7 +135,7 @@ export async function placeCard(slotIndex) {
         state.pHand.splice(finalIdx, 1);
     }
 
-    await resolveRules(slotIndex, 'player');
+    await resolveRules(slotIndex, 'player', targets);
 
     refillHand('player');
     // expandBoard();
@@ -130,19 +149,38 @@ export async function placeCard(slotIndex) {
     }, 500);
 }
 
-/**
- * Process a network opponent move.
- */
 export async function processOpponentMove(move) {
     if (move.slot === null || move.slot === undefined) return;
 
     const card = state.aiHand.splice(move.cardIdx, 1)[0];
     if (!card) return;
 
-    const cost = 1;
-    state.aiMana -= cost;
-
     card.revealed = true;
+
+    // AI/Opponent targeting logic
+    const skills = card.skills || [];
+    let targetingSteps = [];
+    for (const skill of skills) {
+        const handler = skillRegistry.getHandler(skill.type);
+        if (handler && handler.targetingSteps) {
+            targetingSteps = targetingSteps.concat(handler.targetingSteps);
+        } else if (skill.origin_type === 'manual') {
+            const reach = skill.origin_reach !== undefined && skill.origin_reach !== null && skill.origin_reach !== 0 ? skill.origin_reach : (skill.range !== undefined && skill.range !== null && skill.range !== 0 ? skill.range : 99);
+            targetingSteps.push({
+                type: 'CELL',
+                origin_type: 'manual',
+                origin_reach: reach,
+                sourceSlotId: move.slot
+            });
+        }
+    }
+
+    let targets = [];
+    if (targetingSteps.length > 0) {
+        // AI targets evaluate synchronously and return immediately
+        targets = await requestTargets(targetingSteps, state.board, 'ai', {});
+    }
+
     state.board[move.slot] = { data: card, owner: 'ai' };
 
     // Log AI action
@@ -154,7 +192,7 @@ export async function processOpponentMove(move) {
     });
 
     await sleep(600);
-    await resolveRules(move.slot, 'ai');
+    await resolveRules(move.slot, 'ai', targets);
 
     refillHand('ai');
     // expandBoard();
@@ -173,13 +211,8 @@ export async function aiPlay() {
         state.busy = true;
         await processOpponentMove(move);
         state.busy = false;
-
-        // Try another move if AI still has mana and cards
-        setTimeout(aiPlay, 800);
-    } else {
-        // AI has no valid moves or not enough mana → end turn
-        endTurn('ai');
     }
+    endTurn('ai');
 }
 
 /**

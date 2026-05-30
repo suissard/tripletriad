@@ -169,12 +169,88 @@ export async function resolveRules(startIndex, owner, targets = []) {
             targets: idx === startIndex ? targets : [],
             x, y,
             card: cell?.data,
-            owner: cell?.owner === 'player' ? 'PLAYER_1' : 'PLAYER_2'
+            owner: cell?.owner === 'player' ? 'PLAYER_1' : 'PLAYER_2',
+            alerts: [],
+            captures: [],
+            dyingCards: [],
+            attackQueue: []
         };
     };
 
+    const syncBoard2DToState = (board2D) => {
+        for (let y0 = 0; y0 < h; y0++) {
+            for (let x0 = 0; x0 < w; x0++) {
+                const idx = y0 * w + x0;
+                const cell2D = board2D[y0][x0];
+                const cellState = state.board[idx];
+                
+                if (cell2D === null) {
+                    if (cellState !== null) {
+                        state.board[idx] = null;
+                    }
+                } else {
+                    const ownerStr = cell2D.owner === 'PLAYER_1' ? 'player' : 'ai';
+                    if (cellState === null) {
+                        state.board[idx] = {
+                            data: cell2D.data,
+                            owner: ownerStr
+                        };
+                    } else {
+                        cellState.owner = ownerStr;
+                        Object.assign(cellState.data, cell2D.data);
+                    }
+                }
+            }
+        }
+    };
+
+    const runSkillDispatch = (hookName, idx) => {
+        const ctx = buildCtx(idx);
+        console.log(`[Engine] Running skill dispatch for "${hookName}" at slot ${idx}`);
+        skillRegistry.dispatch(hookName, ctx);
+
+        // Sync board changes
+        syncBoard2DToState(ctx.board);
+
+        // Process alerts
+        if (ctx.alerts && ctx.alerts.length > 0) {
+            ctx.alerts.forEach(alert => {
+                showAlert(alert);
+            });
+        }
+
+        // Process recursive dying cards (onDeath / cascade bomb effects)
+        while (ctx.dyingCards && ctx.dyingCards.length > 0) {
+            const dying = ctx.dyingCards.shift();
+            const dyingCardData = dying.cell?.data || dying.cell;
+            const dyingOwner = dying.cell?.owner || dying.owner;
+            
+            if (dyingCardData?.skills?.length > 0) {
+                const dyingCtx = buildCtx(dying.y * w + dying.x);
+                dyingCtx.alerts = ctx.alerts;
+                dyingCtx.captures = ctx.captures;
+                dyingCtx.dyingCards = ctx.dyingCards;
+                dyingCtx.card = dyingCardData;
+                dyingCtx.owner = dyingOwner;
+                
+                console.log(`[Engine] Dispatching onDeath cascade for card "${dyingCardData.name}"`);
+                skillRegistry.dispatch('onDeath', dyingCtx);
+                
+                syncBoard2DToState(dyingCtx.board);
+                
+                if (dyingCtx.alerts && dyingCtx.alerts.length > 0) {
+                    dyingCtx.alerts.forEach(alert => {
+                        showAlert(alert);
+                    });
+                }
+            }
+        }
+        
+        updateScores();
+    };
+
     // 2. Dispatch onEnterPlay for the placed card
-    skillRegistry.dispatch('onEnterPlay', buildCtx(startIndex));
+    runSkillDispatch('onEnterPlay', startIndex);
 
     // 3. Dispatch onEndOfTurn for all cards on board
     console.log("[Engine] Dispatching end of turn skills...");
@@ -182,9 +258,10 @@ export async function resolveRules(startIndex, owner, targets = []) {
         const cell = state.board[i];
         if (cell?.data?.skills?.length > 0) {
             console.log(`[Engine] Card at slot ${i} has skills. Dispatching onEndOfTurn...`);
-            skillRegistry.dispatch('onEndOfTurn', buildCtx(i));
+            runSkillDispatch('onEndOfTurn', i);
         }
     }
+
 
     // Reset combo active index after a brief delay
     setTimeout(() => {

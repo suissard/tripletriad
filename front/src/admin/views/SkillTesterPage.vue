@@ -63,26 +63,49 @@
       <div class="lg:col-span-2 flex flex-col items-center justify-center glass-panel p-10 rounded-[40px] border border-white/10 min-h-[600px] relative overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-purple-500/5 pointer-events-none"></div>
         
-        <div v-if="selectedCard" class="card-preview-wrapper relative z-10">
+        <div v-if="selectedCard" class="card-preview-wrapper relative z-10 w-full max-w-lg flex flex-col items-center">
           <TripleTriadCard 
             :card="selectedCard" 
             size="xl" 
             class="transform hover:scale-105 transition-transform duration-500"
           />
           
-          <div class="mt-10 space-y-4 w-full max-w-md">
-            <div v-if="selectedCard.skills && selectedCard.skills.length > 0" class="skills-info">
+          <div class="mt-10 space-y-4 w-full">
+            <div v-if="selectedCard.skills && selectedCard.skills.length > 0" class="skills-info w-full">
               <h4 class="text-xs font-black text-primary uppercase tracking-widest mb-3">Compétences Actives</h4>
               <div class="space-y-2">
-                <div v-for="(s, i) in selectedCard.skills" :key="i" class="p-3 bg-white/5 rounded-xl border border-white/10 text-xs">
-                  <span class="text-white font-bold">{{ s.type }}</span>
-                  <span v-if="s.trigger" class="text-green-400 ml-2">🕒 {{ s.trigger }}</span>
-                  <span v-if="s.value" class="text-gray-400 ml-2">Valeur: {{ s.value }}</span>
-                  <span v-if="s.range" class="text-gray-400 ml-2">Portée: {{ s.range }}</span>
+                <div v-for="(s, i) in selectedCard.skills" :key="i" class="p-4 bg-white/5 rounded-xl border border-white/10 text-xs">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-white font-bold text-sm">
+                      {{ s.type === 'modular' ? `🛠️ Effet: ${s.effect_type}` : getSkillMetadata(s).name }}
+                    </span>
+                    <span v-if="s.trigger" class="px-2 py-0.5 rounded-full bg-green-500/20 text-green-300 font-bold text-[10px]">
+                      🕒 {{ s.trigger }}
+                    </span>
+                  </div>
+                  
+                  <p class="text-gray-400 mb-2 italic">
+                    {{ s.type === 'modular' ? 'Effet modulaire personnalisé.' : getSkillMetadata(s).description }}
+                  </p>
+
+                  <div class="flex flex-wrap gap-3 text-[10px] text-gray-400 font-medium">
+                    <span v-if="s.value" class="px-2 py-0.5 rounded bg-white/5 border border-white/5">
+                      Valeur: <strong class="text-white">{{ s.value }}</strong>
+                    </span>
+                    <span v-if="s.range" class="px-2 py-0.5 rounded bg-white/5 border border-white/5">
+                      Portée: <strong class="text-white">{{ s.range }}</strong>
+                    </span>
+                    <span v-if="s.charges !== undefined || s.counter !== undefined" class="px-2 py-0.5 rounded bg-white/5 border border-white/5">
+                      Charges: <strong class="text-cyan-300">{{ s.charges !== undefined ? s.charges : s.counter }}</strong>
+                    </span>
+                    <span v-if="s.target_pattern" class="px-2 py-0.5 rounded bg-white/5 border border-white/5">
+                      Pattern: <strong class="text-purple-300">{{ s.target_pattern }}</strong>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-            <div v-else class="text-center p-6 border border-dashed border-white/10 rounded-2xl">
+            <div v-else class="text-center p-6 border border-dashed border-white/10 rounded-2xl w-full">
               <p class="text-gray-500 text-sm italic">Aucune compétence configurée.</p>
             </div>
           </div>
@@ -108,6 +131,7 @@
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { cardLibrary, state, normalizeCard, shuffle } from '../../game/state.js';
+import { getSkillMetadata } from '../../../../shared/skills';
 import TripleTriadCard from '../../components/TripleTriadCard.vue';
 import AppButton from '../../components/ui/AppButton.vue';
 import SkillEditorModal from '../components/SkillEditorModal.vue';

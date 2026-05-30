@@ -11,6 +11,7 @@
     <AlertMessage />
     <NotificationToast />
     <ConfirmationModal />
+    <AuthPromptModal />
     <FpsCounter />
     
     <!-- Floating Admin Button -->
@@ -31,7 +32,8 @@ import AppLayout from './layouts/AppLayout.vue';
 import NotificationToast from "./components/NotificationToast.vue";
 import AlertMessage from './components/AlertMessage.vue';
 import ConfirmationModal from './components/ConfirmationModal.vue';
-import { loadCardsFromStrapi } from './game/state.js';
+import { state, loadCardsFromStrapi } from './game/state.js';
+import AuthPromptModal from './components/AuthPromptModal.vue';
 import { useUserStore } from './stores/userStore.js';
 import { useRouter, useRoute } from 'vue-router';
 import { useNotificationStore } from './stores/notificationStore.js';
@@ -137,6 +139,9 @@ onMounted(async () => {
   setTimeout(() => {
     userStore.initializationStatus = 'ready';
     console.warn('--- TRIPLE TRIAD: FRONTEND READY ---');
+    if (!userStore.isLoggedIn) {
+      state.authModalOpen = true;
+    }
   }, 500);
 
   watch(() => userStore.strapiConnected, (isConnected, wasConnected) => {

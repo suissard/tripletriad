@@ -89,92 +89,92 @@ export function initInput() {
         const slot = hits.length > 0 ? hits[0].object : null;
 
         if (slot && state.board[slot.userData.id] === null) {
-            const cardLevel = current.userData.data.level || 1;
+            // Determine targeting steps
+            const skills = current.userData.data.skills || [];
+            console.log('[input.js] skills found on card:', JSON.stringify(skills));
+            if (current.userData.data.skillId && !skills.some(s => s.type === current.userData.data.skillId)) {
+                skills.push({ type: current.userData.data.skillId });
+            }
 
-            if (state.pMana >= cardLevel) {
-                // Determine targeting steps
-                const skills = current.userData.data.skills || [];
-                if (current.userData.data.skillId && !skills.some(s => s.type === current.userData.data.skillId)) {
-                    skills.push({ type: current.userData.data.skillId });
+            let targetingSteps = [];
+            for (const skill of skills) {
+                const handler = skillRegistry.getHandler(skill.type);
+                if (handler && handler.targetingSteps) {
+                    targetingSteps = targetingSteps.concat(handler.targetingSteps);
+                } else if (skill.origin_type === 'manual') {
+                    targetingSteps.push({
+                        type: 'CELL',
+                        origin_type: 'manual',
+                        origin_reach: skill.origin_reach,
+                        sourceSlotId: slot.userData.id
+                    });
                 }
+            }
+            console.log('[input.js] constructed targetingSteps:', JSON.stringify(targetingSteps));
 
-                let targetingSteps = [];
-                for (const skill of skills) {
-                    const handler = skillRegistry.getHandler(skill.type);
-                    if (handler && handler.targetingSteps) {
-                        targetingSteps = targetingSteps.concat(handler.targetingSteps);
-                    }
-                }
-
-                // If targets are needed, pause and request them
-                let targets = [];
-                if (targetingSteps.length > 0) {
-                    state.busy = true;
-                    // Reset UI slightly while targeting
-                    gsap.to(current.position, { x: slot.position.x, y: 0.15, z: slot.position.z, duration: 0.2 });
-
-                    targets = await requestTargets(targetingSteps, state.board, 'player', {});
-
-                    if (!targets || targets.length < targetingSteps.length) {
-                        // Targeting cancelled or failed
-                        state.busy = false;
-                        refillHand('player');
-                        return; // Abort play
-                    }
-                }
-
+            // If targets are needed, pause and request them
+            let targets = [];
+            if (targetingSteps.length > 0) {
                 state.busy = true;
-                state.pMana -= cardLevel;
-
-                const cardIdx = state.pHand.indexOf(current);
-
-                state.pHand = state.pHand.filter(c => c !== current);
-                state.board[slot.userData.id] = current;
-                current.userData.data.revealed = true;
-
+                // Reset UI slightly while targeting
                 gsap.to(current.position, { x: slot.position.x, y: 0.15, z: slot.position.z, duration: 0.2 });
-                await sleep(300);
 
-                await resolveRules(slot.userData.id, 'player', targets);
+                targets = await requestTargets(targetingSteps, state.board, 'player', {});
 
-                refillHand('player');
-                updateScores();
-
-                // turn logic is now manual
-                state.busy = false;
-
-                if (state.online) {
-                    // webrtc.sendMessage({ type: 'move', cardIdx: cardIdx, slot: slot.userData.id });
-                    if (state.turnManager) {
-                        const x = slot.userData.id % 3;
-                        const y = Math.floor(slot.userData.id / 3);
-                        
-                        // Enregistrement dans le log pour l'arbitrage
-                        const action = {
-                            type: 'PLACE_CARD',
-                            card: {
-                                id: current.userData.data.id,
-                                values: {
-                                    top: current.userData.data.top,
-                                    bottom: current.userData.data.bottom,
-                                    left: current.userData.data.left,
-                                    right: current.userData.data.right
-                                }
-                            },
-                            x,
-                            y,
-                            player: state.isHost ? 'PLAYER_1' : 'PLAYER_2',
-                            targets
-                        };
-                        
-                        state.actionLog.push(action);
-                        await state.turnManager.playLocalAction(action);
-                    }
+                if (!targets || targets.length < targetingSteps.length) {
+                    // Targeting cancelled or failed
+                    state.busy = false;
+                    refillHand('player');
+                    return; // Abort play
                 }
-            } else {
-                state.alerts = "Pas assez de Mana!";
-                setTimeout(() => { if (state.alerts === "Pas assez de Mana!") state.alerts = ''; }, 1500);
-                refillHand('player');
+            }
+
+            state.busy = true;
+
+            const cardIdx = state.pHand.indexOf(current);
+
+            state.pHand = state.pHand.filter(c => c !== current);
+            state.board[slot.userData.id] = current;
+            current.userData.data.revealed = true;
+
+            gsap.to(current.position, { x: slot.position.x, y: 0.15, z: slot.position.z, duration: 0.2 });
+            await sleep(300);
+
+            await resolveRules(slot.userData.id, 'player', targets);
+
+            refillHand('player');
+            updateScores();
+
+            // turn logic is now manual
+            state.busy = false;
+
+            if (state.online) {
+                // webrtc.sendMessage({ type: 'move', cardIdx: cardIdx, slot: slot.userData.id });
+                if (state.turnManager) {
+                    const x = slot.userData.id % 3;
+                    const y = Math.floor(slot.userData.id / 3);
+                    
+                    // Enregistrement dans le log pour l'arbitrage
+                    const action = {
+                        type: 'PLACE_CARD',
+                        card: {
+                            id: current.userData.data.id,
+                            values: {
+                                top: current.userData.data.top,
+                                bottom: current.userData.data.bottom,
+                                left: current.userData.data.left,
+                                right: current.userData.data.right
+                            }
+                        },
+                        x,
+                        y,
+                        player: state.isHost ? 'PLAYER_1' : 'PLAYER_2',
+                        targets
+                    };
+                    
+                    state.actionLog.push(action);
+                    await state.turnManager.playLocalAction(action);
+                }
             }
         } else {
             refillHand('player');
@@ -204,9 +204,6 @@ export async function processOpponentMove(move) {
     const cardMesh = state.aiHand.splice(move.cardIdx, 1)[0];
     const slot = slots[move.slot];
 
-    const cardLevel = cardMesh.userData.data.level || 1;
-    state.aiMana -= cardLevel;
-
     // AI targeting logic
     const skills = cardMesh.userData.data.skills || [];
     if (cardMesh.userData.data.skillId && !skills.some(s => s.type === cardMesh.userData.data.skillId)) {
@@ -218,6 +215,13 @@ export async function processOpponentMove(move) {
         const handler = skillRegistry.getHandler(skill.type);
         if (handler && handler.targetingSteps) {
             targetingSteps = targetingSteps.concat(handler.targetingSteps);
+        } else if (skill.origin_type === 'manual') {
+            targetingSteps.push({
+                type: 'CELL',
+                origin_type: 'manual',
+                origin_reach: skill.origin_reach,
+                sourceSlotId: move.slot
+            });
         }
     }
 
@@ -252,11 +256,6 @@ export async function aiPlay() {
         state.busy = true;
         await processOpponentMove(move);
         state.busy = false;
-
-        // Try another move if AI still has mana and cards
-        setTimeout(aiPlay, 800);
-    } else {
-        // AI has no valid moves left or not enough mana, ends turn
-        endTurn('ai');
     }
+    endTurn('ai');
 }

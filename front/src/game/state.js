@@ -144,6 +144,7 @@ export const state = reactive({
     // UI Navigation State
     leftDrawerOpen: false,
     rightDrawerOpen: false,
+    authModalOpen: false,
 
     confirmation: { isOpen: false, title: '', message: '' },
     // Deck Editor Page
@@ -178,6 +179,14 @@ export const state = reactive({
 
     // Skill Tester
     skillTestCard: null,
+
+    // Targeting session state (for 2D HTML board)
+    targeting: {
+        active: false,
+        step: null,
+        resolve: null,
+        validSlots: [],
+    },
 });
 
 /**
@@ -441,6 +450,14 @@ export function resetGame(deckSize = 30, goToMenu = true, forcedTurn = null) {
     state.comboCount = 0;
     state.comboActiveIndex = null;
     state.capturePreview = null;
+
+    // Reset targeting state
+    state.targeting = {
+        active: false,
+        step: null,
+        resolve: null,
+        validSlots: [],
+    };
 }
 
 /**

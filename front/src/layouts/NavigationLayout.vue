@@ -38,10 +38,10 @@
           <AppButton 
             variant="secondary" 
             class="glass-panel h-10 px-4 flex items-center gap-3"
-            @click="router.push(`/profile/${userStore.user?.documentId || userStore.user?.id}`)"
+            @click="handleUserWidgetClick"
           >
-            <span class="text-sm font-bold uppercase hidden md:inline">{{ userStore.user?.username }}</span>
-            <img :src="userStore.user?.avatar" class="w-8 h-8 rounded-full border border-[#00d2ff]/50" alt="Avatar" />
+            <span class="text-sm font-bold uppercase hidden md:inline">{{ userStore.user?.username || 'Joueur Anonyme' }}</span>
+            <img :src="userStore.user?.avatar || 'https://api.dicebear.com/9.x/bottts/svg?seed=player&backgroundColor=transparent'" class="w-8 h-8 rounded-full border border-[#00d2ff]/50" alt="Avatar" />
           </AppButton>
         </div>
       </div>
@@ -63,6 +63,7 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { useUserStore } from '../stores/userStore';
+import { state } from '../game/state';
 import AppButton from '../components/ui/AppButton.vue';
 import ChatWidget from '../components/ChatWidget.vue';
 import RightDrawer from '../components/RightDrawer.vue';
@@ -75,6 +76,14 @@ const handleBack = () => {
     router.back();
   } else {
     router.push('/');
+  }
+};
+
+const handleUserWidgetClick = () => {
+  if (!userStore.isLoggedIn) {
+    state.authModalOpen = true;
+  } else {
+    router.push(`/profile/${userStore.user?.documentId || userStore.user?.id}`);
   }
 };
 </script>

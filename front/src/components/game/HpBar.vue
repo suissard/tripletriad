@@ -39,13 +39,12 @@ const maxHp = computed(() => Math.max(props.defaultHp, currentHp.value));
 <style scoped>
 .hp-bar-container {
   position: absolute;
-  top: 2cqw; /* Moved to top to avoid overlap with bottom stats */
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: -7px; /* Positionné juste en dessous, collé à la carte */
+  left: 0;
+  right: 0;
   display: flex;
-  gap: 2px;
+  gap: 1px;
   z-index: 10;
-  width: 80%;
   height: 6px;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -53,9 +52,9 @@ const maxHp = computed(() => Math.max(props.defaultHp, currentHp.value));
 
 .hp-segment {
   flex: 1;
-  background-color: rgba(255, 255, 255, 0.3);
-  border: 1px solid rgba(0, 0, 0, 0.8);
-  border-radius: 2px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  border-radius: 1px;
   transition: all 0.3s ease;
 }
 
@@ -64,13 +63,23 @@ const maxHp = computed(() => Math.max(props.defaultHp, currentHp.value));
   box-shadow: 0 0 2px rgba(0,0,0,0.5);
 }
 
+/* Joueur 1 (Bleu/Cyan) - Actif et Inactif */
+.hp-segment.is-player1 {
+  border-color: color-mix(in srgb, var(--color-primary, #00d2ff) 50%, black);
+  background-color: color-mix(in srgb, var(--color-primary, #00d2ff) 20%, transparent);
+}
 .hp-segment.is-active.is-player1 {
-  background-color: var(--color-primary, #3b82f6);
-  box-shadow: 0 0 4px var(--color-primary, #3b82f6);
+  background-color: var(--color-primary, #00d2ff);
+  box-shadow: 0 0 4px var(--color-primary, #00d2ff);
 }
 
+/* Joueur 2 (Rouge/Pink / IA) - Actif et Inactif */
+.hp-segment.is-player2 {
+  border-color: color-mix(in srgb, var(--color-secondary, #ff0055) 50%, black);
+  background-color: color-mix(in srgb, var(--color-secondary, #ff0055) 20%, transparent);
+}
 .hp-segment.is-active.is-player2 {
-  background-color: var(--color-secondary, #ef4444);
-  box-shadow: 0 0 4px var(--color-secondary, #ef4444);
+  background-color: var(--color-secondary, #ff0055);
+  box-shadow: 0 0 4px var(--color-secondary, #ff0055);
 }
 </style>

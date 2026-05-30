@@ -28,7 +28,7 @@
         <h3>Accès Restreint</h3>
         <p>Identifiez-vous pour accéder aux archives ou jouez en mode hors-ligne.</p>
         <div class="auth-actions">
-          <AppButton variant="primary" @click="router.push('/login')">S'identifier</AppButton>
+          <AppButton variant="primary" @click="state.authModalOpen = true">S'identifier</AppButton>
           <AppButton variant="ghost" @click="toggleOffline">Jouer Hors-ligne</AppButton>
         </div>
       </div>
@@ -153,6 +153,7 @@ import AppCard from '../components/ui/AppCard.vue';
 import AppButton from '../components/ui/AppButton.vue';
 import AppModal from '../components/ui/AppModal.vue';
 import { useUserStore } from '../stores/userStore.js';
+import { state } from '../game/state.js';
 import strapiService from '../api/strapi.js';
 import { getStrapiUrl, getStrapiMediaUrl } from '../utils/url.js';
 

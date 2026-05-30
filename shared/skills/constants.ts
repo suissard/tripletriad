@@ -97,9 +97,7 @@ export const ORIGIN_TYPES = {
   /** L'origine est décalée par rapport à la carte (via origin_direction et origin_reach). */
   FIXED: 'fixed',
   /** Le joueur doit choisir manuellement une case cible sur le plateau. */
-  MANUAL: 'manual',
-  /** Le joueur choisit manuellement, mais avec des contraintes de distance/forme. */
-  MANUAL_CONSTRAINED: 'manual_constrained'
+  MANUAL: 'manual'
 } as const;
 
 export type OriginType = typeof ORIGIN_TYPES[keyof typeof ORIGIN_TYPES];

@@ -27,16 +27,36 @@
           <div class="grid grid-cols-2 gap-4">
             <div class="col-span-2">
               <label class="label-text">Type de Compétence</label>
-              <select v-model="skill.type" class="admin-input w-full">
-                <option v-for="handler in availableSkills" :key="handler.id" :value="handler.id">
+              <select v-model="skill.type" class="admin-input w-full" @change="onSkillTypeChange(skill)">
+                <option v-for="handler in availableSkillsList" :key="handler.id" :value="handler.id">
                   {{ handler.name }} ({{ handler.id }})
                 </option>
               </select>
-              <p v-if="getSkillMetadata(skill)" class="text-[10px] text-gray-400 mt-2 italic px-1">
-                <span v-if="getSkillMetadata(skill).name !== availableSkills.find(s => s.id === skill.type)?.name" class="text-[#ffd700] font-bold">{{ getSkillMetadata(skill).name }} : </span>
+              
+              <!-- Help description -->
+              <p v-if="skill.type !== 'modular' && getSkillMetadata(skill)" class="text-[10px] text-gray-400 mt-2 italic px-1">
+                <span v-if="getSkillMetadata(skill).name !== availableSkillsList.find(s => s.id === skill.type)?.name" class="text-[#ffd700] font-bold">{{ getSkillMetadata(skill).name }} : </span>
                 {{ getSkillMetadata(skill).description }}
               </p>
+              <p v-else-if="skill.type === 'modular'" class="text-[10px] text-cyan-400 mt-2 font-medium px-1">
+                🛠️ Compétence Modulaire Personnalisée : Combinez librement les types d'effets, les cibles, les déclencheurs et les charges.
+              </p>
             </div>
+
+            <!-- Custom Modular Fields (Shown only when type is 'modular') -->
+            <template v-if="skill.type === 'modular'">
+              <div class="col-span-2 p-4 bg-cyan-950/20 border border-cyan-500/20 rounded-xl mb-2">
+                <label class="label-text text-cyan-400 font-bold mb-2 block">Type d'Effet Modulaire</label>
+                <select v-model="skill.effect_type" class="admin-input w-full border-cyan-500/30 text-cyan-200">
+                  <option value="DAMAGE">💥 DAMAGE (Dégâts / Destruction)</option>
+                  <option value="HEAL">💚 HEAL (Soin de PV)</option>
+                  <option value="STAT_MODIFIER">📈 STAT_MODIFIER (Bonus/Malus de combat)</option>
+                  <option value="ROTATE">🔄 ROTATE (Pivoter les valeurs)</option>
+                  <option value="FREEZE">❄️ FREEZE (Geler le combo adverse)</option>
+                  <option value="WARD">🛡️ WARD (Bouclier absorbant)</option>
+                </select>
+              </div>
+            </template>
 
             <div>
               <label class="label-text">Valeur (value)</label>
@@ -44,8 +64,14 @@
             </div>
 
             <div>
-              <label class="label-text">Compteur (counter)</label>
-              <input type="number" v-model.number="skill.counter" class="admin-input w-full" placeholder="0 = infini" />
+              <label class="label-text">Charges / Compteur</label>
+              <input 
+                type="number" 
+                v-model.number="skill.charges" 
+                @input="syncCharges(skill)"
+                class="admin-input w-full" 
+                placeholder="0 = infini" 
+              />
             </div>
 
             <div>
@@ -155,6 +181,7 @@ import AppModal from '../../components/ui/AppModal.vue';
 import AppButton from '../../components/ui/AppButton.vue';
 import { skillRegistry, SKILL_METADATA, getSkillMetadata } from '../../../../shared/skills';
 import { getTargetCells } from '../../../../shared/skills/helpers';
+import { SkillEngine } from '../../../../shared/skills/SkillEngine';
 import { 
   SKILL_TRIGGERS, 
   SKILL_PATTERNS, 
@@ -170,19 +197,41 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue']);
 
-const availableSkills = computed(() => {
-  return skillRegistry.getAllHandlers().sort((a, b) => a.name.localeCompare(b.name));
+const availableSkillsList = computed(() => {
+  const list = skillRegistry.getAllHandlers().map(h => ({ id: h.id, name: h.name, description: h.description })).sort((a, b) => a.name.localeCompare(b.name));
+  list.push({
+    id: 'modular',
+    name: '🛠️ Compétence Modulaire',
+    description: 'Combinez librement types d\'effets, déclencheurs et filtres de ciblage.'
+  });
+  return list;
 });
+
+function onSkillTypeChange(skill) {
+  if (skill.type === 'modular') {
+    skill.effect_type = 'DAMAGE';
+    skill.trigger = SKILL_TRIGGERS.ON_ENTER_PLAY;
+    skill.target_pattern = SKILL_PATTERNS.ADJACENT;
+  }
+}
+
+function syncCharges(skill) {
+  // Sync both variables for flawless engine compatibility
+  skill.counter = skill.charges;
+}
 
 function addSkill() {
   if (!props.card.skills) props.card.skills = [];
-  const firstHandler = availableSkills.value[0];
+  const firstHandler = availableSkillsList.value[0];
   props.card.skills.push({
     type: firstHandler?.id || 'growing',
     value: 1,
     filter: SKILL_FILTERS.NONE,
     trigger: firstHandler?.defaultTrigger || SKILL_TRIGGERS.ON_ENTER_PLAY,
-    origin_type: ORIGIN_TYPES.SELF
+    origin_type: ORIGIN_TYPES.SELF,
+    range: 1,
+    charges: 0,
+    counter: 0
   });
 }
 
@@ -212,17 +261,25 @@ const AVAILABLE_PATTERNS = Object.values(SKILL_PATTERNS).map(value => ({
 }));
 
 function hasPattern(skill, patternValue) {
+  if (skill.type === 'modular' || skill.target_pattern) {
+    return skill.target_pattern === patternValue;
+  }
   if (!skill.patterns || !Array.isArray(skill.patterns)) return false;
   return skill.patterns.some(p => (p.value || p) === patternValue);
 }
 
 function togglePattern(skill, patternValue) {
-  if (!skill.patterns) skill.patterns = [];
-  const index = skill.patterns.findIndex(p => (p.value || p) === patternValue);
-  if (index !== -1) {
-    skill.patterns.splice(index, 1);
+  if (skill.type === 'modular') {
+    skill.target_pattern = patternValue;
+    skill.patterns = [{ value: patternValue }];
   } else {
-    skill.patterns.push({ value: patternValue });
+    if (!skill.patterns) skill.patterns = [];
+    const index = skill.patterns.findIndex(p => (p.value || p) === patternValue);
+    if (index !== -1) {
+      skill.patterns.splice(index, 1);
+    } else {
+      skill.patterns.push({ value: patternValue });
+    }
   }
 }
 
@@ -235,7 +292,9 @@ function getPreviewCells(skill) {
     board.push(row);
   }
   
-  const skillCopy = { ...skill, filter: 'none' };
+  // Backwards compatible translation for preview!
+  const translated = SkillEngine.translateLegacySkill(skill) || skill;
+  const skillCopy = { ...translated, filter: 'none' };
   const ctx = {
     board, x: cx, y: cy,
     card: { owner: 'player' },

@@ -237,12 +237,23 @@ export const useUserStore = defineStore('user', {
           this.fetchBoardBackgrounds()
         ]);
 
+        let has401 = false;
         results.forEach((result, index) => {
           if (result.status === 'rejected') {
-            const tasks = ['Basic Profile', 'Wallet', 'Assets (Frames/Backs)', 'Avatar'];
-            console.error(`[UserStore] ${tasks[index]} fetch failed:`, result.reason);
+            const tasks = ['Basic Profile', 'Wallet', 'Assets (Frames/Backs)', 'Avatar', 'Collections', 'Card Frames', 'Card Backs', 'Board Backgrounds'];
+            console.error(`[UserStore] ${tasks[index] || 'Additional asset'} fetch failed:`, result.reason);
+            const status = result.reason?.status || result.reason?.response?.status;
+            if (status === 401) {
+              has401 = true;
+            }
           }
         });
+
+        if (has401) {
+          console.warn('[UserStore] Session expired during user data update. Logging out.');
+          this.logout(true);
+          return;
+        }
 
         this.initializationStatus = 'ready';
         this.syncLocalUserWallets();
@@ -398,7 +409,7 @@ export const useUserStore = defineStore('user', {
       }
     },
 
-    logout() {
+    logout(expired = false) {
       this.jwt = null;
       this.user = {
         id: null,
@@ -423,6 +434,22 @@ export const useUserStore = defineStore('user', {
       strapiService.signOut();
       localStorage.removeItem('tt_jwt');
       localStorage.removeItem('tt_user');
+
+      if (expired) {
+        // Dynamically import dependencies to open the authentication modal & push a toast notification
+        import('../game/state.js').then(({ state }) => {
+          state.authModalOpen = true;
+        }).catch(err => console.error('Failed to open auth modal:', err));
+
+        import('./notificationStore.js').then(({ useNotificationStore }) => {
+          const notificationStore = useNotificationStore();
+          notificationStore.addNotification(
+            'SYSTEM', 
+            'Votre session a expiré. Veuillez vous reconnecter.', 
+            'warning'
+          );
+        }).catch(err => console.error('Failed to show notification:', err));
+      }
     },
 
     toArray(result) {
@@ -482,9 +509,10 @@ export const useUserStore = defineStore('user', {
       } catch (e) {
         console.error('Collection sync failed, falling back to mock', e);
         this.collection = strapiMock.getOfflineCollection();
-        if (e.status === 401) {
+        const status = e.status || e.response?.status;
+        if (status === 401) {
           console.warn('Session expired (401). Logging out.');
-          this.logout();
+          this.logout(true);
         }
       }
     },
@@ -511,6 +539,10 @@ export const useUserStore = defineStore('user', {
         this.collectionsLoaded = true;
       } catch (e) {
         console.error('Failed to fetch collections', e);
+        const status = e.status || e.response?.status;
+        if (status === 401) {
+          this.logout(true);
+        }
       }
     },
 
@@ -557,6 +589,10 @@ export const useUserStore = defineStore('user', {
         this.cardFramesLoaded = true;
       } catch (e) {
         console.error('Failed to fetch card frames', e);
+        const status = e.status || e.response?.status;
+        if (status === 401) {
+          this.logout(true);
+        }
       }
     },
 
@@ -582,6 +618,10 @@ export const useUserStore = defineStore('user', {
         this.cardBacksLoaded = true;
       } catch (e) {
         console.error('Failed to fetch card backs', e);
+        const status = e.status || e.response?.status;
+        if (status === 401) {
+          this.logout(true);
+        }
       }
     },
 
@@ -627,6 +667,10 @@ export const useUserStore = defineStore('user', {
         this.boardBackgroundsLoaded = true;
       } catch (e) {
         console.error('Failed to fetch board backgrounds', e);
+        const status = e.status || e.response?.status;
+        if (status === 401) {
+          this.logout(true);
+        }
       }
     },
 
@@ -657,8 +701,9 @@ export const useUserStore = defineStore('user', {
       } catch (e) {
         console.error('Decks sync failed, falling back to mock', e);
         this.userDecks = strapiMock.getOfflineUserDecks();
-        if (e.status === 401) {
-          this.logout();
+        const status = e.status || e.response?.status;
+        if (status === 401) {
+          this.logout(true);
         }
       }
     },
@@ -687,6 +732,10 @@ export const useUserStore = defineStore('user', {
         }
       } catch (e) {
         console.error('Failed to fetch user quests', e);
+        const status = e.status || e.response?.status;
+        if (status === 401) {
+          this.logout(true);
+        }
       }
     },
 
@@ -705,6 +754,10 @@ export const useUserStore = defineStore('user', {
         }
       } catch (e) {
         console.error('Failed to fetch weekly quests', e);
+        const status = e.status || e.response?.status;
+        if (status === 401) {
+          this.logout(true);
+        }
       }
     },
 
@@ -839,6 +892,10 @@ export const useUserStore = defineStore('user', {
       } catch (e) {
         console.error('Story progress sync failed', e);
         this.storyProgresses = [];
+        const status = e.status || e.response?.status;
+        if (status === 401) {
+          this.logout(true);
+        }
       }
     },
 

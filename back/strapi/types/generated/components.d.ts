@@ -52,9 +52,7 @@ export interface GameSkill extends Struct.ComponentSchema {
       ]
     >;
     origin_reach: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
-    origin_type: Schema.Attribute.Enumeration<
-      ['self', 'fixed', 'manual', 'manual_constrained']
-    > &
+    origin_type: Schema.Attribute.Enumeration<['self', 'fixed', 'manual']> &
       Schema.Attribute.DefaultTo<'self'>;
     patterns: Schema.Attribute.Component<'game.skill-pattern', true>;
     range: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;

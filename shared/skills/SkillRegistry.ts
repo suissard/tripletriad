@@ -1,5 +1,6 @@
 import type { SkillHandler, SkillContext } from './types';
 import { SKILL_TRIGGERS } from './constants';
+import { SkillEngine } from './SkillEngine.js';
 
 /**
  * SkillRegistry — Registre central des compétences de cartes.
@@ -45,15 +46,34 @@ export class Registry {
    */
   dispatch(hookName: keyof SkillHandler, ctx: SkillContext): any[] {
     console.log(`[SkillRegistry] Attempting dispatch: "${hookName}" on card "${ctx.card?.name || 'unknown'}"`);
+    if (!ctx.alerts) ctx.alerts = [];
+    if (!ctx.captures) ctx.captures = [];
+    if (!ctx.dyingCards) ctx.dyingCards = [];
+    if (!(ctx as any).attackQueue) (ctx as any).attackQueue = [];
+
+    const results: any[] = [];
+
+    // Run modular skills first via modular SkillEngine
+    try {
+      const modularResults = SkillEngine.dispatch(hookName as string, ctx);
+      results.push(...modularResults);
+    } catch (e) {
+      console.error('[SkillRegistry] Error running SkillEngine.dispatch:', e);
+    }
+
     const skills = ctx.card?.skills || [];
     
     if (ctx.card?.skillId && !skills.some(s => s.type === ctx.card.skillId)) {
       skills.push({ type: ctx.card.skillId });
     }
 
-    const results: any[] = [];
-
     for (const skill of skills) {
+      // Skip if already processed by modular SkillEngine (i.e. has effect_type after translation)
+      const translated = SkillEngine.translateLegacySkill(skill);
+      if (translated && translated.effect_type) {
+        continue;
+      }
+
       const handler = this.handlers.get(skill.type);
       if (!handler) continue;
 
@@ -70,7 +90,7 @@ export class Registry {
 
       // Route 2 : Rétro-compatibilité — hook nommé direct (passifs, ward, etc.)
       if (typeof handler[hookName] === 'function') {
-        // Pour les handlers avec execute(), ne PAS appeler le hook nommé 
+        // Pour les handlers avec execute(), ne PAS appel le hook nommé 
         // si le trigger ne correspond pas (évite les doubles exécutions)
         if (handler.execute && effectiveTrigger && effectiveTrigger !== hookName) {
           continue;
@@ -81,6 +101,7 @@ export class Registry {
         if (result !== undefined) results.push(result);
       }
     }
+
 
     return results;
   }

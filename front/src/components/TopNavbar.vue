@@ -62,7 +62,7 @@
       <div class="app-title">Terra Nullius</div>
 
       <!-- Right User Widget (Hidden if offline) -->
-      <AppButton variant="secondary" v-if="!userStore.isOffline"  class="glass-panel" @click="toggleRightDrawer">
+      <AppButton variant="secondary" v-if="!userStore.isOffline"  class="glass-panel" @click="handleUserWidgetClick">
         <div style="display: flex; align-items: center; gap: 10px;">
           <span class="username">{{ userStore.user?.username || 'Joueur Anonyme' }}</span>
           <img :src="userStore.user?.avatar" class="avatar" alt="User Avatar" />
@@ -122,6 +122,14 @@ function toggleLeftDrawer() {
 function toggleRightDrawer() {
   state.rightDrawerOpen = !state.rightDrawerOpen;
   if (state.rightDrawerOpen) state.leftDrawerOpen = false;
+}
+
+function handleUserWidgetClick() {
+  if (!userStore.isLoggedIn) {
+    state.authModalOpen = true;
+  } else {
+    toggleRightDrawer();
+  }
 }
 </script>
 

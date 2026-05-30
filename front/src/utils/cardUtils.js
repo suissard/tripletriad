@@ -126,6 +126,7 @@ export function normalizeCard(raw) {
         bottomValue: attrs.bottomValue ?? (bottom === 100 ? 'A' : String(bottom)),
         leftValue: attrs.leftValue ?? (left === 100 ? 'A' : String(left)),
         imageUrl: imgUrl,
+        img: imgUrl,
         variantUrls: variantUrls,
         variantsCount: variantUrls.length,
         revealed: attrs.revealed !== undefined ? attrs.revealed : true,
