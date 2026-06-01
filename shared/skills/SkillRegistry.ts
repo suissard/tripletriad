@@ -45,7 +45,7 @@ export class Registry {
    * configuré dans Strapi, tout en conservant le fonctionnement natif des passifs (aura, freeze...).
    */
   dispatch(hookName: keyof SkillHandler, ctx: SkillContext): any[] {
-    console.log(`[SkillRegistry] Attempting dispatch: "${hookName}" on card "${ctx.card?.name || 'unknown'}"`);
+    console.log(`[Targeting-Flow] [SkillRegistry.ts] Attempting dispatch: "${hookName}" on card "${ctx.card?.name || 'unknown'}" (at x: ${ctx.x}, y: ${ctx.y}). Context targets:`, JSON.stringify(ctx.targets));
     if (!ctx.alerts) ctx.alerts = [];
     if (!ctx.captures) ctx.captures = [];
     if (!ctx.dyingCards) ctx.dyingCards = [];
@@ -55,34 +55,44 @@ export class Registry {
 
     // Run modular skills first via modular SkillEngine
     try {
+      console.log(`[Targeting-Flow] [SkillRegistry.ts] Handing off to SkillEngine.dispatch for hook "${hookName}"`);
       const modularResults = SkillEngine.dispatch(hookName as string, ctx);
+      console.log(`[Targeting-Flow] [SkillRegistry.ts] SkillEngine.dispatch completed. Modular results:`, JSON.stringify(modularResults));
       results.push(...modularResults);
     } catch (e) {
-      console.error('[SkillRegistry] Error running SkillEngine.dispatch:', e);
+      console.error('[Targeting-Flow] [SkillRegistry.ts] Error running SkillEngine.dispatch:', e);
     }
 
     const skills = ctx.card?.skills || [];
+    console.log(`[Targeting-Flow] [SkillRegistry.ts] Evaluating legacy/native skills on card:`, JSON.stringify(skills));
     
     if (ctx.card?.skillId && !skills.some(s => s.type === ctx.card.skillId)) {
+      console.log(`[Targeting-Flow] [SkillRegistry.ts] Card has legacy skillId "${ctx.card.skillId}". Adding to list.`);
       skills.push({ type: ctx.card.skillId });
     }
 
     for (const skill of skills) {
       // Skip if already processed by modular SkillEngine (i.e. has effect_type after translation)
       const translated = SkillEngine.translateLegacySkill(skill);
+      console.log(`[Targeting-Flow] [SkillRegistry.ts] Skill "${skill.type}" translated:`, JSON.stringify(translated));
       if (translated && translated.effect_type) {
+        console.log(`[Targeting-Flow] [SkillRegistry.ts] Skill "${skill.type}" already processed as modular. Skipping.`);
         continue;
       }
 
       const handler = this.handlers.get(skill.type);
-      if (!handler) continue;
+      if (!handler) {
+        console.log(`[Targeting-Flow] [SkillRegistry.ts] No handler registered for skill type "${skill.type}". skipping.`);
+        continue;
+      }
 
       // Déterminer le trigger effectif du skill
       const effectiveTrigger = skill.trigger || handler.defaultTrigger;
+      console.log(`[Targeting-Flow] [SkillRegistry.ts] Skill "${skill.type}" handler defaultTrigger: "${handler.defaultTrigger}", configured trigger: "${skill.trigger}". Effective trigger is "${effectiveTrigger}".`);
 
       // Route 1 : Le handler a execute() et le trigger correspond au hook dispatché
       if (handler.execute && effectiveTrigger && effectiveTrigger === hookName) {
-        console.log(`[SkillRegistry] Dispatching "${hookName}" via execute() for skill "${skill.type}" (trigger: ${effectiveTrigger}) on card "${ctx.card.name}"`);
+        console.log(`[Targeting-Flow] [SkillRegistry.ts] Dispatching "${hookName}" via execute() for skill "${skill.type}" (trigger: ${effectiveTrigger}) on card "${ctx.card.name}"`);
         const result = handler.execute({ ...ctx, skill });
         if (result !== undefined) results.push(result);
         continue;
@@ -93,15 +103,17 @@ export class Registry {
         // Pour les handlers avec execute(), ne PAS appel le hook nommé 
         // si le trigger ne correspond pas (évite les doubles exécutions)
         if (handler.execute && effectiveTrigger && effectiveTrigger !== hookName) {
+          console.log(`[Targeting-Flow] [SkillRegistry.ts] Handler has execute() and trigger does not match hookName. Skipping hook execution for "${hookName}".`);
           continue;
         }
         const fn = handler[hookName] as Function;
-        console.log(`[SkillRegistry] Dispatching "${hookName}" for skill "${skill.type}" on card "${ctx.card.name}"`);
+        console.log(`[Targeting-Flow] [SkillRegistry.ts] Dispatching "${hookName}" for skill "${skill.type}" on card "${ctx.card.name}"`);
         const result = fn({ ...ctx, skill });
         if (result !== undefined) results.push(result);
+      } else {
+        console.log(`[Targeting-Flow] [SkillRegistry.ts] No named hook function for "${hookName}" on skill "${skill.type}" handler.`);
       }
     }
-
 
     return results;
   }

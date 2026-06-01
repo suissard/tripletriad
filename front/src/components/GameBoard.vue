@@ -20,14 +20,39 @@
           'slot-capture-preview': !cell && previewMap && previewMap.has(index),
           'slot-capture-combo': !cell && previewMap && previewMap.has(index) && previewMap.get(index).comboCaptures.length > 0,
           'slot-targeting-valid': state.targeting?.active && state.targeting.validSlots.includes(index),
-          'slot-targeting-invalid': state.targeting?.active && !state.targeting.validSlots.includes(index)
+          'slot-targeting-invalid': state.targeting?.active && !state.targeting.validSlots.includes(index),
+          'slot-targeting-affected': state.targeting?.active && getAffectedPreviewSlots.includes(index),
+          'slot-targeting-source': state.targeting?.active && state.targeting.step?.sourceSlotId === index
         }"
         :style="getCaptureSlotStyle(index)"
         @click="handleSlotClick(index)"
+        @mouseenter="handleSlotMouseEnter(index)"
+        @mouseleave="handleSlotMouseLeave(index)"
       >
         <!-- Empty slot marker -->
-        <div v-if="!cell" class="slot-marker">
+        <div v-if="!cell && (!state.targeting?.active || state.targeting.step?.sourceSlotId !== index)" class="slot-marker">
           <span class="slot-index">{{ index + 1 }}</span>
+        </div>
+
+        <!-- Placed Card Preview during targeting -->
+        <div 
+          v-if="!cell && state.targeting?.active && state.targeting.step?.sourceSlotId === index"
+          class="board-card-wrapper owner-player is-placing-preview"
+        >
+          <TripleTriadCard
+            :card="state.targeting.step.card"
+            :flat="true"
+            size="100%"
+            borderColor="#8800ff"
+            :disableZoom="true"
+            :dimOnHover="false"
+            owner="player"
+            :isPremium="state.targeting.step.card.isPremium"
+            :showCraftingActions="false"
+            :cardFrame="state.pFrame"
+            :cardBack="state.pBack"
+            :bonus="factionBonuses[state.targeting.step.card.factionCode] || 0"
+          />
         </div>
 
         <!-- Capture halo under occupied cards that will be captured -->
@@ -112,6 +137,7 @@ import { placeCard } from '../game/game-actions.js';
 import { computeAllPreviews } from '../game/capture-preview.js';
 import { getTargetCells } from '../../../shared/skills/helpers';
 import { skillRegistry } from '../../../shared/skills/index';
+import { SkillEngine } from '../../../shared/skills/SkillEngine';
 import TripleTriadCard from './TripleTriadCard.vue';
 import BrokenGlassOverlay from './BrokenGlassOverlay.vue';
 
@@ -120,6 +146,93 @@ const boardRef = ref(null);
 const containerRef = ref(null);
 const glassOverlay = ref(null);
 let glassTriggered = false;
+
+// ---- Targeting Preview Logic ----
+const hoveredTargetSlotIndex = ref(null);
+
+function handleSlotMouseEnter(index) {
+  if (state.targeting?.active) {
+    hoveredTargetSlotIndex.value = index;
+  }
+}
+
+function handleSlotMouseLeave(index) {
+  if (state.targeting?.active && hoveredTargetSlotIndex.value === index) {
+    hoveredTargetSlotIndex.value = null;
+  }
+}
+
+watch(() => state.targeting?.active, (isActive) => {
+  if (!isActive) {
+    hoveredTargetSlotIndex.value = null;
+  }
+});
+
+const getAffectedPreviewSlots = computed(() => {
+  if (!state.targeting?.active || hoveredTargetSlotIndex.value === null) return [];
+  
+  // Only preview if the hovered slot is valid
+  if (!state.targeting.validSlots.includes(hoveredTargetSlotIndex.value)) return [];
+
+  const step = state.targeting.step;
+  if (!step || !step.skill || !step.card) return [];
+
+  const w = state.boardWidth || 3;
+  const h = state.boardHeight || 3;
+
+  const sourceSlotId = step.sourceSlotId;
+  if (sourceSlotId === undefined) return [];
+
+  if (step.skill.type === 'teleportation') {
+    return [hoveredTargetSlotIndex.value];
+  }
+
+  // Translate to modular skill if needed
+  const translatedSkill = SkillEngine.translateLegacySkill(step.skill) || step.skill;
+
+  // Build a temporary 2D board representing the state WITH the card placed at sourceSlotId
+  const tempBoard2D = [];
+  for (let y0 = 0; y0 < h; y0++) {
+    const row = [];
+    for (let x0 = 0; x0 < w; x0++) {
+      const idx = y0 * w + x0;
+      let cell = state.board[idx];
+      if (idx === sourceSlotId) {
+        // Temporarily put the placed card there
+        cell = { data: step.card, owner: 'player' };
+      }
+      row.push(cell ? { 
+        data: cell.data, 
+        owner: cell.owner === 'player' ? 'PLAYER_1' : 'PLAYER_2' 
+      } : null);
+    }
+    tempBoard2D.push(row);
+  }
+
+  const sx = sourceSlotId % w;
+  const sy = Math.floor(sourceSlotId / w);
+  const hx = hoveredTargetSlotIndex.value % w;
+  const hy = Math.floor(hoveredTargetSlotIndex.value / w);
+
+  const ctx = {
+    board: tempBoard2D,
+    x: sx,
+    y: sy,
+    card: step.card,
+    owner: 'PLAYER_1',
+    skill: translatedSkill,
+    targets: [{ x: hx, y: hy }]
+  };
+
+  try {
+    const affectedCells = getTargetCells(ctx);
+    // Map back to 1D index
+    return affectedCells.map(c => c.y * w + c.x);
+  } catch (e) {
+    console.error('[Preview] Error computing getTargetCells:', e);
+    return [];
+  }
+});
 
 // ---- Capture Preview Logic ----
 
@@ -423,14 +536,24 @@ function triggerGlassEffect(slotIndex) {
 }
 
 function handleSlotClick(index) {
+  console.log(`[Targeting-Flow] [GameBoard.vue] Clicked slot index ${index}. Active targeting state:`, JSON.stringify(state.targeting));
   if (state.targeting?.active) {
     if (state.targeting.validSlots.includes(index)) {
+      console.log(`[Targeting-Flow] [GameBoard.vue] Slot ${index} is in valid slots list. Invoking state.targeting.resolve(index)`);
       state.targeting.resolve(index);
+    } else {
+      console.warn(`[Targeting-Flow] [GameBoard.vue] Slot ${index} is NOT in valid slots list:`, state.targeting.validSlots);
     }
     return;
   }
-  if (state.board[index] !== null) return;
-  if (state.selectedCardIndex === null) return;
+  if (state.board[index] !== null) {
+    console.log(`[Targeting-Flow] [GameBoard.vue] Slot ${index} is not empty. Ignoring click.`);
+    return;
+  }
+  if (state.selectedCardIndex === null) {
+    console.log(`[Targeting-Flow] [GameBoard.vue] No card selected. Ignoring click.`);
+    return;
+  }
   triggerPlacement(index);
 }
 
@@ -533,11 +656,12 @@ defineExpose({
 }
 
 /* ---- Targeting session styles ---- */
-.game-board-container.is-targeting {
-  cursor: crosshair !important;
+.game-board-container.is-targeting,
+.is-targeting .board-slot.slot-targeting-valid,
+.is-targeting .board-slot.slot-targeting-valid * {
+  cursor: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2796%27%20height%3D%2796%27%20viewBox%3D%270%200%2096%2096%27%20fill%3D%27none%27%20stroke%3D%27%2300d2ff%27%20stroke-width%3D%272%27%3E%3Ccircle%20cx%3D%2748%27%20cy%3D%2748%27%20r%3D%2730%27%2F%3E%3Ccircle%20cx%3D%2748%27%20cy%3D%2748%27%20r%3D%2710%27%20stroke-dasharray%3D%274%2C4%27%20stroke-width%3D%271.5%27%2F%3E%3Ccircle%20cx%3D%2748%27%20cy%3D%2748%27%20r%3D%273%27%20fill%3D%27%2300d2ff%27%2F%3E%3Cpath%20d%3D%27M48%206v16M48%2074v16M6%2048h16M74%2048h16%27%2F%3E%3C%2Fsvg%3E") 48 48, crosshair !important;
 }
 .board-slot.slot-targeting-valid {
-  cursor: pointer !important;
   background: color-mix(in srgb, #8800ff 25%, transparent) !important;
   border-color: #8800ff !important;
   box-shadow: 0 0 25px rgba(136, 0, 255, 0.7), inset 0 0 15px rgba(136, 0, 255, 0.4) !important;
@@ -554,6 +678,69 @@ defineExpose({
   filter: grayscale(80%) brightness(0.6) !important;
   cursor: not-allowed !important;
   pointer-events: auto !important;
+}
+.board-slot.slot-targeting-affected {
+  opacity: 1.0 !important;
+  filter: none !important;
+  background: color-mix(in srgb, #00d2ff 35%, transparent) !important;
+  border-color: #00d2ff !important;
+  box-shadow: 0 0 25px rgba(0, 210, 255, 0.8), inset 0 0 15px rgba(0, 210, 255, 0.5) !important;
+  animation: affected-slot-pulse 1.2s infinite alternate ease-in-out !important;
+  z-index: 30 !important;
+}
+.board-slot.slot-targeting-source {
+  z-index: 40 !important;
+  border-color: #8800ff !important;
+  background: rgba(136, 0, 255, 0.15) !important;
+  box-shadow: 
+    0 0 35px rgba(136, 0, 255, 0.8),
+    inset 0 0 20px rgba(136, 0, 255, 0.5) !important;
+  animation: source-slot-glow 1.5s infinite alternate ease-in-out !important;
+}
+
+@keyframes source-slot-glow {
+  0% {
+    box-shadow: 0 0 30px rgba(136, 0, 255, 0.6), inset 0 0 15px rgba(136, 0, 255, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 50px rgba(136, 0, 255, 1.0), inset 0 0 30px rgba(136, 0, 255, 0.7);
+  }
+}
+
+.board-card-wrapper.is-placing-preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+  pointer-events: none;
+  transform: translateY(-12px) scale(1.08) translateZ(20px);
+  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.65)) brightness(1.25);
+  transition: transform 0.3s ease, filter 0.3s ease;
+  animation: floating-preview 3s infinite ease-in-out;
+}
+
+@keyframes floating-preview {
+  0%, 100% {
+    transform: translateY(-12px) scale(1.08) translateZ(20px);
+    filter: drop-shadow(0 15px 25px rgba(136, 0, 255, 0.6)) brightness(1.2);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.1) translateZ(40px);
+    filter: drop-shadow(0 25px 35px rgba(136, 0, 255, 0.9)) brightness(1.4);
+  }
+}
+
+@keyframes affected-slot-pulse {
+  0% {
+    transform: scale(1.02);
+    filter: brightness(1.1);
+  }
+  100% {
+    transform: scale(1.06);
+    filter: brightness(1.4);
+  }
 }
 
 .board-slot.is-drag-over {

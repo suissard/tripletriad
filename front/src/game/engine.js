@@ -40,6 +40,7 @@ export function showAlert(text) {
 }
 
 export async function resolveRules(startIndex, owner, targets = []) {
+    console.log(`[Targeting-Flow] [engine.js] resolveRules called with startIndex: ${startIndex}, owner: "${owner}", targets:`, JSON.stringify(targets));
     const useCombo = state.rules.combo;
 
     let comboStack = [];
@@ -149,6 +150,7 @@ export async function resolveRules(startIndex, owner, targets = []) {
     
     // 1. Helper to build 2D context
     const buildCtx = (idx) => {
+        console.log(`[Targeting-Flow] [engine.js] buildCtx constructing context for slot index ${idx}. Targets assigned if index matches startIndex (${startIndex}):`, idx === startIndex ? JSON.stringify(targets) : 'None');
         const board2D = [];
         for (let y0 = 0; y0 < h; y0++) {
             const row = [];
@@ -206,7 +208,7 @@ export async function resolveRules(startIndex, owner, targets = []) {
 
     const runSkillDispatch = (hookName, idx) => {
         const ctx = buildCtx(idx);
-        console.log(`[Engine] Running skill dispatch for "${hookName}" at slot ${idx}`);
+        console.log(`[Targeting-Flow] [engine.js] runSkillDispatch: Calling skillRegistry.dispatch with hook "${hookName}" for card "${ctx.card?.name}" at slot ${idx}. Context targets:`, JSON.stringify(ctx.targets));
         skillRegistry.dispatch(hookName, ctx);
 
         // Sync board changes

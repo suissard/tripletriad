@@ -34,31 +34,50 @@ export async function placeCard(slotIndex) {
     const cardIdx = state.selectedCardIndex;
     const card = state.pHand[cardIdx];
 
+    console.log(`[Targeting-Flow] [game-actions.js] Starting placeCard for card "${card.name}" (ID: ${card.id}) at slot ${slotIndex}`);
+
     state.busy = true;
     state.selectedCardIndex = null;
 
     // Determine targeting steps
     const skills = card.skills || [];
+    console.log(`[Targeting-Flow] [game-actions.js] Card has ${skills.length} skill(s):`, JSON.stringify(skills));
     let targetingSteps = [];
     for (const skill of skills) {
         const handler = skillRegistry.getHandler(skill.type);
+        console.log(`[Targeting-Flow] [game-actions.js] Checking skill type "${skill.type}". Registered handler found:`, handler ? `Yes (ID: ${handler.id})` : 'No');
         if (handler && handler.targetingSteps) {
-            targetingSteps = targetingSteps.concat(handler.targetingSteps);
+            console.log(`[Targeting-Flow] [game-actions.js] Handler has defined targetingSteps:`, JSON.stringify(handler.targetingSteps));
+            const stepsWithCtx = handler.targetingSteps.map(step => ({
+                ...step,
+                skill,
+                card,
+                sourceSlotId: slotIndex
+            }));
+            targetingSteps = targetingSteps.concat(stepsWithCtx);
         } else if (skill.origin_type === 'manual') {
             const reach = skill.origin_reach !== undefined && skill.origin_reach !== null && skill.origin_reach !== 0 ? skill.origin_reach : (skill.range !== undefined && skill.range !== null && skill.range !== 0 ? skill.range : 99);
+            console.log(`[Targeting-Flow] [game-actions.js] Skill origin_type is manual. Adding fallback manual step with reach: ${reach}`);
             targetingSteps.push({
                 type: 'CELL',
                 origin_type: 'manual',
                 origin_reach: reach,
-                sourceSlotId: slotIndex
+                sourceSlotId: slotIndex,
+                skill,
+                card
             });
         }
     }
 
+    console.log(`[Targeting-Flow] [game-actions.js] Total targetingSteps compiled:`, JSON.stringify(targetingSteps));
+
     let targets = [];
     if (targetingSteps.length > 0) {
+        console.log(`[Targeting-Flow] [game-actions.js] Requesting targets via requestTargets...`);
         targets = await requestTargets(targetingSteps, state.board, 'player', {});
+        console.log(`[Targeting-Flow] [game-actions.js] requestTargets completed. Received targets:`, JSON.stringify(targets));
         if (!targets || targets.length < targetingSteps.length) {
+            console.warn(`[Targeting-Flow] [game-actions.js] Targeting cancelled or failed. Got targets:`, targets, `Expected count: ${targetingSteps.length}`);
             // Targeting cancelled or failed
             state.busy = false;
             card.isPlacing = false;
