@@ -21,6 +21,7 @@
           'slot-capture-combo': !cell && previewMap && previewMap.has(index) && previewMap.get(index).comboCaptures.length > 0,
           'slot-targeting-valid': state.targeting?.active && state.targeting.validSlots.includes(index),
           'slot-targeting-invalid': state.targeting?.active && !state.targeting.validSlots.includes(index),
+          'slot-targeting-reach-filtered': state.targeting?.active && !state.targeting.validSlots.includes(index) && isSlotWithinReach(index),
           'slot-targeting-affected': state.targeting?.active && getAffectedPreviewSlots.includes(index),
           'slot-targeting-source': state.targeting?.active && state.targeting.step?.sourceSlotId === index
         }"
@@ -233,6 +234,22 @@ const getAffectedPreviewSlots = computed(() => {
     return [];
   }
 });
+
+const isSlotWithinReach = (index) => {
+  if (!state.targeting?.active || !state.targeting.step) return false;
+  const step = state.targeting.step;
+  if (step.origin_type !== 'manual' || step.sourceSlotId === undefined) return true;
+  
+  const reach = step.origin_reach !== undefined && step.origin_reach !== null && step.origin_reach !== 0 ? step.origin_reach : 99;
+  const w = state.boardWidth || 3;
+  const sourceX = step.sourceSlotId % w;
+  const sourceY = Math.floor(step.sourceSlotId / w);
+  const x = index % w;
+  const y = Math.floor(index / w);
+  
+  const dist = Math.abs(x - sourceX) + Math.abs(y - sourceY);
+  return dist <= reach;
+};
 
 // ---- Capture Preview Logic ----
 
@@ -662,16 +679,34 @@ defineExpose({
   cursor: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2796%27%20height%3D%2796%27%20viewBox%3D%270%200%2096%2096%27%20fill%3D%27none%27%20stroke%3D%27%2300d2ff%27%20stroke-width%3D%272%27%3E%3Ccircle%20cx%3D%2748%27%20cy%3D%2748%27%20r%3D%2730%27%2F%3E%3Ccircle%20cx%3D%2748%27%20cy%3D%2748%27%20r%3D%2710%27%20stroke-dasharray%3D%274%2C4%27%20stroke-width%3D%271.5%27%2F%3E%3Ccircle%20cx%3D%2748%27%20cy%3D%2748%27%20r%3D%273%27%20fill%3D%27%2300d2ff%27%2F%3E%3Cpath%20d%3D%27M48%206v16M48%2074v16M6%2048h16M74%2048h16%27%2F%3E%3C%2Fsvg%3E") 48 48, crosshair !important;
 }
 .board-slot.slot-targeting-valid {
-  background: color-mix(in srgb, #8800ff 25%, transparent) !important;
-  border-color: #8800ff !important;
-  box-shadow: 0 0 25px rgba(136, 0, 255, 0.7), inset 0 0 15px rgba(136, 0, 255, 0.4) !important;
-  animation: capture-slot-pulse 1.5s ease-in-out infinite !important;
+  cursor: crosshair;
   z-index: 20 !important;
+  box-shadow: 
+    0 -12px 18px -7px rgba(136, 0, 255, 0.8),
+    0 12px 18px -7px rgba(136, 0, 255, 0.8),
+    -12px 0 18px -7px rgba(136, 0, 255, 0.8),
+    12px 0 18px -7px rgba(136, 0, 255, 0.8) !important;
+}
+.board-slot.slot-targeting-valid.slot-empty {
+  background: rgba(136, 0, 255, 0.1) !important;
+  border-color: rgba(136, 0, 255, 0.4) !important;
+  box-shadow: 
+    0 -8px 10px -6px rgba(136, 0, 255, 0.4),
+    0 8px 10px -6px rgba(136, 0, 255, 0.4),
+    -8px 0 10px -6px rgba(136, 0, 255, 0.4),
+    8px 0 10px -6px rgba(136, 0, 255, 0.4) !important;
 }
 .board-slot.slot-targeting-valid:hover {
-  background: color-mix(in srgb, #8800ff 45%, transparent) !important;
-  box-shadow: 0 0 35px rgba(136, 0, 255, 1.0), inset 0 0 20px rgba(136, 0, 255, 0.6) !important;
   transform: scale(1.05) !important;
+  box-shadow: 
+    0 -16px 22px -6px rgba(136, 0, 255, 0.95),
+    0 16px 22px -6px rgba(136, 0, 255, 0.95),
+    -16px 0 22px -6px rgba(136, 0, 255, 0.95),
+    16px 0 22px -6px rgba(136, 0, 255, 0.95) !important;
+}
+.board-slot.slot-targeting-valid.slot-empty:hover {
+  background: rgba(136, 0, 255, 0.2) !important;
+  border-color: rgba(136, 0, 255, 0.7) !important;
 }
 .board-slot.slot-targeting-invalid {
   opacity: 0.25 !important;
@@ -679,32 +714,44 @@ defineExpose({
   cursor: not-allowed !important;
   pointer-events: auto !important;
 }
+.board-slot.slot-targeting-reach-filtered {
+  opacity: 0.65 !important;
+  filter: none !important;
+  border: 1.5px dashed rgba(136, 0, 255, 0.5) !important;
+  background: rgba(136, 0, 255, 0.05) !important;
+  cursor: not-allowed !important;
+  pointer-events: auto !important;
+}
 .board-slot.slot-targeting-affected {
   opacity: 1.0 !important;
   filter: none !important;
-  background: color-mix(in srgb, #00d2ff 35%, transparent) !important;
-  border-color: #00d2ff !important;
-  box-shadow: 0 0 25px rgba(0, 210, 255, 0.8), inset 0 0 15px rgba(0, 210, 255, 0.5) !important;
-  animation: affected-slot-pulse 1.2s infinite alternate ease-in-out !important;
   z-index: 30 !important;
+  box-shadow: 
+    -10px -10px 18px -7px rgba(255, 159, 0, 0.8),
+    10px -10px 18px -7px rgba(255, 159, 0, 0.8),
+    -10px 10px 18px -7px rgba(255, 159, 0, 0.8),
+    10px 10px 18px -7px rgba(255, 159, 0, 0.8) !important;
+}
+.board-slot.slot-targeting-affected.slot-empty {
+  background: rgba(255, 159, 0, 0.1) !important;
+  border-color: rgba(255, 159, 0, 0.4) !important;
+  box-shadow: 
+    -6px -6px 12px -7px rgba(255, 159, 0, 0.4),
+    6px -6px 12px -7px rgba(255, 159, 0, 0.4),
+    -6px 6px 12px -7px rgba(255, 159, 0, 0.4),
+    6px 6px 12px -7px rgba(255, 159, 0, 0.4) !important;
 }
 .board-slot.slot-targeting-source {
   z-index: 40 !important;
+  box-shadow: 
+    0 -12px 18px -7px rgba(136, 0, 255, 0.8),
+    0 12px 18px -7px rgba(136, 0, 255, 0.8),
+    -12px 0 18px -7px rgba(136, 0, 255, 0.8),
+    12px 0 18px -7px rgba(136, 0, 255, 0.8) !important;
+}
+.board-slot.slot-targeting-source.slot-empty {
   border-color: #8800ff !important;
   background: rgba(136, 0, 255, 0.15) !important;
-  box-shadow: 
-    0 0 35px rgba(136, 0, 255, 0.8),
-    inset 0 0 20px rgba(136, 0, 255, 0.5) !important;
-  animation: source-slot-glow 1.5s infinite alternate ease-in-out !important;
-}
-
-@keyframes source-slot-glow {
-  0% {
-    box-shadow: 0 0 30px rgba(136, 0, 255, 0.6), inset 0 0 15px rgba(136, 0, 255, 0.4);
-  }
-  100% {
-    box-shadow: 0 0 50px rgba(136, 0, 255, 1.0), inset 0 0 30px rgba(136, 0, 255, 0.7);
-  }
 }
 
 .board-card-wrapper.is-placing-preview {
@@ -729,17 +776,6 @@ defineExpose({
   50% {
     transform: translateY(-20px) scale(1.1) translateZ(40px);
     filter: drop-shadow(0 25px 35px rgba(136, 0, 255, 0.9)) brightness(1.4);
-  }
-}
-
-@keyframes affected-slot-pulse {
-  0% {
-    transform: scale(1.02);
-    filter: brightness(1.1);
-  }
-  100% {
-    transform: scale(1.06);
-    filter: brightness(1.4);
   }
 }
 
