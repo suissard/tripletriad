@@ -1,6 +1,7 @@
 <template>
-  <div class="deck-editor-page ui-layer" >
-    <div class="page-header">
+  <div class="deck-editor-page ui-layer">
+    <!-- Header -->
+    <div class="page-header glass-panel">
       <button class="btn btn-secondary glass-panel" @click="closeDeckEditor">← RETOUR</button>
       <h2 class="page-title">{{ isNew ? 'NOUVEAU DECK' : 'ÉDITER LE DECK' }}</h2>
       <div class="header-actions">
@@ -13,86 +14,124 @@
       </div>
     </div>
 
+    <!-- Body -->
     <div class="editor-body">
-      <!-- LEFT: Deck info + selected cards -->
-      <div class="deck-panel">
-        <div class="deck-info-section">
-        <div class="deck-back-selector-v2 mb-2">
-          <label class="block text-[10px] font-bold text-primary uppercase tracking-widest mb-1">Dos de carte</label>
-          <div class="back-options-grid">
-            <div class="back-mini-option" 
-                 :class="{ active: state.editingDeck.cardBack === 'default' || !state.editingDeck.cardBack }" 
-                 @click="state.editingDeck.cardBack = 'default'"
-                 title="Classique">
-              <img src="/card-back.svg" class="back-mini-img" />
-            </div>
-            <div class="back-mini-option" 
-                 :class="{ active: state.editingDeck.cardBack === 'animated' }" 
-                 @click="state.editingDeck.cardBack = 'animated'"
-                 title="Terra Nullius (Animé)">
-              <div class="back-mini-animated"><AnimatedCardBack /></div>
-            </div>
-            <div v-for="back in availableBacks" :key="back.documentId || back.id"
-                 class="back-mini-option"
-                 :class="{ active: state.editingDeck.cardBack === (back.documentId || back.id) }"
-                 @click="state.editingDeck.cardBack = (back.documentId || back.id)"
-                 :title="back.name">
-               <img :src="back.image" class="back-mini-img" />
-            </div>
-          </div>
-        </div>
-
-        <div class="deck-frame-selector-v2 mb-2">
-          <label class="block text-[10px] font-bold text-primary uppercase tracking-widest mb-1">Cadre de carte</label>
-          <div class="back-options-grid">
-            <div class="back-mini-option" 
-                 :class="{ active: state.editingDeck.cardFrame === null }" 
-                 @click="state.editingDeck.cardFrame = null"
-                 title="Aucun (Défaut)">
-              <div class="back-mini-img flex items-center justify-center bg-black/40 text-[10px] opacity-40">—</div>
-            </div>
-            <div v-for="frame in availableFrames" :key="frame.documentId || frame.id"
-                 class="back-mini-option"
-                 :class="{ active: state.editingDeck.cardFrame === (frame.documentId || frame.id) }"
-                 @click="state.editingDeck.cardFrame = (frame.documentId || frame.id)"
-                 :title="frame.name">
-               <img :src="frame.image" class="back-mini-img" />
-            </div>
-          </div>
-        </div>
-
-        <div class="flex gap-2 mb-4">
-           <button class="btn btn-secondary glass-panel flex-1 text-[10px] py-1" 
-                   @click="setAsGlobalDefault" 
-                   :disabled="!state.editingDeck.cardBack || state.editingDeck.cardBack === 'animated'">
-             ⭐ Définir le dos comme défaut global
-           </button>
-        </div>
-
+      <!-- LEFT: Deck sidebar (info, customization, mana curve, stats, deck cards) -->
+      <div class="deck-panel custom-scrollbar">
+        <!-- Deck general info -->
+        <div class="deck-info-section glass-panel">
           <input v-model="state.editingDeck.name" placeholder="Nom du Deck" class="deck-name-input" />
         </div>
 
-        <div v-if="isAdminMode" class="admin-owner-section glass-panel p-4 mb-4 border border-primary/20">
-          <label class="block text-[10px] font-bold text-primary uppercase tracking-widest mb-2">Propriétaire du Deck</label>
-          <select v-model="selectedOwnerId" class="filter-select w-full bg-black/40 border-primary/10">
-            <option v-for="u in allUsers" :key="u.id" :value="u.documentId || u.id">
-              {{ u.username }} ({{ u.email }})
-            </option>
-          </select>
+        <!-- Customization Collapsible -->
+        <div class="deck-settings-section glass-panel">
+          <div class="section-title" @click="showCosmetics = !showCosmetics">
+            <span>🎨 Personnalisation (Dos & Cadre)</span>
+            <span class="arrow">{{ showCosmetics ? '▲' : '▼' }}</span>
+          </div>
+          
+          <div class="section-content" v-show="showCosmetics">
+            <!-- Back selector -->
+            <div class="deck-back-selector-v2 mb-3">
+              <label class="block text-[10px] font-bold text-[#ff0055] uppercase tracking-widest mb-1.5">Dos de carte</label>
+              <div class="back-options-grid">
+                <div class="back-mini-option" 
+                     :class="{ active: state.editingDeck.cardBack === 'default' || !state.editingDeck.cardBack }" 
+                     @click="state.editingDeck.cardBack = 'default'"
+                     title="Classique">
+                  <img src="/card-back.svg" class="back-mini-img" />
+                </div>
+                <div class="back-mini-option" 
+                     :class="{ active: state.editingDeck.cardBack === 'animated' }" 
+                     @click="state.editingDeck.cardBack = 'animated'"
+                     title="Terra Nullius (Animé)">
+                  <div class="back-mini-animated"><AnimatedCardBack /></div>
+                </div>
+                <div v-for="back in availableBacks" :key="back.documentId || back.id"
+                     class="back-mini-option"
+                     :class="{ active: state.editingDeck.cardBack === (back.documentId || back.id) }"
+                     @click="state.editingDeck.cardBack = (back.documentId || back.id)"
+                     :title="back.name">
+                   <img :src="back.image" class="back-mini-img" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Frame selector -->
+            <div class="deck-frame-selector-v2 mb-2">
+              <label class="block text-[10px] font-bold text-[#ff0055] uppercase tracking-widest mb-1.5">Cadre de carte</label>
+              <div class="back-options-grid">
+                <div class="back-mini-option" 
+                     :class="{ active: state.editingDeck.cardFrame === null }" 
+                     @click="state.editingDeck.cardFrame = null"
+                     title="Aucun (Défaut)">
+                  <div class="back-mini-img flex items-center justify-center bg-black/40 text-[10px] opacity-40">—</div>
+                </div>
+                <div v-for="frame in availableFrames" :key="frame.documentId || frame.id"
+                     class="back-mini-option"
+                     :class="{ active: state.editingDeck.cardFrame === (frame.documentId || frame.id) }"
+                     @click="state.editingDeck.cardFrame = (frame.documentId || frame.id)"
+                     :title="frame.name">
+                   <img :src="frame.image" class="back-mini-img" />
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-secondary glass-panel w-full text-[9px] py-1.5 mt-2" 
+                    @click="setAsGlobalDefault" 
+                    :disabled="!state.editingDeck.cardBack || state.editingDeck.cardBack === 'animated' || state.editingDeck.cardBack === 'default'">
+              ⭐ Définir comme défaut global
+            </button>
+          </div>
         </div>
 
+        <!-- Share & Code Tools Collapsible -->
+        <div class="deck-settings-section glass-panel">
+          <div class="section-title" @click="showShare = !showShare">
+            <span>⚙️ Partage & Codes</span>
+            <span class="arrow">{{ showShare ? '▲' : '▼' }}</span>
+          </div>
+          
+          <div class="section-content" v-show="showShare">
+            <div class="import-export-row">
+              <input v-model="importCode" placeholder="Coller un code..." class="import-input" />
+              <button class="btn btn-secondary glass-panel px-2 text-xs" @click="importDeckCode" :disabled="!importCode">📥 Importer</button>
+              <button class="btn btn-secondary glass-panel px-2 text-xs" @click="exportDeckCode" :disabled="state.editingDeck.cards.length === 0">📤 Copier</button>
+            </div>
+            
+            <div v-if="isAdminMode" class="admin-owner-section mt-3">
+              <label class="block text-[10px] font-bold text-[#ff0055] uppercase tracking-widest mb-1">Propriétaire (Admin)</label>
+              <select v-model="selectedOwnerId" class="filter-select w-full bg-black/40 border-primary/10">
+                <option v-for="u in allUsers" :key="u.id" :value="u.documentId || u.id">
+                  {{ u.username }} ({{ u.email }})
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feedback Messages -->
         <div v-if="feedback" class="feedback-bar" :class="feedbackType">{{ feedback }}</div>
 
-        <div class="import-export-row">
-          <input v-model="importCode" placeholder="Coller un code..." class="import-input" />
-          <button class="btn btn-secondary glass-panel px-2 text-xs" @click="importDeckCode" :disabled="!importCode">📥 Importer</button>
-          <button class="btn btn-secondary glass-panel px-2 text-xs" @click="exportDeckCode" :disabled="state.editingDeck.cards.length === 0">📤
-            Copier</button>
+        <!-- Deck Stats -->
+        <div class="deck-stats-summary glass-panel" v-if="state.editingDeck.cards.length > 0">
+          <div class="stat-box">
+            <span class="stat-val">{{ deckStats.avgLevel }}</span>
+            <span class="stat-lbl">Niv. Moyen</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-val">{{ Object.keys(deckStats.elements).length }}</span>
+            <span class="stat-lbl">Éléments</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-val">{{ Object.keys(deckStats.factions).length }}</span>
+            <span class="stat-lbl">Factions</span>
+          </div>
         </div>
 
-        <!-- Mana curve -->
-        <div class="mana-curve">
-          <div class="curve-label">Courbe de Mana</div>
+        <!-- Card level distribution curve -->
+        <div class="mana-curve glass-panel">
+          <div class="curve-label">Courbe de Niveau (Puissance)</div>
           <div class="curve-bars">
             <div v-for="lvl in 10" :key="lvl" class="bar-container">
               <div class="bar" :style="{ height: getBarHeight(lvl) + '%' }"></div>
@@ -101,14 +140,16 @@
           </div>
         </div>
 
-        <!-- Selected cards in deck -->
-        <div class="deck-cards-title">Cartes dans le deck</div>
+        <!-- Selected cards grid -->
+        <div class="deck-section-header">
+          <span class="deck-cards-title">Cartes sélectionnées</span>
+        </div>
         <div class="deck-cards-grid">
-          <div v-for="cardId in sortedDeckCards" :key="cardId" class="deck-card-slot"
-            @click="removeCard(cardId)">
-            <TripleTriadCard v-if="getCardById(cardId)" :card="getCardById(cardId)" size="100%" :height="80" compact flat 
+          <div v-for="cardId in sortedDeckCards" :key="cardId" class="deck-card-slot" @click="removeCard(cardId)">
+            <TripleTriadCard v-if="getCardById(cardId)" :card="getCardById(cardId)" size="sm" flat 
                              :cardBack="state.editingDeck.cardBack" 
                              :cardFrame="getFrameUrl(state.editingDeck.cardFrame)" />
+            <div class="remove-overlay">×</div>
           </div>
           <div v-for="i in Math.max(0, (userStore.gameConfig?.cardsPerDeck || 15) - state.editingDeck.cards.length)" :key="'empty-' + i"
             class="deck-card-slot empty">
@@ -117,15 +158,36 @@
         </div>
       </div>
 
-      <!-- RIGHT: Card library -->
+      <!-- RIGHT: Card Library Panel -->
       <div class="library-panel">
-        <div class="library-controls">
-          <input type="text" v-model="searchQuery" placeholder="Rechercher (nom, desc)..." class="search-input" />
-          
-          <div class="filter-row-secondary">
-            <select v-model="filterRarity" class="filter-select">
-              <option value="">Toutes raretés</option>
-              <option v-for="rarity in uniqueRarities" :key="rarity.value" :value="rarity.value">{{ rarity.label }}</option>
+        <!-- Factions Tabs Row -->
+        <div class="faction-tabs-container custom-scrollbar">
+          <div 
+            v-for="f in factionFilters" 
+            :key="f.code" 
+            class="faction-tab"
+            :class="{ active: selectedFaction === f.code }"
+            :style="{ '--faction-color': f.color }"
+            @click="selectedFaction = f.code"
+          >
+            <span class="faction-glow-dot" :style="{ backgroundColor: f.color }"></span>
+            <span class="faction-tab-name">{{ f.name }}</span>
+          </div>
+        </div>
+
+        <!-- Primary Filter Controls -->
+        <div class="library-controls glass-panel">
+          <div class="filter-row-primary">
+            <div class="search-wrapper">
+              <span class="search-icon">🔍</span>
+              <input type="text" v-model="searchQuery" placeholder="Rechercher (nom, description)..." class="search-input" />
+            </div>
+            
+            <select v-model="filterSkill" class="filter-select select-skills">
+              <option value="">Toutes compétences</option>
+              <option v-for="skill in uniqueSkills" :key="skill.value" :value="skill.value">
+                ✨ {{ skill.label }}
+              </option>
             </select>
 
             <select v-model="sortBy" class="filter-select">
@@ -148,34 +210,64 @@
             </select>
           </div>
 
-          <div class="element-filter-bar">
-            <div v-for="element in uniqueElements" :key="element"
-                 class="element-btn"
-                 :class="{ active: selectedElements.includes(element) }"
-                 @click="toggleElement(element)"
-                 :title="element">
-              <ElementIcon :element="element" :active="selectedElements.includes(element)" />
+          <!-- Rarity filter buttons -->
+          <div class="filter-row-rarity">
+            <span class="filter-label">Rareté :</span>
+            <div class="rarity-chips-group">
+              <button 
+                class="rarity-chip-btn"
+                :class="{ active: filterRarity === '' }"
+                @click="filterRarity = ''"
+              >
+                Toutes
+              </button>
+              <button 
+                v-for="rarity in uniqueRarities" 
+                :key="rarity.value"
+                class="rarity-chip-btn"
+                :class="[rarity.value, { active: filterRarity === rarity.value }]"
+                @click="filterRarity = rarity.value"
+              >
+                {{ rarity.label }}
+              </button>
             </div>
           </div>
 
-          <div class="toggle-filters-row">
-            <div class="btn-toggle-mini glass-panel">
-              <button @click="filterOwnership = ''" :class="{ active: filterOwnership === '' }">Toutes</button>
-              <button @click="filterOwnership = 'owned'" :class="{ active: filterOwnership === 'owned' }">Possédées</button>
+          <!-- Element filters + toggles row -->
+          <div class="filter-row-tertiary">
+            <div class="element-filter-wrapper">
+              <span class="filter-label">Élément :</span>
+              <div class="element-filter-bar">
+                <div v-for="element in uniqueElements" :key="element"
+                     class="element-btn"
+                     :class="{ active: selectedElements.includes(element) }"
+                     @click="toggleElement(element)"
+                     :title="element">
+                  <ElementIcon :element="element" :active="selectedElements.includes(element)" />
+                </div>
+              </div>
             </div>
-            <div class="btn-toggle-mini glass-panel">
-              <button @click="filterPremium = ''" :class="{ active: filterPremium === '' }">✨</button>
-              <button @click="filterPremium = 'premium'" :class="{ active: filterPremium === 'premium' }">⭐</button>
-              <button @click="filterPremium = 'regular'" :class="{ active: filterPremium === 'regular' }">🃏</button>
+
+            <div class="toggle-filters-row">
+              <div class="btn-toggle-mini glass-panel">
+                <button @click="filterOwnership = ''" :class="{ active: filterOwnership === '' }">Toutes</button>
+                <button @click="filterOwnership = 'owned'" :class="{ active: filterOwnership === 'owned' }">Possédées</button>
+              </div>
+              <div class="btn-toggle-mini glass-panel">
+                <button @click="filterPremium = ''" :class="{ active: filterPremium === '' }">✨</button>
+                <button @click="filterPremium = 'premium'" :class="{ active: filterPremium === 'premium' }">⭐</button>
+                <button @click="filterPremium = 'regular'" :class="{ active: filterPremium === 'regular' }">🃏</button>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="library-stats">
-          {{ filteredCards.length }} cartes disponibles
+        <div class="library-stats-bar">
+          <span class="stats-count">{{ filteredCards.length }} cartes disponibles</span>
         </div>
 
-        <div class="library-grid">
+        <!-- Library card grid -->
+        <div class="library-grid custom-scrollbar">
           <div v-for="card in filteredCards" :key="card.id" class="lib-card-wrapper"
             @click="toggleCard(card.id)" @contextmenu.prevent="setCover(card.id)">
             <TripleTriadCard :card="card" size="sm" flat
@@ -198,11 +290,12 @@ import PageLayout from '../components/PageLayout.vue';
 import { state, cardLibrary, getCardById } from '../game/state.js';
 import { ELEMENTS } from '../data/factions.js';
 import { useUserStore } from '../stores/userStore.js';
-const userStore = useUserStore();
 import TripleTriadCard from '../components/TripleTriadCard.vue';
 import ElementIcon from '../components/ElementIcon.vue';
 import AnimatedCardBack from '../components/AnimatedCardBack.vue';
 import { GameEngine } from '../../../shared/GameEngine.ts';
+import { getSkillMetadata } from '../../../shared/skills/index';
+import strapiService from '../api/strapi.js';
 
 const props = defineProps({
   documentId: {
@@ -210,6 +303,29 @@ const props = defineProps({
     default: null
   }
 });
+
+const userStore = useUserStore();
+
+// Accordion open/close states
+const showCosmetics = ref(false);
+const showShare = ref(false);
+
+// Filter states
+const searchQuery = ref('');
+const sortBy = ref('rarity-desc');
+const selectedFaction = ref('ALL');
+const filterSkill = ref('');
+const selectedElements = ref([]);
+const filterRarity = ref('');
+const filterOwnership = ref('owned');
+const filterPremium = ref('');
+const importCode = ref('');
+const feedback = ref('');
+const feedbackType = ref('info');
+const allUsers = ref([]);
+const selectedOwnerId = ref(null);
+
+const isAdminMode = computed(() => route.path.startsWith('/admin'));
 
 onMounted(async () => {
   // Ensure basic data is loaded
@@ -258,24 +374,8 @@ onMounted(async () => {
   }
 });
 
-const searchQuery = ref('');
-const sortBy = ref('rarity-desc');
-const selectedElements = ref([]);
-const filterRarity = ref('');
-const filterOwnership = ref('owned');
-const filterPremium = ref('');
-const importCode = ref('');
-const feedback = ref('');
-const feedbackType = ref('info');
-const allUsers = ref([]);
-const selectedOwnerId = ref(null);
-
-const isAdminMode = computed(() => route.path.startsWith('/admin'));
-
 const availableFrames = computed(() => {
-  // If no card frames are loaded yet, return empty
   if (!userStore.cardFrames || userStore.cardFrames.length === 0) return [];
-
   if (isAdminMode.value) return userStore.cardFrames;
   const unlocked = userStore.unlockedFrames;
   const frames = userStore.cardFrames.filter(f => unlocked.some(u => u.documentId === f.documentId || u.id === f.id));
@@ -298,6 +398,20 @@ function getFrameUrl(frameId) {
 
 const uniqueElements = ELEMENTS;
 
+const factionFilters = [
+  { code: 'ALL', name: 'Toutes', color: '#00d2ff' },
+  { code: 'NEUTRAL', name: 'Neutre', color: '#a0a0a0' },
+  { code: 'SCRAPPERS', name: 'Ferrailleurs', color: '#A0A0A0' },
+  { code: 'PELAGIC', name: 'Exode', color: '#40E0D0' },
+  { code: 'SYNTH', name: 'Chœur', color: '#FFBF00' },
+  { code: 'OMNI', name: 'Omni', color: '#005FFF' },
+  { code: 'MARS', name: 'Martiens', color: '#D90429' },
+  { code: 'SPORE', name: 'Spore', color: '#39FF14' },
+  { code: 'ASHES', name: 'Héritiers', color: '#FFD700' },
+  { code: 'DISSONANCE', name: 'Dissonance', color: '#8A2BE2' },
+  { code: 'CHTHON', name: 'Éveil', color: '#FF4500' }
+];
+
 const uniqueRarities = [
   { value: 'common', label: 'Commune' },
   { value: 'uncommon', label: 'Peu Commune' },
@@ -305,6 +419,54 @@ const uniqueRarities = [
   { value: 'epic', label: 'Épique' },
   { value: 'legendary', label: 'Légendaire' }
 ];
+
+// Extract unique skills present in the loaded library
+const uniqueSkills = computed(() => {
+  const types = new Set();
+  cardLibrary.forEach(c => {
+    if (c.skills && Array.isArray(c.skills)) {
+      c.skills.forEach(s => {
+        const type = typeof s === 'string' ? s : s.type;
+        if (type) types.add(type);
+      });
+    }
+  });
+
+  return Array.from(types).map(type => {
+    const meta = getSkillMetadata(type);
+    return {
+      value: type,
+      label: meta.name || type
+    };
+  }).sort((a, b) => a.label.localeCompare(b.label));
+});
+
+// Compute structural stats of the current deck
+const deckStats = computed(() => {
+  const cards = state.editingDeck.cards.map(getCardById).filter(Boolean);
+  const total = cards.length;
+  if (total === 0) return { avgLevel: '0.0', elements: {}, factions: {} };
+
+  let levelSum = 0;
+  const elements = {};
+  const factions = {};
+
+  cards.forEach(c => {
+    levelSum += c.level || GameEngine.calculateCardLevel(c) || 1;
+    if (c.element && c.element !== 'None') {
+      elements[c.element] = (elements[c.element] || 0) + 1;
+    }
+    if (c.factionCode && c.factionCode !== 'NEUTRAL') {
+      factions[c.factionCode] = (factions[c.factionCode] || 0) + 1;
+    }
+  });
+
+  return {
+    avgLevel: (levelSum / total).toFixed(1),
+    elements,
+    factions
+  };
+});
 
 function getRarity(card) {
   if (card.rarity) return card.rarity.toLowerCase();
@@ -343,8 +505,7 @@ function closeDeckEditor() {
 }
 
 function isOwned(cardId) {
-  if (!userStore.strapiConnected) return true; // Offline: all cards owned
-  // If editing an admin deck, we allow all cards
+  if (!userStore.strapiConnected) return true;
   if (isAdminMode.value) return true;
   return userStore.collection.some(c => c.cardId === cardId);
 }
@@ -358,7 +519,6 @@ function toggleCard(cardId) {
   const idx = state.editingDeck.cards.indexOf(cardId);
   
   if (isAdminMode.value) {
-    // Admin: unconditional add (allow duplicates and ignore limit)
     state.editingDeck.cards.push(cardId);
     return;
   }
@@ -475,6 +635,16 @@ const filteredCards = computed(() => {
     result = result.filter(c => c.name.toLowerCase().includes(q) || c.description?.toLowerCase().includes(q));
   }
 
+  if (selectedFaction.value !== 'ALL') {
+    result = result.filter(c => c.factionCode === selectedFaction.value);
+  }
+
+  if (filterSkill.value) {
+    result = result.filter(c => 
+      c.skills && c.skills.some(s => (typeof s === 'string' ? s : s.type) === filterSkill.value)
+    );
+  }
+
   if (selectedElements.value.length > 0) {
     result = result.filter(c => {
       const cardElements = c.elements || (c.element && c.element !== 'None' ? [c.element] : []);
@@ -530,47 +700,193 @@ const sortedDeckCards = computed(() => {
     const rA = rarityOrder[getRarity(a)];
     const rB = rarityOrder[getRarity(b)];
     
-    if (rA !== rB) return rB - rA; // Rarest first
+    if (rA !== rB) return rB - rA;
     
     const lA = GameEngine.calculateCardLevel(a);
     const lB = GameEngine.calculateCardLevel(b);
-    if (lA !== lB) return lB - lA; // Highest level first
+    if (lA !== lB) return lB - lA;
     
-    return a.name.localeCompare(b.name); // Alphabetical
+    return a.name.localeCompare(b.name);
   });
 });
 </script>
 
 <style scoped>
+/* Glassmorphism utility panel */
+.glass-panel {
+  background: color-mix(in srgb, var(--color-primary, #ff0055) 4%, rgba(255, 255, 255, 0.03));
+  border: 1px solid color-mix(in srgb, var(--color-primary, #ff0055) 15%, rgba(255, 255, 255, 0.08));
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+.glass-panel:hover {
+  border-color: color-mix(in srgb, var(--color-primary, #ff0055) 25%, rgba(255, 255, 255, 0.15));
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.deck-editor-page {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, #151525 0%, #09090e 100%);
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  pointer-events: auto;
+  overflow: hidden;
+}
+
+.page-header {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  margin: 10px 10px 0 10px;
+  flex-shrink: 0;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 1.5rem;
+  letter-spacing: 4px;
+  font-weight: 800;
+  text-shadow: 0 0 15px rgba(255, 0, 85, 0.4);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.deck-counter {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #888;
+  letter-spacing: 1px;
+}
+.deck-counter.full {
+  color: #00ff88;
+  text-shadow: 0 0 12px rgba(0, 255, 136, 0.6);
+}
+
+.editor-body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  padding: 10px;
+  gap: 10px;
+}
+
+/* LEFT: Deck Sidebar */
+.deck-panel {
+  width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  flex-shrink: 0;
+  padding-right: 4px;
+}
+
+.deck-info-section {
+  padding: 8px;
+}
+
+.deck-name-input {
+  width: 100%;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 8px;
+  text-align: center;
+  letter-spacing: 0.5px;
+  transition: all 0.3s;
+}
+.deck-name-input:focus {
+  border-color: #ff0055;
+  box-shadow: 0 0 10px rgba(255, 0, 85, 0.3);
+  outline: none;
+}
+
+/* Accordion sections */
+.deck-settings-section {
+  overflow: hidden;
+  padding: 0;
+}
+.section-title {
+  padding: 12px 16px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+.section-title:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: white;
+}
+.section-content {
+  padding: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.2);
+}
+
 .back-options-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  background: rgba(0,0,0,0.2);
-  padding: 8px;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 10px;
   border-radius: 8px;
-  border: 1px solid rgba(255, 0, 85, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 .back-mini-option {
   width: 44px;
-  height: 64px;
-  border-radius: 4px;
-  border: 1px solid #444;
+  height: 44px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   cursor: pointer;
   overflow: hidden;
-  transition: all 0.2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   background: #000;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 .back-mini-option:hover {
   border-color: #ff0055;
-  transform: scale(1.05);
+  transform: translateY(-2px);
 }
 .back-mini-option.active {
-  border-color: #00d2ff;
-  box-shadow: 0 0 10px rgba(0, 210, 255, 0.4);
+  border-color: #ff0055;
+  box-shadow: 0 0 10px rgba(255, 0, 85, 0.5);
   border-width: 2px;
 }
 .back-mini-img {
@@ -584,213 +900,97 @@ const sortedDeckCards = computed(() => {
   transform: scale(0.4);
 }
 
-.deck-editor-page {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at 30% 40%, #1a1a2e 0%, #0d0d14 100%);
-  z-index: 500;
+.import-export-row {
   display: flex;
-  flex-direction: column;
-  color: white;
-  pointer-events: auto;
-  overflow: hidden;
+  gap: 8px;
 }
-
-.page-header {
-  height: 70px;
-  background: rgba(0, 0, 0, 0.6);
-  border-bottom: 2px solid #ff0055;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 30px;
-  box-shadow: 0 4px 20px rgba(255, 0, 85, 0.2);
-  flex-shrink: 0;
-}
-
-.back-btn {
-  background: transparent;
-  border: 1px solid #ff0055;
-  color: #ff0055;
-  padding: 8px 18px;
-  border-radius: 5px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.back-btn:hover {
-  background: rgba(255, 0, 85, 0.2);
-  box-shadow: 0 0 10px #ff0055;
-}
-
-.page-title {
-  margin: 0;
-  font-size: 1.5rem;
-  letter-spacing: 4px;
-  text-shadow: 0 0 15px #ff0055;
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.deck-counter {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #aaa;
-  transition: color 0.3s;
-}
-
-.deck-counter.full {
-  color: #00ff88;
-  text-shadow: 0 0 10px #00ff88;
-}
-
-.save-btn {
-  background: linear-gradient(135deg, #00ff88, #00d2ff);
-  color: #0d0d14;
-  border: none;
-  padding: 10px 25px;
-  border-radius: 8px;
-  font-weight: bold;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.save-btn:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-
-.save-btn:not(:disabled):hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
-}
-
-/* Editor Body: Two columns */
-.editor-body {
+.import-input {
   flex: 1;
-  display: flex;
-  overflow: hidden;
-}
-
-/* LEFT panel: Deck info */
-.deck-panel {
-  width: 360px;
-  background: rgba(0, 0, 0, 0.3);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  overflow-y: auto;
-  flex-shrink: 0;
-}
-
-.deck-name-input {
-  width: 100%;
-  padding: 12px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid #444;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: white;
-  font-size: 1.2rem;
-  border-radius: 8px;
-  text-align: center;
-  letter-spacing: 1px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  transition: border-color 0.2s;
 }
-
-.deck-name-input:focus {
+.import-input:focus {
   border-color: #ff0055;
   outline: none;
 }
 
 .feedback-bar {
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  text-align: center;
-}
-
-.feedback-bar.success {
-  background: rgba(0, 255, 136, 0.15);
-  color: #00ff88;
-  border: 1px solid rgba(0, 255, 136, 0.3);
-}
-
-.feedback-bar.error {
-  background: rgba(255, 0, 85, 0.15);
-  color: #ff0055;
-  border: 1px solid rgba(255, 0, 85, 0.3);
-}
-
-.feedback-bar.info {
-  background: rgba(0, 210, 255, 0.15);
-  color: #00d2ff;
-  border: 1px solid rgba(0, 210, 255, 0.3);
-}
-
-.import-export-row {
-  display: flex;
-  gap: 8px;
-}
-
-.import-input {
-  flex: 1;
-  padding: 8px;
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid #444;
-  color: white;
-  border-radius: 5px;
-  font-size: 0.8rem;
-}
-
-.action-btn {
-  background: #2a2a35;
-  border: 1px solid #444;
-  color: #ccc;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.75rem;
-  white-space: nowrap;
-  transition: all 0.2s;
-}
-
-.action-btn:hover {
-  background: #3a3a45;
-  border-color: #666;
-}
-
-.action-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-/* Mana curve */
-.mana-curve {
-  background: rgba(255, 255, 255, 0.03);
+  padding: 10px 14px;
   border-radius: 8px;
-  padding: 10px;
+  font-size: 0.8rem;
+  text-align: center;
+  font-weight: 500;
+}
+.feedback-bar.success {
+  background: rgba(0, 255, 136, 0.1);
+  color: #00ff88;
+  border: 1px solid rgba(0, 255, 136, 0.2);
+}
+.feedback-bar.error {
+  background: rgba(255, 0, 85, 0.1);
+  color: #ff0055;
+  border: 1px solid rgba(255, 0, 85, 0.2);
+}
+.feedback-bar.info {
+  background: rgba(0, 210, 255, 0.1);
+  color: #00d2ff;
+  border: 1px solid rgba(0, 210, 255, 0.2);
 }
 
+/* Stats dashboard */
+.deck-stats-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+.stat-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 5px;
+  background: rgba(0, 0, 0, 0.2);
+}
+.stat-val {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #ff0055;
+  text-shadow: 0 0 10px rgba(255, 0, 85, 0.3);
+}
+.stat-lbl {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #888;
+  margin-top: 2px;
+}
+
+/* Mana / Level curve */
+.mana-curve {
+  padding: 12px;
+}
 .curve-label {
-  font-size: 0.75rem;
-  color: #666;
-  margin-bottom: 8px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #888;
+  margin-bottom: 12px;
   text-align: center;
 }
-
 .curve-bars {
   display: flex;
-  gap: 4px;
-  height: 50px;
+  gap: 6px;
+  height: 60px;
   align-items: flex-end;
 }
-
 .bar-container {
   flex: 1;
   display: flex;
@@ -799,134 +999,304 @@ const sortedDeckCards = computed(() => {
   height: 100%;
   justify-content: flex-end;
 }
-
 .bar {
   width: 100%;
-  background: linear-gradient(to top, #ff0055, #ff6b9d);
-  border-radius: 2px 2px 0 0;
+  background: linear-gradient(to top, rgba(255, 0, 85, 0.8), rgba(255, 100, 150, 1));
+  box-shadow: 0 0 8px rgba(255, 0, 85, 0.4);
+  border-radius: 4px 4px 0 0;
   min-height: 2px;
-  transition: height 0.3s;
+  transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .bar-label {
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   color: #666;
-  margin-top: 3px;
+  font-weight: 700;
+  margin-top: 4px;
 }
 
-/* Deck cards grid */
+/* Deck Cards Grid (3 Columns) */
+.deck-section-header {
+  margin-top: 8px;
+}
 .deck-cards-title {
-  font-size: 0.8rem;
-  color: #666;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
+  color: #888;
 }
-
 .deck-cards-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 4px 2px;
 }
-
 .deck-card-slot {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 0;
-  text-align: center;
-  cursor: pointer;
   position: relative;
-  transition: all 0.2s;
-  min-height: 32px;
-  width: 100%;
+  width: 90px;
+  height: 90px;
+  border-radius: 10px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.2);
 }
-
-.deck-card-slot:hover {
-  border-color: #ff0055;
-}
-
 .deck-card-slot.empty {
-  opacity: 0.3;
+  border: 2px dashed rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.01);
+  color: rgba(255, 255, 255, 0.15);
+  font-size: 1.5rem;
+  font-weight: bold;
   cursor: default;
 }
-
-.deck-card-img {
-  width: 40px;
-  height: 40px;
-  border-radius: 4px;
+.deck-card-slot.empty:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.deck-card-slot:not(.empty):hover {
+  transform: translateY(-2px) scale(1.03);
 }
 
-.deck-card-name {
-  font-size: 0.6rem;
-  color: #aaa;
-  margin-top: 2px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 100%;
+.deck-card-slot .remove-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 0, 85, 0.6);
+  backdrop-filter: blur(2px);
+  color: white;
+  font-size: 2.2rem;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+.deck-card-slot:not(.empty):hover .remove-overlay {
+  opacity: 1;
 }
 
-/* RIGHT: Library panel */
+/* RIGHT: Library Panel */
 .library-panel {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  gap: 12px;
   overflow: hidden;
 }
 
-.library-stats {
-  font-size: 0.85rem;
-  color: #666;
-  margin-bottom: 8px;
+/* Faction Tabs */
+.faction-tabs-container {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 4px 4px 8px 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.faction-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #aaa;
+}
+.faction-tab:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+.faction-tab.active {
+  background: color-mix(in srgb, var(--faction-color) 12%, rgba(255, 255, 255, 0.04));
+  color: white;
+  border-color: var(--faction-color);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--faction-color) 35%, transparent);
+}
+.faction-glow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px currentColor;
 }
 
-.filter-row-secondary {
+/* Controls Grid */
+.library-controls {
+  padding: 16px;
   display: flex;
-  gap: 8px;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.filter-row-primary {
+  display: flex;
+  gap: 10px;
+}
+.search-wrapper {
+  position: relative;
+  flex: 2;
+}
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  opacity: 0.5;
+}
+.search-input {
+  width: 100%;
+  padding: 10px 10px 10px 38px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+.search-input:focus {
+  border-color: #ff0055;
+  box-shadow: 0 0 10px rgba(255, 0, 85, 0.2);
+  outline: none;
 }
 
 .filter-select {
   flex: 1;
   background: rgba(0, 0, 0, 0.4);
   color: white;
-  border: 1px solid #444;
-  padding: 8px;
-  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 12px;
+  border-radius: 8px;
   font-size: 0.9rem;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.filter-select:focus {
+  border-color: #ff0055;
+  outline: none;
+}
+.select-skills {
+  flex: 1.2;
 }
 
+/* Rarity row */
+.filter-row-rarity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 2px 0;
+}
+.filter-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #888;
+  letter-spacing: 0.5px;
+  min-width: 60px;
+}
+.rarity-chips-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.rarity-chip-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #888;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.rarity-chip-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #bbb;
+  transform: translateY(-1px);
+}
+.rarity-chip-btn.active {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.rarity-chip-btn.common.active {
+  border-color: #9e9e9e;
+  box-shadow: 0 0 10px rgba(158, 158, 158, 0.4);
+  background: rgba(158, 158, 158, 0.15);
+}
+.rarity-chip-btn.uncommon.active {
+  border-color: #4caf50;
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.4);
+  background: rgba(76, 175, 80, 0.15);
+}
+.rarity-chip-btn.rare.active {
+  border-color: #2196f3;
+  box-shadow: 0 0 10px rgba(33, 150, 243, 0.4);
+  background: rgba(33, 150, 243, 0.15);
+}
+.rarity-chip-btn.epic.active {
+  border-color: #9c27b0;
+  box-shadow: 0 0 10px rgba(156, 39, 176, 0.4);
+  background: rgba(156, 39, 176, 0.15);
+}
+.rarity-chip-btn.legendary.active {
+  border-color: #ffc107;
+  box-shadow: 0 0 12px rgba(255, 193, 7, 0.5);
+  background: rgba(255, 193, 7, 0.15);
+}
+
+/* Elements + toggles row */
+.filter-row-tertiary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.element-filter-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 .element-filter-bar {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  background: rgba(0,0,0,0.2);
-  padding: 6px;
+  gap: 5px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px;
   border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
-
 .element-btn {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid #444;
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s;
-  padding: 4px;
+  padding: 5px;
 }
-
 .element-btn:hover {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.08);
 }
-
 .element-btn.active {
   border-color: #00d2ff;
   background: rgba(0, 210, 255, 0.1);
@@ -936,181 +1306,75 @@ const sortedDeckCards = computed(() => {
 .toggle-filters-row {
   display: flex;
   gap: 8px;
-  justify-content: space-between;
 }
-
 .btn-toggle-mini {
   display: flex;
-  background: rgba(0,0,0,0.3);
   padding: 2px;
-  border-radius: 6px;
-  border: 1px solid #444;
 }
-
 .btn-toggle-mini button {
   background: transparent;
   border: none;
-  color: #888;
-  padding: 4px 10px;
-  border-radius: 4px;
+  color: #777;
+  padding: 5px 12px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 700;
   transition: all 0.2s;
 }
-
+.btn-toggle-mini button:hover {
+  color: #bbb;
+}
 .btn-toggle-mini button.active {
-  background: #333;
+  background: rgba(255, 255, 255, 0.08);
   color: #00d2ff;
-  font-weight: bold;
 }
 
+/* Stats counter */
+.library-stats-bar {
+  padding: 0 4px;
+  flex-shrink: 0;
+}
+.stats-count {
+  font-size: 0.8rem;
+  color: #666;
+  font-weight: 600;
+}
+
+/* Cards Library Grid */
 .library-grid {
   flex: 1;
   overflow-y: auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
   gap: 12px;
-  padding-right: 8px;
+  padding: 4px;
   align-content: start;
 }
-
 .lib-card-wrapper {
   cursor: pointer;
   display: flex;
   justify-content: center;
+  transition: transform 0.2s;
 }
-
-.lib-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
-  padding: 10px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s;
-  position: relative;
-}
-
-.lib-card:hover {
-  border-color: #00d2ff;
+.lib-card-wrapper:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 210, 255, 0.2);
 }
 
-.lib-card.locked {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-
-.lib-card.selected {
-  border-color: #ff0055;
-  background: rgba(255, 0, 85, 0.1);
-  box-shadow: 0 0 12px rgba(255, 0, 85, 0.3);
-}
-
-.lib-card.is-cover {
-  border-color: gold;
-}
-
-.lib-card-img {
-  width: 60px;
-  height: 60px;
-  border-radius: 6px;
-  margin-bottom: 6px;
-}
-
-.lib-card-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.lib-card-name {
-  font-size: 0.7rem;
-  color: #ccc;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.lib-card-level {
-  font-size: 0.65rem;
-  color: #666;
-}
-
-.lib-card-stats {
-  display: flex;
-  justify-content: space-around;
-  font-size: 0.65rem;
-  color: #888;
-  margin-top: 4px;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
-  padding: 2px 0;
-}
-
-.selected-check {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background: #ff0055;
-  color: white;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  font-weight: bold;
-}
-
-.cover-badge {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  color: gold;
-  font-size: 1rem;
-  text-shadow: 0 0 8px gold;
-}
-
-/* Scrollbar styling */
-.library-grid::-webkit-scrollbar {
-  width: 6px;
-}
-
-.library-grid::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.library-grid::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 3px;
-}
-
-.deck-panel::-webkit-scrollbar {
-  width: 4px;
-}
-
-.deck-panel::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.deck-panel::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
-}
-
-@media (max-width: 768px) {
+/* Responsive styles */
+@media (max-width: 1024px) {
   .editor-body {
     flex-direction: column;
+    overflow-y: auto;
   }
-
   .deck-panel {
     width: 100%;
-    max-height: 300px;
+    max-height: 480px;
     border-right: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .deck-cards-grid {
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 </style>

@@ -79,7 +79,22 @@ export function normalizeCard(raw) {
     // Faction normalization
     const factionData = attrs.faction?.data?.attributes || attrs.faction?.data || attrs.faction;
     const factionName = factionData?.name || (typeof attrs.faction === 'string' ? attrs.faction : 'Neutre');
-    const factionCode = factionData?.code || (attrs.faction === 'neutre' ? 'NEUTRAL' : 'NEUTRAL');
+    const factionMap = {
+      'neutre': 'NEUTRAL',
+      'hégémonie martienne': 'MARS',
+      'hégemonie martienne': 'MARS',
+      'exode pélagique': 'PELAGIC',
+      'héritiers des cendres': 'ASHES',
+      'omni-réseau': 'OMNI',
+      'chœur synthétique': 'SYNTH',
+      'choeur synthétique': 'SYNTH',
+      'éveil chthonien': 'CHTHON',
+      'incursion dissonante': 'DISSONANCE',
+      'ferrailleurs de la ceinture': 'SCRAPPERS',
+      'les ferrailleurs': 'SCRAPPERS',
+      'fléau spore': 'SPORE'
+    };
+    const factionCode = factionData?.code || factionMap[factionName.toLowerCase()] || 'NEUTRAL';
     const factionStyle = factionData?.style || {};
 
     // Collection normalization (handles many-to-many)
