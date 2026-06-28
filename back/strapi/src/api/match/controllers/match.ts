@@ -34,7 +34,12 @@ export default factories.createCoreController(
           );
         }
 
-        const { matchId, logs, isFinished: clientIsFinished, winner: clientWinner } = body;
+        const {
+          matchId,
+          logs,
+          isFinished: clientIsFinished,
+          winner: clientWinner,
+        } = body;
 
         // 1. Vérifie la limite d'arbitrage (ex: max 3 requêtes)
         if (!arbitrationRequestsCount[matchId]) {
@@ -83,7 +88,7 @@ export default factories.createCoreController(
           .map((log) => {
             let playerId = log.emitter.id;
             if (isAIMatch) {
-              playerId = (playerId === 'player') ? 'PLAYER_1' : 'PLAYER_2';
+              playerId = playerId === "player" ? "PLAYER_1" : "PLAYER_2";
             }
 
             return log.action === "placement"
@@ -97,20 +102,30 @@ export default factories.createCoreController(
               : { ...log, player: playerId };
           });
 
-        let totalCapturesByPlayer: Record<string, number> = { PLAYER_1: 0, PLAYER_2: 0 };
+        let totalCapturesByPlayer: Record<string, number> = {
+          PLAYER_1: 0,
+          PLAYER_2: 0,
+        };
 
         for (let i = 0; i < placeCardActions.length; i++) {
           const action = placeCardActions[i];
-          const previousBoard = currentState.board.map(row => row.map(cell => cell ? { ...cell } : null));
+          const previousBoard = currentState.board.map((row) =>
+            row.map((cell) => (cell ? { ...cell } : null)),
+          );
 
           try {
             currentState = GameEngine.computeNextState(currentState, action);
-            
+
             // Count captures by comparing owners before/after
             currentState.board.forEach((row, y) => {
               row.forEach((cell, x) => {
                 const prevCell = previousBoard[y][x];
-                if (cell && prevCell && cell.owner !== prevCell.owner && cell.owner === action.player) {
+                if (
+                  cell &&
+                  prevCell &&
+                  cell.owner !== prevCell.owner &&
+                  cell.owner === action.player
+                ) {
                   totalCapturesByPlayer[action.player]++;
                 }
               });
@@ -130,14 +145,19 @@ export default factories.createCoreController(
         // 3. Secure Quest Tracking
         try {
           let user = ctx.state.user;
-          
+
           if (!user && ctx.request.header && ctx.request.header.authorization) {
-            const token = ctx.request.header.authorization.split(' ')[1];
+            const token = ctx.request.header.authorization.split(" ")[1];
             if (token) {
               try {
-                const jwtService = strapi.plugin('users-permissions').service('jwt');
+                const jwtService = strapi
+                  .plugin("users-permissions")
+                  .service("jwt");
                 const payload = await jwtService.verify(token);
-                console.log("[Arbitrate Debug] JWT Payload extracted:", JSON.stringify(payload));
+                console.log(
+                  "[Arbitrate Debug] JWT Payload extracted:",
+                  JSON.stringify(payload),
+                );
                 if (payload && (payload.id || payload.documentId)) {
                   user = { id: payload.documentId || payload.id };
                 }
@@ -147,81 +167,113 @@ export default factories.createCoreController(
             }
           }
 
-          console.log(`[Arbitrate Debug] Found user for quests?`, user ? user.id : 'No user');
+          console.log(
+            `[Arbitrate Debug] Found user for quests?`,
+            user ? user.id : "No user",
+          );
 
-          const isActuallyFinished = clientIsFinished || currentState.isFinished;
-          let actualWinner = clientIsFinished ? clientWinner : currentState.winner;
+          const isActuallyFinished =
+            clientIsFinished || currentState.isFinished;
+          let actualWinner = clientIsFinished
+            ? clientWinner
+            : currentState.winner;
 
           // Normalisation du winner pour l'IA
           if (isAIMatch) {
-            if (actualWinner === 'player') actualWinner = 'PLAYER_1';
-            if (actualWinner === 'ai') actualWinner = 'PLAYER_2';
+            if (actualWinner === "player") actualWinner = "PLAYER_1";
+            if (actualWinner === "ai") actualWinner = "PLAYER_2";
           }
 
           if (user && isActuallyFinished && matches[0]) {
             const matchRecord = matches[0] as any;
             const processedUsers = matchRecord.processedUsers || [];
-            
-            console.log(`[Arbitrate Debug] Match users relation:`, JSON.stringify(matchRecord.users));
+
+            console.log(
+              `[Arbitrate Debug] Match users relation:`,
+              JSON.stringify(matchRecord.users),
+            );
 
             if (processedUsers.includes(user.id)) {
-              console.log(`[Arbitrate] Quests already processed for user ${user.id} in match ${matchId}`);
+              console.log(
+                `[Arbitrate] Quests already processed for user ${user.id} in match ${matchId}`,
+              );
             } else {
               const users = matchRecord.users || [];
-              const userIndex = users.findIndex(u => String(u.id) === String(user.id) || String(u.documentId) === String(user.id));
-              
+              const userIndex = users.findIndex(
+                (u) =>
+                  String(u.id) === String(user.id) ||
+                  String(u.documentId) === String(user.id),
+              );
+
               console.log(`[Arbitrate Debug] userIndex found:`, userIndex);
-              
+
               if (userIndex !== -1) {
                 const userRole = userIndex === 0 ? "PLAYER_1" : "PLAYER_2";
-                
+
                 // Base events
-                await logPlayerEvent(strapi, { userId: user.id, eventType: "play_game" });
-                
+                await logPlayerEvent(strapi, {
+                  userId: user.id,
+                  eventType: "play_game",
+                });
+
                 if (isActuallyFinished && actualWinner === userRole) {
-                  await logPlayerEvent(strapi, { userId: user.id, eventType: "win_game" });
+                  await logPlayerEvent(strapi, {
+                    userId: user.id,
+                    eventType: "win_game",
+                  });
                 }
 
                 // Extract actions directly from the complete match logs instead of the replay engine
                 const dbLogs = matchRecord.logs || [];
                 const isAIMatch = users.length === 1;
-                const myEmitterId = isAIMatch ? 'player' : userRole;
+                const myEmitterId = isAIMatch ? "player" : userRole;
 
-                const myCompetenceLogs = dbLogs.filter((l: any) => l.action === 'competence' && l.emitter?.id === myEmitterId);
-                const myTotalCaptures = myCompetenceLogs.reduce((sum: number, log: any) => sum + (log.target?.count || 0), 0);
+                const myCompetenceLogs = dbLogs.filter(
+                  (l: any) =>
+                    l.action === "competence" && l.emitter?.id === myEmitterId,
+                );
+                const myTotalCaptures = myCompetenceLogs.reduce(
+                  (sum: number, log: any) => sum + (log.target?.count || 0),
+                  0,
+                );
 
                 if (myTotalCaptures > 0) {
-                  await logPlayerEvent(strapi, { 
-                    userId: user.id, 
-                    eventType: "capture_card", 
-                    value: myTotalCaptures 
+                  await logPlayerEvent(strapi, {
+                    userId: user.id,
+                    eventType: "capture_card",
+                    value: myTotalCaptures,
                   });
                 }
 
                 // Card specific events (Play Card, Faction, Element)
-                const myPlayActions = dbLogs.filter((l: any) => l.action === 'placement' && l.emitter?.id === myEmitterId && l.target?.card);
-                
+                const myPlayActions = dbLogs.filter(
+                  (l: any) =>
+                    l.action === "placement" &&
+                    l.emitter?.id === myEmitterId &&
+                    l.target?.card,
+                );
+
                 for (const action of myPlayActions) {
                   const card = action.target.card;
-                  await logPlayerEvent(strapi, { 
-                    userId: user.id, 
+                  await logPlayerEvent(strapi, {
+                    userId: user.id,
                     eventType: "play_card",
-                    relatedCardId: card.id
+                    relatedCardId: card.id,
                   });
 
                   if (card.faction) {
-                    await logPlayerEvent(strapi, { 
-                      userId: user.id, 
-                      eventType: "play_card_faction", 
-                      relatedElement: card.faction 
+                    await logPlayerEvent(strapi, {
+                      userId: user.id,
+                      eventType: "play_card_faction",
+                      relatedElement: card.faction,
                     });
                   }
 
                   if (card.element) {
-                    await logPlayerEvent(strapi, { 
-                      userId: user.id, 
-                      eventType: "play_card_element", 
-                      relatedElement: card.element 
+                    await logPlayerEvent(strapi, {
+                      userId: user.id,
+                      eventType: "play_card_element",
+                      relatedElement: card.element,
                     });
                   }
                 }
@@ -231,15 +283,18 @@ export default factories.createCoreController(
                   await strapi.documents("api::match.match").update({
                     documentId: matchRecord.documentId,
                     data: {
-                      processedUsers: [...processedUsers, user.id]
-                    }
+                      processedUsers: [...processedUsers, user.id],
+                    },
                   });
                 }
               }
             }
           }
         } catch (questErr) {
-          console.error("Error in secure quest tracking during arbitration:", questErr);
+          console.error(
+            "Error in secure quest tracking during arbitration:",
+            questErr,
+          );
         }
 
         return ctx.send({
@@ -248,7 +303,8 @@ export default factories.createCoreController(
           state: currentState,
         });
       } catch (err) {
-        ctx.body = err;
+        console.error("[Arbitrate] Error:", err);
+        return ctx.internalServerError("An error occurred during arbitration.");
       }
     },
 
@@ -263,7 +319,8 @@ export default factories.createCoreController(
       if (!uuid) return ctx.badRequest("UUID is required");
 
       try {
-        const defaultStartingPlayer = Math.random() < 0.5 ? "PLAYER_1" : "PLAYER_2";
+        const defaultStartingPlayer =
+          Math.random() < 0.5 ? "PLAYER_1" : "PLAYER_2";
 
         const match = await strapi.documents("api::match.match").create({
           data: {
@@ -271,12 +328,16 @@ export default factories.createCoreController(
             offer,
             users,
             logs: [],
-            startingPlayer: ctx.request.body.startingPlayer || defaultStartingPlayer,
+            startingPlayer:
+              ctx.request.body.startingPlayer || defaultStartingPlayer,
           },
         });
         return { data: match };
       } catch (e) {
-        return ctx.internalServerError(e.message);
+        console.error("[Match Controller] Error:", e);
+        return ctx.internalServerError(
+          "An error occurred while processing the match request.",
+        );
       }
     },
 
@@ -292,7 +353,10 @@ export default factories.createCoreController(
         if (matches.length === 0) return ctx.notFound("Match not found");
         return { data: matches[0] };
       } catch (e) {
-        return ctx.internalServerError(e.message);
+        console.error("[Match Controller] Error:", e);
+        return ctx.internalServerError(
+          "An error occurred while processing the match request.",
+        );
       }
     },
 
@@ -320,7 +384,10 @@ export default factories.createCoreController(
 
         return { data: updated };
       } catch (e) {
-        return ctx.internalServerError(e.message);
+        console.error("[Match Controller] Error:", e);
+        return ctx.internalServerError(
+          "An error occurred while processing the match request.",
+        );
       }
     },
 
@@ -349,7 +416,10 @@ export default factories.createCoreController(
 
         return { data: updated };
       } catch (e) {
-        return ctx.internalServerError(e.message);
+        console.error("[Match Controller] Error:", e);
+        return ctx.internalServerError(
+          "An error occurred while processing the match request.",
+        );
       }
     },
   }),
