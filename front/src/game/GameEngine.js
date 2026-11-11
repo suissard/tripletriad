@@ -3,9 +3,38 @@
 // via des lifecycle hooks au lieu de blocs hardcodés.
 
 import { skillRegistry } from '../../../shared/skills/index';
+import { DEBUG_SKILLS } from '../../../shared/skills/debug';
 import { DIRECTIONS_4, COMBAT_DIRECTIONS } from '../../../shared/skills/helpers';
 
+/**
+ * Clone profond de données "plain" (objets / tableaux / primitives).
+ * Contrairement à structuredClone, supporte les Proxy réactifs Vue/Pinia
+ * et conserve les fonctions par référence.
+ */
+export function deepClonePlain(value, seen = new WeakMap()) {
+  if (value === null || typeof value !== 'object') return value;
+  if (seen.has(value)) return seen.get(value);
+  if (Array.isArray(value)) {
+    const arr = [];
+    seen.set(value, arr);
+    for (const item of value) arr.push(deepClonePlain(item, seen));
+    return arr;
+  }
+  if (value instanceof Date) return new Date(value.getTime());
+  const out = {};
+  seen.set(value, out);
+  for (const key of Object.keys(value)) out[key] = deepClonePlain(value[key], seen);
+  return out;
+}
+
 export class GameEngine {
+  /**
+   * Clone profond d'un plateau 2D (cellules et données de cartes).
+   */
+  static cloneBoard(board) {
+    return board.map(row => row.map(cell => (cell ? deepClonePlain(cell) : null)));
+  }
+
   /**
    * Retourne un état initial vierge (plateau vide).
    */
@@ -51,7 +80,7 @@ export class GameEngine {
    * un nouvel objet d'état sans manipuler l'état précédent.
    */
   static computeNextState(currentState, action) {
-    console.log(`[GameEngine] Action: ${action.type}`, action);
+    DEBUG_SKILLS && console.log(`[GameEngine] Action: ${action.type}`, action);
     if (currentState.isFinished) {
       return currentState; // La partie est terminée, l'état n'évolue plus
     }
@@ -72,10 +101,13 @@ export class GameEngine {
       throw new Error("Mouvement invalide : Cette case est déjà occupée.");
     }
 
-    // 1. Clonage profond du plateau pour assurer l'immuabilité (pureté)
+    // 1. Clonage profond du plateau pour assurer l'immuabilité (pureté).
+    // Les effets de skills mutent cell.data (hp, valeurs, charges) : un simple clone
+    // des lignes laisserait ces mutations fuir vers l'état précédent (et vers le
+    // plateau réel lors des simulations de l'IA).
     const nextState = {
       ...currentState,
-      board: currentState.board.map(row => [...row])
+      board: GameEngine.cloneBoard(currentState.board)
     };
 
     // Faction counts BEFORE placement to delay bonus for the 4th card
@@ -83,11 +115,12 @@ export class GameEngine {
 
     // 2. Placer la carte
     const cellOwner = action.player;
+    const cardCopy = deepClonePlain(card);
     const placedCell = {
       data: {
-        ...card,
-        hp: card.hp !== undefined ? card.hp : (card.defaultHp || 3),
-        skills: card.skills || []
+        ...cardCopy,
+        hp: cardCopy.hp !== undefined ? cardCopy.hp : (cardCopy.defaultHp || 3),
+        skills: cardCopy.skills || []
       },
       owner: cellOwner
     };
@@ -130,12 +163,12 @@ export class GameEngine {
    * Remplace l'ancien applyEndOfTurnSkills.
    */
   static dispatchEndOfTurn(board) {
-    console.log("[GameEngine] dispatchEndOfTurn starting...");
+    DEBUG_SKILLS && console.log("[GameEngine] dispatchEndOfTurn starting...");
     for (let y = 0; y < board.length; y++) {
       for (let x = 0; x < board[y].length; x++) {
         const cell = board[y][x];
         if (cell?.data?.skills && cell.data.skills.length > 0) {
-          console.log(`[GameEngine] Card at (${x},${y}) has ${cell.data.skills.length} skills. Dispatching...`);
+          DEBUG_SKILLS && console.log(`[GameEngine] Card at (${x},${y}) has ${cell.data.skills.length} skills. Dispatching...`);
           const ctx = GameEngine.buildContext(board, x, y);
           skillRegistry.dispatch('onEndOfTurn', ctx);
         }

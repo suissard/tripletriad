@@ -1,15 +1,50 @@
 import { SkillContext } from './types';
-import { getTargetCells } from './helpers.js';
+import { getTargetCells, getCardSkills } from './helpers.js';
 import { effectsMap } from './effects/index.js';
+import { SKILL_PATTERNS, SKILL_FILTERS, SKILL_TRIGGERS } from './constants';
+import { DEBUG_SKILLS } from './debug';
+
+/**
+ * Traduction du champ `target` présent dans les données de cartes offline
+ * (shared/data/cards/*.json) vers les champs canoniques `patterns` / `filter`.
+ * Seules les cibles non ambiguës sont traduites ; les autres (sélection par stat,
+ * conditions de déclenchement...) retombent sur les valeurs par défaut du skill.
+ */
+const LEGACY_TARGET_MAP: Record<string, { pattern: string, filter?: string }> = {
+  self:              { pattern: SKILL_PATTERNS.SELF },
+  all_own:           { pattern: SKILL_PATTERNS.ALL, filter: SKILL_FILTERS.ALLIES },
+  all_enemy:         { pattern: SKILL_PATTERNS.ALL, filter: SKILL_FILTERS.ENEMIES },
+  adjacent_friendly: { pattern: SKILL_PATTERNS.ADJACENT, filter: SKILL_FILTERS.ALLIES },
+  adjacent_enemy:    { pattern: SKILL_PATTERNS.ADJACENT, filter: SKILL_FILTERS.ENEMIES },
+};
+
+/**
+ * Applique les valeurs de ciblage par défaut SANS écraser la configuration explicite
+ * (Strapi / éditeur admin). Les champs lus par getTargetCells sont `patterns` et `filter`.
+ */
+function withTargetingDefaults(skill: any, defaultPattern: string, defaultFilter?: string) {
+  const hasPatterns = Array.isArray(skill.patterns) && skill.patterns.length > 0;
+  const mapped = skill.target ? LEGACY_TARGET_MAP[skill.target] : undefined;
+
+  const result: any = {};
+  if (!hasPatterns) {
+    result.patterns = [{ value: skill.target_pattern || mapped?.pattern || defaultPattern }];
+  }
+  const filter = skill.filter || skill.target_filter || mapped?.filter || defaultFilter;
+  if (filter) result.filter = filter;
+  return result;
+}
 
 export class SkillEngine {
   /**
-   * Translates a legacy skill configuration to the modular architecture format.
+   * Traduit une configuration de skill legacy (type: 'growing', 'heal'...) vers le format
+   * modulaire (effect_type + ciblage). Les valeurs par défaut reproduisent le comportement
+   * documenté des handlers historiques (growing.ts, decrease.ts, heal.ts...).
    */
   public static translateLegacySkill(skill: any): any {
     if (!skill) return null;
 
-    // If it already has effect_type, it's already in the modular format!
+    // Déjà au format modulaire
     if (skill.effect_type) {
       return {
         ...skill,
@@ -26,51 +61,47 @@ export class SkillEngine {
     switch (type) {
       case 'bomb':
         translated.effect_type = 'DAMAGE';
-        translated.trigger = skill.trigger || 'onDeath';
-        translated.target_pattern = 'adjacent';
-        translated.target_filter = 'enemies';
-        translated.range = 1;
+        translated.trigger = skill.trigger || SKILL_TRIGGERS.ON_DEATH;
+        Object.assign(translated, withTargetingDefaults(skill, SKILL_PATTERNS.ADJACENT));
         break;
 
       case 'growing':
         translated.effect_type = 'STAT_MODIFIER';
         translated.value = skill.value !== undefined ? skill.value : 1;
-        translated.trigger = skill.trigger || 'onEndOfTurn';
-        translated.target_pattern = 'self';
+        translated.trigger = skill.trigger || SKILL_TRIGGERS.ON_END_OF_TURN;
+        Object.assign(translated, withTargetingDefaults(skill, SKILL_PATTERNS.SELF));
         break;
 
       case 'decrease':
         translated.effect_type = 'STAT_MODIFIER';
-        // Negate value for decreasing stats
+        // Toujours négatif, quel que soit le signe saisi dans la donnée
         translated.value = -(skill.value !== undefined ? Math.abs(skill.value) : 1);
-        translated.trigger = skill.trigger || 'onEnterPlay';
-        translated.target_pattern = 'adjacent';
-        translated.target_filter = 'enemies';
+        translated.trigger = skill.trigger || SKILL_TRIGGERS.ON_END_OF_TURN;
+        Object.assign(translated, withTargetingDefaults(skill, SKILL_PATTERNS.SELF));
         break;
 
       case 'heal':
         translated.effect_type = 'HEAL';
-        translated.trigger = skill.trigger || 'onEnterPlay';
-        translated.target_pattern = 'adjacent';
-        translated.target_filter = 'allies';
+        translated.trigger = skill.trigger || SKILL_TRIGGERS.ON_ENTER_PLAY;
+        Object.assign(translated, withTargetingDefaults(skill, SKILL_PATTERNS.ADJACENT, SKILL_FILTERS.ALLIES));
         break;
 
       case 'death':
         translated.effect_type = 'DAMAGE';
-        translated.trigger = skill.trigger || 'onEnterPlay';
-        translated.target_pattern = 'adjacent';
-        translated.target_filter = 'enemies';
+        translated.trigger = skill.trigger || SKILL_TRIGGERS.ON_ENTER_PLAY;
+        Object.assign(translated, withTargetingDefaults(skill, SKILL_PATTERNS.ADJACENT));
         break;
 
       case 'turn':
         translated.effect_type = 'ROTATE';
         translated.value = skill.value !== undefined ? skill.value : 1;
-        translated.trigger = skill.trigger || 'onEnterPlay';
-        translated.target_pattern = 'self';
+        translated.trigger = skill.trigger || SKILL_TRIGGERS.ON_ENTER_PLAY;
+        Object.assign(translated, withTargetingDefaults(skill, SKILL_PATTERNS.SELF));
         break;
 
       default:
-        // Other legacy passives (ward, freeze, aura, sniper, combo, poison) keep their type and default trigger
+        // Passifs legacy (ward, freeze, aura, sniper, combo, poison, teleportation) :
+        // pas d'effect_type → routés par le SkillRegistry vers leur handler natif.
         break;
     }
 
@@ -78,72 +109,49 @@ export class SkillEngine {
   }
 
   /**
-   * Orchestrates the skill activation process for a card at a given trigger hook.
+   * Orchestre l'activation des skills modulaires d'une carte pour un trigger donné.
    */
   public static dispatch(triggerName: string, ctx: SkillContext): any[] {
-    console.log(`[Targeting-Flow] [SkillEngine.ts] dispatch called for trigger: "${triggerName}" on card: "${ctx.card?.name || 'unknown'}"`);
+    DEBUG_SKILLS && console.log(`[Targeting-Flow] [SkillEngine.ts] dispatch "${triggerName}" on card "${ctx.card?.name || 'unknown'}"`);
     const results: any[] = [];
-    const skills = ctx.card?.skills || [];
 
-    // Ensure backwards compatibility with single skillId field
-    if (ctx.card?.skillId && !skills.some(s => s.type === ctx.card.skillId)) {
-      console.log(`[Targeting-Flow] [SkillEngine.ts] Card has legacy skillId "${ctx.card.skillId}". Adding to list.`);
-      skills.push({ type: ctx.card.skillId });
-    }
-
-    for (const skillConfig of skills) {
-      // 1. Translate legacy structure to modular structure
+    for (const skillConfig of getCardSkills(ctx.card)) {
+      // 1. Traduction legacy → modulaire
       const skill = this.translateLegacySkill(skillConfig);
-      console.log(`[Targeting-Flow] [SkillEngine.ts] Translated skill config for "${skillConfig.type}":`, JSON.stringify(skill));
       if (!skill) continue;
 
-      // 2. Validate trigger timing
+      // 2. Validation du timing
       const effectiveTrigger = skill.trigger || skill.defaultTrigger;
-      console.log(`[Targeting-Flow] [SkillEngine.ts] Skill "${skillConfig.type}" effectiveTrigger is "${effectiveTrigger}" (compared to triggerName: "${triggerName}")`);
       if (effectiveTrigger !== triggerName) continue;
 
-      // 3. Handle charges (charges/counter state)
-      // A charge of 0 represents infinite charges. Skip ONLY if depleted (meaning it had charges > 0 but has reached 0).
+      // 3. Charges : 0 = infini. On saute uniquement si épuisé.
       if (skillConfig.depleted) {
-        console.log(`[Targeting-Flow] [SkillEngine.ts] Skill "${skill.effect_type || skill.type}" has 0 charges remaining (depleted). Skipping.`);
+        DEBUG_SKILLS && console.log(`[Targeting-Flow] [SkillEngine.ts] Skill "${skill.effect_type || skill.type}" depleted. Skipping.`);
         continue;
       }
 
-      // 4. Load the Strategy Effect Executor
+      // 4. Exécuteur d'effet (stratégie)
       const effectExecutor = skill.effect_type ? effectsMap.get(skill.effect_type) : null;
-      console.log(`[Targeting-Flow] [SkillEngine.ts] effectExecutor found for effect_type "${skill.effect_type}":`, effectExecutor ? `Yes (ID: ${effectExecutor.id})` : 'No');
+      if (!effectExecutor) continue; // Passif natif → routé par le SkillRegistry
 
-      if (effectExecutor) {
-        console.log(`[Targeting-Flow] [SkillEngine.ts] Executing modular effect "${effectExecutor.id}" via "${triggerName}" on card "${ctx.card?.name || 'unknown'}"`);
-        
-        // 5. Compute geo-targeting cells using robust engine
-        const targets = getTargetCells({ ...ctx, skill });
-        console.log(`[Targeting-Flow] [SkillEngine.ts] getTargetCells returned targets:`, JSON.stringify(targets));
+      // 5. Ciblage
+      const targets = getTargetCells({ ...ctx, skill });
+      DEBUG_SKILLS && console.log(`[Targeting-Flow] [SkillEngine.ts] "${effectExecutor.id}" via "${triggerName}" → targets:`, JSON.stringify(targets.map(t => [t.x, t.y])));
 
-        // 6. Execute the modular effect
-        console.log(`[Targeting-Flow] [SkillEngine.ts] Calling effectExecutor.execute for "${effectExecutor.id}" with value ${skill.value || 0}`);
-        effectExecutor.execute(ctx, targets, skill.value || 0);
+      // 6. Exécution
+      effectExecutor.execute(ctx, targets, skill.value || 0);
 
-        // 7. Consume a charge
-        if (skillConfig.counter !== undefined && skillConfig.counter > 0) {
-          skillConfig.counter--;
-          console.log(`[Targeting-Flow] [SkillEngine.ts] Decremented skillConfig.counter to ${skillConfig.counter}`);
-          if (skillConfig.counter === 0) {
-            skillConfig.depleted = true;
-          }
-        }
-        if (skillConfig.charges !== undefined && skillConfig.charges > 0) {
-          skillConfig.charges--;
-          console.log(`[Targeting-Flow] [SkillEngine.ts] Decremented skillConfig.charges to ${skillConfig.charges}`);
-          if (skillConfig.charges === 0) {
-            skillConfig.depleted = true;
-          }
-        }
-
-        results.push({ skill, success: true });
-      } else {
-        console.log(`[Targeting-Flow] [SkillEngine.ts] No modular effectExecutor found for skill type "${skill.type}". Letting registry route it natively.`);
+      // 7. Consommation d'une charge
+      if (skillConfig.counter !== undefined && skillConfig.counter > 0) {
+        skillConfig.counter--;
+        if (skillConfig.counter === 0) skillConfig.depleted = true;
       }
+      if (skillConfig.charges !== undefined && skillConfig.charges > 0) {
+        skillConfig.charges--;
+        if (skillConfig.charges === 0) skillConfig.depleted = true;
+      }
+
+      results.push({ skill, success: true });
     }
 
     return results;

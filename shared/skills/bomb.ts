@@ -4,6 +4,7 @@ import {
   EFFECT_TYPES, 
   SKILL_TRIGGERS 
 } from './constants';
+import { DEBUG_SKILLS } from './debug';
 
 /**
  * Skill: Bomb (Explosion)
@@ -21,7 +22,7 @@ const handler: SkillHandler = {
   execute(ctx: any) {
     const { skill, alerts, captures, dyingCards } = ctx;
 
-    console.log(`[Skill:Bomb] Executing at (${ctx.x},${ctx.y}). Value: ${skill.value} (trigger: ${skill.trigger || 'default'})`);
+    DEBUG_SKILLS && console.log(`[Skill:Bomb] Executing at (${ctx.x},${ctx.y}). Value: ${skill.value} (trigger: ${skill.trigger || 'default'})`);
 
     alerts.push('BOMB!');
     const targets = getTargetCells(ctx);
