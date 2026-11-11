@@ -7,7 +7,10 @@
         "dev": "vite",
         "build": "vite build",
         "preview": "vite preview",
-        "test:api": "vitest run tests/strapi.test.js"
+        "test": "npm run test:unit && npm run test:logic",
+        "test:unit": "vitest run --exclude tests/strapi.test.js --exclude tests/quest-progression.test.js --exclude tests/quest-reward-claim.test.js",
+        "test:logic": "node tests/rarity_logic_test.js && node tests/rules_logic_test.js",
+        "test:api": "vitest run tests/strapi.test.js tests/quest-progression.test.js tests/quest-reward-claim.test.js"
     },
     "dependencies": {
         "@strapi/client": "^1.0.0",
