@@ -14,7 +14,7 @@ Ce fichier regroupe les consignes, conventions et astuces techniques spécifique
     *   `shared/` : Logique et données partagées (ex: stories).
 *   **Docker Compose** : Le projet utilise `docker compose` (v5.1.0+). N'utilisez **jamais** l'alias legacy `docker-compose`.
 *   **Communication** : API REST pour la persistance et WebRTC (Peer-to-Peer) pour le multijoueur (arbitrage serveur via Strapi en cas de désync).
-*   **Base de Données** : PostgreSQL 16 (conteneur `terra-nullius-db`). Les identifiants sont dans `.env`. Ne définissez JAMAIS de valeurs de repli par défaut dans la config.
+*   **Base de Données** : PostgreSQL 16 (conteneur `terra-nullius-db`). Les identifiants sont dans `.env` (jamais versionné ; modèle : `.env.example`). Ne définissez JAMAIS de valeurs de repli par défaut dans la config.
 *   **Variables d'Environnement (Vite)** : Moquez manuellement `import.meta.env` lors de l'exécution de scripts Node.js autonomes sur des modules Vue/Vite.
 
 ## 3. Mécaniques de Jeu & Story Mode
@@ -38,9 +38,11 @@ Ce fichier regroupe les consignes, conventions et astuces techniques spécifique
 *   **Navigation** : Utilisez `<AppButton>` avec `router.push()` au lieu de `<router-link>`.
 *   **Three.js & Shaders** : Définissez le GLSL en chaînes littérales dans `<script setup>`, jamais dans le `<template>`.
 *   **Drag & Drop** : Pas d'API native. Utilise `<Teleport>`, événements `pointer*` et `document.elementsFromPoint()`.
-*   **Debug** : Les options (auto-login, etc.) sont dans le `localStorage`.
+*   **Debug** : Les options (auto-login, etc.) sont dans le `localStorage`. Logs détaillés du moteur de skills : `localStorage.setItem('debug:skills', '1')` (ou `DEBUG_SKILLS=1` côté Node). Écrire `DEBUG_SKILLS && console.log(...)`, jamais de `console.log` brut dans le moteur.
 
 ## 6. Stratégies de Tests
+*   **Commandes** : `npm test` (unitaires, sans backend) ; `npm run test:api --prefix front` (nécessite Strapi lancé).
+*   **Pureté du moteur** : `GameEngine.computeNextState` ne doit jamais muter l'état d'entrée (l'IA simule ses coups sur le plateau réel) — couvert par `tests/engine-purity.test.js`.
 *   **Logique Pure** : Modules natifs Node `assert`. Pas d'import Vue/Pinia/Three.js dans les tests de moteur.
 *   **Playwright (E2E)** :
     *   **Bypass Auth** : Mock tokens dans localStorage + mock `/api/users/me?populate=role`.
