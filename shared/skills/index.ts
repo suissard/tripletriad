@@ -3,6 +3,8 @@
  */
 import { skillRegistry, Registry } from './SkillRegistry';
 import { TargetType } from './types';
+import { SECONDARY_SKILLS } from './secondary';
+import { DEBUG_SKILLS } from './debug';
 import type { SkillHandler, SkillContext, TargetingStep, SkillTrigger } from './types';
 
 // Import de tous les skill handlers
@@ -49,9 +51,6 @@ export const SKILL_METADATA = allSkills.reduce((acc, skill) => {
   };
   return acc;
 }, {} as Record<string, { name: string, description: string, effectType?: string }>);
-
-import { SECONDARY_SKILLS } from './secondary';
-import { DEBUG_SKILLS } from './debug';
 
 export function getSkillMetadata(skillConfig: any): { name: string, description: string, effectType?: string } {
   const type = typeof skillConfig === 'string' ? skillConfig : skillConfig.type;
