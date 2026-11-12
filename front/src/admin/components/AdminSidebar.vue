@@ -146,7 +146,6 @@ const menuCategories = [
       { name: 'Quêtes (Templates)', path: '/admin/quest-templates', icon: '📜', desc: 'Définir les modèles de quêtes et leurs récompenses.' },
       { name: 'Quêtes (Joueurs)', path: '/admin/player-quests', icon: '⚔️', desc: 'Suivre la progression des quêtes par joueur.' },
       { name: 'Collections', path: '/admin/collections', icon: '📦', desc: 'Gérer les sets de boosters et packs disponibles.' },
-      { name: 'Boutique', path: '/admin/shops', icon: '🛒', desc: 'Configurer les articles de la boutique en jeu.' },
       { name: 'Wallets', path: '/admin/wallets', icon: '💰', desc: 'Consulter les portefeuilles et devises des joueurs.' }
     ]
   },
