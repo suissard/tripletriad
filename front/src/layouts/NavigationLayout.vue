@@ -7,9 +7,9 @@
         <div class="mirrorShade"></div>
       </div>
       
-      <div class="header-content flex items-center justify-between w-[100vw] px-8 h-16 relative z-20">
+      <div class="header-content flex items-center justify-between gap-2 w-full px-4 md:px-8 h-16 relative z-20">
         <!-- Left Section -->
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2 md:gap-4 shrink-0">
           <AppButton 
             variant="secondary" 
             class="glass-panel w-10 h-10 flex items-center justify-center !p-0"
@@ -27,17 +27,17 @@
         </div>
 
         <!-- Middle Section -->
-        <div class="flex justify-center">
-          <div class="game-title text-3xl font-black italic tracking-[0.4em] uppercase text-[#00d2ff]">
+        <div class="hidden sm:flex justify-center min-w-0">
+          <div class="game-title text-base sm:text-xl md:text-3xl font-black italic tracking-[0.15em] md:tracking-[0.4em] uppercase text-[#00d2ff] truncate">
             Terra Nullius
           </div>
         </div>
 
         <!-- Right Section -->
-        <div class="flex items-center justify-end">
+        <div class="flex items-center justify-end shrink-0">
           <AppButton 
             variant="secondary" 
-            class="glass-panel h-10 px-4 flex items-center gap-3"
+            class="glass-panel h-10 px-2 md:px-4 flex items-center gap-3"
             @click="handleUserWidgetClick"
           >
             <span class="text-sm font-bold uppercase hidden md:inline">{{ userStore.user?.username || 'Joueur Anonyme' }}</span>
