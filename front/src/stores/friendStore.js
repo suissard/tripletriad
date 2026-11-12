@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import api from '../api/strapi.js';
+import { getApiErrorMessage } from '../utils/apiError.js';
 import { useUserStore } from './userStore.js'; // To access the user ID natively
 
 export const useFriendStore = defineStore('friendStore', () => {
@@ -17,7 +18,7 @@ export const useFriendStore = defineStore('friendStore', () => {
             friendships.value = response.data;
         } catch (err) {
             console.error('Error fetching friendships:', err);
-            error.value = err.response?.data?.error?.message || 'Failed to fetch friends.';
+            error.value = getApiErrorMessage(err, 'Impossible de charger vos amis.');
         } finally {
             loading.value = false;
         }
@@ -34,7 +35,7 @@ export const useFriendStore = defineStore('friendStore', () => {
             return response.data;
         } catch (err) {
             console.error('Error sending friend request:', err);
-            error.value = err.response?.data?.error?.message || 'Failed to send friend request.';
+            error.value = getApiErrorMessage(err, "Impossible d'envoyer la demande d'ami.");
             throw new Error(error.value);
         } finally {
             loading.value = false;
@@ -48,7 +49,7 @@ export const useFriendStore = defineStore('friendStore', () => {
             await fetchFriendships();
         } catch (err) {
             console.error('Error accepting friend request:', err);
-            error.value = err.response?.data?.error?.message || 'Failed to accept request.';
+            error.value = getApiErrorMessage(err, "Impossible d'accepter la demande.");
             throw err;
         } finally {
             loading.value = false;
@@ -62,7 +63,7 @@ export const useFriendStore = defineStore('friendStore', () => {
             await fetchFriendships();
         } catch (err) {
             console.error('Error rejecting friend request:', err);
-            error.value = err.response?.data?.error?.message || 'Failed to reject request.';
+            error.value = getApiErrorMessage(err, 'Impossible de refuser la demande.');
             throw err;
         } finally {
             loading.value = false;
@@ -76,7 +77,7 @@ export const useFriendStore = defineStore('friendStore', () => {
             await fetchFriendships();
         } catch (err) {
             console.error('Error removing friend:', err);
-            error.value = err.response?.data?.error?.message || 'Failed to remove friend.';
+            error.value = getApiErrorMessage(err, 'Impossible de supprimer cet ami.');
             throw err;
         } finally {
             loading.value = false;
@@ -92,7 +93,7 @@ export const useFriendStore = defineStore('friendStore', () => {
             await fetchFriendships();
         } catch (err) {
             console.error('Error blocking user:', err);
-            error.value = err.response?.data?.error?.message || 'Failed to block user.';
+            error.value = getApiErrorMessage(err, 'Impossible de bloquer ce joueur.');
             throw err;
         } finally {
             loading.value = false;

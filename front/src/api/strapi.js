@@ -1,6 +1,24 @@
 import { strapi as createStrapiClient } from '@strapi/client';
 import { getStrapiUrl, getStrapiMediaUrl } from '../utils/url.js';
 
+/**
+ * @strapi/client lève une HTTPError dont le corps JSON (avec le message Strapi) n'est pas lu.
+ * On le lit une fois ici pour exposer `error.data` (payload Strapi), `error.status` et un
+ * `error.message` utile, au lieu de "Request failed with status code 400 ...".
+ */
+async function normalizeHttpError(error) {
+    if (error?.data || !error?.response || typeof error.response.json !== 'function') return error;
+    try {
+        const payload = await error.response.clone().json();
+        error.data = payload;
+        if (payload?.error?.message) error.message = payload.error.message;
+    } catch (_) {
+        // Corps non JSON : on garde le message d'origine
+    }
+    error.status = error.status ?? error.response.status;
+    return error;
+}
+
 class StrapiApi {
     constructor() {
         this.BASE_URL = getStrapiUrl();
@@ -109,6 +127,7 @@ class StrapiApi {
             return data;
         } catch (error) {
             // Strapi/ofetch throws on 400 errors. We try to extract the JSON payload.
+            await normalizeHttpError(error);
             const errData = error.data?.error || error.response?.data?.error || { message: error.message || 'Identifiant ou mot de passe incorrect' };
             if (errData.message === 'Invalid identifier or password') {
                  errData.message = 'Identifiant ou mot de passe incorrect';
@@ -132,6 +151,7 @@ class StrapiApi {
             }
             return data;
         } catch (error) {
+            await normalizeHttpError(error);
             const errData = error.data?.error || error.response?.data?.error || { message: error.message || 'Erreur lors de la création du compte' };
             if (errData.message === 'Email or Username are already taken') {
                  errData.message = 'Cet email ou nom d\'utilisateur est déjà pris';
@@ -202,7 +222,7 @@ class StrapiApi {
                 console.error(`[StrapiApi] Request timed out (${timeout}ms): ${finalUrl}`);
                 return { error: { message: 'Request timed out' } };
             }
-            throw error;
+            throw await normalizeHttpError(error);
         }
     }
 
