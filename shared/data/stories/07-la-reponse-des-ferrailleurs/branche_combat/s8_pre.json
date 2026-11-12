@@ -1,0 +1,25 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "s8_pre",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "Rook pousse les moteurs. Le Valkyrie fonce dans le sas. Le métal hurle… Trois sentinelles Omni surgissent de l'ombre.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Rook",
+      "sentence": "Ça c'est de l'accueil ! On va leur montrer comment les Ferrailleurs frappent !",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Kip",
+      "sentence": "Ils sont trois. Sortez les decks !",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "s8"
+}

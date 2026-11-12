@@ -2,15 +2,18 @@
 
 /**
  * Script d'assemblage d'histoires à partir de structures multi-fichiers
- * Usage: node assemble_story.js <chemin-dossier-histoire> | --all
+ * Usage: node assemble_story.cjs <chemin-dossier-histoire> | --all
+ *
+ * Écrit <dossier>.json à côté des dossiers : c'est ce fichier plat que le bootstrap
+ * Strapi (story-bootstrap.ts) importe au démarrage.
  */
 
 const fs = require('fs');
 const path = require('path');
 
-// Constantes
-const DATA_DIR = path.join(__dirname, 'stories');
-const DIST_DIR = path.join(DATA_DIR, 'dist');
+// Constantes : ce script vit dans le dossier des histoires, lu tel quel par Strapi
+const DATA_DIR = __dirname;
+const DIST_DIR = DATA_DIR;
 
 /**
  * Point d'entrée principal
@@ -20,7 +23,7 @@ async function main() {
     const args = process.argv.slice(2);
 
     if (args.length === 0) {
-      console.error('Usage: node assemble_story.js <chemin-dossier-histoire> | --all');
+      console.error('Usage: node assemble_story.cjs <chemin-dossier-histoire> | --all');
       process.exit(1);
     }
 
@@ -128,18 +131,26 @@ async function assembleSingleStory(storyPath) {
     }
   }
 
-  // 3. Valider les nextSituationId
+  // 3. Valider tous les liens (dialogue/récompense, options de choix, issues de combat)
+  const linksOf = (s) => [
+    s.nextSituationId,
+    ...(s.options || []).map(o => o.nextSituationId),
+    s.onWinSituationId,
+    s.onLoseSituationId,
+  ].filter(Boolean);
   let orphanCount = 0;
   for (const situation of situations) {
-    if (situation.nextSituationId && !situationIds.has(situation.nextSituationId)) {
-      console.warn(`   ⚠️ nextSituationId "${situation.nextSituationId}" orphelin (situations: ${Array.from(situationIds).join(', ')})`);
-      orphanCount++;
+    for (const target of linksOf(situation)) {
+      if (!situationIds.has(target)) {
+        console.warn(`   ⚠️ ${situation.situationId} → "${target}" n'existe pas`);
+        orphanCount++;
+      }
     }
   }
 
   // 4. Compter les fins (situations sans nextSituationId)
-  const finishCount = situations.filter(s => !s.nextSituationId).length;
-  const branchCount = new Set(situations.map(s => s.nextSituationId).filter(Boolean)).size;
+  const finishCount = situations.filter(s => /situation-(success|game-over)$/.test(s.__component)).length;
+  const battleCount = situations.filter(s => s.__component === 'story.situation-battle').length;
 
   // 5. Générer l'output JSON
   const output = {
@@ -159,7 +170,7 @@ async function assembleSingleStory(storyPath) {
   if (orphanCount > 0) {
     console.log(`   ⚠️ ${orphanCount} référence(s) orpheline(s)`);
   }
-  console.log(`   📍 Fins: ${finishCount} | Branches: ${branchCount}`);
+  console.log(`   📍 Fins: ${finishCount} | Combats: ${battleCount}`);
   console.log(`   💾 Sortie: ${outputPath}\n`);
 }
 

@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "branche_contraindre/bouclier_combat",
+  "enemyDeckName": "L'Incursion Dissonante",
+  "onWinSituationId": "branche_contraindre/fin_bouclier",
+  "onLoseSituationId": "branche_contraindre/fin_surcharge"
+}

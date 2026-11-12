@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "s5_c_fight",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous refusez. Le Ferrailleur soupire, recule dans l'ombre, et siffle. Une dizaine de pillards armés surgissent des gravats autour du silo.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Ferrailleur",
+      "sentence": "Dommage. J'aurais préféré payer. Maintenant, on va juste se servir.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "s5_c_battle"
+}

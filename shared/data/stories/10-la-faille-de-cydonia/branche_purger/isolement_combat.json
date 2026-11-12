@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "branche_purger/isolement_combat",
+  "enemyDeckName": "L'Incursion Dissonante",
+  "onWinSituationId": "branche_purger/fin_seul",
+  "onLoseSituationId": "branche_purger/gameover_folie"
+}

@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "branche_embrasser/controle_combat",
+  "enemyDeckName": "L'Incursion Dissonante",
+  "onWinSituationId": "branche_embrasser/controle_fin",
+  "onLoseSituationId": "branche_embrasser/controle_perdu"
+}

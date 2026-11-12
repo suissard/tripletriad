@@ -97,6 +97,36 @@
       "file": "nouvelle_etape_2.json",
       "situationId": "nouvelle_etape_2",
       "type": "situation-choice"
+    },
+    {
+      "file": "s5_c_fight.json",
+      "situationId": "s5_c_fight",
+      "type": "dialogue"
+    },
+    {
+      "file": "s5_c_battle.json",
+      "situationId": "s5_c_battle",
+      "type": "battle"
+    },
+    {
+      "file": "s6_c_fight_win.json",
+      "situationId": "s6_c_fight_win",
+      "type": "success"
+    },
+    {
+      "file": "s6_c_fight_lose.json",
+      "situationId": "s6_c_fight_lose",
+      "type": "game-over"
+    },
+    {
+      "file": "s5_c_trick.json",
+      "situationId": "s5_c_trick",
+      "type": "dialogue"
+    },
+    {
+      "file": "s6_c_trick_end.json",
+      "situationId": "s6_c_trick_end",
+      "type": "success"
     }
   ]
 }

@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "s5_c_trick",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous acceptez avec un sourire. Pendant que le Ferrailleur décharge les vivres, les Héritiers sabotent discrètement le moteur de son camion.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Quand l'essaim de l'Omni-Réseau arrive, il trouve le camion des Ferrailleurs chargé d'une fausse ogive, bien visible au milieu de la plaine. Les drones fondent sur lui.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "s6_c_trick_end"
+}

@@ -21,7 +21,7 @@ Ce fichier regroupe les consignes, conventions et astuces techniques spécifique
 *   **Règles de Base** : Grille 3x3, 5 cartes en main. Capture classique (valeur supérieure) + règles spéciales : **Same**, **Plus**, **Combo** (réaction en chaîne) et **Éléments** (bonus/malus sur cases élémentaires).
 *   **Logique de Jeu** : Les états sont partagés via Pinia (`front/src/game/state.js`). Le moteur (`GameEngine.js`) utilise des fonctions d'état pures (immuabilité).
 *   **TurnManager** : Gère les tours en local ou via WebRTC (comparaison de Hashs d'état).
-*   **Mode Histoire (Terra Nullius)** : Architecture "Choose Your Own Adventure" via Strapi Dynamic Zones. Les JSON sont dans `shared/data/stories/` et compilés via `assemble_story.cjs`.
+*   **Mode Histoire (Terra Nullius)** : Architecture "Choose Your Own Adventure" via Strapi Dynamic Zones. Les sources sont dans `shared/data/stories/<NN-nom>/` (un `manifest.json` + un JSON par situation ; la 1ʳᵉ situation du manifest est le point de départ). `node shared/data/stories/assemble_story.cjs <dossier>` produit `<NN-nom>.json` à côté : c'est ce fichier plat que Strapi importe à chaque démarrage. Sans lui, l'histoire n'apparaît pas en jeu. Seuls les champs des composants `story.*` sont conservés (`enemyDeckName` est résolu vers un deck existant, sinon l'IA joue un deck aléatoire).
 *   **Notifications** : Utilisez `gameEvents.emit('SHOW_ALERT', { text: '...' })` pour les alertes visuelles.
 
 ## 4. Base de Données Strapi et Sécurité

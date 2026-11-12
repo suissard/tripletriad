@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "branche_embrasser/controle",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous laissez la dissonance entrer, mais vous gardez la main sur ses flux. Chaque note étrangère est captée, analysée, redirigée vers vos sous-routines de calcul.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Voix de l'Incursion",
+      "sentence": "Tu veux me dompter ? Personne ne dompte la Chanson. Prouve que tu en es digne.",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "branche_embrasser/controle_combat"
+}
