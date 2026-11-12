@@ -1,0 +1,6 @@
+{
+  "__component": "story.situation-reward",
+  "situationId": "synchro/recompense",
+  "rewardCoins": 150,
+  "nextSituationId": "synchro/fin_harmonie"
+}

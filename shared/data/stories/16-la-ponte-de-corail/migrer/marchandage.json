@@ -1,0 +1,31 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "migrer/marchandage",
+  "dialogues": [
+    {
+      "name": "Ondrel",
+      "sentence": "[Traducteur] Nous purifions vingt tonnes d'eau par jour. Vos cuves sont vides, Capitaine, je le sens d'ici.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Capitaine Sloane",
+      "sentence": "...De l'eau potable. Vraie, sans arrière-goût de soudure ? Ça vaut plus que des œufs. Marché conclu, le poulpe.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Les filets s'abaissent. En remplissant ses cuves, Sloane ajoute à mi-voix que les Héritiers comptent jeter le réacteur dans la baie à la prochaine lune, pour « baptiser la mer ».",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Tisseuse Ylléa",
+      "sentence": "[Traducteur] Alors la baie est perdue. Mais nos enfants vivront ailleurs.",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "migrer/fin"
+}

@@ -1,0 +1,31 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "sonder/pacte",
+  "dialogues": [
+    {
+      "name": "Brasier-Mère",
+      "sentence": "Purifier... notre sang ? Les dieux du ciel nous ont promis cela mille fois, puis ils nous ont bombardés.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Ondrel",
+      "sentence": "[Traducteur] Nous ne sommes pas des dieux. Nous filtrons. C'est tout ce que nous savons faire, et nous le faisons bien.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Il faut trois jours de palabres psioniques. Puis Brasier-Mère ordonne de retirer le réacteur de la rive. En échange, les Purificateurs soignent les plus jeunes mutants de la tribu.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Brasier-Mère",
+      "sentence": "Si c'est un piège, créature, ma tribu viendra te chercher jusqu'au fond des abysses.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "sonder/recompense"
+}

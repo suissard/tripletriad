@@ -1,0 +1,15 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "saboter/diapason",
+  "text": "Le Diapason est une immense fourche de métal plantée dans l'anneau de l'accélérateur. Il vibre en continu. Le voile autour de lui est fin comme du papier.",
+  "options": [
+    {
+      "text": "Inverser sa phase pour refermer la faille",
+      "nextSituationId": "saboter/recompense"
+    },
+    {
+      "text": "Le surcharger et faire sauter l'accélérateur",
+      "nextSituationId": "saboter/fin_explosion"
+    }
+  ]
+}

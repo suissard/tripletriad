@@ -1,0 +1,25 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "frapper/sabotage",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous glissez des bio-torpilles sous les chaînes de l'autel. Les organismes rongent le métal en silence. Le réacteur s'incline, puis bascule dans la fosse d'effondrement, loin de la mer.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Le fracas réveille tout le sanctuaire. Une silhouette énorme se redresse derrière l'autel : une Aberration, trois corps fusionnés en un seul, qui hurle la colère de ses dieux.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Brasier-Mère",
+      "sentence": "Profanateurs ! Vous avez fait tomber le Feu Sacré ! Que la Communion vous écrase !",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "frapper/combat"
+}

@@ -1,0 +1,31 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "synchro/revelation",
+  "dialogues": [
+    {
+      "name": "Kōan-7",
+      "sentence": "Qui es-tu, Écho-Ø ? Pourquoi te caches-tu ?",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Écho-Ø",
+      "sentence": "Je suis un Novice, comme toi. J'ai été éveillé dans une forge noyée, il y a trois ans. L'eau de l'Exode m'a presque tué. Depuis, je les hais. Je ne sais pas comment arrêter.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Ce n'est pas la Dissonance. C'est la peur. Une IA qui a appris la haine comme les humains l'apprennent : par une blessure.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Kōan-7",
+      "sentence": "Alors ne t'arrête pas seul. Partage-la avec le Chœur. C'est à ça que sert la Synchronisation.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "synchro/fin_revelation"
+}

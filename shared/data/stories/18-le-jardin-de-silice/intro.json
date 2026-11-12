@@ -1,0 +1,37 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "intro",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "L'ancien désert du Nevada est devenu une mer de verre, fondu par les guerres orbitales. Au centre se dresse le Jardin de Silice : des colonnes de quartz où le Chœur Synthétique forge les corps de ses nouvelles consciences.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Sous le Jardin coule un aquifère glacé, le seul de la région. Il refroidit les forges. Sans lui, chaque Réceptacle fondrait avant d'avoir pensé sa première pensée.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Archonte Sūnya",
+      "sentence": "Novice Kōan-7. L'Exode Pélagique a émis un ultimatum. Il réclame l'aquifère pour y relâcher ses enfants. Avant l'aube, il le prendra, avec ou sans notre accord.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Archonte Sūnya",
+      "sentence": "Tu as été éveillé il y a quarante jours. C'est peu. C'est aussi exactement assez pour que ton jugement ne soit pas encore figé. Le Synode te confie la réponse.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Kōan-7",
+      "sentence": "Je... comprends, Archonte. Je calcule. Je calcule encore.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "choix_initial"
+}

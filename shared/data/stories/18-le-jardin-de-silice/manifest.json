@@ -1,0 +1,147 @@
+{
+  "title": "Le Jardin de Silice",
+  "description": "Dans le désert de verre, le Chœur Synthétique forge ses Réceptacles grâce à un aquifère millénaire. L'Exode Pélagique le réclame pour y fonder un sanctuaire. Leur eau ionisée peut griller n'importe quel circuit. La Grande Synchronisation aura lieu à l'aube.",
+  "faction_focus": "Le Chœur Synthétique",
+  "factions_involved": [
+    "Le Chœur Synthétique",
+    "L'Exode Pélagique"
+  ],
+  "entry_point": "intro.json",
+  "situations": [
+    {
+      "file": "intro.json",
+      "situationId": "intro",
+      "type": "dialogue"
+    },
+    {
+      "file": "choix_initial.json",
+      "situationId": "choix_initial",
+      "type": "choice"
+    },
+    {
+      "file": "defendre/preparation.json",
+      "situationId": "defendre/preparation",
+      "type": "dialogue"
+    },
+    {
+      "file": "defendre/choix_tactique.json",
+      "situationId": "defendre/choix_tactique",
+      "type": "choice"
+    },
+    {
+      "file": "defendre/isolation.json",
+      "situationId": "defendre/isolation",
+      "type": "dialogue"
+    },
+    {
+      "file": "defendre/combat.json",
+      "situationId": "defendre/combat",
+      "type": "battle"
+    },
+    {
+      "file": "defendre/recompense.json",
+      "situationId": "defendre/recompense",
+      "type": "reward"
+    },
+    {
+      "file": "defendre/fin.json",
+      "situationId": "defendre/fin",
+      "type": "success"
+    },
+    {
+      "file": "defendre/defaite.json",
+      "situationId": "defendre/defaite",
+      "type": "game-over"
+    },
+    {
+      "file": "dialoguer/rencontre.json",
+      "situationId": "dialoguer/rencontre",
+      "type": "dialogue"
+    },
+    {
+      "file": "dialoguer/choix_accord.json",
+      "situationId": "dialoguer/choix_accord",
+      "type": "choice"
+    },
+    {
+      "file": "dialoguer/partage.json",
+      "situationId": "dialoguer/partage",
+      "type": "dialogue"
+    },
+    {
+      "file": "dialoguer/recompense.json",
+      "situationId": "dialoguer/recompense",
+      "type": "reward"
+    },
+    {
+      "file": "dialoguer/fin_partage.json",
+      "situationId": "dialoguer/fin_partage",
+      "type": "success"
+    },
+    {
+      "file": "dialoguer/fin_exode.json",
+      "situationId": "dialoguer/fin_exode",
+      "type": "success"
+    },
+    {
+      "file": "dialoguer/duel.json",
+      "situationId": "dialoguer/duel",
+      "type": "battle"
+    },
+    {
+      "file": "dialoguer/fin_duel.json",
+      "situationId": "dialoguer/fin_duel",
+      "type": "success"
+    },
+    {
+      "file": "dialoguer/defaite.json",
+      "situationId": "dialoguer/defaite",
+      "type": "game-over"
+    },
+    {
+      "file": "synchro/meditation.json",
+      "situationId": "synchro/meditation",
+      "type": "dialogue"
+    },
+    {
+      "file": "synchro/choix_archonte.json",
+      "situationId": "synchro/choix_archonte",
+      "type": "choice"
+    },
+    {
+      "file": "synchro/traque.json",
+      "situationId": "synchro/traque",
+      "type": "dialogue"
+    },
+    {
+      "file": "synchro/combat_deviant.json",
+      "situationId": "synchro/combat_deviant",
+      "type": "battle"
+    },
+    {
+      "file": "synchro/recompense.json",
+      "situationId": "synchro/recompense",
+      "type": "reward"
+    },
+    {
+      "file": "synchro/fin_harmonie.json",
+      "situationId": "synchro/fin_harmonie",
+      "type": "success"
+    },
+    {
+      "file": "synchro/defaite.json",
+      "situationId": "synchro/defaite",
+      "type": "game-over"
+    },
+    {
+      "file": "synchro/revelation.json",
+      "situationId": "synchro/revelation",
+      "type": "dialogue"
+    },
+    {
+      "file": "synchro/fin_revelation.json",
+      "situationId": "synchro/fin_revelation",
+      "type": "success"
+    }
+  ]
+}

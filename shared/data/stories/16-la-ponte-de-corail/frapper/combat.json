@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "frapper/combat",
+  "enemyDeckName": "Les Héritiers des Cendres",
+  "onWinSituationId": "frapper/recompense",
+  "onLoseSituationId": "frapper/defaite"
+}

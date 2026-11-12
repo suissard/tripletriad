@@ -1,0 +1,31 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "saboter/couloir",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Le couloir qui mène au Diapason est tapissé de miroirs. Dans chacun, votre reflet a un temps de retard. Dans certains, il ne vous suit plus du tout.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Des silhouettes en blouse traversent les reflets sans apparaître dans le couloir. Des cultistes, marchant de l'autre côté du voile.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Maëlle",
+      "sentence": "Ce n'est pas réel. Ce n'est pas réel. Il y a une porte au bout, et le Diapason derrière.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Un de vos reflets lève la main et frappe le verre de l'intérieur.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "saboter/choix_miroir"
+}

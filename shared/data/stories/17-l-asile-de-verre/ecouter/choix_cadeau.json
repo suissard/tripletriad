@@ -1,0 +1,15 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "ecouter/choix_cadeau",
+  "text": "La Voix-Qui-Plie attend votre réponse.",
+  "options": [
+    {
+      "text": "Accepter le Cadeau",
+      "nextSituationId": "ecouter/fin_illumination"
+    },
+    {
+      "text": "Feindre l'adhésion pour approcher l'Écho",
+      "nextSituationId": "ecouter/ruse"
+    }
+  ]
+}

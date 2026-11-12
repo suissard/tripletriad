@@ -1,0 +1,25 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "frapper/infiltration",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Les collecteurs de l'ancienne ville débouchent sous la rive. Vous remontez à contre-courant dans une eau tiède et opaque, votre bio-armure pressurisée gémissant à chaque mètre.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Ondrel",
+      "sentence": "[Traducteur] Le réacteur est juste au-dessus. Je sens sa chaleur à travers la roche. Des gardiens dorment contre la grille, des Mutilés couverts de bougies éteintes.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Par une bouche d'égout, vous apercevez l'autel : le réacteur est enchaîné, couvert de crânes et de prières gravées. Une colonne de vapeur s'en échappe à chaque battement.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "frapper/choix_egout"
+}

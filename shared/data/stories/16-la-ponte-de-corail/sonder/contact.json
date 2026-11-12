@@ -1,0 +1,31 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "sonder/contact",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Ylléa s'immobilise à la surface, ses tentacules déployés comme une fleur. Son esprit franchit la rive, traverse les chants et la fumée, et touche celui de la Techno-Chamane.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Vous partagez la vision par le lien du clan. Une femme au corps couvert de plaies, dont l'ADN se défait un peu plus chaque jour. Elle ne vénère pas le réacteur par folie : elle croit qu'il la purifiera avant la fin.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Brasier-Mère",
+      "sentence": "Une voix dans ma tête... Un démon des eaux. Tu viens me tenter, créature ? Mon peuple meurt. Le Feu Sacré est tout ce qu'il nous reste.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Tisseuse Ylléa",
+      "sentence": "[Psionique] Ton peuple meurt. Le mien aussi. Nous pouvons mourir ensemble, ou chercher autre chose.",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "sonder/choix_offre"
+}

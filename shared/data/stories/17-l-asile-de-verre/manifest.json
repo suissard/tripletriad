@@ -1,0 +1,148 @@
+{
+  "title": "L'Asile de Verre",
+  "description": "Sous l'asile Sainte-Anathème dort un accélérateur de particules, là où le voile de la réalité est le plus fin. Votre escouade y est entrée il y a trois heures. Vous êtes la seule à vous réveiller, et quelque chose chante.",
+  "faction_focus": "L'Incursion Dissonante",
+  "factions_involved": [
+    "L'Incursion Dissonante",
+    "Le Fléau Spore",
+    "L'Omni-Réseau"
+  ],
+  "entry_point": "intro.json",
+  "situations": [
+    {
+      "file": "intro.json",
+      "situationId": "intro",
+      "type": "dialogue"
+    },
+    {
+      "file": "choix_initial.json",
+      "situationId": "choix_initial",
+      "type": "choice"
+    },
+    {
+      "file": "ecouter/descente.json",
+      "situationId": "ecouter/descente",
+      "type": "dialogue"
+    },
+    {
+      "file": "ecouter/choix_cadeau.json",
+      "situationId": "ecouter/choix_cadeau",
+      "type": "choice"
+    },
+    {
+      "file": "ecouter/fin_illumination.json",
+      "situationId": "ecouter/fin_illumination",
+      "type": "game-over"
+    },
+    {
+      "file": "ecouter/ruse.json",
+      "situationId": "ecouter/ruse",
+      "type": "dialogue"
+    },
+    {
+      "file": "ecouter/combat.json",
+      "situationId": "ecouter/combat",
+      "type": "battle"
+    },
+    {
+      "file": "ecouter/fin_ruse.json",
+      "situationId": "ecouter/fin_ruse",
+      "type": "success"
+    },
+    {
+      "file": "ecouter/fin_folie.json",
+      "situationId": "ecouter/fin_folie",
+      "type": "game-over"
+    },
+    {
+      "file": "fuir/tunnels.json",
+      "situationId": "fuir/tunnels",
+      "type": "dialogue"
+    },
+    {
+      "file": "fuir/choix_drone.json",
+      "situationId": "fuir/choix_drone",
+      "type": "choice"
+    },
+    {
+      "file": "fuir/reparation.json",
+      "situationId": "fuir/reparation",
+      "type": "dialogue"
+    },
+    {
+      "file": "fuir/combat_spore.json",
+      "situationId": "fuir/combat_spore",
+      "type": "battle"
+    },
+    {
+      "file": "fuir/recompense.json",
+      "situationId": "fuir/recompense",
+      "type": "reward"
+    },
+    {
+      "file": "fuir/fin_evasion.json",
+      "situationId": "fuir/fin_evasion",
+      "type": "success"
+    },
+    {
+      "file": "fuir/fin_spore.json",
+      "situationId": "fuir/fin_spore",
+      "type": "game-over"
+    },
+    {
+      "file": "fuir/maree.json",
+      "situationId": "fuir/maree",
+      "type": "dialogue"
+    },
+    {
+      "file": "fuir/fin_maree.json",
+      "situationId": "fuir/fin_maree",
+      "type": "success"
+    },
+    {
+      "file": "saboter/couloir.json",
+      "situationId": "saboter/couloir",
+      "type": "dialogue"
+    },
+    {
+      "file": "saboter/choix_miroir.json",
+      "situationId": "saboter/choix_miroir",
+      "type": "choice"
+    },
+    {
+      "file": "saboter/combat.json",
+      "situationId": "saboter/combat",
+      "type": "battle"
+    },
+    {
+      "file": "saboter/aveugle.json",
+      "situationId": "saboter/aveugle",
+      "type": "dialogue"
+    },
+    {
+      "file": "saboter/diapason.json",
+      "situationId": "saboter/diapason",
+      "type": "choice"
+    },
+    {
+      "file": "saboter/recompense.json",
+      "situationId": "saboter/recompense",
+      "type": "reward"
+    },
+    {
+      "file": "saboter/fin_scellee.json",
+      "situationId": "saboter/fin_scellee",
+      "type": "success"
+    },
+    {
+      "file": "saboter/fin_explosion.json",
+      "situationId": "saboter/fin_explosion",
+      "type": "success"
+    },
+    {
+      "file": "saboter/fin_perdue.json",
+      "situationId": "saboter/fin_perdue",
+      "type": "game-over"
+    }
+  ]
+}

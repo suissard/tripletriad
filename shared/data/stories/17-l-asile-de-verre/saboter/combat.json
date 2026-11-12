@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "saboter/combat",
+  "enemyDeckName": "L'Incursion Dissonante",
+  "onWinSituationId": "saboter/diapason",
+  "onLoseSituationId": "saboter/fin_perdue"
+}

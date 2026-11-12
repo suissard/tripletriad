@@ -1,0 +1,15 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "frapper/choix_egout",
+  "text": "Les gardiens ne vous ont pas encore repérés.",
+  "options": [
+    {
+      "text": "Saboter l'autel pour faire basculer le réacteur dans la fosse",
+      "nextSituationId": "frapper/sabotage"
+    },
+    {
+      "text": "Surgir et engager les gardiens de front",
+      "nextSituationId": "frapper/combat"
+    }
+  ]
+}

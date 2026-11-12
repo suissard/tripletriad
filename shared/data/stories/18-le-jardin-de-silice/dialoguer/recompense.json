@@ -1,0 +1,6 @@
+{
+  "__component": "story.situation-reward",
+  "situationId": "dialoguer/recompense",
+  "rewardCoins": 150,
+  "nextSituationId": "dialoguer/fin_partage"
+}

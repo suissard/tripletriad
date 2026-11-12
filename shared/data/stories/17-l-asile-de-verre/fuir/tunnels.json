@@ -1,0 +1,31 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "fuir/tunnels",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "La porte de service donne sur les tunnels techniques. Ici, la Chanson est étouffée par autre chose : une odeur lourde et sucrée. Les murs sont couverts de mousse verte qui pulse doucement.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Le Fléau Spore. Une marée fongique remonte depuis les égouts. Elle ne pense pas, ne rêve pas, n'écoute pas. La folie n'a aucune prise sur elle.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Dans un renfoncement gît un drone de l'Omni-Réseau, à moitié recouvert de spores. Son œil s'allume en saccades.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Sentinelle K-12",
+      "sentence": "UNITÉ K-12. MISSION : CARTOGRAPHIER L'ANOMALIE. ERREUR. ERREUR. LE CODE CHANTE. LE CODE CHANTE. RÉPARATION REQUISE.",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "fuir/choix_drone"
+}

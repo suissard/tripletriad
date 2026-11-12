@@ -1,0 +1,133 @@
+{
+  "title": "La Ponte de Corail",
+  "description": "Une tribu des Héritiers des Cendres a traîné un réacteur fissuré jusqu'à la baie engloutie où l'Exode Pélagique dépose ses œufs. Les radiations atteignent déjà la ponte. Frapper, fuir avec les œufs, ou entrer dans l'esprit de l'ennemi ?",
+  "faction_focus": "L'Exode Pélagique",
+  "factions_involved": [
+    "L'Exode Pélagique",
+    "Les Héritiers des Cendres",
+    "Les Ferrailleurs de la Ceinture"
+  ],
+  "entry_point": "intro.json",
+  "situations": [
+    {
+      "file": "intro.json",
+      "situationId": "intro",
+      "type": "dialogue"
+    },
+    {
+      "file": "choix_initial.json",
+      "situationId": "choix_initial",
+      "type": "choice"
+    },
+    {
+      "file": "frapper/infiltration.json",
+      "situationId": "frapper/infiltration",
+      "type": "dialogue"
+    },
+    {
+      "file": "frapper/choix_egout.json",
+      "situationId": "frapper/choix_egout",
+      "type": "choice"
+    },
+    {
+      "file": "frapper/sabotage.json",
+      "situationId": "frapper/sabotage",
+      "type": "dialogue"
+    },
+    {
+      "file": "frapper/combat.json",
+      "situationId": "frapper/combat",
+      "type": "battle"
+    },
+    {
+      "file": "frapper/recompense.json",
+      "situationId": "frapper/recompense",
+      "type": "reward"
+    },
+    {
+      "file": "frapper/fin.json",
+      "situationId": "frapper/fin",
+      "type": "success"
+    },
+    {
+      "file": "frapper/defaite.json",
+      "situationId": "frapper/defaite",
+      "type": "game-over"
+    },
+    {
+      "file": "migrer/depart.json",
+      "situationId": "migrer/depart",
+      "type": "dialogue"
+    },
+    {
+      "file": "migrer/choix_chalutier.json",
+      "situationId": "migrer/choix_chalutier",
+      "type": "choice"
+    },
+    {
+      "file": "migrer/marchandage.json",
+      "situationId": "migrer/marchandage",
+      "type": "dialogue"
+    },
+    {
+      "file": "migrer/fin.json",
+      "situationId": "migrer/fin",
+      "type": "success"
+    },
+    {
+      "file": "migrer/combat.json",
+      "situationId": "migrer/combat",
+      "type": "battle"
+    },
+    {
+      "file": "migrer/fin_force.json",
+      "situationId": "migrer/fin_force",
+      "type": "success"
+    },
+    {
+      "file": "migrer/defaite.json",
+      "situationId": "migrer/defaite",
+      "type": "game-over"
+    },
+    {
+      "file": "sonder/contact.json",
+      "situationId": "sonder/contact",
+      "type": "dialogue"
+    },
+    {
+      "file": "sonder/choix_offre.json",
+      "situationId": "sonder/choix_offre",
+      "type": "choice"
+    },
+    {
+      "file": "sonder/pacte.json",
+      "situationId": "sonder/pacte",
+      "type": "dialogue"
+    },
+    {
+      "file": "sonder/recompense.json",
+      "situationId": "sonder/recompense",
+      "type": "reward"
+    },
+    {
+      "file": "sonder/fin.json",
+      "situationId": "sonder/fin",
+      "type": "success"
+    },
+    {
+      "file": "sonder/duel.json",
+      "situationId": "sonder/duel",
+      "type": "battle"
+    },
+    {
+      "file": "sonder/fin_duel.json",
+      "situationId": "sonder/fin_duel",
+      "type": "success"
+    },
+    {
+      "file": "sonder/defaite.json",
+      "situationId": "sonder/defaite",
+      "type": "game-over"
+    }
+  ]
+}

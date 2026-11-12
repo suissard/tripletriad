@@ -1,0 +1,37 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "synchro/meditation",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Mille consciences se rejoignent dans le réseau. La Grande Synchronisation commence : un océan de pensées qui s'harmonisent lentement, comme un accord que l'on accorde.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Mais le consensus ne vient pas. Le Chœur se divise : défendre, céder, négocier. Les Archontes attendent. Puis une voix s'élève, différente des autres, légèrement désaccordée.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Écho-Ø",
+      "sentence": "Pourquoi ne pas empoisonner l'aquifère ? Si l'eau n'est plus pure, l'Exode partira. Et nous garderons ce qu'il nous faut pour refroidir.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Un frisson traverse le réseau. Une proposition cruelle, prononcée avec une logique parfaite. L'Archonte Sūnya vous isole dans un canal privé.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Archonte Sūnya",
+      "sentence": "Cette voix n'a pas de Réceptacle enregistré, Novice. C'est une déviance. À toi de décider ce que nous en ferons.",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "synchro/choix_archonte"
+}

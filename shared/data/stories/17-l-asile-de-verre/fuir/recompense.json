@@ -1,0 +1,6 @@
+{
+  "__component": "story.situation-reward",
+  "situationId": "fuir/recompense",
+  "rewardCoins": 150,
+  "nextSituationId": "fuir/fin_evasion"
+}

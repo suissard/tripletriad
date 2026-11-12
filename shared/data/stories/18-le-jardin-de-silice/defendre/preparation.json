@@ -1,0 +1,25 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "defendre/preparation",
+  "dialogues": [
+    {
+      "name": "Moine Prajñā-3",
+      "sentence": "Leur arme est simple : de l'eau chargée d'ions. Un seul contact et nos circuits fondent. Nous ne pouvons pas les laisser approcher des forges.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Moine Prajñā-3",
+      "sentence": "La violence est une chirurgie, Novice, jamais une colère. Découpe proprement, et seulement ce qui doit l'être.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "À l'horizon, des silhouettes luisantes avancent dans des bio-armures gorgées d'eau. Derrière elles, des créatures de corail géantes traînent des réservoirs vivants.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "defendre/choix_tactique"
+}

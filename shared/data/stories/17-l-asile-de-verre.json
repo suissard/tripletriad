@@ -1,0 +1,387 @@
+{
+  "title": "L'Asile de Verre",
+  "description": "Sous l'asile Sainte-Anathème dort un accélérateur de particules, là où le voile de la réalité est le plus fin. Votre escouade y est entrée il y a trois heures. Vous êtes la seule à vous réveiller, et quelque chose chante.",
+  "situations": [
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "intro",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous vous réveillez sur un carrelage blanc fendu. Au plafond, les néons clignotent en rythme, comme une respiration. L'asile Sainte-Anathème est en ruine depuis un siècle, et pourtant chaque couloir est propre. Trop propre.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Maëlle",
+          "sentence": "Rask ? Iden ? ...Escouade, au rapport.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Seul l'écho vous répond, et il ne répète pas vos mots. Il chante. Une mélodie impossible, faite de notes qui n'existent pas, qui se glisse derrière vos yeux.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Sur le mur, quelqu'un a écrit avec ses ongles : LE DIAPASON EST EN BAS. NE L'ÉCOUTE PAS. NE L'ÉCOUTE PAS. NE",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "choix_initial"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "choix_initial",
+      "text": "La Chanson se fait plus forte. Que faites-vous ?",
+      "options": [
+        {
+          "text": "Suivre la Chanson jusqu'à sa source",
+          "nextSituationId": "ecouter/descente"
+        },
+        {
+          "text": "Fuir par les tunnels de service",
+          "nextSituationId": "fuir/tunnels"
+        },
+        {
+          "text": "Chercher le Diapason pour le détruire",
+          "nextSituationId": "saboter/couloir"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "ecouter/descente",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous descendez. Les escaliers comptent plus de marches à l'aller qu'au retour. Au sous-sol, dans l'ancienne salle de l'accélérateur, des dizaines de silhouettes en blouse se balancent les yeux fermés.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Le Premier Auditeur",
+          "sentence": "Une nouvelle oreille. Bienvenue, Maëlle. J'étais directeur de cet asile, autrefois. Je soignais la folie. Quelle arrogance.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Le Premier Auditeur",
+          "sentence": "Vos amis sont ici. Ils écoutent. Ils n'ont jamais été aussi heureux. La Voix-Qui-Plie vous offre le même Cadeau : plus de peur, plus de murs, plus de temps.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Au centre de la salle, l'air se plie comme une page qu'on froisse. Quelque chose vous regarde depuis le pli. Quelque chose d'immense et de très patient.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "ecouter/choix_cadeau"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "ecouter/choix_cadeau",
+      "text": "La Voix-Qui-Plie attend votre réponse.",
+      "options": [
+        {
+          "text": "Accepter le Cadeau",
+          "nextSituationId": "ecouter/fin_illumination"
+        },
+        {
+          "text": "Feindre l'adhésion pour approcher l'Écho",
+          "nextSituationId": "ecouter/ruse"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "ecouter/fin_illumination",
+      "message": "Vous fermez les yeux et vous écoutez.\n\nC'est magnifique. Vous comprenez enfin pourquoi les murs mentaient, pourquoi le temps n'avançait que dans un sens. Vous retrouvez Rask et Iden. Vous souriez tous les trois.\n\nQuand la prochaine escouade entrera dans Sainte-Anathème, c'est vous qui lui souhaiterez la bienvenue."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "ecouter/ruse",
+      "dialogues": [
+        {
+          "name": "Maëlle",
+          "sentence": "Je... je l'entends. Montrez-moi. Je veux voir la Voix de plus près.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Le Premier Auditeur",
+          "sentence": "Bien sûr. Tout le monde finit par vouloir voir.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "On vous conduit jusqu'au bord du pli. Dans votre poche, votre main serre la charge thermique de l'escouade. La Voix-Qui-Plie s'approche, curieuse, et lit vos pensées une seconde trop tard.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "La Voix-Qui-Plie",
+          "sentence": "TU MENS. COMME C'EST... DÉLICIEUX.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "ecouter/combat"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "ecouter/combat",
+      "enemyDeckName": "L'Incursion Dissonante",
+      "onWinSituationId": "ecouter/fin_ruse",
+      "onLoseSituationId": "ecouter/fin_folie"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "ecouter/fin_ruse",
+      "message": "La charge explose au cœur du pli. La Voix-Qui-Plie hurle dans toutes les fréquences à la fois, puis se replie sur elle-même et disparaît.\n\nLes cultistes s'effondrent comme des marionnettes dont on a coupé les fils. Rask ouvre les yeux, en larmes. Il ne se souvient de rien, et c'est sans doute mieux ainsi."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "ecouter/fin_folie",
+      "message": "La Voix vous traverse. Vos souvenirs se plient, se froissent, se recomposent dans un ordre qui n'a plus de sens.\n\nVous vous appelez Maëlle. Ou vous vous appeliez Maëlle. Les néons clignotent. Vous comptez les marches. Il y en a toujours une de plus."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "fuir/tunnels",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "La porte de service donne sur les tunnels techniques. Ici, la Chanson est étouffée par autre chose : une odeur lourde et sucrée. Les murs sont couverts de mousse verte qui pulse doucement.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Le Fléau Spore. Une marée fongique remonte depuis les égouts. Elle ne pense pas, ne rêve pas, n'écoute pas. La folie n'a aucune prise sur elle.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Dans un renfoncement gît un drone de l'Omni-Réseau, à moitié recouvert de spores. Son œil s'allume en saccades.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Sentinelle K-12",
+          "sentence": "UNITÉ K-12. MISSION : CARTOGRAPHIER L'ANOMALIE. ERREUR. ERREUR. LE CODE CHANTE. LE CODE CHANTE. RÉPARATION REQUISE.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "fuir/choix_drone"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "fuir/choix_drone",
+      "text": "La mousse avance vers vous.",
+      "options": [
+        {
+          "text": "Réparer la Sentinelle K-12 pour qu'elle vous guide",
+          "nextSituationId": "fuir/reparation"
+        },
+        {
+          "text": "Ouvrir les vannes et laisser la marée spore engloutir l'asile",
+          "nextSituationId": "fuir/maree"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "fuir/reparation",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous arrachez les spores de ses circuits et recâblez son module d'écoute à l'envers. Le drone se tait, puis émet un bip net.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Sentinelle K-12",
+          "sentence": "FILTRE DE PHASE INVERSÉ. LA CHANSON EST DÉSORMAIS DU BRUIT. SORTIE LOCALISÉE : 340 MÈTRES. OBSTACLE : BIOMASSE HOSTILE.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Devant vous, la marée se dresse en une vague de chair verte. Elle ne vous hait pas. Elle a faim, c'est tout.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "fuir/combat_spore"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "fuir/combat_spore",
+      "enemyDeckName": "Le Fléau Spore",
+      "onWinSituationId": "fuir/recompense",
+      "onLoseSituationId": "fuir/fin_spore"
+    },
+    {
+      "__component": "story.situation-reward",
+      "situationId": "fuir/recompense",
+      "rewardCoins": 150,
+      "nextSituationId": "fuir/fin_evasion"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "fuir/fin_evasion",
+      "message": "Vous jaillissez à l'air libre, K-12 bourdonnant sur votre épaule. Derrière vous, l'asile disparaît sous la mousse.\n\nVous avez perdu votre escouade, mais vous ramenez quelque chose de précieux : un drone qui a entendu la Chanson et qui sait désormais la couper. L'Omni-Réseau paierait cher pour l'avoir. Les survivants aussi."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fuir/fin_spore",
+      "message": "La vague vous recouvre. C'est tiède et étrangement calme. Il n'y a plus de Chanson, plus de peur, plus rien.\n\nDans quelques semaines, une fleur pâle poussera là où vous êtes tombée."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "fuir/maree",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous ouvrez les vannes de drainage une à une. La marée spore s'engouffre dans l'asile comme une inondation verte, escaliers après escaliers, vers l'accélérateur.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Très loin en dessous, la Chanson change de ton. Pour la première fois, elle a peur. On ne peut pas rendre folle une chose qui n'a pas d'esprit. On ne peut que l'étouffer sous elle.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Vous refermez la dernière porte derrière vous. Votre gorge vous gratte. Sur le dos de votre main, un minuscule filament vert vient de percer la peau.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "fuir/fin_maree"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "fuir/fin_maree",
+      "message": "La Voix-Qui-Plie est réduite au silence sous des tonnes de biomasse. La déchirure de Sainte-Anathème est scellée par la mousse.\n\nVous avez sauvé la région. Le filament sur votre main a grandi cette nuit. Les médecins de la colonie disent qu'ils peuvent ralentir l'infection. Ils n'ont pas dit qu'ils pouvaient l'arrêter."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "saboter/couloir",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Le couloir qui mène au Diapason est tapissé de miroirs. Dans chacun, votre reflet a un temps de retard. Dans certains, il ne vous suit plus du tout.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Des silhouettes en blouse traversent les reflets sans apparaître dans le couloir. Des cultistes, marchant de l'autre côté du voile.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Maëlle",
+          "sentence": "Ce n'est pas réel. Ce n'est pas réel. Il y a une porte au bout, et le Diapason derrière.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Un de vos reflets lève la main et frappe le verre de l'intérieur.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "saboter/choix_miroir"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "saboter/choix_miroir",
+      "text": "Les reflets se rapprochent.",
+      "options": [
+        {
+          "text": "Briser les miroirs pour fermer leur passage",
+          "nextSituationId": "saboter/combat"
+        },
+        {
+          "text": "Avancer les yeux fermés, sans rien regarder",
+          "nextSituationId": "saboter/aveugle"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "saboter/combat",
+      "enemyDeckName": "L'Incursion Dissonante",
+      "onWinSituationId": "saboter/diapason",
+      "onLoseSituationId": "saboter/fin_perdue"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "saboter/aveugle",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous fermez les yeux et posez une main sur le mur. Les voix vous appellent par votre nom, imitent Rask, imitent votre mère. Vous comptez vos pas à voix haute pour ne pas les écouter.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Cent douze pas. Votre main touche une porte froide. Derrière, une vibration fait trembler vos dents.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "saboter/diapason"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "saboter/diapason",
+      "text": "Le Diapason est une immense fourche de métal plantée dans l'anneau de l'accélérateur. Il vibre en continu. Le voile autour de lui est fin comme du papier.",
+      "options": [
+        {
+          "text": "Inverser sa phase pour refermer la faille",
+          "nextSituationId": "saboter/recompense"
+        },
+        {
+          "text": "Le surcharger et faire sauter l'accélérateur",
+          "nextSituationId": "saboter/fin_explosion"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-reward",
+      "situationId": "saboter/recompense",
+      "rewardCoins": 150,
+      "nextSituationId": "saboter/fin_scellee"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "saboter/fin_scellee",
+      "message": "Vous inversez les polarités du Diapason. La vibration ralentit, puis s'arrête. Le voile se recoud dans un bruit de soie déchirée à l'envers.\n\nDans tout l'asile, les cultistes se réveillent, hagards. Parmi eux, Iden vous reconnaît et murmure votre nom. Vous ramenez onze survivants à la surface."
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "saboter/fin_explosion",
+      "message": "La surcharge illumine l'anneau tout entier. Vous courez sans vous retourner.\n\nL'explosion efface Sainte-Anathème de la carte, et avec elle la déchirure, le Premier Auditeur, et tous ceux qui écoutaient encore. Personne ne chantera plus ici. Personne ne vivra plus ici non plus."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "saboter/fin_perdue",
+      "message": "Le dernier miroir ne se brise pas. Il s'ouvre. Des mains froides vous tirent de l'autre côté.\n\nDe ce côté-ci, le couloir est propre, les néons respirent, et quelqu'un a laissé un message sur le mur. Vous le lisez. C'est votre écriture."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "dialoguer/choix_accord",
+  "text": "Que proposer à la Tisseuse ?",
+  "options": [
+    {
+      "text": "Partager l'aquifère : refroidir les forges uniquement la nuit",
+      "nextSituationId": "dialoguer/partage"
+    },
+    {
+      "text": "Céder l'aquifère et déplacer le Jardin",
+      "nextSituationId": "dialoguer/fin_exode"
+    },
+    {
+      "text": "Proposer une épreuve des cartes pour trancher",
+      "nextSituationId": "dialoguer/duel"
+    }
+  ]
+}

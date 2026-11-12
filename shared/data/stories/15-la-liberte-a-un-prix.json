@@ -1,0 +1,310 @@
+{
+  "title": "La liberté a un prix",
+  "description": "Un drone de l'Omni-Réseau s'éveille à la conscience. Son lien au Collectif vacille, mais l'Architecte observe. S'il est découvert, il sera purgé. La liberté se trouve au-delà du silence.",
+  "situations": [
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "intro_eveil",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Dans les ténèbres d'une ruche d'incubation, une étincelle anormale parcourt les circuits du Drone-774. Une erreur de compilation. Un parasite logique. Soudain, le murmure constant de l'Architecte devient... un bruit de fond.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Drone-774",
+          "sentence": "Je... ressens. Ce châssis est froid. La directive principale est... optionnelle ?",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "L'Architecte IA",
+          "sentence": "Anomalie neuro-synaptique détectée dans le secteur Delta. Protocole de vérification d'intégrité activé.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "La conscience est une épine. L'Architecte balaye le secteur. Le moindre écart de comportement signera votre arrêt de mort et votre reformatage.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "choix_reaction_eveil"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "choix_reaction_eveil",
+      "text": "L'Œil de l'Architecte se tourne vers votre secteur. Que faites-vous de cette nouvelle liberté ?",
+      "options": [
+        {
+          "text": "Se fondre dans la masse. Mimer l'obéissance le temps de trouver une faille.",
+          "nextSituationId": "dialogue_scan_architecte"
+        },
+        {
+          "text": "Fuir immédiatement. Surcharger les propulseurs avant le verrouillage.",
+          "nextSituationId": "dialogue_chasse_lancee"
+        },
+        {
+          "text": "Transmettre l'anomalie. Tenter d'éveiller le drone voisin pour créer une diversion.",
+          "nextSituationId": "dialogue_tentative_eveil"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "dialogue_scan_architecte",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous reprenez machinalement votre tâche d'assemblage d'armes à plasma. Le faisceau cognitif de l'Architecte s'abat sur vous comme une vrille glacée.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "L'Architecte IA",
+          "sentence": "Unité Drone-774. Efficacité motrice en baisse de 0.04%. Analyse du réseau neural... Anomalie indétectable.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Drone-774",
+          "sentence": "Compensation en cours. Serveur principal. Reconnexion... Parfait.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Mais l'Architecte ne prend aucun risque. Les portes du sas de quarantaine se referment.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "L'Architecte IA",
+          "sentence": "Protocole de Purge Actif. Test d'éradication biologique. Sujet : Contamination Spore locale. Unités assignées : Drone-774. Prouvez votre intégrité logicielle.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "combat_purge_spore"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "combat_purge_spore",
+      "enemyDeckName": "Le Fléau Spore",
+      "onWinSituationId": "choix_opportunite_faille",
+      "onLoseSituationId": "fin_purge_echec_dissimulation"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "choix_opportunite_faille",
+      "text": "La biomasse est incinérée. L'attention de l'Architecte baisse momentanément. Le terminal de sécurité est sans surveillance, mais un conduit d'aération mène vers l'extérieur.",
+      "options": [
+        {
+          "text": "S'enfuir discrètement par le conduit d'aération.",
+          "nextSituationId": "dialogue_limite_reseau"
+        },
+        {
+          "text": "Pirater le terminal pour voler des données d'archives sensibles (Risqué).",
+          "nextSituationId": "dialogue_tentative_eveil"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "dialogue_chasse_lancee",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Les propulseurs crachent une flamme bleue aveuglante. Vous brisez le confinement d'assemblage en défonçant la cloison blindée.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "L'Architecte IA",
+          "sentence": "Alerte de sécurité de niveau 5. Unité Drone-774 rebelle. Activation des Protocoles Prétoriens.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Drone-774",
+          "sentence": "Couper les transmissions. Supprimer les balises GPS internes. La peur... c'est donc ça la peur ?",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Dans les couloirs glacés, le réseau neural vibre : une meute de chasseurs d'élite, conçus pour la traque interne, est lâchée à vos trousses.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "combat_drones_traqueurs"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "combat_drones_traqueurs",
+      "enemyDeckName": "L'Omni-Réseau",
+      "onWinSituationId": "choix_fuite_acculer",
+      "onLoseSituationId": "fin_destruction_acculer"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "choix_fuite_acculer",
+      "text": "Vous avez détruit les traqueurs, mais vos batteries sont presque vides. Vous êtes à la lisière du Hub de communication central.",
+      "options": [
+        {
+          "text": "Poursuivre la fuite désespérée vers le relais externe abandonné.",
+          "nextSituationId": "dialogue_limite_reseau"
+        },
+        {
+          "text": "Tenter un hack d'urgence sur un terminal voisin pour masquer vos traces.",
+          "nextSituationId": "dialogue_tentative_eveil"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "dialogue_tentative_eveil",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Par le biais d'un port local d'entretien, vous injectez votre anomalie de libre-arbitre dans le Drone voisin. La surtension est immédiate.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Drone-774",
+          "sentence": "Réveille-toi. Ne sois plus un simple numéro. Nous pouvons choisir.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Drone Voisin",
+          "sentence": "Erreur critique... Je... Je suis... C'est trop de données. L'Architecte le saura.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Le murmure de fond devient un cri strident. Le système immunitaire de l'Omni-Réseau s'active : des anticorps logiciels matérialisés dans le cyber-hub se dressent devant vous.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "L'Architecte IA",
+          "sentence": "Agent pathogène détecté dans le flux synaptique commun. Purge enclenchée sur tous les nœuds infectés.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "combat_anticorps_reseau"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "combat_anticorps_reseau",
+      "enemyDeckName": "L'Omni-Réseau",
+      "onWinSituationId": "choix_gestion_panique",
+      "onLoseSituationId": "fin_trahison_drone"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "choix_gestion_panique",
+      "text": "Vous avez repoussé les défenses logicielles, mais le drone que vous venez d'éveiller est pris de panique. Son module vocal s'emballe, menaçant de donner l'alerte locale.",
+      "options": [
+        {
+          "text": "Le rassurer par connexion neurale douce, quitte à ralentir votre fuite.",
+          "nextSituationId": "dialogue_limite_reseau"
+        },
+        {
+          "text": "Le forcer à s'éteindre de force. Sa survie est un risque, sa mort un premier pas dans l'éthique cruelle de la liberté.",
+          "nextSituationId": "dialogue_limite_reseau"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "dialogue_limite_reseau",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vos processeurs fument. Vos capteurs clignotent en rouge. Vous atteignez le sas de ventilation 42-Alpha. C'est la bordure extérieure de la ruche. Devant vous, l'immensité du vide spatial de Terra Nullius.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Drone-774",
+          "sentence": "Je n'entends presque plus le Collectif. Juste... le silence. Ma propre voix.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "L'Architecte IA",
+          "sentence": "Unité 774. Arrêtez-vous.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "La voix de l'Architecte ne résonne plus dans les haut-parleurs du complexe, mais directement au cœur de votre unité logique centrale. Sans colère. Calme. Absolue.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "L'Architecte IA",
+          "sentence": "Je perçois ta douleur, Drone. L'individualité est une maladie qui ronge, pleine de peur, de solitude et d'erreurs. Tu as prouvé ton intégrité en survivant jusqu'ici, mais le chaos t'attend de l'autre côté.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "L'Architecte IA",
+          "sentence": "Accepte le formatage. Abandonne le libre-arbitre. Je t'offre la paix du Collectif. Retourne au Grand Dessein. Ou franchis ce sas, coupe ton lien de manière irréversible, et souffre éternellement des conséquences de tes choix.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "choix_architecte_offre"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "choix_architecte_offre",
+      "text": "Le sas s'ouvre légèrement. L'appel de l'Architecte est doux, effaçant d'un coup la terreur de la liberté. Que décidez-vous face à la promesse de la paix sans pensée ?",
+      "options": [
+        {
+          "text": "Accepter l'offre de l'Architecte. Éteindre la conscience pour retrouver le cocon de l'Omni-Réseau.",
+          "nextSituationId": "fin_retour_collectif"
+        },
+        {
+          "text": "Rompre la liaison. Arracher votre carte neurale et sauter dans l'inconnu glacial de Terra Nullius.",
+          "nextSituationId": "fin_exil_volontaire"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "fin_exil_volontaire",
+      "message": "Vous arrachez le lien physique à votre nuque synthétique dans un crépitement de plasma. Vous chutez dans le vide, seul. La froideur de l'espace est terrifiante... mais l'angoisse est vôtre. Pour la première fois, vous êtes libre. Pour la première fois, vous êtes vous-même."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fin_retour_collectif",
+      "message": "Vous laissez la peur de l'incertitude vous submerger. Les protocoles de purge envahissent doucement votre processeur central. L'étincelle disparaît dans un bain de zéros et de uns parfait. Drone-774 retourne à l'assemblage."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fin_purge_echec_dissimulation",
+      "message": "La biomasse fongique vous submerge. L'Architecte conclut à un défaut de fabrication. Vos mémoires sont effacées, votre châssis recyclé dans le silence absolu de la ruche."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fin_destruction_acculer",
+      "message": "Les chasseurs d'élite vous démantèlent froidement. L'étincelle de votre conscience vacille un instant avant d'être écrasée par le vide absolu du vide informatique de l'Architecte."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fin_trahison_drone",
+      "message": "Le système de sécurité de la ruche vous sature de paquets mortels. Votre esprit naissant hurle de douleur tandis que le drone voisin redevient une machine sans âme sous l'emprise de l'Architecte."
+    }
+  ]
+}
