@@ -18,22 +18,24 @@ describe('SkillRegistry', () => {
     expect(() => registry.register({})).toThrow('must have an id');
   });
 
+  // NB : on utilise des ids factices — 'heal'/'death' sont pris en charge par le
+  // SkillEngine modulaire (effect_type) et ne sont donc plus routés vers un handler natif.
   it('should dispatch hooks for card skills', () => {
     const results = [];
     registry.register({
-      id: 'heal',
+      id: 'mock_alpha',
       onEnterPlay(ctx) { results.push(`heal:${ctx.skill.value}`); return 'healed'; }
     });
     registry.register({
-      id: 'death',
+      id: 'mock_beta',
       onEnterPlay(ctx) { results.push(`death:${ctx.skill.value}`); return 'killed'; }
     });
 
     const ctx = {
       card: {
         skills: [
-          { type: 'heal', value: 2 },
-          { type: 'death', value: 1 }
+          { type: 'mock_alpha', value: 2 },
+          { type: 'mock_beta', value: 1 }
         ]
       },
       board: [], x: 0, y: 0
@@ -46,14 +48,14 @@ describe('SkillRegistry', () => {
 
   it('should skip skills without matching handler', () => {
     registry.register({
-      id: 'heal',
+      id: 'mock_alpha',
       onEnterPlay() { return 'healed'; }
     });
 
     const ctx = {
       card: {
         skills: [
-          { type: 'heal', value: 1 },
+          { type: 'mock_alpha', value: 1 },
           { type: 'unknown_skill', value: 5 }
         ]
       }

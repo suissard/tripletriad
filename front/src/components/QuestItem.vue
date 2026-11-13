@@ -39,7 +39,7 @@
           </div>
 
           <!-- Expiration Timer -->
-          <div v-if="!isActuallyCompleted" class="quest-timer text-xs font-mono flex items-center gap-2" :class="isExpiringSoon ? 'text-orange-500 animate-pulse font-bold' : 'text-gray-500'">
+          <div v-if="!isActuallyCompleted && !isPermanent" class="quest-timer text-xs font-mono flex items-center gap-2" :class="isExpiringSoon ? 'text-orange-500 animate-pulse font-bold' : 'text-gray-500'">
             <span>🕒</span>
             <span v-if="quest.type === 'weekly'">Expire le : {{ formatDate(quest.expiresAt) }}</span>
             <span v-else>Expire dans : {{ formatTime(quest.expiresAt) }}</span>
@@ -62,22 +62,14 @@
 
         <div class="flex-1 md:flex-none flex justify-end">
           <button
-            v-if="isActuallyCompleted && quest.status !== 'completed'"
-            @click="emit('claim', quest.id)"
+            v-if="isClaimable"
+            @click="emit('claim', quest.documentId || quest.id)"
             class="claim-btn relative px-8 py-2.5 bg-gradient-to-br from-yellow-400 to-orange-500 hover:from-yellow-300 hover:to-orange-400 text-white font-black rounded-lg shadow-xl shadow-orange-500/20 transition-all hover:scale-110 active:scale-95 uppercase tracking-tighter"
           >
             Récupérer
           </button>
           
-          <button
-            v-else-if="!isActuallyCompleted && !isPending"
-            @click="emit('reroll', quest.id)"
-            class="reroll-btn p-3 bg-white/5 hover:bg-white/10 rounded-full border border-white/5 transition-all text-xl grayscale hover:grayscale-0"
-            title="Relancer la quête"
-          >
-            🎲
-          </button>
-
+          <!-- Relance de quête (🎲) retirée : aucun endpoint serveur ne la gère encore -->
           <div v-else-if="quest.status === 'completed'" class="flex items-center gap-2 text-green-500 font-bold py-2">
             <span>✅</span>
             <span class="uppercase text-xs">Terminée</span>
@@ -103,6 +95,8 @@ interface Quest {
   rewardCoins: number;
   rewardGems: number;
   status: string;
+  documentId?: string;
+  rewardClaimed?: boolean;
   startsAt: Date | null;
   expiresAt: Date | null;
   type?: string;
@@ -113,8 +107,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: 'claim', id: number): void;
-  (e: 'reroll', id: number): void;
+  (e: 'claim', id: string | number): void;
 }>();
 
 const now = ref(new Date());
@@ -125,12 +118,20 @@ const isActuallyCompleted = computed(() => {
 });
 
 const isClaimable = computed(() => {
-  return isActuallyCompleted.value && props.quest.status !== 'completed';
+  // Le serveur passe la quête en "completed" dès l'objectif atteint ; la récompense reste
+  // à réclamer tant que rewardClaimed est faux.
+  return isActuallyCompleted.value && !props.quest.rewardClaimed;
 });
 
 const isPending = computed(() => {
   if (!props.quest.startsAt) return false;
   return props.quest.startsAt > now.value;
+});
+
+// Quêtes "permanentes" (ex : bienvenue) : expiration lointaine, inutile d'afficher "3649j"
+const isPermanent = computed(() => {
+  if (!props.quest.expiresAt) return true;
+  return props.quest.expiresAt.getTime() - Date.now() > 365 * 24 * 3600 * 1000;
 });
 
 const isExpiringSoon = computed(() => {

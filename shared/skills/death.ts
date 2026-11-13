@@ -4,6 +4,7 @@ import {
   EFFECT_TYPES, 
   SKILL_TRIGGERS 
 } from './constants';
+import { DEBUG_SKILLS } from './debug';
 
 /**
  * Skill: Death (Mort)
@@ -21,7 +22,7 @@ const handler: SkillHandler = {
   execute(ctx: any) {
     const { board, x, y, skill } = ctx;
 
-    console.log(`[Skill:Death] Executing at (${x},${y}). Value: ${skill.value} (trigger: ${skill.trigger || 'default'})`);
+    DEBUG_SKILLS && console.log(`[Skill:Death] Executing at (${x},${y}). Value: ${skill.value} (trigger: ${skill.trigger || 'default'})`);
 
     for (const dir of DIRECTIONS_4) {
       const nx = x + dir.dx;

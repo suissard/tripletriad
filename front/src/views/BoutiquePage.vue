@@ -163,6 +163,7 @@ import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '../stores/userStore';
 import strapiService from '../api/strapi';
+import { getApiErrorMessage } from '../utils/apiError.js';
 import { confirmAction } from '../game/state.js';
 import AppButton from '../components/ui/AppButton.vue';
 import BoosterInventoryFan from '../components/BoosterInventoryFan.vue';
@@ -301,7 +302,7 @@ const buyBoosters = async (collectionCode, quantity, isPremium) => {
     }
     setTimeout(clearMessages, 3000);
   } catch (err) {
-    error.value = err.response?.data?.error?.message || "Erreur lors de l'achat.";
+    error.value = getApiErrorMessage(err, "Erreur lors de l'achat.");
     setTimeout(clearMessages, 4000);
   } finally {
     loadingAction.value = false;

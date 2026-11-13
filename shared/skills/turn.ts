@@ -3,6 +3,7 @@ import {
   EFFECT_TYPES, 
   SKILL_TRIGGERS 
 } from './constants';
+import { DEBUG_SKILLS } from './debug';
 
 /**
  * Skill: Turn (Rotation)
@@ -25,7 +26,7 @@ const handler: SkillHandler = {
     const direction = skill.value || 1; // 1 = clockwise, -1 = counter-clockwise
     const steps = Math.abs(direction);
 
-    console.log(`[Skill:Turn] Rotating card "${cell.data.name}" at (${ctx.x},${ctx.y}). Direction: ${direction > 0 ? 'CW' : 'CCW'} x${steps} (trigger: ${skill.trigger || 'default'})`);
+    DEBUG_SKILLS && console.log(`[Skill:Turn] Rotating card "${cell.data.name}" at (${ctx.x},${ctx.y}). Direction: ${direction > 0 ? 'CW' : 'CCW'} x${steps} (trigger: ${skill.trigger || 'default'})`);
 
     for (let i = 0; i < steps; i++) {
       const old = {

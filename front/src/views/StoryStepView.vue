@@ -167,6 +167,7 @@ import AppButton from '../components/ui/AppButton.vue';
 import RewardModal from '../components/RewardModal.vue';
 import { useUserStore } from '../stores/userStore.js';
 import strapiService from '../api/strapi.js';
+import { gameEvents } from '../game/events.js';
 import { getStrapiUrl, getStrapiMediaUrl } from '../utils/url.js';
 
 import SituationDialogue from '../components/story/SituationDialogue.vue';
@@ -252,6 +253,15 @@ async function loadStepData() {
     }
     
     await userStore.fetchUserStoryProgresses(true);
+
+    // Histoire non débloquée : le serveur refuserait de sauvegarder la progression.
+    // Les admins gardent l'accès direct pour tester.
+    if (!getProgress(storyId.value) && !userStore.isAdmin) {
+      gameEvents.emit('SHOW_ALERT', { text: "Cette histoire n'est pas encore débloquée." });
+      router.replace('/story');
+      return;
+    }
+
     const storiesRes = await strapiService.find('stories', {
       filters: { 
         $or: [

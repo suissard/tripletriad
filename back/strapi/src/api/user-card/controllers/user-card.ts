@@ -408,7 +408,16 @@ export default factories.createCoreController(
         const user = ctx.state.user;
         if (!user) return ctx.unauthorized("You must be logged in.");
 
-        const { coins, gems, dust } = ctx.request.body;
+        const { coins, gems, dust } = ctx.request.body || {};
+
+        // Défense en profondeur : entiers positifs bornés uniquement
+        const MAX_DEV_AMOUNT = 1_000_000;
+        for (const [key, value] of Object.entries({ coins, gems, dust })) {
+          if (value === undefined) continue;
+          if (!Number.isInteger(value) || value < 0 || value > MAX_DEV_AMOUNT) {
+            return ctx.badRequest(`"${key}" must be an integer between 0 and ${MAX_DEV_AMOUNT}.`);
+          }
+        }
 
         // Find the wallet for this user
         const wallets = await strapi.documents("api::wallet.wallet").findMany({

@@ -176,7 +176,9 @@ const routes = [
     name: 'admin-dynamic-editor',
     component: () => import('../admin/components/DynamicEditor.vue'),
     meta: { requiresAdminAuth: true }
-  }
+  },
+  // URL inconnue : retour à l'accueil plutôt qu'une page vide
+  { path: '/:pathMatch(.*)*', redirect: '/' }
 ]
 
 const router = createRouter({
