@@ -1,0 +1,31 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "ecouter/descente",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous descendez. Les escaliers comptent plus de marches à l'aller qu'au retour. Au sous-sol, dans l'ancienne salle de l'accélérateur, des dizaines de silhouettes en blouse se balancent les yeux fermés.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Le Premier Auditeur",
+      "sentence": "Une nouvelle oreille. Bienvenue, Maëlle. J'étais directeur de cet asile, autrefois. Je soignais la folie. Quelle arrogance.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Le Premier Auditeur",
+      "sentence": "Vos amis sont ici. Ils écoutent. Ils n'ont jamais été aussi heureux. La Voix-Qui-Plie vous offre le même Cadeau : plus de peur, plus de murs, plus de temps.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Au centre de la salle, l'air se plie comme une page qu'on froisse. Quelque chose vous regarde depuis le pli. Quelque chose d'immense et de très patient.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "ecouter/choix_cadeau"
+}

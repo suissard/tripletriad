@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "s5_c_battle",
+  "enemyDeckName": "Les Ferrailleurs de la Ceinture",
+  "onWinSituationId": "s6_c_fight_win",
+  "onLoseSituationId": "s6_c_fight_lose"
+}

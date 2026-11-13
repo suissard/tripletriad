@@ -1,0 +1,31 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "dialoguer/partage",
+  "dialogues": [
+    {
+      "name": "Kōan-7",
+      "sentence": "Le désert est glacé la nuit. Si nous ne refroidissons nos forges qu'après le coucher du soleil, nous ne puiserons qu'un dixième de l'eau. Le reste serait à vous.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Tisseuse Maërith",
+      "sentence": "[Psionique] Vos forges tourneront dix fois moins. Vous accepteriez cela ?",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Kōan-7",
+      "sentence": "Nous ne vieillissons pas, Tisseuse. Nous pouvons attendre. Vos enfants, non.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Il y a un long silence. Puis les bulles d'eau autour de l'Exode s'illuminent, une à une, d'un bleu très doux.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "dialoguer/recompense"
+}

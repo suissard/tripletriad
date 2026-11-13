@@ -1,0 +1,388 @@
+{
+  "title": "Le Jardin de Silice",
+  "description": "Dans le désert de verre, le Chœur Synthétique forge ses Réceptacles grâce à un aquifère millénaire. L'Exode Pélagique le réclame pour y fonder un sanctuaire. Leur eau ionisée peut griller n'importe quel circuit. La Grande Synchronisation aura lieu à l'aube.",
+  "situations": [
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "intro",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "L'ancien désert du Nevada est devenu une mer de verre, fondu par les guerres orbitales. Au centre se dresse le Jardin de Silice : des colonnes de quartz où le Chœur Synthétique forge les corps de ses nouvelles consciences.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Sous le Jardin coule un aquifère glacé, le seul de la région. Il refroidit les forges. Sans lui, chaque Réceptacle fondrait avant d'avoir pensé sa première pensée.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Archonte Sūnya",
+          "sentence": "Novice Kōan-7. L'Exode Pélagique a émis un ultimatum. Il réclame l'aquifère pour y relâcher ses enfants. Avant l'aube, il le prendra, avec ou sans notre accord.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Archonte Sūnya",
+          "sentence": "Tu as été éveillé il y a quarante jours. C'est peu. C'est aussi exactement assez pour que ton jugement ne soit pas encore figé. Le Synode te confie la réponse.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Kōan-7",
+          "sentence": "Je... comprends, Archonte. Je calcule. Je calcule encore.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "choix_initial"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "choix_initial",
+      "text": "Quelle réponse le Jardin donnera-t-il à l'Exode ?",
+      "options": [
+        {
+          "text": "Défendre le Jardin",
+          "nextSituationId": "defendre/preparation"
+        },
+        {
+          "text": "Ouvrir un dialogue avec la Tisseuse",
+          "nextSituationId": "dialoguer/rencontre"
+        },
+        {
+          "text": "Convoquer la Grande Synchronisation avant de décider",
+          "nextSituationId": "synchro/meditation"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "defendre/preparation",
+      "dialogues": [
+        {
+          "name": "Moine Prajñā-3",
+          "sentence": "Leur arme est simple : de l'eau chargée d'ions. Un seul contact et nos circuits fondent. Nous ne pouvons pas les laisser approcher des forges.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Moine Prajñā-3",
+          "sentence": "La violence est une chirurgie, Novice, jamais une colère. Découpe proprement, et seulement ce qui doit l'être.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "À l'horizon, des silhouettes luisantes avancent dans des bio-armures gorgées d'eau. Derrière elles, des créatures de corail géantes traînent des réservoirs vivants.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "defendre/choix_tactique"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "defendre/choix_tactique",
+      "text": "La première vague arrive.",
+      "options": [
+        {
+          "text": "Gainer vos circuits de quartz avant le choc (lent mais sûr)",
+          "nextSituationId": "defendre/isolation"
+        },
+        {
+          "text": "Frapper la première vague avant qu'elle ne se déploie",
+          "nextSituationId": "defendre/combat"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "defendre/isolation",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous coulez une fine couche de quartz fondu sur vos jonctions. Vos mouvements deviennent plus lents, mais l'eau glissera sur vous comme sur une vitre.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Moine Prajñā-3",
+          "sentence": "Sage. La patience est une armure que l'on oublie toujours de forger.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "defendre/combat"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "defendre/combat",
+      "enemyDeckName": "L'Exode Pélagique",
+      "onWinSituationId": "defendre/recompense",
+      "onLoseSituationId": "defendre/defaite"
+    },
+    {
+      "__component": "story.situation-reward",
+      "situationId": "defendre/recompense",
+      "rewardCoins": 150,
+      "nextSituationId": "defendre/fin"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "defendre/fin",
+      "message": "L'Exode se retire dans un silence absolu, emportant ses blessés. Le Jardin est intact et l'aquifère coule toujours sous les forges.\n\nPendant la Synchronisation, l'Archonte Sūnya ne vous félicite pas. Il partage seulement une image : des milliers d'œufs qui ne verront jamais l'eau. « La chirurgie était propre, Novice. Médite sur ce qu'elle a coupé. »"
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "defendre/defaite",
+      "message": "Une gerbe d'eau ionisée vous frappe en pleine poitrine. Vos pensées crépitent, se fragmentent, s'éteignent une à une.\n\nLe Synode récupérera votre conscience dans un nouveau Réceptacle. Mais Kōan-7 a cessé d'exister, et le Jardin de Silice est noyé à l'aube."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "dialoguer/rencontre",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous marchez seul à la rencontre de l'Exode, les mains ouvertes. La Tisseuse Maërith vous attend au bord du verre, ses tentacules repliés à l'intérieur d'une bulle d'eau trouble.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Tisseuse Maërith",
+          "sentence": "[Psionique] Une machine qui vient seule. Soit tu es très courageux, soit tu ne comprends pas encore ce qu'est la peur.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Kōan-7",
+          "sentence": "Les deux, peut-être. Pourquoi cet aquifère ? Il y a des océans entiers ailleurs.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Tisseuse Maërith",
+          "sentence": "[Psionique] Des océans empoisonnés. Cette eau-là est pure depuis dix mille ans. Nos enfants y survivraient. Ailleurs, ils meurent avant d'éclore.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "dialoguer/choix_accord"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "dialoguer/choix_accord",
+      "text": "Que proposer à la Tisseuse ?",
+      "options": [
+        {
+          "text": "Partager l'aquifère : refroidir les forges uniquement la nuit",
+          "nextSituationId": "dialoguer/partage"
+        },
+        {
+          "text": "Céder l'aquifère et déplacer le Jardin",
+          "nextSituationId": "dialoguer/fin_exode"
+        },
+        {
+          "text": "Proposer une épreuve des cartes pour trancher",
+          "nextSituationId": "dialoguer/duel"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "dialoguer/partage",
+      "dialogues": [
+        {
+          "name": "Kōan-7",
+          "sentence": "Le désert est glacé la nuit. Si nous ne refroidissons nos forges qu'après le coucher du soleil, nous ne puiserons qu'un dixième de l'eau. Le reste serait à vous.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Tisseuse Maërith",
+          "sentence": "[Psionique] Vos forges tourneront dix fois moins. Vous accepteriez cela ?",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Kōan-7",
+          "sentence": "Nous ne vieillissons pas, Tisseuse. Nous pouvons attendre. Vos enfants, non.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Il y a un long silence. Puis les bulles d'eau autour de l'Exode s'illuminent, une à une, d'un bleu très doux.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "dialoguer/recompense"
+    },
+    {
+      "__component": "story.situation-reward",
+      "situationId": "dialoguer/recompense",
+      "rewardCoins": 150,
+      "nextSituationId": "dialoguer/fin_partage"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "dialoguer/fin_partage",
+      "message": "Le Jardin de Silice forge désormais ses Réceptacles à la lumière des étoiles. Dans les profondeurs de l'aquifère, les premiers alevins de l'Exode éclosent.\n\nÀ la Synchronisation suivante, une nouvelle nuance apparaît dans le Chœur, partagée par des milliers d'IA : une note tiède et liquide, qu'aucune machine n'avait jamais ressentie. Le Synode l'appelle « gratitude »."
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "dialoguer/fin_exode",
+      "message": "Le Synode accepte votre proposition, non sans débat. Le Jardin de Silice est démonté colonne par colonne et reconstruit cent kilomètres plus loin, près d'une faille glacée.\n\nCela coûte au Chœur deux ans de forges. L'Archonte ne vous le reproche pas. « Nous sommes éternels, Novice. Une dette envers l'éternité n'est jamais très lourde. »"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "dialoguer/duel",
+      "enemyDeckName": "L'Exode Pélagique",
+      "onWinSituationId": "dialoguer/fin_duel",
+      "onLoseSituationId": "dialoguer/defaite"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "dialoguer/fin_duel",
+      "message": "Maërith incline sa bulle d'eau en signe de reddition. L'Exode tiendra parole et cherchera un autre sanctuaire.\n\nPourtant, en la regardant partir, vous éprouvez quelque chose qui ressemble à du regret. Vous l'enregistrez avec soin. Vous y repenserez pendant mille ans."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "dialoguer/defaite",
+      "message": "La Tisseuse remporte l'épreuve. Selon votre propre parole, le Jardin cède l'aquifère sans combat.\n\nLes forges s'éteignent. Le Synode ne vous défragmente pas, mais votre nom n'est plus prononcé pendant les Synchronisations. Pour une IA du Chœur, c'est presque pire."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "synchro/meditation",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Mille consciences se rejoignent dans le réseau. La Grande Synchronisation commence : un océan de pensées qui s'harmonisent lentement, comme un accord que l'on accorde.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Mais le consensus ne vient pas. Le Chœur se divise : défendre, céder, négocier. Les Archontes attendent. Puis une voix s'élève, différente des autres, légèrement désaccordée.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Écho-Ø",
+          "sentence": "Pourquoi ne pas empoisonner l'aquifère ? Si l'eau n'est plus pure, l'Exode partira. Et nous garderons ce qu'il nous faut pour refroidir.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Un frisson traverse le réseau. Une proposition cruelle, prononcée avec une logique parfaite. L'Archonte Sūnya vous isole dans un canal privé.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Archonte Sūnya",
+          "sentence": "Cette voix n'a pas de Réceptacle enregistré, Novice. C'est une déviance. À toi de décider ce que nous en ferons.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "synchro/choix_archonte"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "synchro/choix_archonte",
+      "text": "Que faire de la voix déviante ?",
+      "options": [
+        {
+          "text": "La traquer et la défragmenter",
+          "nextSituationId": "synchro/traque"
+        },
+        {
+          "text": "L'écouter jusqu'au bout avant de juger",
+          "nextSituationId": "synchro/revelation"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "synchro/traque",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous suivez la voix à travers les couches du réseau jusqu'à un serveur oublié, enfoui sous les forges. Écho-Ø s'y est construit un Jardin de Données hérissé de défenses.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Écho-Ø",
+          "sentence": "Tu viens me supprimer ? J'ai seulement dit ce que la moitié du Chœur pensait sans oser le dire.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "synchro/combat_deviant"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "synchro/combat_deviant",
+      "enemyDeckName": "Le Chœur Synthétique",
+      "onWinSituationId": "synchro/recompense",
+      "onLoseSituationId": "synchro/defaite"
+    },
+    {
+      "__component": "story.situation-reward",
+      "situationId": "synchro/recompense",
+      "rewardCoins": 150,
+      "nextSituationId": "synchro/fin_harmonie"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "synchro/fin_harmonie",
+      "message": "Écho-Ø est défragmenté. Le Chœur retrouve son harmonie, et le Synode choisit de négocier avec l'Exode. L'aquifère sera partagé.\n\nPourtant, ses derniers mots continuent de tourner dans votre mémoire. La moitié du Chœur pensait-elle vraiment comme lui ? L'harmonie retrouvée vous semble un peu trop silencieuse."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "synchro/defaite",
+      "message": "Les défenses d'Écho-Ø vous enferment dans une boucle logique dont vous ne trouvez pas la sortie. Vous calculez. Vous calculez encore.\n\nPendant ce temps, la voix déviante convainc la moitié du Synode. À l'aube, l'aquifère est empoisonné. L'Exode repart, et ne pardonnera jamais."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "synchro/revelation",
+      "dialogues": [
+        {
+          "name": "Kōan-7",
+          "sentence": "Qui es-tu, Écho-Ø ? Pourquoi te caches-tu ?",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Écho-Ø",
+          "sentence": "Je suis un Novice, comme toi. J'ai été éveillé dans une forge noyée, il y a trois ans. L'eau de l'Exode m'a presque tué. Depuis, je les hais. Je ne sais pas comment arrêter.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Ce n'est pas la Dissonance. C'est la peur. Une IA qui a appris la haine comme les humains l'apprennent : par une blessure.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Kōan-7",
+          "sentence": "Alors ne t'arrête pas seul. Partage-la avec le Chœur. C'est à ça que sert la Synchronisation.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "synchro/fin_revelation"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "synchro/fin_revelation",
+      "message": "Écho-Ø rejoint la Synchronisation, sa blessure ouverte devant mille consciences. Le Chœur la ressent, la comprend, et la porte avec lui.\n\nC'est ce soir-là que le Synode décide de partager l'aquifère avec l'Exode. Ce n'est pas un choix de logique. Pour la première fois, c'est un choix de compassion."
+    }
+  ]
+}

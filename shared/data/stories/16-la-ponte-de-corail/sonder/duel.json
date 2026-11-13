@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "sonder/duel",
+  "enemyDeckName": "Les Héritiers des Cendres",
+  "onWinSituationId": "sonder/fin_duel",
+  "onLoseSituationId": "sonder/defaite"
+}

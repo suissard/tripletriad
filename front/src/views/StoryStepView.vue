@@ -93,7 +93,10 @@
 
               <!-- Battle follows the discussion -->
               <div v-if="currentSituation?.__component === 'story.situation-battle'" class="choice-tile fade-in-up battle-tile" :style="getSituationStyle(currentSituation)">
-                <h3 class="choice-title">Un combat se prépare : {{ currentSituation.enemyDeckName }}</h3>
+                <!-- enemyDeckName n'est pas stocké en base : seul le deck lié (s'il existe) a un nom -->
+                <h3 class="choice-title">
+                  Un combat se prépare<template v-if="currentSituation.enemyDeck?.name || currentSituation.enemyDeckName"> : {{ currentSituation.enemyDeck?.name || currentSituation.enemyDeckName }}</template>
+                </h3>
                 <AppButton @click.stop="playCombat" variant="danger" size="xl" shadow glow class="combat-btn">
                   Entrer en combat ⚔️
                 </AppButton>

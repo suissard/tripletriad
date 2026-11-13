@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "defendre/combat",
+  "enemyDeckName": "L'Exode Pélagique",
+  "onWinSituationId": "defendre/recompense",
+  "onLoseSituationId": "defendre/defaite"
+}

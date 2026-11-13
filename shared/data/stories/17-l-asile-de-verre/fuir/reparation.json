@@ -1,0 +1,25 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "fuir/reparation",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous arrachez les spores de ses circuits et recâblez son module d'écoute à l'envers. Le drone se tait, puis émet un bip net.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Sentinelle K-12",
+      "sentence": "FILTRE DE PHASE INVERSÉ. LA CHANSON EST DÉSORMAIS DU BRUIT. SORTIE LOCALISÉE : 340 MÈTRES. OBSTACLE : BIOMASSE HOSTILE.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Devant vous, la marée se dresse en une vague de chair verte. Elle ne vous hait pas. Elle a faim, c'est tout.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "fuir/combat_spore"
+}

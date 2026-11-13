@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "synchro/traque",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous suivez la voix à travers les couches du réseau jusqu'à un serveur oublié, enfoui sous les forges. Écho-Ø s'y est construit un Jardin de Données hérissé de défenses.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Écho-Ø",
+      "sentence": "Tu viens me supprimer ? J'ai seulement dit ce que la moitié du Chœur pensait sans oser le dire.",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "synchro/combat_deviant"
+}

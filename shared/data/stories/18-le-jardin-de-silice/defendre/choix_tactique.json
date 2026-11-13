@@ -1,0 +1,15 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "defendre/choix_tactique",
+  "text": "La première vague arrive.",
+  "options": [
+    {
+      "text": "Gainer vos circuits de quartz avant le choc (lent mais sûr)",
+      "nextSituationId": "defendre/isolation"
+    },
+    {
+      "text": "Frapper la première vague avant qu'elle ne se déploie",
+      "nextSituationId": "defendre/combat"
+    }
+  ]
+}

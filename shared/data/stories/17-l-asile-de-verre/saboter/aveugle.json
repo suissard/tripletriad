@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "saboter/aveugle",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous fermez les yeux et posez une main sur le mur. Les voix vous appellent par votre nom, imitent Rask, imitent votre mère. Vous comptez vos pas à voix haute pour ne pas les écouter.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Cent douze pas. Votre main touche une porte froide. Derrière, une vibration fait trembler vos dents.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "saboter/diapason"
+}

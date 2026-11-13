@@ -1,0 +1,6 @@
+{
+  "__component": "story.situation-reward",
+  "situationId": "frapper/recompense",
+  "rewardCoins": 150,
+  "nextSituationId": "frapper/fin"
+}

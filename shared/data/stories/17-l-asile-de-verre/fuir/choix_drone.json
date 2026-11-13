@@ -1,0 +1,15 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "fuir/choix_drone",
+  "text": "La mousse avance vers vous.",
+  "options": [
+    {
+      "text": "Réparer la Sentinelle K-12 pour qu'elle vous guide",
+      "nextSituationId": "fuir/reparation"
+    },
+    {
+      "text": "Ouvrir les vannes et laisser la marée spore engloutir l'asile",
+      "nextSituationId": "fuir/maree"
+    }
+  ]
+}

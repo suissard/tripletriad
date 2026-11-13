@@ -1,11 +1,11 @@
 {
   "__component": "story.situation-choice",
-  "situationId": "choix_2",
+  "situationId": "s7",
   "text": "Comment aborder la station ?",
   "options": [
     {
       "text": "Aborder par le combat — défoncer l'entrée (Rook)",
-      "nextSituationId": "s8"
+      "nextSituationId": "s8_pre"
     },
     {
       "text": "S'infiltrer discrètement — trouver un passage caché (Kip/Vex)",

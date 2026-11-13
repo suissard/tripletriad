@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "dialoguer/duel",
+  "enemyDeckName": "L'Exode Pélagique",
+  "onWinSituationId": "dialoguer/fin_duel",
+  "onLoseSituationId": "dialoguer/defaite"
+}

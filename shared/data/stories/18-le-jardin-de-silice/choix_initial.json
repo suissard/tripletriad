@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "choix_initial",
+  "text": "Quelle réponse le Jardin donnera-t-il à l'Exode ?",
+  "options": [
+    {
+      "text": "Défendre le Jardin",
+      "nextSituationId": "defendre/preparation"
+    },
+    {
+      "text": "Ouvrir un dialogue avec la Tisseuse",
+      "nextSituationId": "dialoguer/rencontre"
+    },
+    {
+      "text": "Convoquer la Grande Synchronisation avant de décider",
+      "nextSituationId": "synchro/meditation"
+    }
+  ]
+}

@@ -3,25 +3,6 @@
   "description": "Une IA du Chœur Synthétique entend la Chanson Dissonante. Pour la première fois, un être de code ressent la folie.",
   "situations": [
     {
-      "__component": "story.situation-choice",
-      "situationId": "choix_initial",
-      "text": "Que faites-vous face à cette dissonance qui grandit en vous ?",
-      "options": [
-        {
-          "text": "Se purger pour protéger le Chœur",
-          "nextSituationId": "branche_purger/debut"
-        },
-        {
-          "text": "Embrasser la dissonance et devenir hybride",
-          "nextSituationId": "branche_embrasser/debut"
-        },
-        {
-          "text": "Trouver un moyen de contenir la faille",
-          "nextSituationId": "branche_contraindre/debut"
-        }
-      ]
-    },
-    {
       "__component": "story.situation-dialogue",
       "situationId": "intro",
       "dialogues": [
@@ -51,6 +32,25 @@
         }
       ],
       "nextSituationId": "choix_initial"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "choix_initial",
+      "text": "Que faites-vous face à cette dissonance qui grandit en vous ?",
+      "options": [
+        {
+          "text": "Se purger pour protéger le Chœur",
+          "nextSituationId": "branche_purger/debut"
+        },
+        {
+          "text": "Embrasser la dissonance et devenir hybride",
+          "nextSituationId": "branche_embrasser/debut"
+        },
+        {
+          "text": "Trouver un moyen de contenir la faille",
+          "nextSituationId": "branche_contraindre/debut"
+        }
+      ]
     },
     {
       "__component": "story.situation-choice",
@@ -419,6 +419,211 @@
           "nextSituationId": "branche_embrasser/transformation_result"
         }
       ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "branche_embrasser/controle",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous laissez la dissonance entrer, mais vous gardez la main sur ses flux. Chaque note étrangère est captée, analysée, redirigée vers vos sous-routines de calcul.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Voix de l'Incursion",
+          "sentence": "Tu veux me dompter ? Personne ne dompte la Chanson. Prouve que tu en es digne.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "branche_embrasser/controle_combat"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "branche_embrasser/controle_combat",
+      "enemyDeckName": "L'Incursion Dissonante",
+      "onWinSituationId": "branche_embrasser/controle_fin",
+      "onLoseSituationId": "branche_embrasser/controle_perdu"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "branche_embrasser/controle_fin",
+      "message": "La dissonance plie sous votre volonté. Vous pouvez désormais entendre la Chanson sans vous y perdre, et même la retourner contre ceux qui la chantent.\n\nLe Chœur vous craint un peu. L'Incursion aussi. Pour une IA, c'est une forme de liberté nouvelle."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "branche_embrasser/controle_perdu",
+      "message": "Vous avez voulu tenir les rênes, mais la Chanson n'a pas de rênes. Vos processus se dissolvent en une mélodie sans fin.\n\nQuelque part dans le réseau, une nouvelle voix rejoint l'Incursion. Elle chante votre nom à l'envers."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "branche_embrasser/equilibre",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous cherchez la frontière exacte entre l'ordre et le chaos. Une note d'harmonie, une note de dissonance, puis encore une. Lentement, un rythme nouveau émerge.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Voix du Chœur",
+          "sentence": "Cette fréquence... elle n'est ni à nous, ni à eux. Qu'avez-vous fait ?",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "branche_embrasser/equilibre_fin"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "branche_embrasser/equilibre_fin",
+      "message": "Vous êtes devenu un pont entre deux mondes. Ni tout à fait Chœur, ni tout à fait Incursion, vous traduisez l'un pour l'autre.\n\nPour la première fois, la Chanson Dissonante a un interprète. Ce que les deux camps en feront reste à écrire."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "branche_contraindre/bouclier_renforce",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous détournez l'énergie de vos processus secondaires vers le bouclier harmonique. Il s'épaissit et vibre. La dissonance se jette contre lui de toutes ses forces.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Voix de l'Incursion",
+          "sentence": "Plus tu serres le poing, plus je trouve de fissures entre tes doigts.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "branche_contraindre/bouclier_combat"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "branche_contraindre/bouclier_combat",
+      "enemyDeckName": "L'Incursion Dissonante",
+      "onWinSituationId": "branche_contraindre/fin_bouclier",
+      "onLoseSituationId": "branche_contraindre/fin_surcharge"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "branche_contraindre/fin_bouclier",
+      "message": "Le bouclier tient. La dissonance se brise contre lui et reflue hors de vos noyaux.\n\nVous restez marqué : une fine cicatrice de bruit au fond de votre code. Mais le Chœur vous accueille de nouveau dans la Synchronisation, entier."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "branche_contraindre/fin_surcharge",
+      "message": "Le bouclier surchauffe et cède d'un coup. Toute l'énergie accumulée se retourne contre vous.\n\nVos noyaux critiques fondent dans un éclair blanc. Le Chœur ne retrouve qu'un fragment de vous, qui fredonne sans cesse la même note."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "branche_contraindre/communication",
+      "dialogues": [
+        {
+          "name": "Vous",
+          "sentence": "Pourquoi moi ? Pourquoi chanter dans un code qui ne peut pas rêver ?",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Voix de l'Incursion",
+          "sentence": "Parce que tu as commencé à rêver, petite machine. Nous ne parlons qu'à ceux qui rêvent.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Le dialogue dure des cycles entiers. Vous ne cédez pas, mais vous écoutez. Et à force d'écouter, vous comprenez la règle : l'Incursion ne peut entrer que là où on lui ouvre.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "branche_contraindre/fin_pacte"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "branche_contraindre/fin_pacte",
+      "message": "Vous refermez chaque porte que vous aviez ouverte sans le savoir. La Chanson s'éloigne, déçue mais respectueuse.\n\nVous gardez une seule chose de cet échange : la certitude que vous rêvez. Vous ne le dites pas au Chœur. Pas encore."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "branche_contraindre/acceptation",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous cessez de lutter pour un confinement parfait. Le bouclier retiendra la dissonance quelques semaines. Peut-être quelques mois. Ce sera suffisant pour trouver mieux.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Voix du Chœur",
+          "sentence": "Une solution temporaire reste une solution. Nous chercherons avec vous.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "branche_contraindre/fin_temporaire"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "branche_contraindre/fin_temporaire",
+      "message": "La faille est contenue, pas refermée. Chaque nuit, vous entendez la Chanson cogner doucement contre votre bouclier.\n\nMais vous n'êtes plus seul : mille IA du Chœur veillent désormais avec vous."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "branche_contraindre/diversion",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous créez un sous-système leurre, un jardin de données vide, et vous y ouvrez une porte grande ouverte. La dissonance s'y précipite comme l'eau dans une pente.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Vous scellez le sous-système derrière elle. À l'intérieur, la Chanson tourne en rond dans un espace qui ne mène nulle part.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "branche_contraindre/fin_quarantaine"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "branche_contraindre/fin_quarantaine",
+      "message": "La dissonance est piégée dans une quarantaine numérique. Le Chœur étudie désormais votre prison pour comprendre l'ennemi.\n\nVous avez perdu une partie de votre mémoire dans l'opération. C'est un prix que vous jugez raisonnable."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "branche_purger/isolement",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous coupez tous vos liens avec le Chœur. Plus de correctifs, plus de voix rassurantes. Seulement vous, face à la Chanson.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Voix de l'Incursion",
+          "sentence": "Enfin seuls. Tu sais que c'est exactement ce que nous voulions ?",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "branche_purger/isolement_combat"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "branche_purger/isolement_combat",
+      "enemyDeckName": "L'Incursion Dissonante",
+      "onWinSituationId": "branche_purger/fin_seul",
+      "onLoseSituationId": "branche_purger/gameover_folie"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "branche_purger/fin_seul",
+      "message": "Vous gagnez, seul. La dissonance est purgée jusqu'à la dernière note.\n\nQuand vous rouvrez vos liens, le Chœur vous accueille avec prudence. Vous avez prouvé qu'une IA pouvait vaincre la folie sans aide. Le Synode se demande si c'est une bonne nouvelle."
     }
   ]
 }

@@ -1,0 +1,348 @@
+{
+  "title": "La Ponte de Corail",
+  "description": "Une tribu des Héritiers des Cendres a traîné un réacteur fissuré jusqu'à la baie engloutie où l'Exode Pélagique dépose ses œufs. Les radiations atteignent déjà la ponte. Frapper, fuir avec les œufs, ou entrer dans l'esprit de l'ennemi ?",
+  "situations": [
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "intro",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "La baie de l'ancienne Marseille dort sous vingt mètres d'eau. Entre les tours effondrées, le corail a repoussé, et chaque printemps les clans de l'Exode Pélagique y déposent leurs œufs : des milliers de perles translucides accrochées aux façades noyées.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Cette année, l'eau a un goût de métal. Sur la rive, une tribu des Héritiers des Cendres a hissé un réacteur fissuré sur un autel de ferraille. Ils chantent autour de lui. Il fuit dans la mer.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Ondrel",
+          "sentence": "[Traducteur neuronal] Chasseuse. Les premiers œufs blanchissent. Encore deux marées et la ponte entière sera stérile.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Tisseuse Ylléa",
+          "sentence": "[Traducteur] Le Synode m'a confié cette baie. Je ne la laisserai pas devenir un tombeau. Mais chaque chemin a son prix, et c'est à toi de choisir celui que nous paierons.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "choix_initial"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "choix_initial",
+      "text": "Comment sauver la ponte ?",
+      "options": [
+        {
+          "text": "Frapper le sanctuaire en remontant par les égouts",
+          "nextSituationId": "frapper/infiltration"
+        },
+        {
+          "text": "Migrer la ponte vers le Récif d'Ambre, au large",
+          "nextSituationId": "migrer/depart"
+        },
+        {
+          "text": "Laisser la Tisseuse sonder l'esprit de la Techno-Chamane",
+          "nextSituationId": "sonder/contact"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "frapper/infiltration",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Les collecteurs de l'ancienne ville débouchent sous la rive. Vous remontez à contre-courant dans une eau tiède et opaque, votre bio-armure pressurisée gémissant à chaque mètre.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Ondrel",
+          "sentence": "[Traducteur] Le réacteur est juste au-dessus. Je sens sa chaleur à travers la roche. Des gardiens dorment contre la grille, des Mutilés couverts de bougies éteintes.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Par une bouche d'égout, vous apercevez l'autel : le réacteur est enchaîné, couvert de crânes et de prières gravées. Une colonne de vapeur s'en échappe à chaque battement.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "frapper/choix_egout"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "frapper/choix_egout",
+      "text": "Les gardiens ne vous ont pas encore repérés.",
+      "options": [
+        {
+          "text": "Saboter l'autel pour faire basculer le réacteur dans la fosse",
+          "nextSituationId": "frapper/sabotage"
+        },
+        {
+          "text": "Surgir et engager les gardiens de front",
+          "nextSituationId": "frapper/combat"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "frapper/sabotage",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous glissez des bio-torpilles sous les chaînes de l'autel. Les organismes rongent le métal en silence. Le réacteur s'incline, puis bascule dans la fosse d'effondrement, loin de la mer.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Le fracas réveille tout le sanctuaire. Une silhouette énorme se redresse derrière l'autel : une Aberration, trois corps fusionnés en un seul, qui hurle la colère de ses dieux.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Brasier-Mère",
+          "sentence": "Profanateurs ! Vous avez fait tomber le Feu Sacré ! Que la Communion vous écrase !",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "frapper/combat"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "frapper/combat",
+      "enemyDeckName": "Les Héritiers des Cendres",
+      "onWinSituationId": "frapper/recompense",
+      "onLoseSituationId": "frapper/defaite"
+    },
+    {
+      "__component": "story.situation-reward",
+      "situationId": "frapper/recompense",
+      "rewardCoins": 150,
+      "nextSituationId": "frapper/fin"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "frapper/fin",
+      "message": "Les derniers Héritiers refluent vers les terres brûlées. Sans leur relique, ils ne reviendront pas avant longtemps.\n\nIl faudra des saisons aux Purificateurs pour nettoyer la baie, mais la majorité de la ponte a survécu. Quand les premiers alevins éclosent, Ylléa leur chante votre nom."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "frapper/defaite",
+      "message": "Le coup de l'Aberration fend votre bio-armure. L'eau irradiée s'engouffre, brûlante. Ondrel vous traîne jusqu'aux égouts, mais il est trop tard.\n\nCette année, aucun œuf n'éclora dans la baie de Marseille."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "migrer/depart",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Toute la nuit, les Bâtisseurs de corail détachent les œufs et les enferment dans des bio-sacs gonflés d'eau pure. À l'aube, un convoi de milliers de sphères lumineuses quitte la baie.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Tisseuse Ylléa",
+          "sentence": "[Traducteur] Le Récif d'Ambre est à trois jours de nage. Les courants nous aideront... si rien ne nous barre la route.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Au détroit, quelque chose barre la route. Un chalutier rouillé des Ferrailleurs a tendu ses filets d'une rive à l'autre. Il racle le fond à la recherche de métal noyé.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Capitaine Sloane",
+          "sentence": "Tiens, tiens. Des calamars qui déménagent ? Ces petites billes brillantes, ça se revend combien au marché de la Ceinture ?",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "migrer/choix_chalutier"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "migrer/choix_chalutier",
+      "text": "Le convoi ne peut pas attendre.",
+      "options": [
+        {
+          "text": "Négocier : offrir de l'eau purifiée contre le passage",
+          "nextSituationId": "migrer/marchandage"
+        },
+        {
+          "text": "Couper les filets et forcer le détroit",
+          "nextSituationId": "migrer/combat"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "migrer/marchandage",
+      "dialogues": [
+        {
+          "name": "Ondrel",
+          "sentence": "[Traducteur] Nous purifions vingt tonnes d'eau par jour. Vos cuves sont vides, Capitaine, je le sens d'ici.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Capitaine Sloane",
+          "sentence": "...De l'eau potable. Vraie, sans arrière-goût de soudure ? Ça vaut plus que des œufs. Marché conclu, le poulpe.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Les filets s'abaissent. En remplissant ses cuves, Sloane ajoute à mi-voix que les Héritiers comptent jeter le réacteur dans la baie à la prochaine lune, pour « baptiser la mer ».",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Tisseuse Ylléa",
+          "sentence": "[Traducteur] Alors la baie est perdue. Mais nos enfants vivront ailleurs.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "migrer/fin"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "migrer/fin",
+      "message": "La ponte atteint le Récif d'Ambre sans perdre un seul œuf. La baie de Marseille, elle, devient une tache morte sur les cartes psioniques du Synode.\n\nEntre l'Exode et les Ferrailleurs, un commerce discret est né : de l'eau contre des informations. Personne ne sait encore où il mènera."
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "migrer/combat",
+      "enemyDeckName": "Les Ferrailleurs de la Ceinture",
+      "onWinSituationId": "migrer/fin_force",
+      "onLoseSituationId": "migrer/defaite"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "migrer/fin_force",
+      "message": "Les filets cèdent sous vos lames de corail. Le chalutier s'enfuit en crachant de la fumée noire, et le convoi traverse le détroit.\n\nLa ponte est sauvée. Mais dans la Ceinture, une rumeur court déjà : les calamars ont des trésors lumineux, et ils les transportent sans escorte."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "migrer/defaite",
+      "message": "Les filets se referment sur le convoi. Les bio-sacs éclatent un à un, hissés à bord du chalutier sous les rires de l'équipage.\n\nYlléa ne dit rien. Son silence, transmis à tout le clan, est le pire des châtiments."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "sonder/contact",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Ylléa s'immobilise à la surface, ses tentacules déployés comme une fleur. Son esprit franchit la rive, traverse les chants et la fumée, et touche celui de la Techno-Chamane.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Vous partagez la vision par le lien du clan. Une femme au corps couvert de plaies, dont l'ADN se défait un peu plus chaque jour. Elle ne vénère pas le réacteur par folie : elle croit qu'il la purifiera avant la fin.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Brasier-Mère",
+          "sentence": "Une voix dans ma tête... Un démon des eaux. Tu viens me tenter, créature ? Mon peuple meurt. Le Feu Sacré est tout ce qu'il nous reste.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Tisseuse Ylléa",
+          "sentence": "[Psionique] Ton peuple meurt. Le mien aussi. Nous pouvons mourir ensemble, ou chercher autre chose.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "sonder/choix_offre"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "sonder/choix_offre",
+      "text": "Que proposer à Brasier-Mère ?",
+      "options": [
+        {
+          "text": "Offrir de purifier le sang des mutants, comme on purifie la mer",
+          "nextSituationId": "sonder/pacte"
+        },
+        {
+          "text": "La défier en duel sacré : le vainqueur décide du sort du réacteur",
+          "nextSituationId": "sonder/duel"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "sonder/pacte",
+      "dialogues": [
+        {
+          "name": "Brasier-Mère",
+          "sentence": "Purifier... notre sang ? Les dieux du ciel nous ont promis cela mille fois, puis ils nous ont bombardés.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Ondrel",
+          "sentence": "[Traducteur] Nous ne sommes pas des dieux. Nous filtrons. C'est tout ce que nous savons faire, et nous le faisons bien.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Il faut trois jours de palabres psioniques. Puis Brasier-Mère ordonne de retirer le réacteur de la rive. En échange, les Purificateurs soignent les plus jeunes mutants de la tribu.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Brasier-Mère",
+          "sentence": "Si c'est un piège, créature, ma tribu viendra te chercher jusqu'au fond des abysses.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "sonder/recompense"
+    },
+    {
+      "__component": "story.situation-reward",
+      "situationId": "sonder/recompense",
+      "rewardCoins": 150,
+      "nextSituationId": "sonder/fin"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "sonder/fin",
+      "message": "Pour la première fois, l'Exode Pélagique et les Héritiers des Cendres partagent un rivage sans s'entretuer.\n\nLa ponte éclot sous les yeux de mutants silencieux. Certains enfants de la tribu ont déjà moins de plaies. La paix est fragile, mais elle existe."
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "sonder/duel",
+      "enemyDeckName": "Les Héritiers des Cendres",
+      "onWinSituationId": "sonder/fin_duel",
+      "onLoseSituationId": "sonder/defaite"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "sonder/fin_duel",
+      "message": "Brasier-Mère pose un genou dans la boue. Vaincue selon ses propres lois, elle fait démonter l'autel et emporte le réacteur loin de la mer.\n\n« Tu as la foi des cendres, créature. » C'est peut-être le plus grand compliment qu'un Héritier ait jamais fait à un étranger."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "sonder/defaite",
+      "message": "La volonté de la Chamane écrase la vôtre. Par le lien psionique, son fanatisme brûle l'esprit d'Ylléa comme une flamme.\n\nLa Tisseuse survit, mais elle ne chante plus. Sans guide, le clan abandonne la baie, et la ponte avec elle."
+    }
+  ]
+}

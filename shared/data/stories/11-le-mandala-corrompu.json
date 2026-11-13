@@ -347,6 +347,16 @@
           "nextSituationId": "s11b1"
         }
       ]
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "s6c",
+      "message": "La fusion se stabilise. Le code de la relique et le vôtre ne font plus qu'un, et la foi radioactive des Héritiers devient une simple fréquence parmi d'autres.\n\nL'ogive sacrée est apaisée sans exploser. Les Héritiers des Cendres ne comprennent pas pourquoi leur dieu s'est tu. Le Chœur, lui, compte une conscience de plus."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "s7c",
+      "message": "Les gardiens de la relique arrachent vos câbles en pleine fusion. Votre conscience reste coincée à mi-chemin, à moitié dans votre Réceptacle, à moitié dans l'ogive.\n\nLes Techno-Chamanes entendent désormais une voix dans leur relique. Ils pensent que c'est leur dieu. C'est vous, et vous hurlez."
     }
   ]
 }

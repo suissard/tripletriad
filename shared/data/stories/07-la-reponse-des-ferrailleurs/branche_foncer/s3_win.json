@@ -1,0 +1,25 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "s3_win",
+  "dialogues": [
+    {
+      "name": "Narration",
+      "sentence": "Une nuée de drones-traqueurs se détache de la coque comme des tiques. Le combat est bref et brutal ; le dernier drone s'écrase contre le hublot dans une gerbe d'étincelles.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Kip",
+      "sentence": "Des drones Omni. Ils nous marquaient depuis la sortie du champ de débris. Quelqu'un voulait savoir qui répondrait au signal.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Rook",
+      "sentence": "Eh bien maintenant il sait. Et il sait aussi qu'on mord.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "s6"
+}

@@ -9,14 +9,14 @@
   "entry_point": "intro.json",
   "situations": [
     {
-      "file": "choix_initial.json",
-      "situationId": "choix_initial",
-      "type": "choice"
-    },
-    {
       "file": "intro.json",
       "situationId": "intro",
       "type": "dialogue"
+    },
+    {
+      "file": "choix_initial.json",
+      "situationId": "choix_initial",
+      "type": "choice"
     },
     {
       "file": "branche_embrasser/conflit.json",
@@ -117,6 +117,101 @@
       "file": "branche_embrasser/nouvelle_etape_2.json",
       "situationId": "nouvelle_etape_2",
       "type": "situation-choice"
+    },
+    {
+      "file": "branche_embrasser/controle.json",
+      "situationId": "branche_embrasser/controle",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_embrasser/controle_combat.json",
+      "situationId": "branche_embrasser/controle_combat",
+      "type": "battle"
+    },
+    {
+      "file": "branche_embrasser/controle_fin.json",
+      "situationId": "branche_embrasser/controle_fin",
+      "type": "success"
+    },
+    {
+      "file": "branche_embrasser/controle_perdu.json",
+      "situationId": "branche_embrasser/controle_perdu",
+      "type": "game-over"
+    },
+    {
+      "file": "branche_embrasser/equilibre.json",
+      "situationId": "branche_embrasser/equilibre",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_embrasser/equilibre_fin.json",
+      "situationId": "branche_embrasser/equilibre_fin",
+      "type": "success"
+    },
+    {
+      "file": "branche_contraindre/bouclier_renforce.json",
+      "situationId": "branche_contraindre/bouclier_renforce",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_contraindre/bouclier_combat.json",
+      "situationId": "branche_contraindre/bouclier_combat",
+      "type": "battle"
+    },
+    {
+      "file": "branche_contraindre/fin_bouclier.json",
+      "situationId": "branche_contraindre/fin_bouclier",
+      "type": "success"
+    },
+    {
+      "file": "branche_contraindre/fin_surcharge.json",
+      "situationId": "branche_contraindre/fin_surcharge",
+      "type": "game-over"
+    },
+    {
+      "file": "branche_contraindre/communication.json",
+      "situationId": "branche_contraindre/communication",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_contraindre/fin_pacte.json",
+      "situationId": "branche_contraindre/fin_pacte",
+      "type": "success"
+    },
+    {
+      "file": "branche_contraindre/acceptation.json",
+      "situationId": "branche_contraindre/acceptation",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_contraindre/fin_temporaire.json",
+      "situationId": "branche_contraindre/fin_temporaire",
+      "type": "success"
+    },
+    {
+      "file": "branche_contraindre/diversion.json",
+      "situationId": "branche_contraindre/diversion",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_contraindre/fin_quarantaine.json",
+      "situationId": "branche_contraindre/fin_quarantaine",
+      "type": "success"
+    },
+    {
+      "file": "branche_purger/isolement.json",
+      "situationId": "branche_purger/isolement",
+      "type": "dialogue"
+    },
+    {
+      "file": "branche_purger/isolement_combat.json",
+      "situationId": "branche_purger/isolement_combat",
+      "type": "battle"
+    },
+    {
+      "file": "branche_purger/fin_seul.json",
+      "situationId": "branche_purger/fin_seul",
+      "type": "success"
     }
   ]
 }

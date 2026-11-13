@@ -1,0 +1,31 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "intro",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous vous réveillez sur un carrelage blanc fendu. Au plafond, les néons clignotent en rythme, comme une respiration. L'asile Sainte-Anathème est en ruine depuis un siècle, et pourtant chaque couloir est propre. Trop propre.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Maëlle",
+      "sentence": "Rask ? Iden ? ...Escouade, au rapport.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Seul l'écho vous répond, et il ne répète pas vos mots. Il chante. Une mélodie impossible, faite de notes qui n'existent pas, qui se glisse derrière vos yeux.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Sur le mur, quelqu'un a écrit avec ses ongles : LE DIAPASON EST EN BAS. NE L'ÉCOUTE PAS. NE L'ÉCOUTE PAS. NE",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "choix_initial"
+}

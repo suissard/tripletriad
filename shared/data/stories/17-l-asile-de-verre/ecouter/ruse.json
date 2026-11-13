@@ -1,0 +1,31 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "ecouter/ruse",
+  "dialogues": [
+    {
+      "name": "Maëlle",
+      "sentence": "Je... je l'entends. Montrez-moi. Je veux voir la Voix de plus près.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Le Premier Auditeur",
+      "sentence": "Bien sûr. Tout le monde finit par vouloir voir.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "On vous conduit jusqu'au bord du pli. Dans votre poche, votre main serre la charge thermique de l'escouade. La Voix-Qui-Plie s'approche, curieuse, et lit vos pensées une seconde trop tard.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "La Voix-Qui-Plie",
+      "sentence": "TU MENS. COMME C'EST... DÉLICIEUX.",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "ecouter/combat"
+}

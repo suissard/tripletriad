@@ -1,0 +1,31 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "intro",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "La baie de l'ancienne Marseille dort sous vingt mètres d'eau. Entre les tours effondrées, le corail a repoussé, et chaque printemps les clans de l'Exode Pélagique y déposent leurs œufs : des milliers de perles translucides accrochées aux façades noyées.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Cette année, l'eau a un goût de métal. Sur la rive, une tribu des Héritiers des Cendres a hissé un réacteur fissuré sur un autel de ferraille. Ils chantent autour de lui. Il fuit dans la mer.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Ondrel",
+      "sentence": "[Traducteur neuronal] Chasseuse. Les premiers œufs blanchissent. Encore deux marées et la ponte entière sera stérile.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Tisseuse Ylléa",
+      "sentence": "[Traducteur] Le Synode m'a confié cette baie. Je ne la laisserai pas devenir un tombeau. Mais chaque chemin a son prix, et c'est à toi de choisir celui que nous paierons.",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "choix_initial"
+}

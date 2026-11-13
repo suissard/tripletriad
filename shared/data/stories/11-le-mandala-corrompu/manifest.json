@@ -127,6 +127,16 @@
       "file": "nouvelle_etape_2.json",
       "situationId": "nouvelle_etape_2",
       "type": "situation-choice"
+    },
+    {
+      "file": "s6c.json",
+      "situationId": "s6c",
+      "type": "success"
+    },
+    {
+      "file": "s7c.json",
+      "situationId": "s7c",
+      "type": "game-over"
     }
   ]
 }
