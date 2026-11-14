@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "branche_contraindre/acceptation",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous cessez de lutter pour un confinement parfait. Le bouclier retiendra la dissonance quelques semaines. Peut-être quelques mois. Ce sera suffisant pour trouver mieux.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Voix du Chœur",
+      "sentence": "Une solution temporaire reste une solution. Nous chercherons avec vous.",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "branche_contraindre/fin_temporaire"
+}

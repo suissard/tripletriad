@@ -4,6 +4,7 @@ import {
   EFFECT_TYPES, 
   SKILL_TRIGGERS 
 } from './constants';
+import { DEBUG_SKILLS } from './debug';
 
 /**
  * Skill: Teleportation
@@ -22,7 +23,7 @@ const handler: SkillHandler = {
 
   execute(ctx: SkillContext) {
     const { board, x, y, targets } = ctx;
-    console.log(`[Targeting-Flow] [teleportation.ts] execute called at source x: ${x}, y: ${y}. Targets received:`, JSON.stringify(targets));
+    DEBUG_SKILLS && console.log(`[Targeting-Flow] [teleportation.ts] execute called at source x: ${x}, y: ${y}. Targets received:`, JSON.stringify(targets));
     
     if (!targets || targets.length === 0) {
       console.warn(`[Targeting-Flow] [teleportation.ts] execute aborted: No targets provided!`);
@@ -33,7 +34,7 @@ const handler: SkillHandler = {
     const tx = target.x;
     const ty = target.y;
 
-    console.log(`[Targeting-Flow] [teleportation.ts] Target 0 resolves to coordinates: (${tx}, ${ty})`);
+    DEBUG_SKILLS && console.log(`[Targeting-Flow] [teleportation.ts] Target 0 resolves to coordinates: (${tx}, ${ty})`);
 
     if (
       ty >= 0 && ty < board.length && 
@@ -46,14 +47,14 @@ const handler: SkillHandler = {
         return;
       }
 
-      console.log(`[Targeting-Flow] [teleportation.ts] Moving card "${card.data?.name || 'unknown'}" from (${x}, ${y}) to empty slot (${tx}, ${ty})`);
+      DEBUG_SKILLS && console.log(`[Targeting-Flow] [teleportation.ts] Moving card "${card.data?.name || 'unknown'}" from (${x}, ${y}) to empty slot (${tx}, ${ty})`);
       board[ty][tx] = card;
       board[y][x] = null;
 
       if ((ctx as any).alerts) {
         (ctx as any).alerts.push('TELEPORT!');
       }
-      console.log(`[Targeting-Flow] [teleportation.ts] Teleport successful!`);
+      DEBUG_SKILLS && console.log(`[Targeting-Flow] [teleportation.ts] Teleport successful!`);
     } else {
       console.error(`[Targeting-Flow] [teleportation.ts] Destination (${tx}, ${ty}) is INVALID: out of bounds or not empty on board! Board state at destination:`, board[ty] ? board[ty][tx] : 'out of bounds');
     }

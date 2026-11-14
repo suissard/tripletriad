@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "branche_purger/isolement",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous coupez tous vos liens avec le Chœur. Plus de correctifs, plus de voix rassurantes. Seulement vous, face à la Chanson.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Voix de l'Incursion",
+      "sentence": "Enfin seuls. Tu sais que c'est exactement ce que nous voulions ?",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "branche_purger/isolement_combat"
+}

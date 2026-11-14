@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "choix_initial",
+  "text": "La Chanson se fait plus forte. Que faites-vous ?",
+  "options": [
+    {
+      "text": "Suivre la Chanson jusqu'à sa source",
+      "nextSituationId": "ecouter/descente"
+    },
+    {
+      "text": "Fuir par les tunnels de service",
+      "nextSituationId": "fuir/tunnels"
+    },
+    {
+      "text": "Chercher le Diapason pour le détruire",
+      "nextSituationId": "saboter/couloir"
+    }
+  ]
+}

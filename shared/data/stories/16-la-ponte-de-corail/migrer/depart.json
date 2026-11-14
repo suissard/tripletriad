@@ -1,0 +1,31 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "migrer/depart",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Toute la nuit, les Bâtisseurs de corail détachent les œufs et les enferment dans des bio-sacs gonflés d'eau pure. À l'aube, un convoi de milliers de sphères lumineuses quitte la baie.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Tisseuse Ylléa",
+      "sentence": "[Traducteur] Le Récif d'Ambre est à trois jours de nage. Les courants nous aideront... si rien ne nous barre la route.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Au détroit, quelque chose barre la route. Un chalutier rouillé des Ferrailleurs a tendu ses filets d'une rive à l'autre. Il racle le fond à la recherche de métal noyé.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Capitaine Sloane",
+      "sentence": "Tiens, tiens. Des calamars qui déménagent ? Ces petites billes brillantes, ça se revend combien au marché de la Ceinture ?",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "migrer/choix_chalutier"
+}

@@ -145,22 +145,21 @@ const chartOptions = ref({
 
 onMounted(async () => {
   try {
-    const [usersRes, cardsRes, questsRes] = await Promise.all([
-      strapiService.request('GET', '/users'),
-      strapiService.request('GET', '/cards?pagination[pageSize]=500'),
+    // Strapi pagine par défaut (25 éléments) : on lit les totaux et on récupère toutes les cartes.
+    const [usersCount, cardsRes, questsRes] = await Promise.all([
+      strapiService.request('GET', '/users/count'),
+      strapiService.fetchAll('cards', { fields: ['rarity'] }),
       strapiService.request('GET', '/quest-templates?pagination[pageSize]=1')
     ]);
 
-    if (usersRes.error) throw new Error(usersRes.error.message || 'Failed to fetch users');
+    if (usersCount?.error) throw new Error(usersCount.error.message || 'Failed to fetch users');
     if (cardsRes.error) throw new Error(cardsRes.error.message || 'Failed to fetch cards');
 
-    const usersData = Array.isArray(usersRes) ? usersRes : (usersRes.data || []);
-    const cardsData = Array.isArray(cardsRes) ? cardsRes : (cardsRes.data || []);
-    const questsData = Array.isArray(questsRes) ? questsRes : (questsRes.data || []);
+    const cardsData = cardsRes.data || [];
 
-    stats.value.users = usersRes?.meta?.pagination?.total ?? usersData.length;
-    stats.value.cards = cardsRes?.meta?.pagination?.total ?? cardsData.length;
-    stats.value.questTemplates = questsRes?.meta?.pagination?.total ?? questsData.length;
+    stats.value.users = typeof usersCount === 'number' ? usersCount : 0;
+    stats.value.cards = cardsData.length;
+    stats.value.questTemplates = questsRes?.meta?.pagination?.total ?? 0;
 
     if (cardsData.length > 0) {
       const rarities = {};

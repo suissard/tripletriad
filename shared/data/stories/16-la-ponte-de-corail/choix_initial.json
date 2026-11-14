@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "choix_initial",
+  "text": "Comment sauver la ponte ?",
+  "options": [
+    {
+      "text": "Frapper le sanctuaire en remontant par les égouts",
+      "nextSituationId": "frapper/infiltration"
+    },
+    {
+      "text": "Migrer la ponte vers le Récif d'Ambre, au large",
+      "nextSituationId": "migrer/depart"
+    },
+    {
+      "text": "Laisser la Tisseuse sonder l'esprit de la Techno-Chamane",
+      "nextSituationId": "sonder/contact"
+    }
+  ]
+}

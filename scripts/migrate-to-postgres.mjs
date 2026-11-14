@@ -365,7 +365,7 @@ async function main() {
     info('Exécution dans le conteneur...');
     try {
         const output = execSync(
-            'docker.compose exec -T terra-nullius-strapi node /opt/app/_tmp_pg_inject.cjs',
+            'docker compose exec -T terra-nullius-strapi node /opt/app/_tmp_pg_inject.cjs',
             { cwd: ROOT, encoding: 'utf-8', timeout: 120000 }
         );
         console.log(output);
@@ -376,7 +376,7 @@ async function main() {
     }
 
     // Cleanup
-    try { execSync('docker.compose exec -T terra-nullius-strapi rm -f /opt/app/_tmp_pg_inject.cjs', { cwd: ROOT, stdio: 'pipe' }); } catch (e) { /* ignore */ }
+    try { execSync('docker compose exec -T terra-nullius-strapi rm -f /opt/app/_tmp_pg_inject.cjs', { cwd: ROOT, stdio: 'pipe' }); } catch (e) { /* ignore */ }
     try { execSync(`rm -f "${scriptPath}"`, { stdio: 'pipe' }); } catch (e) { /* ignore */ }
 
     // ═══════════════════════════════════════════════════════════════════════

@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "branche_contraindre/diversion",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous créez un sous-système leurre, un jardin de données vide, et vous y ouvrez une porte grande ouverte. La dissonance s'y précipite comme l'eau dans une pente.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Vous scellez le sous-système derrière elle. À l'intérieur, la Chanson tourne en rond dans un espace qui ne mène nulle part.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "branche_contraindre/fin_quarantaine"
+}

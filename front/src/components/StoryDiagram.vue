@@ -68,6 +68,9 @@ import { useRouter } from 'vue-router'
 import { NODE_TYPES } from '../config/story-nodes.js'
 
 const STORY_MODULES = import.meta.glob('../../../shared/data/stories/*/manifest.json', { eager: true })
+// Les manifestes ne listent que {file, situationId, type} : les liens (options, nextSituationId,
+// onWin/onLose) sont dans les fichiers de situation eux-mêmes.
+const SITUATION_MODULES = import.meta.glob('../../../shared/data/stories/*/**/*.json', { eager: true })
 
 const props = defineProps({ storyFolder: String })
 const router = useRouter()
@@ -128,16 +131,26 @@ function loadStory() {
   try {
     // Find matching manifest from pre-loaded modules
     let m = null
+    let manifestPath = null
     for (const [path, mod] of Object.entries(STORY_MODULES)) {
-      if (path.includes(props.storyFolder)) {
+      if (path.split('/').at(-2) === props.storyFolder) {
         m = mod.default
+        manifestPath = path
         break
       }
     }
     if (!m) throw new Error(`Manifest not found for ${props.storyFolder}`)
     title.value = m.title || props.storyFolder
 
-    const situations = m.situations || []
+    const storyDir = manifestPath.slice(0, manifestPath.lastIndexOf('/') + 1)
+    const situations = (m.situations || []).map(s => {
+      const data = SITUATION_MODULES[storyDir + s.file]?.default || {}
+      // Le type fait foi dans le fichier ("story.situation-choice") ; les manifestes l'écrivent
+      // soit "situation-choice", soit "choice" selon les histoires.
+      const rawType = data.__component?.replace(/^story\./, '') || s.type || ''
+      const type = rawType.startsWith('situation-') ? rawType : `situation-${rawType}`
+      return { ...data, ...s, type }
+    })
     const graph = {}
     const childrenOf = {}
     situations.forEach(s => {
@@ -164,7 +177,7 @@ function loadStory() {
       const { id, level } = queue.shift()
       if (visited.has(id)) continue
       visited.add(id)
-      nodeLevel[id] = level
+      nodeLevel[id] = level;
       (childrenOf[id] || []).forEach(c => {
         if (!visited.has(c)) queue.push({ id: c, level: level + 1 })
       })
@@ -267,7 +280,7 @@ function loadStory() {
     })
 
   } catch (e) {
-    title.value = 'Erreur'
+    title.value = `Erreur : ${e.message}`
     console.error(e)
   } finally {
     loading.value = false

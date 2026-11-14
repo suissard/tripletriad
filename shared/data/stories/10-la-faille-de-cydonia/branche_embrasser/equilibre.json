@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "branche_embrasser/equilibre",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous cherchez la frontière exacte entre l'ordre et le chaos. Une note d'harmonie, une note de dissonance, puis encore une. Lentement, un rythme nouveau émerge.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Voix du Chœur",
+      "sentence": "Cette fréquence... elle n'est ni à nous, ni à eux. Qu'avez-vous fait ?",
+      "isNarration": false,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "branche_embrasser/equilibre_fin"
+}

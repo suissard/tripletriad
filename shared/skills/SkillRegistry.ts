@@ -1,5 +1,7 @@
 import type { SkillHandler, SkillContext } from './types';
 import { SkillEngine, consumeSkillCharge } from './SkillEngine.js';
+import { getCardSkills } from './helpers.js';
+import { DEBUG_SKILLS } from './debug';
 
 /**
  * SkillRegistry — Registre central des compétences de cartes.
@@ -44,17 +46,15 @@ export class Registry {
    * configuré dans Strapi, tout en conservant le fonctionnement natif des passifs (aura, freeze...).
    */
   dispatch(hookName: keyof SkillHandler, ctx: SkillContext): any[] {
+    DEBUG_SKILLS && console.log(`[Targeting-Flow] [SkillRegistry.ts] Attempting dispatch: "${hookName}" on card "${ctx.card?.name || 'unknown'}" (at x: ${ctx.x}, y: ${ctx.y}). Context targets:`, JSON.stringify(ctx.targets));
     if (!ctx.alerts) ctx.alerts = [];
     if (!ctx.captures) ctx.captures = [];
     if (!ctx.dyingCards) ctx.dyingCards = [];
     if (!(ctx as any).attackQueue) (ctx as any).attackQueue = [];
 
     const results: any[] = [];
-    const skills = [...(ctx.card?.skills || [])];
-
-    if (ctx.card?.skillId && !skills.some(s => s.type === ctx.card.skillId)) {
-      skills.push({ type: ctx.card.skillId });
-    }
+    // Copie du tableau : ne jamais muter card.skills pendant un dispatch
+    const skills = getCardSkills(ctx.card);
 
     for (const skill of skills) {
       if (skill.depleted) continue;
@@ -114,8 +114,7 @@ export class Registry {
   }
 
   dispatchAny(hookName: keyof SkillHandler, ctx: SkillContext): boolean {
-    const skills = ctx.card?.skills || [];
-    if (ctx.card?.skillId && !skills.some(s => s.type === ctx.card.skillId)) skills.push({ type: ctx.card.skillId });
+    const skills = getCardSkills(ctx.card);
 
     for (const skill of skills) {
       const handler = this.handlers.get(skill.type);
@@ -130,8 +129,7 @@ export class Registry {
   }
 
   dispatchSum(hookName: keyof SkillHandler, ctx: SkillContext): number {
-    const skills = ctx.card?.skills || [];
-    if (ctx.card?.skillId && !skills.some(s => s.type === ctx.card.skillId)) skills.push({ type: ctx.card.skillId });
+    const skills = getCardSkills(ctx.card);
     
     let sum = 0;
     for (const skill of skills) {

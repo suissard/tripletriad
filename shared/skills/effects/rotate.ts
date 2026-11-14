@@ -1,5 +1,6 @@
 import type { Effect } from './Effect';
 import type { SkillContext } from '../types';
+import { DEBUG_SKILLS } from '../debug';
 
 export const rotateEffect: Effect = {
   id: 'ROTATE',
@@ -16,7 +17,7 @@ export const rotateEffect: Effect = {
     cellsToRotate.forEach(cell => {
       if (!cell || !cell.data) return;
 
-      console.log(`[SkillEngine:Rotate] Rotating card "${cell.data.name}". Direction: ${direction > 0 ? 'CW' : 'CCW'} x${steps}`);
+      DEBUG_SKILLS && console.log(`[SkillEngine:Rotate] Rotating card "${cell.data.name}". Direction: ${direction > 0 ? 'CW' : 'CCW'} x${steps}`);
 
       for (let i = 0; i < steps; i++) {
         const old = {

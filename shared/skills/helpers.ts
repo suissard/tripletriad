@@ -34,6 +34,20 @@ export function isInBounds(board, x, y) {
 }
 
 /**
+ * Retourne la liste des skills d'une carte SANS muter la carte.
+ * Ajoute le `skillId` legacy (ancien format mono-skill) s'il n'est pas déjà présent.
+ * Les objets skill restent les mêmes références (les compteurs de charges sont donc
+ * bien persistés sur la carte), seul le tableau est une copie.
+ */
+export function getCardSkills(card): any[] {
+  const skills = Array.isArray(card?.skills) ? [...card.skills] : [];
+  if (card?.skillId && !skills.some(s => s?.type === card.skillId)) {
+    skills.push({ type: card.skillId });
+  }
+  return skills;
+}
+
+/**
  * Récupère le HP effectif d'une carte, avec fallback sur defaultHp.
  */
 export function getEffectiveHp(cardData) {
@@ -119,13 +133,17 @@ export function getTargetCells(ctx) {
   const { ox, oy } = origin;
 
   // 2. Lire les patterns (composant répétable → [{value: 'adjacent'}, ...] ou ['adjacent', ...])
-  const rawPatterns = skill.patterns || [{ value: SKILL_PATTERNS.ADJACENT }];
+  // `patterns` / `filter` sont les champs canoniques (schéma Strapi game.skill).
+  // `target_pattern` / `target_filter` (format modulaire de l'éditeur admin) servent de repli.
+  const rawPatterns = (Array.isArray(skill.patterns) && skill.patterns.length > 0)
+    ? skill.patterns
+    : [{ value: skill.target_pattern || SKILL_PATTERNS.ADJACENT }];
   const patternValues: string[] = rawPatterns.map(p =>
     typeof p === 'string' ? p : (p.value || SKILL_PATTERNS.ADJACENT)
   );
 
   const range = skill.range || 1;
-  const filter = skill.filter || SKILL_FILTERS.NONE;
+  const filter = skill.filter || skill.target_filter || SKILL_FILTERS.NONE;
 
   const cellsMap = new Map<string, { x: number, y: number, cell: any }>();
 

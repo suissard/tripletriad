@@ -1,0 +1,15 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "saboter/choix_miroir",
+  "text": "Les reflets se rapprochent.",
+  "options": [
+    {
+      "text": "Briser les miroirs pour fermer leur passage",
+      "nextSituationId": "saboter/combat"
+    },
+    {
+      "text": "Avancer les yeux fermés, sans rien regarder",
+      "nextSituationId": "saboter/aveugle"
+    }
+  ]
+}

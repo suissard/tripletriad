@@ -1,0 +1,557 @@
+{
+  "title": "La Réponse des Ferrailleurs",
+  "description": "Un signal mystérieux venu des profondeurs de la Ceinture entraîne les ferrailleurs dans une aventure inattendue.",
+  "situations": [
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s0",
+      "dialogues": [
+        {
+          "name": "Narration",
+          "sentence": "La Ceinture d'Orion s'étend comme un océan de débris, un cimetière spatial où seuls les Ferrailleurs osent naviguer. Ici, chaque morceau de métal a une histoire.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Rook",
+          "sentence": "Encore un signal fantôme ? On a parcouru trois secteurs pour rien, les gars. Le prochain coup j'explose une station martienne et on arrête de tourner en rond.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Kip",
+          "sentence": "Non, celui-ci est différent. Fréquence Omni-Réseau, mais ancienne... un artefact abandonné peut-être. Ou un piège.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Vex",
+          "sentence": "Un artefact qui émet depuis les profondeurs de la Ceinture... Intéressant. Si c'est un piège martien, ils ont mis beaucoup de moyens pour peu de résultat.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Narration",
+          "sentence": "Le Valkyrie dérive doucement dans le vide, ses scanners braqués vers l'épave invisible qui les appelle. Le silence spatial cache toujours quelque chose.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Rook",
+          "sentence": "J'ai ma réponse. On y va ?",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s1"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "s1",
+      "text": "Comment aborder ce signal mystérieux ?",
+      "options": [
+        {
+          "text": "Foncer vers la source sans hésiter (Rook)",
+          "nextSituationId": "s2"
+        },
+        {
+          "text": "S'approcher discrètement, rester prudent (Kip)",
+          "nextSituationId": "s4"
+        },
+        {
+          "text": "Tenter d'analyser le signal avant de se déplacer (Vex)",
+          "nextSituationId": "s5"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s2",
+      "dialogues": [
+        {
+          "name": "Narration",
+          "sentence": "Rook pousse les moteurs à fond. Le Valkyrie fend le nuage de débris, laissant derrière lui un sillage de poussière stellaire.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Rook",
+          "sentence": "Accrochez vos ceintures ! On va pas laisser passer une occasion comme celle-là !",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Kip",
+          "sentence": "L'angle d'approche est hasardeux… Rook, ralentis au moins quand on franchira l'ombre de l'astéroïde.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Vex",
+          "sentence": "Il a raison sur le principe. Mais regarde… le signal s'amplifie. On n'a plus le choix : c'est maintenant.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Narration",
+          "sentence": "Un bruit mécanique résonne dans la coque. Ce n'est pas un moteur ni une alarme. Quelque chose les suit.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Rook",
+          "sentence": "…Les gars, c'était vous ce bruit ?",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Kip",
+          "sentence": "Négatif. Les scanners sont aveugles. Quoi que ce soit, ça émet dans une fréquence qu'on ne capte pas.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "s3"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "s3",
+      "enemyDeckName": "Défenses Automatiques du Valkyrie",
+      "onWinSituationId": "s3_win",
+      "onLoseSituationId": "fin_lose"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s3_win",
+      "dialogues": [
+        {
+          "name": "Narration",
+          "sentence": "Une nuée de drones-traqueurs se détache de la coque comme des tiques. Le combat est bref et brutal ; le dernier drone s'écrase contre le hublot dans une gerbe d'étincelles.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Kip",
+          "sentence": "Des drones Omni. Ils nous marquaient depuis la sortie du champ de débris. Quelqu'un voulait savoir qui répondrait au signal.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Rook",
+          "sentence": "Eh bien maintenant il sait. Et il sait aussi qu'on mord.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s6"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s4",
+      "dialogues": [
+        {
+          "name": "Narration",
+          "sentence": "Kip ordonne le silence radio. Les panneaux s'éteignent un par un et le Valkyrie dérive dans le noir, invisible parmi les débris.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Kip",
+          "sentence": "Moteurs au minimum. Scanners passifs uniquement. S'il y a quelqu'un là-bas, on ne lui donnera pas le plaisir de nous voir.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Rook",
+          "sentence": "Tu veux qu'on reste plantés là ? La source du signal pourrait être n'importe où…",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Kip",
+          "sentence": "Non. Le signal rebondit sur le cratère. J'ai une coordonnée. Regarde ton écran, Rook.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Vex",
+          "sentence": "Intéressant… les signatures correspondent à du matériel Omni-Réseau. Dormant. Très ancien.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Narration",
+          "sentence": "Sur l'écran de Kip, une image se dessine : une structure massive, enfouie dans un cratère d'astéroïde. Le signal jaillit de son centre comme un cri étouffé.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Kip",
+          "sentence": "Ça… ça ne ressemble à rien de ce que j'ai jamais vu. Et ça nous observe en retour.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "s6"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s5",
+      "dialogues": [
+        {
+          "name": "Narration",
+          "sentence": "Vex lance le balayage spectral. Les ondes se déploient comme une toile invisible, cherchant la source du signal.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Vex",
+          "sentence": "Fréquence basse, codage cyclique… C'est un dialecte Omni-Réseau. Très ancien. Preste obsolète.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Rook",
+          "sentence": "Traduis. Qu'est-ce que ça dit ?",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Vex",
+          "sentence": "…Un appel de détresse. Émis il y a des décennies. Mais le signal bouge, comme s'il était réactivé.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Kip",
+          "sentence": "Réactivé ? Par quoi ? Par qui ?",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narration",
+          "sentence": "Le balayage de Vex capte enfin la source : une station enfouie dans un cratère. Des lumières faibles pulsent à sa surface, comme un cœur qui bat.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Vex",
+          "sentence": "On va devoir aller voir de plus près. Qu'on soit prêts ou pas.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s6"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s6",
+      "dialogues": [
+        {
+          "name": "Narration",
+          "sentence": "Quelle que soit l'approche, la même vérité se révèle : au fond d'un cratère d'astéroïde, une ancienne station Omni-Réseau dérive dans l'ombre.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Kip",
+          "sentence": "C'est bien une station Omni-Réseau. Mais… elle est vieille de plusieurs décennies au moins.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Vex",
+          "sentence": "L'appel de détresse n'est pas un enregistrement. Il est réactivé. Quelque chose la réveille.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Rook",
+          "sentence": "Donc soit il y a quelqu'un vivant là-bas, soit il y a quelque chose. Et j'aime aucun des deux.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Narration",
+          "sentence": "Un éclat de lumière bleue pulse à la surface de la station. Des points lumineux apparaissent et disparaissent sur sa coque, comme des yeux dans l'obscurité.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Kip",
+          "sentence": "Systèmes internes activés. La station s'est mise en veille prolongée et quelque chose vient de la réactiver.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Vex",
+          "sentence": "Bien. Deux options : on se fait accueillir ou on surprend. À nous de choisir.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s7"
+    },
+    {
+      "__component": "story.situation-choice",
+      "situationId": "s7",
+      "text": "Comment aborder la station ?",
+      "options": [
+        {
+          "text": "Aborder par le combat — défoncer l'entrée (Rook)",
+          "nextSituationId": "s8_pre"
+        },
+        {
+          "text": "S'infiltrer discrètement — trouver un passage caché (Kip/Vex)",
+          "nextSituationId": "s10"
+        }
+      ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s8_pre",
+      "dialogues": [
+        {
+          "name": "Narration",
+          "sentence": "Rook pousse les moteurs. Le Valkyrie fonce dans le sas. Le métal hurle… Trois sentinelles Omni surgissent de l'ombre.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Rook",
+          "sentence": "Ça c'est de l'accueil ! On va leur montrer comment les Ferrailleurs frappent !",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Kip",
+          "sentence": "Ils sont trois. Sortez les decks !",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "s8"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "s8",
+      "enemyDeckName": "Defenses_Station_OMNI",
+      "onWinSituationId": "s9",
+      "onLoseSituationId": "fin_lose"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s9",
+      "dialogues": [
+        {
+          "name": "Narration",
+          "sentence": "Les sentinelles tombent une par une. Le chemin vers l'intérieur de la station est dégagé, mais le vacarme a attiré l'attention de quelque chose de plus gros.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Rook",
+          "sentence": "Un de plus pour le score ! Et maintenant on avance.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Vex",
+          "sentence": "Attention. Les vibrations ont réveillé ce qui dormait plus profond.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narration",
+          "sentence": "Ils pénètrent dans le vestibule principal. Au centre, un noyau central pulse d'une lumière bleuâtre, comme un cœur organique enfermé dans du métal.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Kip",
+          "sentence": "Ce nœud d'énergie… il maintient la station en vie. Mais il y a quelque chose dedans. Quelque chose qui nous observe.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "s12"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s10",
+      "dialogues": [
+        {
+          "name": "Narration",
+          "sentence": "Kip repère un conduit d'aération endommagé sur le flanc de la station. Assez large pour ramper.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Kip",
+          "sentence": "Par ici. Le conduit mène à la section centrale. Moins risqué que de casser la porte.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Rook",
+          "sentence": "Ramper. Génial. Mon dos va adorer.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Narration",
+          "sentence": "Ils rampent dans le conduit étroit, chacun retenant son souffle. Trois drones-sentinelles patrouillent en contrebas.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Kip",
+          "sentence": "Ne bougez pas. Je peux les désactiver un par un. Rook, Vex — attendez mon signal.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Narration",
+          "sentence": "Un clic. Un drone s'éteint puis un autre. Le dernier tourne sur lui-même et se fige. Le passage est libre.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Vex",
+          "sentence": "Bien joué, Kip. Je commençais à croire que j'allais m'asphyxier dans ce tuyau.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s11"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s11",
+      "dialogues": [
+        {
+          "name": "Narration",
+          "sentence": "Ils débouchent dans une salle circulaire aux parois lisses. Au centre, un noyau d'énergie pulse lentement, comme un vivant.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Vex",
+          "sentence": "Le signal vient d'ici. Ce n'est pas un appel de détresse… c'est une invitation.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Kip",
+          "sentence": "Le noyau est instable mais fonctionnel. Il attend quelque chose. Ou quelqu'un.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Rook",
+          "sentence": "Quoi qu'il attende, je sens pas que ça soit pour nous faire un câlin.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Narration",
+          "sentence": "Le noyau pulse plus vite. Une conscience émerge de la lumière bleue, les observant sans les juger.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s12"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s12",
+      "dialogues": [
+        {
+          "name": "Narration",
+          "sentence": "Combat ou infiltration, tous convergent vers le même lieu : le noyau central de la station. La lumière bleue pulse comme un cœur et révèle une conscience ancienne.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Kip",
+          "sentence": "Le noyau est stable. On peut soit l'activer — ce qui libérera la station et son contenu — soit l'éteindre et la laisser dormir.",
+          "isNarration": false,
+          "position": "right"
+        },
+        {
+          "name": "Vex",
+          "sentence": "Si on l'active, l'Hégémonie Martienne captera le signal et accourra. Si on l'éteint, on perd une technologie inestimable.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Rook",
+          "sentence": "On est pas venus jusqu'ici pour laisser tomber maintenant. On active.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Narration",
+          "sentence": "Le noyau pulse violemment. Une entité en émerge — le Gardien du Noyau, une intelligence Omni-Réseau qui veillait sur cette station depuis des décennies.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Gardien du Noyau",
+          "sentence": "Qui ose réveiller le dernier bastion de l'Omni-Réseau ? Prouvez votre valeur par les cartes… ou disparaissez.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s13_pre"
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s13_pre",
+      "dialogues": [
+        {
+          "name": "Narration",
+          "sentence": "Le Gardien déploie ses défenses. Un deck de cartes Omni-Réseau se matérialise autour de vous.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Gardien du Noyau",
+          "sentence": "Les Ferrailleurs… j'ai attendu des décennies un adversaire digne de ce nom. Montrez-moi votre valeur.",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Rook",
+          "sentence": "On va pas te décevoir !",
+          "isNarration": false,
+          "position": "left"
+        },
+        {
+          "name": "Kip",
+          "sentence": "Préparez-vous. Ses défenses seront solides.",
+          "isNarration": false,
+          "position": "right"
+        }
+      ],
+      "nextSituationId": "s13"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "s13",
+      "enemyDeckName": "Gardien_Noyau_OMNI",
+      "onWinSituationId": "fin_win",
+      "onLoseSituationId": "fin_lose"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "fin_win",
+      "message": "Le Gardien s'incline. La station Omni-Réseau est à vous.\n\nLes Ferrailleurs prennent le contrôle d'une mine de technologie ancienne : armes, boucliers, et des cartes d'une puissance inédite.\n\nMais vous savez que l'Hégémonie Martienne ne tardera pas à sentir le réveil de la station.\n\nLa course au trésor a commencé. 🎴"
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "fin_lose",
+      "message": "Les systèmes du Valkyrie s'éteignent un à un. Dans le silence revenu, la station Omni reprend son appel, patiente, pour le prochain équipage assez fou pour répondre.\n\nLes Ferrailleurs ne rentreront pas ce soir."
+    }
+  ]
+}

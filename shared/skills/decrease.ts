@@ -5,6 +5,7 @@ import {
   SKILL_TRIGGERS, 
   SKILL_PATTERNS 
 } from './constants';
+import { DEBUG_SKILLS } from './debug';
 
 /**
  * Skill: Decrease (Décroissance)
@@ -34,7 +35,7 @@ const handler: SkillHandler = {
     targets.forEach(({ x, y, cell }) => {
       if (!cell || !cell.data) return;
 
-      console.log(`[Skill:Decrease] Processing card "${cell.data.name}" at (${x},${y}). Decrement: -${decrement} (trigger: ${skill.trigger || 'default'})`);
+      DEBUG_SKILLS && console.log(`[Skill:Decrease] Processing card "${cell.data.name}" at (${x},${y}). Decrement: -${decrement} (trigger: ${skill.trigger || 'default'})`);
 
       const sides = ['top', 'right', 'bottom', 'left'] as const;
       const oldValues = { top: cell.data.topValue, right: cell.data.rightValue, bottom: cell.data.bottomValue, left: cell.data.leftValue };
@@ -63,7 +64,7 @@ const handler: SkillHandler = {
         }
       });
 
-      console.log(`[Skill:Decrease] Card "${cell.data.name}" values updated:`, 
+      DEBUG_SKILLS && console.log(`[Skill:Decrease] Card "${cell.data.name}" values updated:`, 
         `${oldValues.top}/${oldValues.right}/${oldValues.bottom}/${oldValues.left} -> ` +
         `${cell.data.topValue}/${cell.data.rightValue}/${cell.data.bottomValue}/${cell.data.leftValue}`
       );

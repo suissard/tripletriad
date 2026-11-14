@@ -305,10 +305,15 @@ const closeEditor = () => {
   formData.value = {};
 };
 
+// Le plugin users-permissions n'accepte que l'id numérique (le documentId renvoie une 500)
+const getIdentifier = (item) => collectionName.value === 'users'
+  ? item.id
+  : (item.documentId || item.id);
+
 const saveItem = async () => {
   try {
     const isUpdate = !!(currentItem.value.id || currentItem.value.documentId);
-    const identifier = currentItem.value.documentId || currentItem.value.id;
+    const identifier = getIdentifier(currentItem.value);
 
     let payload = { ...formData.value };
     
@@ -342,7 +347,7 @@ const saveItem = async () => {
 const deleteItem = async (item) => {
   if (await confirmAction('Supprimer l\'élément', 'Êtes-vous sûr de vouloir supprimer cet élément ?')) {
     try {
-      const identifier = item.documentId || item.id;
+      const identifier = getIdentifier(item);
       const res = await strapiService.request('DELETE', `/${collectionName.value}/${identifier}`);
       if (res && res.error) throw new Error(res.error.message || "Erreur de suppression");
       notificationStore.addNotification('system', 'Élément supprimé.', 'info');

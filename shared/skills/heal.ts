@@ -6,6 +6,7 @@ import {
   SKILL_PATTERNS,
   SKILL_FILTERS 
 } from './constants';
+import { DEBUG_SKILLS } from './debug';
 
 /**
  * Skill: Heal (Soin)
@@ -38,7 +39,7 @@ const handler: SkillHandler = {
         let oldHp = cell.data.hp !== undefined ? cell.data.hp : (cell.data.defaultHp || 3);
         let hp = oldHp + skill.value;
         cell.data.hp = hp;
-        console.log(`[Skill:Heal] Card "${cell.data.name}" at (${x},${y}) healed: ${oldHp} -> ${hp} (trigger: ${skill.trigger || 'default'})`);
+        DEBUG_SKILLS && console.log(`[Skill:Heal] Card "${cell.data.name}" at (${x},${y}) healed: ${oldHp} -> ${hp} (trigger: ${skill.trigger || 'default'})`);
       }
     }
   }

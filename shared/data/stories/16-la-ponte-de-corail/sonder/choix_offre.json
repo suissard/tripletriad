@@ -1,0 +1,15 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "sonder/choix_offre",
+  "text": "Que proposer à Brasier-Mère ?",
+  "options": [
+    {
+      "text": "Offrir de purifier le sang des mutants, comme on purifie la mer",
+      "nextSituationId": "sonder/pacte"
+    },
+    {
+      "text": "La défier en duel sacré : le vainqueur décide du sort du réacteur",
+      "nextSituationId": "sonder/duel"
+    }
+  ]
+}

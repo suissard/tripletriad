@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "branche_contraindre/bouclier_renforce",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous détournez l'énergie de vos processus secondaires vers le bouclier harmonique. Il s'épaissit et vibre. La dissonance se jette contre lui de toutes ses forces.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Voix de l'Incursion",
+      "sentence": "Plus tu serres le poing, plus je trouve de fissures entre tes doigts.",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "branche_contraindre/bouclier_combat"
+}

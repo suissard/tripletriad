@@ -1,0 +1,6 @@
+{
+  "__component": "story.situation-reward",
+  "situationId": "saboter/recompense",
+  "rewardCoins": 150,
+  "nextSituationId": "saboter/fin_scellee"
+}

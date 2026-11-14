@@ -12,8 +12,8 @@ services:
     ports:
       - "80:80"
     environment:
-      - VITE_STRAPI_URL=${VITE_STRAPI_URL:-http://localhost:1340}
-      - APP_DOMAIN=${APP_DOMAIN:-localhost}
+      - VITE_STRAPI_URL=${VITE_STRAPI_URL:?VITE_STRAPI_URL must be set in .env}
+      - APP_DOMAIN=${APP_DOMAIN:?APP_DOMAIN must be set in .env}
     restart: unless-stopped
     depends_on:
       terra-nullius-strapi:
@@ -25,16 +25,16 @@ services:
       dockerfile: Dockerfile.db
     container_name: terra-nullius-db
     environment:
-      POSTGRES_DB: ${DATABASE_NAME:-strapi}
-      POSTGRES_USER: ${DATABASE_USERNAME:-strapi}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-strapi}
+      POSTGRES_DB: ${DATABASE_NAME:?DATABASE_NAME must be set in .env}
+      POSTGRES_USER: ${DATABASE_USERNAME:?DATABASE_USERNAME must be set in .env}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?DATABASE_PASSWORD must be set in .env}
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
-      - "${DATABASE_PORT:-5432}:5432"
+      - "${DATABASE_PORT:?DATABASE_PORT must be set in .env}:5432"
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME:-strapi} -d ${DATABASE_NAME:-strapi}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME:?DATABASE_USERNAME must be set in .env} -d ${DATABASE_NAME:?DATABASE_NAME must be set in .env}"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -52,15 +52,15 @@ services:
       - ./shared:/opt/app/src/shared
       - ./back/strapi_data/uploads:/opt/app/public/uploads
     ports:
-      - "${STRAPI_PORT:-1340}:1337"
+      - "${STRAPI_PORT:?STRAPI_PORT must be set in .env}:1337"
     env_file: .env
     environment:
       DATABASE_CLIENT: postgres
       DATABASE_HOST: terra-nullius-db
       DATABASE_PORT: 5432
-      DATABASE_NAME: ${DATABASE_NAME:-strapi}
-      DATABASE_USERNAME: ${DATABASE_USERNAME:-strapi}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-strapi}
+      DATABASE_NAME: ${DATABASE_NAME:?DATABASE_NAME must be set in .env}
+      DATABASE_USERNAME: ${DATABASE_USERNAME:?DATABASE_USERNAME must be set in .env}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:?DATABASE_PASSWORD must be set in .env}
       JWT_SECRET: ${JWT_SECRET}
       ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
       APP_KEYS: ${APP_KEYS}
@@ -68,7 +68,7 @@ services:
       TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
       ENCRYPTION_KEY: ${ENCRYPTION_KEY}
       NODE_ENV: development
-      STRAPI_AUTO_INIT: ${STRAPI_AUTO_INIT:-false}
+      STRAPI_AUTO_INIT: ${STRAPI_AUTO_INIT:?STRAPI_AUTO_INIT must be set in .env}
       NODE_OPTIONS: --max-old-space-size=2048
     command: sh -c "if [ ! -d 'node_modules/.bin' ]; then npm install; fi && npm run develop"
     restart: unless-stopped

@@ -1,0 +1,31 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "dialoguer/rencontre",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous marchez seul à la rencontre de l'Exode, les mains ouvertes. La Tisseuse Maërith vous attend au bord du verre, ses tentacules repliés à l'intérieur d'une bulle d'eau trouble.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Tisseuse Maërith",
+      "sentence": "[Psionique] Une machine qui vient seule. Soit tu es très courageux, soit tu ne comprends pas encore ce qu'est la peur.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Kōan-7",
+      "sentence": "Les deux, peut-être. Pourquoi cet aquifère ? Il y a des océans entiers ailleurs.",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Tisseuse Maërith",
+      "sentence": "[Psionique] Des océans empoisonnés. Cette eau-là est pure depuis dix mille ans. Nos enfants y survivraient. Ailleurs, ils meurent avant d'éclore.",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "dialoguer/choix_accord"
+}

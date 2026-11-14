@@ -1,6 +1,8 @@
 import { SkillContext } from './types';
-import { getTargetCells } from './helpers.js';
+import { getTargetCells, getCardSkills } from './helpers.js';
 import { effectsMap } from './effects/index.js';
+import { SKILL_TRIGGERS } from './constants';
+import { DEBUG_SKILLS } from './debug';
 
 function resolvePatterns(skill: any, defaultPattern: string) {
   if (Array.isArray(skill.patterns) && skill.patterns.length > 0) return skill.patterns;
@@ -12,6 +14,9 @@ function resolvePatterns(skill: any, defaultPattern: string) {
     case 'all_own':
     case 'all_enemy':
       return [{ value: 'all' }];
+    case 'adjacent_friendly':
+    case 'adjacent_enemy':
+      return [{ value: 'adjacent' }];
     default:
       return [{ value: defaultPattern }];
   }
@@ -23,6 +28,7 @@ function resolveFilter(skill: any, defaultFilter: string) {
   switch (skill.target) {
     case 'allies':
     case 'damaged_friendly':
+    case 'adjacent_friendly':
     case 'all_own':
       return 'allies';
     case 'enemies':
@@ -53,12 +59,14 @@ export function consumeSkillCharge(skillConfig: any): void {
 
 export class SkillEngine {
   /**
-   * Translates a legacy skill configuration to the modular architecture format.
+   * Traduit une configuration de skill legacy (type: 'growing', 'heal'...) vers le format
+   * modulaire (effect_type + ciblage). Les valeurs par défaut reproduisent le comportement
+   * documenté des handlers historiques (growing.ts, decrease.ts, heal.ts...).
    */
   public static translateLegacySkill(skill: any): any {
     if (!skill) return null;
 
-    // If it already has effect_type, it's already in the modular format!
+    // Déjà au format modulaire
     if (skill.effect_type) {
       return {
         ...skill,
@@ -77,7 +85,7 @@ export class SkillEngine {
     switch (type) {
       case 'bomb':
         translated.effect_type = 'DAMAGE';
-        translated.trigger = skill.trigger || 'onDeath';
+        translated.trigger = skill.trigger || SKILL_TRIGGERS.ON_DEATH;
         translated.patterns = resolvePatterns(skill, 'adjacent');
         translated.filter = resolveFilter(skill, 'enemies');
         translated.range = skill.range ?? 1;
@@ -86,29 +94,30 @@ export class SkillEngine {
       case 'growing':
         translated.effect_type = 'STAT_MODIFIER';
         translated.value = skill.value !== undefined ? skill.value : 1;
-        translated.trigger = skill.trigger || 'onEndOfTurn';
+        translated.trigger = skill.trigger || SKILL_TRIGGERS.ON_END_OF_TURN;
         translated.patterns = resolvePatterns(skill, 'self');
         translated.filter = resolveFilter(skill, 'none');
         break;
 
       case 'decrease':
         translated.effect_type = 'STAT_MODIFIER';
+        // Toujours négatif, quel que soit le signe saisi dans la donnée
         translated.value = -(skill.value !== undefined ? Math.abs(skill.value) : 1);
-        translated.trigger = skill.trigger || 'onEndOfTurn';
+        translated.trigger = skill.trigger || SKILL_TRIGGERS.ON_END_OF_TURN;
         translated.patterns = resolvePatterns(skill, 'self');
         translated.filter = resolveFilter(skill, 'none');
         break;
 
       case 'heal':
         translated.effect_type = 'HEAL';
-        translated.trigger = skill.trigger || 'onEnterPlay';
+        translated.trigger = skill.trigger || SKILL_TRIGGERS.ON_ENTER_PLAY;
         translated.patterns = resolvePatterns(skill, 'adjacent');
         translated.filter = resolveFilter(skill, 'allies');
         break;
 
       case 'death':
         translated.effect_type = 'DAMAGE';
-        translated.trigger = skill.trigger || 'onEnterPlay';
+        translated.trigger = skill.trigger || SKILL_TRIGGERS.ON_ENTER_PLAY;
         translated.patterns = resolvePatterns(skill, 'adjacent');
         translated.filter = resolveFilter(skill, 'enemies');
         break;
@@ -116,13 +125,14 @@ export class SkillEngine {
       case 'turn':
         translated.effect_type = 'ROTATE';
         translated.value = skill.value !== undefined ? skill.value : 1;
-        translated.trigger = skill.trigger || 'onEnterPlay';
+        translated.trigger = skill.trigger || SKILL_TRIGGERS.ON_ENTER_PLAY;
         translated.patterns = resolvePatterns(skill, 'self');
         translated.filter = resolveFilter(skill, 'none');
         break;
 
       default:
-        // Other legacy passives (ward, freeze, aura, sniper, combo, poison) keep their type
+        // Passifs legacy (ward, freeze, aura, sniper, combo, poison, teleportation) :
+        // pas d'effect_type → routés par le SkillRegistry vers leur handler natif.
         break;
     }
 
@@ -155,13 +165,8 @@ export class SkillEngine {
    */
   public static dispatch(triggerName: string, ctx: SkillContext): any[] {
     const results: any[] = [];
-    const skills = [...(ctx.card?.skills || [])];
-
-    if (ctx.card?.skillId && !skills.some(s => s.type === ctx.card.skillId)) {
-      skills.push({ type: ctx.card.skillId });
-    }
-
-    for (const skillConfig of skills) {
+    DEBUG_SKILLS && console.log(`[Targeting-Flow] [SkillEngine.ts] dispatch "${triggerName}" on card "${ctx.card?.name || 'unknown'}"`);
+    for (const skillConfig of getCardSkills(ctx.card)) {
       const res = this.dispatchSingle(triggerName, ctx, skillConfig);
       if (res) results.push(res);
     }

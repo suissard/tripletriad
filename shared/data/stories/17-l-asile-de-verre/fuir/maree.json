@@ -1,0 +1,25 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "fuir/maree",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous ouvrez les vannes de drainage une à une. La marée spore s'engouffre dans l'asile comme une inondation verte, escaliers après escaliers, vers l'accélérateur.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Très loin en dessous, la Chanson change de ton. Pour la première fois, elle a peur. On ne peut pas rendre folle une chose qui n'a pas d'esprit. On ne peut que l'étouffer sous elle.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Vous refermez la dernière porte derrière vous. Votre gorge vous gratte. Sur le dos de votre main, un minuscule filament vert vient de percer la peau.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "fuir/fin_maree"
+}

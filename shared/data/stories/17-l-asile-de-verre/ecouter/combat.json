@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "ecouter/combat",
+  "enemyDeckName": "L'Incursion Dissonante",
+  "onWinSituationId": "ecouter/fin_ruse",
+  "onLoseSituationId": "ecouter/fin_folie"
+}

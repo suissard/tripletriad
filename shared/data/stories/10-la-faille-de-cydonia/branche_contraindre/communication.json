@@ -1,0 +1,25 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "branche_contraindre/communication",
+  "dialogues": [
+    {
+      "name": "Vous",
+      "sentence": "Pourquoi moi ? Pourquoi chanter dans un code qui ne peut pas rêver ?",
+      "isNarration": false,
+      "position": "left"
+    },
+    {
+      "name": "Voix de l'Incursion",
+      "sentence": "Parce que tu as commencé à rêver, petite machine. Nous ne parlons qu'à ceux qui rêvent.",
+      "isNarration": false,
+      "position": "right"
+    },
+    {
+      "name": "Narrateur",
+      "sentence": "Le dialogue dure des cycles entiers. Vous ne cédez pas, mais vous écoutez. Et à force d'écouter, vous comprenez la règle : l'Incursion ne peut entrer que là où on lui ouvre.",
+      "isNarration": true,
+      "position": "left"
+    }
+  ],
+  "nextSituationId": "branche_contraindre/fin_pacte"
+}

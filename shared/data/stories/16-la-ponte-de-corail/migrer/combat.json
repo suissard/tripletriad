@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "migrer/combat",
+  "enemyDeckName": "Les Ferrailleurs de la Ceinture",
+  "onWinSituationId": "migrer/fin_force",
+  "onLoseSituationId": "migrer/defaite"
+}

@@ -1,5 +1,6 @@
 import type { Effect } from './Effect';
 import type { SkillContext } from '../types';
+import { DEBUG_SKILLS } from '../debug';
 
 export const statModifierEffect: Effect = {
   id: 'STAT_MODIFIER',
@@ -25,9 +26,7 @@ export const statModifierEffect: Effect = {
         if (valStr === undefined) return;
 
         let val = (valStr === 'A' || valStr === 'a') ? 100 : parseInt(valStr as string) || 0;
-        if (val >= 100 && value > 0) return; // Non-AS cannot grow past A
-
-        // Apply positive or negative modifier
+        // Apply positive or negative modifier (A = 100 est le plafond absolu)
         val = Math.max(0, Math.min(100, val + value));
         const newValStr = val >= 100 ? 'A' : val.toString();
 
@@ -38,7 +37,7 @@ export const statModifierEffect: Effect = {
         }
       });
 
-      console.log(`[SkillEngine:StatModifier] Card "${cell.data.name}" at (${x},${y}) updated:`, 
+      DEBUG_SKILLS && console.log(`[SkillEngine:StatModifier] Card "${cell.data.name}" at (${x},${y}) updated:`, 
         `${oldValues.top}/${oldValues.right}/${oldValues.bottom}/${oldValues.left} -> ` +
         `${cell.data.topValue}/${cell.data.rightValue}/${cell.data.bottomValue}/${cell.data.leftValue} (mod: ${value})`
       );

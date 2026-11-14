@@ -1,0 +1,15 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "synchro/choix_archonte",
+  "text": "Que faire de la voix déviante ?",
+  "options": [
+    {
+      "text": "La traquer et la défragmenter",
+      "nextSituationId": "synchro/traque"
+    },
+    {
+      "text": "L'écouter jusqu'au bout avant de juger",
+      "nextSituationId": "synchro/revelation"
+    }
+  ]
+}

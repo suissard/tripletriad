@@ -93,7 +93,10 @@
 
               <!-- Battle follows the discussion -->
               <div v-if="currentSituation?.__component === 'story.situation-battle'" class="choice-tile fade-in-up battle-tile" :style="getSituationStyle(currentSituation)">
-                <h3 class="choice-title">Un combat se prépare : {{ currentSituation.enemyDeckName }}</h3>
+                <!-- enemyDeckName n'est pas stocké en base : seul le deck lié (s'il existe) a un nom -->
+                <h3 class="choice-title">
+                  Un combat se prépare<template v-if="currentSituation.enemyDeck?.name || currentSituation.enemyDeckName"> : {{ currentSituation.enemyDeck?.name || currentSituation.enemyDeckName }}</template>
+                </h3>
                 <AppButton @click.stop="playCombat" variant="danger" size="xl" shadow glow class="combat-btn">
                   Entrer en combat ⚔️
                 </AppButton>
@@ -167,6 +170,7 @@ import AppButton from '../components/ui/AppButton.vue';
 import RewardModal from '../components/RewardModal.vue';
 import { useUserStore } from '../stores/userStore.js';
 import strapiService from '../api/strapi.js';
+import { gameEvents } from '../game/events.js';
 import { getStrapiUrl, getStrapiMediaUrl } from '../utils/url.js';
 
 import SituationDialogue from '../components/story/SituationDialogue.vue';
@@ -252,6 +256,15 @@ async function loadStepData() {
     }
     
     await userStore.fetchUserStoryProgresses(true);
+
+    // Histoire non débloquée : le serveur refuserait de sauvegarder la progression.
+    // Les admins gardent l'accès direct pour tester.
+    if (!getProgress(storyId.value) && !userStore.isAdmin) {
+      gameEvents.emit('SHOW_ALERT', { text: "Cette histoire n'est pas encore débloquée." });
+      router.replace('/story');
+      return;
+    }
+
     const storiesRes = await strapiService.find('stories', {
       filters: { 
         $or: [

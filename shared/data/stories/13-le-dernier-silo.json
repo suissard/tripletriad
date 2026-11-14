@@ -219,6 +219,66 @@
           "nextSituationId": "s6_a_lose"
         }
       ]
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s5_c_fight",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous refusez. Le Ferrailleur soupire, recule dans l'ombre, et siffle. Une dizaine de pillards armés surgissent des gravats autour du silo.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Ferrailleur",
+          "sentence": "Dommage. J'aurais préféré payer. Maintenant, on va juste se servir.",
+          "isNarration": false,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s5_c_battle"
+    },
+    {
+      "__component": "story.situation-battle",
+      "situationId": "s5_c_battle",
+      "enemyDeckName": "Les Ferrailleurs de la Ceinture",
+      "onWinSituationId": "s6_c_fight_win",
+      "onLoseSituationId": "s6_c_fight_lose"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "s6_c_fight_win",
+      "message": "Les pillards fuient en abandonnant leurs armes et leur camion de vivres. L'ogive est sauvée, et la tribu mangera ce soir.\n\nLes Héritiers des Cendres vous accordent le titre de Gardien du Feu. L'Omni-Réseau, lui, n'a pas renoncé."
+    },
+    {
+      "__component": "story.situation-game-over",
+      "situationId": "s6_c_fight_lose",
+      "message": "Les Ferrailleurs vous submergent. Ils chargent l'ogive sur leur camion et disparaissent dans la poussière.\n\nPrivés de leur relique, les Héritiers vous accusent du sacrilège. Le jugement des Techno-Chamanes est rapide, et il est sans appel."
+    },
+    {
+      "__component": "story.situation-dialogue",
+      "situationId": "s5_c_trick",
+      "dialogues": [
+        {
+          "name": "Narrateur",
+          "sentence": "Vous acceptez avec un sourire. Pendant que le Ferrailleur décharge les vivres, les Héritiers sabotent discrètement le moteur de son camion.",
+          "isNarration": true,
+          "position": "left"
+        },
+        {
+          "name": "Narrateur",
+          "sentence": "Quand l'essaim de l'Omni-Réseau arrive, il trouve le camion des Ferrailleurs chargé d'une fausse ogive, bien visible au milieu de la plaine. Les drones fondent sur lui.",
+          "isNarration": true,
+          "position": "left"
+        }
+      ],
+      "nextSituationId": "s6_c_trick_end"
+    },
+    {
+      "__component": "story.situation-success",
+      "situationId": "s6_c_trick_end",
+      "message": "L'essaim détruit le leurre et se retire, croyant sa mission accomplie. Vous gardez l'ogive, les vivres, et le carburant.\n\nLe Ferrailleur a survécu de justesse. Il jure de se venger. Mais ce soir, la tribu fête la ruse la plus audacieuse de son histoire."
     }
   ]
 }

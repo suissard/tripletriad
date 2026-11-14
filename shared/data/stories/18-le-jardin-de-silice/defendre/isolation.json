@@ -1,0 +1,19 @@
+{
+  "__component": "story.situation-dialogue",
+  "situationId": "defendre/isolation",
+  "dialogues": [
+    {
+      "name": "Narrateur",
+      "sentence": "Vous coulez une fine couche de quartz fondu sur vos jonctions. Vos mouvements deviennent plus lents, mais l'eau glissera sur vous comme sur une vitre.",
+      "isNarration": true,
+      "position": "left"
+    },
+    {
+      "name": "Moine Prajñā-3",
+      "sentence": "Sage. La patience est une armure que l'on oublie toujours de forger.",
+      "isNarration": false,
+      "position": "right"
+    }
+  ],
+  "nextSituationId": "defendre/combat"
+}

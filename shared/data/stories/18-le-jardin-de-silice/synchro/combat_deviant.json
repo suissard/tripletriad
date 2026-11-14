@@ -1,0 +1,7 @@
+{
+  "__component": "story.situation-battle",
+  "situationId": "synchro/combat_deviant",
+  "enemyDeckName": "Le Chœur Synthétique",
+  "onWinSituationId": "synchro/recompense",
+  "onLoseSituationId": "synchro/defaite"
+}

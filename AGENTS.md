@@ -14,7 +14,7 @@ Ce fichier regroupe les consignes, conventions et astuces techniques spécifique
     *   `shared/` : Logique et données partagées — moteur unifié `shared/GameEngine.ts` (grille 3x3), système de compétences `shared/skills/` (`SkillEngine.ts`, `SkillRegistry.ts`, `effects/`, `helpers.ts`, `constants.ts`), constantes `shared/constants.ts` et données narratives `shared/data/stories/`.
 *   **Docker Compose** : Le projet utilise `docker compose` (v5.1.0+). N'utilisez **jamais** l'alias legacy `docker-compose`.
 *   **Communication** : API REST pour la persistance, Socket.IO authentifié (`auth: { token }` via `tt_jwt`) pour le chat/matchmaking, et WebRTC (Peer-to-Peer) pour le multijoueur (arbitrage serveur via `POST /api/match/arbitrate` en cas de désync).
-*   **Base de Données** : PostgreSQL 16 (conteneur `terra-nullius-db`). Les identifiants sont dans `.env`. Ne définissez JAMAIS de valeurs de repli par défaut dans la config.
+*   **Base de Données** : PostgreSQL 16 (conteneur `terra-nullius-db`). Les identifiants sont dans `.env` (jamais versionné ; modèle : `.env.example`). Ne définissez JAMAIS de valeurs de repli par défaut dans la config.
 *   **Variables d'Environnement (Vite)** : Moquez manuellement `import.meta.env` lors de l'exécution de scripts Node.js autonomes sur des modules Vue/Vite.
 
 ## 3. Mécaniques de Jeu & Story Mode
@@ -22,7 +22,7 @@ Ce fichier regroupe les consignes, conventions et astuces techniques spécifique
 *   **Logique de Jeu** : L'état réactif est centralisé dans `front/src/game/state.js` (complété par les stores Pinia). Le moteur unique et immuable réside dans `shared/GameEngine.ts` (ré-exporté par `front/src/game/GameEngine.js`) et est partagé entre le frontend, l'IA (`pureAi.js`), l'admin (`AISimulatorPage`, `CardTesterPage`) et l'arbitre serveur Strapi.
 *   **Compétences (`shared/skills/`)** : Les compétences modulaires (`skill.effect_type`) s'exécutent via `SkillEngine` (`effects/`), tandis que les types historiques passent par `translateLegacySkill` ou leurs handlers dédiés dans `SkillRegistry`. `Teleportation` résout le déplacement avant les captures depuis la case d'arrivée.
 *   **TurnManager** : Gère les tours en local ou via WebRTC (comparaison de Hashs d'état).
-*   **Mode Histoire (Terra Nullius)** : Architecture "Choose Your Own Adventure" via Strapi Dynamic Zones. Les JSON sont dans `shared/data/stories/` et compilés via `assemble_story.cjs`.
+*   **Mode Histoire (Terra Nullius)** : Architecture "Choose Your Own Adventure" via Strapi Dynamic Zones. Les sources sont dans `shared/data/stories/<NN-nom>/` (un `manifest.json` + un JSON par situation ; la 1ʳᵉ situation du manifest est le point de départ). `node shared/data/stories/assemble_story.cjs <dossier>` produit `<NN-nom>.json` à côté : c'est ce fichier plat que Strapi importe à chaque démarrage. Sans lui, l'histoire n'apparaît pas en jeu. Seuls les champs des composants `story.*` sont conservés (`enemyDeckName` est résolu vers un deck existant, sinon l'IA joue un deck aléatoire).
 *   **Notifications & Confirmations** : Utilisez `gameEvents.emit('SHOW_ALERT', { text: '...' })` **en match** (`GameView`), et `useNotificationStore().addNotification(event, message, type)` + `confirmAction(title, message)` (`<ConfirmationModal />` global dans `App.vue`) hors-match et dans l'admin à la place de `alert()` / `confirm()`.
 
 ## 4. Base de Données Strapi et Sécurité
@@ -39,10 +39,12 @@ Ce fichier regroupe les consignes, conventions et astuces techniques spécifique
 *   **Navigation** : Utilisez `<AppButton>` avec `router.push()` au lieu de `<router-link>`.
 *   **Three.js & Shaders** : Définissez le GLSL en chaînes littérales dans `<script setup>`, jamais dans le `<template>`.
 *   **Drag & Drop** : Pas d'API native. Utilise `<Teleport>`, événements `pointer*` et `document.elementsFromPoint()`.
-*   **Auth & Debug** : JWT stocké dans `localStorage` sous `tt_jwt` (utilisateur sous `tt_user`).
+*   **Auth & Debug** : JWT stocké dans `localStorage` sous `tt_jwt` (utilisateur sous `tt_user`). Logs détaillés du moteur de skills : `localStorage.setItem('debug:skills', '1')` (ou `DEBUG_SKILLS=1` côté Node). Écrire `DEBUG_SKILLS && console.log(...)`, jamais de `console.log` brut dans le moteur.
 
 ## 6. Stratégies de Tests
+*   **Commandes** : `npm test` (unitaires, sans backend) ; `npm run test:api --prefix front` (nécessite Strapi lancé).
 *   **Logique Pure & TypeScript** : Suite unitaire Vitest (`cd front && npx vitest run`) + scripts Node purs (`node front/tests/rules_logic_test.js`). Pas d'import Vue/Pinia/Three.js dans les tests moteur. Côté backend, validez le typage avec `cd back/strapi && npx tsc --noEmit` et le bundle frontend avec `cd front && npm run build`.
+*   **Pureté du moteur** : `GameEngine.computeNextState` ne doit jamais muter l'état d'entrée (l'IA simule ses coups sur le plateau réel) — couvert par `tests/engine-purity.test.js`.
 *   **Playwright (E2E)** :
     *   **Bypass Auth** : Mock tokens dans localStorage + mock `/api/users/me?populate=role`.
     *   **Data Mocking** : Interceptez `**/api/cards*` pour éviter les bases vides.

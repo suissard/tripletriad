@@ -1,0 +1,15 @@
+{
+  "__component": "story.situation-choice",
+  "situationId": "migrer/choix_chalutier",
+  "text": "Le convoi ne peut pas attendre.",
+  "options": [
+    {
+      "text": "Négocier : offrir de l'eau purifiée contre le passage",
+      "nextSituationId": "migrer/marchandage"
+    },
+    {
+      "text": "Couper les filets et forcer le détroit",
+      "nextSituationId": "migrer/combat"
+    }
+  ]
+}
