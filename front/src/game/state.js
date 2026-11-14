@@ -50,11 +50,34 @@ export function shuffle(array) {
  * Wraps and normalizes board entries from either local {data, owner} format
  * or raw GameEngine card format.
  */
+const BOARD_ELEMENTS_POOL = ['feu', 'eau', 'terre', 'air', 'foudre', 'glace'];
+
+export function generateBoardElements(enabled, size = 9) {
+    if (!enabled) return Array(size).fill(null);
+    const result = Array(size).fill(null);
+    const count = 2 + Math.floor(Math.random() * 2); // 2 or 3 elemental cells on 3x3
+    const indices = Array.from({ length: size }, (_, i) => i).sort(() => Math.random() - 0.5);
+    for (let i = 0; i < Math.min(count, size); i++) {
+        result[indices[i]] = BOARD_ELEMENTS_POOL[Math.floor(Math.random() * BOARD_ELEMENTS_POOL.length)];
+    }
+    return result;
+}
+
+function unflattenBoardElements(flatElements, w = 3, h = 3) {
+    if (!Array.isArray(flatElements) || flatElements.length === 0) return null;
+    if (Array.isArray(flatElements[0])) return flatElements;
+    const grid = [];
+    for (let y = 0; y < h; y++) {
+        grid.push(flatElements.slice(y * w, (y + 1) * w));
+    }
+    return grid;
+}
+
 function normalizeBoard(board) {
     if (!board || board.length === 0) {
-        state.boardWidth = 4;
-        state.boardHeight = 4;
-        return Array(16).fill(null);
+        state.boardWidth = 3;
+        state.boardHeight = 3;
+        return Array(9).fill(null);
     }
     
     let flat;
@@ -103,11 +126,14 @@ export const state = reactive({
   aiFrame: null,
   pBack: null,
   aiBack: null,
-    // Dynamic Board dimensions
-    boardWidth: 4,
-    boardHeight: 4,
+    // Fixed 3x3 Board dimensions
+    boardWidth: 3,
+    boardHeight: 3,
     // Board: Array of { data: cardDataObj, owner: 'player'|'ai' } | null
-    board: Array(16).fill(null),
+    board: Array(9).fill(null),
+    boardElements: Array(9).fill(null),
+    turnTimeSeconds: 0,
+    turnTimeRemaining: 0,
     // Hands: Arrays of plain card data objects
     pHand: [],
     aiHand: [],
@@ -265,9 +291,13 @@ export async function loadCardsFromStrapi() {
 export function initOnlineTurnManager(isHost, startingPlayer = 'PLAYER_1') {
     const localPlayer = isHost ? 'PLAYER_1' : 'PLAYER_2';
     
+    const elementsGrid = unflattenBoardElements(state.boardElements, 3, 3);
     state.turnManager = new TurnManager({
         localPlayer,
-        initialState: GameEngine.createInitialState(startingPlayer),
+        initialState: GameEngine.createInitialState(startingPlayer, {
+            rules: { ...state.rules },
+            boardElements: elementsGrid
+        }),
         
         sendNetworkMessage: (msg) => {
             socketManager.sendMessage(msg);
@@ -304,7 +334,7 @@ export function initOnlineTurnManager(isHost, startingPlayer = 'PLAYER_1') {
                     method: 'POST',
                     headers: { 
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${state.jwt}`
+                        'Authorization': `Bearer ${state.jwt || localStorage.getItem('tt_jwt') || ''}`
                     },
                     body: JSON.stringify({
                         matchId: socketManager.uuid,
@@ -405,9 +435,11 @@ function generateLocalUUID() {
 export function resetGame(deckSize = 30, goToMenu = true, forcedTurn = null) {
     gameEvents.emit('MATCH_START', {});
     initDeck(deckSize);
-    state.boardWidth = 4;
-    state.boardHeight = 4;
-    state.board = Array(16).fill(null);
+    state.boardWidth = 3;
+    state.boardHeight = 3;
+    state.board = Array(9).fill(null);
+    state.boardElements = generateBoardElements(Boolean(state.rules?.elements), 9);
+    state.turnTimeRemaining = state.turnTimeSeconds || 0;
     state.matchId = null;
     state.pHand = [];
     state.aiHand = [];
@@ -540,9 +572,10 @@ gameEvents.on('CARD_PLACED', (payload) => {
         }
     }
 
+    const w = state.boardWidth || 3;
     sendGameLog('placement',
         { type: action.player === state.pId ? 'player' : 'ai', id: action.player },
-        { card: action.card, case: action.y * 3 + action.x }
+        { card: action.card, case: action.y * w + action.x }
     );
 });
 
@@ -610,10 +643,12 @@ gameEvents.on('GAME_OVER', (payload) => {
     console.log(`[Event] GAME_OVER - La partie est terminée. Vainqueur: ${payload.winner}`);
 });
 
+let alertTimeoutId = null;
 gameEvents.on('SHOW_ALERT', (payload) => {
-    // Re-use engine's showAlert logic adapted for state
     state.alerts = payload.text;
-    setTimeout(() => {
+    if (alertTimeoutId) clearTimeout(alertTimeoutId);
+    alertTimeoutId = setTimeout(() => {
         if (state.alerts === payload.text) state.alerts = '';
+        alertTimeoutId = null;
     }, 2000);
 });

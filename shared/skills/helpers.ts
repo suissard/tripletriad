@@ -40,6 +40,26 @@ export function getEffectiveHp(cardData) {
   return cardData.hp !== undefined ? cardData.hp : (cardData.defaultHp || 3);
 }
 
+/**
+ * Vérifie si une carte possède un bouclier (Ward) actif (legacy ou modulaire).
+ */
+export function hasWard(cardData): boolean {
+  return Boolean(
+    cardData?.skills?.some((s: any) => s.type === 'ward' || s.effect_type === 'WARD')
+  );
+}
+
+/**
+ * Consomme le bouclier (Ward) d'une carte et retourne true s'il était présent.
+ */
+export function consumeWard(cardData): boolean {
+  if (!hasWard(cardData)) return false;
+  cardData.skills = cardData.skills.filter(
+    (s: any) => s.type !== 'ward' && s.effect_type !== 'WARD'
+  );
+  return true;
+}
+
 // Map direction -> vecteur
 const DIRECTION_VECTORS: Record<string, {dx: number, dy: number}> = {
   [CARD_DIRECTIONS.TOP]:          { dx: 0, dy: -1 },
@@ -90,7 +110,8 @@ export function resolveOrigin(ctx): { ox: number, oy: number } | null {
  * Supports: origin_type, origin_direction, origin_reach, patterns (répétable), range, filter.
  */
 export function getTargetCells(ctx) {
-  const { board, skill, card, owner } = ctx;
+  const { board, skill, card } = ctx;
+  const owner = ctx.owner || card?.owner || board?.[ctx.y]?.[ctx.x]?.owner;
 
   // 1. Résoudre l'origine
   const origin = resolveOrigin(ctx);
@@ -151,7 +172,7 @@ export function getTargetCells(ctx) {
       continue;
     } else if (p === SKILL_PATTERNS.ROW) {
       for (let nx = 0; nx < board[0].length; nx++) {
-        if (nx === ox && oy === oy) { /* skip self */ }
+        if (nx === ox) continue;
         if (isInBounds(board, nx, oy)) cellsMap.set(`${nx},${oy}`, { x: nx, y: oy, cell: board[oy][nx] });
       }
       continue;

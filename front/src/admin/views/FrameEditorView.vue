@@ -241,13 +241,16 @@
 <script setup>
 import { ref, computed, onMounted, reactive } from 'vue';
 import { useUserStore } from '../../stores/userStore';
+import { useNotificationStore } from '../../stores/notificationStore';
 import strapiService from '@/api/strapi';
+import { cardLibrary, loadCardsFromStrapi, confirmAction } from '../../game/state.js';
 import TripleTriadCard from '../../components/TripleTriadCard.vue';
 import DEFAULT_FRAME_COORDS from '../../game/frame_defaults.json';
 
 const userStore = useUserStore();
+const notificationStore = useNotificationStore();
 const frames = computed(() => userStore.cardFrames);
-const availableCards = computed(() => userStore.cards || []);
+const availableCards = computed(() => cardLibrary);
 const selectedCardId = ref(null);
 const selectedFrame = ref(null);
 const workspaceRef = ref(null);
@@ -324,8 +327,8 @@ function centerStats(axis) {
   }
 }
 
-function resetToDefault() {
-  if (!confirm('Réinitialiser toutes les coordonnées ?')) return;
+async function resetToDefault() {
+  if (!(await confirmAction('Réinitialiser le cadre', 'Réinitialiser toutes les coordonnées ?'))) return;
   Object.assign(editedValues, DEFAULT_FRAME_COORDS);
 }
 
@@ -476,16 +479,19 @@ async function saveChanges() {
     if (res.error) throw new Error(res.error.message);
     
     await userStore.fetchCardFrames(true);
-    // Success feedback via a small notification would be better
+    notificationStore.addNotification('system', 'Cadre synchronisé avec succès.', 'success');
   } catch (err) {
-    alert('Synchronization Error: ' + err.message);
+    notificationStore.addNotification('system', 'Erreur de synchronisation : ' + err.message, 'error');
   } finally {
     saving.value = false;
   }
 }
 
-onMounted(() => {
-  userStore.fetchCardFrames();
+onMounted(async () => {
+  await Promise.all([
+    userStore.fetchCardFrames(),
+    cardLibrary.length === 0 ? loadCardsFromStrapi() : Promise.resolve()
+  ]);
 });
 
 </script>

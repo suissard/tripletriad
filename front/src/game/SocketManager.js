@@ -32,11 +32,13 @@ export class SocketManager {
     // We need the base URL without /api for Socket.IO
     const strapiBase = getStrapiUrl('').replace(/\/api\/?$/, '');
 
+    const token = localStorage.getItem('tt_jwt') || null;
     this.socket = io(strapiBase, {
       transports: ['websocket', 'polling'],
       reconnection: true,
       reconnectionAttempts: 5,
       reconnectionDelay: 1000,
+      auth: token ? { token } : undefined,
     });
 
     // --- Socket.IO event handlers ---
@@ -108,31 +110,43 @@ export class SocketManager {
     this.connect();
 
     return new Promise((resolve, reject) => {
-      // Wait for socket connection before emitting
-      const doCreate = () => {
-        this.socket.emit('create-room', { uuid: this.uuid });
+      let settled = false;
+      const cleanup = () => {
+        clearTimeout(timeoutId);
+        this.socket?.off('connect', doCreate);
+        this.socket?.off('room-created', onCreated);
+        this.socket?.off('error-msg', onErr);
       };
+      const doCreate = () => {
+        this.socket?.emit('create-room', { uuid: this.uuid });
+      };
+      const onCreated = ({ uuid }) => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        resolve(uuid);
+      };
+      const onErr = ({ message }) => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        reject(new Error(message));
+      };
+      const timeoutId = setTimeout(() => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        reject(new Error('Timeout: impossible de créer la session.'));
+      }, 10000);
+
+      this.socket.once('room-created', onCreated);
+      this.socket.once('error-msg', onErr);
 
       if (this.socket.connected) {
         doCreate();
       } else {
         this.socket.once('connect', doCreate);
       }
-
-      // Listen for room-created confirmation
-      this.socket.once('room-created', ({ uuid }) => {
-        resolve(uuid);
-      });
-
-      // Handle errors
-      this.socket.once('error-msg', ({ message }) => {
-        reject(new Error(message));
-      });
-
-      // Timeout fallback
-      setTimeout(() => {
-        reject(new Error('Timeout: impossible de créer la session.'));
-      }, 10000);
     });
   }
 
@@ -148,30 +162,43 @@ export class SocketManager {
     this.connect();
 
     return new Promise((resolve, reject) => {
-      const doJoin = () => {
-        this.socket.emit('join-room', { uuid: this.uuid });
+      let settled = false;
+      const cleanup = () => {
+        clearTimeout(timeoutId);
+        this.socket?.off('connect', doJoin);
+        this.socket?.off('room-joined', onJoined);
+        this.socket?.off('error-msg', onErr);
       };
+      const doJoin = () => {
+        this.socket?.emit('join-room', { uuid: this.uuid });
+      };
+      const onJoined = () => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        resolve(true);
+      };
+      const onErr = ({ message }) => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        reject(new Error(message));
+      };
+      const timeoutId = setTimeout(() => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        reject(new Error('Timeout: impossible de rejoindre la session.'));
+      }, 10000);
+
+      this.socket.once('room-joined', onJoined);
+      this.socket.once('error-msg', onErr);
 
       if (this.socket.connected) {
         doJoin();
       } else {
         this.socket.once('connect', doJoin);
       }
-
-      // Listen for room-joined confirmation
-      this.socket.once('room-joined', () => {
-        resolve(true);
-      });
-
-      // Handle errors
-      this.socket.once('error-msg', ({ message }) => {
-        reject(new Error(message));
-      });
-
-      // Timeout fallback
-      setTimeout(() => {
-        reject(new Error('Timeout: impossible de rejoindre la session.'));
-      }, 10000);
     });
   }
 
@@ -215,9 +242,11 @@ export class SocketManager {
       this.socket.emit('leave-room', { uuid: this.uuid });
     }
     if (this.socket) {
+      this.socket.removeAllListeners();
       this.socket.disconnect();
       this.socket = null;
     }
+    this.messageListeners = [];
     this.uuid = null;
     this.isHost = false;
   }

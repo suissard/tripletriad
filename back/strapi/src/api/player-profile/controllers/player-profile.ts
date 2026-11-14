@@ -15,34 +15,35 @@ export default {
       ],
     };
 
-    // Only add id filter if it's a valid number
-    const numericId = Number(identifier);
-    if (!isNaN(numericId)) {
-      filters.$or.push({ id: numericId });
+    if (/^\d+$/.test(identifier)) {
+      filters.$or.push({ id: Number(identifier) });
     }
 
     // Find user by username or documentId
-    // @ts-ignore
     const users = await strapi.documents("plugin::users-permissions.user").findMany({
       filters,
       populate: ["avatar_card.image", "guilds"],
       limit: 1,
     });
 
-    const targetUser = users[0];
+    const targetUser = users[0] as any;
     if (!targetUser) {
       return ctx.notFound("Player not found.");
     }
 
-    // 1. Calculate Card Stats
-    // @ts-ignore
-    const userCards = await strapi.documents("api::user-card.user-card").findMany({
-      filters: { user: { id: targetUser.id } },
-      fields: ["quantity"],
-    });
+    // 1. Calculate Card Stats via SQL aggregation
+    const knex = strapi.db.connection;
+    const statsRow: any = await knex("user_cards as uc")
+      .join("user_cards_user_lnk as lnk", "uc.id", "lnk.user_card_id")
+      .where("lnk.user_id", targetUser.id)
+      .select(
+        knex.raw("COALESCE(SUM(uc.quantity), 0) as total_cards"),
+        knex.raw("COUNT(uc.id) as unique_cards"),
+      )
+      .first();
 
-    const totalCards = userCards.reduce((acc: number, curr: any) => acc + (curr.quantity || 0), 0);
-    const uniqueCards = userCards.length;
+    const totalCards = Number(statsRow?.total_cards || 0);
+    const uniqueCards = Number(statsRow?.unique_cards || 0);
 
     // 2. Calculate Ancienneté (Days since creation)
     const createdAt = new Date(targetUser.createdAt);

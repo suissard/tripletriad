@@ -47,7 +47,7 @@ const goBack = () => {
   height: 100vh;
   background: rgba(10, 15, 30, 0.98);
   backdrop-filter: blur(10px);
-  z-index: 50;
+  z-index: 150;
   display: flex;
   flex-direction: column;
   color: white;

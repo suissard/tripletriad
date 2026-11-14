@@ -2,6 +2,7 @@ import { state } from './state.js';
 import { rulesRegistry } from './rules.js';
 import { getNeighbors } from './getNeighbors.js';
 import { skillRegistry } from '../../../shared/skills/index';
+import { gameEvents } from './events.js';
 
 export { getNeighbors };
 
@@ -39,6 +40,17 @@ export function showAlert(text) {
     }, 1500);
 }
 
+function getLocalEffectiveVal(boardIndex, side) {
+    const entry = state.board[boardIndex];
+    if (!entry || !entry.data) return 0;
+    const raw = Number(entry.data[side] ?? 0);
+    if (!state.rules?.elements || !Array.isArray(state.boardElements)) return raw;
+    const slotEl = state.boardElements[boardIndex];
+    if (!slotEl || slotEl === 'none') return raw;
+    const cardEl = entry.data.element ? String(entry.data.element).toLowerCase() : '';
+    return Math.max(0, raw + (cardEl === String(slotEl).toLowerCase() ? 1 : -1));
+}
+
 export async function resolveRules(startIndex, owner, targets = []) {
     console.log(`[Targeting-Flow] [engine.js] resolveRules called with startIndex: ${startIndex}, owner: "${owner}", targets:`, JSON.stringify(targets));
     const useCombo = state.rules.combo;
@@ -62,7 +74,7 @@ export async function resolveRules(startIndex, owner, targets = []) {
 
     // Dynamically execute enabled modular rules
     rulesRegistry.forEach(rule => {
-        if (state.rules[rule.id] && rule.id !== 'combo') {
+        if (state.rules[rule.id] && rule.id !== 'combo' && rule.id !== 'elements') {
             const result = rule.execute(centerEntry, neighbors, state.board);
             if (result.triggered) {
                 result.captures.forEach(c => complexCaptures.add(c));
@@ -87,7 +99,7 @@ export async function resolveRules(startIndex, owner, targets = []) {
 
     neighbors.forEach(n => {
         const adj = state.board[n.i];
-        if (adj && adj.owner !== owner && centerEntry.data[n.dir] > adj.data[n.opp]) {
+        if (adj && adj.owner !== owner && getLocalEffectiveVal(startIndex, n.dir) > getLocalEffectiveVal(n.i, n.opp)) {
             if (!complexCaptures.has(adj)) {
                 captureCard(adj, owner, n.opp); // The side of adj that was attacked is its opp side
                 actionRecord.capturedCards.push(adj.data);
@@ -111,7 +123,7 @@ export async function resolveRules(startIndex, owner, targets = []) {
 
         getNeighbors(currentIdx).forEach(n => {
             const adj = state.board[n.i];
-            if (adj && adj.owner !== owner && comboEntry.data[n.dir] > adj.data[n.opp]) {
+            if (adj && adj.owner !== owner && getLocalEffectiveVal(currentIdx, n.dir) > getLocalEffectiveVal(n.i, n.opp)) {
                 captureCard(adj, owner, n.opp);
                 actionRecord.capturedCards.push(adj.data);
                 comboStack.push(n.i);
@@ -320,6 +332,8 @@ export function endTurn(player) {
         state.pMana = 1;
     }
 
+    gameEvents.emit('TURN_START', { player: state.turn });
+
     // Log turn change for single-player mode
     import('./logger.js').then(({ sendGameLog }) => {
         sendGameLog('turn_start',
@@ -350,51 +364,7 @@ export function updateScores() {
 }
 
 export function expandBoard() {
-    let w = state.boardWidth;
-    let h = state.boardHeight;
-    let currentBoard = state.board;
-
-    let anyRowFull = false;
-    for (let y = 0; y < h; y++) {
-        let rowFull = true;
-        for (let x = 0; x < w; x++) {
-            if (currentBoard[y * w + x] === null) { rowFull = false; break; }
-        }
-        if (rowFull) { anyRowFull = true; break; }
-    }
-
-    let anyColFull = false;
-    for (let x = 0; x < w; x++) {
-        let colFull = true;
-        for (let y = 0; y < h; y++) {
-            if (currentBoard[y * w + x] === null) { colFull = false; break; }
-        }
-        if (colFull) { anyColFull = true; break; }
-    }
-
-    if (!anyRowFull && !anyColFull) return;
-
-    let colAddedLeft = (anyRowFull && w < 4) ? 1 : 0;
-    let colAddedRight = (anyRowFull && (w + colAddedLeft) < 4) ? 1 : 0;
-    let rowAddedTop = (anyColFull && h < 4) ? 1 : 0;
-    let rowAddedBot = (anyColFull && (h + rowAddedTop) < 4) ? 1 : 0;
-
-    if (colAddedLeft === 0 && colAddedRight === 0 && rowAddedTop === 0 && rowAddedBot === 0) return;
-
-    let nextW = w + colAddedLeft + colAddedRight;
-    let nextH = h + rowAddedTop + rowAddedBot;
-    let nextBoard = Array(nextW * nextH).fill(null);
-
-    for (let y = 0; y < h; y++) {
-        for (let x = 0; x < w; x++) {
-            let oldVal = currentBoard[y * w + x];
-            let newX = x + colAddedLeft;
-            let newY = y + rowAddedTop;
-            nextBoard[newY * nextW + newX] = oldVal;
-        }
-    }
-
-    state.board = nextBoard;
-    state.boardWidth = nextW;
-    state.boardHeight = nextH;
+    // Fixed 3x3 grid enforced across engine and UI
+    state.boardWidth = 3;
+    state.boardHeight = 3;
 }

@@ -142,8 +142,11 @@ import { useRouter } from 'vue-router';
 import { useFriendStore } from '../stores/friendStore.js';
 import { useChatStore } from '../stores/chatStore.js';
 import { useUserStore } from '../stores/userStore.js';
+import { useNotificationStore } from '../stores/notificationStore.js';
+import { confirmAction } from '../game/state.js';
 import { getStrapiMediaUrl } from '../utils/url.js';
-import { gameEvents } from '../game/events.js';
+
+const notificationStore = useNotificationStore();
 
 const router = useRouter();
 const friendStore = useFriendStore();
@@ -182,43 +185,43 @@ const openChat = (friend) => {
 };
 
 const challengeDuel = (friend) => {
-  gameEvents.emit('SHOW_ALERT', { text: `Défi envoyé à ${friend.username} ! (Bientôt disponible)` });
+  notificationStore.addNotification('social', `Défi envoyé à ${friend.username} ! (Bientôt disponible)`, 'info');
 };
 
 const removeFriend = async (id) => {
-  if (!confirm("Voulez-vous vraiment retirer cet ami ?")) return;
+  if (!(await confirmAction('Retirer un ami', 'Voulez-vous vraiment retirer cet ami ?'))) return;
   try {
     await friendStore.removeFriend(id);
-    gameEvents.emit('SHOW_ALERT', { text: 'Ami supprimé.' });
+    notificationStore.addNotification('social', 'Ami supprimé.', 'info');
   } catch (e) {
-    gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors de la suppression.' });
+    notificationStore.addNotification('social', 'Erreur lors de la suppression.', 'error');
   }
 };
 
 const acceptRequest = async (id) => {
   try {
     await friendStore.acceptRequest(id);
-    gameEvents.emit('SHOW_ALERT', { text: 'Demande acceptée !' });
+    notificationStore.addNotification('social', 'Demande acceptée !', 'success');
   } catch (e) {
-    gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors de l\'acceptation.' });
+    notificationStore.addNotification('social', 'Erreur lors de l\'acceptation.', 'error');
   }
 };
 
 const rejectRequest = async (id) => {
   try {
     await friendStore.rejectRequest(id);
-    gameEvents.emit('SHOW_ALERT', { text: 'Demande refusée.' });
+    notificationStore.addNotification('social', 'Demande refusée.', 'info');
   } catch (e) {
-    gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors du refus.' });
+    notificationStore.addNotification('social', 'Erreur lors du refus.', 'error');
   }
 };
 
 const cancelRequest = async (id) => {
   try {
     await friendStore.removeFriend(id); // Same as removeFriend on backend for pending
-    gameEvents.emit('SHOW_ALERT', { text: 'Demande annulée.' });
+    notificationStore.addNotification('social', 'Demande annulée.', 'info');
   } catch (e) {
-    gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors de l\'annulation.' });
+    notificationStore.addNotification('social', 'Erreur lors de l\'annulation.', 'error');
   }
 };
 
@@ -226,11 +229,11 @@ const sendRequest = async () => {
   if (!searchIdentifier.value) return;
   try {
     await friendStore.sendFriendRequest(searchIdentifier.value);
-    gameEvents.emit('SHOW_ALERT', { text: `Demande envoyée à ${searchIdentifier.value} !` });
+    notificationStore.addNotification('social', `Demande envoyée à ${searchIdentifier.value} !`, 'success');
     searchIdentifier.value = '';
     currentTab.value = 'requests';
   } catch (e) {
-    gameEvents.emit('SHOW_ALERT', { text: 'Erreur: ' + friendStore.error });
+    notificationStore.addNotification('social', 'Erreur: ' + friendStore.error, 'error');
   }
 };
 </script>

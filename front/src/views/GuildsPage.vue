@@ -289,8 +289,11 @@ import { ref, computed, onMounted, watch, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 import { useChatStore } from '../stores/chatStore.js';
 import { useUserStore } from '../stores/userStore.js';
-import { gameEvents } from '../game/events.js';
+import { useNotificationStore } from '../stores/notificationStore.js';
+import { confirmAction } from '../game/state.js';
 import { getStrapiMediaUrl } from '../utils/url.js';
+
+const notificationStore = useNotificationStore();
 
 const getUserColor = (userId) => {
   if (!userId) return 'white';
@@ -381,30 +384,30 @@ const canKick = (member, roleName) => {
 };
 
 const handleKick = async (member) => {
-  if (!confirm(`Voulez-vous vraiment expulser ${member.username} de la guilde ?`)) return;
+  if (!(await confirmAction('Expulser un membre', `Voulez-vous vraiment expulser ${member.username} de la guilde ?`))) return;
   try {
     await chatStore.kickMember(chatStore.pageActiveTargetId, member.documentId);
-    gameEvents.emit('SHOW_ALERT', { text: `${member.username} a été expulsé.` });
+    notificationStore.addNotification('guild', `${member.username} a été expulsé.`, 'info');
   } catch (err) {
-    gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors de l\'expulsion.' });
+    notificationStore.addNotification('guild', 'Erreur lors de l\'expulsion.', 'error');
   }
 };
 
 const handlePromote = async (member) => {
   try {
     await chatStore.promoteMember(chatStore.pageActiveTargetId, member.documentId);
-    gameEvents.emit('SHOW_ALERT', { text: `${member.username} est maintenant modérateur.` });
+    notificationStore.addNotification('guild', `${member.username} est maintenant modérateur.`, 'success');
   } catch (err) {
-    gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors de la promotion.' });
+    notificationStore.addNotification('guild', 'Erreur lors de la promotion.', 'error');
   }
 };
 
 const handleDemote = async (member) => {
   try {
     await chatStore.demoteMember(chatStore.pageActiveTargetId, member.documentId);
-    gameEvents.emit('SHOW_ALERT', { text: `${member.username} n'est plus modérateur.` });
+    notificationStore.addNotification('guild', `${member.username} n'est plus modérateur.`, 'info');
   } catch (err) {
-    gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors de la rétrogradation.' });
+    notificationStore.addNotification('guild', 'Erreur lors de la rétrogradation.', 'error');
   }
 };
 
@@ -414,11 +417,11 @@ const handleAddMember = async () => {
   addMemberError.value = '';
   try {
     await chatStore.addMemberByUsername(chatStore.pageActiveTargetId, targetUsername.value.trim());
-    gameEvents.emit('SHOW_ALERT', { text: `${targetUsername.value} a été ajouté à la guilde !` });
+    notificationStore.addNotification('guild', `${targetUsername.value} a été ajouté à la guilde !`, 'success');
     targetUsername.value = '';
   } catch (err) {
     addMemberError.value = err.message || 'Erreur lors de l\'ajout.';
-    gameEvents.emit('SHOW_ALERT', { text: 'Impossible d\'ajouter ce joueur.' });
+    notificationStore.addNotification('guild', 'Impossible d\'ajouter ce joueur.', 'error');
   } finally {
     addingMember.value = false;
   }
@@ -431,35 +434,35 @@ const handleUpdateGuild = async () => {
       name: editGuildName.value,
       description: editGuildDesc.value
     });
-    gameEvents.emit('SHOW_ALERT', { text: 'Paramètres mis à jour.' });
+    notificationStore.addNotification('guild', 'Paramètres mis à jour.', 'success');
   } catch (err) {
-    gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors de la mise à jour.' });
+    notificationStore.addNotification('guild', 'Erreur lors de la mise à jour.', 'error');
   } finally {
     updating.value = false;
   }
 };
 
 const handleDeleteGuild = async () => {
-  if (!confirm('Êtes-vous SÛR de vouloir supprimer cette guilde ? Cette action est irréversible.')) return;
+  if (!(await confirmAction('Supprimer la guilde', 'Êtes-vous SÛR de vouloir supprimer cette guilde ? Cette action est irréversible.'))) return;
   deleting.value = true;
   try {
     await chatStore.deleteGuild(chatStore.pageActiveTargetId);
-    gameEvents.emit('SHOW_ALERT', { text: 'Guilde supprimée.' });
+    notificationStore.addNotification('guild', 'Guilde supprimée.', 'info');
     router.push({ name: 'guilds' });
   } catch (err) {
-    gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors de la suppression.' });
+    notificationStore.addNotification('guild', 'Erreur lors de la suppression.', 'error');
   } finally {
     deleting.value = false;
   }
 };
 
 const handleLeaveGuild = async () => {
-  if (!confirm('Voulez-vous vraiment quitter cette guilde ?')) return;
+  if (!(await confirmAction('Quitter la guilde', 'Voulez-vous vraiment quitter cette guilde ?'))) return;
   try {
     await chatStore.leaveGuild(chatStore.pageActiveTargetId);
-    gameEvents.emit('SHOW_ALERT', { text: 'Vous avez quitté la guilde.' });
+    notificationStore.addNotification('guild', 'Vous avez quitté la guilde.', 'info');
   } catch (err) {
-    gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors de la sortie.' });
+    notificationStore.addNotification('guild', 'Erreur lors de la sortie.', 'error');
   }
 };
 
@@ -559,10 +562,10 @@ const handleJoinGuild = async (guildId) => {
   joining.value = true;
   try {
     await chatStore.joinGuild(guildId);
-    gameEvents.emit('SHOW_ALERT', { text: 'Vous avez rejoint la guilde !' });
+    notificationStore.addNotification('guild', 'Vous avez rejoint la guilde !', 'success');
     handleSearch(); // Refresh list
   } catch (err) {
-    gameEvents.emit('SHOW_ALERT', { text: 'Erreur lors de la tentative de rejoindre la guilde.' });
+    notificationStore.addNotification('guild', 'Erreur lors de la tentative de rejoindre la guilde.', 'error');
   } finally {
     joining.value = false;
   }
@@ -580,7 +583,7 @@ const handleCreateGuild = async () => {
     const newGuild = await chatStore.createGuild(newGuildName.value, newGuildDesc.value);
     newGuildName.value = '';
     newGuildDesc.value = '';
-    gameEvents.emit('SHOW_ALERT', { text: `Guilde ${newGuild.name} créée avec succès !` });
+    notificationStore.addNotification('guild', `Guilde ${newGuild.name} créée avec succès !`, 'success');
     selectGuild(newGuild.documentId || newGuild.id);
     handleSearch(); // Refresh global list
   } catch (err) {

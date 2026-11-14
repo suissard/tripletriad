@@ -147,8 +147,8 @@ onMounted(async () => {
   try {
     const [usersRes, cardsRes, questsRes] = await Promise.all([
       strapiService.request('GET', '/users'),
-      strapiService.request('GET', '/cards'),
-      strapiService.request('GET', '/quest-templates')
+      strapiService.request('GET', '/cards?pagination[pageSize]=500'),
+      strapiService.request('GET', '/quest-templates?pagination[pageSize]=1')
     ]);
 
     if (usersRes.error) throw new Error(usersRes.error.message || 'Failed to fetch users');
@@ -158,9 +158,9 @@ onMounted(async () => {
     const cardsData = Array.isArray(cardsRes) ? cardsRes : (cardsRes.data || []);
     const questsData = Array.isArray(questsRes) ? questsRes : (questsRes.data || []);
 
-    stats.value.users = usersData.length;
-    stats.value.cards = cardsData.length;
-    stats.value.questTemplates = questsData.length;
+    stats.value.users = usersRes?.meta?.pagination?.total ?? usersData.length;
+    stats.value.cards = cardsRes?.meta?.pagination?.total ?? cardsData.length;
+    stats.value.questTemplates = questsRes?.meta?.pagination?.total ?? questsData.length;
 
     if (cardsData.length > 0) {
       const rarities = {};
@@ -174,7 +174,7 @@ onMounted(async () => {
         'Common': '#94a3b8',
         'Commune': '#94a3b8',
         'Uncommon': '#10B981',
-        'Peu Commmune': '#10B981',
+        'Peu Commune': '#10B981',
         'Rare': '#3B82F6',
         'Epic': '#8B5CF6',
         'Épique': '#8B5CF6',

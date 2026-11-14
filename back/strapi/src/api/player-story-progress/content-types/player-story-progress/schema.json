@@ -49,6 +49,10 @@
     "variables": {
       "type": "json",
       "description": "JSON object storing story-specific flags and counters"
+    },
+    "claimedRewards": {
+      "type": "json",
+      "description": "Permanent list of claimed situation reward keys (not cleared on reset)"
     }
   }
 }

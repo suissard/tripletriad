@@ -17,16 +17,14 @@ export const assignQuestsToUser = async (strapi, userId, immediate = false) => {
         user: { id: userId },
         expiresAt: { $lt: nowISO },
       },
-      fields: ["documentId"],
+      fields: ["id"],
+      limit: 200,
     });
 
-    for (const quest of expiredQuests) {
-      await strapi.documents("api::player-quest.player-quest").delete({
-        documentId: quest.documentId,
-      });
-    }
-
     if (expiredQuests.length > 0) {
+      await strapi.db.query("api::player-quest.player-quest").deleteMany({
+        where: { id: { $in: expiredQuests.map((q: any) => q.id) } },
+      });
       console.log(
         `[QuestService] Deleted ${expiredQuests.length} expired quests for user ${userId}`,
       );

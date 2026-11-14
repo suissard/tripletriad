@@ -344,6 +344,8 @@
 import { ref, reactive, computed, onMounted, onBeforeUnmount, markRaw, nextTick, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useUserStore } from '../../stores/userStore.js';
+import { useEffectStore } from '../../stores/effectStore.js';
+import { useNotificationStore } from '../../stores/notificationStore.js';
 import strapiService from '@/api/strapi';
 import { getStrapiMediaUrl } from '@/utils/url';
 import PremiumSelect from '../components/PremiumSelect.vue';
@@ -381,6 +383,8 @@ const canUndo = computed(() => undoStack.value.length > 0);
 const canRedo = computed(() => redoStack.value.length > 0);
 
 const userStore = useUserStore();
+const effectStore = useEffectStore();
+const notificationStore = useNotificationStore();
 const route = useRoute();
 const router = useRouter();
 const previewTilt = ref({ x: 0, y: 0 });
@@ -686,10 +690,11 @@ async function saveEffect() {
 
     const savedData = res.data || res;
     currentExistingEffectId.value = savedData.documentId || savedData.id;
+    await effectStore.fetchEffects(true);
 
-    alert("Effet sauvegardé avec succès !");
+    notificationStore.addNotification('system', 'Effet sauvegardé avec succès !', 'success');
   } catch (err) {
-    alert("Erreur lors de la sauvegarde : " + err.message);
+    notificationStore.addNotification('system', 'Erreur lors de la sauvegarde : ' + err.message, 'error');
   } finally {
     saving.value = false;
   }

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import strapiService from '../api/strapi.js';
 import strapiMock from '../api/strapiMock.js';
-import { getCardById } from '../game/state.js';
+import { getCardById, state as gameState } from '../game/state.js';
 import { getStrapiUrl, getStrapiMediaUrl } from '../utils/url.js';
 import { useEffectStore } from './effectStore.js';
 import DEFAULT_FRAME_COORDS from '../game/frame_defaults.json';
@@ -1149,28 +1149,6 @@ export const useUserStore = defineStore('user', {
       }
     },
 
-    async addDevCurrencies(payload) {
-      if (!this.isLoggedIn) return false;
-      try {
-        const result = await strapiService.request('POST', '/dev/add-currencies', {
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        
-        if (!result.error) {
-          if (result.coins !== undefined) this.user.coins = result.coins;
-          if (result.gems !== undefined) this.user.gems = result.gems;
-          if (result.dust !== undefined) this.user.dust = result.dust;
-          this.syncLocalUserWallets();
-          return true;
-        }
-        return false;
-      } catch (e) {
-        console.error('[Dev] Failed to add currencies:', e);
-        return false;
-      }
-    },
-
     syncLocalUserWallets() {
       const savedUser = JSON.parse(localStorage.getItem('tt_user') || '{}');
       const updatedUser = { 
@@ -1204,6 +1182,7 @@ export const useUserStore = defineStore('user', {
 
     setGameConfig(config) {
       this.gameConfig = config;
+      gameState.turnTimeSeconds = Number(config?.turnTimeSeconds || 0);
     },
 
     async fetchUsers() {

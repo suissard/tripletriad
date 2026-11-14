@@ -1,4 +1,5 @@
 import type { SkillHandler } from './types';
+import { getEffectiveHp, consumeWard } from './helpers.js';
 import { 
   EFFECT_TYPES, 
   SKILL_TRIGGERS 
@@ -22,17 +23,11 @@ const handler: SkillHandler = {
 
     alerts.push('POISON!');
 
-    const attackerHasWard = attackerCell.data.skills &&
-      attackerCell.data.skills.some(s => s.type === 'ward');
-
-    if (attackerHasWard) {
+    if (consumeWard(attackerCell.data)) {
       alerts.push('WARD!');
-      attackerCell.data.skills = attackerCell.data.skills.filter(s => s.type !== 'ward');
       captures.push({ ...attackerCell.data, event: 'ward_triggered_poison' });
     } else {
-      let attackerHp = (attackerCell.data.hp !== undefined
-        ? attackerCell.data.hp
-        : (attackerCell.data.defaultHp || 3)) - skill.value;
+      let attackerHp = getEffectiveHp(attackerCell.data) - skill.value;
 
       attackerCell.data.hp = attackerHp;
 

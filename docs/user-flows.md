@@ -4,7 +4,7 @@ Ce document détaille les étapes invisibles qui se produisent lors des actions 
 
 ## 1. Ouverture d'un Booster
 
-Lorsqu'un utilisateur clique sur "Acheter un Pack" dans la Boutique (`PackOpening.vue`) :
+Lorsqu'un utilisateur clique sur "Acheter un Pack" dans la Boutique (`BoutiquePage.vue` / `PackOpening.vue`) :
 
 ### Action Utilisateur
 Cliquer sur le bouton d'achat d'un pack (Classique ou Premium).

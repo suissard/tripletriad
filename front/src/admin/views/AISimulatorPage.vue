@@ -278,7 +278,7 @@ const runSingleGame = (deck1Data, deck2Data) => {
   let turnCount = 0;
   let cardsUsed = 0;
 
-  while (!gameState.isFinished && cardsUsed < 16) { // 16 is max board size 4x4
+  while (!gameState.isFinished && cardsUsed < 9) { // 9 is max board size 3x3
     const currentPlayer = gameState.currentPlayer;
     let currentHand = currentPlayer === 'PLAYER_1' ? h1 : h2;
 

@@ -1,4 +1,5 @@
 import { factories } from "@strapi/strapi";
+import { z } from "zod";
 import {
   GameEngine,
   GameState,
@@ -6,61 +7,71 @@ import {
 } from "../../../shared/GameEngine";
 import { logPlayerEvent } from "../../player-event-log/services/event-logger";
 
-// Interface attendue dans le Body de la requête
-interface ArbitrateRequestBody {
-  matchId: string;
-  logs: any[]; // Modifié pour accepter le nouveau format de log enrichi. On filtrera les PlaceCardAction à la volée.
-  isFinished?: boolean;
-  winner?: string;
-}
+const arbitrateSchema = z.object({
+  matchId: z.string().min(1).max(128),
+  logs: z.array(z.any()).max(200),
+});
 
-// On simule une base de données locale ou un cache mémoire (ex: Redis en prod)
-// pour compter le nombre de demandes d'arbitrage par match.
-const arbitrationRequestsCount: Record<string, number> = {};
+const createMatchSchema = z.object({
+  uuid: z.string().min(1).max(128),
+  offer: z.any().optional(),
+  opponentId: z.union([z.number().int().positive(), z.string().min(1)]).optional(),
+  startingPlayer: z.enum(["PLAYER_1", "PLAYER_2"]).optional(),
+});
+
+const arbitrationRequestsCount = new Map<string, number>();
+
+function isParticipant(match: any, user: any): boolean {
+  const users = match?.users || [];
+  return users.some(
+    (u: any) =>
+      String(u.id) === String(user.id) ||
+      (user.documentId && String(u.documentId) === String(user.documentId)),
+  );
+}
 
 export default factories.createCoreController(
   "api::match.match",
   ({ strapi }) => ({
     /**
-     * Arbitre le match en rejouant les logs
+     * Arbitre le match en rejouant de manière autoritaire les actions de placement sur grille 3x3
      */
     async arbitrate(ctx) {
       try {
-        const body = ctx.request.body as ArbitrateRequestBody;
+        const user = ctx.state.user;
+        if (!user) {
+          return ctx.unauthorized("Authentification requise pour arbitrer un match.");
+        }
 
-        if (!body.matchId || !body.logs || !Array.isArray(body.logs)) {
+        const parsed = arbitrateSchema.safeParse(ctx.request.body || {});
+        if (!parsed.success) {
           return ctx.badRequest(
             "Le body doit contenir 'matchId' et 'logs' (tableau d'actions).",
+            parsed.error.flatten(),
           );
         }
 
-        const {
-          matchId,
-          logs,
-          isFinished: clientIsFinished,
-          winner: clientWinner,
-        } = body;
+        const { matchId, logs } = parsed.data;
 
-        // 1. Vérifie la limite d'arbitrage (ex: max 3 requêtes)
-        if (!arbitrationRequestsCount[matchId]) {
-          arbitrationRequestsCount[matchId] = 0;
+        // 1. Vérifie la limite d'arbitrage par match (max 3 requêtes)
+        const count = (arbitrationRequestsCount.get(matchId) || 0) + 1;
+        arbitrationRequestsCount.set(matchId, count);
+        if (arbitrationRequestsCount.size > 10000) {
+          arbitrationRequestsCount.clear();
         }
 
-        arbitrationRequestsCount[matchId] += 1;
-
-        if (arbitrationRequestsCount[matchId] > 3) {
+        if (count > 3) {
           return ctx.send(
             {
               status: "ABORTED",
-              message: `Match ${matchId} annulé : Trop de requêtes d'arbitrage détectées (suspect d'abus réseau/triche).`,
+              message: `Match ${matchId} annulé : Trop de requêtes d'arbitrage détectées.`,
               state: null,
             },
             403,
           );
         }
 
-        // 2. Rejeu des logs
-        // Fetch match to get the starting player and users for quest tracking
+        // 2. Récupération du match et vérification de participation
         const matches = await strapi.documents("api::match.match").findMany({
           filters: { uuid: matchId },
           populate: ["users"],
@@ -70,39 +81,90 @@ export default factories.createCoreController(
           return ctx.notFound(`Match ${matchId} non trouvé.`);
         }
 
-        const match = matches[0];
-        const startingPlayer = (match.startingPlayer as any) || "PLAYER_1";
+        const match = matches[0] as any;
+        if (!isParticipant(match, user)) {
+          return ctx.forbidden("Vous ne participez pas à ce match.");
+        }
 
-        let currentState: GameState =
-          GameEngine.createInitialState(startingPlayer);
+        const startingPlayer = (match.startingPlayer as "PLAYER_1" | "PLAYER_2") || "PLAYER_1";
+        let currentState: GameState = GameEngine.createInitialState(startingPlayer);
+        const isAIMatch = (match.users?.length || 0) === 1;
 
-        const isAIMatch = matches[0].users?.length === 1;
+        // Extraction des actions de placement uniquement
+        const rawPlacements = logs.filter(
+          (log: any) =>
+            log &&
+            (log.type === "PLACE_CARD" ||
+              (log.action === "placement" && log.target && log.target.card)),
+        );
 
-        // Filtrer uniquement les actions de placement (celles qui concernent l'arbitrage du GameEngine)
-        const placeCardActions = logs
-          .filter(
-            (log) =>
-              log.type === "PLACE_CARD" ||
-              (log.action === "placement" && log.target && log.target.card),
-          )
-          .map((log) => {
-            let playerId = log.emitter.id;
+        // Chargement autoritaire des cartes depuis la base pour éviter toute falsification de stats/skills
+        const cardIds = Array.from(
+          new Set(
+            rawPlacements
+              .map((l: any) => l.card?.id || l.target?.card?.id)
+              .filter((id: any) => typeof id === "number" || /^\d+$/.test(String(id)))
+              .map(Number),
+          ),
+        );
+
+        const dbCards = cardIds.length
+          ? await strapi.documents("api::card.card").findMany({
+              filters: { id: { $in: cardIds } },
+              populate: ["faction", "skills", "skills.patterns"],
+              limit: cardIds.length,
+            })
+          : [];
+
+        const dbCardById = new Map<number, any>();
+        for (const c of dbCards as any[]) {
+          dbCardById.set(Number(c.id), c);
+        }
+
+        const placeCardActions: (PlaceCardAction & { dbCard?: any })[] = rawPlacements.map(
+          (log: any) => {
+            let playerId = log.player || log.emitter?.id;
             if (isAIMatch) {
-              playerId = playerId === "player" ? "PLAYER_1" : "PLAYER_2";
+              playerId =
+                playerId === "player" || playerId === "PLAYER_1"
+                  ? "PLAYER_1"
+                  : "PLAYER_2";
             }
 
-            return log.action === "placement"
-              ? {
-                  type: "PLACE_CARD",
-                  player: playerId,
-                  x: log.target.case % 4,
-                  y: Math.floor(log.target.case / 4),
-                  card: log.target.card,
-                }
-              : { ...log, player: playerId };
-          });
+            const clientCard = log.card || log.target?.card || {};
+            const authoritativeCard = dbCardById.get(Number(clientCard.id)) || clientCard;
 
-        let totalCapturesByPlayer: Record<string, number> = {
+            const isPlacementLog = log.action === "placement";
+            const slotIndex = Number(log.target?.case);
+            const x = isPlacementLog && !Number.isNaN(slotIndex) ? slotIndex % 3 : Number(log.x);
+            const y =
+              isPlacementLog && !Number.isNaN(slotIndex)
+                ? Math.floor(slotIndex / 3)
+                : Number(log.y);
+
+            return {
+              type: "PLACE_CARD",
+              player: playerId as "PLAYER_1" | "PLAYER_2",
+              x,
+              y,
+              card: {
+                id: authoritativeCard.id,
+                name: authoritativeCard.name,
+                top: authoritativeCard.topValue ?? authoritativeCard.top,
+                right: authoritativeCard.rightValue ?? authoritativeCard.right,
+                bottom: authoritativeCard.bottomValue ?? authoritativeCard.bottom,
+                left: authoritativeCard.leftValue ?? authoritativeCard.left,
+                element: authoritativeCard.element,
+                faction: authoritativeCard.faction?.code || authoritativeCard.faction,
+                skills: authoritativeCard.skills || [],
+              },
+              targets: log.targets,
+              dbCard: authoritativeCard,
+            };
+          },
+        );
+
+        const totalCapturesByPlayer: Record<string, number> = {
           PLAYER_1: 0,
           PLAYER_2: 0,
         };
@@ -116,7 +178,6 @@ export default factories.createCoreController(
           try {
             currentState = GameEngine.computeNextState(currentState, action);
 
-            // Count captures by comparing owners before/after
             currentState.board.forEach((row, y) => {
               row.forEach((cell, x) => {
                 const prevCell = previousBoard[y][x];
@@ -130,7 +191,7 @@ export default factories.createCoreController(
                 }
               });
             });
-          } catch (error) {
+          } catch (error: any) {
             return ctx.send(
               {
                 status: "INVALID_LOGS",
@@ -142,101 +203,44 @@ export default factories.createCoreController(
           }
         }
 
-        // 3. Secure Quest Tracking
+        // 3. Quêtes basées exclusivement sur l'état rejoué par le serveur
         try {
-          let user = ctx.state.user;
+          const isActuallyFinished = Boolean(currentState.isFinished);
+          const actualWinner = currentState.winner;
 
-          if (!user && ctx.request.header && ctx.request.header.authorization) {
-            const token = ctx.request.header.authorization.split(" ")[1];
-            if (token) {
-              try {
-                const jwtService = strapi
-                  .plugin("users-permissions")
-                  .service("jwt");
-                const payload = await jwtService.verify(token);
-                console.log(
-                  "[Arbitrate Debug] JWT Payload extracted:",
-                  JSON.stringify(payload),
-                );
-                if (payload && (payload.id || payload.documentId)) {
-                  user = { id: payload.documentId || payload.id };
-                }
-              } catch (e) {
-                console.warn("[Arbitrate] Invalid token provided", e.message);
-              }
-            }
-          }
+          if (isActuallyFinished) {
+            const processedUsers: any[] = Array.isArray(match.processedUsers)
+              ? match.processedUsers
+              : [];
 
-          console.log(
-            `[Arbitrate Debug] Found user for quests?`,
-            user ? user.id : "No user",
-          );
-
-          const isActuallyFinished =
-            clientIsFinished || currentState.isFinished;
-          let actualWinner = clientIsFinished
-            ? clientWinner
-            : currentState.winner;
-
-          // Normalisation du winner pour l'IA
-          if (isAIMatch) {
-            if (actualWinner === "player") actualWinner = "PLAYER_1";
-            if (actualWinner === "ai") actualWinner = "PLAYER_2";
-          }
-
-          if (user && isActuallyFinished && matches[0]) {
-            const matchRecord = matches[0] as any;
-            const processedUsers = matchRecord.processedUsers || [];
-
-            console.log(
-              `[Arbitrate Debug] Match users relation:`,
-              JSON.stringify(matchRecord.users),
+            const alreadyProcessed = processedUsers.some(
+              (pid) => String(pid) === String(user.id) || String(pid) === String(user.documentId),
             );
 
-            if (processedUsers.includes(user.id)) {
-              console.log(
-                `[Arbitrate] Quests already processed for user ${user.id} in match ${matchId}`,
-              );
-            } else {
-              const users = matchRecord.users || [];
+            if (!alreadyProcessed) {
+              const users = match.users || [];
               const userIndex = users.findIndex(
-                (u) =>
+                (u: any) =>
                   String(u.id) === String(user.id) ||
-                  String(u.documentId) === String(user.id),
+                  String(u.documentId) === String(user.documentId),
               );
-
-              console.log(`[Arbitrate Debug] userIndex found:`, userIndex);
 
               if (userIndex !== -1) {
                 const userRole = userIndex === 0 ? "PLAYER_1" : "PLAYER_2";
 
-                // Base events
                 await logPlayerEvent(strapi, {
                   userId: user.id,
                   eventType: "play_game",
                 });
 
-                if (isActuallyFinished && actualWinner === userRole) {
+                if (actualWinner === userRole) {
                   await logPlayerEvent(strapi, {
                     userId: user.id,
                     eventType: "win_game",
                   });
                 }
 
-                // Extract actions directly from the complete match logs instead of the replay engine
-                const dbLogs = matchRecord.logs || [];
-                const isAIMatch = users.length === 1;
-                const myEmitterId = isAIMatch ? "player" : userRole;
-
-                const myCompetenceLogs = dbLogs.filter(
-                  (l: any) =>
-                    l.action === "competence" && l.emitter?.id === myEmitterId,
-                );
-                const myTotalCaptures = myCompetenceLogs.reduce(
-                  (sum: number, log: any) => sum + (log.target?.count || 0),
-                  0,
-                );
-
+                const myTotalCaptures = totalCapturesByPlayer[userRole] || 0;
                 if (myTotalCaptures > 0) {
                   await logPlayerEvent(strapi, {
                     userId: user.id,
@@ -245,27 +249,22 @@ export default factories.createCoreController(
                   });
                 }
 
-                // Card specific events (Play Card, Faction, Element)
-                const myPlayActions = dbLogs.filter(
-                  (l: any) =>
-                    l.action === "placement" &&
-                    l.emitter?.id === myEmitterId &&
-                    l.target?.card,
-                );
-
-                for (const action of myPlayActions) {
-                  const card = action.target.card;
+                const myPlayedActions = placeCardActions.filter((a) => a.player === userRole);
+                for (const action of myPlayedActions) {
+                  const card = action.dbCard || action.card;
                   await logPlayerEvent(strapi, {
                     userId: user.id,
                     eventType: "play_card",
                     relatedCardId: card.id,
                   });
 
-                  if (card.faction) {
+                  const factionName =
+                    typeof card.faction === "object" ? card.faction?.name || card.faction?.code : card.faction;
+                  if (factionName) {
                     await logPlayerEvent(strapi, {
                       userId: user.id,
                       eventType: "play_card_faction",
-                      relatedElement: card.faction,
+                      relatedElement: factionName,
                     });
                   }
 
@@ -278,28 +277,22 @@ export default factories.createCoreController(
                   }
                 }
 
-                // Mark as processed only if the match is actually finished
-                if (isActuallyFinished) {
-                  await strapi.documents("api::match.match").update({
-                    documentId: matchRecord.documentId,
-                    data: {
-                      processedUsers: [...processedUsers, user.id],
-                    },
-                  });
-                }
+                await strapi.documents("api::match.match").update({
+                  documentId: match.documentId,
+                  data: {
+                    processedUsers: [...processedUsers, user.id],
+                  } as any,
+                });
               }
             }
           }
         } catch (questErr) {
-          console.error(
-            "Error in secure quest tracking during arbitration:",
-            questErr,
-          );
+          console.error("Error in secure quest tracking during arbitration:", questErr);
         }
 
         return ctx.send({
           status: "SUCCESS",
-          message: "Arbitrage terminé avec succès et quêtes mises à jour.",
+          message: "Arbitrage terminé avec succès.",
           state: currentState,
         });
       } catch (err) {
@@ -308,104 +301,146 @@ export default factories.createCoreController(
       }
     },
 
-    // --- STUBS POUR RESTAURER LA COMPATIBILITÉ AVEC custom.ts ---
-    // Note: Ces méthodes ont été perdues lors du précédent edit.
-    // Elles doivent être ré-implémentées avec la logique WebRTC réelle du projet.
-
     async createMatch(ctx) {
-      const { uuid, offer, users } = ctx.request.body;
+      const user = ctx.state.user;
+      if (!user) return ctx.unauthorized();
 
-      // Pour l'IA, l'offre WebRTC n'est pas requise, mais l'UUID l'est.
-      if (!uuid) return ctx.badRequest("UUID is required");
+      const parsed = createMatchSchema.safeParse(ctx.request.body || {});
+      if (!parsed.success) {
+        return ctx.badRequest("Invalid match creation payload", parsed.error.flatten());
+      }
+
+      const { uuid, offer, opponentId, startingPlayer } = parsed.data;
 
       try {
-        const defaultStartingPlayer =
-          Math.random() < 0.5 ? "PLAYER_1" : "PLAYER_2";
+        const existing = await strapi.documents("api::match.match").findMany({
+          filters: { uuid },
+          limit: 1,
+        });
+        if (existing.length > 0) {
+          return ctx.badRequest("A match with this UUID already exists.");
+        }
+
+        const participantIds = [user.id];
+        if (opponentId && String(opponentId) !== String(user.id)) {
+          participantIds.push(Number(opponentId) || opponentId);
+        }
+
+        const defaultStartingPlayer = Math.random() < 0.5 ? "PLAYER_1" : "PLAYER_2";
 
         const match = await strapi.documents("api::match.match").create({
           data: {
             uuid,
             offer,
-            users,
+            users: participantIds,
             logs: [],
-            startingPlayer:
-              ctx.request.body.startingPlayer || defaultStartingPlayer,
-          },
+            startingPlayer: startingPlayer || defaultStartingPlayer,
+          } as any,
         });
         return { data: match };
       } catch (e) {
         console.error("[Match Controller] Error:", e);
-        return ctx.internalServerError(
-          "An error occurred while processing the match request.",
-        );
+        return ctx.internalServerError("An error occurred while creating the match.");
       }
     },
 
     async findByUuid(ctx) {
+      const user = ctx.state.user;
+      if (!user) return ctx.unauthorized();
+
       const { uuid } = ctx.params;
       if (!uuid) return ctx.badRequest("UUID is required");
 
       try {
         const matches = await strapi.documents("api::match.match").findMany({
           filters: { uuid },
+          populate: ["users"],
+          limit: 1,
         });
 
         if (matches.length === 0) return ctx.notFound("Match not found");
+        if (!isParticipant(matches[0], user)) {
+          return ctx.forbidden("Accès refusé à ce match.");
+        }
+
         return { data: matches[0] };
       } catch (e) {
         console.error("[Match Controller] Error:", e);
-        return ctx.internalServerError(
-          "An error occurred while processing the match request.",
-        );
+        return ctx.internalServerError("An error occurred while fetching the match.");
       }
     },
 
     async updateByUuid(ctx) {
+      const user = ctx.state.user;
+      if (!user) return ctx.unauthorized();
+
       const { uuid } = ctx.params;
-      const { answer, offer, logs } = ctx.request.body;
+      const { answer, offer } = ctx.request.body || {};
       if (!uuid) return ctx.badRequest("UUID is required");
 
       try {
-        // Dans Strapi 5, on doit d'abord trouver le documentId via l'UUID
         const matches = await strapi.documents("api::match.match").findMany({
           filters: { uuid },
+          populate: ["users"],
+          limit: 1,
         });
 
         if (matches.length === 0) return ctx.notFound("Match not found");
+        const match = matches[0] as any;
+        const alreadyParticipant = isParticipant(match, user);
+
+        // Uniquement les participants (ou un 2e joueur répondant à une offre WebRTC)
+        if (!alreadyParticipant && !(answer && (match.users?.length || 0) < 2)) {
+          return ctx.forbidden("Vous n'êtes pas autorisé à modifier ce match.");
+        }
+
+        const updateData: Record<string, any> = {};
+        if (answer !== undefined) updateData.answer = answer;
+        if (offer !== undefined && alreadyParticipant) updateData.offer = offer;
+        if (!alreadyParticipant && answer) {
+          updateData.users = [...(match.users || []).map((u: any) => u.id), user.id];
+        }
 
         const updated = await strapi.documents("api::match.match").update({
-          documentId: matches[0].documentId,
-          data: {
-            ...(answer && { answer }),
-            ...(offer && { offer }),
-            ...(logs && { logs }),
-          },
+          documentId: match.documentId,
+          data: updateData,
         });
 
         return { data: updated };
       } catch (e) {
         console.error("[Match Controller] Error:", e);
-        return ctx.internalServerError(
-          "An error occurred while processing the match request.",
-        );
+        return ctx.internalServerError("An error occurred while updating the match.");
       }
     },
 
     async addLog(ctx) {
+      const user = ctx.state.user;
+      if (!user) return ctx.unauthorized();
+
       const { uuid } = ctx.params;
-      const { action } = ctx.request.body;
-      if (!uuid || !action)
-        return ctx.badRequest("UUID and action are required");
+      const { action } = ctx.request.body || {};
+      if (!uuid || !action || typeof action !== "object") {
+        return ctx.badRequest("UUID and valid action object are required");
+      }
 
       try {
         const matches = await strapi.documents("api::match.match").findMany({
           filters: { uuid },
+          populate: ["users"],
+          limit: 1,
         });
 
         if (matches.length === 0) return ctx.notFound("Match not found");
 
-        const match = matches[0];
+        const match = matches[0] as any;
+        if (!isParticipant(match, user)) {
+          return ctx.forbidden("Vous ne participez pas à ce match.");
+        }
+
         const currentLogs = Array.isArray(match.logs) ? match.logs : [];
+        if (currentLogs.length >= 200) {
+          return ctx.badRequest("Match log limit reached.");
+        }
 
         const updated = await strapi.documents("api::match.match").update({
           documentId: match.documentId,
@@ -417,9 +452,7 @@ export default factories.createCoreController(
         return { data: updated };
       } catch (e) {
         console.error("[Match Controller] Error:", e);
-        return ctx.internalServerError(
-          "An error occurred while processing the match request.",
-        );
+        return ctx.internalServerError("An error occurred while adding match log.");
       }
     },
   }),

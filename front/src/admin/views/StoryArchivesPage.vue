@@ -35,18 +35,20 @@
           </div>
 
           <div class="flex flex-col gap-3">
-            <router-link
-              :to="`/admin/story-diagram/${story.folder}`"
+            <AppButton
+              variant="secondary"
+              @click="router.push(`/admin/story-diagram/${story.folder}`)"
               class="w-full flex items-center justify-center gap-2 py-3 rounded-[16px] bg-blue-500/20 text-blue-400 font-bold text-sm hover:bg-blue-500/30 transition-colors cursor-pointer"
             >
               🗺️ Voir le Diagramme
-            </router-link>
-            <router-link
-              :to="`/story/${story.folder}`"
+            </AppButton>
+            <AppButton
+              variant="secondary"
+              @click="router.push(`/story/${story.folder}`)"
               class="w-full flex items-center justify-center gap-2 py-3 rounded-[16px] bg-white/5 text-gray-400 font-bold text-sm hover:bg-white/10 transition-colors cursor-pointer"
             >
               📖 Jouer l'histoire
-            </router-link>
+            </AppButton>
           </div>
         </div>
       </div>
@@ -56,6 +58,10 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
+import AppButton from '../../components/ui/AppButton.vue'
+
+const router = useRouter()
 
 const modules = import.meta.glob('../../../shared/data/stories/*/manifest.json', { eager: true })
 

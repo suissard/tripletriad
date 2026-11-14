@@ -49,10 +49,7 @@ const handler: SkillHandler = {
         if (valStr === undefined) return;
 
         let val = (valStr === 'A' || valStr === 'a') ? 100 : parseInt(valStr as string) || 0;
-        if (val >= 100) return;
-
-        // Calculer la nouvelle valeur
-        val = Math.max(0, Math.min(100, val + increment));
+        val = val >= 100 ? 100 : Math.max(0, Math.min(100, val + increment));
         
         // Convertir en format Triple Triad
         const newValStr = val >= 100 ? 'A' : val.toString();

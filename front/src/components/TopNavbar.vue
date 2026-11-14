@@ -52,7 +52,7 @@
         </AppButton>
 
         <!-- Offline Indicator -->
-        <div v-if="userStore.isOffline" class="offline-indicator">
+        <div v-if="!userStore.strapiConnected" class="offline-indicator">
           <span class="blink-dot"></span>
           <span class="offline-text">HORS LIGNE</span>
         </div>
@@ -62,7 +62,7 @@
       <div class="app-title">Terra Nullius</div>
 
       <!-- Right User Widget (Hidden if offline) -->
-      <AppButton variant="secondary" v-if="!userStore.isOffline"  class="glass-panel" @click="handleUserWidgetClick">
+      <AppButton variant="secondary" v-if="userStore.strapiConnected"  class="glass-panel" @click="handleUserWidgetClick">
         <div style="display: flex; align-items: center; gap: 10px;">
           <span class="username">{{ userStore.user?.username || 'Joueur Anonyme' }}</span>
           <img :src="userStore.user?.avatar" class="avatar" alt="User Avatar" />

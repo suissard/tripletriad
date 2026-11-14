@@ -6,6 +6,7 @@ import { getRarity, displayVal } from './constants.js';
 export let scene, camera, renderer;
 export const slots = [];
 let sharedGlowTex;
+let animationFrameId = null;
 const loadedFrames = {};
 
 export function setCardFrame(fileName) {
@@ -101,15 +102,38 @@ function onWindowResize() {
 }
 
 function animate() {
-    requestAnimationFrame(animate);
+    animationFrameId = requestAnimationFrame(animate);
     if (renderer && scene && camera) renderer.render(scene, camera);
 }
 
 export function cleanupScene() {
     window.removeEventListener('resize', onWindowResize);
-    if (renderer && renderer.domElement && renderer.domElement.parentNode) {
-        renderer.domElement.parentNode.removeChild(renderer.domElement);
+    if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
     }
+    if (scene) {
+        resetScene();
+        slots.forEach((slot) => {
+            scene.remove(slot);
+            if (slot.geometry) slot.geometry.dispose();
+            if (slot.material) slot.material.dispose();
+        });
+        slots.length = 0;
+    }
+    if (sharedGlowTex) {
+        sharedGlowTex.dispose();
+        sharedGlowTex = null;
+    }
+    if (renderer) {
+        if (renderer.domElement && renderer.domElement.parentNode) {
+            renderer.domElement.parentNode.removeChild(renderer.domElement);
+        }
+        renderer.dispose();
+        renderer = null;
+    }
+    scene = null;
+    camera = null;
 }
 
 export function resetScene() {

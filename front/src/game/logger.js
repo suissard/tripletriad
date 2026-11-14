@@ -31,13 +31,6 @@ export async function sendGameLog(actionType, emitter, target) {
                 await userStore.fetchWeeklyQuests();
             } catch (arbErr) {
                 console.error("[QuestTracking] Arbitration failed:", arbErr);
-                
-                // Fallback (only for UX/Offline, won't be as secure as arbitration)
-                const winner = target?.winner;
-                await strapiService.trackEvent('play_game');
-                if (winner === 'PLAYER_1' || winner === 'player' || (state.pId === winner)) {
-                    await strapiService.trackEvent('win_game');
-                }
             }
         }
         // Mid-game events (placement, competence) are now handled securely by arbitration at the end.

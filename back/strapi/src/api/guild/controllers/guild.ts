@@ -1,49 +1,114 @@
 // @ts-nocheck
-import { factories } from '@strapi/strapi';
+import { factories } from "@strapi/strapi";
+import { z } from "zod";
 
-export default factories.createCoreController('api::guild.guild' as any, ({ strapi }: { strapi: any }) => ({
+const guildSchema = z.object({
+  name: z.string().trim().min(2).max(50),
+  description: z.string().trim().max(500).optional().nullable(),
+});
+
+function sanitizeMember(u: any) {
+  if (!u) return null;
+  return {
+    id: u.id,
+    documentId: u.documentId,
+    username: u.username,
+    avatar_card: u.avatar_card || null,
+  };
+}
+
+function sanitizeGuild(guild: any) {
+  if (!guild) return guild;
+  return {
+    id: guild.id,
+    documentId: guild.documentId,
+    name: guild.name,
+    description: guild.description,
+    createdAt: guild.createdAt,
+    updatedAt: guild.updatedAt,
+    owner: guild.owner ? sanitizeMember(guild.owner) : undefined,
+    moderators: Array.isArray(guild.moderators) ? guild.moderators.map(sanitizeMember) : undefined,
+    members: Array.isArray(guild.members) ? guild.members.map(sanitizeMember) : undefined,
+  };
+}
+
+export default factories.createCoreController("api::guild.guild" as any, ({ strapi }: { strapi: any }) => ({
+  async find(ctx) {
+    const authUser = ctx.state.user;
+    if (!authUser) return ctx.unauthorized();
+
+    const query = { ...(ctx.query || {}) } as any;
+    const page = Math.max(1, parseInt(query.pagination?.page, 10) || 1);
+    const pageSize = Math.min(50, Math.max(1, parseInt(query.pagination?.pageSize, 10) || 25));
+
+    const [guilds, total] = await Promise.all([
+      strapi.documents("api::guild.guild").findMany({
+        filters: query.filters || {},
+        populate: ["owner", "members"],
+        sort: query.sort || "createdAt:desc",
+        page,
+        pageSize,
+      }),
+      strapi.documents("api::guild.guild").count({ filters: query.filters || {} }),
+    ]);
+
+    return {
+      data: guilds.map(sanitizeGuild),
+      meta: {
+        pagination: {
+          page,
+          pageSize,
+          pageCount: Math.max(1, Math.ceil(total / pageSize)),
+          total,
+        },
+      },
+    };
+  },
+
+  async findOne(ctx) {
+    const authUser = ctx.state.user;
+    if (!authUser) return ctx.unauthorized();
+
+    const { id: documentId } = ctx.params;
+    const guild = await strapi.documents("api::guild.guild").findOne({
+      documentId,
+      populate: ["owner", "moderators", "members"],
+    });
+
+    if (!guild) return ctx.notFound("Guild not found");
+    return { data: sanitizeGuild(guild) };
+  },
+
   async create(ctx) {
     try {
       const authUser = ctx.state.user;
       if (!authUser) return ctx.unauthorized();
 
-      // Ensure we have the user's documentId
-      const users = await strapi.documents('plugin::users-permissions.user').findMany({
+      const parsed = guildSchema.safeParse(ctx.request.body?.data || {});
+      if (!parsed.success) {
+        return ctx.badRequest("Invalid guild payload.", parsed.error.flatten());
+      }
+
+      const users = await strapi.documents("plugin::users-permissions.user").findMany({
         filters: { id: authUser.id },
-        limit: 1
+        limit: 1,
       });
       const user = users[0];
-      if (!user) return ctx.notFound('User record not found');
+      if (!user) return ctx.notFound("User record not found");
 
-      // Initialize data if not present
-      if (!ctx.request.body.data) {
-        ctx.request.body.data = {};
-      }
+      const created = await strapi.documents("api::guild.guild").create({
+        data: {
+          name: parsed.data.name,
+          description: parsed.data.description || "",
+          owner: user.documentId,
+          members: { connect: [user.documentId] },
+        },
+        populate: ["owner", "members"],
+      });
 
-      // Set the owner
-      ctx.request.body.data.owner = user.documentId;
-      
-      // Also add the owner to members automatically
-      if (!ctx.request.body.data.members) {
-        ctx.request.body.data.members = { connect: [user.documentId] };
-      } else if (typeof ctx.request.body.data.members === 'object' && ctx.request.body.data.members.connect) {
-        if (!ctx.request.body.data.members.connect.includes(user.documentId)) {
-          ctx.request.body.data.members.connect.push(user.documentId);
-        }
-      } else if (Array.isArray(ctx.request.body.data.members)) {
-        if (!ctx.request.body.data.members.includes(user.documentId)) {
-          ctx.request.body.data.members.push(user.documentId);
-        }
-      } else {
-        // Fallback or override if it's some other format
-        ctx.request.body.data.members = { connect: [user.documentId] };
-      }
-
-      // Call the default core create controller
-      const response = await super.create(ctx);
-      return response;
+      return { data: sanitizeGuild(created) };
     } catch (err) {
-      strapi.log.error('[Guild] Error in create:', err);
+      strapi.log.error("[Guild] Error in create:", err);
       ctx.throw(500, err.message);
     }
   },
@@ -53,47 +118,38 @@ export default factories.createCoreController('api::guild.guild' as any, ({ stra
       const authUser = ctx.state.user;
       if (!authUser) return ctx.unauthorized();
 
-      // Ensure we have the user's documentId
-      const users = await strapi.documents('plugin::users-permissions.user').findMany({
+      const users = await strapi.documents("plugin::users-permissions.user").findMany({
         filters: { id: authUser.id },
-        limit: 1
+        limit: 1,
       });
       const user = users[0];
-      if (!user) return ctx.notFound('User record not found');
+      if (!user) return ctx.notFound("User record not found");
 
       const { id: documentId } = ctx.params;
-      strapi.log.info(`[Guild] User ${user.username} (${user.documentId}) joining guild ${documentId}`);
-
-      // Check if guild exists
-      const guild = await strapi.documents('api::guild.guild').findOne({
+      const guild = await strapi.documents("api::guild.guild").findOne({
         documentId,
-        populate: ['members', 'owner', 'moderators']
+        populate: ["members"],
       });
 
-      if (!guild) return ctx.notFound('Guild not found');
+      if (!guild) return ctx.notFound("Guild not found");
 
-      // Check if already a member
-      const isAlreadyMember = guild.members?.some((member: any) => 
-        member.documentId === user.documentId
+      const isAlreadyMember = guild.members?.some(
+        (member: any) => member.documentId === user.documentId || member.id === user.id,
       );
-      
       if (isAlreadyMember) {
-        return ctx.badRequest('You are already a member of this guild');
+        return ctx.badRequest("You are already a member of this guild");
       }
 
-      // Add member using 'connect' - The Strapi 5 way for relations
-      const updatedGuild = await strapi.documents('api::guild.guild').update({
+      const updatedGuild = await strapi.documents("api::guild.guild").update({
         documentId,
         data: {
-          members: {
-            connect: [user.documentId]
-          }
-        }
+          members: { connect: [user.documentId] },
+        },
       });
 
-      return { data: updatedGuild, message: 'Successfully joined the guild' };
+      return { data: sanitizeGuild(updatedGuild), message: "Successfully joined the guild" };
     } catch (err) {
-      strapi.log.error('[Guild] Error in join:', err);
+      strapi.log.error("[Guild] Error in join:", err);
       ctx.throw(500, err.message);
     }
   },
@@ -103,54 +159,62 @@ export default factories.createCoreController('api::guild.guild' as any, ({ stra
       const authUser = ctx.state.user;
       if (!authUser) return ctx.unauthorized();
 
-      const users = await strapi.documents('plugin::users-permissions.user').findMany({
+      const users = await strapi.documents("plugin::users-permissions.user").findMany({
         filters: { id: authUser.id },
-        limit: 1
+        limit: 1,
       });
       const user = users[0];
-      if (!user) return ctx.notFound('User record not found');
+      if (!user) return ctx.notFound("User record not found");
 
       const { id: documentId } = ctx.params;
+      const guild = await strapi.documents("api::guild.guild").findOne({
+        documentId,
+        populate: ["owner"],
+      });
+      if (!guild) return ctx.notFound("Guild not found");
 
-      const updatedGuild = await strapi.documents('api::guild.guild').update({
+      if (guild.owner?.id === user.id || guild.owner?.documentId === user.documentId) {
+        return ctx.badRequest("Le propriétaire ne peut pas quitter la guilde sans la supprimer.");
+      }
+
+      const updatedGuild = await strapi.documents("api::guild.guild").update({
         documentId,
         data: {
-          members: {
-            disconnect: [user.documentId]
-          }
-        }
+          members: { disconnect: [user.documentId] },
+          moderators: { disconnect: [user.documentId] },
+        },
       });
 
-      return { data: updatedGuild, message: 'Successfully left the guild' };
+      return { data: sanitizeGuild(updatedGuild), message: "Successfully left the guild" };
     } catch (err) {
-      strapi.log.error('[Guild] Error in leave:', err);
+      strapi.log.error("[Guild] Error in leave:", err);
       ctx.throw(500, err.message);
     }
   },
+
   async getMeGuilds(ctx) {
     try {
       const authUser = ctx.state.user;
       if (!authUser) return ctx.unauthorized();
 
-      // Ensure we have the user's documentId
-      const users = await strapi.documents('plugin::users-permissions.user').findMany({
+      const users = await strapi.documents("plugin::users-permissions.user").findMany({
         filters: { id: authUser.id },
-        limit: 1
+        limit: 1,
       });
       const user = users[0];
-      if (!user) return ctx.notFound('User record not found');
+      if (!user) return ctx.notFound("User record not found");
 
-      // Find all guilds where this user is a member
-      const userGuilds = await strapi.documents('api::guild.guild').findMany({
+      const userGuilds = await strapi.documents("api::guild.guild").findMany({
         filters: {
-          members: { documentId: user.documentId }
+          members: { documentId: user.documentId },
         },
-        populate: ['members']
+        populate: ["members", "owner", "moderators"],
+        limit: 50,
       });
 
-      return { data: userGuilds };
+      return { data: userGuilds.map(sanitizeGuild) };
     } catch (err) {
-      strapi.log.error('[Guild] Error in getMeGuilds:', err);
+      strapi.log.error("[Guild] Error in getMeGuilds:", err);
       ctx.throw(500, err.message);
     }
   },
@@ -161,61 +225,51 @@ export default factories.createCoreController('api::guild.guild' as any, ({ stra
       if (!authUser) return ctx.unauthorized();
 
       const { id: documentId } = ctx.params;
-      strapi.log.info(`[Guild] getGuildData - user: ${authUser.username}, guild: ${documentId}`);
-
-      const guild = await strapi.documents('api::guild.guild').findOne({
+      const guild = await strapi.documents("api::guild.guild").findOne({
         documentId,
-        populate: ['members', 'members.avatar_card.image', 'owner', 'owner.avatar_card.image', 'moderators', 'moderators.avatar_card.image']
+        populate: {
+          members: { fields: ["id", "documentId", "username"], populate: ["avatar_card.image"] },
+          owner: { fields: ["id", "documentId", "username"], populate: ["avatar_card.image"] },
+          moderators: { fields: ["id", "documentId", "username"], populate: ["avatar_card.image"] },
+        },
       });
 
-      if (!guild) return ctx.notFound('Guild not found');
+      if (!guild) return ctx.notFound("Guild not found");
 
-      // Check membership
       const isMember = guild.members?.some((m: any) => m.id === authUser.id);
-      const isPublic = ['global', 'général', 'general'].includes(guild.name?.toLowerCase());
+      const isPublic = ["global", "général", "general"].includes(guild.name?.toLowerCase());
 
       if (!isMember && !isPublic) {
-        strapi.log.warn(`[Guild] User ${authUser.username} tried to access guild data for ${guild.name} without being a member.`);
-        return ctx.forbidden('Not a member of this guild');
+        return ctx.forbidden("Not a member of this guild");
       }
 
-      const messages = await strapi.documents('api::chat-message.chat-message').findMany({
+      const messages = await strapi.documents("api::chat-message.chat-message").findMany({
         filters: { guild: guild.id },
-        sort: 'createdAt:desc',
+        sort: "createdAt:desc",
         limit: 50,
-        populate: ['sender', 'sender.avatar_card.image']
+        populate: {
+          sender: { fields: ["id", "documentId", "username"], populate: ["avatar_card.image"] },
+        },
       });
 
-      // Sanitize members and messages
-      const sanitizedMembers = guild.members?.map((m: any) => ({
-        id: m.id,
-        documentId: m.documentId,
-        username: m.username,
-        avatar_card: m.avatar_card
-      }));
-
-      const sanitizedMessages = messages.map((m: any) => ({
-        id: m.id,
-        documentId: m.documentId,
-        content: m.content,
-        createdAt: m.createdAt,
-        sender: m.sender ? {
-          id: m.sender.id,
-          documentId: m.sender.documentId,
-          username: m.sender.username,
-          avatar_card: m.sender.avatar_card
-        } : null
-      })).reverse();
+      const sanitizedMessages = messages
+        .map((m: any) => ({
+          id: m.id,
+          documentId: m.documentId,
+          content: m.content,
+          createdAt: m.createdAt,
+          sender: sanitizeMember(m.sender),
+        }))
+        .reverse();
 
       return {
         data: {
-          ...guild,
-          members: sanitizedMembers,
-          messages: sanitizedMessages
-        }
+          ...sanitizeGuild(guild),
+          messages: sanitizedMessages,
+        },
       };
     } catch (err) {
-      strapi.log.error('[Guild] Error in getGuildData:', err);
+      strapi.log.error("[Guild] Error in getGuildData:", err);
       ctx.throw(500, err.message);
     }
   },
@@ -223,40 +277,41 @@ export default factories.createCoreController('api::guild.guild' as any, ({ stra
   async kick(ctx) {
     try {
       const authUser = ctx.state.user;
+      if (!authUser) return ctx.unauthorized();
+
       const { id: documentId } = ctx.params;
-      const { memberDocId } = ctx.request.body;
+      const { memberDocId } = ctx.request.body || {};
+      if (!memberDocId) return ctx.badRequest("Member documentId is required");
 
-      if (!memberDocId) return ctx.badRequest('Member documentId is required');
-
-      const guild = await strapi.documents('api::guild.guild').findOne({
+      const guild = await strapi.documents("api::guild.guild").findOne({
         documentId,
-        populate: ['owner', 'moderators']
+        populate: ["owner", "moderators"],
       });
 
-      if (!guild) return ctx.notFound('Guild not found');
+      if (!guild) return ctx.notFound("Guild not found");
 
       const isOwner = guild.owner?.id === authUser.id;
       const isModerator = guild.moderators?.some((m: any) => m.id === authUser.id);
 
-      if (!isOwner && !isModerator) return ctx.forbidden('Only owners and moderators can kick members');
-
-      // Moderator security checks
-      if (isModerator && !isOwner) {
-        if (guild.owner?.documentId === memberDocId) return ctx.forbidden('Moderators cannot kick the owner');
-        if (guild.moderators?.some((m: any) => m.documentId === memberDocId)) return ctx.forbidden('Moderators cannot kick other moderators');
+      if (!isOwner && !isModerator) return ctx.forbidden("Only owners and moderators can kick members");
+      if (guild.owner?.documentId === memberDocId) {
+        return ctx.forbidden("Cannot kick the guild owner");
+      }
+      if (isModerator && !isOwner && guild.moderators?.some((m: any) => m.documentId === memberDocId)) {
+        return ctx.forbidden("Moderators cannot kick other moderators");
       }
 
-      await strapi.documents('api::guild.guild').update({
+      await strapi.documents("api::guild.guild").update({
         documentId,
         data: {
           members: { disconnect: [memberDocId] },
-          moderators: { disconnect: [memberDocId] } // Also remove from moderators if they were one
-        }
+          moderators: { disconnect: [memberDocId] },
+        },
       });
 
-      return { message: 'Member kicked successfully' };
+      return { message: "Member kicked successfully" };
     } catch (err) {
-      strapi.log.error('[Guild] Error in kick:', err);
+      strapi.log.error("[Guild] Error in kick:", err);
       ctx.throw(500, err.message);
     }
   },
@@ -264,27 +319,33 @@ export default factories.createCoreController('api::guild.guild' as any, ({ stra
   async promote(ctx) {
     try {
       const authUser = ctx.state.user;
-      const { id: documentId } = ctx.params;
-      const { memberDocId } = ctx.request.body;
+      if (!authUser) return ctx.unauthorized();
 
-      const guild = await strapi.documents('api::guild.guild').findOne({
+      const { id: documentId } = ctx.params;
+      const { memberDocId } = ctx.request.body || {};
+      if (!memberDocId) return ctx.badRequest("Member documentId is required");
+
+      const guild = await strapi.documents("api::guild.guild").findOne({
         documentId,
-        populate: ['owner']
+        populate: ["owner", "members"],
       });
 
-      if (!guild) return ctx.notFound('Guild not found');
-      if (guild.owner?.id !== authUser.id) return ctx.forbidden('Only the owner can promote members');
+      if (!guild) return ctx.notFound("Guild not found");
+      if (guild.owner?.id !== authUser.id) return ctx.forbidden("Only the owner can promote members");
+      if (!guild.members?.some((m: any) => m.documentId === memberDocId)) {
+        return ctx.badRequest("User is not a member of this guild");
+      }
 
-      await strapi.documents('api::guild.guild').update({
+      await strapi.documents("api::guild.guild").update({
         documentId,
         data: {
-          moderators: { connect: [memberDocId] }
-        }
+          moderators: { connect: [memberDocId] },
+        },
       });
 
-      return { message: 'Member promoted to moderator' };
+      return { message: "Member promoted to moderator" };
     } catch (err) {
-      strapi.log.error('[Guild] Error in promote:', err);
+      strapi.log.error("[Guild] Error in promote:", err);
       ctx.throw(500, err.message);
     }
   },
@@ -292,27 +353,30 @@ export default factories.createCoreController('api::guild.guild' as any, ({ stra
   async demote(ctx) {
     try {
       const authUser = ctx.state.user;
-      const { id: documentId } = ctx.params;
-      const { memberDocId } = ctx.request.body;
+      if (!authUser) return ctx.unauthorized();
 
-      const guild = await strapi.documents('api::guild.guild').findOne({
+      const { id: documentId } = ctx.params;
+      const { memberDocId } = ctx.request.body || {};
+      if (!memberDocId) return ctx.badRequest("Member documentId is required");
+
+      const guild = await strapi.documents("api::guild.guild").findOne({
         documentId,
-        populate: ['owner']
+        populate: ["owner"],
       });
 
-      if (!guild) return ctx.notFound('Guild not found');
-      if (guild.owner?.id !== authUser.id) return ctx.forbidden('Only the owner can demote moderators');
+      if (!guild) return ctx.notFound("Guild not found");
+      if (guild.owner?.id !== authUser.id) return ctx.forbidden("Only the owner can demote moderators");
 
-      await strapi.documents('api::guild.guild').update({
+      await strapi.documents("api::guild.guild").update({
         documentId,
         data: {
-          moderators: { disconnect: [memberDocId] }
-        }
+          moderators: { disconnect: [memberDocId] },
+        },
       });
 
-      return { message: 'Moderator demoted to member' };
+      return { message: "Moderator demoted to member" };
     } catch (err) {
-      strapi.log.error('[Guild] Error in demote:', err);
+      strapi.log.error("[Guild] Error in demote:", err);
       ctx.throw(500, err.message);
     }
   },
@@ -320,46 +384,44 @@ export default factories.createCoreController('api::guild.guild' as any, ({ stra
   async addMember(ctx) {
     try {
       const authUser = ctx.state.user;
+      if (!authUser) return ctx.unauthorized();
+
       const { id: documentId } = ctx.params;
-      const { username } = ctx.request.body;
+      const { username } = ctx.request.body || {};
+      if (!username) return ctx.badRequest("Username is required");
 
-      if (!username) return ctx.badRequest('Username is required');
-
-      const guild = await strapi.documents('api::guild.guild').findOne({
+      const guild = await strapi.documents("api::guild.guild").findOne({
         documentId,
-        populate: ['owner', 'moderators', 'members']
+        populate: ["owner", "moderators", "members"],
       });
 
-      if (!guild) return ctx.notFound('Guild not found');
+      if (!guild) return ctx.notFound("Guild not found");
 
       const isOwner = guild.owner?.id === authUser.id;
       const isModerator = guild.moderators?.some((m: any) => m.id === authUser.id);
+      if (!isOwner && !isModerator) return ctx.forbidden("Only owners and moderators can add members");
 
-      if (!isOwner && !isModerator) return ctx.forbidden('Only owners and moderators can add members');
-
-      // Find user to add
-      const users = await strapi.documents('plugin::users-permissions.user').findMany({
+      const users = await strapi.documents("plugin::users-permissions.user").findMany({
         filters: { username },
-        limit: 1
+        limit: 1,
       });
 
       const targetUser = users[0];
-      if (!targetUser) return ctx.notFound('User not found');
+      if (!targetUser) return ctx.notFound("User not found");
 
-      // Check if already in guild
       const isAlreadyMember = guild.members?.some((m: any) => m.documentId === targetUser.documentId);
-      if (isAlreadyMember) return ctx.badRequest('User is already a member of this guild');
+      if (isAlreadyMember) return ctx.badRequest("User is already a member of this guild");
 
-      await strapi.documents('api::guild.guild').update({
+      await strapi.documents("api::guild.guild").update({
         documentId,
         data: {
-          members: { connect: [targetUser.documentId] }
-        }
+          members: { connect: [targetUser.documentId] },
+        },
       });
 
-      return { message: 'Member added successfully' };
+      return { message: "Member added successfully" };
     } catch (err) {
-      strapi.log.error('[Guild] Error in addMember:', err);
+      strapi.log.error("[Guild] Error in addMember:", err);
       ctx.throw(500, err.message);
     }
   },
@@ -367,20 +429,33 @@ export default factories.createCoreController('api::guild.guild' as any, ({ stra
   async update(ctx) {
     try {
       const authUser = ctx.state.user;
-      const { id: documentId } = ctx.params;
+      if (!authUser) return ctx.unauthorized();
 
-      const guild = await strapi.documents('api::guild.guild').findOne({
+      const { id: documentId } = ctx.params;
+      const guild = await strapi.documents("api::guild.guild").findOne({
         documentId,
-        populate: ['owner']
+        populate: ["owner"],
       });
 
-      if (!guild) return ctx.notFound('Guild not found');
-      if (guild.owner?.id !== authUser.id) return ctx.forbidden('Only the owner can update guild settings');
+      if (!guild) return ctx.notFound("Guild not found");
+      if (guild.owner?.id !== authUser.id) return ctx.forbidden("Only the owner can update guild settings");
 
-      const response = await super.update(ctx);
-      return response;
+      const parsed = guildSchema.partial().safeParse(ctx.request.body?.data || {});
+      if (!parsed.success) {
+        return ctx.badRequest("Invalid guild update payload.", parsed.error.flatten());
+      }
+
+      const updated = await strapi.documents("api::guild.guild").update({
+        documentId,
+        data: {
+          ...(parsed.data.name !== undefined ? { name: parsed.data.name } : {}),
+          ...(parsed.data.description !== undefined ? { description: parsed.data.description } : {}),
+        },
+      });
+
+      return { data: sanitizeGuild(updated) };
     } catch (err) {
-      strapi.log.error('[Guild] Error in update:', err);
+      strapi.log.error("[Guild] Error in update:", err);
       ctx.throw(500, err.message);
     }
   },
@@ -388,21 +463,22 @@ export default factories.createCoreController('api::guild.guild' as any, ({ stra
   async delete(ctx) {
     try {
       const authUser = ctx.state.user;
-      const { id: documentId } = ctx.params;
+      if (!authUser) return ctx.unauthorized();
 
-      const guild = await strapi.documents('api::guild.guild').findOne({
+      const { id: documentId } = ctx.params;
+      const guild = await strapi.documents("api::guild.guild").findOne({
         documentId,
-        populate: ['owner']
+        populate: ["owner"],
       });
 
-      if (!guild) return ctx.notFound('Guild not found');
-      if (guild.owner?.id !== authUser.id) return ctx.forbidden('Only the owner can delete the guild');
+      if (!guild) return ctx.notFound("Guild not found");
+      if (guild.owner?.id !== authUser.id) return ctx.forbidden("Only the owner can delete the guild");
 
-      const response = await super.delete(ctx);
-      return response;
+      await strapi.documents("api::guild.guild").delete({ documentId });
+      return { data: sanitizeGuild(guild) };
     } catch (err) {
-      strapi.log.error('[Guild] Error in delete:', err);
+      strapi.log.error("[Guild] Error in delete:", err);
       ctx.throw(500, err.message);
     }
-  }
+  },
 }));

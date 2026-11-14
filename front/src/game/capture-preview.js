@@ -42,8 +42,12 @@ export function simulateCaptures(card, slotIndex) {
 
     // Convert flat board to 2D for GameEngine
     const board2D = [];
+    const boardElements2D = [];
     for (let r = 0; r < h; r++) {
         board2D.push(boardFlat.slice(r * w, (r + 1) * w));
+        boardElements2D.push(
+            Array.isArray(state.boardElements) ? state.boardElements.slice(r * w, (r + 1) * w) : Array(w).fill(null)
+        );
     }
 
     // Faction counts BEFORE placement to delay bonus for the 4th card
@@ -74,7 +78,7 @@ export function simulateCaptures(card, slotIndex) {
     const neighbors = getNeighborsPure(slotIndex, w, h);
 
     rulesRegistry.forEach(rule => {
-        if (state.rules[rule.id] && rule.id !== 'combo') {
+        if (state.rules[rule.id] && rule.id !== 'combo' && rule.id !== 'elements') {
             const result = rule.execute(mockEntry, neighbors, boardFlat);
             if (result.triggered) {
                 result.captures.forEach(capturedEntry => {
@@ -102,8 +106,8 @@ export function simulateCaptures(card, slotIndex) {
         const adj = board2D[ny][nx];
 
         if (adj && adj.owner !== owner) {
-            const myVal = GameEngine.getEffectiveValue(board2D, x, y, n.dir, factionCountsBefore);
-            const oppVal = GameEngine.getEffectiveValue(board2D, nx, ny, n.opp, factionCountsBefore);
+            const myVal = GameEngine.getEffectiveValue(board2D, x, y, n.dir, factionCountsBefore, boardElements2D, state.rules);
+            const oppVal = GameEngine.getEffectiveValue(board2D, nx, ny, n.opp, factionCountsBefore, boardElements2D, state.rules);
 
             if (myVal > oppVal) {
                 if (!capturedSet.has(n.i)) {
@@ -121,7 +125,13 @@ export function simulateCaptures(card, slotIndex) {
         // Let's broaden it to match GameEngine's combo logic.
         
         // Deep clone board for combo simulation
-        const comboBoard = board2D.map(row => row.map(cell => cell ? { ...cell, data: { ...cell.data } } : null));
+        const comboBoard = board2D.map(row => row.map(cell => cell ? {
+            ...cell,
+            data: {
+                ...cell.data,
+                skills: Array.isArray(cell.data?.skills) ? cell.data.skills.map(s => ({ ...s })) : []
+            }
+        } : null));
         
         // Initial captures are flipped
         [...directCaptures].forEach(cap => {
@@ -147,8 +157,8 @@ export function simulateCaptures(card, slotIndex) {
                 const adj = comboBoard[ny][nx];
                 if (!adj || adj.owner === owner) return;
 
-                const myVal = GameEngine.getEffectiveValue(comboBoard, current.x, current.y, n.dir, factionCountsBefore);
-                const oppVal = GameEngine.getEffectiveValue(comboBoard, nx, ny, n.opp, factionCountsBefore);
+                const myVal = GameEngine.getEffectiveValue(comboBoard, current.x, current.y, n.dir, factionCountsBefore, boardElements2D, state.rules);
+                const oppVal = GameEngine.getEffectiveValue(comboBoard, nx, ny, n.opp, factionCountsBefore, boardElements2D, state.rules);
 
                 if (myVal > oppVal) {
                     if (!capturedSet.has(n.i)) {

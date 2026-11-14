@@ -26,10 +26,21 @@
       </div>
 
       <!-- Table View -->
-      <div v-else-if="!isEditing" class="w-full">
+      <div v-else-if="!isEditing" class="w-full space-y-4">
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+          <input
+            v-model="searchQuery"
+            type="text"
+            placeholder="Rechercher dans la collection..."
+            class="w-full sm:w-80 bg-white/5 border border-white/10 rounded-2xl px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-primary/50"
+          />
+          <span class="text-xs font-semibold text-gray-400">
+            {{ filteredItems.length }} / {{ totalCount }} élément(s)
+          </span>
+        </div>
         <AdminTable
           :columns="columns"
-          :items="items"
+          :items="filteredItems"
           @edit="openEditor"
           @delete="deleteItem"
         />
@@ -121,35 +132,63 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import strapiService from '@/api/strapi';
 import { ELEMENT_OPTIONS } from '@/data/factions.js';
+import { confirmAction } from '../../game/state.js';
+import { useNotificationStore } from '../../stores/notificationStore.js';
 import TripleTriadCard from '../../components/TripleTriadCard.vue';
 import PremiumSelect from './PremiumSelect.vue';
 import AdminTable from './AdminTable.vue';
 
 const route = useRoute();
 const router = useRouter();
+const notificationStore = useNotificationStore();
 const collectionName = ref('');
 const loading = ref(true);
 const error = ref(null);
 const items = ref([]);
+const totalCount = ref(0);
+const searchQuery = ref('');
 const columns = ref([]);
 const isEditing = ref(false);
 const currentItem = ref({});
 const formData = ref({});
 const formFields = ref([]);
 
+const COLLECTION_SCHEMAS = {
+  cards: { name: '', description: '', rarity: 'Common', element: 'None', topValue: 1, bottomValue: 1, leftValue: 1, rightValue: 1 },
+  users: { username: '', email: '', confirmed: true, blocked: false, coins: 0, gems: 0, dust: 0 },
+  'quest-templates': { title: '', description: '', type: 'play_matches', targetCount: 1, rewardCoins: 50, rewardGems: 0, rewardDust: 0 },
+  'player-quests': { progress: 0, completed: false, claimed: false },
+  collections: { name: '', code: '', description: '', isActive: true },
+  shops: { name: '', description: '', priceCoins: 100, priceGems: 0, isActive: true },
+  wallets: { coins: 0, gems: 0, dust: 0 },
+  'card-frames': { name: '', description: '', rarity: 'Common', isDefault: false },
+  'card-backs': { name: '', description: '', isDefault: false }
+};
+
 const ignoredFields = ['id', 'documentId', 'createdAt', 'updatedAt', 'publishedAt', 'provider', 'resetPasswordToken', 'confirmationToken'];
+
+const filteredItems = computed(() => {
+  const q = searchQuery.value.trim().toLowerCase();
+  if (!q) return items.value;
+  return items.value.filter(item =>
+    Object.values(item).some(v => v !== null && v !== undefined && typeof v !== 'object' && String(v).toLowerCase().includes(q))
+  );
+});
 
 const loadData = async () => {
   loading.value = true;
   error.value = null;
+  searchQuery.value = '';
   collectionName.value = route.params.collection;
 
   try {
-    const res = await strapiService.request('GET', `/${collectionName.value}`);
+    const isUsers = collectionName.value === 'users';
+    const endpoint = isUsers ? `/${collectionName.value}` : `/${collectionName.value}?pagination[pageSize]=100`;
+    const res = await strapiService.request('GET', endpoint);
     if (res.error) throw new Error(res.error.message || `Failed to fetch ${collectionName.value}`);
 
     const dataArray = Array.isArray(res) ? res : (res.data || []);
@@ -159,9 +198,11 @@ const loadData = async () => {
         }
         return item;
     });
+    totalCount.value = res?.meta?.pagination?.total ?? items.value.length;
 
-    if (items.value.length > 0) {
-      const sample = items.value[0];
+    const schemaTemplate = COLLECTION_SCHEMAS[collectionName.value];
+    const sample = items.value[0] || schemaTemplate;
+    if (sample) {
       columns.value = Object.keys(sample).filter(k =>
         typeof sample[k] !== 'object' &&
         k !== 'password' &&
@@ -173,6 +214,7 @@ const loadData = async () => {
   } catch (err) {
     error.value = err.message;
     items.value = [];
+    totalCount.value = 0;
   } finally {
     loading.value = false;
   }
@@ -229,7 +271,7 @@ const openEditor = (item = null) => {
   currentItem.value = item || {};
   formData.value = { ...currentItem.value };
 
-  let sourceObj = item || (items.value.length > 0 ? items.value[0] : { name: '' });
+  let sourceObj = item || COLLECTION_SCHEMAS[collectionName.value] || (items.value.length > 0 ? items.value[0] : { name: '' });
 
   formFields.value = Object.keys(sourceObj)
     .filter(k => !ignoredFields.includes(k) && typeof sourceObj[k] !== 'object')
@@ -290,21 +332,23 @@ const saveItem = async () => {
     }
 
     closeEditor();
+    notificationStore.addNotification('system', 'Élément enregistré.', 'success');
     loadData();
   } catch (err) {
-    alert("Erreur: " + err.message);
+    notificationStore.addNotification('system', 'Erreur : ' + err.message, 'error');
   }
 };
 
 const deleteItem = async (item) => {
-  if (confirm(`Êtes-vous sûr de vouloir supprimer cet élément ?`)) {
+  if (await confirmAction('Supprimer l\'élément', 'Êtes-vous sûr de vouloir supprimer cet élément ?')) {
     try {
       const identifier = item.documentId || item.id;
       const res = await strapiService.request('DELETE', `/${collectionName.value}/${identifier}`);
       if (res && res.error) throw new Error(res.error.message || "Erreur de suppression");
+      notificationStore.addNotification('system', 'Élément supprimé.', 'info');
       loadData();
     } catch (err) {
-      alert("Erreur: " + err.message);
+      notificationStore.addNotification('system', 'Erreur : ' + err.message, 'error');
     }
   }
 };

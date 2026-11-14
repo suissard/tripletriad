@@ -64,54 +64,63 @@ async function ensureRolePermissions(
   roleId: number,
   roleName: string,
   actions: Set<string> | string[],
+  prune = false,
 ) {
   const actionList = actions instanceof Set ? [...actions] : actions;
-  if (actionList.length === 0) return;
+  const actionSet = new Set(actionList);
 
   // Bulk pre-fetch existing permissions for this role
-  const existing = await strapi.entityService.findMany(
-    'plugin::users-permissions.permission',
-    { filters: { role: { id: roleId } }, limit: -1 } as any,
-  );
+  const existing = await strapi.db.query('plugin::users-permissions.permission').findMany({
+    where: { role: roleId },
+    limit: 10000,
+  });
   const existingActions = new Set((existing as any[]).map((p: any) => p.action));
 
   const toCreate = actionList.filter((a) => !existingActions.has(a));
+  const toDeleteIds = prune
+    ? (existing as any[]).filter((p: any) => !actionSet.has(p.action)).map((p: any) => p.id)
+    : [];
+
+  if (toDeleteIds.length > 0) {
+    await strapi.db.query('plugin::users-permissions.permission').deleteMany({
+      where: { id: { $in: toDeleteIds } },
+    });
+  }
 
   for (const action of toCreate) {
-    await strapi.entityService.create('plugin::users-permissions.permission', {
+    await strapi.db.query('plugin::users-permissions.permission').create({
       data: { action, role: roleId },
     });
   }
 
   console.log(
-    `✅ ${roleName} — ${toCreate.length} permissions added (${actionList.length} total).`,
+    `✅ ${roleName} — ${toCreate.length} permissions added, ${toDeleteIds.length} pruned (${actionList.length} total).`,
   );
 }
 
-// ---------------------------------------------------------------------------
-
-export async function runFullBootstrap(strapi: Core.Strapi) {
-  console.log('🚀 Starting manual bootstrap sequence...');
-
+/**
+ * Synchronize role permissions from permissions.json on every startup.
+ */
+export async function syncPermissions(strapi: Core.Strapi) {
   const config: PermissionsConfig = permissions;
-  const hierarchy = config._meta.hierarchy; // e.g. ["public", "authenticated"]
+  const hierarchy = config._meta.hierarchy;
   const roleActionMap = resolvePermissions(hierarchy, config.routes);
 
   // ── A. Admin Role — gets ALL discovered actions ──────────────────────────
-  let adminRoles = await strapi.entityService.findMany('plugin::users-permissions.role', {
-    filters: { type: 'admin' },
+  let adminRoles = await strapi.db.query('plugin::users-permissions.role').findMany({
+    where: { type: 'admin' },
   });
 
   if (!adminRoles || adminRoles.length === 0) {
-    adminRoles = await strapi.entityService.findMany('plugin::users-permissions.role', {
-      filters: { name: 'Admin' },
+    adminRoles = await strapi.db.query('plugin::users-permissions.role').findMany({
+      where: { name: 'Admin' },
     });
   }
 
   let boAdminRole = adminRoles[0];
 
   if (!boAdminRole) {
-    boAdminRole = await strapi.entityService.create('plugin::users-permissions.role', {
+    boAdminRole = await strapi.db.query('plugin::users-permissions.role').create({
       data: {
         name: 'Admin',
         description: 'Role for back-office administrators.',
@@ -138,24 +147,33 @@ export async function runFullBootstrap(strapi: Core.Strapi) {
       }
     }
 
-    await ensureRolePermissions(strapi, (boAdminRole as any).id, 'Admin', adminActions);
+    await ensureRolePermissions(strapi, boAdminRole.id, 'Admin', adminActions, false);
   }
 
   // ── B. Hierarchy-based roles (public, authenticated, …) ─────────────────
   for (const roleName of hierarchy) {
-    const found = await strapi.entityService.findMany('plugin::users-permissions.role', {
-      filters: { type: roleName },
+    if (roleName === 'admin') continue;
+    const found = await strapi.db.query('plugin::users-permissions.role').findMany({
+      where: { type: roleName },
     });
 
-    const role = (found as any[])?.[0];
+    const role = found?.[0];
     if (!role) {
       console.warn(`⚠️  Role "${roleName}" from hierarchy not found in DB — skipped.`);
       continue;
     }
 
     const actions = roleActionMap.get(roleName)!;
-    await ensureRolePermissions(strapi, role.id, roleName, actions);
+    await ensureRolePermissions(strapi, role.id, roleName, actions, true);
   }
+}
+
+// ---------------------------------------------------------------------------
+
+export async function runFullBootstrap(strapi: Core.Strapi) {
+  console.log('🚀 Starting manual bootstrap sequence...');
+
+  await syncPermissions(strapi);
 
   // 2. Setup Quests
   const templates = await strapi.entityService.findMany('api::quest-template.quest-template', {
@@ -262,13 +280,22 @@ export async function runFullBootstrap(strapi: Core.Strapi) {
     console.error('❌ Error bootstrapping Guilds:', err);
   }
 
-  // 4. Backfill existing users
-  const allUsers = await strapi.entityService.findMany('plugin::users-permissions.user');
-  if (allUsers) {
-    for (const user of (allUsers as any[])) {
+  // 4. Backfill existing users (paginated)
+  let page = 1;
+  const pageSize = 100;
+  while (true) {
+    const usersBatch = (await strapi.documents('plugin::users-permissions.user').findMany({
+      fields: ['id'],
+      page,
+      pageSize,
+    })) as any[];
+    if (!usersBatch || usersBatch.length === 0) break;
+    for (const user of usersBatch) {
       await ensureUserHasWelcomeQuest(strapi, user.id);
       await assignQuestsToUser(strapi, user.id, true);
     }
+    if (usersBatch.length < pageSize) break;
+    page++;
   }
   console.log('✅ Backfilled quests for existing users.');
 

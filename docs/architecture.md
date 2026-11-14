@@ -37,44 +37,56 @@ src/
 │   └── ...
 ├── game/                   # Moteur de jeu (Logique métier)
 │   ├── state.js           # État réactif global (source唯一de vérité)
-│   ├── GameEngine.js     # Moteur de calcul pur (captures, winner)
+│   ├── GameEngine.js     # Ré-export du moteur unifié shared/GameEngine.ts
 │   ├── TurnManager.js    # Gestionnaire de tours (Local/Online)
 │   ├── WebRTCManager.js  # Communication P2P pour multijoueur
-│   ├── ai.js             # Intelligence artificielle
+│   ├── SocketManager.js  # Client Socket.IO authentifié par JWT (tt_jwt)
+│   ├── ai.js / pureAi.js # Intelligence artificielle (3x3, immuable)
 │   ├── rules.js          # Règles optionnelles (Same, Plus, Combo, Elements)
-│   ├── constants.js     # Constantes du jeu
+│   ├── constants.js     # Constantes et calcul de rareté ('A' = 10)
 │   ├── getNeighbors.js  # Utilitaires cases adjacentes
-│   ├── game-actions.js   # Actions de jeu
+│   ├── game-actions.js   # Actions de jeu & timer de tour (turnTimeSeconds)
 │   ├── input.js          # Gestion des entrées utilisateur
 │   ├── events.js         # Événements du jeu
 │   └── logger.js         # Journalisation
 ├── stores/               # Gestion d'état Pinia
-│   ├── userStore.js      # Données joueur, collection, decks, portefeuille
-│   ├── notificationStore.js  # Notifications et alertes
-│   └── layoutStore.js   # Gestion du layout dynamique
+│   ├── userStore.js      # Données joueur, collection, decks, portefeuille, config
+│   ├── notificationStore.js  # Notifications et alertes UI
+│   ├── chatStore.js      # Messagerie temps réel & guildes
+│   ├── friendStore.js    # Amis et demandes
+│   ├── effectStore.js    # Cache des effets foil
+│   ├── playerStore.js    # Profils joueurs
+│   └── layoutStore.js    # Gestion du layout dynamique
 ├── views/                # Pages de l'application
 │   ├── MainMenu.vue              # Menu principal
 │   ├── GameView.vue              # Écran de jeu
 │   ├── CollectionView.vue        # Classeur de cartes
 │   ├── DecksPage.vue             # Liste des decks
 │   ├── DeckEditorPage.vue        # Éditeur de deck
-│   ├── PackOpening.vue           # Boutique/Ouverture boosters
+│   ├── BoutiquePage.vue          # Boutique & ouverture de boosters
+│   ├── PackOpening.vue           # Animation ouverture de boosters
 │   ├── StoryPage.vue             # Progression histoire
 │   └── QuestsPage.vue            # Quêtes
 ├── router/               # Configuration Vue Router
-│   └── index.js          # Routes (incluant /admin/*)
-└── layouts/              # Layouts dynamiques
+│   └── index.js          # Routes (incluant /admin/* et fallback 404)
+└── layouts/              # Layouts (NavigationLayout, AdminLayout, BlankLayout)
 ```
 
 ### Code Partagé (`shared/`)
 
 ```
 shared/
+├── GameEngine.ts           # Moteur de jeu immuable 3x3 (partagé Frontend / Strapi)
+├── constants.ts            # Factions, éléments et libellés partagés
+├── data/                   # Cartes & scripts stories JSON
 └── skills/                 # Système centralisé des compétences
-    ├── constants.ts       # Source de vérité des constantes (Triggers, Patterns, etc.)
-    ├── SkillRegistry.ts   # Registre d'exécution et dispatch des hooks
-    ├── types.ts           # Types TypeScript pour la sécurité
-    └── [skill].ts         # Implémentations spécifiques (aura, heal, bomb, etc.)
+    ├── constants.ts        # Source de vérité des constantes (Triggers, Patterns, etc.)
+    ├── SkillEngine.ts      # Orchestrateur modulaire & traducteur legacy
+    ├── SkillRegistry.ts    # Registre d'exécution et dispatch des hooks
+    ├── helpers.ts          # Ciblage et helpers Ward/HP
+    ├── effects/            # Stratégies d'effets (damage, heal, statModifier, rotate, freeze, ward)
+    ├── types.ts            # Types TypeScript partagés
+    └── [skill].ts          # Implémentations dédiées (aura, heal, bomb, etc.)
 ```
 
 ### Backend (`back/strapi/src/`)
@@ -86,18 +98,19 @@ src/
 │   ├── deck/           # Decks des joueurs
 │   ├── user-card/      # Collection personnelle
 │   ├── wallet/         # Portefeuille (coins, gems)
-│   ├── booster/        # Ouverture de boosters
+│   ├── booster/        # Ouverture de boosters (/api/booster/open)
 │   ├── player-quest/   # Quêtes des joueurs
 │   ├── quest-template/ # Modèles de quêtes
 │   ├── story/         # Histoire
 │   ├── story-step/    # Étapes d'histoire
 │   ├── player-story-progress/ # Progression
-│   ├── match/         # Parties et arbitrage P2P
+│   ├── match/         # Parties et arbitrage P2P (/api/match/arbitrate)
 │   ├── game-history/  # Historique
-│   ├── game-config/   # Configuration globale
+│   ├── game-config/   # Configuration globale (couleurs, timer, limites)
 │   ├── foil-effect/  # Effets foil
-│   └── shop/          # Boutique
-├── admin/              # Interface d'admin Strapi
+│   └── shop/          # Boutique (/api/shop/open-pack déprécié en 410 Gone)
+├── bootstrap-utils.ts # Synchronisation des permissions (syncPermissions)
+├── socketio.ts        # Serveur Socket.IO (auth JWT & ACL par room)
 └── index.ts           # Point d'entrée et bootstrap
 ```
 

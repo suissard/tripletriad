@@ -1,9 +1,9 @@
 <template>
   <div class="admin-layout">
     <!-- Desktop Persistent Sidebar (≥ md) -->
-    <aside class="admin-sidebar-desktop hidden md:flex">
+    <aside class="admin-sidebar-desktop hidden md:flex" :class="{ collapsed }">
       <div class="sidebar-header">
-        <h2 class="sidebar-title">ADMIN</h2>
+        <h2 v-show="!collapsed" class="sidebar-title">ADMIN</h2>
         <button class="sidebar-collapse-btn" @click="collapsed = !collapsed" :title="collapsed ? 'Agrandir' : 'Réduire'">
           <span class="collapse-icon" :class="{ 'rotate-180': collapsed }">«</span>
         </button>
@@ -99,9 +99,13 @@ const goHome = () => {
   z-index: 10;
 }
 
-.sidebar-collapsed .admin-sidebar-desktop,
-.admin-layout:has(.sidebar-collapsed) .admin-sidebar-desktop {
-  /* This won't work reliably, we handle via JS class on sidebar */
+.admin-sidebar-desktop.collapsed {
+  width: 68px;
+}
+
+.admin-sidebar-desktop.collapsed .sidebar-header {
+  justify-content: center;
+  padding: 0;
 }
 
 .sidebar-header {

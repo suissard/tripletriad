@@ -2,6 +2,55 @@ import { SkillContext } from './types';
 import { getTargetCells } from './helpers.js';
 import { effectsMap } from './effects/index.js';
 
+function resolvePatterns(skill: any, defaultPattern: string) {
+  if (Array.isArray(skill.patterns) && skill.patterns.length > 0) return skill.patterns;
+  if (skill.target_pattern) return [{ value: skill.target_pattern }];
+  switch (skill.target) {
+    case 'self':
+    case 'self_on_flip':
+      return [{ value: 'self' }];
+    case 'all_own':
+    case 'all_enemy':
+      return [{ value: 'all' }];
+    default:
+      return [{ value: defaultPattern }];
+  }
+}
+
+function resolveFilter(skill: any, defaultFilter: string) {
+  if (skill.filter) return skill.filter;
+  if (skill.target_filter) return skill.target_filter;
+  switch (skill.target) {
+    case 'allies':
+    case 'damaged_friendly':
+    case 'all_own':
+      return 'allies';
+    case 'enemies':
+    case 'adjacent_enemy':
+    case 'all_enemy':
+    case 'enemy_on_capture':
+    case 'enemy_with_highest':
+      return 'enemies';
+    case 'self':
+    case 'self_on_flip':
+      return 'none';
+    default:
+      return defaultFilter;
+  }
+}
+
+export function consumeSkillCharge(skillConfig: any): void {
+  if (!skillConfig) return;
+  if (skillConfig.counter !== undefined && skillConfig.counter > 0) {
+    skillConfig.counter--;
+    if (skillConfig.counter === 0) skillConfig.depleted = true;
+  }
+  if (skillConfig.charges !== undefined && skillConfig.charges > 0) {
+    skillConfig.charges--;
+    if (skillConfig.charges === 0) skillConfig.depleted = true;
+  }
+}
+
 export class SkillEngine {
   /**
    * Translates a legacy skill configuration to the modular architecture format.
@@ -13,64 +62,67 @@ export class SkillEngine {
     if (skill.effect_type) {
       return {
         ...skill,
-        charges: skill.charges !== undefined ? skill.charges : (skill.counter !== undefined ? skill.counter : undefined)
+        patterns: resolvePatterns(skill, 'adjacent'),
+        filter: resolveFilter(skill, 'none'),
+        charges: skill.charges !== undefined ? skill.charges : skill.counter
       };
     }
 
     const type = skill.type;
     const translated: any = {
       ...skill,
-      charges: skill.counter !== undefined ? skill.counter : undefined
+      charges: skill.charges !== undefined ? skill.charges : skill.counter
     };
 
     switch (type) {
       case 'bomb':
         translated.effect_type = 'DAMAGE';
         translated.trigger = skill.trigger || 'onDeath';
-        translated.target_pattern = 'adjacent';
-        translated.target_filter = 'enemies';
-        translated.range = 1;
+        translated.patterns = resolvePatterns(skill, 'adjacent');
+        translated.filter = resolveFilter(skill, 'enemies');
+        translated.range = skill.range ?? 1;
         break;
 
       case 'growing':
         translated.effect_type = 'STAT_MODIFIER';
         translated.value = skill.value !== undefined ? skill.value : 1;
         translated.trigger = skill.trigger || 'onEndOfTurn';
-        translated.target_pattern = 'self';
+        translated.patterns = resolvePatterns(skill, 'self');
+        translated.filter = resolveFilter(skill, 'none');
         break;
 
       case 'decrease':
         translated.effect_type = 'STAT_MODIFIER';
-        // Negate value for decreasing stats
         translated.value = -(skill.value !== undefined ? Math.abs(skill.value) : 1);
-        translated.trigger = skill.trigger || 'onEnterPlay';
-        translated.target_pattern = 'adjacent';
-        translated.target_filter = 'enemies';
+        translated.trigger = skill.trigger || 'onEndOfTurn';
+        translated.patterns = resolvePatterns(skill, 'self');
+        translated.filter = resolveFilter(skill, 'none');
         break;
 
       case 'heal':
         translated.effect_type = 'HEAL';
         translated.trigger = skill.trigger || 'onEnterPlay';
-        translated.target_pattern = 'adjacent';
-        translated.target_filter = 'allies';
+        translated.patterns = resolvePatterns(skill, 'adjacent');
+        translated.filter = resolveFilter(skill, 'allies');
         break;
 
       case 'death':
         translated.effect_type = 'DAMAGE';
         translated.trigger = skill.trigger || 'onEnterPlay';
-        translated.target_pattern = 'adjacent';
-        translated.target_filter = 'enemies';
+        translated.patterns = resolvePatterns(skill, 'adjacent');
+        translated.filter = resolveFilter(skill, 'enemies');
         break;
 
       case 'turn':
         translated.effect_type = 'ROTATE';
         translated.value = skill.value !== undefined ? skill.value : 1;
         translated.trigger = skill.trigger || 'onEnterPlay';
-        translated.target_pattern = 'self';
+        translated.patterns = resolvePatterns(skill, 'self');
+        translated.filter = resolveFilter(skill, 'none');
         break;
 
       default:
-        // Other legacy passives (ward, freeze, aura, sniper, combo, poison) keep their type and default trigger
+        // Other legacy passives (ward, freeze, aura, sniper, combo, poison) keep their type
         break;
     }
 
@@ -78,72 +130,40 @@ export class SkillEngine {
   }
 
   /**
+   * Executes a single modular skill if trigger matches and charges remain.
+   */
+  public static dispatchSingle(triggerName: string, ctx: SkillContext, rawSkillConfig: any): any | null {
+    const skill = this.translateLegacySkill(rawSkillConfig);
+    if (!skill || !skill.effect_type) return null;
+
+    const effectiveTrigger = skill.trigger || skill.defaultTrigger;
+    if (effectiveTrigger !== triggerName) return null;
+
+    if (rawSkillConfig.depleted) return null;
+
+    const effectExecutor = effectsMap.get(skill.effect_type);
+    if (!effectExecutor) return null;
+
+    const targets = getTargetCells({ ...ctx, skill });
+    effectExecutor.execute(ctx, targets, skill.value || 0);
+    consumeSkillCharge(rawSkillConfig);
+    return { skill, success: true };
+  }
+
+  /**
    * Orchestrates the skill activation process for a card at a given trigger hook.
    */
   public static dispatch(triggerName: string, ctx: SkillContext): any[] {
-    console.log(`[Targeting-Flow] [SkillEngine.ts] dispatch called for trigger: "${triggerName}" on card: "${ctx.card?.name || 'unknown'}"`);
     const results: any[] = [];
-    const skills = ctx.card?.skills || [];
+    const skills = [...(ctx.card?.skills || [])];
 
-    // Ensure backwards compatibility with single skillId field
     if (ctx.card?.skillId && !skills.some(s => s.type === ctx.card.skillId)) {
-      console.log(`[Targeting-Flow] [SkillEngine.ts] Card has legacy skillId "${ctx.card.skillId}". Adding to list.`);
       skills.push({ type: ctx.card.skillId });
     }
 
     for (const skillConfig of skills) {
-      // 1. Translate legacy structure to modular structure
-      const skill = this.translateLegacySkill(skillConfig);
-      console.log(`[Targeting-Flow] [SkillEngine.ts] Translated skill config for "${skillConfig.type}":`, JSON.stringify(skill));
-      if (!skill) continue;
-
-      // 2. Validate trigger timing
-      const effectiveTrigger = skill.trigger || skill.defaultTrigger;
-      console.log(`[Targeting-Flow] [SkillEngine.ts] Skill "${skillConfig.type}" effectiveTrigger is "${effectiveTrigger}" (compared to triggerName: "${triggerName}")`);
-      if (effectiveTrigger !== triggerName) continue;
-
-      // 3. Handle charges (charges/counter state)
-      // A charge of 0 represents infinite charges. Skip ONLY if depleted (meaning it had charges > 0 but has reached 0).
-      if (skillConfig.depleted) {
-        console.log(`[Targeting-Flow] [SkillEngine.ts] Skill "${skill.effect_type || skill.type}" has 0 charges remaining (depleted). Skipping.`);
-        continue;
-      }
-
-      // 4. Load the Strategy Effect Executor
-      const effectExecutor = skill.effect_type ? effectsMap.get(skill.effect_type) : null;
-      console.log(`[Targeting-Flow] [SkillEngine.ts] effectExecutor found for effect_type "${skill.effect_type}":`, effectExecutor ? `Yes (ID: ${effectExecutor.id})` : 'No');
-
-      if (effectExecutor) {
-        console.log(`[Targeting-Flow] [SkillEngine.ts] Executing modular effect "${effectExecutor.id}" via "${triggerName}" on card "${ctx.card?.name || 'unknown'}"`);
-        
-        // 5. Compute geo-targeting cells using robust engine
-        const targets = getTargetCells({ ...ctx, skill });
-        console.log(`[Targeting-Flow] [SkillEngine.ts] getTargetCells returned targets:`, JSON.stringify(targets));
-
-        // 6. Execute the modular effect
-        console.log(`[Targeting-Flow] [SkillEngine.ts] Calling effectExecutor.execute for "${effectExecutor.id}" with value ${skill.value || 0}`);
-        effectExecutor.execute(ctx, targets, skill.value || 0);
-
-        // 7. Consume a charge
-        if (skillConfig.counter !== undefined && skillConfig.counter > 0) {
-          skillConfig.counter--;
-          console.log(`[Targeting-Flow] [SkillEngine.ts] Decremented skillConfig.counter to ${skillConfig.counter}`);
-          if (skillConfig.counter === 0) {
-            skillConfig.depleted = true;
-          }
-        }
-        if (skillConfig.charges !== undefined && skillConfig.charges > 0) {
-          skillConfig.charges--;
-          console.log(`[Targeting-Flow] [SkillEngine.ts] Decremented skillConfig.charges to ${skillConfig.charges}`);
-          if (skillConfig.charges === 0) {
-            skillConfig.depleted = true;
-          }
-        }
-
-        results.push({ skill, success: true });
-      } else {
-        console.log(`[Targeting-Flow] [SkillEngine.ts] No modular effectExecutor found for skill type "${skill.type}". Letting registry route it natively.`);
-      }
+      const res = this.dispatchSingle(triggerName, ctx, skillConfig);
+      if (res) results.push(res);
     }
 
     return results;

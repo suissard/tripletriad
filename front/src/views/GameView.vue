@@ -35,28 +35,15 @@
 
       <!-- RIGHT COLUMN: Log + End Turn -->
       <div class="side-panel right-panel">
+        <div
+          v-if="state.turnTimeSeconds > 0 && !state.gameOver"
+          class="turn-timer"
+          :class="{ 'timer-urgent': state.turnTimeRemaining <= 5 }"
+        >
+          ⏱️ {{ state.turnTimeRemaining }}s
+        </div>
         <ActionLog />
         <EndTurnButton />
-        <!-- Developer Tools -->
-        <div v-if="userStore.isAdmin" class="dev-controls">
-          <p class="dev-title">DEV TOOLS</p>
-          <div class="dev-buttons">
-            <AppButton 
-              variant="primary" 
-              @click="forceWin" 
-              class="dev-btn win-btn"
-            >
-              FORCE WIN 🏆
-            </AppButton>
-            <AppButton 
-              variant="danger" 
-              @click="forceLoss" 
-              class="dev-btn loss-btn"
-            >
-              FORCE LOSS 💀
-            </AppButton>
-          </div>
-        </div>
 
         <AppButton 
           variant="danger" 
@@ -137,20 +124,6 @@ const router = useRouter();
 const route = useRoute();
 
 const isSkillEditorOpen = ref(false);
-
-const isDev = import.meta.env.DEV;
-
-function forceWin() {
-    state.winner = state.pId;
-    state.gameOver = true;
-    console.log("[DEV] Forced Win stimulated");
-}
-
-function forceLoss() {
-    state.winner = state.aiId;
-    state.gameOver = true;
-    console.log("[DEV] Forced Loss stimulated");
-}
 
 function startGame() {
     if (!state.online || state.isHost) {
@@ -476,34 +449,30 @@ onBeforeUnmount(() => {
   width: 100%;
 }
 
-.dev-controls {
-  width: 100%;
-  margin-top: 10px;
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px dashed rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
+.turn-timer {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-primary, #00d2ff) 15%, rgba(10, 15, 28, 0.85));
+  border: 1px solid color-mix(in srgb, var(--color-primary, #00d2ff) 45%, transparent);
+  color: #e0f7ff;
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  backdrop-filter: blur(8px);
 }
 
-.dev-title {
-  font-size: 0.75rem;
-  font-weight: bold;
-  color: rgba(255, 255, 255, 0.5);
-  margin-bottom: 8px;
-  text-align: center;
-  letter-spacing: 1px;
+.turn-timer.timer-urgent {
+  border-color: rgba(255, 68, 102, 0.85);
+  background: rgba(255, 68, 102, 0.22);
+  color: #ffd6de;
+  animation: timer-pulse 0.8s ease-in-out infinite alternate;
 }
 
-.dev-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+@keyframes timer-pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.06); }
 }
 
-.dev-btn {
-  font-size: 0.8rem !important;
-  padding: 6px 10px !important;
-}
 .game-view {
   position: fixed;
   inset: 0;

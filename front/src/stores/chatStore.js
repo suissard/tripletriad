@@ -103,10 +103,13 @@ export const useChatStore = defineStore('chatStore', () => {
     };
 
     const initSocket = () => {
-        if (socket || !userStore.strapiConnected) return;
+        if (socket || !userStore.strapiConnected || !userStore.isLoggedIn) return;
+        const token = localStorage.getItem('tt_jwt');
+        if (!token) return;
         const strapiBase = getStrapiUrl('').replace(/\/api\/?$/, '');
         socket = io(strapiBase, {
             transports: ['websocket', 'polling'],
+            auth: { token }
         });
 
         socket.on('new-chat-message', (msg) => {
@@ -118,6 +121,13 @@ export const useChatStore = defineStore('chatStore', () => {
             joinAllGuildRooms();
         });
     };
+
+    watch(() => userStore.isLoggedIn, (loggedIn) => {
+        if (!loggedIn && socket) {
+            socket.disconnect();
+            socket = null;
+        }
+    });
 
     const fetchGuilds = async () => {
         if (!userStore.strapiConnected || !userStore.user) {

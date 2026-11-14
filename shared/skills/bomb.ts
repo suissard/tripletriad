@@ -1,5 +1,5 @@
 import type { SkillHandler } from './types';
-import { getTargetCells, getEffectiveHp } from './helpers.js';
+import { getTargetCells, getEffectiveHp, consumeWard } from './helpers.js';
 import { 
   EFFECT_TYPES, 
   SKILL_TRIGGERS 
@@ -30,13 +30,8 @@ const handler: SkillHandler = {
       const { x: nx, y: ny, cell: adj } = target;
       if (!adj) continue;
 
-      // Vérifier Ward sur la cible
-      const adjHasWard = adj.data.skills &&
-        adj.data.skills.some(s => s.type === 'ward');
-
-      if (adjHasWard) {
+      if (consumeWard(adj.data)) {
         alerts.push('WARD!');
-        adj.data.skills = adj.data.skills.filter(s => s.type !== 'ward');
         captures.push({ ...adj.data, event: 'ward_triggered_bomb' });
       } else {
         let adjHp = getEffectiveHp(adj.data) - skill.value;

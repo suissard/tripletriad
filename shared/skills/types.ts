@@ -21,19 +21,30 @@ export interface TargetingStep {
   emptyOnly?: boolean;
 }
 
+export interface BoardCell {
+  data: Card & Record<string, any>;
+  owner: string;
+  [key: string]: any;
+}
+
 /**
  * Contexte de base passé aux hooks de compétence.
  */
 export interface SkillContext {
-  board: (Card | null)[][]; // Raccourci vers GameState.board
+  board: (BoardCell | any | null)[][]; // Raccourci vers GameState.board
   state: GameState;
   x: number; // Position X de la carte déclenchant la compétence
   y: number; // Position Y de la carte déclenchant la compétence
-  card: Card; // La carte déclenchant la compétence
+  card: Card & Record<string, any>; // La carte déclenchant la compétence
+  owner?: string;
+  cell?: BoardCell | any;
   skill: {
     type: string;
+    effect_type?: string;
     value?: number;
     counter?: number;
+    charges?: number;
+    depleted?: boolean;
     // Origine
     origin_type?: OriginType;
     origin_direction?: CardDirection;
@@ -46,9 +57,17 @@ export interface SkillContext {
     [key: string]: any;
   };
   targets?: any[]; // Cibles fournies lors du placement
+  alerts?: string[];
+  captures?: any[];
+  dyingCards?: any[];
+  attackQueue?: any[];
+  attackerX?: number;
+  attackerY?: number;
+  targetX?: number;
+  targetY?: number;
   // Propriétés optionnelles selon les événements
-  attacker?: Card;
-  defender?: Card;
+  attacker?: Card & Record<string, any>;
+  defender?: Card & Record<string, any>;
   dir?: { dx: number, dy: number, mySide: string, oppSide: string };
 }
 

@@ -35,6 +35,16 @@
           <span class="slot-index">{{ index + 1 }}</span>
         </div>
 
+        <!-- Elemental slot badge (Elements rule) -->
+        <div
+          v-if="state.rules?.elements && state.boardElements?.[index]"
+          class="element-badge"
+          :class="`element-${state.boardElements[index]}`"
+          :title="`Case Élémentaire : ${formatElementLabel(state.boardElements[index])} (+1 si même élément, -1 sinon)`"
+        >
+          {{ formatElementBadge(state.boardElements[index]) }}
+        </div>
+
         <!-- Placed Card Preview during targeting -->
         <div 
           v-if="!cell && state.targeting?.active && state.targeting.step?.sourceSlotId === index"
@@ -147,6 +157,23 @@ const boardRef = ref(null);
 const containerRef = ref(null);
 const glassOverlay = ref(null);
 let glassTriggered = false;
+
+const ELEMENT_META = {
+  feu: { emoji: '🔥', label: 'Feu' },
+  eau: { emoji: '💧', label: 'Eau' },
+  terre: { emoji: '🌿', label: 'Terre' },
+  air: { emoji: '💨', label: 'Air' },
+  foudre: { emoji: '⚡', label: 'Foudre' },
+  glace: { emoji: '❄️', label: 'Glace' },
+};
+
+function formatElementBadge(el) {
+  return ELEMENT_META[el]?.emoji || el;
+}
+
+function formatElementLabel(el) {
+  return ELEMENT_META[el]?.label || el;
+}
 
 // ---- Targeting Preview Logic ----
 const hoveredTargetSlotIndex = ref(null);
@@ -1005,5 +1032,23 @@ defineExpose({
   0%   { box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.1); }
   50%  { box-shadow: 0 0 12px 2px rgba(0, 210, 255, 0.15); }
   100% { box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.1); }
+}
+
+.element-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index: 6;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  background: rgba(8, 12, 24, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  pointer-events: auto;
 }
 </style>

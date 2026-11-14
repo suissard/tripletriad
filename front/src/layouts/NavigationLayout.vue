@@ -47,13 +47,14 @@
       </div>
     </header>
 
-    <!-- Main Content (with top padding for fixed header) -->
-    <main class="flex-1 w-full pt-16 overflow-y-auto overflow-x-hidden custom-scrollbar relative">
+    <!-- Main Content (with top padding for fixed header & mobile bottom nav safe-area) -->
+    <main class="flex-1 w-full pt-16 pb-[calc(4rem+env(safe-area-inset-bottom))] md:pb-0 overflow-y-auto overflow-x-hidden custom-scrollbar relative">
       <slot />
     </main>
 
-    <!-- Footer Chat -->
+    <!-- Footer Chat & Mobile Nav -->
     <ChatWidget />
+    <BottomMobileNav class="md:hidden flex-shrink-0" />
     
     <!-- Overlays -->
     <RightDrawer />
@@ -66,6 +67,7 @@ import { useUserStore } from '../stores/userStore';
 import { state } from '../game/state';
 import AppButton from '../components/ui/AppButton.vue';
 import ChatWidget from '../components/ChatWidget.vue';
+import BottomMobileNav from '../components/BottomMobileNav.vue';
 import RightDrawer from '../components/RightDrawer.vue';
 
 const router = useRouter();

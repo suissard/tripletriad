@@ -20,6 +20,6 @@ const layouts = Object.entries(layoutFiles).reduce((acc, [path, module]) => {
 }, {});
 
 const layoutComponent = computed(() => {
-  return layouts[layoutStore.currentLayout] || layouts['PlayerLayout'] || Object.values(layouts)[0];
+  return layouts[layoutStore.currentLayout] || layouts['NavigationLayout'] || Object.values(layouts)[0];
 });
 </script>

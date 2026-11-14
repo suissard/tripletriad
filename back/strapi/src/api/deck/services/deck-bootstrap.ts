@@ -62,24 +62,18 @@ export async function bootstrapDecks(strapi: any) {
             `  🔄 Updating deck: "${deckData.name}" (ID: ${deck.id})`,
           );
 
-          await strapi.entityService.update("api::deck.deck", deck.id, {
+          await strapi.documents("api::deck.deck").update({
+            documentId: deck.documentId,
             data: {
-              cardIds: deckCardIds,
-            },
+              cards: deckCardIds,
+            } as any,
           });
         } else {
-          // Check if admin user exists to assign the deck to
-          const adminUsers = await strapi.entityService.findMany(
-            "admin::user",
-            { limit: 1 },
-          );
-
-          const deck = await strapi.entityService.create("api::deck.deck", {
+          const deck = await strapi.documents("api::deck.deck").create({
             data: {
               name: deckData.name,
-              cardIds: deckCardIds,
-              // Decks often require a user in business logic, we'll try to just leave it empty if relations aren't strictly required
-            },
+              cards: deckCardIds,
+            } as any,
           });
           console.log(`  🆕 Created deck: "${deckData.name}" (ID: ${deck.id})`);
         }

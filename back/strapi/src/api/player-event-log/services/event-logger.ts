@@ -25,11 +25,13 @@ export const logPlayerEvent = async (strapi, eventData) => {
 
   console.log(`[QuestService] Event: ${eventType}, User: ${userId}`);
 
-  // 1. Proactive Quest Renewal (Cleanup + Gap filling)
-  try {
-    await assignQuestsToUser(strapi, userId, true);
-  } catch (err) {
-    console.error("[QuestService] Renewal error:", err);
+  // 1. Proactive Quest Renewal (skipped when caller batches events)
+  if (!eventData.skipRenewal) {
+    try {
+      await assignQuestsToUser(strapi, userId, true);
+    } catch (err) {
+      console.error("[QuestService] Renewal error:", err);
+    }
   }
 
   // 2. Process current active quests
@@ -118,7 +120,7 @@ export const logPlayerEvent = async (strapi, eventData) => {
         str
           .normalize("NFD")
           .replace(/[\u0300-\u036f]/g, "")
-          .replace(/[^a-zA-Z0-0]/g, "_")
+          .replace(/[^a-zA-Z0-9]/g, "_")
           .replace(/_+/g, "_")
           .toUpperCase();
       const eventFactionNormalized = normalize(relatedElement || "");

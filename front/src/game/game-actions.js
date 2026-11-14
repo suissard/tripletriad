@@ -7,6 +7,7 @@ import { resolveRules, sleep, updateScores, endTurn, expandBoard } from './engin
 import { getBestAIMove } from './ai.js';
 import { requestTargets } from './targeting.js';
 import { skillRegistry } from '../../../shared/skills/index.js';
+import { gameEvents } from './events.js';
 
 /**
  * Select a card in the player's hand.
@@ -93,8 +94,9 @@ export async function placeCard(slotIndex) {
     // Network — delegate completely to TurnManager, no manual local mutations
     if (state.online && state.turnManager) {
         state.pHand.splice(cardIdx, 1);
-        const x = slotIndex % 3;
-        const y = Math.floor(slotIndex / 3);
+        const w = state.boardWidth || 3;
+        const x = slotIndex % w;
+        const y = Math.floor(slotIndex / w);
 
         const action = {
             type: 'PLACE_CARD',
@@ -105,6 +107,16 @@ export async function placeCard(slotIndex) {
                 isPremium: card.isPremium,
                 rarity: card.rarity,
                 level: card.level,
+                element: card.element,
+                faction: card.faction,
+                factionCode: card.factionCode,
+                skills: card.skills || [],
+                hp: card.hp,
+                defaultHp: card.defaultHp,
+                top: card.top,
+                right: card.right,
+                bottom: card.bottom,
+                left: card.left,
                 topValue: card.topValue,
                 bottomValue: card.bottomValue,
                 leftValue: card.leftValue,
@@ -260,16 +272,59 @@ const handleNetworkMove = async (msg) => {
     }
 };
 
+let turnTimerInterval = null;
+
+export function stopTurnTimer() {
+    if (turnTimerInterval !== null) {
+        clearInterval(turnTimerInterval);
+        turnTimerInterval = null;
+    }
+}
+
+export function startTurnTimer() {
+    stopTurnTimer();
+    const limit = Number(state.turnTimeSeconds || 0);
+    if (limit <= 0 || state.gameOver) {
+        state.turnTimeRemaining = 0;
+        return;
+    }
+    state.turnTimeRemaining = limit;
+    turnTimerInterval = setInterval(async () => {
+        if (state.gameOver) {
+            stopTurnTimer();
+            return;
+        }
+        if (state.turnTimeRemaining > 0) {
+            state.turnTimeRemaining--;
+        }
+        if (state.turnTimeRemaining <= 0) {
+            stopTurnTimer();
+            if (state.turn === 'player' && !state.busy && !state.targeting?.active && state.pHand.length > 0) {
+                const emptySlot = state.board.findIndex(cell => cell === null);
+                if (emptySlot !== -1) {
+                    selectCard(0);
+                    await placeCard(emptySlot);
+                }
+            }
+        }
+    }, 1000);
+}
+
 /**
  * Initialize network message listener.
  */
 export function initGameListeners() {
     socketManager.addMessageListener(handleNetworkMove);
+    gameEvents.on('TURN_START', startTurnTimer);
+    gameEvents.on('GAME_OVER', stopTurnTimer);
 }
 
 /**
  * Cleanup network message listener.
  */
 export function cleanupGameListeners() {
+    stopTurnTimer();
     socketManager.removeMessageListener(handleNetworkMove);
+    gameEvents.off('TURN_START', startTurnTimer);
+    gameEvents.off('GAME_OVER', stopTurnTimer);
 }

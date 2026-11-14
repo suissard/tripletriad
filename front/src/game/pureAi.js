@@ -26,16 +26,21 @@ export function getNeighborsPure(index, boardWidth, boardHeight) {
  * @param {array} board2D - The 2D array representing the board
  * @returns {number} The score for this move
  */
-export function evaluatePlacementScorePure(x, y, cardData, owner, board2D) {
+export function evaluatePlacementScorePure(x, y, cardData, owner, board2D, rules = {}, boardElements = null) {
     let score = 0;
 
-    // Create a mock current state to use with computeNextState
-    const currentState = {
-        board: board2D,
-        currentPlayer: owner,
-        isFinished: false,
-        winner: null
-    };
+    // Create a deep-cloned state to avoid mutating the caller's board
+    const currentState = GameEngine.createInitialState(owner, { rules, boardElements });
+    currentState.board = board2D.map(row =>
+        row.map(cell => cell ? {
+            ...cell,
+            data: {
+                ...cell.data,
+                values: cell.data?.values ? { ...cell.data.values } : undefined,
+                skills: Array.isArray(cell.data?.skills) ? cell.data.skills.map(s => ({ ...s })) : []
+            }
+        } : null)
+    );
 
     const action = {
         type: 'PLACE_CARD',
@@ -70,12 +75,16 @@ export function evaluatePlacementScorePure(x, y, cardData, owner, board2D) {
         // --- Defensive Evaluation ---
         // We favor protecting weak sides (low values) against edges or existing cards
         // and exposing strong sides (high values) to empty slots.
-        const getVal = (v) => (v === 'A' || v === 10) ? 10 : parseInt(v);
+        const getVal = (v) => {
+            if (v === 'A' || v === 'a' || v === 100 || v === '100' || v === 10 || v === '10') return 10;
+            const parsed = parseInt(v, 10);
+            return Number.isNaN(parsed) ? 0 : Math.max(0, Math.min(10, parsed));
+        };
         const sides = [
-            { dy: -1, dx: 0, val: getVal(cardData.topValue) },    // top
-            { dy: 0, dx: 1, val: getVal(cardData.rightValue) },   // right
-            { dy: 1, dx: 0, val: getVal(cardData.bottomValue) },  // bottom
-            { dy: 0, dx: -1, val: getVal(cardData.leftValue) }    // left
+            { dy: -1, dx: 0, val: getVal(cardData.topValue ?? cardData.top ?? cardData.values?.top) },    // top
+            { dy: 0, dx: 1, val: getVal(cardData.rightValue ?? cardData.right ?? cardData.values?.right) },   // right
+            { dy: 1, dx: 0, val: getVal(cardData.bottomValue ?? cardData.bottom ?? cardData.values?.bottom) },  // bottom
+            { dy: 0, dx: -1, val: getVal(cardData.leftValue ?? cardData.left ?? cardData.values?.left) }    // left
         ];
 
         sides.forEach(side => {
@@ -109,7 +118,7 @@ export function evaluatePlacementScorePure(x, y, cardData, owner, board2D) {
  * Returns { x, y, cardIdx } or null.
  * Difficulty is 0-100: 100 is 100% smart, 0 is 100% random
  */
-export function getBestAIMovePure(board2D, hand, owner, rules = {}, difficulty = 100) {
+export function getBestAIMovePure(board2D, hand, owner, rules = {}, difficulty = 100, boardElements = null) {
     if (hand.length === 0) return null;
 
     const boardWidth = board2D[0].length;
@@ -143,7 +152,7 @@ export function getBestAIMovePure(board2D, hand, owner, rules = {}, difficulty =
         for (let c = 0; c < hand.length; c++) {
             const card = hand[c];
 
-            let score = evaluatePlacementScorePure(x, y, card, owner, board2D);
+            let score = evaluatePlacementScorePure(x, y, card, owner, board2D, rules, boardElements);
 
             // Dynamic corners logic
             const corners = [0, boardWidth - 1, (boardHeight - 1) * boardWidth, boardHeight * boardWidth - 1];

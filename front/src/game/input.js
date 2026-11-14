@@ -151,19 +151,36 @@ export function initInput() {
             if (state.online) {
                 // webrtc.sendMessage({ type: 'move', cardIdx: cardIdx, slot: slot.userData.id });
                 if (state.turnManager) {
-                    const x = slot.userData.id % 3;
-                    const y = Math.floor(slot.userData.id / 3);
-                    
+                    const w = state.boardWidth || 3;
+                    const x = slot.userData.id % w;
+                    const y = Math.floor(slot.userData.id / w);
+                    const c = current.userData.data;
+
                     // Enregistrement dans le log pour l'arbitrage
                     const action = {
                         type: 'PLACE_CARD',
                         card: {
-                            id: current.userData.data.id,
+                            id: c.id,
+                            name: c.name,
+                            top: c.top,
+                            right: c.right,
+                            bottom: c.bottom,
+                            left: c.left,
+                            topValue: c.topValue,
+                            rightValue: c.rightValue,
+                            bottomValue: c.bottomValue,
+                            leftValue: c.leftValue,
+                            element: c.element,
+                            faction: c.faction,
+                            factionCode: c.factionCode,
+                            skills: c.skills || [],
+                            hp: c.hp,
+                            defaultHp: c.defaultHp,
                             values: {
-                                top: current.userData.data.top,
-                                bottom: current.userData.data.bottom,
-                                left: current.userData.data.left,
-                                right: current.userData.data.right
+                                top: c.top,
+                                bottom: c.bottom,
+                                left: c.left,
+                                right: c.right
                             }
                         },
                         x,

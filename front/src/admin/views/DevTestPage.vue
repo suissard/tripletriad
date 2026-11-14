@@ -141,8 +141,8 @@ const routes = [
   // --- AUTH ---
   { group: 'Auth & Users', name: 'Get Current User', method: 'GET', path: '/users/me', fields: [] },
   { group: 'Auth & Users', name: 'Login Local', method: 'POST', path: '/auth/local', fields: [
-      { key: 'identifier', label: 'Email / Username', type: 'text', default: 'admin@gmail.com', required: true },
-      { key: 'password', label: 'Password', type: 'text', default: 'Password123456789!', required: true }
+      { key: 'identifier', label: 'Email / Username', type: 'text', default: '', required: true },
+      { key: 'password', label: 'Password', type: 'text', default: '', required: true }
     ]
   },
   { group: 'Auth & Users', name: 'Register Local', method: 'POST', path: '/auth/local/register', fields: [
@@ -195,14 +195,6 @@ const routes = [
 
   // --- WALLET ---
   { group: 'Wallet', name: 'Get Wallet', method: 'GET', path: '/wallets?populate=*', fields: [] },
-
-  // --- DEV TOOLS ---
-  { group: 'Dev Tools', name: 'Add Currencies', method: 'POST', path: '/dev/add-currencies', fields: [
-      { key: 'coins', label: 'Coins to add', type: 'number', default: 100 },
-      { key: 'gems', label: 'Gems to add', type: 'number', default: 0 },
-      { key: 'dust', label: 'Dust to add', type: 'number', default: 0 }
-    ]
-  },
 
   // --- WEBRTC / MATCHMAKING ---
   { group: 'Matchmaking', name: 'Create/Find Match', method: 'POST', path: '/webrtc/matches', fields: [] },

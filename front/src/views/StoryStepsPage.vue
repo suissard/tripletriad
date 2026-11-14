@@ -106,7 +106,7 @@ import AppButton from '../components/ui/AppButton.vue';
 import { useUserStore } from '../stores/userStore.js';
 import strapiService from '../api/strapi.js';
 import { getStrapiMediaUrl } from '../utils/url.js';
-import { normalizeCard } from '../game/state.js';
+import { normalizeCard, confirmAction } from '../game/state.js';
 
 const props = defineProps({
   storyId: {
@@ -244,7 +244,7 @@ function getProgress() {
 }
 
 async function resetStory() {
-  if (!confirm('Voulez-vous vraiment réinitialiser votre progression dans cette histoire ? Tous vos choix et étapes franchies seront effacés.')) {
+  if (!(await confirmAction('Réinitialiser l\'histoire', 'Voulez-vous vraiment réinitialiser votre progression dans cette histoire ? Tous vos choix et étapes franchies seront effacés.'))) {
     return;
   }
   

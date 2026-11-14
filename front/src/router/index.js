@@ -31,11 +31,11 @@ const routes = [
   { path: '/story', component: StoryPage },
   { path: '/story/:storyId/steps', name: 'story-steps', component: () => import('../views/StoryStepsPage.vue'), props: true },
   { path: '/story/:storyId/step/:stepIndex', component: StoryStepView },
-  { path: '/quests', component: QuestsPage },
-  { path: '/guilds', name: 'guilds', component: GuildsPage },
-  { path: '/guilds/:documentId', name: 'guild-detail', component: GuildsPage, props: true },
+  { path: '/quests', component: QuestsPage, meta: { requiresAuth: true } },
+  { path: '/guilds', name: 'guilds', component: GuildsPage, meta: { requiresAuth: true } },
+  { path: '/guilds/:documentId', name: 'guild-detail', component: GuildsPage, props: true, meta: { requiresAuth: true } },
   { path: '/profile/:identifier', name: 'player-profile', component: () => import('../views/PlayerProfileView.vue'), props: true },
-  { path: '/friends', name: 'friends', component: () => import('../views/FriendsView.vue') },
+  { path: '/friends', name: 'friends', component: () => import('../views/FriendsView.vue'), meta: { requiresAuth: true } },
   // Admin Routes
   {
     path: '/admin/design-system',
@@ -51,9 +51,8 @@ const routes = [
   },
   {
     path: '/admin/foil-editor',
-    name: 'admin-foil-editor',
-    component: () => import('../admin/views/FoilEditorProView.vue'),
-    meta: { layout: 'BlankLayout', requiresAdminAuth: true }
+    redirect: '/admin/foil-editor-pro',
+    meta: { requiresAdminAuth: true }
   },
   {
     path: '/admin/foil-editor-pro',
@@ -83,12 +82,6 @@ const routes = [
     path: '/admin/layouts',
     name: 'admin-layouts',
     component: () => import('../admin/views/LayoutTesterPage.vue'),
-    meta: { requiresAdminAuth: true }
-  },
-  {
-    path: '/admin/cartographie',
-    name: 'admin-cartographie',
-    component: () => import('../admin/views/ArchitectureMapPage.vue'),
     meta: { requiresAdminAuth: true }
   },
   {
@@ -176,6 +169,11 @@ const routes = [
     name: 'admin-dynamic-editor',
     component: () => import('../admin/components/DynamicEditor.vue'),
     meta: { requiresAdminAuth: true }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    redirect: '/'
   }
 ]
 
@@ -196,20 +194,31 @@ router.beforeEach(async (to, from, next) => {
     
   if (to.meta.requiresAdminAuth) {
     if (!userStore.isLoggedIn) {
-      // Pas connecté -> on ouvre le drawer d'auth et on reste sur la page actuelle ou on va à l'accueil
       state.rightDrawerOpen = true;
       notificationStore.addNotification('SYSTEM', 'Connexion requise pour accéder à la partie administration.', 'warning');
-      next('/');
-    } else if (!userStore.isAdmin) {
-      // Connecté mais pas admin
-      notificationStore.addNotification('SYSTEM', 'Accès refusé : Droits administrateur requis.', 'error');
-      next('/');
-    } else {
-      next();
+      return next('/');
     }
-  } else {
-    next();
+    if (userStore.strapiConnected) {
+      try {
+        await userStore.fetchMe();
+      } catch (e) {
+        // Ignore and let isAdmin check handle stale/invalid session
+      }
+    }
+    if (!userStore.isAdmin) {
+      notificationStore.addNotification('SYSTEM', 'Accès refusé : Droits administrateur requis.', 'error');
+      return next('/');
+    }
+    return next();
   }
+
+  if (to.meta.requiresAuth && userStore.strapiConnected && !userStore.isLoggedIn) {
+    state.rightDrawerOpen = true;
+    notificationStore.addNotification('SYSTEM', 'Connexion requise pour accéder à cette page.', 'warning');
+    return next('/');
+  }
+
+  next();
 });
 
 router.afterEach(async (to) => {

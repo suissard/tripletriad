@@ -75,7 +75,12 @@
 
       <!-- CARD GRID -->
       <div class="card-grid-area" v-if="!isLoadingCards && activeMode !== 'boards' && activeMode !== 'frames' && activeMode !== 'backs'">
+        <div v-if="pageCards.length === 0" class="empty-collection">
+          <p>Aucune carte ne correspond à vos critères.</p>
+          <button class="reset-filters-btn" @click="searchQuery = ''; filterFaction = ''; filterRarity = ''; filterOwned = 'all'; filterPremium = 'all';">Réinitialiser les filtres</button>
+        </div>
         <TripleTriadCardGrid
+          v-else
           :cards="pageCards"
           :cardsPerRow="4"
           cardSize="lg"
@@ -261,7 +266,7 @@
     <div v-if="showMassDisenchantModal" class="modal-overlay" @click.self="showMassDisenchantModal = false">
       <div class="modal-box">
         <h3>🔥 Désenchantement de Masse</h3>
-        <p class="modal-desc">Détruire les cartes en surplus (>2 exemplaires) pour de la poussière.</p>
+        <p class="modal-desc">Détruire les cartes en surplus (&gt;{{ playableLimit }} exemplaires) pour de la poussière.</p>
         <div v-if="disenchantPreview.totalCards > 0" class="disenchant-preview">
           <div class="dp-row header"><span>Rareté</span><span>Cartes</span><span>Poussière</span></div>
           <div v-for="(data, key) in disenchantPreview.breakdown" :key="key" v-show="data.cards > 0" class="dp-row">
@@ -407,12 +412,15 @@ function getRarity(card) {
   return map[r.name] || 'common';
 }
 
+const playableLimit = computed(() => userStore.gameConfig?.playableLimit || 2);
+
 const disenchantPreview = computed(() => {
   const breakdown = { common: { cards: 0, dust: 0 }, uncommon: { cards: 0, dust: 0 }, rare: { cards: 0, dust: 0 }, epic: { cards: 0, dust: 0 }, legendary: { cards: 0, dust: 0 } };
   let totalCards = 0, totalDust = 0;
+  const limit = playableLimit.value;
   userStore.collection.forEach(item => {
-    if (item.quantity > 2) {
-      const surplus = item.quantity - 2;
+    if (item.quantity > limit) {
+      const surplus = item.quantity - limit;
       const card = getCardById(item.cardId);
       if (card) {
         const r = getRarity(card);
@@ -836,6 +844,14 @@ onUnmounted(() => {
 .loading-indicator {
   flex: 1; display: flex; align-items: center; justify-content: center;
   font-size: 1.1rem; color: #667; animation: pulse 1.5s infinite;
+}
+.empty-collection {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 12px; color: #889; text-align: center; padding: 32px;
+}
+.reset-filters-btn {
+  padding: 8px 14px; border-radius: 8px; background: rgba(0, 210, 255, 0.14);
+  border: 1px solid rgba(0, 210, 255, 0.35); color: #7ae5ff; cursor: pointer; font-weight: 600;
 }
 @keyframes pulse { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
 

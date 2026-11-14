@@ -1,6 +1,6 @@
 import type { Effect } from './Effect';
 import type { SkillContext } from '../types';
-import { getEffectiveHp } from '../helpers.js';
+import { getEffectiveHp, consumeWard } from '../helpers.js';
 
 export const damageEffect: Effect = {
   id: 'DAMAGE',
@@ -13,13 +13,8 @@ export const damageEffect: Effect = {
       const { x: nx, y: ny, cell: adj } = target;
       if (!adj || !adj.data) continue;
 
-      // Check Ward (both legacy and new format)
-      const adjHasWard = adj.data.skills &&
-        adj.data.skills.some((s: any) => s.type === 'ward' || s.effect_type === 'WARD');
-
-      if (adjHasWard) {
+      if (consumeWard(adj.data)) {
         alerts.push('WARD!');
-        adj.data.skills = adj.data.skills.filter((s: any) => s.type !== 'ward' && s.effect_type !== 'WARD');
         captures.push({ ...adj.data, event: 'ward_triggered_damage' });
       } else {
         const currentHp = getEffectiveHp(adj.data);

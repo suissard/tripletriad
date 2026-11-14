@@ -169,7 +169,7 @@ export default factories.createCoreController('api::friendship.friendship' as an
 
     if (!friendship) return ctx.notFound('Friend request not found.');
 
-    if ((friendship as any).receiver.id !== user.id) {
+    if ((friendship as any).receiver?.id !== user.id) {
       return ctx.forbidden('You can only accept requests sent to you.');
     }
 
@@ -200,7 +200,7 @@ export default factories.createCoreController('api::friendship.friendship' as an
 
     if (!friendship) return ctx.notFound('Friend request not found.');
 
-    if ((friendship as any).receiver.id !== user.id) {
+    if ((friendship as any).receiver?.id !== user.id) {
       return ctx.forbidden('You can only reject requests sent to you.');
     }
 
@@ -231,7 +231,7 @@ export default factories.createCoreController('api::friendship.friendship' as an
 
     if (!friendship) return ctx.notFound('Friendship not found.');
 
-    if ((friendship as any).requester.id !== user.id && (friendship as any).receiver.id !== user.id) {
+    if ((friendship as any).requester?.id !== user.id && (friendship as any).receiver?.id !== user.id) {
       return ctx.forbidden('You can only remove your own friendships.');
     }
 
@@ -252,18 +252,25 @@ export default factories.createCoreController('api::friendship.friendship' as an
     const user = ctx.state.user;
     if (!user) return ctx.unauthorized();
 
-    const { targetUserId } = ctx.request.body;
-
+    const { targetUserId } = ctx.request.body || {};
     if (!targetUserId) return ctx.badRequest('targetUserId is required.');
 
-    if (targetUserId === user.id) return ctx.badRequest('You cannot block yourself.');
+    const isNumeric = typeof targetUserId === 'number' || /^\d+$/.test(String(targetUserId));
+    const targetUsers = await (strapi as any).documents('plugin::users-permissions.user').findMany({
+      filters: isNumeric ? { id: Number(targetUserId) } : { documentId: String(targetUserId) },
+      limit: 1
+    });
+
+    const targetUser = targetUsers?.[0];
+    if (!targetUser) return ctx.notFound('Target user not found.');
+    if (targetUser.id === user.id) return ctx.badRequest('You cannot block yourself.');
 
     // Find existing
     const existingFriendships = await (strapi as any).documents('api::friendship.friendship').findMany({
       filters: {
         $or: [
-          { requester: { id: user.id }, receiver: { id: targetUserId } },
-          { requester: { id: targetUserId }, receiver: { id: user.id } }
+          { requester: { id: user.id }, receiver: { id: targetUser.id } },
+          { requester: { id: targetUser.id }, receiver: { id: user.id } }
         ]
       }
     });
@@ -284,7 +291,7 @@ export default factories.createCoreController('api::friendship.friendship' as an
     const newBlock = await (strapi as any).documents('api::friendship.friendship').create({
       data: {
         requester: user.id,
-        receiver: targetUserId,
+        receiver: targetUser.id,
         status: 'blocked',
         blockedBy: user.id
       }

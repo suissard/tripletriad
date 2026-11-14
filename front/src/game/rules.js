@@ -64,5 +64,12 @@ export const rulesRegistry = [
         defaultState: true,
         // The combo rule is structural and handled in engine.js natively after initial captures
         execute: () => ({ triggered: false, captures: [], alertMessage: "" })
+    },
+    {
+        id: 'elements',
+        name: 'Éléments',
+        description: 'Des cases élémentaires accordent +1 aux cartes du même élément et -1 aux autres.',
+        defaultState: false,
+        execute: () => ({ triggered: false, captures: [], alertMessage: "" })
     }
 ];

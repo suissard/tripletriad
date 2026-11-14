@@ -63,25 +63,14 @@
           <span class="category-label">Quick Dev</span>
         </div>
         <div class="dev-quick-row">
-          <button class="dev-chip" @click="doAutoLogin" title="Auto-login Admin">
-            ⚡ Login
+          <button class="dev-chip" @click="openAuthModal" title="Ouvrir la connexion">
+            🔐 Login
           </button>
           <button class="dev-chip" @click="checkAuth" title="Debug auth status">
             🔍 Auth
           </button>
           <button class="dev-chip danger" @click="fullLogout" title="Clear session">
             🗑️ Clear
-          </button>
-        </div>
-        <div class="dev-quick-row">
-          <button class="dev-chip" @click="addCurrency('coins')" title="+1000 Coins">
-            💰 +Coins
-          </button>
-          <button class="dev-chip" @click="addCurrency('gems')" title="+1000 Gems">
-            💎 +Gems
-          </button>
-          <button class="dev-chip" @click="addCurrency('dust')" title="+1000 Dust">
-            ✨ +Dust
           </button>
         </div>
         <!-- Session status -->
@@ -156,7 +145,7 @@ const menuCategories = [
     icon: '🎨',
     items: [
       { name: 'Configuration', path: '/admin/game-config', icon: '⚙️', desc: 'Paramètres globaux : couleurs, règles, économie du jeu.' },
-      { name: 'HoloEditor Pro', path: '/admin/foil-editor', icon: '✨', desc: 'Éditeur visuel pour les effets holographiques des cartes.' },
+      { name: 'HoloEditor Pro', path: '/admin/foil-editor-pro', icon: '✨', desc: 'Éditeur visuel pour les effets holographiques des cartes.' },
       { name: 'Éditeur de Cadres', path: '/admin/frame-editor', icon: '🖼️', desc: 'Créer et positionner les cadres visuels des cartes.' },
       { name: 'Foil Gallery', path: '/admin/foil-gallery', icon: '🎨', desc: 'Galerie de tous les effets foil enregistrés.' }
     ]
@@ -246,21 +235,14 @@ const goHome = () => {
   state.leftDrawerOpen = false;
 };
 
-// ─── Dev Actions (absorbed from DevOptions) ───
-async function doAutoLogin() {
-  try {
-    const data = await strapiService.login({ identifier: 'admin@gmail.com', password: 'Password123456789!' });
-    if (data.jwt) {
-      userStore.setAuth(data.jwt, data.user);
-    }
-  } catch (error) {
-    console.error('Auto-login error:', error);
-  }
+// ─── Session Helpers ───
+function openAuthModal() {
+  state.authModalOpen = true;
 }
 
 async function checkAuth() {
   if (!userStore.jwt) {
-    alert('Aucun JWT trouvé ! Utilisez "⚡ Login" d\'abord.');
+    alert('Aucun JWT trouvé ! Connectez-vous d\'abord.');
     return;
   }
   try {
@@ -276,12 +258,6 @@ function fullLogout() {
   userStore.logout();
   localStorage.removeItem('tt_jwt');
   localStorage.removeItem('tt_user');
-}
-
-function addCurrency(type) {
-  const payload = {};
-  payload[type] = 1000;
-  userStore.addDevCurrencies(payload);
 }
 </script>
 

@@ -143,8 +143,11 @@ import { useRoute, useRouter } from 'vue-router';
 import { usePlayerStore } from '../stores/playerStore.js';
 import { useUserStore } from '../stores/userStore.js';
 import { useFriendStore } from '../stores/friendStore.js';
+import { useNotificationStore } from '../stores/notificationStore.js';
+import { confirmAction } from '../game/state.js';
 import { getStrapiMediaUrl } from '../utils/url.js';
-import { gameEvents } from '../game/events.js';
+
+const notificationStore = useNotificationStore();
 
 const route = useRoute();
 const router = useRouter();
@@ -212,9 +215,9 @@ const handleAddFriend = async () => {
   actionLoading.value = true;
   const res = await playerStore.sendFriendRequest(profile.value.username);
   if (res.error) {
-    gameEvents.emit('SHOW_ALERT', { text: res.error });
+    notificationStore.addNotification('social', res.error, 'error');
   } else {
-    gameEvents.emit('SHOW_ALERT', { text: "Demande d'ami envoyée !" });
+    notificationStore.addNotification('social', "Demande d'ami envoyée !", 'success');
     await fetchProfile(); // Refresh status
   }
   actionLoading.value = false;
@@ -228,22 +231,22 @@ const handleRemoveFriend = async () => {
     ? "Voulez-vous vraiment retirer ce joueur de vos amis ?" 
     : "Voulez-vous annuler/refuser cette demande ?";
     
-  if (friendshipStatus.value === 'accepted' && !confirm(confirmMsg)) return;
+  if (friendshipStatus.value === 'accepted' && !(await confirmAction('Retirer un ami', confirmMsg))) return;
 
   actionLoading.value = true;
   // Use friendStore to keep everything in sync
   try {
     await friendStore.removeFriend(fData.documentId);
-    gameEvents.emit('SHOW_ALERT', { text: "Action effectuée avec succès." });
+    notificationStore.addNotification('social', "Action effectuée avec succès.", 'info');
     await fetchProfile(); // Refresh
   } catch (err) {
-    gameEvents.emit('SHOW_ALERT', { text: "Erreur lors de la suppression." });
+    notificationStore.addNotification('social', "Erreur lors de la suppression.", 'error');
   }
   actionLoading.value = false;
 };
 
 const handleDuel = () => {
-  gameEvents.emit('SHOW_ALERT', { text: "La fonctionnalité de duel direct arrive bientôt !" });
+  notificationStore.addNotification('social', "La fonctionnalité de duel direct arrive bientôt !", 'info');
 };
 
 const formatDate = (dateStr) => {

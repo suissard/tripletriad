@@ -7,27 +7,29 @@ Ce document explique comment l'application gère les données en temps réel et 
 L'application utilise un objet réactif global (`state`) qui agit comme la "Source Unique de Vérité". Étant donné que cet objet est créé avec `reactive` de Vue 3, tout changement dans ses propriétés déclenche automatiquement une mise à jour de l'interface utilisateur.
 
 ### Principales Propriétés du State
-- `board` : Un tableau de 9 cases contenant les objets `{ data, owner }`.
+- `board` : Un tableau fixe de **9 cases** (3x3) contenant `null` ou les objets `{ card, owner }`.
+- `boardElements` : Tableau de 9 cases indiquant les éléments du plateau lorsque la règle `elements` est activée.
 - `pHand` / `aiHand` : Les mains actuelles des joueurs.
 - `turn` : L'identifiant du joueur dont c'est le tour (`player` ou `ai`).
-- `rules` : Un dictionnaire des règles actives pour la partie en cours.
+- `rules` : Dictionnaire des règles actives (`same`, `plus`, `combo`, `elements`).
+- `turnTimeSeconds` / `turnTimeRemaining` : Durée configurée d'un tour et temps restant.
 
-## Le Moteur de Jeu (`src/game/GameEngine.js`)
+## Le Moteur de Jeu (`shared/GameEngine.ts` via `src/game/GameEngine.js`)
 
-Le `GameEngine` est conçu selon les principes de la **programmation fonctionnelle**.
+Le `GameEngine` est défini de manière unique dans `shared/GameEngine.ts` (ré-exporté par `front/src/game/GameEngine.js` et importé par le backend Strapi) selon les principes de la **programmation fonctionnelle**.
 
 ### Fonctions Pures
-La plupart des fonctions du moteur sont `static` et ne modifient pas l'état existant. Elles prennent un état en entrée et renvoient un **nouvel état** (Immuabilité).
+Les méthodes du moteur sont `static` et ne modifient pas l'état existant (clone profond des cartes et plateaux). Elles prennent un état en entrée et renvoient un **nouvel état** (Immuabilité).
 
-- `computeNextState(currentState, action)` : Prend l'état actuel et le mouvement d'un joueur, puis renvoie l'état résultant après placement et captures.
-- `processCaptures(board, x, y, placedCell)` : Calcule les captures adjacentes.
+- `computeNextState(currentState, action)` : Prend l'état actuel et l'action (`PLACE_CARD` ou `PASS_TURN`), résout les compétences (`SkillRegistry` / `SkillEngine`), les captures (incluant `Teleportation`, `Elements`, `Same`, `Plus`, `Combo`, `Ward` et `Freeze`), puis les cartes mourantes (`processDyingCards`).
+- `processCaptures(...)` : Calcule les captures adjacentes et chaînes Combo en tenant compte des modificateurs élémentaires et des protections.
 - `computeWinner(board)` : Analyse le plateau final pour désigner le vainqueur.
 
 ## Gestionnaire de Tours (`src/game/TurnManager.js`)
 
 Le `TurnManager` fait le pont entre le moteur de jeu et l'environnement (Local ou Réseau).
 
-- **Mode Local** : Appelle simplement le moteur et met à jour le `state.js`.
+- **Mode Local** : Appelle le moteur unifié et met à jour `state.js`.
 - **Mode En Ligne (P2P)** : 
     - Sérialise l'action du joueur.
     - L'envoie via WebRTC.
@@ -36,4 +38,4 @@ Le `TurnManager` fait le pont entre le moteur de jeu et l'environnement (Local o
 
 ## Arbitrage Serveur
 
-En cas de conflit en multijoueur, le backend Strapi (`arbitrate`) possède une version identique du `GameEngine` (en JavaScript/TypeScript). Il peut rejouer toute la liste des actions (`actionLog`) pour déterminer l'état légitime et forcer la synchronisation des clients.
+En cas de conflit en multijoueur, le backend Strapi (`/api/match/arbitrate`) importe exactement la même implémentation `shared/GameEngine.ts` afin de rejouer l'historique d'actions (`logs`) de façon déterministe et trancher sur l'état légitime.

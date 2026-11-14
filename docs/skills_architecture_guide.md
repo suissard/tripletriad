@@ -89,11 +89,11 @@ Pour éviter de casser les cartes existantes et préserver l'historique, `SkillE
 
 Si une carte possède un ancien type (ex: `"type": "bomb"`), le moteur le convertit dynamiquement en interne vers le nouveau format modulaire :
 
-*   `"bomb"` $\rightarrow$ `effect_type: "DAMAGE"`, `trigger: "onDeath"`, `target_pattern: "adjacent"`, `target_filter: "enemies"`.
-*   `"growing"` $\rightarrow$ `effect_type: "STAT_MODIFIER"`, `trigger: "onEndOfTurn"`, `target_pattern: "self"`.
-*   `"heal"` $\rightarrow$ `effect_type: "HEAL"`, `trigger: "onEnterPlay"`, `target_pattern: "adjacent"`, `target_filter: "allies"`.
+*   `"bomb"` $\rightarrow$ `effect_type: "DAMAGE"`, `trigger: "onDeath"`, `patterns: [{ value: "adjacent" }]`, `filter: "enemies"`.
+*   `"growing"` $\rightarrow$ `effect_type: "STAT_MODIFIER"`, `trigger: "onEndOfTurn"`, `patterns: [{ value: "self" }]`.
+*   `"heal"` $\rightarrow$ `effect_type: "HEAL"`, `trigger: "onEnterPlay"`, `patterns: [{ value: "adjacent" }]`, `filter: "allies"`.
 
-Ce pont garantit que les anciennes et les nouvelles cartes **cohabitent sans aucun conflit et sans plantage**.
+Côté `SkillRegistry.dispatch`, les compétences comportant explicitement `effect_type` passent en priorité par `SkillEngine.executeModularSkill`, tandis que les handlers enregistrés sur l'instance (`register(...)`) s'exécutent sans masquage ni double application (`consumeSkillCharge` gère la décrémentation des charges).
 
 ---
 

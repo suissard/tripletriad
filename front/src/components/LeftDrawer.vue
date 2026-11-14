@@ -22,8 +22,7 @@
           <AppButton variant="secondary"  class="glass-panel px-3 py-1" @click="state.leftDrawerOpen = false">×</AppButton>
         </div>
         <div class="drawer-content">
-          <AdminSidebar v-if="isAdminRoute" />
-          <MainMenu v-else />
+          <DrawerNavMenu :is-admin="isAdminRoute" />
         </div>
       </div>
     </div>
@@ -34,8 +33,7 @@
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { state } from '../game/state.js';
-import MainMenu from '../views/MainMenu.vue';
-import AdminSidebar from '../admin/components/AdminSidebar.vue';
+import DrawerNavMenu from './DrawerNavMenu.vue';
 
 const route = useRoute();
 const isAdminRoute = computed(() => route.path.startsWith('/admin'));

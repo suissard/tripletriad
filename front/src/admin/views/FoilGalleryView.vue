@@ -88,14 +88,18 @@
     </div>
 
     <!-- Effect Grid (Full Width) -->
-    <div class="w-full mt-4">
-      <TripleTriadCardGrid 
+    <div class="w-full mt-4 overflow-hidden">
+      <div
         v-if="selectedCard"
-        :cards="galleryCards"
-        cardSize="lg"
-        :showOwnNum="false"
-        :cardsPerRow="5"
-      />
+        :style="{ transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`, transition: 'transform 0.15s ease-out' }"
+      >
+        <TripleTriadCardGrid 
+          :cards="galleryCards"
+          cardSize="lg"
+          :showOwnNum="false"
+          :cardsPerRow="5"
+        />
+      </div>
       <div v-else class="flex flex-col items-center justify-center py-20 bg-white/5 rounded-3xl border border-white/10 dashed text-gray-500 italic">
         Veuillez sélectionner une carte dans le panel ci-dessus pour prévisualiser les effets.
       </div>
@@ -164,6 +168,7 @@ const galleryCards = computed(() => {
     ...baseData,
     id: `${baseData.id}-${mode.value}`,
     name: mode.label,
+    isPremium: true,
     overrideEffect: {
       layers: [{
         foilMode: mode.value,

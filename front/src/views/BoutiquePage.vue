@@ -152,9 +152,6 @@
       </div>
     </div>
 
-    <!-- Global Confirmation Modal -->
-    <ConfirmationModal />
-
   </div>
 </template>
 
@@ -167,7 +164,6 @@ import { confirmAction } from '../game/state.js';
 import AppButton from '../components/ui/AppButton.vue';
 import BoosterInventoryFan from '../components/BoosterInventoryFan.vue';
 import BoosterShopCard from '../components/BoosterShopCard.vue';
-import ConfirmationModal from '../components/ConfirmationModal.vue';
 
 const router = useRouter();
 const userStore = useUserStore();

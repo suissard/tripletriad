@@ -1314,6 +1314,7 @@ export interface ApiPlayerStoryProgressPlayerStoryProgress
     draftAndPublish: false;
   };
   attributes: {
+    claimedRewards: Schema.Attribute.JSON;
     completedSteps: Schema.Attribute.JSON;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

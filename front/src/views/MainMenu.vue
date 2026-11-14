@@ -36,9 +36,6 @@
     </div>
     
 
-    <!-- Coin Toss Overlay -->
-    <CoinToss v-if="state.showCoinToss" :result="state.coinTossResult" @finished="onCoinTossFinished" />
-
     <div v-else-if="state.menuView === 'ai-difficulty'" class="difficulty-menu-container">
       <DifficultySelector v-model="state.aiDifficulty" />
 
@@ -120,6 +117,9 @@
 
       <AppButton variant="primary" @click="cancelMulti" style="margin-top: 2rem;">CHANGER DE DECK</AppButton>
     </div>
+
+    <!-- Coin Toss Overlay -->
+    <CoinToss v-if="state.showCoinToss" :result="state.coinTossResult" @finished="onCoinTossFinished" />
 
     <!-- Quest Reward Modal -->
     <QuestRewardModal 

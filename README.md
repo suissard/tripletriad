@@ -25,43 +25,44 @@ L'application est divisée en deux parties principales :
 
 ## 🗺️ Navigation & Pages (Frontend)
 
-L'interface utilise `vue-router` et gère différents layouts (`PlayerLayout`, `AdminLayout`, `BlankLayout`).
+L'interface utilise `vue-router` et gère différents layouts (`NavigationLayout`, `AdminLayout`, `BlankLayout`).
 
 ### Pages Joueur
 *   **`MainMenu` (`/`)** : Le hub principal. Choix des modes (Histoire, IA, Multijoueur).
-*   **`GameView` (`/game`)** : L'écran de jeu principal avec plateau (GameBoard) et mains (PlayerHand/OpponentHand). Gère l'IA et le multijoueur.
-*   **`CollectionView` (`/collection`)** : Votre classeur de cartes.
+*   **`GameView` (`/game`)** : L'écran de jeu principal avec plateau 3x3 (`GameBoard`), timer de tour, badges élémentaires et mains (`PlayerHand`/`OpponentHand`). Gère l'IA et le multijoueur.
+*   **`CollectionView` (`/collection`)** : Votre classeur de cartes, cadres, plateaux, dos de cartes et désenchantement de masse.
 *   **`DecksPage` (`/decks`)** : La liste de vos decks.
 *   **`DeckEditorPage` (`/deck-editor`)** : L'interface aboutie de création/modification de deck.
-*   **`PackOpening` / `BoutiquePage` (`/boutique`)** : L'échoppe du jeu pour ouvrir des boosters.
-*   **`StoryPage` (`/story`)** & **`StoryStepsPage` (`/story-steps`)** : Progression et chapitres de l'histoire.
-*   **`StoryStepView` (`/story-step/:id`)** : Moteur d'exécution des situations narratives interactives.
-*   **`QuestsPage` (`/quests`)** : Quêtes actives et terminées.
+*   **`BoutiquePage` (`/boutique`)** & **`PackOpening` (`/open-pack/:collection/:type`)** : L'échoppe du jeu et l'ouverture de boosters (`/api/booster/open`).
+*   **`StoryPage` (`/story`)**, **`StoryStepsPage` (`/story/:storyId/steps`)** & **`StoryStepView` (`/story/:storyId/step/:stepIndex`)** : Progression et situations narratives interactives.
+*   **`QuestsPage` (`/quests`)**, **`GuildsPage` (`/guilds`)**, **`FriendsView` (`/friends`)**, **`PlayerProfileView` (`/profile/:identifier`)** : Quêtes, guildes, amis et profils (protégés par `requiresAuth` si nécessaire).
 
 ### Pages Admin (Route `/admin`)
-*   **`AdminLogin` (`/admin/login`)** : Page de connexion administrateur.
-*   **`Dashboard` (`/admin`)** : Tableau de bord administrateur principal.
-*   **`FoilEditor` (`/admin/foil-editor`)** : Éditeur visuel avancé des effets holographiques (Three.js / GLSL).
-*   **`GameConfig` (`/admin/game-config`)** : Configuration globale du jeu injectée dynamiquement dans le frontend.
-*   **`ArchitectureMapPage` (`/admin/cartographie`)** : Vue d'ensemble architecturale.
+*   **`DashboardView` (`/admin`)** : Tableau de bord administrateur principal.
+*   **`DynamicEditor` (`/admin/:collection`)** : Éditeur générique avec schémas explicites et recherche.
+*   **`FoilEditorProView` (`/admin/foil-editor-pro`)** & **`FoilGalleryView` (`/admin/foil-gallery`)** : Éditeur et galerie d'effets holographiques (Three.js / GLSL).
+*   **`FrameEditorView` (`/admin/frame-editor`)** : Éditeur de positionnement des cadres de cartes.
+*   **`GameConfigView` (`/admin/game-config`)** : Configuration globale du jeu (thème, timer de tour, limites, économie).
+*   **`AISimulatorPage` (`/admin/simulateur`)**, **`CardTesterPage` (`/admin/card-tester`)**, **`SkillTesterPage` (`/admin/skill-tester`)** : Outils de simulation 3x3 et de test de compétences.
+*   **`DynamicArchitectureMapPage` (`/admin/cartographie-dyn`)** & **`StoryArchivesPage` (`/admin/stories`)** : Cartographie dynamique et diagrammes narratifs.
 
 ---
 
 ## ⚙️ Architecture Technique
 
 ### Frontend (Vue 3 / Vite)
-*   **État Global (Pinia)** : `userStore.js` (profil, progression), `layoutStore.js` (thème), `notificationStore.js`.
-*   **Moteur de Jeu Immuable** (`src/game/`) :
-    *   `GameEngine.js` : Logique pure sans dépendances Vue/Three.js.
-    *   `TurnManager.js` : Transition de tours et gestion du temps.
-    *   `WebRTCManager.js` : Synchronisation multijoueur.
-    *   `state.js` : État global réactif de la partie.
-    *   `logger-logic.js` : Système de logs avec injection de dépendances (testable unitairement).
-*   **Rendu Avancé** : Modélisation 3D et shaders via Three.js (ex: `AnimatedCardBack.vue`, Foil Editor) intégrés directement dans Vue.
+*   **État Global (Pinia)** : `userStore.js` (profil, progression, config), `notificationStore.js`, `chatStore.js`, `friendStore.js`, `effectStore.js`, `playerStore.js`, `layoutStore.js`.
+*   **Moteur de Jeu Immuable** (`shared/GameEngine.ts` + `src/game/`) :
+    *   `shared/GameEngine.ts` (ré-exporté par `GameEngine.js`) : Logique pure 3x3 unifiée (Same, Plus, Combo, Éléments, `PASS_TURN`, compétences) sans dépendances Vue/Three.js.
+    *   `TurnManager.js` : Transition de tours et vérification d'intégrité par hash.
+    *   `WebRTCManager.js` & `SocketManager.js` : Synchronisation P2P et Socket.IO authentifié par JWT.
+    *   `state.js` : État réactif global de la partie et modale de confirmation (`confirmAction`).
+    *   `logger.js` / `logger-logic.js` : Journalisation testable unitairement.
+*   **Rendu Avancé** : Modélisation 3D et shaders via Three.js (ex: `AnimatedCardBack.vue`, `FoilEditorProView.vue`) intégrés directement dans Vue.
 *   **Design System** : Utilisation intensive de variables CSS (`--color-primary`, etc.) injectées depuis Strapi, et d'effets "glassmorphism" (`color-mix`, `backdrop-filter`).
 
-### Backend (Strapi 5 / TypeScript / SQLite)
-*   **API REST & Base de données** : Utilisation de SQLite (`back/strapi_data/.tmp/data.db`). Mapping automatique du camelCase (`schema.json`) vers le snake_case SQL.
+### Backend (Strapi 5 / TypeScript)
+*   **API REST, Socket.IO & Base de données** : Mapping automatique du camelCase (`schema.json`) vers le snake_case SQL, permissions synchronisées via `src/bootstrap-utils.ts` et temps réel via `src/socketio.ts`.
 *   **Modélisation Avancée** :
     *   Mode histoire basé sur des "Zones Dynamiques" (Dynamic Zones) pour un flow non-linéaire.
     *   Validation stricte backend via `zod` pour éviter les failles DoS (ex: validation de longueur d'identifiant).
@@ -92,9 +93,10 @@ npm run dev &
 ```
 *Le frontend sera accessible sur `http://localhost:5173`.*
 
-### 3. Tests
-*   **API & Strapi** : Intégration via Playwright dans `front/test:api`. Utilisation de tokens mock (`bo_jwt`) pour les tests frontend nécessitant une authentification.
-*   **Logique Pure (Node.js)** : Les scripts de test isolés se trouvent dans `front/tests/` (ex: `node front/tests/minimal_engine_test.js`) pour vérifier la logique métier sans surcoût Vite/Vue.
+### 3. Tests & Vérification
+*   **Tests Unitaires (Vitest & Node.js)** : `cd front && npx vitest run` pour le moteur de jeu (`shared/GameEngine.ts`), l'IA et les compétences ; `node front/tests/rules_logic_test.js` pour les tests sans dépendance Vite.
+*   **Build & Typage** : `cd back/strapi && npx tsc --noEmit` pour vérifier le backend TypeScript, et `cd front && npm run build` pour le bundle frontend.
+*   **API & E2E (Playwright)** : Scripts dans `front/tests/` utilisant des mocks de tokens (`tt_jwt`) si besoin.
 
 ### Variables d'environnement
 Le backend nécessite un fichier `back/strapi/.env` contenant les clés secrètes (`APP_KEYS`, `API_TOKEN_SALT`, `ADMIN_JWT_SECRET`, `TRANSFER_TOKEN_SALT`, `JWT_SECRET`). Ne définissez pas de valeurs par défaut "en dur" dans le code pour des raisons de sécurité.

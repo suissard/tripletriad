@@ -225,6 +225,35 @@
                 <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-gray-500 uppercase">alpha</span>
               </div>
             </div>
+
+            <hr class="border-white/5">
+
+            <div class="space-y-4">
+              <h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest">Thème &amp; Couleurs</h3>
+              <div class="grid grid-cols-1 gap-3">
+                <div class="flex items-center justify-between gap-3">
+                  <label for="colorPrimary" class="text-xs font-semibold text-gray-300">Primaire</label>
+                  <div class="flex items-center gap-2">
+                    <input type="color" id="colorPrimary" v-model="config.colorPrimary" class="w-9 h-9 rounded cursor-pointer bg-transparent border-0 p-0">
+                    <input type="text" v-model="config.colorPrimary" class="w-24 text-xs font-mono px-2 py-1">
+                  </div>
+                </div>
+                <div class="flex items-center justify-between gap-3">
+                  <label for="colorSecondary" class="text-xs font-semibold text-gray-300">Secondaire</label>
+                  <div class="flex items-center gap-2">
+                    <input type="color" id="colorSecondary" v-model="config.colorSecondary" class="w-9 h-9 rounded cursor-pointer bg-transparent border-0 p-0">
+                    <input type="text" v-model="config.colorSecondary" class="w-24 text-xs font-mono px-2 py-1">
+                  </div>
+                </div>
+                <div class="flex items-center justify-between gap-3">
+                  <label for="colorAccent" class="text-xs font-semibold text-gray-300">Accent</label>
+                  <div class="flex items-center gap-2">
+                    <input type="color" id="colorAccent" v-model="config.colorAccent" class="w-9 h-9 rounded cursor-pointer bg-transparent border-0 p-0">
+                    <input type="text" v-model="config.colorAccent" class="w-24 text-xs font-mono px-2 py-1">
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -251,6 +280,9 @@
 <script setup>
 import { ref, onMounted, watch, computed } from 'vue';
 import strapiService from '@/api/strapi';
+import { useUserStore } from '@/stores/userStore';
+
+const userStore = useUserStore();
 
 const config = ref(null);
 const loading = ref(true);
@@ -301,6 +333,9 @@ const loadConfig = async () => {
           probEpic: 10,
           probLegendary: 1,
           probPremium: 5,
+          colorPrimary: '#FFBF00',
+          colorSecondary: '#0033ff',
+          colorAccent: '#FFFF00',
           storyUnlockPrice: 500,
           uiButtonHole: 30,
           uiButtonSpeed: 1.0,
@@ -376,6 +411,7 @@ const saveConfig = async () => {
     if (savedData) {
         config.value = { ...config.value, ...savedData };
     }
+    userStore.setGameConfig(config.value);
 
   } catch (err) {
     error.value = err.message;

@@ -142,8 +142,6 @@
       <div class="w-16 h-16 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin mb-6"></div>
       <p class="text-white/40 font-black uppercase tracking-widest text-sm">Synchronisation des données...</p>
     </div>
-
-    <ConfirmationModal />
   </div>
 </template>
 
@@ -154,7 +152,6 @@ import { useUserStore } from '../stores/userStore';
 import { confirmAction } from '../game/state.js';
 import AppButton from '../components/ui/AppButton.vue';
 import TripleTriadCard from '../components/TripleTriadCard.vue';
-import ConfirmationModal from '../components/ConfirmationModal.vue';
 
 const route = useRoute();
 const router = useRouter();

@@ -3,7 +3,7 @@
   
   <template v-else>
     <AppLayout>
-      <router-view :key="$route.fullPath" />
+      <router-view />
     </AppLayout>
     <LeftDrawer />
 
@@ -15,19 +15,21 @@
     <FpsCounter />
     
     <!-- Floating Admin Button -->
-    <button 
+    <AppButton 
       v-if="showAdminButton" 
       class="floating-admin-btn" 
+      variant="ghost"
+      size="sm"
       @click="router.push('/admin')"
       title="Administration"
     >
       ⚙️ ADMIN
-    </button>
+    </AppButton>
   </template>
 </template>
 
 <script setup>
-import { onMounted, watch, computed } from 'vue';
+import { onMounted, onUnmounted, watch, computed } from 'vue';
 import AppLayout from './layouts/AppLayout.vue';
 import NotificationToast from "./components/NotificationToast.vue";
 import AlertMessage from './components/AlertMessage.vue';
@@ -41,7 +43,6 @@ import { initNotificationManager } from "./game/notificationManager.js";
 import strapiService from './api/strapi.js';
 import InitialLoader from './components/InitialLoader.vue';
 import LeftDrawer from './components/LeftDrawer.vue';
-import ChatWidget from './components/ChatWidget.vue';
 import FpsCounter from './components/ui/FpsCounter.vue';
 
 console.warn('--- TRIPLE TRIAD: FRONTEND LOADED (VERSION: VUE_UI_REVAMP) ---');
@@ -56,6 +57,44 @@ const showAdminButton = computed(() => {
   const path = route.path;
   // Masquer si on est déjà dans l'admin ou en pleine partie
   return !path.startsWith('/admin') && path !== '/game';
+});
+
+let connectionInterval = null;
+
+function getContrastYIQ(hexcolor) {
+  if (!hexcolor) return '#05050a';
+  hexcolor = hexcolor.replace('#', '');
+  if (hexcolor.length === 3) hexcolor = hexcolor.split('').map(c => c + c).join('');
+  const r = parseInt(hexcolor.substr(0, 2), 16);
+  const g = parseInt(hexcolor.substr(2, 2), 16);
+  const b = parseInt(hexcolor.substr(4, 2), 16);
+  const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+  return (yiq >= 128) ? '#05050a' : '#ffffff';
+}
+
+function applyColors(cfg) {
+  const primary = cfg?.colorPrimary || '#FFBF00';
+  const secondary = cfg?.colorSecondary || '#0033ff';
+  const accent = cfg?.colorAccent || '#FFFF00';
+
+  document.documentElement.style.setProperty('--color-primary', primary);
+  document.documentElement.style.setProperty('--color-secondary', secondary);
+  document.documentElement.style.setProperty('--color-accent', accent);
+
+  document.documentElement.style.setProperty('--color-primary-text', getContrastYIQ(primary));
+  document.documentElement.style.setProperty('--color-secondary-text', getContrastYIQ(secondary));
+  document.documentElement.style.setProperty('--color-accent-text', getContrastYIQ(accent));
+
+  document.documentElement.style.setProperty('--ui-btn-hole', cfg?.uiButtonHole ?? 30);
+  document.documentElement.style.setProperty('--ui-btn-speed', cfg?.uiButtonSpeed ?? 1.0);
+  document.documentElement.style.setProperty('--ui-btn-opacity', cfg?.uiButtonOpacity ?? 0.25);
+}
+
+onUnmounted(() => {
+  if (connectionInterval) {
+    clearInterval(connectionInterval);
+    connectionInterval = null;
+  }
 });
 
 onMounted(async () => {
@@ -84,36 +123,6 @@ onMounted(async () => {
     }
   }
 
-  
-  function getContrastYIQ(hexcolor) {
-    if (!hexcolor) return '#05050a';
-    hexcolor = hexcolor.replace("#", "");
-    if (hexcolor.length === 3) hexcolor = hexcolor.split('').map(c => c + c).join('');
-    const r = parseInt(hexcolor.substr(0,2), 16);
-    const g = parseInt(hexcolor.substr(2,2), 16);
-    const b = parseInt(hexcolor.substr(4,2), 16);
-    const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
-    return (yiq >= 128) ? '#05050a' : '#ffffff';
-  }
-
-  function applyColors(cfg) {
-    const primary = cfg?.colorPrimary || '#FFBF00';
-    const secondary = cfg?.colorSecondary || '#0033ff';
-    const accent = cfg?.colorAccent || '#FFFF00';
-
-    document.documentElement.style.setProperty('--color-primary', primary);
-    document.documentElement.style.setProperty('--color-secondary', secondary);
-    document.documentElement.style.setProperty('--color-accent', accent);
-
-    document.documentElement.style.setProperty('--color-primary-text', getContrastYIQ(primary));
-    document.documentElement.style.setProperty('--color-secondary-text', getContrastYIQ(secondary));
-    document.documentElement.style.setProperty('--color-accent-text', getContrastYIQ(accent));
-
-    document.documentElement.style.setProperty('--ui-btn-hole', cfg?.uiButtonHole ?? 30);
-    document.documentElement.style.setProperty('--ui-btn-speed', cfg?.uiButtonSpeed ?? 1.0);
-    document.documentElement.style.setProperty('--ui-btn-opacity', cfg?.uiButtonOpacity ?? 0.25);
-  }
-  
   // 2. Load essential data in parallel
   const initPromises = [
     (async () => {
@@ -128,9 +137,13 @@ onMounted(async () => {
 
   await Promise.all(initPromises);
 
-  // 3. Setup managers and auth
+  // React to live config changes (e.g., saved from Admin GameConfigView)
+  watch(() => userStore.gameConfig, (newCfg) => {
+    if (newCfg) applyColors(newCfg);
+  }, { deep: true });
+
+  // 3. Setup managers (restoreAuth already called in main.js before mount)
   initNotificationManager();
-  userStore.restoreAuth();
   if (userStore.isLoggedIn) {
     userStore.updateUserData();
   }
@@ -157,9 +170,10 @@ onMounted(async () => {
   });
   
   // Background connection check interval
-  const connectionInterval = setInterval(async () => {
+  connectionInterval = setInterval(async () => {
     if (userStore.hasEverConnected) {
       clearInterval(connectionInterval);
+      connectionInterval = null;
       return;
     }
     

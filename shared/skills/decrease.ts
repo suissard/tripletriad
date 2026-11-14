@@ -21,7 +21,7 @@ const handler: SkillHandler = {
 
   execute(ctx: SkillContext) {
     const { skill } = ctx;
-    const decrement = skill.value || 0;
+    const decrement = Math.abs(skill.value || 0);
     
     // Par défaut, Décroissance s'applique à soi-même si aucun pattern n'est défini
     const skillWithDefault = {

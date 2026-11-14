@@ -18,10 +18,20 @@ export const useNotificationStore = defineStore('notification', {
       duration: 3000
     };
 
+    let parsedPrefs = defaultPrefs;
+    if (savedPrefs) {
+      try {
+        parsedPrefs = { ...defaultPrefs, ...JSON.parse(savedPrefs) };
+      } catch (e) {
+        console.warn('[NotificationStore] Failed to parse saved prefs, resetting.');
+        localStorage.removeItem(PREF_KEY);
+      }
+    }
+
     return {
       notifications: [],
       nextId: 1,
-      preferences: savedPrefs ? { ...defaultPrefs, ...JSON.parse(savedPrefs) } : defaultPrefs
+      preferences: parsedPrefs
     };
   },
 

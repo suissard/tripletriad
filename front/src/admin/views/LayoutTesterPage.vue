@@ -15,7 +15,7 @@
       >
         <div class="layout-icon">
           <span v-if="layout === 'AdminLayout'">🛠️</span>
-          <span v-else-if="layout === 'PlayerLayout'">👤</span>
+          <span v-else-if="layout === 'NavigationLayout'">🧭</span>
           <span v-else-if="layout === 'BlankLayout'">🔲</span>
           <span v-else>📦</span>
         </div>
